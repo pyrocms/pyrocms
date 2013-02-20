@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
  * Pages Plugin
  *
@@ -80,103 +83,47 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Attributes:
 	 * - (int) id: The id of the page.
-	 * - (string) slug: The slug of the page.
 	 *
 	 * @return array
 	 */
 	public function display()
 	{
-		$page = $this->db
-			->where('pages.id', $this->attribute('id'))
-			->or_where('pages.slug', $this->attribute('slug'))
-			->where('status', 'live')
-			->get('pages')
-			->row();
+		$page = Page::findByIdAndStatus($this->attribute('id'), 'live');
 
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
-		
-		$page->body = '';
-		if ($page->chunks)
-		{
-			foreach ($page->chunks as $chunk)
-			{
-				$page->body .= '<div class="page-chunk '.$chunk->slug.'">' .
-					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-					'</div>' . PHP_EOL;
+		// Check for custom fields
+		if (strpos($this->content(), 'custom_fields') !== false and $page) {
+			$custom_fields = array();
+			$this->load->driver('Streams');
+
+			$stream = $this->streams_m->get_stream($page->stream_id);
+
+			$params = array(
+				'stream'		=> $stream->stream_slug,
+				'namespace'		=> $stream->stream_namespace,
+				'include'		=> $page->entry_id,
+				'disable'		=> 'created_by'
+			);
+
+			$entries = $this->streams->entries->get_entries($params);
+
+			foreach ($entries['entries'] as $entry) {
+				$custom_fields[$page->stream_id][$entry['id']] = $entry;
 			}
+		} else {
+			$custom_fields = false;
 		}
 
-		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
-		unset($page->chunks);
+		if ($custom_fields and isset($custom_fields[$page->type->stream_id][$page->entry_id])) {
+			$page->custom_fields =$custom_fields[$page->type->stream_id][$page->entry_id];
+		}
 
 		return $this->content() ? array($page) : $page->body;
 	}
 
 	/**
-	 * Get a page chunk by page ID and chunk name
-	 *
-	 * Attributes:
-	 * - (int) id : The id of the page.
-	 * - (string) name : The name of the chunk.
-	 * - (string) parse_tags : yes/no - whether or not to parse tags within the chunk
-	 *
-	 * @return string|bool
-	 */
-	public function chunk()
-	{
-		$parse_tags = str_to_bool($this->attribute('parse_tags', true));
-
-		$chunk = $this->db
-			->where('page_id', $this->attribute('id'))
-			->where('slug', $this->attribute('name'))
-			->get('page_chunks')
-			->row_array();
-
-		if ($chunk)
-		{
-			if ($this->content())
-			{
-				$chunk['parsed'] = $this->parse_chunk($chunk['parsed'], $parse_tags);
-				$chunk['body']   = $this->parse_chunk($chunk['body'], $parse_tags);
-
-				return $chunk;
-			}
-			else
-			{
-				return $this->parse_chunk(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'], $parse_tags);
-			}
-		}
-	}
-
-	/**
-	 * Parse chunk content
-	 *
-	 * @param string the chunk content
-	 * @param string parse Lex tags? - yes/no
-	 * @return string
-	 */
-	private function parse_chunk($content, $parse_tags)
-	{
-		// Lex tags are parsed by default. If you want to
-		// turn off parsing Lex tags, just set parse_tags to 'no'
-		if (str_to_bool($parse_tags))
-		{
-			$parser = new Lex\Parser();
-			$parser->scopeGlue(':');
-
-			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
-		}
-		else
-		{
-			return $content;
-		}
-	}
-
-	/**
 	 * Children list
 	 *
-	 * Creates a list of child pages
+	 * Creates a list of child pages one level under the parent page.
 	 *
 	 * Attributes:
 	 * - (int) limit: How many pages to show.
@@ -193,19 +140,90 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
+<<<<<<< HEAD
+		$id 	   = $this->attribute('id');
 		$limit     = $this->attribute('limit', 10);
 		$order_by  = $this->attribute('order-by', 'title');
 		$order_dir = $this->attribute('order-dir', 'ASC');
 
-		$pages = $this->db->select('pages.*')
+		return Page::orderBy($order_by, $order_dir)
+			->take($limit)
+			->findManyByParentAndStatus($id, 'live');
+=======
+		$limit			= $this->attribute('limit', 10);
+		$order_by 		= $this->attribute('order-by', 'title');
+		$order_dir 		= $this->attribute('order-dir', 'ASC');
+		$page_types 	= $this->attribute('include_types');
+
+		// Restrict page types.
+		// Page types can be provided in a pipe (|) delimited string.
+		// Ex: 4|6
+		if ($page_types)
+		{
+			$types = explode('|', $page_types);
+
+			foreach ($types as $type)
+			{
+				$this->db->where('pages.type_id', $type);
+			}
+		}
+
+		$pages = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
 			->get('pages')
 			->result_array();
 
-		if ($pages)
+		// Custom fields provision.
+		// Since page children can have many different page types,
+		// we are going to do this in the most economical way possible:
+		// Find the entries by ID and attach them to a special custom_fields
+		// variable.
+		if (strpos($this->content(), 'custom_fields') !== false and $pages)
+		{
+			$custom_fields = array();
+			$this->load->driver('Streams');
+		
+			// Get all of the IDs by page type id.
+			// Ex: array('page_type_id' => array('1', '2'))
+			$entries = array();
+			foreach ($pages as $page)
+			{
+				$entries[$page['stream_id']][] = $page['entry_id'];
+			}
+
+			// Get our entries by steram
+			foreach ($entries as $stream_id => $entry_ids)
+			{
+				$stream = $this->streams_m->get_stream($stream_id);
+
+				$params = array(
+					'stream'		=> $stream->stream_slug,
+					'namespace'		=> $stream->stream_namespace,
+					'include'		=> implode('|', $entry_ids),
+					'disable'		=> 'created_by'
+				);
+
+				$entries = $this->streams->entries->get_entries($params);
+
+				// Set the entries in our custom fields array for
+				// easy reference later when processing our pages.
+				foreach ($entries['entries'] as $entry)
+				{
+					$custom_fields[$stream_id][$entry['id']] = $entry;	
+				}
+			}
+		}
+		else
+		{
+			$custom_fields = false;
+		}
+
+		// Legacy support for chunks
+		if ($pages and $this->db->table_exists('page_chunks'))
 		{
 			foreach ($pages as &$page)
 			{
@@ -227,7 +245,39 @@ class Plugin_Pages extends Plugin
 			}
 		}
 
+		// Process our pages.
+		foreach ($pages as &$page)
+		{
+			// First, let's get a full URL. This is just
+			// handy to have around.
+			$page['url'] = site_url($page['uri']);
+		
+			// Now let's process our keywords hash.
+			$keywords = Keywords::get($page['meta_keywords']);
+
+			// In order to properly display the keywords in Lex
+			// tags, we need to format them.
+			$formatted_keywords = array();
+			
+			foreach ($keywords as $key)
+			{
+				$formatted_keywords[] 	= array('keyword' => $key->name);
+
+			}
+			$page['meta_keywords'] = $formatted_keywords;
+
+			// If we have custom fields, we need to roll our
+			// entry values in.
+			if ($custom_fields and isset($custom_fields[$page['stream_id']][$page['entry_id']]))
+			{
+				$page['custom_fields'] = array($custom_fields[$page['stream_id']][$page['entry_id']]);
+			}
+		}
+
+		//return '<pre>'.print_r($pages, true).'</pre>';
+
 		return $pages;
+>>>>>>> 2.2/develop
 	}
 
 	/**
@@ -262,7 +312,7 @@ class Plugin_Pages extends Plugin
 		// find that ID.
 		if ($start)
 		{
-			$page = $this->page_m->get_by_uri($start);
+			$page = Page::findByUri($start);
 
 			if ( ! $page) {
 				return null;
@@ -280,13 +330,13 @@ class Plugin_Pages extends Plugin
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
 
-		return '<' . $list_tag . '>' . $this->_build_tree_html(array(
+		return '<'.$list_tag.'>'.$this->buildTreeHtml(array(
 			'parent_id' => $start_id,
 			'order_by'  => $order_by,
 			'order_dir' => $order_dir,
 			'list_tag'  => $list_tag,
 			'link'      => $link
-		)) . '</' . $list_tag . '>';
+		)).'</'.$list_tag.'>';
 	}
 
 	/**
@@ -413,7 +463,7 @@ class Plugin_Pages extends Plugin
 	 * @param  array
 	 * @return  array
 	 */
-	private function _build_tree_html($params)
+	private function buildTreeHtml($params)
 	{
 		$params = array_merge(array(
 			'tree'         => array(),
@@ -498,10 +548,9 @@ class Plugin_Pages extends Plugin
 		{
 			$html .= '<li';
 			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
-			$html .= ($link === true) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
+			$html .= ($link === true) ? '<a href="'.site_url($item->uri).'">'.$item->title.'</a>' : $item->title;
 			
-			
-			$nested_list = $this->_build_tree_html(array(
+			$nested_list = $this->buildTreeHtml(array(
 				'tree'         => $tree,
 				'parent_id'    => (int) $item->id,
 				'link'         => $link,
@@ -510,7 +559,7 @@ class Plugin_Pages extends Plugin
 			
 			if ($nested_list)
 			{
-				$html .= '<' . $list_tag . '>' . $nested_list . '</' . $list_tag . '>';
+				$html .= '<'.$list_tag.'>'.$nested_list.'</'.$list_tag.'>';
 			}
 			
 			$html .= '</li>';

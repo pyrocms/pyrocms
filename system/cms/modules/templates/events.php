@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Templates\Model\EmailTemplate;
+
 /**
  * Email Template Events Class
  *
@@ -32,10 +35,8 @@ class Events_Templates {
         $slug = $data['slug'];
         unset($data['slug']);
 
-        $this->ci->load->model('templates/email_templates_m');
-
 		//get all email templates
-		$templates = $this->ci->email_templates_m->get_templates($slug);
+		$templates = EmailTemplate::findBySlug($slug);
 
         //make sure we have something to work with
         if ( ! empty($templates))

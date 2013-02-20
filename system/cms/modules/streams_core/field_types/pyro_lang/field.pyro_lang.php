@@ -69,7 +69,6 @@ class Field_pyro_lang
 	 * Should we filter by the current theme
 	 * and what languages they support?
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */

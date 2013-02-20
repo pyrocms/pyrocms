@@ -120,9 +120,8 @@ class Module_Users extends Module {
 		// Load up the streams driver and convert the profiles table
 		// into a stream.
 		$this->load->driver('Streams');
-/*
-		if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name')))
-		{
+
+		if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
 			return false;
 		}
 
@@ -208,22 +207,18 @@ class Module_Users extends Module {
 
 		// Run through each column and add the field
 		// metadata to it.
-		foreach ($columns as $field_slug => $column)
-		{
+		foreach ($columns as $field_slug => $column) {
 			// We only want fields that actually exist in the
 			// DB. The user could have deleted some of them.
-			if ($this->db->field_exists($field_slug, 'profiles'))
-			{
+			if ($this->db->field_exists($field_slug, 'profiles')) {
 				$extra = array();
 				$assign = array();
 
-				if (isset($column['extra']))
-				{
+				if (isset($column['extra'])) {
 					$extra = $column['extra'];
 				}
 
-				if (isset($column['assign']))
-				{
+				if (isset($column['assign'])) {
 					$assign = $column['assign'];
 				}
 
@@ -233,7 +228,7 @@ class Module_Users extends Module {
                 unset($assign);
             }
         }
-*/
+
         // Install the settings
         $this->pdb->table('settings')->insert(array(
             array(

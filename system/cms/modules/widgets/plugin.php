@@ -9,15 +9,17 @@
  */
 class Plugin_Widgets extends Plugin
 {
-
 	public $version = '1.0.0';
+
 	public $name = array(
 		'en' => 'Widgets',
 		'ar' => 'الودجتس',
 	);
+
 	public $description = array(
 		'en' => 'Display widgets by widget area or individually.',
 		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
+		'it' => 'Mostra singolarmente o a gruppi i Widget',
 	);
 
 	/**
@@ -115,7 +117,7 @@ class Plugin_Widgets extends Plugin
 	public function instance()
 	{
 		$id     = $this->attribute('id');
-		$widget = $this->widgets->get_instance($id);
+		$widget = $this->widgets->find($id);
 
 		if ( ! $widget)
 		{

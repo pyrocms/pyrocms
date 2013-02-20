@@ -34,7 +34,7 @@ class Widget_m extends MY_Model
 		return $result;
 	}
 
-	public function get_by_area($slug)
+	public function findByArea($slug)
 	{
 		$this->db
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
@@ -54,7 +54,7 @@ class Widget_m extends MY_Model
 		return $result;
 	}
 
-	public function get_by_areas($slug = array())
+	public function findByAreas($slug = array())
 	{
 
 		if ( ! (is_array($slug) && $slug))

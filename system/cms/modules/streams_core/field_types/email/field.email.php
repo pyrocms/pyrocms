@@ -42,13 +42,27 @@ class Field_email
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Pre Save
+	 *
+	 * No PyroCMS tags in email fields.
+	 *
+	 * @return string
+	 */
+	public function pre_save($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Process before outputting for the plugin
 	 *
 	 * This creates an array of data to be merged with the
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -57,8 +71,6 @@ class Field_email
 	public function pre_output_plugin($input, $params)
 	{
 		$choices = array();
-		
-		get_instance()->load->helper('url');
 		
 		$choices['email_address']		= $input;
 		$choices['mailto_link']			= mailto($input, $input);

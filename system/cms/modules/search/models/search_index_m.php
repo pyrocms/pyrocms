@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
 /**
  * Search Index model
  *
@@ -6,7 +7,7 @@
  * @package		PyroCMS\Core\Modules\Search\Models
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Search_index_m extends MY_Model
+class Search_index_m extends CI_Model
 {
 	/**
 	 * Index
@@ -45,43 +46,41 @@ class Search_index_m extends MY_Model
 		// Drop it so we can create a new index
 		$this->drop_index($module, $singular, $entry_id);
 
+		$insert_data = array();
+
 		// Hand over keywords without needing to look them up
-		if ( ! empty($options['keywords']))
-		{
-			if (is_array($options['keywords']))
-			{
-				$this->db->set('keywords', impode(',', $options['keywords']));
-			}
-			elseif (is_string($options['keywords']))
-			{
-				$this->db->set(array(
-					'keywords' 		=> Keywords::get_string($options['keywords']),
-					'keyword_hash' 	=> $options['keywords'],
-				));
+		if ( ! empty($options['keywords'])) {
+			if (is_array($options['keywords'])) {
+				$insert_data['keywords'] = impode(',', $options['keywords']);
+			
+			} elseif (is_string($options['keywords'])) {
+				$insert_data['keywords'] = Keywords::get_string($options['keywords']);
+				$insert_data['keyword_hash'] = $options['keywords'];
 			}
 		}
 
 		// Store a link to edit this entry
-		if ( ! empty($options['cp_edit_uri']))
-		{
-			$this->db->set('cp_edit_uri', $options['cp_edit_uri']);
+		if ( ! empty($options['cp_edit_uri'])) {
+			$insert_data['cp_edit_uri'] = $options['cp_edit_uri'];
 		}
 
 		// Store a link to delete this entry
-		if ( ! empty($options['cp_delete_uri']))
-		{
-			$this->db->set('cp_delete_uri', $options['cp_delete_uri']);
+		if ( ! empty($options['cp_delete_uri'])) {
+			$insert_data['cp_delete_uri'] = $options['cp_delete_uri'];
 		}
 
-		return $this->db->insert('search_index', array(
-			'title' 		=> $title,
-			'description' 	=> strip_tags($description),
-			'module' 		=> $module,
-			'entry_key' 	=> $singular,
-			'entry_plural' 	=> $plural,
-			'entry_id' 		=> $entry_id,
-			'uri' 			=> $uri,
-		));
+
+		$insert_data['title'] 			= $title;
+		$insert_data['description'] 	= strip_tags($description);
+		$insert_data['module'] 			= $module;
+		$insert_data['entry_key'] 		= $singular;
+		$insert_data['entry_plural'] 	= $plural;
+		$insert_data['entry_id'] 		= $entry_id;
+		$insert_data['uri'] 			= $uri;
+
+		return $this->pdb
+			->table('search_index')
+			->insert($insert_data);
 	}
 
 	/**
@@ -100,13 +99,12 @@ class Search_index_m extends MY_Model
 	 */
 	public function drop_index($module, $singular, $entry_id)
 	{
-		return $this->db
-			->where(array(
-				'module'     => $module,
-				'entry_key'  => $singular,
-				'entry_id'   => $entry_id,
-			))
-			->delete('search_index');
+		return ci()->pdb
+			->table('search_index')
+			->where('module', $module)
+			->where('entry_key', $singular)
+			->where('entry_id', $entry_id)
+			->delete();
 	}
 
 	/**
@@ -120,15 +118,13 @@ class Search_index_m extends MY_Model
 	public function filter($filter)
 	{
 		// Filter Logic
-		if ( ! $filter)
-		{
+		if ( ! $filter) {
 			return $this;
 		}
 		
 		$this->db->or_group_start();
 
-		foreach ($filter as $module => $plural)
-		{
+		foreach ($filter as $module => $plural) {
 			$this->db
 				->group_start()
 				->where('module', $module)
@@ -152,7 +148,7 @@ class Search_index_m extends MY_Model
 	public function count($query)
 	{
 		return $this->db
-			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', null, false)
+			->where('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*" IN BOOLEAN MODE) > 0', null, false)
 			->count_all_results('search_index');
 	}
 

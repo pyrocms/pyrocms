@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Redirects\Model\Redirect;
+
 /**
  * Code here is run before frontend controllers
  *
@@ -21,10 +24,9 @@ class Public_Controller extends MY_Controller
 		// Check redirects if GET and Not AJAX
 		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
-			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
 
-			if ($uri and $redirect = Redirect_m::findByUri($uri))
+			if ($uri and $redirect = Redirect::findByUri($uri))
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)
@@ -46,22 +48,17 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) or $this->current_user->group != 'admin'))
-		{
+		if ( ! Settings::get('frontend_enabled') && (empty($this->current_user) or $this->current_user->group != 'admin')) {
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
+			$error = Settings::get('unavailable_message') ?: lang('cms:fatal_error');
 			show_error($error, 503);
 		}
-
-		// -- Navigation menu -----------------------------------
-		$this->load->model('pages/page_m');
 
 		// Load the current theme so we can set the assets right away
 		ci()->theme = $this->theme_m->get();
 
-		if (empty($this->theme->slug))
-		{
+		if (empty($this->theme->slug)) {
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
@@ -103,7 +100,7 @@ class Public_Controller extends MY_Controller
 		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
 		// If there is a blog module, link to its RSS feed in the head
-		if (module_exists('blog'))
+		if (module_enabled('blog'))
 		{
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}

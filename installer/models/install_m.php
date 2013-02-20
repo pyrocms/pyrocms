@@ -20,6 +20,7 @@ class Install_m extends CI_Model
 
 		// Remove any tables not installed by a module
 		$schema->dropIfExists('core_users');
+		$schema->dropIfExists('core_users_groups');
 		$schema->dropIfExists('core_settings');
 		$schema->dropIfExists('core_sites');
 		$schema->dropIfExists(config_item('sess_table_name'));
@@ -27,6 +28,7 @@ class Install_m extends CI_Model
 		$schema->dropIfExists($db['site_ref'].'_migrations');
 		$schema->dropIfExists($db['site_ref'].'_settings');
 		$schema->dropIfExists($db['site_ref'].'_users');
+		$schema->dropIfExists($db['site_ref'].'_users_groups');
 		$schema->dropIfExists($db['site_ref'].'_profiles');
 
 		// Create core_settings first
@@ -80,6 +82,7 @@ class Install_m extends CI_Model
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_hash')->nullable();
+		    $table->string('persist_hash')->nullable();
 		    $table->string('reset_password_hash')->nullable();
 		    $table->integer('created_on');
 		    $table->integer('updated_on')->nullable();
@@ -145,6 +148,7 @@ class Install_m extends CI_Model
 		});
 
 		// HEAR YE HEAR YE, THE DB PREFIX CHANGES NOW!
+		$conn->setTablePrefix($db['site_ref'].'_');
 		$conn->getQueryGrammar()->setTablePrefix($db['site_ref'].'_');
 		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');
 

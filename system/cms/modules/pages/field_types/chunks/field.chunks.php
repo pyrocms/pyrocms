@@ -43,9 +43,9 @@ class Field_chunks
 
 		// If we dont have a page ID, then let's just
 		// make an empty page chunks array with 1 entry.
-		if (defined('PAGE_ID'))
+		if (isset(ci()->page_id))
 		{
-			$data['chunks'] = $this->CI->page_chunk_m->get_many_by('page_id', PAGE_ID);
+			$data['chunks'] = $this->CI->page_chunk_m->get_many_by('page_id', ci()->page_id);
 		}
 		else
 		{
@@ -93,7 +93,6 @@ class Field_chunks
 	 * value in the form so this gets processed, but we
 	 * ignore it and grab all the chunk inputs.
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -129,7 +128,7 @@ class Field_chunks
 
 		// No matter what, we are going to need to get rid of
 		// old page chunks.
-		$this->CI->page_chunk_m->delete_by('page_id', PAGE_ID);
+		$this->CI->page_chunk_m->delete_by('page_id', ci()->page_id);
 
 		// If we have chunks, let's go ahead and add them. 
 		if ($chunks)
@@ -140,7 +139,7 @@ class Field_chunks
 				$this->CI->page_chunk_m->insert(array(
 					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug),
 					'class' 	=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->class),
-					'page_id' 	=> PAGE_ID,
+					'page_id' 	=> ci()->page_id,
 					'body' 		=> $chunk->body,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
 					'type' 		=> $chunk->type,

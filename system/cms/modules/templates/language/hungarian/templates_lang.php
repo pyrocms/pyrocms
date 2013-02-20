@@ -16,6 +16,7 @@ $lang['templates:default_title']		= 'Alapértelmezett sablonok';
 $lang['templates:user_defined_title']		= 'Felhasználó által megadott sablonok';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'A(z) %s e-mail sablon sikeresen létrehozva.';
 $lang['templates:tmpl_create_error']		= 'A(z) %s e-mail sablon létrehozása sikertelen.';
 $lang['templates:tmpl_edit_success']		= 'A(z) %s e-mail sablon sikeresen módosítva.';

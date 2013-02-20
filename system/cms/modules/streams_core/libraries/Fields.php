@@ -32,7 +32,6 @@ class Fields
 	 * Builds an individual form input from the
 	 * type object
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	bool
 	 * @return	string
@@ -77,7 +76,6 @@ class Fields
      * Based on the type of application we need it for, it will
      * either return a full form or an array of elements.
      * 
-     * @access	public
      * @param	obj
      * @param	string
      * @param	mixed - false or row object
@@ -196,7 +194,7 @@ class Fields
 			$this->CI->config->load('streams_core/recaptcha');
 			$this->CI->load->library('streams_core/Recaptcha');
 			
-			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_recaptcha');
 		}
 		
 		// -------------------------------------
@@ -311,7 +309,6 @@ class Fields
 	 * stream fields. The event() functions usually
 	 * have field asset loads.
 	 *
-	 * @access 	public
 	 * @param 	obj - stream fields
 	 * @param 	[array - skips]
 	 * @return 	array
@@ -354,7 +351,6 @@ class Fields
 	 * Gather values into an array
 	 * for a form
 	 *
-	 * @access 	public
 	 * @param 	object - stream_fields
 	 * @param 	object - row
 	 * @param 	string - edit or new
@@ -501,7 +497,6 @@ class Fields
 	 *
 	 * Set the rules from the stream fields
 	 *
-	 * @access 	public
 	 * @param 	obj - fields to set rules for
 	 * @param 	string - method - edit or new
 	 * @param 	array - fields to skip
@@ -610,7 +605,7 @@ class Fields
 
 				$validation_rules[] = array(
 					'field'	=> $stream_field->field_slug,
-					'label' => $stream_field->field_name,
+					'label' => lang_label($stream_field->field_name),
 					'rules'	=> implode('|', $rules)				
 				);
 
@@ -641,7 +636,6 @@ class Fields
 	 * This allows field types to add custom CSS/JS
 	 * to the field setup (edit/delete screen).
 	 *
-	 * @access 	public
 	 * @param 	[obj - stream]
 	 * @param 	[string - method - new or edit]
 	 * @param 	[obj or null (for new fields) - field]
@@ -670,7 +664,6 @@ class Fields
 	 * library but it protected so we need to replicate the
 	 * functionality here.
 	 *
-	 * @access 	public
 	 * @param 	string - the field label
 	 * @return 	string - translated or original label
 	 */
@@ -697,7 +690,6 @@ class Fields
 	 *
 	 * Sends emails for a single notify group.
 	 *
-	 * @access	public
 	 * @param	string 	$notify 	a or b
 	 * @param	int 	$entry_id 	the entry id
 	 * @param	string 	$method 	edit or new
@@ -837,7 +829,6 @@ class Fields
 	 * Process an email address - if it is not 
 	 * an email address, pull it from post data.
 	 *
-	 * @access	private
 	 * @param	email
 	 * @return	string
 	 */

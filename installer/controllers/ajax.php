@@ -25,11 +25,13 @@ class Ajax extends CI_Controller
 
 		$languages = array();
 		$languages_directory = realpath(dirname(__FILE__).'/../language/');
-		foreach (new FilesystemIterator($languages_directory, FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS) as $path)
+		foreach (glob($languages_directory.'/*', GLOB_ONLYDIR) as $path)
 		{
-			if ($path->isDir())
+			$path = basename($path);
+
+			if ( ! in_array($path, array('.', '..')))
 			{
-				$languages[] = $path->getBasename();
+				$languages[] = $path;
 			}
 		}
 

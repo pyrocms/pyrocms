@@ -130,11 +130,12 @@ class Ajax extends MY_Controller {
 		
 		foreach ($ids as $id)
 		{
-			$this->db
-				->where('id', $id)
-				->update('data_field_assignments', array('sort_order' => $order_count));
+			$this->pdb
+				->table('data_field_assignments')
+				->where('id', '=', $id)
+				->update(array('sort_order' => $order_count));
 		
-			$order_count++;
+			++$order_count;
 		}
 	}
 
@@ -183,7 +184,6 @@ class Ajax extends MY_Controller {
 	 * in user has access to the module that
 	 * is calling the function via JS.
 	 *
-	 * @access 	private
 	 * @return 	mixed
 	 */
 	private function _check_module_accessibility()

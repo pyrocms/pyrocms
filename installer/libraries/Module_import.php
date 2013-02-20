@@ -54,17 +54,17 @@ class Module_import
 		$details_class->upload_path = 'uploads/default/';
 
 		// Run the install method to get it into the database
-		try 
-		{
+		// try 
+		// {
 			$details_class->install();
-		} 
-		catch (Exception $e)
-		{
-			// TODO Do something useful
-			exit('HEY '.$e->getMessage()." in ".$e->getFile()."<br />");
+		// } 
+		// catch (Exception $e)
+		// {
+		// 	// TODO Do something useful
+		// 	exit('HEY '.$e->getMessage()." in ".$e->getFile()."<br />");
 
-			return false;
-		}
+		// 	return false;
+		// }
 
 		// Looks like it installed ok, add a record
 		return $this->add($module);

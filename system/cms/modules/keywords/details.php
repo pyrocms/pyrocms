@@ -1,13 +1,15 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Capsule\Schema;
+
 /**
  * Keywords module
  *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Keywords
  */
-class Module_Keywords extends Module {
-
+class Module_Keywords extends Module
+{
     public $version = '1.1.0';
 
     public $_tables = array('keywords', 'keywords_applied');
@@ -64,20 +66,21 @@ class Module_Keywords extends Module {
 
     public function install()
     {
-        $schema = $this->pdb->getSchemaBuilder();
-        $schema->dropIfExists('keywords');
+        Schema::dropIfExists('keywords');
 
-        $schema->create('keywords', function($table) {
+        Schema::create('keywords', function($table) {
             $table->increments('id');
             $table->string('name', 50);
         });
 
-        $schema->dropIfExists('keywords_applied');
+        Schema::dropIfExists('keywords_applied');
 
-        $schema->create('keywords_applied', function($table) {
+        Schema::create('keywords_applied', function($table) {
             $table->increments('id');
             $table->string('hash', 32)->default('');
             $table->integer('keyword_id');
+
+            // $table->foreign('keyword_id')->references('id')->on('keywords');
         });
 
         return true;

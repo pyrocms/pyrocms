@@ -55,7 +55,13 @@ class Field_choice
 			// are just in an array from the field.
 			// -------------------------------
 
-			return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
+			// Extra check for default var.
+			$default_value = (isset($params['custom']['default_value'])) ? $params['custom']['default_value'] : null;
+
+			// If this is a new input, we need to use the default value or go null
+			$value = ( ! $entry_id) ? $default_value : $params['value']; 
+
+			return form_dropdown($params['form_slug'], $choices, $value, 'id="'.$params['form_slug'].'"');
 		}	
 		else
 		{
@@ -131,7 +137,6 @@ class Field_choice
 	 * Putting a ^ in front of a line makes it checked and disabled.
 	 * This set those parameters.
 	 *
-	 * @access 	private
 	 * @param 	string
 	 * @return 	string
 	 */
@@ -158,7 +163,6 @@ class Field_choice
 	 * Putting a ^ in front of a line makes it checked and disabled.
 	 * This removes the character if it is there.
 	 *
-	 * @access 	private
 	 * @param 	string
 	 * @return 	string
 	 */
@@ -179,7 +183,6 @@ class Field_choice
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -262,7 +265,6 @@ class Field_choice
 	/**
 	 * Validate input
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string - mode: edit or new
 	 * @param	object
@@ -349,7 +351,6 @@ class Field_choice
 	 *
 	 * Before we add the field to a stream 
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @return	void
@@ -368,11 +369,7 @@ class Field_choice
 	/**
 	 * Breaks up the items into key/val for template use
 	 *
-	 * @access	public
-	 * @access	public
 	 * @param	string
-	 * @param	string
-	 * @param	array
 	 * @return	array
 	 */
 	public function pre_output_plugin($input, $params)
@@ -427,7 +424,6 @@ class Field_choice
 	/**
 	 * Data for choice. In x : X format or just X format
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -444,7 +440,6 @@ class Field_choice
 	/**
 	 * Display as Dropdown
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -465,7 +460,6 @@ class Field_choice
 	/**
 	 * Minimum Number of Choices
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -482,7 +476,6 @@ class Field_choice
 	/**
 	 * Minimum Number of Choices
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -499,7 +492,6 @@ class Field_choice
 	/**
 	 * Take a string of choices and make them into an array
 	 *
-	 * @access	public
 	 * @param	string - raw choices data
 	 * @param	string - type od choice form input
 	 * @param	string - fied is required - yes or no

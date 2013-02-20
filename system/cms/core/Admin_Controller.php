@@ -88,12 +88,12 @@ class Admin_Controller extends MY_Controller
 				'lang' => CURRENT_LANGUAGE
 			));
 
-			foreach ($modules as $module)
-			{				
+			foreach ($modules as $module) {
+
 				// If we do not have an admin_menu function, we use the
 				// regular way of checking out the details.php data.
-				if ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
-				{
+				if ($module['menu'] and ($this->current_user->hasAccess($module['slug']))) {
+
 					// Legacy module routing. This is just a rough
 					// re-route and modules should change using their 
 					// upgrade() details.php functions.
@@ -106,8 +106,7 @@ class Admin_Controller extends MY_Controller
 				// If a module has an admin_menu function, then
 				// we simply run that and allow it to manipulate the
 				// menu array.
-				if (method_exists($module['module'], 'admin_menu'))
-				{
+				if (method_exists($module['module'], 'admin_menu')) {
 					$module['module']->admin_menu($menu_items);
 				}
 			}
@@ -137,7 +136,7 @@ class Admin_Controller extends MY_Controller
 			{
 				if (isset($menu_items[$order]))
 				{
-					$ordered_menu[$order] = $menu_items[$order];
+					$ordered_menu[lang_label($order)] = $menu_items[$order];
 					unset($menu_items[$order]);
 				}
 			}
@@ -145,7 +144,15 @@ class Admin_Controller extends MY_Controller
 			// Any stragglers?
 			if ($menu_items)
 			{
-				$ordered_menu = array_merge($ordered_menu, $menu_items);
+				$translated_menu_items = array();
+
+				// translate any additional top level menu keys so the array_merge works
+				foreach ($menu_items as $key => $menu_item)
+				{
+					$translated_menu_items[lang_label($key)] = $menu_item;
+				}
+
+				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
 			// And there we go! These are the admin menu items.
@@ -180,37 +187,31 @@ class Admin_Controller extends MY_Controller
 		$current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, 'index');
 
 		// Dont need to log in, this is an open page
-		if (in_array($current_page, $ignored_pages))
-		{
+		if (in_array($current_page, $ignored_pages)) {
 			return true;
 		}
 
-		if ( ! $this->current_user)
-		{
+		if ( ! $this->current_user) {
 			// save the location they were trying to get to
 			$this->session->set_userdata('admin_redirect', $this->uri->uri_string());
 			redirect('admin/login');
 		}
 
-		$admin = $this->sentry->getGroupProvider()->findByName('admin');
-
 		// Admins can go straight in
-		if ($this->current_user->inGroup($admin))
-		{
+		if ($this->current_user->isSuperUser()) {
 			return true;
 		}
 
 		// Well they at least better have permissions!
-		if ($this->current_user)
-		{
+		if ($this->current_user) {
+			
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page === 'admin/index' && $this->permissions)
-			{
+			if ($current_page === 'admin/index' && $this->current_user->hasAccess('admin')){
 				return true;
 			}
 
 			// Check if the current user can view that page
-			return array_key_exists($this->module, $this->permissions);
+			return $this->current_user->hasAccess($this->module);
 		}
 
 		// god knows what this is... erm...

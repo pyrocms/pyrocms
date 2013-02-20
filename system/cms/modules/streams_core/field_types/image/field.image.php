@@ -68,21 +68,20 @@ class Field_image
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field)
+	public function pre_save($input, $field, $stream, $row_id, $form_data)
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if ($this->CI->input->post($field->field_slug) and $this->CI->input->post($field->field_slug) != 'dummy')
+			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug] and $form_data[$field->field_slug] != 'dummy')
 			{
-				return $this->CI->input->post($field->field_slug);
+				return $form_data[$field->field_slug];
 			}
 			else
 			{
@@ -119,7 +118,6 @@ class Field_image
 	/**
 	 * Pre Output
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */	
@@ -145,7 +143,6 @@ class Field_image
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -157,7 +154,7 @@ class Field_image
 
 		$this->CI->load->library('files/files');
 	
-		$file = Files::get_file($input);
+		$file = Files::getFile($input);
 		
 		if ($file['status'])
 		{
@@ -200,16 +197,15 @@ class Field_image
 	/**
 	 * Choose a folder to upload to.
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
 	public function param_folder($value = null)
 	{
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		$this->CI->load->library('files/files');
 		
-		$tree = $this->CI->file_folders_m->get_folders();
+		$tree = Files::folderTreeRecursive();
 		
 		$tree = (array)$tree;
 		
@@ -238,7 +234,6 @@ class Field_image
 	/**
 	 * Param Resize Width
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -252,7 +247,6 @@ class Field_image
 	/**
 	 * Param Resize Height
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -266,7 +260,6 @@ class Field_image
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -284,7 +277,6 @@ class Field_image
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

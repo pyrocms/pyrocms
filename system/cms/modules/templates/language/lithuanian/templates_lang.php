@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Numatytas ruošinys';
 $lang['templates:user_defined_title']		= 'Vartotojo sudaryti ruošiniai';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Laiško ruošinys "%s" išsaugotas.';
 $lang['templates:tmpl_create_error']		= 'Laiško ruošinys "%s" išsaugotas.';
 $lang['templates:tmpl_edit_success']		= 'Pakeitimai įvykdyti laiško ruošinyje "%s" išsaugoti.';

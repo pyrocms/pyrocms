@@ -441,12 +441,10 @@ class Installer extends CI_Controller
 			}
 
 			// Let's try to install the system with this new PDO instance
-			try
-			{
+			try {
 				$pdb = $this->installer_lib->install($user, $db_config);
 			}
-			catch (Exception $e)
-			{
+			catch (Exception $e) {
 				// Let's tell them why the install failed
 				$this->session->set_flashdata('error', $e->getMessage());
 
@@ -539,11 +537,13 @@ class Installer extends CI_Controller
 		// Get the supported language array populated
 		if (empty($this->languages))
 		{
-			foreach (new FilesystemIterator($this->languages_directory, FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS) as $path)
+			foreach (glob($this->languages_directory.'/*', GLOB_ONLYDIR) as $path)
 			{
-				if ($path->isDir())
+				$path = basename($path);
+
+				if ( ! in_array($path, array('.', '..')))
 				{
-					$this->languages[] = $path->getBasename();
+					$this->languages[] = $path;
 				}
 			}
 		}

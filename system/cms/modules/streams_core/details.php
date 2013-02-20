@@ -11,7 +11,6 @@
  */
 class Module_Streams_core extends Module
 {
-
 	public $version = '1.3.0';
 
 	/**
@@ -31,6 +30,7 @@ class Module_Streams_core extends Module
 				'tw' => 'Streams 核心',
 				'cn' => 'Streams 核心',
 				'ar' => 'الجداول الأساسية',
+				'it' => 'Streams Core',
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
@@ -41,6 +41,7 @@ class Module_Streams_core extends Module
 				'tw' => 'Streams 核心資料模組。',
 				'cn' => 'Streams 核心资料模组。',
 				'ar' => 'وحدة البيانات الأساسية للجداول',
+				'it' => 'Core dello Stream',
 			),
 			'frontend' => false,
 			'backend' => false,
@@ -105,7 +106,7 @@ class Module_Streams_core extends Module
             $table->integer('field_id');
             $table->enum('is_required', array('yes', 'no'))->default('no');
             $table->enum('is_unique', array('yes', 'no'))->default('no');
-            $table->text('instructions');
+            $table->text('instructions')->nullable();
             $table->string('field_name', 60);
 
             // $table->foreign('stream_id'); //TODO Set up foreign keys

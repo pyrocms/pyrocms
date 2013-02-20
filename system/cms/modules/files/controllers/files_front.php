@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
+
 /**
  * Frontend controller for files and stuffs
  * 
@@ -27,16 +31,14 @@ class Files_front extends Public_Controller
 	{
 		$this->load->helper('download');
 
-		$file = $this->file_m->select('files.*, file_folders.location')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by('files.id', $id) OR show_404();
+		$file = File::find($id) OR show_404();
 
 		// increment the counter
-		$this->file_m->update($id, array('download_count' => $file->download_count + 1));
+		$file->download_count++;
+		$file->save();
 
 		// if it's cloud hosted then we send them there
-		if ($file->location !== 'local')
-		{
+		if ($file->folder->location !== 'local') {
 			redirect($file->path);
 		}
 
@@ -51,15 +53,11 @@ class Files_front extends Public_Controller
 
 	public function thumb($id = 0, $width = 100, $height = 100, $mode = null)
 	{
-		// is it a 15 char hash or is it a filename?
-		if (strlen($id) === 15 and strpos($id, '.') === false)
-		{
-			$file = $this->file_m->get($id);
-		}
-		
-		// they've passed the filename itself
-		else
-		{
+		// is it a 15 char hash with no file extension or is it an old style numeric id with no file extension?
+		if ((strlen($id) === 15 and strpos($id, '.') === false) or (is_numeric($id) and strpos($id, '.') === false)) {
+			$file = File::find($id);
+		} else {
+			// it's neither a legacy numeric id nor a new hash id so they've passed the filename itself
 			$data = getimagesize($this->_path.$id) OR show_404();
 			
 			$ext = '.'.end(explode('.', $id));
@@ -71,13 +69,12 @@ class Files_front extends Public_Controller
 			$file->mimetype 	= $data['mime'];
 		}
 
-		if ( ! $file)
-		{
+		if ( ! $file) {
 			set_status_header(404);
 			exit;
 		}
 
-		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
+		$cache_dir = $this->config->item('files:image_cache_path');
 
 		is_dir($cache_dir) or mkdir($cache_dir, 0777, true);
 
@@ -87,57 +84,41 @@ class Files_front extends Public_Controller
 		$args = $args > 3 ? 3 : $args;
 		$args = $args === 3 && in_array($height, $modes) ? 2 : $args;
 
-		switch ($args)
-		{
+		switch ($args) {
 			case 2:
-				if (in_array($width, $modes))
-				{
+				if (in_array($width, $modes)) {
 					$mode	= $width;
 					$width	= $height; // 100
 
 					continue;
-				}
-				elseif (in_array($height, $modes))
-				{
+				} elseif (in_array($height, $modes)) {
 					$mode	= $height;
 					$height	= empty($width) ? null : $width;
-				}
-				else
-				{
+				} else {
 					$height	= null;
 				}
 
-				if ( ! empty($width))
-				{
-					if (($pos = strpos($width, 'x')) !== false)
-					{
-						if ($pos === 0)
-						{
+				if ( ! empty($width)) {
+					if (($pos = strpos($width, 'x')) !== false) {
+						if ($pos === 0) {
 							$height = substr($width, 1);
 							$width	= null;
-						}
-						else
-						{
+						} else {
 							list($width, $height) = explode('x', $width);
 						}
 					}
 				}
 			case 2:
 			case 3:
-				if (in_array($height, $modes))
-				{
+				if (in_array($height, $modes)) {
 					$mode	= $height;
 					$height	= empty($width) ? null : $width;
 				}
 
-				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2)
-				{
-					if (${$var1} === 0 or ${$var1} === '0')
-					{
+				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2) {
+					if (${$var1} === 0 or ${$var1} === '0') {
 						${$var1} = null;
-					}
-					elseif (empty(${$var1}) or ${$var1} === 'auto')
-					{
+					} elseif (empty(${$var1}) or ${$var1} === 'auto') {
 						${$var1} = (empty(${$var2}) OR ${$var2} === 'auto' OR ! is_null($mode)) ? null : 100000;
 					}
 				}
@@ -151,8 +132,7 @@ class Files_front extends Public_Controller
 		$thumb_filename .= '_' . md5($file->filename) . $file->extension;
 
 		$expire = 60 * Settings::get('files_cache');
-		if ($expire)
-		{
+		if ($expire) {
 			header("Pragma: public");
 			header("Cache-Control: public");
 			header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expire) . ' GMT');
@@ -161,23 +141,18 @@ class Files_front extends Public_Controller
 		$source_modified = filemtime($this->_path . $file->filename);
 		$thumb_modified = filemtime($thumb_filename);
 
-		if ( ! file_exists($thumb_filename) or ($thumb_modified < $source_modified))
-		{
-			if ($mode === $modes[1])
-			{
+		if ( ! file_exists($thumb_filename) or ($thumb_modified < $source_modified)) {
+			if ($mode === $modes[1]) {
 				$crop_width		= $width;
 				$crop_height	= $height;
 
 				$ratio		= $file->width / $file->height;
 				$crop_ratio	= (empty($crop_height) OR empty($crop_width)) ? 0 : $crop_width / $crop_height;
 				
-				if ($ratio >= $crop_ratio and $crop_height > 0)
-				{
+				if ($ratio >= $crop_ratio and $crop_height > 0) {
 					$width	= $ratio * $crop_height;
 					$height	= $crop_height;
-				}
-				else
-				{
+				} else {
 					$width	= $crop_width;
 					$height	= $crop_width / $ratio;
 				}
@@ -186,8 +161,7 @@ class Files_front extends Public_Controller
 				$height	= ceil($height);
 			}
 
-			if ($height or $width)
-			{
+			if ($height or $width) {
 				// LOAD LIBRARY
 				$this->load->library('image_lib');
 
@@ -202,8 +176,7 @@ class Files_front extends Public_Controller
 				$this->image_lib->resize();
 				$this->image_lib->clear();
 
-				if ($mode === $modes[1] && ($crop_width !== null && $crop_height !== null))
-				{
+				if ($mode === $modes[1] && ($crop_width !== null && $crop_height !== null)) {
 					$x_axis = floor(($width - $crop_width) / 2);
 					$y_axis = floor(($height - $crop_height) / 2);
 
@@ -220,17 +193,12 @@ class Files_front extends Public_Controller
 					$this->image_lib->crop();
 					$this->image_lib->clear();
 				}
-			}
-
-			else
-			{
+			} else {
 				$thumb_modified = $source_modified;
 				$thumb_filename = $this->_path.$file->filename;
 			}
-		}
-		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
-		{
+		} elseif (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire ) {
 			// Send 304 back to browser if file has not beeb changed
 			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $time).' GMT', true, 304);
 			exit;
@@ -249,23 +217,18 @@ class Files_front extends Public_Controller
 
 	public function cloud_thumb($id = 0, $width = 75, $height = 50, $mode = 'fit')
 	{
-		$file = $this->file_m->select('files.*, file_folders.location')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by('files.id', $id);
+		$file = File::find($id);
 
 		// it is a cloud file, we will return the thumbnail made when it was uploaded
-		if ($file and $file->location !== 'local')
-		{
+		if ($file and $file->folder->location !== 'local') {
 			$thumb_filename = config_item('cache_dir').'/cloud_cache/'.$file->filename;
 
-			if ( ! file_exists($thumb_filename))
-			{
+			if ( ! file_exists($thumb_filename)) {
 				$thumb_filename = APPPATH.'modules/files/img/no-image.jpg';
 			}
 
 			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($thumb_filename)))
-			{
+				(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($thumb_filename))) {
 				// Send 304 back to browser if file has not been changed
 				header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($thumb_filename)).' GMT', true, 304);
 				exit();
@@ -274,10 +237,8 @@ class Files_front extends Public_Controller
 			header('Content-type: ' . $file->mimetype);
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
 			readfile($thumb_filename);
-		}
-		// it's a local file, output a thumbnail like we normally do
-		elseif ($file)
-		{
+		} elseif ($file) {
+			// it's a local file, output a thumbnail like we normally do
 			return $this->thumb($id, $width, $height, $mode);
 		}
 	}

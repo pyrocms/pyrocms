@@ -8,7 +8,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Array that contains the validation rules
-	 * @access private
+	 * 
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -75,7 +75,7 @@ class Admin extends Admin_Controller {
 		$pagination = create_pagination('admin/comments/index', $total_rows);
 
 		$comments = $this->comment_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
 
@@ -285,7 +285,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for approve/unapprove
-	 * @access protected
+	 * 
 	 * @param  int|array $ids	id or array of ids to process
 	 * @param  string $action	action to take: maps to model
 	 * @return void

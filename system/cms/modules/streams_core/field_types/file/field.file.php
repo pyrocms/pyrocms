@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File;
+
 /**
  * PyroStreams File Field Type
  *
@@ -41,11 +44,7 @@ class Field_file
 		// Get the file
 		if ($params['value'])
 		{
-			$current_file = $this->CI->db
-							->where('id', $params['value'])
-							->limit(1)
-							->get('files')
-							->row();
+			$current_file = File::find($params['value']);
 		}
 		else
 		{
@@ -80,7 +79,6 @@ class Field_file
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
@@ -127,7 +125,6 @@ class Field_file
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	mixed - null or string
 	 */	
@@ -137,11 +134,7 @@ class Field_file
 
 		$this->CI->load->config('files/files');
 		
-		$file = $this->CI->db
-						->limit(1)
-						->select('name')
-						->where('id', $input)
-						->get('files')->row();
+		$file = File::find($input);
 		
 		if ($file)
 		{
@@ -158,7 +151,6 @@ class Field_file
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -173,13 +165,7 @@ class Field_file
 		$this->CI->load->config('files/files');
 		$this->CI->load->helper('html');
 		
-		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
-
-		$file = $this->CI->db
-						->limit(1)
-						->select('name, extension, mimetype')
-						->where('id', $input)
-						->get('files')->row();
+		$file = File::find($input);
 
 		if ($file)
 		{					
@@ -203,16 +189,15 @@ class Field_file
 	/**
 	 * Choose a folder to upload to.
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
 	public function param_folder($value = null)
 	{
-		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		$this->CI->load->library('files/files');
 		
-		$tree = $this->CI->file_folders_m->get_folders();
+		// Get the folders
+		$tree = Files::folderTreeRecursive();
 		
 		$tree = (array)$tree;
 		
@@ -241,7 +226,6 @@ class Field_file
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

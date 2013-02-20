@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Illuminate\Database\Connectors\ConnectionFactory;
+use Capsule\Database;
 
 /**
  * @author  PyroCMS Dev Team
@@ -8,7 +8,6 @@ use Illuminate\Database\Connectors\ConnectionFactory;
  */
 class Installer_lib
 {
-
 	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
 	const MIN_PHP_VERSION = '5.3.6';
 
@@ -190,34 +189,36 @@ class Installer_lib
 	 */
 	public function install(array $user, array $db)
 	{
-		// Create a connection
 		$config = array(
 			'driver' => $db['driver'],
-			'password' => $db['password'],
+            'password' => $db["password"],
 			'prefix' => '',
 			'charset' => "utf8",
 			'collation' => "utf8_unicode_ci",
 		);
 
-		switch ($config['driver'])
+		// Create a connection
+		switch ($db['driver'])
 		{
 			case 'mysql':
 			case 'pgsql':
 				$config['host'] = $db['hostname'];
 				$config['port'] = $db['port'];
-				$config['username'] = $db['username'];
-				$config['database'] = $db['database'];
+            	$config['username'] = $db["username"];
+            	$config['database'] = $db["database"];
 				break;
 			case 'sqlite':
-				$config['database'] = $db['location'];
+				$config['location'] = $db['location'];
 				break;
 			default:
-				throw new InstallerException('Unknown database driver type: '.$db['driver']);
+				throw new InstallerException("Unknown database driver type: {$db['driver']}");
+				break;
 		}
 
 		// Connect using the Laravel Database component
-		$cf = new ConnectionFactory;
-		$conn = $cf->make($config);
+		$conn = Database\Connection::make('default', $config, true);
+
+        $conn->setFetchMode(PDO::FETCH_OBJ);
 
 		ci()->load->model('install_m');
 

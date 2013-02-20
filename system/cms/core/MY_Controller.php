@@ -64,14 +64,12 @@ class MY_Controller extends MX_Controller
 		// Migration logic helps to make sure PyroCMS is running the latest changes
 		$this->load->library('migration');
 		
-		if ( ! ($schema_version = $this->migration->current()))
-		{
+		if ( ! ($schema_version = $this->migration->current())) {
 			show_error($this->migration->error_string());
 		}
 
 		// Result of schema version migration
-		elseif (is_numeric($schema_version))
-		{
+		elseif (is_numeric($schema_version)) {
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
 
@@ -82,8 +80,7 @@ class MY_Controller extends MX_Controller
 		$this->load->driver('session');
 
 		// Lock front-end language
-		if ( ! ($this instanceof Admin_Controller and ($site_lang = AUTO_LANGUAGE)))
-		{
+		if ( ! ($this instanceof Admin_Controller and ($site_lang = AUTO_LANGUAGE))) {
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
 
 			$site_lang = in_array(AUTO_LANGUAGE, $site_public_lang) ? AUTO_LANGUAGE : Settings::get('site_lang');
@@ -100,22 +97,19 @@ class MY_Controller extends MX_Controller
 		$this->load->vars($pyro);
 
 		// Set php locale time
-		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
-		{
+		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1) {
 			array_unshift($locale, LC_TIME);
 			call_user_func_array('setlocale', $locale);
 			unset($locale);
 		}
 
 		// Reload languages
-		if (AUTO_LANGUAGE !== CURRENT_LANGUAGE)
-		{
+		if (AUTO_LANGUAGE !== CURRENT_LANGUAGE) {
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
 			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
-		}
-		else
-		{
+		
+        } else {
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
@@ -125,9 +119,6 @@ class MY_Controller extends MX_Controller
         // Assign to EVERYTHING
         $user = $this->sentry->check();
         $this->template->current_user = ci()->current_user = $this->current_user = $user;
-
-        // Calculate permissions
-        ci()->permissions = $this->permissions = $this->calculatePermissions();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
 		ci()->module = $this->module = $this->router->fetch_module();
@@ -139,7 +130,6 @@ class MY_Controller extends MX_Controller
 			'permissions/permission_m',
 			'addons/module_m',
 			'addons/theme_m',
-			'pages/page_m',
 		));
 
 		// load all modules (the Events library uses them all) and make their details widely available
@@ -151,17 +141,24 @@ class MY_Controller extends MX_Controller
 		// set defaults
 		$this->template->module_details = ci()->module_details = $this->module_details = false;
 
-		// now pick our current module out of the enabled modules array
-		foreach (ci()->enabled_modules as $module)
-		{
-			if ($module['slug'] === $this->module)
-			{
+        // Lets PSR-0 up our modules
+        $loader = new \Composer\Autoload\ClassLoader;
+		foreach (ci()->enabled_modules as $module) {
+
+            // register classes with namespaces
+            $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
+
+            // Also, save this module to... everywhere if its the current one 
+			if ($module['slug'] === $this->module) {
 				// Set meta data for the module to be accessible system wide
 				$this->template->module_details = ci()->module_details = $this->module_details = $module;
 
 				continue;
 			}
 		}
+
+        // activate the autoloader
+        $loader->register();
 
 		// certain places (such as the Dashboard) we aren't running a module, provide defaults
 		if ( ! $this->module)
@@ -247,7 +244,7 @@ class MY_Controller extends MX_Controller
             // Make a connection instance with the existing PDO connection
             $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
 
-            $resolver = \Capsule\Database\Connection::getResolver();
+            $resolver = Capsule\Database\Connection::getResolver();
             $resolver->addConnection('default', $conn);
             $resolver->setDefaultConnection('default');
 
@@ -256,7 +253,7 @@ class MY_Controller extends MX_Controller
         // Not using the new PDO driver
         } else {
 
-            $conn = \Capsule\Database\Connection::make('default', array(
+            $conn = Capsule\Database\Connection::make('default', array(
                 'driver' => $subdriver,
                 'dsn' => $config["dsn"],
                 'username' => $config["username"],
@@ -393,23 +390,6 @@ class MY_Controller extends MX_Controller
             $userProvider,
             $throttle
         );
-    }
-
-    public function calculatePermissions()
-    {
-        // Grab specific user permissions
-        $permissions = $this->current_user->getUserPermissions();
-
-        // They could have multiple groups
-        $groups = $this->current_user->getGroups();
-
-        foreach ($groups as $group) {
-
-            // Add extra roles into the whitelist so far
-            $permissions += $group->getGroupPermissions();
-        }
-
-        return $permissions;
     }
 }
 

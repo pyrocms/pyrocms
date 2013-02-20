@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Capsule\Schema;
+
 /**
  * PyroStreams Streams Model
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Streams_m extends MY_Model {
+class Streams_m extends CI_Model {
 
 	public $table;
 
@@ -185,7 +187,7 @@ class Streams_m extends MY_Model {
 	{
 		$stream = $this->get_stream($stream_slug, true, $namespace);
 	
-		return $this->db->count_all($stream->stream_prefix.$stream->stream_slug);
+		return $this->pdb->table($stream->stream_prefix.$stream->stream_slug)->count();
 	}
 
     // --------------------------------------------------------------------------
@@ -202,78 +204,61 @@ class Streams_m extends MY_Model {
 	 * @return	false or stream id
 	 */
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null, $extra = array())
-	{	
+	{
 		// See if table exists. You never know if it sneaked past validation
-		if ($this->db->table_exists($prefix.$stream_slug)) return false;
-			
-		// Create the db table
-		$this->load->dbforge();
-		
-		$this->dbforge->add_field('id');
-		
-		// Add in our standard fields		
-		$standard_fields = array(
-	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
-            'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
-            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11', 'null' => true)
-		);
-		
-		$this->dbforge->add_field($standard_fields);
-		
-		if ( ! $this->dbforge->create_table($prefix.$stream_slug) ) return false;
+		if (Schema::hasTable($prefix.$stream_slug)) {
+			return false;
+		}
+				
+		Schema::create($prefix.$stream_slug, function($table) {
+            $table->increments('id');
+            $table->datetime('created');
+            $table->datetime('updated');
+            $table->integer('created_by')->nullable();
+            $table->integer('ordering_count')->nullable();
+        });
 		
 		// Add data into the streams table
-		$insert_data['stream_slug']			= $stream_slug;
-		$insert_data['stream_name']			= $stream_name;
-		$insert_data['stream_prefix']		= $prefix;
-		$insert_data['stream_namespace']	= $namespace;
-		$insert_data['about']				= $about;
+		$insert_data = array(
+			'stream_slug'			=> $stream_slug,
+			'stream_name'			=> $stream_name,
+			'stream_prefix'			=> $prefix,
+			'stream_namespace'		=> $namespace,
+			'about'					=> $about,
 
 		// Our extra columns, coming from the $extra array.
-		$insert_data['title_column']		= (isset($extra['title_column'])) ? $extra['title_column'] : null;
-		$insert_data['is_hidden']			= (isset($extra['is_hidden'])) ? $extra['is_hidden'] : 'no';
-		$insert_data['sorting']				= (isset($extra['sorting'])) ? $extra['sorting'] : 'title';
-		$insert_data['menu_path']			= (isset($extra['menu_path'])) ? $extra['menu_path'] : null;
+			'title_column'			=> (isset($extra['title_column'])) ? $extra['title_column'] : null,
+			'is_hidden'				=> (isset($extra['is_hidden'])) ? $extra['is_hidden'] : 'no',
+			'sorting'				=> (isset($extra['sorting'])) ? $extra['sorting'] : 'title',
+			'menu_path'				=> (isset($extra['menu_path'])) ? $extra['menu_path'] : null,
+		);
 
 		// Extra enum data checks
-		if ($insert_data['is_hidden'] != 'yes' and $insert_data['is_hidden'] != 'no')
-		{
+		if ($insert_data['is_hidden'] != 'yes' and $insert_data['is_hidden'] != 'no') {
 			$insert_data['is_hidden'] = 'no';
 		}
 
-		if ($insert_data['sorting'] != 'title' and $insert_data['sorting'] != 'custom')
-		{
+		if ($insert_data['sorting'] != 'title' and $insert_data['sorting'] != 'custom') {
 			$insert_data['sorting'] = 'title';
 		}
 
 		// Permissions can be handled differently by each module, so unless they are 
 		// passed, we are just going to forget about them
-		if (isset($extra['permissions']) and is_array($extra['permissions']))
-		{
+		if (isset($extra['permissions']) and is_array($extra['permissions'])) {
 			$insert_data['permissions']		= serialize($extra['permissions']);
 		}
 
 		// View options.
-		if (isset($extra['view_options']) and is_array($extra['view_options']))
-		{
+		if (isset($extra['view_options']) and is_array($extra['view_options'])) {
 			$insert_data['view_options']		= serialize($extra['view_options']);
 		}
-		else
-		{
+		else {
 			// Since this is a new stream, we are going to add a basic view profile
 			// with data we know will be there.	
 			$insert_data['view_options']		= serialize(array('id', 'created'));
 		}
 		
-		if ($this->db->insert($this->table, $insert_data))
-		{
-			return $this->db->insert_id();
-		}
-		else
-		{
-			return false;
-		}
+		return $this->pdb->table($this->table)->insertGetId($insert_data);
 	}
 
 	/**
@@ -458,11 +443,15 @@ class Streams_m extends MY_Model {
 	 */	
 	public function get_stream_id_from_slug($slug, $namespace)
 	{
+		// TODO This was added because some other streams code was missing a ->get()
+		// This was effecting this query. Please fix! Phil
+		$this->db->reset_query();
+		
 		$db = $this->db
-					->limit(1)
-					->where('stream_slug', $slug)
-					->where('stream_namespace', $namespace)
-					->get($this->table);
+			->limit(1)
+			->where('stream_slug', $slug)
+			->where('stream_namespace', $namespace)
+			->get($this->table);
 		
 		if ($db->num_rows() == 0)
 		{
@@ -509,34 +498,25 @@ class Streams_m extends MY_Model {
 
 		// -------------------------------------
 
-		$this->db->limit(1);
-		
-		if ($by_slug == true and ! is_null($namespace))
-		{
-			$this->db->where('stream_namespace', $namespace);
-			$this->db->where('stream_slug', $stream_id);		
+		$query = $this->pdb->table($this->table);
+
+		if ($by_slug == true and ! is_null($namespace)) {	
+			$query->where('stream_namespace', $namespace);
+			$query->where('stream_slug', $stream_id);
 		}
-		elseif (is_numeric($stream_id))
-		{
-			$this->db->where('id', $stream_id);
+		elseif (is_numeric($stream_id)) {
+			$query->where('id', $stream_id);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 
-		$obj = $this->db->get($this->table);
-		
-		if ($obj->num_rows() == 0) return false;
-		
-		$stream = $obj->row();
-		
-		if (trim($stream->view_options) == '')
-		{
+		$stream = $query->take(1)->first();
+
+		if (trim($stream->view_options) == '') {
 			$stream->view_options = array();
 		}
-		else
-		{
+		else {
 			$stream->view_options = unserialize($stream->view_options);
 		}
 		
@@ -591,7 +571,7 @@ class Streams_m extends MY_Model {
 			// Loop through and apply the filters
 			foreach ( $filter_data['filters'] as $filter=>$value )
 			{
-				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
 			}
 		}
 
@@ -657,71 +637,58 @@ class Streams_m extends MY_Model {
 	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
-		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
-		{
+		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset) {
 			return $this->stream_fields_cache[$stream_id];
 		}
 	
-		if ( ! is_numeric($stream_id))
-		{
+		if ( ! is_numeric($stream_id)) {
 			return false;
 		}
 	
-		$this->db->select(ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.*, '.ASSIGN_TABLE.'.*, '.FIELDS_TABLE.'.*');
-		$this->db->order_by(ASSIGN_TABLE.'.sort_order', 'asc');
+		$query = ci()->pdb
+			->table(STREAMS_TABLE)
+			->select(ASSIGN_TABLE.'.id as assign_id', STREAMS_TABLE.'.*', ASSIGN_TABLE.'.*', FIELDS_TABLE.'.*')
+			->orderBy(ASSIGN_TABLE.'.sort_order', 'asc');
 		
-		if (is_numeric($limit))
-		{
-			if (is_numeric($offset))
-			{
-				$this->db->limit($limit, $offset);
-			}	
-			else
-			{
-				$this->db->limit($limit);
-			}
+		if (is_numeric($limit)){
+			$query->take($limit);
+		}
+		if (is_numeric($offset)){
+			$query->skip($offset);
 		}
 		
-		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
-		
-		// TODO Remove hack once PDO drivers work
-		return array();
+		if ( ! empty($skips)) {
+			$query->where('field_slug', 'NOT IN', $skips);
+		}
 
-		$this->db
-			->from(STREAMS_TABLE)
+		// Build the rest of the query and get it
+		$raw = $query->where(STREAMS_TABLE.'.id', $stream_id)
 			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id')
 			->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id')
-			->where(STREAMS_TABLE.'.id', $stream_id);
+			->get();
 		
-		$obj = $this->db->get();
-		
-		if ($obj->num_rows() == 0)
-		{
-			return false;
+		if ( ! $raw) {
+			return;
 		}
-		else
-		{
-			$streams = new stdClass;
-		
-			$raw = $obj->result();
-			
-			foreach ($raw as $item)
-			{
-				$node = $item->field_slug;
-			
-				$streams->$node = $item;
-				
-				$streams->$node->field_data = unserialize($item->field_data);
-			}
-			
-			// Save for cache
-			if ( ! $limit and ! $offset) $this->stream_fields_cache[$stream_id] = $streams;
-			
-			return $streams;
-		}
-	}
 
-	// --------------------------------------------------------------------------
+		$streams = new stdClass;
+		
+		foreach ($raw as $item) {
+
+			$node = $item->field_slug;
+		
+			$streams->$node = $item;
+			
+			$streams->$node->field_data = unserialize($item->field_data);
+		}
+		
+		// Save for cache
+		if ( ! $limit and ! $offset) {
+			$this->stream_fields_cache[$stream_id] = $streams;
+		}
+		
+		return $streams;
+	}
 	
 	/**
 	 * Get total stream fields
@@ -752,6 +719,8 @@ class Streams_m extends MY_Model {
 	 */
 	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
 	{
+		// TODO This whole method needs to be recoded to use Schema...
+
 		// -------------------------------------
 		// Get the field data
 		// -------------------------------------
@@ -802,11 +771,14 @@ class Streams_m extends MY_Model {
 			$field_data['default_value']		= $field->field_data['default_value'];
 		}
 		
+		// Grab table prefix from installer
+		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
+
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 		
 		if ($field_type->db_col_type !== false and $create_column === true)
 		{
-			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 		
 		// -------------------------------------
@@ -820,7 +792,7 @@ class Streams_m extends MY_Model {
 			$update_data['title_column'] = $field->field_slug;
 		
 			$this->db->where('id', $stream->id );
-			$this->db->update(STREAMS_TABLE, $update_data);
+			$this->db->update($prefix.STREAMS_TABLE, $update_data);
 		}
 		
 		// -------------------------------------
@@ -830,18 +802,11 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
 		
-		if (isset($data['instructions']))
-		{
-			$insert_data['instructions']	= $data['instructions'];
-		}
-		else
-		{
-			$insert_data['instructions']	= null;
-		}
+		$insert_data['instructions']	= isset($data['instructions']) ? $data['instructions'] : null;
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
-		$query = $this->db->get(ASSIGN_TABLE);
+		$query = $this->db->get($prefix.ASSIGN_TABLE);
 		
 		if ($query->num_rows() == 0)
 		{
@@ -851,29 +816,27 @@ class Streams_m extends MY_Model {
 		else
 		{
 			$row = $query->row();
-			$insert_data['sort_order'] = $row->top_num+1;
+			$insert_data['sort_order'] = $row->top_num + 1;
 		}
 		
 		// Is Required
 		if (isset($data['is_required']) and $data['is_required'] == 'yes')
 		{
-			$insert_data['is_required']		= 'yes';
+			$insert_data['is_required'] = 'yes';
 		}
 		
 		// Unique		
 		if (isset($data['is_unique']) and $data['is_unique'] == 'yes')
 		{
-			$insert_data['is_unique']		= 'yes';
+			$insert_data['is_unique'] = 'yes';
 		}
 		
-		if ( ! $this->db->insert(ASSIGN_TABLE, $insert_data))
+		if ( ! $this->db->insert($prefix.ASSIGN_TABLE, $insert_data))
 		{
 			return false;
 		}
-		else
-		{
-			return $this->db->insert_id();
-		}
+
+		return $this->db->insert_id();
 	}
 
     // --------------------------------------------------------------------------
@@ -882,7 +845,6 @@ class Streams_m extends MY_Model {
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @param 	string
 	 * @param 	string
@@ -897,9 +859,9 @@ class Streams_m extends MY_Model {
 	/**
 	 * Remove a field assignment
 	 *
-	 * @param	obj
-	 * @param	obj
-	 * @param	obj
+	 * @param	object
+	 * @param	object
+	 * @param	object
 	 * @return	bool
 	 */
 	public function remove_field_assignment($assignment, $field, $stream)

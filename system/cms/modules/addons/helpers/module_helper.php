@@ -149,12 +149,12 @@ function reload_module_details($slug = '')
 			//$this->_output .=  'Re-indexing new module: <strong>' . $slug .'</strong>.<br/>';
 
 			// Before we can install anything we need to know some details about the module
-			$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
+			$details_file = $directory . 'modules/' . $slug . '/details.php';
 
 			// Check the details file exists
 			if ( ! is_file($details_file))
 			{
-				$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+				$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details.php';
 				
 				if ( ! is_file($details_file))
 				{

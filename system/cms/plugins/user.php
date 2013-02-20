@@ -293,7 +293,7 @@ class Plugin_User extends Plugin
 		// for plugin return (ie if we haven't already done that).
 		foreach ($this->user_stream_fields as $field_key => $field_data) {
 			if ($plugin_call) {
-				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key})) {
+				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
 						$field_key, 
 						$user->$field_key,

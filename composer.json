@@ -1,5 +1,6 @@
 {
     "minimum-stability": "dev",
+
     "require": {
         "pyrocms/lex": "2.2.*",
         
@@ -15,6 +16,7 @@
         "tijsverkoyen/akismet": "1.1.*"
 
     },
+    
     "autoload": {
         "classmap": [
             "system/cms/controllers",

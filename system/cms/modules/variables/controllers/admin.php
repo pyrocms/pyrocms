@@ -1,4 +1,7 @@
 <?php 
+
+use Pyro\Module\Variables\Model\Variable;
+
 /**
  * Admin controller for the variables module
  *
@@ -43,7 +46,6 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('variable_m');
 		$this->lang->load('variables');
 
 		// Set template layout to false if request is of ajax type
@@ -58,10 +60,10 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Create pagination links
-		$this->template->pagination = create_pagination('admin/variables/index', Variable_m::all()->count());
+		$this->template->pagination = create_pagination('admin/variables/index', Variable::all()->count());
 
 		// Using this data, get the relevant results
-		$this->template->variables = Variable_m::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
+		$this->template->variables = Variable::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -83,7 +85,7 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run()) {
 			$name = $this->input->post('name');
 
-			$result = Variable_m::create(array(
+			$result = Variable::create(array(
 				'name' => $this->input->post('name'),
 				'data' => $this->input->post('data')
 			));
@@ -122,7 +124,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$variable = new stdClass();
+		$variable = new Variable;
 
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule) {
@@ -142,14 +144,9 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$variable = new stdClass();
-
-		// Got ID?
-		$id OR redirect('admin/variables');
-
 		// Get the variable
-		$this->template->variable = Variable_m::find($id);
-		$this->template->variable OR redirect('admin/variables');
+		$variable = Variable::find($id);
+		$variable OR redirect('admin/variables');
 
 		$this->form_validation->set_rules(array_merge($this->_validation_rules, array(
 			'name' => array(
@@ -160,18 +157,14 @@ class Admin extends Admin_Controller
         )));
 
 		if ($this->form_validation->run()) {
-			$name = $this->input->post('name');
+			$variable->name = $this->input->post('name');
+			$variable->data = $this->input->post('data');
 
-			$result = Variable_m::find($id)->update(array(
-                'name' => $this->input->post('name'),
-				'data' => $this->input->post('data')
-            ));
-
-			if ($result) {
-				$message = sprintf(lang('variables:edit_success'), $name);
+			if ($variable->save()) {
+				$message = sprintf(lang('variables:edit_success'), $variable->name);
 				$status = 'success';
 			} else {
-				$message = sprintf(lang('variables:edit_error'), $name);
+				$message = sprintf(lang('variables:edit_error'), $variable->name);
 				$status = 'error';
 			}
 
@@ -184,7 +177,7 @@ class Admin extends Admin_Controller
 				return $this->template->build_json(array(
 					'status' => $status,
 					'message' => $message,
-					'title' => sprintf(lang('variables:edit_title'), $name)
+					'title' => sprintf(lang('variables:edit_title'), $variable->name)
 				));
 			}
 
@@ -201,19 +194,14 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Loop through each validation rule
-		foreach ($this->_validation_rules as $rule) {
-			if ($this->input->post($rule['field']) !== false) {
-				$variable->{$rule['field']} = set_value($rule['field']);
-			}
-		}
+		$this->template->set('variable', $variable);
 
 		if ($this->input->is_ajax_request()) {
 			return $this->template->build('admin/form_inline');
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $this->template->variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $variable->name))
 			->build('admin/form');
 	}
 
@@ -231,9 +219,9 @@ class Admin extends Admin_Controller
 		// Try do deletion
 		foreach ($ids as $id) {
 			// Get the row to use a value.. as title, name
-			if ($variable = Variable_m::find($id)) {
+			if ($variable = Variable::find($id)) {
 				// Make deletion retrieving an status and store an value to display in the messages
-				$deleted[(Variable_m::find($id)->delete() ? 'success' : 'error')][] = $variable->name;
+				$deleted[(Variable::find($id)->delete() ? 'success' : 'error')][] = $variable->name;
 			}
 		}
 
@@ -271,6 +259,6 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
-		return !Variable_m::findByNameWithId($from, (int)$id);
+		return ! Variable::findByNameWithId($from, (int)$id);
 	}
 }

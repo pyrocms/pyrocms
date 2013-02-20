@@ -8,6 +8,13 @@
 class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 {
 	protected $table = 'users';
+	
+    /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
 
 	/**
 	 * Returns the relationship between users and groups.

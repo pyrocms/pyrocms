@@ -2,7 +2,9 @@
 	$(function(){
 
 		// Generate a slug from the title
-		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+		if ($('#page-form').data('mode') == 'create') {
+			pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+		}
 
 		// needed so that Keywords can return empty JSON
 		$.ajaxSetup({
@@ -10,7 +12,7 @@
 		});
 
 		$('#meta_keywords').tagsInput({
-			autocomplete_url:'admin/keywords/autocomplete'
+			autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
 		});
 		
 		// Hide the huge textarea

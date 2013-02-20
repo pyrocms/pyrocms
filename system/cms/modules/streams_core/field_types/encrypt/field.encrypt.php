@@ -26,7 +26,6 @@ class Field_encrypt
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -42,7 +41,6 @@ class Field_encrypt
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -50,7 +48,10 @@ class Field_encrypt
 	{
 		$this->CI->load->library('encrypt');
 		
-		return $this->CI->encrypt->decode($input);
+		$out = $this->CI->encrypt->decode($input);
+	
+		$this->CI->load->helper('text');
+		return escape_tags($out);
 	}
 
 	// --------------------------------------------------------------------------
@@ -58,7 +59,6 @@ class Field_encrypt
 	/**
 	 * Output form input
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -89,7 +89,6 @@ class Field_encrypt
 	/**
 	 * Yes or no box to hide typing
 	 *
-	 * @access	public
 	 * @param	[array - param]
 	 * @return	string
 	 */	

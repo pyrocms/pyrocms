@@ -6,59 +6,47 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Widgets\Models
  */
-class Widget_m extends MY_Model
+class Widget_m extends CI_Model
 {
-	public function __construct()
+	public function find($id)
 	{
-		parent::__construct();
-
-		$this->load->helper('date');
-	}
-
-	public function get_instance($id)
-	{
-		$this->db
+		$instance = $this->pdb
+			->table('widget_areas wa')
 			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
-			->where('wi.id', $id);
+			->where('wi.id', $id)
+			->take(1)
+			->first();
 
-		$result = $this->db->get()->row();
-
-		if ($result)
-		{
-			$this->unserialize_fields($result);
+		if ($instance) {
+			$this->unserialize_fields($instance);
 		}
 
-		return $result;
+		return $instance;
 	}
 
-	public function get_by_area($slug)
+	public function findByArea($slug)
 	{
-		$this->db
+		$result = $this->pdb
+			->table('widget_areas wa')
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
 			->where('wa.slug', $slug)
-			->order_by('wi.order');
+			->orderBy('wi.order')
+			->get();
 
-		$result = $this->db->get()->result();
-
-		if ($result)
-		{
+		if ($result) {
 			array_map(array($this, 'unserialize_fields'), $result);
 		}
 
 		return $result;
 	}
 
-	public function get_by_areas($slug = array())
+	public function findByAreas($slug = array())
 	{
-
-		if ( ! (is_array($slug) && $slug))
-		{
+		if ( ! (is_array($slug) && $slug)) {
 			return array();
 		}
 

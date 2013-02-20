@@ -11,8 +11,6 @@ class Users extends Public_Controller
 {
 	/**
 	 * Constructor method
-	 *
-	 * @return \Users
 	 */
 	public function __construct()
 	{
@@ -204,9 +202,7 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
-		$user = new stdClass();
-
-		if (isset($this->current_user->id))
+		if ($this->current_user)
 		{
 			$this->session->set_flashdata('notice', lang('user:already_logged_in'));
 			redirect();

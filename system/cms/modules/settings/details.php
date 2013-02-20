@@ -81,7 +81,7 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-        log_message('debug', '-- Settings: going to install the default settings');
+		log_message('debug', '-- Settings: going to install the default settings');
 
         // Regarding ordering: any additions to this table can have an order
         // value the same as a sibling in the same section. For example if you
@@ -415,12 +415,10 @@ class Module_Settings extends Module {
         );
 
         // Lets add the settings for this module.
-        foreach ($settings as $setting)
-        {
+        foreach ($settings as $setting) {
             log_message('debug', '-- Settings: installing '.$setting['slug']);
 
-            if ( ! $this->pdb->table('settings')->insert($setting))
-            {
+            if ( ! $this->pdb->table('settings')->insert($setting)) {
                 log_message('error', '-- -- could not install '.$setting['slug']);
                 return false;
             }
