@@ -16,25 +16,25 @@
 		<section id="quick_links" class="item <?php echo isset($rss_items) ?>">
 			<div class="content">
 				<ul>
-					<?php if((array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('comments')): ?>
+					<?php if(($this->current_user->hasAccess('comments') OR $this->current_user->isSuperUser()) AND module_enabled('comments')): ?>
 					<li>
 						<a class="tooltip-s" title="<?php echo lang('cp:manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo Asset::img('icons/comments.png', lang('cp:manage_comments')) ?></a>
 					</li>
 					<?php endif ?>
 					
-					<?php if((array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('pages')): ?>
+					<?php if(($this->current_user->hasAccess('pages') OR $this->current_user->isSuperUser()) AND module_enabled('pages')): ?>
 					<li>
 						<a class="tooltip-s" title="<?php echo lang('cp:manage_pages') ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo Asset::img('icons/pages.png', lang('cp:manage_pages')) ?></a>
 					</li>
 					<?php endif ?>
 					
-					<?php if((array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('files')): ?>
+					<?php if(($this->current_user->hasAccess('files') OR $this->current_user->isSuperUser()) AND module_enabled('files')): ?>
 					<li>
 						<a class="tooltip-s" title="<?php echo lang('cp:manage_files') ?>" href="<?php echo site_url('admin/files') ?>"><?php echo Asset::img('icons/files.png', lang('cp:manage_files')) ?></a>
 					</li>
 					<?php endif ?>
 					
-					<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+					<?php if($this->current_user->hasAccess('users') OR $this->current_user->isSuperUser()): ?>
 					<li>
 						<a class="tooltip-s" title="<?php echo lang('cp:manage_users') ?>" href="<?php echo site_url('admin/users') ?>"><?php echo Asset::img('icons/users.png', lang('cp:manage_users')) ?></a>
 					</li>
