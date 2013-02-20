@@ -663,8 +663,8 @@ class Streams_m extends CI_Model {
 
 		// Build the rest of the query and get it
 		$raw = $query->where(STREAMS_TABLE.'.id', $stream_id)
-			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id')
-			->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id')
+			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id','=',ASSIGN_TABLE.'.stream_id')
+			->join(FIELDS_TABLE, FIELDS_TABLE.'.id','=',ASSIGN_TABLE.'.field_id')
 			->get();
 		
 		if ( ! $raw) {
