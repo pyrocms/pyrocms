@@ -62,7 +62,7 @@
 				</script>
 	
 				<form class="topbar-search">
-					<input type="text" class="search-query" id="nav-search" placeholder="{{ helper:lang line="cp:search" }}" ontouchstart="">
+					<input type="text" class="search-query" id="nav-search" placeholder="<?php echo lang("cp:search"); ?>" ontouchstart="">
 				</form>
 			</div>
 			
