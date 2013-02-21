@@ -228,7 +228,7 @@ class Admin_Categories extends Admin_Controller
 	 */
 	public function _check_slug($slug = '')
 	{
-		if ($this->blog_categories_m->check_title($slug, $this->input->post('id')))
+		if ($this->blog_categories_m->check_slug($slug, $this->input->post('id')))
 		{
 			$this->form_validation->set_message('_check_slug', sprintf(lang('cat:already_exist_error'), $slug));
 
