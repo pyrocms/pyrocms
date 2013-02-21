@@ -123,7 +123,7 @@ jQuery(function($) {
 			});
 		});
 
-		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+		$("#datepicker, .datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
 		$('.alert').livequery(function(){
