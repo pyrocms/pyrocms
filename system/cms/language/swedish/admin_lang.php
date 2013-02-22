@@ -47,6 +47,8 @@ $lang['cp:nav_structure'] = 'Struktur';
 $lang['cp:nav_content'] = 'Innehåll';
 $lang['cp:nav_misc'] = 'Övrigt';
 
+$lang['cp:search']                      = 'Search'; #translate
+
 $lang['cp:must_login'] = 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp:access_denied'] = 'Du har inte rättigheter att se sidan.';
 $lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate

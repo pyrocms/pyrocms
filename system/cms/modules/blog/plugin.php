@@ -148,12 +148,12 @@ class Plugin_Blog extends Plugin
 	/**
 	 * Blog List
 	 *
-	 * Creates a list of blog posts
+	 * Creates a list of blog posts. Takes all of the parameters
+	 * available to streams, sans stream, where, and namespace.
 	 *
 	 * Usage:
-	 * {{ blog:posts order-by="title" limit="5" }}
+	 * {{ blog:posts limit="5" }}
 	 *		<h2>{{ title }}</h2>
-	 *		<p>{{ body }}</p>
 	 * {{ /blog:posts }}
 	 *
 	 * @param	array
@@ -161,45 +161,128 @@ class Plugin_Blog extends Plugin
 	 */
 	public function posts()
 	{
-		$limit     = $this->attribute('limit', 10);
-		$offset    = $this->attribute('offset', 0);
-		$category  = $this->attribute('category');
-		$order_by  = $this->attribute('order-by', 'created_on');
-		$order_dir = $this->attribute('order-dir', 'ASC');
+		$this->load->driver('Streams');
 
-		if ($category)
+		// Get all of our default entry items:
+		$params = $this->streams->entries->entries_params;
+
+		// Override them with some settings
+		// that should be these values:
+		$overrides = array(
+			'stream'		=> 'blog',
+			'namespace'		=> 'blogs',
+			'where'			=> array("`status` = 'live'"),
+			'order_by'		=> 'created_on',
+			'sort'			=> 'desc',
+			'show_past'		=> 'no',
+			'date_by'		=> 'created_on',
+			'limit'			=> $this->attribute('limit', 10),
+			'offset'		=> $this->attribute('offset')
+		);
+		foreach ($overrides as $k => $v)
 		{
-			$categories = explode('|', $category);
-			$category = array_shift($categories);
+			$params[$k] = $v;
+		}
 
-			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+		// Convert our two non-matching posts params to their
+		// stream counterparts. This is for backwards compatability.
 
-			foreach($categories as $category)
+		// Order by
+		if ($this->attribute('order-by')) {
+			$params['order_by'] = $this->attribute('order-by');
+		}
+		elseif ($this->attribute('order_by')) {
+			$params['order_by'] = $this->attribute('order_by');
+		}
+
+		// Sort
+		if ($this->attribute('order-dir')) {
+			$params['sort'] = $this->attribute('order-dir');
+		}
+		elseif ($this->attribute('order_by')) {
+			$params['sort'] = $this->attribute('sort');
+		}
+
+		// See if we have any attributes to contribute.
+		foreach ($this->streams->entries->entries_params as $key => $default_value)
+		{
+			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
-				$this->db->or_where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+				$params[$key] = $this->attribute($key, $default_value);
 			}
 		}
 
-		$posts = $this->db
-			->select('blog.*')
-			->select('blog_categories.title as category_title, blog_categories.slug as category_slug')
-			->select('p.display_name as author_name')
-			->where('status', 'live')
-			->where('created_on <=', now())
-			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
-			->join('profiles p', 'blog.author_id = p.user_id', 'left')
-			->order_by('blog.' . $order_by, $order_dir)
-			->limit($limit,$offset)
-			->get('blog')
-			->result();
-		$i = 1;
-		foreach ($posts as &$post)
+		// Categories
+		// We need to filter by certain categories
+		if ($category_string = $this->attribute('category'))
 		{
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
-			$post->count = $i++;
+			$categories = explode('|', $category_string);
+			$cate_filter_by = array();
+
+			foreach($categories as $category)
+			{
+				$cate_filter_by[] = '`'.$this->db->dbprefix('blog_categories').'`.`'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
+			}
+
+			if ($cate_filter_by)
+			{
+				$params['where'][] = implode(' OR ', $cate_filter_by);
+			}
+		}
+
+		// Extra join and selects for categories.
+		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.title', true)." as 'category_title'";
+		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.slug', true)." as 'category_slug'";
+		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.title', true)." as 'category||title'";
+		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.slug', true)." as 'category||slug'";
+		$this->row_m->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('blog_categories', true).' ON '.$this->db->protect_identifiers('blog_categories.id', true).' = '.$this->db->protect_identifiers('blog.category_id', true);
+
+		// Get our posts.
+		$posts = $this->streams->entries->get_entries($params);
+
+		if ($posts['entries'])
+		{		
+			// Process posts.
+			// Each post needs some special treatment.
+			foreach ($posts['entries'] as &$post)
+			{
+				$this->load->helper('text');
+
+				// Keywords array
+				$keywords = Keywords::get($post['keywords']);
+				$formatted_keywords = array();
+				$keywords_arr = array();
+
+				foreach ($keywords as $key)
+				{
+					$formatted_keywords[] 	= array('keyword' => $key->name);
+					$keywords_arr[] 		= $key->name;
+
+				}
+				$post['keywords'] = $formatted_keywords;
+				$post['keywords_arr'] = $keywords_arr;
+
+				// Full URL for convenience.
+				$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+			
+				// What is the preview? If there is a field called intro,
+				// we will use that, otherwise we will cut down the blog post itself.
+				$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
+			}
 		}
 		
-		return $posts;
+		// {{ entries }} Bypass.
+		// However, users can use {{ entries }} if using pagination.
+		$loop = false;
+
+		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
+		{
+			$posts = $posts['entries'];
+			$loop = true;
+		}
+
+		// Return our content.	
+		return $this->streams->parse->parse_tag_content($this->content(), $posts, 'blog', 'blogs', $loop);
 	}
 
 	/**
@@ -315,5 +398,3 @@ class Plugin_Blog extends Plugin
 	}
 		
 }
-
-/* End of file plugin.php */

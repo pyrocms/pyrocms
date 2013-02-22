@@ -23,9 +23,8 @@ class Blog extends Public_Controller
 
 		$this->load->driver('Streams');
 
-		// This is a temp beta solution to
-		// the issue of categories not being a field type.
-		// Don't judge me.
+		// We are going to get all the categories so we can
+		// easily access them later when processing posts.
 		$cates = $this->db->get('blog_categories')->result_array();
 		$this->categories = array();
 	
@@ -233,11 +232,13 @@ class Blog extends Public_Controller
 		$this->template->set_metadata('index', 'nofollow');
 
 		$this->_single_view($post);
-
 	}
 
 	/**
-	 * @todo Document this.
+	 * Tagged Posts
+	 *
+	 * Displays blog posts tagged with a
+	 * tag (pulled from the URI)
 	 *
 	 * @param string $tag
 	 */
@@ -297,7 +298,6 @@ class Blog extends Public_Controller
 	 * Process data that was not part of the 
 	 * initial streams call.
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function _process_post(&$post)
@@ -337,7 +337,7 @@ class Blog extends Public_Controller
 	 *
 	 * @param array $posts
 	 *
-	 * @return array
+	 * @return array keywords and description
 	 */
 	private function _posts_metadata(&$posts = array())
 	{

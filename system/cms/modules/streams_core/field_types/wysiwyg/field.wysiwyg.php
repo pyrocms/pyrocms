@@ -60,7 +60,7 @@ class Field_wysiwyg
 		// that I'm sure a few sites are utilizing.
 		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
 
-		$parse_tags = ( ! isset($params['allow_tags'])) ? 'y' : $params['allow_tags'];
+		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
@@ -131,10 +131,13 @@ class Field_wysiwyg
 	public function param_allow_tags($value = null)
 	{
 		$options = array(
-			'y'	=> lang('global:yes'),
-			'n'	=> lang('global:no')
+			'n'	=> lang('global:no'),
+			'y'	=> lang('global:yes')
 		);
 	
+		// Defaults to No
+		$value = ($value) ? $value : 'n';
+
 		return form_dropdown('allow_tags', $options, $value);
 	}	
 

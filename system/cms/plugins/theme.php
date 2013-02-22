@@ -11,7 +11,7 @@
 class Plugin_Theme extends Plugin
 {
 
-	public $version = '1.0.0';
+	public $version = '1.1.0';
 	public $name = array(
 		'en' => 'Theme',
 	);
@@ -71,16 +71,23 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ theme:partial name="header" }}
+	 *     {{ theme:partial name="header" any_random_data="foo" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
 	{
-		$name = $this->attribute('name');
+		$attributes = $this->attributes();
+
+		if (empty($attributes['name'])) {
+			throw new Exception('Attributes must have a name="" attribute.');
+		}
+
+		$name = $attributes['name'];
+		unset($attributes['name']);
 
 		$path = $this->load->get_var('template_views');
-		$data = $this->load->get_vars();
+		$data = array_merge($this->load->get_vars(), $attributes);
 
 		$string = $this->load->file($path . 'partials/' . $name . '.html', true);
 
@@ -330,10 +337,14 @@ class Plugin_Theme extends Plugin
 	 * Theme Favicon
 	 *
 	 * Insert a link tag for favicon from your theme
-	 *
+     *
+     * Specs:
+     *
+     *     http://www.w3.org/TR/html5/links.html#rel-icon
+     *
 	 * Usage:
 	 *
-	 *     {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
+	 *     {{ theme:favicon file="" [rel="foo"] [type="bar"] [sizes="16x16 72x72 …"] }}
 	 *
 	 * @return string The link HTML tag for the favicon.
 	 */
@@ -343,12 +354,14 @@ class Plugin_Theme extends Plugin
 		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
 		$rel      = $this->attribute('rel', 'shortcut icon');
+		$sizes    = $this->attribute('sizes', '');
 		$type     = $this->attribute('type', 'image/x-icon');
 		$is_xhtml = str_to_bool($this->attribute('xhtml', true));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';
 		$link .= 'rel="' . $rel . '" ';
+		$link .= $sizes ? 'sizes="' . $sizes . '" ' : '';
 		$link .= 'type="' . $type . '" ';
 		$link .= ($is_xhtml ? '/' : '') . '>';
 

@@ -803,6 +803,15 @@ class Row_m extends MY_Model {
 			$where = rtrim(')');
 		}
 
+		// Does this already have a specific table
+		// that we are calling out for this where statement?
+		// If so, then let's just forget about and return
+		// the statement as is.
+		if (strpos($where, '`.`') !== false)
+		{
+			return '('.$where.')';
+		}
+
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
 

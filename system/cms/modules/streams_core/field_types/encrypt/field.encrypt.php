@@ -50,7 +50,11 @@ class Field_encrypt
 	{
 		$this->CI->load->library('encrypt');
 		
-		return $this->CI->encrypt->decode($input);
+		$out = $this->CI->encrypt->decode($input);
+	
+		// No PyroCMS tags in your ouput!
+		$this->CI->load->helper('text');
+		return escape_tags($out);
 	}
 
 	// --------------------------------------------------------------------------

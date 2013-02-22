@@ -414,7 +414,7 @@ class Streams_cp extends CI_Driver {
 	 *			$extra['title'] = 'Streams Sample';
 	 * 
 	 * show_cancel - bool. Show the cancel button or not?
-	 * cancel_url - url or uri to link to for cancel button
+	 * cancel_url - uri to link to for cancel button
 	 *
 	 * see docs for more.
 	 */
@@ -762,6 +762,10 @@ class Streams_cp extends CI_Driver {
 		{
 			$CI->template->title($extra['title']);
 		}
+
+		// Set the cancel URI. If there is no cancel URI, then we won't
+		// have a cancel button.
+		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
 
 		$table = $CI->load->view('admin/partials/streams/field_form', $data, true);
 		

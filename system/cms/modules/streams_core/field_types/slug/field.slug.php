@@ -42,6 +42,36 @@ class Field_slug
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Pre Save
+	 *
+	 * No PyroCMS tags in slug fields.
+	 *
+	 * @return string
+	 */
+	public function pre_save($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output
+	 *
+	 * No PyroCMS tags in slugs.
+	 *
+	 * @return string
+	 */
+	public function pre_output($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Output form input
 	 *
 	 * @access	public

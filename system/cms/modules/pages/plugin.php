@@ -232,7 +232,7 @@ class Plugin_Pages extends Plugin
 	public function children()
 	{
 		$limit			= $this->attribute('limit', 10);
-		$order_by 		= $this->attribute('order-by', 'title');
+		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
 		$page_types 	= $this->attribute('include_types');
 

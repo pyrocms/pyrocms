@@ -19,7 +19,7 @@ class Field_image
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.2.0';
+	public $version					= '1.3.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
@@ -133,7 +133,7 @@ class Field_image
 		if ( ! $image) return null;
 
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$image->filename.'" title="'.$image->filename.'" />';
+		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$this->obvious_alt($image).'" />';
 	}
 
 	// --------------------------------------------------------------------------
@@ -174,9 +174,14 @@ class Field_image
 				$image_data['image'] = str_replace('{{ url:site }}', base_url(), $image->path);
 			}
 
+			// For <img> tags only
+			$alt = $this->obvious_alt($image);
+
 			$image_data['filename']			= $image->filename;
 			$image_data['name']				= $image->name;
-			$image_data['img']				= img(array('alt' => $image->name, 'src' => $image_data['image']));
+			$image_data['alt']				= $image->alt_attribute;
+			$image_data['description']		= $image->description;
+			$image_data['img']				= img(array('alt' => $alt, 'src' => $image_data['image']));
 			$image_data['ext']				= $image->extension;
 			$image_data['mimetype']			= $image->mimetype;
 			$image_data['width']			= $image->width;
@@ -189,7 +194,7 @@ class Field_image
 			$image_data['folder_name']		= $image->folder_name;
 			$image_data['folder_slug']		= $image->folder_slug;
 			$image_data['thumb']			= site_url('files/thumb/'.$input);
-			$image_data['thumb_img']		= img(array('alt' => $image->name, 'src'=> site_url('files/thumb/'.$input)));
+			$image_data['thumb_img']		= img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
 
 			return $image_data;
 		}
@@ -295,4 +300,24 @@ class Field_image
 				'instructions'	=> lang('streams:image.allowed_types_instr'));
 	}
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Obvious alt attribute for <img> tags only
+	 *
+	 * @access	private
+	 * @param	obj
+	 * @return	string
+	 */
+	private function obvious_alt($image)
+	{
+		if ($image->alt_attribute) {
+			return $image->alt_attribute;
+		}
+		if ($image->description) {
+			return $image->description;
+		}
+		return $image->name;
+	}
+
 }

@@ -43,5 +43,19 @@ class Field_text
 		
 		return form_input($options);
 	}
-	
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output
+	 *
+	 * No PyroCMS tags in text input fields.
+	 *
+	 * @return string
+	 */
+	public function pre_output($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
 }
