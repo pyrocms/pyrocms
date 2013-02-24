@@ -43,11 +43,6 @@ class Page_m extends MY_Model
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
-			'field'	=> 'meta_keywords',
-			'label' => 'lang:pages:meta_keywords_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
 			'field'	=> 'meta_description',
 			'label'	=> 'lang:pages:meta_description_label',
 			'rules'	=> 'trim'
@@ -97,6 +92,14 @@ class Page_m extends MY_Model
 				'field' => 'comments_enabled',
 				'label'	=> 'lang:pages:comments_enabled_label',
 				'rules'	=> 'trim'
+			);
+		}
+		if (module_enabled('keywords'))
+		{
+			$this->validate[] = array(
+				'field'	=> 'meta_keywords',
+				'label' => 'lang:pages:meta_keywords_label',
+				'rules' => 'trim|max_length[250]'
 			);
 		}
 		if (module_enabled('permissions'))
