@@ -930,7 +930,7 @@ class Row_m extends MY_Model {
 			->select('users.id as created_by_user_id')
 			->select('users.email as created_by_email')
 			->take(1)
-			->leftJoin('users', 'users.id = '.$stream_table.'.created_by')
+			->leftJoin('users', 'users.id', '=',$stream_table.'.created_by')
 			->where($stream_table.'.id', $id)
 			->first();
 		

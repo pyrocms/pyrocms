@@ -936,7 +936,7 @@ class Files
 
 		foreach (ci()->module_m->roles('files') as $value) {
 			// build a simplified permission list for use in this module
-			if (isset(ci()->permissions['files']) and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin') {
+			if ($this->current_user->hasAccess('files') and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->isSuperUser() {
 				$allowed_actions[] = $value;
 			}
 		}
