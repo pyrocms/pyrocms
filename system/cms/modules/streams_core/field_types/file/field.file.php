@@ -39,7 +39,7 @@ class Field_file
 		$this->CI->load->config('files/files');
 
 		// Get the file
-		if ($params['value'] && $params['value'] !== 'cleared')
+		if ($params['value'])
 		{
 			$current_file = $this->CI->db
 							->where('id', $params['value'])
