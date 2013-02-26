@@ -1,6 +1,7 @@
 <?php 
 
 use Pyro\Module\Groups;
+use Pyro\Module\Navigation;
 use Pyro\Module\Pages;
 
 /**
@@ -91,7 +92,6 @@ class Admin extends Admin_Controller {
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('navigation_m');
 		$this->lang->load('navigation');
 
 		$this->template
@@ -99,8 +99,8 @@ class Admin extends Admin_Controller {
 			->append_css('module::navigation.css');
 
 		// Get Navigation Groups
-		$this->template->groups 		= $this->navigation_m->get_groups();
-		$this->template->groups_select 	= array_for_select($this->template->groups, 'id', 'title');
+		$this->template->groups 		= Navigation\Model\Group::all();
+		$this->template->groups_select 	= Navigation\Model\Group::getGroupOptions();
 		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller {
 		// Go through all the groups
 		foreach ($this->template->groups as $group) {
 			//... and get navigation links for each one
-			$navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
+			$navigation[$group->id] = Navigation\Model\Link::getTreeByGroup($group->id);
 		}
 
 		// Create the layout
@@ -160,20 +160,13 @@ class Admin extends Admin_Controller {
 
 		if (is_array($order))
 		{
-			//reset all parent > child relations
-			$this->navigation_m->update_by_group($group, array('parent' => 0));
-
-			foreach ($order as $i => $link)
-			{
-				//set the order of the root links
-				$this->navigation_m->update_by('id', str_replace('link_', '', $link['id']), array('position' => $i));
-
-				//iterate through children and set their order and parent
-				$this->navigation_m->_set_children($link);
-			}
+			Navigation\Model\Link::setOrder($order, $group);
 
 			$this->cache->clear('navigation_m');
-			Events::trigger('post_navigation_order', array($order, $group));
+			Events::trigger('post_navigation_order', array(
+				'order' => $order, 
+				'group' => $group
+			));
 		}
 	}
 
@@ -184,7 +177,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function ajax_link_details($link_id)
 	{
-		$link = $this->navigation_m->get_url($link_id);
+		$link = Navigation\Model\Link::getUrl($link_id);
 
 		$ids = explode(',', $link->restricted_to);
 
@@ -216,11 +209,11 @@ class Admin extends Admin_Controller {
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 			// Got post?
-			if ($this->navigation_m->insert_link($input) > 0)
+			if ($link = Navigation\Model\Link::create($input))
 			{
 				$this->cache->clear('navigation_m');
 
-				Events::trigger('post_navigation_create', $input);
+				Events::trigger('post_navigation_create', $link);
 
 				$this->session->set_flashdata('success', lang('nav:link_add_success'));
 
@@ -279,7 +272,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Get the navigation item based on the ID
-		$link = $this->navigation_m->get_link($id);
+		$link = Navigation\Model\Link::find($id);
 
 		// Set the options for restricted to
 		$group_options = Groups\Model\Group::getGroupOptions();
@@ -298,10 +291,10 @@ class Admin extends Admin_Controller {
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 			// Update the link and flush the cache
-			$this->navigation_m->update_link($id, $input);
+			Navigation\Model\Link::update($id, $input);
 			$this->cache->clear('navigation_m');
 
-			Events::trigger('post_navigation_edit', $input);
+			Events::trigger('post_navigation_edit', array($id => $input));
 
 			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
 
@@ -347,7 +340,7 @@ class Admin extends Admin_Controller {
 		{
 			foreach ($id_array as $id)
 			{
-				$this->navigation_m->delete_link($id);
+				Navigation\Model\Link::deleteLinkChildren($id);
 			}
 
 			Events::trigger('post_navigation_delete', $id_array);
@@ -382,7 +375,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $tree)
 		{
-			if ($pages = $this->db->select('id, parent_id, title')->get('pages')->result())
+			if ($pages = Pages\Model\Page::all())
 			{
 				foreach($pages as $page)
 				{
