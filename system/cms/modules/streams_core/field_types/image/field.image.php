@@ -47,7 +47,7 @@ class Field_image
 
 		$out = '';
 		// if there is content and it is not dummy or cleared
-		if ($params['value'] and $params['value'] != 'dummy' and $params['value'] != 'cleared')
+		if ($params['value'] and $params['value'] != 'dummy')
 		{
 			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
 			$out .= form_hidden($params['form_slug'], $params['value']);
@@ -81,7 +81,8 @@ class Field_image
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug] and $form_data[$field->field_slug] != 'dummy')
+			// allow dummy as a reset
+			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug])
 			{
 				return $form_data[$field->field_slug];
 			}
