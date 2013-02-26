@@ -71,7 +71,8 @@ class Module_Pages extends Module
 			'menu'	  => 'content',
 
 			'roles' => array(
-				'put_live', 'edit_live', 'delete_live'
+				'put_live', 'edit_live', 'delete_live',
+                'create_types', 'edit_types', 'delete_types'
 			),
 
 			'sections' => array(
