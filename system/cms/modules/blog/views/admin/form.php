@@ -86,12 +86,12 @@
 						[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"') ?> ]
 					</div>
 				</li>
-				<?php if (module_enabled('keywords')): ?>
-					<li>
-						<label for="keywords"><?php echo lang('global:keywords') ?></label>
-						<div class="input"><?php echo form_input('keywords', $post->keywords, 'id="keywords"') ?></div>
-					</li>
-				<?php endif; ?>
+	
+				<li>
+					<label for="keywords"><?php echo lang('global:keywords') ?></label>
+					<div class="input"><?php echo form_input('keywords', $post->keywords, 'id="keywords"') ?></div>
+				</li>
+	
 				<li class="date-meta">
 					<label><?php echo lang('blog:date_label') ?></label>
 	
@@ -101,22 +101,21 @@
 						<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 					</div>
 				</li>
-				<?php if (module_enabled('comments')): ?>
-					<li>
-						<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
-						<div class="input">
-							<?php echo form_dropdown('comments_enabled', array(
-								'no' => lang('global:no'),
-								'1 day' => lang('global:duration:1-day'),
-								'1 week' => lang('global:duration:1-week'),
-								'2 weeks' => lang('global:duration:2-weeks'),
-								'1 month' => lang('global:duration:1-month'),
-								'3 months' => lang('global:duration:3-months'),
-								'always' => lang('global:duration:always'),
-							), $post->comments_enabled ? $post->comments_enabled : '3 months') ?>
-						</div>
-					</li>
-				<?php endif; ?>
+	
+				<li>
+					<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
+					<div class="input">
+						<?php echo form_dropdown('comments_enabled', array(
+							'no' => lang('global:no'),
+							'1 day' => lang('global:duration:1-day'),
+							'1 week' => lang('global:duration:1-week'),
+							'2 weeks' => lang('global:duration:2-weeks'),
+							'1 month' => lang('global:duration:1-month'),
+							'3 months' => lang('global:duration:3-months'),
+							'always' => lang('global:duration:always'),
+						), $post->comments_enabled ? $post->comments_enabled : '3 months') ?>
+					</div>
+				</li>
 			</ul>
 		</fieldset>
 	</div>

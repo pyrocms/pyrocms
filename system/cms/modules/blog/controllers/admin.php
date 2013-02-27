@@ -27,6 +27,11 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|numeric'
 		),
 		array(
+			'field' => 'keywords',
+			'label' => 'lang:global:keywords',
+			'rules' => 'trim'
+		),
+		array(
 			'field' => 'body',
 			'label' => 'lang:blog:content_label',
 			'rules' => 'trim|required'
@@ -56,6 +61,11 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|numeric|required'
 		),
 		array(
+			'field' => 'comments_enabled',
+			'label' => 'lang:blog:comments_enabled_label',
+			'rules' => 'trim|required'
+		),
+		array(
 			'field' => 'preview_hash',
 			'label' => '',
 			'rules' => 'trim'
@@ -64,7 +74,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Every time this controller controller is called should:
-	 * - set some more validation rules depending on enabled corresponding modules
 	 * - load the blog and blog_categories models
 	 * - load the keywords and form validation libraries
 	 * - set the hours, minutes and categories template variables.
@@ -72,23 +81,6 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		if (module_enabled('comments'))
-		{
-			$this->validation_rules[] = array(
-				'field' => 'comments_enabled',
-				'label' => 'lang:blog:comments_enabled_label',
-				'rules' => 'trim|required'
-			);
-		}
-		if (module_enabled('keywords'))
-		{
-			$this->validation_rules[] = array(
-				'field' => 'keywords',
-				'label' => 'lang:global:keywords',
-				'rules' => 'trim'
-			);
-		}
 
 		$this->load->model(array('blog_m', 'blog_categories_m'));
 		$this->lang->load(array('blog', 'categories'));
@@ -214,7 +206,7 @@ class Admin extends Admin_Controller
 				'status'           => $this->input->post('status'),
 				'created_on'       => $created_on,
 				'created'		   => date('Y-m-d H:i:s', $created_on),
-				'comments_enabled' => !is_null($this->input->post('comments_enabled')) ? $this->input->post('comments_enabled') : 'no',
+				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $this->current_user->id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
@@ -351,7 +343,7 @@ class Admin extends Admin_Controller
 				'updated_on'       => $created_on,
 				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'updated'		   => date('Y-m-d H:i:s', $created_on),
-				'comments_enabled' => !is_null($this->input->post('comments_enabled')) ? $this->input->post('comments_enabled') : 'no',
+				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
