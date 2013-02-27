@@ -1107,7 +1107,7 @@ class Row_m extends MY_Model {
 		{
 			if ( ! $plugin_call and method_exists($this->type->types->{$type_slug}, 'alt_pre_output'))
 			{
-				$this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
+				return $this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
 			}
 			
 			return $column_data;
