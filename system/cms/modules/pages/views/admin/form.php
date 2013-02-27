@@ -166,18 +166,16 @@
 				<fieldset>
 	
 				<ul>
-					<?php if (module_enabled('permissions')) : ?>
-						<li>
-							<label for="restricted_to[]"><?php echo lang('pages:access_label') ?></label>
-							<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
-						</li>
-					<?php endif; ?>
-					<?php if (module_enabled('comments')) : ?>
-						<li>
-							<label for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
-							<div class="input"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
-						</li>
-					<?php endif; ?>
+					<li>
+						<label for="restricted_to[]"><?php echo lang('pages:access_label') ?></label>
+						<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
+					</li>
+									
+					<li>
+						<label for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
+						<div class="input"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
+					</li>
+									
 					<li>
 						<label for="rss_enabled"><?php echo lang('pages:rss_enabled_label') ?></label>
 						<div class="input"><?php echo form_checkbox('rss_enabled', true, $page->rss_enabled == true, 'id="rss_enabled"') ?></div>

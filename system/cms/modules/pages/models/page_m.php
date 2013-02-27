@@ -53,8 +53,18 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim'
 		),
 		array(
+			'field' => 'restricted_to[]',
+			'label'	=> 'lang:pages:access_label',
+			'rules'	=> 'trim|required'
+		),
+		array(
 			'field' => 'rss_enabled',
 			'label'	=> 'lang:pages:rss_enabled_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:pages:comments_enabled_label',
 			'rules'	=> 'trim'
 		),
 		array(
@@ -85,29 +95,6 @@ class Page_m extends MY_Model
 	public $compiled_validate = array();
 
     // --------------------------------------------------------------------------
-
-	public function __construct()
-	{
-		parent::__construct();
-
-		// Add some more validation rules if some of the modules are enabled
-		if (module_enabled('comments'))
-		{
-			$this->validate[] = array(
-				'field' => 'comments_enabled',
-				'label'	=> 'lang:pages:comments_enabled_label',
-				'rules'	=> 'trim'
-			);
-		}
-		if (module_enabled('permissions'))
-		{
-			$this->validate[] = array(
-				'field' => 'restricted_to[]',
-				'label'	=> 'lang:pages:access_label',
-				'rules'	=> 'trim|required'
-			);
-		}
-	}
 
 	/**
 	 * Get a page by its URI
