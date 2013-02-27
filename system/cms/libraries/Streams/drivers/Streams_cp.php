@@ -255,7 +255,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$CI->template->title($extra['title']);
+			$CI->template->title(lang_label($extra['title']));
 		}
 
 		// Set custom no data message
