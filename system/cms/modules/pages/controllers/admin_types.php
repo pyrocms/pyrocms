@@ -134,6 +134,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function create()
 	{
+		role_or_die('pages', 'create_types');
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
@@ -302,6 +304,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
+		role_or_die('pages', 'edit_types');
+
 		// Unset validation rules of required fields that are not included in the edit form
 		unset($this->validation_rules[1]);
 		unset($this->validation_rules[3]);
@@ -574,6 +578,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('pages', 'delete_types');
+
 		empty($id) and redirect('admin/pages/types');
 
 		$page_type = $this->page_type_m->get($id);
