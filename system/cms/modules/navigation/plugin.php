@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Navigation;
+
 /**
  * Navigation Plugin
  *
@@ -78,10 +81,8 @@ class Plugin_Navigation extends Plugin
 
 		is_numeric($group_segment) and $group = $this->uri->segment($group_segment);
 
-		$this->load->model('navigation_m');
-
 		// TODO Cache me please
-		$links = $this->navigation_m->get_link_tree($group, array(
+		$links = Navigation\Model\Link::getTreeByGroup($group, array(
 
 			// TODO Rethink group logic for sentry
 			'user_group' => ($this->current_user and isset($this->current_user->group)) ? $this->current_user->group : false,
@@ -96,7 +97,7 @@ class Plugin_Navigation extends Plugin
 	/**
 	 * Builds the Page Tree into HTML
 	 * 
-	 * @param array $links      Page Tree array from `navigation_m->get_link_tree`
+	 * @param array $links      Page Tree array from `Link::getTreeByGroup`
 	 * @param bool  $return_arr Return as an Array instead of HTML
 	 * @return array|string
 	 */
