@@ -1041,12 +1041,12 @@ class Row_m extends MY_Model {
 					if ($return_object)
 					{
 						$row->$row_slug = $this->format_column($row_slug,
-							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
 					}
 					else
 					{
 						$row[$row_slug] = $this->format_column($row_slug,
-							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
 					}
 				}
 			}
