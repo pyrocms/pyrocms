@@ -283,7 +283,7 @@ class MY_Controller extends MX_Controller
         // If we've been redirected from HTTP to HTTPS on admin, ?session= will be set to maintain language
         if ($_SERVER['SERVER_PORT'] == 443 and ! empty($_GET['session'])) {
             session_start($_GET['session']);
-        } else {
+        } else if ( ! isset($_SESSION)) {
             session_start();
         }
 
@@ -360,8 +360,11 @@ class MY_Controller extends MX_Controller
         $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
         // Sets a constant to use throughout ALL of CI.
-        define('AUTO_LANGUAGE', $lang);
-
+        if ( ! defined('AUTO_LANGUAGE'))
+        {
+            define('AUTO_LANGUAGE', $lang);    
+        }
+        
         log_message('debug', 'Defined const AUTO_LANGUAGE: '.AUTO_LANGUAGE);
     }
 }
