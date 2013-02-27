@@ -1,5 +1,5 @@
 <section class="title">
-	<?php if(isset($template['page_title'])) { echo '<h4>'.$template['page_title'].'</h4>'; } ?>
+	<?php if(isset($template['page_title'])) { echo '<h4>'.lang_label($template['page_title']).'</h4>'; } ?>
 </section>
 
 <section class="item">
