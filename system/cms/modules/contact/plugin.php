@@ -251,7 +251,7 @@ class Plugin_Contact extends Plugin
 			}
 
 			$validation[$field]['field'] = $field;
-			$validation[$field]['label'] = ucfirst($field);
+			$validation[$field]['label'] = humanize($field);
 			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
@@ -381,6 +381,7 @@ class Plugin_Contact extends Plugin
 				}
 	
 				$this->session->set_flashdata('success', $message);
+				Events::trigger('contact_form_success', $_POST);
 				redirect( ($redirect ? $redirect : current_url()) );
 			}
 		}

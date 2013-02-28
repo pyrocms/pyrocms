@@ -511,6 +511,17 @@ class Streams_cp extends CI_Driver {
 		}
 
 		// -------------------------------------
+		// Should we should the set as title
+		// column checkbox?
+		// -------------------------------------
+
+		if (isset($extra['allow_title_column_set']) and $extra['allow_title_column_set'] === true) {
+			$data['allow_title_column_set'] = true;
+		} else {
+			$data['allow_title_column_set'] = false;
+		}
+
+		// -------------------------------------
 		// Cancel Button
 		// -------------------------------------
 
@@ -589,11 +600,9 @@ class Streams_cp extends CI_Driver {
 
 		if ($CI->form_validation->run())
 		{
-
 			$post_data = $CI->input->post();
 
 			// Set custom data from $skips param
-
 			if (count($skips) > 0)
 			{	
 				foreach ($skips as $skip)
@@ -742,6 +751,25 @@ class Streams_cp extends CI_Driver {
 			else
 			{
 				$data['field']->{$field['field']} = $CI->input->post($field['field']);
+			}
+		}
+
+		// Repopulate title column set
+		$data['title_column_status'] = false;
+
+		if ($data['allow_title_column_set'] and $method == 'edit') {
+
+			if ($stream->title_column and $stream->title_column == $CI->input->post('title_column')) {
+				$data['title_column_status'] = true;
+			}
+			elseif ($stream->title_column and $stream->title_column == $data['current_field']->field_slug) {
+				$data['title_column_status'] = true;
+			}
+			
+		} elseif ($data['allow_title_column_set'] and $method == 'new' and $_POST) {
+
+			if ($CI->input->post('title_column')) {
+				$data['title_column_status'] = true;
 			}
 		}
 

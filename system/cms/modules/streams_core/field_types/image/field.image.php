@@ -12,7 +12,7 @@
 class Field_image
 {
 	public $field_type_slug			= 'image';
-	
+
 	// Files are saved as 15 character strings.
 	public $db_col_type				= 'char';
 	public $col_constraint 			= 15;
@@ -26,12 +26,12 @@ class Field_image
 	public $input_is_file			= true;
 
 	// --------------------------------------------------------------------------
-	
+
 	public function __construct()
 	{
 		get_instance()->load->library('image_lib');
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -44,12 +44,12 @@ class Field_image
 	public function form_output($params)
 	{
 		$this->CI->load->config('files/files');
-		
+
 		$out = '';
-		
+		// if there is content and it is not dummy or cleared
 		if ($params['value'] and $params['value'] != 'dummy')
 		{
-			$out .= '<a href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
+			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
 			$out .= form_hidden($params['form_slug'], $params['value']);
 		}
 		else
@@ -59,7 +59,8 @@ class Field_image
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
-		
+		$this->CI->type->add_js('image', 'imagefield.js');
+		$this->CI->type->add_css('image', 'imagefield.css');
 		return $out .= form_upload($options);
 	}
 
@@ -80,7 +81,8 @@ class Field_image
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug] and $form_data[$field->field_slug] != 'dummy')
+			// allow dummy as a reset
+			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug])
 			{
 				return $form_data[$field->field_slug];
 			}
@@ -104,7 +106,7 @@ class Field_image
 
 		if ( ! $return['status'])
 		{
-			$this->CI->session->set_flashdata('notice', $return['message']);	
+			$this->CI->session->set_flashdata('notice', $return['message']);
 			return null;
 		}
 		else
@@ -122,13 +124,13 @@ class Field_image
 	 * @access	public
 	 * @param	array
 	 * @return	string
-	 */	
+	 */
 	public function pre_output($input, $params)
 	{
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
-		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
+		$image = $this->CI->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
 
 		if ( ! $image) return null;
 
@@ -156,13 +158,13 @@ class Field_image
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		$this->CI->load->library('files/files');
-	
+
 		$file = Files::get_file($input);
-		
+
 		if ($file['status'])
 		{
 			$image = $file['data'];
-		
+
 			// If we don't have a path variable, we must have an
 			// older style image, so let's create a local file path.
 			if ( ! $image->path)
@@ -208,33 +210,33 @@ class Field_image
 	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
-	 */	
+	 */
 	public function param_folder($value = null)
 	{
 		// Get the folders
 		$this->CI->load->model('files/file_folders_m');
-		
+
 		$tree = $this->CI->file_folders_m->get_folders();
-		
+
 		$tree = (array)$tree;
-		
+
 		if ( ! $tree)
 		{
 			return '<em>'.lang('streams:image.need_folder').'</em>';
 		}
-		
+
 		$choices = array();
-		
+
 		foreach ($tree as $tree_item)
 		{
 			// We are doing this to be backwards compat
-			// with PyroStreams 1.1 and below where 
+			// with PyroStreams 1.1 and below where
 			// This is an array, not an object
 			$tree_item = (object)$tree_item;
-			
+
 			$choices[$tree_item->id] = $tree_item->name;
 		}
-	
+
 		return form_dropdown('folder', $choices, $value);
 	}
 
@@ -299,7 +301,7 @@ class Field_image
 				'input'			=> form_input('allowed_types', $value),
 				'instructions'	=> lang('streams:image.allowed_types_instr'));
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
