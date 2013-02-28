@@ -6,6 +6,9 @@
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Settings\Controllers
  */
+
+use Pyro\Module\Settings\Model\Setting;
+
 class Admin extends Admin_Controller {
 
 	/**
@@ -24,7 +27,6 @@ class Admin extends Admin_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('setting_m');
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
@@ -41,7 +43,7 @@ class Admin extends Admin_Controller {
 	{
 		$setting_language = array();
 		$setting_sections = array();
-		$settings = $this->setting_m->getGui();
+		$settings = Setting::getGui();
 
 		// Loop through each setting
 		foreach ($settings as $key => $setting)
@@ -202,7 +204,7 @@ class Admin extends Admin_Controller {
 		$i = 1000;
 		foreach ($keys as $keys)
 		{
-			$this->setting_m->update($keys, array(
+			Setting::update($keys, array(
 				'order' => $i--,
 			));
 		}
