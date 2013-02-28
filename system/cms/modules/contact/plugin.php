@@ -381,6 +381,7 @@ class Plugin_Contact extends Plugin
 				}
 	
 				$this->session->set_flashdata('success', $message);
+				Events::trigger('contact_form_success', $_POST);
 				redirect( ($redirect ? $redirect : current_url()) );
 			}
 		}
