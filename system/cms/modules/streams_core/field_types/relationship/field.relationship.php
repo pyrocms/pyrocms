@@ -89,6 +89,15 @@ class Field_relationship
 	{
 		$choices = array();
 
+		// We are NOT going to allow a relationship between an entry
+		// and a page using the relationship field type. This is because
+		// The structure of pages is unique so you'd only be able
+		// to access the basic page meta.
+		// Instead, please use the page field type, which is 
+		// custom made for this:
+		// https://github.com/adamfairholm/PyroStreams-Page-Field-Type
+		$this->CI->db->where('stream_namespace !=', 'pages');
+
 		// Now get our streams and add them
 		// under their namespace
 		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
