@@ -128,7 +128,7 @@ class Field_image
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
-		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
+		$image = $this->CI->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
 
 		if ( ! $image) return null;
 
