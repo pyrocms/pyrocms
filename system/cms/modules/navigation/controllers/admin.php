@@ -93,6 +93,7 @@ class Admin extends Admin_Controller {
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->lang->load('navigation');
+		$this->load->model('module_m');
 
 		$this->template
 			->append_js('module::navigation.js')
@@ -101,7 +102,7 @@ class Admin extends Admin_Controller {
 		// Get Navigation Groups
 		$this->template->groups 		= Navigation\Model\Group::all();
 		$this->template->groups_select 	= Navigation\Model\Group::getGroupOptions();
-		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
+		$all_modules = $this->module_m->get_all(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module) {
@@ -162,7 +163,7 @@ class Admin extends Admin_Controller {
 		{
 			Navigation\Model\Link::setOrder($order, $group);
 
-			$this->cache->clear('navigation_m');
+			$this->cache->clear('Link');
 			Events::trigger('post_navigation_order', array(
 				'order' => $order, 
 				'group' => $group
@@ -205,13 +206,25 @@ class Admin extends Admin_Controller {
 		// Run if valid
 		if ($this->form_validation->run())
 		{
-			$input = $this->input->post();
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+			$last_position = Navigation\Model\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
 
-			// Got post?
-			if ($link = Navigation\Model\Link::create($input))
-			{
-				$this->cache->clear('navigation_m');
+			$link = Navigation\Model\Link::create(array(
+                'title'                 => $this->input->post('title'),
+	            'parent'                => $this->input->post('parent') ? $this->input->post('parent') : 0,
+	            'link_type'             => $this->input->post('link_type'),
+	            'url'                   => $this->input->post('url') ? $this->input->post('url') : '',
+	            'uri'                   => $this->input->post('uri') ? $this->input->post('uri') : '',
+	            'module_name'           => $this->input->post('module_name') ? $this->input->post('module_name') : '',
+	            'page_id'               => (int) $this->input->post('page_id'),
+	            'position'              => $last_position ? $last_position->position + 1 : 1,
+	            'target'                => $this->input->post('target') ? $this->input->post('target') : '',
+	            'class'                 => $this->input->post('class') ? $this->input->post('class') : '',
+	            'navigation_group_id'   => (int) $this->input->post('navigation_group_id'),
+	            'restricted_to'         => $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : 0
+            ));
+
+			if ($link) {
+				$this->cache->clear('Link');
 
 				Events::trigger('post_navigation_create', $link);
 
@@ -220,9 +233,7 @@ class Admin extends Admin_Controller {
 				// echo success to let the js refresh the page
 				echo 'success';
 				return;
-			}
-			else
-			{
+			} else {
 				$this->template->messages['error'] = lang('nav:link_add_error');
 
 				echo $this->load->view('admin/partials/notices', $this->template);
@@ -277,29 +288,45 @@ class Admin extends Admin_Controller {
 		// Set the options for restricted to
 		$group_options = Groups\Model\Group::getGroupOptions();
 
-		if ( ! $link)
-		{
+		if ( ! $link) {
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
 			exit($this->load->view('admin/partials/notices', compact('link', 'group_options')));
 		}
 
 		// Valid data?
-		if ($this->form_validation->run())
-		{
-			$input = $this->input->post();
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+		if ($this->form_validation->run()) {
+
+			if ($this->input->post('current_group_id') != $this->input->post('navigation_group_id')) {
+				$link->parent = 0;
+
+				Navigation\Model\Link::resetChildByParentId($id);
+			}
+
+			$link->title = $this->input->post('title');
+			$link->link_type = $this->input->post('link_type');
+			$link->url = $this->input->post('url') == 'http://' ? '' : $this->input->post('url');
+			$link->uri = $this->input->post('uri');
+			$link->module_name = $this->input->post('module_name');
+			$link->page_id = (int) $this->input->post('page_id');
+			$link->position = $this->input->post('target');
+			$link->target = $this->input->post('target');
+			$link->class = $this->input->post('class');
+			$link->navigation_group_id = (int) $this->input->post('navigation_group_id');
+			$link->restricted_to = $this->input->post('restricted_to') ? implode(',', $input['restricted_to']) : '';
 
 			// Update the link and flush the cache
-			Navigation\Model\Link::update($id, $input);
-			$this->cache->clear('navigation_m');
+			if($link->save()) {
 
-			Events::trigger('post_navigation_edit', array($id => $input));
+				$this->cache->clear('Link');
 
-			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
+				Events::trigger('post_navigation_edit', $link);
 
-			// echo success to let the js refresh the page
-			exit('success');
+				$this->session->set_flashdata('success', lang('nav:link_edit_success'));
+
+				// echo success to let the js refresh the page
+				exit('success');
+			}
 		}
 
 		// check for errors
@@ -346,7 +373,7 @@ class Admin extends Admin_Controller {
 			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
-		$this->cache->clear('navigation_m');
+		$this->cache->clear('Link');
 		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 
 		redirect('admin/navigation');

@@ -13,7 +13,7 @@ class File extends \Illuminate\Database\Eloquent\Model
      *
      * @var string
      */
-    public $table = 'files';
+    protected $table = 'files';
 
     /**
      * Disable updated_at and created_at on table
