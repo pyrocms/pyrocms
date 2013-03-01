@@ -237,7 +237,7 @@ class Fields
 						// Send Emails
 						// -------------------------------------
 						
-						if ($plugin and (isset($extra['email_notifications']) and $extra['email_notifications']))
+						if (isset($extra['email_notifications']) and $extra['email_notifications'])
 						{
 							foreach ($extra['email_notifications'] as $notify)
 							{
@@ -268,7 +268,7 @@ class Fields
 						// Send Emails
 						// -------------------------------------
 						
-						if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications'])))
+						if (isset($extra['email_notifications']) and is_array($extra['email_notifications']))
 						{
 							foreach($extra['email_notifications'] as $notify)
 							{
