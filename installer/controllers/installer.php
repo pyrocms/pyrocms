@@ -168,7 +168,7 @@ class Installer extends CI_Controller
             array(
                 'field' => 'password',
 				'label'	=> 'lang:password',
-				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+				'rules'	=> 'trim'
             ),
             array(
                 'field' => 'port',
