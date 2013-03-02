@@ -313,7 +313,7 @@ class Admin extends Admin_Controller {
 			$link->target = $this->input->post('target');
 			$link->class = $this->input->post('class');
 			$link->navigation_group_id = (int) $this->input->post('navigation_group_id');
-			$link->restricted_to = $this->input->post('restricted_to') ? implode(',', $input['restricted_to']) : '';
+			$link->restricted_to = $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : '';
 
 			// Update the link and flush the cache
 			if($link->save()) {

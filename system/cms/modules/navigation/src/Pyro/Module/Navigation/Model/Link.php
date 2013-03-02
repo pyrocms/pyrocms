@@ -26,6 +26,26 @@ class Link extends \Illuminate\Database\Eloquent\Model
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Relationship: Parent
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo('Pyro\Module\Navigation\Model\Link', 'parent');
+    }
+
+    /**
+     * Relationship: Children
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent');
+    }
     
     /**
      * Get a navigation link with all the trimmings
@@ -101,39 +121,11 @@ class Link extends \Illuminate\Database\Eloquent\Model
         
         $user_group = (isset($params['user_group'])) ? $params['user_group'] : false;
 
-        $all_links = self::getByGroupIdAndOrderByPosition($group);
+        $all_links = Link::with('children')->orderBy('position')->get();
 
-        // we must reindex the array first and build urls
         $all_links = self::makeUrlArray($all_links, $user_group, $front_end);
-        
-        $links = array();
-        foreach ($all_links as $link) {
-            $links[$link->id] = $link;
-        }
 
-        unset($all_links);
-
-        $link_array = array();
-
-        // build a multidimensional array of parent > children
-        foreach ($links as $link) {
-
-            if (array_key_exists($link->parent, $links)) {
-                // add this link to the children array of the parent link
-                $links[$link->parent]->children[] =& $links[$link->id];
-            }
-
-            if ( ! isset($links[$link->id]->children)) {
-                $links[$link->id]->children = array();
-            }
-
-            // this is a root link
-            if ( ! $link->parent) {
-                $link_array[] =& $links[$link->id];
-            }
-        }
-
-        return $link_array;
+        return $all_links;
     }
 
     /**
