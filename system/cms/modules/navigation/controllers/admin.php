@@ -209,19 +209,19 @@ class Admin extends Admin_Controller {
 			$last_position = Navigation\Model\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
 
 			$link = Navigation\Model\Link::create(array(
-                'title'                 => $this->input->post('title'),
-	            'parent'                => $this->input->post('parent') ? $this->input->post('parent') : 0,
-	            'link_type'             => $this->input->post('link_type'),
-	            'url'                   => $this->input->post('url') ? $this->input->post('url') : '',
-	            'uri'                   => $this->input->post('uri') ? $this->input->post('uri') : '',
-	            'module_name'           => $this->input->post('module_name') ? $this->input->post('module_name') : '',
-	            'page_id'               => (int) $this->input->post('page_id'),
-	            'position'              => $last_position ? $last_position->position + 1 : 1,
-	            'target'                => $this->input->post('target') ? $this->input->post('target') : '',
-	            'class'                 => $this->input->post('class') ? $this->input->post('class') : '',
-	            'navigation_group_id'   => (int) $this->input->post('navigation_group_id'),
-	            'restricted_to'         => $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : 0
-            ));
+				'title'                 => $this->input->post('title'),
+				'parent'                => $this->input->post('parent') ? $this->input->post('parent') : 0,
+				'link_type'             => $this->input->post('link_type'),
+				'url'                   => $this->input->post('url') ? $this->input->post('url') : '',
+				'uri'                   => $this->input->post('uri') ? $this->input->post('uri') : '',
+				'module_name'           => $this->input->post('module_name') ? $this->input->post('module_name') : '',
+				'page_id'               => (int) $this->input->post('page_id'),
+				'position'              => $last_position ? $last_position->position + 1 : 1,
+				'target'                => $this->input->post('target') ? $this->input->post('target') : '',
+				'class'                 => $this->input->post('class') ? $this->input->post('class') : '',
+				'navigation_group_id'   => (int) $this->input->post('navigation_group_id'),
+				'restricted_to'         => $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : 0
+			));
 
 			if ($link) {
 				$this->cache->clear('Link');
