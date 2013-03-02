@@ -241,7 +241,7 @@ class Admin extends Admin_Controller {
 
 		if($input['replace_id'] > 0)
 		{
-			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
+			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_replaced', $result['data']);
 		}
 		elseif ($input['folder_id'] and $input['name'])
