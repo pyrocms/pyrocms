@@ -86,7 +86,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
      *
      * @return void
      */
-    public static function getByGroupIdAndOrderByPosition($group_id, $direction = 'asc')
+    public static function findManyByGroupIdAndOrderByPosition($group_id, $direction = 'asc')
     {
         return static::where('navigation_group_id', '=', $group_id)->orderBy('position',$direction)->get();
     }
@@ -113,7 +113,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         // the plugin passes the abbreviation
         if ( ! is_numeric($group)) {
-            $row = Group::getGroupByAbbrev($group);
+            $row = Group::findGroupByAbbrev($group);
             $group = $row ? $row->id : null;
         }
                 

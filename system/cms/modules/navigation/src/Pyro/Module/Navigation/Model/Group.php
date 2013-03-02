@@ -50,7 +50,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      * @param string $value The value
      * @return object
      */
-    public static function getGroupByAbbrev($value)
+    public static function findGroupByAbbrev($value)
     {
         return ci()->pdb
             ->table('navigation_groups')
