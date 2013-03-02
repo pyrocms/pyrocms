@@ -121,7 +121,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
         
         $user_group = (isset($params['user_group'])) ? $params['user_group'] : false;
 
-        $all_links = Link::with('children')->orderBy('position')->get();
+        $all_links = self::with('children')->where('parent', '=', 0)->orderBy('position')->get();
 
         $all_links = self::makeUrlArray($all_links, $user_group, $front_end);
 
