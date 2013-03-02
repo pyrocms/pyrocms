@@ -50,7 +50,7 @@ class Search_index_m extends MY_Model
 		{
 			if (is_array($options['keywords']))
 			{
-				$this->db->set('keywords', impode(',', $options['keywords']));
+				$this->db->set('keywords', implode(',', $options['keywords']));
 			}
 			elseif (is_string($options['keywords']))
 			{
