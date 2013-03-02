@@ -6,6 +6,6 @@ $lang['pages:role_edit_live']   = 'تعديل الصفحات المنشورة';
 $lang['pages:role_delete_live'] = 'حذف الصفحات المنشورة';
 
 // Page Type Permissions
-$lang['pages:role_create_types'] = 'Create Types'; #translate
-$lang['pages:role_edit_types']   = 'Edit Types'; #translate
-$lang['pages:role_delete_types'] = 'Delete Types'; #translate
+$lang['pages:role_create_types'] = 'إضافة نوع صفحة';
+$lang['pages:role_edit_types']   = 'تعديل أنواع الصفحات';
+$lang['pages:role_delete_types'] = 'حذف أنواع الصفحات';
