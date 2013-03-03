@@ -73,13 +73,16 @@ class Admin extends Admin_Controller {
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
 
 		// Create pagination links
-		$total_rows = $this->comment_m->count_by($base_where);
-		$pagination = create_pagination('admin/comments/index', $total_rows);
+		// $total_rows = $this->comment_m->count_by($base_where);
+		// $pagination = create_pagination('admin/comments/index', $total_rows);
 
-		$comments = $this->comment_m
-			->limit($pagination['limit'], $pagination['offset'])
-			->order_by('comments.created_on', 'desc')
-			->get_many_by($base_where);
+		// $comments = $this->comment_m
+		// 	->limit($pagination['limit'], $pagination['offset'])
+		// 	->order_by('comments.created_on', 'desc')
+		// 	->get_many_by($base_where);
+
+		//@TODO Add pagination
+		$comments = Comment::all();
 
 		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
 
@@ -91,8 +94,8 @@ class Admin extends Admin_Controller {
 			->set('module_list', Comment::getModuleSlugs())
 			->set('content_title', $content_title)
 			->set('comments', $this->comments->process($comments))
-			->set('comments_active', $base_where['comments.is_active'])
-			->set('pagination', $pagination);
+			->set('comments_active', $base_where['comments.is_active']);
+			//->set('pagination', $pagination);
 			
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
 	}

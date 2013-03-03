@@ -23,25 +23,28 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     public $timestamps = false;
 
     /**
-     * Approve a comment
+     * Get comments based on a module item
      *
-     * @param int $id The ID of the comment to approve
-     * @return mixed
+     * @param string $module The name of the module
+     * @param int $entry_key The singular key of the entry (E.g: blog:post or pages:page)
+     * @param int $entry_id The ID of the entry
+     * @param bool $is_active Is the comment active?
+     * @return array
      */
-    public static function approve($id)
+    public static function findByEntry($module, $entry_key, $entry_id, $is_active = true)
     {
-        return parent::update($id, array('is_active' => true));
-    }
-    
-    /**
-     * Unapprove a comment
-     *
-     * @param int $id The ID of the comment to unapprove
-     * @return mixed
-     */
-    public static function unapprove($id)
-    {
-        return parent::update($id, array('is_active' => false));
+        return ci()->pdb
+            ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
+            ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
+            ->select('users.username, profiles.display_name')
+            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
+            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('comments.module', $module)
+            ->where('comments.entry_id', $entry_id)
+            ->where('comments.entry_key', $entry_key)
+            ->where('comments.is_active', $is_active)
+            ->order_by('comments.created_on', Settings::get('comment_order'))
+            ->get();
     }
 
     /**
