@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Comments\Model\Comment;
+
 /**
  *
  * @author 		PyroCMS Dev Team
@@ -46,7 +49,8 @@ class Admin extends Admin_Controller {
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->library('comments');
-		$this->load->model(array('comment_m', 'comment_blacklists_m'));
+		//TODO Remove this line...
+		//$this->load->model(array('comment_m', 'comment_blacklists_m'));
 		$this->lang->load('comments');
 
 		// Set the validation rules

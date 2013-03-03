@@ -192,6 +192,7 @@ class Comments extends Public_Controller
 	 * There are a few places where we need to repopulate
 	 * the comments.
 	 *
+	 * @access 	private
 	 * @return 	void
 	 */
 	private function _repopulate_comment()
@@ -224,30 +225,36 @@ class Comments extends Public_Controller
 			return array('status' => false, 'message' => 'You are probably a robot.');
 		}
 
-		// This can come from the user or the form
-		$author = $this->current_user ? $this->current_user->display_name : $this->input->post('name');
-		$email = $this->current_user ? $this->current_user->email : $this->input->post('email');
-		$website = (isset($this->current_user->website)) ? $this->current_user->website : $this->input->post('website');
-
 		// Check Akismet if an API key exists
 		if (Settings::get('akismet_api_key'))
 		{
-			$akismet = new Akismet(Settings::get('akismet_api_key'), BASE_URL);
+			$this->load->library('akismet');
 
-			// Check if this is spam, expect true/false or explosion
-			try {
-				$is_spam = $akismet->isSpam($this->input->post('body'), $author, $email, $website);
-			} catch (Exception $e) {
-				return array('status' => false, 'message' => $e->getMessage());
-			}
-<<<<<<< HEAD
+			$comment = array(
+				'author' => $this->current_user ? $this->current_user->display_name : $this->input->post('name'),
+				'email' => $this->current_user ? $this->current_user->email : $this->input->post('email'),
+				'website' => (isset($this->current_user->website)) ? $this->current_user->website : $this->input->post('website'),
+				'body' => $this->input->post('body')
+			);
 
-			if ($is_spam) {
+			$config = array(
+				'blog_url' => BASE_URL,
+				'api_key' => Settings::get('akismet_api_key'),
+				'comment' => $comment
+			);
+                        
+			$this->akismet->init($config);
+
+			if ($this->akismet->is_spam())
+			{
 				// @TODO Add me to language files
 				return array('status' => false, 'message' => 'Looks like this is spam. If you believe this is incorrect please contact the site administrator.');
-			}	
-=======
->>>>>>> 2.2/develop
+			}
+
+			if ($this->akismet->errors_exist())
+			{
+				return array('status' => false, 'message' => implode('<br />', $this->akismet->get_errors()));
+			}
 		}
 	
 		// Do our own blacklist check.
@@ -258,7 +265,6 @@ class Comments extends Public_Controller
 	
 		if ($this->comment_blacklists_m->is_blacklisted($blacklist))
 		{
-			// @TODO Add me to language files
 			return array('status' => false, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
 
