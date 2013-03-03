@@ -195,8 +195,6 @@ class Comments extends Public_Controller
 	{
 		// Dumb-check
 		$this->load->library('user_agent');
-		// @TODO Remove This line
-		//$this->load->model('comment_blacklists_m');
 
 		// Sneaky bot-check
 		if ($this->agent->is_robot() or $this->input->post('d0ntf1llth1s1n')) {

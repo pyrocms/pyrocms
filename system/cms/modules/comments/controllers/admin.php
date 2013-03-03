@@ -49,8 +49,6 @@ class Admin extends Admin_Controller {
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->library('comments');
-		//TODO Remove this line...
-		//$this->load->model(array('comment_m', 'comment_blacklists_m'));
 		$this->lang->load('comments');
 
 		// Set the validation rules
@@ -87,16 +85,14 @@ class Admin extends Admin_Controller {
 
 		$this->input->is_ajax_request() && $this->template->set_layout(false);
 
-		$module_list = $this->comment_m->get_slugs();
-
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('admin/filter.js')
-			->set('module_list',		$module_list)
-			->set('content_title',		$content_title)
-			->set('comments',			$this->comments->process($comments))
-			->set('comments_active',	$base_where['comments.is_active'])
-			->set('pagination',			$pagination);
+			->set('module_list', Comment::getModuleSlugs())
+			->set('content_title', $content_title)
+			->set('comments', $this->comments->process($comments))
+			->set('comments_active', $base_where['comments.is_active'])
+			->set('pagination', $pagination);
 			
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
 	}
@@ -110,14 +106,12 @@ class Admin extends Admin_Controller {
 	{
 		$action = strtolower($this->input->post('btnAction'));
 
-		if ($action)
-		{
+		if ($action) {
 			// Get the id('s)
 			$id_array = $this->input->post('action_to');
 
 			// Call the action we want to do
-			if (method_exists($this, $action))
-			{
+			if (method_exists($this, $action)) {
 				$this->{$action}($id_array);
 			}
 		}
@@ -135,42 +129,34 @@ class Admin extends Admin_Controller {
 		$id or redirect('admin/comments');
 
 		// Get the comment based on the ID
-		$comment = $this->comment_m->get($id);
+		$comment = Comment::find($id);
 
 		// Validate the results
-		if ($this->form_validation->run())
-		{
-			if ($comment->user_id > 0)
-			{
-				$commenter['user_id'] = $this->input->post('user_id');
-			}
-			else
-			{
-				$commenter['user_name']	= $this->input->post('user_name');
-				$commenter['user_email'] = $this->input->post('user_email');
+		if ($this->form_validation->run()) {
+			if ($comment->user_id > 0) {
+				$comment->user_id = $this->input->post('user_id');
+			} else {
+				$comment->user_name = $this->input->post('user_name');
+				$comment->user_email = $this->input->post('user_email');
 			}
 
-			$comment = array_merge($commenter, array(
-				'user_website' => $this->input->post('user_website'),
-				'comment' => $this->input->post('comment'),
-			));
+			$comment->user_website = $this->input->post('user_website');
+			$comment->comment = $this->input->post('comment');
 
 			// Update the comment
-			$this->comment_m->update($id, $comment)
+			$comment->save()
 				? $this->session->set_flashdata('success', lang('comments:edit_success'))
 				: $this->session->set_flashdata('error', lang('comments:edit_error'));
 
 			// Fire an event. A comment has been updated.
-			Events::trigger('comment_updated', $id);
+			Events::trigger('comment_updated', $comment);
 
 			redirect('admin/comments');
 		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== null)
-			{
+		foreach ($this->validation_rules as $rule) {
+			if ($this->input->post($rule['field']) !== null) {
 				$comment->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
@@ -185,12 +171,11 @@ class Admin extends Admin_Controller {
 	// Admin: report a comment to local tables/Akismet as spam
 	public function report($id)
 	{
-		$comment = $this->comment_m->get($id);
+		$comment = Comment::find($id);
 
 		$api_key = Settings::get('akismet_api_key');
 
-		if ( ! empty($api_key))
-		{
+		if ( ! empty($api_key)) {
 			$akismet = new Akismet($api_key, BASE_URL);
 
 			$akismet->submitSpam(
@@ -203,10 +188,10 @@ class Admin extends Admin_Controller {
 		    );
 		}
         
-		$this->comment_blacklists_m->save(array(
-			'website' => $comment->user_website,
+        CommentBlacklist::create(array(
+        	'website' => $comment->user_website,
 			'email' => $comment->user_email
-		));
+        ));
 
 		$this->delete($id);
 
@@ -224,13 +209,13 @@ class Admin extends Admin_Controller {
 		foreach ($ids as $id)
 		{
 			// Get the current comment so we can grab the id too
-			if ($comment = $this->comment_m->get($id))
+			if ($comment = Comment::find($id))
 			{
-				$this->comment_m->delete((int) $id);
+				$comment->delete();
 
 				// Wipe cache for this model, the content has changed
-				$this->cache->clear('comment_m');
-				$comments[] = $comment->id;
+				$this->cache->clear('Comment');
+				$comments[] = $comment;
 			}
 		}
 
@@ -300,22 +285,21 @@ class Admin extends Admin_Controller {
 		$multiple	= (count($ids) > 1) ? '_multiple' : null;
 		$status		= 'success';
 
-		foreach ($ids as $id)
-		{
-			if ( ! $this->comment_m->{$action}($id))
-			{
+		foreach ($ids as $id) {
+			if ( ! $comment = Comment::find($id)) {
 				$status = 'error';
 				break;
 			}
 
-			if ($action == 'approve')
-			{
+			if ($action == 'approve') {
+				$comment->is_active = true;
+				$comment->save();
 				// add an event so third-party devs can hook on
-				Events::trigger('comment_approved', $this->comment_m->get($id));
-			}
-			else
-			{
-				Events::trigger('comment_unapproved', $id);
+				Events::trigger('comment_approved', $comment);
+			} else {
+				$comment->is_active = false;
+				$comment->save();
+				Events::trigger('comment_unapproved', $comment);
 			}
 		}
 
@@ -326,7 +310,7 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->set_layout(false)
-			->set('comment', $this->comment_m->get($id))
+			->set('comment', Comment::find($id))
 			->build('admin/preview');
 	}
 

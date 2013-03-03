@@ -4,7 +4,7 @@
  * Comment Blacklist model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Redirects\Models 
+ * @package     PyroCMS\Core\Modules\Comments\Models 
  */
 class CommentBlacklist extends \Illuminate\Database\Eloquent\Model
 {
