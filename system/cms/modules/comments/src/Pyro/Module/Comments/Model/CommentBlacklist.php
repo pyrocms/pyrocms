@@ -22,4 +22,21 @@ class CommentBlacklist extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+    /**
+     * Find blacklist by email and website
+     *
+     * @param string $email 
+     * @param string $website
+     *
+     * @return void
+     */
+    public static function findManyByEmailOrWebsite($email, $website = null)
+    {
+        if ($website) {
+            return static::where('email','=',$email)->orWhere('website','=',$website)->get();
+        } else {
+            return static::where('email','=',$email)->get();
+        }
+    }
+
 }
