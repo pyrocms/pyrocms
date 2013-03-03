@@ -197,7 +197,7 @@ class Admin_themes extends Admin_Controller
 		{
 			$config['upload_path'] = FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] = 'zip';
-			$config['max_size'] = '2048';
+			$config['max_size'] = '20480';
 			$config['overwrite'] = true;
 
 			$this->load->library('upload', $config);
