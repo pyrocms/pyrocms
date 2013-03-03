@@ -674,26 +674,62 @@ li.right-title,li.right-title label {
 
 .file_upload_cancel div.start-icon {
 	position: absolute;
-	top: 10px;
-	right: 0;
+	top: 18px;
+	right: 10px;
 	display:block;
 	margin-left:5px;
-	width:30px;
-	height:30px;
-	background:url(../img/upload.png) no-repeat 0 0;
+	width:20px;
+	height:20px;
+	/* background:url(../img/upload.png) no-repeat 0 0; */
+	background-color: #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	cursor: pointer;
 }
 
 .file_upload_cancel div.cancel-icon {
 	position: absolute;
-	top: 10px;
-	right: 40px;
+	top: 18px;
+	right: 35px;
 	display:block;
 	margin-left:5px;
-	width:30px;
-	height:30px;
-	background:url(../img/cancel.png) no-repeat 0 0;
+	width:20px;
+	height:20px;
+	/* background:url(../img/cancel.png) no-repeat 0 0; */
+	background-color: #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	cursor: pointer;
+}
+
+.file_upload_cancel div.cancel-icon:hover,
+.file_upload_cancel div.cancel-icon:active {
+	background-color: #ff5050;
+}
+
+.file_upload_cancel div.start-icon:hover,
+.file_upload_cancel div.start-icon:active {
+	background-color: #75c080;
+}
+
+.file_upload_cancel div.cancel-icon:before {
+	content: "×";
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	left: 6px;
+}
+
+.file_upload_cancel div.start-icon:before {
+	content: "+";
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	left: 6px;
 }
 
 #files-uploader-queue .image_meta {
@@ -731,5 +767,4 @@ and (min-device-width: 768px) {
 		background:url(../img/folder@2x.png) no-repeat;
 		background-size: 100px 100px;
 	}
- 
 }
