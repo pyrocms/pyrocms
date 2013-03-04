@@ -132,7 +132,8 @@ class Admin extends Admin_Controller
 			// rebuild page URIs
 			$this->page_m->update_lookup($root_pages);
 
-			$this->cache->clear('Navigation\Model\Link');
+			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+			$this->cache->clear('navigation_m');
 			$this->cache->clear('page_m');
 
 			Events::trigger('page_ordered', array($order, $root_pages));
@@ -263,7 +264,8 @@ class Admin extends Admin_Controller
 			if ($id = $page->create($input)) {
 				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
 					$this->cache->clear('page_m');
-					$this->cache->clear('Navigation\Model\Link');
+					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+					$this->cache->clear('navigation_m');
 				}
 
 				Events::trigger('page_created', $id);
@@ -439,7 +441,8 @@ class Admin extends Admin_Controller
 				Events::trigger('page_updated', $page);
 
 				$this->cache->clear('page_m');
-				$this->cache->clear('Navigation\Model\Link');
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+				$this->cache->clear('navigation_m');
 
 				// Mission accomplished!
 				$input['btnAction'] == 'save_exit'
@@ -617,7 +620,8 @@ class Admin extends Admin_Controller
 
 					// Wipe cache for this model, the content has changd
 					$this->cache->clear('page_m');
-					$this->cache->clear('Navigation\Model\Link');
+					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+					$this->cache->clear('navigation_m');
 				
 				} else {
 					$this->session->set_flashdata('error', lang('pages:delete_home_error'));

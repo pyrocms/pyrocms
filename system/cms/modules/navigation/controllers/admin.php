@@ -159,11 +159,11 @@ class Admin extends Admin_Controller {
 		$data	= $this->input->post('data');
 		$group	= isset($data['group']) ? (int) $data['group'] : 0;
 
-		if (is_array($order))
-		{
+		if (is_array($order)) {
 			Navigation\Model\Link::setOrder($order, $group);
 
-			$this->cache->clear('Link');
+			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+			$this->cache->clear('navigation_m');
 			Events::trigger('post_navigation_order', array(
 				'order' => $order, 
 				'group' => $group
@@ -204,8 +204,7 @@ class Admin extends Admin_Controller {
 		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		// Run if valid
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$last_position = Navigation\Model\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
 
 			$link = Navigation\Model\Link::create(array(
@@ -224,7 +223,8 @@ class Admin extends Admin_Controller {
 			));
 
 			if ($link) {
-				$this->cache->clear('Link');
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+				$this->cache->clear('navigation_m');
 
 				Events::trigger('post_navigation_create', $link);
 
@@ -242,8 +242,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// check for errors
-		if (validation_errors())
-		{
+		if (validation_errors()) {
 			echo $this->load->view('admin/partials/notices');
 			return;
 		}
@@ -251,8 +250,7 @@ class Admin extends Admin_Controller {
 		$link = (object)array();
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$link->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -277,8 +275,7 @@ class Admin extends Admin_Controller {
 	public function edit($id = 0)
 	{
 		// Got ID?
-		if (empty($id))
-		{
+		if (empty($id)) {
 			return;
 		}
 
@@ -318,7 +315,8 @@ class Admin extends Admin_Controller {
 			// Update the link and flush the cache
 			if($link->save()) {
 
-				$this->cache->clear('Link');
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+				$this->cache->clear('navigation_m');
 
 				Events::trigger('post_navigation_edit', $link);
 
@@ -330,16 +328,13 @@ class Admin extends Admin_Controller {
 		}
 
 		// check for errors
-		if (validation_errors())
-		{
+		if (validation_errors()) {
 			exit($this->load->view('admin/partials/notices', $this->template));
 		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== null)
-			{
+		foreach ($this->validation_rules as $rule) {
+			if ($this->input->post($rule['field']) !== null) {
 				$link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
@@ -363,17 +358,16 @@ class Admin extends Admin_Controller {
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 
 		// Loop through each item to delete
-		if(!empty($id_array))
-		{
-			foreach ($id_array as $id)
-			{
+		if(!empty($id_array)) {
+			foreach ($id_array as $id) {
 				Navigation\Model\Link::deleteLinkChildren($id);
 			}
 
 			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
-		$this->cache->clear('Link');
+		//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+		$this->cache->clear('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 
 		redirect('admin/navigation');
@@ -400,38 +394,30 @@ class Admin extends Admin_Controller {
 
 		extract($params);
 
-		if ( ! $tree)
-		{
-			if ($pages = Pages\Model\Page::all())
-			{
-				foreach($pages as $page)
-				{
+		if ( ! $tree) {
+			if ($pages = Pages\Model\Page::all()) {
+				foreach($pages as $page) {
 					$tree[$page->parent_id][] = $page;
 				}
 			}
 		}
 
-		if ( ! isset($tree[$parent_id]))
-		{
+		if ( ! isset($tree[$parent_id])) {
 			return;
 		}
 
 		$html = '';
 
-		foreach ($tree[$parent_id] as $item)
-		{
-			if ($current_id == $item->id)
-			{
+		foreach ($tree[$parent_id] as $item) {
+			if ($current_id == $item->id) {
 				continue;
 			}
 
 			$html .= '<option value="' . $item->id . '"';
 			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
 
-			if ($level > 0)
-			{
-				for ($i = 0; $i < ($level*2); $i++)
-				{
+			if ($level > 0) {
+				for ($i = 0; $i < ($level*2); $i++) {
 					$html .= '&nbsp;';
 				}
 
@@ -479,8 +465,7 @@ class Admin extends Admin_Controller {
 			break;
 		}
 
-		if ( ! $status)
-		{
+		if ( ! $status) {
 			$this->form_validation->set_message('_link_check', sprintf(lang('nav:choose_value'), lang('nav:'.$link.'_label')));
 			return false;
 		}
