@@ -583,7 +583,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = array())
 	{
 		$this->load->config('streams');
 
@@ -611,14 +611,9 @@ class Streams_m extends MY_Model {
 		// Filter results
 		// -------------------------------------
 
-		if ( $filter_data != null )
+		foreach ($filter_data as $filter)
 		{
-
-			// Loop through and apply the filters
-			foreach ( $filter_data['filters'] as $filter=>$value )
-			{
-				if ( strlen($value) > 0 ) $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
-			}
+			$this->db->where($filter, null, false);
 		}
 
 		// -------------------------------------
