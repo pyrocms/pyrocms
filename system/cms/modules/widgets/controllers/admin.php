@@ -2,7 +2,7 @@
 
 /**
  * Admin controller for the widgets module.
- * 
+ *
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
@@ -18,7 +18,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -38,12 +38,13 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->append_js('module::widgets.js')
-			->append_css('module::widgets.css');
+			->append_css('module::widgets.css')
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true));
 	}
 
 	/**
 	 * Index method, lists all active widgets
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index()
@@ -182,14 +183,14 @@ class Admin extends Admin_Controller {
 			}
 			else
 			{
-				// Fire an Event. A widget has been enabled or disabled. 
+				// Fire an Event. A widget has been enabled or disabled.
 				switch ($action)
 				{
-					case 'enable':		
+					case 'enable':
 						Events::trigger('widget_enabled', $ids);
 						break;
-					
-					case 'disable':		
+
+					case 'disable':
 						Events::trigger('widget_disabled', $ids);
 						break;
 				}
