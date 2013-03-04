@@ -538,7 +538,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 					));
 
 					if ($link) {
-						//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514/files#r3231377
+						//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 						$this->cache->clear('navigation_m');
 
 						Events::trigger('post_navigation_create', $link);
