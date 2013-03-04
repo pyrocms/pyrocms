@@ -17,7 +17,7 @@
 <?php if ($doc['double']): ?>
 
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
-    <?php echo (strpos($doc['variables'], '|') !== false ? '{{'.str_replace('|', "}}\n    {{", $doc['variables']).'}}': $doc['variables'])."\n" ?>
+    <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
 {{ /<?php echo $plugin['slug'].':'.$method ?> }}
 <?php endif; ?>
 </code>
@@ -35,8 +35,8 @@
 										<?php foreach ($doc['attributes'] as $attribute => $details): ?>
 											<tr>
 												<td><?php echo $attribute ?></td>
-												<td><?php echo (isset($details['type']) ? $details['type'] : '') ?></td>
-												<td><?php echo (isset($details['flags']) ? $details['flags'] : '') ?></td>
+												<td><?php echo (isset($details['type']) ? str_replace('|', ' | ', $details['type']) : '') ?></td>
+												<td><?php echo (isset($details['flags']) ? str_replace('|', ' | ', $details['flags']) : '') ?></td>
 												<td><?php echo (isset($details['default']) and $details['default']) ? $details['default'] : lang('global:check-none') ?></td>
 												<td><?php echo (isset($details['required']) and $details['required']) ? lang('global:yes') : lang('global:no') ?></td>
 											</tr>
