@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
 /**
  * The Maintenance Module - currently only remove/empty cache folder(s)
  *
@@ -37,12 +38,10 @@ class Admin extends Admin_Controller
 
 		$folders = array();
 
-		foreach ($cache_folders as $key => $folder)
-		{
+		foreach ($cache_folders as $key => $folder) {
 			$basename = basename($folder);
 			// If the folder is not protected
-			if( ! in_array($basename, $protected))
-			{
+			if( ! in_array($basename, $protected)) {
 				// Store it in the array of the folders we will be doing something with.
 				// Just use the filename on the front end to not expose complete paths
 				$folders[] = array(
@@ -58,8 +57,7 @@ class Admin extends Admin_Controller
 		asort($table_list);
 
 		$tables = array();
-		foreach ($table_list as $table)
-		{
+		foreach ($table_list as $table) {
 			$tables[] = array(
 				'name' => $table,
 				'count' => $this->db->count_all($table),
@@ -76,25 +74,20 @@ class Admin extends Admin_Controller
 
 	public function cleanup($name = '', $andfolder = 0)
 	{
-		if ( ! empty($name))
-		{
+		if ( ! empty($name)) {
 
 			$andfolder = ($andfolder) ? true : false;
 
 			$apath = $this->_refind_apath($name);
 
-			if ( ! empty($apath))
-			{
+			if ( ! empty($apath)) {
 				$item_count = count(glob($apath.'/*'));
 				// just empty or empty and remove?
 				$which = ($andfolder) ? 'remove' : 'empty';
 
-				if ($this->delete_files($apath, $andfolder))
-				{
+				if ($this->delete_files($apath, $andfolder)) {
 					$this->session->set_flashdata('success', sprintf(lang('maintenance:'.$which.'_msg'), $item_count, $name));
-				}
-				else
-				{
+				} else {
 					$this->session->set_flashdata('error', sprintf(lang('maintenance:'.$which.'_msg_err'), $name));
 				}
 			}
@@ -115,13 +108,11 @@ class Admin extends Admin_Controller
 	{
 		$this->load->helper('file');
 
-		if ( ! delete_files($apath, true))
-		{
+		if ( ! delete_files($apath, true)) {
 			return false;
 		}
 
-		if ($andfolder)
-		{
+		if ($andfolder) {
 			if ( ! rmdir($apath))
 			{
 				return false;
@@ -139,20 +130,56 @@ class Admin extends Admin_Controller
 	 */
 	public function export($table = '', $type = 'xml')
 	{
-		$this->load->model('maintenance_m');
 		$this->load->helper('download');
 		$this->load->library('format');
 
 		$table_list = config_item('maintenance.export_tables');
 
-		if (in_array($table, $table_list))
-		{
-			$this->maintenance_m->export($table, $type, $table_list);
-		}
-		else
-		{
+		if (in_array($table, $table_list)) {
+			$this->export($table, $type);
+		} else {
 			redirect('admin/maintenance');
 		}
+	}
+
+	/**
+	 * Export table database 
+	 *
+	 * @param string $table The name of the table.
+	 * @param string $type The export format type
+	 *
+	 * @return string The folder name.
+	 */
+	private function _export($table = '', $type = 'xml')
+	{
+		switch ($table) {
+			case 'users':
+				$data_array = ci()->pdb
+					->table('users')
+					->select('users.id, email')
+					->select(DB::raw('IF(active = 1, "Y", "N") as active'))
+					->select('first_name, last_name, display_name, company, lang, gender, website')
+					->join('profiles', 'profiles.user_id',  '=', 'users.id')
+					->get()
+					->toArray();
+			break;
+			case 'files':
+				$data_array = ci()->pdb
+					->table('files')
+					->select('files.*, file_folders.name folder_name, file_folders.slug')
+					->join('file_folders', 'files.folder_id', '=', 'file_folders.id')
+					->get()
+					->toArray();
+			break;
+			default:
+				$data_array = ci()->pdb
+					->table($table)
+					->get()
+					->toArray();
+			break;
+		}
+		force_download($table.'.'.$type, $this->format->factory($data_array)
+			->{'to_'.$type}());
 	}
 
 	/**
@@ -165,10 +192,8 @@ class Admin extends Admin_Controller
 	{
 		$folders = glob($this->cache_path.'*', GLOB_ONLYDIR);
 
-		foreach ($folders as $folder)
-		{
-			if (basename($folder) === $name)
-			{
+		foreach ($folders as $folder) {
+			if (basename($folder) === $name) {
 				return $folder;
 			}
 		}
