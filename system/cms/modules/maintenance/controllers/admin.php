@@ -136,14 +136,14 @@ class Admin extends Admin_Controller
 		$table_list = config_item('maintenance.export_tables');
 
 		if (in_array($table, $table_list)) {
-			$this->export($table, $type);
+			$this->_export($table, $type);
 		} else {
 			redirect('admin/maintenance');
 		}
 	}
 
 	/**
-	 * Export table database 
+	 * Export tables
 	 *
 	 * @param string $table The name of the table.
 	 * @param string $type The export format type
