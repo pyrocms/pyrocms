@@ -25,7 +25,7 @@
 							<div class="one_half">
 								<div id="link-list">
 									<ul class="sortable">
-										<?php echo tree_builder($navigation[$group->id], '<li id="link_{{ id }}"><div><a href="#" rel="'.$group->id.'" alt="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
+										<?php echo tree_builder($navigation[$group->id], '<li id="link_{{ id }}"><div><a href="#" rel="'.$group->id.'" alt="{{ id }}">{{ title }}</a></div>{{ children /}}</li>') ?>
 									</ul>
 								</div>
 							</div>
