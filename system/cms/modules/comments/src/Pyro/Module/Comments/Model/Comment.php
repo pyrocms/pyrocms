@@ -55,7 +55,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      * @param int $is_active set default to only return active comments
      * @return array
      */
-    public function findRecent($limit = 10, $is_active = 1)
+    public static function findRecent($limit = 10, $is_active = 1)
     {
         return ci()->pdb
             ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
@@ -66,6 +66,22 @@ class Comment extends \Illuminate\Database\Eloquent\Model
             ->where('c.is_active', $is_active)
             ->take($limit)
             ->order_by('c.created_on', 'desc')
+            ->get();
+    }
+
+    /**
+     * Find Comments by Module and ID
+     *
+     * 
+     * @param int $module - Module Name
+     * @param int $key_id - Key ID
+     *
+     * @return array
+     */
+    public static function findManyByModuleAndEntryId($module, $entry_id)
+    {
+        return static::where('module','=',$module)
+            ->where('entry_id','=',$entry_id)
             ->get();
     }
 

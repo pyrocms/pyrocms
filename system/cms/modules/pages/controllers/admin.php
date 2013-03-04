@@ -3,6 +3,7 @@
 use Pyro\Module\Groups;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Comments\Model\Comment;
 
 /**
  * Pages controller
@@ -588,8 +589,6 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comment_m');
-
 		// The user needs to be able to delete pages.
 		role_or_die('pages', 'delete_live');
 
@@ -611,10 +610,8 @@ class Admin extends Admin_Controller
 					$deleted_ids = $id;
 
 					// Delete any page comments for this entry
-					$this->comment_m->where('module', 'pages')->delete_by(array(
-						'entry_key' => 'page:page',
-						'entry_id' => $id
-					));
+					$comments = Comment::findManyByModuleAndEntryId('pages',$id);
+					$comments->delete();
 
 					// Wipe cache for this model, the content has changd
 					$this->cache->clear('page_m');
