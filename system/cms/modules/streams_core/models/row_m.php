@@ -216,6 +216,87 @@ class Row_m extends MY_Model {
 		{
 			$this->sql['select'][] = 'DAY('.$this->format_mysql_date($date_by, $stream->stream_namespace).') as pyrostreams_cal_day';
 		}
+		
+		// -------------------------------------
+		// Filter API
+		// -------------------------------------
+
+		$filter_api = array();
+
+		if ($this->input->get('filter-'.$stream->stream_slug))
+		{
+			// Get all URL variables
+			$url_variables = $this->input->get();
+
+			$processed = array();
+
+			// Loop and process
+			foreach ($url_variables as $filter => $value)
+			{
+				// -------------------------------------
+				// Filter API Params
+				// -------------------------------------
+				// They all start with f-
+				// No value? No soup for you!
+				// -------------------------------------
+
+				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+
+				if (strlen($value) == 0) continue;				// No value.. boo
+
+				$filter = substr($filter, 2);					// Remove identifier
+
+
+				// -------------------------------------
+				// Not
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$not = substr($filter, 0, 4) == 'not-';
+
+				if ($not) $filter = substr($filter, 4);			// Remove identifier
+
+
+				// -------------------------------------
+				// Exact
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$exact = substr($filter, 0, 6) == 'exact-';
+
+				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+
+
+				// -------------------------------------
+				// Construct the where segment
+				// -------------------------------------
+
+				if ($exact)
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.urldecode($value).'"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.urldecode($value).'"';
+					}
+				}
+				else
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.urldecode($value).'%"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($value).'%"';
+					}
+				}
+			}
+		}
 	
 		// -------------------------------------
 		// Disable
@@ -390,6 +471,8 @@ class Row_m extends MY_Model {
 				}
 			}
 		}
+		
+		$this->sql['where'] = array_merge($this->sql['where'], $filter_api);
 		
 		// -------------------------------------
 		// Show Upcoming
