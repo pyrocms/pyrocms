@@ -48,6 +48,28 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
+     * Find recent comments
+     *
+     * 
+     * @param int $limit The amount of comments to get
+     * @param int $is_active set default to only return active comments
+     * @return array
+     */
+    public function findRecent($limit = 10, $is_active = 1)
+    {
+        return ci()->pdb
+            ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
+            ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
+            ->select('users.username, profiles.display_name')
+            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
+            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('c.is_active', $is_active)
+            ->take($limit)
+            ->order_by('c.created_on', 'desc')
+            ->get();
+    }
+
+    /**
      * Return array of modules that have comments
      *
      * @return array
