@@ -418,7 +418,7 @@ class Module_Settings extends Module {
         foreach ($settings as $setting) {
             log_message('debug', '-- Settings: installing '.$setting['slug']);
 
-            if ( ! $this->pdb->table('settings')->insert($setting)) {
+            if ( ! Setting::insert($setting)) {
                 log_message('error', '-- -- could not install '.$setting['slug']);
                 return false;
             }

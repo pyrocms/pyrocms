@@ -8,6 +8,9 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Settings\Libraries
  */
+
+use Pyro\Module\Settings\Model\Setting;
+
 class Settings {
 
 	/**
@@ -32,7 +35,6 @@ class Settings {
 	 */
 	public function __construct()
 	{
-		ci()->load->model('settings/setting_m');
 		ci()->lang->load('settings/settings');
 	}
 
@@ -77,7 +79,7 @@ class Settings {
 			return self::$cache[$key];
 		}
 
-		$setting = ci()->setting_m->get($key);
+		$setting = Setting::get($key);
 
 		// Setting doesn't exist, maybe it's a config option
 		$value = $setting ? ($setting->value ?: $setting->default) : config_item($key);
@@ -103,7 +105,7 @@ class Settings {
 		{
 			if (is_scalar($value))
 			{
-				$setting = ci()->setting_m->update($key, array('value' => $value));
+				$setting = Setting::update($key, array('value' => $value));
 			}
 
 			self::$cache[$key] = $value;
@@ -144,7 +146,7 @@ class Settings {
 			return self::$cache;
 		}
 
-		$settings = ci()->setting_m->getAll();
+		$settings = Setting::getAll();
 
 		foreach ($settings as $setting)
 		{
@@ -168,7 +170,7 @@ class Settings {
 		{
 			return false;
 		}
-		return ci()->setting_m->insert($setting);
+		return Setting::insert($setting);
 	}
 
 	/**
@@ -181,7 +183,7 @@ class Settings {
 	 */
 	public static function delete($name)
 	{
-		return ci()->setting_m->delete($key);
+		return Setting::delete($key);
 	}
 
 	/**
