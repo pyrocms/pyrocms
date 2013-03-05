@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Comments\Model;
 
+use Capsule\DB;
+
 /**
  * Comment model
  *
@@ -35,16 +37,20 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
-            ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
-            ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
-            ->select('users.username, profiles.display_name')
+            ->table('comments')
+            ->select(
+                'users.username',
+                'profiles.display_name',
+                ci()->pdb->raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'),
+                ci()->pdb->raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email')
+            )
             ->leftJoin('users', 'comments.user_id', '=', 'users.id')
             ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
             ->where('comments.module', $module)
             ->where('comments.entry_id', $entry_id)
             ->where('comments.entry_key', $entry_key)
             ->where('comments.is_active', $is_active)
-            ->order_by('comments.created_on', Settings::get('comment_order'))
+            ->orderBy('comments.created_on', Settings::get('comment_order'))
             ->get();
     }
 
@@ -58,16 +64,21 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function findRecent($limit = 10, $is_active = 1)
     {
+
         //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
-            ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
-            ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
-            ->select('users.username, profiles.display_name')
+            ->table('comments')
+            ->select(
+                'users.username',
+                'profiles.display_name',
+                ci()->pdb->raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'),
+                ci()->pdb->raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email')
+            )
             ->leftJoin('users', 'comments.user_id', '=', 'users.id')
             ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
             ->where('c.is_active', $is_active)
             ->take($limit)
-            ->order_by('c.created_on', 'desc')
+            ->orderBy('c.created_on', 'desc')
             ->get();
     }
 
