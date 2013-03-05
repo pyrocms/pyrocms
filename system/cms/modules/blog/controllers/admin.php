@@ -250,8 +250,11 @@ class Admin extends Admin_Controller
 			$post->type or $post->type = 'wysiwyg-advanced';
 		}
 
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($stream_fields);
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
@@ -260,7 +263,7 @@ class Admin extends Admin_Controller
 			->append_js('module::blog_form.js')
 			->append_js('module::blog_category_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array)$post))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -384,15 +387,18 @@ class Admin extends Admin_Controller
 
 		$post->created_on = $created_on;
 
-		// Add stream events.
-		$this->fields->run_field_events($stream_fields);
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $post, 'edit');
+
+		// Run stream field events
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array)$post))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');
