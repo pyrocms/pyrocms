@@ -33,6 +33,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByEntry($module, $entry_key, $entry_id, $is_active = true)
     {
+        //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
             ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
             ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
@@ -57,6 +58,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function findRecent($limit = 10, $is_active = 1)
     {
+        //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
             ->select(DB::raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'))
             ->select(DB::raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email'))
