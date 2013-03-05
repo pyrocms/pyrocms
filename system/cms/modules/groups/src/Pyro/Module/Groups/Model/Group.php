@@ -54,4 +54,15 @@ class Group extends \Illuminate\Database\Eloquent\Model
 	{
 		return static::whereIn('id', $ids)->lists('description', 'id');
 	}
+
+	/**
+     * Get group by name 
+     *
+     * @param string - The group name to get
+     * @return array
+     */
+	public static function findByName($group_name)
+	{
+		return static::where('name', '=', $group_name)->first();
+	}
 }	

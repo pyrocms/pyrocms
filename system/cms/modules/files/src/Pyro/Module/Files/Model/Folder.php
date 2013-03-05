@@ -5,6 +5,7 @@
  *
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
+ * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Files.Model.Folder.html
  */
 class Folder extends \Illuminate\Database\Eloquent\Model
 {
@@ -13,7 +14,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      *
      * @var string
      */
-    public $table = 'file_folders';
+    protected $table = 'file_folders';
 
     /**
      * Disable updated_at and created_at on table

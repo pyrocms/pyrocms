@@ -5,6 +5,7 @@
  *
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
+ * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Files.Model.File.html
  */
 class File extends \Illuminate\Database\Eloquent\Model
 {
@@ -13,7 +14,7 @@ class File extends \Illuminate\Database\Eloquent\Model
      *
      * @var string
      */
-    public $table = 'files';
+    protected $table = 'files';
 
     /**
      * Disable updated_at and created_at on table

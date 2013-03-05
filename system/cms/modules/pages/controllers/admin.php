@@ -4,6 +4,7 @@ use Pyro\Module\Groups;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Comments\Model\Comment;
+use Pyro\Module\Navigation;
 
 /**
  * Pages controller
@@ -32,7 +33,6 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
 
@@ -133,6 +133,7 @@ class Admin extends Admin_Controller
 			// rebuild page URIs
 			$this->page_m->update_lookup($root_pages);
 
+			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 			$this->cache->clear('navigation_m');
 			$this->cache->clear('page_m');
 
@@ -264,6 +265,7 @@ class Admin extends Admin_Controller
 			if ($id = $page->create($input)) {
 				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
 					$this->cache->clear('page_m');
+					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 					$this->cache->clear('navigation_m');
 				}
 
@@ -440,6 +442,7 @@ class Admin extends Admin_Controller
 				Events::trigger('page_updated', $page);
 
 				$this->cache->clear('page_m');
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 				$this->cache->clear('navigation_m');
 
 				// Mission accomplished!
@@ -569,8 +572,7 @@ class Admin extends Admin_Controller
 		$this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
 		// Load navigation list
-		$this->load->model('navigation/navigation_m');
-		$navigation_groups = $this->navigation_m->get_groups();
+		$navigation_groups = Navigation\Model\Group::getGroupOptions();
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
 		
 		$this->template->group_options = Groups\Model\Group::getGroupOptions();
@@ -615,6 +617,7 @@ class Admin extends Admin_Controller
 
 					// Wipe cache for this model, the content has changd
 					$this->cache->clear('page_m');
+					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 					$this->cache->clear('navigation_m');
 				
 				} else {
