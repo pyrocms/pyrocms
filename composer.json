@@ -8,7 +8,7 @@
         "dflydev/markdown": "1.0.*",
         "dhorrigan/capsule": "2.1.*",
         "ircmaxell/password-compat": "1.0.*",
-        "illuminate/database": "*",
+        "illuminate/database": "dev-master",
         "nesbot/Carbon": "1.2.*",
         "quick/cache": "1.0.*",
         "ruudk/twitter-oauth": "*",

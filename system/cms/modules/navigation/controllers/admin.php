@@ -1,6 +1,7 @@
 <?php 
 
 use Pyro\Module\Groups;
+use Pyro\Module\Navigation;
 use Pyro\Module\Pages;
 
 /**
@@ -91,17 +92,17 @@ class Admin extends Admin_Controller {
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('navigation_m');
 		$this->lang->load('navigation');
+		$this->load->model('module_m');
 
 		$this->template
 			->append_js('module::navigation.js')
 			->append_css('module::navigation.css');
 
 		// Get Navigation Groups
-		$this->template->groups 		= $this->navigation_m->get_groups();
-		$this->template->groups_select 	= array_for_select($this->template->groups, 'id', 'title');
-		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
+		$this->template->groups 		= Navigation\Model\Group::all();
+		$this->template->groups_select 	= Navigation\Model\Group::getGroupOptions();
+		$all_modules = $this->module_m->get_all(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module) {
@@ -137,7 +138,7 @@ class Admin extends Admin_Controller {
 		// Go through all the groups
 		foreach ($this->template->groups as $group) {
 			//... and get navigation links for each one
-			$navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
+			$navigation[$group->id] = Navigation\Model\Link::getTreeByGroup($group->id);
 		}
 
 		// Create the layout
@@ -158,22 +159,15 @@ class Admin extends Admin_Controller {
 		$data	= $this->input->post('data');
 		$group	= isset($data['group']) ? (int) $data['group'] : 0;
 
-		if (is_array($order))
-		{
-			//reset all parent > child relations
-			$this->navigation_m->update_by_group($group, array('parent' => 0));
+		if (is_array($order)) {
+			Navigation\Model\Link::setOrder($order, $group);
 
-			foreach ($order as $i => $link)
-			{
-				//set the order of the root links
-				$this->navigation_m->update_by('id', str_replace('link_', '', $link['id']), array('position' => $i));
-
-				//iterate through children and set their order and parent
-				$this->navigation_m->_set_children($link);
-			}
-
+			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 			$this->cache->clear('navigation_m');
-			Events::trigger('post_navigation_order', array($order, $group));
+			Events::trigger('post_navigation_order', array(
+				'order' => $order, 
+				'group' => $group
+			));
 		}
 	}
 
@@ -184,7 +178,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function ajax_link_details($link_id)
 	{
-		$link = $this->navigation_m->get_url($link_id);
+		$link = Navigation\Model\Link::getUrl($link_id);
 
 		$ids = explode(',', $link->restricted_to);
 
@@ -210,26 +204,36 @@ class Admin extends Admin_Controller {
 		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		// Run if valid
-		if ($this->form_validation->run())
-		{
-			$input = $this->input->post();
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+		if ($this->form_validation->run()) {
+			$last_position = Navigation\Model\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
 
-			// Got post?
-			if ($this->navigation_m->insert_link($input) > 0)
-			{
+			$link = Navigation\Model\Link::create(array(
+				'title'                 => $this->input->post('title'),
+				'parent'                => $this->input->post('parent') ? $this->input->post('parent') : 0,
+				'link_type'             => $this->input->post('link_type'),
+				'url'                   => $this->input->post('url') ? $this->input->post('url') : '',
+				'uri'                   => $this->input->post('uri') ? $this->input->post('uri') : '',
+				'module_name'           => $this->input->post('module_name') ? $this->input->post('module_name') : '',
+				'page_id'               => (int) $this->input->post('page_id'),
+				'position'              => $last_position ? $last_position->position + 1 : 1,
+				'target'                => $this->input->post('target') ? $this->input->post('target') : '',
+				'class'                 => $this->input->post('class') ? $this->input->post('class') : '',
+				'navigation_group_id'   => (int) $this->input->post('navigation_group_id'),
+				'restricted_to'         => $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : 0
+			));
+
+			if ($link) {
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 				$this->cache->clear('navigation_m');
 
-				Events::trigger('post_navigation_create', $input);
+				Events::trigger('post_navigation_create', $link);
 
 				$this->session->set_flashdata('success', lang('nav:link_add_success'));
 
 				// echo success to let the js refresh the page
 				echo 'success';
 				return;
-			}
-			else
-			{
+			} else {
 				$this->template->messages['error'] = lang('nav:link_add_error');
 
 				echo $this->load->view('admin/partials/notices', $this->template);
@@ -238,8 +242,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// check for errors
-		if (validation_errors())
-		{
+		if (validation_errors()) {
 			echo $this->load->view('admin/partials/notices');
 			return;
 		}
@@ -247,8 +250,7 @@ class Admin extends Admin_Controller {
 		$link = (object)array();
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$link->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -273,53 +275,66 @@ class Admin extends Admin_Controller {
 	public function edit($id = 0)
 	{
 		// Got ID?
-		if (empty($id))
-		{
+		if (empty($id)) {
 			return;
 		}
 
 		// Get the navigation item based on the ID
-		$link = $this->navigation_m->get_link($id);
+		$link = Navigation\Model\Link::find($id);
 
 		// Set the options for restricted to
 		$group_options = Groups\Model\Group::getGroupOptions();
 
-		if ( ! $link)
-		{
+		if ( ! $link) {
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
 			exit($this->load->view('admin/partials/notices', compact('link', 'group_options')));
 		}
 
 		// Valid data?
-		if ($this->form_validation->run())
-		{
-			$input = $this->input->post();
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+		if ($this->form_validation->run()) {
+
+			if ($this->input->post('current_group_id') != $this->input->post('navigation_group_id')) {
+				$link->parent = 0;
+
+				Navigation\Model\Link::resetChildByParentId($id);
+			}
+
+			$link->title = $this->input->post('title');
+			$link->link_type = $this->input->post('link_type');
+			$link->url = $this->input->post('url') == 'http://' ? '' : $this->input->post('url');
+			$link->uri = $this->input->post('uri');
+			$link->module_name = $this->input->post('module_name');
+			$link->page_id = (int) $this->input->post('page_id');
+			$link->position = $this->input->post('target');
+			$link->target = $this->input->post('target');
+			$link->class = $this->input->post('class');
+			$link->navigation_group_id = (int) $this->input->post('navigation_group_id');
+			$link->restricted_to = $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : '';
 
 			// Update the link and flush the cache
-			$this->navigation_m->update_link($id, $input);
-			$this->cache->clear('navigation_m');
+			if($link->save()) {
 
-			Events::trigger('post_navigation_edit', $input);
+				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+				$this->cache->clear('navigation_m');
 
-			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
+				Events::trigger('post_navigation_edit', $link);
 
-			// echo success to let the js refresh the page
-			exit('success');
+				$this->session->set_flashdata('success', lang('nav:link_edit_success'));
+
+				// echo success to let the js refresh the page
+				exit('success');
+			}
 		}
 
 		// check for errors
-		if (validation_errors())
-		{
+		if (validation_errors()) {
 			exit($this->load->view('admin/partials/notices', $this->template));
 		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== null)
-			{
+		foreach ($this->validation_rules as $rule) {
+			if ($this->input->post($rule['field']) !== null) {
 				$link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
@@ -343,16 +358,15 @@ class Admin extends Admin_Controller {
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 
 		// Loop through each item to delete
-		if(!empty($id_array))
-		{
-			foreach ($id_array as $id)
-			{
-				$this->navigation_m->delete_link($id);
+		if(!empty($id_array)) {
+			foreach ($id_array as $id) {
+				Navigation\Model\Link::deleteLinkChildren($id);
 			}
 
 			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
+		//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 		$this->cache->clear('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 
@@ -380,38 +394,30 @@ class Admin extends Admin_Controller {
 
 		extract($params);
 
-		if ( ! $tree)
-		{
-			if ($pages = $this->db->select('id, parent_id, title')->get('pages')->result())
-			{
-				foreach($pages as $page)
-				{
+		if ( ! $tree) {
+			if ($pages = Pages\Model\Page::all()) {
+				foreach($pages as $page) {
 					$tree[$page->parent_id][] = $page;
 				}
 			}
 		}
 
-		if ( ! isset($tree[$parent_id]))
-		{
+		if ( ! isset($tree[$parent_id])) {
 			return;
 		}
 
 		$html = '';
 
-		foreach ($tree[$parent_id] as $item)
-		{
-			if ($current_id == $item->id)
-			{
+		foreach ($tree[$parent_id] as $item) {
+			if ($current_id == $item->id) {
 				continue;
 			}
 
 			$html .= '<option value="' . $item->id . '"';
 			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
 
-			if ($level > 0)
-			{
-				for ($i = 0; $i < ($level*2); $i++)
-				{
+			if ($level > 0) {
+				for ($i = 0; $i < ($level*2); $i++) {
 					$html .= '&nbsp;';
 				}
 
@@ -459,8 +465,7 @@ class Admin extends Admin_Controller {
 			break;
 		}
 
-		if ( ! $status)
-		{
+		if ( ! $status) {
 			$this->form_validation->set_message('_link_check', sprintf(lang('nav:choose_value'), lang('nav:'.$link.'_label')));
 			return false;
 		}
