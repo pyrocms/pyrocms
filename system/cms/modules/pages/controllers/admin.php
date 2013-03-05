@@ -338,8 +338,13 @@ class Admin extends Admin_Controller {
 			}
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$parent_page = new stdClass;
 
@@ -358,7 +363,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], lang('pages:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
 			->set('parent_page', $parent_page)
 			->set('page_type', $page_type)
 			->build('admin/form');
@@ -496,8 +501,13 @@ class Admin extends Admin_Controller {
 			}	
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $page_stream_entry_raw, 'edit');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		// If this page has a parent.
 		if ($page->parent_id > 0)
@@ -516,7 +526,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
 			->append_css('module::page-edit.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $page->entry_id))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
 			->set('page_type', $page_type)

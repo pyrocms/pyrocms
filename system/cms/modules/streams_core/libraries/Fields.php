@@ -362,10 +362,10 @@ class Fields
 	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips, $defaults, $key_check = true)
+	public function set_values($stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true)
 	{
 		$values = array();
-		
+
 		foreach ($stream_fields as $stream_field)
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
@@ -386,9 +386,17 @@ class Fields
 					{
 						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
 					}
-					else
+					elseif ($mode == 'new')
 					{
 						$values[$stream_field->field_slug] = (isset($defaults[$stream_field->field_slug]) ? $defaults[$stream_field->field_slug] : (isset($stream_field->field_data['default_value']) ? $stream_field->field_data['default_value'] : null));
+					}
+					elseif ($mode == 'edit')
+					{
+						// If there is no post data and no existing data and this is 
+						// an edit page, then we don't want to show the default.
+						// Edit pages should *always* reflect the current data,
+						// and nothing more.
+						$values[$stream_field->field_slug] = null;
 					}
 				}
 				else
@@ -793,16 +801,14 @@ class Fields
 			$email_pieces = explode('|', $from);
 
 			// For two segments we process it as email_address|name
-			if (count($email_pieces) == 2)
-			{
+			if (count($email_pieces) == 2) {
 				$email_address 	= $this->_process_email_address($email_pieces[0]);
 				$name 			= ($this->CI->input->post($email_pieces[1])) ? 
 										$this->CI->input->post($email_pieces[1]) : $email_pieces[1];
 
 				$this->CI->email->from($email_address, $name);
 			}
-			else
-			{
+			else {
 				$this->CI->email->from($this->_process_email_address($email_pieces[0]));
 			}
 		}
