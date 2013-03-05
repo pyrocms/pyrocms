@@ -30,15 +30,13 @@ class Admin_Controller extends MY_Controller
 		$this->lang->load('buttons');
 		
 		// Show error and exit if the user does not have sufficient permissions
-		if ( ! self::checkAccess())
-		{
+		if ( ! self::checkAccess()) {
 			$this->session->set_flashdata('error', lang('cp:access_denied'));
 			redirect();
 		}
 
 		// If the setting is enabled redirect request to HTTPS
-		if (Settings::get('admin_force_https') and strtolower(substr(current_url(), 4, 1)) != 's')
-		{
+		if (Settings::get('admin_force_https') and strtolower(substr(current_url(), 4, 1)) != 's') {
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
 
@@ -202,6 +200,8 @@ class Admin_Controller extends MY_Controller
 			return true;
 		}
 
+var_dump($this->current_user->isAdmin());
+exit;
 		// Well they at least better have permissions!
 		if ($this->current_user) {
 			

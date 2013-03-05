@@ -40,7 +40,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      */
     public static function getGroupOptions()
     {
-        return self::lists('title', 'id');
+        return static::lists('title', 'id');
     }
 
     /**
@@ -52,7 +52,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      */
     public static function findGroupByAbbrev($value)
     {
-        return $this->where('abbrev', $value)->first();
+        return static::where('abbrev', $value)->first();
     }
 
 }

@@ -9,9 +9,9 @@ class Migration_Switch_to_sentry extends CI_Migration
         // Add the new fields for Sentry
         $schema->table('users', function($table) {
             $table->boolean('is_activated')->default(false);
-            $table->string('activation_hash', 40)->nullable();
-            $table->string('persist_hash')->nullable();
-            $table->string('reset_password_hash', 40)->nullable();
+            $table->string('activation_code', 40)->nullable();
+            $table->string('persist_code')->nullable();
+            $table->string('reset_password_code', 40)->nullable();
             $table->text('permissions')->nullable();
             $table->string('password_old', 40);
         });
@@ -20,8 +20,7 @@ class Migration_Switch_to_sentry extends CI_Migration
 
         $this->pdb->update('UPDATE '.$prefix.'users SET 
             is_activated = active, 
-            activation_hash = activation_code, 
-            reset_password_hash = forgotten_password_code, 
+            reset_password_code = forgotten_password_code, 
             password_old = password 
         ');
         
@@ -32,8 +31,7 @@ class Migration_Switch_to_sentry extends CI_Migration
         $schema->table('users', function($table) {
             $table->dropColumn('password');
             $table->dropColumn('active');
-            $table->dropColumn('activation_hash');
-            $table->dropColumn('reset_password_hash');
+            $table->dropColumn('forgotten_password_code');
             $table->dropColumn('remember_code');
         });
 

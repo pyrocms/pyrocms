@@ -10,11 +10,11 @@ class Widget_m extends CI_Model
 {
 	public function find($id)
 	{
-		$instance = $this->pdb
+		$instance = ci()->pdb
 			->table('widget_areas wa')
 			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
+			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id', '=', 'w.id')
 			->where('wi.id', $id)
 			->take(1)
 			->first();
@@ -28,11 +28,11 @@ class Widget_m extends CI_Model
 
 	public function findByArea($slug)
 	{
-		$result = $this->pdb
+		$result = ci()->pdb
 			->table('widget_areas wa')
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
+			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id', '=', 'w.id')
 			->where('wa.slug', $slug)
 			->orderBy('wi.order')
 			->get();
@@ -53,8 +53,8 @@ class Widget_m extends CI_Model
 		$this->db
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
+			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id', '=', 'w.id')
 			->where_in('wa.slug', $slug)
 			->order_by('wi.order');
 

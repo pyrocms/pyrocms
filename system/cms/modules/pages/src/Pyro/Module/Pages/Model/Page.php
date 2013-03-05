@@ -264,7 +264,9 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 			if ($stream) {
 				if ($entry = ci()->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
-					$page = (object) array_merge((array)$entry, (array)$page);
+					foreach ($entry as $key => $value) {
+						$page->{$key} = $value;
+					}
 				}
 			}
 		}

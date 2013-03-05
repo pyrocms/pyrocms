@@ -10,11 +10,12 @@
  */
 class Plugin_User extends Plugin
 {
-
 	public $version = '1.0.0';
+
 	public $name = array(
 		'en' => 'User',
 	);
+
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
@@ -81,14 +82,12 @@ class Plugin_User extends Plugin
 	{
 		$group = $this->attribute('group', null);
 
-		if ($this->current_user)
-		{
-			if ($group and $group !== $this->current_user->group)
-			{
+		if ($this->current_user) {
+			if ($group and $group !== $this->current_user->group) {
 				return '';
 			}
 
-			return $this->content() ? $this->content() : true;
+			return $this->content() ?: true;
 		}
 
 		return '';
@@ -137,12 +136,11 @@ class Plugin_User extends Plugin
 	{
 		if ($this->current_user)
 		{
-			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
-			{
+			if (!($this->current_user->hasAccess('admin') or $this->permission_m->get_group($this->current_user->group_id))) {
 				return '';
 			}
 
-			return $this->content() ? $this->content() : true;
+			return $this->content() ?: true;
 		}
 
 		return '';
@@ -204,14 +202,12 @@ class Plugin_User extends Plugin
 			'slug'  => 'updated_on'
 		);
 
-		foreach ($this->ion_auth_model->user_stream_fields as $key => $field)
-		{
-			if (!isset($profile_data[$key]))
-			{
+		foreach ($this->ion_auth_model->user_stream_fields as $key => $field) {
+			if (!isset($profile_data[$key])) {
 				continue;
 			}
 
-			$name = (lang($field->field_name)) ? $this->lang->line($field->field_name) : $field->field_name;
+			$name = lang($field->field_name) ?: $field->field_name;
 
 			$plugin_data[] = array(
 				'value' => $profile_data[$key],

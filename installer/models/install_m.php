@@ -81,9 +81,9 @@ class Install_m extends CI_Model
 		    $table->string('password', 255);
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
-		    $table->string('activation_hash')->nullable();
-		    $table->string('persist_hash')->nullable();
-		    $table->string('reset_password_hash')->nullable();
+		    $table->string('activation_code')->nullable();
+		    $table->string('persist_code')->nullable();
+		    $table->string('reset_password_code')->nullable();
 		    $table->integer('created_on');
 		    $table->integer('updated_on')->nullable();
 		    $table->integer('last_login')->nullable();

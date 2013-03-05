@@ -90,8 +90,16 @@
         });
 
         $this->pdb->table('groups')->insert(array(
-            array('name' => 'admin', 'description' => 'Administrator'),
-            array('name' => 'user', 'description' => 'User'),
+            array(
+                'name' => 'admin',
+                'description' => 'Administrator',
+                'permissions' => json_encode(array('admin' => 1)),
+            ),
+            array(
+                'name' => 'user',
+                'description' => 'User',
+                'permissions' => null,
+            ),
         ));
 
         return true;

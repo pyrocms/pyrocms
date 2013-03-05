@@ -27,14 +27,28 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 	}
 
 	/**
-	 * Get recent users
+	 * Find a user based from their username
 	 *
-	 * @return     array
+	 * @param 	array $username Username of the user
+	 * @return  $this
 	 */
-	public function getByEmail($email)
+	public function findByUsername($username)
 	{
 		return $this
-			->where('email', '=', strtolower($email))
+			->whereRaw('LOWER(username) = ?', array(strtolower($username)))
+			->first();
+	}
+
+	/**
+	 * Find a user based from their email
+	 *
+	 * @param 	array $username Username of the user
+	 * @return  $this
+	 */
+	public function findByEmail($email)
+	{
+		return $this
+			->whereRaw('LOWER(email) = ?', array(strtolower($email)))
 			->first();
 	}
 
@@ -77,7 +91,6 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 	 * Create a new user
 	 *
 	 * @param array $input
-	 *
 	 * @return int|true
 	 */
 	public function add($input = array())
@@ -89,11 +102,34 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 			'role' => empty($input->role) ? 'user' : $input->role,
 			'active' => 0,
 			'lang' => $this->config->item('default_language'),
-			'activation_hash' => $input->activation_hash,
+			'activation_code' => $input->activation_hash,
 			'created_on' => now(),
 			'last_login' => now(),
 			'ip' => $this->input->ip_address()
 		));
+	}
+
+	/**
+	 * Checks if the user is a super user - has
+	 * access to everything regardless of permissions.
+	 *
+	 * @return bool
+	 */
+	public function isAdmin()
+	{
+		$permissions = $this->getMergedPermissions();
+
+		if ( ! array_key_exists('admin', $permissions))
+		{
+			return false;
+		}
+
+		return $permissions['admin'] == 1;
+	}
+
+	public function isSuperUser()
+	{
+		throw new Exception('NOPE! Use isAdmin() instead.');
 	}
 
 	/**
@@ -115,7 +151,7 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 	public function activateUser()
 	{
 		$this->is_activated = true;
-		$this->activation_hash = null;
+		$this->activation_code = null;
 		$this->save();
 	}
 
