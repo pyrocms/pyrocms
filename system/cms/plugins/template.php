@@ -36,32 +36,158 @@ class Plugin_Template extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'breadcrumbs' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Loop through the breadcrumbs and output them as links.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => false,
+				'double' => true,
+				'variables' => 'name|uri',
+				'attributes' => array(),
+			),// end breadcrumbs method
+			'set_breadcrumb' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Add a segment to the breadcrumb trail. If [reset] is used all breadcrumbs will be cleared first.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
-					),
-					'limit' => array(
-						'type' => 'number',
+					'name' => array(
+						'type' => 'text',
 						'flags' => '',
-						'default' => '20',
+						'default' => '',
+						'required' => true,
+					),
+					'uri' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'reset' => array(
+						'type' => 'flag',
+						'flags' => 'Y|N',
+						'default' => 'N',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end set_breadcrumb method
+			'has_breadcrumbs' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Check if any breadcrumbs exist.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),// end has_breadcrumbs method
+			'title' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output the template title.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),// end title method
+			'set_title' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Set the template title from within your content.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'value' => array(
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end title method
+			'metadata' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output the compiled metadata set by any and all controllers.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),// end metadata method
+			'set_metadata' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Set metadata by name/value pairs.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'value' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'type' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'meta',
+						'required' => false,
+					),
+				),
+			),// end set_metadata method
+			'partial' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output a template partial set in a controller. Note that a theme partial different.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end partial method
+			'has_partial' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Check if a template partial has been set.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end has_partial method
+			'body' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output the completed template. This is the final output.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),// end body method
 		);
-	
-		//return $info;
-		return array();
+
+		return $info;
 	}
 
 	/**
