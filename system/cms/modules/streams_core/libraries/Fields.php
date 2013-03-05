@@ -366,6 +366,12 @@ class Fields
 	{
 		$values = array();
 
+		// If we don't have any stream fields, 
+		// we don't have anything to do.
+		if ( ! $stream_fields) {
+			return $values;
+		}
+
 		foreach ($stream_fields as $stream_field)
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
