@@ -191,6 +191,9 @@ class Admin extends Admin_Controller
 			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 		}
 
+		// Some stream fields need $_POST as well.
+		$profile_data = array_merge($profile_data, $_POST);
+
 		$profile_data['display_name'] = $this->input->post('display_name');
 
 		if ($this->form_validation->run() !== false)
@@ -347,6 +350,9 @@ class Admin extends Admin_Controller
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
+
+			// Some stream fields need $_POST as well.
+			$profile_data = array_merge($profile_data, $_POST);
 
 			// We need to manually do display_name
 			$profile_data['display_name'] = $this->input->post('display_name');
