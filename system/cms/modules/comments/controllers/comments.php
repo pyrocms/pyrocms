@@ -172,7 +172,6 @@ class Comments extends Public_Controller
 	 * There are a few places where we need to repopulate
 	 * the comments.
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function _repopulate_comment()
@@ -230,7 +229,7 @@ class Comments extends Public_Controller
 			}
 		}
 	
-		if (CommentBlacklist::findManyByEmailOrWebsite($this->input->post('email'), 'website' => $this->input->post('website'))->count() > 0) {
+		if (CommentBlacklist::findManyByEmailOrWebsite($this->input->post('email'), $this->input->post('website'))->count() > 0) {
 			// @TODO Add me to language files
 			return array('status' => false, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
