@@ -1,4 +1,4 @@
-<?php if ( ! empty($comments)): ?>
+<?php if ( ! $comments->isEmpty()): ?>
 
 	<table border="0" class="table-list" cellspacing="0">
 		<thead>
