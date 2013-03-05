@@ -10,11 +10,11 @@
 							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
 <pre>
 <code>
-<?php if ($doc['single']): ?>
+<?php if (isset($doc['single']) and $doc['single']): ?>
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
 
 <?php endif ?>
-<?php if ($doc['double']): ?>
+<?php if (isset($doc['double']) and $doc['double']): ?>
 
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
     <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
