@@ -15,7 +15,7 @@ class Field_relationship
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'choose_stream', 'link_uri );
+	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
 	public $version					= '1.1.0';
 
