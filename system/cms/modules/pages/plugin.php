@@ -522,7 +522,7 @@ class Plugin_Pages extends Plugin
 		$start          = $this->attribute('start');
 		$start_id       = $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
-		$order_by       = $this->attribute('order-by', 'sort');
+		$order_by       = $this->attribute('order-by', 'order');
 		$order_dir      = $this->attribute('order-dir', 'ASC');
 		$list_tag       = $this->attribute('list-tag', 'ul');
 		$link           = $this->attribute('link', true);
