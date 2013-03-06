@@ -121,13 +121,14 @@ class Admin_Controller extends MY_Controller {
 
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 
-			$event_output = Events::trigger('admin_menu', $menu_items);
+			$event_output = Events::trigger('admin_menu', $menu_items, 'array');
 
 			// If we get an array, we assume they have altered the menu items
-			// and are returning them to us to use.
-			if (is_array($event_output))
+			// anyone listening would have changed it one after the other so
+			// we only want that last.
+			if (count($event_output))
 			{
-				$menu_items = $event_output;
+				$menu_items = $event_output[count($event_output) - 1 ];
 			}
 
 			// Order the menu items. We go by our menu_order array.
