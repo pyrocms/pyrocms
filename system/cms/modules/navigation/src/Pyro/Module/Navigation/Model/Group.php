@@ -52,7 +52,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      */
     public static function findGroupByAbbrev($value)
     {
-        return $this->where('abbrev', $value)->first();
+        return self::where('abbrev', $value)->first();
     }
 
 }
