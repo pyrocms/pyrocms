@@ -7,7 +7,6 @@ use Pyro\Module\Groups;
 /**
  * Navigation model for the navigation module.
  * 
- * @author      Phil Sturgeon
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Navigation\Models
  */

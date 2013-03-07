@@ -1,14 +1,20 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace Pyro\Module\Users\Model; 
+
 /**
- * The User model.
- *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Modules\Users\Models
+ * User model for the users module.
+ * 
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Modules\User\Models
  */
-class User_m extends Cartalyst\Sentry\Users\Eloquent\User
+class User extends \Illuminate\Database\Eloquent\Model
 {
-	protected $table = 'users';
-	
+    /**
+     * Define the table name
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
     /**
      * Disable updated_at and created_at on table
      *
@@ -50,6 +56,25 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 		return $this
 			->whereRaw('LOWER(email) = ?', array(strtolower($email)))
 			->first();
+	}
+
+	/**
+	 * Finds a user by the login value.
+	 *
+	 * @param  string  $login
+	 * @return Cartalyst\Sentry\Users\UserInterface
+	 * @throws Cartalyst\Sentry\Users\UserNotFoundException
+	 */
+	public function findByLogin($login)
+	{
+		$user = $this->findByUsername($login) ?: $this->findByEmail($login);
+
+		if ( ! $user)
+		{
+			throw new UserNotFoundException("A user could not be found with a login value of [$login].");
+		}
+
+		return $user;
 	}
 
 	/**
@@ -129,7 +154,7 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 
 	public function isSuperUser()
 	{
-		throw new Exception('NOPE! Use isAdmin() instead.');
+		return $this->isAdmin();
 	}
 
 	/**

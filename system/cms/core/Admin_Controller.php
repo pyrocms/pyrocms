@@ -196,22 +196,20 @@ class Admin_Controller extends MY_Controller
 		}
 
 		// Admins can go straight in
-		if ($this->current_user->isSuperUser()) {
+		if ($this->current_user->isAdmin()) {
 			return true;
 		}
 
-var_dump($this->current_user->isAdmin());
-exit;
 		// Well they at least better have permissions!
 		if ($this->current_user) {
 			
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page === 'admin/index' && $this->current_user->hasAccess('admin')){
+			if ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
 				return true;
 			}
 
 			// Check if the current user can view that page
-			return $this->current_user->hasAccess($this->module);
+			return $this->current_user->hasAccess("{$this->module}.*");
 		}
 
 		// god knows what this is... erm...

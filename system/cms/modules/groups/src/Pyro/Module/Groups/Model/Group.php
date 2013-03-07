@@ -41,7 +41,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      */
 	public static function getGeneralGroupOptions()
 	{
-		return static::whereNotIn('name', 'admin')->lists('description', 'id');
+		return static::where('name', '!=', 'admin')->lists('description', 'id');
 	}
 
     /**

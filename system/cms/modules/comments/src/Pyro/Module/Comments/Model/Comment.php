@@ -37,20 +37,20 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
-            ->table('comments')
+            ->table('comments c')
             ->select(
-                'users.username',
-                'profiles.display_name',
-                ci()->pdb->raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'),
-                ci()->pdb->raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email')
+                ci()->pdb->raw('u.username'),
+                ci()->pdb->raw('p.display_name'),
+                ci()->pdb->raw('IF(c.user_id > 0, p.display_name, c.user_name) as user_name'),
+                ci()->pdb->raw('IF(c.user_id > 0, u.email, c.user_email) as user_email')
             )
-            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
-            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('comments.module', $module)
-            ->where('comments.entry_id', $entry_id)
-            ->where('comments.entry_key', $entry_key)
-            ->where('comments.is_active', $is_active)
-            ->orderBy('comments.created_on', Settings::get('comment_order'))
+            ->leftJoin('users as u', 'c.user_id', '=', 'u.id')
+            ->leftJoin('profiles as p', 'p.user_id', '=', 'u.id')
+            ->where('c.module', $module)
+            ->where('c.entry_id', $entry_id)
+            ->where('c.entry_key', $entry_key)
+            ->where('c.is_active', $is_active)
+            ->orderBy('c.created_on', Settings::get('comment_order'))
             ->get();
     }
 
@@ -64,19 +64,18 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function findRecent($limit = 10, $is_active = 1)
     {
-
         //@TODO Update this query once we have relationships setup in the users model
         return ci()->pdb
-            ->table('comments')
+            ->table('comments as c')
             ->select(
-                'users.username',
-                'profiles.display_name',
-                ci()->pdb->raw('IF(comments.user_id > 0, profiles.display_name, comments.user_name) as user_name'),
-                ci()->pdb->raw('IF(comments.user_id > 0, users.email, comments.user_email) as user_email')
+                ci()->pdb->raw('u.username'),
+                ci()->pdb->raw('p.display_name'),
+                ci()->pdb->raw('IF(c.user_id > 0, p.display_name, c.user_name) as user_name'),
+                ci()->pdb->raw('IF(c.user_id > 0, u.email, c.user_email) as user_email')
             )
-            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
-            ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('c.is_active', $is_active)
+            ->join('users as u', 'c.user_id', '=', 'u.id')
+            ->join('profiles as p', 'p.user_id', '=', 'u.id')
+            ->where('is_active', $is_active)
             ->take($limit)
             ->orderBy('c.created_on', 'desc')
             ->get();

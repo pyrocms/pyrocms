@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Groups;
+use Pyro\Module\Users;
 
 /**
  * Admin controller for the users module
@@ -42,7 +43,7 @@ class Admin extends Admin_Controller
 			'rules' => 'required|callback__group_check'
 		),
 		array(
-			'field' => 'active',
+			'field' => 'is_activated',
 			'label' => 'lang:user_active_label',
 			'rules' => ''
 		),
@@ -61,17 +62,13 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('user_m');
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		if ($this->current_user->group != 'admin') 
-		{
+		if ($this->current_user->hasAccess('admin'))  {
 			$this->template->group_options = Groups\Model\Group::getGeneralGroupOptions();
-		} 
-		else 
-		{
+		}  else  {
 			$this->template->group_options = Groups\Model\Group::getGroupOptions();
 		}
 	}
@@ -81,38 +78,32 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$base_where = array('active' => 0);
-
 		// ---------------------------
 		// User Filters
 		// ---------------------------
 
 		// Determine active param
-		$base_where['active'] = $this->input->post('f_module') ? (int)$this->input->post('f_active') : $base_where['active'];
+		$by_active = ((bool) $this->input->post('f_active')) ?: false;
 
 		// Determine group param
-		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int)$this->input->post('f_group')) : $base_where;
+		$by_group = $this->input->post('f_group');
 
 		// Keyphrase param
-		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
+		$keywords = $this->input->post('f_keywords');
 
 		// Create pagination links
-		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-
-		//Skip admin
-		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
+		// @TODO Create user pagination and reimplement filter
+		// $pagination = create_pagination('admin/users/index', User_m::($base_where));
 
 		// Using this data, get the relevant results
-		$this->db->order_by('active', 'desc')
-			->join('groups', 'groups.id = users.group_id')
-			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit'], $pagination['offset']);
-
-		$users = $this->user_m->get_many_by($base_where);
+		if ($this->current_user->hasAccess('admin')) {
+			$users = Groups\Model\Group::searchGeneralUsers();
+		} else {
+			$users = Groups\Model\Group::searchUsers();
+		}
 
 		// Unset the layout if we have an ajax request
-		if ($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			$this->template->set_layout(false);
 		}
 

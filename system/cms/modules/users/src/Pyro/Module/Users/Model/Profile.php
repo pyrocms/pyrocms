@@ -1,9 +1,12 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace Pyro\Module\Users\Model; 
+
 /**
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Users\Models
+ * Profile model for the users module.
+ * 
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Modules\User\Models
  */
-class Profile_m extends MY_Model
+class Profile extends \Illuminate\Database\Eloquent\Model
 {
 	/**
 	 * Get a user profile

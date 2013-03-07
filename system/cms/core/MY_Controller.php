@@ -3,6 +3,7 @@
 require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
+use Pyro\Module\Users\Model\User;
 
 /**
  * Code here is run before ALL controllers
@@ -113,6 +114,44 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
+
+        // Work out module, controller and method and make them accessable throught the CI instance
+        ci()->module = $this->module = $this->router->fetch_module();
+        ci()->controller = $this->controller = $this->router->fetch_class();
+        ci()->method = $this->method = $this->router->fetch_method();
+
+        // Loaded after $this->current_user is set so that data can be used everywhere
+        $this->load->model(array(
+            'permissions/permission_m',
+            'addons/module_m',
+            'addons/theme_m',
+        ));
+
+        // load all modules (the Events library uses them all) and make their details widely available
+        ci()->enabled_modules = $this->module_m->get_all();
+        
+        // set defaults
+        $this->template->module_details = ci()->module_details = $this->module_details = false;
+
+        // Lets PSR-0 up our modules
+        $loader = new \Composer\Autoload\ClassLoader;
+        foreach (ci()->enabled_modules as $module) {
+
+            // register classes with namespaces
+            $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
+
+            // Also, save this module to... everywhere if its the current one 
+            if ($module['slug'] === $this->module) {
+                // Set meta data for the module to be accessible system wide
+                $this->template->module_details = ci()->module_details = $this->module_details = $module;
+
+                continue;
+            }
+        }
+
+        // activate the autoloader
+        $loader->register();
+
 		// Is there a logged in user?
         ci()->sentry = $this->sentry = $this->setupSentry();
 
@@ -120,45 +159,9 @@ class MY_Controller extends MX_Controller
         $user = $this->sentry->check();
         $this->template->current_user = ci()->current_user = $this->current_user = $user;
 
-		// Work out module, controller and method and make them accessable throught the CI instance
-		ci()->module = $this->module = $this->router->fetch_module();
-		ci()->controller = $this->controller = $this->router->fetch_class();
-		ci()->method = $this->method = $this->router->fetch_method();
-
-		// Loaded after $this->current_user is set so that data can be used everywhere
-		$this->load->model(array(
-			'permissions/permission_m',
-			'addons/module_m',
-			'addons/theme_m',
-		));
-
-		// load all modules (the Events library uses them all) and make their details widely available
-		ci()->enabled_modules = $this->module_m->get_all();
-
 		// now that we have a list of enabled modules
 		$this->load->library('events');
 
-		// set defaults
-		$this->template->module_details = ci()->module_details = $this->module_details = false;
-
-        // Lets PSR-0 up our modules
-        $loader = new \Composer\Autoload\ClassLoader;
-		foreach (ci()->enabled_modules as $module) {
-
-            // register classes with namespaces
-            $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
-
-            // Also, save this module to... everywhere if its the current one 
-			if ($module['slug'] === $this->module) {
-				// Set meta data for the module to be accessible system wide
-				$this->template->module_details = ci()->module_details = $this->module_details = $module;
-
-				continue;
-			}
-		}
-
-        // activate the autoloader
-        $loader->register();
 
 		// certain places (such as the Dashboard) we aren't running a module, provide defaults
 		if ( ! $this->module)
@@ -372,7 +375,6 @@ class MY_Controller extends MX_Controller
     public function setupSentry()
     {
         ci()->load->helper('cookie');
-        ci()->load->model('users/user_m');
 
         $hasher = new Sentry\Hashing\NativeHasher;
         $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user_session');
@@ -380,7 +382,7 @@ class MY_Controller extends MX_Controller
         	// Array of overridden cookie settings...
         ),'pyro_user_cookie');
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, 'User_m');
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, 'Pyro\Module\Users\Model\User');
         $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 
         $throttle->disable();
