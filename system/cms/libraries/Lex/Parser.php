@@ -93,6 +93,7 @@ class Lex_Parser
 		
 		if ($callback)
 		{
+			$text = $this->parse_variables($text, $data, $callback);
 			$text = $this->parse_callback_tags($text, $data, $callback);
 		}
 		
