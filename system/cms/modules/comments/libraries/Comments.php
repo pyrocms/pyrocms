@@ -71,7 +71,6 @@ class Comments
 	 */
 	public function __construct($params)
 	{
-		ci()->load->model('comments/comment_m');
 		ci()->lang->load('comments/comments');
 
 		// This shouldnt be required if static loading was possible, but its not in CI
@@ -99,7 +98,7 @@ class Comments
 	public function display()
 	{
 		// Fetch comments, then process them
-		$comments = $this->process(ci()->comment_m->get_by_entry($this->module, $this->singular, $this->entry_id));
+		$comments = $this->process(Comment::findByEntry($this->module, $this->singular, $this->entry_id));
 		
 		// Return the awesome comments view
 		return $this->load_view('display', compact(array('comments')));
@@ -127,12 +126,7 @@ class Comments
 	 */
 	public function count()
 	{
-		return (int) $this->db->where(array(
-			'module'	=> $this->module,
-			'entry_key'	=> $this->singular,
-			'entry_id'	=> $this->entry_id,
-			'is_active'	=> true,
-		))->count_all_results('comments');
+		return Comment::findByEntry($this->module, $this->singular, $this->entry_id, true)->count();
 	}
 
 	/**

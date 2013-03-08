@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Pages\Model;
 
+use Pyro\Module\Navigation\Model\Link;
+
 /**
  * Pages model
  *
@@ -525,20 +527,22 @@ class Page extends \Illuminate\Database\Eloquent\Model
 		$this->buildLookup($id);
 
 		// Add a Navigation Link
-		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
-		{
-			$this->load->model('navigation/navigation_m');
-
-			if (isset($input['navigation_group_id']) and is_array($input['navigation_group_id']))
-			{
-				foreach ($input['navigation_group_id'] as $group_id)
-				{
-					$this->navigation_m->insert_link(array(
+		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
+			if (isset($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
+				foreach ($input['navigation_group_id'] as $group_id) {
+					$link = Link::create(array(
 						'title'					=> $input['title'],
 						'link_type'				=> 'page',
 						'page_id'				=> $id,
 						'navigation_group_id'	=> $group_id
 					));
+
+					if ($link) {
+						//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+						$this->cache->clear('navigation_m');
+
+						Events::trigger('post_navigation_create', $link);
+					}
 				}
 			}
 		}

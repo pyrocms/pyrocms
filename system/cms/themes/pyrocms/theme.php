@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Comments\Model\Comment;
 
 class Theme_Pyrocms extends Theme {
 
@@ -214,11 +216,9 @@ class Theme_Pyrocms extends Theme {
 	public function get_recent_comments()
 	{
 		$this->load->library('comments/comments');
-		$this->load->model('comments/comment_m');
-
 		$this->lang->load('comments/comments');
 
-		$recent_comments = $this->comment_m->get_recent(5);
+		$recent_comments = Comment::findRecent(5);
 		
 		$this->template->recent_comments = $this->comments->process($recent_comments);
 	}

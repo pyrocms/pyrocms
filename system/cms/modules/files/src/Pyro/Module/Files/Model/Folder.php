@@ -14,7 +14,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      *
      * @var string
      */
-    public $table = 'file_folders';
+    protected $table = 'file_folders';
 
     /**
      * Disable updated_at and created_at on table

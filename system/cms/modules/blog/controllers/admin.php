@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Comments\Model\Comment;
+
 /**
  *
  * @author  PyroCMS Dev Team
@@ -494,26 +497,22 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comment_m');
-
 		role_or_die('blog', 'delete_live');
 
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
-		if ( ! empty($ids))
-		{
+		if ( ! empty($ids)) {
 			$post_titles = array();
 			$deleted_ids = array();
-			foreach ($ids as $id)
-			{
+			foreach ($ids as $id) {
 				// Get the current page so we can grab the id too
-				if ($post = $this->blog_m->get($id))
-				{
-					if ($this->blog_m->delete($id))
-					{
-						$this->comment_m->where('module', 'blog')->delete_by('entry_id', $id);
+				if ($post = $this->blog_m->get($id)) {
+					if ($this->blog_m->delete($id)) {
+						// Delete any blog comments for this entry
+						$comments = Comment::findManyByModuleAndEntryId('blog',$id);
+						$comments->delete();
 
 						// Wipe cache for this model, the content has changed
 						$this->cache->clear('blog_m');
@@ -528,22 +527,16 @@ class Admin extends Admin_Controller
 		}
 
 		// Some pages have been deleted
-		if ( ! empty($post_titles))
-		{
+		if ( ! empty($post_titles)) {
 			// Only deleting one page
-			if (count($post_titles) == 1)
-			{
+			if (count($post_titles) == 1) {
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:delete_success'), $post_titles[0]));
-			}
-			// Deleting multiple pages
-			else
-			{
+			} else {
+				// Deleting multiple pages
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:mass_delete_success'), implode('", "', $post_titles)));
 			}
-		}
-		// For some reason, none of them were deleted
-		else
-		{
+		} else {
+			// For some reason, none of them were deleted
 			$this->session->set_flashdata('notice', lang('blog:delete_error'));
 		}
 
