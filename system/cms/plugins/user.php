@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Users;
 
 /**
  * User Plugin
@@ -202,7 +204,7 @@ class Plugin_User extends Plugin
 			'slug'  => 'updated_on'
 		);
 
-		foreach ($this->ion_auth_model->user_stream_fields as $key => $field) {
+		foreach ($this->current_user->getStreamFields() as $key => $field) {
 			if (!isset($profile_data[$key])) {
 				continue;
 			}
@@ -283,11 +285,11 @@ class Plugin_User extends Plugin
 			$user_id = $this->current_user->id;
 		}
 
-		$user = User_m::find($user_id);
+		$user = Users\Model\User::find($user_id);
 
 		// Got through each stream field and see if we need to format it
 		// for plugin return (ie if we haven't already done that).
-		foreach ($this->user_stream_fields as $field_key => $field_data) {
+		foreach ($user->getStreamFields() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
@@ -342,17 +344,19 @@ class Plugin_User extends Plugin
 			return $this->user_profile_data[$user_id]['plugin'][$var];
 		}
 
-		$user = User_m::find($user_id);
+		$user = Users\Model\User::find($user_id);
+
+		$stream_fields = $user->getStreamFields();
 
 		// Is this a user stream field?
-		if (array_key_exists($var, $this->user_stream_fields)) {
+		if (array_key_exists($var, $stream_fields)) {
 			$formatted_column = $this->row_m->format_column(
 				$var, 
 				$user->$var, 
 				$user->profile_id,
-				$this->user_stream_fields->{$var}->field_type, 
-				$this->user_stream_fields->{$var}->field_data, 
-				$this->user_stream, 
+				$stream_fields->{$var}->field_type, 
+				$stream_fields->{$var}->field_data, 
+				$user->stream, 
 				true
 			);
 		}

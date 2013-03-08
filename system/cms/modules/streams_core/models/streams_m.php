@@ -501,22 +501,22 @@ class Streams_m extends CI_Model {
 		$query = $this->pdb->table($this->table);
 
 		if ($by_slug == true and ! is_null($namespace)) {	
-			$query->where('stream_namespace', $namespace);
-			$query->where('stream_slug', $stream_id);
-		}
-		elseif (is_numeric($stream_id)) {
-			$query->where('id', $stream_id);
-		}
-		else {
+			$query = $query
+				->where('stream_namespace', $namespace)
+				->where('stream_slug', $stream_id);
+		} elseif (is_numeric($stream_id)) {
+			$query = $query->where('id', $stream_id);
+		} else {
 			return null;
 		}
 
 		$stream = $query->take(1)->first();
 
-		if (trim($stream->view_options) == '') {
+		var_dump($stream);
+
+		if (empty($stream->view_options) or trim($stream->view_options) == '') {
 			$stream->view_options = array();
-		}
-		else {
+		} else {
 			$stream->view_options = unserialize($stream->view_options);
 		}
 		

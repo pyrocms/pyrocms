@@ -29,12 +29,12 @@ class Widget_m extends CI_Model
 	public function findByArea($slug)
 	{
 		$result = ci()->pdb
-			->table('widget_areas wa')
-			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id', '=', 'w.id')
-			->where('wa.slug', $slug)
-			->orderBy('wi.order')
+			->table('widget_areas')
+			->select('widget_instances.id', 'widgets.slug', 'widget_instances.id as instance_id', 'widget_instances.title as instance_title', 'widgets.title', 'widget_instances.widget_area_id', 'widget_areas.slug as widget_area_slug', 'widget_instances.options')
+			->join('widget_instances', 'widget_areas.id', '=', 'widget_instances.widget_area_id')
+			->join('widgets', 'widget_instances.widget_id', '=', 'widgets.id')
+			->where('widget_areas.slug', $slug)
+			->orderBy('widget_instances.order')
 			->get();
 
 		if ($result) {

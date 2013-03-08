@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Users
 
 /**
  * User controller for the users module (frontend)
@@ -73,7 +75,7 @@ class Users extends Public_Controller
 		
 		} else {
 			// Fine, just grab the user from the DB
-			$user = User_m::findByUsername($username);
+			$user = Users\Model\User::findByUsername($username);
 		}
 
 		// No user? Show a 404 error

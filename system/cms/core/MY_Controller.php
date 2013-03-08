@@ -114,7 +114,6 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-
         // Work out module, controller and method and make them accessable throught the CI instance
         ci()->module = $this->module = $this->router->fetch_module();
         ci()->controller = $this->controller = $this->router->fetch_class();

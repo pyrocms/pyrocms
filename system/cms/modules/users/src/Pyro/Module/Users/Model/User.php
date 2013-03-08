@@ -1,12 +1,15 @@
 <?php namespace Pyro\Module\Users\Model; 
 
+use Cartalyst\Sentry\Users\Eloquent;
+// use Cartalyst\Sentry\Users\UserInterface;
+
 /**
  * User model for the users module.
  * 
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends \Illuminate\Database\Eloquent\Model
+class User extends Eloquent\User
 {
     /**
      * Define the table name
@@ -113,26 +116,33 @@ class User extends \Illuminate\Database\Eloquent\Model
 	}
 
 	/**
-	 * Create a new user
+	 * Get Stream Fields
 	 *
-	 * @param array $input
-	 * @return int|true
+	 * @TODO KILL ME! This should be a real join or something
+	 * @return array
 	 */
-	public function add($input = array())
+	public function getStreamFields()
 	{
-		return parent::insertDOESNTEXIST(array(
-			'email' => $input->email,
-			'password' => $input->password,
-			'salt' => $input->salt,
-			'role' => empty($input->role) ? 'user' : $input->role,
-			'active' => 0,
-			'lang' => $this->config->item('default_language'),
-			'activation_code' => $input->activation_hash,
-			'created_on' => now(),
-			'last_login' => now(),
-			'ip' => $this->input->ip_address()
-		));
+		$this->stream = ci()->streams_m->get_stream('profiles', true, 'users');
+
+		return ci()->streams_m->get_stream_fields($this->stream->id);
 	}
+
+	// public function add($input = array())
+	// {
+	// 	return parent::insertDOESNTEXIST(array(
+	// 		'email' => $input->email,
+	// 		'password' => $input->password,
+	// 		'salt' => $input->salt,
+	// 		'role' => empty($input->role) ? 'user' : $input->role,
+	// 		'active' => 0,
+	// 		'lang' => $this->config->item('default_language'),
+	// 		'activation_code' => $input->activation_hash,
+	// 		'created_on' => now(),
+	// 		'last_login' => now(),
+	// 		'ip' => $this->input->ip_address()
+	// 	));
+	// }
 
 	/**
 	 * Checks if the user is a super user - has
