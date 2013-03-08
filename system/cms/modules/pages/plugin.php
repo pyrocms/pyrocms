@@ -54,7 +54,7 @@ class Plugin_Pages extends Plugin
 				),
 				'single' => true,
 				'double' => true,
-				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title',
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
 				'attributes' => array(
 					'id' => array(
 						'type' => 'number',
@@ -76,7 +76,7 @@ class Plugin_Pages extends Plugin
 				),
 				'single' => false,
 				'double' => true,
-				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ /custom_fields',
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
 				'attributes' => array(
 					'id' => array(
 						'type' => 'number',
@@ -281,9 +281,11 @@ class Plugin_Pages extends Plugin
 			$custom_fields = false;
 		}
 
+		// If we have custom fields, we need to roll our
+		// entry values in.
 		if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
 		{
-			$page->custom_fields =$custom_fields[$page->stream_id][$page->entry_id];
+			$page->custom_fields = array($custom_fields[$page->stream_id][$page->entry_id]);
 		}
 
 		return $this->content() ? array($page) : $page->body;
@@ -402,7 +404,7 @@ class Plugin_Pages extends Plugin
 		// we are going to do this in the most economical way possible:
 		// Find the entries by ID and attach them to a special custom_fields
 		// variable.
-		if (strpos($this->content(), 'custom_fields') !== false and $pages)
+		if (is_scalar($this->content()) and strpos($this->content(), 'custom_fields') !== false and $pages)
 		{
 			$custom_fields = array();
 			$this->load->driver('Streams');
@@ -522,7 +524,7 @@ class Plugin_Pages extends Plugin
 		$start          = $this->attribute('start');
 		$start_id       = $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
-		$order_by       = $this->attribute('order-by', 'sort');
+		$order_by       = $this->attribute('order-by', 'order');
 		$order_dir      = $this->attribute('order-dir', 'ASC');
 		$list_tag       = $this->attribute('list-tag', 'ul');
 		$link           = $this->attribute('link', true);

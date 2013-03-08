@@ -45,7 +45,7 @@
 
                             <li>
                                 <label for="description"><?php echo lang('global:description');?></label>
-                                <div class="input"><?php echo form_textarea('description', $page_type->description, 'id="description"'); ?></div>
+                                <div class="input"><?php echo form_input('description', $page_type->description, 'id="description"'); ?></div>
                             </li>
 		
 							<?php if ($this->method == 'edit'): ?>

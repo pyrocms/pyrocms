@@ -136,12 +136,13 @@ class Streams_fields extends CI_Driver {
 	public function add_fields($fields)
 	{
 		if ( ! is_array($fields)) return false;
-		
-		foreach ($fields as $field):
-		
-			$this->add_field($field);
-		
-		endforeach;
+		$ret_value = true;	
+		foreach ($fields as $field){
+			if(!$this->add_field($field)){
+	            $ret_value = false;
+	        }
+	    }
+	    return $ret_value;
 	}
 
 	// --------------------------------------------------------------------------
