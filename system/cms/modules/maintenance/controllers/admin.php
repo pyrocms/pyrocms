@@ -152,19 +152,21 @@ class Admin extends Admin_Controller
 	 */
 	private function _export($table = '', $type = 'xml')
 	{
+		$db = ci()->pdb;
+
 		switch ($table) {
 			case 'users':
-				$data_array = ci()->pdb
+				$data_array = $db
 					->table('users')
 					->select('users.id, email')
-					->select(DB::raw('IF(active = 1, "Y", "N") as active'))
+					->select($db->raw('IF(active = 1, "Y", "N") as active'))
 					->select('first_name, last_name, display_name, company, lang, gender, website')
 					->join('profiles', 'profiles.user_id',  '=', 'users.id')
 					->get()
 					->toArray();
 			break;
 			case 'files':
-				$data_array = ci()->pdb
+				$data_array = $db
 					->table('files')
 					->select('files.*, file_folders.name folder_name, file_folders.slug')
 					->join('file_folders', 'files.folder_id', '=', 'file_folders.id')
@@ -172,7 +174,7 @@ class Admin extends Admin_Controller
 					->toArray();
 			break;
 			default:
-				$data_array = ci()->pdb
+				$data_array = $db
 					->table($table)
 					->get()
 					->toArray();
