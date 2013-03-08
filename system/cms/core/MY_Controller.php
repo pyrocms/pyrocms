@@ -273,7 +273,7 @@ class MY_Controller extends MX_Controller
     /**
     * Build the DSN from the config options.
     * TODO: decide if this is ok or build the DSN somewhere else
-    * in the code base.
+    * in the code base. Not 100% sure where this shoulo be done.
     */
     private function buildDsn($config)
     {
