@@ -206,9 +206,9 @@ class Plugin_Helper extends Plugin
 	static $_counter_increment = true;
 
 	/**
-	 * Data
+	 * lang
 	 *
-	 * Loads a theme partial
+	 * Loads the targeted language line
 	 *
 	 * Usage:
 	 *
@@ -222,7 +222,38 @@ class Plugin_Helper extends Plugin
 
 		return $this->lang->line($line);
 	}
-
+	
+	/**
+	 * sprintf_lang
+	 *
+	 * Loads a theme partial
+	 *
+	 * Usage:
+	 *
+	 *     {{ helper:sprintf_lang line="foo" values="1;3;some string after if your string fit that patern" sep=";" }}
+	 *
+	 * @return string The language sprintf string
+	 */
+	public function sprintf_lang()
+	{
+		$line = $this->attribute('line');
+		$values = $this->attribute('values');
+		$sep = $this->attribute('sep', '&');
+		
+		if ($values)
+		{
+			$array_values = explode($sep, $values);
+			return sprintf_lang($line, $array_values);
+		}
+		else
+		{
+			return $this->lang->line($line);
+		}
+		return false;
+	}
+	
+	
+	
 	/**
 	 * Config
 	 *
