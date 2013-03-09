@@ -217,6 +217,8 @@ class Field_relationship
 
 		foreach ($stream_fields as $field_slug => $stream_field)
 		{
+			if (! $this->CI->db->field_exists($field_slug, $rel_stream->stream_prefix.$rel_stream->stream_slug)) continue;
+			
 			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
 		}
 
