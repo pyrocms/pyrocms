@@ -330,8 +330,10 @@ class Row_m extends MY_Model {
 			$this->sql['select'][] = '`cb_users`.`id` as `created_by||user_id`';
 			$this->sql['select'][] = '`cb_users`.`email` as `created_by||email`';
 			$this->sql['select'][] = '`cb_users`.`username` as `created_by||username`';
+            $this->sql['select'][] = '`profiles`.`display_name` as `created_by||display_name`';
 
 			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' as `cb_users` ON `cb_users`.`id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+            $this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('profiles', true).' as `profiles` ON `profiles`.`user_id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
 		}
 
 		// -------------------------------------
