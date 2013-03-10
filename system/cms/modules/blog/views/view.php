@@ -15,7 +15,7 @@
 
 		<div class="author">
 			{{ helper:lang line="blog:written_by_label" }}
-			<span><a href="user/{{ user:username user_id=created_by }}">{{ user:display_name user_id=created_by }}</a></span>
+			<span><a href="user/{{ created_by:user_id }}">{{ created_by:display_name }}</a></span>
 		</div>
 
 		{{ if category }}
