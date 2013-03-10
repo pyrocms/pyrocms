@@ -74,7 +74,7 @@ class Field_relationship
 		}
 		
 		// Output the form input
-		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
+		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'-'.$stream->stream_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
