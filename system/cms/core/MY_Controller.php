@@ -225,12 +225,13 @@ class MY_Controller extends MX_Controller
         include APPPATH.'config/database.php';
 
         $config = $db[ENVIRONMENT];
-        $subdriver = current(explode(':', $config['dsn']));
-
+        $dsn = $this->buildDsn($config);
+        $prefix = $this->generatePrefix($config);
+        $subdriver = current(explode(':', $dsn));
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
 
-            preg_match('/dbname=(\w+)/', $config['dsn'], $matches);
+            preg_match('/dbname=(\w+)/', $dsn, $matches);
             $database = $matches[1];
             unset($matches);
 
@@ -254,7 +255,9 @@ class MY_Controller extends MX_Controller
 
             $conn = Capsule\Database\Connection::make('default', array(
                 'driver' => $subdriver,
-                'dsn' => $config["dsn"],
+                'host' => $config['hostname'],
+                'database' => $config["database"],
+                'prefix' => $config["dbprefix"]."_",
                 'username' => $config["username"],
                 'password' => $config["password"],
                 'charset' => $config["char_set"],
@@ -265,6 +268,40 @@ class MY_Controller extends MX_Controller
         $conn->setFetchMode(PDO::FETCH_OBJ);
 
         return $conn;
+    }
+
+    /**
+    * Build the DSN from the config options.
+    * TODO: decide if this is ok or build the DSN somewhere else
+    * in the code base. Not 100% sure where this shoulo be done.
+    */
+    private function buildDsn($config)
+    {
+        //Assume the database config is being upgraded from a previous version 
+        //of pyro and use the mysql driver.
+        if(!isset($config['driver']))
+        {
+            $ret_string = "mysql:";
+        }
+        else{
+            $ret_string = $config['driver'] . ':';
+        }
+        $ret_string .= "host={$config['hostname']};db={$config['database']}";
+        if(isset($config['port'])){
+            $ret_string .= ";{$config['port']}";
+        }
+        return $ret_string;
+    }
+
+    /*
+    * Ensures that we're using the proper database prefix.
+    */
+    private function generatePrefix($prefix)
+    {
+        if($prefix === ''){
+            return 'default_';
+        }
+        return $prefix . '_';
     }
 
     /**
