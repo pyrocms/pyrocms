@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use Pyro\Module\Maintenance\Model\Data;
 
 /**
  * The Maintenance Module - currently only remove/empty cache folder(s)
@@ -7,10 +9,8 @@
  * @author		PyroCMS Dev Team
  * @package	 PyroCMS\Core\Modules\Maintainance\Controllers
  */
-
 class Admin extends Admin_Controller
 {
-
 	private $cache_path;
 
 	public function __construct()
@@ -22,7 +22,6 @@ class Admin extends Admin_Controller
 		$this->config->load('maintenance');
 		$this->lang->load('maintenance');
 	}
-
 
 	/**
 	 * List all folders
@@ -130,58 +129,25 @@ class Admin extends Admin_Controller
 	 */
 	public function export($table = '', $type = 'xml')
 	{
-		$this->load->helper('download');
-		$this->load->library('format');
-
 		$table_list = config_item('maintenance.export_tables');
 
-		if (in_array($table, $table_list)) {
-			$this->_export($table, $type);
-		} else {
+		// @TODO Fix routing for maintanance export.
+		if ($table !== $this->uri->rsegment(3)) {
+			throw new Exception('These are different for some reason, routing is broken.');
+		}
+
+		if ( ! in_array($table, $table_list)) {
 			redirect('admin/maintenance');
 		}
-	}
 
-	/**
-	 * Export tables
-	 *
-	 * @param string $table The name of the table.
-	 * @param string $type The export format type
-	 *
-	 * @return string The folder name.
-	 */
-	private function _export($table = '', $type = 'xml')
-	{
-		$db = ci()->pdb;
+		// Grab the data as an array
+		$data_array = Data::export($table, $type, $table_list);
+		
+		$this->load->library('format');
+		$data = $this->format->factory($data_array)->{'to_'.$type}();
 
-		switch ($table) {
-			case 'users':
-				$data_array = $db
-					->table('users')
-					->select('users.id, email')
-					->select($db->raw('IF(active = 1, "Y", "N") as active'))
-					->select('first_name, last_name, display_name, company, lang, gender, website')
-					->join('profiles', 'profiles.user_id',  '=', 'users.id')
-					->get()
-					->toArray();
-			break;
-			case 'files':
-				$data_array = $db
-					->table('files')
-					->select('files.*, file_folders.name folder_name, file_folders.slug')
-					->join('file_folders', 'files.folder_id', '=', 'file_folders.id')
-					->get()
-					->toArray();
-			break;
-			default:
-				$data_array = $db
-					->table($table)
-					->get()
-					->toArray();
-			break;
-		}
-		force_download($table.'.'.$type, $this->format->factory($data_array)
-			->{'to_'.$type}());
+		$this->load->helper('download');
+		force_download($table.'.'.$type, $data);
 	}
 
 	/**
