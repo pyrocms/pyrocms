@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 use Pyro\Module\Comments\Model\Comment;
 
-class Theme_Pyrocms extends Theme {
-
+class Theme_Pyrocms extends Theme
+{
     public $name			= 'PyroCMS - Admin Theme';
     public $author			= 'PyroCMS Dev Team';
     public $author_website	= 'http://pyrocms.com/';
@@ -48,7 +48,7 @@ class Theme_Pyrocms extends Theme {
 			'is_required'   => true
 		),
 	);
-	
+
 	/**
 	 * Run() is triggered when the theme is loaded for use
 	 *
@@ -59,8 +59,7 @@ class Theme_Pyrocms extends Theme {
 	public function run()
 	{
 		// only load these items on the dashboard
-		if ($this->module == '' && $this->method !== 'login' && $this->method !== 'help')
-		{
+		if ($this->module == '' && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
 			if ($this->theme_options->pyrocms_analytics_graph == 'yes')	self::get_analytics();
 			if ($this->theme_options->pyrocms_news_feed == 'yes')		self::get_rss_feed();
@@ -77,8 +76,7 @@ class Theme_Pyrocms extends Theme {
 	 */
 	private function generate_menu()
 	{
-		if ( ! $this->current_user)
-		{
+		if (! $this->current_user) {
 			return;
 		}
 
@@ -92,10 +90,8 @@ class Theme_Pyrocms extends Theme {
 
 		$grouped_menu[] = 'content';
 
-		foreach ($modules as $module)
-		{
-			if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0')
-			{
+		foreach ($modules as $module) {
+			if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0') {
 				$grouped_menu[] = $module['menu'];
 			}
 		}
@@ -104,8 +100,7 @@ class Theme_Pyrocms extends Theme {
 
 		$grouped_menu = array_unique($grouped_menu);
 
-		foreach ($modules as $module)
-		{
+		foreach ($modules as $module) {
 			$grouped_modules[$module['menu']][$module['name']] = $module;
 		}
 
@@ -123,22 +118,16 @@ class Theme_Pyrocms extends Theme {
 	 */
 	public function get_analytics()
 	{
-		if ( ! ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile))
-		{
+		if ( ! ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)) {
 			return;
 		}
-		
+
 		// Not false? Return it
-		if ($cached_response = $this->cache->get('analytics'))
-		{
+		if ($cached_response = $this->cache->get('analytics')) {
 			$data['analytic_visits'] = $cached_response['analytic_visits'];
 			$data['analytic_views'] = $cached_response['analytic_views'];
-		}
-
-		else
-		{
-			try
-			{
+		} else {
+			try {
 				$this->load->library('analytics', array(
 					'username' => $this->settings->ga_email,
 					'password' => $this->settings->ga_password
@@ -156,10 +145,8 @@ class Theme_Pyrocms extends Theme {
 				$views = $this->analytics->getPageviews();
 
 				/* build tables */
-				if (count($visits))
-				{
-					foreach ($visits as $date => $visit)
-					{
+				if (count($visits)) {
+					foreach ($visits as $date => $visit) {
 						$year = substr($date, 0, 4);
 						$month = substr($date, 4, 2);
 						$day = substr($date, 6, 2);
@@ -179,10 +166,7 @@ class Theme_Pyrocms extends Theme {
 
 				// Call the model or library with the method provided and the same arguments
 				$this->cache->set('analytics', array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 60 * 60 * 6); // 6 hours
-			}
-
-			catch (Exception $e)
-			{
+			} catch (Exception $e) {
 				$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
 			}
 		}
@@ -204,7 +188,7 @@ class Theme_Pyrocms extends Theme {
 		$pie->set_feed_url(Settings::get('dashboard_rss'));
 		$pie->init();
 		$pie->handle_content_type();
-		
+
 		$this->template->rss_items = $pie->get_items(0, Settings::get('dashboard_rss_count'));
 	}
 
@@ -219,7 +203,7 @@ class Theme_Pyrocms extends Theme {
 		$this->lang->load('comments/comments');
 
 		$recent_comments = Comment::findRecent(5);
-		
+
 		$this->template->recent_comments = $this->comments->process($recent_comments);
 	}
 }

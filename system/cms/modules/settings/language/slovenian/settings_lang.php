@@ -99,7 +99,7 @@ $lang['settings:akismet_api_key_desc']			= 'Askimet je preprečevalnik SPAM-a pr
 
 $lang['settings:comment_order']					= 'Vrstni red komentarjev';
 $lang['settings:comment_order_desc']			= 'Vrstni red v katerem se bodo prikazali komentarji';
-	
+
 $lang['settings:moderate_comments']				= 'Uredi komentarje';
 $lang['settings:moderate_comments_desc']		= 'Komentarji morajo biti odobreni predno se pojavijo na strani';
 

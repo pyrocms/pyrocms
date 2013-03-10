@@ -53,12 +53,12 @@ class Module_Domains extends Module
 		$schema->dropIfExists('domains');
 
 		// @TODO Make this install core_domains
-		$schema->create('domains', function($table) { 
+		$schema->create('domains', function($table) {
 			$table->increments('id');
 			$table->string('domain', 100);
 			$table->integer('site_id');
 			$table->enum('type', array('park', 'redirect'))->default('park');
-			
+
 			$table->index('domain');
 			$table->unique('domain');
 		});

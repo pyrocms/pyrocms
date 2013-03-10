@@ -38,33 +38,34 @@ require dirname(__FILE__).'/Modules.php';
 class MX_Router extends CI_Router
 {
 	private $module;
-	
-	public function fetch_module() {
+
+	public function fetch_module()
+	{
 		return $this->module;
 	}
-	
-	public function _validate_request($segments) {
 
+	public function _validate_request($segments)
+	{
 		if (count($segments) == 0) return $segments;
-		
+
 		/* locate module controller */
 		if ($located = $this->locate($segments)) {
 			return $located;
 		}
-		
+
 		/* use a default 404_override controller */
 		if (isset($this->routes['404_override']) and $this->routes['404_override']) {
 			$segments = explode('/', $this->routes['404_override']);
 			if ($located = $this->locate($segments)) return $located;
 		}
-		
+
 		/* no controller found */
 		show_404();
 	}
-	
+
 	/** Locate the controller **/
-	public function locate($segments) {		
-		
+	public function locate($segments)
+	{
 		/**
 		 * Load the site ref for multi-site support
 		 */
@@ -78,20 +79,18 @@ class MX_Router extends CI_Router
 				->join('core_domains alias', 'alias.site_id = site.id', 'left')
 				->get('core_sites site')
 				->row();
-			
+
 			// If the site is disabled we set the message in a constant for MY_Controller to display
-			if (isset($site->active) and ! $site->active)
-			{
+			if (isset($site->active) and ! $site->active) {
 				$status = DB()->where('slug', 'status_message')
 					->get('core_settings')
 					->row();
 
-				define('STATUS', $status ? $status->value : 'This site has been disabled by a super-administrator');					
+				define('STATUS', $status ? $status->value : 'This site has been disabled by a super-administrator');
 			}
 
 			// If this domain is an alias and it is a redirect
-			if ($site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
-			{
+			if ($site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain) {
 				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 					? 'https' : 'http';
 
@@ -101,52 +100,49 @@ class MX_Router extends CI_Router
 			}
 
 			$locations = array();
-			
+
 			// Check to see if the site retrieval was successful. If not then
 			// we will let MY_Controller handle the errors.
-			if (isset($site->ref))
-			{
-				foreach (config_item('modules_locations') as $location => $offset)
-				{
+			if (isset($site->ref)) {
+				foreach (config_item('modules_locations') as $location => $offset) {
 					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
 				}
-				
+
 				// Set the session config to the correct table using the config name (but removing 'default_')
 				$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
 
 				// The site ref. Used for building site specific paths
 				define('SITE_REF', $site->ref);
-				
+
 				// Path to uploaded files for this site
 				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-				
+
 				// Path to the addon folder for this site
 				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-				
+
 				Modules::$locations = $locations;
-				
+
 			}
 		}
-		
+
 		$this->module = '';
 		$this->directory = '';
 		$ext = $this->config->item('controller_suffix').'.php';
-		
+
 		/* use module route if available */
-		if (isset($segments[0]) and $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
-		{
+		if (isset($segments[0]) and $routes = Modules::parse_routes($segments[0], implode('/', $segments))) {
 			$segments = $routes;
 		}
-	
+
 		/* get the segments array elements */
 		list($module, $directory, $controller) = array_pad($segments, 3, null);
 
 		/* check modules */
 		foreach (Modules::$locations as $location => $offset) {
-		
+
 			/* module exists? */
 			if (is_dir($source = $location.$module.'/controllers/')) {
-				
+
 				$this->module = $module;
 				$this->directory = $offset.$module.'/controllers/';
 
@@ -154,7 +150,7 @@ class MX_Router extends CI_Router
 				if ($directory and is_file($source.$directory.$ext)) {
 					return array_slice($segments, 1);
 				}
-					
+
 				/* module sub-directory exists? */
 				if ($directory and is_dir($source.$directory.'/')) {
 
@@ -162,34 +158,34 @@ class MX_Router extends CI_Router
 					$this->directory .= $directory.'/';
 
 					/* module sub-directory controller exists? */
-					if(is_file($source.$directory.$ext)) {
+					if (is_file($source.$directory.$ext)) {
 						return array_slice($segments, 1);
 					}
-				
+
 					/* module sub-directory sub-controller exists? */
-					if ($controller and is_file($source.$controller.$ext))	{
+					if ($controller and is_file($source.$controller.$ext)) {
 						return array_slice($segments, 2);
 					}
 				}
-				
-				/* module controller exists? */			
+
+				/* module controller exists? */
 				if (is_file($source.$module.$ext)) {
 					return $segments;
 				}
 			}
 		}
-		
-		/* application controller exists? */			
+
+		/* application controller exists? */
 		if (is_file(APPPATH.'controllers/'.$module.$ext)) {
 			return $segments;
 		}
-		
+
 		/* application sub-directory controller exists? */
 		if ($directory and is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
 			$this->directory = $module.'/';
 			return array_slice($segments, 1);
 		}
-		
+
 		/* application sub-directory default controller exists? */
 		if (is_file(APPPATH.'controllers/'.$module.'/'.$this->default_controller.$ext)) {
 			$this->directory = $module.'/';
@@ -197,7 +193,8 @@ class MX_Router extends CI_Router
 		}
 	}
 
-	public function set_class($class) {
+	public function set_class($class)
+	{
 		$this->class = $class.$this->config->item('controller_suffix');
 	}
 }

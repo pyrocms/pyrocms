@@ -30,11 +30,10 @@ class Rss extends Public_Controller
 	{
 		$this->load->model('blog_categories_m');
 
-		if ( ! $category = $this->blog_categories_m->get_by('slug', $slug))
-		{
+		if ( ! $category = $this->blog_categories_m->get_by('slug', $slug)) {
 			redirect('blog/rss/all.rss');
 		}
-		
+
 		$posts = $this->cache->method('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'category' => $slug,
@@ -58,10 +57,8 @@ class Rss extends Public_Controller
 		$data->rss->page_language = 'en-gb';
 		$data->rss->creator_email = Settings::get('contact_email');
 
-		if ( ! empty($posts))
-		{
-			foreach ($posts as $row)
-			{
+		if ( ! empty($posts)) {
+			foreach ($posts as $row) {
 				//$row->created_on = human_to_unix($row->created_on);
 				$row->link = site_url('blog/'.date('Y/m', $row->created_on).'/'.$row->slug);
 				$row->created_on = date(DATE_RSS, $row->created_on);

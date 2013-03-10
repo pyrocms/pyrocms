@@ -100,5 +100,4 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'eml'	=>	'message/rfc822'
 			);
 
-
 /* End of file mimes.php */

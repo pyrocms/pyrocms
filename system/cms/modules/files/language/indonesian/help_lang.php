@@ -3,15 +3,15 @@
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
 <h6>Cuplikan</6><hr>
-<p>Modul Berkas adalah cara cerdas bagi admin situs untuk mengatur berkas yang digunakan di dalam situs. 
-Semua gambar atau berkas yang dimasukkan ke dalam halaman, galeri, atau post blog disimpan disini. 
+<p>Modul Berkas adalah cara cerdas bagi admin situs untuk mengatur berkas yang digunakan di dalam situs.
+Semua gambar atau berkas yang dimasukkan ke dalam halaman, galeri, atau post blog disimpan disini.
 Untuk konten halaman berupa gambar dapat Anda unggah secara langsung dari WYSIWYG editor atau Anda dapat mengunggahnya disini dan tinggal memasukkannya melalui WYSIWYG.</p>
 <p>Antarmuka berkas bekerja sebagaimana system berkas lokal: menggunakan klik kanan untuk menampilkan menu konteks. Segala sesuatu yang ada di panel tengah dapat diklik.</p>
 
 <h6>Mengatur Folder</h6>
 <p>Setelah Anda membuat folder level atas atau folder yang Anda buat sebagai subfolder yang Anda perlukan seperti blog/images/screenshots/ atau pages/audio/.
 Nama folder adalah untuk penggunaan Anda sendiri, nama ini tidak akan ditampilkan  di tautan unduhan di halaman depan.
-Untuk mengatur folder Anda tinggal mengklik kanan di atasnya lalu pilih sebuah aksi dari menu yang ditampilkan, atau klik ganda folder untuk membukanya. 
+Untuk mengatur folder Anda tinggal mengklik kanan di atasnya lalu pilih sebuah aksi dari menu yang ditampilkan, atau klik ganda folder untuk membukanya.
 Anda juga dapat mengklik pada folder di kolom kanan untuk membukanya.</p>
 <p>Jika cloud provider diaktifkan Anda dapat mengeset lokasi folder dengan mengklik kanan pada folder dan memilih Detail.
 Anda kemudian dapat memilih lokasi (misalnya \"Amazon S3\") lalu menyimpan pada nama remote bucket atau kontainer. Bila bucket atau kontainer tidak
@@ -44,7 +44,7 @@ posting blog, dll. Jika berkas sudah dihapus dari bucket sudah sejak terakhir di
 database juga</p>.
 
 <h6>Pencarian</h6>
-<p>Anda dapat mencari semua berkas dan folder dengan mengetik istilah pencarian di kolom kanan dan menekan Enter. Folder pertama 
+<p>Anda dapat mencari semua berkas dan folder dengan mengetik istilah pencarian di kolom kanan dan menekan Enter. Folder pertama
 dan 5 berkas pertama yang paling cocoklah yang akan ditampilkan. Bila Anda klik pada item folder maka semua isi didalamnya akan ditampilkan,
 dan item yang cocok dengan pencarian Anda akan disorot. Item dicari berdasarkan nama folder, nama berkas, ekstensi,
 lokasi, dan nama kontainer lokal.</p>";

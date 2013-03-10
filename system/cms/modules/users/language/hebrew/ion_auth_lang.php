@@ -6,7 +6,6 @@ $lang['account_creation_unsuccessful']          = 'לא ניתן ליצור חש
 $lang['account_creation_duplicate_email']       = 'כתובת דואר האלקטרוני כבר בשימוש או לא חוקית';
 $lang['account_creation_duplicate_username']    = 'שם משתמש כבר בשישוש או לא חוקי';
 
-
 // Password
 $lang['password_change_successful']             = 'הסיסמה שונתה בהצלחה';
 $lang['password_change_unsuccessful']           = 'לא ניתן לשנות סיסמה';

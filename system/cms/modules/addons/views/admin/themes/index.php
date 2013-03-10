@@ -5,7 +5,7 @@
 <section class="item">
 	<div class="content">
 	<?php if ($themes): ?>
-	
+
 		<?php echo form_open('admin/addons/themes/set_default') ?>
 		<?php echo form_hidden('method', $this->method) ?>
 		<table class="table-list" cellspacing="0">
@@ -40,12 +40,12 @@
 							<?php echo $theme->author ?>
 						<?php endif ?>
 					</td>
-	
+
 					<td class="align-center"><?php echo $theme->version ?></td>
 					<td class="actions">
 						<?php echo isset($theme->options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="button options"') : '' ?>
 						<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="button modal"><?php echo lang('buttons:preview') ?></a>
-						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm button delete"'); } ?>
+						<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm button delete"'); } ?>
 					</td>
 				</tr>
 				<?php endforeach ?>
@@ -53,13 +53,13 @@
 		</table>
 
 		<?php $this->load->view('admin/partials/pagination') ?>
-		
+
 		<div>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )) ?>
 		</div>
-		
+
 		<?php echo form_close() ?>
-	
+
 	<?php else: ?>
 		<div class="blank-slate">
 			<p><?php echo lang('addons:themes:no_themes_installed') ?></p>

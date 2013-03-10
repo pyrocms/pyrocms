@@ -4,7 +4,7 @@ require APPPATH."libraries/MX/Controller.php";
 
 /**
  * Code here is run before ALL controllers
- * 
+ *
  * @package 	PyroCMS\Core\Controllers
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
@@ -14,7 +14,7 @@ class MY_Controller extends MX_Controller
 	/**
 	 * The name of the module that this controller instance actually belongs to.
 	 *
-	 * @var string 
+	 * @var string
 	 */
 	public $module;
 
@@ -28,7 +28,7 @@ class MY_Controller extends MX_Controller
 	/**
 	 * The name of the method for the current request.
 	 *
-	 * @var string 
+	 * @var string
 	 */
 	public $method;
 
@@ -42,10 +42,9 @@ class MY_Controller extends MX_Controller
 		$this->benchmark->mark('my_controller_start');
 
         $this->pick_language();
-		
+
 		// No record? Probably DNS'ed but not added to multisite
-		if ( ! defined('SITE_REF'))
-		{
+		if ( ! defined('SITE_REF')) {
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
 		}
 
@@ -60,7 +59,7 @@ class MY_Controller extends MX_Controller
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
 		$this->load->library('migration');
-		
+
 		if ( ! ($schema_version = $this->migration->current())) {
 			show_error($this->migration->error_string());
 		}
@@ -105,7 +104,7 @@ class MY_Controller extends MX_Controller
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
 			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
-		
+
         } else {
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
@@ -146,7 +145,7 @@ class MY_Controller extends MX_Controller
             // register classes with namespaces
             $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
 
-            // Also, save this module to... everywhere if its the current one 
+            // Also, save this module to... everywhere if its the current one
 			if ($module['slug'] === $this->module) {
 				// Set meta data for the module to be accessible system wide
 				$this->template->module_details = ci()->module_details = $this->module_details = $module;
@@ -159,8 +158,7 @@ class MY_Controller extends MX_Controller
         $loader->register();
 
 		// certain places (such as the Dashboard) we aren't running a module, provide defaults
-		if ( ! $this->module)
-		{
+		if (! $this->module) {
 			$this->module_details = array(
 				'name' => null,
 				'slug' => null,
@@ -183,24 +181,21 @@ class MY_Controller extends MX_Controller
 		// If the module is disabled then show a 404.
 		empty($this->module_details['enabled']) and show_404();
 
-		if ( ! $this->module_details['skip_xss'])
-		{
+		if (! $this->module_details['skip_xss']) {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
 		// Assign "This" module as its own namespace
-		if ($this->module and isset($this->module_details['path']))
-		{
+		if ($this->module and isset($this->module_details['path'])) {
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 
 		$this->load->vars($pyro);
-		
+
 		$this->benchmark->mark('my_controller_end');
-		
+
 		// Enable profiler on local box
-	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
-	    {
+	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET)) {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
 	    }
@@ -209,8 +204,7 @@ class MY_Controller extends MX_Controller
 	public function setupDatabase()
     {
         // @TODO Get rid of this for 3.0
-        if ( ! class_exists('CI_Model'))
-        {
+        if ( ! class_exists('CI_Model')) {
             load_class('Model', 'core');
         }
 
@@ -219,7 +213,7 @@ class MY_Controller extends MX_Controller
         // By changing the prefix we are essentially "namespacing" each site
         $this->db->set_dbprefix($prefix);
 
-        // Assign 
+        // Assign
         $pdo = $this->db->get_connection();
 
         include APPPATH.'config/database.php';
@@ -283,7 +277,7 @@ class MY_Controller extends MX_Controller
         // If we've been redirected from HTTP to HTTPS on admin, ?session= will be set to maintain language
         if ($_SERVER['SERVER_PORT'] == 443 and ! empty($_GET['session'])) {
             session_start($_GET['session']);
-        } else if ( ! isset($_SESSION)) {
+        } elseif ( ! isset($_SESSION)) {
             session_start();
         }
 
@@ -360,11 +354,10 @@ class MY_Controller extends MX_Controller
         $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
         // Sets a constant to use throughout ALL of CI.
-        if ( ! defined('AUTO_LANGUAGE'))
-        {
-            define('AUTO_LANGUAGE', $lang);    
+        if ( ! defined('AUTO_LANGUAGE')) {
+            define('AUTO_LANGUAGE', $lang);
         }
-        
+
         log_message('debug', 'Defined const AUTO_LANGUAGE: '.AUTO_LANGUAGE);
     }
 }

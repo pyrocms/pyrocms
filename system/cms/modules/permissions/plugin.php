@@ -39,17 +39,15 @@ class Plugin_Permissions extends Plugin
 		// dynamically build the array for the magic method __call
 		$modules = $this->module_m->get_all(array('installed' => true));
 
-		foreach ($modules as $module)
-		{
+		foreach ($modules as $module) {
 			$info[$module['slug']]['description'] = array('en' => 'Check if the user has permissions for the '.$module['name'].' module. A single tag returns true or false while a double tag protects its content');
 			$info[$module['slug']]['single'] = true;
 			$info[$module['slug']]['double'] = true;
 			$info[$module['slug']]['variables'] = '';
-			
+
 			$roles = implode('|', $this->module_m->roles($module['slug']));
 
-			if ($roles)
-			{
+			if ($roles) {
 				$info[$module['slug']]['params'] = array(
 					'can' => array(
 						'type' => 'flag',
@@ -58,9 +56,7 @@ class Plugin_Permissions extends Plugin
 						'required' => false,
 						),
 					);
-			}
-			else
-			{
+			} else {
 				$info[$module['slug']]['params'] = array();
 			}
 		}
@@ -83,8 +79,7 @@ class Plugin_Permissions extends Plugin
 	 */
 	public function admin($name, $arguments)
 	{
-		if ($this->current_user and $this->current_user->group === 'admin')
-		{
+		if ($this->current_user and $this->current_user->group === 'admin') {
 			return $this->content() ? $this->content() : true;
 		}
 
@@ -109,19 +104,16 @@ class Plugin_Permissions extends Plugin
 		if ( ! $this->current_user) return false;
 
 		// you're an admin? Do anything you like.
-		if ($this->current_user->group === 'admin')
-		{
+		if ($this->current_user->group === 'admin') {
 			return $this->content() ? $this->content() : true;
 		}
 
 		$sub_permission = $this->attribute('can');
 
 		// they have access to the module
-		if (isset($this->permissions[$name]))
-		{
+		if (isset($this->permissions[$name])) {
 			// is a sub-permission specified? If so make sure they have that permission
-			if ($sub_permission and ! isset($this->permissions[$name][$sub_permission]))
-			{
+			if ($sub_permission and ! isset($this->permissions[$name][$sub_permission])) {
 				return false;
 			}
 

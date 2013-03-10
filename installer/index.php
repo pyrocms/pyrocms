@@ -30,8 +30,7 @@
 
 	error_reporting(E_ALL);
 
-	switch (ENVIRONMENT)
-	{
+	switch (ENVIRONMENT) {
 		case 'development':
 			ini_set('display_errors', true);
 		break;
@@ -44,7 +43,7 @@
 		default:
 			exit('The application environment is not set correctly.');
 	}
-	
+
 /*
 |---------------------------------------------------------------
 | DEFAULT INI SETTINGS
@@ -61,10 +60,9 @@
 
 	// Some hosts (was it GoDaddy? complained without this
 	@ini_set('cgi.fix_pathinfo', 0);
-	
+
 	// PHP 5.3 will BITCH without this
-	if (ini_get('date.timezone') == '')
-	{
+	if (ini_get('date.timezone') == '') {
 		date_default_timezone_set('UTC');
 	}
 
@@ -86,7 +84,7 @@
  *---------------------------------------------------------------
  *
  * If you want this front controller to use a different "application"
- * folder then the default one you can set its name here. The folder 
+ * folder then the default one you can set its name here. The folder
  * can also be renamed or relocated anywhere on your server.  If
  * you do, use a full server path. For more info please see the user guide:
  * http://codeigniter.com/user_guide/general/managing_apps.html
@@ -102,9 +100,9 @@
  * --------------------------------------------------------------------
  *
  * Normally you will set your default controller in the routes.php file.
- * You can, however, force a custom routing by hard-coding a 
+ * You can, however, force a custom routing by hard-coding a
  * specific controller class/function here.  For most applications, you
- * WILL NOT set your routing here, but it's an option for those 
+ * WILL NOT set your routing here, but it's an option for those
  * special instances where you might want to override the standard
  * routing in a specific front controller that shares a common CI installation.
  *
@@ -119,11 +117,11 @@
  	// The directory name, relative to the "controllers" folder.  Leave blank
  	// if your controller is not in a sub-folder within the "controllers" folder
 	// $routing['directory'] = '';
-	
+
 	// The controller class file name.  Example:  Mycontroller.php
 	// $routing['controller'] = '';
-	
-	// The controller function you wish to be called. 
+
+	// The controller function you wish to be called.
 	// $routing['function']	= '';
 
 
@@ -133,10 +131,10 @@
  * -------------------------------------------------------------------
  *
  * The $assign_to_config array below will be passed dynamically to the
- * config class when initialized. This allows you to set custom config 
- * items or override any default config values found in the config.php file.  
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
  * This can be handy as it permits you to share one application between
- * multiple front controller files, with each file containing different 
+ * multiple front controller files, with each file containing different
  * config values.
  *
  * Un-comment the $assign_to_config array below to use this feature
@@ -161,19 +159,17 @@
 
  	// The name of THIS file
 	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-	
-	if (function_exists('realpath') AND @realpath($system_path) !== FALSE)
-	{
+
+	if (function_exists('realpath') AND @realpath($system_path) !== FALSE) {
 		$system_path = realpath($system_path).'/';
 	}
-	
+
 	// ensure there's a trailing slash
 	$system_path = rtrim($system_path, '/').'/';
 
 	// Is the sytsem path correct?
-	if ( ! is_dir($system_path))
-	{
-		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);	
+	if ( ! is_dir($system_path)) {
+		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
 	}
 
 /*
@@ -187,17 +183,17 @@
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
-		
+
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));
-	
+
 	// Name of the "system folder"
 	$list_sysdir_parts = explode('/', trim(BASEPATH, '/'));
 	define('SYSDIR', end($list_sysdir_parts));
 
 	// The path to the "application" folder
 	define('APPPATH', $application_folder.'/');
-	
+
 	// Path to the views folder
 	define('VIEWPATH', APPPATH.'views/');
 

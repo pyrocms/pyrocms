@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
@@ -11,8 +11,8 @@ use Pyro\Module\Files\Model\Folder;
  * @author		Jerel Unruh - PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	private $_folders	= array();
 	private $_type 		= null;
 	private $_ext 		= null;
@@ -30,8 +30,7 @@ class Admin extends Admin_Controller {
 
 		$allowed_extensions = '';
 
-		foreach (config_item('files:allowed_file_ext') as $type) 
-		{
+		foreach (config_item('files:allowed_file_ext') as $type) {
 			$allowed_extensions .= implode('|', $type).'|';
 		}
 
@@ -58,7 +57,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
 
 				// deprecated
-				pyro.files.initial_folder_contents = ".(int)$this->session->flashdata('initial_folder_contents').";
+				pyro.files.initial_folder_contents = ".(int) $this->session->flashdata('initial_folder_contents').";
 			</script>");
 	}
 
@@ -83,7 +82,7 @@ class Admin extends Admin_Controller {
 
 		$path_check = Files::checkDir(Files::$path);
 
-		if ( ! $path_check['status']) {
+		if (! $path_check['status']) {
 			$this->template->set('messages', array('error' => $path_check['message']));
 		}
 
@@ -116,7 +115,7 @@ class Admin extends Admin_Controller {
 	 * Set the initial folder ID to load contents for
 	 *
 	 * @deprecated
-	 * 
+	 *
 	 * Accepts the parent id and sets it as flash data
 	 */
 	public function initial_folder_contents($id)
@@ -195,7 +194,7 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('folder_id') and $name = $this->input->post('name')) {
 			$result = Files::renameFolder($id, $name);
-			
+
 			$result['status'] AND Events::trigger('file_folder_updated', $id);
 
 			echo json_encode($result);
@@ -237,21 +236,21 @@ class Admin extends Admin_Controller {
 		$result = null;
 		$input = $this->input->post();
 
-		if($input['replace_id'] > 0) {
+		if ($input['replace_id'] > 0) {
 			$result = Files::replaceFile($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_replaced', $result['data']);
 		} elseif ($input['folder_id'] and $input['name']) {
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
-		
-		if($result==null) {
-			$result = array('status' 	=> false, 
-					 'message' 	=> "Unexpected error", 
+
+		if ($result==null) {
+			$result = array('status' 	=> false,
+					 'message' 	=> "Unexpected error",
 					 );
 		}
 
-		echo json_encode($result);		
+		echo json_encode($result);
 	}
 
 	/**
@@ -292,7 +291,7 @@ class Admin extends Admin_Controller {
 			echo json_encode(Files::result(true, lang('files:description_saved')));
 		}
 	}
-		
+
 	/**
 	 * Edit the "alt" attribute of an image file
 	 */
@@ -302,10 +301,10 @@ class Admin extends Admin_Controller {
 			$file = File::find($id);
 			$file->alt_attribute = $alt_attribute;
 			$file->save();
-			
+
 			echo json_encode(Files::result(TRUE, lang('files:alt_saved')));
 		}
-	}	 	
+	}
 
 	/**
 	 * Edit location of a folder (S3/Cloud Files/Local)

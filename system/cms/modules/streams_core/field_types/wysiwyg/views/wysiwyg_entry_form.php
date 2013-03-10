@@ -1,6 +1,6 @@
 <script type="text/javascript">var SITE_URL	= "<?php echo site_url() ?>";</script>
 
-<?php 
+<?php
 	$this->admin_theme = $this->theme_m->get_admin();
 	Asset::add_path('admin', $this->admin_theme->web_path.'/');
 ?>
@@ -26,7 +26,7 @@
 				pyro.init_ckeditor_maximize();
 			};
 			pyro.init_ckeditor();
-			
+
 		});
 	})(jQuery);
 </script>

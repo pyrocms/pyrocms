@@ -148,7 +148,7 @@ $lang['settings:enable_registration_desc']      = '运行新用户在本网站�
 $lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
-$lang['settings:cdn_domain']                    = 'CDN 域名'; 
+$lang['settings:cdn_domain']                    = 'CDN 域名';
 $lang['settings:cdn_domain_desc']               = 'CDN 域名允许你卸载各种边缘服务器的静态内容, 像Amazon CloudFront或 MaxCDN一样.';
 
 #section titles

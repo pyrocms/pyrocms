@@ -53,7 +53,6 @@ $lang['user:activated_account_title'] 	= 'Aktivovaný účet';
 $lang['user:reset_password_title'] 		= 'Obnovit heslo';
 $lang['user:password_reset_title'] 		= 'Obnovení hesla';
 
-
 $lang['user:error_username'] 			= 'Zvolené uživatelské jméno je již použito';
 $lang['user:error_email'] 				= 'Zvolený e-mail je již použit';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 					= 'Zvolený e-mail je již použit.';
 $lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user:register_reasons'] 					= 'Registrujte se a získejte přístup k částem webu, které jsou vám zatím skryty. Budeme si pamatovat vaše nastavení, uvidíte více obsahu a méně reklamy.';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'Aktivace selhala. Prosím zkontrolujte zadané údaje a zda nemáte zapnutý CAPS LOCK.';
 $lang['user:activated_message']   				= 'Váš účet byl aktivován, můžete se přihlásit';
-
 
 // Login
 $lang['user:logged_in']							= 'Přihlášení proběhlo v pořádku.';
 $lang['user:already_logged_in'] 				= 'Jste již přihlášen/a. Prosím nejprve se odhlašte před dalším pokusem o přihlášení.';
 $lang['user:login_incorrect'] 					= 'E-mail nebo heslo není vyplněno správně. Prosím zkontrolujte zadané údaje a zda nemáte zapnutý CAPS LOCK.';
 $lang['user:inactive']   						= 'Účet, ke kterému se snažíte přihlásit je neaktivovaný.<br />Zkontrolujte svůj e-mail, zda najdete e-mail s instrukcemi k aktivaci - <em>můžete být ve spamovém koši</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'Odhlášení proběhlo úspěšně.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "Vaše heslo bylo obnoveno a e-mail 
 // Activation
 $lang['user:activation_email_subject'] 			= 'Je vyžadována aktivace';
 $lang['user:activation_email_body'] 			= 'Děkujeme za aktivaci účtu na %s. Pro přihlášení k účtu, klikněte prosím na níže uvedný odkaz:';
-
 
 $lang['user:activated_email_subject'] 			= 'Aktivace dokončena';
 $lang['user:activated_email_content_line1'] 	= 'Děkujeme za registraci k účtu na %s. Než budeme moci aktivovat váš účet, klikněte prosím na níže uvedený odkaz:';

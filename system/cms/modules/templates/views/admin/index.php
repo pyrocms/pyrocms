@@ -2,10 +2,10 @@
 	<section class="title">
 		<h4><?php echo lang('templates:default_title') ?></h4>
 	</section>
-		
+
 	<section class="item">
 		<div class="content">
-			
+
 		    <table border="0" class="table-list" cellspacing="0">
 		        <thead>
 		            <tr>
@@ -15,9 +15,9 @@
 		                <th width="220"></th>
 		            </tr>
 		        </thead>
-		
+
 		        <tbody>
-				
+
 		    <?php foreach ($default_templates as $template): ?>
 		            <tr>
 		                <td><?php echo $template->name ?></td>
@@ -44,9 +44,9 @@
 	<section class="title">
 		<h4><?php echo lang('templates:user_defined_title') ?></h4>
 	</section>
-	
+
 	<?php echo form_open('admin/templates/delete') ?>
-	   
+
 	<section class="item">
 		<div class="content">
 			<table border="0" class="table-list clear-both" cellspacing="0">
@@ -59,9 +59,9 @@
 		                <th width="220"></th>
 		            </tr>
 		        </thead>
-		
+
 		        <tbody>
-			
+
 			    <?php foreach ($defined_templates as $template): ?>
 			            <tr>
 							<td><?php echo form_checkbox('action_to[]', $template->id);?></td>
@@ -83,12 +83,12 @@
 			<div class="table_action_buttons">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
 			</div>
-		
+
 		    <?php echo form_close() ?>
 		</div>
 	</section>
 </div>
-	
+
 <?php else: ?>
 
 <div class="one_full">

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Theme_Default extends Theme {
-
+class Theme_Default extends Theme
+{
     public $name			= 'PyroCMS Theme';
     public $author			= 'iKreativ';
     public $author_website	= 'http://ikreativ.com/';
@@ -39,8 +39,7 @@ class Theme_Default extends Theme {
 		// language generate a new font (link: <http://cufon.shoqolate.com/generate/>) and add
 		// your case in switch bellow. Important: use a licensed font and harmonic with design
 
-		switch (CURRENT_LANGUAGE)
-		{
+		switch (CURRENT_LANGUAGE) {
 			case 'zh':
 				$cufon_enabled	= false;
 				break;

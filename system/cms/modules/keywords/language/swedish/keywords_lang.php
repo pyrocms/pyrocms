@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -22,6 +22,5 @@ $lang['keywords:edit_error'] = 'Nyckelorded  "%s" kunde inte sparas.';
 $lang['keywords:delete_success'] = 'Nyckelordet är raderat';
 $lang['keywords:delete_error'] = 'Ett fel uppstod när nyckelordet skulle raderas';
 
-
-/* End of file keywords_lang.php */  
-/* Location: system/cms/modules/keywords/language/swedish/keywords_lang.php */  
+/* End of file keywords_lang.php */
+/* Location: system/cms/modules/keywords/language/swedish/keywords_lang.php */

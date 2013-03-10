@@ -183,7 +183,7 @@ $lang['recaptcha_field_name'] = "Image de Sécurité";
 $lang['recaptcha_html_error'] = "Un problème à eu lieu lors du chargement de l'image de sécurité. Merci de recommencer plus tard";
 
 /* Default Parameter Fields */
-																																																																																																																																																																																				
+
 $lang['streams:max_length'] = "Longueur Max";
 $lang['streams:upload_location'] = "Dossier d'Upload";
 $lang['streams:default_value'] = "Valeur par défaut";

@@ -55,7 +55,6 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array('asset', 'database', 'template', 'parser');
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Helper Files
@@ -69,7 +68,6 @@ $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'html', 'pagination', 'array', 'gravatar',
 	'markdown', 'addons/module', 'users/user'
 );
-
 
 /*
 | -------------------------------------------------------------------
@@ -86,7 +84,6 @@ $autoload['helper'] = array(
 
 $autoload['config'] = array('language');
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Language files
@@ -101,7 +98,6 @@ $autoload['config'] = array('language');
 */
 
 $autoload['language'] = array('errors');
-
 
 /*
 | -------------------------------------------------------------------

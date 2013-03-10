@@ -39,8 +39,8 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * to be unique so we can use them as folder
      * names when saving as files.
      *
-     * @param   string $slug - the page slug
-     * @return  bool
+     * @param  string $slug - the page slug
+     * @return bool
      */
     public function _check_pt_slug($slug)
     {
@@ -48,6 +48,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
             return true;
         } else {
             $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+
             return false;
         }
     }
@@ -57,7 +58,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Place files for layout files.
      *
-     * 
+     *
      */
     public function place_page_layout_files($input)
     {
@@ -136,10 +137,10 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Delete a Page Type
      *
-     * @param   int $id ID of the page type
+     * @param int $id ID of the page type
      * @param   bool [$delete_stream] Should we also delete the stream associated
      *                                     with the page type?
-     * @return  bool
+     * @return bool
      */
     // public function delete($id, $delete_stream = false)
     // {
@@ -187,8 +188,8 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Remove page layout folder
      *
-     * @param string $slug The slug of the folder to remove.
-     * @return mixed null or bool result of rmdir
+     * @param  string $slug The slug of the folder to remove.
+     * @return mixed  null or bool result of rmdir
      */
     public function remove_page_layout_folder($slug)
     {

@@ -1,15 +1,15 @@
-<?php 
+<?php
 
 use Pyro\Module\Keywords\Model\Applied;
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
 
 /**
- * PyroCMS File library. 
+ * PyroCMS File library.
  *
- * This handles all file manipulation 
+ * This handles all file manipulation
  * both locally and in the cloud
- * 
+ *
  * @author		Jerel Unruh - PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Libraries
  */
@@ -83,12 +83,12 @@ class Files
 		}
 
 		$folder = Folder::create(array(
-			'parent_id' => $parent, 
-			'slug' => $slug, 
+			'parent_id' => $parent,
+			'slug' => $slug,
 			'name' => $name,
 			'location' => $location,
 			'remote_container' => $remote_container,
-			'date_added' => now(), 
+			'date_added' => now(),
 			'sort' => now()
 		));
 
@@ -193,7 +193,7 @@ class Files
 
 		// we must reindex the array first
 		foreach ($all_folders->toArray() as $row) {
-			$folders[$row['id']] = (array)$row;
+			$folders[$row['id']] = (array) $row;
 		}
 
 		unset($tree);
@@ -300,7 +300,7 @@ class Files
 	 * @param bool $height The height to resize the image to
 	 * @param bool $ratio Keep the aspect ratio or not?
 	 * @param string $alt "alt" attribute, here so that it may be set when photos are initially uploaded
-	 * @param array $allowed types	 	 
+	 * @param array $allowed types
 	 * @return array|bool
 	 */
 	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt = NULL, $replace_file = false)
@@ -316,7 +316,7 @@ class Files
 		if ( ! $check_ext = self::_checkExt($field)) {
 			return $check_ext;
 		}
-		
+
 		// this keeps a long running upload from stalling the site
 		session_write_close();
 
@@ -369,14 +369,14 @@ class Files
 					ci()->image_lib->resize();
 
 					$data['width'] = ci()->image_lib->width;
-					$data['height'] = ci()->image_lib->height;					
+					$data['height'] = ci()->image_lib->height;
 				}
 
 				if ($file['is_image']) {
 					$data['alt_attribute'] = $alt ? $alt : '';
 				}
 
-				if($replace_file) {
+				if ($replace_file) {
 					$file_id = $replace_file->id;
 					if($data['type'] !== 'i') // so it wasn't an image. Now that we know the id we need to set the path as a download
 						$data['path'] = '{{ url:site }}files/download/'.$file_id;
@@ -398,16 +398,14 @@ class Files
 				header("Connection: close");
 
 				return self::result(true, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
-			}
-			else {
+			} else {
 				$errors = ci()->upload->display_errors();
 
 				header("Connection: close");
 
 				return self::result(false, $errors);
 			}
-		}
-		else {
+		} else {
 			header("Connection: close");
 
 			return self::result(false, lang('files:specify_valid_folder'));
@@ -429,15 +427,15 @@ class Files
 	public static function move($file_id, $new_name = false, $location = false, $new_location = 'local', $container = '')
 	{
 		$file = File::find($file_id);
-		
-		if ( ! $file) {
+
+		if (! $file) {
 			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
 
 		// this keeps a long running transaction from stalling the site
 		session_write_close();
 
-		// this would be used when move() is used during a rackspace or amazon upload as the location in the 
+		// this would be used when move() is used during a rackspace or amazon upload as the location in the
 		// database is not the actual file location, its location is local temporarily
 		if ($location) $file->folder->location = $location;
 
@@ -452,7 +450,7 @@ class Files
 				$i = 1;
 
 				// create a unique filename if the target already exists
-				while (file_exists(self::$path.$filename))  {
+				while (file_exists(self::$path.$filename)) {
 					// Example: test-image2.jpg
 					$filename = $file_slug.$i.$file->extension;
 					$i++;
@@ -492,12 +490,12 @@ class Files
 					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 					$path = rtrim($url, '/').'/'.$object;
 				}
-				
+
 				// save its location
 				$file->filename = $object;
 				$file->path = $path;
 				$file->save();
-				
+
 				$data = array('filename' => $object, 'path' => $path);
 
 				// now we create a thumbnail of the image for the admin panel to display
@@ -511,7 +509,7 @@ class Files
 					$config['width']            = 75;
 					$config['height']           = 50;
 					ci()->image_lib->initialize($config);
-					ci()->image_lib->resize();				
+					ci()->image_lib->resize();
 				}
 
 				// get rid of the "temp" file
@@ -591,7 +589,7 @@ class Files
 			$file->filename = $object;
 			$file->path = path;
 			$file->save();
-			
+
 			// get rid of the "temp" file
 			@unlink($temp_file);
 
@@ -616,8 +614,8 @@ class Files
 	public static function getFile($identifier = 0)
 	{
 		// they could have specified the row id or the actual filename
-		$results = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ? 
-					File::find($identifier) : 
+		$results = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ?
+					File::find($identifier) :
 					File::findByFilename($identifier);
 
 		//Make sure other code that uses this uses $file->folder->slug instead of $file->folder_slug (and same for folder name)
@@ -651,7 +649,7 @@ class Files
 
 	/**
 	 * List Files -- get_files() returns database records. This pulls from
-	 * the cloud instead but for completeness it will fetch local file names 
+	 * the cloud instead but for completeness it will fetch local file names
 	 * from the database if the location is "local"
 	 *
 	 * @param	string	$location	The cloud provider or local
@@ -671,7 +669,7 @@ class Files
 			$cloud_list = ci()->storage->list_files($container);
 
 			if ($cloud_list) {
-				foreach ($cloud_list as $value)  {
+				foreach ($cloud_list as $value) {
 					self::_getFileInfo($value['name']);
 
 					if ($location === 'amazon-s3') {
@@ -684,7 +682,7 @@ class Files
 						$path = $cf_container['cdn_uri'];
 
 						// they are trying to index a non-cdn enabled container
-						if ( ! $cf_container['cdn_enabled']) {
+						if (! $cf_container['cdn_enabled']) {
 							// we'll try to enable it for them
 							if ( ! $path = ci()->storage->create_container($container, 'public')) {
 								// epic fails all around!!
@@ -743,7 +741,7 @@ class Files
 		$folder = Folder::find($folder_id);
 
 		//list of files should be obtainable via files
-		
+
 		$files = Files::listFiles($folder->location, $folder->remote_container);
 
 		// did the fetch go ok?
@@ -832,14 +830,14 @@ class Files
 			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $allowed_types, $alt_attribute, $file_to_replace);
 
 			// remove files from cache
-			if( $result['status'] == 1 ) {
+			if ($result['status'] == 1) {
 				//md5 the name like they do it back in the thumb function
 				$cached_file_name = md5($file_to_replace->filename) . $file_to_replace->extension;
 				$path = Settings::get('cache_dir') . 'image_files/';
-				
+
 				$cached_files = glob( $path . '*_' . $cached_file_name );
 
-				foreach($cached_files as $full_path) {
+				foreach ($cached_files as $full_path) {
 					@unlink($full_path);
 				}
 			}
@@ -902,7 +900,7 @@ class Files
 
 	/**
 	 * Result
-	 * 
+	 *
 	 * Return a message in a uniform format for the entire library
 	 *
 	 * @param	bool	$status		Operation was a success or failure
@@ -914,8 +912,8 @@ class Files
 	**/
 	public static function result($status = true, $message = '', $args = false, $data = '')
 	{
-		return array('status' 	=> $status, 
-					 'message' 	=> $args ? sprintf($message, $args) : $message, 
+		return array('status' 	=> $status,
+					 'message' 	=> $args ? sprintf($message, $args) : $message,
 					 'data' 	=> $data
 					 );
 	}
@@ -924,7 +922,7 @@ class Files
 
 	/**
 	 * Permissions
-	 * 
+	 *
 	 * Return a simple array of allowed actions
 	 *
 	 * @return	array
@@ -948,7 +946,7 @@ class Files
 
 	/**
 	 * Exception Handler
-	 * 
+	 *
 	 * Return a the error message thrown by Cloud Files
 	 *
 	 * @return	array
@@ -958,8 +956,8 @@ class Files
 	{
 		log_message('debug', $e->getMessage());
 
-		echo json_encode( 
-			array('status' 	=> false, 
+		echo json_encode(
+			array('status' 	=> false,
 				  'message' => $e->getMessage(),
 				  'data' 	=> ''
 				 )
@@ -970,7 +968,7 @@ class Files
 
 	/**
 	 * Error Handler
-	 * 
+	 *
 	 * Return the error message thrown by Amazon S3
 	 *
 	 * @return	array
@@ -982,7 +980,7 @@ class Files
 
 		// only output the S3 error messages
 		if (strpos($error, 'S3') !== false) {
-			echo json_encode( 
+			echo json_encode(
 				array('status' 	=> false, // clean up the error message to make it more readable
 					  'message' => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
 					  'data' 	=> ''
@@ -996,7 +994,7 @@ class Files
 
 	/**
 	 * Create Slug
-	 * 
+	 *
 	 * Strip all odd characters out of a name and lowercase it
 	 *
 	 * @param	string	$name	The uncleaned name string
@@ -1014,7 +1012,7 @@ class Files
 
 	/**
 	 * Check our upload directory
-	 * 
+	 *
 	 * This is used on the local filesystem
 	 *
 	 * @return	bool
@@ -1036,12 +1034,12 @@ class Files
 			return self::result(false, lang('files:chmod_error'));
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	/**
 	 * Check the extension and clean the file name
-	 * 
+	 *
 	 *
 	 * @return	bool
 	 *
@@ -1052,7 +1050,7 @@ class Files
 			$ext		= pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION);
 			$allowed	= config_item('files:allowed_file_ext');
 
-			foreach ($allowed as $type => $ext_arr) {				
+			foreach ($allowed as $type => $ext_arr) {
 				if (in_array(strtolower($ext), $ext_arr)) {
 					self::$_type		= $type;
 					self::$_ext			= implode('|', $ext_arr);
@@ -1062,7 +1060,7 @@ class Files
 				}
 			}
 
-			if ( ! self::$_ext) {
+			if (! self::$_ext) {
 				return self::result(false, lang('files:invalid_extension'), $_FILES[$field]['name']);
 			}
 		} elseif (ci()->method === 'upload') {
@@ -1076,7 +1074,7 @@ class Files
 
 	/**
 	 * Get the file type and extension from the name
-	 * 
+	 *
 	 *
 	 * @return	bool
 	 *
@@ -1088,7 +1086,7 @@ class Files
 		$ext		= array_pop(explode('.', $filename));
 		$allowed	= config_item('files:allowed_file_ext');
 
-		foreach ($allowed as $type => $ext_arr) {				
+		foreach ($allowed as $type => $ext_arr) {
 			if (in_array(strtolower($ext), $ext_arr)) {
 				self::$_type		= $type;
 				self::$_ext			= '.'.$ext;
@@ -1102,19 +1100,19 @@ class Files
 
 	/**
 	 * Physically delete a file
-	 * 
+	 *
 	 *
 	 * @return	bool
 	 *
 	**/
 	private function _unlinkFile($file)
 	{
-		if( ! isset($file->filename) ) {
+		if ( ! isset($file->filename) ) {
 			return FALSE;
 		}
-		
+
 		$folder = $file->folder;
-		
+
 		if ($folder->location === 'local') {
 			@unlink(self::$path.$file->filename);
 		} else {
@@ -1126,7 +1124,7 @@ class Files
 
 		return TRUE;
 	}
-	
+
 	/**
 	 * Folder Tree
 	 *
@@ -1145,7 +1143,7 @@ class Files
 
 		$folders = Folder::findByParentAndSortByName($parent_id);
 
-		if ( ! $folders) {
+		if (! $folders) {
 			return $arr;
 		}
 
@@ -1218,14 +1216,14 @@ class Files
 
 		return implode($separator, $arr);
 	}
-	
+
 	/**
 	 * Tagged
 	 *
 	 * Selects files with any of the specified tags
-	 * 
+	 *
 	 * @param	array|string	The tags to search by
-	 * @return	array	
+	 * @return	array
 	 */
 	public static function getTaggedFiles($tags)
 	{
@@ -1248,7 +1246,7 @@ class Files
 		}
 
 		$keywords = Applied::get();
-		
+
 		$hashes = array_map(function($keyword) {
 					return $keyword->hash;
 				}, $keywords);
@@ -1262,12 +1260,12 @@ class Files
 
 		return $return_files;
 	}
-	
+
 	/**
 	 * Files listing
 	 *
 	 * Creates a list of files
-	 * 
+	 *
 	 * Used by the Files plugin
 	 *
 	 * @return array
@@ -1277,14 +1275,13 @@ class Files
 		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o')))) {
 			if (is_numeric($folder_id)) {
 				$folder = Folder::find($folder_id);
-			}
-			elseif (is_string($folder_id)) {
+			} elseif (is_string($folder_id)) {
 				$folder = Folder::findByPath($folder_id);
 			}
 		}
-		
+
 		$subfolders = array();
-		
+
 		if (isset($folder) && $folder && in_array($fetch, array('root', 'subfolder'))) {
 			// we're getting the files for an entire tree
 			$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
@@ -1300,11 +1297,11 @@ class Files
 		} else { // just the files for one folder
 			File::where('folder_id', $folder->id);
 		}
-		
+
 		$type	&&	File::where('type', $type);
 		$limit	&&	File::take($limit);
 		$offset	&&	File::skip($offset);
-		
+
 		if(!$order_ord) $order_ord = 'asc';
 
 		$order_by && File::orderBy($order_by, $order_ord);
@@ -1314,7 +1311,7 @@ class Files
 	    } else {
 			$files = File::get();
 		}
-		
+
 		return $files;
 	}
 }

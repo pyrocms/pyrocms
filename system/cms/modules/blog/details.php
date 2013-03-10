@@ -94,10 +94,8 @@ class Module_Blog extends Module
 			),
 		);
 
-		if (function_exists('group_has_role'))
-		{
-			if(group_has_role('blog', 'admin_blog_fields'))
-			{
+		if (function_exists('group_has_role')) {
+			if (group_has_role('blog', 'admin_blog_fields')) {
 				$info['sections']['fields'] = array(
 					'name' 	=> 'global:custom_fields',
 					'uri' 	=> 'admin/blog/fields',
@@ -120,7 +118,7 @@ class Module_Blog extends Module
 		Schema::dropIfExists('blog');
 		Schema::dropIfExists('blog_categories');
 
-		Schema::create('blog_categories', function($table) { 
+		Schema::create('blog_categories', function($table) {
 			$table->increments('id');
 			$table->string('slug', 100)->nullable()->unique();
 			$table->string('title', 100)->nullable()->unique();
@@ -158,7 +156,7 @@ class Module_Blog extends Module
 		$this->streams->fields->add_field($intro_field);
 
 		// Add fields to streamsy table
-		Schema::table('blog', function($table) { 
+		Schema::table('blog', function($table) {
 			$table->string('slug', 200)->unique();
 			$table->string('title', 200)->unique();
 			$table->integer('category_id');

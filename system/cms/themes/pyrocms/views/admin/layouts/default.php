@@ -43,7 +43,7 @@
 	<div id="container">
 
 		<section id="content">
-			
+
 			<header class="hide-on-ckeditor-maximize">
 			<?php file_partial('header'); ?>
 			</header>

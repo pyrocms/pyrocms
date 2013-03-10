@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful']          = 'Računa ni mogoče ustvariti'
 $lang['account_creation_duplicate_email']       = 'Email naslov je že v uporabi ali pa je neveljaven';
 $lang['account_creation_duplicate_username']    = 'Uporabniško ime je že v uporabi ali pa je neveljavno';
 
-
 // Password
 $lang['password_change_successful']             = 'Geslo uspešno spremenjeno';
 $lang['password_change_unsuccessful']           = 'Gesla ni mogoče spremeniti';

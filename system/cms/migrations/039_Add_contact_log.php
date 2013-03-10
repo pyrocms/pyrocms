@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_contact_log extends CI_Migration {
-
+class Migration_Add_contact_log extends CI_Migration
+{
 	public function up()
 	{
 		$contact_log = "
@@ -19,7 +19,7 @@ class Migration_Add_contact_log extends CI_Migration {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8
 		";
-		
+
 		$this->db->where('slug', 'contact');
 		$this->db->update('modules', array(
 			'version' => 0.9,
@@ -27,8 +27,7 @@ class Migration_Add_contact_log extends CI_Migration {
 			'is_backend' => 1,
 		));
 
-		if ($this->db->query($contact_log))
-		{
+		if ($this->db->query($contact_log)) {
 			return true;
 		}
 	}
@@ -36,7 +35,7 @@ class Migration_Add_contact_log extends CI_Migration {
 	public function down()
 	{
 		$this->dbforge->drop_table('contact_log');
-		
+
 		$this->db->where('slug', 'contact');
 		$this->db->update('modules', array(
 			'version' => 0.6,

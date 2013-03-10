@@ -161,9 +161,8 @@ $lang['settings:form_option_Oldest First']		= 'Antigos primeiro';
 $lang['settings:form_option_Newest First']		= 'Novos primeiro';
 $lang['settings:form_option_Text Only']			= 'Apenas Texto';
 $lang['settings:form_option_Allow Markdown']	= 'Permitir Markdown';
-$lang['settings:form_option_Yes']				= 'Sim'; 
+$lang['settings:form_option_Yes']				= 'Sim';
 $lang['settings:form_option_No']				= 'Não';
-
 
 // messages
 $lang['settings:no_settings']					= 'Atualmente não existem definições.';

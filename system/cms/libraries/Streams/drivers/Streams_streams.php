@@ -2,12 +2,12 @@
 
 /**
  * Entries Driver
- * 
+ *
  * @author  	Parse19
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */
-class Streams_streams extends CI_Driver {
-
+class Streams_streams extends CI_Driver
+{
 	/**
 	 * Get entries for a stream.
 	 *
@@ -24,35 +24,35 @@ class Streams_streams extends CI_Driver {
 		// -------------------------------------
 		// Validate Data
 		// -------------------------------------
-		
+
 		// Do we have a stream name?
 		if ( ! trim($stream_name)) {
 			$this->log_error('empty_stream_name', 'add_stream');
 			return false;
-		}				
+		}
 
 		// Do we have a stream slug?
 		if ( ! trim($stream_slug)) {
 			$this->log_error('empty_stream_slug', 'add_stream');
 			return false;
-		}				
+		}
 
 		// Do we have a stream namespace?
 		if ( ! trim($namespace)) {
 			$this->log_error('empty_stream_namespace', 'add_stream');
 			return false;
-		}				
-		
+		}
+
 		// Is this stream slug already available?
 		if (is_object(ci()->streams_m->get_stream($stream_slug, true)) ) {
 			$this->log_error('stream_slug_in_use', 'add_stream');
 			return false;
 		}
-	
+
 		// -------------------------------------
 		// Create Stream
 		// -------------------------------------
-		
+
 		return ci()->streams_m->create_new_stream(
 			$stream_name,
 			$stream_slug,
@@ -75,7 +75,7 @@ class Streams_streams extends CI_Driver {
 	public function get_stream($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
-		
+
 		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
 
 		return ci()->streams_m->get_stream($str_id);
@@ -93,9 +93,9 @@ class Streams_streams extends CI_Driver {
 	public function delete_stream($stream, $namespace = null)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
-		
+
 		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
-	
+
 		return ci()->streams_m->delete_stream($str_obj);
 	}
 
@@ -108,11 +108,11 @@ class Streams_streams extends CI_Driver {
 	 * @return	object
 	 */
 	public function update_stream($stream, $namespace = null, $data = array())
-	{	
+	{
 		$str_id = $this->stream_id($stream, $namespace);
-		
+
 		if ( ! $str_id) $this->log_error('invalid_stream', 'update_stream');
-		
+
 		$data['stream_slug'] = $stream;
 
 		return ci()->streams_m->update_stream($str_id, $data);
@@ -128,7 +128,7 @@ class Streams_streams extends CI_Driver {
 	public function get_assignments($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
-		
+
 		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
 
 		return ci()->fields_m->get_assignments_for_stream($str_id);
@@ -181,33 +181,33 @@ class Streams_streams extends CI_Driver {
 
 		// Get the table data
 		$info = ci()->pdb->query("SHOW TABLE STATUS LIKE '".ci()->pdb->dbprefix($data['db_table'])."'")->row();
-		
+
 		// Get the size of the table
 		$data['raw_size']	= $info->Data_length;
 
 		ci()->load->helper('number');
 		$data['size'] 		= byte_format($info->Data_length);
-		
+
 		// Last updated time
 		$data['last_updated'] = ( ! $info->Update_time) ? $info->Create_time : $info->Update_time;
 
 		ci()->load->helper('date');
 		$data['last_updated'] = mysql_to_unix($data['last_updated']);
-		
+
 		// Get the number of rows (the table status data on this can't be trusted)
 		$data['entries_count'] = ci()->db->count_all($data['db_table']);
-		
+
 		// Get the number of fields
 		$data['fields_count'] = ci()->db->select('id')->where('stream_id', $stream->id)->get(ASSIGN_TABLE)->num_rows();
 
 		return $data;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Chekc is table exists
-	 * 
+	 *
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
 	 *
@@ -236,11 +236,11 @@ class Streams_streams extends CI_Driver {
 	public function validation_array($stream, $namespace = null, $method = 'new', $skips = array(), $row_id = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
-		
+
 		if ( ! $str_id) $this->log_error('invalid_stream', 'validation_array');
 
 		$stream_fields = ci()->streams_m->get_stream_fields($str_id);
 
 		return ci()->fields->set_rules($stream_fields, $method, $skips, true, $row_id);
-	}	
+	}
 }

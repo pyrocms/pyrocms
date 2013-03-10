@@ -32,8 +32,7 @@ class Admin_Widgets extends Admin_Controller
 
 		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
-		if (in_array($this->method, array('index', 'manage')))
-		{
+		if (in_array($this->method, array('index', 'manage'))) {
 			// requires to install and/or uninstall widgets
 			$this->widgets->list_available_widgets();
 		}
@@ -77,8 +76,7 @@ class Admin_Widgets extends Admin_Controller
 	{
 		$id && $this->_do_action($id, 'enable');
 
-		if ($redirect)
-		{
+		if ($redirect) {
 			$this->session->set_flashdata('enabled', 0);
 
 			redirect('admin/addons/widgets');
@@ -110,17 +108,14 @@ class Admin_Widgets extends Admin_Controller
 		$multiple = (count($ids) > 1) ? '_mass' : null;
 		$status = 'success';
 
-		foreach ($ids as $id)
-		{
-			if ( ! $this->widget_m->{$action.'_widget'}($id))
-			{
+		foreach ($ids as $id) {
+			if ( ! $this->widget_m->{$action.'_widget'}($id)) {
 				$status = 'error';
 				break;
 			}
 
 			// Fire an Event. A widget has been enabled or disabled.
-			switch ($action)
-			{
+			switch ($action) {
 				case 'enable':
 					Events::trigger('widget_enabled', $ids);
 					break;

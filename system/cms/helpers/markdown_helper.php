@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 use dflydev\markdown\MarkdownExtraParser;
 
 /**
  * Markdown helper for PyroCMS.
- * 
- * This file contains a CodeIgniter helper for PHP Markdown. 
+ *
+ * This file contains a CodeIgniter helper for PHP Markdown.
  * The Parser is a third-party library.
  *
  * @author      PyroCMS Dev Team
@@ -14,13 +14,12 @@ use dflydev\markdown\MarkdownExtraParser;
  * @see 		https://github.com/dflydev/dflydev-markdown
  * @deprecated
  */
-if ( ! function_exists('parse_markdown'))
-{
+if ( ! function_exists('parse_markdown')) {
 	/**
 	 * Parse a block of markdown and get HTML back
 	 *
 	 * @param string $markdown The markdown text.
-	 * @return string The HTML 
+	 * @return string The HTML
 	 */
 	function parse_markdown($markdown)
 	{

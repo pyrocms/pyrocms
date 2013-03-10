@@ -53,7 +53,6 @@ $lang['user:activated_account_title'] 	= 'تم تفعيل الحساب';
 $lang['user:reset_password_title'] 		= 'استعادة كلمة السرّ';
 $lang['user:password_reset_title'] 		= 'تمت استعادة كلمة السرّ';
 
-
 $lang['user:error_username'] 			= 'إسم المستخدم الذي اخترته مُستخدم';
 $lang['user:error_email'] 				= 'عنوان البريد الإلكتروني الذي أدخلته مُستخدم.';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 						= 'عنوان البريد الإلكتروني
 $lang['user:register_error']				   = 'نعتقد أنك روبوت. إن كنا مخطئين فاقبل اعتذارنا.';
 $lang['user:register_reasons'] 					= 'اشترك معنا للوصول إلى الأقسام المحجوبة من الموقع. اشتراكك يتيح لك حفظ إعداداتك والمزيد من المُحتوى والقليل من الدعائيات.';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'تعذر التفعيل. رجاءً تحقق من بياناتك وتأكد من عدم الكتابة بالأحرف الكبيرة.';
 $lang['user:activated_message']   				= 'تم تفعيل حسابك، ويمكنك الآن استخدامه لتسجيل الدخول.';
-
 
 // Login
 $lang['user:logged_in']							= 'تم تسجيل دخولك بنجاح.';
 $lang['user:already_logged_in'] 				= 'أنت مسجل الدخول حالياً. رجاءً سجل خروجك قبل المحاولة مرة أخرى.';
 $lang['user:login_incorrect'] 					= 'عنوان البريد الإلكتروني أو كلمة السرّ غير مطابقة. رجاءً تحقق من بياناتك المدخلة وأنك لا تستخدم الأحرف الكبيرة.';
 $lang['user:inactive']   						= 'الحساب الذي تحاول الوصول إليه غير نشط.<br />تحقق من بريدك الإلكتروني للحصول على تعليمات حول طريقة تفعيل حسابك  - <em>قد تكون الرسالة في مجلد البريد الغير مرغوب</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'تم تسجيل خروجك.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "تم استعادة كلمة الس
 // Activation
 $lang['user:activation_email_subject'] 			= 'تفعيل الحساب';
 $lang['user:activation_email_body'] 			= 'شكراً لك على تفعيل حسابك على %s. رجاء استخدم الرابط أدناه كي تسجّل دخولك إلى الموقع:';
-
 
 $lang['user:activated_email_subject'] 			= 'اكتملت عمليّة التفعيل';
 $lang['user:activated_email_content_line1'] 	= 'شكراً لك على تسجيلك في %s. قبل أن تتمكن من تفعيل حسابك، رجاء أتم عملية التسجيل بالضغط على الرابط التالي:';

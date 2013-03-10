@@ -7,11 +7,11 @@ use Pyro\Module\Templates\Model\EmailTemplate;
  * Contact Plugin
  *
  * Build and send contact forms
- * 
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Contact\Plugins
  */
-class Plugin_Contact extends Plugin 
+class Plugin_Contact extends Plugin
 {
 
 	public $version = '1.0.0';
@@ -23,10 +23,10 @@ class Plugin_Contact extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -59,7 +59,7 @@ class Plugin_Contact extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
@@ -122,15 +122,15 @@ class Plugin_Contact extends Plugin
 	 * @param	sent				Allows you to set a different message for each contact form.
 	 * @param	error				Set a unique error message for each form.
 	 * @param	autoreply			Default is 0. When set to 1 autoreply is enabled and the end user will receive a confirmation email to their specified email address
-	 * @param	success-redirect	Redirect the user to a different page if the message was sent successfully. 
+	 * @param	success-redirect	Redirect the user to a different page if the message was sent successfully.
 	 * @return	string
 	 */
 	public function form()
 	{
 		$this->load->helper('form');
-		
+
 		$field_list = $this->attributes();
-		
+
 		// If they try using the old form tag plugin give them an idea why it's failing.
 		if ( ! $this->content() or count($field_list) == 0) {
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
@@ -149,7 +149,7 @@ class Plugin_Contact extends Plugin
 		$form_meta          = array();
 		$validation         = array();
 		$output             = array();
-		
+
 		// Unset all attributes that are not field names
 		unset(
 			$field_list['button'],
@@ -163,72 +163,72 @@ class Plugin_Contact extends Plugin
 			$field_list['redirect'],
 			$field_list['action']
 		);
-		
+
 		// Prepare the form meta data and validation rules
 		foreach ($field_list as $field => $rules) {
-			
+
 			$rule_array = explode('|', $rules);
-			
+
 			// Take the simplified form names and turn them into the real deal
 			switch ($rule_array[0]) {
-				
+
 				case '':
 				case 'text':
-					
+
 					$form_meta[$field]['type'] = 'input';
 					break;
-				
+
 				case 'textarea':
-					
+
 					$form_meta[$field]['type'] = 'textarea';
 					break;
-			
+
 				case 'dropdown':
-					
+
 					$form_meta[$field]['type'] = 'dropdown';
-					
+
 					// In this case $rule_array holds the dropdown key=>values and possibly the "required" rule.
 					$values = $rule_array;
-					
+
 					// Get rid of the field type
 					unset($values[0]);
-					
+
 					// Is a value required?
 					if ($required_key = array_search('required', $values)) {
-						
+
 						$other_rules = 'required';
 						unset($values[$required_key]);
 					} else {
 						// Just set something
 						$other_rules = 'trim';
 					}
-					
+
 					// We need to empty the array else we'll end up appending to the values of a previous field
 					$dropdown = array();
-					
+
 					// Build the array to pass to the form_dropdown() helper
 					foreach ($values as $item) {
-						
+
 						$item = explode('=', $item);
 						// If they didn't specify a key=>value (example: name=Your Name) then we'll use the value for the key also
 						$dropdown[$item[0]] = (count($item) > 1) ? $item[1] : $item[0];
 					}
-					
+
 					$form_meta[$field]['dropdown'] = $dropdown;
-					
+
 					break;
-				
+
 				case 'file':
-					
+
 					$form_meta[$field]['type'] = 'upload';
-					
+
 					$config = $rule_array;
 					// get rid of the field type
 					unset($config[0]);
-					
+
 					// If this attachment is required add that to the rules and unset it from upload config
 					if ($required_key = array_search('required', $config)) {
-						
+
 						if ( ! self::_requireUpload($field)) {
 							// We'll set this so validation will fail and our message will be shown
 							$other_rules = 'required';
@@ -237,22 +237,22 @@ class Plugin_Contact extends Plugin
 					} else {
 						$other_rules = 'trim';
 					}
-					
+
 					// set configs for file uploading
 					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
 					$form_meta[$field]['config']['max_size'] = $max_size;
 					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
-					
-					break;	
-				
+
+					break;
+
 				case 'hidden':
-					
+
 					$form_meta[$field]['type'] = 'hidden';
 					$value = preg_split('/=/',$rule_array[1]);
 					$value = $value[1];
 					$form_meta[$field]['value'] = $value;
-					
-					break;					
+
+					break;
 			}
 
 			$validation[$field]['field'] = $field;
@@ -260,62 +260,62 @@ class Plugin_Contact extends Plugin
 			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
-		// We only need to run validation and input processing if the form has been submitted 
+		// We only need to run validation and input processing if the form has been submitted
 		if ($this->input->post('contact-submit')) {
-			
+
 			$this->load->library('form_validation');
-			
+
 			$this->form_validation->set_rules($validation);
-			
+
 			// Process the input upon successful validation
 			// Along the way we parse the e-mail template to store a complete e-mail in the db.
 			// After that we trigger an email event to send out the e-mail, and optionally also an autoreply
 			if ($this->form_validation->run()) {
-				
+
 				// Maybe it's a bot?
 				if ($this->input->post('d0ntf1llth1s1n') !== ' ') {
-					
+
 					$this->session->set_flashdata('error', lang('contact_submit_error'));
 					redirect(current_url());
 				}
-				
+
 				// Get all post data
 				$data = $this->input->post();
-	
+
 				// Add in some extra details about the visitor
 				$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
 				$data['sender_ip']    = $this->input->ip_address();
 				$data['sender_os']    = $this->agent->platform();
 				$data['slug']         = $template;
-				
+
 				// They may have an email field in the form. If they do we'll use that for reply-to.
 				$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
 				$data['to']       = $to;
 				$data['from']     = $from;
-	
+
 				// Yay they want to send attachments along
 				if ($_FILES > '') {
-					
+
 					$this->load->library('upload');
 					is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
-					
+
 					foreach ($_FILES as $form => $file) {
-						
+
 						if ($file['name'] > '') {
-							
+
 							// Make sure the upload matches a field
 							if ( ! array_key_exists($form, $form_meta)) {
 								break;
 							}
 							$this->upload->initialize($form_meta[$form]['config']);
 							$this->upload->do_upload($form);
-							
+
 							if ($this->upload->display_errors() > '') {
-								
+
 								$this->session->set_flashdata('error', $this->upload->display_errors());
 								redirect(current_url());
 							} else {
-								
+
 								$result_data = $this->upload->data();
 								// pass the attachment info to the email event
 								$data['attach'][$result_data['file_name']] = $result_data['full_path'];
@@ -323,19 +323,19 @@ class Plugin_Contact extends Plugin
 						}
 					}
 				}
-				
-				// Fetch the email template so we can parse the subject & body before we create a db entry 
+
+				// Fetch the email template so we can parse the subject & body before we create a db entry
 				$template = EmailTemplate::findBySlugAndLanguage($template, $lang);
-				
+
 				// We won't be able to store a log entry or send a mail if the template is missing
 				if (null === $template) {
 					$this->session->set_flashdata('error', lang('contact_no_template'));
 					redirect(current_url());
 				}
-				
+
 	            $subject = $this->parser->parse_string($template->subject, $data, true);
 	            $body = $this->parser->parse_string($template->body, $data, true);
-				
+
 				// Now we can insert the same thing into the log as what we are going to be sending
 				ContactLog::create(array(
 					'email'			=> isset($data['email']) ? $data['email'] : '',
@@ -343,37 +343,37 @@ class Plugin_Contact extends Plugin
 					'message' 		=> $body,
 					'sender_agent' 	=> $data['sender_agent'],
 					'sender_ip' 	=> $data['sender_ip'],
-					'sender_os' 	=> $data['sender_os'],	
+					'sender_os' 	=> $data['sender_os'],
 					'sent_at' 		=> time(),
 					'attachments'	=> isset($data['attach']) ? implode('|', $data['attach']) : '',
 				));
-				
+
 				// Try sending the e-mail. Redirect on failure
 				if ( ! self::trySendingMail($data)) {
 					redirect(current_url());
 				}
-				
+
 				// If autoreply has been enabled then send the end user an autoreply response
 				if ($autoreply_template) {
-					
+
 					// Change the address and template slug
 					$data['to']      = $data['email'];
 					$data['slug']    = $autoreply_template;
-					
+
 					// Try sending the e-mail. Redirect on failure
 					if ( ! self::trySendingMail($data)) {
 						redirect(current_url());
 					}
 				}
-				
+
 				// If we got this far we can add a success message
 				$session_message = $this->session->userdata('flash:new:success');
 				$local_message = $this->attribute('error', lang('contact_sent_text'));
-				
+
 				if (null !== $session_message) {
 					$local_message = array($session_message, $local_message);
-				} 
-				
+				}
+
 				$this->session->set_flashdata('success', $local_message);
 				redirect($redirect ?: current_url());
 			}
@@ -383,7 +383,7 @@ class Plugin_Contact extends Plugin
 		$parse_data = array();
 		foreach ($form_meta as $field => $value) {
 			$parse_data[$field]  = form_error($field, '<div class="'.$field.'-error error">', '</div>');
-			
+
 			if ($value['type'] == 'dropdown') {
 				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
@@ -391,14 +391,14 @@ class Plugin_Contact extends Plugin
 										$form_meta[$field]['dropdown'],
 										set_value($field),
 										'id="contact_'.$field.'" class="'.$field.'"');
-										
-			} elseif($value['type'] == 'hidden') {
+
+			} elseif ($value['type'] == 'hidden') {
 				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
 										$field,
 										$value['value'],
 										'class="'.$field.'"');
-										
+
 			} else {
 				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
@@ -407,7 +407,7 @@ class Plugin_Contact extends Plugin
 										'id="contact_'.$field.'" class="'.$field.'"');
 			}
 		}
-	
+
 		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
 		$output	.= form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"');
 		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), true).PHP_EOL;
@@ -416,37 +416,37 @@ class Plugin_Contact extends Plugin
 
 		return $output;
 	}
-	
+
 	public function _requireUpload($field)
 	{
 		return (bool) isset($_FILES[$field]) and ! empty($_FILES[$field]['name']);
 	}
-	
+
 	/**
 	 * Try to send an e-mail. Add an error message if sending the e-mail failed
-	 * 
+	 *
 	 * @access	public
 	 * @param	array 	$data	E-mail data
 	 * @return	bool			True on success, false on failure
 	 */
-	public function trySendingMail($data) 
+	public function trySendingMail($data)
 	{
 		if ( ! Events::trigger('email', $data, 'string')) {
-			
+
 			$local_message = $this->attribute('error', lang('contact_error_message'));
-			
-			// Figure out whether we should add to a current error message 
+
+			// Figure out whether we should add to a current error message
 			$session_message = $this->session->userdata('flash:new:error');
 			if (null !== $session_message) {
 				$local_message = array($session_message, $local_message);
 			}
-			
+
 			$this->session->set_flashdata('error', $local_message);
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 }

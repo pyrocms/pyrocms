@@ -1,12 +1,10 @@
 <?php namespace Pyro\Module\Comments\Model;
 
-use Capsule\DB;
-
 /**
  * Comment model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Comments\Models 
+ * @package     PyroCMS\Core\Modules\Comments\Models
  */
 class Comment extends \Illuminate\Database\Eloquent\Model
 {
@@ -27,10 +25,10 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     /**
      * Get comments based on a module item
      *
-     * @param string $module The name of the module
-     * @param int $entry_key The singular key of the entry (E.g: blog:post or pages:page)
-     * @param int $entry_id The ID of the entry
-     * @param bool $is_active Is the comment active?
+     * @param  string $module    The name of the module
+     * @param  int    $entry_key The singular key of the entry (E.g: blog:post or pages:page)
+     * @param  int    $entry_id  The ID of the entry
+     * @param  bool   $is_active Is the comment active?
      * @return array
      */
     public static function findByEntry($module, $entry_key, $entry_id, $is_active = true)
@@ -57,9 +55,9 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     /**
      * Find recent comments
      *
-     * 
-     * @param int $limit The amount of comments to get
-     * @param int $is_active set default to only return active comments
+     *
+     * @param  int   $limit     The amount of comments to get
+     * @param  int   $is_active set default to only return active comments
      * @return array
      */
     public static function findRecent($limit = 10, $is_active = 1)
@@ -85,7 +83,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     /**
      * Find Comments by Module and ID
      *
-     * 
+     *
      * @param int $module - Module Name
      * @param int $key_id - Key ID
      *
@@ -112,7 +110,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
             ->get();
 
         $options = array();
-        
+
         if ( ! empty($slugs)) {
             foreach ($slugs as $slug) {
                 if ( ! $slug->name and ($pos = strpos($slug->module, '-')) !== false) {

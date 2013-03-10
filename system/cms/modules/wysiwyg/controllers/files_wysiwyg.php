@@ -5,21 +5,21 @@ use Pyro\Module\Files\Model\Folder;
 
 /**
  * Manages files selection and insertion for WYSIWYG editors
- * 
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\WYSIWYG\Controllers
  */
-class Files_wysiwyg extends WYSIWYG_Controller {
-
+class Files_wysiwyg extends WYSIWYG_Controller
+{
 	public function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
 	}
 
 	public function index($id = 0)
 	{
 		$this->load->library('files/files');
-		
+
 		$data = new stdClass();
 
 		$data->folders			= Files::folderTreeRecursive();

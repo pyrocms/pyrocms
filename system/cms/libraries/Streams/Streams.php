@@ -5,9 +5,9 @@
  *
  * @author  	Parse19
  * @package  	PyroCMS\Core\Libraries\Streams
- */ 
-class Streams extends CI_Driver_Library {
-
+ */
+class Streams extends CI_Driver_Library
+{
 	/**
 	 * @var	array Valid Streams API Drivers
 	 */
@@ -44,12 +44,11 @@ class Streams extends CI_Driver_Library {
 		ci()->load->language('streams_core/pyrostreams');
 		ci()->load->config('streams_core/streams');
 		ci()->load->library(array('streams_core/Type', 'streams_core/Fields', 'Form_validation'));
-	
+
 		ci()->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
-		
+
 		// Load the language file
-		if(is_dir(APPPATH.'libraries/Streams'))
-		{
+		if (is_dir(APPPATH.'libraries/Streams')) {
 			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
 		}
 	}
@@ -61,7 +60,7 @@ class Streams extends CI_Driver_Library {
 	 * stream inputs (object, id, or slug).
 	 *
 	 * If you are using the stream slug, you
-	 * need to provide the namespace. 
+	 * need to provide the namespace.
 	 *
 	 * @param	mixed $stream
 	 * @param	string $namespace
@@ -71,7 +70,7 @@ class Streams extends CI_Driver_Library {
 	{
 		// If we have an ID, then we're done.
 		if (is_numeric($stream)) return $stream;
-		
+
 		// Check for slug
 		if (is_string($stream)) {
 			return ci()->streams_m->get_stream_id_from_slug($stream, $namespace);
@@ -79,10 +78,10 @@ class Streams extends CI_Driver_Library {
 
 		// Check for object
 		if (is_object($stream) and isset($stream->id)) return $stream->id;
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Get a stream object from any number of
 	 * stream inputs (object, id, or slug)
@@ -98,10 +97,10 @@ class Streams extends CI_Driver_Library {
 
 		// Check for ID
 		if (is_numeric($stream)) return ci()->streams_m->get_stream($stream);
-				
+
 		// Check for slug
 		if (is_string($stream) and $namespace) return ci()->streams_m->get_stream($stream, true, $namespace);
-		
+
 		return null;
 	}
 
@@ -110,18 +109,18 @@ class Streams extends CI_Driver_Library {
 	 * debug level.
 	 *
 	 * @param	string $lang_code error message
-	 * @param	function $function 
+	 * @param	function $function
 	 * @return	void
 	 */
 	public function log_error($lang_code, $function)
 	{
 		//$error = lang('streams:api.'.$lang_code).' ['.$function.']';
 		$error = $lang_code.' ['.$function.']';
-		
+
 		// Log the message either way
 		log_message('error', $error);
-	
+
 		if ($this->debug === true) show_error($error);
 	}
-	
+
 }

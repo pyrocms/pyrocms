@@ -20,8 +20,7 @@ class Permission_m extends CI_Model
 	public function get_group($group_id)
 	{
 		// Save a query if you can
-		if (isset($this->_groups[$group_id]))
-		{
+		if (isset($this->_groups[$group_id])) {
 			return $this->_groups[$group_id];
 		}
 
@@ -34,8 +33,7 @@ class Permission_m extends CI_Model
 		// Store the final rules here
 		$rules = array();
 
-		foreach ($result as $row)
-		{
+		foreach ($result as $row) {
 			// Either pass roles or just true
 			$rules[$row->module] = $row->roles ? json_decode($row->roles, true) : true;
 		}
@@ -68,19 +66,13 @@ class Permission_m extends CI_Model
 		// do they even have access to the module?
 		if ( ! isset($this->permissions[$module])) return false;
 
-		if (is_array($roles))
-		{
-			foreach ($roles as $role)
-			{
-				if (array_key_exists($role, $this->permissions[$module]))
-				{
+		if (is_array($roles)) {
+			foreach ($roles as $role) {
+				if (array_key_exists($role, $this->permissions[$module])) {
 					// if not strict then one role is enough to get them in the door
-					if ( ! $strict)
-					{
+					if (! $strict) {
 						return true;
-					}
-					else
-					{
+					} else {
 						array_push($access, false);
 					}
 				}
@@ -88,9 +80,7 @@ class Permission_m extends CI_Model
 
 			// we have to have a non-empty array but one false in the array gets them canned
 			return $access and ! in_array(false, $access);
-		}
-		else
-		{
+		} else {
 			// they just passed one role to check
 			return array_key_exists($roles, $this->permissions[$module]);
 		}
@@ -106,8 +96,7 @@ class Permission_m extends CI_Model
 	public function check_access($group_id, $module = null)
 	{
 		// If no module is set, just make sure they have SOMETHING
-		if ($module !== null)
-		{
+		if ($module !== null) {
 			$this->db->where('module', $module);
 		}
 
@@ -129,13 +118,10 @@ class Permission_m extends CI_Model
 		// Clear out the old permissions
 		$this->db->where('group_id', $group_id)->delete('permissions');
 
-		if ($modules)
-		{
+		if ($modules) {
 			// For each module mentioned (with a value of 1 for most browser compatibility).
-			foreach ($modules as $module => $permission)
-			{
-				if ( ! empty($permission))
-				{
+			foreach ($modules as $module => $permission) {
+				if ( ! empty($permission)) {
 					$data = array(
 						'module' => $module,
 						'group_id' => $group_id,
@@ -143,8 +129,7 @@ class Permission_m extends CI_Model
 					);
 
 					// Save this module in the list of "allowed modules"
-					if ( ! $result = $this->db->insert('permissions', $data))
-					{
+					if ( ! $result = $this->db->insert('permissions', $data)) {
 						// Fail, give up trying
 						return false;
 					}

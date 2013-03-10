@@ -10,7 +10,7 @@ $lang['help_body'] = "
 
 <h4>Categorie&euml;n</h4>
 <p>
-	U kunt zo veel Categorie&euml;n maken als u wilt om uw berichten te organiseren. 
+	U kunt zo veel Categorie&euml;n maken als u wilt om uw berichten te organiseren.
 	Om uw bezoekers door categorieen te laten browsen kunt u het Blog Categories Widget gebruiken.
 </p>
 

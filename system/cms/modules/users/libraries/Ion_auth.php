@@ -99,8 +99,7 @@ class Ion_auth
 		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter', 'ion_auth');
 
 		//auto-login the user if they are remembered
-		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
-		{
+		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code')) {
 			$this->ci->ion_auth = $this;
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
@@ -114,8 +113,7 @@ class Ion_auth
 	 **/
 	public function __call($method, $arguments)
 	{
-		if ( ! method_exists( $this->ci->ion_auth_model, $method))
-		{
+		if ( ! method_exists( $this->ci->ion_auth_model, $method)) {
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
 
@@ -130,8 +128,7 @@ class Ion_auth
 	 **/
 	public function activate($id, $code=false)
 	{
-		if ($this->ci->ion_auth_model->activate($id, $code))
-		{
+		if ($this->ci->ion_auth_model->activate($id, $code)) {
 			$this->set_message('activate_successful');
 			return true;
 		}
@@ -148,8 +145,7 @@ class Ion_auth
 	 **/
 	public function deactivate($id)
 	{
-		if ($this->ci->ion_auth_model->deactivate($id))
-		{
+		if ($this->ci->ion_auth_model->deactivate($id)) {
 			$this->set_message('deactivate_successful');
 			return true;
 		}
@@ -166,8 +162,7 @@ class Ion_auth
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-	if ($this->ci->ion_auth_model->change_password($identity, $old, $new))
-	{
+	if ($this->ci->ion_auth_model->change_password($identity, $old, $new)) {
 		$this->set_message('password_change_successful');
 		return true;
 	}
@@ -184,8 +179,7 @@ class Ion_auth
 	 **/
 	public function forgotten_password($identity)    //changed $email to $identity
 	{
-		if ( $this->ci->ion_auth_model->forgotten_password($identity) )   //changed
-		{
+		if ( $this->ci->ion_auth_model->forgotten_password($identity) ) {   //changed
 			// Get user information
 			$user = $this->get_user_by_identity($identity);  //changed to get_user_by_identity from email
 
@@ -197,26 +191,22 @@ class Ion_auth
 			$data['name']		= Settings::get('site_name');
 			$data['reply-to']	= Settings::get('contact_email');
 			$data['user']		= $user;
-			
+
 			// send the email using the template event found in system/cms/templates/
 			$results = Events::trigger('email', $data, 'array');
 
 			// check for errors from the email event
-			foreach ($results as $result)
-			{
-				if ( ! $result)
-				{
+			foreach ($results as $result) {
+				if (! $result) {
 					$this->set_error('forgot_password_unsuccessful');
 					return false;
 				}
 			}
-			
+
 			// email send was successful, let them know
 			$this->set_message('forgot_password_successful');
 			return true;
-		}
-		else
-		{
+		} else {
 			$this->set_error('forgot_password_unsuccessful');
 			return false;
 		}
@@ -233,16 +223,14 @@ class Ion_auth
 	    $identity	= $this->ci->config->item('identity', 'ion_auth');
 	    $user		= $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 
-	    if (!is_object($user))
-	    {
+	    if (!is_object($user)) {
 		$this->set_error('password_change_unsuccessful');
 		return false;
 	    }
 
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code, $user->salt);
 
-		if ($new_password)
-		{
+		if ($new_password) {
 			// Add in some extra details
 			$data['subject']		= Settings::get('site_name') . ' - New Password';
 			$data['slug'] 			= 'new_password';
@@ -252,26 +240,22 @@ class Ion_auth
 			$data['reply-to']		= Settings::get('contact_email');
 			$data['user']			= $user;
 			$data['new_password']	= $new_password;
-			
+
 			// send the email using the template event found in system/cms/templates/
 			$results = Events::trigger('email', $data, 'array');
 
 			// check for errors from the email event
-			foreach ($results as $result)
-			{
-				if ( ! $result)
-				{
+			foreach ($results as $result) {
+				if (! $result) {
 					$this->set_error('password_change_unsuccessful');
 					return false;
 				}
 			}
-			
+
 			// email send was successful, let them know
 			$this->set_message('password_change_successful');
 			return true;
-		}
-		else
-		{
+		} else {
 			$this->set_error('password_change_unsuccessful');
 			return false;
 		}
@@ -287,19 +271,15 @@ class Ion_auth
 	{
 		$id = $this->ci->ion_auth_model->register($username, $password, $email, $group_id, $additional_data, $group_name);
 
-		if ($id !== false)
-		{
+		if ($id !== false) {
 			$this->set_message('account_creation_successful');
 
-			if (Settings::get('activation_email'))
-			{
+			if (Settings::get('activation_email')) {
 				return $this->activation_email($id);
 			}
 
 			return $id;
-		}
-		else
-		{
+		} else {
 			$this->set_error('account_creation_unsuccessful');
 			return false;
 		}
@@ -307,7 +287,7 @@ class Ion_auth
 
 	/**
 	 * Send an activation email to a user
-	 * 
+	 *
 	 * @return int|bool
 	 * @author Jerel Unruh
 	 */
@@ -319,8 +299,7 @@ class Ion_auth
 		$activation_code 	= $this->ci->ion_auth_model->activation_code;
 		$user				= $this->ci->ion_auth_model->get_user($id)->row();
 
-		if ( ! $user)
-		{
+		if (! $user) {
 			$this->set_error('activation_email_unsuccessful');
 			return false;
 		}
@@ -334,20 +313,18 @@ class Ion_auth
 		$data['reply-to']			= Settings::get('contact_email');
 		$data['activation_code']	= $activation_code;
 		$data['user']				= $user;
-		
+
 		// send the email using the template event found in system/cms/templates/
 		$results = Events::trigger('email', $data, 'array');
 
 		// check for errors from the email event
-		foreach ($results as $result)
-		{
-			if ( ! $result)
-			{
+		foreach ($results as $result) {
+			if (! $result) {
 				$this->set_error('activation_email_unsuccessful');
 				return false;
 			}
 		}
-		
+
 		// email send was successful, let them know
 		$this->set_message('activation_email_successful');
 
@@ -362,8 +339,7 @@ class Ion_auth
 	 **/
 	public function login($identity, $password, $remember=false)
 	{
-		if ($this->ci->ion_auth_model->login($identity, $password, $remember))
-		{
+		if ($this->ci->ion_auth_model->login($identity, $password, $remember)) {
 			$this->set_message('login_successful');
 			return true;
 		}
@@ -371,11 +347,10 @@ class Ion_auth
 		$this->set_error('login_unsuccessful');
 		return false;
 	}
-	
+
 	public function force_login($user_id, $remember = false)
 	{
-		if ($this->ci->ion_auth_model->force_login($user_id, $remember))
-		{
+		if ($this->ci->ion_auth_model->force_login($user_id, $remember)) {
 			$this->set_message('login_successful');
 			return true;
 		}
@@ -399,12 +374,10 @@ class Ion_auth
 	    $this->ci->session->unset_userdata('user_id');
 
 	    //delete the remember me cookies if they exist
-	    if (get_cookie('identity'))
-	    {
+	    if (get_cookie('identity')) {
 		delete_cookie('identity');
 	    }
-		if (get_cookie('remember_code'))
-	    {
+		if (get_cookie('remember_code')) {
 		delete_cookie('remember_code');
 	    }
 
@@ -451,8 +424,7 @@ class Ion_auth
 	{
 	    $user_group = $this->ci->session->userdata('group');
 
-	    if(is_array($check_group))
-	    {
+	    if (is_array($check_group)) {
 		return in_array($user_group, $check_group);
 	    }
 
@@ -658,8 +630,7 @@ class Ion_auth
 	 **/
 	public function update_user($id, $data, $profile_data)
 	{
-		 if ($this->ci->ion_auth_model->update_user($id, $data, $profile_data))
-		 {
+		 if ($this->ci->ion_auth_model->update_user($id, $data, $profile_data)) {
 			$this->set_message('update_successful');
 			return true;
 		 }
@@ -677,8 +648,7 @@ class Ion_auth
 	 **/
 	public function delete_user($id)
 	{
-		 if ($this->ci->ion_auth_model->delete_user($id))
-		 {
+		 if ($this->ci->ion_auth_model->delete_user($id)) {
 			$this->set_message('delete_successful');
 			return true;
 		 }
@@ -778,8 +748,7 @@ class Ion_auth
 	public function messages()
 	{
 		$_output = '';
-		foreach ($this->messages as $message)
-		{
+		foreach ($this->messages as $message) {
 			$_output .= $this->message_start_delimiter . $this->ci->lang->line($message) . $this->message_end_delimiter;
 		}
 
@@ -812,14 +781,13 @@ class Ion_auth
 	public function errors()
 	{
 		$_output = '';
-		foreach ($this->errors as $error)
-		{
+		foreach ($this->errors as $error) {
 			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
 		}
 
 		return $_output;
 	}
-        
+
          /** username_check
 	 *
 	 *
@@ -832,7 +800,7 @@ class Ion_auth
         {
                 return $this->ci->ion_auth_model->username_check($username);
         }
-        
+
         /** email_check
 	 *
 	 *

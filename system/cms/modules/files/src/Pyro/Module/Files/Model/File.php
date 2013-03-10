@@ -25,18 +25,18 @@ class File extends \Illuminate\Database\Eloquent\Model
 
     /**
      * Relationship with Folder
-     * 
+     *
      * @return object
-     */ 
+     */
     public function folder()
     {
         return $this->belongsTo('Pyro\Module\Files\Model\Folder', 'folder_id');
     }
-     
+
     /**
      * Get files by folder_id
      *
-     * @param  int $folder_id The folder_id of the files to retrieve
+     * @param  int    $folder_id The folder_id of the files to retrieve
      * @return object
      */
     public static function findByFolderId($folder_id)
@@ -47,18 +47,18 @@ class File extends \Illuminate\Database\Eloquent\Model
     /**
      * Get Files by parent ordered by sort
      *
-     * @param int $parent_id
+     * @param  int  $parent_id
      * @return void
      */
     public static function findByFolderIdAndSortBySort($parent_id = 0)
     {
         return static::where('folder_id','=',$parent_id)->orderBy('sort')->get();
     }
-    
+
     /**
      * Get Files by slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return void
      */
     public static function findBySlug($slug)
@@ -69,7 +69,7 @@ class File extends \Illuminate\Database\Eloquent\Model
     /**
      * Get Files by filename
      *
-     * @param string $filename
+     * @param  string $filename
      * @return void
      */
     public static function findByFilename($filename)
@@ -80,19 +80,19 @@ class File extends \Illuminate\Database\Eloquent\Model
     /**
      * Get Files by folder_id
      *
-     * @param string $folder_id
+     * @param  string $folder_id
      * @return void
      */
     public static function findByFolder($folder_id)
     {
         return static::where('folder_id', $folder_id)->get();
     }
-    
+
     /**
      * Get Files by slug and location
      *
-     * @param string $slug
-     * @param string $location
+     * @param  string $slug
+     * @param  string $location
      * @return void
      */
     public static function findBySlugAndLocation($slug, $location)
@@ -101,13 +101,13 @@ class File extends \Illuminate\Database\Eloquent\Model
                 ->where('location', $location)
                 ->get();
     }
-    
+
     /**
      * Get Files by an array of keywords
      *
-     * @param array $search
+     * @param array   $search
      * @param integer $limit
-     * 
+     *
      * @return void
      */
     public static function findByKeywords($search, $limit = 5)

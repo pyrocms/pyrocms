@@ -27,8 +27,7 @@ class Admin extends Admin_Controller
 			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
-		if (is_dir('./installer'))
-		{
+		if (is_dir('./installer')) {
 			$this->template
 				->set('messages', array('notice' => '<button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'.lang('cp:delete_installer_message')));
 		}
@@ -61,9 +60,8 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() or $this->ion_auth->logged_in())
-		{
-			// if they were trying to go someplace besides the 
+		if ($this->form_validation->run() or $this->ion_auth->logged_in()) {
+			// if they were trying to go someplace besides the
 			// dashboard we'll have stored it in the session
 			$redirect = $this->session->userdata('admin_redirect');
 			$this->session->unset_userdata('admin_redirect');
@@ -96,10 +94,9 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-		if ($this->ion_auth->login($email, $this->input->post('password'), (bool)$this->input->post('remember')))
-		{
+		if ($this->ion_auth->login($email, $this->input->post('password'), (bool) $this->input->post('remember'))) {
 			Events::trigger('post_admin_login');
-			
+
 			return true;
 		}
 
@@ -125,19 +122,16 @@ class Admin extends Admin_Controller
 
 	public function remove_installer_directory()
 	{
-		if ( ! $this->input->is_ajax_request())
-		{
+		if ( ! $this->input->is_ajax_request()) {
 			die('Nope, sorry');
 		}
 
 		header('Content-Type: application/json');
 
-		if (is_dir('./installer'))
-		{
+		if (is_dir('./installer')) {
 			$this->load->helper('file');
 			// if the contents of "installer" delete successfully then finish off the installer dir
-			if (delete_files('./installer', true) and count(scandir('./installer')) == 2)
-			{
+			if (delete_files('./installer', true) and count(scandir('./installer')) == 2) {
 				rmdir('./installer');
 				// This is the end, tell Sally I loved her.
 				die(json_encode(array('status' => 'success', 'message' => lang('cp:delete_installer_successfully_message'))));

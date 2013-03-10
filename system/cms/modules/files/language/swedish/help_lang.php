@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -37,6 +37,5 @@ Många moderna kameror producerar bilder i runt 5MB.
 För att råda bot denna begränsning kan du antingen ändra uppladdningsgränsen eller ändra storlek på dina bilder innan uppladdning.
 Det senare ger dock en snabbare uppladdning. </ P>';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/files/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/files/language/swedish/help_lang.php */

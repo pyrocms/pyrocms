@@ -13,7 +13,7 @@ use Pyro\Module\Pages\Model\Page;
 class Events_Search
 {
     protected $ci;
-    
+
     public function __construct()
     {
         // Load the search index model
@@ -29,7 +29,7 @@ class Events_Search
         Events::register('page_updated', array($this, 'index_page'));
         Events::register('page_deleted', array($this, 'drop_page'));
     }
-    
+
     public function index_post($id)
     {
     	ci()->load->model('blog/blog_m');
@@ -37,16 +37,15 @@ class Events_Search
     	$post = ci()->blog_m->get($id);
 
     	// Only index live articles
-    	if ($post->status === 'live')
-    	{
+    	if ($post->status === 'live') {
     		ci()->search_index_m->index(
-    			'blog', 
-    			'blog:post', 
-    			'blog:posts', 
+    			'blog',
+    			'blog:post',
+    			'blog:posts',
     			$id,
     			'blog/'.date('Y/m/', $post->created_on).$post->slug,
     			$post->title,
-    			$post->body, 
+    			$post->body,
     			array(
     				'cp_edit_uri' 	=> 'admin/blog/edit/'.$id,
     				'cp_delete_uri' => 'admin/blog/delete/'.$id,
@@ -55,32 +54,30 @@ class Events_Search
     		);
     	}
     	// Remove draft articles
-    	else
-    	{
+    	else {
     		ci()->search_index_m->drop_index('blog', 'blog:post', $id);
     	}
 	}
 
     public function drop_post($ids)
     {
-    	foreach ($ids as $id)
-    	{
+    	foreach ($ids as $id) {
 			ci()->search_index_m->drop_index('blog', 'blog:post', $id);
 		}
 	}
-    
+
     public function index_page(Page $page)
     {
     	// Only index live articles
     	if ($page->status === 'live') {
     		ci()->search_index_m->index(
-    			'pages', 
-    			'pages:page', 
-    			'pages:pages', 
+    			'pages',
+    			'pages:page',
+    			'pages:pages',
     			$page->id,
     			$page->uri,
     			$page->title,
-    			$page->meta_description ?: null, 
+    			$page->meta_description ?: null,
     			array(
     				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
     				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
@@ -96,8 +93,7 @@ class Events_Search
 
     public function drop_page($ids)
     {
-    	foreach ($ids as $id)
-    	{
+    	foreach ($ids as $id) {
 			ci()->search_index_m->drop_index('pages', 'pages:page', $id);
 		}
 	}

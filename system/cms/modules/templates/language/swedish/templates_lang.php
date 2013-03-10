@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -35,6 +35,5 @@ $lang['templates:default_delete_error'] = 'Ett fel inträffade, standardmallen k
 $lang['templates:no_select_error'] = 'Du måste välja en E-postmall först.';
 $lang['templates:already_exist_error'] = 'En E-postmall med namnet "%s" finns redan.';
 
-
-/* End of file templates_lang.php */  
-/* Location: system/cms/modules/templates/language/swedish/templates_lang.php */  
+/* End of file templates_lang.php */
+/* Location: system/cms/modules/templates/language/swedish/templates_lang.php */

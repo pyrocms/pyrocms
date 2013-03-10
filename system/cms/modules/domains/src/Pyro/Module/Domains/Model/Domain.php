@@ -4,7 +4,7 @@
  * Domain model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Redirects\Models 
+ * @package     PyroCMS\Core\Modules\Redirects\Models
  */
 class Domain extends \Illuminate\Database\Eloquent\Model
 {
@@ -31,7 +31,7 @@ class Domain extends \Illuminate\Database\Eloquent\Model
      * Find by domain with ID
      *
      * @param string $domain The domain
-     * @param int $id of the domain
+     * @param int    $id     of the domain
      *
      * @return void
      */

@@ -25,18 +25,15 @@ class User_m extends MY_Model
 	 */
 	public function get($params)
 	{
-		if (isset($params['id']))
-		{
+		if (isset($params['id'])) {
 			$this->db->where('users.id', $params['id']);
 		}
 
-		if (isset($params['email']))
-		{
+		if (isset($params['email'])) {
 			$this->db->where('LOWER('.$this->db->dbprefix('users.email').')', strtolower($params['email']));
 		}
 
-		if (isset($params['role']))
-		{
+		if (isset($params['role'])) {
 			$this->db->where('users.group_id', $params['role']);
 		}
 
@@ -149,19 +146,16 @@ class User_m extends MY_Model
 		$this->db->from($this->_table)
 			->join('profiles', 'users.id = profiles.user_id', 'left');
 
-		if ( ! empty($params['active']))
-		{
+		if ( ! empty($params['active'])) {
 			$params['active'] = $params['active'] === 2 ? 0 : $params['active'];
 			$this->db->where('users.active', $params['active']);
 		}
 
-		if ( ! empty($params['group_id']))
-		{
+		if ( ! empty($params['group_id'])) {
 			$this->db->where('group_id', $params['group_id']);
 		}
 
-		if ( ! empty($params['name']))
-		{
+		if ( ! empty($params['name'])) {
 			$this->db
 				->like('users.username', trim($params['name']))
 				->or_like('users.email', trim($params['name']))
@@ -183,19 +177,16 @@ class User_m extends MY_Model
 	 */
 	public function get_many_by($params = array())
 	{
-		if ( ! empty($params['active']))
-		{
+		if ( ! empty($params['active'])) {
 			$params['active'] = $params['active'] === 2 ? 0 : $params['active'];
 			$this->db->where('active', $params['active']);
 		}
 
-		if ( ! empty($params['group_id']))
-		{
+		if ( ! empty($params['group_id'])) {
 			$this->db->where('group_id', $params['group_id']);
 		}
 
-		if ( ! empty($params['name']))
-		{
+		if ( ! empty($params['name'])) {
 			$this->db
 				->or_like('users.username', trim($params['name']))
 				->or_like('users.email', trim($params['name']));

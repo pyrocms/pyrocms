@@ -4,7 +4,7 @@ $lang['user:add_field']                        	= 'Aggiungi un campo per il prof
 $lang['user:profile_delete_success']           	= 'Campo per il profilo utente eliminato con successo';
 $lang['user:profile_delete_failure']            = 'Si è verificato un problema nel cancellare il campo per il profilo utente';
 $lang['profile_user_basic_data_label']  		= 'Dati di base';
-$lang['profile_company']         	  			= 'Società'; 
+$lang['profile_company']         	  			= 'Società';
 $lang['profile_updated_on']           			= 'Aggiornato il';
 $lang['user:profile_fields_label']	 		 	= 'Campo del profilo';
 
@@ -45,7 +45,7 @@ $lang['indicates_required'] 			= 'Indicano i campi richiesti';
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
 $lang['user:send_activation_email']            = 'Invia Email di attivazione';
-$lang['user:do_not_activate']                  = 'Inattivo'; 
+$lang['user:do_not_activate']                  = 'Inattivo';
 $lang['user:register_title'] 			= 'Registrati';
 $lang['user:activate_account_title'] 	= 'Attiva il profilo';
 $lang['user:activate_label'] 			= 'Attivazione';
@@ -53,9 +53,8 @@ $lang['user:activated_account_title'] 	= 'Profilo attivato';
 $lang['user:reset_password_title'] 		= 'Reset Password';
 $lang['user:password_reset_title'] 		= 'Password Reset';
 
-
-$lang['user:error_username'] 			= 'La username scelto è già in uso'; 
-$lang['user:error_email'] 				= 'L\'indirizzo email fornito è già in uso'; 
+$lang['user:error_username'] 			= 'La username scelto è già in uso';
+$lang['user:error_email'] 				= 'L\'indirizzo email fornito è già in uso';
 
 $lang['user:full_name'] 				= 'Nome completo';
 $lang['user:first_name'] 				= 'Nome';
@@ -64,7 +63,7 @@ $lang['user:username'] 					= 'Username';
 $lang['user:display_name']				= 'Nome visualizzato';
 $lang['user:email_use'] 				= 'usato per il login';
 $lang['user:remember'] 					= 'Ricordami';
-$lang['user:group_id_label']			= 'ID del Gruppo'; 
+$lang['user:group_id_label']			= 'ID del Gruppo';
 
 $lang['user:level']						= 'Ruolo utente';
 $lang['user:active']					= 'Attiva';
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 						= 'L\'indirizzo email che hai scelto è già in
 $lang['user:register_error']				   = 'Crediamo tu sia un bot. Se ci sbagliamo ti chiediamo di accettare le nostre scuse.';
 $lang['user:register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, più contenuti e minore pubblicità.';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'Attivazione fallita. Verifica i tuoi dettagli e che non sia attivo il BLOCCO MAIUSCOLE.';
 $lang['user:activated_message']   				= 'Il tuo profilo è stato attivato, ora puoi accedere.';
-
 
 // Login
 $lang['user:logged_in']							= 'Il login è avvenuto con successo.';
 $lang['user:already_logged_in'] 				= 'Accesso già effettuato. Per favore disconnettiti e rieffettua l\'accesso.';
 $lang['user:login_incorrect'] 					= 'Email o password non corrispondono. Verifica i tuoi dati e che non sia attivo il BLOCCO MAIUSCOLE.';
 $lang['user:inactive']   						= 'Il profilo a cui stai cercando di accedere è disattivato.<br />Verifica la tua email per le istruzioni su come attivarlo - <em>potrebbero essere finite tra lo spam</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'Uscito con successo.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "La tua password è stata resettata.
 // Activation
 $lang['user:activation_email_subject'] 			= 'Richiesta di Attivazione';
 $lang['user:activation_email_body'] 			= 'Grazie di aver attivato il tuo profilo con %s. Per accedere al sito visita il collegamento qui di seguito:';
-
 
 $lang['user:activated_email_subject'] 			= 'Attivazione Completata';
 $lang['user:activated_email_content_line1'] 	= 'Grazie per esserti registrato con %s. Prima di attivare il tuo profilo, per favore completa la procedura di attivazione cliccando sul collegamento qui di seguito:';
@@ -180,9 +175,9 @@ $lang['profile_dob_day']				= 'Giorno';
 $lang['profile_dob_month']				= 'Mese';
 $lang['profile_dob_year']				= 'Anno';
 $lang['profile_gender']					= 'Sesso';
-$lang['profile_gender_nt']            = 'Non specificato'; 
-$lang['profile_gender_male']          = 'Maschio'; 
-$lang['profile_gender_female']        = 'Femmina'; 
+$lang['profile_gender_nt']            = 'Non specificato';
+$lang['profile_gender_male']          = 'Maschio';
+$lang['profile_gender_female']        = 'Femmina';
 $lang['profile_bio']					= 'Biografia';
 
 $lang['profile_contact_section'] 		= 'Contatti';
@@ -194,7 +189,7 @@ $lang['profile_address_line1'] 			= 'Linea #1';
 $lang['profile_address_line2'] 			= 'Linea #2';
 $lang['profile_address_line3'] 			= 'Linea #3';
 $lang['profile_address_postcode'] 		= 'CAP';
-$lang['profile_website']				= 'Sito'; 
+$lang['profile_website']				= 'Sito';
 
 $lang['profile_messenger_section'] 		= 'Messagistica istantanea';
 

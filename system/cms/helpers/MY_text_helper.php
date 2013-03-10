@@ -4,16 +4,15 @@
  * PyroCMS Text Helpers
  *
  * This overrides CodeIgniter's helpers/text_helper.php file.
- * 
+ *
  * @package    PyroCMS\Core\Helpers
  * @author     PyroCMS Dev Team
  * @copyright  Copyright (c) 2012, PyroCMS LLC
  */
-if ( ! function_exists('nl2p'))
-{
+if ( ! function_exists('nl2p')) {
 	/**
 	 * Replaces new lines with <p> HTML element.
-	 * 
+	 *
 	 * @param string $str The input string.
 	 * @return string The HTML string.
 	 */
@@ -26,8 +25,7 @@ if ( ! function_exists('nl2p'))
 
 }
 
-if ( ! function_exists('escape_tags'))
-{
+if ( ! function_exists('escape_tags')) {
 	/**
 	 * Replaces the { and } with their HTML character code equivalents. This will take
 	 * care of double {{ }} PyroCMS tags as well as the single ones which are used
@@ -43,8 +41,7 @@ if ( ! function_exists('escape_tags'))
 
 }
 
-if ( ! function_exists('process_data_jmr1'))
-{
+if ( ! function_exists('process_data_jmr1')) {
 
 	// Set PCRE recursion limit to sane value = STACKSIZE / 500 (256KB stack. Win32 Apache or  8MB stack. *nix)
 	ini_set('pcre.recursion_limit', (strtolower(substr(PHP_OS, 0, 3)) === 'win' ? '524' : '16777'));
@@ -82,8 +79,7 @@ if ( ! function_exists('process_data_jmr1'))
         )                                   # If we made it here, we are not in a blacklist tag.
         %Six';
 
-		if (($data = preg_replace($re, ' ', $text)) === null)
-		{
+		if (($data = preg_replace($re, ' ', $text)) === null) {
 			log_message('error', 'PCRE Error! Output of the page "'.uri_string().'" is too big.');
 
 			return $text;

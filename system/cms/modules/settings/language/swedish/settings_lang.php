@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -124,6 +124,5 @@ $lang['settings:form_option_No'] = 'Nej';
 $lang['settings:no_settings'] = 'Det finns inga inställningar';
 $lang['settings:save_success'] = 'Inställningarna är sparade!';
 
-
-/* End of file settings_lang.php */  
-/* Location: system/cms/modules/settings/language/swedish/settings_lang.php */  
+/* End of file settings_lang.php */
+/* Location: system/cms/modules/settings/language/swedish/settings_lang.php */

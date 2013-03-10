@@ -41,10 +41,9 @@ $lang['rewrite_fail']		=	'You have selected "(Apache with mod_rewrite)" but we a
 $lang['mod_rewrite']		=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
 $lang['step2']				=	'Step 2';
 
-// messages	
+// messages
 $lang['db_success']			=	'The database settings are tested and working fine.';
 $lang['db_failure']			=	'Problem connecting to the database: ';
-
 
 // labels
 $lang['header']			=	'Step 2: Check Requirements';
@@ -136,7 +135,6 @@ $lang['error_105']		=	'The database configuration file could not be written, did
 $lang['error_106']		=	'The config file could not be written, are you sure the file has the correct permissions ?';
 $lang['success']		=	'PyroCMS has been installed successfully.';
 
-
 // labels
 $lang['congrats']			= 'Congratulations';
 $lang['intro_text']			= 'PyroCMS is now installed and ready to go! Please log into the admin panel with the following details.';
@@ -147,7 +145,5 @@ $lang['outro_text']			= 'Finally, <strong>delete the installer from your server<
 
 $lang['go_website']			= 'Go to Website';
 $lang['go_control_panel']	= 'Go to Control Panel';
-
-
 
 /* End of file global_lang.php */

@@ -23,7 +23,7 @@ is_dir($config['simplepie_cache_dir']) OR mkdir($config['simplepie_cache_dir'], 
  * using a driver for your other favorite store
  */
 
-// you can use either "file" or "redis" drivers currently. If you want to 
+// you can use either "file" or "redis" drivers currently. If you want to
 // contribute a driver come to http://github.com/jerel/quick-cache
 ci()->cache = new Quick\Cache(array('driver' => 'file'));
 
@@ -37,8 +37,7 @@ $qc_config->set('cache_path', APPPATH.'cache/'.SITE_REF.'/'); /* make sure all p
 $qc_config->set('object_dir', 'object_cache/');
 $qc_config->set('dir_chmod', 0777);
 
-
-/* Redis Driver Config 
+/* Redis Driver Config
 $qc_config->set('redis_prefix', 'cache.'.SITE_REF);
 $qc_config->set('redis_connection', array(
 		'host'     => '127.0.0.1',

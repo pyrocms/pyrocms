@@ -30,4 +30,4 @@
 	<div id="instance-actions" class="align-right padding-bottom padding-right buttons buttons-small">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))) ?>
 	</div>
-<?php echo form_close() ?>
+<?php echo form_close()

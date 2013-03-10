@@ -3,7 +3,7 @@
 		<section class="title">
 			<h4><?php echo lang('pages:list_title') ?></h4>
 		</section>
-		
+
 		<section class="item">
 			<div class="content">
 				<div id="page-list">
@@ -14,12 +14,12 @@
 			</div>
 		</section>
 	</div>
-	
-	<div class="one_half last">	
+
+	<div class="one_half last">
 		<section class="title">
 			<h4><?php echo lang('pages:tree_explanation_title') ?></h4>
 		</section>
-		
+
 		<section class="item">
 			<div class="content">
 				<div id="page-details">

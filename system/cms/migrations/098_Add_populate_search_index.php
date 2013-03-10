@@ -37,8 +37,7 @@ class Migration_Add_populate_search_index extends CI_Migration
         ));
 
         // If they dont have a page called search then dig in
-        if ( ! $this->db->where('uri', 'search')->count_all_results('pages'))
-        {
+        if ( ! $this->db->where('uri', 'search')->count_all_results('pages')) {
 			$this->db->insert('pages', array(
 				'slug' => 'search',
 				'title' => 'Search',
@@ -87,8 +86,7 @@ class Migration_Add_populate_search_index extends CI_Migration
 			));
 		}
 
-		if ( ! $this->db->table_exists('search_index'))
-		{
+		if ( ! $this->db->table_exists('search_index')) {
 			$this->db->query("
 				CREATE TABLE ".$this->db->dbprefix('search_index')." (
 				  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -113,11 +111,9 @@ class Migration_Add_populate_search_index extends CI_Migration
 		$this->load->model('search/search_index_m');
 		$this->load->library('keywords/keywords');
 
-		foreach ($this->db->get('pages')->result() as $page)
-		{
+		foreach ($this->db->get('pages')->result() as $page) {
 			// Only index live articles
-	    	if ($page->status === 'live')
-	    	{
+	    	if ($page->status === 'live') {
 	    		$hash = $this->keywords->process($page->meta_keywords);
 
 	    		$this->db
@@ -127,12 +123,12 @@ class Migration_Add_populate_search_index extends CI_Migration
 
 	    		$this->search_index_m->index(
 	    			'pages',
-	    			'pages:page', 
-	    			'pages:pages', 
+	    			'pages:page',
+	    			'pages:pages',
 	    			$page->id,
 	    			$page->uri,
 	    			$page->title,
-	    			$page->meta_description ? $page->meta_description : null, 
+	    			$page->meta_description ? $page->meta_description : null,
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
@@ -142,19 +138,17 @@ class Migration_Add_populate_search_index extends CI_Migration
 	    	}
 		}
 
-		foreach ($this->db->get('blog')->result() as $post)
-		{
+		foreach ($this->db->get('blog')->result() as $post) {
 			// Only index live articles
-	    	if ($post->status === 'live')
-	    	{
+	    	if ($post->status === 'live') {
 	    		$this->search_index_m->index(
-	    			'blog', 
-	    			'blog:post', 
-	    			'blog:posts', 
+	    			'blog',
+	    			'blog:post',
+	    			'blog:posts',
 	    			$post->id,
 	    			'blog/'.date('Y/m/', $post->created_on).$post->slug,
 	    			$post->title,
-	    			$post->intro, 
+	    			$post->intro,
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/blog/edit/'.$post->id,
 	    				'cp_delete_uri' => 'admin/blog/delete/'.$post->id,

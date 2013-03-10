@@ -3,13 +3,13 @@
  * Streams Utilities Driver
  *
  * Functions to help out with common utility tasks.
- * 
+ *
  * @author  	Parse19
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
- */ 
- 
-class Streams_utilities extends CI_Driver {
-	
+ */
+
+class Streams_utilities extends CI_Driver
+{
 	/**
 	 * Remove Namespace
 	 *
@@ -27,20 +27,19 @@ class Streams_utilities extends CI_Driver {
 
 		// Get all the streams in this namespace and remove each one:
 		$streams = ci()->streams_m->get_streams($namespace);
-		
+
 		if ( ! $streams) return null;
-		
-		foreach ($streams as $stream)
-		{
+
+		foreach ($streams as $stream) {
 			ci()->streams_m->delete_stream($stream);
 		}
-		
+
 		// Remove all fields in namespace
 		ci()->pdb->table(FIELDS_TABLE)->where('field_namespace', $namespace)->delete();
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Convert table to stream.
 	 *
@@ -72,7 +71,7 @@ class Streams_utilities extends CI_Driver {
 		if ( ! ci()->db->table_exists($prefix.$table_slug)) {
 			return false;
 		}
-		
+
 		// Maybe this table already exsits in our streams table?
 		// If so we can't have that.
 		if(ci()->db
@@ -83,41 +82,37 @@ class Streams_utilities extends CI_Driver {
 		{
 			return false;
 		}
-		
+
 		// We need an ID field to be able to make
 		// a table into a stream.
 		if ( ! ci()->db->field_exists('id', $prefix.$table_slug)) {
 			return false;
 		}
-		
+
 		// ----------------------------
 		// Add some fields to profiles
 		// in prep for making it a stream
 		// ----------------------------
-		
+
 		ci()->load->dbforge();
 
 		// Created Field
-		if ( ! ci()->db->field_exists('created', $prefix.$table_slug))
-		{
+		if ( ! ci()->db->field_exists('created', $prefix.$table_slug)) {
 			ci()->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => true)));
 		}
-	
+
 		// Updated Field
-		if ( ! ci()->db->field_exists('updated', $prefix.$table_slug))
-		{
+		if ( ! ci()->db->field_exists('updated', $prefix.$table_slug)) {
 			ci()->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => true)));
 		}
 
 		// Created_by Field
-		if ( ! ci()->db->field_exists('created_by', $prefix.$table_slug))
-		{
+		if ( ! ci()->db->field_exists('created_by', $prefix.$table_slug)) {
 			ci()->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// Ordering_count Field
-		if ( ! ci()->db->field_exists('ordering_count', $prefix.$table_slug))
-		{
+		if ( ! ci()->db->field_exists('ordering_count', $prefix.$table_slug)) {
 			ci()->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
@@ -133,7 +128,7 @@ class Streams_utilities extends CI_Driver {
 		// ----------------------------
 		// Add to stream table
 		// ----------------------------
-		
+
 		$insert_data = array(
 			'stream_name'		=> $stream_name,
 			'stream_namespace'	=> $namespace,
@@ -144,12 +139,12 @@ class Streams_utilities extends CI_Driver {
 			'sorting'			=> 'title',
 			'view_options'		=> serialize($view_options)
 		);
-	
+
 		return ci()->db->insert(ci()->config->item('streams:streams_table'), $insert_data);
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Field to Stream Frield
 	 *
@@ -162,19 +157,17 @@ class Streams_utilities extends CI_Driver {
 	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
 		// Get the stream
-		if ( ! $stream = $this->stream_obj($stream_slug, $namespace))
-		{
+		if ( ! $stream = $this->stream_obj($stream_slug, $namespace)) {
 			$this->log_error('invalid_stream', 'convert_column_to_field');
 			return false;
 		}
-	
+
 		// Make sure this column actually exists.
-		if ( ! ci()->db->field_exists($field_slug, $stream->stream_prefix.$stream->stream_slug))
-		{
+		if ( ! ci()->db->field_exists($field_slug, $stream->stream_prefix.$stream->stream_slug)) {
 			$this->log_error('no_column', 'convert_column_to_field');
 			return false;
 		}
-		
+
 		// Maybe we already added this?
 		if (ci()->db
 					->limit(1)
@@ -185,7 +178,7 @@ class Streams_utilities extends CI_Driver {
 		{
 			return false;
 		}
-		
+
 		// If it does, we are in business! Let's add the field
 		// metadata + the field assignment
 
@@ -196,7 +189,7 @@ class Streams_utilities extends CI_Driver {
 		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
 
 		if ( ! ci()->fields_m->insert_field($field_name, $field_slug, $field_type, $namespace, $extra)) return false;
-		
+
 		$field_id = ci()->db->insert_id();
 
 		// ----------------------------
@@ -205,28 +198,25 @@ class Streams_utilities extends CI_Driver {
 
 		$data = array();
 		extract($assign_data);
-	
+
 		// Title column
-		if (isset($title_column) and $title_column === true)
-		{
+		if (isset($title_column) and $title_column === true) {
 			$data['title_column'] = 'yes';
 		}
 
 		// Instructions
 		$data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
-		
+
 		// Is Unique
-		if (isset($unique) and $unique === true)
-		{
+		if (isset($unique) and $unique === true) {
 			$data['is_unique'] = 'yes';
 		}
-		
+
 		// Is Required
-		if (isset($required) and $required === true)
-		{
+		if (isset($required) and $required === true) {
 			$data['is_required'] = 'yes';
 		}
-	
+
 		// Add actual assignment
 		// The 4th parameter is to stop the column from being
 		// created, since we already did that.

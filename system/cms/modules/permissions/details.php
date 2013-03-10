@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Permissions
  */
-class Module_Permissions extends Module {
-
+class Module_Permissions extends Module
+{
 	public $version = '1.0.0';
 
 	public function info()

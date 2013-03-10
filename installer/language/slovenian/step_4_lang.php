@@ -6,7 +6,7 @@ $lang['intro_text']		=	'Izpolnite obrazec spodaj in kliknite na gumb "Namesti" z
 
 $lang['default_user']	=	'Ustvarimo prvega uporabnik (admin)';
 $lang['database']		=	'Podatkovna baza';
-$lang['site_settings']		= 	'Nastavitve strani'; 
+$lang['site_settings']		= 	'Nastavitve strani';
 $lang['site_ref']		=	'Ref strani';
 $lang['user_name']		= 	'Uporabniško ime';
 $lang['first_name']		= 	'Ime';

@@ -48,4 +48,4 @@
 	<p><?php echo lang('blog_no_posts');?></p>
 <?php endif ?>
 
-<?php echo form_close();?>
+<?php echo form_close();

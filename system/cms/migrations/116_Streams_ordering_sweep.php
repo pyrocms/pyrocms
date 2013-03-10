@@ -12,13 +12,11 @@ class Migration_Streams_ordering_sweep extends CI_Migration
     	// Go through each stream
     	$streams = $this->db->get('data_streams')->result();
 
-    	foreach ($streams as $stream)
-    	{
+    	foreach ($streams as $stream) {
 			// Table name
 			$table = $stream->stream_prefix.$stream->stream_slug;
 
-			if ( ! $this->db->field_exists('ordering_count', $table))
-			{
+			if ( ! $this->db->field_exists('ordering_count', $table)) {
 			    $columns = array(
 			        'ordering_count' => array(
 			                    'type' => 'int',

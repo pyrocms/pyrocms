@@ -5,10 +5,10 @@
  *
  * @author  	Parse19
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
- */ 
- 
-class Streams_entries extends CI_Driver {
+ */
 
+class Streams_entries extends CI_Driver
+{
 	/**
 	 * Available entry parameters
 	 * and their defaults.
@@ -72,29 +72,27 @@ class Streams_entries extends CI_Driver {
 		$return = array();
 
 		$CI = get_instance();
-		
+
 		// -------------------------------------
 		// Set Parameters
 		// -------------------------------------
 
-		if ( ! $skip_params)
-		{
-			foreach ($this->entries_params as $param => $default)
-			{
+		if (! $skip_params) {
+			foreach ($this->entries_params as $param => $default) {
 				if ( ! isset($params[$param]) and ! is_null($this->entries_params[$param])) $params[$param] = $default;
 			}
 		}
-	
+
 		// -------------------------------------
 		// Stream Data Check
 		// -------------------------------------
-		
+
 		if ( ! isset($params['stream'])) $this->log_error('no_stream_provided', 'get_entries');
-				
+
 		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
-	
+
 		$stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
-				
+
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
 		// -------------------------------------
@@ -113,16 +111,11 @@ class Streams_entries extends CI_Driver {
 
 		$bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
 
-		foreach ($bool_inputs as $input)
-		{
-			if (isset($params[$input]))
-			{
-				if ($params[$input] === true)
-				{
+		foreach ($bool_inputs as $input) {
+			if (isset($params[$input])) {
+				if ($params[$input] === true) {
 					$params[$input] = 'yes';
-				}
-				elseif ($params[$input] === false)
-				{
+				} elseif ($params[$input] === false) {
 					$params[$input] = 'no';
 				}
 			}
@@ -139,29 +132,26 @@ class Streams_entries extends CI_Driver {
 		// -------------------------------------
 
 		$rows = $CI->row_m->get_rows($params, null, $stream);
-		
+
 		$return['entries'] = $rows['rows'];
-				
+
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
-		
-		if ($params['paginate'] == 'yes')
-		{
+
+		if ($params['paginate'] == 'yes') {
 			$return['total'] 	= $rows['pag_count'];
-			
+
 			$params['pag_base'] = (isset($params['pag_base'])) ? $params['pag_base'] : null;
 
 			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config, $params['pag_base']);
-		}		
-		else
-		{
+		} else {
 			$return['pagination'] 	= null;
 			$return['total'] 		= count($return['entries']);
 		}
 
 		// -------------------------------------
-	
+
 		return $return;
 	}
 
@@ -212,7 +202,7 @@ class Streams_entries extends CI_Driver {
 	public function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
-		
+
 		if ( ! $str_obj) $this->log_error('invalid_stream', 'insert_entry');
 
 		$CI = get_instance();
@@ -239,7 +229,7 @@ class Streams_entries extends CI_Driver {
 	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = false)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
-		
+
 		if ( ! $str_obj) $this->log_error('invalid_stream', 'update_entry');
 
 		$CI = get_instance();
@@ -248,5 +238,5 @@ class Streams_entries extends CI_Driver {
 
 		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips, $extra, $include_only_passed);
 	}
-	
+
 }

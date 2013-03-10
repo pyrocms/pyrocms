@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Variables\Model\Variable;
 
@@ -104,7 +104,7 @@ class Admin extends Admin_Controller
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, true);
 
-				return print (json_encode((object)array(
+				return print (json_encode((object) array(
 					'status' => $status,
 					'message' => $message
 				)));
@@ -259,6 +259,6 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
-		return ! Variable::findByNameWithId($from, (int)$id);
+		return ! Variable::findByNameWithId($from, (int) $id);
 	}
 }

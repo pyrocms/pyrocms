@@ -2,13 +2,13 @@
 
 /**
  * Widget library takes care of the logic for widgets
- * 
+ *
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Widgets\Libraries
  */
-class Widgets {
-
+class Widgets
+{
 	private $_widget = null;
 	private $_rendered_areas = array();
 	private $_widget_locations = array();
@@ -16,15 +16,14 @@ class Widgets {
 	public function __construct()
 	{
 		$this->load->model('widgets/widget_m');
-		
+
 		$locations = array(
 		   APPPATH,
 		   ADDONPATH,
 		   SHARED_ADDONPATH,
 		);
-		
-		if (defined('ADMIN_THEME'))
-		{
+
+		if (defined('ADMIN_THEME')) {
 			$locations += array(
 			   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
 			   APPPATH.'themes/'.ADMIN_THEME.'/',
@@ -33,26 +32,22 @@ class Widgets {
 		}
 
 		// Map where all widgets are
-		foreach ($locations as $path)
-		{
+		foreach ($locations as $path) {
 			$widgets = glob($path . 'widgets/*', GLOB_ONLYDIR);
 
-			if ( ! is_array($widgets))
-			{
+			if ( ! is_array($widgets)) {
 				$widgets = array();
 			}
 
 			$module_widgets = glob($path . 'modules/*/widgets/*', GLOB_ONLYDIR);
 
-			if ( ! is_array($module_widgets))
-			{
+			if ( ! is_array($module_widgets)) {
 				$module_widgets = array();
 			}
 
 			$widgets = array_merge($widgets, $module_widgets);
 
-			foreach ($widgets as $widget_path)
-			{
+			foreach ($widgets as $widget_path) {
 				$slug = basename($widget_path);
 
 				// Set this so we know where it is later
@@ -76,8 +71,7 @@ class Widgets {
 		// Firstly, install any uninstalled widgets
 		$uninstalled_widgets = $this->list_uninstalled_widgets();
 
-		foreach ($uninstalled_widgets as $widget)
-		{
+		foreach ($uninstalled_widgets as $widget) {
 			$this->add_widget((array) $widget);
 		}
 
@@ -86,10 +80,8 @@ class Widgets {
 
 		$avaliable = array();
 
-		foreach ($installed_widgets as $widget)
-		{
-			if ( ! isset($this->_widget_locations[$widget->slug]))
-			{
+		foreach ($installed_widgets as $widget) {
+			if ( ! isset($this->_widget_locations[$widget->slug])) {
 				$this->delete_widget($widget->slug);
 
 				continue;
@@ -118,19 +110,16 @@ class Widgets {
 		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
 
-		foreach ($available as $widget)
-		{
+		foreach ($available as $widget) {
 			$available_slugs[] = $widget->slug;
 		}
 		unset($widget);
 
 		$uninstalled = array();
-		foreach ($this->_widget_locations as $widget_path)
-		{
+		foreach ($this->_widget_locations as $widget_path) {
 			$slug = basename($widget_path);
 
-			if ( ! in_array($slug, $available_slugs) and $widget = $this->read_widget($slug))
-			{
+			if ( ! in_array($slug, $available_slugs) and $widget = $this->read_widget($slug)) {
 				$uninstalled[] = $widget;
 			}
 		}
@@ -142,8 +131,7 @@ class Widgets {
 	{
 		$widget = $this->widget_m->find($instance_id);
 
-		if ($widget)
-		{
+		if ($widget) {
 			$widget->options = $this->_unserialize_options($widget->options);
 
 			return $widget;
@@ -166,8 +154,7 @@ class Widgets {
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets'))
-		{
+		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets')) {
 			return false;
 		}
 
@@ -186,8 +173,7 @@ class Widgets {
 		$data = method_exists($this->_widget, 'run') ? call_user_func(array($this->_widget, 'run'), $options) : array();
 
 		// Don't run this widget
-		if ($data === false)
-		{
+		if ($data === false) {
 			return false;
 		}
 
@@ -210,23 +196,19 @@ class Widgets {
 		$this->_spawn_widget($name);
 
 		// No fields, no backend, no rendering
-		if (empty($this->_widget->fields))
-		{
+		if (empty($this->_widget->fields)) {
 			return '';
 		}
 
 		$options = array();
 		$_arrays = array();
 
-		foreach ($this->_widget->fields as $field)
-		{
+		foreach ($this->_widget->fields as $field) {
 			$field_name = &$field['field'];
-			if (($pos = strpos($field_name, '[')) !== false)
-			{
+			if (($pos = strpos($field_name, '[')) !== false) {
 				$key = substr($field_name, 0, $pos);
 
-				if ( ! in_array($key, $_arrays))
-				{
+				if ( ! in_array($key, $_arrays)) {
 					$options[$key] = $this->input->post($key);
 					$_arrays[] = $key;
 				}
@@ -236,8 +218,7 @@ class Widgets {
 		}
 
 		// Any extra data? Merge it in, but options wins!
-		if ( ! empty($saved_data))
-		{
+		if ( ! empty($saved_data)) {
 			$options = array_merge($saved_data, $options);
 		}
 
@@ -252,8 +233,7 @@ class Widgets {
 
 	public function render_area($area)
 	{
-		if (isset($this->_rendered_areas[$area]))
-		{
+		if (isset($this->_rendered_areas[$area])) {
 			return $this->_rendered_areas[$area];
 		}
 
@@ -261,32 +241,26 @@ class Widgets {
 
 		$output = '';
 
-		if ($area == 'dashboard')
-		{
+		if ($area == 'dashboard') {
 			$view = 'admin/widget_wrapper';
-		}
-		else
-		{
+		} else {
 			$view = 'widget_wrapper';
 		}
 
 		$path = $this->template->get_views_path() . 'modules/widgets/';
 
-		if ( ! file_exists("{$path}{$view}.php"))
-		{
+		if ( ! file_exists("{$path}{$view}.php")) {
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
 
 		// save the existing view array so we can restore it
 		$save_path = $this->load->get_view_paths();
 
-		foreach ($widgets as $widget)
-		{
+		foreach ($widgets as $widget) {
 			$widget->options = array_merge(array("instance_title" => $widget->instance_title), $this->_unserialize_options($widget->options));
 			$widget->body = $this->render($widget->slug, $widget->options);
 
-			if ($widget->body !== false)
-			{
+			if ($widget->body !== false) {
 				// add this view location to the array
 				$this->load->set_view_path($path);
 
@@ -304,12 +278,9 @@ class Widgets {
 
 	public function reload_widget($slug)
 	{
-		if (is_array($slug))
-		{
-			foreach ($slug as $_slug)
-			{
-				if ( ! $this->reload_widget($_slug))
-				{
+		if (is_array($slug)) {
+			foreach ($slug as $_slug) {
+				if ( ! $this->reload_widget($_slug)) {
 					return false;
 				}
 			}
@@ -367,8 +338,7 @@ class Widgets {
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $data))
-		{
+		if ($error = $this->validation_errors($slug, $data)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
@@ -390,8 +360,7 @@ class Widgets {
 	{
 		$slug = $this->widget_m->find($instance_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $options))
-		{
+		if ($error = $this->validation_errors($slug, $options)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
@@ -427,13 +396,11 @@ class Widgets {
 
 		$this->_widget OR $this->_spawn_widget($name);
 
-		if (property_exists($this->_widget, 'fields'))
-		{
+		if (property_exists($this->_widget, 'fields')) {
 			$this->form_validation->set_rules($this->_widget->fields);
 		}
 
-		if ( ! $this->form_validation->run('', false))
-		{
+		if ( ! $this->form_validation->run('', false)) {
 			return validation_errors();
 		}
 	}
@@ -442,8 +409,7 @@ class Widgets {
 	{
 		$this->_widget OR $this->_spawn_widget($name);
 
-		if (method_exists($this->_widget, 'save'))
-		{
+		if (method_exists($this->_widget, 'save')) {
 			return (array) call_user_func(array(&$this->_widget, 'save'), $options);
 		}
 
@@ -455,8 +421,7 @@ class Widgets {
 		$widget_path = $this->_widget_locations[$name];
 		$widget_file = FCPATH."{$widget_path}{$name}.php";
 
-		if (file_exists($widget_file))
-		{
+		if (file_exists($widget_file)) {
 			require_once $widget_file;
 			$class_name = 'Widget_' . ucfirst($name);
 
@@ -471,16 +436,14 @@ class Widgets {
 
 	public function __get($var)
 	{
-		if (isset(get_instance()->$var))
-		{
+		if (isset(get_instance()->$var)) {
 			return get_instance()->$var;
 		}
 	}
 
 	protected function load_view($view, $data = array(), $overload = false)
 	{
-		if ($overload !== false)
-		{
+		if ($overload !== false) {
 			return $this->parser->parse_string($this->load->_ci_load(array(
 				'_ci_path' => $this->template->get_views_path().'widgets/'.$overload.'/display.php',
 				'_ci_vars' => $data,

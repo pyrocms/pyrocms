@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 $lang['buttons:submit']		= 'שלח';
 $lang['buttons:cancel']		= 'ביטול';
 $lang['buttons:upload']		= 'העלה';

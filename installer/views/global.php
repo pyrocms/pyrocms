@@ -7,7 +7,6 @@
 
 <head>
 	<meta charset="utf-8">
-	
 
 	<title>PyroCMS Installer</title>
 
@@ -34,7 +33,7 @@
 			<div id="logo">
 				<img src="<?php echo base_url() ?>assets/img/logo.png" alt="PyroCMS" />
 			</div>
-			
+
 			<ul id="lang">
 				<?php foreach($language_nav as $lang => $info):?>
 				<li>
@@ -46,7 +45,7 @@
 			</ul>
 		</div>
 		</div>
-			
+
 		<nav id="menu">
 			<ul>
 				<li><?php echo anchor('', lang('step1'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>

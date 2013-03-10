@@ -16,8 +16,7 @@ class Migration_Add_page_chunk_class extends CI_Migration
 
 		$chunks = $this->db->get('page_chunks')->result();
 
-		foreach ($chunks as $chunk)
-		{
+		foreach ($chunks as $chunk) {
 			$this->db
 				->where('id', $chunk->id)
 				->update('page_chunks', array(

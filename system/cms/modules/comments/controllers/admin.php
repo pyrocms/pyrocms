@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Comments\Model\Comment;
 
@@ -7,11 +7,11 @@ use Pyro\Module\Comments\Model\Comment;
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Comments\Controllers
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * Array that contains the validation rules
-	 * 
+	 *
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -39,7 +39,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -57,7 +57,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index()
@@ -96,13 +96,13 @@ class Admin extends Admin_Controller {
 			->set('comments', $this->comments->process($comments))
 			->set('comments_active', $base_where['comments.is_active']);
 			//->set('pagination', $pagination);
-			
+
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
 	}
 
 	/**
 	 * Action method, called whenever the user submits the form
-	 * 
+	 *
 	 * @return void
 	 */
 	public function action()
@@ -124,7 +124,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Edit an existing comment
-	 * 
+	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -190,7 +190,7 @@ class Admin extends Admin_Controller {
 		        $comment->user_website
 		    );
 		}
-        
+
         CommentBlacklist::create(array(
         	'website' => $comment->user_website,
 			'email' => $comment->user_email
@@ -198,7 +198,7 @@ class Admin extends Admin_Controller {
 
 		$this->delete($id);
 
-		redirect('admin/comments');	
+		redirect('admin/comments');
 	}
 
         // Admin: Delete a comment
@@ -209,11 +209,9 @@ class Admin extends Admin_Controller {
 
 		// Go through the array of ids to delete
 		$comments = array();
-		foreach ($ids as $id)
-		{
+		foreach ($ids as $id) {
 			// Get the current comment so we can grab the id too
-			if ($comment = Comment::find($id))
-			{
+			if ($comment = Comment::find($id)) {
 				$comment->delete();
 
 				// Wipe cache for this model, the content has changed
@@ -223,19 +221,17 @@ class Admin extends Admin_Controller {
 		}
 
 		// Some comments have been deleted
-		if ( ! empty($comments))
-		{
+		if ( ! empty($comments)) {
 			(count($comments) == 1)
 				? $this->session->set_flashdata('success', sprintf(lang('comments:delete_single_success'), $comments[0]))				/* Only deleting one comment */
 				: $this->session->set_flashdata('success', sprintf(lang('comments:delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
-		
+
 			// Fire an event. One or more comments were deleted.
 			Events::trigger('comment_deleted', $comments);
 		}
 
 		// For some reason, none of them were deleted
-		else
-		{
+		else {
 			$this->session->set_flashdata('error', lang('comments:delete_error'));
 		}
 
@@ -244,7 +240,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Approve a comment
-	 * 
+	 *
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
@@ -258,7 +254,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Unapprove a comment
-	 * 
+	 *
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
@@ -267,8 +263,7 @@ class Admin extends Admin_Controller {
 	{
 		$id && $this->_do_action($id, 'unapprove');
 
-		if ($redirect)
-		{
+		if ($redirect) {
 			$this->session->set_flashdata('is_active', 1);
 
 			redirect('admin/comments');
@@ -277,7 +272,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for approve/unapprove
-	 * 
+	 *
 	 * @param  int|array $ids	id or array of ids to process
 	 * @param  string $action	action to take: maps to model
 	 * @return void

@@ -24,10 +24,10 @@ class Plugin_Files extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -60,11 +60,10 @@ class Plugin_Files extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
-
 
 	private $_files = array();
 
@@ -84,9 +83,9 @@ class Plugin_Files extends Plugin
 	 * 	// your html logic
 	 * {{ /files:listing }}
 	 *
-	 * 
+	 *
 	 * Alternate Usage:
-	 * 
+	 *
 	 * {{ files:listing folder="home-slider" tagged="sunset|hiking|mountain" }}
 	 * 	// your html logic
 	 * {{ /files:listing }}
@@ -143,7 +142,7 @@ class Plugin_Files extends Plugin
 		$type = $type and in_array($type, array('a','v','d','i','o')) ? $type : '';
 
 		// get file
-		if (isset($this->_files[$id])){
+		if (isset($this->_files[$id])) {
 			$file = $this->_files[$id];
 		} else {
 			$type and File::where('type', $type);
@@ -218,10 +217,10 @@ class Plugin_Files extends Plugin
 		}
 
 		$base = $this->attribute('base', 'url');
-		
+
 		// alt tag is named differently in db to prevent confusion with "alternative", so need to do check for it manually
 		$attributes['alt'] = isset($attributes['alt']) ? $attributes['alt'] : $file->alt_attribute;
-		
+
 		// return an image tag html
 		if ($type === 'i') {
 			$this->load->helper('html');
@@ -275,7 +274,7 @@ class Plugin_Files extends Plugin
 
 		return $exists && $this->content() ? $this->content() : $exists;
 	}
-	
+
 	public function folder_exists()
 	{
 		$exists = (bool) !(Folder::findBySlug($this->attribute('slug'))->isEmpty());

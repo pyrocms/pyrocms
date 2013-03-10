@@ -24,7 +24,6 @@ $config['rest_default_format'] = 'json';
 */
 $config['enable_emulate_request'] = true;
 
-
 /*
 |--------------------------------------------------------------------------
 | REST Realm
@@ -58,14 +57,14 @@ $config['rest_auth'] = false;
 |
 | Set as many config entries as needed.  Any methods not set will use the default 'rest_auth' config value.
 |
-| example:  
-| 
+| example:
+|
 |			$config['auth_override_class_method']['deals']['view'] = 'none';
 |			$config['auth_override_class_method']['deals']['insert'] = 'digest';
-|			$config['auth_override_class_method']['accounts']['user'] = 'basic'; 
+|			$config['auth_override_class_method']['accounts']['user'] = 'basic';
 |
 | Here 'deals' and 'accounts' are controller names, 'view', 'insert' and 'user' are methods within. (NOTE: leave off the '_get' or '_post' from the end of the method name)
-| Acceptable values are; 'none', 'digest' and 'basic'.  
+| Acceptable values are; 'none', 'digest' and 'basic'.
 |
 */
 // $config['auth_override_class_method']['deals']['view'] = 'none';
@@ -266,10 +265,10 @@ $config['rest_ignore_http_accept'] = false;
 | REST AJAX Only
 |--------------------------------------------------------------------------
 |
-| Set to true to only allow AJAX requests. If true and the request is not 
-| coming from AJAX, a 505 response with the error message "Only AJAX 
-| requests are accepted." will be returned. This is good for production 
-| environments. Set to false to also accept HTTP requests. 
+| Set to true to only allow AJAX requests. If true and the request is not
+| coming from AJAX, a 505 response with the error message "Only AJAX
+| requests are accepted." will be returned. This is good for production
+| environments. Set to false to also accept HTTP requests.
 |
 |	false
 |

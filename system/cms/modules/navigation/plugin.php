@@ -21,10 +21,10 @@ class Plugin_Navigation extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -57,7 +57,7 @@ class Plugin_Navigation extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
@@ -93,10 +93,9 @@ class Plugin_Navigation extends Plugin
 		return $this->_build_links($links, $this->content());
 	}
 
-
 	/**
 	 * Builds the Page Tree into HTML
-	 * 
+	 *
 	 * @param array $links      Page Tree array from `Link::getTreeByGroup`
 	 * @param bool  $return_arr Return as an Array instead of HTML
 	 * @return array|string
@@ -119,7 +118,7 @@ class Plugin_Navigation extends Plugin
 		$i             = 1;
 		$total         = sizeof($links);
 
-		if ( ! $return_arr ) {
+		if (! $return_arr) {
 			$tag      = $this->attribute('tag', 'li');
 			$list_tag = $this->attribute('list_tag', 'ul');
 
@@ -158,7 +157,7 @@ class Plugin_Navigation extends Plugin
 			if ($wrap) {
 				$item['title'] = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
 			}
-			
+
 			$item['attributes']['target']	= $link->target ? 'target="'.$link->target.'"' : null;
 			$item['attributes']['class']	= $link_class ? 'class="'.$link_class.'"' : '';
 			$item['attributes']['level']  = $level;
@@ -190,7 +189,7 @@ class Plugin_Navigation extends Plugin
 			if ($link->children) {
 				++$level;
 
-				if ( ! $max_depth or $level < $max_depth ) {
+				if (! $max_depth or $level < $max_depth) {
 					$wrapper['class'][]  = $more_class;
 					$wrapper['children'] = $this->_build_links($link->children, $return_arr);
 				}
@@ -230,30 +229,23 @@ class Plugin_Navigation extends Plugin
 				$item['children']	= $wrapper['children'];
 				$item['current']	= $wrapper['current'];
 
-				if ( $wrapper['class'] && $item['class'] )
-				{
+				if ($wrapper['class'] && $item['class']) {
 					$item['class'] = implode(' ', $wrapper['class']).' '.substr($item['class'], 7, -1);
-				}
-				elseif ( $wrapper['class'] )
-				{
+				} elseif ($wrapper['class']) {
 					$item['class'] = implode(' ', $wrapper['class']);
 				}
 
-				if ( $item['target'] )
-				{
+				if ($item['target']) {
 					$item['target'] = substr($item['target'], 8, -1);
 				}
 
 				// assign attributes to level family
 				$output[] = $item;
-			}
-			else
-			{
+			} else {
 				$add_first_tag = $level === 0 && ! in_array($this->attribute('items_only', 'true'), array('1', 'y', 'yes', 'true'));
 
 				// render and indent or only render inline?
-				if ( $indent )
-				{
+				if ($indent) {
 					// remove all empty values so we don't have an empty class attribute
 					$classes = implode(' ', array_filter($wrapper['class']));
 
@@ -261,8 +253,7 @@ class Plugin_Navigation extends Plugin
 					$output .= $ident_b.'<'.$tag.($classes > '' ? ' class="'.$classes.'">' : '>').PHP_EOL;
 					$output .= $ident_c.((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))).PHP_EOL;
 
-					if ( $wrapper['children'] )
-					{
+					if ($wrapper['children']) {
 						$output .= $ident_c."<{$list_tag}>".PHP_EOL;
 						$output .= $ident_c.$indent.str_replace(PHP_EOL, (PHP_EOL.$indent), trim($ident_c.$wrapper['children'])).PHP_EOL;
 						$output .= $ident_c."</{$list_tag}>".PHP_EOL;
@@ -271,9 +262,7 @@ class Plugin_Navigation extends Plugin
 					$output .= $wrapper['separator'] ? $ident_c.$wrapper['separator'].PHP_EOL : '';
 					$output .= $ident_b."</{$tag}>".PHP_EOL;
 					$output .= $add_first_tag ? $ident_a."</{$list_tag}>".PHP_EOL : '';
-				}
-				else
-				{
+				} else {
 					// remove all empty values so we don't have an empty class attribute
 					$classes = implode(' ', array_filter($wrapper['class']));
 
@@ -281,8 +270,7 @@ class Plugin_Navigation extends Plugin
 					$output .= '<'.$tag.($classes > '' ? ' class="'.$classes.'">' : '>');
 					$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
-					if ( $wrapper['children'] )
-					{
+					if ($wrapper['children']) {
 						$output .= "<{$list_tag}>";
 						$output .= $wrapper['children'];
 						$output .= "</{$list_tag}>";

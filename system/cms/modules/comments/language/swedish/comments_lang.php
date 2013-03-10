@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -53,6 +53,5 @@ $lang['comments:counter_none_label'] = 'Ingen kommentar';
 $lang['comments:counter_singular_label'] = '%d kommentar';
 $lang['comments:counter_plural_label'] = '%d kommentarer';
 
-
-/* End of file comments_lang.php */  
-/* Location: system/cms/modules/comments/language/swedish/comments_lang.php */  
+/* End of file comments_lang.php */
+/* Location: system/cms/modules/comments/language/swedish/comments_lang.php */

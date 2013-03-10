@@ -2,7 +2,7 @@
 
 // define all custom fields that a new installation should have
 $config['pages:default_fields']	= array(
-	array(         
+	array(
 		'name'          => 'lang:pages:body_label',
 		'slug'          => 'body',
 		'namespace'     => 'pages',

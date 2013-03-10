@@ -23,10 +23,10 @@ class Plugin_Integration extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -59,7 +59,7 @@ class Plugin_Integration extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
@@ -101,16 +101,13 @@ class Plugin_Integration extends Plugin
 		$end     = $this->attribute('end', date('Y-m-d'));
 		$refresh = $this->attribute('refresh', 24); // refresh the cache every n hours
 
-		if (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))
-		{
+		if (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile')) {
 			// do we have it? Return it
-			if ($cached_response = $this->cache->get('analytics_plugin'))
-			{
+			if ($cached_response = $this->cache->get('analytics_plugin')) {
 				return $cached_response;
 			}
 
-			try
-			{
+			try {
 				$this->load->library('analytics', array(
 					'username' => Settings::get('ga_email'),
 					'password' => Settings::get('ga_password')
@@ -124,23 +121,17 @@ class Plugin_Integration extends Plugin
 				$visits = $this->analytics->getVisitors();
 				$views = $this->analytics->getPageviews();
 
-				if ($visits)
-				{
-					foreach ($visits as $visit)
-					{
-						if ($visit > 0)
-						{
+				if ($visits) {
+					foreach ($visits as $visit) {
+						if ($visit > 0) {
 							$data['visits'] += $visit;
 						}
 					}
 				}
 
-				if ($views)
-				{
-					foreach ($views as $view)
-					{
-						if ($view > 0)
-						{
+				if ($views) {
+					foreach ($views as $view) {
+						if ($view > 0) {
 							$data['views'] += $view;
 						}
 					}
@@ -148,9 +139,7 @@ class Plugin_Integration extends Plugin
 					// Call the model or library with the method provided and the same arguments
 					$this->cache->set('analytics_plugin', $data, 60 * 60 * (int) $refresh); // 24 hours
 				}
-			}
-			catch (Exception $e)
-			{
+			} catch (Exception $e) {
 				log_message('error', 'Could not connect to Google Analytics. Called from the analytics plugin');
 			}
 		}

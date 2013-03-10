@@ -78,7 +78,7 @@ class Module_Comments extends Module
 
 		$schema->dropIfExists('comments');
 
-		$schema->create('comments', function($table) { 
+		$schema->create('comments', function($table) {
 			$table->increments('id');
 			$table->boolean('is_active')->default(false);
 			$table->integer('user_id')->nullable();
@@ -97,10 +97,10 @@ class Module_Comments extends Module
 			$table->integer('created_on')->nullable();
 			$table->integer('ip_address')->nullable();
 		});
-		
+
 		$schema->dropIfExists('comment_blacklists');
 
-		$schema->create('comment_blacklists', function($table) { 
+		$schema->create('comment_blacklists', function($table) {
 			$table->increments('id');
 			$table->string('website', 255);
 			$table->string('email', 150);

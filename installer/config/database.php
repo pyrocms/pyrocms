@@ -50,5 +50,4 @@ $db['default']['cachedir'] = "";
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_unicode_ci";
 
-
 /* End of file database.php */

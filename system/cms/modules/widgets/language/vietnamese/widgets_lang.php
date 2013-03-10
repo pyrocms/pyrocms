@@ -15,7 +15,6 @@ $lang['widgets:available_title']        = 'Các Widgets có trong hệ thống';
 $lang['widgets:widget_area_wrapper']    = 'Các vùng có trong hệ thống';
 $lang['widgets:instructions']           = 'Rê & thả để cài đặt';
 
-
 $lang['widgets:instances']            	= 'Instances';
 $lang['widgets:areas']            		= 'Khu vực';
 

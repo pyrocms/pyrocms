@@ -8,16 +8,16 @@
  * parse_tag_content function which takes care of all sorts of special
  * tag tomfoolery which allows Streams to do some interesting
  * things while keeping the tag structure nice and clean.
- * 
+ *
  * @author  	Adam Fairholm - PyroCMS Dev Team
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
- */ 
-class Streams_parse extends CI_Driver {
-
+ */
+class Streams_parse extends CI_Driver
+{
 	/**
 	 * The CodeIgniter instance
 	 *
-	 * @var 	object 
+	 * @var 	object
 	 */
 	private $CI;
 
@@ -74,8 +74,7 @@ class Streams_parse extends CI_Driver {
 		// Make sure we have our stream fields
 		// -------------------------------------
 
-		if (is_null($fields))
-		{
+		if (is_null($fields)) {
 			$stream = $this->stream_obj($stream_slug, $stream_namespace);
 			$fields = $this->CI->streams_m->get_stream_fields($stream->id);
 		}
@@ -89,12 +88,9 @@ class Streams_parse extends CI_Driver {
 		// from within the field type itself.
 		// -------------------------------------
 
-		if ($fields)
-		{
-			foreach ($fields as $field)
-			{
-				if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
-				{
+		if ($fields) {
+			foreach ($fields as $field) {
+				if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override')) {
 					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id=id stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
 
 					$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
@@ -110,15 +106,13 @@ class Streams_parse extends CI_Driver {
 		$parser->scopeGlue(':');
 		$parser->cumulativeNoparse(true);
 
-		if ( ! $loop)
-		{
+		if (! $loop) {
 			return $parser->parse($content, $data, array($this->CI->parser, 'parser_callback'));
 		}
 
 		$out = '';
 
-		foreach ($data as $item)
-		{
+		foreach ($data as $item) {
 			$out .= $parser->parse($content, $item, array($this->CI->parser, 'parser_callback'));
 		}
 

@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful'] 	= 'تعذر إنشاء الحساب';
 $lang['account_creation_duplicate_email'] 	 = 'عنوان البريد الإلكتروني مُستخدم أو غير صحيح';
 $lang['account_creation_duplicate_username'] = 'إسم المستخدم مُسجّل مسبقاً أو غير صحيح';
 
-
 // Password
 $lang['password_change_successful'] 	= 'تم تغيير كلمة السرّ ينجاح';
 $lang['password_change_unsuccessful'] 	= 'تعذر تغيير كلمة المرور';

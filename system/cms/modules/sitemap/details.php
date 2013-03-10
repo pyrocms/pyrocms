@@ -6,8 +6,8 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Sitemap
  */
-class Module_Sitemap extends Module {
-
+class Module_Sitemap extends Module
+{
 	public $version = '1.3.0';
 
 	public function info()

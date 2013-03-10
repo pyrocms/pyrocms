@@ -30,8 +30,8 @@
  *
  * @version 0.1
  */
-class Analytics {
-
+class Analytics
+{
 	private $_sUser;
 	private $_sPass;
 	private $_sAuth;
@@ -63,8 +63,7 @@ class Analytics {
 	 */
 	private function auth()
 	{
-		if (isset($_SESSION['auth']))
-		{
+		if (isset($_SESSION['auth'])) {
 			$this->_sAuth = $_SESSION['auth'];
 			return;
 		}
@@ -78,19 +77,15 @@ class Analytics {
 		$sResponse = $this->getUrl('https://www.google.com/accounts/ClientLogin', $aPost);
 
 		$_SESSION['auth'] = '';
-		if (strpos($sResponse, "\n") !== false)
-		{
+		if (strpos($sResponse, "\n") !== false) {
 			$aResponse = explode("\n", $sResponse);
-			foreach ($aResponse as $sResponse)
-			{
-				if (substr($sResponse, 0, 4) == 'Auth')
-				{
+			foreach ($aResponse as $sResponse) {
+				if (substr($sResponse, 0, 4) == 'Auth') {
 					$_SESSION['auth'] = trim(substr($sResponse, 5));
 				}
 			}
 		}
-		if ($_SESSION['auth'] == '')
-		{
+		if ($_SESSION['auth'] == '') {
 			unset($_SESSION['auth']);
 			throw new Exception('Retrieving Auth hash failed!');
 		}
@@ -108,8 +103,7 @@ class Analytics {
 	{
 		$this->_bUseCache = $bCaching;
 		$this->_iCacheAge = $iCacheAge;
-		if ($bCaching && !isset($_SESSION['cache']))
-		{
+		if ($bCaching && !isset($_SESSION['cache'])) {
 			$_SESSION['cache'] = array();
 		}
 	}
@@ -139,8 +133,7 @@ class Analytics {
 	 */
 	public function setProfileByName($sAccountName)
 	{
-		if (isset($_SESSION['profile']))
-		{
+		if (isset($_SESSION['profile'])) {
 			$this->_sProfileId = $_SESSION['profile'];
 			return;
 		}
@@ -149,18 +142,14 @@ class Analytics {
 		$sXml = $this->getXml('https://www.google.com/analytics/feeds/accounts/default');
 		$aAccounts = $this->parseAccountList($sXml);
 
-		foreach ($aAccounts as $aAccount)
-		{
-			if (isset($aAccount['accountName']) && $aAccount['accountName'] == $sAccountName)
-			{
-				if (isset($aAccount['tableId']))
-				{
+		foreach ($aAccounts as $aAccount) {
+			if (isset($aAccount['accountName']) && $aAccount['accountName'] == $sAccountName) {
+				if (isset($aAccount['tableId'])) {
 					$this->_sProfileId = $aAccount['tableId'];
 				}
 			}
 		}
-		if ($this->_sProfileId == '')
-		{
+		if ($this->_sProfileId == '') {
 			throw new Exception('No profile ID found!');
 		}
 
@@ -176,8 +165,7 @@ class Analytics {
 		$sXml = $this->getXml('https://www.google.com/analytics/feeds/accounts/default');
 		$aAccounts = $this->parseAccountList($sXml);
 		$aReturn = array();
-		foreach ($aAccounts as $aAccount)
-		{
+		foreach ($aAccounts as $aAccount) {
 			$aReturn[$aAccount['tableId']] = $aAccount['title'];
 		}
 		return $aReturn;
@@ -191,19 +179,15 @@ class Analytics {
 	 */
 	private function getCache($sKey)
 	{
-		if ($this->_bUseCache === false)
-		{
+		if ($this->_bUseCache === false) {
 			return false;
 		}
 
-		if (!isset($_SESSION['cache'][$this->_sProfileId]))
-		{
+		if (!isset($_SESSION['cache'][$this->_sProfileId])) {
 			$_SESSION['cache'][$this->_sProfileId] = array();
 		}
-		if (isset($_SESSION['cache'][$this->_sProfileId][$sKey]))
-		{
-			if (time() - $_SESSION['cache'][$this->_sProfileId][$sKey]['time'] < $this->_iCacheAge)
-			{
+		if (isset($_SESSION['cache'][$this->_sProfileId][$sKey])) {
+			if (time() - $_SESSION['cache'][$this->_sProfileId][$sKey]['time'] < $this->_iCacheAge) {
 				return $_SESSION['cache'][$this->_sProfileId][$sKey]['data'];
 			}
 		}
@@ -219,13 +203,11 @@ class Analytics {
 	private function setCache($sKey, $mData)
 	{
 
-		if ($this->_bUseCache === false)
-		{
+		if ($this->_bUseCache === false) {
 			return false;
 		}
 
-		if ( ! isset($_SESSION['cache'][$this->_sProfileId]))
-		{
+		if ( ! isset($_SESSION['cache'][$this->_sProfileId])) {
 			$_SESSION['cache'][$this->_sProfileId] = array();
 		}
 		$_SESSION['cache'][$this->_sProfileId][$sKey] = array('time' => time(),
@@ -249,8 +231,7 @@ class Analytics {
 				http_build_query($aProperties);
 
 		$aCache = $this->getCache($sUrl);
-		if ($aCache !== false)
-		{
+		if ($aCache !== false) {
 			return $aCache;
 		}
 
@@ -261,16 +242,14 @@ class Analytics {
 		$oDoc = new DOMDocument();
 		$oDoc->loadXML($sXml);
 		$oEntries = $oDoc->getElementsByTagName('entry');
-		foreach ($oEntries as $oEntry)
-		{
+		foreach ($oEntries as $oEntry) {
 			$oTitle = $oEntry->getElementsByTagName('title');
 			$sTitle = $oTitle->item(0)->nodeValue;
 
 			$oMetric = $oEntry->getElementsByTagName('metric');
 
 			// Fix the array key when multiple dimensions are given
-			if (strpos($sTitle, ' | ') !== false && strpos($aProperties['dimensions'], ',') !== false)
-			{
+			if (strpos($sTitle, ' | ') !== false && strpos($aProperties['dimensions'], ',') !== false) {
 				$aDimensions = explode(',', $aProperties['dimensions']);
 				$aDimensions[] = '|';
 				$aDimensions[] = '=';
@@ -298,8 +277,7 @@ class Analytics {
 		$oEntries = $oDoc->getElementsByTagName('entry');
 		$i = 0;
 		$aProfiles = array();
-		foreach ($oEntries as $oEntry)
-		{
+		foreach ($oEntries as $oEntry) {
 
 			$aProfiles[$i] = array();
 
@@ -310,22 +288,17 @@ class Analytics {
 			$aProfiles[$i]["entryid"] = $oEntryId->item(0)->nodeValue;
 
 			$oProperties = $oEntry->getElementsByTagName('property');
-			foreach ($oProperties as $oProperty)
-			{
-				if (strcmp($oProperty->getAttribute('name'), 'ga:accountId') == 0)
-				{
+			foreach ($oProperties as $oProperty) {
+				if (strcmp($oProperty->getAttribute('name'), 'ga:accountId') == 0) {
 					$aProfiles[$i]["accountId"] = $oProperty->getAttribute('value');
 				}
-				if (strcmp($oProperty->getAttribute('name'), 'ga:accountName') == 0)
-				{
+				if (strcmp($oProperty->getAttribute('name'), 'ga:accountName') == 0) {
 					$aProfiles[$i]["accountName"] = $oProperty->getAttribute('value');
 				}
-				if (strcmp($oProperty->getAttribute('name'), 'ga:profileId') == 0)
-				{
+				if (strcmp($oProperty->getAttribute('name'), 'ga:profileId') == 0) {
 					$aProfiles[$i]["profileId"] = $oProperty->getAttribute('value');
 				}
-				if (strcmp($oProperty->getAttribute('name'), 'ga:webPropertyId') == 0)
-				{
+				if (strcmp($oProperty->getAttribute('name'), 'ga:webPropertyId') == 0) {
 					$aProfiles[$i]["webPropertyId"] = $oProperty->getAttribute('value');
 				}
 			}
@@ -349,23 +322,19 @@ class Analytics {
 	 */
 	private function getUrl($sUrl, $aPost = array(), $aHeader = array())
 	{
-		if (count($aPost) > 0)
-		{
+		if (count($aPost) > 0) {
 			// build POST query
 			$sMethod = 'POST';
 			$sPost = http_build_query($aPost);
 			$aHeader[] = 'Content-type: application/x-www-form-urlencoded';
 			$aHeader[] = 'Content-Length: ' . strlen($sPost);
 			$sContent = $aPost;
-		}
-		else
-		{
+		} else {
 			$sMethod = 'GET';
 			$sContent = null;
 		}
 
-		if (function_exists('curl_init'))
-		{
+		if (function_exists('curl_init')) {
 
 			// If Curl is installed, use it!
 			$rRequest = curl_init();
@@ -375,42 +344,33 @@ class Analytics {
 			// Stop it bitching on local installs
 			curl_setopt($rRequest, CURLOPT_SSL_VERIFYPEER, 0);
 
-			if ($sMethod == 'POST')
-			{
+			if ($sMethod == 'POST') {
 				curl_setopt($rRequest, CURLOPT_POST, 1);
 				curl_setopt($rRequest, CURLOPT_POSTFIELDS, $aPost);
-			}
-			else
-			{
+			} else {
 				curl_setopt($rRequest, CURLOPT_HTTPHEADER, $aHeader);
 			}
 
 			$sOutput = curl_exec($rRequest);
-			if ($sOutput === false)
-			{
+			if ($sOutput === false) {
 				throw new Exception('Curl error (' . curl_error($rRequest) . ')');
 			}
 
 			$aInfo = curl_getinfo($rRequest);
 
-			if ($aInfo['http_code'] != 200)
-			{
+			if ($aInfo['http_code'] != 200) {
 				// not a valid response from GA
-				if ($aInfo['http_code'] == 400)
-				{
+				if ($aInfo['http_code'] == 400) {
 					throw new Exception('Bad request (' . $aInfo['http_code'] . ') url: ' . $sUrl);
 				}
-				if ($aInfo['http_code'] == 403)
-				{
+				if ($aInfo['http_code'] == 403) {
 					throw new Exception('Access denied (' . $aInfo['http_code'] . ') url: ' . $sUrl);
 				}
 				throw new Exception('Not a valid response (' . $aInfo['http_code'] . ') url: ' . $sUrl);
 			}
 
 			curl_close($rRequest);
-		}
-		else
-		{
+		} else {
 			// Curl is not installed, use file_get_contents
 			// create headers and post
 			$aContext = array('http' => array(
@@ -420,8 +380,7 @@ class Analytics {
 			));
 			$rContext = stream_context_create($aContext);
 
-			if (($sOutput = @file_get_contents($sUrl, 0, $rContext)) === false)
-			{
+			if (($sOutput = @file_get_contents($sUrl, 0, $rContext)) === false) {
 				// not a valid response from GA
 				throw new Exception('Not a valid response url: ' . $sUrl);
 			}

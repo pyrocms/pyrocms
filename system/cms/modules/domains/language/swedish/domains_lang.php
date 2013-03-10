@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -28,6 +28,5 @@ $lang['domains:mass_delete_success'] = '%s domäner av %s är raderade.';
 $lang['domains:no_select_error'] = 'Du måste välja domän först.';
 $lang['domains:request_conflict_error'] = '"%s" finns redan.';
 
-
-/* End of file domains_lang.php */  
-/* Location: system/cms/modules/domains/language/swedish/domains_lang.php */  
+/* End of file domains_lang.php */
+/* Location: system/cms/modules/domains/language/swedish/domains_lang.php */

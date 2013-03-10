@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_admin_force_https_setting extends CI_Migration {
-
+class Migration_Add_admin_force_https_setting extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->insert('settings', array(

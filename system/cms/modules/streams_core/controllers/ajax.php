@@ -9,22 +9,22 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Ajax extends MY_Controller {
-
+class Ajax extends MY_Controller
+{
     public function __construct()
     {
         parent::__construct();
-        
+
         // No matter what we don't show the profiler
         // in our AJAX calls.
         $this->output->enable_profiler(false);
 
         $this->error_message = 'invalid request';
- 
+
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('streams_core/Type');
-        
+
         // Only AJAX gets through!
 		if ( ! $this->input->is_ajax_request()) die($this->error_message);
 
@@ -45,66 +45,57 @@ class Ajax extends MY_Controller {
 	{
 		// Out for certain characters
 		if ($this->input->post('data') == '-') return null;
-	
+
 		$this->load->language('streams_core/pyrostreams');
-	
+
 		$type = $this->input->post('data');
 		$namespace = $this->input->post('namespace');
-		
+
 		// Load paramaters
 		require_once(APPPATH.'modules/streams_core/libraries/Parameter_fields.php');
-		
+
 		$parameters = new Parameter_fields();
-	
+
 		// Load the proper class
 		$field_type = $this->type->load_single_type($type);
-		
+
 		// I guess we don't have any to show.
 		if ( ! isset($field_type->custom_parameters)) return null;
 
-		// Otherwise, the beat goes on.		
+		// Otherwise, the beat goes on.
 		$extra_fields = $field_type->custom_parameters;
-		
+
 		$data['count'] = 0;
-				
+
 		//Echo them out
-		foreach ($extra_fields as $field)
-		{
+		foreach ($extra_fields as $field) {
 			// Check to see if it is a standard one or a custom one
 			// from the field type
-			if (method_exists($parameters, $field))
-			{
+			if (method_exists($parameters, $field)) {
 				$data['input'] 			= $parameters->$field();
 				$data['input_name']		= $this->lang->line('streams:'.$field);
-			}
-			elseif (method_exists($field_type, 'param_'.$field))
-			{
+			} elseif (method_exists($field_type, 'param_'.$field)) {
 				$call = 'param_'.$field;
 
 				$input = $field_type->$call(null, $namespace);
 
-				if (is_array($input))
-				{
+				if (is_array($input)) {
 					$data['input'] 			= $input['input'];
 					$data['instructions']	= $input['instructions'];
-				}
-				else
-				{
+				} else {
 					$data['input'] 			= $input;
 					$data['instructions']	= null;
 				}
 
 				$data['input_name']		= $this->lang->line('streams:'.$field_type->field_type_slug.'.'.$field);
-			}
-			else
-			{
+			} else {
 				return false;
 			}
-			
+
 			$data['input_slug'] = $field;
-		
+
 			echo $this->load->view('extra_field', $data, true);
-			
+
 			$data['count']++;
 		}
 	}
@@ -127,13 +118,12 @@ class Ajax extends MY_Controller {
 		// Set the count by the offset for
 		// paginated lists
 		$order_count = $this->input->post('offset')+1;
-		
-		foreach ($ids as $id)
-		{
+
+		foreach ($ids as $id) {
 			$this->db
 				->where('id', $id)
 				->update('data_field_assignments', array('sort_order' => $order_count));
-		
+
 			$order_count++;
 		}
 	}
@@ -154,15 +144,14 @@ class Ajax extends MY_Controller {
 		// Get the stream from the ID
 		$this->load->model('streams_core/streams_m');
 		$stream = $this->streams_m->get_stream($this->input->post('stream_id'));
-	
+
 		$ids = explode(',', $this->input->post('order'));
 
 		// Set the count by the offset for
 		// paginated lists
 		$order_count = $this->input->post('offset')+1;
 
-		foreach ($ids as $id)
-		{
+		foreach ($ids as $id) {
 			$this->db
 					->limit(1)
 					->where('id', $id)
@@ -188,8 +177,7 @@ class Ajax extends MY_Controller {
 	private function _check_module_accessibility()
 	{
 		// We always let the admins in
-		if ($this->current_user->group === 'admin')
-		{
+		if ($this->current_user->group === 'admin') {
 			return;
 		}
 
@@ -205,10 +193,9 @@ class Ajax extends MY_Controller {
 		if ( ! $module) die($this->error_message);
 
 		// Do we have permission for this module?
-		if ( ! $this->db->limit(1)->where('group_id', $this->current_user->group_id)->where('module', $module)->get('permissions')->row())
-		{
+		if ( ! $this->db->limit(1)->where('group_id', $this->current_user->group_id)->where('module', $module)->get('permissions')->row()) {
 			die($this->error_message);
 		}
 	}
-		
+
 }

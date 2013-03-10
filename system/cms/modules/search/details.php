@@ -59,19 +59,16 @@ class Module_Search extends Module
             $table->string('cp_delete_uri', 255);
 
 			//   FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
-			
+
             $table->unique(array('module', 'entry_key', 'entry_id'));
         });
-
 
 		$this->load->model('search/search_index_m');
 		$this->load->library('keywords/keywords');
 
-		foreach ($this->pdb->table('pages')->get() as $page)
-		{
+		foreach ($this->pdb->table('pages')->get() as $page) {
 			// Only index live articles
-	    	if ($page->status === 'live')
-	    	{
+	    	if ($page->status === 'live') {
 	    		$hash = $this->keywords->process($page->meta_keywords);
 
 	    		$this->pdb
@@ -81,12 +78,12 @@ class Module_Search extends Module
 
 	    		$this->search_index_m->index(
 	    			'pages',
-	    			'pages:page', 
-	    			'pages:pages', 
+	    			'pages:page',
+	    			'pages:pages',
 	    			$page->id,
 	    			$page->uri,
 	    			$page->title,
-	    			$page->meta_description ?: null, 
+	    			$page->meta_description ?: null,
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,

@@ -13,7 +13,7 @@ class Search_index_m extends CI_Model
 	 * Index
 	 *
 	 * Store an entry in the search index.
-	 * 
+	 *
 	 * <code>
 	 * $this->search_index_m->index(
      *     'blog',
@@ -26,12 +26,12 @@ class Search_index_m extends CI_Model
      *     array(
      *         'cp_edit_uri'    => 'admin/blog/edit/'.$id,
      *         'cp_delete_uri'  => 'admin/blog/delete/'.$id,
-     *         'keywords'       => $post->keywords, 
+     *         'keywords'       => $post->keywords,
      *     )
      * );
      * </code>
 	 *
-	 * @param	string	$module		The module that owns this entry 
+	 * @param	string	$module		The module that owns this entry
 	 * @param	string	$singular	The unique singular language key for this piece of data
 	 * @param	string	$plural		The unique plural language key that describes many pieces of this data
 	 * @param	int 	$entry_id	The id for this entry
@@ -52,7 +52,7 @@ class Search_index_m extends CI_Model
 		if ( ! empty($options['keywords'])) {
 			if (is_array($options['keywords'])) {
 				$insert_data['keywords'] = impode(',', $options['keywords']);
-			
+
 			} elseif (is_string($options['keywords'])) {
 				$insert_data['keywords'] = Keywords::get_string($options['keywords']);
 				$insert_data['keyword_hash'] = $options['keywords'];
@@ -68,7 +68,6 @@ class Search_index_m extends CI_Model
 		if ( ! empty($options['cp_delete_uri'])) {
 			$insert_data['cp_delete_uri'] = $options['cp_delete_uri'];
 		}
-
 
 		$insert_data['title'] 			= $title;
 		$insert_data['description'] 	= strip_tags($description);
@@ -92,7 +91,7 @@ class Search_index_m extends CI_Model
 	 * $this->search_index_m->drop_index('blog', 'blog:post', $id);
 	 * </code>
 	 *
-	 * @param	string	$module		The module that owns this entry 
+	 * @param	string	$module		The module that owns this entry
 	 * @param	string	$singular	The unique singular "key" for this piece of data
 	 * @param	int 	$entry_id	The id for this entry
 	 * @return	array
@@ -118,10 +117,10 @@ class Search_index_m extends CI_Model
 	public function filter($filter)
 	{
 		// Filter Logic
-		if ( ! $filter) {
+		if (! $filter) {
 			return $this;
 		}
-		
+
 		$this->db->or_group_start();
 
 		foreach ($filter as $module => $plural) {

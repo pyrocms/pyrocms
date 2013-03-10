@@ -1,11 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Remove_subscription_plan_id extends CI_Migration {
-
+class Migration_Remove_subscription_plan_id extends CI_Migration
+{
 	public function up()
 	{
-		if ($this->db->field_exists('subscription_plan_id', 'groups'))
-		{
+		if ($this->db->field_exists('subscription_plan_id', 'groups')) {
 			$this->dbforge->drop_column('groups', 'subscription_plan_id');
 		}
 	}

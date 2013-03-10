@@ -63,7 +63,7 @@ $lang['pages:delete_none_notice']       = 'Nessuna pagina è stata eliminata.';
 $lang['pages:page_already_exist_error'] = 'Una pagina con questo URL "%s" esiste già in %s.';
 $lang['pages:parent_not_exist_error']   = 'La pagina di livello superiore che hai scelto non esiste.';
 $lang['pages:chunk_slug_length']        = 'Lo slug dei Pezzi di Pagina (Page Chunk) non possono essere più lunghi di 30 caratteri.';
-$lang['pages:root_folder']              = 'il livello superiore'; 
+$lang['pages:root_folder']              = 'il livello superiore';
 
 $lang['pages:tree_explanation_title']   = 'Spiegazione';
 $lang['pages:tree_explanation']         = 'La lista a sinistra mostra le pagine del tuo sito. Clicca sull\' icona "+" vicina alla pagina per vedere le pagine dipendenti da essa. Quando cliccherai su una pagina vedrai ogni tipo di informazione utile in questo box.';

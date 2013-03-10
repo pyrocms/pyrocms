@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -21,6 +21,5 @@ $lang['streams:image.keep_ratio'] = 'Behåll höjd/bredd-förhållande';
 $lang['streams:image.keep_ratio_instr'] = 'När storleken ändras, ska höjd/bredd-förhållandet behållas?';
 $lang['streams:image.allowed_types_instr'] = 'Ex: jpg|jpeg|png';
 
-
-/* End of file image_lang.php */  
-/* Location: system/cms/modules/streams_core/field_types/image/language/swedish/image_lang.php */  
+/* End of file image_lang.php */
+/* Location: system/cms/modules/streams_core/field_types/image/language/swedish/image_lang.php */

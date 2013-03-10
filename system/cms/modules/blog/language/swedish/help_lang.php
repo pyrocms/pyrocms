@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -24,6 +24,5 @@ Välj en bra titel på dina inlägg, eftersom de kommer att visas på huvudskär
 Denna kommer också att användas som titel i resultat i sökmotorer. När du har skapat ett inlägg kan du antingen publicera den eller spara den som ett utkast om du vill komma tillbaka och redigera inlägget senare. Du kan också välja att publicera den ett visst datum.
 </ p>';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/blog/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/blog/language/swedish/help_lang.php */

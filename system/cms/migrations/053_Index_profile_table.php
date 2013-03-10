@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Index_profile_table extends CI_Migration {
-
+class Migration_Index_profile_table extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->query('ALTER TABLE '.$this->db->dbprefix('users').' ENGINE = InnoDB');

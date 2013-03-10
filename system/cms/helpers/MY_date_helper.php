@@ -2,7 +2,7 @@
 
 /**
  * PyroCMS Date Helpers
- * 
+ *
  * This overrides Codeigniter's helpers/date_helper.php
  *
  * @author      PyroCMS Dev Team
@@ -11,8 +11,7 @@
  */
 
 
-if (!function_exists('format_date'))
-{
+if (!function_exists('format_date')) {
 
 	/**
 	 * Formats a timestamp into a human date format.
@@ -23,13 +22,11 @@ if (!function_exists('format_date'))
 	 */
 	function format_date($unix, $format = '')
 	{
-		if ($unix == '' || !is_numeric($unix))
-		{
+		if ($unix == '' || !is_numeric($unix)) {
 			$unix = strtotime($unix);
 		}
 
-		if (!$format)
-		{
+		if (!$format) {
 			$format = Settings::get('date_format');
 		}
 

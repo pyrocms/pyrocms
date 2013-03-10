@@ -53,7 +53,6 @@ $lang['user:activated_account_title']           = 'Aktivierter Benutzer';
 $lang['user:reset_password_title']              = 'Passwort zur&uuml;ckzusetzen';
 $lang['user:password_reset_title']              = 'Passwort zur&uuml;ckzusetzen';
 
-
 $lang['user:error_username']                    = 'Der gew&auml;hlte Benutzername ist bereits in Verwendung.';
 $lang['user:error_email']                       = 'Die angegebene E-Mail-Adresse wird bereits verwendet';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'Diese Email Addresse wird bere
 $lang['user:register_error']                   = 'Wir denken Sie sind ein Bot. Wenn es sich um einen Fehler handelt bitten wir um Entschuldigung. Bitte wenden Sie sich in diesem Falle an den Administrator.';
 $lang['user:register_reasons']                 = 'Melde dich an um Zugriff auf gesonderte Bereiche zu erhalten. Durch die Registrierung werden deine Einstellungen gesichert und du erh&auml;ltst schnelleren Zugang zu bestimmten Inhalten.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Aktivierung fehlgeschlagen. Bitte &uuml;berpr&uuml;fe deine Angaben und stell sicher, dass du die Feststelltaste nicht gedr&uuml;ckt hast.';
 $lang['user:activated_message']                = 'Dein Zugang wurde aktiviert. Du kannst dich nun anmelden.';
-
 
 // Login
 $lang['user:logged_in']                        = 'Du hast dich erfolgreich eingeloggt.';
 $lang['user:already_logged_in']                = 'Du bist bereits angemeldet. Bitte melde dich zuvor ab.';
 $lang['user:login_incorrect']                  = 'Email oder Passwort stimmen nicht. Bitte &uuml;berpr&uuml;fe deine Angaben und stell sicher, dass du die Feststelltaste nicht gedr&uuml;ckt hast.';
 $lang['user:inactive']                         = 'Dein Benutzer ist nicht aktiv.<br />&Uuml;berpr&uuml;fe bitte deine Emails und folge der Anleitung zur Aktivierung deines Zugangs. - <em>&Uuml;berpr&uuml;fe bitte auch das SPAM Verzeichnis</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Du wurdest abgemeldet.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']           = "Dein Passwort wurde zur&uuml;c
 // Activation
 $lang['user:activation_email_subject']         = 'Aktivierung';
 $lang['user:activation_email_body']            = 'Danke, dass sie Ihren Zugang zu % aktiviert haben. Bitte folge dem Link:';
-
 
 $lang['user:activated_email_subject']          = 'Aktivierung abgeschlossen';
 $lang['user:activated_email_content_line1']    = 'Danke, f&uuml;r Ihre Registrierung bei %s. Um den Zugang zu aktiveren, folge bitte dem Link:';

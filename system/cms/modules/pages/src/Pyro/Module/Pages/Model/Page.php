@@ -27,7 +27,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 	/**
 	 * Array containing the validation rules
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $validate = array(
@@ -190,12 +190,12 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	{
 		// it's the home page
 		if ($uri === null) {
-			
+
 			$page = static::where('is_home', '=', true)
 				->with('type')
 				->take(1)
 				->first();
-		
+
 		} else {
 			// If the URI has been passed as an array, implode to create a string of uri segments
 			is_array($uri) && $uri = trim(implode('/', $uri), '/');
@@ -205,8 +205,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 			$page = false;
 			$i = 0;
 
-			while ( ! $page and $uri and $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
-			{
+			while ( ! $page and $uri and $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) { */
 				$page = static::where('uri', '=', $uri)
 					->with('type')
 					->take(1)
@@ -214,31 +213,26 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 				// if it's not a normal page load (plugin or etc. that is not cached)
 				// then we won't do our recursive search
-				if ( ! $is_request)
-				{
+				if (! $is_request) {
 					break;
 				}
 
 				// if we didn't find a page with that exact uri AND there's more than one segment
-				if ( ! $page and strpos($uri, '/') !== false)
-				{
+				if ( ! $page and strpos($uri, '/') !== false) {
 					// pop the last segment off and we'll try again
 					$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
 				}
 				// we didn't find a page and there's only one segment; it's going to 404
-				elseif ( ! $page)
-				{
+				elseif (! $page) {
 					break;
 				}
 				++$i;
 			}
 
-			if ($page)
-			{
+			if ($page) {
 				// so we found a page but if strict uri matching is required and the unmodified
 				// uri doesn't match the page we fetched then we pretend it didn't happen
-				if ($is_request and (bool) $page->strict_uri and $original_uri !== $uri)
-				{
+				if ($is_request and (bool) $page->strict_uri and $original_uri !== $uri) {
 					return false;
 				}
 
@@ -248,7 +242,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 		}
 
 		// looks like we have a 404
-		if ( ! $page) {
+		if (! $page) {
 			return false;
 		}
 
@@ -264,7 +258,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 			if ($stream) {
 				if ($entry = ci()->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
-					$page = (object) array_merge((array)$entry, (array)$page);
+					$page = (object) array_merge((array) $entry, (array) $page);
 				}
 			}
 		}
@@ -298,7 +292,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 	// 	if ($page and $page->type_id and $get_data) {
 	// 		// Get our page type files in case we are grabbing
-	// 		// the body/html/css from the filesystem. 
+	// 		// the body/html/css from the filesystem.
 	// 		$this->page_type_m->get_page_type_files_for_page($page);
 
 	// 		$this->load->driver('Streams');
@@ -432,8 +426,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
-		}
-		while ($page->parent_id > 0);
+		} while ($page->parent_id > 0);
 
 		// Save this new uri by joining the array
 		$original_page->uri = implode('/', $segments);
@@ -449,7 +442,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	public function reindex_descendants($id)
 	{
 		$descendants = $this->getDescendantIds($id);
-		
+
 		array_walk($descendants, array($this, 'buildLookup'));
 	}
 
@@ -469,8 +462,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 			->set('uri', 'slug', false)
 			->update('pages');
 
-		foreach ($root_pages as $page)
-		{
+		foreach ($root_pages as $page) {
 			$this->reindex_descendants($page);
 		}
 	}
@@ -489,8 +481,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	{
 		$this->db->trans_start();
 
-		if ( ! empty($input['is_home']))
-		{
+		if ( ! empty($input['is_home'])) {
 			// Remove other homepages so this one can have the spot
 			$this->skip_validation = true;
 			$this->update_by('is_home', 1, array('is_home' => 0));
@@ -592,16 +583,13 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 		$ids = $this->getDescendantIds($id);
 
-		foreach ($ids as $id)
-		{
+		foreach ($ids as $id) {
 			$page = $this->get($id);
 
 			// Get the stream and delete the entry. Yeah this is a lot of queries
 			// but hey we're deleting stuff. Get off my back!
-			if ($page->stream_id)
-			{
-				if ($stream = $this->streams_m->get_stream($page->stream_id))
-				{
+			if ($page->stream_id) {
+				if ($stream = $this->streams_m->get_stream($page->stream_id)) {
 					$this->streams->entries->delete_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace);
 				}
 			}
@@ -613,7 +601,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 		// Our navigation links should go as well.
 		$this->db->where_in('page_id', $ids);
-		$this->db->delete('navigation_links');	
+		$this->db->delete('navigation_links');
 
 		$this->db->trans_complete();
 
@@ -646,7 +634,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
-	 * 
+	 *
 	 * @param $slug slug to check
 	 * @return bool
 	 */
@@ -658,8 +646,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 			if (ci()->input->post('parent_id') == 0) {
 				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;
-			}
-			else {
+			} else {
 				$page_obj = $this->find($page_id);
 				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
 				$page_obj = $this->get(ci()->input->post('parent_id'));

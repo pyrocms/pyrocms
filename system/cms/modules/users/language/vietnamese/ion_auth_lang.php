@@ -17,7 +17,6 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Không thể tạo tài khoản';
 $lang['account_creation_duplicate_email'] 	 = 'Email đã được sử dụng hoặc không đúng';
 $lang['account_creation_duplicate_username'] 	 = 'Username đã được sử dụng hoặc không đúng';
 
-
 // Password
 $lang['password_change_successful'] 	 	 = 'Mật khẩu được đổi thành công';
 $lang['password_change_unsuccessful'] 	  	 = 'Không thể thay đổi mật khẩu';

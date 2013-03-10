@@ -78,4 +78,4 @@
 	<div class="blank-slate">
 		<p><?php echo lang('nav:no_groups');?></p>
 	</div>
-<?php endif ?>
+<?php endif

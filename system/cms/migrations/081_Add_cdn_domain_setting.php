@@ -17,7 +17,7 @@ class Migration_Add_cdn_domain_setting extends CI_Migration
             'module' => 'integration',
             'order' => 1000,
         ));
-        
+
     }
 
     public function down()

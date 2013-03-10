@@ -70,5 +70,3 @@ $lang['blog:twitter_error']                  = 'Twitter Virhe';
 
 // date
 $lang['blog:archive_date_format']		= "%B, %Y";
-
-?>

@@ -8,8 +8,7 @@
 /**
  * Get the site's ID based on SITE_REF
  */
-if(!function_exists('site_id'))
-{
+if (!function_exists('site_id')) {
 	function site_id()
 	{
 		// Get ready

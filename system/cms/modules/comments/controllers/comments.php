@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Comments\Model\Comment;
 use Pyro\Module\Comments\Model\CommentBlacklist;
@@ -14,7 +14,7 @@ class Comments extends Public_Controller
 {
 	/**
 	 * An array containing the validation rules
-	 * 
+	 *
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -42,7 +42,7 @@ class Comments extends Public_Controller
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -121,7 +121,7 @@ class Comments extends Public_Controller
 				$this->_repopulate_comment();
 			} else {
 				// Save the comment
-				if($comment->toArray() = Comment::create($comment)) {
+				if ($comment->toArray() = Comment::create($comment)) {
 					// Approve the comment straight away
 					if ( ! $this->settings->moderate_comments or (isset($this->current_user->group) and $this->current_user->group == 'admin')) {
 						$this->session->set_flashdata('success', lang('comments:add_success'));
@@ -156,7 +156,6 @@ class Comments extends Public_Controller
 			$this->_repopulate_comment();
 		}
 
-
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$uri = ! empty($entry['uri']) ? $entry['uri'] : $module;
 
@@ -187,7 +186,7 @@ class Comments extends Public_Controller
 
 	/**
 	 * Method to check whether we want to allow the comment or not
-	 * 
+	 *
 	 * @return array
 	 */
 	private function _allow_comment()
@@ -216,7 +215,7 @@ class Comments extends Public_Controller
 				'api_key' => Settings::get('akismet_api_key'),
 				'comment' => $comment
 			);
-                        
+
 			$this->akismet->init($config);
 
 			if ($this->akismet->is_spam()) {
@@ -228,7 +227,7 @@ class Comments extends Public_Controller
 				return array('status' => false, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
 		}
-	
+
 		if (CommentBlacklist::findManyByEmailOrWebsite($this->input->post('email'), $this->input->post('website'))->count() > 0) {
 			// @TODO Add me to language files
 			return array('status' => false, 'message' => 'The website or email address posting this comment has been blacklisted.');
@@ -243,7 +242,7 @@ class Comments extends Public_Controller
 	 *
 	 * @param array $comment The comment data.
 	 * @param array $entry The entry data.
-	 * @return boolean 
+	 * @return boolean
 	 */
 	private function _send_email($comment, $entry)
 	{

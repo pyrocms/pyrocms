@@ -9,8 +9,8 @@
  * @package		PyroCMS\Core\Modules\Settings\Models
  */
 
-class Setting_m extends CI_Model {
-
+class Setting_m extends CI_Model
+{
 	/**
 	 * Gets a single setting using the key.
 	 *

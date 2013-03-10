@@ -15,7 +15,6 @@ $lang['account_creation_unsuccessful'] 	= 'Kon account niet aanmaken';
 $lang['account_creation_duplicate_email'] 	 = 'Ongeldig of reeds bestaande email';
 $lang['account_creation_duplicate_username'] = 'Ongeldige of reeds bestaande gebruikersnaam';
 
-
 // Password
 $lang['password_change_successful'] 	= 'Wachtwoord is gewijzigd';
 $lang['password_change_unsuccessful'] 	= 'Kon wachtwoord niet wijzigen';
@@ -40,6 +39,3 @@ $lang['update_successful'] 		= 'Accountinformatie is opgeslagen';
 $lang['update_unsuccessful'] 		= 'Acccountinformatie kon niet worden opgeslagen';
 $lang['delete_successful'] 		= 'Gebruiker verwijderd';
 $lang['delete_unsuccessful'] 		= 'Kon Gebruiker niet verwijderen';
-
-
-?>

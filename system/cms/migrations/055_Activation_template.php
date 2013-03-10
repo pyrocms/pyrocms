@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Activation_template extends CI_Migration {
-
+class Migration_Activation_template extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->delete('email_templates', array('slug' => 'activation'));

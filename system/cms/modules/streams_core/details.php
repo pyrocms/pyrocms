@@ -57,8 +57,7 @@ class Module_Streams_core extends Module
 	 */
 	public function install()
 	{
-		if ( ! ($config = $this->_load_config()))
-		{
+		if ( ! ($config = $this->_load_config())) {
 			return false;
 		}
 
@@ -67,7 +66,7 @@ class Module_Streams_core extends Module
 		// Streams Table
         $schema->dropIfExists($config['streams:streams_table']);
 
-        $schema->create($config['streams:streams_table'], function($table) { 
+        $schema->create($config['streams:streams_table'], function($table) {
             $table->increments('id');
             $table->string('stream_name', 60);
             $table->string('stream_slug', 60);
@@ -85,7 +84,7 @@ class Module_Streams_core extends Module
         // Fields Table
         $schema->dropIfExists($config['streams:fields_table']);
 
-        $schema->create($config['streams:fields_table'], function($table) { 
+        $schema->create($config['streams:fields_table'], function($table) {
             $table->increments('id');
             $table->string('field_name', 60);
             $table->string('field_slug', 60);
@@ -99,7 +98,7 @@ class Module_Streams_core extends Module
         // Assignments Table
         $schema->dropIfExists($config['streams:assignments_table']);
 
-        $schema->create($config['streams:assignments_table'], function($table) { 
+        $schema->create($config['streams:assignments_table'], function($table) {
             $table->increments('id');
             $table->integer('sort_order');
             $table->integer('stream_id');
@@ -126,22 +125,20 @@ class Module_Streams_core extends Module
 	 */
 	public function uninstall()
 	{
-		if ( ! ($config = $this->_load_config()))
-		{
+		if ( ! ($config = $this->_load_config())) {
 			return false;
 		}
 
 		$schema = $this->pdb->getSchemaBuilder();
 
 		// Streams Table
-        $schema->dropIfExists($config['streams:streams_table']);	
+        $schema->dropIfExists($config['streams:streams_table']);
         $schema->dropIfExists($config['streams:fields_table']);
         $schema->dropIfExists($config['streams:assignments_table']);
         $schema->dropIfExists($config['streams:searches_table']);
 
 		return true;
 	}
-
 
 	public function upgrade($old_version)
 	{
@@ -155,12 +152,9 @@ class Module_Streams_core extends Module
 	 */
 	private function _load_config()
 	{
-		if (defined('PYROPATH'))
-		{
+		if (defined('PYROPATH')) {
 			require_once(PYROPATH.'modules/streams_core/config/streams.php');
-		}
-		elseif (defined('APPPATH'))
-		{
+		} elseif (defined('APPPATH')) {
 			require_once(APPPATH.'modules/streams_core/config/streams.php');
 		}
 

@@ -21,7 +21,7 @@ class Migration_Convert_blog_to_streams extends CI_Migration
 		{
 			// Create the stream from the blog table!
 			// This will not alter any data, just add some new fields.
-			// Note: We are going to start off with 'title' and 'created' as the 
+			// Note: We are going to start off with 'title' and 'created' as the
 			// fields that we show in the index.
 			$this->streams->utilities->convert_table_to_stream('blog', 'blogs', null, 'lang:blog:blog_title', null, 'title', array('title', 'created'));
 
@@ -30,18 +30,16 @@ class Migration_Convert_blog_to_streams extends CI_Migration
 			// Streams needs created and updated to function, so we are going to
 			// just transfer the values.
 			$blogs = $this->db->select('id, created_on, author_id, updated_on')->get('blog')->result();
-			foreach ($blogs as $blog)
-			{
+			foreach ($blogs as $blog) {
 				$update = array(
 					'created' 		=> date('Y-m-d H:i:s', $blog->created_on),
 					'created_by'	=> $blog->author_id
 				);
 
-				if ($blog->updated_on > 0)
-				{
+				if ($blog->updated_on > 0) {
 					$update['updated'] = date('Y-m-d H:i:s', $blog->updated_on);
 				}
-			
+
 				$this->db->limit(1)->where('id', $blog->id)->update('blog', $update);
 			}
 
@@ -58,5 +56,3 @@ class Migration_Convert_blog_to_streams extends CI_Migration
         return true;
     }
 }
-
-

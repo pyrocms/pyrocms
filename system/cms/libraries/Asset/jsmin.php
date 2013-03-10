@@ -54,7 +54,8 @@
  * @package    PyroCMS\Core\Libraries\Asset
  */
 
-class Asset_JSMin {
+class Asset_JSMin
+{
 	const ORD_LF = 10;
 	const ORD_SPACE = 32;
 	const ACTION_KEEP_A = 1;
@@ -76,7 +77,8 @@ class Asset_JSMin {
 	 * @param string $js Javascript to be minified
 	 * @return string
 	 */
-	public static function minify($js) {
+	public static function minify($js)
+	{
 		$jsmin = new Asset_JSmin($js);
 		return $jsmin->min();
 	}
@@ -84,14 +86,16 @@ class Asset_JSMin {
 	/**
 	 * @param string $input
 	 */
-	public function __construct($input) {
+	public function __construct($input)
+	{
 		$this->input = $input;
 	}
 
 	/**
 	 * Perform minification, return result
 	 */
-	public function min() {
+	public function min()
+	{
 		if ($this->output !== '') { // min already run
 			return $this->output;
 		}
@@ -149,7 +153,8 @@ class Asset_JSMin {
 	 * ACTION_DELETE_A = Copy B to A. Get the next B.
 	 * ACTION_DELETE_A_B = Get the next B.
 	 */
-	protected function action($command) {
+	protected function action($command)
+	{
 		if ($command === self::ACTION_DELETE_A_B
 				&& $this->b === ' '
 				&& ($this->a === '+' || $this->a === '-')) {
@@ -222,7 +227,8 @@ class Asset_JSMin {
 		}
 	}
 
-	protected function isRegexpLiteral() {
+	protected function isRegexpLiteral()
+	{
 		if (false !== strpos("\n{;(,=:[!&|?", $this->a)) { // we aren't dividing
 			return true;
 		}
@@ -249,7 +255,8 @@ class Asset_JSMin {
 	/**
 	 * Get next char. Convert ctrl char to space.
 	 */
-	protected function get() {
+	protected function get()
+	{
 		$c = $this->lookAhead;
 		$this->lookAhead = null;
 		if ($c === null) {
@@ -272,7 +279,8 @@ class Asset_JSMin {
 	/**
 	 * Get next char. If is ctrl character, translate to a space or newline.
 	 */
-	protected function peek() {
+	protected function peek()
+	{
 		$this->lookAhead = $this->get();
 		return $this->lookAhead;
 	}
@@ -280,11 +288,13 @@ class Asset_JSMin {
 	/**
 	 * Is $c a letter, digit, underscore, dollar sign, escape, or non-ASCII?
 	 */
-	protected function isAlphaNum($c) {
+	protected function isAlphaNum($c)
+	{
 		return (preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c) || ord($c) > 126);
 	}
 
-	protected function singleLineComment() {
+	protected function singleLineComment()
+	{
 		$comment = '';
 		while (true) {
 			$get = $this->get();
@@ -299,7 +309,8 @@ class Asset_JSMin {
 		}
 	}
 
-	protected function multipleLineComment() {
+	protected function multipleLineComment()
+	{
 		$this->get();
 		$comment = '';
 		while (true) {
@@ -330,7 +341,8 @@ class Asset_JSMin {
 	 * Get the next character, skipping over comments.
 	 * Some comments may be preserved.
 	 */
-	protected function next() {
+	protected function next()
+	{
 		$get = $this->get();
 		if ($get !== '/') {
 			return $get;

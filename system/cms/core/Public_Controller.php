@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Redirects\Model\Redirect;
 
@@ -22,21 +22,17 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
 
 		// Check redirects if GET and Not AJAX
-		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
-		{
+		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET') {
 			$uri = trim(uri_string(), '/');
 
-			if ($uri and $redirect = Redirect::findByUri($uri))
-			{
+			if ($uri and $redirect = Redirect::findByUri($uri)) {
 				// Check if it was direct match
-				if ($redirect->from == $uri)
-				{
+				if ($redirect->from == $uri) {
 					redirect($redirect->to, 'location', $redirect->type);
 				}
 
 				// If it has back reference
-				if (strpos($redirect->to, '$') !== false)
-				{
+				if (strpos($redirect->to, '$') !== false) {
 					$from = str_replace('%', '(.*?)', $redirect->from);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
 				}
@@ -66,9 +62,8 @@ class Public_Controller extends MY_Controller
 		Asset::add_path('theme', $this->theme->path.'/');
 		Asset::set_path('theme');
 
-		// Support CDN URL's like Amazon CloudFront 
-		if (Settings::get('cdn_domain'))
-		{
+		// Support CDN URL's like Amazon CloudFront
+		if (Settings::get('cdn_domain')) {
 			$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 
 			// Make cdn.pyrocms.com into https://cdn.pyrocms.com/
@@ -85,14 +80,12 @@ class Public_Controller extends MY_Controller
 				</script>');
 
 		// Is there a layout file for this module?
-		if ($this->template->layout_exists($this->module.'.html'))
-		{
+		if ($this->template->layout_exists($this->module.'.html')) {
 			$this->template->set_layout($this->module.'.html');
 		}
 
 		// Nope, just use the default layout
-		elseif ($this->template->layout_exists('default.html'))
-		{
+		elseif ($this->template->layout_exists('default.html')) {
 			$this->template->set_layout('default.html');
 		}
 
@@ -100,8 +93,7 @@ class Public_Controller extends MY_Controller
 		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
 		// If there is a blog module, link to its RSS feed in the head
-		if (module_enabled('blog'))
-		{
+		if (module_enabled('blog')) {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}
 

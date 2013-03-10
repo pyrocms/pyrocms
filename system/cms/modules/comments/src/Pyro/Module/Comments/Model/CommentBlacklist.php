@@ -4,7 +4,7 @@
  * Comment Blacklist model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Comments\Models 
+ * @package     PyroCMS\Core\Modules\Comments\Models
  */
 class CommentBlacklist extends \Illuminate\Database\Eloquent\Model
 {
@@ -25,7 +25,7 @@ class CommentBlacklist extends \Illuminate\Database\Eloquent\Model
     /**
      * Find blacklist by email and website
      *
-     * @param string $email 
+     * @param string $email
      * @param string $website
      *
      * @return void

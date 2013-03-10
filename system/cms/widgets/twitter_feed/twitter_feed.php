@@ -2,7 +2,7 @@
 
 /**
  * Show Twitter streams in your site
- * 
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
@@ -51,8 +51,8 @@ class Widget_Twitter_feed extends Widgets
 
 	/**
 	 * The author's website.
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $website = 'http://philsturgeon.co.uk/';
 
@@ -66,7 +66,7 @@ class Widget_Twitter_feed extends Widgets
 	/**
 	 * The fields for customizing the options of the widget.
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	public $fields = array(
 		array(
@@ -92,12 +92,11 @@ class Widget_Twitter_feed extends Widgets
 	 * The main function of the widget.
 	 *
 	 * @param array $options The options for the twitter username and the number of tweets to display
-	 * @return array 
+	 * @return array
 	 */
 	public function run($options)
 	{
-		if ( ! $tweets = $this->cache->get('twitter-'.$options['username'].'-'.$options['number']))
-		{
+		if ( ! $tweets = $this->cache->get('twitter-'.$options['username'].'-'.$options['number'])) {
 			$url_segments = '&screen_name='.$options['username'].'&count='.$options['number'];
 
 			// set a timeout of 10 seconds in case twitter is down when the cache is expired
@@ -126,10 +125,8 @@ class Widget_Twitter_feed extends Widgets
 			'|#([a-z0-9-_]+)|i' => '<a href="https://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if ($tweets)
-		{
-			foreach ($tweets as &$tweet)
-			{
+		if ($tweets) {
+			foreach ($tweets as &$tweet) {
 				$tweet->text = str_replace($options['username'].': ', '', $tweet->text);
 				$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
 			}

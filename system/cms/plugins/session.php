@@ -23,7 +23,7 @@ class Plugin_Session extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
 	 * @return array
@@ -104,7 +104,7 @@ class Plugin_Session extends Plugin
 				),
 			),// end third method
 		);
-	
+
 		return $info;
 	}
 
@@ -125,8 +125,7 @@ class Plugin_Session extends Plugin
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
-		if ($value !== null)
-		{
+		if ($value !== null) {
 			$this->session->set_userdata($name, $value);
 
 			return;
@@ -153,8 +152,7 @@ class Plugin_Session extends Plugin
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
-		if ($value !== null)
-		{
+		if ($value !== null) {
 			$this->session->set_flashdata($name, $value);
 
 			return;
@@ -183,26 +181,20 @@ class Plugin_Session extends Plugin
 
 		$output = '';
 
-		if ($this->session->flashdata('success'))
-		{
-			foreach ((array) $this->session->flashdata('success') as $message)
-			{
+		if ($this->session->flashdata('success')) {
+			foreach ((array) $this->session->flashdata('success') as $message) {
 				$output .= '<div class="' . $success_class . '">' . $message . '</div>';
 			}
 		}
 
-		if ($this->session->flashdata('notice'))
-		{
-			foreach ((array) $this->session->flashdata('notice') as $message)
-			{
+		if ($this->session->flashdata('notice')) {
+			foreach ((array) $this->session->flashdata('notice') as $message) {
 				$output .= '<div class="' . $notice_class . '">' . $message . '</div>';
 			}
 		}
 
-		if ($this->session->flashdata('error'))
-		{
-			foreach ((array) $this->session->flashdata('error') as $message)
-			{
+		if ($this->session->flashdata('error')) {
+			foreach ((array) $this->session->flashdata('error') as $message) {
 				$output .= '<div class="' . $error_class . '">' . $message . '</div>';
 			}
 		}

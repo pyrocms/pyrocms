@@ -18,8 +18,8 @@
  * @package    PyroCMS\Core\Libraries\Asset
  */
 
-class Asset_Csscompressor {
-
+class Asset_Csscompressor
+{
 	/**
 	 * Minify a CSS string
 	 *
@@ -29,7 +29,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return string
 	 */
-	public static function process($css, $options = array()) {
+	public static function process($css, $options = array())
+	{
 		$obj = new Asset_Csscompressor($options);
 		return $obj->_process($css);
 	}
@@ -53,7 +54,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return null
 	 */
-	private function __construct($options) {
+	private function __construct($options)
+	{
 		$this->_options = $options;
 	}
 
@@ -64,7 +66,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return string
 	 */
-	protected function _process($css) {
+	protected function _process($css)
+	{
 		$css = str_replace("\r\n", "\n", $css);
 
 		// preserve empty comment after '>'
@@ -158,7 +161,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return string
 	 */
-	protected function _selectorsCB($m) {
+	protected function _selectorsCB($m)
+	{
 		// remove ws around the combinators
 		return preg_replace('/\\s*([,>+~])\\s*/', '$1', $m[0]);
 	}
@@ -170,7 +174,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return string
 	 */
-	protected function _commentCB($m) {
+	protected function _commentCB($m)
+	{
 		$hasSurroundingWs = (trim($m[0]) !== $m[1]);
 		$m = $m[1];
 		// $m is the comment content w/o the surrounding tokens,
@@ -228,7 +233,8 @@ class Asset_Csscompressor {
 	 *
 	 * @return string
 	 */
-	protected function _fontFamilyCB($m) {
+	protected function _fontFamilyCB($m)
+	{
 		// Issue 210: must not eliminate WS between words in unquoted families
 		$pieces = preg_split('/(\'[^\']+\'|"[^"]+")/', $m[1], null, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 		$out = 'font-family:';

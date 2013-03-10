@@ -6,7 +6,7 @@
 	<div class="content">
 
 	<?php if ($blogs): ?>
-	
+
 		<table border="0" class="table-list" cellspacing="0">
 			<thead>
 			<tr>

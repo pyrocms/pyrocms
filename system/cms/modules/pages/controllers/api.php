@@ -13,40 +13,37 @@ use Pyro\Module\Pages\Model\Page;
 class Api extends API_Controller
 {
 	public function index_get()
-	{	
+	{
 		if ( ! ($order_by = $this->input->get('order-by'))) {
 			$order_by = 'title';
 		}
-		
+
 		if ( ! ($order_dir = $this->input->get('order-dir'))) {
 			$order_dir = 'asc';
 		}
-		
+
 		$this->page_m->order_by($order_by, $order_dir);
-		
+
 		if ($this->input->get('status')) {
 			$results = Page::findByStatus($this->input->get('status'));
-		}
-		
-		else {
+		} else {
 			$results = Page::all();
 		}
-		
+
 		$pages = array();
 		$count = 0;
-		
-		foreach ($results as $page)
-		{
+
+		foreach ($results as $page) {
 			$pages[] = array(
 				'id' => (int) $page->id,
 				'title' => $page->title,
 				'uri' => $page->uri,
 				'status' => $page->status,
 			);
-			
+
 			++$count;
 		}
-		
+
 		$this->response(array(
 			'pages' => $pages,
 			'count' => $count,
@@ -63,8 +60,7 @@ class Api extends API_Controller
 		// Get the page along with its chunks.
 		$page = Page::find($id);
 
-		if (is_null($page))
-		{
+		if (is_null($page)) {
 			// We only require certain columns.
 			$fields = array(
 				'id', 'slug', 'title', 'uri', 'css', 'js', 'meta_title',

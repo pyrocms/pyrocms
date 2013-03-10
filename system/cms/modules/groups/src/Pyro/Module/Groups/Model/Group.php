@@ -33,7 +33,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
 	{
 		return static::lists('description', 'id');
 	}
-    
+
     /**
      * Get all groups except the Admin as a flat array
      *
@@ -56,7 +56,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
 	}
 
 	/**
-     * Get group by name 
+     * Get group by name
      *
      * @param string - The group name to get
      * @return array
@@ -65,4 +65,4 @@ class Group extends \Illuminate\Database\Eloquent\Model
 	{
 		return static::where('name', '=', $group_name)->first();
 	}
-}	
+}

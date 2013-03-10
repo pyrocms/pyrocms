@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -27,6 +27,5 @@ $lang['variables:mass_delete_error'] = 'Ett oväntat fel inträffade när du fö
 $lang['variables:no_select_error'] = 'Du måste välja variabel först.';
 $lang['variables:already_exist_error'] = 'En variabel med namnet "%s" finns redan.';
 
-
-/* End of file variables_lang.php */  
-/* Location: system/cms/modules/variables/language/swedish/variables_lang.php */  
+/* End of file variables_lang.php */
+/* Location: system/cms/modules/variables/language/swedish/variables_lang.php */

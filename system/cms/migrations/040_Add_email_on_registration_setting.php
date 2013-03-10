@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_email_on_registration_setting extends CI_Migration {
-
+class Migration_Add_email_on_registration_setting extends CI_Migration
+{
 	public function up()
 	{
 
@@ -19,7 +19,7 @@ class Migration_Add_email_on_registration_setting extends CI_Migration {
 			'is_gui'			=> 1,
 			'order'				=> 0
 		));
-		
+
 		/* insert default email template */
 		$this->db->insert('email_templates',array(
 			'slug'				=> 'registered',

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_api_enabled_settings extends CI_Migration {
-
+class Migration_Add_api_enabled_settings extends CI_Migration
+{
 	public function up()
 	{
 		$this->dbforge->modify_column('settings', array(
@@ -15,9 +15,8 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 		// --------------------------
 		// Add API Module
 		// --------------------------
-		
-		if ( ! $this->db->limit(1)->where('slug', 'api')->get('modules')->num_rows())
-		{
+
+		if ( ! $this->db->limit(1)->where('slug', 'api')->get('modules')->num_rows()) {
 			$this->db->insert('modules', array(
 				'slug' => 'api',
 				'version' => '1.0',
@@ -37,8 +36,7 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 		// Add API Enabled Setting
 		// --------------------------
 
-		if ( ! $this->db->limit(1)->where('slug', 'api_enabled')->get('settings')->num_rows())
-		{
+		if ( ! $this->db->limit(1)->where('slug', 'api_enabled')->get('settings')->num_rows()) {
 			$this->db->insert('settings', array(
 				'slug'			=> 'api_enabled',
 				'title'			=> 'API Enabled',
@@ -55,9 +53,8 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 		// --------------------------
 		// Add API User Keys Setting
 		// --------------------------
-		
-		if ( ! $this->db->limit(1)->where('slug', 'api_user_keys')->get('settings')->num_rows())
-		{
+
+		if ( ! $this->db->limit(1)->where('slug', 'api_user_keys')->get('settings')->num_rows()) {
 			$this->db->insert('settings', array(
 				'slug'			=> 'api_user_keys',
 				'title'			=> 'API User Keys',
@@ -77,7 +74,7 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 		$this->db
 			->where_in('slug', array('api_enabled', 'api_user_keys'))
 			->delete('settings');
-			
+
 		$this->db
 			->where('slug', 'api')
 			->delete('modules');

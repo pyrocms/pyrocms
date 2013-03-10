@@ -109,7 +109,7 @@ $lang['settings:comment_order_desc']			= 'Määritä kommenttien järjestys.';
 
 $lang['settings:enable_comments'] 				= 'Aktivoi Kommentit';
 $lang['settings:enable_comments_desc']			= 'Salli kävijöiden jättää kommentteja?';
-	
+
 $lang['settings:moderate_comments']				= 'Moderoi kommentteja';
 $lang['settings:moderate_comments_desc']		= 'Valitse tämä, jos haluat takistaa kommentit ennen julkaisua.';
 

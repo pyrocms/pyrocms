@@ -102,7 +102,7 @@ $lang['settings:akismet_api_key_desc']			= 'Akismet er en spam-blocker fra WordP
 
 $lang['settings:comment_order']					= 'Kommentar Rækkefølge';
 $lang['settings:comment_order_desc']			= 'Rækkefølgen som kommentarerne vises i.';
-	
+
 $lang['settings:moderate_comments']				= 'Moderer Kommentarer';
 $lang['settings:moderate_comments_desc']		= 'Tving kommentarer til at blive godkendt før de vises på sitet.';
 

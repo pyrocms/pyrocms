@@ -23,10 +23,10 @@ class Plugin_User extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -42,8 +42,7 @@ class Plugin_User extends Plugin
 		$user = (array) $this->current_user;
 		ksort($user);
 
-		foreach ($user as $key => $value)
-		{
+		foreach ($user as $key => $value) {
 			if (in_array($key, array('password', 'salt'))) continue;
 
 			$info[$key]['description'] = array(
@@ -81,10 +80,8 @@ class Plugin_User extends Plugin
 	{
 		$group = $this->attribute('group', null);
 
-		if ($this->current_user)
-		{
-			if ($group and $group !== $this->current_user->group)
-			{
+		if ($this->current_user) {
+			if ($group and $group !== $this->current_user->group) {
 				return '';
 			}
 
@@ -112,8 +109,7 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if (!$this->current_user or ($group and $group !== $this->current_user->group))
-		{
+		if (!$this->current_user or ($group and $group !== $this->current_user->group)) {
 			return $this->content() ? $this->content() : true;
 		}
 
@@ -135,10 +131,8 @@ class Plugin_User extends Plugin
 	 */
 	public function has_cp_permissions()
 	{
-		if ($this->current_user)
-		{
-			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
-			{
+		if ($this->current_user) {
+			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id))) {
 				return '';
 			}
 
@@ -152,8 +146,7 @@ class Plugin_User extends Plugin
 	{
 		$profile_data = $this->get_user_profile(false);
 
-		if (is_null($profile_data))
-		{
+		if (is_null($profile_data)) {
 			return null;
 		}
 
@@ -204,10 +197,8 @@ class Plugin_User extends Plugin
 			'slug'  => 'updated_on'
 		);
 
-		foreach ($this->ion_auth_model->user_stream_fields as $key => $field)
-		{
-			if (!isset($profile_data[$key]))
-			{
+		foreach ($this->ion_auth_model->user_stream_fields as $key => $field) {
+			if (!isset($profile_data[$key])) {
 				continue;
 			}
 
@@ -241,15 +232,13 @@ class Plugin_User extends Plugin
 	public function profile()
 	{
 		// We can't parse anything if there is no content.
-		if ( ! $this->content())
-		{
+		if ( ! $this->content()) {
 			return null;
 		}
 
 		$profile_data = $this->get_user_profile();
 
-		if (is_null($profile_data))
-		{
+		if (is_null($profile_data)) {
 			return null;
 		}
 
@@ -280,7 +269,7 @@ class Plugin_User extends Plugin
 		// no currently logged in user, there is nothing to display.
 		if (is_null($user_id) and ! isset($this->current_user->id)) {
 			return null;
-		
+
 		// No user provided, but we know one
 		} elseif (is_null($user_id) and isset($this->current_user->id)) {
 			// Otherwise, we can use the current user id
@@ -295,7 +284,7 @@ class Plugin_User extends Plugin
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
-						$field_key, 
+						$field_key,
 						$user->$field_key,
 						$user->profile_id,
 						$field_data->field_type,
@@ -351,16 +340,15 @@ class Plugin_User extends Plugin
 		// Is this a user stream field?
 		if (array_key_exists($var, $this->user_stream_fields)) {
 			$formatted_column = $this->row_m->format_column(
-				$var, 
-				$user->$var, 
+				$var,
+				$user->$var,
 				$user->profile_id,
-				$this->user_stream_fields->{$var}->field_type, 
-				$this->user_stream_fields->{$var}->field_data, 
-				$this->user_stream, 
+				$this->user_stream_fields->{$var}->field_type,
+				$this->user_stream_fields->{$var}->field_data,
+				$this->user_stream,
 				true
 			);
-		}
-		else {
+		} else {
 			$formatted_column = $user[$var];
 		}
 
@@ -387,8 +375,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt')))
-		{
+		if (in_array($name, array('password', 'salt'))) {
 			return;
 		}
 
@@ -396,18 +383,14 @@ class Plugin_User extends Plugin
 
 		// If we do not have a user id and there is
 		// no currently logged in user, there's nothing we can do
-		if (is_null($user_id) and !isset($this->current_user->id))
-		{
+		if (is_null($user_id) and !isset($this->current_user->id)) {
 			return null;
-		}
-		elseif (is_null($user_id) and isset($this->current_user->id))
-		{
+		} elseif (is_null($user_id) and isset($this->current_user->id)) {
 			// Otherwise, we can use the current user id
 			$user_id = $this->current_user->id;
 
 			// but first, is it data we already have? (such as user:username)
-			if (isset($this->current_user->{$name}))
-			{
+			if (isset($this->current_user->{$name})) {
 				return $this->current_user->{$name};
 			}
 		}

@@ -40,7 +40,7 @@ class Admin extends Admin_Controller
 		foreach ($cache_folders as $key => $folder) {
 			$basename = basename($folder);
 			// If the folder is not protected
-			if( ! in_array($basename, $protected)) {
+			if ( ! in_array($basename, $protected)) {
 				// Store it in the array of the folders we will be doing something with.
 				// Just use the filename on the front end to not expose complete paths
 				$folders[] = array(
@@ -69,7 +69,6 @@ class Admin extends Admin_Controller
 			->set('folders', $folders)
 			->build('admin/items');
 	}
-
 
 	public function cleanup($name = '', $andfolder = 0)
 	{
@@ -112,8 +111,7 @@ class Admin extends Admin_Controller
 		}
 
 		if ($andfolder) {
-			if ( ! rmdir($apath))
-			{
+			if ( ! rmdir($apath)) {
 				return false;
 			}
 		}
@@ -142,7 +140,7 @@ class Admin extends Admin_Controller
 
 		// Grab the data as an array
 		$data_array = Data::export($table, $type, $table_list);
-		
+
 		$this->load->library('format');
 		$data = $this->format->factory($data_array)->{'to_'.$type}();
 

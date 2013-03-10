@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 	    parent::__construct();
-	
+
 	    $this->load->model('permission_m');
 	    $this->lang->load('permissions');
 	    $this->lang->load('groups/group');
@@ -54,31 +54,28 @@ class Admin extends Admin_Controller
 		// Get the group data
 		$group = Groups\Model\Group::find($group_id);
 
-		if ($_POST)
-		{
+		if ($_POST) {
 			$modules = $this->input->post('modules');
 			$roles = $this->input->post('module_roles');
 
 			// Save the permissions.
-			if ( $this->permission_m->save($group_id, $modules, $roles)){
+			if ( $this->permission_m->save($group_id, $modules, $roles)) {
 
 				// Fire an event. Permissions have been saved.
 				Events::trigger('permissions_saved', array($group, $modules, $roles));
 
 				$this->session->set_flashdata('success', lang('permissions:message_group_saved_success'));
-			}
-			else
-			{
+			} else {
 				$this->session->set_flashdata('error', lang('permissions:message_group_saved_error'));
 			}
 
-			$this->input->post('btnAction') === 'save_exit' 
+			$this->input->post('btnAction') === 'save_exit'
 				? redirect('admin/permissions')
 				: redirect('admin/permissions/group/'.$group_id);
 		}
 
 		// If the group data could not be retrieved
-		if ( ! $group) {
+		if (! $group) {
 			// Set a message to notify the user.
 			$this->session->set_flashdata('error', lang('permissions:message_no_group_id_provided'));
 			// Send him to the main index to select a proper group.
@@ -92,8 +89,7 @@ class Admin extends Admin_Controller
 		// Get all the possible permission rules from the installed modules
 		$permission_modules = $this->module_m->get_all(array('is_backend' => true, 'installed' => true));
 
-		foreach ($permission_modules as &$permission_module)
-		{
+		foreach ($permission_modules as &$permission_module) {
 			$permission_module['roles'] = $this->module_m->roles($permission_module['slug']);
 		}
 

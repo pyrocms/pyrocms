@@ -4,21 +4,21 @@
 
 <section class="item">
 	<div class="content">
-		
+
 	<?php echo $this->load->view('admin/partials/filters') ?>
 
 	<?php echo form_open('admin/comments/action');?>
-	
+
 		<?php echo form_hidden('redirect', uri_string()) ?>
-	
+
 		<div id="filter-stage">
-		
+
 			<?php echo $this->load->view('admin/tables/comments') ?>
-		
+
 		</div>
 
 		<div class="table_action_buttons">
-	
+
 			<?php if (Settings::get('moderate_comments')): ?>
 				<?php if ( ! $comments_active): ?>
 					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))) ?>
@@ -31,6 +31,6 @@
 		</div>
 
 	<?php echo form_close();?>
-	
+
 	</div>
 </section>

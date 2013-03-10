@@ -8,17 +8,17 @@ use Pyro\Module\Files\Model\Folder;
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\WYSIWYG\Controllers
  */
-class Image extends WYSIWYG_Controller {
-
+class Image extends WYSIWYG_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
 	}
-	
+
 	public function index($id = 0)
 	{
 		$this->load->library('files/files');
-		
+
 		$data = new stdClass();
 
 		$data->folders			= Files::folderTreeRecursive();

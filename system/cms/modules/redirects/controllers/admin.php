@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Redirects\Model\Redirect;
 
@@ -78,7 +78,7 @@ class Admin extends Admin_Controller
 
             if ($result) {
                 $this->session->set_flashdata('success', lang('redirects:add_success'));
-                
+
                 Events::trigger('redirect_created');
             } else {
                 $this->session->set_flashdata('error', lang('redirects:add_error'));
@@ -128,7 +128,7 @@ class Admin extends Admin_Controller
 
             if ($redirect->save()) {
                 $this->session->set_flashdata('success', $this->lang->line('redirects:edit_success'));
-                
+
                 Events::trigger('redirect_updated', $id);
 
                 redirect('admin/redirects');
@@ -169,19 +169,19 @@ class Admin extends Admin_Controller
             if ($deleted > 0) {
                 $this->session->set_flashdata('success', sprintf($this->lang->line('redirects:mass_delete_success'), $deleted, $to_delete));
             }
-            
+
             Events::trigger('redirect_deleted', $id_array);
         } else {
             $this->session->set_flashdata('error', $this->lang->line('redirects:no_select_error'));
-        }       
-        
+        }
+
         redirect('admin/redirects');
     }
 
     /**
      * Callback method for validating the redirect's name
      *
-     * @param string $from
+     * @param  string $from
      * @return bool
      */
     public function _check_unique($from, $id = null)
@@ -190,6 +190,7 @@ class Admin extends Admin_Controller
             return true;
         } else {
             $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
+
             return false;
         }
     }

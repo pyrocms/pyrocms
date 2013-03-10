@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -30,6 +30,5 @@ $lang['redirects:mass_delete_success'] = '%s av %s omdirigeringar raderades.';
 $lang['redirects:no_select_error'] = 'Då måste välja minst en omdirigering.';
 $lang['redirects:request_conflict_error'] = 'En omdirigering med namnet "%s" finns redan.';
 
-
-/* End of file redirects_lang.php */  
-/* Location: system/cms/modules/redirects/language/swedish/redirects_lang.php */  
+/* End of file redirects_lang.php */
+/* Location: system/cms/modules/redirects/language/swedish/redirects_lang.php */

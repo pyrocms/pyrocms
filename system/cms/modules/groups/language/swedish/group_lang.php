@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -25,6 +25,5 @@ $lang['groups:delete_success'] = 'Gruppen "%s" har raderats.';
 $lang['groups:delete_error'] = 'Ett fel inträffade när gruppen skulle raderas. Gruppen som raderas får inte innehålla några användare.';
 $lang['groups:already_exist_error'] = 'En grupp med namnet "%s" finns redan.';
 
-
-/* End of file group_lang.php */  
-/* Location: system/cms/modules/groups/language/swedish/group_lang.php */  
+/* End of file group_lang.php */
+/* Location: system/cms/modules/groups/language/swedish/group_lang.php */

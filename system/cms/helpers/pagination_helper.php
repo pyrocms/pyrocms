@@ -2,13 +2,12 @@
 
 /**
  * PyroCMS Pagination Helpers
- *  
+ *
  * @package PyroCMS\Core\Helpers
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-if ( ! function_exists('create_pagination'))
-{
+if ( ! function_exists('create_pagination')) {
 
 	/**
 	 * The Pagination helper cuts out some of the bumf of normal pagination
@@ -18,7 +17,7 @@ if ( ! function_exists('create_pagination'))
 	 * @param int|null $limit How many to show at a time.
 	 * @param int $uri_segment The current page.
 	 * @param boolean $full_tag_wrap Option for the Pagination::create_links()
-	 * @return array The pagination array. 
+	 * @return array The pagination array.
 	 * @see Pagination::create_links()
 	 */
 	function create_pagination($uri, $total_rows, $limit = null, $uri_segment = 4, $full_tag_wrap = true)
@@ -43,7 +42,7 @@ if ( ! function_exists('create_pagination'))
 		));
 
 		$offset = $limit * ($current_page - 1);
-		
+
 		//avoid having a negative offset
 		if ($offset < 0) $offset = 0;
 

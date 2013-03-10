@@ -45,15 +45,12 @@ class Theme_m extends MY_Model
      */
     public function get_all()
     {
-        foreach ($this->template->theme_locations() as $location)
-        {
-			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR))
-			{
+        foreach ($this->template->theme_locations() as $location) {
+			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR)) {
 				continue;
 			}
 
-			foreach ($themes as $theme_path)
-			{
+			foreach ($themes as $theme_path) {
 				$this->_get_details(dirname($theme_path).'/', basename($theme_path));
 			}
 		}
@@ -74,14 +71,11 @@ class Theme_m extends MY_Model
 	{
 		$slug OR $slug = $this->_theme;
 
-		foreach ($this->template->theme_locations() as $location)
-		{
-			if (is_dir($location.$slug))
-			{
+		foreach ($this->template->theme_locations() as $location) {
+			if (is_dir($location.$slug)) {
 				$theme = $this->_get_details($location, $slug);
 
-				if ($theme !== false)
-				{
+				if ($theme !== false) {
 					return $theme;
 				}
 			}
@@ -101,14 +95,11 @@ class Theme_m extends MY_Model
 	{
 		$slug OR $slug = $this->_admin_theme;
 
-		foreach ($this->template->theme_locations() as $location)
-		{
-			if (is_dir($location.$slug))
-			{
+		foreach ($this->template->theme_locations() as $location) {
+			if (is_dir($location.$slug)) {
 				$theme = $this->_get_details($location, $slug);
 
-				if ($theme !== false)
-				{
+				if ($theme !== false) {
 					return $theme;
 				}
 			}
@@ -128,13 +119,11 @@ class Theme_m extends MY_Model
 	private function _get_details($location, $slug)
 	{
 		// If it exists already, use it
-		if ( ! empty($this->_themes[$slug]))
-		{
+		if ( ! empty($this->_themes[$slug])) {
 			return $this->_themes[$slug];
 		}
 
-		if (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))
-		{
+		if (is_dir($path = $location.$slug) and is_file($path.'/theme.php')) {
 			// Core theme or third party?
 			$is_core = trim($location, '/') === APPPATH.'themes';
 
@@ -160,15 +149,11 @@ class Theme_m extends MY_Model
 			$details = $this->_spawn_class($slug, $is_core);
 
 			//assign values
-			if ($details)
-			{
-				foreach (get_object_vars($details) as $key => $val)
-				{
-					if ($key == 'options' and is_array($val))
-					{
+			if ($details) {
+				foreach (get_object_vars($details) as $key => $val) {
+					if ($key == 'options' and is_array($val)) {
 						// only save to the database if there are no options saved already
-						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result())
-						{
+						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result()) {
 							$this->_save_options($slug, $val);
 						}
 					}
@@ -195,8 +180,7 @@ class Theme_m extends MY_Model
 	 */
 	public function _save_options($theme, $options)
 	{
-		foreach ($options AS $slug => $values)
-		{
+		foreach ($options AS $slug => $values) {
 			// build the db insert array
 			$insert = array(
 				'slug' => $slug,
@@ -247,12 +231,9 @@ class Theme_m extends MY_Model
 	 */
 	public function set_default($input)
 	{
-		if ($input['method'] == 'index')
-		{
+		if ($input['method'] == 'index') {
 			return $this->settings->set('default_theme', $input['theme']);
-		}
-		elseif ($input['method'] == 'admin_themes')
-		{
+		} elseif ($input['method'] == 'admin_themes') {
 			return $this->settings->set('admin_theme', $input['theme']);
 		}
 	}
@@ -275,12 +256,10 @@ class Theme_m extends MY_Model
 		$details_file = "{$path}themes/{$slug}/theme.php";
 
 		// Check the details file exists
-		if ( ! is_file($details_file))
-		{
+		if ( ! is_file($details_file)) {
 			$details_file = SHARED_ADDONPATH.'themes/'.$slug.'/theme.php';
 
-			if ( ! is_file($details_file))
-			{
+			if ( ! is_file($details_file)) {
 				return false;
 			}
 		}
@@ -359,8 +338,7 @@ class Theme_m extends MY_Model
 			->where($params)
 			->get('theme_options');
 
-		foreach ($query->result() as $option)
-		{
+		foreach ($query->result() as $option) {
 			$options->{$option->slug} = $option->value;
 		}
 

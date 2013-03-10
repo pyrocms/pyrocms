@@ -14,7 +14,6 @@ $lang['account_creation_unsuccessful']				= 'Во время создания у
 $lang['account_creation_duplicate_email']			= 'Введённый Email уже используется другим пользователем или неправильный';
 $lang['account_creation_duplicate_username']	= 'Введённый Логин уже используется другим пользователем или неправильный';
 
-
 // пароль
 $lang['password_change_successful']						= 'Пароль изменён';
 $lang['password_change_unsuccessful']					= 'Во время изменения пароля произошла ошибка';

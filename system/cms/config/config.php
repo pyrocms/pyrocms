@@ -88,7 +88,7 @@ $config['charset'] = 'UTF-8';
 |--------------------------------------------------------------------------
 |
 | If you would like to use the 'hooks' feature you must enable it by
-| setting this variable to true (boolean).  See the user guide for details.
+| setting this variable to true (boolean) .  See the user guide for details.
 |
 */
 $config['enable_hooks'] = true;
@@ -353,7 +353,6 @@ $config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this o
 */
 $config['time_reference'] = 'gmt';
 
-
 /*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
@@ -365,7 +364,6 @@ $config['time_reference'] = 'gmt';
 |
 */
 $config['rewrite_short_tags'] = false;
-
 
 /*
 |--------------------------------------------------------------------------

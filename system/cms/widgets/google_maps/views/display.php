@@ -2,10 +2,8 @@
 
 <script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false'></script>
 <script type='text/javascript'>
-    (function($)
-    {
-        $(document).ready(function()
-        {
+    (function($) {
+        $(document).ready(function() {
             var canvas<?php echo $instance_id; ?> = $('div#gmap_canvas<?php echo $instance_id; ?>');
             canvas<?php echo $instance_id; ?>.css('width',<?php echo '"' . $options['width'] . '"'; ?>);
             canvas<?php echo $instance_id; ?>.css('height',<?php echo '"' . $options['height'] . '"'; ?>);
@@ -14,10 +12,8 @@
             geocoder<?php echo $instance_id; ?>.geocode(
             {
                address : <?php echo '"' . $options['address'] . '"'; ?>
-            }, function(results, status)
-            {
-                if ( status == google.maps.GeocoderStatus.OK)
-                {
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
                     var latlng = results[0].geometry.location;
                     var map = new google.maps.Map(canvas<?php echo $instance_id; ?>.get(0),
                     {
@@ -49,8 +45,7 @@
                         {
                            content : <?php echo '"' . $options['description'] . '"'; ?>
                         });
-                        google.maps.event.addListener(marker, 'click', function()
-                        {
+                        google.maps.event.addListener(marker, 'click', function() {
                             info.open(map, marker);
                         });
 

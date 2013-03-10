@@ -5,10 +5,10 @@
 	<!-- Always force latest IE rendering engine & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<?php 
+	<?php
 		Asset::js('jquery/jquery.js');
 		Asset::js('jquery/jquery.js');
-		Asset::css('admin/basic_layout.css'); 
+		Asset::css('admin/basic_layout.css');
 		echo Asset::render();
 	?>
 

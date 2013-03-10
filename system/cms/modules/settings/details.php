@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Settings
  */
-class Module_Settings extends Module {
-
+class Module_Settings extends Module
+{
     public $version = '1.1.0';
 
     public function info()
@@ -420,6 +420,7 @@ class Module_Settings extends Module {
 
             if ( ! $this->pdb->table('settings')->insert($setting)) {
                 log_message('error', '-- -- could not install '.$setting['slug']);
+
                 return false;
             }
         }

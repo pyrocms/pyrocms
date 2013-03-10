@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -22,6 +22,5 @@ $lang['permissions:admin_has_all_permissions'] = 'Gruppen \'Admin\' har rättigh
 $lang['permissions:checkbox_tooltip_action_to_all'] = 'Markera för att tilldela access till alla moduler för denna grupp.';
 $lang['permissions:checkbox_tooltip_give_access_to_module'] = 'Markera för att ge åtkomst till %s modulen för denna grupp.';
 
-
-/* End of file permissions_lang.php */  
-/* Location: system/cms/modules/permissions/language/swedish/permissions_lang.php */  
+/* End of file permissions_lang.php */
+/* Location: system/cms/modules/permissions/language/swedish/permissions_lang.php */

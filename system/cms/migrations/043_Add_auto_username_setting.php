@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_auto_username_setting extends CI_Migration {
-
+class Migration_Add_auto_username_setting extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->insert('settings', array(
