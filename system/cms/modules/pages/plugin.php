@@ -373,6 +373,7 @@ class Plugin_Pages extends Plugin
 	public function children()
 	{
 		$limit			= $this->attribute('limit', 10);
+		$offset			= $this->attribute('offset');
 		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
 		$page_types 	= $this->attribute('include_types');
@@ -396,6 +397,7 @@ class Plugin_Pages extends Plugin
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
+			->offset($offset)
 			->get('pages')
 			->result_array();
 
