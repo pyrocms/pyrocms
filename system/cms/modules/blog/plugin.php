@@ -175,7 +175,9 @@ class Plugin_Blog extends Plugin
 			'order_by'		=> 'created_on',
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
-			'date_by'		=> 'created_on'
+			'date_by'		=> 'created_on',
+			'limit'			=> $this->attribute('limit', 10),
+			'offset'		=> $this->attribute('offset')
 		);
 		foreach ($overrides as $k => $v)
 		{
@@ -183,30 +185,26 @@ class Plugin_Blog extends Plugin
 		}
 
 		// Convert our two non-matching posts params to their
-		// stream counterparts:
+		// stream counterparts. This is for backwards compatability.
 
 		// Order by
-		if ($this->attribute('order-by'))
-		{
+		if ($this->attribute('order-by')) {
 			$params['order_by'] = $this->attribute('order-by');
 		}
-		elseif ($this->attribute('order_by'))
-		{
+		elseif ($this->attribute('order_by')) {
 			$params['order_by'] = $this->attribute('order_by');
 		}
 
 		// Sort
-		if ($this->attribute('order-dir'))
-		{
+		if ($this->attribute('order-dir')) {
 			$params['sort'] = $this->attribute('order-dir');
 		}
-		elseif ($this->attribute('order_by'))
-		{
+		elseif ($this->attribute('order_by')) {
 			$params['sort'] = $this->attribute('sort');
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries as $key => $default_value)
+		foreach ($this->streams->entries->entries_params as $key => $default_value)
 		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
@@ -216,16 +214,19 @@ class Plugin_Blog extends Plugin
 
 		// Categories
 		// We need to filter by certain categories
-		if ($this->attribute('category'))
+		if ($category_string = $this->attribute('category'))
 		{
-			$categories = explode('|', $category);
+			$categories = explode('|', $category_string);
+			$cate_filter_by = array();
 
 			foreach($categories as $category)
 			{
-				if ($category)
-				{
-					$params['where']['`blog_categories.'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'"];
-				}
+				$cate_filter_by[] = '`'.$this->db->dbprefix('blog_categories').'`.`'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
+			}
+
+			if ($cate_filter_by)
+			{
+				$params['where'][] = implode(' OR ', $cate_filter_by);
 			}
 		}
 
@@ -238,33 +239,36 @@ class Plugin_Blog extends Plugin
 
 		// Get our posts.
 		$posts = $this->streams->entries->get_entries($params);
-		
-		// Process posts.
-		// Each post needs some special treatment.
-		foreach ($posts as &$post)
-		{
-			$this->load->helper('text');
 
-			// Keywords array
-			$keywords = Keywords::get($post['keywords']);
-			$formatted_keywords = array();
-			$keywords_arr = array();
-
-			foreach ($keywords as $key)
+		if ($posts['entries'])
+		{		
+			// Process posts.
+			// Each post needs some special treatment.
+			foreach ($posts['entries'] as &$post)
 			{
-				$formatted_keywords[] 	= array('keyword' => $key->name);
-				$keywords_arr[] 		= $key->name;
+				$this->load->helper('text');
 
+				// Keywords array
+				$keywords = Keywords::get($post['keywords']);
+				$formatted_keywords = array();
+				$keywords_arr = array();
+
+				foreach ($keywords as $key)
+				{
+					$formatted_keywords[] 	= array('keyword' => $key->name);
+					$keywords_arr[] 		= $key->name;
+
+				}
+				$post['keywords'] = $formatted_keywords;
+				$post['keywords_arr'] = $keywords_arr;
+
+				// Full URL for convenience.
+				$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+			
+				// What is the preview? If there is a field called intro,
+				// we will use that, otherwise we will cut down the blog post itself.
+				$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 			}
-			$post['keywords'] = $formatted_keywords;
-			$post['keywords_arr'] = $keywords_arr;
-
-			// Full URL for convenience.
-			$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
-		
-			// What is the preview? If there is a field called intro,
-			// we will use that, otherwise we will cut down the blog post itself.
-			$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 		}
 		
 		// {{ entries }} Bypass.

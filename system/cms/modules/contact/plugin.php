@@ -33,32 +33,121 @@ class Plugin_Contact extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'form' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Display a contact form anywhere on your site. Each wildcard attribute that you pass ("email" for example) is available as a variable in the email template and between the double tags to output the form field.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => false,// will it work as a single tag?
+				'double' => true,// how about as a double tag?
+				'variables' => 'name|email|subject|message|attachment-file|some-hidden-value',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'name' => array(
+						'type' => 'text',
+						'flags' => 'text|required',
+						'default' => '',
+						'required' => false,
 					),
-					'limit' => array(
+					'email' => array(
+						'type' => 'text',
+						'flags' => 'text|required|valid_email',
+						'default' => '',
+						'required' => false,
+					),
+					'subject' => array(
+						'type' => 'text',
+						'flags' => 'dropdown|required|value=Name|another=Another Name',
+						'default' => '',
+						'required' => false,
+					),
+					'message' => array(
+						'type' => 'text',
+						'flags' => 'textarea|required|trim',
+						'default' => '',
+						'required' => false,
+					),
+					'some-hidden-value' => array(
+						'type' => 'text',
+						'flags' => 'hidden|=a hidden value',
+						'default' => '',
+						'required' => false,
+					),
+					'attachment-file' => array(
+						'type' => 'text',
+						'flags' => 'file|jpg|png|zip',
+						'default' => '',
+						'required' => false,
+					),
+					'max-size' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '10000',
+						'required' => false,
+					),
+					'button' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'Send',
+						'required' => false,
+					),
+					'template' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => 'contact',
+						'required' => false,
+					),
+					'lang' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'en',
+						'required' => false,
+					),
+					'to' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => Settings::get('contact_email'),
+						'required' => false,
+					),
+					'from' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => Settings::get('server_email'),
+						'required' => false,
+					),
+					'sent' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'Your message has been sent. We will get back to you as soon as we can.',
+						'required' => false,
+					),
+					'error' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'There was a problem sending this message. Please try again later.',
+						'required' => false,
+					),
+					'auto-reply' => array(
+						'type' => 'text',
+						'flags' => 'autoreply-template',
+						'default' => '',
+						'required' => false,
+					),
+					'success-redirect' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the current uri',
+						'required' => false,
+					),
+					'action' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the current uri string',
 						'required' => false,
 					),
 				),
 			),// end first method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	public function __construct()
@@ -251,134 +340,139 @@ class Plugin_Contact extends Plugin
 			}
 
 			$validation[$field]['field'] = $field;
-			$validation[$field]['label'] = ucfirst($field);
+			$validation[$field]['label'] = humanize($field);
 			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
-		$this->form_validation->set_rules($validation);
 
-		if ($this->input->post('contact-submit') && $this->form_validation->run())
-		{
-			// maybe it's a bot?
-			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+		if ($this->input->post('contact-submit')) { 
+			
+			$this->form_validation->set_rules($validation);
+			
+			if ($this->form_validation->run())
 			{
-				$this->session->set_flashdata('error', lang('contact_submit_error'));
-				redirect(current_url());
-			}
-
-			$data = $this->input->post();
-
-			// Add in some extra details about the visitor
-			$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
-			$data['sender_ip']    = $this->input->ip_address();
-			$data['sender_os']    = $this->agent->platform();
-			$data['slug']         = $template;
-			// they may have an email field in the form. If they do we'll use that for reply-to.
-			$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
-			$data['to']       = $to;
-			$data['from']     = $from;
-
-			// Yay they want to send attachments along
-			if ($_FILES > '')
-			{
-				$this->load->library('upload');
-				is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
-				
-				foreach ($_FILES as $form => $file)
+				// maybe it's a bot?
+				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
 				{
-					if ($file['name'] > '')
-					{
-						// Make sure the upload matches a field
-						if ( ! array_key_exists($form, $form_meta)) break;
+					$this->session->set_flashdata('error', lang('contact_submit_error'));
+					redirect(current_url());
+				}
 	
-						$this->upload->initialize($form_meta[$form]['config']);
-						$this->upload->do_upload($form);
-						
-						if ($this->upload->display_errors() > '')
+				$data = $this->input->post();
+	
+				// Add in some extra details about the visitor
+				$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
+				$data['sender_ip']    = $this->input->ip_address();
+				$data['sender_os']    = $this->agent->platform();
+				$data['slug']         = $template;
+				// they may have an email field in the form. If they do we'll use that for reply-to.
+				$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
+				$data['to']       = $to;
+				$data['from']     = $from;
+	
+				// Yay they want to send attachments along
+				if ($_FILES > '')
+				{
+					$this->load->library('upload');
+					is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
+					
+					foreach ($_FILES as $form => $file)
+					{
+						if ($file['name'] > '')
 						{
-							$this->session->set_flashdata('error', $this->upload->display_errors());
-							redirect(current_url());
+							// Make sure the upload matches a field
+							if ( ! array_key_exists($form, $form_meta)) break;
+		
+							$this->upload->initialize($form_meta[$form]['config']);
+							$this->upload->do_upload($form);
+							
+							if ($this->upload->display_errors() > '')
+							{
+								$this->session->set_flashdata('error', $this->upload->display_errors());
+								redirect(current_url());
+							}
+							else
+							{
+								$result_data = $this->upload->data();
+								// pass the attachment info to the email event
+								$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+							}
+						}
+					}
+				}
+	
+				// Try to send the email
+				$results = Events::trigger('email', $data, 'array');
+	
+				// If autoreply has been enabled then send the end user an autoreply response
+				if ($autoreply_template)
+				{
+					$data_autoreply            = $data;
+					$data_autoreply['to']      = $data['email'];
+					$data_autoreply['from']    = $data['from'];
+					$data_autoreply['slug']    = $autoreply_template;
+					$data_autoreply['name']    = $data['name'];
+					$data_autoreply['subject'] = $data['subject'];
+				}
+	
+				// fetch the template so we can parse it to insert into the database log
+				$this->load->model('templates/email_templates_m');
+				$templates = $this->email_templates_m->get_templates($template);
+				
+	            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
+	            $data['subject'] = $this->parser->parse_string($subject, $data, true);
+	
+	            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
+	            $data['body'] = $this->parser->parse_string($body, $data, true);
+				
+				$this->load->model('contact/contact_m');
+	
+				// Grab userdata - we'll need this later
+				$userdata = $this->session->all_userdata();
+				
+				// Finally, we insert the same thing into the log as what we sent
+				$this->contact_m->insert_log($data);
+			
+				foreach ($results as $result)
+				{
+					if ( ! $result)
+					{
+						if (isset($userdata['flash:new:error']))
+						{
+							$message = (array) $userdata['flash:new:error'];
+	
+							$message[] = $message = $this->attribute('error', lang('contact_error_message'));
 						}
 						else
 						{
-							$result_data = $this->upload->data();
-							// pass the attachment info to the email event
-							$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+							$message = $this->attribute('error', lang('contact_error_message'));
 						}
+						
+						$this->session->set_flashdata('error', $message);
+						redirect(current_url());
 					}
 				}
-			}
-
-			// Try to send the email
-			$results = Events::trigger('email', $data, 'array');
-
-			// If autoreply has been enabled then send the end user an autoreply response
-			if ($autoreply_template)
-			{
-				$data_autoreply            = $data;
-				$data_autoreply['to']      = $data['email'];
-				$data_autoreply['from']    = $data['from'];
-				$data_autoreply['slug']    = $autoreply_template;
-				$data_autoreply['name']    = $data['name'];
-				$data_autoreply['subject'] = $data['subject'];
-			}
-
-			// fetch the template so we can parse it to insert into the database log
-			$this->load->model('templates/email_templates_m');
-			$templates = $this->email_templates_m->get_templates($template);
-			
-            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
-            $data['subject'] = $this->parser->parse_string($subject, $data, true);
-
-            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
-            $data['body'] = $this->parser->parse_string($body, $data, true);
-			
-			$this->load->model('contact/contact_m');
-
-			// Grab userdata - we'll need this later
-			$userdata = $this->session->all_userdata();
-			
-			// Finally, we insert the same thing into the log as what we sent
-			$this->contact_m->insert_log($data);
-		
-			foreach ($results as $result)
-			{
-				if ( ! $result)
+	
+				if($autoreply_template) {
+					Events::trigger('email', $data_autoreply, 'array');
+				}
+	
+	
+				if (isset($userdata['flash:new:success']))
 				{
-					if (isset($userdata['flash:new:error']))
-					{
-						$message = (array) $userdata['flash:new:error'];
-
-						$message[] = $message = $this->attribute('error', lang('contact_error_message'));
-					}
-					else
-					{
-						$message = $this->attribute('error', lang('contact_error_message'));
-					}
-					
-					$this->session->set_flashdata('error', $message);
-					redirect(current_url());
+					$message = (array) $userdata['flash:new:success'];
+	
+					$message[] = $this->attribute('sent', lang('contact_sent_text'));
 				}
+				else
+				{
+					$message = $this->attribute('sent', lang('contact_sent_text'));
+				}
+	
+				$this->session->set_flashdata('success', $message);
+				Events::trigger('contact_form_success', $_POST);
+				redirect( ($redirect ? $redirect : current_url()) );
 			}
-
-			if($autoreply_template) {
-				Events::trigger('email', $data_autoreply, 'array');
-			}
-
-
-			if (isset($userdata['flash:new:success']))
-			{
-				$message = (array) $userdata['flash:new:success'];
-
-				$message[] = $this->attribute('sent', lang('contact_sent_text'));
-			}
-			else
-			{
-				$message = $this->attribute('sent', lang('contact_sent_text'));
-			}
-
-			$this->session->set_flashdata('success', $message);
-			redirect( ($redirect ? $redirect : current_url()) );
 		}
 
 		// From here on out is form production

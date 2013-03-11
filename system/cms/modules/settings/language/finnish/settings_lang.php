@@ -140,11 +140,11 @@ $lang['settings:ckeditor_config_desc']          = 'Löydät listan CKEDitorin ke
 $lang['settings:enable_registration']           = 'Käyttäjien rekisteröityminen';
 $lang['settings:enable_registration_desc']      = 'Salli käyttäjien rekisteröityä sivustolle.';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Profiilin näkyvyys';
+$lang['settings:profile_visibility_desc']       = 'Määritä ketkä näkevät profiilit.';
 
-$lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings:cdn_domain']                    = 'CDN verkkotunnus';
+$lang['settings:cdn_domain_desc']               = 'CDN verkkotunnukset mahdollistaa staattisten tiedostojen ulkoistamisen useisiin palvelimiin, kuten Amazon CloudFront tai MaxCDN.';
 
 #section titles
 $lang['settings:section_general']				= 'Yleistä';
@@ -168,13 +168,13 @@ $lang['settings:form_option_Text Only']			= 'Vain Teksti';
 $lang['settings:form_option_Allow Markdown']	= 'Salli Markdown';
 $lang['settings:form_option_Yes']				= 'Kyllä';
 $lang['settings:form_option_No']				= 'Ei';
-$lang['settings:form_option_profile_public']	= 'Visible to everybody'; #translate
-$lang['settings:form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
-$lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
-$lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
-$lang['settings:form_option_activate_by_email']        	= 'Activate by email'; #translate
-$lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_profile_public']	= 'Näkyy kaikille';
+$lang['settings:form_option_profile_owner']		= 'Näkyy vain profiilin omistajalle';
+$lang['settings:form_option_profile_hidden']	= 'Ei näkyvillä';
+$lang['settings:form_option_profile_member']	= 'Näkyy kirjautuneille käyttäjille';
+$lang['settings:form_option_activate_by_email']	= 'Aktivoi sähköpostitse';
+$lang['settings:form_option_activate_by_admin']	= 'Aktivoi ylläpitäjien toimesta';
+$lang['settings:form_option_no_activation']		= 'Ei aktivointia';
 
 // titles
 $lang['settings:edit_title']					= 'Muokkaa asetuksia';

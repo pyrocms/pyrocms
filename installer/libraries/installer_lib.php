@@ -342,7 +342,8 @@ class Installer_lib
 			'__USERNAME__' => $this->ci->session->userdata('username'),
 			'__PASSWORD__' => $this->ci->session->userdata('password'),
 			'__DATABASE__' => $database,
-			'__PORT__' => ($port) ? $port : 3306
+			'__PORT__'     => $port ? $port : 3306,
+			'__DRIVER__'   => class_exists('mysqli') ? 'mysqli' : 'mysql'
 		);
 
 		return $this->_write_file_vars('../system/cms/config/database.php', './assets/config/database.php', $replace);

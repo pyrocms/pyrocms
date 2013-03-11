@@ -93,6 +93,7 @@ class Lex_Parser
 		
 		if ($callback)
 		{
+			//$text = $this->parse_variables($text, $data, $callback);
 			$text = $this->parse_callback_tags($text, $data, $callback);
 		}
 		
@@ -146,6 +147,7 @@ class Lex_Parser
 				if ($loop_data = $this->get_variable($match[1][0], $data))
 				{
 					$looped_text = '';
+
 					foreach ($loop_data as $item_data)
 					{
 						$str = $this->extract_looped_tags($match[2][0], $item_data, $callback);
@@ -153,6 +155,10 @@ class Lex_Parser
 						$str = $this->inject_extractions($str, 'looped_tags');
 
 						$str = $this->parse_variables($str, $item_data, $callback);
+
+						// extract any noparse tags that may have been the value of another tag
+						$str = $this->extract_noparse($str);
+						
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);

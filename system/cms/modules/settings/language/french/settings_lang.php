@@ -61,8 +61,8 @@ $lang['settings:default_theme_desc'] 			= 'Sélectionnez le thème que vous souh
 $lang['settings:activation_email'] 				= 'E-mail d\'activation';
 $lang['settings:activation_email_desc'] 		= 'Envoyer un e-mail quand un utilisateur s\'inscrit avec un lien d\'activation. Désactiver cette option pour laisser les admins activer les comptes.';
 
-$lang['settings:records_per_page'] 				= 'Enregistrements par page';
-$lang['settings:records_per_page_desc'] 		= 'Combien d\'enregistrements devons nous montrer par page dans la section admin?';
+$lang['settings:records_per_page'] 				= 'Entrées par page';
+$lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées devons nous montrer par page ? (valable dans la partie publique du site et dans l\'interface d\'administration) Ex. : articles du blog, utilisateurs etc.';
 
 $lang['settings:rss_feed_items'] 				= 'Nombre de flux RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS ?';

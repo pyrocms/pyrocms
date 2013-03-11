@@ -6,9 +6,9 @@
  */
 
 $lang['addons:modules'] 						= 'Moduulit';
-$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
+$lang['addons:admin_themes'] 					= 'P채채k채ytt채j채 teemat';
 $lang['addons:themes'] 							= 'Teemat';
-$lang['addons:widgets'] 						= 'Widgetit';
+$lang['addons:widgets'] 						= 'Vimpaimet';
 
 $lang['addons:modules:core_list']               = 'Ytimen moduulit';
 $lang['addons:modules:addon_list']              = 'Lis채osa moduulit';
@@ -21,7 +21,7 @@ $lang['addons:modules:enable_success']          = 'Moduuli "%s" otettiin k채ytt�
 $lang['addons:modules:install_error']           = 'Moduulia ei voitu asentaa.';
 $lang['addons:modules:install_success']         = 'Moduuli "%s" on asennettu.';
 
-$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+$lang['addons:modules:module_upload_success']   = 'Moduuli "%s" on ladattu onnistuneesti.';
 
 $lang['addons:modules:delete_success']			= 'Moduuli "%s" poistettiin.';
 $lang['addons:modules:delete_error']			= 'Moduulia "%s" ei voitu poistaa.';

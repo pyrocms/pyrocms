@@ -197,7 +197,7 @@ class Admin_themes extends Admin_Controller
 		{
 			$config['upload_path'] = FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] = 'zip';
-			$config['max_size'] = '2048';
+			$config['max_size'] = '20480';
 			$config['overwrite'] = true;
 
 			$this->load->library('upload', $config);
@@ -451,13 +451,16 @@ class Admin_themes extends Admin_Controller
 	{
 		$select_array = array();
 
-		foreach ($options as $option)
+		if ($options)
 		{
-			list($value, $name) = explode('=', $option);
-			// todo: Maybe we should remove the trim()'s
-			// since this will affect only people who have had the base
-			// theme installed in the past.
-			$select_array[trim($value)] = trim($name);
+			foreach ($options as $option)
+			{
+				list($value, $name) = explode('=', $option);
+				// todo: Maybe we should remove the trim()'s
+				// since this will affect only people who have had the base
+				// theme installed in the past.
+				$select_array[trim($value)] = trim($name);
+			}
 		}
 
 		return $select_array;
