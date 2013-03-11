@@ -90,6 +90,36 @@ class Plugin_Pages extends Plugin
 						'default' => '',
 						'required' => false,
 					),
+					'order-by' => array(
+						'type' => 'flag',
+						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
+						'default' => 'order',
+						'required' => false,
+					),
+					'order-dir' => array(
+						'type' => 'flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
+						'required' => false,
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '10',
+						'required' => false,
+					),
+					'offset' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '0',
+						'required' => false,
+					),
+					'include-types' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
 				),
 			),// end children method
 			'page_tree' => array(// the name of the method you are documenting
@@ -121,7 +151,7 @@ class Plugin_Pages extends Plugin
 					'order-by' => array(
 						'type' => 'flag',
 						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
-						'default' => 'sort',
+						'default' => 'order',
 						'required' => false,
 					),
 					'order-dir' => array(
@@ -376,7 +406,7 @@ class Plugin_Pages extends Plugin
 		$offset			= $this->attribute('offset');
 		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
-		$page_types 	= $this->attribute('include_types');
+		$page_types 	= $this->attribute('include-types', $this->attribute('include_types'));
 
 		// Restrict page types.
 		// Page types can be provided in a pipe (|) delimited string.
