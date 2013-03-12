@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= 'Structure'; #translate
 $lang['cp:nav_content']					= 'קונטנט';
 $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
+$lang['cp:search']                      = 'Search'; #translate
+
 $lang['cp:must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp:access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 

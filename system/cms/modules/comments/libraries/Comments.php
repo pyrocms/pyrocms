@@ -127,7 +127,7 @@ class Comments
 	 */
 	public function count()
 	{
-		return (int) $this->db->where(array(
+		return (int) ci()->db->where(array(
 			'module'	=> $this->module,
 			'entry_key'	=> $this->singular,
 			'entry_id'	=> $this->entry_id,
@@ -143,6 +143,18 @@ class Comments
 	public function count_string()
 	{
 		$total = $this->count();
+
+		switch ($total)
+		{
+			case 0:
+				$line = 'none';
+				break;
+			case 1:
+				$line = 'singular';
+				break;
+			default:
+				$line = 'plural';
+		}
 
 		return sprintf(lang('comments:counter_'.$line.'_label'), $total);
 	}

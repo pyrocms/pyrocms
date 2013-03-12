@@ -15,7 +15,7 @@ class Field_relationship
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'choose_stream' );
+	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
 	public $version					= '1.1.0';
 
@@ -74,7 +74,7 @@ class Field_relationship
 		}
 		
 		// Output the form input
-		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
+		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'-'.$stream->stream_slug.'-'.$stream->stream_namespace.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -156,7 +156,14 @@ class Field_relationship
 		
 		if ($this->CI->uri->segment(1) == 'admin')
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
+			if (isset($data['link_uri']) and ! empty($data['link_uri']))
+			{
+				return '<a href="'.site_url(str_replace(array('-id-', '-stream-'), array($row['id'], $stream->stream_slug), $data['link_uri'])).'">'.$row[$title_column].'</a>';
+			}
+			else
+			{
+				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
+			}
 		}
 		else
 		{
@@ -210,6 +217,8 @@ class Field_relationship
 
 		foreach ($stream_fields as $field_slug => $stream_field)
 		{
+			if (! $this->CI->db->field_exists($field_slug, $rel_stream->stream_prefix.$rel_stream->stream_slug)) continue;
+			
 			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
 		}
 

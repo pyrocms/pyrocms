@@ -36,32 +36,304 @@ class Plugin_Theme extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'path' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Outputs the path to the theme relative to the web root.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(),
+			),// end path method
+			'partial' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Outputs a theme partial file at the location of this tag (usually in your layout file).'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
 				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'name' => array(// this is the order-dir="asc" attribute
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
 					),
-					'limit' => array(
-						'type' => 'number',
+				),
+			),// end partial method
+			'variables' => array(
+				'description' => array(
+					'en' => 'Set and display temporary variables.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
 						'flags' => '',
-						'default' => '20',
+						'default' => '',
+						'required' => true,
+					),
+					'value' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end variables method
+			'favicon' => array(
+				'description' => array(
+					'en' => 'Display a favicon for your site.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'favicon.ico',
+						'required' => false,
+					),
+					'rel' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'shortcut icon',
+						'required' => false,
+					),
+					'sizes' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'type' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'image/x-icon',
+						'required' => false,
+					),
+					'xhtml' => array(
+						'type' => 'flag',
+						'flags' => 'Y|N',
+						'default' => 'N',
+						'required' => false,
+					),
+				),
+			),// end favicon method
+			'lang' => array(
+				'description' => array(
+					'en' => 'Output a translated string from the language file specified by [lang]. Use [default] to output a fallback string.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'lang' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'line' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'default' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end lang method
+			'css' => array(
+				'description' => array(
+					'en' => 'Load a CSS file from the theme\'s css folder',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'title' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'media' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'type' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'text/css',
+						'required' => false,
+					),
+					'rel' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'stylesheet',
+						'required' => false,
+					),
+				),
+			),// end css method
+			'css_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified CSS file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end css_path method
+			'css_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified CSS file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end css_url method
+			'image' => array(
+				'description' => array(
+					'en' => 'Output a theme image from the theme\'s img folder. Extra attributes can be used to set the class or etc.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'alt' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the file name',
+						'required' => false,
+					),
+					'any' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end image method
+			'image_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified image file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image_path method
+			'image_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified image file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image_url method
+			'js' => array(
+				'description' => array(
+					'en' => 'Include a JavaScript file from the theme\'s js folder',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js method
+			'js_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified js file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js_path method
+			'js_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified js file.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js_url method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**

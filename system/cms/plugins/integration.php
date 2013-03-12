@@ -36,32 +36,46 @@ class Plugin_Integration extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'analytics' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Output the Google Analytics tracking code to your theme.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(),
+			),// end analytics method
+			'visitors' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Show the number of visitors as recorded by Google Analytics since the specified date. Cache for [refresh] hours.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
 				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'start' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '2010-01-01',
+						'required' => false,
 					),
-					'limit' => array(
+					'end' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => date('Y-m-d'),
+						'required' => false,
+					),
+					'refresh' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '24',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end visitors method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**

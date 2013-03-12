@@ -79,13 +79,7 @@ class Public_Controller extends MY_Controller
 		}
 
 		// Set the theme view folder
-		$this->template
-			->set_theme($this->theme->slug)
-			->append_metadata('
-				<script type="text/javascript">
-					var APPPATH_URI = "'.APPPATH_URI.'";
-					var BASE_URI = "'.BASE_URI.'";
-				</script>');
+		$this->template->set_theme($this->theme->slug);
 
 		// Is there a layout file for this module?
 		if ($this->template->layout_exists($this->module.'.html'))

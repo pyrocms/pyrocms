@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= 'Rakenne';
 $lang['cp:nav_content']					= 'Sisältö';
 $lang['cp:nav_misc']					= 'Sekalaiset';
 
+$lang['cp:search']                      = 'Etsi';
+
 $lang['cp:must_login']								= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';
 $lang['cp:access_denied']							= 'Sinulla ei ole oikeuksia selataksesi tätä sivua.';
 $lang['cp:delete_installer_message']				= 'Asennuskansiota ei ole poistettu! Se tulee poistaa asennuksen jälkeen! Mikäli jätät sen poistamatta, niin annat julkisen pääsyn sivuston hallintaan.';

@@ -30,52 +30,171 @@ class Plugin_Comments extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'count' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Display the number of comments for the specified item.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
 				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
-					),
-					'limit' => array(
-						'type' => 'number',
+					'entry_id' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|text',// Can be: slug, number, flag, text, array, any.
 						'flags' => '',
-						'default' => '20',
+						'default' => '0',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
+					),
+					'entry_key' => array(
+						'type' => 'text|lang',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'module' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => 'current module',
 						'required' => false,
 					),
 				),
 			),// end first method
+			'count_string' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Display the comment count as a translated string.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'entry_id' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',
+						'default' => '0',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
+					),
+					'entry_key' => array(
+						'type' => 'text|lang',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'module' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => 'current module',
+						'required' => false,
+					),
+				),
+			),// end second method
+			'display' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output the comments html for the specified item.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'entry_id' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',
+						'default' => '0',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
+					),
+					'entry_key' => array(
+						'type' => 'text|lang',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'module' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => 'current module',
+						'required' => false,
+					),
+				),
+			),// end third method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**
 	 * Count
 	 *
 	 * Usage:
-	 * {{ comments:count item_id="{{ page:id }}" [module="pages"] [type="number"] }}
+	 * {{ comments:count entry_id=page:id entry_key="pages:page" [module="pages"] }}
 	 *
 	 * @param array
 	 * @return array
 	 */
 	public function count()
 	{
-		$item_id = $this->attribute('item_id', 0);
-		$module  = $this->attribute('module', $this->module);
-		$type    = $this->attribute('type', false);
+		$entry_id 	= $this->attribute('entry_id', $this->attribute('item_id'));
+		$entry_key 	= $this->attribute('entry_key');
+		$module  	= $this->attribute('module', $this->module);
 		
-		$this->load->helper('comments/comments');
+		$this->load->library('comments/comments', 
+			array(
+				'entry_id' => $entry_id, 
+				'singular' => $entry_key, 
+				'module' => $module
+				)
+			);
 		
-		return count_comments($item_id, $module, $type);
+		return $this->comments->count();
+	}
+
+	/**
+	 * Count and return a translated string
+	 *
+	 * Usage:
+	 * {{ comments:count_string entry_id=page:id entry_key="pages:page" [module="pages"] }}
+	 *
+	 * @param array
+	 * @return array
+	 */
+	public function count_string()
+	{
+		$entry_id 	= $this->attribute('entry_id', $this->attribute('item_id'));
+		$entry_key 	= $this->attribute('entry_key');
+		$module  	= $this->attribute('module', $this->module);
+		
+		$this->load->library('comments/comments', 
+			array(
+				'entry_id' => $entry_id, 
+				'singular' => $entry_key, 
+				'module' => $module
+				)
+			);
+		
+		return $this->comments->count_string();
+	}
+
+	/**
+	 * Display
+	 *
+	 * Usage:
+	 * {{ comments:display entry_id=page:id entry_key="pages:page" [module="pages"] }}
+	 *
+	 * @param array
+	 * @return array
+	 */
+	public function display()
+	{
+		$entry_id 	= $this->attribute('entry_id', $this->attribute('item_id'));
+		$entry_key 	= $this->attribute('entry_key');
+		$module  	= $this->attribute('module', $this->module);
+		
+		$this->load->library('comments/comments', 
+			array(
+				'entry_id' => $entry_id, 
+				'singular' => $entry_key, 
+				'module' => $module
+				)
+			);
+		
+		return $this->comments->display();
 	}
 }
 

@@ -113,6 +113,11 @@ section.center .no_data {
 	margin-right: 140px;
 }
 
+#file-buttons li {
+	display: inline-block;
+	margin-right: 4px;
+}
+
 #file-query {
 	display: inline-block;
 	position: relative;
@@ -124,14 +129,14 @@ input#file-search {
 	width: auto;
 	display: inline-block;
 	position: absolute;
-	top: -4px;
+	top: -1px;
 	right: 0;
 	padding: 4px 0px 4px 16px;
   margin: 0px 16px 0 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
-  line-height: 20px;
+  line-height: 16px;
   background: #eee;
 	border: 1px solid #ccc;
 	-webkit-box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
@@ -164,7 +169,7 @@ input#file-search:focus {
 
 .button-menu-source {
 	display:none;
-	padding:4px 16px 0 0 !important;
+	padding:1px 16px 0 0 !important;
 	float: left;
 }
 
@@ -604,11 +609,11 @@ li.right-title,li.right-title label {
 }
 
 #files-uploader-queue li {
+	display: block;
 	margin:0px 10px 0px;
 	padding-top:10px;
 	border-top:1px solid #ddd;
 	clear:both;
-	display: inline-block;
 }
 
 #files-uploader-queue li:first-child {
@@ -655,8 +660,8 @@ li.right-title,li.right-title label {
 }
 
 #files-uploader-queue .file_upload_progress {
-	margin-top:10px;
-	width:30%;
+	margin-top:12px;
+	width:40%;
 	overflow:hidden;
 }
 
@@ -668,21 +673,63 @@ li.right-title,li.right-title label {
 }
 
 .file_upload_cancel div.start-icon {
+	position: absolute;
+	top: 18px;
+	right: 10px;
+	display:block;
 	margin-left:5px;
-	width:30px;
-	height:30px;
-	background:url(../img/upload.png) no-repeat 0 0;
-	display:inline-block;
+	width:20px;
+	height:20px;
+	/* background:url(../img/upload.png) no-repeat 0 0; */
+	background-color: #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	cursor: pointer;
 }
 
 .file_upload_cancel div.cancel-icon {
+	position: absolute;
+	top: 18px;
+	right: 35px;
+	display:block;
 	margin-left:5px;
-	width:30px;
-	height:30px;
-	background:url(../img/cancel.png) no-repeat 0 0;
-	display:inline-block;
+	width:20px;
+	height:20px;
+	/* background:url(../img/cancel.png) no-repeat 0 0; */
+	background-color: #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	cursor: pointer;
+}
+
+.file_upload_cancel div.cancel-icon:hover,
+.file_upload_cancel div.cancel-icon:active {
+	background-color: #ff5050;
+}
+
+.file_upload_cancel div.start-icon:hover,
+.file_upload_cancel div.start-icon:active {
+	background-color: #75c080;
+}
+
+.file_upload_cancel div.cancel-icon:before {
+	content: "×";
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	left: 6px;
+}
+
+.file_upload_cancel div.start-icon:before {
+	content: "+";
+	position: absolute;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	left: 6px;
 }
 
 #files-uploader-queue .image_meta {
@@ -701,4 +748,23 @@ li.right-title,li.right-title label {
 
 #files-uploader-queue .image_meta input {
 	margin-right:20px;
+}
+
+#files-uploader-queue li {
+	position: relative;
+}
+
+@media 
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and ( min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 21),
+only screen and ( min-device-pixel-ratio: 2),
+only screen and ( min-resolution: 192dpi),
+only screen and ( min-resolution: 2dppx)
+and (min-device-width: 768px) {
+/* Styles */
+	.folders-center .folder {
+		background:url(../img/folder@2x.png) no-repeat;
+		background-size: 100px 100px;
+	}
 }

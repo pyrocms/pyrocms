@@ -123,7 +123,7 @@ jQuery(function($) {
 			});
 		});
 
-		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+		$("#datepicker, .datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
 		$('.alert').livequery(function(){
@@ -426,7 +426,9 @@ jQuery(function($) {
 	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
-		pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
+		if (exception != 'abort') {
+			pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
+		}
 	});
 
 	$(document).ready(function() {

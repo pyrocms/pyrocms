@@ -66,10 +66,12 @@
 
 		<?php endif; ?>
 
-		<!--<li>
+		<?php if ($allow_title_column_set): ?>
+		<li>
 			<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
-			<div class="inputs"><?php //echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
-		</li>-->
+			<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+		</li>
+		<?php endif; ?>
 
 		<?php
 		
@@ -153,7 +155,9 @@
 		
 		<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
-		<a href="<?php echo site_url('admin/users/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		<?php if ($cancel_uri): ?>
+		<a href="<?php echo site_url($cancel_uri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+	<?php endif; ?>
 	</div>
 	
 <?php echo form_close();?>
