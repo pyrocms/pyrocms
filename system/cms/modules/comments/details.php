@@ -95,7 +95,7 @@ class Module_Comments extends Module
 				'uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
 				'cp_uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'),
-				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
+				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 45, 'default' => ''),
 			),
 			'comment_blacklists' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
