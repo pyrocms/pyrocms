@@ -172,7 +172,7 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
 
-		$email = $this->input->post('email');
+		$email = strtolower($this->input->post('email'));
 		$password = $this->input->post('password');
 		$username = $this->input->post('username');
 		$group_id = $this->input->post('group_id');
