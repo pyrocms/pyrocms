@@ -384,7 +384,7 @@ class Blog extends Public_Controller
 		}
 
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
-
+		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
 		if ($post['category_id'] > 0)
 		{
 			// Get the category. We'll just do it ourselves
@@ -439,7 +439,6 @@ class Blog extends Public_Controller
 			->set_metadata('article:modified_time', date(DATE_ISO8601, $post['updated_on']), 'og')
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($post['title'])
 			->set('post', array($post))
 			->build('view');
