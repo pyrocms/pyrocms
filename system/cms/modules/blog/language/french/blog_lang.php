@@ -37,7 +37,7 @@ $lang['blog:comments_enabled_label']   = 'Commentaires activés';
 // titles
 $lang['blog:create_title']    			= 'Créer un article';
 $lang['blog:edit_title']      			= 'Modifier l\'article "%s"';
-$lang['blog:archive_title']   			= 'Archiver';
+$lang['blog:archive_title']   			= 'Archives';
 $lang['blog:posts_title']     			= 'Articles';
 $lang['blog:rss_posts_title'] 			= ' pour %s';
 $lang['blog:blog_title']      			= 'Articles';
