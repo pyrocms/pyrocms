@@ -53,6 +53,7 @@
 							foreach($buttons as $button)
 							{
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
 								$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), $button['label'], 'class="'.$class.'"');
 							}
 						
