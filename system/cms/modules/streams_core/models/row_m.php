@@ -1283,7 +1283,7 @@ class Row_m extends MY_Model {
 	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$this->load->helper('text');
 
