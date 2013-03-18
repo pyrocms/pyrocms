@@ -282,10 +282,9 @@ class Plugin_Helper extends Plugin
 	
 	public function timespan()
 	{
-		$now = time(); 
 		$timespan = date($this->attribute('timestamp', now())); 
 		
-		return timespan($timespan, $now);
+		return timespan($timespan, time());
 	}
 
 	/**
