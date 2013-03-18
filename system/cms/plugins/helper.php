@@ -267,6 +267,26 @@ class Plugin_Helper extends Plugin
 
 		return format_date($timestamp, $format);
 	}
+	
+	/**
+	 * Date
+	 *
+	 * Gets the timespan from the timestamp passed to it.
+	 *
+	 * Usage:
+	 *
+	 *     {{ helper:timespan timestamp="xyz" }}
+	 *
+	 * @return string The date and time formatted appropriately.
+	 */
+	
+	public function timespan()
+	{
+		$now = time(); 
+		$timespan = date($this->attribute('timestamp', now())); 
+		
+		return timespan($timespan, $now);
+	}
 
 	/**
 	 * Gravatar
