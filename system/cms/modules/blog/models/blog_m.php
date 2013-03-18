@@ -31,7 +31,7 @@ class Blog_m extends MY_Model
 			->row();
 	}
 
-	public function get_by($key = nullf, $value = null)
+	public function get_by($key = null, $value = null)
 	{
 		$this->db
 			->select('blog.*, users.username, profiles.display_name')
