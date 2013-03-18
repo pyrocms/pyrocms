@@ -1,28 +1,30 @@
 {{ theme:partial name="aside" }}
 
+{{ post }}
+
 <article class="single_post">	
-	<h5>{{ theme:image file="link.png" }} <?php echo $post[0]["title"]; ?><small><a href="{{ base:url }}blog" title="Back to the blog">&larr; Back</a></small></h5>
+	<h5>{{ theme:image file="link.png" }} {{ title }}<small><a href="{{ base:url }}blog" title="Back to the blog">&larr; Back</a></small></h5>
 			
 	<div class="post_date">
 		<span class="date">
 			{{ theme:image file="date.png" }}
-			About <?php $now = time(); $posted = date($post[0]["created_on"]); echo timespan($posted, $now); ?> ago.
+			About {{ helper:date timestamp=created_on }} ago.
 		</span>
 	</div>
 			
 	<hr>
 	
 	<div class="post_body">
-		<?php echo $post[0]["body"]; ?>
+		{{ body }}
 	</div>
 			
 	<div class="post_meta">
-		<?php if($post[0]["keywords"]) : ?>
+		{{ if keywords }}
 			{{ theme:image file="tags.png" }}
 			<span class="tags">
-				<?php echo $post[0]["keywords"]; ?>
+				{{ keywords }}
 			</span>
-		<?php endif; ?>
+		{{ endif }}
 	</div>
 	
 	<?php if (Settings::get('enable_comments')): ?>	
@@ -41,3 +43,5 @@
 	
 	<?php endif; ?>
 </article>
+
+{{ /post }}
