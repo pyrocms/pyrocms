@@ -269,7 +269,7 @@ class Plugin_Helper extends Plugin
 	}
 	
 	/**
-	 * Date
+	 * Timespan
 	 *
 	 * Gets the timespan from the timestamp passed to it.
 	 *
@@ -277,7 +277,7 @@ class Plugin_Helper extends Plugin
 	 *
 	 *     {{ helper:timespan timestamp="xyz" }}
 	 *
-	 * @return string The date and time formatted appropriately.
+	 * @return string the timespan string.
 	 */
 	
 	public function timespan()
