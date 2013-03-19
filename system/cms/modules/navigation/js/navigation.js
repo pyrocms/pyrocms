@@ -19,7 +19,7 @@
 			window.scrollTo(0, 0);
 			if ($(this).next('section.item').hasClass('collapsed')) {
 				$('.box .item').slideUp(200).addClass('collapsed');
-				$.cookie('nav_groups', $(this).parents('.box').attr('rel'), { expires: 1, path: '/admin/navigation' });
+				var result = $.cookie('nav_groups', $(this).parents('.box').attr('rel'), { expires: 1, path: window.location.pathname });
 				$(this).next('section.collapsed').slideDown(200).removeClass('collapsed');
 			}
 		});
