@@ -176,7 +176,7 @@ abstract class Plugin
 		// add this view location to the array
 		$this->load->set_view_path($path);
 
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => TRUE));
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);
