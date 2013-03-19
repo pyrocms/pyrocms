@@ -230,17 +230,47 @@ class Plugin_Pages extends Plugin
 	}
 
 	/**
+	 * Get the ID of a page from a slug
+	 *
+	 * @param $slug string
+	 * @return string
+	 */
+
+	private function _page_id_from_slug($slug)
+	{
+		$page = $this->db->select('pages.id')
+			->where('pages.slug', $slug)
+			->get('pages')
+			->row();
+			
+		if(isset($page->id))
+		{
+			return $page->id;
+		}
+		
+		return null;
+	}
+
+	/**
 	 * Get the URL of a page
 	 *
 	 * Attributes:
 	 *  - (int) id : The id of the page to get the URL for.
+	 *  - (string) slug : The slug of the page to look for.
 	 *
 	 * @return string
 	 */
 	public function url()
 	{
-		$id   = $this->attribute('id');
-		$page = $this->pyrocache->model('page_m', 'get', array($id));
+		$page_id = $this->attribute('id', null);
+		$page_slug = $this->attribute('slug', null);
+		
+		if($page_id == null && $page_slug != null)
+		{
+			$page_id = $this->_page_id_from_slug($page_slug);
+		}
+		
+		$page = $this->pyrocache->model('page_m', 'get', array($page_id));
 
 		return site_url($page ? $page->uri : '');
 	}
@@ -398,15 +428,21 @@ class Plugin_Pages extends Plugin
 	 *      {{body}}
 	 * {{ /pages:children }}
 	 *
+	 * {{ pages:children slug="page-slug" limit="5" }}
+	 *  <h2>{{title}}</h2>
+	 *      {{body}}
+	 * {{ /pages:children }}
+	 * 
 	 * @return array
 	 */
 	public function children()
 	{
 		$limit			= $this->attribute('limit', 10);
-		$offset			= $this->attribute('offset');
 		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
-		$page_types 	= $this->attribute('include-types', $this->attribute('include_types'));
+		$page_types 	= $this->attribute('include_types');
+		$page_slug 		= $this->attribute('slug', null);
+		$page_id 		= $this->attribute('id', null);
 
 		// Restrict page types.
 		// Page types can be provided in a pipe (|) delimited string.
@@ -420,14 +456,18 @@ class Plugin_Pages extends Plugin
 				$this->db->where('pages.type_id', $type);
 			}
 		}
+		
+		if($page_slug != null && $page_id == null)
+		{
+			$page_id = $this->_page_id_from_slug($page_slug);
+		}
 
 		$pages = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
-			->where('pages.parent_id', $this->attribute('id'))
+			->where('pages.parent_id', $page_id)
 			->where('status', 'live')
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
-			->offset($offset)
 			->get('pages')
 			->result_array();
 
@@ -649,15 +689,26 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Usage:
 	 * {{ pages:has id="4" }}
+	 * {{ pages:has slug="xyz" }}
 	 *
 	 * @param  int id   The id of the page you want to check
+	 * @param  string slug   The slug of the page you want to check
 	 * @return bool
 	 */
+	
 	public function has()
 	{
-		return $this->page_m->has_children($this->attribute('id'));
+		$page_id = $this->attribute('id', null);
+		$page_slug = $this->attribute('slug', null);
+		
+		if($page_id == null && $page_slug != null)
+		{
+			$page_id = $this->_page_id_from_slug($page_slug);
+		}
+		
+		return $this->page_m->has_children($page_id);
 	}
-
+	
 	/**
 	 * Check Page is function
 	 *
