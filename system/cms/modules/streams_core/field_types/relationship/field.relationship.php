@@ -15,7 +15,7 @@ class Field_relationship
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'choose_stream' );
+	public $custom_parameters		= array( 'choose_stream', 'link_uri', 'parent_name', 'parent_search_url' );
 
 	public $version					= '1.1.0';
 
@@ -39,42 +39,84 @@ class Field_relationship
 	 */
 	public function form_output($data, $entry_id, $field)
 	{	
-		// Get slug stream
-		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
-		
-		if ( ! $stream)
-		{
-			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
-		}
 
-		$title_column = $stream->title_column;
-		
-		// Default to ID for title column
-		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
-		{
-			$title_column = 'id';
-		}
-	
-		// Get the entries
-		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
-		
-		$choices = array();
+		if (($data['custom']['parent_name']) and ! empty($data['custom']['parent_name'])){
 
-		// If this is not required, then
-		// let's allow a null option
-		if ($field->is_required == 'no')
-		{
-			$choices[null] = $this->CI->config->item('dropdown_choose_null');
-		}
+			// Get slug stream
+			$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
+
+				$jquery = "<script>(function($) {
+					$(function(){
+						$('[name={$data['custom']['parent_name']}]').change(function(){
+							var parent_id = $(this).val();
+
+							$.ajax({
+								type: 'POST',
+								data: 'id=' + parent_id + '&csrf_hash_name='+ $.cookie(pyro.csrf_cookie_name),
+								url:	SITE_URL+'admin/{$data['custom']['parent_search_url']}',
+								success: function(response){
+
+									$('[name={$data['form_slug']}]').empty();
+
+									$.each(response.entries,function(data,index){
+
+										$('<option>').val(index.id).text(index.{$stream->title_column}).prependTo('[name={$data['form_slug']}]');
+
+									});
+
+									$('[name={$data['form_slug']}]').trigger('liszt:updated');
+								},
+								dataType:'json'
+							});
+
+						});
+
+					});
+				})(jQuery);
+				</script>";
+
+				return form_dropdown($data['form_slug'], array(), $data['value'], 'id="'.rand_string(10).'"')."\n".$jquery;
+
+		}else{
+
+			// Get slug stream
+			$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
+			
+			if ( ! $stream)
+			{
+				return '<em>'.$this->CI->lang->line('streams:relationshipplus.doesnt_exist').'</em>';
+			}
+
+			$title_column = $stream->title_column;
+			
+			// Default to ID for title column
+			if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
+			{
+				$title_column = 'id';
+			}
 		
-		foreach ($obj->result() as $row)
-		{
-			// Need to replace with title column
-			$choices[$row->id] = $row->$title_column;
+			// Get the entries
+			$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
+			
+			$choices = array();
+
+			// If this is not required, then
+			// let's allow a null option
+			if ($field->is_required == 'no')
+			{
+				$choices[null] = $this->CI->config->item('dropdown_choose_null');
+			}
+			
+			foreach ($obj->result() as $row)
+			{
+				// Need to replace with title column
+				$choices[$row->id] = $row->$title_column;
+			}
+			
+			// Output the form input
+			return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.rand_string(10).'"');
+
 		}
-		
-		// Output the form input
-		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
