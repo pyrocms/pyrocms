@@ -37,7 +37,8 @@ class Field_textarea
 		// entry.
 		if ( ! $entry_id)
 		{
-			$value = (isset($field->field_data['default_text'])) ? $field->field_data['default_text'] : null;
+			$value = (isset($field->field_data['default_text']) and $field->field_data['default_text']) 
+								? $field->field_data['default_text'] : $data['value'];
 
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.

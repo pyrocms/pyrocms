@@ -33,32 +33,121 @@ class Plugin_Contact extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'form' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Display a contact form anywhere on your site. Each wildcard attribute that you pass ("email" for example) is available as a variable in the email template and between the double tags to output the form field.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => false,// will it work as a single tag?
+				'double' => true,// how about as a double tag?
+				'variables' => 'name|email|subject|message|attachment-file|some-hidden-value',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'name' => array(
+						'type' => 'text',
+						'flags' => 'text|required',
+						'default' => '',
+						'required' => false,
 					),
-					'limit' => array(
+					'email' => array(
+						'type' => 'text',
+						'flags' => 'text|required|valid_email',
+						'default' => '',
+						'required' => false,
+					),
+					'subject' => array(
+						'type' => 'text',
+						'flags' => 'dropdown|required|value=Name|another=Another Name',
+						'default' => '',
+						'required' => false,
+					),
+					'message' => array(
+						'type' => 'text',
+						'flags' => 'textarea|required|trim',
+						'default' => '',
+						'required' => false,
+					),
+					'some-hidden-value' => array(
+						'type' => 'text',
+						'flags' => 'hidden|=a hidden value',
+						'default' => '',
+						'required' => false,
+					),
+					'attachment-file' => array(
+						'type' => 'text',
+						'flags' => 'file|jpg|png|zip',
+						'default' => '',
+						'required' => false,
+					),
+					'max-size' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '10000',
+						'required' => false,
+					),
+					'button' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'Send',
+						'required' => false,
+					),
+					'template' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => 'contact',
+						'required' => false,
+					),
+					'lang' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'en',
+						'required' => false,
+					),
+					'to' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => Settings::get('contact_email'),
+						'required' => false,
+					),
+					'from' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => Settings::get('server_email'),
+						'required' => false,
+					),
+					'sent' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'Your message has been sent. We will get back to you as soon as we can.',
+						'required' => false,
+					),
+					'error' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'There was a problem sending this message. Please try again later.',
+						'required' => false,
+					),
+					'auto-reply' => array(
+						'type' => 'text',
+						'flags' => 'autoreply-template',
+						'default' => '',
+						'required' => false,
+					),
+					'success-redirect' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the current uri',
+						'required' => false,
+					),
+					'action' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the current uri string',
 						'required' => false,
 					),
 				),
 			),// end first method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	public function __construct()
@@ -251,7 +340,7 @@ class Plugin_Contact extends Plugin
 			}
 
 			$validation[$field]['field'] = $field;
-			$validation[$field]['label'] = ucfirst($field);
+			$validation[$field]['label'] = humanize($field);
 			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
@@ -381,6 +470,7 @@ class Plugin_Contact extends Plugin
 				}
 	
 				$this->session->set_flashdata('success', $message);
+				Events::trigger('contact_form_success', $_POST);
 				redirect( ($redirect ? $redirect : current_url()) );
 			}
 		}

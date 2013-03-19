@@ -100,25 +100,75 @@ form.file_upload button,
   margin: -1px;
 }
 
+/*
 .file_upload_progress .ui-progressbar-value,
 .file_upload_overall_progress .ui-progressbar-value,
 .progressbar div {
   background: url(../img/pbar-ani.gif);
 }
+*/
 
-.file_upload_progress div {
-  width: 250px;
-  height: 22px;
+.file_upload_progress .ui-progressbar-value,
+.file_upload_overall_progress .ui-progressbar-value,
+.progressbar div {
+	color: #ffffff;
+	background: #1583d4;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+	background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+	background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+	background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+	background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+	background-image: linear-gradient(top, #049cdb, #0064cd);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	border-color: #0064cd #0064cd #003f81;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-o-border-raddius: 8px;
+	border-radius: 8px;
+}
+
+.file_upload_progress div.ui-progressbar {
+  width: 314px;
+  max-width: 98.8%;
+  height: 16px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background-color: #e9e9e9;
+  background-image: -moz-linear-gradient(top, #e9e9e9, #e7e7e7);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e9e9e9), to(#e7e7e7));
+  background-image: -webkit-linear-gradient(top, #e9e9e9, #e7e7e7);
+  background-image: -o-linear-gradient(top, #e9e9e9, #e7e7e7);
+  background-image: linear-gradient(to bottom, #e9e9e9, #e7e7e7);
+  background-repeat: repeat-x;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee9e9e9', endColorstr='#eee7e7e7', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 1);
+     -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 1);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 1);
+}
+
+.file_upload_progress div.ui-progressbar-value {
+	width: 314px;
+	max-width: 98.8%;
+	overflow: hidden;
 }
 
 .file_upload_overall_progress div {
   width: 350px;
-  height: 22px;
+  height: 16px;
 }
 
 .file_upload_progress div div,
 .file_upload_overall_progress div div {
-	height: 22px;
+	height: 12px;
+	margin: 2px 0 0 2px;
 }
 
 .file_upload .file_name {

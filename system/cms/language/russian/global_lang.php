@@ -9,7 +9,7 @@
  */
 
 $lang['global:control-panel']								= 'Администрирование';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Профиль';
 
 $lang['global:title']						= 'Заголовок';
 $lang['name_label']							= 'Название';
@@ -18,8 +18,8 @@ $lang['version_label']					= 'Версия';
 $lang['global:author']						= 'Автор';
 $lang['global:action']						= 'Действие';
 $lang['global:slug'] 					= 'Slug'; #translate
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-$lang['global:user'] 					= 'User'; #translate
+$lang['global:slug_instructions']		= 'Только строчные буквы и подчеркивания.';
+$lang['global:user'] 					= 'Пользователь';
 
 $lang['global:dialog:delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['global:dialog:confirm']					= 'Подтверждение';
@@ -60,12 +60,12 @@ $lang['general_error_label']		= 'Ошибка';
 $lang['required_error_label']		= 'Не заполнено необходимое поле';
 $lang['note_label']							= 'Заметка';
 $lang['success_label']					= 'Успешно';
-$lang['global:fields']					= 'Fields';
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields']					= 'Поля';
+$lang['global:custom_fields']			= 'Пользовательские поля';
 
 $lang['login_title']						= 'Войти';
 $lang['global:fatal_error']				= 'Фатальная ошибка, CMS установлена?';
-$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions'] 		= 'Некоторые функции на этой странице не доступны в демо-режиме.';
 
 $lang['login_error_label']			= 'Ошибка входа';
 $lang['forgot_password_label']	= 'Забыли пароль?';
@@ -88,34 +88,34 @@ $lang['global:install']					= 'Установить';
 $lang['global:enable']						= 'Включить';
 $lang['global:disable']					= 'Отключить';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['all_right_reserved']				= 'Все права защищены.';
+$lang['powered_by_pyrocms']				= 'Работает на PyroCMS';
 $lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['back_to_top']					= 'Наверх';
 
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Изображение';
 $lang['global:description']						= 'Описание';
 $lang['global:actions']							= 'Действия';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Просмотр';
+$lang['global:preview']					= 'Предпросмотр';
+$lang['global:add']						= 'Добавить';
 $lang['global:edit']							= 'Редактировать';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Empty';
 $lang['global:delete']							= 'Удалить';
 $lang['global:remove']							= 'Убрать';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Ключевые слова';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'или';
+$lang['global:and']						= 'и';
+$lang['global:at']						= 'в';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Виджеты';
+$lang['global:themes']					= 'Темы';
+$lang['global:field_types']				= 'Типы полей';
+$lang['global:plugins']					= 'Плагины';
+$lang['global:plugin']					= 'Плагин';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options']					= 'Опции';
 
 /* End of file main_lang.php */

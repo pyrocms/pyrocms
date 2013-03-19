@@ -606,7 +606,7 @@ input[type="text"],
 input[type="password"],
 textarea {
   width: 30%;
-  padding: 8px 5px;
+  padding: 5px 5px;
   margin-bottom: 5px;
   background: #eee;
   border: 1px solid rgba(0, 0, 0, 0.2);

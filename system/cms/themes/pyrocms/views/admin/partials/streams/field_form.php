@@ -66,10 +66,12 @@
 
 		<?php endif; ?>
 
-		<!--<li>
+		<?php if ($allow_title_column_set): ?>
+		<li>
 			<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
-			<div class="inputs"><?php //echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
-		</li>-->
+			<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+		</li>
+		<?php endif; ?>
 
 		<?php
 		

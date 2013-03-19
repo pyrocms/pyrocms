@@ -10,14 +10,14 @@
 							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
 <pre>
 <code>
-<?php if ($doc['single']): ?>
+<?php if (isset($doc['single']) and $doc['single']): ?>
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
 
 <?php endif ?>
-<?php if ($doc['double']): ?>
+<?php if (isset($doc['double']) and $doc['double']): ?>
 
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
-    <?php echo (strpos($doc['variables'], '|') !== false ? '{{'.str_replace('|', "}}\n    {{", $doc['variables']).'}}': $doc['variables'])."\n" ?>
+    <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
 {{ /<?php echo $plugin['slug'].':'.$method ?> }}
 <?php endif; ?>
 </code>
@@ -35,8 +35,8 @@
 										<?php foreach ($doc['attributes'] as $attribute => $details): ?>
 											<tr>
 												<td><?php echo $attribute ?></td>
-												<td><?php echo (isset($details['type']) ? $details['type'] : '') ?></td>
-												<td><?php echo (isset($details['flags']) ? $details['flags'] : '') ?></td>
+												<td><?php echo (isset($details['type']) ? str_replace('|', ' | ', $details['type']) : '') ?></td>
+												<td><?php echo (isset($details['flags']) ? str_replace('|', ' | ', $details['flags']) : '') ?></td>
 												<td><?php echo (isset($details['default']) and $details['default']) ? $details['default'] : lang('global:check-none') ?></td>
 												<td><?php echo (isset($details['required']) and $details['required']) ? lang('global:yes') : lang('global:no') ?></td>
 											</tr>

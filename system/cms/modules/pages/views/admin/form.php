@@ -11,7 +11,7 @@
 
 		<?php $parent = ($parent_id) ? '&parent='.$parent_id : null ?>
 	
-		<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form" data-mode="create"') ?>
+		<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form" data-mode="'.$this->method.'"') ?>
 		<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id) ?>
 	
 		<div class="tabs">
@@ -54,7 +54,7 @@
 							<?php echo form_hidden('slug', $page->slug) ?>
 							<?php echo form_input('', $page->slug, 'id="slug" size="20" disabled="disabled"') ?>
 						<?php else: ?>
-							<?php echo form_input('slug', $page->slug, 'id="slug" size="20"') ?>
+							<?php echo form_input('slug', $page->slug, 'id="slug" size="20" class="'.($this->method == 'edit' ? ' disabled' : '').'"') ?>
 						<?php endif ?>
 	
 						<?php echo config_item('url_suffix') ?>
@@ -109,10 +109,14 @@
 						<div class="input"><input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title ?>" /></div>
 					</li>
 									
-					<li>
-						<label for="meta_keywords"><?php echo lang('pages:meta_keywords_label') ?></label>
-						<div class="input"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords ?>" /></div>
-					</li>
+					<?php if ( ! module_enabled('keywords')): ?>
+						<?php echo form_hidden('keywords'); ?>
+					<?php else: ?>
+						<li>
+							<label for="meta_keywords"><?php echo lang('pages:meta_keywords_label') ?></label>
+							<div class="input"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords ?>" /></div>
+						</li>
+					<?php endif; ?>
 					
 					<li>
 						<label for="meta_description"><?php echo lang('pages:meta_desc_label') ?></label>
@@ -171,10 +175,14 @@
 						<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
 					</li>
 									
-					<li>
-						<label for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
-						<div class="input"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
-					</li>
+					<?php if ( ! module_enabled('comments')): ?>
+						<?php echo form_hidden('comments_enabled'); ?>
+					<?php else: ?>
+						<li>
+							<label for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
+							<div class="input"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
+						</li>
+					<?php endif; ?>
 									
 					<li>
 						<label for="rss_enabled"><?php echo lang('pages:rss_enabled_label') ?></label>

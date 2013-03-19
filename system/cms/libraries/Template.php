@@ -197,7 +197,7 @@ class Template
 	 * @param	array	$data
 	 * @param	bool	$return
 	 * @param	bool	$IE_cache
-	 * @param 	bool 	$pre_parsed_view
+	 * @param 	bool 	$pre_parsed_view	Did we already parse our view?
 	 * @return	string
 	 */
 	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false)
@@ -205,12 +205,14 @@ class Template
 		// Set whatever values are given. These will be available to all view files
 		is_array($data) OR $data = (array) $data;
 
-		// Merge in what we already have with the specific data
+		// Merge in what we already have set
 		$this->_data = array_merge($this->_data, $data);
 
 		// We don't need you any more buddy
 		unset($data);
 
+		// If we don't have a title, we'll take our best guess.
+		// Everybody needs a title!
 		if (empty($this->_title))
 		{
 			$this->_title = $this->_guess_title();
@@ -226,10 +228,11 @@ class Template
 		// Assign by reference, as all loaded views will need access to partials
 		$this->_data['template'] =& $template;
 
+		// Process partials.
 		foreach ($this->_partials as $name => $partial)
 		{
 			// We can only work with data arrays
-			is_array($partial['data']) OR $partial['data'] = (array) $partial['data'];
+			is_array($partial['data']) or $partial['data'] = (array) $partial['data'];
 
 			// If it uses a view, load it
 			if (isset($partial['view']))

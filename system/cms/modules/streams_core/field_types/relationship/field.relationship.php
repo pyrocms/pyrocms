@@ -198,7 +198,14 @@ class Field_relationship
 		
 		if ($this->CI->uri->segment(1) == 'admin')
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
+			if (isset($data['link_uri']) and ! empty($data['link_uri']))
+			{
+				return '<a href="'.site_url(str_replace(array('-id-', '-stream-'), array($row['id'], $stream->stream_slug), $data['link_uri'])).'">'.$row[$title_column].'</a>';
+			}
+			else
+			{
+				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
+			}
 		}
 		else
 		{

@@ -191,6 +191,9 @@ class Admin extends Admin_Controller
 			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 		}
 
+		// Some stream fields need $_POST as well.
+		$profile_data = array_merge($profile_data, $_POST);
+
 		$profile_data['display_name'] = $this->input->post('display_name');
 
 		if ($this->form_validation->run() !== false)
@@ -254,14 +257,19 @@ class Admin extends Admin_Controller
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], lang('user:add_title'))
 			->set('member', $member)
 			->set('display_name', set_value('display_name', $this->input->post('display_name')))
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
 			->build('admin/form');
 	}
 
@@ -348,6 +356,9 @@ class Admin extends Admin_Controller
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
 
+			// Some stream fields need $_POST as well.
+			$profile_data = array_merge($profile_data, $_POST);
+
 			// We need to manually do display_name
 			$profile_data['display_name'] = $this->input->post('display_name');
 
@@ -401,13 +412,20 @@ class Admin extends Admin_Controller
 			$profile_id = null;
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+
+		$profile = $this->db->limit(1)->where('user_id', $id)->get('profiles')->row();
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $profile, 'edit');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user:edit_title'), $member->username))
 			->set('display_name', $member->display_name)
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data, $profile_id))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
 			->set('member', $member)
 			->build('admin/form');
 	}

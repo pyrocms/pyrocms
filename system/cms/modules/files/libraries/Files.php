@@ -375,9 +375,10 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name ? $name : $file['orig_name'],
+					'name'			=> $replace_file ? $replace_file->name : $name ? $name : $file['orig_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
-					'description'	=> '',
+					'description'	=> $replace_file ? $replace_file->description : '',
+					'alt_attribute'	=> trim($replace_file ? $replace_file->alt_attribute : $alt),
 					'filename'		=> $file['file_name'],
 					'extension'		=> $file['file_ext'],
 					'mimetype'		=> $file['file_type'],
@@ -403,11 +404,6 @@ class Files
 
 					$data['width'] = ci()->image_lib->width;
 					$data['height'] = ci()->image_lib->height;					
-				}
-
-				if ($file['is_image'])
-				{
-					$data['alt_attribute'] = trim($alt ? $alt : '');
 				}
 
 				if($replace_file)
@@ -913,7 +909,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
+	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt_attribute = NULL)
 	{
 		if ($file_to_replace = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')

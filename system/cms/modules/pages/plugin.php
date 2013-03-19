@@ -32,32 +32,171 @@ class Plugin_Pages extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'url' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Outputs the page url.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => true,
+				'double' => false,
+				'variables' => '',
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
-					),
-					'limit' => array(
+					'id' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end url method
+			'display' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output the data of any live page.'
+				),
+				'single' => true,
+				'double' => true,
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'slug' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => '',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end display method
+			'children' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Show the children of any page.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'slug' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end children method
+			'page_tree' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Create a tree of a page\'s children specified by the ID or URI.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'start-id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'start' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'disable-levels' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'order-by' => array(
+						'type' => 'flag',
+						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
+						'default' => 'sort',
+						'required' => false,
+					),
+					'order-dir' => array(
+						'type' => 'flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
+						'required' => false,
+					),
+					'list-tag' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'ul',
+						'required' => false,
+					),
+					'link' => array(
+						'type' => 'flag',
+						'flags' => 'Y|N',
+						'default' => 'Y',
+						'required' => false,
+					),
+				),
+			),// end page_tree method
+			'is' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Check the relationship of a page to another by passing the IDs to check. [children] can take multiple IDs separated with |',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'children' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'child' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'descendent' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'parent' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end is method
+			'has' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Check if a page has a child with the specified ID',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end has method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**
@@ -118,7 +257,7 @@ class Plugin_Pages extends Plugin
 		}
 
 		// Check for custom fields
-		if (strpos($this->content(), 'custom_fields') !== false and $page)
+		if (is_scalar($this->content()) and strpos($this->content(), 'custom_fields') !== false and $page)
 		{
 			$custom_fields = array();
 			$this->load->driver('Streams');
@@ -142,9 +281,11 @@ class Plugin_Pages extends Plugin
 			$custom_fields = false;
 		}
 
+		// If we have custom fields, we need to roll our
+		// entry values in.
 		if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
 		{
-			$page->custom_fields =$custom_fields[$page->stream_id][$page->entry_id];
+			$page->custom_fields = array($custom_fields[$page->stream_id][$page->entry_id]);
 		}
 
 		return $this->content() ? array($page) : $page->body;
@@ -263,7 +404,7 @@ class Plugin_Pages extends Plugin
 		// we are going to do this in the most economical way possible:
 		// Find the entries by ID and attach them to a special custom_fields
 		// variable.
-		if (strpos($this->content(), 'custom_fields') !== false and $pages)
+		if (is_scalar($this->content()) and strpos($this->content(), 'custom_fields') !== false and $pages)
 		{
 			$custom_fields = array();
 			$this->load->driver('Streams');
@@ -383,7 +524,7 @@ class Plugin_Pages extends Plugin
 		$start          = $this->attribute('start');
 		$start_id       = $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
-		$order_by       = $this->attribute('order-by', 'title');
+		$order_by       = $this->attribute('order-by', 'order');
 		$order_dir      = $this->attribute('order-dir', 'ASC');
 		$list_tag       = $this->attribute('list-tag', 'ul');
 		$link           = $this->attribute('link', true);
@@ -450,7 +591,7 @@ class Plugin_Pages extends Plugin
 			return (int) $this->_check_page_is($child_id);
 		}
 
-		$children_ids = explode(',', $children_ids);
+		$children_ids = explode('|', str_replace(',', '|', $children_ids));
 		$children_ids = array_map('trim', $children_ids);
 
 		if ($child_id)

@@ -152,66 +152,87 @@ class Streams_cp extends CI_Driver {
 		}
 
  		// -------------------------------------
-		// Set / Expire Filtering
+		// Filter API
 		// -------------------------------------
 
-		if (isset($_POST['filter']))
+		$where = array();
+
+		if ($CI->input->get('filter-'.$stream->stream_slug))
 		{
-			// We don't need this
-			unset($_POST['filter']);
+			// Get all URL variables
+			$url_variables = $CI->input->get();
 
-			// So we can find it later
-			$search_id = md5(rand().microtime());
+			$processed = array();
 
-			// Save the search terms and some info
-			$CI->db->insert('data_stream_searches', array('stream_slug' => $stream->stream_slug, 'stream_namespace' => $stream->stream_namespace, 'search_id' => $search_id, 'search_term' => serialize($_POST), 'ip_address' => $_SERVER['REMOTE_ADDR'], 'total_results' => 0));
-
-			// Set dah cookie
-			setcookie('streams_core_filters', $search_id, time() + 86400, '/', '.'.SITE_DOMAIN);
-
-			// Set filter_data
-			$data['filter_data'] = array(
-				'filters' => $_POST,
-				'stream' => $stream->stream_slug,
-				);
-		}
-
-		// Clear old ones?
-		elseif ( isset($_POST['clear_filters']) )
-		{
-			setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
-		}
-
-		// Must be an existing one..
-		elseif ( isset($_COOKIE['streams_core_filters']) )
-		{
-
-			// Get the database search record
-			$db_search = $CI->db->select('search_term, stream_slug, stream_namespace')->where('search_id', $data['search_id'])->limit(1)->get('data_stream_searches')->row(0);
-
-			// Is this the right search module / namespace?
-			if ( $db_search->stream_slug == $stream->stream_slug and $db_search->stream_namespace == $stream->stream_namespace )
+			// Loop and process
+			foreach ($url_variables as $filter => $value)
 			{
+				// -------------------------------------
+				// Filter API Params
+				// -------------------------------------
+				// They all start with f-
+				// No value? No soup for you!
+				// -------------------------------------
 
-				// Add it
-				$data['filter_data'] = array(
-					'filters' => unserialize($db_search->search_term),
-					'stream' => $db_search->stream_slug,
-					'namespace' => $db_search->stream_namespace,
-					);
+				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+
+				if (strlen($value) == 0) continue;				// No value.. boo
+
+				$filter = substr($filter, 2);					// Remove identifier
+
+
+				// -------------------------------------
+				// Not
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$not = substr($filter, 0, 4) == 'not-';
+
+				if ($not) $filter = substr($filter, 4);			// Remove identifier
+
+
+				// -------------------------------------
+				// Exact
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$exact = substr($filter, 0, 6) == 'exact-';
+
+				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+
+
+				// -------------------------------------
+				// Construct the where segment
+				// -------------------------------------
+
+				if ($exact)
+				{
+					if ($not)
+					{
+						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
+					}
+					else
+					{
+						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
+					}
+				}
+				else
+				{
+					if ($not)
+					{
+						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
+					}
+					else
+					{
+						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
+					}
+				}
 			}
-			else
-			{
-				setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
-			}
-			
-		}
-		else
-		{
-			setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
 		}
 
-		$filter_data = isset($data['filter_data']) ? $data['filter_data'] : null;
+		$filter_data = $where;
 
  		// -------------------------------------
 		// Get Entries
@@ -231,14 +252,9 @@ class Streams_cp extends CI_Driver {
 		// Pagination
 		// -------------------------------------
 
-		if ( $filter_data != null )
+		foreach ($filter_data as $filter)
 		{
-
-			// Loop through and apply the filters
-			foreach ( $filter_data['filters'] as $filter=>$value )
-			{
-				if ( !empty($value) ) $CI->db->like(str_replace('f_', '', $filter), $value);
-			}
+			$CI->db->where($filter, null, false);
 		}
 
 		$data['pagination'] = create_pagination(
@@ -255,7 +271,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$CI->template->title($extra['title']);
+			$CI->template->title(lang_label($extra['title']));
 		}
 
 		// Set custom no data message
@@ -511,6 +527,17 @@ class Streams_cp extends CI_Driver {
 		}
 
 		// -------------------------------------
+		// Should we should the set as title
+		// column checkbox?
+		// -------------------------------------
+
+		if (isset($extra['allow_title_column_set']) and $extra['allow_title_column_set'] === true) {
+			$data['allow_title_column_set'] = true;
+		} else {
+			$data['allow_title_column_set'] = false;
+		}
+
+		// -------------------------------------
 		// Cancel Button
 		// -------------------------------------
 
@@ -589,11 +616,9 @@ class Streams_cp extends CI_Driver {
 
 		if ($CI->form_validation->run())
 		{
-
 			$post_data = $CI->input->post();
 
 			// Set custom data from $skips param
-
 			if (count($skips) > 0)
 			{	
 				foreach ($skips as $skip)
@@ -742,6 +767,25 @@ class Streams_cp extends CI_Driver {
 			else
 			{
 				$data['field']->{$field['field']} = $CI->input->post($field['field']);
+			}
+		}
+
+		// Repopulate title column set
+		$data['title_column_status'] = false;
+
+		if ($data['allow_title_column_set'] and $method == 'edit') {
+
+			if ($stream->title_column and $stream->title_column == $CI->input->post('title_column')) {
+				$data['title_column_status'] = true;
+			}
+			elseif ($stream->title_column and $stream->title_column == $data['current_field']->field_slug) {
+				$data['title_column_status'] = true;
+			}
+			
+		} elseif ($data['allow_title_column_set'] and $method == 'new' and $_POST) {
+
+			if ($CI->input->post('title_column')) {
+				$data['title_column_status'] = true;
 			}
 		}
 

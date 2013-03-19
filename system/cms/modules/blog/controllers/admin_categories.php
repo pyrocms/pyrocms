@@ -57,10 +57,14 @@ class Admin_Categories extends Admin_Controller
 
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
-		$pagination = create_pagination('admin/blog/categories/index', $total_rows, null, 5);
+		$pagination = create_pagination('admin/blog/categories/index', $total_rows, Settings::get('records_per_page'), 5);
 
 		// Using this data, get the relevant results
-		$categories = $this->blog_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
+		$categories = $this->blog_categories_m
+								->order_by('title')
+								->limit($pagination['limit'])
+								->offset($pagination['offset'])
+								->get_all();
 
 		$this->template
 			->title($this->module_details['name'], lang('cat:list_title'))
