@@ -13,13 +13,15 @@ class Plugin_Variables extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Variables',
+                'bg' => 'Променливи',
 	);
 	public $description = array(
 		'en' => 'Set and retrieve variable data.',
+                'bg' => 'Управление на променливи.',
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
 	 * @return array
@@ -62,7 +64,7 @@ class Plugin_Variables extends Plugin
 		$this->load->library('variables/variables');
 		return $this->variables->$name;
 	}
-	
+
 	/**
 	 * Load a variable
 	 *
