@@ -1,40 +1,42 @@
 {{ theme:partial name="aside" }}
 
-<?php if ( ! empty($blog) ): ?>
-	<?php foreach ($blog as $post) : ?>
+{{ if posts }}
+	{{ posts }}
 	
 		<article class="post">
-			<h5>{{ theme:image file="link.png" }} <?php echo anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h5>
+			<h5>{{ theme:image file="link.png" }} <a href="{{ url }}">{{ title }}</a></h5>
 			
 			<div class="post_date">
 				<span class="date">
 					{{ theme:image file="date.png" }}
-					About <?php $now = time(); $posted = date($post->created_on); echo timespan($posted, $now); ?> ago.
+					About {{ helper:timespan timestamp=created_on }} ago.
 				</span>
 			</div>
 			
 			<hr>
 			
 			<div class="post_intro">
-				<?php echo $post->intro; ?>
+				{{ intro }}
 			</div>
 			
 			<hr>
 			
 			<div class="post_meta">
-				<?php if($post->keywords) : ?>
+				{{ if keywords }}
 					{{ theme:image file="tags.png" }}
 					<span class="tags">
-						<?php echo $post->keywords; ?>
+						{{ keywords }}
 					</span>
-				<?php endif; ?>
+				{{ endif }}
 			</div>
 		</article>
 
-	<?php endforeach; ?>
+	{{ /posts }}
 
-	<?php echo $pagination['links']; ?>
+	{{ pagination }}
 
-<?php else: ?>
-	<p><?php echo lang('blog:currently_no_posts');?></p>
-<?php endif; ?>
+{{ else }}
+	
+	{{ helper:lang line="blog:currently_no_posts" }}
+
+{{ endif }}
