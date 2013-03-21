@@ -191,6 +191,40 @@ class Template
 	// --------------------------------------------------------------------
 
 	/**
+	 * Build Template Data
+	 *
+	 * Gathers and builds a $template array
+	 * with basic template data.
+	 *
+	 * @return 	array
+	 */
+	public function build_template_data()
+	{
+		// If we don't have a title, we'll take our best guess.
+		// Everybody needs a title!
+		if (empty($this->_title))
+		{
+			$this->_title = $this->_guess_title();
+		}
+
+		$template['title']			= strip_tags($this->_title);
+		$template['page_title']		= $this->_title;
+		$template['breadcrumbs']	= $this->_breadcrumbs;
+		$template['metadata']		= $this->get_metadata() . Asset::render('extra') . $this->get_metadata('late_header');
+		$template['partials']		= array();
+
+		// Assign by reference, as all loaded views will need access to partials
+
+		// Load this into our cached vars so plugins
+		// can use it.
+		$this->_ci->load->vars(array('template' => $template));
+
+		return $template;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Build the entire HTML output combining partials, layouts and views.
 	 *
 	 * @param	string	$view
@@ -200,7 +234,7 @@ class Template
 	 * @param 	bool 	$pre_parsed_view	Did we already parse our view?
 	 * @return	string
 	 */
-	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false)
+	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false, $template = array())
 	{
 		// Set whatever values are given. These will be available to all view files
 		is_array($data) OR $data = (array) $data;
@@ -211,21 +245,15 @@ class Template
 		// We don't need you any more buddy
 		unset($data);
 
-		// If we don't have a title, we'll take our best guess.
-		// Everybody needs a title!
-		if (empty($this->_title))
+		// If you want, you can use the build_template_data() 
+		// to pre-build this template data. This is an edge case so you'll
+		// probably always just leave it to array(), but it's here if
+		// you need it.
+		if ( ! $template) 
 		{
-			$this->_title = $this->_guess_title();
+			$template = $this->build_template_data();
 		}
 
-		// Output template variables to the template
-		$template['title']			= strip_tags($this->_title);
-		$template['page_title']		= $this->_title;
-		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= $this->get_metadata() . Asset::render('extra') . $this->get_metadata('late_header');
-		$template['partials']		= array();
-
-		// Assign by reference, as all loaded views will need access to partials
 		$this->_data['template'] =& $template;
 
 		// Process partials.

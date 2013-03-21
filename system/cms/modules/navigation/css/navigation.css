@@ -23,6 +23,10 @@ section.title li {
 	/* width:50%; */
 }
 
+section.title {
+	cursor: pointer;
+}
+
 section.title li .button {
 	float: right;
 	display: inline-block;

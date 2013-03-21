@@ -87,7 +87,7 @@ class MX_Router extends CI_Router
 			}
 
 			$site = DB()
-				->select('site.name, site.ref, site.domain, alias.domain as alias_domain, alias.type as alias_type')
+				->select('site.name, site.ref, site.domain, site.active, alias.domain as alias_domain, alias.type as alias_type')
 				->where('site.domain', SITE_DOMAIN)
 				->or_where('alias.domain', SITE_DOMAIN)
 				->join('core_domains alias', 'alias.site_id = site.id', 'left')

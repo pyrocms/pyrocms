@@ -273,6 +273,10 @@ class Pages extends Public_Controller
 		// Get our stream.
 		$stream = $this->streams_m->get_stream($page->layout->stream_id);
 
+		// We are going to pre-build this data so we have the data
+		// available to the template plugin (since we are pre-parsing our views).
+		$template = $this->template->build_template_data();
+
 		// Parse our view file. The view file is nothing
 		// more than an echo of $page->layout->body and the
 		// comments after it (if the page has comments).
@@ -283,7 +287,7 @@ class Pages extends Public_Controller
 			'namespace' => $stream->stream_namespace
 		));
 
-		$this->template->build($view, array('page' => $page), false, false, true);
+		$this->template->build($view, array('page' => $page), false, false, true, $template);
 	}
 
     // --------------------------------------------------------------------------
