@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_on` int(11) NOT NULL,
   `last_login` int(11) NOT NULL,
-  `username` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `forgotten_password_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remember_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
