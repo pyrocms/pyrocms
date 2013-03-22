@@ -125,5 +125,6 @@ $lang['global:plugins']					= 'Plugins'; #translate
 $lang['global:plugin']					= 'Plugin'; #translate
 
 $lang['global:options']					= 'Options'; #translate
+$lang['global:plain-text']				= 'Plain Text'; #translate
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

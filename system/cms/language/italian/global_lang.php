@@ -53,7 +53,7 @@ $lang['required_error_label'] 			= 'Campo obbligatorio mancante';
 $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Successo';
 $lang['global:fields']					= 'Campi';
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:custom_fields']			= 'Campi personalizzati';
 
 $lang['login_title'] 					= 'Entra';
 $lang['global:fatal_error'] 				= 'Errore fatale, il CMS è installato?';
@@ -113,5 +113,6 @@ $lang['global:plugins']					= 'Plugins';
 $lang['global:plugin']					= 'Plugin';
 
 $lang['global:options']					= 'Opzioni';
+$lang['global:plain-text']				= 'Testo semplice';
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

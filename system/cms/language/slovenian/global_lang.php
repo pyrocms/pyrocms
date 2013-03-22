@@ -113,5 +113,6 @@ $lang['global:plugins']					= 'Vtičniki';
 $lang['global:plugin']					= 'Vtič';
 
 $lang['global:options']					= 'Možnosti';
+$lang['global:plain-text']				= 'Plain Text'; #translate
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

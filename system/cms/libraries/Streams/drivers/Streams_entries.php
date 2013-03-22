@@ -242,7 +242,7 @@ class Streams_entries extends CI_Driver {
 	 * @param 	bool - update only the passed values?
 	 * @return	object
 	 */
-	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = false)
+	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
