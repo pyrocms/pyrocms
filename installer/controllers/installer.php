@@ -267,6 +267,7 @@ class Installer extends CI_Controller
 		$data->http_server = new stdClass();
 
 		// Check the PHP version
+		$data->php_min_version	= '5.2';
 		$data->php_acceptable	= $this->installer_lib->php_acceptable();
 		$data->php_version		= PHP_VERSION;
 
