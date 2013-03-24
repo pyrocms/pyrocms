@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 $lang['maintenance:list_label'] 		= 'Maintenance du Cache';
 $lang['maintenance:no_items'] 			= 'Aucun dossier Cache';
 

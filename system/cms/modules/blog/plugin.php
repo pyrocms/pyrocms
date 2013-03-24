@@ -16,6 +16,7 @@ class Plugin_Blog extends Plugin
 	);
 	public $description = array(
 		'en' => 'A plugin to display information such as blog categories and posts.',
+        'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
 	);
 
 	/**
@@ -29,7 +30,8 @@ class Plugin_Blog extends Plugin
 		$info = array(
 			'posts' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display blog posts optionally filtering them by category.'
+					'en' => 'Display blog posts optionally filtering them by category.',
+                    'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
 				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
@@ -69,7 +71,8 @@ class Plugin_Blog extends Plugin
 				),
 			'categories' => array(
 				'description' => array(
-					'en' => 'List blog categories.'
+					'en' => 'List blog categories.',
+                    'fr' => 'Lister les catégories du blog'
 				),
 				'single' => false,
 				'double' => true,
@@ -97,7 +100,8 @@ class Plugin_Blog extends Plugin
 				),
 			'count_posts' => array(
 				'description' => array(
-					'en' => 'Count blog posts that meet the conditions specified.'
+					'en' => 'Count blog posts that meet the conditions specified.',
+                    'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
 				),
 				'single' => true,
 				'double' => false,
@@ -126,7 +130,8 @@ class Plugin_Blog extends Plugin
 			// method name
 			'tags' => array(
 				'description' => array(
-					'en' => 'Retrieve all tags that have been applied to blog posts.'
+					'en' => 'Retrieve all tags that have been applied to blog posts.',
+                    'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
 				),
 				'single' => false,
 				'double' => true,
