@@ -352,7 +352,7 @@ class Blog extends Public_Controller
 			{
 				if (isset($post['category']))
 				{
-					$keywords[] = $post['category']['title'].', '.$post['category']['slug'];
+					$keywords[] = $post['category']['title'];
 				}
 
 				$description[] = $post['title'];
