@@ -31,17 +31,17 @@ $lang['comments:edit_title'] 				= 'Modifica il commento';
 $lang['comments:list_title'] 				= 'Elenco commenti';
 
 // messages
-$lang['comments:add_success'] 				= 'Il commento &eacuta; stato salvato.';
-$lang['comments:add_approve'] 				= 'Il commento &eacuta; stato salvato ed &eacuta; in attesa di accettazione.';
-$lang['comments:add_error']					= 'Si &eacuta; verificato un problema nel salvare il tuo commento. Riprova pi&ugrave; tardi.';
+$lang['comments:add_success'] 				= 'Il commento è; stato salvato.';
+$lang['comments:add_approve'] 				= 'Il commento è stato salvato ed è in attesa di accettazione.';
+$lang['comments:add_error']					= 'Si è verificato un problema nel salvare il tuo commento. Riprova più tardi.';
 
 $lang['comments:edit_success'] 				= 'Il commento &eacuta; stato modificato correttamente.';
 $lang['comments:edit_error'] 				= 'Il commento non pu&ograve; essere modificato.';
 
-$lang['comments:approve_success'] 			= 'Il commento &eacuta; stato accettato.';
+$lang['comments:approve_success'] 			= 'Il commento è stato accettato.';
 $lang['comments:approve_success_multiple'] 	= 'I commenti selezionati sono stati accettati.';
-$lang['comments:approve_error'] 			= 'Si &eacuta; verificato un problema nell\' accettare il commento.';
-$lang['comments:approve_error_multiple'] 	= 'Si &eacuta; verificato un problema nell\' accettare i commenti selezionati.';
+$lang['comments:approve_error'] 			= 'Si è verificato un problema nell\' accettare il commento.';
+$lang['comments:approve_error_multiple'] 	= 'Si è verificato un problema nell\' accettare i commenti selezionati.';
 
 $lang['comments:unapprove_success'] 		= 'Il commento è stato rifiutato e non sarà più visibile sul sito.';
 $lang['comments:unapprove_success_multiple'] = 'I commenti selezionati sono stati rifiutati e non saranno più visibili sul sito.';
