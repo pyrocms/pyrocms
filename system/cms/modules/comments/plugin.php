@@ -156,14 +156,16 @@ class Plugin_Comments extends Plugin
 	 */
 	public function count_string()
 	{
-		$entry_id 	= $this->attribute('entry_id', $this->attribute('item_id'));
-		$entry_key 	= $this->attribute('entry_key');
-		$module  	= $this->attribute('module', $this->module);
+		$entry_id 		= $this->attribute('entry_id', $this->attribute('item_id'));
+		$entry_key 		= $this->attribute('entry_key');
+		$entry_plural 	= $this->attribute('entry_plural');
+		$module  		= $this->attribute('module', $this->module);
 		
 		$this->load->library('comments/comments', 
 			array(
 				'entry_id' => $entry_id, 
-				'singular' => $entry_key, 
+				'singular' => $entry_key,
+				'plural' => $entry_plural,
 				'module' => $module
 				)
 			);
