@@ -811,6 +811,16 @@ class Template
 		return $this->_ci->load->_ci_cached_vars['template_views'] = $view_folder;
 	}
 
+	/**
+	 * Wrapper function for _find_view()
+	 * so we can manually get a theme view
+	 * that can be overriden.
+	 */
+	public function load_view($view, array $data, $parse_view = true)
+	{
+		return $this->_find_view($view, $data, $parse_view);
+	}
+
 	// A module view file can be overriden in a theme
 	private function _find_view($view, array $data, $parse_view = true)
 	{
