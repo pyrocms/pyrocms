@@ -24,7 +24,7 @@ class Streams_streams extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get entries for a stream.
+	 * Add a Stream.
 	 *
 	 * @access	public
 	 * @param	string - stream name
