@@ -150,6 +150,22 @@ class Plugin_Url extends Plugin
 				'variables' => '',
 				'attributes' => array(),
 				),
+			'redirect' => array(
+				'description' => array(
+					'en' => 'Send the visitor to another url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'to' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					),
+				),
 			);
 
 		return $info;
@@ -278,4 +294,17 @@ class Plugin_Url extends Plugin
 		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
 	}
 
+	/**
+	 * Send the visitor to another location
+	 *
+	 * Usage:
+	 *
+	 *     {{ url:redirect to="contact" }}
+	 *
+	 * @return bool
+	 */
+	public function redirect()
+	{
+		redirect($this->attribute('to'));
+	}
 }
