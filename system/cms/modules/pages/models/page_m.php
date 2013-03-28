@@ -203,7 +203,6 @@ class Page_m extends MY_Model
 		// End Legacy Logic
 		// ---------------------------------
 
-
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
 		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
 		{
@@ -224,9 +223,19 @@ class Page_m extends MY_Model
 
 			if ($stream)
 			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				$params = array(
+					'limit' => 1,
+					'stream' => $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'id' => $page->entry_id
+				);
+
+				if ($entry = $this->streams->entries->get_entries($params))
 				{
-					$page = (object) array_merge((array)$entry, (array)$page);
+					if (isset($entry['entries'][0]))
+					{
+						$page = (object) array_merge((array)$entry['entries'][0], (array)$page);
+					}
 				}
 			}
 		}
