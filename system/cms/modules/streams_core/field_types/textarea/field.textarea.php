@@ -91,7 +91,7 @@ class Field_textarea
 		// let it through. Otherwise we will escape them.
 		if ($parse_tags == 'y')
 		{
-			$content = $input;
+			$content = $this->CI->parser->parse_string($input, array(), true);
 		}
 		else
 		{

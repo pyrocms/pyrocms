@@ -50,7 +50,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
-			'pag_base'		=> 'blog/page',
+			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
 		);
 		$posts = $this->streams->entries->get_entries($params);

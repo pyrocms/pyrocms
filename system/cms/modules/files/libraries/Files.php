@@ -69,7 +69,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
+	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '', $hidden = 0)
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
@@ -90,7 +90,8 @@ class Files
 						'location' => $location,
 						'remote_container' => $remote_container,
 						'date_added' => now(), 
-						'sort' => now()
+						'sort' => now(),
+						'hidden' => $hidden,
 						);
 
 		$id = ci()->file_folders_m->insert($insert);
@@ -152,6 +153,7 @@ class Files
 		}
 
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->where('hidden', 0)
 			->order_by('sort')
 			->get_all();
 
@@ -203,7 +205,7 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		ci()->db->select('id, parent_id, slug, name')->where('hidden', 0)->order_by('sort');
 		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
