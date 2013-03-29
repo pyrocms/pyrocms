@@ -198,6 +198,20 @@ class Plugin_Url extends Plugin
 	{
 		return $this->uri->uri_string();
 	}
+	
+	/**
+	 * Current uri query_string
+	 *
+	 * Usage:
+	 *
+	 *     {{ url:query_string }}
+	 *
+	 * @return string The current URI string.
+	 */
+	public function query_string()
+	{
+		return $_SERVER['QUERY_STRING'];
+	}
 
 	/**
 	 * Current uri string
