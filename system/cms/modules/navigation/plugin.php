@@ -92,6 +92,12 @@ class Plugin_Navigation extends Plugin
 						'default' => 'last',
 						'required' => false,
 					),
+					'dropdown_class' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'dropdown',
+						'required' => false,
+					),
 					'tag' => array(
 						'type' => 'text',
 						'flags' => '',
@@ -176,18 +182,19 @@ class Plugin_Navigation extends Plugin
 		static $current_link = false;
 		static $level = 0;
 
-		$top           = $this->attribute('top', false);
-		$separator     = $this->attribute('separator', '');
-		$link_class    = $this->attribute('link_class', '');
-		$more_class    = $this->attribute('more_class', 'has_children');
-		$current_class = $this->attribute('class', 'current');
-		$first_class   = $this->attribute('first_class', 'first');
-		$last_class    = $this->attribute('last_class', 'last');
-		$output        = $return_arr ? array() : '';
-		$wrap          = $this->attribute('wrap');
-		$max_depth     = $this->attribute('max_depth');
-		$i             = 1;
-		$total         = sizeof($links);
+		$top            = $this->attribute('top', false);
+		$separator      = $this->attribute('separator', '');
+		$link_class     = $this->attribute('link_class', '');
+		$more_class     = $this->attribute('more_class', 'has_children');
+		$current_class  = $this->attribute('class', 'current');
+		$first_class    = $this->attribute('first_class', 'first');
+		$last_class     = $this->attribute('last_class', 'last');
+		$dropdown_class = $this->attribute('dropdown_class', 'dropdown');
+		$output         = $return_arr ? array() : '';
+		$wrap           = $this->attribute('wrap');
+		$max_depth      = $this->attribute('max_depth');
+		$i              = 1;
+		$total          = sizeof($links);
 
 		if ( ! $return_arr )
 		{
@@ -361,7 +368,7 @@ class Plugin_Navigation extends Plugin
 
 					if ( $wrapper['children'] )
 					{
-						$output .= "<{$list_tag}>";
+						$output .= '<'.$list_tag.' class="'.$dropdown_class.'">';
 						$output .= $wrapper['children'];
 						$output .= "</{$list_tag}>";
 					}
