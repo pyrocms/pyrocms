@@ -499,6 +499,22 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
+    /**
+     * Count assignments for a stream
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments_for_stream($stream_id)
+	{
+		if ( ! $stream_id) return 0;
+
+		return $this->db
+				->where('stream_id', $stream_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
+	}
+
 	// --------------------------------------------------------------------------
 	
 	/**
