@@ -145,7 +145,7 @@ class Widget_m extends CI_Model
 			'version' 		=> $input['version'],
 			'enabled' 		=> $input['enabled'],
 			'order' 		=> $input['order'],
-			'updated_on'	=> now()
+			'updated_on'	=> time()
 		));
 	}
 
@@ -164,7 +164,7 @@ class Widget_m extends CI_Model
 				'author' 		=> $input['author'],
 				'website' 		=> $input['website'],
 				'version' 		=> $input['version'],
-				'updated_on'	=> now()
+				'updated_on'	=> time()
 			));
 	}
 
@@ -240,7 +240,7 @@ class Widget_m extends CI_Model
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
 			'order'				=> $order,
-			'created_on'		=> now(),
+			'created_on'		=> time(),
 		));
 	}
 
@@ -252,7 +252,7 @@ class Widget_m extends CI_Model
         	'title'				=> $input['title'],
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
-			'updated_on'		=> now()
+			'updated_on'		=> time()
 		));
 	}
 

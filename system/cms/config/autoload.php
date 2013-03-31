@@ -65,8 +65,8 @@ $autoload['libraries'] = array('asset', 'database', 'template', 'parser');
 */
 
 $autoload['helper'] = array(
-	'debug', 'url', 'form', 'text', 'string', 'language', 'html', 'pagination', 'array', 'gravatar',
-	'markdown', 'addons/module', 'users/user'
+	'date', 'debug', 'url', 'form', 'text', 'string', 'language', 'html', 'pagination', 
+    'array', 'gravatar', 'markdown', 'addons/module', 'users/user'
 );
 
 /*

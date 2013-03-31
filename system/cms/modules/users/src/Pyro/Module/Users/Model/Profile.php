@@ -8,19 +8,19 @@
  */
 class Profile extends \Illuminate\Database\Eloquent\Model
 {
-	/**
-	 * Get a user profile
-	 *
-	 *
-	 * @param array $params Parameters used to retrieve the profile
-	 * @return object
-	 */
-	public function get_profile($params = array())
-	{
-		$query = $this->db->get_where('profiles', $params);
+    /**
+     * Define the table name
+     *
+     * @var string
+     */
+    protected $table = 'profiles';
 
-		return $query->row();
-	}
+    /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
 
 	/**
 	 * Update a user's profile

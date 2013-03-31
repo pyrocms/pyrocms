@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Comments\Model;
 
+use Settings;
+
 /**
  * Comment model
  *
@@ -16,11 +18,28 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     protected $table = 'comments';
 
     /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
+
+    /**
      * Disable updated_at and created_at on table
      *
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Returns the relationship between comments and users
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Pyro\Module\Users\Model\User');
+    }
 
     /**
      * Get comments based on a module item
@@ -33,22 +52,12 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByEntry($module, $entry_key, $entry_id, $is_active = true)
     {
-        //@TODO Update this query once we have relationships setup in the users model
-        return ci()->pdb
-            ->table('comments c')
-            ->select(
-                ci()->pdb->raw('u.username'),
-                ci()->pdb->raw('p.display_name'),
-                ci()->pdb->raw('IF(c.user_id > 0, p.display_name, c.user_name) as user_name'),
-                ci()->pdb->raw('IF(c.user_id > 0, u.email, c.user_email) as user_email')
-            )
-            ->leftJoin('users as u', 'c.user_id', '=', 'u.id')
-            ->leftJoin('profiles as p', 'p.user_id', '=', 'u.id')
-            ->where('c.module', $module)
-            ->where('c.entry_id', $entry_id)
-            ->where('c.entry_key', $entry_key)
-            ->where('c.is_active', $is_active)
-            ->orderBy('c.created_on', Settings::get('comment_order'))
+       return static::with('user', 'user.profile')
+            ->where('module', $module)
+            ->where('entry_id', $entry_id)
+            ->where('entry_key', $entry_key)
+            ->where('is_active', $is_active)
+            ->orderBy('created_on', Settings::get('comment_order'))
             ->get();
     }
 
@@ -56,27 +65,55 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      * Find recent comments
      *
      *
-     * @param  int   $limit     The amount of comments to get
-     * @param  int   $is_active set default to only return active comments
+     * @param  int    $limit     The amount of comments to get
+     * @param  bool   $is_active Is the comment active?
      * @return array
      */
-    public static function findRecent($limit = 10, $is_active = 1)
+    public static function findRecent($limit = 10, $is_active = true)
     {
-        //@TODO Update this query once we have relationships setup in the users model
-        return ci()->pdb
-            ->table('comments as c')
-            ->select(
-                ci()->pdb->raw('u.username'),
-                ci()->pdb->raw('p.display_name'),
-                ci()->pdb->raw('IF(c.user_id > 0, p.display_name, c.user_name) as user_name'),
-                ci()->pdb->raw('IF(c.user_id > 0, u.email, c.user_email) as user_email')
-            )
-            ->join('users as u', 'c.user_id', '=', 'u.id')
-            ->join('profiles as p', 'p.user_id', '=', 'u.id')
+        return static::with('user', 'user.profile')
             ->where('is_active', $is_active)
             ->take($limit)
-            ->orderBy('c.created_on', 'desc')
+            ->orderBy('created_on', 'desc')
             ->get();
+    }
+
+    /**
+     * Find with Filter
+     *
+     * @param  array $filter Magical array of random stuff required for CP filter results
+     * @return array
+     */
+    public static function findWithFilter($filter)
+    {
+        $query = static::with('user', 'user.profile');
+
+        if (isset($filter['module'])) {
+            $query->where('module', $filter['module']);
+        }
+
+        return $query->where('is_active', $filter['is_active'])
+            ->orderBy($filter['order-by'], $filter['order-dir'])
+            ->take($filter['limit'])
+            ->skip($filter['offset'])
+            ->get();
+    }
+
+    /**
+     * Count with Filter
+     *
+     * @param  array $filter Magical array of random stuff required for CP filter results
+     * @return int
+     */
+    public static function countWithFilter($filter)
+    {
+        $query = static::where('is_active', $filter['is_active']);
+        
+        if (isset($filter['module'])) {
+            $query->where('module', $filter['module']);
+        }
+    
+        return $query->count();
     }
 
     /**
@@ -102,9 +139,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
      */
     public static function getModuleSlugs()
     {
-        $slugs = ci()->pdb
-            ->table('comments')
-            ->select('comments.modules, modules.name')
+        $slugs = static::select('comments.module', 'modules.name')
             ->leftJoin('modules', 'comments.module',  '=', 'modules.slug')
             ->get();
 
@@ -147,6 +182,17 @@ class Comment extends \Illuminate\Database\Eloquent\Model
         asort($options);
 
         return $options;
+    }
+
+    /**
+     * Get User Name Attribute
+     *
+     * @param  string $value The user (commenters) name
+     * @return array
+     */
+    public function getUserNameAttribute($value)
+    {
+        return $value ?: ($this->user->profile->display_name ?: $this->user->username);
     }
 
 }

@@ -88,7 +88,7 @@ $config['charset'] = 'UTF-8';
 |--------------------------------------------------------------------------
 |
 | If you would like to use the 'hooks' feature you must enable it by
-| setting this variable to true (boolean) .  See the user guide for details.
+| setting this variable to true (boolean).  See the user guide for details.
 |
 */
 $config['enable_hooks'] = true;

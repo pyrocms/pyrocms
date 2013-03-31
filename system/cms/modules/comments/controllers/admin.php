@@ -62,29 +62,37 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Only show is_active = 0 if we are moderating comments
-		$base_where = array('comments.is_active' => (int) ! Settings::get('moderate_comments'));
+		$filter = array();
 
-		//capture active
-		$base_where['comments.is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['comments.is_active'];
-		$base_where['comments.is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['comments.is_active'];
+		if ( ! is_null($this->input->post('f_active'))) {
+			$filter['is_active'] = (bool) $this->input->post('f_active');
+		}
+		elseif ( ! is_null($this->session->flashdata('is_active'))) {
+			$filter['is_active'] = (bool) $this->session->flashdata('is_active');
+		} else {
+			$filter['is_active'] = (bool) Settings::get('moderate_comments');
+		}
 
 		//capture module slug
-		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
+		if ($this->input->post('module_slug')) {
+			$filter += array('module' => $this->input->post('module_slug'));
+		}
 
 		// Create pagination links
-		// $total_rows = $this->comment_m->count_by($base_where);
-		// $pagination = create_pagination('admin/comments/index', $total_rows);
+		$total_rows = Comment::countWithFilter($filter);
+		$pagination = create_pagination('admin/comments/index', $total_rows);
 
-		// $comments = $this->comment_m
-		// 	->limit($pagination['limit'], $pagination['offset'])
-		// 	->order_by('comments.created_on', 'desc')
-		// 	->get_many_by($base_where);
+		// Add "limit" and "offset"
+		$filter += $pagination;
 
-		//@TODO Add pagination
-		$comments = Comment::all();
+		$filter['order-by'] = 'created_on';
+		$filter['order-dir'] = 'desc';
 
-		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
+		$comments = Comment::findWithFilter($filter);
+
+		$content_title = $filter['is_active']
+			? lang('comments:active_title')
+			: lang('comments:inactive_title');
 
 		$this->input->is_ajax_request() && $this->template->set_layout(false);
 
@@ -94,10 +102,12 @@ class Admin extends Admin_Controller
 			->set('module_list', Comment::getModuleSlugs())
 			->set('content_title', $content_title)
 			->set('comments', $this->comments->process($comments))
-			->set('comments_active', $base_where['comments.is_active']);
-			//->set('pagination', $pagination);
+			->set('comments_active', $filter['is_active'])
+			->set('pagination', $pagination);
 
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
+		$this->input->is_ajax_request()
+			? $this->template->build('admin/tables/comments')
+			: $this->template->build('admin/index');
 	}
 
 	/**

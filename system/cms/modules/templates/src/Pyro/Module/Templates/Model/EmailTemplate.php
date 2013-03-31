@@ -31,7 +31,14 @@ class EmailTemplate extends \Illuminate\Database\Eloquent\Model
      */
     public static function findBySlug($slug)
     {
-        return static::where('slug', '=', $slug)->get();
+        $templates = static::where('slug', '=', $slug)->get();
+        
+        $data = array();
+        foreach ($templates as $template) {
+            $data[$template->lang] = $template;
+        }
+
+        return $data;
     }
 
     /**

@@ -176,7 +176,7 @@ class Admin extends Admin_Controller
 		if ($this->input->post('created_on')) {
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
-			$created_on = now();
+			$created_on = time();
 		}
 		$hash = $this->_preview_hash();
 

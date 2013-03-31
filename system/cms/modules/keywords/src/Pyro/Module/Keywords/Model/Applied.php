@@ -44,9 +44,15 @@ class Applied extends Model
      */
     public static function getNamesByHash($hash)
     {
+        $keyword_ids = static::where('hash', $hash)->lists('keyword_id');
+        
+        if ( ! $keyword_ids) {
+            return array();    
+        }
+
         return Keyword::select('name')
-                        ->whereIn('id', static::where('hash', $hash)->lists('keyword_id'))
-                        ->get();
+            ->whereIn('id', $keyword_ids)
+            ->get();
     }
 
     /**

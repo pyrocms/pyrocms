@@ -35,6 +35,16 @@ class User extends Eloquent\User
 		return $this->belongsToMany('Cartalyst\Sentry\Groups\Eloquent\Group', 'users_groups', 'user_id');
 	}
 
+    /**
+     * Returns the relationship between comments and users
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function profile()
+    {
+        return $this->hasOne('Pyro\Module\Users\Model\Profile');
+    }
+
 	/**
 	 * Find a user based from their username
 	 *
@@ -138,8 +148,8 @@ class User extends Eloquent\User
 	// 		'active' => 0,
 	// 		'lang' => $this->config->item('default_language'),
 	// 		'activation_code' => $input->activation_hash,
-	// 		'created_on' => now(),
-	// 		'last_login' => now(),
+	// 		'created_on' => time(),
+	// 		'last_login' => time(),
 	// 		'ip' => $this->input->ip_address()
 	// 	));
 	// }
@@ -172,7 +182,7 @@ class User extends Eloquent\User
 	 */
 	public function updateLastLogin()
 	{
-		$this->last_login = now();
+		$this->last_login = time();
 		$this->save();
 	}
 

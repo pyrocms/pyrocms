@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Users
+use Pyro\Module\Users\Model;
 
 /**
  * User controller for the users module (frontend)
@@ -75,7 +75,7 @@ class Users extends Public_Controller
 		
 		} else {
 			// Fine, just grab the user from the DB
-			$user = Users\Model\User::findByUsername($username);
+			$user = Model\User::findByUsername($username);
 		}
 
 		// No user? Show a 404 error

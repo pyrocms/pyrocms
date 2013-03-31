@@ -205,7 +205,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 			$page = false;
 			$i = 0;
 
-			while ( ! $page and $uri and $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) { */
+			while ( ! $page and $uri and $i < 15) { /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 				$page = static::where('uri', '=', $uri)
 					->with('type')
 					->take(1)

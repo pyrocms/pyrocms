@@ -349,7 +349,7 @@ class Plugin_User extends Plugin
 		$stream_fields = $user->getStreamFields();
 
 		// Is this a user stream field?
-		if (array_key_exists($var, $stream_fields)) {
+		if ($stream_fields and array_key_exists($var, $stream_fields)) {
 			$formatted_column = $this->row_m->format_column(
 				$var, 
 				$user->$var, 

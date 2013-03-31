@@ -78,7 +78,9 @@ class Comments extends Public_Controller
 			'entry_plural' 	=> $entry['plural'],
 			'uri' 			=> $entry['uri'],
 			'comment' 		=> $this->input->post('comment'),
-			'is_active' 	=> (bool) ((isset($this->current_user->group) and $this->current_user->group == 'admin') or ! Settings::get('moderate_comments')),
+			'is_active' 	=> (bool) (($this->current_user and $this->current_user->isSuperUser()) or ! Settings::get('moderate_comments')),
+			'ip_address'    => $this->input->ip_address(),
+			'created_on'    => time(),
 		);
 
 		// Logged in? in which case, we already know their name and email
@@ -88,9 +90,10 @@ class Comments extends Public_Controller
 			$comment['user_email'] = $this->current_user->email;
 			$comment['user_website'] = $this->current_user->website;
 
-			if (isset($this->current_user->website)) {
+			if ($this->current_user->website) {
 				$comment['website'] = $this->current_user->website;
 			}
+
 		} else {
 			$this->validation_rules[0]['rules'] .= '|required';
 			$this->validation_rules[1]['rules'] .= '|required';
@@ -106,11 +109,10 @@ class Comments extends Public_Controller
 		// Validate the results
 		if ($this->form_validation->run()) {
 			// ALLOW ZEH COMMENTS!? >:D
-			$result = $this->_allow_comment();
-
-			foreach ($comment as &$data) {
-				// Remove {pyro} tags and html
-				$data = escape_tags($data);
+			$result = $this->allowComment();
+	
+			foreach ($comment as $field => $value) {
+				$comment[$field] = escape_tags($value);
 			}
 
 			// Run Akismet or the crazy CSS bot checker
@@ -118,12 +120,12 @@ class Comments extends Public_Controller
 				$this->session->set_flashdata('comment', $comment);
 				$this->session->set_flashdata('error', $result['message']);
 
-				$this->_repopulate_comment();
+				$this->repopulateComment();
 			} else {
 				// Save the comment
-				if ($comment->toArray() = Comment::create($comment)) {
+				if ($comment = Comment::create($comment)) {
 					// Approve the comment straight away
-					if ( ! $this->settings->moderate_comments or (isset($this->current_user->group) and $this->current_user->group == 'admin')) {
+					if ( ! Settings::get('moderate_comments') or ($this->current_user and $this->current_user->isSuperUser())) {
 						$this->session->set_flashdata('success', lang('comments:add_success'));
 
 						// Add an event so third-party devs can hook on
@@ -133,27 +135,27 @@ class Comments extends Public_Controller
 						$this->session->set_flashdata('success', lang('comments:add_approve'));
 					}
 
-					$comment['comment_id'] = $comment_id;
-
 					// If markdown is allowed we will parse the body for the email
 					if (Settings::get('comment_markdown')) {
-						$comment['comment'] = parse_markdown($comment['comment']);
+						$comment->comment = parse_markdown($comment->comment);
 					}
 
 					// Send the notification email
-					$this->_send_email($comment, $entry);
+					$this->sendEmail($comment, $entry);
+
 				} else {
 					// Failed to add the comment
 					$this->session->set_flashdata('error', lang('comments:add_error'));
 
-					$this->_repopulate_comment();
+					$this->repopulateComment();
 				}
 			}
+
 		} else {
 			// The validation has failed
 			$this->session->set_flashdata('error', validation_errors());
 
-			$this->_repopulate_comment();
+			$this->repopulateComment();
 		}
 
 		// If for some reason the post variable doesnt exist, just send to module main page
@@ -170,10 +172,8 @@ class Comments extends Public_Controller
 	 *
 	 * There are a few places where we need to repopulate
 	 * the comments.
-	 *
-	 * @return 	void
 	 */
-	private function _repopulate_comment()
+	private function repopulateComment()
 	{
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule) {
@@ -189,7 +189,7 @@ class Comments extends Public_Controller
 	 *
 	 * @return array
 	 */
-	private function _allow_comment()
+	private function allowComment()
 	{
 		// Dumb-check
 		$this->load->library('user_agent');
@@ -244,7 +244,7 @@ class Comments extends Public_Controller
 	 * @param array $entry The entry data.
 	 * @return boolean
 	 */
-	private function _send_email($comment, $entry)
+	private function sendEmail($comment, $entry)
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');

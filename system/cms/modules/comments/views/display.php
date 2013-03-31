@@ -8,7 +8,11 @@
 			</div>
 			<div class="details">
 				<div class="name">
-					<?php echo $item->user_name ?>
+					<?php if ($item->website): ?>
+						<a href="<?php echo $item->website ?>"><?php echo $item->user_name ?></a>
+					<?php else: ?>
+						<?php echo $item->user_name ?>
+					<?php endif ?>
 				</div>
 				<div class="date">
 					<p><?php echo format_date($item->created_on) ?></p>
@@ -26,4 +30,4 @@
 
 <?php else: ?>
 	<p><?php echo lang('comments:no_comments') ?></p>
-<?php endif
+<?php endif;

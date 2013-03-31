@@ -61,9 +61,9 @@ class Theme_Pyrocms extends Theme
 		// only load these items on the dashboard
 		if ($this->module == '' && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme_options->pyrocms_analytics_graph == 'yes')	self::get_analytics();
-			if ($this->theme_options->pyrocms_news_feed == 'yes')		self::get_rss_feed();
-			if ($this->theme_options->pyrocms_recent_comments == 'yes')	self::get_recent_comments();
+			if ($this->theme_options->pyrocms_analytics_graph == 'yes')	self::getAnalytics();
+			if ($this->theme_options->pyrocms_news_feed == 'yes')		self::getRssFeed();
+			if ($this->theme_options->pyrocms_recent_comments == 'yes')	self::getRecentComments();
 		}
 	}
 
@@ -116,9 +116,9 @@ class Theme_Pyrocms extends Theme
 	 *
 	 * @return	void
 	 */
-	public function get_analytics()
+	public function getAnalytics()
 	{
-		if ( ! ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)) {
+		if ( ! (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))) {
 			return;
 		}
 
@@ -129,12 +129,12 @@ class Theme_Pyrocms extends Theme
 		} else {
 			try {
 				$this->load->library('analytics', array(
-					'username' => $this->settings->ga_email,
-					'password' => $this->settings->ga_password
+					'username' => Settings::get('ga_email'),
+					'password' => Settings::get('ga_password'),
 				));
 
 				// Set by GA Profile ID if provided, else try and use the current domain
-				$this->analytics->setProfileById('ga:'.$this->settings->ga_profile);
+				$this->analytics->setProfileById('ga:'.Settings::get('ga_profile'));
 
 				$end_date = date('Y-m-d');
 				$start_date = date('Y-m-d', strtotime('-1 month'));
@@ -180,10 +180,10 @@ class Theme_Pyrocms extends Theme
 	 *
 	 * Fetch articles for whatever RSS feed is in settings
 	 */
-	public function get_rss_feed()
+	public function getRssFeed()
 	{
 		// Dashboard RSS feed (using SimplePie)
-		$pie = new \SimplePie;
+		$pie = new SimplePie;
 		$pie->set_cache_location($this->config->item('simplepie_cache_dir'));
 		$pie->set_feed_url(Settings::get('dashboard_rss'));
 		$pie->init();
@@ -197,7 +197,7 @@ class Theme_Pyrocms extends Theme
 	 *
 	 * Fetch recent comments and work out what they attach to.
 	 */
-	public function get_recent_comments()
+	public function getRecentComments()
 	{
 		$this->load->library('comments/comments');
 		$this->lang->load('comments/comments');

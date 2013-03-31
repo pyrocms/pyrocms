@@ -178,7 +178,7 @@ class Module_m extends MY_Model
             
             if ( ! empty($params['is_backend'])) {
                 // This user has no permissions for this module
-                if (( ! $this->current_user->inGroup('admin')) and ! $this->current_user->hasAccess($row->slug)) {
+                if (( ! $this->current_user->isSuperUser()) and ! $this->current_user->hasAccess($row->slug)) {
                     continue;
                 }
             }

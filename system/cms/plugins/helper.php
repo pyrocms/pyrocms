@@ -125,7 +125,7 @@ class Plugin_Helper extends Plugin
 		$this->load->helper('date');
 
 		$format    = $this->attribute('format');
-		$timestamp = $this->attribute('timestamp', now());
+		$timestamp = $this->attribute('timestamp', time());
 
 		return format_date($timestamp, $format);
 	}

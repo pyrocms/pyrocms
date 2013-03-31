@@ -190,21 +190,19 @@ class Admin_Controller extends MY_Controller
 		}
 
 		if ( ! $this->current_user) {
+			
 			// save the location they were trying to get to
 			$this->session->set_userdata('admin_redirect', $this->uri->uri_string());
 			redirect('admin/login');
-		}
-
-		// Admins can go straight in
-		if ($this->current_user->isAdmin()) {
-			return true;
-		}
 
 		// Well they at least better have permissions!
-		if ($this->current_user) {
+		} if ($this->current_user) {
 			
+			if ($this->current_user->isSuperUser()) {
+				return true;
+
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
+			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
 				return true;
 			}
 

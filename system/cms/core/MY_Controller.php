@@ -155,7 +155,8 @@ class MY_Controller extends MX_Controller
         ci()->sentry = $this->sentry = $this->setupSentry();
 
         // Assign to EVERYTHING
-        $user = $this->sentry->check();
+        $user = $this->sentry->getUser();
+
         $this->template->current_user = ci()->current_user = $this->current_user = $user;
 
 		// now that we have a list of enabled modules
@@ -199,9 +200,9 @@ class MY_Controller extends MX_Controller
 		}
 		
 		$this->benchmark->mark('my_controller_end');
-		
+
 		// Enable profiler on local box
-	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
+	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET))
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
@@ -387,12 +388,11 @@ class MY_Controller extends MX_Controller
         $throttle->disable();
 
         return new Sentry\Sentry(
-            $hasher,
-            $session,
-            $cookie,
-            $groupProvider,
             $userProvider,
-            $throttle
+            $groupProvider,
+            $throttle,
+            $session,
+            $cookie
         );
     }
 }

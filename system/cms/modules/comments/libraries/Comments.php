@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Comments\Model\Comment;
+
 /**
  * Comments library
  *
@@ -6,7 +9,6 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Comments\Libraries
  */
-
 class Comments
 {
 	/**
@@ -137,7 +139,7 @@ class Comments
 	{
 		$total = $this->count();
 
-		return sprintf(lang('comments:counter_'.$line.'_label'), $total);
+		return sprintf(lang("comments:counter_{$line}_label"), $total);
 	}
 
 	/**
@@ -154,7 +156,7 @@ class Comments
 		foreach ($comments as &$comment) {
 			// Override specified website if they are a user
 			if ($comment->user_id and Settings::get('enable_profiles')) {
-				$comment->website = 'user/'.$comment->user_name;
+				$comment->website = site_url('user/'.$comment->user->username);
 			}
 
 			// We only want to load a lang file once
@@ -170,13 +172,8 @@ class Comments
 				}
 			}
 
-			$comment->singular = lang($comment->entry_key) ? lang($comment->entry_key) : humanize($comment->entry_key);
-			$comment->plural = lang($comment->entry_plural) ? lang($comment->entry_plural) : humanize($comment->entry_plural);
-
-			// work out who did the commenting
-			if ($comment->user_id > 0) {
-				$comment->user_name = anchor('admin/users/edit/'.$comment->user_id, $comment->user_name);
-			}
+			$comment->singular = lang($comment->entry_key) ?: humanize($comment->entry_key);
+			$comment->plural = lang($comment->entry_plural) ?: humanize($comment->entry_plural);
 
 			// Security: Escape any Lex tags
 			foreach ($comment as $field => $value) {

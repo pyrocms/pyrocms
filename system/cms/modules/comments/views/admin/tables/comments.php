@@ -7,7 +7,7 @@
 				<th width="25%"><?php echo lang('comments:message_label') ?></th>
 				<th width="25%"><?php echo lang('comments:item_label') ?></th>
 				<th><?php echo lang('global:author') ?></th>
-				<th width="80"><?php echo lang('comments_active.date_label') ?></th>
+				<th width="80"><?php echo lang('comments:date_label') ?></th>
 				<th width="<?php echo Settings::get('moderate_comments') ? 265 : 120 ?>"></th>
 			</tr>
 		</thead>
@@ -26,7 +26,7 @@
 					<td><?php echo form_checkbox('action_to[]', $comment->id) ?></td>
 					<td>
 						<a href="<?php echo site_url('admin/comments/preview/'.$comment->id) ?>" rel="modal" target="_blank">
-							<?php if( strlen($comment->comment) > 30 ): ?>
+							<?php if (strlen($comment->comment) > 30 ): ?>
 								<?php echo character_limiter((Settings::get('comment_markdown') and $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment, 30) ?>
 							<?php else: ?>
 								<?php echo (Settings::get('comment_markdown') and $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment ?>
@@ -35,8 +35,8 @@
 					</td>
 
 					<td>
-						<strong><?php echo lang($comment->singular) ? lang($comment->singular) : $comment->singular ?>: </strong>
-						<?php echo anchor($comment->cp_uri ? $comment->cp_uri : $comment->uri, $comment->entry_title ? $comment->entry_title : '#'.$comment->entry_id) ?>
+						<strong><?php echo lang($comment->singular) ?: $comment->singular ?>: </strong>
+						<?php echo anchor($comment->cp_uri ?: $comment->uri, $comment->entry_title ?: '#'.$comment->entry_id) ?>
 					</td>
 
 					<td>
@@ -50,7 +50,7 @@
 					<td><?php echo format_date($comment->created_on) ?></td>
 
 					<td class="align-center buttons buttons-small">
-						<?php if ($this->settings->moderate_comments): ?>
+						<?php if (Settings::get('moderate_comments')): ?>
 							<?php if ($comment->is_active): ?>
 								<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), 'class="button deactivate"') ?>
 							<?php else: ?>
@@ -71,4 +71,4 @@
 
 	<div class="no_data"><?php echo lang('comments:no_comments') ?></div>
 
-<?php endif
+<?php endif;
