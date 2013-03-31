@@ -102,7 +102,6 @@ class Admin extends Admin_Controller
 			->set('hours', array_combine($hours = range(0, 23), $hours))
 			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
 			->set('categories', $_categories)
-
 			->append_css('module::blog.css');
 	}
 
@@ -157,7 +156,14 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-		$post = new stdClass();
+		// They are trying to put this live
+		if ($this->input->post('status') == 'live') {
+			role_or_die('blog', 'put_live');
+		} else {
+			$hash = $this->_preview_hash();
+		}
+
+		$post = new stdClass;
 
 		// Get the blog stream.
 		$this->load->driver('Streams');
@@ -178,15 +184,8 @@ class Admin extends Admin_Controller
 		} else {
 			$created_on = now();
 		}
-		$hash = $this->_preview_hash();
 
 		if ($this->form_validation->run()) {
-			// They are trying to put this live
-			if ($this->input->post('status') == 'live') {
-				role_or_die('blog', 'put_live');
-
-				$hash = "";
-			}
 
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
@@ -236,8 +235,11 @@ class Admin extends Admin_Controller
 			$post->type or $post->type = 'wysiwyg-advanced';
 		}
 
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($stream_fields);
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
@@ -261,7 +263,12 @@ class Admin extends Admin_Controller
 		$id or redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
-
+		
+		// They are trying to put this live
+		if ($post->status != 'live' and $this->input->post('status') == 'live') {
+			role_or_die('blog', 'put_live');
+		}
+		
 		// If we have keywords before the update, we'll want to remove them from keywords_applied
 		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
 
@@ -305,11 +312,6 @@ class Admin extends Admin_Controller
 		}
 
 		if ($this->form_validation->run()) {
-			// They are trying to put this live
-			if ($post->status != 'live' and $this->input->post('status') == 'live') {
-				role_or_die('blog', 'put_live');
-			}
-
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$extra = array(
@@ -358,16 +360,19 @@ class Admin extends Admin_Controller
 
 		$post->created_on = $created_on;
 
-		// Add stream events.
-		$this->fields->run_field_events($stream_fields);
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $post, 'edit');
+
+		// Run stream field events
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->append_css('jquery/jquery.tagsinput.css')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->set('post', $post)
 			->build('admin/form');
 	}

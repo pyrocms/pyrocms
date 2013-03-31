@@ -37,32 +37,237 @@ class Plugin_Files extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'listing' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => false,// will it work as a single tag?
+				'double' => true,// how about as a double tag?
+				'variables' => 'id|folder_id|folder_name|folder_slug|user_id|type|name|filename|description|extension|mimetype|width|height|filesize|date_added',
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
+					'folder' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|slug',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '',// attribute defaults to this if no value is given
 						'required' => false,// is this attribute required?
+					),
+					'tagged' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
 					),
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '',
+						'required' => false,
+					),
+					'offset' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '0',
+						'required' => false,
+					),
+					'type' => array(
+						'type' => 'flag',
+						'flags' => 'a|v|d|i|o',
+						'default' => '',
+						'required' => false,
+					),
+					'order-by' => array(
+						'type' => 'flag',
+						'flags' => 'folder_id|user_id|type|name|extension|width|height|filesize|download_count|date_added|sort',
+						'default' => 'sort',
+						'required' => false,
+					),
+					'order-dir' => array(
+						'type' => 'flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end listing method
+			'folder_exists' => array(
+				'description' => array(
+					'en' => 'Check if a folder exists in the database.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'slug' => array(
+						'type' => 'slug',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end folder_exists method
+			'exists' => array(
+				'description' => array(
+					'en' => 'Check if a file exists in the database.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end exists method
+			'image' => array(
+				'description' => array(
+					'en' => 'Output an image tag while resizing the image.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'width' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '100',
+						'required' => false,
+					),
+					'height' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '100',
+						'required' => false,
+					),
+					'size' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '100/100',
+						'required' => false,
+					),
+					'mode' => array(
+						'type' => 'flag',
+						'flags' => 'fit|fill',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end image method
+			'image' => array(
+				'description' => array(
+					'en' => 'Output an image tag while resizing the image.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'width' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '100',
+						'required' => false,
+					),
+					'height' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '100',
+						'required' => false,
+					),
+					'size' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '100/100',
+						'required' => false,
+					),
+					'mode' => array(
+						'type' => 'flag',
+						'flags' => 'fit|fill',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end image method
+			'image_url' => array(
+				'description' => array(
+					'en' => 'Output a url to the specified image.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image url method
+			'image_path' => array(
+				'description' => array(
+					'en' => 'Output a filesystem path to the specified image.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image path method
+			'url' => array(
+				'description' => array(
+					'en' => 'Output a url to the specified file.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end file url method
+			'path' => array(
+				'description' => array(
+					'en' => 'Output a filesystem path to the specified file.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end file path method
 		);
 
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	private $_files = array();
@@ -116,14 +321,15 @@ class Plugin_Files extends Plugin
 
 		$folder_id = $this->attribute('folder', ''); // Id or Path
 		$tags      = $this->attribute('tagged', false);
-		$limit     = $this->attribute('limit', '10');
+		$limit     = $this->attribute('limit', null);
 		$offset    = $this->attribute('offset', '');
 		$type      = $this->attribute('type', '');
 		$fetch     = $this->attribute('fetch');
-		$order_by  = $this->attribute('order-by');
-		$order_ord  = $this->attribute('order-ord');
 
-		Files::getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord);
+		$order_by  = $this->attribute('order-by', 'sort');
+		$order_ord  = $this->attribute('order-ord', 'asc');
+
+		$files = Files::getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord);
 
 		$files and array_merge($this->_files, (array) $files);
 
@@ -272,14 +478,14 @@ class Plugin_Files extends Plugin
 
 		$exists = (bool) (isset($this->_files[$id]) ? true : !(File::find($id)->isEmpty()));
 
-		return $exists && $this->content() ? $this->content() : $exists;
+		return $exists && $this->content() ?: $exists;
 	}
 
 	public function folder_exists()
 	{
 		$exists = (bool) !(Folder::findBySlug($this->attribute('slug'))->isEmpty());
 
-		return $exists && $this->content() ? $this->content() : $exists;
+		return $exists && $this->content() ?: $exists;
 	}
 
 	private function _build_tag_location_url($type = '', $uri = '', $extras = array())
@@ -313,7 +519,7 @@ class Plugin_Files extends Plugin
 		}
 
 		// set config base_url
-		$base_url = $this->config->set_item('base_url', $base_url);
+		$this->config->set_item('base_url', $base_url);
 
 		return $tag;
 	}

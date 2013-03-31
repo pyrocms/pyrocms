@@ -68,16 +68,16 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function createFolder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
+	public static function createFolder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '', $hidden = 0)
 	{
-		$i = '';
 		$original_slug = self::createSlug($name);
 		$original_name = $name;
 
 		$slug = $original_slug;
 
+		$i = 0;
 		while (Folder::findBySlug($slug)->count()) {
-			$i++;
+			++$i;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
 		}
@@ -88,8 +88,9 @@ class Files
 			'name' => $name,
 			'location' => $location,
 			'remote_container' => $remote_container,
-			'date_added' => now(),
-			'sort' => now()
+			'date_added' => time(),
+			'sort' => time(),
+			'hidden' => $hidden,
 		));
 
 		$insert['id'] = $folder->id;
@@ -147,9 +148,9 @@ class Files
 			$parent = ($result ? $result->id : 0);
 		}
 
-		$folders = Folder::findByParentAndSortBySort($parent)->toArray();
+		$folders = Folder::findByParentNotHiddenBySort($parent)->toArray();
 
-		$files = File::findByFolderIdAndSortbySort($parent)->toArray();
+		$files = File::findByFolderIdBySort($parent)->toArray();
 
 		// let's be nice and add a date in that's formatted like the rest of the CMS
 		if ($folders) {
@@ -189,7 +190,7 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = Folder::findAndSortBySort();
+		$all_folders = Folder::findBySort();
 
 		// we must reindex the array first
 		foreach ($all_folders->toArray() as $row) {
@@ -343,9 +344,10 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name ? $name : $file['orig_name'],
+					'name'			=> $replace_file ? $replace_file->name : $name ? $name : $file['orig_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
-					'description'	=> '',
+					'description'	=> $replace_file ? $replace_file->description : '',
+					'alt_attribute'	=> trim($replace_file ? $replace_file->alt_attribute : $alt),
 					'filename'		=> $file['file_name'],
 					'extension'		=> $file['file_ext'],
 					'mimetype'		=> $file['file_type'],
@@ -370,10 +372,6 @@ class Files
 
 					$data['width'] = ci()->image_lib->width;
 					$data['height'] = ci()->image_lib->height;
-				}
-
-				if ($file['is_image']) {
-					$data['alt_attribute'] = $alt ? $alt : '';
 				}
 
 				if ($replace_file) {
@@ -820,7 +818,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function replaceFile($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
+	public static function replaceFile($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt_attribute = null)
 	{
 		if ($file_to_replace = File::find($to_replace)) {
 			//remove the old file...

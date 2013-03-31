@@ -42,13 +42,13 @@ class Field_email
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Pre Save
+	 * Pre Output
 	 *
 	 * No PyroCMS tags in email fields.
 	 *
 	 * @return string
 	 */
-	public function pre_save($input)
+	public function pre_output($input)
 	{
 		$this->CI->load->helper('text');
 		return escape_tags($input);

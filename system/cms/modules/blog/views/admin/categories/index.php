@@ -18,13 +18,6 @@
 				<th width="120"></th>
 			</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="4">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
-					</td>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php foreach ($categories as $category): ?>
 				<tr>
@@ -39,6 +32,8 @@
 				<?php endforeach ?>
 			</tbody>
 		</table>
+
+		<?php $this->load->view('admin/partials/pagination') ?>
 
 		<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>

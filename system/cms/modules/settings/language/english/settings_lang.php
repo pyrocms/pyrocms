@@ -62,7 +62,7 @@ $lang['settings:activation_email']				= 'Activation Email';
 $lang['settings:activation_email_desc']			= 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.';
 
 $lang['settings:records_per_page']				= 'Records Per Page';
-$lang['settings:records_per_page_desc']			= 'How many records should we show per page in the admin section?';
+$lang['settings:records_per_page_desc']			= 'How many records should we show per page? (both for frontend and for admin section) e.g.: blog posts, users etc.';
 
 $lang['settings:rss_feed_items']				= 'Feed item count';
 $lang['settings:rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
@@ -167,7 +167,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible';
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user';
 $lang['settings:form_option_activate_by_email']				= 'Activate by email';
 $lang['settings:form_option_activate_by_admin']				= 'Activate by admin';
-$lang['settings:form_option_no_activation']				= 'No activation';
+$lang['settings:form_option_no_activation']				= 'Instant activation';
 
 // messages
 $lang['settings:no_settings']					= 'There are currently no settings.';

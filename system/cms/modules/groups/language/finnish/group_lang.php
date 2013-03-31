@@ -22,7 +22,7 @@ $lang['groups:add_error']               = 'Ryhmää "%s" ei voitu luoda.';
 $lang['groups:edit_success']            = 'Ryhmä "%s" tallennettiin.';
 $lang['groups:edit_error']              = 'Ryhmää "%s" ei voitu tallentaa.';
 $lang['groups:delete_success']          = 'Ryhmä poistettiin onnistuneesti.';
-$lang['groups:delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
+$lang['groups:delete_error']            = 'Ryhmää poistaessa tapahtui virhe. Sinun tulee poistaa käyttäjät ryhmästä ensin ennen ryhmän poistamista.';
 $lang['groups:already_exist_error']     = 'Ryhmä "%s" on jo olemassa.';
 
 /* End of file group_lang.php */

@@ -71,7 +71,7 @@ class Admin_modules extends Admin_Controller
 		if ($this->input->post('btnAction') == 'upload') {
 			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
-			$config['max_size']			= 2048;
+			$config['max_size']			= 20480;
 			$config['overwrite'] 		= true;
 
 			$this->load->library('upload', $config);

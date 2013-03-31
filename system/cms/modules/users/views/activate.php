@@ -23,7 +23,7 @@
 	</li>
 
 	<li>
-		<?php echo form_submit('btnSubmit', lang('user:activate_btn'), array('class' => 'pyro_button')) ?>
+		<?php echo form_submit('btnSubmit', lang('user:activate_btn')) ?>
 	</li>
 </ul>
 <?php echo form_close() ?>

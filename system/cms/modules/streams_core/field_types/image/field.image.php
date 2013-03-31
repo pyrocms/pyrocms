@@ -19,20 +19,16 @@ class Field_image
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.2.0';
+	public $version					= '1.3.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
 	public $input_is_file			= true;
 
-	// --------------------------------------------------------------------------
-
 	public function __construct()
 	{
 		get_instance()->load->library('image_lib');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -46,9 +42,10 @@ class Field_image
 		$this->CI->load->config('files/files');
 
 		$out = '';
-
-		if ($params['value'] and $params['value'] != 'dummy') {
-			$out .= '<a href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
+		// if there is content and it is not dummy or cleared
+		if ($params['value'] and $params['value'] != 'dummy')
+		{
+			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
 			$out .= form_hidden($params['form_slug'], $params['value']);
 		} else {
 			$out .= form_hidden($params['form_slug'], 'dummy');
@@ -57,10 +54,11 @@ class Field_image
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
 
+		$this->CI->type->add_js('image', 'imagefield.js');
+		$this->CI->type->add_css('image', 'imagefield.css');
+
 		return $out .= form_upload($options);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Process before saving to database
@@ -75,7 +73,8 @@ class Field_image
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name']) {
-			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug] and $form_data[$field->field_slug] != 'dummy') {
+			// allow dummy as a reset
+			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug]) {
 				return $form_data[$field->field_slug];
 			} else {
 				return null;
@@ -103,8 +102,6 @@ class Field_image
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre Output
 	 *
@@ -116,15 +113,13 @@ class Field_image
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
-		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
+		$image = $this->CI->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
 
 		if ( ! $image) return null;
 
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$image->filename.'" title="'.$image->filename.'" />';
+		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$this->obvious_alt($image).'" />';
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Process before outputting for the plugin
@@ -147,6 +142,7 @@ class Field_image
 		$file = Files::getFile($input);
 
 		if ($file['status']) {
+
 			$image = $file['data'];
 
 			// If we don't have a path variable, we must have an
@@ -157,9 +153,14 @@ class Field_image
 				$image_data['image'] = str_replace('{{ url:site }}', base_url(), $image->path);
 			}
 
+			// For <img> tags only
+			$alt = $this->obvious_alt($image);
+
 			$image_data['filename']			= $image->filename;
 			$image_data['name']				= $image->name;
-			$image_data['img']				= img(array('alt' => $image->name, 'src' => $image_data['image']));
+			$image_data['alt']				= $image->alt_attribute;
+			$image_data['description']		= $image->description;
+			$image_data['img']				= img(array('alt' => $alt, 'src' => $image_data['image']));
 			$image_data['ext']				= $image->extension;
 			$image_data['mimetype']			= $image->mimetype;
 			$image_data['width']			= $image->width;
@@ -172,13 +173,11 @@ class Field_image
 			$image_data['folder_name']		= $image->folder_name;
 			$image_data['folder_slug']		= $image->folder_slug;
 			$image_data['thumb']			= site_url('files/thumb/'.$input);
-			$image_data['thumb_img']		= img(array('alt' => $image->name, 'src'=> site_url('files/thumb/'.$input)));
+			$image_data['thumb_img']		= img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
 
 			return $image_data;
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Choose a folder to upload to.
@@ -213,8 +212,6 @@ class Field_image
 		return form_dropdown('folder', $choices, $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Resize Width
 	 *
@@ -226,8 +223,6 @@ class Field_image
 		return form_input('resize_width', $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Resize Height
 	 *
@@ -238,8 +233,6 @@ class Field_image
 	{
 		return form_input('resize_height', $value);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Param Allowed Types
@@ -256,8 +249,6 @@ class Field_image
 				'instructions'	=> lang('streams:image.keep_ratio_instr'));
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Allowed Types
 	 *
@@ -269,6 +260,23 @@ class Field_image
 		return array(
 				'input'			=> form_input('allowed_types', $value),
 				'instructions'	=> lang('streams:image.allowed_types_instr'));
+	}
+
+	/**
+	 * Obvious alt attribute for <img> tags only
+	 *
+	 * @param	obj
+	 * @return	string
+	 */
+	private function obvious_alt($image)
+	{
+		if ($image->alt_attribute) {
+			return $image->alt_attribute;
+		}
+		if ($image->description) {
+			return $image->description;
+		}
+		return $image->name;
 	}
 
 }

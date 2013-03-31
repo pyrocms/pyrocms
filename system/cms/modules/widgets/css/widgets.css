@@ -291,6 +291,7 @@
 }
 .widget-list ol input[type=text] {
 	width: auto;
+	clear:both;
 }
 .widget-list ol li > label {
 	text-align: right;

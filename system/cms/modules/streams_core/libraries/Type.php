@@ -169,26 +169,29 @@ class Type
 	 */
 	public function load_single_type($type)
 	{
-		foreach ($this->addon_paths as $mode => $path) {
-			// Is this a directory w/ a field type?
-			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
-				return $this->_load_type(
-					$path,
-					$path.$type.'/field.'.$type.'.php',
-					$type,
-					$mode
-				);
-			} elseif (is_file($path.'field.'.$type.'.php')) {
-				return $this->_load_type(
-					$path,
-					$path.'field.'.$type.'.php',
-					$type,
-					$mode
-				);
+		// Check if we've already loaded this field type
+		if ( ! property_exists($this->types, $type)) {
+			foreach ($this->addon_paths as $mode => $path) {
+				// Is this a directory w/ a field type?
+				if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
+					return $this->_load_type(
+						$path, 
+						$path.$type.'/field.'.$type.'.php',
+						$type,
+						$mode
+					);		
+				} elseif (is_file($path.'field.'.$type.'.php')) {
+					return $this->_load_type(
+						$path, 
+						$path.'field.'.$type.'.php',
+						$type,
+						$mode
+					);
+				}					
 			}
 		}
 
-		return null;
+		return $this->types->$type;
 	}
 
 	/**
