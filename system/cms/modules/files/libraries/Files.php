@@ -1,8 +1,9 @@
 <?php
 
-use Pyro\Module\Keywords\Model\Applied;
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Users\Model\User;
 
 /**
  * PyroCMS File library.
@@ -10,7 +11,7 @@ use Pyro\Module\Files\Model\Folder;
  * This handles all file manipulation
  * both locally and in the cloud
  *
- * @author		Jerel Unruh - PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Libraries
  */
 class Files
@@ -148,7 +149,7 @@ class Files
 			$parent = ($result ? $result->id : 0);
 		}
 
-		$folders = Folder::findByParentNotHiddenBySort($parent)->toArray();
+		$folders = Folder::findByParentBySort($parent)->toArray();
 
 		$files = File::findByFolderIdBySort($parent)->toArray();
 
@@ -187,10 +188,9 @@ class Files
 	 */
 	public static function folderTree()
 	{
-		$folders = array();
-		$folder_array = array();
+		$folders = $folder_array = array();
 
-		$all_folders = Folder::findBySort();
+		$all_folders = Folder::findAllOrdered();
 
 		// we must reindex the array first
 		foreach ($all_folders->toArray() as $row) {
@@ -926,18 +926,14 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function allowedActions()
+	public static function allowedActions(User $user)
 	{
-		$allowed_actions = array();
-
-		foreach (ci()->module_m->roles('files') as $value) {
+		return array_map(function($role) use ($user) {
 			// build a simplified permission list for use in this module
-			if ($this->current_user->hasAccess('files') and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->isSuperUser() {
-				$allowed_actions[] = $value;
+			if ($user->hasAccess("files.{$value}")) {
+				return $value;
 			}
-		}
-
-		return $allowed_actions;
+		}, ci()->module_m->roles('files'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -954,12 +950,11 @@ class Files
 	{
 		log_message('debug', $e->getMessage());
 
-		echo json_encode(
-			array('status' 	=> false,
-				  'message' => $e->getMessage(),
-				  'data' 	=> ''
-				 )
-		);
+		echo json_encode(array(
+			'status'  => false,
+		 	'message' => $e->getMessage(),
+			'data' 	  => ''
+		 ));
 	}
 
 	// ------------------------------------------------------------------------
@@ -978,13 +973,11 @@ class Files
 
 		// only output the S3 error messages
 		if (strpos($error, 'S3') !== false) {
-			echo json_encode(
-				array('status' 	=> false, // clean up the error message to make it more readable
-					  'message' => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
-					  'data' 	=> ''
-					 )
-			);
-			die();
+			exit(json_encode(array(
+				'status'   => false, // clean up the error message to make it more readable
+				'message'  => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
+				'data' 	   => ''
+			)));
 		}
 	}
 

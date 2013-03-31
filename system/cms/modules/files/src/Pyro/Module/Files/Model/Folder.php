@@ -70,7 +70,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      * @param  string $direction The direction to sort results
      * @return void
      */
-    public static function findAndSortBySort($direction = 'asc')
+    public static function findAllOrdered($direction = 'asc')
     {
         return static::orderBy('sort', $direction)->get();
     }
