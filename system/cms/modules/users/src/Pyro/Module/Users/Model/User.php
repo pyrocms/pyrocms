@@ -1,7 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Cartalyst\Sentry\Users\Eloquent;
-// use Cartalyst\Sentry\Users\UserInterface;
+use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
 
 /**
  * User model for the users module.
@@ -9,7 +8,7 @@ use Cartalyst\Sentry\Users\Eloquent;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends Eloquent\User
+class User extends EloqentUser
 {
     /**
      * Define the table name
@@ -17,6 +16,13 @@ class User extends Eloquent\User
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
 
     /**
      * Disable updated_at and created_at on table
@@ -32,7 +38,7 @@ class User extends Eloquent\User
 	 */
 	public function groups()
 	{
-		return $this->belongsToMany('Cartalyst\Sentry\Groups\Eloquent\Group', 'users_groups', 'user_id');
+		return $this->belongsToMany('Pyro\Module\Groups\Model\Group', 'users_groups', 'user_id');
 	}
 
     /**
@@ -137,22 +143,6 @@ class User extends Eloquent\User
 
 		return ci()->streams_m->get_stream_fields($this->stream->id);
 	}
-
-	// public function add($input = array())
-	// {
-	// 	return parent::insertDOESNTEXIST(array(
-	// 		'email' => $input->email,
-	// 		'password' => $input->password,
-	// 		'salt' => $input->salt,
-	// 		'role' => empty($input->role) ? 'user' : $input->role,
-	// 		'active' => 0,
-	// 		'lang' => $this->config->item('default_language'),
-	// 		'activation_code' => $input->activation_hash,
-	// 		'created_on' => time(),
-	// 		'last_login' => time(),
-	// 		'ip' => $this->input->ip_address()
-	// 	));
-	// }
 
 	/**
 	 * Checks if the user is a super user - has

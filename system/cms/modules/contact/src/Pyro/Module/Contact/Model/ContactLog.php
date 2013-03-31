@@ -14,7 +14,14 @@ class ContactLog extends Model
 	 *
 	 * @var string
 	 */
-	public $table = 'contact_log';
+	protected $table = 'contact_log';
+
+    /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
 
 	/**
 	 * Disable updated_at and created_at on table

@@ -16,6 +16,13 @@ class EmailTemplate extends \Illuminate\Database\Eloquent\Model
     protected $table = 'email_templates';
 
     /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
+
+    /**
      * Disable updated_at and created_at on table
      *
      * @var boolean

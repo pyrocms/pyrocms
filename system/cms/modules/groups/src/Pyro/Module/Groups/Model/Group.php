@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Groups\Model;
 
+use Cartalyst\Sentry\Groups\Eloquent\Group as EloquentGroup;
+
 /**
  * Group model
  *
@@ -8,7 +10,7 @@
  * @package		PyroCMS\Core\Modules\Groups\Models
  *
  */
-class Group extends \Illuminate\Database\Eloquent\Model
+class Group extends EloquentGroup
 {
 	/**
 	 * Define the table name
@@ -16,6 +18,13 @@ class Group extends \Illuminate\Database\Eloquent\Model
 	 * @var string
 	 */
 	protected $table = 'groups';
+
+    /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
 
 	/**
 	 * Disable updated_at and created_at on table

@@ -453,11 +453,11 @@ class Streams_m extends CI_Model
 		$query = $this->pdb->table($this->table);
 
 		if ($by_slug == true and ! is_null($namespace)) {	
-			$query = $query
+			$query
 				->where('stream_namespace', $namespace)
 				->where('stream_slug', $stream_id);
 		} elseif (is_numeric($stream_id)) {
-			$query = $query->where('id', $stream_id);
+			$query->where('id', $stream_id);
 		} else {
 			return null;
 		}

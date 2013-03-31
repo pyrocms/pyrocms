@@ -17,6 +17,13 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     protected $table = 'file_folders';
 
     /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
+
+    /**
      * Disable updated_at and created_at on table
      *
      * @var boolean

@@ -15,7 +15,14 @@ class Applied extends Model
      *
      * @var string
      */
-    public $table = 'keywords_applied';
+    protected $table = 'keywords_applied';
+
+    /**
+     * The attributes that aren't mass assignable
+     *
+     * @var array
+     */
+    protected $guarded = array();
 
     /**
      * Disable updated_at and created_at on table
