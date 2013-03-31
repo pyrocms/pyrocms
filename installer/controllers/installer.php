@@ -48,6 +48,10 @@ class Installer extends CI_Controller
 
 	/** @var array The view variables for creating the language menu */
 	private $language_nav = array();
+
+	/** @var array Store error messages for installer */
+	public $messages = array();
+
 	/**
 	 * At start this controller should:
 	 * 1. Load the array of supported servers

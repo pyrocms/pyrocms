@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
 /**
  * CodeIgniter Dwoo Parser Class
@@ -67,8 +67,6 @@ class MY_Parser extends CI_Parser {
 
 		$data = array_merge($data, ci()->load->_ci_cached_vars);
 
-		Lex_Autoloader::register();
-
 		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
 		{
 			// In some very rare cases (mainly in the pages module), we need to
@@ -81,9 +79,9 @@ class MY_Parser extends CI_Parser {
 		}
 		else
 		{
-			$parser = new Lex\Parser;
-			$parser->scope_glue(':');
-			$parser->cumulative_noparse(true);
+			$parser = new Lex\Parser();
+			$parser->scopeGlue(':');
+			$parser->cumulativeNoparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
 		
@@ -121,15 +119,9 @@ class MY_Parser extends CI_Parser {
 			$parsed_return = '';
 
 			$parser = new Lex\Parser();
-			$parser->scope_glue(':');
+			$parser->scopeGlue(':');
 			
-			foreach ($return_data as $result)
-			{
-				// if ($data['skip_content'])
-				// {
-				// 	$simpletags->set_skip_content($data['skip_content']);
-				// }
-
+			foreach ($return_data as $result) {
 				$parsed_return .= $parser->parse($content, $result, array($this, 'parser_callback'));
 			}
 
