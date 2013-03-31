@@ -167,7 +167,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible';
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user';
 $lang['settings:form_option_activate_by_email']				= 'Activate by email';
 $lang['settings:form_option_activate_by_admin']				= 'Activate by admin';
-$lang['settings:form_option_no_activation']				= 'No activation';
+$lang['settings:form_option_no_activation']				= 'Instant activation';
 
 // messages
 $lang['settings:no_settings']					= 'There are currently no settings.';
