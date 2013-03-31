@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 /**
  * PyroStreams Core Module
@@ -24,6 +24,7 @@ class Module_Streams_core extends Module
 			'name' => array(
 				'en' => 'Streams Core',
 				'pt' => 'Núcleo Fluxos',
+                'fi' => 'Striimit ydin',
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
 				'se' => 'Streams grundmodul',
@@ -35,6 +36,7 @@ class Module_Streams_core extends Module
 			'description' => array(
 				'en' => 'Core data module for streams.',
 				'pt' => 'Módulo central de dados para fluxos.',
+                'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
 				'se' => 'Streams grundmodul för enklare hantering av data.',

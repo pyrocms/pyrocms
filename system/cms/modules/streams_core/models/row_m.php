@@ -215,6 +215,87 @@ class Row_m extends MY_Model
 		}
 
 		// -------------------------------------
+		// Filter API
+		// -------------------------------------
+
+		$filter_api = array();
+
+		if ($this->input->get('filter-'.$stream->stream_slug))
+		{
+			// Get all URL variables
+			$url_variables = $this->input->get();
+
+			$processed = array();
+
+			// Loop and process
+			foreach ($url_variables as $filter => $value)
+			{
+				// -------------------------------------
+				// Filter API Params
+				// -------------------------------------
+				// They all start with f-
+				// No value? No soup for you!
+				// -------------------------------------
+
+				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+
+				if (strlen($value) == 0) continue;				// No value.. boo
+
+				$filter = substr($filter, 2);					// Remove identifier
+
+
+				// -------------------------------------
+				// Not
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$not = substr($filter, 0, 4) == 'not-';
+
+				if ($not) $filter = substr($filter, 4);			// Remove identifier
+
+
+				// -------------------------------------
+				// Exact
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$exact = substr($filter, 0, 6) == 'exact-';
+
+				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+
+
+				// -------------------------------------
+				// Construct the where segment
+				// -------------------------------------
+
+				if ($exact)
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.urldecode($value).'"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.urldecode($value).'"';
+					}
+				}
+				else
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.urldecode($value).'%"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($value).'%"';
+					}
+				}
+			}
+		}
+	
+		// -------------------------------------
 		// Disable
 		// -------------------------------------
 		// Allows users to turn off relationships
@@ -241,8 +322,10 @@ class Row_m extends MY_Model
 			$this->sql['select'][] = '`cb_users`.`id` as `created_by||user_id`';
 			$this->sql['select'][] = '`cb_users`.`email` as `created_by||email`';
 			$this->sql['select'][] = '`cb_users`.`username` as `created_by||username`';
+            $this->sql['select'][] = '`profiles`.`display_name` as `created_by||display_name`';
 
 			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' as `cb_users` ON `cb_users`.`id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+            $this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('profiles', true).' as `profiles` ON `profiles`.`user_id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
 		}
 
 		// -------------------------------------
@@ -272,15 +355,31 @@ class Row_m extends MY_Model
 			// If we are doing sort by random,
 			// it is a string since it is the only one
 			$this->sql['order_by'] = 'RAND()';
-		} else {
+		}
+		else
+		{
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('sort-'.$stream->stream_slug))
+			{
+				$sort = $this->input->get('sort-'.$stream->stream_slug);
+			}
 			// Default Sort. This should be set beforehand,
 			// but setting it here is a last resort
-			if ( ! isset($sort) or $sort == '') {
+			elseif ( ! isset($sort) or $sort == '')
+			{
 				$sort = 'DESC';
 			}
-
+	
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('order-'.$stream->stream_slug))
+			{
+				$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers($this->input->get('order-'.$stream->stream_slug)).' '.strtoupper($sort);
+			}
 			// Other sorting options
-			if ( ! isset($order_by) or $order_by == '') {
+			elseif ( ! isset($order_by) or $order_by == '')
+			{
 				// Let's go with the stream setting now
 				// since there isn't an override
 				if ($stream->sorting == 'title' and $stream->title_column) {
@@ -360,6 +459,8 @@ class Row_m extends MY_Model
 			}
 		}
 
+		$this->sql['where'] = array_merge($this->sql['where'], $filter_api);
+		
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
@@ -719,6 +820,15 @@ class Row_m extends MY_Model
 			$where = rtrim(')');
 		}
 
+		// Does this already have a specific table
+		// that we are calling out for this where statement?
+		// If so, then let's just forget about and return
+		// the statement as is.
+		if (strpos($where, '`.`') !== false)
+		{
+			return '('.$where.')';
+		}
+
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
 
@@ -922,10 +1032,12 @@ class Row_m extends MY_Model
 				if (array_key_exists($row_slug, $all_fields)) {
 					if ($return_object) {
 						$row->$row_slug = $this->format_column($row_slug,
-							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
-					} else {
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
+					}
+					else
+					{
 						$row[$row_slug] = $this->format_column($row_slug,
-							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
 					}
 				}
 			}
@@ -976,9 +1088,11 @@ class Row_m extends MY_Model
 		}
 		$plugin_call = null;
 		// Is this an alt process type?
-		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true) {
-			if ( ! $plugin_call and method_exists($this->type->types->{$type_slug}, 'alt_pre_output')) {
-				$this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
+		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
+		{
+			if ( ! $plugin_call and method_exists($this->type->types->{$type_slug}, 'alt_pre_output'))
+			{
+				return $this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
 			}
 
 			return $column_data;
@@ -1048,7 +1162,7 @@ class Row_m extends MY_Model
 	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$this->load->helper('text');
 

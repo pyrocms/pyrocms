@@ -237,17 +237,19 @@ class Admin extends Admin_Controller
 		$input = $this->input->post();
 
 		if ($input['replace_id'] > 0) {
-			$result = Files::replaceFile($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
-			$result['status'] AND Events::trigger('file_replaced', $result['data']);
+			$result = Files::replaceFile($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
+
+			$result['status'] and Events::trigger('file_replaced', $result['data']);
 		} elseif ($input['folder_id'] and $input['name']) {
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
-			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
+			$result['status'] and Events::trigger('file_uploaded', $result['data']);
 		}
 
-		if ($result==null) {
-			$result = array('status' 	=> false,
-					 'message' 	=> "Unexpected error",
-					 );
+		if (is_null($result)) {
+			$result = array(
+				'status' 	=> false,
+				'message' 	=> "Unexpected error",
+			);
 		}
 
 		echo json_encode($result);

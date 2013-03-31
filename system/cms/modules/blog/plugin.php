@@ -16,6 +16,7 @@ class Plugin_Blog extends Plugin
 	);
 	public $description = array(
 		'en' => 'A plugin to display information such as blog categories and posts.',
+        'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
 	);
 
 	/**
@@ -29,7 +30,8 @@ class Plugin_Blog extends Plugin
 		$info = array(
 			'posts' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display blog posts optionally filtering them by category.'
+					'en' => 'Display blog posts optionally filtering them by category.',
+                    'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
 				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
@@ -44,7 +46,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'offset' => array(
@@ -69,7 +71,8 @@ class Plugin_Blog extends Plugin
 				),
 			'categories' => array(
 				'description' => array(
-					'en' => 'List blog categories.'
+					'en' => 'List blog categories.',
+                    'fr' => 'Lister les catégories du blog'
 				),
 				'single' => false,
 				'double' => true,
@@ -78,7 +81,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'order-by' => array(
@@ -97,7 +100,8 @@ class Plugin_Blog extends Plugin
 				),
 			'count_posts' => array(
 				'description' => array(
-					'en' => 'Count blog posts that meet the conditions specified.'
+					'en' => 'Count blog posts that meet the conditions specified.',
+                    'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
 				),
 				'single' => true,
 				'double' => false,
@@ -126,7 +130,8 @@ class Plugin_Blog extends Plugin
 			// method name
 			'tags' => array(
 				'description' => array(
-					'en' => 'Retrieve all tags that have been applied to blog posts.'
+					'en' => 'Retrieve all tags that have been applied to blog posts.',
+                    'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
 				),
 				'single' => false,
 				'double' => true,
@@ -135,7 +140,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					),
@@ -175,31 +180,28 @@ class Plugin_Blog extends Plugin
 			'order_by'		=> 'created_on',
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
-			'date_by'		=> 'created_on'
+			'date_by'		=> 'created_on',
+			'limit'			=> $this->attribute('limit', null),
+			'offset'		=> $this->attribute('offset')
 		);
 		foreach ($overrides as $k => $v) {
 			$params[$k] = $v;
 		}
 
 		// Convert our two non-matching posts params to their
-		// stream counterparts:
+		// stream counterparts. This is for backwards compatability.
 
 		// Order by
-		if ($this->attribute('order-by')) {
-			$params['order_by'] = $this->attribute('order-by');
-		} elseif ($this->attribute('order_by')) {
-			$params['order_by'] = $this->attribute('order_by');
-		}
+			$params['order_by'] = $this->attribute('order-by', $this->attribute('order_by'));
 
 		// Sort
 		if ($this->attribute('order-dir')) {
 			$params['sort'] = $this->attribute('order-dir');
-		} elseif ($this->attribute('order_by')) {
-			$params['sort'] = $this->attribute('sort');
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries as $key => $default_value) {
+		foreach ($params as $key => $default_value)
+		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace'))) {
 				$params[$key] = $this->attribute($key, $default_value);
 			}
@@ -207,13 +209,16 @@ class Plugin_Blog extends Plugin
 
 		// Categories
 		// We need to filter by certain categories
-		if ($this->attribute('category')) {
-			$categories = explode('|', $category);
+		if ($category_string = $this->attribute('category')) {
+			$categories = explode('|', $category_string);
+			$cate_filter_by = array();
 
-			foreach ($categories as $category) {
-				if ($category) {
-					$params['where']['`blog_categories.'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'"];
-				}
+			foreach($categories as $category) {
+				$cate_filter_by[] = '`'.$this->db->dbprefix('blog_categories').'`.`'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
+			}
+
+			if ($cate_filter_by) {
+				$params['where'][] = implode(' OR ', $cate_filter_by);
 			}
 		}
 
@@ -227,30 +232,31 @@ class Plugin_Blog extends Plugin
 		// Get our posts.
 		$posts = $this->streams->entries->get_entries($params);
 
-		// Process posts.
-		// Each post needs some special treatment.
-		foreach ($posts as &$post) {
-			$this->load->helper('text');
+		if ($posts['entries']) {		
+			// Process posts.
+			// Each post needs some special treatment.
+			foreach ($posts['entries'] as &$post) {
+				// Keywords array
+				$keywords = Keywords::get($post['keywords']);
+				$formatted_keywords = array();
+				$keywords_arr = array();
 
-			// Keywords array
-			$keywords = Keywords::get($post['keywords']);
-			$formatted_keywords = array();
-			$keywords_arr = array();
+				foreach ($keywords as $key) {
+					$formatted_keywords[] 	= array('keyword' => $key->name);
+					$keywords_arr[] 		= $key->name;
 
-			foreach ($keywords as $key) {
-				$formatted_keywords[] 	= array('keyword' => $key->name);
-				$keywords_arr[] 		= $key->name;
+				}
 
+				$post['keywords'] = $formatted_keywords;
+				$post['keywords_arr'] = $keywords_arr;
+
+				// Full URL for convenience.
+				$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+			
+				// What is the preview? If there is a field called intro,
+				// we will use that, otherwise we will cut down the blog post itself.
+				$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 			}
-			$post['keywords'] = $formatted_keywords;
-			$post['keywords_arr'] = $keywords_arr;
-
-			// Full URL for convenience.
-			$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
-
-			// What is the preview? If there is a field called intro,
-			// we will use that, otherwise we will cut down the blog post itself.
-			$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 		}
 
 		// {{ entries }} Bypass.
@@ -281,7 +287,7 @@ class Plugin_Blog extends Plugin
 	 */
 	public function categories()
 	{
-		$limit     = $this->attribute('limit', 10);
+		$limit     = $this->attribute('limit', null);
 		$order_by  = $this->attribute('order-by', 'title');
 		$order_dir = $this->attribute('order-dir', 'ASC');
 
@@ -339,8 +345,8 @@ class Plugin_Blog extends Plugin
 	 */
 	public function tags()
 	{
-		$limit = $this->attribute('limit', 10);
-
+		$limit = $this->attribute('limit');
+		
 		$this->load->library(array('keywords/keywords'));
 
 		$posts = $this->db->select('keywords')->get('blog')->result();

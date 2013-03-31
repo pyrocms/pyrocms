@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= 'Struttura';
 $lang['cp:nav_content']					= 'Contenuti';
 $lang['cp:nav_misc']					= 'Vario';
 
+$lang['cp:search']                      = 'Cerca';
+
 $lang['cp:must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp:access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
 $lang['cp:delete_installer_message']              = 'La cartella di installazione esiste ancora! Per vafore rimuovila dal server! Se la lasci online qualcuno potrebbe reinstallare il tuo sito cancellando tutti i dati prendendone così l controllo.';

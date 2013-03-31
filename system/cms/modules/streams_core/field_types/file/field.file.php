@@ -51,7 +51,7 @@ class Field_file
 		$out = '';
 
 		if ($current_file) {
-			$out .= '<a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a><br>';
+			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a></div>';
 		}
 
 		// Output the actual used value
@@ -63,6 +63,9 @@ class Field_file
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
+
+		$this->CI->type->add_js('file', 'filefield.js');
+		$this->CI->type->add_css('file', 'filefield.css');
 
 		return $out .= form_upload($options);
 	}
@@ -152,18 +155,12 @@ class Field_file
 
 		$file = File::find($input);
 
-		if ($file) {
-			$file_data['filename']		= $file->name;
-			$file_data['file']			= site_url('files/download/'.$input);
-			$file_data['ext']			= $file->extension;
-			$file_data['mimetype']		= $file->mimetype;
-		} else {
-			$file_data['filename']		= null;
-			$file_data['ext']			= null;
-			$file_data['mimetype']		= null;
-		}
-
-		return $file_data;
+		return array(
+			'filename'	=> $file ? $file->name : null,
+			'file'		=> site_url('files/download/'.$input),
+			'ext'		=> $file ? $file->extension : null,
+			'mimetype'	=> $file ? $file->mimetype : null,
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -179,9 +176,7 @@ class Field_file
 		$this->CI->load->library('files/files');
 
 		// Get the folders
-		$tree = Files::folderTreeRecursive();
-
-		$tree = (array) $tree;
+		$tree = (array) Files::folderTreeRecursive();
 
 		if (! $tree) {
 			return '<em>'.lang('streams:file.folder_notice').'</em>';

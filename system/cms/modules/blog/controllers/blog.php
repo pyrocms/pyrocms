@@ -18,14 +18,13 @@ class Blog extends Public_Controller
 		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
-		$this->load->library(array('keywords/keywords'));
+		$this->load->library('keywords/keywords');
 		$this->lang->load('blog');
 
 		$this->load->driver('Streams');
 
-		// This is a temp beta solution to
-		// the issue of categories not being a field type.
-		// Don't judge me.
+		// We are going to get all the categories so we can
+		// easily access them later when processing posts.
 		$cates = $this->db->get('blog_categories')->result_array();
 		$this->categories = array();
 
@@ -50,7 +49,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
-			'pag_base'		=> 'blog/page',
+			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
 		);
 		$posts = $this->streams->entries->get_entries($params);
@@ -116,6 +115,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb($category->title)
 			->set('pagination', $posts['pagination'])
 			->set('posts', $posts['entries'])
+			->set('category', (array)$category)
 			->build('posts');
 	}
 
@@ -224,11 +224,13 @@ class Blog extends Public_Controller
 		$this->template->set_metadata('index', 'nofollow');
 
 		$this->_single_view($post);
-
 	}
 
 	/**
-	 * @todo Document this.
+	 * Tagged Posts
+	 *
+	 * Displays blog posts tagged with a
+	 * tag (pulled from the URI)
 	 *
 	 * @param string $tag
 	 */
@@ -324,7 +326,7 @@ class Blog extends Public_Controller
 	 *
 	 * @param array $posts
 	 *
-	 * @return array
+	 * @return array keywords and description
 	 */
 	private function _posts_metadata(&$posts = array())
 	{
@@ -343,7 +345,7 @@ class Blog extends Public_Controller
 		}
 
 		return array(
-			'keywords' => implode(', ', $keywords),
+			'keywords' => implode(', ', array_unique($keywords)),
 			'description' => implode(', ', $description)
 		);
 	}
@@ -367,8 +369,8 @@ class Blog extends Public_Controller
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
 		if ($post['category_id'] > 0) {
-			// Get the category. We'll just do it ourselves
-			// since we need an array.
+			// Get the category. We'll just do it ourselves since we need an array
+			// @TODO Change this to use a model method
 			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array()) {
 				$this->template->set_breadcrumb($category['title'], 'blog/category/'.$category['slug']);
 

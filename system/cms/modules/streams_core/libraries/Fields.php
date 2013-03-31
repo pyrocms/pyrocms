@@ -15,16 +15,12 @@ class Fields
 {
 	public $field_type_events_run = array();
 
-	// --------------------------------------------------------------------------
-
     public function __construct()
     {
     	$this->CI = get_instance();
 
 		$this->CI->load->helper('form');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Build form input
@@ -60,8 +56,6 @@ class Fields
 			return $this->CI->type->types->{$field->field_type}->form_output($form_data, $row_id, $field);
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
     /**
      * Build the form validation rules and the actual output.
@@ -213,10 +207,11 @@ class Fields
 					} else {
 						// -------------------------------------
 						// Send Emails
-						// -------------------------------------
-
-						if ($plugin and (isset($extra['email_notifications']) and $extra['email_notifications'])) {
-							foreach ($extra['email_notifications'] as $notify) {
+						// -------------------------------------						
+						if ($plugin and isset($extra['email_notifications']) and $extra['email_notifications'])
+						{
+							foreach ($extra['email_notifications'] as $notify)
+							{
 								$this->send_email($notify, $result_id, $method = 'new', $stream);
 							}
 						}
@@ -239,6 +234,7 @@ class Fields
 						// -------------------------------------
 						// Send Emails
 						// -------------------------------------
+
 
 						if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications']))) {
 							foreach ($extra['email_notifications'] as $notify) {
@@ -322,13 +318,22 @@ class Fields
 	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips, $defaults, $key_check = true)
+	public function set_values($stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true)
 	{
 		$values = array();
 
-		foreach ($stream_fields as $stream_field) {
-			if ( ! in_array($stream_field->field_slug, $skips)) {
-				if (! $key_check) {
+		// If we don't have any stream fields, 
+		// we don't have anything to do.
+		if ( ! $stream_fields) {
+			return $values;
+		}
+
+		foreach ($stream_fields as $stream_field)
+		{
+			if ( ! in_array($stream_field->field_slug, $skips))
+			{
+				if ( ! $key_check)
+				{
 					$values[$stream_field->field_slug] = null;
 				} elseif ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]'])) {
 					// If this is a new entry and there is no post data,
@@ -339,10 +344,22 @@ class Fields
 					// Otherwise, it's just null
 					if (isset($row->{$stream_field->field_slug})) {
 						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
-					} else {
+					}
+					elseif ($mode == 'new')
+					{
 						$values[$stream_field->field_slug] = (isset($defaults[$stream_field->field_slug]) ? $defaults[$stream_field->field_slug] : (isset($stream_field->field_data['default_value']) ? $stream_field->field_data['default_value'] : null));
 					}
-				} else {
+					elseif ($mode == 'edit')
+					{
+						// If there is no post data and no existing data and this is 
+						// an edit page, then we don't want to show the default.
+						// Edit pages should *always* reflect the current data,
+						// and nothing more.
+						$values[$stream_field->field_slug] = null;
+					}
+				}
+				else
+				{
 					// Post Data - we always show
 					// post data above any other data that
 					// might be sitting around.
@@ -363,8 +380,6 @@ class Fields
 
 		return $values;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Build Fields
@@ -429,8 +444,6 @@ class Fields
 
 		return $fields;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Set Rules
@@ -551,8 +564,6 @@ class Fields
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Run Field Setup Event Functions
 	 *
@@ -572,8 +583,6 @@ class Fields
 			}
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Translate a label.
@@ -601,8 +610,6 @@ class Fields
 
 		return $label;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Send Email
@@ -734,8 +741,6 @@ class Fields
 
 		return $return;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Process an email address - if it is not

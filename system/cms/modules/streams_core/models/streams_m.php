@@ -63,8 +63,6 @@ class Streams_m extends CI_Model
 		)
 	);
 
-    // --------------------------------------------------------------------------
-
 	public function __construct()
 	{
 		$this->table = STREAMS_TABLE;
@@ -74,8 +72,6 @@ class Streams_m extends CI_Model
 		// call for each.
 		$this->run_cache();
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Run Slug Cache
@@ -89,8 +85,6 @@ class Streams_m extends CI_Model
 	{
 		$this->run_cache();
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Run Cache
@@ -120,8 +114,6 @@ class Streams_m extends CI_Model
 		}
 
 	}
-
-    // --------------------------------------------------------------------------
 
     /**
      * Get streams
@@ -184,8 +176,6 @@ class Streams_m extends CI_Model
 
 		return $this->pdb->table($stream->stream_prefix.$stream->stream_slug)->count();
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Create a new stream
@@ -497,7 +487,7 @@ class Streams_m extends CI_Model
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = array())
 	{
 		$this->load->config('streams');
 
@@ -505,8 +495,16 @@ class Streams_m extends CI_Model
 		// Set Ordering
 		// -------------------------------------
 
-		if ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))) {
-			if ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)) {
+		// Query string API overrides all
+		// Check if there is one now
+		if ($this->input->get('order-'.$stream->stream_slug))
+		{
+			$this->db->order_by($this->input->get('order-'.$stream->stream_slug), $this->input->get('order-'.$stream->stream_slug) ? $this->input->get('order-'.$stream->stream_slug) : 'ASC');
+		}
+		elseif ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
+		{
+			if ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
+			{
 				$this->db->order_by($stream->title_column, 'ASC');
 			}
 		} elseif ($stream->sorting == 'custom') {
@@ -523,7 +521,9 @@ class Streams_m extends CI_Model
 
 			// Loop through and apply the filters
 			foreach ($filter_data['filters'] as $filter=>$value) {
-				if ( strlen($value) > 0 ) $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) {
+					$this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
+				}
 			}
 		}
 

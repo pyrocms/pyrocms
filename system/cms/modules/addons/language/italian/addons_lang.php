@@ -3,7 +3,7 @@
 /* Date 04/11/2010 */
 
 $lang['addons:modules'] 						= 'Moduli';
-$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
+$lang['addons:admin_themes'] 					= 'Temi Admin';
 $lang['addons:themes'] 							= 'Temi';
 $lang['addons:widgets'] 						= 'Widgets';
 

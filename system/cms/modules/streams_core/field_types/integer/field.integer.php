@@ -37,6 +37,11 @@ class Field_integer
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
+		
+		// Max length
+		if ( ! empty($data['max_length'])) {
+			$options['maxlength'] = $data['max_length'];
+		}
 
 		return form_input($options);
 	}

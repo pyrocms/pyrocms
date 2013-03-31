@@ -8,6 +8,17 @@ function pyroimage_onclick(e)
     CKEDITOR.currentInstance.openDialog('pyroimage_dialog');
 }
 
+// copied from ckeditor-dev/core/htmldataprocessor.js#unprotectSource
+function unprotectImgSrc(imgSrc, editor) {
+    var store = editor._.dataStore;
+
+    return imgSrc.replace( /<!--\{cke_protected\}([\s\S]+?)-->/g, function( match, data ) {
+        return decodeURIComponent( data );
+    }).replace( /\{cke_protected_(\d+)\}/g, function( match, id ) {
+        return store && store[ id ] || '';
+    });
+}
+
 // Replace url-encoded forms of {{ url:site }} and {{ url: base }}
 // with their corresponding JS constants
 function lexToUrl(imgSrc) {
@@ -112,7 +123,7 @@ CKEDITOR.plugins.add('pyroimages',
 					var protectedSrc = element.attributes.src;
 					// Before replacing the Lex tags we need to get the raw src
 					// so we'll use the dataProcessor to 'unprotect' it.
-					var unprotectedSrc = dataProcessor.toDataFormat(protectedSrc),
+					var unprotectedSrc = unprotectImgSrc(protectedSrc, editor),
 						localizedSrc = lexToUrl(unprotectedSrc);
 
 					// We'll set a custom attribute so that the image dialog

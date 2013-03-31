@@ -47,6 +47,7 @@ $lang['pages:duplicate_label']          = 'Dupliquer';
 $lang['pages:create_title']             = 'Créer une page';
 $lang['pages:edit_title']               = 'Modifier la page "%s"';
 $lang['pages:list_title']               = 'Lister les pages';
+$lang['pages:choose_type_title']        = 'Quel type de page souhaitez vous créer&nbsp;?';
 $lang['pages:types_create_title']       = 'Ajouter un modèle';
 $lang['pages:types_list_title']         = 'Lister les modèles';
 

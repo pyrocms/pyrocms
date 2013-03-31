@@ -23,8 +23,6 @@ class Field_wysiwyg
 
 	public $author					= array('name' => 'Parse19', 'url'=>'http://parse19.com');
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Event
 	 *
@@ -40,8 +38,6 @@ class Field_wysiwyg
 			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Pre-Ouput WYSUWYG content
@@ -59,16 +55,17 @@ class Field_wysiwyg
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
-		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y') {
-			return $input;
-		} else {
+		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
+		{
+			return $this->CI->parser->parse_string($input, array(), true);
+		}
+		else
+		{
 			$this->CI->load->helper('text');
 			return escape_tags($input);
 		}
 
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -93,8 +90,6 @@ class Field_wysiwyg
 		return form_textarea($options);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Editor Type Param
 	 *
@@ -110,8 +105,6 @@ class Field_wysiwyg
 		return form_dropdown('editor_type', $types, $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Allow tags param.
 	 *
@@ -125,7 +118,7 @@ class Field_wysiwyg
 		);
 
 		// Defaults to No
-		$value = ($value) ? $value : 'n';
+		$value or $value = 'n';
 
 		return form_dropdown('allow_tags', $options, $value);
 	}

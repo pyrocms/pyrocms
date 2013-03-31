@@ -113,5 +113,6 @@ $lang['global:plugins']					= 'Πρόσθετα';
 $lang['global:plugin']					= 'Πρόσθετο';
 
 $lang['global:options']					= 'Επιλογές';
+$lang['global:plain-text']				= 'Plain Text'; #translate
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

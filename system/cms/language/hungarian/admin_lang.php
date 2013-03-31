@@ -32,10 +32,12 @@ $lang['cp:nav_settings']			= 'Beállítások';
 $lang['cp:nav_addons']				= 'Bővítmények';
 $lang['cp:nav_modules']				= 'Modulok';
 $lang['cp:nav_users']				= 'Felhasználók';
-$lang['cp:nav_data']					= 'Adat';
-$lang['cp:nav_structure']				= 'Struktúra';
+$lang['cp:nav_data']				= 'Adat';
+$lang['cp:nav_structure']			= 'Struktúra';
 $lang['cp:nav_content']				= 'Tartalom';
-$lang['cp:nav_misc']					= 'Egyéb';
+$lang['cp:nav_misc']				= 'Egyéb';
+
+$lang['cp:search']                  = 'Keresés';
 
 $lang['cp:must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp:access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';

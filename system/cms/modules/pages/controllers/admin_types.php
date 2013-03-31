@@ -127,6 +127,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function create()
 	{
+		role_or_die('pages', 'create_types');
+
 		// Set the validation rules
 		$this->form_validation->set_rules(static::$validate);
 
@@ -277,6 +279,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
+		role_or_die('pages', 'edit_types');
+
 		// Unset validation rules of required fields that are not included in the edit form
 		unset($this->validation_rules[1]);
 		unset($this->validation_rules[3]);
@@ -379,9 +383,9 @@ class Admin_types extends Admin_Controller
 
 		// If we are adding a field, show the field form.
 		if ($this->uri->segment(6) == 'new_field') {
-			return $this->_new_field($stream);
+			return $this->_new_field($stream, $page_type);
 		} elseif ($this->uri->segment(6) == 'edit_field') {
-			return $this->_edit_field($stream);
+			return $this->_edit_field($stream, $page_type);
 		} elseif ($this->uri->segment(6) == 'delete_field') {
 			return $this->_delete_field($stream);
 		}
@@ -405,7 +409,7 @@ class Admin_types extends Admin_Controller
 		);
 
 		// Show our fields list.
-		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, 25, 'admin/pages/types/fields/'.$page_type->id, true, $extra);
+		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
 	}
 
 	// --------------------------------------------------------------------------
@@ -477,11 +481,13 @@ class Admin_types extends Admin_Controller
 	 * Edit Fields for a certain page type.
 	 *
 	 */
-	private function _new_field($stream)
+	private function _new_field($stream, $page_type)
 	{
 		$extra = array(
-			'title'				=> $stream->stream_name.' : '.lang('streams:new_field'),
-			'success_message' 	=> lang('page_types:success_add_tag'),
+			'title'					 => $stream->stream_name.' : '.lang('streams:new_field'),
+			'success_message' 		 => lang('page_types:success_add_tag'),
+			'cancel_uri'			 => 'admin/pages/types/fields/'.$page_type->id,
+			'allow_title_column_set' => true
 		);
 
 		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
@@ -493,11 +499,13 @@ class Admin_types extends Admin_Controller
 	 * Edit Fields for a certain page type.
 	 *
 	 */
-	private function _edit_field($stream)
+	private function _edit_field($stream, $page_type)
 	{
 		$extra = array(
-			'title'				=> $stream->stream_name.' : '.lang('streams:edit_field'),
-			'success_message' 	=> lang('page_types:success_add_tag'),
+			'title'						=> $stream->stream_name.' : '.lang('streams:edit_field'),
+			'success_message' 			=> lang('page_types:success_add_tag'),
+			'cancel_uri'				=> 'admin/pages/types/fields/'.$page_type->id,
+			'allow_title_column_set' 	=> true
 		);
 
 		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
@@ -525,6 +533,8 @@ class Admin_types extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('pages', 'delete_types');
+
 		empty($id) and redirect('admin/pages/types');
 
 		$page_type = $this->page_type_m->get($id);

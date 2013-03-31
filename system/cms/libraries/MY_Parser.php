@@ -10,16 +10,7 @@
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
 
-class MY_Parser extends CI_Parser
-{
-	private $_ci;
-
-	public function __construct($config = array())
-	{
-		$this->_ci = & get_instance();
-	}
-
-	// --------------------------------------------------------------------
+class MY_Parser extends CI_Parser {
 
 	/**
 	 *  Parse a view file
@@ -34,12 +25,10 @@ class MY_Parser extends CI_Parser
 	 */
 	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
-		$string = $this->_ci->load->view($template, $data, true);
+		$string = ci()->load->view($template, $data, true);
 
 		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
-
-	// --------------------------------------------------------------------
 
 	/**
 	 *  String parse
@@ -57,8 +46,6 @@ class MY_Parser extends CI_Parser
 		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
-	// --------------------------------------------------------------------
-
 	/**
 	 *  Parse
 	 *
@@ -73,36 +60,43 @@ class MY_Parser extends CI_Parser
 	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array())
 	{
 		// Start benchmark
-		$this->_ci->benchmark->mark('parse_start');
+		ci()->benchmark->mark('parse_start');
 
 		// Convert from object to array
 		is_array($data) or $data = (array) $data;
 
-		$data = array_merge($data, $this->_ci->load->get_vars());
+		$data = array_merge($data, ci()->load->_ci_cached_vars);
 
-		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace'])) {
-			$this->_ci->load->driver('Streams');
-			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace']);
-		} else {
-			$parser = new Lex\Parser();
-			$parser->scopeGlue(':');
-			$parser->cumulativeNoparse(true);
+		Lex_Autoloader::register();
+
+		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
+		{
+			// In some very rare cases (mainly in the pages module), we need to
+			// change the field that is being passed to plugin_override() as row_id.
+			// This is where that happens.
+			$id_name = (isset($streams_parse['id_name']) and $streams_parse['id_name']) ? $streams_parse['id_name'] : 'id';
+
+			ci()->load->driver('Streams');
+			$parsed = ci()->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace'], false, null, $id_name);
+		}
+		else
+		{
+			$parser = new Lex\Parser;
+			$parser->scope_glue(':');
+			$parser->cumulative_noparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
-
+		
 		// Finish benchmark
-		$this->_ci->benchmark->mark('parse_end');
-
+		ci()->benchmark->mark('parse_end');
+		
 		// Return results or not ?
-		if (! $return) {
-			$this->_ci->output->append_output($parsed);
-			return;
+		if ($return) {
+			return $parsed;
 		}
-
-		return $parsed;
+		
+		ci()->output->append_output($parsed);		
 	}
-
-	// --------------------------------------------------------------------
 
 	/**
 	 * Callback from template parser
@@ -112,24 +106,25 @@ class MY_Parser extends CI_Parser
 	 */
 	public function parser_callback($plugin, $attributes, $content)
 	{
-		$this->_ci->load->library('plugins');
+		ci()->load->library('plugins');
 
-		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content);
+		$return_data = ci()->plugins->locate($plugin, $attributes, $content);
 
-		if (is_array($return_data) && $return_data) {
-			if ( ! $this->_is_multi($return_data)) {
+		if (is_array($return_data) && $return_data)
+		{
+			if ( ! $this->_is_multi($return_data))
+			{
 				$return_data = $this->_make_multi($return_data);
 			}
 
-			# TODO What was this doing other than throw warnings in 2.0? Phil
-			// $content = $data['content'];
+			// $content = $data['content']; # TODO What was this doing other than throw warnings in 2.0?
 			$parsed_return = '';
 
 			$parser = new Lex\Parser();
-			$parser->scopeGlue(':');
-
-			foreach ($return_data as $result) {
-				// TODO Why is this commented out? Phil
+			$parser->scope_glue(':');
+			
+			foreach ($return_data as $result)
+			{
 				// if ($data['skip_content'])
 				// {
 				// 	$simpletags->set_skip_content($data['skip_content']);
@@ -173,13 +168,14 @@ class MY_Parser extends CI_Parser
 		$multi = array();
 		$return = array();
 		foreach ($flat as $item => $value) {
-			is_object($value) and $value = (array) $value;
-			$return[$i][$item] = $value;
+			if (is_object($value)) {
+				$return[$item] = (array) $value;
+			} else {
+				$return[$i][$item] = $value;
+			}
 		}
 		return $return;
 	}
 }
-
-// END MY_Parser Class
 
 /* End of file MY_Parser.php */
