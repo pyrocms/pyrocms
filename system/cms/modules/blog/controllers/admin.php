@@ -159,6 +159,19 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+
+		// They are trying to put this live
+		if ($this->input->post('status') == 'live')
+		{
+			role_or_die('blog', 'put_live');
+
+			$hash = "";
+		}
+		else
+		{
+			$hash = $this->_preview_hash();
+		}
+
 		$post = new stdClass();
 
 		// Get the blog stream.
@@ -183,18 +196,9 @@ class Admin extends Admin_Controller
 		{
 			$created_on = now();
 		}
-		$hash = $this->_preview_hash();
 
 		if ($this->form_validation->run())
 		{
-			// They are trying to put this live
-			if ($this->input->post('status') == 'live')
-			{
-				role_or_die('blog', 'put_live');
-
-				$hash = "";
-			}
-
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
 			$extra = array(
@@ -278,7 +282,13 @@ class Admin extends Admin_Controller
 		$id or redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
-
+		
+		// They are trying to put this live
+		if ($post->status != 'live' and $this->input->post('status') == 'live')
+		{
+			role_or_die('blog', 'put_live');
+		}
+		
 		// If we have keywords before the update, we'll want to remove them from keywords_applied
 		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
 
@@ -327,12 +337,6 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run())
 		{
-			// They are trying to put this live
-			if ($post->status != 'live' and $this->input->post('status') == 'live')
-			{
-				role_or_die('blog', 'put_live');
-			}
-
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$extra = array(
