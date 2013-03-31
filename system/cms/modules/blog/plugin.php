@@ -209,7 +209,7 @@ class Plugin_Blog extends Plugin
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries->entries_params as $key => $default_value)
+		foreach ($params as $key => $default_value)
 		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
