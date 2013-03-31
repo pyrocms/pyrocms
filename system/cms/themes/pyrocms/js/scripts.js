@@ -426,7 +426,7 @@ jQuery(function($) {
 	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
-		if (exception != 'abort') {
+		if (exception != 'abort' && exception.length > 0) {
 			pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
 		}
 	});
