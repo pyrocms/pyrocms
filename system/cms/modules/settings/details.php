@@ -415,6 +415,18 @@ class Module_Settings extends Module
 				'module' => 'email',
 				'order' => 972,
 			),
+			'mail_line_endings' => array(
+				'title' => 'Email Line Endings',
+				'description' => 'Change from the standard \r\n line ending to PHP_EOL for some email servers.',
+				'type' => 'select',
+				'`default`' => 1,
+				'value' => '1',
+				'`options`' => '0=PHP_EOL|1=\r\n',
+				'is_required' => false,
+				'is_gui' => 1,
+				'module' => 'email',
+				'order' => 972,
+			),
 			// @todo 'twitter_username' setting is not used anywhere, maybe remove this? (Check thouroughly first)
 			'twitter_username' => array(
 				'title' => 'Username',
