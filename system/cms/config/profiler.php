@@ -11,6 +11,4 @@
 |
 */
 
-
-
 /* End of file profiler.php */

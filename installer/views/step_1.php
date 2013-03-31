@@ -68,7 +68,7 @@
 
 	<div class="input mysql pgsql">
 		<label for="create_db">{db_create}</label><br>
-		<input type="checkbox" name="create_db" value="1" id="create_db" <?php if($this->input->post('create_db')) { echo ' checked'; } ?> />
+		<input type="checkbox" name="create_db" value="1" id="create_db" <?php if ($this->input->post('create_db')) { echo ' checked'; } ?> />
 		<small>({db_notice})</small>
 	</div>
 

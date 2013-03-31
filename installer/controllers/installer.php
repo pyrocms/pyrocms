@@ -65,8 +65,7 @@ class Installer extends CI_Controller
 		// Get the supported languages
 		$this->_discover_languages();
 
-		if ($this->session->userdata('language'))
-		{
+		if ($this->session->userdata('language')) {
 			$this->config->set_item('language', $this->session->userdata('language'));
 		}
 		$current_language = $this->config->item('language');
@@ -106,7 +105,7 @@ class Installer extends CI_Controller
 		);
 
 		// Generate the language array for the navigation.
-		foreach($config['supported_languages'] as $code => $info) {
+		foreach ($config['supported_languages'] as $code => $info) {
 			// There is a translation available and we haven't already put that in there.
 			if (in_array($info['folder'], $this->languages) && ! array_key_exists($info['folder'], $this->language_nav)) {
 				$this->language_nav[$info['folder']] = array(
@@ -188,8 +187,7 @@ class Installer extends CI_Controller
         ));
 
         // If the form validation passed
-		if ($this->form_validation->run())
-        {
+		if ($this->form_validation->run()) {
             // Set the flashdata message
             $this->session->set_flashdata('success', lang('db_success'));
 
@@ -202,8 +200,7 @@ class Installer extends CI_Controller
         $supported_servers      = $this->config->item('supported_servers');
         $data->server_options   = array();
 
-        foreach ($supported_servers as $key => $server)
-        {
+        foreach ($supported_servers as $key => $server) {
             $data->server_options[$key] = $server['name'];
         }
 
@@ -216,19 +213,14 @@ class Installer extends CI_Controller
         // Work out which DB driver to show as selected
         $data->selected_db_driver = null;
 
-        if ($this->input->post('db_driver') === null)
-        {
-            foreach (array('sqlite', 'pgsql', 'mysql') as $driver)
-            {
-                if ($data->db_drivers[$driver] === true)
-                {
+        if ($this->input->post('db_driver') === null) {
+            foreach (array('sqlite', 'pgsql', 'mysql') as $driver) {
+                if ($data->db_drivers[$driver] === true) {
                     $data->selected_db_driver = $driver;
                     break;
                 }
             }
-        }
-        else
-        {
+        } else {
             $data->selected_db_driver = $this->input->post('db_driver');
         }
 
@@ -257,13 +249,10 @@ class Installer extends CI_Controller
 		// Store this for later
 		$this->session->set_userdata('db_config', $db_config);
 
-		try
-		{
+		try {
 			// Create a connection to see if data is correct
 			$this->installer_lib->create_connection($db_config);
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			$this->form_validation->set_message('test_db_connection', lang('db_failure').$e->getMessage());
 			return false;
 		}
@@ -277,8 +266,7 @@ class Installer extends CI_Controller
 	public function step_2()
 	{
 		// Did the user enter the DB settings ?
-		if ( ! $this->session->userdata('step_1_passed'))
-		{
+		if ( ! $this->session->userdata('step_1_passed')) {
 			// Set the flashdata message
 			$this->session->set_flashdata('message', lang('step1_failure'));
 			$this->session->set_flashdata('message_type', 'failure');
@@ -314,8 +302,7 @@ class Installer extends CI_Controller
 		$data->step_passed = $this->installer_lib->check_server($data);
 
 		// Skip Step 2 if it passes
-		if ($data->step_passed)
-		{
+		if ($data->step_passed) {
 			$this->session->set_userdata('step_2_passed', true);
 
 			redirect('installer/step_3');
@@ -325,7 +312,7 @@ class Installer extends CI_Controller
 
 		// Load the view files
 
-		$this->_render_view('step_2', (array)$data);
+		$this->_render_view('step_2', (array) $data);
 	}
 
 	/**
@@ -333,8 +320,7 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
-		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
-		{
+		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed')) {
 			// Redirect the user back to step 1
 			redirect('installer/step_2');
 		}
@@ -344,14 +330,12 @@ class Installer extends CI_Controller
 
 		// Get the write permissions for the folders
 		$permissions = array();
-		foreach ($this->writable_directories as $dir)
-		{
+		foreach ($this->writable_directories as $dir) {
 			@chmod('../'.$dir, 0777);
 			$permissions['directories'][$dir] = is_really_writable('../'.$dir);
 		}
 
-		foreach ($this->writable_files as $file)
-		{
+		foreach ($this->writable_files as $file) {
 			@chmod('../'.$file, 0666);
 			$permissions['files'][$file] = is_really_writable('../'.$file);
 		}
@@ -362,8 +346,7 @@ class Installer extends CI_Controller
 		$this->session->set_userdata('step_3_passed', $data['step_passed']);
 
 		// Skip Step 2 if it passes
-		if ($data['step_passed'])
-		{
+		if ($data['step_passed']) {
 			$this->session->set_userdata('step_3_passed', true);
 
 			redirect('installer/step_4');
@@ -380,8 +363,7 @@ class Installer extends CI_Controller
 	 */
 	public function step_4()
 	{
-		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed'))
-		{
+		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed')) {
 			// Redirect the user back to step 2
 			redirect('installer/step_2');
 		}
@@ -416,23 +398,20 @@ class Installer extends CI_Controller
 		));
 
 		// If the form validation failed (or did not run)
-		if ($this->form_validation->run() == false)
-		{
+		if ($this->form_validation->run() == false) {
 			$this->_render_view('step_4');
 		}
 
 		// If the form validation passed
-		else
-		{
+		else {
 			// Grab the connection config from the session
 			$db_config = $this->session->userdata('db_config');
-			
+
 			// First User details
 			$user = $this->input->post('user');
 
 			// Create the database if that is what they asked us to do
-			if ( ! empty($db_config['create_db']))
-			{
+			if ( ! empty($db_config['create_db'])) {
 				// Create an PDO connection and instance
 				$pdo = $this->installer_lib->create_connection($db_config);
 
@@ -443,8 +422,7 @@ class Installer extends CI_Controller
 			// Let's try to install the system with this new PDO instance
 			try {
 				$pdb = $this->installer_lib->install($user, $db_config);
-			}
-			catch (Exception $e) {
+			} catch (Exception $e) {
 				// Let's tell them why the install failed
 				$this->session->set_flashdata('error', $e->getMessage());
 
@@ -479,8 +457,7 @@ class Installer extends CI_Controller
 	public function complete()
 	{
 		// check if we came from step4
-		if ( ! $this->session->userdata('user'))
-		{
+		if ( ! $this->session->userdata('user')) {
 			redirect(site_url());
 		}
 
@@ -512,8 +489,7 @@ class Installer extends CI_Controller
 	{
 		$this->_discover_languages();
 
-		if (in_array($language, $this->languages))
-		{
+		if (in_array($language, $this->languages)) {
 			$this->session->set_userdata('language', $language);
 		}
 
@@ -529,20 +505,16 @@ class Installer extends CI_Controller
 	private function _discover_languages()
 	{
 		// Convert the translation directory path to absolute
-		if ($this->languages_directory === '../language/')
-		{
+		if ($this->languages_directory === '../language/') {
 			$this->languages_directory = realpath(dirname(__FILE__).'/'.$this->languages_directory);
 		}
 
 		// Get the supported language array populated
-		if (empty($this->languages))
-		{
-			foreach (glob($this->languages_directory.'/*', GLOB_ONLYDIR) as $path)
-			{
+		if (empty($this->languages)) {
+			foreach (glob($this->languages_directory.'/*', GLOB_ONLYDIR) as $path) {
 				$path = basename($path);
 
-				if ( ! in_array($path, array('.', '..')))
-				{
+				if ( ! in_array($path, array('.', '..'))) {
 					$this->languages[] = $path;
 				}
 			}
@@ -561,11 +533,9 @@ class Installer extends CI_Controller
 	{
 		$args = array_slice(func_get_args(), 1);
 		$out = array_merge($this->lang->language, array('language_nav' => $this->language_nav));
-		
-		foreach($args as $arg)
-		{
-			if (is_array($arg))
-			{
+
+		foreach ($args as $arg) {
+			if (is_array($arg)) {
 				$out = array_merge($out, $arg);
 			}
 		}

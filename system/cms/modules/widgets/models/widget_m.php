@@ -60,8 +60,7 @@ class Widget_m extends CI_Model
 
 		$result = $this->db->get()->result();
 
-		if ($result)
-		{
+		if ($result) {
 			array_map(array($this, 'unserialize_fields'), $result);
 		}
 
@@ -82,8 +81,7 @@ class Widget_m extends CI_Model
 	{
 		$result = $this->db->get_where('widgets', array($field => $id))->row();
 
-		if ($result)
-		{
+		if ($result) {
 			$this->unserialize_fields($result);
 		}
 
@@ -92,20 +90,14 @@ class Widget_m extends CI_Model
 
 	public function unserialize_fields($obj)
 	{
-		foreach (array('title', 'description') as $field)
-		{
-			if (isset($obj->{$field}))
-			{
+		foreach (array('title', 'description') as $field) {
+			if (isset($obj->{$field})) {
 
 				$_field = @unserialize($obj->{$field});
 
-				if ($_field === false)
-				{
+				if ($_field === false) {
 					isset($obj->slug) && $this->widgets->reload_widget($obj->slug);
-				}
-
-				else
-				{
+				} else {
 					$obj->{$field} = is_array($_field)
 						? isset($_field[CURRENT_LANGUAGE])
 							? $_field[CURRENT_LANGUAGE] : $_field['en']
@@ -121,8 +113,7 @@ class Widget_m extends CI_Model
 	{
 		$result = parent::get_all();
 
-		if ($result)
-		{
+		if ($result) {
 			array_map(array($this, 'unserialize_fields'), $result);
 		}
 
@@ -160,8 +151,7 @@ class Widget_m extends CI_Model
 
 	public function update_widget($input)
 	{
-		if ( ! isset($input['slug']))
-		{
+		if ( ! isset($input['slug'])) {
 			return false;
 		}
 
@@ -215,12 +205,9 @@ class Widget_m extends CI_Model
 
 	public function update_area($input = array())
 	{
-		if (isset($input['id']))
-		{
+		if (isset($input['id'])) {
 			$this->db->where('id', $input['id']);
-		}
-		else
-		{
+		} else {
 			$this->db->where('slug', $input['area_slug']);
 		}
 
@@ -285,8 +272,7 @@ class Widget_m extends CI_Model
 			->get_where('widgets', array('slug' => $slug))
 			->row();
 
-		if (isset($widget->id))
-		{
+		if (isset($widget->id)) {
 			$this->db->delete('widget_instances', array('widget_id' => $widget->id));
 		}
 
@@ -295,8 +281,7 @@ class Widget_m extends CI_Model
 
 	public function delete_area($id = 0)
 	{
-		if ( ! is_numeric($id))
-		{
+		if ( ! is_numeric($id)) {
 			// Get the id for this area
 			$area = $this->db
 				->select('id')

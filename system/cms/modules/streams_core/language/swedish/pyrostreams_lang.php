@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -172,5 +172,5 @@ $lang['streams:slug_instructions']						= 'This will also be the database table 
 $lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
 $lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
-/* End of file pyrostreams_lang.php */  
-/* Location: system/cms/modules/streams_core/language/swedish/pyrostreams_lang.php */  
+/* End of file pyrostreams_lang.php */
+/* Location: system/cms/modules/streams_core/language/swedish/pyrostreams_lang.php */

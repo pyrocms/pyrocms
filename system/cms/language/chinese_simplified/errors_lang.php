@@ -16,5 +16,3 @@ $lang['error_404_message'] 			= '我們无法找到您要查看的頁面，請  
 
 // Database
 $lang['error_invalid_db_group'] 	= '数据库目前正尝试使用的设定 "%s" 是不正確的。';
-
-?>

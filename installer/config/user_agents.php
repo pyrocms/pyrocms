@@ -44,7 +44,6 @@ $platforms = array (
 					'unix'				=> 'Unknown Unix OS'
 				);
 
-
 // The order of this array should NOT be changed. Many browsers return
 // multiple browser types so we want to identify the sub-type first.
 $browsers = array(
@@ -124,7 +123,7 @@ $mobiles = array(
 
 					// Operating Systems
 					'symbian'				=> "Symbian",
-					'SymbianOS'				=> "SymbianOS", 
+					'SymbianOS'				=> "SymbianOS",
 					'elaine'				=> "Palm",
 					'palm'					=> "Palm",
 					'series60'				=> "Symbian S60",

@@ -10,8 +10,7 @@ class Migration_Update_stream_file_ids extends CI_Migration
         // Get all of our image and file field types
         $fields = $this->db->where('field_type', 'image')->or_where('field_type', 'file')->get('data_fields')->result();
 
-        foreach ($fields as $field)
-        {
+        foreach ($fields as $field) {
             // Get the assignments
             $assignments = $this->db
                                     ->from('data_field_assignments')
@@ -21,8 +20,7 @@ class Migration_Update_stream_file_ids extends CI_Migration
 
             // Go through each assignment and convert into a 15
             // length char string.
-            foreach ($assignments as $assign)
-            {
+            foreach ($assignments as $assign) {
                 $columns = array(
                     $field->field_slug => array(
                         'type' => 'CHAR',

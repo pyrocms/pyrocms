@@ -24,10 +24,10 @@ class Plugin_format extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Format plugin for a larger example
 	 *
 	 * @return array
@@ -44,7 +44,7 @@ class Plugin_format extends Plugin
 				'variables' => '',
 				'attributes' => array(),
 			),
-			
+
 			'textile' => array(
 				'description' => array(
 					'en' => 'Send some content through the Textile processor.'
@@ -54,7 +54,7 @@ class Plugin_format extends Plugin
 				'variables' => '',
 				'attributes' => array(),
 			),
-			
+
 			'url_title' => array(
 				'description' => array(
 					'en' => 'A Plugin shortcut to the CodeIgniter url_title() function.'
@@ -81,7 +81,7 @@ class Plugin_format extends Plugin
 				),
 			),
 		);
-	
+
 		return $info;
 	}
 
@@ -127,8 +127,7 @@ class Plugin_format extends Plugin
 		$attrs = $this->attributes();
 
 		// fix 'true' or 'false' to real bools.
-		if (count($attrs) > 2)
-		{
+		if (count($attrs) > 2) {
 			$bool = array_slice($attrs, 2);
 			array_splice($attrs, 2, 1, array_map('str_to_bool', $bool));
 		}

@@ -92,10 +92,9 @@ class Module_Addons extends Module
 				),
 			),
 		);
-	
+
 		// Add upload options to various modules
-		if ( ! class_exists('Module_import') and Settings::get('addons_upload'))
-		{
+		if ( ! class_exists('Module_import') and Settings::get('addons_upload')) {
 			$info['sections']['modules']['shortcuts'] = array(
 				array(
 					'name' => 'global:upload',
@@ -135,7 +134,7 @@ class Module_Addons extends Module
 
         $schema->dropIfExists('theme_options');
 
-        $schema->create('theme_options', function($table) { 
+        $schema->create('theme_options', function($table) {
             $table->increments('id');
             $table->string('slug', 30);
             $table->string('title', 100);

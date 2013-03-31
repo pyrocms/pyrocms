@@ -18,8 +18,7 @@
 $lang['account_creation_successful']            = 'A felhasználói fiók sikeresen létrejött';
 $lang['account_creation_unsuccessful']          = 'Nem lehetett létrehozni a felhasználói fiókot';
 $lang['account_creation_duplicate_email']       = 'Az e-mail cím már foglalt, vagy nem érvényes!';
-$lang['account_creation_duplicate_username']    = 'A felhasználónév már foglalt, vagy nem érvényes!';  
-
+$lang['account_creation_duplicate_username']    = 'A felhasználónév már foglalt, vagy nem érvényes!';
 
 // Password
 $lang['password_change_successful']             = 'A jelszó siekresen megváltoztatva';

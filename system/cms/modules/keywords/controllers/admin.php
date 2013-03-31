@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Keywords\Model\Keyword;
 
@@ -100,7 +100,7 @@ class Admin extends Admin_Controller
 		// Make sure we found something
 		$keyword or redirect('admin/keywords');
 
-		$this->form_validation->set_rules($this->validation_rules);	
+		$this->form_validation->set_rules($this->validation_rules);
 
 		if ($this->form_validation->run()) {
 

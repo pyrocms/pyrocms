@@ -69,8 +69,7 @@ class Installer_lib
 	public function gd_acceptable()
 	{
 		// Homeboy is not rockin GD at all
-		if ( ! function_exists('gd_info'))
-		{
+		if ( ! function_exists('gd_info')) {
 			return false;
 		}
 
@@ -91,19 +90,16 @@ class Installer_lib
 	public function check_server($data)
 	{
 		// Check PHP
-		if ( ! $this->php_acceptable())
-		{
+		if ( ! $this->php_acceptable()) {
 			return false;
 		}
 
-		if ($data->http_server->supported === false)
-		{
+		if ($data->http_server->supported === false) {
 			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ($data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
-		{
+		if ($data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false) {
 			return 'partial';
 		}
 
@@ -128,8 +124,7 @@ class Installer_lib
 	public function verify_http_server($server_name)
 	{
 		// Set all the required variables
-		if ($server_name == 'other')
-		{
+		if ($server_name == 'other') {
 			return 'partial';
 		}
 
@@ -146,8 +141,7 @@ class Installer_lib
 	 */
 	public function create_connection($config)
 	{
-		switch ($config['driver'])
-		{
+		switch ($config['driver']) {
 			case 'mysql':
 			case 'pgsql':
 				$dsn = "{$config['driver']}:host={$config['hostname']};port={$config['port']}";
@@ -198,8 +192,7 @@ class Installer_lib
 		);
 
 		// Create a connection
-		switch ($db['driver'])
-		{
+		switch ($db['driver']) {
 			case 'mysql':
 			case 'pgsql':
 				$config['host'] = $db['hostname'];
@@ -226,14 +219,12 @@ class Installer_lib
 		ci()->install_m->set_default_structure($conn, $user, $db);
 
 		// Write the database file
-		if ( ! $this->write_db_file($db))
-		{
+		if ( ! $this->write_db_file($db)) {
 			throw new InstallerException('Failed to write database.php file.');
 		}
 
 		// Write the config file.
-		if ( ! $this->write_config_file())
-		{
+		if ( ! $this->write_config_file()) {
 			throw new InstallerException('Failed to write config.php file.');
 		}
 

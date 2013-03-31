@@ -2,8 +2,8 @@
 
 /**
  * Asset: Convenient asset library
- * 
- * This was a FuelPHP package converted for use within PyroCMS by Phil Sturgeon with 
+ *
+ * This was a FuelPHP package converted for use within PyroCMS by Phil Sturgeon with
  * express written consent from Antony Male to be used within PyroCMS Community and Professional
  *
  * @version    v1.11
@@ -18,8 +18,8 @@ include(dirname(__FILE__).'/Asset/jsmin.php');
 include(dirname(__FILE__).'/Asset/csscompressor.php');
 include(dirname(__FILE__).'/Asset/cssurirewriter.php');
 
-class Asset {
-
+class Asset
+{
 	/**
 	 * @var array Array of paths in which the css, js, img directory structure
 	 *            can be found, relative to $asset_url
@@ -141,8 +141,7 @@ class Asset {
 
 		self::$symlinks = $ci->config->item('asset_symlinks') ? $ci->config->item('asset_symlinks') : array();
 
-		foreach ($paths as $key => $path)
-		{
+		foreach ($paths as $key => $path) {
 			self::add_path($key, $path);
 		}
 
@@ -161,10 +160,8 @@ class Asset {
 
 		$group_sets = $ci->config->item('asset_groups') ? $ci->config->item('asset_groups') : array();
 
-		foreach ($group_sets as $group_type => $groups)
-		{
-			foreach ($groups as $group_name => $group)
-			{
+		foreach ($group_sets as $group_type => $groups) {
+			foreach ($groups as $group_name => $group) {
 				$options = self::prep_new_group_options($group);
 				self::add_group($group_type, $group_name, $group['files'], $options);
 			}
@@ -173,13 +170,11 @@ class Asset {
 		// Add the global group if it doesn't already exist.
 		// This is so that set_group_option() can be used on it. This function will
 		// throw an exception if the named group doesn't exist.
-		if (!self::group_exists('js', 'global'))
-		{
+		if (!self::group_exists('js', 'global')) {
 			self::add_group_base('js', 'global');
 		}
 
-		if (!self::group_exists('css', 'global'))
-		{
+		if (!self::group_exists('css', 'global')) {
 			self::add_group_base('css', 'global');
 		}
 
@@ -202,10 +197,8 @@ class Asset {
 	protected static function prep_new_group_options($group_options)
 	{
 		$options = array();
-		foreach (self::$default_options as $key => $option_val)
-		{
-			if (array_key_exists($key, $group_options))
-			{
+		foreach (self::$default_options as $key => $option_val) {
+			if (array_key_exists($key, $group_options)) {
 				$options[$key] = $group_options[$key];
 			}
 		}
@@ -237,12 +230,9 @@ class Asset {
 	{
 		$path_val = array();
 
-		if (!is_array($path_attr))
-		{
+		if (!is_array($path_attr)) {
 			$path_attr = array('path' => $path_attr, 'dirs' => array());
-		}
-		elseif (!array_key_exists('dirs', $path_attr))
-		{
+		} elseif (!array_key_exists('dirs', $path_attr)) {
 			$path_attr['dirs'] = array();
 		}
 
@@ -267,8 +257,7 @@ class Asset {
 	 */
 	public static function set_path($path_key = 'core')
 	{
-		if (!array_key_exists($path_key, self::$asset_paths))
-		{
+		if (!array_key_exists($path_key, self::$asset_paths)) {
 			throw new Asset_Exception("Asset path key $path_key doesn't exist");
 		}
 
@@ -312,16 +301,14 @@ class Asset {
 		// Insert defaults
 		$options += self::$default_options;
 
-		if (!is_array($options['deps']))
-		{
+		if (!is_array($options['deps'])) {
 			$options['deps'] = array($options['deps']);
 		}
 
 		$options['files'] = array();
 
 		// If it already exists, do not overwrite it.
-		if (array_key_exists($group_name, self::$groups[$group_type]))
-		{
+		if (array_key_exists($group_name, self::$groups[$group_type])) {
 			throw new Asset_Exception("Group $group_name already exists: can't create it.");
 		}
 
@@ -356,8 +343,7 @@ class Asset {
 	{
 		// Bit of backwards compatibity.
 		// Order used to be add_group(group_type, group_name, files, enabled, combine, min)
-		if (!is_array($options))
-		{
+		if (!is_array($options)) {
 			$options = array(
 				'enabled' => $options,
 				'combine' => $combine_dep,
@@ -370,10 +356,8 @@ class Asset {
 		// exist, then add the files to it.
 		self::add_group_base($group_type, $group_name, $options);
 
-		foreach ($files as $file)
-		{
-			if (!is_array($file))
-			{
+		foreach ($files as $file) {
+			if (!is_array($file)) {
 				$file = array($file, false);
 			}
 
@@ -472,16 +456,13 @@ class Asset {
 	 */
 	protected static function asset_enabled($type, $groups, $enabled)
 	{
-		if (!is_array($groups))
-		{
+		if (!is_array($groups)) {
 			$groups = array($groups);
 		}
 
-		foreach ($groups as $group)
-		{
+		foreach ($groups as $group) {
 			// If the group does not exist it is of no consequence.
-			if (!array_key_exists($group, self::$groups[$type]))
-			{
+			if (!array_key_exists($group, self::$groups[$type])) {
 				continue;
 			}
 
@@ -503,45 +484,34 @@ class Asset {
 	 */
 	public static function set_group_option($type, $group_names, $option_key, $option_value)
 	{
-		if ($group_names == '')
-		{
+		if ($group_names == '') {
 			$group_names = array('global');
-		}
-		else
-		{
-			if ($group_names == '*')
-			{
+		} else {
+			if ($group_names == '*') {
 				// Change the default
 				self::$default_options[$option_key] = $option_value;
 				$group_names = array_keys(self::$groups[$type]);
-			}
-			else
-			{
-				if (!is_array($group_names))
-				{
+			} else {
+				if (!is_array($group_names)) {
 					$group_names = array($group_names);
 				}
 			}
 		}
 
 		// Allow them to specify a single string dep
-		if ($option_key == 'deps' && !is_array($option_value))
-		{
+		if ($option_key == 'deps' && !is_array($option_value)) {
 			$option_value = array($option_value);
 		}
 
-		foreach ($group_names as $group_name)
-		{
+		foreach ($group_names as $group_name) {
 			// If the group doesn't exist, throw a fuss
-			if (!self::group_exists($type, $group_name))
-			{
+			if (!self::group_exists($type, $group_name)) {
 				throw new Asset_Exception("Can't set option for group '$group_name' ($type), as it doesn't exist.");
 			}
 
 			self::$groups[$type][$group_name][$option_key] = $option_value;
 		}
 	}
-
 
 	/**
 	 * Set group options on-the-fly, js version
@@ -569,7 +539,6 @@ class Asset {
 		self::set_group_option('css', $group_names, $option_key, $option_value);
 	}
 
-
 	/**
 	 * Add a javascript asset.
 	 *
@@ -582,10 +551,8 @@ class Asset {
 	 */
 	public static function js($script, $script_min = false, $group = 'global')
 	{
-		if (is_array($script))
-		{
-			foreach ($script as $each)
-			{
+		if (is_array($script)) {
+			foreach ($script as $each) {
 				self::add_asset('js', $each, $script_min, $group);
 			}
 			return;
@@ -605,18 +572,15 @@ class Asset {
 	 */
 	public static function css($sheet, $sheet_min = false, $group = 'global')
 	{
-		if (is_array($sheet))
-		{
-			foreach ($sheet as $each) 
-			{
-				self::add_asset('css', $each, $sheet_min, $group); 
+		if (is_array($sheet)) {
+			foreach ($sheet as $each) {
+				self::add_asset('css', $each, $sheet_min, $group);
 			}
 			return;
 		}
-		
+
 		self::add_asset('css', $sheet, $sheet_min, $group);
 	}
-
 
 	/**
 	 * Abstraction of js() and css().
@@ -634,38 +598,32 @@ class Asset {
 		// Allow the user to specify any non-string value for an asset, and it
 		// will be ignore. This can be handy when using ternary operators
 		// in the groups config.
-		if (!is_string($script))
-		{
+		if (!is_string($script)) {
 			return;
 		}
 
 		// Do not force the user to remember that 'false' is used when not supplying
 		// a pre-minified file.
-		if (!is_string($script_min))
-		{
+		if (!is_string($script_min)) {
 			$script_min = false;
 		}
 
 		$files = array($script, $script_min);
 
 		// If a path key has not been specified, add $default_path_key
-		foreach ($files as &$file)
-		{
-			if ($file != false && strpos($file, '::') === false)
-			{
+		foreach ($files as &$file) {
+			if ($file != false && strpos($file, '::') === false) {
 				$file = self::$default_path_key . '::' . $file;
 			}
 		}
 
-		if (!array_key_exists($group, self::$groups[$type]))
-		{
+		if (!array_key_exists($group, self::$groups[$type])) {
 			// Assume they want the group enabled
 			self::add_group_base($type, $group);
 		}
 
 		array_push(self::$groups[$type][$group]['files'], $files);
 	}
-
 
 	/**
 	 * Add a string containing javascript, which can be printed inline with
@@ -678,7 +636,6 @@ class Asset {
 		self::add_asset_inline('js', $content);
 	}
 
-
 	/**
 	 * Add a string containing css, which can be printed inline with
 	 * render_css_inline().
@@ -690,7 +647,6 @@ class Asset {
 		self::add_asset_inline('css', $content);
 	}
 
-
 	/**
 	 * Abstraction of js_inline() and css_inline().
 	 *
@@ -701,7 +657,6 @@ class Asset {
 	{
 		array_push(self::$inline_assets[$type], $content);
 	}
-
 
 	/**
 	 * Return the path for the given JS asset. Ties into find_files, so supports
@@ -738,7 +693,6 @@ class Asset {
 		return self::get_filepath($filename, 'css', $add_url, $force_array);
 	}
 
-
 	/**
 	 * Return the path for the given img asset. Ties into find_files, so supports
 	 * everything that, say, Asset::js() does.
@@ -772,37 +726,31 @@ class Asset {
 	 */
 	public static function get_filepath($filename, $type, $add_url = false, $force_array = false)
 	{
-		if (strpos($filename, '::') === false)
-		{
+		if (strpos($filename, '::') === false) {
 			$filename = self::$default_path_key . '::' . $filename;
 		}
 
 		$files = self::find_files($filename, $type);
 
-		foreach ($files as &$file)
-		{
+		foreach ($files as &$file) {
 			$remote = (strpos($file, '//') !== false);
 			$file = self::process_filepath($file, $type, $remote);
 
-			if ($remote)
-			{
+			if ($remote) {
 				continue;
 			}
 
-			if ($add_url)
-			{
+			if ($add_url) {
 				$file = self::$asset_url . $file;
 			}
 		}
 
-		if (count($files) == 1 && !$force_array)
-		{
+		if (count($files) == 1 && !$force_array) {
 			return $files[0];
 		}
 
 		return $files;
 	}
-
 
 	/**
 	 * Can be used to add deps to a group.
@@ -815,13 +763,11 @@ class Asset {
 	 */
 	public static function add_deps($type, $group, $deps)
 	{
-		if (!is_array($deps))
-		{
+		if (!is_array($deps)) {
 			$deps = array($deps);
 		}
 
-		if (!array_key_exists($group, self::$groups[$type]))
-		{
+		if (!array_key_exists($group, self::$groups[$type])) {
 			throw new Exception("Group $group ($type) doesn't exist, so can't add deps to it.");
 		}
 
@@ -848,20 +794,18 @@ class Asset {
 		self::add_deps('css', $group, $deps);
 	}
 
-
 	/**
 	 * Sticks the given filename through the filepath callback, if given.
 	 *
 	 * @param string $filepath The filepath to process
 	 * @param string $type The type of asset, passed to the callback
 	 * @param bool $remote Whether the asset is on another machine, passed to the callback
-	 * 
+	 *
 	 * @return string
 	 */
 	protected static function process_filepath($filepath, $type, $remote = null)
 	{
-		if (self::$filepath_callback)
-		{
+		if (self::$filepath_callback) {
 			if ($remote === null)
 				$remote = (strpos($filepath, '//') !== false);
 			$func = self::$filepath_callback;
@@ -869,7 +813,6 @@ class Asset {
 		}
 		return $filepath;
 	}
-
 
 	/**
 	 * Shortcut to render_js() and render_css().
@@ -889,7 +832,6 @@ class Asset {
 		return $r;
 	}
 
-
 	/**
 	 * Renders the specific javascript group, or all groups if no group specified.
 	 *
@@ -904,13 +846,11 @@ class Asset {
 	public static function render_js($group = false, $inline_dep = null, $attr_dep = array())
 	{
 		// Do nοt force the user to remember that false is used for ommitted non-bool arguments
-		if (!is_string($group))
-		{
+		if (!is_string($group)) {
 			$group = false;
 		}
 
-		if (!is_array($attr_dep))
-		{
+		if (!is_array($attr_dep)) {
 			$attr_dep = array();
 		}
 
@@ -918,8 +858,7 @@ class Asset {
 
 		$ret = '';
 
-		foreach ($file_groups as $group_name => $file_group)
-		{
+		foreach ($file_groups as $group_name => $file_group) {
 			// We used to take $inline as 2nd argument. However, we now use a group option.
 			// It ιs easiest if we let $inline override this group option, though.
 			$inline = ($inline_dep === null) ? self::$groups['js'][$group_name]['inline'] : $inline_dep;
@@ -932,47 +871,35 @@ class Asset {
 			// if (!\Html::$html5)
 			// 	$attr = array( 'type' => 'text/javascript' ) + $attr;
 
-			if (self::$groups['js'][$group_name]['combine'])
-			{
+			if (self::$groups['js'][$group_name]['combine']) {
 				$filename = self::combine('js', $file_group, self::$groups['js'][$group_name]['min'], $inline);
 
-				if (!$inline && self::$show_files)
-				{
+				if (!$inline && self::$show_files) {
 					// $ret .= '<!--'.PHP_EOL.'Group: '.$group_name.PHP_EOL.implode('', array_map(function($a){
 					// 	return "\t".$a['file'].PHP_EOL;
 					// }, $file_group)).'-->'.PHP_EOL;
 
 					// PHP 5.2 hack
 					$bits = array();
-					foreach ($file_group as $a)
-					{
+					foreach ($file_group as $a) {
 						$bits[] = "\t".$a['file'].PHP_EOL;
 					}
 					$ret .= '<!--'.PHP_EOL.'Group: '.$group_name.PHP_EOL.implode('', $bits).'-->'.PHP_EOL;
 				}
 
-				if ($inline)
-				{
+				if ($inline) {
 					$ret .= self::html_tag('script', $attr, PHP_EOL.file_get_contents(FCPATH.self::$cache_path.$filename).PHP_EOL).PHP_EOL;
-				}
-				else
-				{
+				} else {
 					$filepath = self::process_filepath(self::$cache_path.$filename, 'js');
 					$ret .= self::html_tag('script', array(
 						'src' => self::$asset_url.$filepath,
 					) + $attr, '').PHP_EOL;
 				}
-			}
-			else
-			{
-				foreach ($file_group as $file)
-				{
-					if ($inline)
-					{
+			} else {
+				foreach ($file_group as $file) {
+					if ($inline) {
 						$ret .= self::html_tag('script', $attr, PHP_EOL.file_get_contents($file['file']).PHP_EOL).PHP_EOL;
-					}
-					else
-					{
+					} else {
 						$remote = (strpos($file['file'], '//') !== false);
 						$base = ($remote) ? '' : self::$asset_url;
 						$filepath = self::process_filepath($file['file'], 'js', $remote);
@@ -985,7 +912,6 @@ class Asset {
 		}
 		return $ret;
 	}
-
 
 	/**
 	 * Renders the specific css group, or all groups if no group specified.
@@ -1001,13 +927,11 @@ class Asset {
 	public static function render_css($group = false, $inline_dep = null, $attr_dep = array())
 	{
 		// Don't force the user to remember that false is used for ommitted non-bool arguments
-		if (!is_string($group))
-		{
+		if (!is_string($group)) {
 			$group = false;
 		}
 
-		if (!is_array($attr_dep))
-		{
+		if (!is_array($attr_dep)) {
 			$attr_dep = array();
 		}
 
@@ -1015,8 +939,7 @@ class Asset {
 
 		$ret = '';
 
-		foreach ($file_groups as $group_name => $file_group)
-		{
+		foreach ($file_groups as $group_name => $file_group) {
 			// We used to take $inline as 2nd argument. However, we now use a group option.
 			// It's easiest if we let $inline override this group option, though.
 			$inline = ($inline_dep === null) ? self::$groups['css'][$group_name]['inline'] : $inline_dep;
@@ -1030,48 +953,36 @@ class Asset {
 			// if (!\Html::$html5)
 			// 			$attr = array( 'type' => 'text/css' ) + $attr;
 
-			if (self::$groups['css'][$group_name]['combine'])
-			{
+			if (self::$groups['css'][$group_name]['combine']) {
 				$filename = self::combine('css', $file_group, self::$groups['css'][$group_name]['min'], $inline);
 
-				if (!$inline && self::$show_files)
-				{
+				if (!$inline && self::$show_files) {
 					// $ret .= '<!--'.PHP_EOL.'Group: '.$group_name.PHP_EOL.implode('', array_map(function($a){
 					// 	return "\t".$a['file'].PHP_EOL;
 					// }, $file_group)).'-->'.PHP_EOL;
 
 					// PHP 5.2 hack
 					$bits = array();
-					foreach ($file_group as $a)
-					{
+					foreach ($file_group as $a) {
 						$bits[] = "\t".$a['file'].PHP_EOL;
 					}
 					$ret .= '<!--'.PHP_EOL.'Group: '.$group_name.PHP_EOL.implode('', $bits).'-->'.PHP_EOL;
 				}
 
-				if ($inline)
-				{
+				if ($inline) {
 					$ret .= self::html_tag('style', $attr, PHP_EOL.file_get_contents(FCPATH.self::$cache_path.$filename).PHP_EOL).PHP_EOL;
-				}
-				else
-				{
+				} else {
 					$filepath = self::process_filepath(self::$cache_path.$filename, 'css');
 					$ret .= self::html_tag('link', array(
 						'rel' => 'stylesheet',
 						'href' => self::$asset_url.$filepath,
 					) + $attr).PHP_EOL;
 				}
-			}
-			else
-			{
-				foreach ($file_group as $file)
-				{
-					if ($inline)
-					{
+			} else {
+				foreach ($file_group as $file) {
+					if ($inline) {
 						$ret .= self::html_tag('style', $attr, PHP_EOL.file_get_contents($file['file']).PHP_EOL).PHP_EOL;
-					}
-					else
-					{
+					} else {
 						$remote = (strpos($file['file'], '//') !== false);
 						$base = ($remote) ? '' : self::$asset_url;
 						$filepath = self::process_filepath($file['file'], 'css', $remote);
@@ -1086,7 +997,6 @@ class Asset {
 		return $ret;
 	}
 
-
 	/**
 	 * Figures out where a file should be, based on its namespace and type.
 	 *
@@ -1100,8 +1010,7 @@ class Asset {
 	{
 		$parts = explode('::', $file, 2);
 
-		if (!array_key_exists($parts[0], self::$asset_paths))
-		{
+		if (!array_key_exists($parts[0], self::$asset_paths)) {
 			throw new Asset_Exception("Could not find namespace {$parts[0]}");
 		}
 
@@ -1113,20 +1022,16 @@ class Asset {
 
 		$remote = (strpos($path, '//') !== false);
 
-		if ($remote)
-		{
+		if ($remote) {
 			// Glob doesn't work on remote locations, so just assume they
 			// specified a file, not a glob pattern.
 			// Do not look for the file now either. That will be done
 			// by file_get_contents() later on, if need be.
 			return array($path.$folder.$file);
-		}
-		else
-		{
+		} else {
 			$glob_files = glob($path.$folder.$file);
 
-			if (!$glob_files || !count($glob_files))
-			{
+			if (!$glob_files || !count($glob_files)) {
 				throw new Asset_Exception("Found no files matching $path$folder$file");
 			}
 
@@ -1150,24 +1055,20 @@ class Asset {
 	 */
 	protected static function resolve_deps($type, $group_names, $depth = 0)
 	{
-		if ($depth > self::$deps_max_depth)
-		{
+		if ($depth > self::$deps_max_depth) {
 			throw new Asset_Exception("Reached depth $depth trying to resolve dependencies. ".
 				"You've probably got some circular ones involving ".implode(',', $group_names).". ".
 				"If not, adjust the config key deps_max_depth.");
 		}
 		// Insert the dep just before what it's a dep for.
-		foreach ($group_names as $i => $group_name)
-		{
+		foreach ($group_names as $i => $group_name) {
 			// If the group has already been rendered, bottle.
-			if (in_array($group_name, self::$rendered_groups[$type]))
-			{
+			if (in_array($group_name, self::$rendered_groups[$type])) {
 				continue;
 			}
 
 			// Do not pay attention to bottom-level groups which are disabled
-			if (!self::$groups[$type][$group_name]['enabled'] && $depth == 0)
-			{
+			if (!self::$groups[$type][$group_name]['enabled'] && $depth == 0) {
 				continue;
 			}
 
@@ -1175,8 +1076,7 @@ class Asset {
 			// deps is to render disabled groups
 			self::asset_enabled($type, $group_name, true);
 
-			if (count(self::$groups[$type][$group_name]['deps']))
-			{
+			if (count(self::$groups[$type][$group_name]['deps'])) {
 				array_splice($group_names, $i, 0, self::resolve_deps($type, self::$groups[$type][$group_name]['deps'], $depth + 1));
 			}
 		}
@@ -1196,15 +1096,12 @@ class Asset {
 	protected static function files_to_render($type, $group)
 	{
 		// If no group specified, print all groups.
-		if ($group == false)
-		{
+		if ($group == false) {
 			$group_names = array_keys(self::$groups[$type]);
 		}
 		// If a group was specified, but it does not exist.
-		else
-		{
-			if (!array_key_exists($group, self::$groups[$type]))
-			{
+		else {
+			if (!array_key_exists($group, self::$groups[$type])) {
 				return array();
 			}
 
@@ -1217,16 +1114,13 @@ class Asset {
 
 		$group_names = self::resolve_deps($type, $group_names);
 
-		foreach ($group_names as $group_name)
-		{
-			if (self::$groups[$type][$group_name]['enabled'] == false)
-			{
+		foreach ($group_names as $group_name) {
+			if (self::$groups[$type][$group_name]['enabled'] == false) {
 				continue;
 			}
 
 			// If there are no files in the group, there's no point in printing it.
-			if (count(self::$groups[$type][$group_name]['files']) == 0)
-			{
+			if (count(self::$groups[$type][$group_name]['files']) == 0) {
 				continue;
 			}
 
@@ -1238,27 +1132,21 @@ class Asset {
 			// Add it to the list of rendered groups
 			array_push(self::$rendered_groups[$type], $group_name);
 
-			foreach (self::$groups[$type][$group_name]['files'] as $file_set)
-			{
-				if (self::$groups[$type][$group_name]['min'])
-				{
+			foreach (self::$groups[$type][$group_name]['files'] as $file_set) {
+				if (self::$groups[$type][$group_name]['min']) {
 					$assets = self::find_files(($file_set[1]) ? $file_set[1] : $file_set[0], $type);
 					$minified = ($file_set[1] != false);
-				}
-				else
-				{
+				} else {
 					$assets = self::find_files($file_set[0], $type);
 				}
 
-				foreach ($assets as $file)
-				{
+				foreach ($assets as $file) {
 					array_push($files[$group_name], array('file' => $file, 'minified' => $minified,));
 				}
 			}
 		}
 		return $files;
 	}
-
 
 	/**
 	 * Used to load a file from disk.
@@ -1277,8 +1165,7 @@ class Asset {
 	{
 		$content = file_get_contents($filename);
 
-		if (self::$post_load_callback != null)
-		{
+		if (self::$post_load_callback != null) {
 			// For some reason, PHP doesn't like you calling member closure directly
 			$func = self::$post_load_callback;
 			$content = $func($content, $filename, $type, $file_group);
@@ -1304,18 +1191,15 @@ class Asset {
 	{
 		// Get the last modified time of all of the component files.
 		$last_mod = 0;
-		foreach ($file_group as $file)
-		{
+		foreach ($file_group as $file) {
 			// If it is a remote file just assume it is not modified,
 			// otherwise we are stuck making a ton of HTTP requests.
-			if (strpos($file['file'], '//') !== false)
-			{
+			if (strpos($file['file'], '//') !== false) {
 				continue;
 			}
 
 			$mod = filemtime(FCPATH.$file['file']);
-			if ($mod > $last_mod)
-			{
+			if ($mod > $last_mod) {
 				$last_mod = $mod;
 			}
 		}
@@ -1326,8 +1210,7 @@ class Asset {
 
 		// PHP 5.2
 		$bits = array();
-		foreach ($file_group as $a)
-		{
+		foreach ($file_group as $a) {
 			$bits[] = $a['file'];
 		}
 		$filename = md5(implode('', $bits).($minify ? 'min' : '').$last_mod).'.'.$type;
@@ -1335,44 +1218,31 @@ class Asset {
 		$filepath = FCPATH.self::$cache_path.'/'.$filename;
 		$needs_update = (!file_exists($filepath));
 
-		if ($needs_update)
-		{
+		if ($needs_update) {
 			$content = '';
-			foreach ($file_group as $file)
-			{
-				if (self::$show_files_inline)
-				{
+			foreach ($file_group as $file) {
+				if (self::$show_files_inline) {
 					$content .= PHP_EOL.'/* '.$file['file'].' */'.PHP_EOL.PHP_EOL;
 				}
 
-				if ($file['minified'] || !$minify)
-				{
+				if ($file['minified'] || !$minify) {
 					$content_temp = self::load_file($file['file'], $type, $file_group).PHP_EOL;
 
-					if ($type == 'css')
-					{
+					if ($type == 'css') {
 						$content .= Asset_Cssurirewriter::rewrite($content_temp, dirname($file['file']), null, self::$symlinks);
-					}
-					else
-					{
+					} else {
 						$content .= $content_temp;
 					}
-				}
-				else
-				{
+				} else {
 					$file_content = self::load_file($file['file'], $type, $file_group);
 
-					if ($file_content === false)
-					{
+					if ($file_content === false) {
 						throw new Asset_Exception("Couldn't not open file {$file['file']}");
 					}
 
-					if ($type == 'js')
-					{
+					if ($type == 'js') {
 						$content .= Asset_JSMin::minify($file_content).PHP_EOL;
-					}
-					elseif ($type == 'css')
-					{
+					} elseif ($type == 'css') {
 						$css = Asset_Csscompressor::process($file_content).PHP_EOL;
 						$content .= Asset_Cssurirewriter::rewrite($css, dirname($file['file']), null, self::$symlinks);
 					}
@@ -1384,7 +1254,6 @@ class Asset {
 
 		return $filename;
 	}
-
 
 	/**
 	 * Renders the javascript added through js_inline().
@@ -1403,8 +1272,7 @@ class Asset {
 
 		$ret = '';
 
-		foreach (self::$inline_assets['js'] as $content)
-		{
+		foreach (self::$inline_assets['js'] as $content) {
 			$ret .= self::html_tag('script', $attr, PHP_EOL.$content.PHP_EOL).PHP_EOL;
 		}
 
@@ -1428,14 +1296,12 @@ class Asset {
 
 		$ret = '';
 
-		foreach (self::$inline_assets['css'] as $content)
-		{
+		foreach (self::$inline_assets['css'] as $content) {
 			$ret .= self::html_tag('style', $attr, PHP_EOL.$content.PHP_EOL).PHP_EOL;
 		}
 
 		return $ret;
 	}
-
 
 	/**
 	 * Sets the post_load file callback.
@@ -1445,20 +1311,20 @@ class Asset {
 	 *
 	 * @param string $callback The name of the function for the callback.
 	 */
-	public static function set_post_load_callback($callback) {
+	public static function set_post_load_callback($callback)
+	{
 		self::$post_load_callback = $callback;
 	}
-
 
 	/**
 	 * Sets the filepath callback.
 	 *
 	 * @param string $callback The name of the function for the callback.
 	 */
-	public static function set_filepath_callback($callback) {
+	public static function set_filepath_callback($callback)
+	{
 		self::$filepath_callback = $callback;
 	}
-
 
 	/**
 	 * Locates the given image(s), and returns the resulting <img> tag.
@@ -1471,25 +1337,21 @@ class Asset {
 	 */
 	public static function img($images, $alt, $attr = array())
 	{
-		if (!is_array($images))
-		{
+		if (!is_array($images)) {
 			$images = array($images);
 		}
 		$attr['alt'] = $alt;
 
 		$ret = '';
 
-		foreach ($images as $image)
-		{
-			if (strpos($image, '::') === false)
-			{
+		foreach ($images as $image) {
+			if (strpos($image, '::') === false) {
 				$image = self::$default_path_key.'::'.$image;
 			}
 
 			$image_paths = self::find_files($image, 'img');
 
-			foreach ($image_paths as $image_path)
-			{
+			foreach ($image_paths as $image_path) {
 				$remote = (strpos($image_path, '//') !== false);
 				$image_path = self::process_filepath($image_path, 'img', $remote);
 				$base = ($remote) ? '' : self::$asset_url;
@@ -1500,7 +1362,6 @@ class Asset {
 
 		return $ret;
 	}
-
 
 	/**
 	 * Clears all cache files last modified before $before.
@@ -1513,7 +1374,6 @@ class Asset {
 		self::clear_cache_base('*', $before);
 	}
 
-
 	/**
 	 * Clears all JS cache files last modified before $before.
 	 *
@@ -1524,7 +1384,6 @@ class Asset {
 	{
 		self::clear_cache_base('*.js', $before);
 	}
-
 
 	/**
 	 * Clears CSS all cache files last modified before $before.
@@ -1537,7 +1396,6 @@ class Asset {
 		self::clear_cache_base('*.css', $before);
 	}
 
-
 	/**
 	 * Base cache clear function.
 	 *
@@ -1549,10 +1407,8 @@ class Asset {
 	{
 		$before = strtotime($before);
 		$files = glob(FCPATH.self::$cache_path.$filter);
-		foreach ($files as $file)
-		{
-			if (filemtime($file) < $before)
-			{
+		foreach ($files as $file) {
+			if (filemtime($file) < $before) {
 				unlink($file);
 			}
 		}
@@ -1560,15 +1416,13 @@ class Asset {
 
 	/**
 	 * Reset assets that have already been added in this request.
-	 * This is useful when one module is planning to handle the 
+	 * This is useful when one module is planning to handle the
 	 * output but another then takes over (such as a 404 handler)
 	 */
 	public static function reset()
 	{
-		foreach (self::$groups as $type => $groups)
-		{
-			foreach ($groups as $group => $meta)
-			{
+		foreach (self::$groups as $type => $groups) {
+			foreach ($groups as $group => $meta) {
 				unset(self::$groups[$type][$group]);
 			}
 		}
@@ -1585,7 +1439,7 @@ class Asset {
 	 */
 	protected static function html_tag($tag, $attr = array(), $content = false)
 	{
-		$has_content = (bool)($content !== false and $content !== null);
+		$has_content = (bool) ($content !== false and $content !== null);
 		$html = '<'.$tag;
 
 		$html .= (!empty($attr)) ? ' '.(is_array($attr) ? self::array_to_attr($attr) : $attr) : '';
@@ -1594,7 +1448,6 @@ class Asset {
 
 		return $html;
 	}
-
 
 	/**
 	 * Takes an array of attributes and turns it into a string for an html tag
@@ -1607,22 +1460,18 @@ class Asset {
 	{
 		$attr_str = '';
 
-		if (!is_array($attr))
-		{
-			$attr = (array)$attr;
+		if (!is_array($attr)) {
+			$attr = (array) $attr;
 		}
 
-		foreach ($attr as $property => $value)
-		{
+		foreach ($attr as $property => $value) {
 			// Ignore null values
-			if (is_null($value))
-			{
+			if (is_null($value)) {
 				continue;
 			}
 
 			// If the key is numeric then it must be something like selected="selected"
-			if (is_numeric($property))
-			{
+			if (is_numeric($property)) {
 				$property = $value;
 			}
 

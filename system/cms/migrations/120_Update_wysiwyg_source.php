@@ -9,10 +9,9 @@ class Migration_Update_wysiwyg_source extends CI_Migration
             ->get('settings')
             ->row();
 
-        if ($setting)
-        {
+        if ($setting) {
             $setting->value = preg_replace('@,\r\s+protectedSource:(.*?)'.preg_quote('/{{(\s)?.[^}]+(\s)?}}/g', '/').'@ms', '', $setting->value);
-    
+
             $this->db->where('slug', $setting->slug)
                 ->update('settings', array('value' => $setting->value));
         }

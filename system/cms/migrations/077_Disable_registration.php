@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Disable_registration extends CI_Migration {
-
+class Migration_Disable_registration extends CI_Migration
+{
     public function up()
     {
         $this->load->model('settings/setting_m');
 
-        if ( ! $this->setting_m->get('enable_registration'))
-        {
+        if ( ! $this->setting_m->get('enable_registration')) {
             $this->setting_m->insert(
                 array(
                     'slug'          => 'enable_registration',

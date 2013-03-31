@@ -44,4 +44,4 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-<?php endif ?>
+<?php endif

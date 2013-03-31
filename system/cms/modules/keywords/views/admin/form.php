@@ -11,27 +11,24 @@
 <section class="item">
 <div class="content">
 
-
-
 <?php echo form_open(uri_string(), 'class="crud"') ?>
 
 <div class="form_inputs">
-	
+
     <ul>
 		<li>
 			<label for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
 			<div class="input"><?php echo form_input('name', $keyword->name);?></div>
 		</li>
     </ul>
-    
+
 </div>
-    
+
 	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
-	</div>	
-	
-<?php echo form_close();?>
+	</div>
 
+<?php echo form_close();?>
 
 </div>
 </section>

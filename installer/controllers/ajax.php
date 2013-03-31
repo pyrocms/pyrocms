@@ -16,8 +16,7 @@ class Ajax extends CI_Controller
 	 */
 	public function __construct()
 	{
-		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === false)
-		{
+		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === false) {
 			show_error('You should not be here');
 		}
 
@@ -25,19 +24,16 @@ class Ajax extends CI_Controller
 
 		$languages = array();
 		$languages_directory = realpath(dirname(__FILE__).'/../language/');
-		foreach (glob($languages_directory.'/*', GLOB_ONLYDIR) as $path)
-		{
+		foreach (glob($languages_directory.'/*', GLOB_ONLYDIR) as $path) {
 			$path = basename($path);
 
-			if ( ! in_array($path, array('.', '..')))
-			{
+			if ( ! in_array($path, array('.', '..'))) {
 				$languages[] = $path;
 			}
 		}
 
 		// Check if the language is supported and set it.
-		if (in_array($this->session->userdata('language'), $languages))
-		{
+		if (in_array($this->session->userdata('language'), $languages)) {
 			$this->config->set_item('language', $this->session->userdata('language'));
 		}
 		unset($languages);
@@ -56,8 +52,7 @@ class Ajax extends CI_Controller
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
 
-		try
-		{
+		try {
 			// Create a connection to see if data is correct
 			$this->installer_lib->create_connection(array(
 				'driver'    => $this->input->post('driver'),
@@ -67,9 +62,7 @@ class Ajax extends CI_Controller
 				'username' 	=> $this->input->post('username'),
 				'password' 	=> $this->input->post('password'),
 			));
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			exit(json_encode(array(
 				'success' => false,
 				'message' => lang('db_failure').$e->getMessage(),
@@ -123,13 +116,11 @@ class Ajax extends CI_Controller
 	public function check_rewrite()
 	{
 		// if it doesn't exist then warn them at least
-		if ( ! function_exists('apache_get_modules'))
-		{
+		if ( ! function_exists('apache_get_modules')) {
 			return print(lang('rewrite_fail'));
 		}
 
-		if (in_array('mod_rewrite', apache_get_modules()))
-		{
+		if (in_array('mod_rewrite', apache_get_modules())) {
 			return print('enabled');
 		}
 

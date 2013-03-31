@@ -51,8 +51,7 @@ $lang['user:activate_account_title']           = 'Fiók aktiválása';
 $lang['user:activate_label']                   = 'Aktiválás';
 $lang['user:activated_account_title']          = 'Aktivált';
 $lang['user:reset_password_title']             = 'Jelszó törlése';
-$lang['user:password_reset_title']             = 'Jelszó törlése';  
-
+$lang['user:password_reset_title']             = 'Jelszó törlése';
 
 $lang['user:error_username']                   = 'A felhasználónév már foglalt';
 $lang['user:error_email']                      = 'Az email cím már foglalt';
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'A megadott e-mail cím már ha
 $lang['user:register_error']                   = 'Azt gondoljuk, hogy egy bot vagy. Ha tévednénk, fogadd bocsánatkérésünket!';
 $lang['user:register_reasons']                 = 'Csatlakozz hogy további funkciókat érhess el. Ez azt jelenti hogy a beállításaid el lesznek mentve. Több tartalom, kevesebb reklám.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Aktiváció sikertelen. Ellenőrizd az adatokat még egyszer és bizonyosodj meg arról, hogy a CAPS LOCK ki legyen kapcsolva.';
 $lang['user:activated_message']                = 'A felhasználói fiók aktiválva van és kész a használatra';
 
-
 // Login
-$lang['user:logged_in']                        = 'Sikeres bejelentkezés.'; 
+$lang['user:logged_in']                        = 'Sikeres bejelentkezés.';
 $lang['user:already_logged_in']                = 'Már be vagy jelentkezve. Mielőtt újra bejelentkezz, előtte ki kell jelentkezned';
 $lang['user:login_incorrect']                  = 'E-mail és jelszó nem egyeznek. Bizonyosodj meg arról hogy helyes adatokat írtál-e be és arról, hogy a CAPS LOCK ki van kapcsolva';
 $lang['user:inactive']                         = 'A felhasználói fiók, amibe be szeretnél jelentkezni, jelenleg inaktív.<br />Ellenőrizd az email-jeidet további instrukciókért az aktiválással kapcsolatban - <em>lehet hogy a spam könyvtárba került</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Sikeres kijelentkezés.';

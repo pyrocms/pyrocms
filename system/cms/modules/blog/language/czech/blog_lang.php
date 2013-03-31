@@ -65,5 +65,3 @@ $lang['blog:twitter_error'] 			= 'Chyba Twitteru';
 
 // date
 $lang['blog:archive_date_format']		= "%B %Y";
-
-?>

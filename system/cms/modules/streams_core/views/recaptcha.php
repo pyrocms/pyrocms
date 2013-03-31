@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var RecaptchaOptions = { 
+  var RecaptchaOptions = {
     theme:"<?php echo $theme ?>",
     lang:"<?php echo $lang ?>"
   };

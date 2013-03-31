@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful'] 			= '無法建立帳戶';
 $lang['account_creation_duplicate_email'] 	 	= 'Email 不正確或已被使用';
 $lang['account_creation_duplicate_username'] 	= '用戶名 不正確或已被使用';
 
-
 // Password
 $lang['password_change_successful'] 	= '密碼變更成功';
 $lang['password_change_unsuccessful'] 	= '無法變更密碼';

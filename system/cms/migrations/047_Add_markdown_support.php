@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_markdown_support extends CI_Migration {
-
+class Migration_Add_markdown_support extends CI_Migration
+{
 	public function up()
 	{
 		$this->dbforge->modify_column('page_chunks', array(

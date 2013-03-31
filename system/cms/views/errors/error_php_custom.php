@@ -116,9 +116,9 @@ function koggle(elem)
 	<h1><span class="type"><?php echo $type ?> [ <?php echo $code ?> ]:</span> <span class="message"><?php echo $message ?></span></h1>
 	<div id="<?php echo $error_id ?>" class="content">
 		<p><span class="file"><?php echo MY_Exceptions::debug_path($file) ?> [ <?php echo $line ?> ]</span></p>
-		
+
 		<?php echo MY_Exceptions::debug_source($file, $line) ?>
-		
+
 		<ol class="trace">
 			<?php foreach (MY_Exceptions::trace($trace) as $i => $step): ?>
 			<li>
@@ -156,7 +156,7 @@ function koggle(elem)
 
 	<h2><a href="#<?php echo $env_id = $error_id.'environment' ?>" onclick="return koggle('<?php echo $env_id ?>')"><?php echo 'Environment' ?></a></h2>
 	<div id="<?php echo $env_id ?>" class="content collapsed">
-	
+
 	<?php $included = get_included_files() ?>
 		<h3><a href="#<?php echo $env_id = $error_id.'environment_included' ?>" onclick="return koggle('<?php echo $env_id ?>')"><?php echo 'Included files' ?></a> (<?php echo count($included) ?>)</h3>
 		<div id="<?php echo $env_id ?>" class="collapsed">
@@ -180,7 +180,7 @@ function koggle(elem)
 			<?php endforeach ?>
 			</table>
 		</div>
-		
+
 	<?php foreach (array('_SESSION', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER') as $var): ?>
 		<?php if (empty($GLOBALS[$var]) or ! is_array($GLOBALS[$var])) continue ?>
 		<h3><a href="#<?php echo $env_id = $error_id.'environment'.strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>

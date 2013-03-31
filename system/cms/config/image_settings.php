@@ -5,5 +5,3 @@ $config['supplier_width'] = 150;
 $config['supplier_height'] = 200;
 $config['product_width'] = 200;
 $config['product_height'] = 200;
-
-?>

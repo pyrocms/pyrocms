@@ -35,7 +35,6 @@ function module_array()
 	return $modules;
 }
 
-
 /**
  * Module Exists
  *
@@ -52,7 +51,6 @@ function module_exists($slug = '')
 
 	return $ci->module_m->exists($slug);
 }
-
 
 /**
  * Module Enabled
@@ -71,7 +69,6 @@ function module_enabled($slug = '')
 	return $ci->module_m->enabled($slug);
 }
 
-
 /**
  * Module Installed
  *
@@ -89,7 +86,6 @@ function module_installed($slug = '')
 	return $ci->module_m->installed($slug);
 }
 
-
 /**
  * Module Controller
  *
@@ -101,8 +97,7 @@ function module_installed($slug = '')
  */
 function module_controller($controller, $module)
 {
-	if(!$controller)
-	{
+	if (!$controller) {
 		return false;
 	}
 
@@ -117,17 +112,13 @@ function module_controller($controller, $module)
 // if yes.. help to document it.. else.. move it, delete, etc, you can do best..
 function reload_module_details($slug = '')
 {
-	if ( ! $slug)
-	{
+	if (! $slug) {
 		return false;
 	}
 
-	if (is_array($slug))
-	{
-		foreach ($slug as $_slug)
-		{
-			if ( ! reload_module_details($_slug))
-			{
+	if (is_array($slug)) {
+		foreach ($slug as $_slug) {
+			if ( ! reload_module_details($_slug)) {
 				return false;
 			}
 		}
@@ -139,11 +130,9 @@ function reload_module_details($slug = '')
 	// Loop through directories that hold modules
 	$is_core = true;
 
-	foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
-	{
+	foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory) {
 		// Loop through modules
-		foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
-		{
+		foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name) {
 			$slug = basename($module_name);
 
 			//$this->_output .=  'Re-indexing new module: <strong>' . $slug .'</strong>.<br/>';
@@ -152,12 +141,10 @@ function reload_module_details($slug = '')
 			$details_file = $directory . 'modules/' . $slug . '/details.php';
 
 			// Check the details file exists
-			if ( ! is_file($details_file))
-			{
+			if ( ! is_file($details_file)) {
 				$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details.php';
-				
-				if ( ! is_file($details_file))
-				{
+
+				if ( ! is_file($details_file)) {
 					//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
 					continue;
 				}
@@ -169,8 +156,7 @@ function reload_module_details($slug = '')
 			// Now call the details class
 			$class_name = 'Module_'.ucfirst(strtolower($slug));
 
-			if ( ! class_exists($class_name))
-			{
+			if ( ! class_exists($class_name)) {
 				//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: Class '.$class_name.' does not exist in file '.$details_file.'.</span><br/>';
 				continue;
 			}

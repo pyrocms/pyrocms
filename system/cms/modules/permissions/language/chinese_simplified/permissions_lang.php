@@ -12,7 +12,6 @@
  * @version		1.0
  */
 
-
 $lang['permissions:group']				= '群組';
 $lang['permissions:roles']                  = '角色';
 $lang['permissions:module']                      = '模组';

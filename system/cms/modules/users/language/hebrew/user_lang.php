@@ -53,7 +53,6 @@ $lang['user:activated_account_title']          = 'החשבון הופעל';
 $lang['user:reset_password_title']             = 'חדש סיסמה';
 $lang['user:password_reset_title']             = 'הסיסמה חודשה';
 
-
 $lang['user:error_username']                   = 'שם משתמש שבחרתם כבר בשימוש';
 $lang['user:error_email']                      = 'כתובת הדואר האלקטרוני שרשמתם כבר בשימוש';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'כתובת האימייל שב
 $lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user:register_reasons']                 = 'הצטרף למעלה כדי לגשת אזורים מיוחדים מוגבלים בדרך כלל. משמעות הדבר היא ההגדרות שלך ייזכר, יותר תוכן פחות פרסומת .';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'ההפעלה נכשלה. אנא בדוק את הפרטים שלך ולוודא CAPS LOCK אינו פועל.';
 $lang['user:activated_message']                = 'החשבון שלך הופעל, עכשיו אתה יכול להיכנס לחשבון שלך .';
-
 
 // Login
 $lang['user:logged_in']                        = 'התחברתם בהצלחה.'; # TODO: Translate this in spanish
 $lang['user:already_logged_in']                = 'הנכם כבר מחוברים. יש קודם להתנתק ולהתחבר מחדש.';
 $lang['user:login_incorrect']                  = 'אימייל או סיסמה אינם מתאימים. אנא בדוק את פרטי הכניסה שלך ולוודא CAPS LOCK אינו פועל.';
 $lang['user:inactive']                         = 'את החשבון שאתה מנסה לגשת אינו פעיל כרגע. <br /> בדוק את הדואר האלקטרוני שלך כדי לקבל הוראות כיצד להפעיל את החשבון שלך - <em>זה יכול להיות בתיקיית הזבל</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'התנתקתם בהצלחה.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']           = "הסיסמה שלך אופסה
 // Activation
 $lang['user:activation_email_subject']         = 'ההפעלה נדרשת';
 $lang['user:activation_email_body']            = 'תודה על הפעלת החשבון עם %s. כדי להתחבר לאתר עכוב אחרי הקישור למטה:';
-
 
 $lang['user:activated_email_subject']          = 'ההפעלה הסתיימה בהצלחה';
 $lang['user:activated_email_content_line1']    = 'תודה על הרשמה ל %s. לפני שנוכל להפעיל את החשבון שלך, בבקשה להשלים את הליך הרישום על ידי לחיצה על הקישור הבא:';

@@ -24,9 +24,9 @@ class Plugin_Twitter extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
-	 * 
+	 *
 	 * @return array
 	 */
 	public function _self_doc()
@@ -82,9 +82,8 @@ class Plugin_Twitter extends Plugin
 		$username = $this->attribute('username');
 
 		$limit = $this->attribute('limit', 5);
-		
-		if ( ! ($tweets = $this->cache->get('twitter-'.$username)))
-		{
+
+		if ( ! ($tweets = $this->cache->get('twitter-'.$username))) {
 			$tweets = json_decode(file_get_contents($this->feed_url.'&screen_name='.$username.'&count='.$limit));
 
 			$this->cache->set('twitter-'.$username, $this->settings->twitter_cache, $tweets);
@@ -101,13 +100,11 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if ( ! $tweets)
-		{
+		if (! $tweets) {
 			return array();
 		}
 
-		foreach ($tweets as &$tweet)
-		{
+		foreach ($tweets as &$tweet) {
 			$tweet->id       = sprintf('%.0f', $tweet->id);
 			$tweet->text     = str_replace($username.': ', '', $tweet->text);
 			$tweet->text     = preg_replace(array_keys($patterns), $patterns, $tweet->text);

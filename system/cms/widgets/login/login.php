@@ -2,7 +2,7 @@
 
 /**
  * Show a login box in your widget areas
- * 
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
@@ -52,8 +52,8 @@ class Widget_Login extends Widgets
 
 	/**
 	 * The author's website.
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $website = 'http://philsturgeon.co.uk/';
 

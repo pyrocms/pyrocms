@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Templates\Model\EmailTemplate;
 
@@ -24,14 +24,13 @@ class Admin extends Admin_Controller
 	 *
 	 * @return Admin
 	 */
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->lang->load('templates');
 
-		foreach ($this->config->item('supported_languages') as $key => $lang)
-		{
+		foreach ($this->config->item('supported_languages') as $key => $lang) {
 			$lang_options[$key] = $lang['name'];
 		}
 
@@ -130,7 +129,7 @@ class Admin extends Admin_Controller
 		}
 
 		if ($this->form_validation->run()) {
-			
+
 			$result = EmailTemplate::create(array(
                 'name' => $this->input->post('name'),
                 'slug' => $this->input->post('slug'),
@@ -289,7 +288,7 @@ class Admin extends Admin_Controller
 	 */
 	public function create_copy($id = false)
 	{
-		$id = (int)$id;
+		$id = (int) $id;
 
 		//we will need this later after the form submission
 		$copy = EmailTemplate::find($id);

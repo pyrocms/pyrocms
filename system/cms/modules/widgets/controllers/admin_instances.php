@@ -7,15 +7,15 @@
  * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
-class Admin_instances extends Admin_Controller {
-
+class Admin_instances extends Admin_Controller
+{
 	/**
 	 * The current active section
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $section = 'instances';
-	
+
 	/**
 	 * Array that contains the validation rules
 	 *
@@ -36,7 +36,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return \Admin_instances
 	 */
 	public function __construct()
@@ -56,7 +56,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * List all available widgets
-	 * 
+	 *
 	 * @param str $slug The slug of the widget
 	 * @return void
 	 */
@@ -69,21 +69,19 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for a new widget instance
-	 * 
+	 *
 	 * @return void
 	 */
 	public function create($slug = '')
 	{
-		if ( ! ($slug && $widget = $this->widgets->get_widget($slug)))
-		{
+		if ( ! ($slug && $widget = $this->widgets->get_widget($slug))) {
 			// @todo: set error
 			return false;
 		}
 
 		$data = array();
 
-		if ($input = $this->input->post())
-		{
+		if ($input = $this->input->post()) {
 			$title 			= $input['title'];
 			$widget_id 		= $input['widget_id'];
 			$widget_area_id = $input['widget_area_id'];
@@ -92,24 +90,20 @@ class Admin_instances extends Admin_Controller {
 
 			$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $input);
 
-			if ($result['status'] === 'success')
-			{
-				// Fire an event. A widget instance has been created. pass the widget id 
+			if ($result['status'] === 'success') {
+				// Fire an event. A widget instance has been created. pass the widget id
 				Events::trigger('widget_instance_created', $widget_id);
-				
+
 				$status		= 'success';
 				$message	= lang('success_label');
 
 				$area = $this->widgets->get_area($widget_area_id);
-			}
-			else
-			{
+			} else {
 				$status		= 'error';
 				$message	= $result['error'];
 			}
 
-			if ($this->input->is_ajax_request())
-			{
+			if ($this->input->is_ajax_request()) {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
@@ -122,8 +116,7 @@ class Admin_instances extends Admin_Controller {
 				));
 			}
 
-			if ($status === 'success')
-			{
+			if ($status === 'success') {
 				$this->session->set_flashdata($status, $message);
 				redirect('admins/widgets');
 				return;
@@ -140,21 +133,19 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for editing a widget instance
-	 * 
+	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
 	{
-		if ( ! ($id && $widget = $this->widgets->find($id)))
-		{
+		if ( ! ($id && $widget = $this->widgets->find($id))) {
 			// @todo: set error
 			return false;
 		}
 
 		$data = array();
 
-		if ($input = $this->input->post())
-		{
+		if ($input = $this->input->post()) {
 			$title			= $input['title'];
 			$widget_id		= $input['widget_id'];
 			$widget_area_id	= $input['widget_area_id'];
@@ -164,24 +155,20 @@ class Admin_instances extends Admin_Controller {
 
 			$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $input);
 
-			if ($result['status'] === 'success')
-			{
+			if ($result['status'] === 'success') {
 				// Fire an event. A widget instance has been updated pass the widget instance id.
 				Events::trigger('widget_instance_updated', $instance_id);
-				
+
 				$status		= 'success';
 				$message	= lang('success_label');
 
 				$area = $this->widgets->get_area($widget_area_id);
-			}
-			else
-			{
+			} else {
 				$status		= 'error';
 				$message	= $result['error'];
 			}
 
-			if ($this->input->is_ajax_request())
-			{
+			if ($this->input->is_ajax_request()) {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
@@ -194,8 +181,7 @@ class Admin_instances extends Admin_Controller {
 				));
 			}
 
-			if ($status === 'success')
-			{
+			if ($status === 'success') {
 				$this->session->set_flashdata($status, $message);
 				redirect('admins/widgets');
 				return;
@@ -217,27 +203,23 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Delete a widget instance
-	 * 
+	 *
 	 * @return void
 	 */
 	public function delete($id = 0)
 	{
-		if ($this->widgets->delete_instance($id))
-		{
-			// Fire an event. A widget instance has been deleted. 
+		if ($this->widgets->delete_instance($id)) {
+			// Fire an event. A widget instance has been deleted.
 			Events::trigger('widget_instance_deleted', $id);
-				
+
 			$status = 'success';
 			$message = lang('success_label');
-		}
-		else
-		{
+		} else {
 			$status = 'error';
 			$message = lang('general_error_label');
 		}
 
-		if ($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			$data = array();
 
 			$data['messages'][$status] = $message;

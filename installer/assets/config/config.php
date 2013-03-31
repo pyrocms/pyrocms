@@ -353,7 +353,6 @@ $config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this o
 */
 $config['time_reference'] = 'gmt';
 
-
 /*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
@@ -365,7 +364,6 @@ $config['time_reference'] = 'gmt';
 |
 */
 $config['rewrite_short_tags'] = false;
-
 
 /*
 |--------------------------------------------------------------------------

@@ -13,4 +13,4 @@
     <td class="align-center buttons buttons-small actions">
         <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
     </td>
-<?php echo form_close() ?>
+<?php echo form_close()

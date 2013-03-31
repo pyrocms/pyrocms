@@ -1,25 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - English
-* 
+*
 * Author: Ben Edmunds
 *           ben.edmunds@gmail.com
 *         @benedmunds
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  03.14.2010 
-* 
+*
+* Created:  03.14.2010
+*
 * Description:  English language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
 $lang['account_creation_successful']            = 'Konto oprettet';
 $lang['account_creation_unsuccessful']          = 'Kontoen kunne ikke oprettes';
 $lang['account_creation_duplicate_email']       = 'E-mail bliver allerede brugt eller er ugyldig.';
-$lang['account_creation_duplicate_username']    = 'Brugernavn bliver allerede brugt eller er ugyldigt.';  
-
+$lang['account_creation_duplicate_username']    = 'Brugernavn bliver allerede brugt eller er ugyldigt.';
 
 // Password
 $lang['password_change_successful']             = 'Password ændret';

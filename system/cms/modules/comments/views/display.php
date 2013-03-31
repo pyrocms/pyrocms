@@ -1,7 +1,7 @@
 <?php if ($comments): ?>
-	
+
 	<?php foreach ($comments as $item): ?>
-		
+
 		<div class="comment">
 			<div class="image">
 				<?php echo gravatar($item->user_email, 60) ?>
@@ -23,7 +23,7 @@
 			</div>
 		</div><!-- close .comment -->
 	<?php endforeach ?>
-	
+
 <?php else: ?>
 	<p><?php echo lang('comments:no_comments') ?></p>
-<?php endif ?>
+<?php endif

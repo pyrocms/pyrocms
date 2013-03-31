@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful'] 	= 'Nie można utworzyć konta';
 $lang['account_creation_duplicate_email'] 	 = 'Podany adres Email jest nieprawidłowy lub został już użyty';
 $lang['account_creation_duplicate_username'] = 'Podana nazwa użytkownika jest nieprawidłowa lub została już użyta';
 
-
 // Password
 $lang['password_change_successful'] 	= 'Hasło zostało pomyślnie zmienione';
 $lang['password_change_unsuccessful'] 	= 'Nie można zmienić hasła';

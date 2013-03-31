@@ -71,33 +71,27 @@ class Migration_Add_comment_expiry extends CI_Migration
 
 		$comments = $this->db->get('comments')->result();
 
-		foreach ($comments as &$comment)
-		{
+		foreach ($comments as &$comment) {
 			// What did they comment on
-			switch ($comment->module)
-			{
+			switch ($comment->module) {
 				case 'gallery':
 					$comment->module = plural($comment->module);
 					break;
 				case 'gallery-image':
 					$comment->module = 'galleries';
 					$ci->load->model('galleries/gallery_image_m');
-					if ($item = $ci->gallery_image_m->get($comment->module_id))
-					{
+					if ($item = $ci->gallery_image_m->get($comment->module_id)) {
 						continue 2;
 					}
 					break;
 			}
 
-
 			$this->load->model('addons/module_m');
 
 			// Use the old comment logic to grab title names, then we can never have to use this junk again
-			if (in_array($comment->module, array('blog', 'pages')))
-			{
-				// Grab an item 
-				switch ($comment->module)
-				{
+			if (in_array($comment->module, array('blog', 'pages'))) {
+				// Grab an item
+				switch ($comment->module) {
 					case 'blog':
 
 						// Get this one article out of the db
@@ -122,9 +116,7 @@ class Migration_Add_comment_expiry extends CI_Migration
 						$comment->cp_uri = 'admin/'.$comment->module.'/preview/'.$item->id;
 					break;
 				}
-			}
-			else
-			{
+			} else {
 				$comment->entry_title = $comment->module .' #'. $comment->entry_id;
 				$comment->entry_key = humanize(singular($comment->module));
 				$comment->entry_plural = humanize(plural($comment->module));
@@ -134,7 +126,7 @@ class Migration_Add_comment_expiry extends CI_Migration
 			$this->db->where('id', $comment->id)->update('comments', $comment);
 		}
 	}
-	
+
 	public function down()
 	{
 		$this->dbforge->modify_column('blog', array(

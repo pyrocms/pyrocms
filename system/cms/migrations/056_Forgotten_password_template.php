@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Forgotten_password_template extends CI_Migration {
-
+class Migration_Forgotten_password_template extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->delete('email_templates', array('slug' => 'forgotten_password'));
 		$this->db->delete('email_templates', array('slug' => 'new_password'));
-		
+
 		$this->db->insert('email_templates', array(
 			'slug'				=> 'forgotten_password',
 			'name'				=> 'Forgotten Password Email',
@@ -18,7 +18,7 @@ class Migration_Forgotten_password_template extends CI_Migration {
 			'lang'				=> 'en',
 			'is_default'		=> 1,
 		));
-		
+
 		$this->db->insert('email_templates', array(
 			'slug'				=> 'new_password',
 			'name'				=> 'New Password Email',

@@ -17,8 +17,7 @@ function get_supported_lang()
 	$supported_lang = config_item('supported_languages');
 
 	$arr = array();
-	foreach ($supported_lang as $key => $lang)
-	{
+	foreach ($supported_lang as $key => $lang) {
 		$arr[] = $key . '=' . $lang['name'];
 	}
 
@@ -37,16 +36,12 @@ function get_supported_lang()
  * @param 	string
  * @return 	string
  */
-if ( ! function_exists('lang_label'))
-{
+if ( ! function_exists('lang_label')) {
 	function lang_label($key)
 	{
-		if (substr($key, 0, 5) == 'lang:')
-		{
+		if (substr($key, 0, 5) == 'lang:') {
 			return lang(substr($key, 5));
-		}
-		else
-		{
+		} else {
 			return $key;
 		}
 	}
@@ -54,11 +49,11 @@ if ( ! function_exists('lang_label'))
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('sprintf_lang'))
-{
+if ( ! function_exists('sprintf_lang')) {
     function sprintf_lang($line, $variables = array())
     {
         array_unshift($variables, lang($line));
+
         return call_user_func_array('sprintf', $variables);
     }
 }

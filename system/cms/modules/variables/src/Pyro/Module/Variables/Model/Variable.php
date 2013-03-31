@@ -26,7 +26,7 @@ class Variable extends \Illuminate\Database\Eloquent\Model
      * Find variable by Name with ID
      *
      * @param string $name The name of the variable
-     * @param int $id of the variable
+     * @param int    $id   of the variable
      *
      * @return void
      */

@@ -4,7 +4,7 @@ $lang['user:add_field']                        	= 'Adicionar Campo de Perfil de 
 $lang['user:profile_delete_success']           	= 'Perfil do utilizador excluído com sucesso';
 $lang['user:profile_delete_failure']            = 'Houve um problema com a exclusão do seu perfil de utilizador';
 $lang['profile_user_basic_data_label']  		= 'Dados Básicos';
-$lang['profile_company']         	  			= 'Empresa'; 
+$lang['profile_company']         	  			= 'Empresa';
 $lang['profile_updated_on']           			= 'Atualizado a';
 $lang['user:profile_fields_label']	 		 	= 'Campos Perfil';
 
@@ -52,7 +52,6 @@ $lang['user:activate_label'] 			= 'Ativação';
 $lang['user:activated_account_title'] 	= 'Contas ativadas';
 $lang['user:reset_password_title'] 		= 'Redefinir password';
 $lang['user:password_reset_title'] 		= 'Redefinicão de password';
-
 
 $lang['user:error_username'] 			= 'O nome de utilizador selecionado já encontra-se em uso';
 $lang['user:error_email'] 				= 'O endereço de email que informou já está em uso';
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 						= 'O endereço de email que escolheu já está 
 $lang['user:register_error']				    = 'Achamos que você é um bot. Se estamos enganados pedimos as nossas desculpas.';
 $lang['user:register_reasons'] 					= 'Entre para aceder a áreas especiais que normalmente são restritas. Isto significa que será conhecido, terá acesso a mais conteúdos e menos publicidade.';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'A ativação falhou. Por favor, verifique os seus detalhes e tenha certeza de não estar com o CAPS LOCK ( CAIXA ALTA ) ativo.';
 $lang['user:activated_message']   				= 'A sua conta foi ativada, agora pode entrar na sua conta.';
-
 
 // Login
 $lang['user:logged_in']							= 'Entrou na sua conta.';
 $lang['user:already_logged_in'] 				= 'Já está na sua conta. Por favor, saia antes de tentar entrar.';
 $lang['user:login_incorrect'] 					= 'E-mail ou senha não confere. Por favor, verifique se as suas informações de acesso estão corretas e certifique-se que o CAPS LOCK ( CAIXA ALTA ) não está ativo.';
 $lang['user:inactive']   						= 'A conta que tentou aceder está desativada.<br />Verifique o seu e-mail para mais informações de como ativar a sua conta - <em>pode estar na pasta de lixo eletrônico ou spam</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'Saiu da sua conta.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "A sua senha foi redefinida. Deverá
 // Activation
 $lang['user:activation_email_subject'] 			= 'Ativação necessária';
 $lang['user:activation_email_body'] 			= 'Obrigado por ativar a sua conta em %s. Para entrar no site, por favor, visite o link abaixo:';
-
 
 $lang['user:activated_email_subject'] 			= 'Ativação concluída';
 $lang['user:activated_email_content_line1'] 	= 'Obrigado por se registar em %s. Agora pode concluir a ativação da sua conta terminando o processo de registo clicando no seguinte link:';

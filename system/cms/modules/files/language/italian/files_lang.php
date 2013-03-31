@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // General
-$lang['files:files_title']					= 'Files'; 
+$lang['files:files_title']					= 'Files';
 $lang['files:fetching']						= 'Recupero dati...';
 $lang['files:fetch_completed']				= 'Completato';
 $lang['files:save_failed']					= 'Spiacenti. I cambiamenti non possono essere salvati';
@@ -35,7 +35,7 @@ $lang['files:filesize']						= 'Filesize';
 $lang['files:download_count']				= 'Contatore Download';
 $lang['files:download']						= 'Download';
 $lang['files:location']						= 'Locazione';
-$lang['files:keywords']						= 'Keywords'; 
+$lang['files:keywords']						= 'Keywords';
 $lang['files:toggle_data_display']			= 'Toggle Data Display'; #translate
 $lang['files:description']					= 'Descrizione';
 $lang['files:container']					= 'Contenitore';
@@ -45,15 +45,15 @@ $lang['files:search_message']				= 'Scrivi e premi Invio';
 $lang['files:search']						= 'Cerca';
 $lang['files:synchronize']					= 'Sincronizzazione';
 $lang['files:uploader']						= 'Trascina qui i file <br />oppure<br />Clicca per selezionare i file';
-$lang['files:replace_file']					= 'Sostituisci file'; 
+$lang['files:replace_file']					= 'Sostituisci file';
 
 // Context Menu
-$lang['files:refresh']						= 'Aggiorna'; 
+$lang['files:refresh']						= 'Aggiorna';
 $lang['files:open']							= 'Apri';
 $lang['files:new_folder']					= 'Nuova cartella';
 $lang['files:upload']						= 'Carica';
 $lang['files:rename']						= 'Rinomina';
-$lang['files:replace']	  					= 'Sostituisci'; 
+$lang['files:replace']	  					= 'Sostituisci';
 $lang['files:delete']						= 'Cancella';
 $lang['files:edit']							= 'Modifica';
 $lang['files:details']						= 'Dettagli';

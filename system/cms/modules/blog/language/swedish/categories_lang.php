@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -24,6 +24,5 @@ $lang['cat:mass_delete_success'] = '%s kategorier av %s har raderats.';
 $lang['cat:no_select_error'] = 'Du måste välja en kategori först.';
 $lang['cat:already_exist_error'] = 'En kategori med namnet "%s" finns redan.';
 
-
-/* End of file categories_lang.php */  
-/* Location: system/cms/modules/blog/language/swedish/categories_lang.php */  
+/* End of file categories_lang.php */
+/* Location: system/cms/modules/blog/language/swedish/categories_lang.php */

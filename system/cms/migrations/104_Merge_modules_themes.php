@@ -49,9 +49,9 @@ class Migration_Merge_modules_themes extends CI_Migration
 			->where_in('slug', array('modules', 'themes'))
 			->delete('modules');
 	}
-	
+
 	public function down()
 	{
-		
+
 	}
 }

@@ -34,20 +34,16 @@ class Admin extends Admin_Controller
 		$output = array();
 
 		// Loop through found results to find extra information
-		foreach ($results as $row)
-		{
+		foreach ($results as $row) {
 			// We only want to load a lang file once
-			if ( ! isset($modules[$row->module]))
-			{
-				if ($this->module_m->exists($row->module))
-				{
+			if ( ! isset($modules[$row->module])) {
+				if ($this->module_m->exists($row->module)) {
 					$this->lang->load("{$row->module}/{$row->module}");
 
 					$modules[$row->module] = true;
 				}
 				// If module doesn't exist (for whatever reason) then sssh!
-				else
-				{
+				else {
 					$modules[$row->module] = false;
 				}
 			}

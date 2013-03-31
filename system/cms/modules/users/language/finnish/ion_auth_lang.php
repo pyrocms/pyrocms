@@ -11,7 +11,6 @@ $lang['account_creation_unsuccessful']          = 'Tilia ei voitu luoda';
 $lang['account_creation_duplicate_email']       = 'Sähköpostiosoite on jo käytössä tai se ei kelpaa';
 $lang['account_creation_duplicate_username']    = 'Käyttäjätunnus on jo käytössä tai se ei kelpaa';
 
-
 // Password
 $lang['password_change_successful']             = 'Salasana vaihdettiin onnistuneesti';
 $lang['password_change_unsuccessful']           = 'Salasanaa ei voitu vaihaa';

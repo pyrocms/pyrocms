@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -69,6 +69,5 @@ $lang['addons:themes:version_label'] = 'Version';
 $lang['addons:themes:default_theme_label'] = 'Standardtema';
 $lang['addons:themes:no_themes_installed'] = 'Det finns inget tema installerat.';
 
-
-/* End of file addons_lang.php */  
-/* Location: system/cms/modules/addons/language/swedish/addons_lang.php */  
+/* End of file addons_lang.php */
+/* Location: system/cms/modules/addons/language/swedish/addons_lang.php */

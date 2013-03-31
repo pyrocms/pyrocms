@@ -11,7 +11,7 @@
 				<th width="<?php echo Settings::get('moderate_comments') ? 265 : 120 ?>"></th>
 			</tr>
 		</thead>
-	
+
 		<tfoot>
 			<tr>
 				<td colspan="7">
@@ -19,7 +19,7 @@
 				</td>
 			</tr>
 		</tfoot>
-	
+
 		<tbody>
 			<?php foreach ($comments as $comment): ?>
 				<tr>
@@ -33,12 +33,12 @@
 							<?php endif ?>
 						</a>
 					</td>
-				
+
 					<td>
 						<strong><?php echo lang($comment->singular) ? lang($comment->singular) : $comment->singular ?>: </strong>
 						<?php echo anchor($comment->cp_uri ? $comment->cp_uri : $comment->uri, $comment->entry_title ? $comment->entry_title : '#'.$comment->entry_id) ?>
 					</td>
-					
+
 					<td>
 						<?php if ($comment->user_id > 0): ?>
 							<?php echo anchor('admin/users/edit/'.$comment->user_id, $comment->user_name) ?>
@@ -46,9 +46,9 @@
 							<?php echo mailto($comment->user_email, $comment->user_name) ?>
 						<?php endif ?>
 					</td>
-				
+
 					<td><?php echo format_date($comment->created_on) ?></td>
-					
+
 					<td class="align-center buttons buttons-small">
 						<?php if ($this->settings->moderate_comments): ?>
 							<?php if ($comment->is_active): ?>
@@ -57,7 +57,7 @@
 								<?php echo anchor('admin/comments/approve/'.$comment->id, lang('buttons:activate'), 'class="button activate"') ?>
 							<?php endif ?>
 						<?php endif ?>
-					
+
 						<?php echo anchor('admin/comments/edit/'.$comment->id, lang('global:edit'), 'class="button edit"') ?>
 						<?php echo anchor('admin/comments/delete/'.$comment->id, lang('global:delete'), array('class'=>'confirm button delete')) ?>
 						<?php echo anchor('admin/comments/report/'.$comment->id, 'Report', array('class'=>'button edit')) ?>
@@ -66,9 +66,9 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-	
+
 <?php else: ?>
 
 	<div class="no_data"><?php echo lang('comments:no_comments') ?></div>
 
-<?php endif ?>
+<?php endif

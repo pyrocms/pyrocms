@@ -7,8 +7,7 @@ class Migration_Add_page_types_description_field extends CI_Migration
 {
     public function up()
     {
-       if ( ! $this->db->field_exists('description', 'page_types'))
-       {
+       if ( ! $this->db->field_exists('description', 'page_types')) {
             $columns = array(
                 'description' => array(
                             'type' => 'TEXT',

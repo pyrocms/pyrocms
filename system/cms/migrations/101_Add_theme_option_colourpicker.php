@@ -8,7 +8,7 @@ class Migration_Add_theme_option_colourpicker extends CI_Migration
 			'type' => array('type' => "SET('text','textarea','password','select','select-multiple','radio','checkbox','colour-picker')", 'null' => false),
 		));
 	}
-	
+
 	public function down()
 	{
 		$this->dbforge->modify_column('theme_options', array(

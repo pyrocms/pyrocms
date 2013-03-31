@@ -102,7 +102,7 @@ $lang['settings:comment_order_desc']			= 'Sort order in which to display comment
 
 $lang['settings:enable_comments'] 				= 'Enable Comments';
 $lang['settings:enable_comments_desc']			= 'Allow users to post comments?';
-	
+
 $lang['settings:moderate_comments']				= 'Moderate Comments';
 $lang['settings:moderate_comments_desc']		= 'Force comments to be approved before they appear on the site.';
 

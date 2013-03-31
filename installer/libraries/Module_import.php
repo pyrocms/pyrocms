@@ -18,8 +18,7 @@ class Module_import
 		is_dir(ADDONPATH.'field_types') or mkdir(ADDONPATH.'field_types', DIR_READ_MODE, true);
 
 		// create the site specific upload folder
-		if ( ! is_dir(dirname(FCPATH).'/uploads/default')) 
-		{
+		if ( ! is_dir(dirname(FCPATH).'/uploads/default')) {
 			mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, true);
 		}
 	}
@@ -34,8 +33,7 @@ class Module_import
 	 */
 	public function install($slug, $is_core = false)
 	{
-		if ( ! ($details_class = $this->_spawn_class($slug, $is_core)))
-		{
+		if ( ! ($details_class = $this->_spawn_class($slug, $is_core))) {
 			exit("The module $slug is missing a details.php");
 		}
 
@@ -54,10 +52,10 @@ class Module_import
 		$details_class->upload_path = 'uploads/default/';
 
 		// Run the install method to get it into the database
-		// try 
+		// try
 		// {
 			$details_class->install();
-		// } 
+		// }
 		// catch (Exception $e)
 		// {
 		// 	// TODO Do something useful
@@ -113,21 +111,17 @@ class Module_import
 		$this->install('streams_core', true);
 
 		// Are there any modules to install on this path?
-		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
-		{
+		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR)) {
 			// Loop through modules
-			foreach ($modules as $module_name)
-			{
+			foreach ($modules as $module_name) {
 				$slug = basename($module_name);
 
-				if ($slug == 'streams_core' or $slug == 'settings')
-				{
+				if ($slug == 'streams_core' or $slug == 'settings') {
 					continue;
 				}
 
 				// invalid details class?
-				if ( ! $details_class = $this->_spawn_class($slug, true))
-				{
+				if ( ! $details_class = $this->_spawn_class($slug, true)) {
 					continue;
 				}
 
@@ -163,12 +157,10 @@ class Module_import
 		$details_file = "{$path}modules/{$slug}/details.php";
 
 		// If it didn't exist as a core module or an addon then check shared_addons
-		if ( ! is_file($details_file))
-		{
+		if ( ! is_file($details_file)) {
 			$details_file = "{SHARED_ADDONPATH}modules/{$slug}/details.php";
 
-			if ( ! is_file($details_file))
-			{
+			if ( ! is_file($details_file)) {
 				return false;
 			}
 		}

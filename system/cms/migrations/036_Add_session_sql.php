@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_session_sql extends CI_Migration {
-
+class Migration_Add_session_sql extends CI_Migration
+{
 	public function up()
 	{
 		$session = "
@@ -15,7 +15,7 @@ class Migration_Add_session_sql extends CI_Migration {
 			KEY `last_activity_idx` (`last_activity`)
 			);
 		";
-		
+
 		// create a session table so they can use it if they want
 		$this->db->query($session);
 	}

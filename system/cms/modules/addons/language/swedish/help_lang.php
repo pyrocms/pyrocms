@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -16,6 +16,5 @@ $lang['help_body'] = '<h4>Översikt</h4>
 <h4>Ändra webbplatsens tema</h4>
 <p>Det är enkelt! Förhandsgranska ett valt tema. Om du vill använda det, markera och aktivera detta.</p>';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/addons/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/addons/language/swedish/help_lang.php */

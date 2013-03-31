@@ -5,7 +5,7 @@ use Pyro\Module\Files\Model\Folder;
 
 /**
  * Frontend controller for files and stuffs
- * 
+ *
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
@@ -13,17 +13,17 @@ use Pyro\Module\Files\Model\Folder;
 class Files_front extends Public_Controller
 {
 	private	$_path = '';
-	
+
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->config->load('files');
 		$this->load->library('files/files');
 
 		$this->_path = FCPATH.rtrim($this->config->item('files:path'), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 	}
-	
+
 	/**
 	 * Download a file
 	 */
@@ -59,9 +59,9 @@ class Files_front extends Public_Controller
 		} else {
 			// it's neither a legacy numeric id nor a new hash id so they've passed the filename itself
 			$data = getimagesize($this->_path.$id) OR show_404();
-			
+
 			$ext = '.'.end(explode('.', $id));
-			
+
 			$file->width 		= $data[0];
 			$file->height 		= $data[1];
 			$file->filename 	= $id;
@@ -69,7 +69,7 @@ class Files_front extends Public_Controller
 			$file->mimetype 	= $data['mime'];
 		}
 
-		if ( ! $file) {
+		if (! $file) {
 			set_status_header(404);
 			exit;
 		}
@@ -148,7 +148,7 @@ class Files_front extends Public_Controller
 
 				$ratio		= $file->width / $file->height;
 				$crop_ratio	= (empty($crop_height) OR empty($crop_width)) ? 0 : $crop_width / $crop_height;
-				
+
 				if ($ratio >= $crop_ratio and $crop_height > 0) {
 					$width	= $ratio * $crop_height;
 					$height	= $crop_height;

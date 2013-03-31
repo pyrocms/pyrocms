@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Variables
  */
-class Module_Variables extends Module {
-
+class Module_Variables extends Module
+{
     public $version = '0.4';
 
     public function info()
@@ -86,7 +86,7 @@ class Module_Variables extends Module {
             $table->string('name', 250)->nullable();
             $table->string('data', 250)->nullable();
         });
-        
+
         return true;
     }
 

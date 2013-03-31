@@ -16,7 +16,6 @@ $lang['widgets:available_title'] 			= '可用组件';
 $lang['widgets:widget_area_wrapper']		= '可用区块';
 $lang['widgets:instructions']	 			= '使用拖放安裝';
 
-
 $lang['widgets:instances']            		= '组件列表';
 $lang['widgets:areas']            			= '组件区块';
 

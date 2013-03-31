@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Keywords\Model\Keyword;
 use Pyro\Module\Keywords\Model\Applied;
@@ -24,8 +24,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (Applied::getNamesByHash($hash) as $keyword)
-		{
+		foreach (Applied::getNamesByHash($hash) as $keyword) {
 			$keywords[] = $keyword->name;
 		}
 
@@ -44,8 +43,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (Applied::getNamesByHash($hash) as $keyword)
-		{
+		foreach (Applied::getNamesByHash($hash) as $keyword) {
 			$keywords[] = $keyword->name;
 		}
 
@@ -88,12 +86,9 @@ class Keywords
 	 */
 	public static function prep($keyword)
 	{
-		if (function_exists('mb_strtolower'))
-		{
+		if (function_exists('mb_strtolower')) {
 			return mb_strtolower(trim($keyword));
-		}
-		else
-		{
+		} else {
 			return strtolower(trim($keyword));
 		}
 	}
@@ -112,14 +107,12 @@ class Keywords
 	public static function process($keywords, $old_hash = null)
 	{
 		// Remove the old keyword assignments if we're updating
-		if ($old_hash !== null)
-		{
+		if ($old_hash !== null) {
 			Applied::deleteByHash($old_hash);
 		}
 
 		// No keywords? Let's not bother then
-		if ( ! ($keywords = trim($keywords)))
-		{
+		if ( ! ($keywords = trim($keywords))) {
 			return '';
 		}
 
@@ -127,19 +120,16 @@ class Keywords
 
 		// Split em up and prep away
 		$keywords = explode(',', $keywords);
-		foreach ($keywords as &$keyword)
-		{
+		foreach ($keywords as &$keyword) {
 			$keyword = self::prep($keyword);
 
 			// Keyword already exists
-			if (($row = Keyword::findByName($keyword)))
-			{
+			if (($row = Keyword::findByName($keyword))) {
 				$keyword_id = $row->id;
 			}
 
 			// Create it, and keep the record
-			else
-			{
+			else {
 				$keyword_id = self::add($keyword);
 			}
 

@@ -23,7 +23,7 @@ class Plugin_Widgets extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
 	 * @return array
@@ -72,10 +72,9 @@ class Plugin_Widgets extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		return $info;
 	}
-
 
 	public function __construct()
 	{
@@ -97,7 +96,7 @@ class Plugin_Widgets extends Plugin
 	{
 		$slug         = $this->attribute('slug');
 		$slug_segment = $this->attribute('slug_segment');
-		
+
 		is_numeric($slug_segment) ? $slug = $this->uri->segment($slug_segment) : null ;
 
 		return $this->widgets->render_area($slug);
@@ -119,8 +118,7 @@ class Plugin_Widgets extends Plugin
 		$id     = $this->attribute('id');
 		$widget = $this->widgets->find($id);
 
-		if ( ! $widget)
-		{
+		if (! $widget) {
 			return;
 		}
 

@@ -67,7 +67,7 @@
 	</section>
 
 	<div class="hidden">
-		
+
 		<script type="text/javascript">
 
 			/*
@@ -76,16 +76,16 @@
 			 */
 
 			$('body').append('<div class="hidden"><div id="files-uploader"><div id="file-to-replace"><h4><?php echo lang("files:replace_file")?>:<span class="name"></span></h4><span class="alert-warning"><?php echo lang("files:replace_warning")?></span></div><div class="files-uploader-browser"><form action="<?php echo site_url('admin/files/upload'); ?>"method="post"accept-charset="utf-8"enctype="multipart/form-data"><label for="file"class="upload"><?php echo lang("files:uploader")?></label><input type="file"name="file"value=""multiple="multiple"/><input type="hidden"name="replace-id"value=""/></form><div class="buttons"><a href="#"title=""class="button start-upload"><?php echo lang("files:upload")?></a><a href="#"title=""class="button cancel-upload"><?php echo lang("buttons:cancel");?></a></div><ul id="files-uploader-queue"class="ui-corner-all"></ul></div></div></div>');
-			
+
 		</script>
 
 		<div id="item-details">
 			<h4><?php echo lang('files:details') ?></h4>
 			<ul>
-				<li><label><?php echo lang('files:id') ?>:</label> 
+				<li><label><?php echo lang('files:id') ?>:</label>
 					<span class="id"></span>
 				</li>
-				<li><label><?php echo lang('files:name') ?>:</label> 
+				<li><label><?php echo lang('files:name') ?>:</label>
 					<span class="name"></span>
 				</li>
 
@@ -95,44 +95,44 @@
 			</ul>
 
 			<ul class="meta-data">
-				<li><label><?php echo lang('files:slug') ?>:</label> 
+				<li><label><?php echo lang('files:slug') ?>:</label>
 					<span class="slug"></span>
 				</li>
-				<li><label><?php echo lang('files:path') ?>:</label> 
+				<li><label><?php echo lang('files:path') ?>:</label>
 					<input readonly="readonly" type="text" class="path"/>
 				</li>
-				<li><label><?php echo lang('files:added') ?>:</label> 
+				<li><label><?php echo lang('files:added') ?>:</label>
 					<span class="added"></span>
 				</li>
-				<li><label><?php echo lang('files:width') ?>:</label> 
+				<li><label><?php echo lang('files:width') ?>:</label>
 					<span class="width"></span>
 				</li>
-				<li><label><?php echo lang('files:height') ?>:</label> 
+				<li><label><?php echo lang('files:height') ?>:</label>
 					<span class="height"></span>
 				</li>
-				<li><label><?php echo lang('files:filename') ?>:</label> 
+				<li><label><?php echo lang('files:filename') ?>:</label>
 					<span class="filename"></span>
 				</li>
-				<li><label><?php echo lang('files:filesize') ?>:</label> 
+				<li><label><?php echo lang('files:filesize') ?>:</label>
 					<span class="filesize"></span>
 				</li>
-				<li><label><?php echo lang('files:download_count') ?>:</label> 
+				<li><label><?php echo lang('files:download_count') ?>:</label>
 					<span class="download_count"></span>
 				</li>
-				<li><label><?php echo lang('files:location') ?>:</label> 
+				<li><label><?php echo lang('files:location') ?>:</label>
 					<span class="location-static"></span>
 				</li>
-				<li><label><?php echo lang('files:container') ?>:</label> 
+				<li><label><?php echo lang('files:container') ?>:</label>
 					<span class="container-static"></span>
 				</li>
-				<li><label><?php echo lang('files:location') ?>:</label> 
+				<li><label><?php echo lang('files:location') ?>:</label>
 					<?php echo form_dropdown('location', $locations, '', 'class="location"') ?>
 				</li>
-				<li><label><?php echo lang('files:bucket') ?>:</label> 
+				<li><label><?php echo lang('files:bucket') ?>:</label>
 					<?php echo form_input('bucket', '', 'class="container amazon-s3"') ?>
 					<a class="container-button button"><?php echo lang('files:check_container') ?></a>
 				</li>
-				<li><label><?php echo lang('files:container') ?>:</label> 
+				<li><label><?php echo lang('files:container') ?>:</label>
 					<?php echo form_input('container', '', 'class="container rackspace-cf"') ?>
 					<a class="container-button button"><?php echo lang('files:check_container') ?></a>
 				</li>

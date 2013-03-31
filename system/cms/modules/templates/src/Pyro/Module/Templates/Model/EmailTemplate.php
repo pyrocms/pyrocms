@@ -4,7 +4,7 @@
  * Email Template model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Templates\Models 
+ * @package     PyroCMS\Core\Modules\Templates\Models
  */
 class EmailTemplate extends \Illuminate\Database\Eloquent\Model
 {
@@ -37,7 +37,7 @@ class EmailTemplate extends \Illuminate\Database\Eloquent\Model
     /**
      * Find email template by is_default
      *
-     * @param bool $default 
+     * @param bool $default
      *
      * @return void
      */
@@ -45,7 +45,7 @@ class EmailTemplate extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('is_default', '=', $default)->get();
     }
-	
+
     /**
      * Find email template by slug and language
      *
@@ -59,9 +59,9 @@ class EmailTemplate extends \Illuminate\Database\Eloquent\Model
         $tpl = static::where('slug', '=', $slug)
 			->where('lang', '=', $language)
         	->first();
-		
-		return (null != $tpl) 
-			? $tpl 
+
+		return (null != $tpl)
+			? $tpl
 			: static::where('slug', '=', $slug)
 				->where('lang', '=', 'en')
 	        	->first();

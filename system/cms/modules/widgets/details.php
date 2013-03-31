@@ -91,16 +91,14 @@ class Module_Widgets extends Module
 		$schema = $this->pdb->getSchemaBuilder();
 
 		$schema->dropIfExists('widget_areas');
-		$schema->create('widget_areas', function ($table)
-		{
+		$schema->create('widget_areas', function ($table) {
 			$table->increments('id');
 			$table->string('slug')->nullable();
 			$table->string('title')->nullable();
 		});
 
 		$schema->dropIfExists('widget_instances');
-		$schema->create('widget_instances', function ($table)
-		{
+		$schema->create('widget_instances', function ($table) {
 			$table->increments('id');
 			$table->string('title')->nullable();
 			$table->integer('widget_id')->nullable();
@@ -115,8 +113,7 @@ class Module_Widgets extends Module
 		});
 
 		$schema->dropIfExists('widgets');
-		$schema->create('widgets', function ($table)
-		{
+		$schema->create('widgets', function ($table) {
 			$table->increments('id');
 			$table->string('slug')->default('');
 			$table->string('title');

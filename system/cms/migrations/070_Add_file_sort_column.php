@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_file_sort_column extends CI_Migration {
-
+class Migration_Add_file_sort_column extends CI_Migration
+{
 	public function up()
 	{
 		$this->dbforge->add_column('file_folders', array(

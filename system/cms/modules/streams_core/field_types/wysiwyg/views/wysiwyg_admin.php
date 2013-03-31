@@ -18,7 +18,7 @@
 				pyro.init_ckeditor_maximize();
 			};
 			pyro.init_ckeditor();
-			
+
 		});
 	})(jQuery);
 </script>

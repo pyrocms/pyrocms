@@ -11,7 +11,7 @@ class Profile extends \Illuminate\Database\Eloquent\Model
 	/**
 	 * Get a user profile
 	 *
-	 * 
+	 *
 	 * @param array $params Parameters used to retrieve the profile
 	 * @return object
 	 */
@@ -21,11 +21,11 @@ class Profile extends \Illuminate\Database\Eloquent\Model
 
 		return $query->row();
 	}
-	
+
 	/**
 	 * Update a user's profile
 	 *
-	 * 
+	 *
 	 * @param array $input A mirror of $_POST
 	 * @param int $id The ID of the profile to update
 	 * @return bool
@@ -45,22 +45,18 @@ class Profile extends \Illuminate\Database\Eloquent\Model
 			'updated_on'	=>	now()
 		);
 
-		if (isset($input['dob_day']))
-		{
+		if (isset($input['dob_day'])) {
 			$set['dob'] = mktime(0, 0, 0, $input['dob_month'], $input['dob_day'], $input['dob_year']);
 		}
 
 		// Does this user have a profile already?
-		if ($this->db->get_where('profiles', array('user_id' => $id))->row())
-		{
+		if ($this->db->get_where('profiles', array('user_id' => $id))->row()) {
 			$this->db->update('profiles', $set, array('user_id'=>$id));
-		}	
-		else
-		{
+		} else {
 			$set['user_id'] = $id;
 			$this->db->insert('profiles', $set);
 		}
-		
+
 		return true;
 	}
 }

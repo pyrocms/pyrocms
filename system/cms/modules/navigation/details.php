@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Navigation
  */
-class Module_Navigation extends Module {
-
+class Module_Navigation extends Module
+{
 	public $version = '1.1.0';
 
 	public function info()

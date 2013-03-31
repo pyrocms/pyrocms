@@ -102,7 +102,7 @@ $lang['settings:comment_order_desc']			= 'Urutan komentar ketika ditampilkan.';
 
 $lang['settings:enable_comments'] 				= 'Nyalakan Komentar';
 $lang['settings:enable_comments_desc']			= 'Perbolehkan pengguna untuk mengirimkan komentar?';
-	
+
 $lang['settings:moderate_comments']				= 'Moderasi Komentar';
 $lang['settings:moderate_comments_desc']		= 'Buat komentar untuk disetujui terlebih dahulu sebelum muncul di situs.';
 

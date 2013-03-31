@@ -51,7 +51,6 @@ $lang['user:activated_account_title']		= 'Cuenta activada';
 $lang['user:reset_password_title']			= 'Reestablecer contraseña';
 $lang['user:password_reset_title']			= 'Reestablecer contraseña';
 
-
 $lang['user:error_username']				= 'El usuario que ingresaste ya se encuentra en uso';
 $lang['user:error_email']					= 'El email que ingresaste ya se encuentra en uso';
 
@@ -143,7 +142,6 @@ $lang['user:password_reset_message']   		= "Tu contraseña ha sido reestablecida
 # Activation
 $lang['user:activation_email_subject'] 		= 'Activación necesaria.';
 $lang['user:activation_email_body'] 		= 'Gracias por activar tu cuenta con %s. Para entrar con tu cuenta en el sitio, por favor sigue el vínculo debajo:';
-
 
 $lang['user:activated_email_subject'] 		= 'Activación completada';
 $lang['user:activated_email_content_line1'] = 'Gracias por registrarte en %s. Antes de que podamos activar tu cuenta, por favor completa el procedimiento de activación haciendo click en el link siguiente:';

@@ -36,7 +36,7 @@
 				<?php endforeach;?>
 				</tbody>
 			</table>
-		
+
 		<?php else: ?>
 			<section class="title">
 				<p><?php echo lang('groups:no_groups');?></p>

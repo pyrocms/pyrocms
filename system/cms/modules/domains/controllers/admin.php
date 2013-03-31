@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Domains\Model\Domain;
 
@@ -121,7 +121,7 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|max_length[250]|callback__check_unique['.$id.']'
 			)
 		)));
-		
+
 		if ($this->form_validation->run()) {
 			$domain->domain = $this->input->post('domain');
 			$domain->site_id = site_id();
@@ -132,7 +132,7 @@ class Admin extends Admin_Controller
 			} else {
 				$this->session->set_flashdata('error', $this->lang->line('domains:edit_error'));
 			}
-			
+
 			redirect('admin/domains');
 		}
 
@@ -156,7 +156,7 @@ class Admin extends Admin_Controller
 
 		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
 		// Delete multiple
-		if( ! empty($id_array)) {
+		if ( ! empty($id_array)) {
 			$deleted = 0;
 			$to_delete = 0;
 			foreach ($id_array as $id) {
@@ -177,7 +177,7 @@ class Admin extends Admin_Controller
 		}
 
 		ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
-		
+
 		redirect('admin/domains');
 	}
 

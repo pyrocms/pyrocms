@@ -10,8 +10,8 @@
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
 
-class MY_Parser extends CI_Parser {
-
+class MY_Parser extends CI_Parser
+{
 	private $_ci;
 
 	public function __construct($config = array())
@@ -80,25 +80,21 @@ class MY_Parser extends CI_Parser {
 
 		$data = array_merge($data, $this->_ci->load->get_vars());
 
-		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
-		{
+		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace'])) {
 			$this->_ci->load->driver('Streams');
 			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace']);
-		}
-		else
-		{
+		} else {
 			$parser = new Lex\Parser();
 			$parser->scopeGlue(':');
 			$parser->cumulativeNoparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
-		
+
 		// Finish benchmark
 		$this->_ci->benchmark->mark('parse_end');
-		
+
 		// Return results or not ?
-		if ( ! $return)
-		{
+		if (! $return) {
 			$this->_ci->output->append_output($parsed);
 			return;
 		}
@@ -120,22 +116,19 @@ class MY_Parser extends CI_Parser {
 
 		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content);
 
-		if (is_array($return_data) && $return_data)
-		{
-			if ( ! $this->_is_multi($return_data))
-			{
+		if (is_array($return_data) && $return_data) {
+			if ( ! $this->_is_multi($return_data)) {
 				$return_data = $this->_make_multi($return_data);
 			}
 
 			# TODO What was this doing other than throw warnings in 2.0? Phil
-			// $content = $data['content']; 
+			// $content = $data['content'];
 			$parsed_return = '';
 
 			$parser = new Lex\Parser();
 			$parser->scopeGlue(':');
-			
-			foreach ($return_data as $result)
-			{
+
+			foreach ($return_data as $result) {
 				// TODO Why is this commented out? Phil
 				// if ($data['skip_content'])
 				// {
@@ -179,8 +172,7 @@ class MY_Parser extends CI_Parser {
 	{
 		$multi = array();
 		$return = array();
-		foreach ($flat as $item => $value)
-		{
+		foreach ($flat as $item => $value) {
 			is_object($value) and $value = (array) $value;
 			$return[$i][$item] = $value;
 		}

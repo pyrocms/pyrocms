@@ -109,7 +109,7 @@ $lang['settings:akismet_api_key_desc']			= 'Akismet là chương trình ngăn sp
 
 $lang['settings:comment_order']					= 'Sắp xếp phản hồi';
 $lang['settings:comment_order_desc']			= 'Thứ tự sắp xếp hiển thị phản hồi.';
-	
+
 $lang['settings:moderate_comments']				= 'Xét duyệt phản hồi';
 $lang['settings:moderate_comments_desc']		= 'Xét duyệt phản hồi trước khi hiển thị trên site.';
 

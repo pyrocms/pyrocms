@@ -23,10 +23,10 @@ class Plugin_Helper extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -59,13 +59,13 @@ class Plugin_Helper extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
 
 	/** @var boolean A flag for the counter functions for loops. */
-	static $_counter_increment = true;
+	public static $_counter_increment = true;
 
 	/**
 	 * Data
@@ -204,7 +204,7 @@ class Plugin_Helper extends Plugin
 	 *         {{name}} -- {{slug}}
 	 *     {{ /files:listing }}
 	 *     You have {{ helper:show_count identifier="files" }} files.
-	 * 
+	 *
 	 * @return string|int
 	 */
 	public function count()
@@ -214,13 +214,11 @@ class Plugin_Helper extends Plugin
 		$identifier = $this->attribute('identifier', 'default');
 
 		// Use a default of 1 if they haven't specified one and it's the first iteration
-		if ( ! isset($count[$identifier]))
-		{
+		if ( ! isset($count[$identifier])) {
 			$count[$identifier] = $this->attribute('start', 1);
 		}
 		// lets check to see if they're only wanting to show the count
-		elseif (self::$_counter_increment)
-		{
+		elseif (self::$_counter_increment) {
 			// count up unless they specify to "subtract"
 			($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
 		}
@@ -262,7 +260,7 @@ class Plugin_Helper extends Plugin
 	 *     {{ helper:foo parameter1="bar" parameter2="bar" }}
 	 *
 	 * NOTE: the attribute name is irrelevant as only the values are concatenated and passed as arguments.
-	 * 
+	 *
 	 * @param string $name
 	 * @param array $args
 	 * @return mixed
@@ -271,15 +269,14 @@ class Plugin_Helper extends Plugin
 	{
 		$this->config->load('parser');
 
-		if (function_exists($name) and in_array($name, config_item('allowed_functions')))
-		{
+		if (function_exists($name) and in_array($name, config_item('allowed_functions'))) {
 			$attributes = $this->attributes();
-			
+
 			// unset automatically set attributes
 			if ( isset($attributes['parse_params']) ) {
 				unset($attributes['parse_params']);
 			}
-			
+
 			return call_user_func_array($name, $attributes);
 		}
 

@@ -24,10 +24,10 @@ class Plugin_Streams_core extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -60,16 +60,16 @@ class Plugin_Streams_core extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		//return $info;
 		return array();
 	}
 
 	/**
 	 * Field Function
-	 * 
+	 *
 	 * Calls the plugin override function
-	 */ 
+	 */
 	public function field()
 	{
 		$attr = $this->attributes();
@@ -79,8 +79,7 @@ class Plugin_Streams_core extends Plugin
 		$field_type = $attr['field_type'];
 
 		// Call the field method
-		if (method_exists($this->type->types->{$field_type}, 'plugin_override'))
-		{
+		if (method_exists($this->type->types->{$field_type}, 'plugin_override')) {
 			// Get the actual field.
 			$field = $this->fields_m->get_field_by_slug($attr['field_slug'], $attr['namespace']);
 
@@ -91,7 +90,7 @@ class Plugin_Streams_core extends Plugin
 			unset($attr['field_slug']);
 			unset($attr['namespace']);
 
-			return $this->type->types->{$field_type}->plugin_override($field, $attr);	
+			return $this->type->types->{$field_type}->plugin_override($field, $attr);
 		}
 	}
 
@@ -116,19 +115,19 @@ class Plugin_Streams_core extends Plugin
 		if ( ! $namespace) $namespace = $base_namespace;
 
 		// -------------------------------------
-		
+
 		if ( ! $field = $this->fields_m->get_field_by_slug($rel_field, $base_namespace)) return 'fu';
 
 		// Get the stream
 		$join_stream = $this->streams_m->get_stream($field->field_data['choose_stream']);
-		
-		// Get the fields		
+
+		// Get the fields
 		$fields = $this->streams_m->get_stream_fields($join_stream->id);
 
 		$stream = $this->streams_m->get_stream($this->attribute('stream'), true, $base_namespace);
 
 		if ( ! $stream) return 'by';
-		
+
 		// Add the join_multiple hook to the get_rows function
 		$this->row_m->get_rows_hook = array($this, 'join_multiple');
 		$this->row_m->get_rows_hook_data = array(
@@ -136,7 +135,7 @@ class Plugin_Streams_core extends Plugin
 			'join_stream' => $join_stream,
 			'row_id'      => $this->attribute('entry')
 		);
-		
+
 		$params = array(
 			'arbitrary'        => $entry_id, // For the cache
 			'namespace'        => $namespace,
@@ -170,7 +169,7 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Join multiple
 	 *

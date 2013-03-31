@@ -80,7 +80,7 @@ class Module_Files extends Module
 		$schema->dropIfExists('files');
 		$schema->dropIfExists('file_folders');
 
-		$schema->create('files', function($table) { 
+		$schema->create('files', function($table) {
 			$table->increments('id');
 			$table->integer('folder_id');
 			$table->integer('user_id');
@@ -99,11 +99,11 @@ class Module_Files extends Module
 			$table->integer('download_count')->default(0);
 			$table->integer('date_added');
 			$table->integer('sort')->default(0);
-			
+
 			$table->index('folder_id');
 		});
 
-		$schema->create('file_folders', function($table) { 
+		$schema->create('file_folders', function($table) {
 			$table->increments('id');
 			$table->integer('parent_id')->nullable();
 			$table->string('slug', 100);

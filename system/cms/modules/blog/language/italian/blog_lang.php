@@ -10,7 +10,7 @@ $lang['blog:posted_label'] 			= 'Pubblicato';
 $lang['blog:posted_label_alt']			= 'Pubblicato alle';
 $lang['blog:written_by_label']				= 'Scritto da';
 $lang['blog:author_unknown']				= 'Sconosciuto';
-$lang['blog:keywords_label']				= 'Parole chiave'; 
+$lang['blog:keywords_label']				= 'Parole chiave';
 $lang['blog:tagged_label']					= 'Taggato';
 $lang['blog:category_label'] 			= 'Categoria';
 $lang['blog:post_label'] 			= 'Articolo';
@@ -32,7 +32,7 @@ $lang['blog:rss_name_suffix'] 			= ' Notizie';
 $lang['blog:rss_category_suffix'] 		= ' Notizie';
 $lang['blog:author_name_label'] 		= 'Nome autore';
 $lang['blog:read_more_label'] 			= 'Leggi tutto&nbsp;&raquo;';
-$lang['blog:created_hour']                  = 'Time (Ora)'; 
+$lang['blog:created_hour']                  = 'Time (Ora)';
 $lang['blog:created_minute']                = 'Time (Minuto)';
 $lang['blog:comments_enabled_label']         = 'Commenti abilitati';
 
@@ -67,5 +67,3 @@ $lang['blog:twitter_error'] 			= 'Errore per Twitter';
 
 // date
 $lang['blog:archive_date_format']		= "%B %Y"; #translate format - see php strftime documentation
-
-?>

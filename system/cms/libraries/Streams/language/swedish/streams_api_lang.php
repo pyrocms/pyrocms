@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -17,6 +17,5 @@ $lang['streams:api.empty_field_name'] = 'Inget fältnamn angavs';
 $lang['streams:api.empty_field_slug'] = 'Ingen fält-slugg angavs';
 $lang['streams:api.field_slug_in_use'] = 'Fält-sluggen används.';
 
-
-/* End of file streams_api_lang.php */  
-/* Location: system/cms/libraries/Streams/language/swedish/streams_api_lang.php */  
+/* End of file streams_api_lang.php */
+/* Location: system/cms/libraries/Streams/language/swedish/streams_api_lang.php */

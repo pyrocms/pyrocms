@@ -22,10 +22,10 @@ class Plugin_Pages extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -58,7 +58,7 @@ class Plugin_Pages extends Plugin
 				),
 			),// end first method
 		);
-	
+
 		return $info;
 	}
 
@@ -158,12 +158,10 @@ class Plugin_Pages extends Plugin
 		// Restrict page types.
 		// Page types can be provided in a pipe (|) delimited string.
 		// Ex: 4|6
-		if ($page_types)
-		{
+		if ($page_types) {
 			$types = explode('|', $page_types);
 
-			foreach ($types as $type)
-			{
+			foreach ($types as $type) {
 				$this->db->where('pages.type_id', $type);
 			}
 		}
@@ -182,22 +180,19 @@ class Plugin_Pages extends Plugin
 		// we are going to do this in the most economical way possible:
 		// Find the entries by ID and attach them to a special custom_fields
 		// variable.
-		if (strpos($this->content(), 'custom_fields') !== false and $pages)
-		{
+		if (strpos($this->content(), 'custom_fields') !== false and $pages) {
 			$custom_fields = array();
 			$this->load->driver('Streams');
-		
+
 			// Get all of the IDs by page type id.
 			// Ex: array('page_type_id' => array('1', '2'))
 			$entries = array();
-			foreach ($pages as $page)
-			{
+			foreach ($pages as $page) {
 				$entries[$page['stream_id']][] = $page['entry_id'];
 			}
 
 			// Get our entries by steram
-			foreach ($entries as $stream_id => $entry_ids)
-			{
+			foreach ($entries as $stream_id => $entry_ids) {
 				$stream = $this->streams_m->get_stream($stream_id);
 
 				$params = array(
@@ -211,32 +206,25 @@ class Plugin_Pages extends Plugin
 
 				// Set the entries in our custom fields array for
 				// easy reference later when processing our pages.
-				foreach ($entries['entries'] as $entry)
-				{
-					$custom_fields[$stream_id][$entry['id']] = $entry;	
+				foreach ($entries['entries'] as $entry) {
+					$custom_fields[$stream_id][$entry['id']] = $entry;
 				}
 			}
-		}
-		else
-		{
+		} else {
 			$custom_fields = false;
 		}
 
 		// Legacy support for chunks
-		if ($pages and $this->db->table_exists('page_chunks'))
-		{
-			foreach ($pages as &$page)
-			{
+		if ($pages and $this->db->table_exists('page_chunks')) {
+			foreach ($pages as &$page) {
 				// Grab all the chunks that make up the body for this page
 				$page['chunks'] = $this->db
 					->get_where('page_chunks', array('page_id' => $page['id']))
 					->result_array();
 
 				$page['body'] = '';
-				if ($page['chunks'])
-				{
-					foreach ($page['chunks'] as $chunk)
-					{
+				if ($page['chunks']) {
+					foreach ($page['chunks'] as $chunk) {
 						$page['body'] .= '<div class="page-chunk ' . $chunk['slug'] . '">' .
 							(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
 							'</div>' . PHP_EOL;
@@ -246,21 +234,19 @@ class Plugin_Pages extends Plugin
 		}
 
 		// Process our pages.
-		foreach ($pages as &$page)
-		{
+		foreach ($pages as &$page) {
 			// First, let's get a full URL. This is just
 			// handy to have around.
 			$page['url'] = site_url($page['uri']);
-		
+
 			// Now let's process our keywords hash.
 			$keywords = Keywords::get($page['meta_keywords']);
 
 			// In order to properly display the keywords in Lex
 			// tags, we need to format them.
 			$formatted_keywords = array();
-			
-			foreach ($keywords as $key)
-			{
+
+			foreach ($keywords as $key) {
 				$formatted_keywords[] 	= array('keyword' => $key->name);
 
 			}
@@ -268,8 +254,7 @@ class Plugin_Pages extends Plugin
 
 			// If we have custom fields, we need to roll our
 			// entry values in.
-			if ($custom_fields and isset($custom_fields[$page['stream_id']][$page['entry_id']]))
-			{
+			if ($custom_fields and isset($custom_fields[$page['stream_id']][$page['entry_id']])) {
 				$page['custom_fields'] = array($custom_fields[$page['stream_id']][$page['entry_id']]);
 			}
 		}
@@ -310,11 +295,10 @@ class Plugin_Pages extends Plugin
 
 		// If we have a start URI, let's try and
 		// find that ID.
-		if ($start)
-		{
+		if ($start) {
 			$page = Page::findByUri($start);
 
-			if ( ! $page) {
+			if (! $page) {
 				return null;
 			}
 
@@ -323,7 +307,7 @@ class Plugin_Pages extends Plugin
 
 		// If our start doesn't exist, then
 		// what are we going to do? Nothing.
-		if ( ! $start_id) {
+		if (! $start_id) {
 			return null;
 		}
 
@@ -365,23 +349,19 @@ class Plugin_Pages extends Plugin
 		$children_ids = $this->attribute('children');
 		$child_id     = $this->attribute('child');
 
-		if ( ! $children_ids)
-		{
+		if (! $children_ids) {
 			return (int) $this->_check_page_is($child_id);
 		}
 
 		$children_ids = explode(',', $children_ids);
 		$children_ids = array_map('trim', $children_ids);
 
-		if ($child_id)
-		{
+		if ($child_id) {
 			$children_ids[] = $child_id;
 		}
 
-		foreach ($children_ids as $child_id)
-		{
-			if ( ! $this->_check_page_is($child_id))
-			{
+		foreach ($children_ids as $child_id) {
+			if ( ! $this->_check_page_is($child_id)) {
 				return (int) false;
 			}
 		}
@@ -419,20 +399,16 @@ class Plugin_Pages extends Plugin
 		$descendent_id = $this->attribute('descendent');
 		$parent_id     = $this->attribute('parent');
 
-		if ($child_id and $descendent_id)
-		{
-			if ( ! is_numeric($child_id))
-			{
+		if ($child_id and $descendent_id) {
+			if ( ! is_numeric($child_id)) {
 				$child_id = ($child = $this->page_m->get_by(array('slug' => $child_id))) ? $child->id : 0;
 			}
 
-			if ( ! is_numeric($descendent_id))
-			{
+			if ( ! is_numeric($descendent_id)) {
 				$descendent_id = ($descendent = $this->page_m->get_by(array('slug' => $descendent_id))) ? $descendent->id : 0;
 			}
 
-			if ( ! ($child_id and $descendent_id))
-			{
+			if ( ! ($child_id and $descendent_id)) {
 				return false;
 			}
 
@@ -441,10 +417,8 @@ class Plugin_Pages extends Plugin
 			return in_array($child_id, $descendent_ids);
 		}
 
-		if ($child_id and $parent_id)
-		{
-			if ( ! is_numeric($child_id))
-			{
+		if ($child_id and $parent_id) {
+			if ( ! is_numeric($child_id)) {
 				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id : 0;
 			}
 
@@ -454,7 +428,7 @@ class Plugin_Pages extends Plugin
 			)) > 0 : false;
 		}
 	}
-	
+
 	/**
 	 * Tree html function
 	 *
@@ -472,96 +446,83 @@ class Plugin_Pages extends Plugin
 
 		extract($params);
 
-		if ( ! $tree)
-		{
+		if (! $tree) {
 			$this->db
 				->select('id, parent_id, slug, uri, title')
 				->where_not_in('slug', $this->disable);
-			
+
 			// check if they're logged in
-			if ( isset($this->current_user->group) )
-			{
+			if ( isset($this->current_user->group) ) {
 				// admins can see them all
-				if ($this->current_user->group != 'admin')
-				{
+				if ($this->current_user->group != 'admin') {
 					$id_list = array();
-					
+
 					$page_list = $this->db
 						->select('id, restricted_to')
 						->get('pages')
 						->result();
 
-					foreach ($page_list as $list_item)
-					{
+					foreach ($page_list as $list_item) {
 						// make an array of allowed user groups
 						$group_array = explode(',', $list_item->restricted_to);
 
 						// if restricted_to is 0 or empty (unrestricted) or if the current user's group is allowed
-						if ( ($group_array[0] < 1) or in_array($this->current_user->group_id, $group_array) )
-						{
+						if ( ($group_array[0] < 1) or in_array($this->current_user->group_id, $group_array) ) {
 							$id_list[] = $list_item->id;
 						}
 					}
-					
+
 					// if it's an empty array then evidently all pages are unrestricted
-					if ( count($id_list) > 0 )
-					{
+					if ( count($id_list) > 0 ) {
 						// select only the pages they have permissions for
 						$this->db->where_in('id', $id_list);
 					}
-					
+
 					// since they aren't an admin they can't see drafts
 					$this->db->where('status', 'live');
 				}
-			}
-			else
-			{
+			} else {
 				//they aren't logged in, show them all live, unrestricted pages
 				$this->db
 					->where('status', 'live')
 					->where('restricted_to <', 1)
 					->or_where('restricted_to', null);
 			}
-			
+
 			$pages = $this->db
 				->order_by($order_by, $order_dir)
 				->get('pages')
 				->result();
 
-			if ($pages)
-			{
-				foreach ($pages as $page)
-				{
+			if ($pages) {
+				foreach ($pages as $page) {
 					$tree[$page->parent_id][] = $page;
 				}
 			}
 		}
 
-		if ( ! isset($tree[$parent_id]))
-		{
+		if ( ! isset($tree[$parent_id])) {
 			return;
 		}
 
 		$html = '';
 
-		foreach ($tree[$parent_id] as $item)
-		{
+		foreach ($tree[$parent_id] as $item) {
 			$html .= '<li';
 			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
 			$html .= ($link === true) ? '<a href="'.site_url($item->uri).'">'.$item->title.'</a>' : $item->title;
-			
+
 			$nested_list = $this->buildTreeHtml(array(
 				'tree'         => $tree,
 				'parent_id'    => (int) $item->id,
 				'link'         => $link,
 				'list_tag'     => $list_tag
 			));
-			
-			if ($nested_list)
-			{
+
+			if ($nested_list) {
 				$html .= '<'.$list_tag.'>'.$nested_list.'</'.$list_tag.'>';
 			}
-			
+
 			$html .= '</li>';
 		}
 

@@ -11,49 +11,49 @@ class Comments
 {
 	/**
 	 * The name of the module in use
-	 * 
+	 *
 	 * @var	string
 	 */
 	protected $module;
 
 	/**
 	 * Singular language key
-	 * 
+	 *
 	 * @var	string
 	 */
 	protected $singular;
 
 	/**
 	 * Plural language key
-	 * 
+	 *
 	 * @var	string
 	 */
 	protected $plural;
 
 	/**
 	 * Entry for this, be it an auto increment id or string
-	 * 
+	 *
 	 * @var	string|int
 	 */
 	protected $entry_id;
 
 	/**
 	 * Title of the entry
-	 * 
+	 *
 	 * @var	string
 	 */
 	protected $entry_title;
 
 	/**
 	 * What is the URL of this entry?
-	 * 
+	 *
 	 * @var	string
 	 */
 	protected $entry_uri;
 
 	/**
 	 * Encrypted hash containing title, singular and plural keys
-	 * 
+	 *
 	 * @var	bool
 	 */
 	protected $entry_hash;
@@ -74,8 +74,7 @@ class Comments
 		ci()->lang->load('comments/comments');
 
 		// This shouldnt be required if static loading was possible, but its not in CI
-		if (is_array($params))
-		{
+		if (is_array($params)) {
 			// Required
 			$this->module = $params['module'];
 			$this->singular = $params['singular'];
@@ -89,7 +88,7 @@ class Comments
 			isset($params['entry_title']) and $this->entry_title = $params['entry_title'];
 		}
 	}
-	
+
 	/**
 	 * Display comments
 	 *
@@ -99,11 +98,11 @@ class Comments
 	{
 		// Fetch comments, then process them
 		$comments = $this->process(Comment::findByEntry($this->module, $this->singular, $this->entry_id));
-		
+
 		// Return the awesome comments view
 		return $this->load_view('display', compact(array('comments')));
 	}
-	
+
 	/**
 	 * Display form
 	 *
@@ -152,26 +151,21 @@ class Comments
 		// Remember which modules have been loaded
 		static $modules = array();
 
-		foreach ($comments as &$comment)
-		{
+		foreach ($comments as &$comment) {
 			// Override specified website if they are a user
-			if ($comment->user_id and Settings::get('enable_profiles'))
-			{
+			if ($comment->user_id and Settings::get('enable_profiles')) {
 				$comment->website = 'user/'.$comment->user_name;
 			}
 
 			// We only want to load a lang file once
-			if ( ! isset($modules[$comment->module]))
-			{
-				if (ci()->module_m->exists($comment->module))
-				{
+			if ( ! isset($modules[$comment->module])) {
+				if (ci()->module_m->exists($comment->module)) {
 					ci()->lang->load("{$comment->module}/{$comment->module}");
 
 					$modules[$comment->module] = true;
 				}
 				// If module doesn't exist (for whatever reason) then sssh!
-				else
-				{
+				else {
 					$modules[$comment->module] = false;
 				}
 			}
@@ -180,18 +174,16 @@ class Comments
 			$comment->plural = lang($comment->entry_plural) ? lang($comment->entry_plural) : humanize($comment->entry_plural);
 
 			// work out who did the commenting
-			if ($comment->user_id > 0)
-			{
+			if ($comment->user_id > 0) {
 				$comment->user_name = anchor('admin/users/edit/'.$comment->user_id, $comment->user_name);
 			}
 
 			// Security: Escape any Lex tags
-			foreach ($comment as $field => $value)
-			{
+			foreach ($comment as $field => $value) {
 				$comment->{$field} = escape_tags($value);
 			}
 		}
-		
+
 		return $comments;
 	}
 
@@ -203,18 +195,15 @@ class Comments
 	protected function load_view($view, $data)
 	{
 		$ext = pathinfo($view, PATHINFO_EXTENSION) ? '' : '.php';
-		
-		if (file_exists(ci()->template->get_views_path().'modules/comments/'.$view.$ext))
-		{
+
+		if (file_exists(ci()->template->get_views_path().'modules/comments/'.$view.$ext)) {
 			// look in the theme for overloaded views
 			$path = ci()->template->get_views_path().'modules/comments/';
-		}
-		else
-		{
+		} else {
 			// or look in the module
 			list($path, $view) = Modules::find($view, 'comments', 'views/');
 		}
-		
+
 		// add this view location to the array
 		ci()->load->set_view_path($path);
 		ci()->load->vars($data);

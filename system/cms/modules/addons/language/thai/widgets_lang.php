@@ -4,7 +4,7 @@
 * Thai translation.
 *
 * @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS  
+* @package	PyroCMS
 * @link		http://pyrocms.com
 * @date		2012-04-19
 * @version	1.0.0
@@ -14,7 +14,6 @@
 $lang['widgets:available_title']        = 'วิดเจ็ตที่เปิดใช้งานอยู่';
 $lang['widgets:widget_area_wrapper']    = 'พื้นที่ที่เปิดใช้งาน';
 $lang['widgets:instructions']           = 'ลากและวางเพื่อติดตั้ง';
-
 
 $lang['widgets:instances']            	= 'Instances';
 $lang['widgets:areas']            		= 'พื้นที่';

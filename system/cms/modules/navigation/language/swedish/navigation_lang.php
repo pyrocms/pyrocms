@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -45,6 +45,5 @@ $lang['nav:link_delete_success'] = 'Navigationslänken är raderad.';
 $lang['nav:choose_value'] = 'Fältet %s får inte vara tomt.';
 $lang['nav:link_type_desc'] = 'Vänligen, välj länktyp för att få fler valmöjligheter när du skapar länken.';
 
-
-/* End of file navigation_lang.php */  
-/* Location: system/cms/modules/navigation/language/swedish/navigation_lang.php */  
+/* End of file navigation_lang.php */
+/* Location: system/cms/modules/navigation/language/swedish/navigation_lang.php */

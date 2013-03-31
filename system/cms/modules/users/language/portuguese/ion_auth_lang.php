@@ -22,7 +22,6 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Não é possível criar a conta';
 $lang['account_creation_duplicate_email'] 	 = 'E-mail em uso ou inválido';
 $lang['account_creation_duplicate_username'] = 'Nome de utilizador em uso ou inválido';
 
-
 // Password
 $lang['password_change_successful'] 	 	 = 'A sua password foi alterada com sucesso';
 $lang['password_change_unsuccessful'] 	  	 = 'Não foi possível alterar a password';

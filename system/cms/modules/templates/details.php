@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Templates
  */
-class Module_Templates extends Module {
-
+class Module_Templates extends Module
+{
 	public $version = '1.1.0';
 
 	public function info()

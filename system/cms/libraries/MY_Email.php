@@ -7,11 +7,11 @@
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class MY_Email extends CI_Email {
-
+class MY_Email extends CI_Email
+{
     /**
      * Constructor method
-     * 
+     *
      * @return void
      */
     public function __construct($config = array())
@@ -28,22 +28,17 @@ class MY_Email extends CI_Email {
         $config['newline']	= PHP_EOL;
 
         //sendmail options
-        if (Settings::get('mail_protocol') == 'sendmail')
-        {
-                if(Settings::get('mail_sendmail_path') == '')
-                {
+        if (Settings::get('mail_protocol') == 'sendmail') {
+                if (Settings::get('mail_sendmail_path') == '') {
                         //set a default
                         $config['mailpath'] = '/usr/sbin/sendmail';
-                }
-                else
-                {
+                } else {
                         $config['mailpath'] = Settings::get('mail_sendmail_path');
                 }
         }
 
         //smtp options
-        if (Settings::get('mail_protocol') == 'smtp')
-        {
+        if (Settings::get('mail_protocol') == 'smtp') {
             $config['smtp_host'] = Settings::get('mail_smtp_host');
             $config['smtp_user'] = Settings::get('mail_smtp_user');
             $config['smtp_pass'] = Settings::get('mail_smtp_pass');

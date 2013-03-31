@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Users
  */
-class Module_Users extends Module {
-
+class Module_Users extends Module
+{
     public $version = '2.1.0';
 
     public function info()
@@ -69,10 +69,8 @@ class Module_Users extends Module {
             'roles'     => array('admin_profile_fields')
         );
 
-        if (function_exists('group_has_role'))
-        {
-            if (group_has_role('users', 'admin_profile_fields'))
-            {
+        if (function_exists('group_has_role')) {
+            if (group_has_role('users', 'admin_profile_fields')) {
                 $info['sections'] = array(
                     'users' => array(
                         'name'  => 'user:list_title',

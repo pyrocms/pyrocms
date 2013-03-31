@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful']          = 'Nepavyksta sukurti paskyros';
 $lang['account_creation_duplicate_email']       = 'E.pašto adresas jau naudojamas arba netinkamas';
 $lang['account_creation_duplicate_username']    = 'Vartotojo vardas jau egzistyoja arba yra netinkamas';
 
-
 // Password
 $lang['password_change_successful']             = 'Slaptažodis sėkmingai pakeistas';
 $lang['password_change_unsuccessful']           = 'Negalima pakeisti slaptažodžio';

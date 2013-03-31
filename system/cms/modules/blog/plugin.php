@@ -3,7 +3,7 @@
  * Blog Plugin
  *
  * Create lists of posts
- * 
+ *
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Blog\Plugins
  */
@@ -177,8 +177,7 @@ class Plugin_Blog extends Plugin
 			'show_past'		=> 'no',
 			'date_by'		=> 'created_on'
 		);
-		foreach ($overrides as $k => $v)
-		{
+		foreach ($overrides as $k => $v) {
 			$params[$k] = $v;
 		}
 
@@ -186,44 +185,33 @@ class Plugin_Blog extends Plugin
 		// stream counterparts:
 
 		// Order by
-		if ($this->attribute('order-by'))
-		{
+		if ($this->attribute('order-by')) {
 			$params['order_by'] = $this->attribute('order-by');
-		}
-		elseif ($this->attribute('order_by'))
-		{
+		} elseif ($this->attribute('order_by')) {
 			$params['order_by'] = $this->attribute('order_by');
 		}
 
 		// Sort
-		if ($this->attribute('order-dir'))
-		{
+		if ($this->attribute('order-dir')) {
 			$params['sort'] = $this->attribute('order-dir');
-		}
-		elseif ($this->attribute('order_by'))
-		{
+		} elseif ($this->attribute('order_by')) {
 			$params['sort'] = $this->attribute('sort');
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries as $key => $default_value)
-		{
-			if ( ! in_array($key, array('where', 'stream', 'namespace')))
-			{
+		foreach ($this->streams->entries as $key => $default_value) {
+			if ( ! in_array($key, array('where', 'stream', 'namespace'))) {
 				$params[$key] = $this->attribute($key, $default_value);
 			}
 		}
 
 		// Categories
 		// We need to filter by certain categories
-		if ($this->attribute('category'))
-		{
+		if ($this->attribute('category')) {
 			$categories = explode('|', $category);
 
-			foreach($categories as $category)
-			{
-				if ($category)
-				{
+			foreach ($categories as $category) {
+				if ($category) {
 					$params['where']['`blog_categories.'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'"];
 				}
 			}
@@ -238,11 +226,10 @@ class Plugin_Blog extends Plugin
 
 		// Get our posts.
 		$posts = $this->streams->entries->get_entries($params);
-		
+
 		// Process posts.
 		// Each post needs some special treatment.
-		foreach ($posts as &$post)
-		{
+		foreach ($posts as &$post) {
 			$this->load->helper('text');
 
 			// Keywords array
@@ -250,8 +237,7 @@ class Plugin_Blog extends Plugin
 			$formatted_keywords = array();
 			$keywords_arr = array();
 
-			foreach ($keywords as $key)
-			{
+			foreach ($keywords as $key) {
 				$formatted_keywords[] 	= array('keyword' => $key->name);
 				$keywords_arr[] 		= $key->name;
 
@@ -261,23 +247,22 @@ class Plugin_Blog extends Plugin
 
 			// Full URL for convenience.
 			$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
-		
+
 			// What is the preview? If there is a field called intro,
 			// we will use that, otherwise we will cut down the blog post itself.
 			$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 		}
-		
+
 		// {{ entries }} Bypass.
 		// However, users can use {{ entries }} if using pagination.
 		$loop = false;
 
-		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
-		{
+		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0) {
 			$posts = $posts['entries'];
 			$loop = true;
 		}
 
-		// Return our content.	
+		// Return our content.
 		return $this->streams->parse->parse_tag_content($this->content(), $posts, 'blog', 'blogs', $loop);
 	}
 
@@ -307,11 +292,10 @@ class Plugin_Blog extends Plugin
 			->get('blog_categories')
 			->result();
 
-		foreach ($categories as &$category)
-		{
+		foreach ($categories as &$category) {
 			$category->url = site_url('blog/category/'.$category->slug);
 		}
-		
+
 		return $categories;
 	}
 
@@ -321,9 +305,9 @@ class Plugin_Blog extends Plugin
 	 * Usage:
 	 * {{ blog:count_posts author_id="1" }}
 	 *
-	 * The attribute name is the database column and 
+	 * The attribute name is the database column and
 	 * the attribute value is the where value
-	 * 
+	 *
 	 * @return int
 	 */
 	public function count_posts()
@@ -333,14 +317,13 @@ class Plugin_Blog extends Plugin
 		// make sure they provided a where clause
 		if (count($wheres) == 0) return false;
 
-		foreach ($wheres as $column => $value)
-		{
+		foreach ($wheres as $column => $value) {
 			$this->db->where($column, $value);
 		}
 
 		return $this->db->count_all_results('blog');
 	}
-	
+
 	/**
 	 * Tag/Keyword List
 	 *
@@ -353,11 +336,11 @@ class Plugin_Blog extends Plugin
 	 *
 	 * @param array
 	 * @return array
-	 */	
+	 */
 	public function tags()
 	{
 		$limit = $this->attribute('limit', 10);
-		
+
 		$this->load->library(array('keywords/keywords'));
 
 		$posts = $this->db->select('keywords')->get('blog')->result();
@@ -365,16 +348,13 @@ class Plugin_Blog extends Plugin
 		$buffer = array(); // stores already added keywords
 		$tags   = array();
 
-		foreach($posts as $p)
-		{
+		foreach ($posts as $p) {
 			$kw = Keywords::get_array($p->keywords);
 
-			foreach($kw as $k)
-			{
+			foreach ($kw as $k) {
 				$k = trim(strtolower($k));
 
-				if(!in_array($k, $buffer)) // let's force a unique list
-				{
+				if (!in_array($k, $buffer)) { // let's force a unique list
 					$buffer[] = $k;
 
 					$tags[] = array(
@@ -384,13 +364,12 @@ class Plugin_Blog extends Plugin
 				}
 			}
 		}
-		
-		if(count($tags) > $limit) // Enforce the limit
-		{
+
+		if (count($tags) > $limit) { // Enforce the limit
 			return array_slice($tags, 0, $limit);
 		}
-	
+
 		return $tags;
 	}
-		
+
 }

@@ -8,8 +8,8 @@
  * @author		PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-abstract class Module {
-
+abstract class Module
+{
 	/**
 	 * The version of the module.
 	 *
@@ -42,7 +42,7 @@ abstract class Module {
 	 *
 	 * @return array The information about the module
 	 */
-	public abstract function info();
+	abstract public function info();
 
 	/**
 	 * Installs a module's tables and database tables and data.
@@ -53,14 +53,14 @@ abstract class Module {
 	 *
 	 * @return	bool	Whether the module was installed
 	 */
-	public abstract function install();
+	abstract public function install();
 
 	/**
 	 * Called upon the uninstall of the module.
 	 *
 	 * @return	bool	Whether the module was uninstalled
 	 */
-	public abstract function uninstall();
+	abstract public function uninstall();
 
 	/**
 	 * Called when this is a newer version than currently installed.
@@ -68,7 +68,7 @@ abstract class Module {
 	 * @param string $old_version The version to upgrade from
 	 * @return bool Whether the module was installed
 	 */
-	public abstract function upgrade($old_version);
+	abstract public function upgrade($old_version);
 
 	/**
 	 * Loads the database and dbforge libraries.

@@ -2,10 +2,10 @@
 	<section class="title">
 		<h4><?php echo lang('maintenance:export_data') ?></h4>
 	</section>
-	
+
 	<section class="item">
 		<div class="content">
-	
+
 			<?php if ( ! empty($tables)): ?>
 				<table border="0" class="table-list" cellspacing="0">
 					<thead>
@@ -32,7 +32,7 @@
 					</tbody>
 				</table>
 			<?php endif;?>
-		
+
 		</div>
 	</section>
 </div>
@@ -41,10 +41,10 @@
 	<section class="title">
 		<h4><?php echo lang('maintenance:list_label') ?></h4>
 	</section>
-	
+
 	<section class="item">
 		<div class="content">
-	
+
 			<?php if ( ! empty($folders)): ?>
 				<table border="0" class="table-list">
 					<thead>
@@ -72,7 +72,7 @@
 					<h2><?php echo lang('maintenance:no_items') ?></h2>
 				</div>
 			<?php endif;?>
-	
+
 		</div>
 	</section>
 </div>

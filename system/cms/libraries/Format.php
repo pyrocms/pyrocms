@@ -3,7 +3,7 @@
 /**
  * Format class
  *
- * Help convert between various formats. Currently it can handle the following: 
+ * Help convert between various formats. Currently it can handle the following:
  * XML, JSON, CSV, HTML, PHP, PHP serialize().
  *
  * @author Phil Sturgeon
@@ -22,8 +22,8 @@ class Format
 
 	/**
 	 * View filename
-	 * 
-	 * @var type 
+	 *
+	 * @var type
 	 */
 	protected $_from_type = null;
 
@@ -35,39 +35,35 @@ class Format
 	 * </code>
 	 * @param mixed $data General date to be converted.
 	 * @param string $from_type Data format the file was provided in.
-	 * @return \Format 
+	 * @return \Format
 	 */
 	public function factory($data, $from_type = null)
 	{
-		// Stupid stuff to emulate the "new static()" stuff in this libraries 
+		// Stupid stuff to emulate the "new static()" stuff in this libraries
 		// PHP 5.3 equivalent
 		$class = __CLASS__;
 		return new $class($data, $from_type);
 	}
 
 	/**
-	 * Constructor 
-	 * 
+	 * Constructor
+	 *
 	 * (protected, must use self::factory())
 	 *
 	 * @param type $data
 	 * @param type $from_type
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public function __construct($data = null, $from_type = null)
 	{
 		get_instance()->load->helper('inflector');
 
-		// If the provided data is already formatted we should probably convert 
+		// If the provided data is already formatted we should probably convert
 		// it to an array.
-		if ($from_type !== null)
-		{
-			if (method_exists($this, '_from_'.$from_type))
-			{
+		if ($from_type !== null) {
+			if (method_exists($this, '_from_'.$from_type)) {
 				$data = call_user_func(array($this, '_from_'.$from_type), $data);
-			}
-			else
-			{
+			} else {
 				throw new Exception('Format class does not support conversion from "'.$from_type.'".');
 			}
 		}
@@ -79,26 +75,21 @@ class Format
 	 * Formats the data to an array
 	 *
 	 * @param mixed $data
-	 * @return array 
+	 * @return array
 	 */
 	public function to_array($data = null)
 	{
 		// If not just null, but nothing is provided
-		if ($data === null and !func_num_args())
-		{
+		if ($data === null and !func_num_args()) {
 			$data = $this->_data;
 		}
 
 		$array = array();
 
-		foreach ((array) $data as $key => $value)
-		{
-			if (is_object($value) or is_array($value))
-			{
+		foreach ((array) $data as $key => $value) {
+			if (is_object($value) or is_array($value)) {
 				$array[$key] = $this->to_array($value);
-			}
-			else
-			{
+			} else {
 				$array[$key] = $value;
 			}
 		}
@@ -118,35 +109,29 @@ class Format
 	 */
 	public function to_xml($data = null, $structure = null, $basenode = 'xml')
 	{
-		if ($data === null and !func_num_args())
-		{
+		if ($data === null and !func_num_args()) {
 			$data = $this->_data;
 		}
 
-		// Turn off compatibility mode as SimpleXML throws behaves badly if it 
+		// Turn off compatibility mode as SimpleXML throws behaves badly if it
 		// is enabled.
-		if (ini_get('zend.ze1_compatibility_mode') == 1)
-		{
+		if (ini_get('zend.ze1_compatibility_mode') == 1) {
 			ini_set('zend.ze1_compatibility_mode', 0);
 		}
 
-		if ($structure === null)
-		{
+		if ($structure === null) {
 			$structure = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
 		}
 
 		// Force it to be something useful
-		if (!is_array($data) and !is_object($data))
-		{
+		if (!is_array($data) and !is_object($data)) {
 			$data = (array) $data;
 		}
 
-		foreach ($data as $key => $value)
-		{
+		foreach ($data as $key => $value) {
 			// No numeric keys in our xml please!
-			if (is_numeric($key))
-			{
-				// Make string key...           
+			if (is_numeric($key)) {
+				// Make string key...
 				$key = (singular($basenode) != $basenode) ? singular($basenode) : 'item';
 			}
 
@@ -154,15 +139,12 @@ class Format
 			$key = preg_replace('/[^a-z_\-0-9]/i', '', $key);
 
 			// If there is another array found recrusively call this function
-			if (is_array($value) || is_object($value))
-			{
+			if (is_array($value) || is_object($value)) {
 				$node = $structure->addChild($key);
 
 				// Recrusive call.
 				$this->to_xml($value, $node, $key);
-			}
-			else
-			{
+			} else {
 				// Add single node.
 				$value = htmlspecialchars(html_entity_decode($value, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, "UTF-8");
 
@@ -183,14 +165,12 @@ class Format
 		$data = $this->_data;
 
 		// Multi-dimentional array
-		if (isset($data[0]))
-		{
+		if (isset($data[0])) {
 			$headings = array_keys($data[0]);
 		}
 
 		// Single array
-		else
-		{
+		else {
 			$headings = array_keys($data);
 			$data = array($data);
 		}
@@ -200,8 +180,7 @@ class Format
 
 		$ci->table->set_heading($headings);
 
-		foreach ($data as &$row)
-		{
+		foreach ($data as &$row) {
 			$ci->table->add_row($row);
 		}
 
@@ -218,21 +197,18 @@ class Format
 		$data = $this->_data;
 
 		// Multi-dimensional array
-		if (isset($data[0]))
-		{
+		if (isset($data[0])) {
 			$headings = array_keys($data[0]);
 		}
 
 		// Single array
-		else
-		{
+		else {
 			$headings = array_keys($data);
 			$data = array($data);
 		}
 
 		$output = implode(',', $headings).PHP_EOL;
-		foreach ($data as &$row)
-		{
+		foreach ($data as &$row) {
 			$output .= '"'.implode('","', $row).'"'.PHP_EOL;
 		}
 
@@ -262,7 +238,7 @@ class Format
 	/**
 	 * Output as a string representing the PHP structure
 	 *
-	 * @return string The string for the PHP structure 
+	 * @return string The string for the PHP structure
 	 */
 	public function to_php()
 	{
@@ -277,17 +253,16 @@ class Format
 	 */
 	protected function _from_xml($string)
 	{
-		if ($string)
-		{
+		if ($string) {
 			return (array) simplexml_load_string($string, 'SimpleXMLElement', LIBXML_NOCDATA);
 		}
-		
+
 		return array();
 	}
 
 	/**
 	 * Format HTML for output
-	 * 
+	 *
 	 * Note: This function is DODGY! Not perfect CSV support but works with my REST_Controller
 	 *
 	 * @param string $string The CSV input string
@@ -300,13 +275,11 @@ class Format
 		// Splits
 		$rows = explode("\n", trim($string));
 		$headings = explode(',', array_shift($rows));
-		foreach ($rows as $row)
-		{
+		foreach ($rows as $row) {
 			// The substr removes " from start and end
 			$data_fields = explode('","', trim(substr($row, 1, -1)));
 
-			if (count($data_fields) == count($headings))
-			{
+			if (count($data_fields) == count($headings)) {
 				$data[] = array_combine($headings, $data_fields);
 			}
 		}

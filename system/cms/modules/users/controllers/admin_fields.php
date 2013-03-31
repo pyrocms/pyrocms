@@ -8,8 +8,8 @@
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Users\Controllers
  */
-class Admin_fields extends Admin_Controller {
-
+class Admin_fields extends Admin_Controller
+{
 	protected $section = 'fields';
 
 	// --------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class Admin_fields extends Admin_Controller {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * List out profile fields
 	 *
@@ -36,7 +36,7 @@ class Admin_fields extends Admin_Controller {
 	{
 		$buttons = array(
 			array(
-				'url'		=> 'admin/users/fields/edit/-assign_id-', 
+				'url'		=> 'admin/users/fields/edit/-assign_id-',
 				'label'		=> $this->lang->line('global:edit')
 			),
 			array(
@@ -82,21 +82,17 @@ class Admin_fields extends Admin_Controller {
 	 */
 	public function delete()
 	{
-		if ( ! $assign_id = $this->uri->segment(5))
-		{
+		if ( ! $assign_id = $this->uri->segment(5)) {
 			show_error(lang('streams:cannot_find_assign'));
 		}
-	
+
 		// Tear down the assignment
-		if ( ! $this->streams->cp->teardown_assignment_field($assign_id))
-		{
+		if ( ! $this->streams->cp->teardown_assignment_field($assign_id)) {
 		    $this->session->set_flashdata('notice', lang('user:profile_delete_failure'));
+		} else {
+		    $this->session->set_flashdata('success', lang('user:profile_delete_success'));
 		}
-		else
-		{
-		    $this->session->set_flashdata('success', lang('user:profile_delete_success'));			
-		}
-	
+
 		redirect('admin/users/fields');
 	}
 
@@ -109,8 +105,7 @@ class Admin_fields extends Admin_Controller {
 	 */
 	public function edit()
 	{
-		if ( ! $assign_id = $this->uri->segment(5))
-		{
+		if ( ! $assign_id = $this->uri->segment(5)) {
 			show_error(lang('streams:cannot_find_assign'));
 		}
 

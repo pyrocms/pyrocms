@@ -19,7 +19,7 @@ class Plugin_Variables extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
 	 * @return array
@@ -34,8 +34,7 @@ class Plugin_Variables extends Plugin
 		$variables = $this->variables->get_all();
 		ksort($variables);
 
-		foreach ($variables as $slug => $value)
-		{
+		foreach ($variables as $slug => $value) {
 			$info[$slug]['description'] = array(
 				'en' => 'Retrieve the value for variable '.$slug.'.'
 			);
@@ -62,7 +61,7 @@ class Plugin_Variables extends Plugin
 		$this->load->library('variables/variables');
 		return $this->variables->$name;
 	}
-	
+
 	/**
 	 * Load a variable
 	 *

@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -22,6 +22,5 @@ $lang['help_body'] = '<h4> Översikt </ h4>
 <p> Om aktivering via e-post är avaktiverad i inställningar kommer användare som registrerar sig på webbplatsen att visas under inaktiva användare tills du antingen godkänner eller raderar dem. Om aktivering via e-post är aktiverat kan användarna registrera sig utan administratörens hjälp. </ p>
 ';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/users/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/users/language/swedish/help_lang.php */

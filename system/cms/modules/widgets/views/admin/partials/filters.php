@@ -1,5 +1,5 @@
 <div class="one_full">
-	
+
 	<section class="title">
 		<?php echo form_open(uri_string()) ?>
 		<?php echo form_hidden('f_module', $module_details['slug']) ?>

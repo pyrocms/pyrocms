@@ -168,7 +168,7 @@ class Plugin_Url extends Plugin
 	{
 		return site_url($this->uri->uri_string());
 	}
-	
+
 	/**
 	 * Current uri string sans site_url()
 	 *

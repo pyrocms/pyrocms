@@ -25,14 +25,14 @@ class Folder extends \Illuminate\Database\Eloquent\Model
 
     /**
      * Relationship to File
-     * 
+     *
      * @return object
      */
     public function files()
     {
         return $this->hasMany('Pyro\Module\Files\Model\File', 'folder_id');
     }
-     
+
     /**
      * Get a single folder by slug
      *
@@ -60,7 +60,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     /**
      * Get all folders ordered by sort
      *
-     * @param string $direction The direction to sort results
+     * @param  string $direction The direction to sort results
      * @return void
      */
     public static function findAndSortBySort($direction = 'asc')
@@ -69,20 +69,20 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * Get Folders by parent 
+     * Get Folders by parent
      *
-     * @param int $parent_id
+     * @param  int  $parent_id
      * @return void
      */
     public static function findByParent($parent_id = 0)
     {
         return static::where('parent_id','=',$parent_id)->get();
     }
-    
+
     /**
-     * Get Folders by parent 
+     * Get Folders by parent
      *
-     * @param int $parent_id
+     * @param  int  $parent_id
      * @return void
      */
     public static function findByParentAndSortByName($parent_id = 0)
@@ -93,24 +93,23 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     /**
      * Get Folders by parent ordered by sort
      *
-     * @param int $parent_id
+     * @param  int  $parent_id
      * @return void
      */
     public static function findByParentAndSortBySort($parent_id = 0)
     {
         return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
-    
+
     /**
      * Get Folders by path
      *
-     * @param string $path
+     * @param  string $path
      * @return folder object
      */
     public function findByPath($path)
     {
-        if (is_array($path))
-        {
+        if (is_array($path)) {
             $path = implode('/', $path);
         }
 
@@ -118,20 +117,20 @@ class Folder extends \Illuminate\Database\Eloquent\Model
 
         return static::where('virtual_path', $path)->get();
     }
-    
+
     /**
      * Get Files by an array of keywords
      *
-     * @param array $search
+     * @param array   $search
      * @param integer $limit
-     * 
+     *
      * @return void
      */
     public static function findByKeywords($search, $limit = 5)
     {
         // first we search folders
         Static::select('name', 'parent_id');
-        
+
         foreach ($search as $match) {
             $match = trim($match);
 

@@ -10,8 +10,7 @@
  * @copyright Copyright (c) 2012, PyroCMS LLC
  */
 
-if (!function_exists('url_title'))
-{
+if (!function_exists('url_title')) {
 
 	/**
 	 * Create URL Title
@@ -44,19 +43,14 @@ if (!function_exists('url_title'))
 		$str = convert_accented_characters($str);
 		$str = strip_tags($str);
 
-		foreach ($trans as $key => $val)
-		{
+		foreach ($trans as $key => $val) {
 			$str = preg_replace("#".$key."#i", $val, $str);
 		}
 
-		if ($lowercase === true)
-		{
-			if (function_exists('mb_convert_case'))
-			{
+		if ($lowercase === true) {
+			if (function_exists('mb_convert_case')) {
 				$str = mb_convert_case($str, MB_CASE_LOWER, "UTF-8");
-			}
-			else
-			{
+			} else {
 				$str = strtolower($str);
 			}
 		}
@@ -69,8 +63,7 @@ if (!function_exists('url_title'))
 
 }
 
-if (!function_exists('shorten_url'))
-{
+if (!function_exists('shorten_url')) {
 
 	/**
 	 * Shorten URL
@@ -88,14 +81,12 @@ if (!function_exists('shorten_url'))
 
 		$CI->load->spark('curl/1.2.1');
 
-		if (!$url)
-		{
+		if (!$url) {
 			$url = site_url($CI->uri->uri_string());
 		}
 
 		// If no a protocol in URL, assume its a CI link
-		elseif ( ! preg_match('!^\w+://! i', $url))
-		{
+		elseif ( ! preg_match('!^\w+://! i', $url)) {
 			$url = site_url($url);
 		}
 

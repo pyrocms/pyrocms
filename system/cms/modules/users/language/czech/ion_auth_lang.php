@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful'] 	= 'Nepodařilo se vytvořit účet';
 $lang['account_creation_duplicate_email'] 	 = 'E-mail je již použit nebo neplatný';
 $lang['account_creation_duplicate_username'] = 'Uživatelské jméno je již použito nebo neplatné';
 
-
 // Password
 $lang['password_change_successful'] 	= 'Heslo bylo změněno';
 $lang['password_change_unsuccessful'] 	= 'Nepodařilo se změnit heslo';

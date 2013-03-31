@@ -65,5 +65,3 @@ $lang['blog:twitter_error'] 			= 'خطأ في تويتر';
 
 // date
 $lang['blog:archive_date_format']		= "%B %Y";
-
-?>

@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-23
  * @version		1.1.0
@@ -34,6 +34,5 @@ $lang['widgets:show_title'] = 'Visa widget titel?';
 $lang['widgets:tag_title'] = 'Tagg';
 $lang['widgets:no_available_widgets'] = 'Det finns inga widgetar tillgängliga.';
 
-
-/* End of file widgets_lang.php */  
-/* Location: system/cms/modules/widgets/language/swedish/widgets_lang.php */  
+/* End of file widgets_lang.php */
+/* Location: system/cms/modules/widgets/language/swedish/widgets_lang.php */

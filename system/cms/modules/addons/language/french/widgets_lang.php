@@ -5,7 +5,6 @@ $lang['widgets:available_title'] = 'Widgets disponibles';
 $lang['widgets:widget_area_wrapper'] = 'Zones disponibles';
 $lang['widgets:instructions'] = 'Glisser-déposer pour installer le widget';
 
-
 $lang['widgets:instances'] = 'Instances';
 $lang['widgets:areas'] = 'Zones';
 

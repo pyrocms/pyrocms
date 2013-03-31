@@ -106,7 +106,7 @@ $lang['global:or']						= 'o';
 $lang['global:and']						= 'e';
 $lang['global:at']						= 'al';
 
-$lang['global:widgets']					= 'Widgets'; 
+$lang['global:widgets']					= 'Widgets';
 $lang['global:themes']					= 'Temi';
 $lang['global:field_types']				= 'Field Types';
 $lang['global:plugins']					= 'Plugins';

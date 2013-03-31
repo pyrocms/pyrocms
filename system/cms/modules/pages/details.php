@@ -103,7 +103,7 @@ class Module_Pages extends Module
                     )
                 );
             } else {
-                // Get the one page type. 
+                // Get the one page type.
                 $page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
 
                 if ($page_type) {
@@ -113,7 +113,7 @@ class Module_Pages extends Module
                             'uri' => 'admin/pages/create?page_type='.$page_type->id,
                             'class' => 'add'
                         )
-                    );          
+                    );
                 }
             }
         }
@@ -127,15 +127,14 @@ class Module_Pages extends Module
                     'class' => 'add'
                 )
             );
-        }
-        else {
+        } else {
             $info['sections']['types']['shortcuts'] = array(
                 array(
                     'name' => 'pages:types_create_title',
                     'uri' => 'admin/pages/types/create',
                     'class' => 'add'
                 )
-            );          
+            );
         }
 
         return $info;
@@ -167,7 +166,7 @@ class Module_Pages extends Module
         // Pages Schema ----
         Schema::dropIfExists('pages');
 
-        // Just in case. If this is a new install, we 
+        // Just in case. If this is a new install, we
         // definiitely should not have a page_chunks table.
         Schema::dropIfExists('page_chunks');
 
@@ -223,11 +222,11 @@ class Module_Pages extends Module
             null,
             'A basic page type to get you started adding content.'
         );
-    
+
         // add the fields to the streams
         $this->streams->fields->add_fields(config_item('pages:default_fields'));
 
-        // Insert the page type structures      
+        // Insert the page type structures
         $def_page_type_id = $this->pdb->table('page_types')->insert(array(
             'id' => 1,
             'title' => 'Default',

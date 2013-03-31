@@ -6,8 +6,8 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Redirects
  */
-class Module_Redirects extends Module {
-
+class Module_Redirects extends Module
+{
 	public $version = '1.0.0';
 
 	public function info()

@@ -7,22 +7,22 @@ use Illuminate\Database\Eloquent\Model;
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Contact\Models
  */
-class ContactLog extends Model {
-	
+class ContactLog extends Model
+{
 	/**
 	 * Define the table name
 	 *
 	 * @var string
 	 */
 	public $table = 'contact_log';
-	
+
 	/**
 	 * Disable updated_at and created_at on table
 	 *
 	 * @var boolean
 	 */
 	public $timestamps = false;
-	
+
 	/**
 	 * Get all contact logs ordered by name
 	 *
@@ -33,5 +33,5 @@ class ContactLog extends Model {
 	{
 		return static::orderBy('sent_at', $direction)->get();
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Illuminate\Database\Connection;
 
@@ -40,19 +40,19 @@ class Install_m extends CI_Model
 		    $table->unique('slug');
 		    $table->index('slug');
 		});
-	
+
 		// Populate core settings
 		$conn->table('core_settings')->insert(array(
 			array(
-				'slug'    => 'date_format', 
+				'slug'    => 'date_format',
 				'default' => 'g:ia -- m/d/y',
 			),
 			array(
-				'slug'    => 'lang_direction', 
+				'slug'    => 'lang_direction',
 				'default' => 'ltr',
 			),
 			array(
-				'slug'    => 'status_message', 
+				'slug'    => 'status_message',
 				'default' => 'This site has been disabled by a super-administrator.',
 			),
 		));

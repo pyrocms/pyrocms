@@ -53,7 +53,6 @@ $lang['user:activated_account_title']          = 'Aktyvuotos paskyros';
 $lang['user:reset_password_title']             = 'Atstatyti slaptažodį';
 $lang['user:password_reset_title']             = 'Slaptažodis atstatytas';
 
-
 $lang['user:error_username']                   = 'Vartotojo vardas, kurį jūs pasirinkote jau naudojamas';
 $lang['user:error_email']                      = 'Pašto adresą, kurį įvedėte, jau naudojamas';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'Pašto adresas, kurį pasirink
 $lang['user:register_error']				   = 'Mes galvojome kad jus esate spam robotas. Jeigu suklydome - atleiskite.';
 $lang['user:register_reasons']                 = 'Prisijunkite tam, kad kauti prieimą prie skilčių, kurios yra neprieinamos paprastiems vartotojams. Daugiau turinio, mažiau reklamos.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Aktyvinimas nepavyko. Prašome patikrinti savo duomenis ir įsitikinkite ar nėra įjungtas CAPS LOCK.';
 $lang['user:activated_message']                = 'Jūsų paskyra buvo aktyvuota, dabar galite prisijunkiti. ".';
-
 
 // Login
 $lang['user:logged_in']                        = 'Prisijungėte sėkmingai.';
 $lang['user:already_logged_in']                = 'Jūs jau esate prisijungęs. Prašome atsijungti prieš bandant iš naujo.';
 $lang['user:login_incorrect']                  = 'E-paštas arba slaptažodis nesutampa. Prašome patikrinti savo prisijungimo vardą ir įsitikinkite ar nėra įjungtas CAPS LOCK.';
 $lang['user:inactive']                         = 'Paskyra kurią bandote pasiekti šiuo mety neaktyvi.<br/>Patikrinkite savo el.paštą, kuriame bus instrukcija kaip aktyvuoti paskyrą.<em>Laiškas gali patekti į nepageidaujamų laiškų katalogą</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Jūs buvote atjungtas.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']           = "Jūsų slaptažodis pakeistas.
 // Activation
 $lang['user:activation_email_subject']         = 'Aktyvacija patvirtinta';
 $lang['user:activation_email_body']            = 'Ačiū, kad aktyvavote savo paskyrą. Norėdami prisijungti prie svetainės, spauskite nuorodą esančia toliau.';
-
 
 $lang['user:activated_email_subject']          = 'Aktyvacija užbaigta';
 $lang['user:activated_email_content_line1']    = 'Ačiū už registraciją %s. Prieš mums patvirtinant aktyvaciją prašome užbaigti registraciją paspaudus nuorodą:';

@@ -24,7 +24,6 @@ $lang['account_creation_unsuccessful']          = 'Das Benutzerkonto konnte nich
 $lang['account_creation_duplicate_email']       = 'Die E-Mail-Adresse ist ung&uuml;ltig oder bereits in Gebrauch';
 $lang['account_creation_duplicate_username']    = 'Der Benutzername ist ung&uuml;ltig oder bereits in Gebrauch';
 
-
 // Password
 $lang['password_change_successful']             = 'Das Passwort wurde erfolgreich ge&auml;ndert';
 $lang['password_change_unsuccessful']           = 'Das Passwort konnte nicht ge&auml;ndert werden';

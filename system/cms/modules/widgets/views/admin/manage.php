@@ -1,12 +1,12 @@
 <section class="item">
 	<div class="content">
 		<?php if ($widgets): ?>
-		
+
 			<h4><?php echo lang($widgets_active ? 'widgets:active_title' : 'widgets:inactive_title') ?></h4>
-		
+
 			<?php echo form_open(uri_string(), 'class="crud"') ?>
 			<!-- Available Widget List -->
-		
+
 			<table border="0" id="widgets-list" class="table-list" cellspacing="0">
 				<thead>
 				<tr>
@@ -54,10 +54,10 @@
 			</div>
 		 <?php */ ?>
 			<?php echo form_close() ?>
-		
+
 		<?php else: ?>
 			<p><?php echo lang('widgets:no_available_widgets') ?></p>
 		<?php endif ?>
-	
+
 	</div>
 </section>

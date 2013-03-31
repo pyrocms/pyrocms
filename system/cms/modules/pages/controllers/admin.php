@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$pages = Page::with('children')->get();
-		
+
 		$this->template
 
 			->title($this->module_details['name'])
@@ -78,10 +78,10 @@ class Admin extends Admin_Controller
 
         // Directly output the menu if it's for the modal.
         // All we need is the <ul>.
-        if ($this->input->get('modal') === 'true')  {
+        if ($this->input->get('modal') === 'true') {
             $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
     		$html .= '<ul class="modal_select">';
-    		
+
     		foreach ($types as $pt) {
     			$html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
 
@@ -91,11 +91,12 @@ class Admin extends Admin_Controller
 
     			$html .= '</a></li>';
     		}
-    		
+
     		echo $html .= '</ul>';
+
             return;
         }
-        
+
         // If this is not being displayed in the modal, we can
         // display an entire page.
         $this->template
@@ -116,13 +117,13 @@ class Admin extends Admin_Controller
 		$root_pages	= isset($data['root_pages']) ? $data['root_pages'] : array();
 
 		if (is_array($order)) {
-			
+
 			//reset all parent > child relations
 			$this->page_m->update_all(array('parent_id' => 0));
 
 			foreach ($order as $i => $page) {
 				$id = str_replace('page_', '', $page['id']);
-				
+
 				//set the order of the root pages
 				$this->page_m->update($id, array('order' => $i), true);
 
@@ -194,8 +195,7 @@ class Admin extends Admin_Controller
 				$has_dupes = Page::where('slug', $page->slug)
 					->where('parent_id', $page->parent_id)
 					->count() > 0;
-			}
-			while ($has_dupes === true);
+			} while ($has_dupes === true);
 
 		// Oop, a parent turned up, work with that
 		} else {
@@ -236,13 +236,13 @@ class Admin extends Admin_Controller
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
 
-        // What type of page are we creating?        
+        // What type of page are we creating?
         $page->type = PageType::find($this->input->get('page_type'));
 
-        // Redirect to the page type selection menu if no page type was specified 
-        if ( ! $page->type) {
+        // Redirect to the page type selection menu if no page type was specified
+        if (! $page->type) {
             redirect('admin/pages/choose_type');
-        }      
+        }
 
 		$stream = $this->_setup_stream_fields($page->type);
 
@@ -280,14 +280,14 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Loop through each rule for the standard page fields and 
+		// Loop through each rule for the standard page fields and
 		// set our current value for the form.
 		foreach (Page::$validate as $field) {
 			switch ($field) {
 				case 'restricted_to[]':
 					$page->restricted_to = set_value($field['field'], array('0'));
 					break;
-				
+
 				case 'navigation_group_id[]':
 					$page->navigation_group_id = $this->input->post('navigation_group_id');
 					break;
@@ -302,16 +302,14 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Go through our stream fields and set the current value 
+		// Go through our stream fields and set the current value
 		// for the form. Since we are creating a new form, this should
 		// simply be the post data if it is available.
 		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
 		$page_content_data = array();
 
-		if ($assignments)
-		{
-			foreach ($assignments as $assign)
-			{
+		if ($assignments) {
+			foreach ($assignments as $assign) {
 				$page_content_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
 		}
@@ -322,8 +320,7 @@ class Admin extends Admin_Controller
 		$parent_page = new stdClass;
 
 		// If a parent id was passed, fetch the parent details
-		if ($parent_id > 0)
-		{
+		if ($parent_id > 0) {
 			$page->parent_id = $parent_id;
 			$parent_page = Page::find($parent_id);
 		}
@@ -372,7 +369,7 @@ class Admin extends Admin_Controller
 		// Note: we don't need to get the page type
 		// from the URL since it is present in the $page data
 
-		if ( ! $page->type) {
+		if (! $page->type) {
 			show_error('No page type found.');
 		}
 
@@ -453,19 +450,16 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach (Page::$validate as $field)
-		{
+		foreach (Page::$validate as $field) {
 			$field = $field['field'];
 
 			// Nothing to do for the navigation field
-			if (in_array($field, array('navigation_group_id[]')))
-			{
+			if (in_array($field, array('navigation_group_id[]'))) {
 				continue;
 			}
 
 			// Translate the data of restricted_to to something we can use in the form.
-			if ($field === 'restricted_to[]')
-			{
+			if ($field === 'restricted_to[]') {
 				$restricted_to = set_value($field, $page->restricted_to);
 
 				if ($restricted_to[0] == '') {
@@ -482,7 +476,7 @@ class Admin extends Admin_Controller
 			$page->{$field} = set_value($field, $page->{$field});
 		}
 
-		// Go through our stream fields and set the current value 
+		// Go through our stream fields and set the current value
 		// for the form. Since we are creating a new form, this should
 		// simply be the post data if it is available.
 
@@ -492,19 +486,17 @@ class Admin extends Admin_Controller
 		// Get straight raw from the db
 		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
 
-		if ($assignments)
-		{
-			foreach ($assignments as $assign)
-			{
+		if ($assignments) {
+			foreach ($assignments as $assign) {
 				$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
 
 				$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-			}	
+			}
 		}
 
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
-		
+
 		$this->_form_data();
 
 		$this->template
@@ -540,9 +532,9 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_model('page_m');
 
 		// If we have renamed the title, then we need to change that in the validation array
-		if ($page_type->title_label){
-			foreach (Page::$validate as $k => $v){
-				if ($v['field'] == 'title'){
+		if ($page_type->title_label) {
+			foreach (Page::$validate as $k => $v) {
+				if ($v['field'] == 'title') {
 					Page::$validate[$k]['label'] = lang_label($page_type->title_label);
 				}
 			}
@@ -574,7 +566,7 @@ class Admin extends Admin_Controller
 		// Load navigation list
 		$navigation_groups = Navigation\Model\Group::getGroupOptions();
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
-		
+
 		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		$this->template
@@ -606,7 +598,7 @@ class Admin extends Admin_Controller
 					if ( ! $page = Page::find($id)) {
 						continue;
 					}
-					
+
 					$page->delete();
 
 					$deleted_ids = $id;
@@ -619,7 +611,7 @@ class Admin extends Admin_Controller
 					$this->cache->clear('page_m');
 					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 					$this->cache->clear('navigation_m');
-				
+
 				} else {
 					$this->session->set_flashdata('error', lang('pages:delete_home_error'));
 				}
@@ -632,7 +624,7 @@ class Admin extends Admin_Controller
 				// Only deleting one page
 				if ( count($deleted_ids) == 1 ) {
 					$this->session->set_flashdata('success', sprintf(lang('pages:delete_success'), $deleted_ids[0]));
-					
+
 				// Deleting multiple pages
 				} else {
 					$this->session->set_flashdata('success', sprintf(lang('pages:mass_delete_success'), count($deleted_ids)));

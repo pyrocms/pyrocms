@@ -5,7 +5,7 @@ $lang['header']					= 'Шаг 4: Создание базы данных'; #trans
 $lang['intro_text']			= 'Заполните форму ниже и нажмите кнопку "Установить", для установки PyroCMS. Убедитесь, что устанавливаете PyroCMS в правильную базу данных - все имеющиеся данные в этой базе данных будут удалены!'; #translate
 
 $lang['default_user']		= 'Пользователь по-умолчанию';
-$lang['database']				= 'Имя базы данных'; 
+$lang['database']				= 'Имя базы данных';
 $lang['site_settings']	= 'Настройки сайта';
 $lang['site_ref']				= 'Site Ref'; #translate, but how? what does this mean?
 $lang['user_name']			= 'Логин';

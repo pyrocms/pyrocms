@@ -1,14 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * This changes the user 
+ * This changes the user
  */
-class Migration_Convert_user_profiles_table extends CI_Migration {
-
+class Migration_Convert_user_profiles_table extends CI_Migration
+{
     public function up()
     {
-        if (defined('PYROPATH'))
-        {
+        if (defined('PYROPATH')) {
             $this->load->add_package_path(PYROPATH.'modules/streams_core');
         }
 
@@ -101,13 +100,10 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
         );
 
 		// Special case: Do we require the last name?
-		if (Settings::get('require_lastname'))
-		{
+		if (Settings::get('require_lastname')) {
 			$fields['last_name']['assign'] = array('required' => true);
-		}
-        else
-        {
-            // To be complete 
+		} else {
+            // To be complete
             $ls_update = array(
                 'last_name'         => array(
                     'null'          => true,
@@ -121,22 +117,18 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 		// Here we go...
 		// Run through each column and add the field
 		// metadata to it.
-    	foreach($columns as $field_slug => $column)
-    	{
+    	foreach ($columns as $field_slug => $column) {
     		// We only want fields that actually exist in the
     		// DB. The user could have deleted some of them.
-    		if ($this->db->field_exists($field_slug, 'profiles'))
-    		{
+    		if ($this->db->field_exists($field_slug, 'profiles')) {
 	    		$extra = array();
 	    		$assign = array();
 
-	    		if (isset($column['extra']))
-	    		{
+	    		if (isset($column['extra'])) {
 	    			$extra = $column['extra'];
 	    		}
 
-	    		if (isset($column['assign']))
-	    		{
+	    		if (isset($column['assign'])) {
 	    			$assign = $column['assign'];
 	    		}
 
@@ -151,6 +143,6 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 
     public function down()
     {
-		
+
     }
 }

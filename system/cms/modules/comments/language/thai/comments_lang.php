@@ -12,7 +12,7 @@ $lang['comments:view_more'] 				= 'ดูเพิ่มเติม...';
 * Thai translation.
 *
 * @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS  
+* @package	PyroCMS
 * @link		http://pyrocms.com
 * @date		2012-04-19
 * @version	1.0.0

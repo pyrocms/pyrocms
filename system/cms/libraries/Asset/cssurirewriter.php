@@ -10,8 +10,8 @@
  * @package    PyroCMS\Core\Libraries\Asset
  */
 
-class Asset_Cssurirewriter {
-
+class Asset_Cssurirewriter
+{
 	/**
 	 * rewrite() and rewriteRelative() append debugging information here
 	 * @var string
@@ -40,7 +40,8 @@ class Asset_Cssurirewriter {
 	 *
 	 * @return string
 	 */
-	public static function rewrite($css, $currentDir, $docRoot = null, $symlinks = array()) {
+	public static function rewrite($css, $currentDir, $docRoot = null, $symlinks = array())
+	{
 		self::$_docRoot = self::_realpath(
 						$docRoot ? $docRoot : $_SERVER['DOCUMENT_ROOT']
 		);
@@ -81,7 +82,8 @@ class Asset_Cssurirewriter {
 	 *
 	 * @return string
 	 */
-	public static function prepend($css, $path) {
+	public static function prepend($css, $path)
+	{
 		self::$_prependPath = $path;
 
 		$css = self::_trimUrls($css);
@@ -134,7 +136,8 @@ class Asset_Cssurirewriter {
 	 *
 	 * @return string
 	 */
-	public static function rewriteRelative($uri, $realCurrentDir, $realDocRoot, $symlinks = array()) {
+	public static function rewriteRelative($uri, $realCurrentDir, $realDocRoot, $symlinks = array())
+	{
 		// prepend path with current dir separator (OS-independent)
 		$path = strtr($realCurrentDir, '/', DIRECTORY_SEPARATOR)
 				. DIRECTORY_SEPARATOR . strtr($uri, '/', DIRECTORY_SEPARATOR);
@@ -174,7 +177,8 @@ class Asset_Cssurirewriter {
 	 * @param string $uri
 	 * @return string
 	 */
-	public static function removeDots($uri) {
+	public static function removeDots($uri)
+	{
 		$uri = str_replace('/./', '/', $uri);
 		// inspired by patch from Oleg Cherniy
 		do {
@@ -198,7 +202,8 @@ class Asset_Cssurirewriter {
 	 *
 	 * @return mixed path with no trailing slash
 	 */
-	protected static function _realpath($path) {
+	protected static function _realpath($path)
+	{
 		$realPath = realpath($path);
 		if ($realPath !== false) {
 			$path = $realPath;
@@ -227,7 +232,8 @@ class Asset_Cssurirewriter {
 	 */
 	private static $_prependPath = null;
 
-	private static function _trimUrls($css) {
+	private static function _trimUrls($css)
+	{
 		return preg_replace('/
             url\\(      # url(
             \\s*
@@ -237,7 +243,8 @@ class Asset_Cssurirewriter {
         /x', 'url($1)', $css);
 	}
 
-	private static function _processUriCB($m) {
+	private static function _processUriCB($m)
+	{
 		// $m matched either '/@import\\s+([\'"])(.*?)[\'"]/' or '/url\\(\\s*([^\\)\\s]+)\\s*\\)/'
 		$isImport = ($m[0][0] === '@');
 		// determine URI and the quote character (if any)

@@ -9,8 +9,8 @@
  * @package		PyroCMS\Core\Libraries
  * @abstract
  */
-abstract class Theme {
-	
+abstract class Theme
+{
 	/**
 	 * @var theme name
 	 */
@@ -40,17 +40,17 @@ abstract class Theme {
 	 * @var The version of the theme.
 	 */
 	public $version;
-	
+
 	/**
 	 * @var Front-end or back-end.
 	 */
 	public $type;
-	
+
 	/**
 	 * @var Designer defined options.
 	 */
 	public $options;
-	
+
 	/**
 	 * __get
 	 *

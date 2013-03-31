@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Templates\Model\EmailTemplate;
 
@@ -9,8 +9,8 @@ use Pyro\Module\Templates\Model\EmailTemplate;
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Templates
  */
-class Events_Templates {
-
+class Events_Templates
+{
     protected $ci;
 
     protected $fallbacks = array();
@@ -39,8 +39,7 @@ class Events_Templates {
 		$templates = EmailTemplate::findBySlug($slug);
 
         //make sure we have something to work with
-        if ( ! empty($templates))
-        {
+        if ( ! empty($templates)) {
 			$lang	   = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
 			$from	   = isset($data['from']) ? $data['from'] : Settings::get('server_email');
             $from_name = isset($data['name']) ? $data['name'] : null;
@@ -61,14 +60,12 @@ class Events_Templates {
             $this->ci->email->to($to);
             $this->ci->email->subject($subject);
             $this->ci->email->message($body);
-			
+
 			// To send attachments simply pass an array of file paths in Events::trigger('email')
 			// $data['attach'][] = /path/to/file.jpg
 			// $data['attach'][] = /path/to/file.zip
-			if (isset($data['attach']))
-			{
-				foreach ($data['attach'] AS $attachment)
-				{
+			if (isset($data['attach'])) {
+				foreach ($data['attach'] AS $attachment) {
 					$this->ci->email->attach($attachment);
 				}
 			}

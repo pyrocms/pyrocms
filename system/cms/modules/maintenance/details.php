@@ -50,19 +50,16 @@ class Module_Maintenance extends Module
 		);
 	}
 
-
 	public function install()
 	{
 		return true;
 	}
-
 
 	public function uninstall()
 	{
 		// This is a core module, lets keep it around.
 		return false;
 	}
-
 
 	public function upgrade($old_version)
 	{

@@ -10,7 +10,7 @@
 class Field_textarea
 {
 	public $field_type_slug			= 'textarea';
-	
+
 	public $db_col_type				= 'longtext';
 
 	public $admin_display			= 'full';
@@ -20,7 +20,7 @@ class Field_textarea
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
 	public $custom_parameters		= array('default_text', 'allow_tags');
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -35,19 +35,15 @@ class Field_textarea
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if ( ! $entry_id)
-		{
+		if (! $entry_id) {
 			$value = (isset($field->field_data['default_text'])) ? $field->field_data['default_text'] : null;
 
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			if ( ! $value and isset($field->field_data['default_value']))
-			{
+			if ( ! $value and isset($field->field_data['default_value'])) {
 				$value = $field->field_data['default_value'];
 			}
-		}
-		else
-		{
+		} else {
 			$value = $data['value'];
 		}
 
@@ -80,19 +76,16 @@ class Field_textarea
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
-		if (defined('ADMIN_THEME') or $parse_tags == 'y')
-		{
+		if (defined('ADMIN_THEME') or $parse_tags == 'y') {
 			return $input;
-		}
-		else
-		{
+		} else {
 			$this->CI->load->helper('text');
 			return escape_tags($input);
 		}
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Default Textarea Value
 	 *
@@ -106,12 +99,12 @@ class Field_textarea
 			'id'		=> 'default_text',
 			'value'		=> $value,
 		);
-		
+
 		return form_textarea($options);
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Allow tags param.
 	 *
@@ -126,8 +119,8 @@ class Field_textarea
 
 		// Defaults to No
 		$value = ($value) ? $value : 'n';
-	
+
 		return form_dropdown('allow_tags', $options, $value);
-	}	
+	}
 
 }

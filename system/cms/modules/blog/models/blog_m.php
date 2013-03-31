@@ -38,12 +38,9 @@ class Blog_m extends MY_Model
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
 			->join('users', 'blog.author_id = users.id', 'left');
 
-		if (is_array($key))
-		{
+		if (is_array($key)) {
 			$this->db->where($key);
-		}
-		else
-		{
+		} else {
 			$this->db->where($key, $value);
 		}
 
@@ -52,65 +49,51 @@ class Blog_m extends MY_Model
 
 	public function get_many_by($params = array())
 	{
-		if ( ! empty($params['category']))
-		{
-			if (is_numeric($params['category']))
-			{
+		if ( ! empty($params['category'])) {
+			if (is_numeric($params['category'])) {
 				$this->db->where('blog_categories.id', $params['category']);
-			}
-			else
-			{
+			} else {
 				$this->db->where('blog_categories.slug', $params['category']);
 			}
 		}
 
-		if ( ! empty($params['month']))
-		{
+		if ( ! empty($params['month'])) {
 			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
 		}
 
-		if ( ! empty($params['year']))
-		{
+		if ( ! empty($params['year'])) {
 			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
 		}
 
-		if ( ! empty($params['keywords']))
-		{
+		if ( ! empty($params['keywords'])) {
 			$this->db
 				->like('blog.title', trim($params['keywords']))
 				->or_like('profiles.display_name', trim($params['keywords']));
 		}
 
 		// Is a status set?
-		if ( ! empty($params['status']))
-		{
+		if ( ! empty($params['status'])) {
 			// If it's all, then show whatever the status
-			if ($params['status'] != 'all')
-			{
+			if ($params['status'] != 'all') {
 				// Otherwise, show only the specific status
 				$this->db->where('status', $params['status']);
 			}
 		}
 
 		// Nothing mentioned, show live only (general frontend stuff)
-		else
-		{
+		else {
 			$this->db->where('status', 'live');
 		}
 
 		// By default, dont show future posts
-		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == false))
-		{
+		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == false)) {
 			$this->db->where('blog.created_on <=', now());
 		}
 
 		// Limit the results based on 1 number or 2 (2nd is offset)
-		if (isset($params['limit']) && is_array($params['limit']))
-		{
+		if (isset($params['limit']) && is_array($params['limit'])) {
 			$this->db->limit($params['limit'][0], $params['limit'][1]);
-		}
-		elseif (isset($params['limit']))
-		{
+		} elseif (isset($params['limit'])) {
 			$this->db->limit($params['limit']);
 		}
 
@@ -148,49 +131,39 @@ class Blog_m extends MY_Model
 		// we need the display name joined so we can get an accurate count when searching
 			->join('profiles', 'profiles.user_id = blog.author_id');
 
-		if ( ! empty($params['category']))
-		{
-			if (is_numeric($params['category']))
-			{
+		if ( ! empty($params['category'])) {
+			if (is_numeric($params['category'])) {
 				$this->db->where('blog_categories.id', $params['category']);
-			}
-			else
-			{
+			} else {
 				$this->db->where('blog_categories.slug', $params['category']);
 			}
 		}
 
-		if ( ! empty($params['month']))
-		{
+		if ( ! empty($params['month'])) {
 			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
 		}
 
-		if ( ! empty($params['year']))
-		{
+		if ( ! empty($params['year'])) {
 			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
 		}
 
-		if ( ! empty($params['keywords']))
-		{
+		if ( ! empty($params['keywords'])) {
 			$this->db
 				->like('blog.title', trim($params['keywords']))
 				->or_like('profiles.display_name', trim($params['keywords']));
 		}
 
 		// Is a status set?
-		if ( ! empty($params['status']))
-		{
+		if ( ! empty($params['status'])) {
 			// If it's all, then show whatever the status
-			if ($params['status'] != 'all')
-			{
+			if ($params['status'] != 'all') {
 				// Otherwise, show only the specific status
 				$this->db->where('status', $params['status']);
 			}
 		}
 
 		// Nothing mentioned, show live only (general frontend stuff)
-		else
-		{
+		else {
 			$this->db->where('status', 'live');
 		}
 
@@ -237,16 +210,13 @@ class Blog_m extends MY_Model
 
 	public function check_exists($field, $value = '', $id = 0)
 	{
-		if (is_array($field))
-		{
+		if (is_array($field)) {
 			$params = $field;
 			$id = $value;
-		}
-		else
-		{
+		} else {
 			$params[$field] = $value;
 		}
-		$params['id !='] = (int)$id;
+		$params['id !='] = (int) $id;
 
 		return parent::count_by($params) == 0;
 	}
@@ -260,49 +230,36 @@ class Blog_m extends MY_Model
 	 */
 	public function search($data = array())
 	{
-		if (array_key_exists('category_id', $data))
-		{
+		if (array_key_exists('category_id', $data)) {
 			$this->db->where('category_id', $data['category_id']);
 		}
 
-		if (array_key_exists('status', $data))
-		{
+		if (array_key_exists('status', $data)) {
 			$this->db->where('status', $data['status']);
 		}
 
-		if (array_key_exists('keywords', $data))
-		{
+		if (array_key_exists('keywords', $data)) {
 			$matches = array();
-			if (strstr($data['keywords'], '%'))
-			{
+			if (strstr($data['keywords'], '%')) {
 				preg_match_all('/%.*?%/i', $data['keywords'], $matches);
 			}
 
-			if ( ! empty($matches[0]))
-			{
-				foreach ($matches[0] as $match)
-				{
+			if ( ! empty($matches[0])) {
+				foreach ($matches[0] as $match) {
 					$phrases[] = str_replace('%', '', $match);
 				}
-			}
-			else
-			{
+			} else {
 				$temp_phrases = explode(' ', $data['keywords']);
-				foreach ($temp_phrases as $phrase)
-				{
+				foreach ($temp_phrases as $phrase) {
 					$phrases[] = str_replace('%', '', $phrase);
 				}
 			}
 
 			$counter = 0;
-			foreach ($phrases as $phrase)
-			{
-				if ($counter == 0)
-				{
+			foreach ($phrases as $phrase) {
+				if ($counter == 0) {
 					$this->db->like('blog.title', $phrase);
-				}
-				else
-				{
+				} else {
 					$this->db->or_like('blog.title', $phrase);
 				}
 

@@ -31,7 +31,7 @@
 						</label>
 
 						<?php if($field['instructions']) echo '<p class="instructions">'.$field['instructions'].'</p>' ?>
-						
+
 						<div class="input">
 							<?php echo $field['input'] ?>
 						</div>
@@ -64,35 +64,35 @@
 	</fieldset>
 
 	<?php if (Settings::get('api_enabled') and Settings::get('api_user_keys')): ?>
-		
+
 	<script>
 	jQuery(function($) {
-		
+
 		$('input#generate_api_key').click(function(){
-			
+
 			var url = "<?php echo site_url('api/ajax/generate_key') ?>",
 				$button = $(this);
-			
+
 			$.post(url, function(data) {
 				$button.prop('disabled', true);
 				$('span#api_key').text(data.api_key).parent('li').show();
 			}, 'json');
-			
+
 		});
-		
+
 	});
 	</script>
-		
+
 	<fieldset>
 		<legend><?php echo lang('profile_api_section') ?></legend>
-		
+
 		<ul>
 			<li <?php $api_key or print('style="display:none"') ?>><?php echo sprintf(lang('api:key_message'), '<span id="api_key">'.$api_key.'</span>') ?></li>
 			<li>
 				<input type="button" id="generate_api_key" value="<?php echo lang('api:generate_key') ?>" />
 			</li>
 		</ul>
-	
+
 	</fieldset>
 	<?php endif ?>
 

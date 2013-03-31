@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -32,6 +32,5 @@ $lang['update_unsuccessful'] = 'Det gick inte att uppdatera användardata';
 $lang['delete_successful'] = 'Användarkontot är raderadt';
 $lang['delete_unsuccessful'] = 'Det gick inte att radera användarkontot';
 
-
-/* End of file ion_auth_lang.php */  
-/* Location: system/cms/modules/users/language/swedish/ion_auth_lang.php */  
+/* End of file ion_auth_lang.php */
+/* Location: system/cms/modules/users/language/swedish/ion_auth_lang.php */

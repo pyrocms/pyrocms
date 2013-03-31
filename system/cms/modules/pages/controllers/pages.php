@@ -36,25 +36,19 @@ class Pages extends Public_Controller
 	public function _remap($method)
 	{
 		// This page has been routed to with pages/view/whatever
-		if ($this->uri->rsegment(1, '').'/'.$method === 'pages/view')
-		{
+		if ($this->uri->rsegment(1, '').'/'.$method === 'pages/view') {
 			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($this->uri->rsegment_array(), 2) : null;
 		}
 
 		// not routed, so use the actual URI segments
-		else
-		{
-			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico')
-			{
+		else {
+			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico') {
 				$favicon = Asset::get_filepath_img('theme::favicon.ico');
 
-				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon))
-				{
+				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon)) {
 					header('Content-type: image/x-icon');
 					readfile(FCPATH.$favicon);
-				}
-				else
-				{
+				} else {
 					set_status_header(404);
 				}
 
@@ -90,12 +84,10 @@ class Pages extends Public_Controller
 		$page = Page::findByUri($url_segments, true);
 
 		// If page is missing or not live (and the user does not have permission) show 404
-		if ( ! $page or ($page->status === 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
-		{
+		if ( ! $page or ($page->status === 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live')))) {
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
 			// if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
-			if ( ! ($page = Page::findByUri(404)))
-			{
+			if ( ! ($page = Page::findByUri(404))) {
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
 		}
@@ -115,11 +107,10 @@ class Pages extends Public_Controller
 
 		// Nope, it is a page, but do they have access?
 		elseif ($page->restricted_to) {
-			$page->restricted_to = (array)explode(',', $page->restricted_to);
+			$page->restricted_to = (array) explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to)))
-			{
+			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to))) {
 				// send them to login but bring them back when they're done
 				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
@@ -127,8 +118,7 @@ class Pages extends Public_Controller
 
 		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or
 		// similar. Also we don't worry about breadcrumbs for 404
-		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
-		{
+		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1) {
 			// we dont care about the last one
 			array_pop($url_segments);
 
@@ -183,7 +173,7 @@ class Pages extends Public_Controller
 		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ( ! $meta_title) {
+		if (! $meta_title) {
 			$meta_title = $page->is_home ? Settings::get('site_slogan') : $page->title;
 		}
 
@@ -209,7 +199,7 @@ class Pages extends Public_Controller
 		}
 
 		$js = $this->parser->parse_string($page->type->js.$page->js, $this, true);
-		
+
 		// Add our page and page layout JS
 		if ($js) {
 			$this->template->append_metadata('
@@ -243,13 +233,13 @@ class Pages extends Public_Controller
 
 		// Parse our view file
 		$html = $this->load->view('pages/page', array('page' => $page), true);
-		
+
 		$view_data = array();
 
 		// Let's assign some of that data to our view
 		if ($stream) {
 			$view_data = array(
-				'stream' => $stream->stream_slug, 
+				'stream' => $stream->stream_slug,
 				'namespace' => $stream->stream_namespace
 			);
 		}
@@ -270,7 +260,6 @@ class Pages extends Public_Controller
 	{
 		// Remove the .rss suffix
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
-
 
 		// Fetch this page from the database via cache
 		// TODO Cache me, Phil delete it

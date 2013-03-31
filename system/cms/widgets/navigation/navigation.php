@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Navigation;
 
@@ -55,8 +55,8 @@ class Widget_Navigation extends Widgets
 
 	/**
 	 * The author's website.
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $website = 'http://philsturgeon.co.uk/';
 
@@ -70,7 +70,7 @@ class Widget_Navigation extends Widgets
 	/**
 	 * The fields for customizing the options of the widget.
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	public $fields = array(
 		array(
@@ -79,7 +79,7 @@ class Widget_Navigation extends Widgets
 			'rules' => 'required'
 		)
 	);
-	
+
 	/**
 	 * Get the navigation groups.
 	 *
@@ -87,12 +87,11 @@ class Widget_Navigation extends Widgets
 	 */
 	public function form()
 	{
-		// Loop aroung them and add them in an array keyed by their abbreviated 
+		// Loop aroung them and add them in an array keyed by their abbreviated
 		// title.
 		$groups = array();
 		$_groups = Navigation\Model\Group::getGroupOptions();
-		foreach ($_groups as $group)
-		{
+		foreach ($_groups as $group) {
 			$groups[$group->abbrev] = $group->title;
 		}
 
@@ -106,7 +105,7 @@ class Widget_Navigation extends Widgets
 	 * The main function of the widget.
 	 *
 	 * @param array $options The options for displaying a Navigation menu.
-	 * @return array 
+	 * @return array
 	 */
 	public function run($options)
 	{
@@ -116,7 +115,7 @@ class Widget_Navigation extends Widgets
 			'front_end' => true,
 			'is_secure' => IS_SECURE,
 		);
-		
+
 		$links = Navigation\Model\Links::getTreeByGroup($option['group'], $params);
 
 		// Shorter alias

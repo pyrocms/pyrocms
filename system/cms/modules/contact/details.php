@@ -77,7 +77,7 @@ class Module_Contact extends Module
 
 		$schema->dropIfExists('contact_log');
 
-		$schema->create('contact_log', function($table) { 
+		$schema->create('contact_log', function($table) {
 			$table->increments('id');
 			$table->string('email', 255)->nullable();
 			$table->string('subject', 255)->nullable();

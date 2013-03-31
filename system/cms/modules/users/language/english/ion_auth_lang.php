@@ -20,7 +20,6 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Unable to Create Account';
 $lang['account_creation_duplicate_email'] 	 = 'Email Already Used or Invalid';
 $lang['account_creation_duplicate_username'] 	 = 'Username Already Used or Invalid';
 
-
 // Password
 $lang['password_change_successful'] 	 	 = 'Password Successfully Changed';
 $lang['password_change_unsuccessful'] 	  	 = 'Unable to Change Password';

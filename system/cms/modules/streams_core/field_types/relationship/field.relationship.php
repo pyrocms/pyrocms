@@ -12,7 +12,7 @@
 class Field_relationship
 {
 	public $field_type_slug			= 'relationship';
-	
+
 	public $db_col_type				= 'int';
 
 	public $custom_parameters		= array( 'choose_stream' );
@@ -22,7 +22,7 @@ class Field_relationship
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Run time cache
 	 */
@@ -38,41 +38,37 @@ class Field_relationship
 	 * @return	string
 	 */
 	public function form_output($data, $entry_id, $field)
-	{	
+	{
 		// Get slug stream
 		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
-		
-		if ( ! $stream)
-		{
+
+		if (! $stream) {
 			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
-		
+
 		// Default to ID for title column
-		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
-		{
+		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug)) {
 			$title_column = 'id';
 		}
-	
+
 		// Get the entries
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
-		
+
 		$choices = array();
 
 		// If this is not required, then
 		// let's allow a null option
-		if ($field->is_required == 'no')
-		{
+		if ($field->is_required == 'no') {
 			$choices[null] = $this->CI->config->item('dropdown_choose_null');
 		}
-		
-		foreach ($obj->result() as $row)
-		{
+
+		foreach ($obj->result() as $row) {
 			// Need to replace with title column
 			$choices[$row->id] = $row->$title_column;
 		}
-		
+
 		// Output the form input
 		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
 	}
@@ -91,15 +87,13 @@ class Field_relationship
 		// Now get our streams and add them
 		// under their namespace
 		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
-		
-		foreach ($streams as $stream)
-		{
-			if ($stream->stream_namespace)
-			{
+
+		foreach ($streams as $stream) {
+			if ($stream->stream_namespace) {
 				$choices[$stream->stream_namespace][$stream->id] = $stream->stream_name;
 			}
 		}
-		
+
 		return form_dropdown('choose_stream', $choices, $stream_id);
 	}
 
@@ -113,7 +107,7 @@ class Field_relationship
 	 * this is accomplished via just grabbing the title column
 	 * and the id and displaying a link (ie, no joins here).
 	 *
-	 * @param	array 	$input 	
+	 * @param	array 	$input
 	 * @return	mixed 	null or string
 	 */
 	public function pre_output($input, $data)
@@ -127,37 +121,32 @@ class Field_relationship
 		// -------------------------------------
 		// Data Checks
 		// -------------------------------------
-		
+
 		// Make sure the table exists still. If it was deleted we don't want to
 		// have everything go to hell.
-		if ( ! $this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug))
-		{
+		if ( ! $this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug)) {
 			return null;
 		}
-		
+
 		// We need to make sure the select is NOT NULL.
 		// So, if we have no title column, let's use the id
-		if (trim($title_column) == '')
-		{
+		if (trim($title_column) == '') {
 			$title_column = 'id';
 		}
 
 		// -------------------------------------
 		// Get the entry
 		// -------------------------------------
-		
+
 		$row = $this->CI->db
 						->select()
 						->where('id', $input)
 						->get($stream->stream_prefix.$stream->stream_slug)
 						->row_array();
-		
-		if ($this->CI->uri->segment(1) == 'admin')
-		{
+
+		if ($this->CI->uri->segment(1) == 'admin') {
 			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
-		}
-		else
-		{
+		} else {
 			return $row;
 		}
 	}
@@ -182,16 +171,14 @@ class Field_relationship
 		$alias = 'rel_'.$field->field_slug;
 
 		// Make sure we have a related stream.
-		if ( ! isset($field->field_data['choose_stream']) or ! $field->field_data['choose_stream'])
-		{
+		if ( ! isset($field->field_data['choose_stream']) or ! $field->field_data['choose_stream']) {
 			return null;
 		}
 
 		// Get our related stream.
 		$rel_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
 
-		if ( ! $rel_stream)
-		{
+		if (! $rel_stream) {
 			return null;
 		}
 
@@ -205,8 +192,7 @@ class Field_relationship
 		// Get stream fields.
 		$stream_fields = $this->CI->streams_m->get_stream_fields($rel_stream->id);
 
-		foreach ($stream_fields as $field_slug => $stream_field)
-		{
+		foreach ($stream_fields as $field_slug => $stream_field) {
 			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
 		}
 
@@ -214,10 +200,10 @@ class Field_relationship
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Pre Ouput Plugin
-	 * 
+	 *
 	 * This takes the data from the join array
 	 * and formats it using the row parser.
 	 *
@@ -230,8 +216,7 @@ class Field_relationship
 		if ( ! $row) return null;
 
 		// Mini-cache for getting the related stream.
-		if (isset($this->cache[$custom['choose_stream']][$row]))
-		{
+		if (isset($this->cache[$custom['choose_stream']][$row])) {
 			return $this->cache[$custom['choose_stream']][$row];
 		}
 
@@ -239,8 +224,7 @@ class Field_relationship
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 
 		// Do this gracefully
-		if ( ! $stream)
-		{
+		if (! $stream) {
 			return null;
 		}
 

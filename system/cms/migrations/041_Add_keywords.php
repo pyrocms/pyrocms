@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_keywords extends CI_Migration {
-
+class Migration_Add_keywords extends CI_Migration
+{
 	public function up()
-	{	
+	{
 		$this->dbforge->drop_table('keywords, keywords_applied');
 
 		$keywords = "
@@ -13,7 +13,7 @@ class Migration_Add_keywords extends CI_Migration {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
-		
+
 		$keywords_applied = "
 			CREATE TABLE " . $this->db->dbprefix('keywords_applied') . " (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -23,8 +23,7 @@ class Migration_Add_keywords extends CI_Migration {
 			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
-		if ($this->db->query($keywords) && $this->db->query($keywords_applied))
-		{
+		if ($this->db->query($keywords) && $this->db->query($keywords_applied)) {
 			return true;
 		}
 	}

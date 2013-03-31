@@ -26,8 +26,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
 
         // Step 0b: The 2.2 codebase expects these columns. However they aren't added
         // until migration 114/115 so we'll add them here, then remove again at the end of this migration.
-       if ( ! $this->db->field_exists('is_hidden', 'data_streams'))
-       {
+       if ( ! $this->db->field_exists('is_hidden', 'data_streams')) {
             $this->dbforge->add_column('data_streams', array(
                 'is_hidden' => array(
                     'type' => 'ENUM',
@@ -36,9 +35,8 @@ class Migration_Update_pages_for_streams extends CI_Migration
                     'default' => 'no'
                 ),
             ));
-        } 
-        if ( ! $this->db->field_exists('menu_path', 'data_streams'))
-        {
+        }
+        if ( ! $this->db->field_exists('menu_path', 'data_streams')) {
             $this->dbforge->add_column('data_streams', array(
                 'menu_path' => array(
                     'type' => 'VARCHAR',
@@ -49,8 +47,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
         }
 
         // Step 1: Rename page_layouts to page_types.
-        if ($this->db->table_exists('page_layouts'))
-        {
+        if ($this->db->table_exists('page_layouts')) {
             $this->dbforge->rename_table('page_layouts', 'page_types');
 
             // Step 2: Add some new columns to page_types
@@ -68,8 +65,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
 
         // Step 2.1: Generate slugs for the page_types
         $pts = $this->db->get('page_types')->result();
-        foreach ($pts as $pt)
-        {
+        foreach ($pts as $pt) {
             $this->db->limit(1)->where('id', $pt->id)->update('page_types', array('slug' => url_title($pt->title, 'dash', true)));
         }
 
@@ -77,7 +73,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // This stream has a single page chunks field, and can be
         // modified to suit needs further on down the road.
         $this->dbforge->drop_table('def_page_fields', true);
-        
+
         // Avoid stream conflicts
         $this->db->where('stream_slug', 'def_page_fields')->delete('data_streams');
 
@@ -88,12 +84,12 @@ class Migration_Update_pages_for_streams extends CI_Migration
         $this->db->update('page_types', array('stream_id' => $stream_id));
 
         // Step 4: Add a chunks field type to the new stream.
-        // The field type goes through and grabs the chunks 
+        // The field type goes through and grabs the chunks
         // based on the page ID.
 
         // We need to have the chunks field type available or else fits will be thrown.
         $this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'addon');
-       
+
         // Remove it if its in there somehow already
         $this->db->where(array('field_name' => 'lang:streams:chunks.name'))->delete('data_fields');
 
@@ -104,10 +100,9 @@ class Migration_Update_pages_for_streams extends CI_Migration
             'type'          => 'chunks',
             'assign'        => 'def_page_fields'
         ));
-    
+
         // Step 5: Rename layout_id to type_id for pages table.
-        if ($this->db->field_exists('layout_id', 'pages'))
-        {
+        if ($this->db->field_exists('layout_id', 'pages')) {
             $this->dbforge->modify_column('pages', array(
                 'layout_id' => array(
                      'name' => 'type_id',
@@ -118,8 +113,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
             ));
         }
 
-        if ( ! $this->db->field_exists('entry_id', 'pages'))
-        {
+        if ( ! $this->db->field_exists('entry_id', 'pages')) {
             // Step 6: Add some columns to the pages table.
             $this->dbforge->add_column('pages', array(
                 'entry_id' => array('type' => 'INT', 'contstraint' => 11, 'null' => true)
@@ -130,8 +124,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // This could be a bit of an issue if a site has thousands of pages,
         // but this is unlikely on PyroCMS currently.
         $pages = $this->db->get('pages')->result();
-        foreach ($pages as $page)
-        {
+        foreach ($pages as $page) {
             // New entry for this page!
             $this->db->insert('def_page_fields', array('chunks' => '0', 'ordering_count' => '1', 'created' => date('Y-m-d H:i:s', time())));
             $id = $this->db->insert_id();
@@ -144,10 +137,8 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // and can be easily added, but hey, let's try.
         $pt_folder = FCPATH.'assets/page_types/';
 
-        if ( ! is_dir($pt_folder))
-        {
-            if ( ! @mkdir($pt_folder, 0777))
-            {
+        if ( ! is_dir($pt_folder)) {
+            if ( ! @mkdir($pt_folder, 0777)) {
                 // Make an .htaccess file
                 $this->load->helper('file');
                 write_file($pt_folder.'.htaccess', 'deny from all');

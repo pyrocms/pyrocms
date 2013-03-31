@@ -91,10 +91,8 @@ $db['production'] = array(
 	'dbcollat' 	=>	'utf8_unicode_ci',
 );
 
-
 // Check the configuration group in use exists
-if ( ! array_key_exists(ENVIRONMENT, $db))
-{
+if ( ! array_key_exists(ENVIRONMENT, $db)) {
 	show_error(sprintf(lang('error_invalid_db_group'), ENVIRONMENT));
 }
 

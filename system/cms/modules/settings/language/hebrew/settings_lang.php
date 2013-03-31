@@ -98,7 +98,7 @@ $lang['settings:akismet_api_key_desc']			= 'Akismet is a spam-blocker from the W
 
 $lang['settings:comment_order']					= 'סדר תגובות';
 $lang['settings:comment_order_desc']			= 'סדר הצגת תגובות.';
-	
+
 $lang['settings:moderate_comments']				= 'נהל תגובות';
 $lang['settings:moderate_comments_desc']		= 'תגובות קודם עוברות מודרציה ורק לאחר מכן מופיעות באתר.';
 

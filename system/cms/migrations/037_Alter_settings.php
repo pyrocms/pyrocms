@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Alter_settings extends CI_Migration {
-
+class Migration_Alter_settings extends CI_Migration
+{
   public function up()
   {
    	 $this->dbforge->modify_column('settings', array(

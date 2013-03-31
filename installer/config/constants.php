@@ -36,7 +36,6 @@ define('FOPEN_READ_WRITE_CREATE', 				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-
 /*
 |--------------------------------------------------------------------------
 | Environment
@@ -56,20 +55,16 @@ define('ENV', ENVIRONMENT);
 */
 
 // Base URL (keeps this crazy sh*t out of the config.php
-if(isset($_SERVER['HTTP_HOST']))
-{
+if (isset($_SERVER['HTTP_HOST'])) {
 	$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
 	$base_url .= '://'. $_SERVER['HTTP_HOST'];
 	$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-	
+
 	// Base URI (It's different to base URL!)
 	$base_uri = parse_url($base_url, PHP_URL_PATH);
 	if (substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
 	if (substr($base_uri, -1, 1) != '/') $base_uri .= '/';
-}
-
-else
-{
+} else {
 	$base_url = 'http://localhost/';
 	$base_uri = '/';
 }

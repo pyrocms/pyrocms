@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-23
  * @version		1.1.0
@@ -67,6 +67,5 @@ $lang['blog:twitter_posted'] = 'Sparad "%s" %s';
 $lang['blog:twitter_error'] = 'Twitterfel';
 $lang['blog:archive_date_format'] = '%B\' %Y';
 
-
-/* End of file blog_lang.php */  
-/* Location: system/cms/modules/blog/language/swedish/blog_lang.php */  
+/* End of file blog_lang.php */
+/* Location: system/cms/modules/blog/language/swedish/blog_lang.php */

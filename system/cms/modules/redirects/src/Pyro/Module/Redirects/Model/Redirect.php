@@ -4,7 +4,7 @@
  * Redirect model
  *
  * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Redirects\Models 
+ * @package     PyroCMS\Core\Modules\Redirects\Models
  */
 class Redirect extends \Illuminate\Database\Eloquent\Model
 {
@@ -50,7 +50,7 @@ class Redirect extends \Illuminate\Database\Eloquent\Model
      * Find redirect by From with ID
      *
      * @param string $from The from of the redirect
-     * @param int $id of the redirect
+     * @param int    $id   of the redirect
      *
      * @return void
      */

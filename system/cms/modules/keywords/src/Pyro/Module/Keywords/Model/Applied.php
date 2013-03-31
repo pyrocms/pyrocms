@@ -39,7 +39,7 @@ class Applied extends Model
      *
      * Gets only the name of applied keywords, just like the old method
      *
-     * @param string $hash The hash stored for an entry
+     * @param  string $hash The hash stored for an entry
      * @return array
      */
     public static function getNamesByHash($hash)
@@ -69,8 +69,8 @@ class Applied extends Model
      *
      * Deletes all the keywords applied by hash
      *
-     * @param   string  $hash   The unique hash stored for an entry
-     * @return  int
+     * @param  string $hash The unique hash stored for an entry
+     * @return int
      */
     public static function deleteByHash($hash)
     {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Pyro\Module\Groups;
 use Pyro\Module\Navigation;
@@ -11,8 +11,8 @@ use Pyro\Module\Pages;
  * @package PyroCMS\Core\Modules\Navigation\Controllers
  *
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * The current active section.
 	 *
@@ -117,7 +117,7 @@ class Admin extends Admin_Controller {
 		$tree = array();
 
 		if ($pages = Pages\Model\Page::all()) {
-			foreach($pages as $page) {
+			foreach ($pages as $page) {
 				$tree[$page->parent_id][] = $page;
 			}
 		}
@@ -165,7 +165,7 @@ class Admin extends Admin_Controller {
 			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 			$this->cache->clear('navigation_m');
 			Events::trigger('post_navigation_order', array(
-				'order' => $order, 
+				'order' => $order,
 				'group' => $group
 			));
 		}
@@ -247,7 +247,7 @@ class Admin extends Admin_Controller {
 			return;
 		}
 
-		$link = (object)array();
+		$link = (object) array();
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule) {
@@ -285,7 +285,7 @@ class Admin extends Admin_Controller {
 		// Set the options for restricted to
 		$group_options = Groups\Model\Group::getGroupOptions();
 
-		if ( ! $link) {
+		if (! $link) {
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
 			exit($this->load->view('admin/partials/notices', compact('link', 'group_options')));
@@ -313,7 +313,7 @@ class Admin extends Admin_Controller {
 			$link->restricted_to = $this->input->post('restricted_to') ? implode(',', $this->input->post('restricted_to')) : '';
 
 			// Update the link and flush the cache
-			if($link->save()) {
+			if ($link->save()) {
 
 				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 				$this->cache->clear('navigation_m');
@@ -358,7 +358,7 @@ class Admin extends Admin_Controller {
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 
 		// Loop through each item to delete
-		if(!empty($id_array)) {
+		if (!empty($id_array)) {
 			foreach ($id_array as $id) {
 				Navigation\Model\Link::deleteLinkChildren($id);
 			}
@@ -394,9 +394,9 @@ class Admin extends Admin_Controller {
 
 		extract($params);
 
-		if ( ! $tree) {
+		if (! $tree) {
 			if ($pages = Pages\Model\Page::all()) {
-				foreach($pages as $page) {
+				foreach ($pages as $page) {
 					$tree[$page->parent_id][] = $page;
 				}
 			}
@@ -465,7 +465,7 @@ class Admin extends Admin_Controller {
 			break;
 		}
 
-		if ( ! $status) {
+		if (! $status) {
 			$this->form_validation->set_message('_link_check', sprintf(lang('nav:choose_value'), lang('nav:'.$link.'_label')));
 			return false;
 		}

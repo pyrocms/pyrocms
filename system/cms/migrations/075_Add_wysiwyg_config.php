@@ -1,11 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_wysiwyg_config extends CI_Migration {
-
+class Migration_Add_wysiwyg_config extends CI_Migration
+{
 	public function up()
 	{
-		if ( ! $this->db->limit(1)->where('slug', 'ckeditor_config')->get('settings')->num_rows())
-		{
+		if ( ! $this->db->limit(1)->where('slug', 'ckeditor_config')->get('settings')->num_rows()) {
 			$this->db->insert('settings', array(
 				'slug'			=> 'ckeditor_config',
 				'title'			=> 'CKEditor Config',

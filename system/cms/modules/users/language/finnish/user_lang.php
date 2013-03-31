@@ -58,7 +58,6 @@ $lang['user:activated_account_title']          = 'Tili aktivointiin';
 $lang['user:reset_password_title']             = 'Nollaa salasana';
 $lang['user:password_reset_title']             = 'Salasanan nollaaminen';
 
-
 $lang['user:error_username']                   = 'Käyttäjänimi, jonka syötit on jo käytössä';
 $lang['user:error_email']                      = 'Sähköpostiosoite, jonka syötit on jo käytössä';
 
@@ -127,18 +126,15 @@ $lang['user:email_exists']                     = 'Kirjoittamasi sähköpostiosoi
 $lang['user:register_error']				   = 'Taidat olla botti. Jos näin ei ole, niin pahoittelemme.';
 $lang['user:register_reasons']                 = 'Rekisteröidy, niin voit päästä sivuille johon et normaalisti pääse.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Aktivoiminen epäonnistui. Ole hyvä ja tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
 $lang['user:activated_message']                = 'Tili aktivoitiin onnistuneesti. Voit nyt kirjautua sisään.';
-
 
 // Login
 $lang['user:logged_in']                        = 'Kirjauduit sisään onnistuneesti.';
 $lang['user:already_logged_in']                = 'Olet jo kirjautunut sisään. Kirjaudu ensin ulos ja yritä uudelleen.';
 $lang['user:login_incorrect']                  = 'Sähköposti tai salasana on väärä. Tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
 $lang['user:inactive']                         = 'Tili, jolla yiritit kirjautu sisään ei ole käytössä.<br />Lue sähköpostista lisäohjeet - <em>viesti saattaa löytyä roskapostista</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Kirjauduit ulos.';
@@ -153,7 +149,6 @@ $lang['user:password_reset_message']           = "Salasanasi on nollattu. Sinull
 // Activation
 $lang['user:activation_email_subject']         = 'Aktivointia vaaditaan';
 $lang['user:activation_email_body']            = 'Kiitos %s tilin aktivoimisesta. Kirjautuessasi käytä seuraavia tietoja:';
-
 
 $lang['user:activated_email_subject']          = 'Aktivointi suoritettu';
 $lang['user:activated_email_content_line1']    = 'Kiitos rekisteröitymisestä %s sivustoon. Ennen kuin aktivoimme tilisi, ole hyvä ja klikkaa linkkiä:';

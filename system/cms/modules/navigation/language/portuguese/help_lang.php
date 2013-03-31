@@ -6,8 +6,8 @@ $lang['help_body'] = '
 <p>O módulo de navegação controla a sua área de navegação principal assim como outros grupos de links.</p>
 
 <h4>Grupos de navegação</h4>
-<p>Links de navegação são mostrados de acordo com o grupo em que eles estão. Em muitos temas o grupo "Header" é o grupo de navegação principal. 
-Verifique a documentação do seu tema para encontrar que grupos de navegação são suportados nos ficheiros do tema. 
+<p>Links de navegação são mostrados de acordo com o grupo em que eles estão. Em muitos temas o grupo "Header" é o grupo de navegação principal.
+Verifique a documentação do seu tema para encontrar que grupos de navegação são suportados nos ficheiros do tema.
 Se precisar de mostrar um grupo dentro do conteúdo do site, use uma tag como esta: {{ navigation:links group="nome-do-seu-grupo" }}</p>
 
 <h4>Adicionar links</h4>

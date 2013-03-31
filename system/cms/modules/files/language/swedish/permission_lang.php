@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -21,6 +21,5 @@ $lang['files:role_synchronize'] = 'Synkronisera med molnleverantör';
 $lang['files:role_edit_folder'] = 'Redigera mappar';
 $lang['files:role_delete_folder'] = 'Radera mappar';
 
-
-/* End of file permission_lang.php */  
-/* Location: system/cms/modules/files/language/swedish/permission_lang.php */  
+/* End of file permission_lang.php */
+/* Location: system/cms/modules/files/language/swedish/permission_lang.php */

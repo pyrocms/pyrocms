@@ -12,15 +12,15 @@
 class Field_email
 {
 	public $field_type_slug				= 'email';
-	
+
 	public $db_col_type					= 'varchar';
-	
+
 	public $extra_validation			= 'valid_email';
 
 	public $version						= '1.0.0';
-	
+
 	public $author						= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -35,7 +35,7 @@ class Field_email
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
-		
+
 		return form_input($options);
 	}
 
@@ -71,11 +71,11 @@ class Field_email
 	public function pre_output_plugin($input, $params)
 	{
 		$choices = array();
-		
+
 		$choices['email_address']		= $input;
 		$choices['mailto_link']			= mailto($input, $input);
 		$choices['safe_mailto_link']	= safe_mailto($input, $input);
-		
+
 		return $choices;
 	}
 

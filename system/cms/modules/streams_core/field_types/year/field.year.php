@@ -12,9 +12,9 @@
 class Field_year
 {
 	public $field_type_slug			= 'year';
-	
+
 	public $db_col_type				= 'char';
-	
+
 	public $col_constraint			= 4;
 
 	public $custom_parameters		= array('start_year', 'end_year', 'default_year');
@@ -38,34 +38,29 @@ class Field_year
 	{
 		$start_year 	= $this->_process_year_input( $data['custom']['start_year'] );
 		$end_year 		= $this->_process_year_input( $data['custom']['end_year'] );
-		
+
 		$years 			= array();
-		
+
 		// If this is not required, then
 		// let's allow a null option
-		if ($field->is_required == 'no')
-		{
+		if ($field->is_required == 'no') {
 			$years[null] = get_instance()->config->item('dropdown_choose_null');
 		}
-		
-		while ($end_year >= $start_year)
-		{
+
+		while ($end_year >= $start_year) {
 			$years[$end_year] = $end_year;
-			
+
 			--$end_year;
 		}
 
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if ( ! $data['value'] and ! $entry_id)
-		{
+		if (! $data['value'] and ! $entry_id) {
 			$value = (isset($field->field_data['default_year'])) ? $field->field_data['default_year'] : null;
-		}
-		else
-		{
+		} else {
 			$value = $data['value'];
-		}	
+		}
 
 		return form_dropdown($data['form_slug'], $years, $value);
 	}
@@ -86,49 +81,41 @@ class Field_year
 	 */
 	private function _process_year_input($years_data)
 	{
-		if ( ! $years_data)
-		{
+		if (! $years_data) {
 			return date('Y');
 		}
-	
+
 		// Do they want the current year?
-		if ($years_data == 'current')
-		{
+		if ($years_data == 'current') {
 			return date('Y');
 		}
-	
-		// Is this numeric? If so then cool.		
-		if ($years_data[0] != '-' and $years_data[0] != '+' and is_numeric($years_data))
-		{
+
+		// Is this numeric? If so then cool.
+		if ($years_data[0] != '-' and $years_data[0] != '+' and is_numeric($years_data)) {
 			return $years_data;
 		}
-		
+
 		// Else, we have + or - from the current time
-		if ($years_data[0] == '+')
-		{
+		if ($years_data[0] == '+') {
 			$num = str_replace('+', '', $years_data);
-			
-			if (is_numeric($num))
-			{
+
+			if (is_numeric($num)) {
 				return date('Y')+$num;
 			}
-		}
-		elseif ($years_data[0] == '-')
-		{
+		} elseif ($years_data[0] == '-') {
 			$num = str_replace('-', '', $years_data);
-			
-			if (is_numeric($num))
-			{
+
+			if (is_numeric($num)) {
 				return date('Y')-$num;
 			}
 		}
-		
+
 		// Default just return the current year
 		return date('Y');
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Start Year
 	 *
@@ -140,7 +127,7 @@ class Field_year
 		$options['name'] 	= 'start_year';
 		$options['id']		= 'start_year';
 		$options['value']	= $value;
-		
+
 		return form_input($options);
 	}
 
@@ -157,12 +144,12 @@ class Field_year
 		$options['name'] 	= 'end_year';
 		$options['id']		= 'end_year';
 		$options['value']	= $value;
-		
+
 		return form_input($options);
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Start Year
 	 *
@@ -177,7 +164,7 @@ class Field_year
 			'value'		=> $value,
 			'maxlength' => 4
 		);
-		
+
 		return form_input($options);
 	}
 

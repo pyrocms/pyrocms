@@ -90,5 +90,4 @@ $foreign_characters = array(
 	'/ж/' => 'zh',
 );
 
-
 /* End of file foreign_chars.php */

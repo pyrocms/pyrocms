@@ -4,7 +4,7 @@
  * Migration for adding the database component for a new
  * feature: hidden streams. These are useful for streams
  * that are created for field types like the grid field type that
- * need to be used for internal purposes but also within a 
+ * need to be used for internal purposes but also within a
  * certain namespace.
  */
 class Migration_Add_hidden_stream_option extends CI_Migration
@@ -13,8 +13,7 @@ class Migration_Add_hidden_stream_option extends CI_Migration
 	{
 		$this->load->config('streams_core/streams');
 
-		if ( ! $this->db->field_exists('is_hidden', $this->config->item('streams:streams_table')))
-		{
+		if ( ! $this->db->field_exists('is_hidden', $this->config->item('streams:streams_table'))) {
 			$this->dbforge->add_column($this->config->item('streams:streams_table'), array(
 			    'is_hidden' => array(
 					'type' => 'ENUM',
