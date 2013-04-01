@@ -46,7 +46,7 @@
 		<div class="content">
 
 			<?php if ( ! empty($folders)): ?>
-				<table border="0" class="table-list">
+				<table border="0" class="table-list" cellspacing="0">
 					<thead>
 						<tr>
 							<th><?php echo lang('name_label') ?></th>
