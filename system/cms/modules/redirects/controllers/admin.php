@@ -186,12 +186,11 @@ class Admin extends Admin_Controller
      */
     public function _check_unique($from, $id = null)
     {
-        if (Redirect::findByFromAndId($from, $id)->isEmpty()) {
+        if ( ! Redirect::findByFromAndId($from, $id)) {
             return true;
-        } else {
-            $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
-
-            return false;
         }
+
+        $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
+        return false;
     }
 }
