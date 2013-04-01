@@ -15,6 +15,7 @@ class Module_Blog extends Module
 		$info = array(
 			'name' => array(
 				'en' => 'Blog',
+                                'fa' => 'بلاگ',
 				'ar' => 'المدوّنة',
 				'br' => 'Blog',
 				'pt' => 'Blog',
@@ -33,6 +34,7 @@ class Module_Blog extends Module
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
+                                'fa' => 'مقالات منتشر شده در بلاگ',
 				'ar' => 'أنشر المقالات على مدوّنتك.',
 				'br' => 'Escrever publicações de blog',
 				'pt' => 'Escrever e editar publicações no blog',
