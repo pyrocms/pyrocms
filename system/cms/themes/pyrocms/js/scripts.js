@@ -67,6 +67,49 @@ jQuery(function($) {
 			});
 		}
 	};
+	
+	/**
+	 * Autocomplete Search
+	 */
+	pyro.init_autocomplete_search = function(){
+		var cache = {}, lastXhr;
+		$(".search-query").autocomplete({
+			minLength: 2,
+			delay: 250,
+			source: function( request, response ) {
+				var term = request.term;
+				if ( term in cache ) {
+					response( cache[ term ] );
+					return;
+				}
+				lastXhr = $.getJSON(SITE_URL + 'admin/search/ajax_autocomplete', request, function( data, status, xhr ) {
+					cache[ term ] = data.results;
+					if ( xhr === lastXhr ) {
+						response( data.results );
+					}
+				});
+			},
+			
+			open: function (event, ui) {
+				$(this).data("autocomplete").menu.element.addClass("search-results animated-zing dropDown");
+			},
+			
+			focus: function(event, ui) {
+				// $("#searchform").val( ui.item.label);
+				return false;
+			},
+			select: function(event, ui) {
+				window.location.href = ui.item.url;
+				return false;
+			}
+		})
+		.data("autocomplete")._renderItem = function(ul, item){
+			return $("<li></li>")
+			.data("item.autocomplete", item)
+			.append('<a href="' + item.url + '">' + '<span>' + item.title + '</span>' + '<div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>' + '</a>')
+			.appendTo(ul);
+		};
+	};
 
 	/**
 	 * This initializes all JS goodness
@@ -435,6 +478,7 @@ jQuery(function($) {
 		pyro.init();
 		pyro.chosen();
 		pyro.init_ckeditor_maximize();
+		pyro.init_autocomplete_search();
 	});
 
 	//close colorbox only when cancel button is clicked
