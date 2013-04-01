@@ -67,7 +67,7 @@ class MX_Router extends CI_Router
 		 * Load the site ref for multi-site support if the "sites" module exists
 		 * and the multi-site constants haven't been defined already (hmvc request)
 		 */
-		if (self::is_multisite() and ! defined('SITE_REF'))
+		if ($path = self::is_multisite() and ! defined('SITE_REF'))
 		{
 			require_once BASEPATH.'database/DB'.EXT;
 			
@@ -106,7 +106,7 @@ class MX_Router extends CI_Router
 			}
 
 			// If this domain is an alias and it is a redirect
-			if ($site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
+			if ($site and $site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
 			{
 				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 					? 'https' : 'http';
@@ -130,11 +130,15 @@ class MX_Router extends CI_Router
 				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
 				
 				// Path to the addon folder for this site
-				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');	
+				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+
+				// the path to the MSM module
+				define('MSMPATH', str_replace('__SITE_REF__', SITE_REF, $path));
 			}
 		}
+
 		// we aren't running the Multi-Site Manager so define the defaults
-		elseif ( ! defined('SITE_REF'))
+		if ( ! defined('SITE_REF'))
 		{
 			// The site ref. Used for building site specific paths
 			define('SITE_REF', 'default');
@@ -228,8 +232,14 @@ class MX_Router extends CI_Router
 		{
 			if (is_dir($location.'sites'))
 			{
-				return true;
+				return $location.'sites/';
 			}
+		}
+
+		// one last check, the default site's folder
+		if (is_dir(ADDON_FOLDER.'default/modules/sites'))
+		{
+			return ADDON_FOLDER.'default/modules/sites/';
 		}
 
 		return false;
