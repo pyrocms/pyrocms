@@ -118,12 +118,16 @@ class Migration_Add_populate_search_index extends CI_Migration
 			// Only index live articles
 	    	if ($page->status === 'live')
 	    	{
-	    		$hash = $this->keywords->process($page->meta_keywords);
+	    		// if they already have the keyword hash don't double hash
+	    		if (strlen($page->meta_keywords) !== 32 and strpos($page->meta_keywords, ' ') === false)
+	    		{
+		    		$page->meta_keywords = $this->keywords->process($page->meta_keywords);
 
-	    		$this->db
-	    			->set('meta_keywords', $hash)
-	    			->where('id', $page->id)
-	    			->update('pages');
+		    		$this->db
+		    			->set('meta_keywords', $page->meta_keywords)
+		    			->where('id', $page->id)
+		    			->update('pages');
+		    	}
 
 	    		$this->search_index_m->index(
 	    			'pages',
@@ -136,7 +140,7 @@ class Migration_Add_populate_search_index extends CI_Migration
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
-	    				'keywords' 		=> $hash,
+	    				'keywords' 		=> $page->meta_keywords,
 	    			)
 	    		);
 	    	}

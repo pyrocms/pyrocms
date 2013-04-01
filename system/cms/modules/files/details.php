@@ -108,6 +108,7 @@ class Module_Files extends Module
 				'remote_container' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
 				'date_added' => array('type' => 'INT', 'constraint' => 11,),
 				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'hidden' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 0,),
 			),
 		);
 

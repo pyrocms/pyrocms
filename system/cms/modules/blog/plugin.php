@@ -46,7 +46,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'offset' => array(
@@ -81,7 +81,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'order-by' => array(
@@ -140,7 +140,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					),
@@ -181,7 +181,7 @@ class Plugin_Blog extends Plugin
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
 			'date_by'		=> 'created_on',
-			'limit'			=> $this->attribute('limit', 10),
+			'limit'			=> $this->attribute('limit', null),
 			'offset'		=> $this->attribute('offset')
 		);
 		foreach ($overrides as $k => $v)
@@ -209,7 +209,7 @@ class Plugin_Blog extends Plugin
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries->entries_params as $key => $default_value)
+		foreach ($params as $key => $default_value)
 		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
@@ -305,7 +305,7 @@ class Plugin_Blog extends Plugin
 	 */
 	public function categories()
 	{
-		$limit     = $this->attribute('limit', 10);
+		$limit     = $this->attribute('limit', null);
 		$order_by  = $this->attribute('order-by', 'title');
 		$order_dir = $this->attribute('order-dir', 'ASC');
 
@@ -365,7 +365,7 @@ class Plugin_Blog extends Plugin
 	 */	
 	public function tags()
 	{
-		$limit = $this->attribute('limit', 10);
+		$limit = $this->attribute('limit', null);
 		
 		$this->load->library(array('keywords/keywords'));
 

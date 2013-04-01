@@ -54,9 +54,10 @@ class Streams_parse extends CI_Driver {
 	 * @param 	[bool - whether or not to loop through the results or not]
 	 * @param 	[mixed - null or obj - stream fields. If they are availble, it will
 	 * 				save a mysql query.]
+	 * @param 	string [$id_name] The name of the id we want to pass via 'row_id'. This is almost alway 'id'
 	 * @return 	string - the parsed data
 	 */
-	public function parse_tag_content($content, $data, $stream_slug, $stream_namespace, $loop = false, $fields = null)
+	public function parse_tag_content($content, $data, $stream_slug, $stream_namespace, $loop = false, $fields = null, $id_name = 'id')
 	{
 		// -------------------------------------
 		// Legacy multiple relationship provision
@@ -98,7 +99,7 @@ class Streams_parse extends CI_Driver {
 			{
 				if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
 				{
-					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id=id stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
+					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id='.$id_name.' stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
 
 					$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
 				}
