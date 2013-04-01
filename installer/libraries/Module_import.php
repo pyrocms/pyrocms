@@ -171,10 +171,11 @@ class Module_import
 		$this->ci->dbforge->drop_table('data_fields');
 		$this->ci->dbforge->drop_table('data_field_assignments');
 
-		// Install settings and streams core first. Other modules may need them.
+		// Install settings, streams core and email templates first. Other modules may need them.
 		$this->install('settings', true);
 		$this->ci->load->library('settings/settings');
 		$this->install('streams_core', true);
+		$this->install('templates', true);
 
 		// Are there any modules to install on this path?
 		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
@@ -184,7 +185,7 @@ class Module_import
 			{
 				$slug = basename($module_name);
 
-				if ($slug == 'streams_core' or $slug == 'settings')
+				if ($slug == 'streams_core' or $slug == 'settings' or $slug == 'templates')
 				{
 					continue;
 				}
