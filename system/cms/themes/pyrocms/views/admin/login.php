@@ -39,7 +39,7 @@
 						</li>
 						<li class="animated fadeInDown" id="login-save">
 							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check"/>
+								<input type="checkbox" name="remember" id="remember-check" checked />
 								<?php echo lang('user:remember'); ?>
 							</label>
 						</li>
