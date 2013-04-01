@@ -64,9 +64,10 @@ class MX_Router extends CI_Router
 	public function locate($segments) {		
 		
 		/**
-		 * Load the site ref for multi-site support
+		 * Load the site ref for multi-site support if the "sites" module exists
+		 * and the multi-site constants haven't been defined already (hmvc request)
 		 */
-		if ( ! defined('SITE_REF'))
+		if (self::is_multisite() and ! defined('SITE_REF'))
 		{
 			require_once BASEPATH.'database/DB'.EXT;
 			
@@ -114,18 +115,11 @@ class MX_Router extends CI_Router
 				header("Location: {$protocol}://{$site->domain}{$_SERVER['REQUEST_URI']}");
 				exit;
 			}
-
-			$locations = array();
 			
 			// Check to see if the site retrieval was successful. If not then
 			// we will let MY_Controller handle the errors.
 			if (isset($site->ref))
 			{
-				foreach (config_item('modules_locations') AS $location => $offset)
-				{
-					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
-				}
-				
 				// Set the session config to the correct table using the config name (but removing 'default_')
 				$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
 
@@ -136,12 +130,24 @@ class MX_Router extends CI_Router
 				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
 				
 				// Path to the addon folder for this site
-				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-				
-				Modules::$locations = $locations;
-				
+				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');	
 			}
 		}
+		// we aren't running the Multi-Site Manager so define the defaults
+		elseif ( ! defined('SITE_REF'))
+		{
+			// The site ref. Used for building site specific paths
+			define('SITE_REF', 'default');
+							
+			// Path to uploaded files for this site
+			define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+							
+			// Path to the addon folder for this site
+			define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+		}
+
+		// update the config paths with the site specific paths
+		self::update_module_locations(SITE_REF);
 		
 		$this->module = '';
 		$this->directory = '';
@@ -214,5 +220,30 @@ class MX_Router extends CI_Router
 
 	public function set_class($class) {
 		$this->class = $class.$this->config->item('controller_suffix');
+	}
+
+	private function is_multisite()
+	{
+		foreach (Modules::$locations as $location => $offset)
+		{
+			if (is_dir($location.'sites'))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function update_module_locations($site_ref)
+	{
+		$locations = array();
+
+		foreach (config_item('modules_locations') AS $location => $offset)
+		{
+			$locations[str_replace('__SITE_REF__', $site_ref, $location)] = str_replace('__SITE_REF__', $site_ref, $offset);
+		}
+
+		Modules::$locations = $locations;
 	}
 }
