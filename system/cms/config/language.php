@@ -30,6 +30,13 @@ $config['supported_languages'] = array(
         'codes'        => array('de', 'german', 'de_DE'),
         'ckeditor'    => null
     ),
+    'fa' => array(
+        'name'        => 'پارسی',
+        'folder'    => 'persian',
+        'direction'    => 'rtl',
+        'codes'        => array('fa', 'persian', 'fa_IR'),
+        'ckeditor'    => null
+    ),
     'ar' => array(
         'name'        => 'العربية',
         'folder'    => 'arabic',
