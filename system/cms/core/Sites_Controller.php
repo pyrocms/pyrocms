@@ -26,7 +26,7 @@ class Sites_Controller extends MX_Controller {
 		
 		defined('ADMIN_THEME') or define('ADMIN_THEME', 'msm');
 
-		defined('MSMPATH') or redirect('404)');
+		defined('MSMPATH') or redirect('404');
 
 		// define folders that we need to create for each new site
 		ci()->locations = $this->locations = array(
