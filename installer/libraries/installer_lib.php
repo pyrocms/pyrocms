@@ -88,7 +88,7 @@ class Installer_lib
 			// Connect to MySQL
 			if ($db = @mysql_connect($server, $username, $password))
 			{
-				$this->mysql_server_version = preg_replace('/^(.*?[0-9\.]*)(.*?)$/', '$1', @mysql_get_server_info($db));
+				$this->mysql_server_version = @mysql_get_server_info($db);
 
 				// Close the connection
 				@mysql_close($db);
@@ -104,7 +104,7 @@ class Installer_lib
 		// Client version
 
 		// Get the version
-		$this->mysql_client_version = preg_replace('/^(.*?[0-9\.]*)(.*?)$/', '$1', mysql_get_client_info());
+		$this->mysql_client_version = preg_replace('/[^0-9\.]/', '', mysql_get_client_info());
 
 		// MySQL client version should be at least version 5
 		return ($this->mysql_client_version >= 5);
