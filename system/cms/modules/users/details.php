@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Capsule\Schema;
 
 /**
  * Users Module
@@ -66,23 +68,36 @@ class Module_Users extends Module
             'frontend'  => false,
             'backend'   => true,
             'menu'      => 'users',
-            'roles'     => array('admin_profile_fields')
+            'roles'     => array('admin_profile_fields'),
+            'sections'  => array(
+                'users' => array(
+                    'name'  => 'user:list_title',
+                    'uri'   => 'admin/users',
+                    'shortcuts' => array(
+                        'create' => array(
+                            'name'  => 'user:add_title',
+                            'uri'   => 'admin/users/create',
+                            'class' => 'add'
+                        )
+                    )
+                ),
+                'groups' => array(
+                    'name' => 'users:groups',
+                    'uri' => 'admin/users/groups',
+                    'shortcuts' => array(
+                        array(
+                            'name' => 'groups:add_title',
+                            'uri' => 'admin/users/groups/add',
+                            'class' => 'add',
+                        ),
+                    ),
+                ),
+            ),
         );
 
         if (function_exists('group_has_role')) {
             if (group_has_role('users', 'admin_profile_fields')) {
-                $info['sections'] = array(
-                    'users' => array(
-                        'name'  => 'user:list_title',
-                        'uri'   => 'admin/users',
-                        'shortcuts' => array(
-                            'create' => array(
-                                'name'  => 'user:add_title',
-                                'uri'   => 'admin/users/create',
-                                'class' => 'add'
-                            )
-                        )
-                    ),
+                $info['sections'] += array(
                     'fields' => array(
                         'name'  => 'user:profile_fields_label',
                         'uri'   => 'admin/users/fields',
@@ -106,121 +121,157 @@ class Module_Users extends Module
         $menu['lang:cp_nav_users']['lang:cp:nav_users'] = 'admin/users';
     }
 
-	/**
-	 * Installation logic
-	 *
-	 * This is handled by the installer only so that a default user can be created.
-	 *
-	 * @return boolean
-	 */
-	public function install()
-	{
-		// Load up the streams driver and convert the profiles table
-		// into a stream.
-		$this->load->driver('Streams');
+    /**
+     * Installation logic
+     *
+     * This is handled by the installer only so that a default user can be created.
+     *
+     * @return boolean
+     */
+    public function install()
+    {
+        Schema::dropIfExists('permissions');
 
-		if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
-			return false;
-		}
+        Schema::create('permissions', function($table) {
+            $table->increments('id');
+            $table->integer('group_id');
+            $table->string('module');
+            $table->text('roles')->nullable();
 
-		// Go ahead and convert our standard user fields:
-		$columns = array(
-			'first_name' => array(
-				'field_name' => 'lang:user:first_name_label',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 50),
-				'assign'	 => array('required' => true)
-			),
-			'last_name' => array(
-				'field_name' => 'lang:user:last_name_label',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 50),
-				'assign'	 => array('required' => true)
-			),
-			'company' => array(
-				'field_name' => 'lang:profile_company',
-				'field_slug' => 'company',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 100)
-			),
-			'bio' => array(
-				'field_name' => 'lang:profile_bio',
-				'field_type' => 'textarea'
-			),
-			'lang' => array(
-				'field_name' => 'lang:user:lang',
-				'field_type' => 'pyro_lang',
-				'extra' => array('filter_theme' => 'yes')
-			),
-			'dob' => array(
-				'field_name' => 'lang:profile_dob',
-				'field_type' => 'datetime',
-				'extra'		 => array(
-					'use_time' 		=> 'no',
-					'storage' 		=> 'unix',
-					'input_type'	=> 'dropdown',
-					'start_date'	=> '-100Y'
-				)
-			),
-			'gender' => array(
-				'field_name' => 'lang:profile_gender',
-				'field_type' => 'choice',
-				'extra'		 => array(
-					'choice_type' => 'dropdown',
-					'choice_data' => " : Not Telling\nm : Male\nf : Female"
-				)
-			),
-			'phone' => array(
-				'field_name' => 'lang:profile_phone',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 20)
-			),
-			'mobile' => array(
-				'field_name' => 'lang:profile_mobile',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 20)
-			),
-			'address_line1' => array(
-				'field_name' => 'lang:profile_address_line1',
-				'field_type' => 'text'
-			),
-			'address_line2' => array(
-				'field_name' => 'lang:profile_address_line2',
-				'field_type' => 'text'
-			),
-			'address_line3' => array(
-				'field_name' => 'lang:profile_address_line3',
-				'field_type' => 'text'
-			),
-			'postcode' => array(
-				'field_name' => 'lang:profile_address_postcode',
-				'field_type' => 'text',
-				'extra'		 => array('max_length' => 20)
-			),
-			'website' => array(
-				'field_name' => 'lang:profile_website',
-				'field_type' => 'url'
-			),
-		);
+            $table->index('group_id'); // TODO: consider $table->foreign('group_id');
+        });
 
-		// Run through each column and add the field
-		// metadata to it.
-		foreach ($columns as $field_slug => $column) {
-			// We only want fields that actually exist in the
-			// DB. The user could have deleted some of them.
-			if ($this->db->field_exists($field_slug, 'profiles')) {
-				$extra = array();
-				$assign = array();
+        Schema::dropIfExists('groups');
 
-				if (isset($column['extra'])) {
-					$extra = $column['extra'];
-				}
+        Schema::create('groups', function($table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->text('permissions')->nullable();
+            $table->timestamps();
 
-				if (isset($column['assign'])) {
-					$assign = $column['assign'];
-				}
+            $table->unique('name');
+        });
 
-				$this->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
+        $this->pdb->table('groups')->insert(array(
+            array(
+                'name' => 'admin',
+                'description' => 'Administrator',
+                'permissions' => json_encode(array('admin' => 1)),
+            ),
+            array(
+                'name' => 'user',
+                'description' => 'User',
+                'permissions' => null,
+            ),
+        ));
+
+        // Load up the streams driver and convert the profiles table
+        // into a stream.
+        $this->load->driver('Streams');
+
+        if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
+            return false;
+        }
+
+        // Go ahead and convert our standard user fields:
+        $columns = array(
+            'first_name' => array(
+                'field_name' => 'lang:user:first_name_label',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 50),
+                'assign'     => array('required' => true)
+            ),
+            'last_name' => array(
+                'field_name' => 'lang:user:last_name_label',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 50),
+                'assign'     => array('required' => true)
+            ),
+            'company' => array(
+                'field_name' => 'lang:profile_company',
+                'field_slug' => 'company',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 100)
+            ),
+            'bio' => array(
+                'field_name' => 'lang:profile_bio',
+                'field_type' => 'textarea'
+            ),
+            'lang' => array(
+                'field_name' => 'lang:user:lang',
+                'field_type' => 'pyro_lang',
+                'extra' => array('filter_theme' => 'yes')
+            ),
+            'dob' => array(
+                'field_name' => 'lang:profile_dob',
+                'field_type' => 'datetime',
+                'extra'      => array(
+                    'use_time'      => 'no',
+                    'storage'       => 'unix',
+                    'input_type'    => 'dropdown',
+                    'start_date'    => '-100Y'
+                )
+            ),
+            'gender' => array(
+                'field_name' => 'lang:profile_gender',
+                'field_type' => 'choice',
+                'extra'      => array(
+                    'choice_type' => 'dropdown',
+                    'choice_data' => " : Not Telling\nm : Male\nf : Female"
+                )
+            ),
+            'phone' => array(
+                'field_name' => 'lang:profile_phone',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 20)
+            ),
+            'mobile' => array(
+                'field_name' => 'lang:profile_mobile',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 20)
+            ),
+            'address_line1' => array(
+                'field_name' => 'lang:profile_address_line1',
+                'field_type' => 'text'
+            ),
+            'address_line2' => array(
+                'field_name' => 'lang:profile_address_line2',
+                'field_type' => 'text'
+            ),
+            'address_line3' => array(
+                'field_name' => 'lang:profile_address_line3',
+                'field_type' => 'text'
+            ),
+            'postcode' => array(
+                'field_name' => 'lang:profile_address_postcode',
+                'field_type' => 'text',
+                'extra'      => array('max_length' => 20)
+            ),
+            'website' => array(
+                'field_name' => 'lang:profile_website',
+                'field_type' => 'url'
+            ),
+        );
+
+        // Run through each column and add the field
+        // metadata to it.
+        foreach ($columns as $field_slug => $column) {
+            // We only want fields that actually exist in the
+            // DB. The user could have deleted some of them.
+            if ($this->db->field_exists($field_slug, 'profiles')) {
+                $extra = array();
+                $assign = array();
+
+                if (isset($column['extra'])) {
+                    $extra = $column['extra'];
+                }
+
+                if (isset($column['assign'])) {
+                    $assign = $column['assign'];
+                }
+
+                $this->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
 
                 unset($extra);
                 unset($assign);

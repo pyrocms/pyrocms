@@ -38,7 +38,7 @@ class User extends EloqentUser
 	 */
 	public function groups()
 	{
-		return $this->belongsToMany('Pyro\Module\Groups\Model\Group', 'users_groups', 'user_id');
+		return $this->belongsToMany('Pyro\Module\Users\Model\Group', 'users_groups', 'user_id');
 	}
 
     /**

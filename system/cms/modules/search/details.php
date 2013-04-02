@@ -35,9 +35,6 @@ class Module_Search extends Module
 				'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
 				'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
 			),
-			'frontend' => false,
-			'backend' => false,
-			'menu' => false,
 		);
 	}
 

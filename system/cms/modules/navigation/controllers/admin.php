@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Groups;
+use Pyro\Module\Users;
 use Pyro\Module\Navigation;
 use Pyro\Module\Pages;
 
@@ -182,7 +182,7 @@ class Admin extends Admin_Controller
 
 		$ids = explode(',', $link->restricted_to);
 
-		$group_options = Groups\Model\Group::findManyInId($ids);
+		$group_options = Users\Model\Group::findManyInId($ids);
 
 		$link->restricted_to = implode(', ', $group_options);
 
@@ -201,7 +201,7 @@ class Admin extends Admin_Controller
 	public function create($group_id = '')
 	{
 		// Set the options for restricted to
-		$this->template->group_options = Groups\Model\Group::getGroupOptions();
+		$this->template->group_options = Users\Model\Group::getGroupOptions();
 
 		// Run if valid
 		if ($this->form_validation->run()) {
@@ -283,7 +283,7 @@ class Admin extends Admin_Controller
 		$link = Navigation\Model\Link::find($id);
 
 		// Set the options for restricted to
-		$group_options = Groups\Model\Group::getGroupOptions();
+		$group_options = Users\Model\Group::getGroupOptions();
 
 		if (! $link) {
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');

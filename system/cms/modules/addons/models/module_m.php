@@ -43,7 +43,7 @@ class Module_m extends MY_Model
             'skip_xss' => null,
             'is_frontend' => null,
             'is_backend' => null,
-            'menu' => false,
+            'menu' => null,
             'enabled' => true,
             'sections' => array(),
             'shortcuts' => array(),

@@ -2,7 +2,7 @@
 
 use Pyro\Module\Navigation\Model\Group;
 use Pyro\Module\Pages\Model\Page;
-use Pyro\Module\Groups;
+use Pyro\Module\Users;
 
 /**
  * Navigation model for the navigation module.
@@ -299,17 +299,14 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         // We have to fetch it ourselves instead of just using $current_user because this
         // will all be cached per user group
-        $group = Groups\Model\Group::findByName($user_group);
+        $group = Users\Model\Group::findByName($user_group);
 
         foreach ($links as $key => &$row) {
             // Looks like it's restricted. Let's find out who
             if ($row->restricted_to and $front_end) {
                 $row->restricted_to = (array) explode(',', $row->restricted_to);
 
-                if ( ! $user_group or
-                    ($user_group != 'admin' AND
-                    ! in_array($group->id, $row->restricted_to))
-                ) {
+                if (! $user_group or ($user_group != 'admin' and ! in_array($group->id, $row->restricted_to))) {
                     unset($links[$key]);
                 }
             }

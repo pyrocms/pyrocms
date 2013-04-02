@@ -1,10 +1,10 @@
 <?php
 
-use Pyro\Module\Groups;
-use Pyro\Module\Pages\Model\Page;
-use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Comments\Model\Comment;
 use Pyro\Module\Navigation;
+use Pyro\Module\Pages\Model\Page;
+use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Users;
 
 /**
  * Pages controller
@@ -577,7 +577,7 @@ class Admin extends Admin_Controller
 		$navigation_groups = Navigation\Model\Group::getGroupOptions();
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
 
-		$this->template->group_options = Groups\Model\Group::getGroupOptions();
+		$this->template->group_options = Users\Model\Group::getGroupOptions();
 
 		$this->template
 			->append_js('jquery/jquery.tagsinput.js')

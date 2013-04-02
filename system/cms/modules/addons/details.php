@@ -67,7 +67,6 @@ class Module_Addons extends Module
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => false,
 
 			'sections' => array(
 				'modules' => array(

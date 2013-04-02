@@ -67,7 +67,6 @@ class Module_Contact extends Module
 			),
 			'frontend' => false,
 			'backend' => false,
-			'menu' => false,
 		);
 	}
 

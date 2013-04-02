@@ -121,7 +121,6 @@ class MY_Controller extends MX_Controller
 
         // Loaded after $this->current_user is set so that data can be used everywhere
         $this->load->model(array(
-            'permissions/permission_m',
             'addons/module_m',
             'addons/theme_m',
         ));
@@ -174,7 +173,7 @@ class MY_Controller extends MX_Controller
 				'skip_xss' => null,
 				'is_frontend' => null,
 				'is_backend' => null,
-				'menu' => false,
+				'menu' => null,
 				'enabled' => true,
 				'sections' => array(),
 				'shortcuts' => array(),

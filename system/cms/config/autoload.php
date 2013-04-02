@@ -110,7 +110,7 @@ $autoload['language'] = array('errors');
 */
 
 // Autoloaded in MY_Controller
-//	permissions/permission_m', addons/module_m', 'pages/pages_m
+//	addons/module_m', 'pages/pages_m
 $autoload['model'] = array();
 
 /* End of file autoload.php */

@@ -1,6 +1,5 @@
 <?php
 
-use Pyro\Module\Groups;
 use Pyro\Module\Users;
 
 /**
@@ -11,7 +10,11 @@ use Pyro\Module\Users;
  */
 class Admin extends Admin_Controller
 {
-
+	/**
+	 * The current active section
+	 *
+	 * @var string
+	 */
 	protected $section = 'users';
 
 	/**
@@ -66,10 +69,10 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		if ($this->current_user->hasAccess('admin'))  {
-			$this->template->group_options = Groups\Model\Group::getGeneralGroupOptions();
+		if ($this->current_user->isSuperUser())  {
+			$this->template->group_options = Users\Model\Group::getGeneralGroupOptions();
 		}  else  {
-			$this->template->group_options = Groups\Model\Group::getGroupOptions();
+			$this->template->group_options = Users\Model\Group::getGroupOptions();
 		}
 	}
 
@@ -96,10 +99,10 @@ class Admin extends Admin_Controller
 		// $pagination = create_pagination('admin/users/index', User_m::($base_where));
 
 		// Using this data, get the relevant results
-		if ($this->current_user->hasAccess('admin')) {
-			$users = Groups\Model\Group::searchGeneralUsers();
+		if ($this->current_user->isSuperUser()) {
+			$users = Users\Model\User::all();
 		} else {
-			$users = Groups\Model\Group::searchUsers();
+			$users = Users\Model\User::all();
 		}
 
 		// Unset the layout if we have an ajax request
@@ -110,12 +113,14 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
-			->set('pagination', $pagination)
+			// ->set('pagination', $pagination)
 			->set('users', $users)
-			->set_partial('filters', 'admin/partials/filters')
+			->set_partial('filters', 'admin/users/partials/filters')
 			->append_js('admin/filter.js');
 
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users') : $this->template->build('admin/index');
+		$this->input->is_ajax_request()
+			? $this->template->build('admin/users/tables/users') 
+			: $this->template->build('admin/users/index');
 	}
 
 	/**
@@ -199,7 +204,7 @@ class Admin extends Admin_Controller
 				Settings::temp('activation_email', false);
 			}
 
-			$group = Groups\Model\Group::find($group_id);
+			$group = Users\Model\Group::find($group_id);
 
 			// Register the user (they are activated by default if an activation email isn't requested)
 			if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name))
@@ -568,7 +573,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _group_check($group_id)
 	{
-		if ( ! Groups\Model\Group::find($group_id))
+		if ( ! Users\Model\Group::find($group_id))
 		{
 			$this->form_validation->set_message('_group_check', lang('regex_match'));
 			return false;

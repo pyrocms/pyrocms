@@ -10,6 +10,11 @@
  */
 class Admin_fields extends Admin_Controller
 {
+	/**
+	 * The current active section
+	 *
+	 * @var string
+	 */
 	protected $section = 'fields';
 
 	// --------------------------------------------------------------------------
