@@ -86,7 +86,7 @@ class Module_Users extends Module
                     'uri' => 'admin/users/groups',
                     'shortcuts' => array(
                         array(
-                            'name' => 'groups:add_title',
+                            'name' => 'users:groups:add_title',
                             'uri' => 'admin/users/groups/add',
                             'class' => 'add',
                         ),

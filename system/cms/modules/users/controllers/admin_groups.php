@@ -77,9 +77,9 @@ class Admin_groups extends Admin_Controller
                     // Fire an event. A new group has been created.
                     Events::trigger('group_created', $group);
 
-                    $this->session->set_flashdata('success', sprintf(lang('groups:add_success'), $group->name));
+                    $this->session->set_flashdata('success', sprintf(lang('users:groups:add_success'), $group->name));
                 } else {
-                    $this->session->set_flashdata('error', sprintf(lang('groups:add_error'), $group->name));
+                    $this->session->set_flashdata('error', sprintf(lang('users:groups:add_error'), $group->name));
                 }
 
                 redirect('admin/users/groups');
@@ -92,7 +92,7 @@ class Admin_groups extends Admin_Controller
         }
 
         $this->template
-            ->title($this->module_details['name'], lang('groups:add_title'))
+            ->title($this->module_details['name'], lang('users:groups:add_title'))
             ->set('group', $group)
             ->build('admin/groups/form');
     }
@@ -100,7 +100,7 @@ class Admin_groups extends Admin_Controller
     /**
      * Edit a group role
      *
-     * @param int $id The id of the group.
+     * @param int $id The id of the group
      */
     public function edit($id = 0)
     {
@@ -110,26 +110,22 @@ class Admin_groups extends Admin_Controller
         $group or redirect('admin/users/groups');
 
         if ($_POST) {
-            // Got validation?
-            if ($group->name == 'admin' or $group->name == 'user') {
-                //if they're changing description on admin or user save the old name
-                $_POST['name'] = $group->name;
-                $this->form_validation->set_rules('description', lang('groups:description'), 'trim|required|max_length[250]');
-            } else {
-                $this->form_validation->set_rules($this->validation_rules);
-            }
+
+            $this->form_validation->set_rules($this->validation_rules);
 
             if ($this->form_validation->run()) {
-
-                $group->name = $this->input->post('name');
+    
+                if (! in_array($group->name, array('admin', 'user'))) {
+                    $group->name = $this->input->post('name');
+                }
                 $group->description = $this->input->post('description');
 
                 if ($group->save()) {
                     // Fire an event. A group has been updated.
                     Events::trigger('group_updated', $group);
-                    $this->session->set_flashdata('success', sprintf(lang('groups:edit_success'), $group->name));
+                    $this->session->set_flashdata('success', sprintf(lang('users:groups:edit_success'), $group->name));
                 } else {
-                    $this->session->set_flashdata('error', sprintf(lang('groups:edit_error'), $group->name));
+                    $this->session->set_flashdata('error', sprintf(lang('users:groups:edit_error'), $group->name));
                 }
 
                 redirect('admin/users/groups');
@@ -137,7 +133,7 @@ class Admin_groups extends Admin_Controller
         }
 
         $this->template
-            ->title($this->module_details['name'], sprintf(lang('groups:edit_title'), $group->name))
+            ->title($this->module_details['name'], sprintf(lang('users:groups:edit_title'), $group->name))
             ->set('group', $group)
             ->build('admin/groups/form');
     }
@@ -153,9 +149,9 @@ class Admin_groups extends Admin_Controller
             // Fire an event. A group has been deleted.
             Events::trigger('group_deleted', $id);
 
-            $this->session->set_flashdata('success', lang('groups:delete_success'));
+            $this->session->set_flashdata('success', lang('users:groups:delete_success'));
         } else {
-            $this->session->set_flashdata('error', lang('groups:delete_error'));
+            $this->session->set_flashdata('error', lang('users:groups:delete_error'));
         }
 
         redirect('admin/users/groups');

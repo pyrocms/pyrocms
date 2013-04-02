@@ -1,32 +1,32 @@
 <?php if ($this->method == 'edit'): ?>
 	<section class="title">
-    	<h4><?php echo sprintf(lang('groups:edit_title'), $group->name) ?></h4>
+    	<h4><?php echo sprintf(lang('users:groups:edit_title'), $group->name) ?></h4>
 	</section>
 <?php else: ?>
 	<section class="title">
-    	<h4><?php echo lang('groups:add_title') ?></h4>
+    	<h4><?php echo lang('users:groups:add_title') ?></h4>
 	</section>
 <?php endif ?>
 
 <section class="item">
 	<div class="content">
-		<?php echo form_open(uri_string(), 'class="crud"') ?>
+		<?php echo form_open() ?>
 
 		<div class="form_inputs">
 
 		    <ul>
 				<li>
-					<label for="description"><?php echo lang('groups:name');?> <span>*</span></label>
-					<div class="input"><?php echo form_input('description', $group->description);?></div>
+					<label for="description"><?php echo lang('users:groups:name') ?> <span>*</span></label>
+					<div class="input"><?php echo form_input('description', $group->description) ?></div>
 				</li>
 
 				<li class="even">
-					<label for="name"><?php echo lang('groups:short_name');?> <span>*</span></label>
+					<label for="name"><?php echo lang('users:groups:short_name') ?> <span>*</span></label>
 
 					<div class="input">
 
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-					<?php echo form_input('name', $group->name);?>
+					<?php echo form_input('name', $group->name) ?>
 
 					<?php else: ?>
 					<p><?php echo $group->name ?></p>
