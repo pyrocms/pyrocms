@@ -16,6 +16,7 @@ class Module_Contact extends Module
 		return array(
 			'name' => array(
 				'en' => 'Contact',
+                                'fa' => 'تماس با ما',
 				'ar' => 'الإتصال',
 				'br' => 'Contato',
 				'pt' => 'Contacto',
@@ -42,6 +43,7 @@ class Module_Contact extends Module
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
+                                'fa' => 'فرم تماس را به سایت اضافه می کند تا مراجعین بتوانند بدون اینکه ایمیل شما را بدانند برای شما پیغام هایی را از طریق ایمیل ارسال نمایند.',
 				'ar' => 'إضافة استمارة إلى موقعك تُمكّن الزوّار من مراسلتك دون علمهم بعنوان البريد الإلكتروني.',
 				'br' => 'Adiciona um formulário para o seu site permitir aos visitantes que enviem e-mails para voce sem divulgar um endereço de e-mail para eles.',
 				'pt' => 'Adiciona um formulário ao seu site que permite aos visitantes enviarem e-mails sem divulgar um endereço de e-mail.',
