@@ -15,6 +15,7 @@ class Module_Maintenance extends Module
 		return array(
 			'name' => array(
 				'en' => 'Maintenance',
+                                'fa' => 'نگه داری',
 				'pt' => 'Manutenção',
 				'ar' => 'الصيانة',
 				'el' => 'Συντήρηση',
@@ -31,6 +32,7 @@ class Module_Maintenance extends Module
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
+                                'fa' => 'مدیریت کش سایت و صدور اطلاعات از دیتابیس',
 				'pt' => 'Gerir o cache do seu site e exportar informações da base de dados.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
 				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της περιοχής διαχείρισης.',

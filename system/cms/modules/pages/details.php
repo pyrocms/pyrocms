@@ -15,6 +15,7 @@ class Module_Pages extends Module
 		$info = array(
 			'name' => array(
 				'en' => 'Pages',
+                                'fa' => 'صفحه ها ',
 				'ar' => 'الصفحات',
 				'br' => 'Páginas',
 				'pt' => 'Páginas',
@@ -41,6 +42,7 @@ class Module_Pages extends Module
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
+                                'fa' => 'ایحاد صفحات جدید و دلخواه با هر محتوایی که دوست دارید',
 				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
 				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
 				'pt' => 'Adicionar páginas personalizadas ao seu site com qualquer conteúdo que você queira.',
