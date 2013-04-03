@@ -14,6 +14,7 @@ class Plugin_Comments extends Plugin
 	);
 	public $description = array(
 		'en' => 'Display information about site comments.',
+            'fa'  => 'نظرات'
 	);
 
 	/**
