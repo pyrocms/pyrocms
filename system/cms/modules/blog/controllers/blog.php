@@ -259,9 +259,13 @@ class Blog extends Public_Controller
 		// we need to figure out where this sort of stuff should go.
 		// Maybe the entire blog moduel should be replaced with stream
 		// calls with items like this. Otherwise, this currently works.
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers('blog.keywords', true);
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.
+			$this->db->protect_identifiers('keywords_applied.hash', true).' = '.
+			$this->db->protect_identifiers('blog.keywords', true);
 
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.
+			$this->db->protect_identifiers('keywords.id', true).' = '.
+			$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
 
 		$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $tag)."'";
 
