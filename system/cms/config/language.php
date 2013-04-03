@@ -183,6 +183,13 @@ $config['supported_languages'] = array(
         'direction'    => 'ltr',
         'codes'        => array('th', 'thai', 'th_TH'),
         'ckeditor'    => null
+    ),
+    'fa' => array(
+        'name'        => 'پارسی',
+        'folder'    => 'persian',
+        'direction'    => 'rtl',
+        'codes'        => array('fa', 'persian', 'fa_IR'),
+        'ckeditor'    => null
     )
 );
 
