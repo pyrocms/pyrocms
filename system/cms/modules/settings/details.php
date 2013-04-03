@@ -16,7 +16,6 @@ class Module_Settings extends Module
 		return array(
 			'name' => array(
 				'en' => 'Settings',
-                                'fa' => 'تنظیمات',
 				'ar' => 'الإعدادات',
 				'br' => 'Configurações',
 				'pt' => 'Configurações',
@@ -43,7 +42,6 @@ class Module_Settings extends Module
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
-                                'fa' => 'تنظیمات سایت در این ماژول توسط ادمین هاس سایت انجام می شود',
 				'ar' => 'تمكن المدراء من تحديث الإعدادات كإسم الموقع، والرسائل وعناوين البريد الإلكتروني، .. إلخ.',
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
 				'pt' => 'Permite com que os administradores consigam alterar as configurações do website incluindo o nome e descrição.',

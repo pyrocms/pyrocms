@@ -17,7 +17,6 @@ class Module_Search extends Module
 		return array(
 			'name' => array(
 				'en' => 'Search',
-                                'fa' => 'جستجو',
 				'fr' => 'Recherche',
 				'se' => 'Sök',
 				'ar' => 'البحث',
@@ -28,7 +27,6 @@ class Module_Search extends Module
 			),
 			'description' => array(
 				'en' => 'Search through various types of content with this modular search system.',
-                                'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
 				'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.',
 				'se' => 'Sök igenom olika typer av innehåll',
 				'ar' => 'ابحث في أنواع مختلفة من المحتوى باستخدام نظام البحث هذا.',

@@ -16,7 +16,6 @@ class Module_Comments extends Module
 		return array(
 			'name' => array(
 				'en' => 'Comments',
-                                'fa' => 'نظرات',
 				'ar' => 'التعليقات',
 				'br' => 'Comentários',
 				'pt' => 'Comentários',
@@ -43,7 +42,6 @@ class Module_Comments extends Module
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
-                                'fa' => 'کاربران و مهمان ها می توانند نظرات خود را بر روی محتوای سایت در بلاگ و دیگر قسمت ها ارائه دهند',
 				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 				'br' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'pt' => 'Utilizadores e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',

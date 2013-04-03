@@ -16,7 +16,6 @@ class Plugin_Settings extends Plugin
 	);
 	public $description = array(
 		'en' => 'Retrieve a setting from the database.',
-                'fa' => 'گرفتن تنظیمات از دیتابیس',
 	);
 
 	/**

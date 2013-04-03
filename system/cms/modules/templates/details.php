@@ -15,7 +15,6 @@ class Module_Templates extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Email Templates',
-                                'fa' => 'قالب های ایمیل',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'br' => 'Modelos de e-mail',
 				'pt' => 'Modelos de e-mail',
@@ -38,7 +37,6 @@ class Module_Templates extends Module {
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
-                                'fa' => 'ایحاد، ویرایش و ذخیره ی قالب های ایمیل به صورت پویا',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'br' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',

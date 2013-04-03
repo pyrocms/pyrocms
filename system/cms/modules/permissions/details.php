@@ -15,7 +15,6 @@ class Module_Permissions extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Permissions',
-                                'fa' => 'اجازه ها',
 				'ar' => 'الصلاحيات',
 				'br' => 'Permissões',
 				'pt' => 'Permissões',
@@ -42,7 +41,6 @@ class Module_Permissions extends Module {
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
-                                'fa' => 'مدیریت اجازه های گروه های کاربری',
 				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.',
 				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
 				'pt' => 'Controle quais os tipos de utilizadores podem ver certas secções no site.',

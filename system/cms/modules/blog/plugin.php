@@ -13,12 +13,10 @@ class Plugin_Blog extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Blog',
-                'fa' => 'بلاگ',
 	);
 	public $description = array(
 		'en' => 'A plugin to display information such as blog categories and posts.',
-                'fa' => 'یک پلاگین برای نمایش اطلاعاتی مانند مجموعه های بلاگ و پست ها',
-                'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
+        'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
 	);
 
 	/**
@@ -33,8 +31,7 @@ class Plugin_Blog extends Plugin
 			'posts' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
 					'en' => 'Display blog posts optionally filtering them by category.',
-                                        'fa' => 'پست های بلاگ را نمایش دهید و مختارید که آنها را محدود به یک مجموعه نیز بکنید',
-                                        'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
+                    'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
 				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
@@ -75,8 +72,7 @@ class Plugin_Blog extends Plugin
 			'categories' => array(
 				'description' => array(
 					'en' => 'List blog categories.',
-                                        'fa' => 'لیست مجموعه های بلاگ',
-                                        'fr' => 'Lister les catégories du blog'
+                    'fr' => 'Lister les catégories du blog'
 				),
 				'single' => false,
 				'double' => true,
@@ -105,8 +101,7 @@ class Plugin_Blog extends Plugin
 			'count_posts' => array(
 				'description' => array(
 					'en' => 'Count blog posts that meet the conditions specified.',
-                                        'fa' => 'شمارنده ی پست هایی از بلاگ که شرایط مشخصی دارند',
-                                        'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
+                    'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
 				),
 				'single' => true,
 				'double' => false,
@@ -136,8 +131,7 @@ class Plugin_Blog extends Plugin
 			'tags' => array(
 				'description' => array(
 					'en' => 'Retrieve all tags that have been applied to blog posts.',
-                                        'fa' => 'استخراج همه ی تگ هایی که در پست های بلاگ استفاده شده اند',
-                                        'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
+                    'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
 				),
 				'single' => false,
 				'double' => true,

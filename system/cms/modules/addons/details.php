@@ -15,7 +15,6 @@ class Module_Addons extends Module
 		$info = array(
 			'name' => array(
 				'en' => 'Add-ons',
-                                'fa' => 'افزونه ها',
 				'ar' => 'الإضافات',
 				'br' => 'Complementos',
 				'pt' => 'Complementos',
@@ -42,7 +41,6 @@ class Module_Addons extends Module
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
-                                'fa' => 'مشاهده لیست افزونه ها و مدیریت آنها برای ادمین سایت',
 				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.',
 				'br' => 'Permite aos administradores ver a lista dos módulos instalados atualmente.',
 				'pt' => 'Permite aos administradores ver a lista dos módulos instalados atualmente.',

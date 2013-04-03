@@ -14,7 +14,6 @@ class Module_Widgets extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
-                                'fa' => 'ویجت ها',
 				'br' => 'Widgets',
 				'pt' => 'Widgets',
 				'cs' => 'Widgety',
@@ -39,7 +38,6 @@ class Module_Widgets extends Module {
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
-                                'fa' => 'مدیریت قسمت های کوچکی از سایت به طور مستقل',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"ودجتس".',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'pt' => 'Gerir pequenas secções de conteúdos em bloco conhecidos como "Widgets".',

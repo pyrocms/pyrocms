@@ -18,7 +18,6 @@ class Widget_Archive extends Widgets
 
 	public $title = array(
 		'en' => 'Archive',
-                'fa' => 'آرشیو',
 		'br' => 'Arquivo do Blog',
 		'pt' => 'Arquivo do Blog',
 		'el' => 'Αρχείο Ιστολογίου',
@@ -29,7 +28,6 @@ class Widget_Archive extends Widgets
 
 	public $description = array(
 		'en' => 'Display a list of old months with links to posts in those months',
-                'fa'=> 'نمایش لیست ماه های گذشته به همراه لینک به پست های مربوطه',
 		'br' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente',
 		'pt' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente',
 		'el' => 'Προβάλλει μια λίστα μηνών και συνδέσμους σε αναρτήσεις που έγιναν σε κάθε από αυτούς',
