@@ -130,3 +130,6 @@ section.title li .button {
     border-right: 1px solid #f1f1f1 !important;
     border-left:none !important;
 }
+footer p.credits {
+    text-align: left !important;
+}
