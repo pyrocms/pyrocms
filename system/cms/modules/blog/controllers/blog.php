@@ -43,6 +43,12 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
+		// Get our comment count whil we're at it.
+		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
+				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
+				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
+				AND entry_id=".$this->db->protect_identifiers('blog.id', true).") as `comment_count`";
+
 		// Get the latest blog posts
 		$params = array(
 			'stream'		=> 'blog',
