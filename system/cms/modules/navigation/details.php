@@ -15,6 +15,7 @@ class Module_Navigation extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Navigation',
+                                'fa' => 'منو ها',
 				'ar' => 'الروابط',
 				'br' => 'Navegação',
 				'pt' => 'Navegação',
@@ -41,6 +42,7 @@ class Module_Navigation extends Module {
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
+                                'fa' => 'مدیریت منو ها و گروه های مربوط به آنها',
 				'ar' => 'إدارة روابط وقوائم ومجموعات الروابط في الموقع.',
 				'br' => 'Gerenciar links do menu de navegação e todos os grupos de navegação pertencentes a ele.',
 				'pt' => 'Gerir todos os grupos dos menus de navegação e os links de navegação pertencentes a eles.',

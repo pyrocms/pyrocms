@@ -15,6 +15,7 @@ class Module_Variables extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Variables',
+                                'fa' => 'متغییرها',
 				'ar' => 'المتغيّرات',
 				'br' => 'Variáveis',
 				'pt' => 'Variáveis',
@@ -41,6 +42,7 @@ class Module_Variables extends Module {
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
+                                'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
 				'ar' => 'إدارة المُتغيّرات العامة لاستخدامها في أرجاء الموقع.',
 				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'pt' => 'Gerir as variáveis globais acessíveis de qualquer lugar.',

@@ -15,6 +15,7 @@ class Module_Redirects extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Redirects',
+                                'fa' => 'انتقال ها',
 				'ar' => 'التوجيهات',
 				'br' => 'Redirecionamentos',
 				'pt' => 'Redirecionamentos',

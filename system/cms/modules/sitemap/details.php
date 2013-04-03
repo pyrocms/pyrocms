@@ -15,6 +15,7 @@ class Module_Sitemap extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Sitemap',
+                                'fa' => 'نقشه سایت',
 				'ar' => 'خريطة الموقع',
 				'br' => 'Mapa do Site',
 				'pt' => 'Mapa do Site',

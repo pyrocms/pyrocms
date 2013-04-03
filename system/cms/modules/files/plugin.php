@@ -17,6 +17,7 @@ class Plugin_Files extends Plugin
 	);
 	public $description = array(
 		'en' => 'List files in specified folders and output images with cropping.',
+                'fa' => 'لیست فایل های موجود در پوشه ی مشخص شده و خروجی تصاویر',
 	);
 
 	/**
@@ -35,7 +36,8 @@ class Plugin_Files extends Plugin
 		$info = array(
 			'listing' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.'
+					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.',
+                                        'fa' => 'چرخش در تمام فایل های یک پوشه که مشخص شده است'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?
