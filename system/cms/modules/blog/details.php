@@ -30,6 +30,7 @@ class Module_Blog extends Module
 				'fi' => 'Blogi',
 				'th' => 'บล็อก',
 				'se' => 'Blogg',
+                            'fa' => 'بلاگ'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -56,6 +57,7 @@ class Module_Blog extends Module
 				'th' => 'โพสต์รายการบล็อก',
 				'hu' => 'Blog bejegyzések létrehozása.',
 				'se' => 'Inlägg i bloggen.',
+                            'fa' => 'مقالات منتشر شده در بلاگ',
 			),
 			'frontend' => true,
 			'backend' => true,
