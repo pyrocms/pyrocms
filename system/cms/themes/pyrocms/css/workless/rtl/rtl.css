@@ -130,6 +130,15 @@ section.title li .button {
     border-right: 1px solid #f1f1f1 !important;
     border-left:none !important;
 }
+span.move-handle {
+    position: absolute !important;
+    left:0 !important;
+    right: auto  !important;
+    margin-left: 6px !important;
+    margin-right: 0 !important;
+    
+
+}
 footer p.credits {
     text-align: left !important;
 }
