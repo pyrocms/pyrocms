@@ -16,6 +16,7 @@ class Module_Files extends Module
 		return array(
 			'name' => array(
 				'en' => 'Files',
+                                'fa' => 'فایل ها',
 				'ar' => 'الملفّات',
 				'br' => 'Arquivos',
 				'pt' => 'Ficheiros',
@@ -41,6 +42,7 @@ class Module_Files extends Module
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
+                                'fa' => 'مدیریت فایل های چند رسانه ای و فولدر ها سایت',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
 				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'pt' => 'Permite gerir facilmente os ficheiros e pastas do seu site.',
