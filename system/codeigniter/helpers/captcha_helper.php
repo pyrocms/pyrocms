@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -93,7 +93,7 @@ if ( ! function_exists('create_captcha'))
 		// Do we have a "word" yet?
 		// -----------------------------------
 
-		if ($word === '')
+		if (empty($word))
 		{
 			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			$word = '';
@@ -101,6 +101,10 @@ if ( ! function_exists('create_captcha'))
 			{
 				$word .= $pool[mt_rand(0, $mt_rand_max)];
 			}
+		}
+		elseif ( ! is_string($word))
+		{
+			$word = (string) $word;
 		}
 
 		// -----------------------------------

@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 2.0
@@ -182,11 +182,11 @@ class CI_Cache_memcached extends CI_Driver {
 			}
 		}
 
-		if (class_exists('Memcached'))
+		if (class_exists('Memcached', FALSE))
 		{
 			$this->_memcached = new Memcached();
 		}
-		elseif (class_exists('Memcache'))
+		elseif (class_exists('Memcache', FALSE))
 		{
 			$this->_memcached = new Memcache();
 		}

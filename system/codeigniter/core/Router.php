@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -133,13 +133,14 @@ class CI_Router {
 		}
 
 		// Load the routes.php file.
-		if (defined('ENVIRONMENT') && is_file(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
-		{
-			include(APPPATH.'config/'.ENVIRONMENT.'/routes.php');
-		}
-		elseif (is_file(APPPATH.'config/routes.php'))
+		if (file_exists(APPPATH.'config/routes.php'))
 		{
 			include(APPPATH.'config/routes.php');
+		}
+
+		if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
+		{
+			include(APPPATH.'config/'.ENVIRONMENT.'/routes.php');
 		}
 
 		$this->routes = (empty($route) OR ! is_array($route)) ? array() : $route;

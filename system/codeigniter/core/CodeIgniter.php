@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  Load the framework constants
  * ------------------------------------------------------
  */
-	if (defined('ENVIRONMENT') && file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
+	if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
 	{
 		require(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	}
@@ -263,7 +263,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$class  = $RTR->fetch_class();
 	$method = $RTR->fetch_method();
 
-	if ( ! class_exists($class) OR $method[0] === '_' OR method_exists('CI_Controller', $method))
+	if ( ! class_exists($class, FALSE) OR $method[0] === '_' OR method_exists('CI_Controller', $method))
 	{
 		if ( ! empty($RTR->routes['404_override']))
 		{
@@ -272,7 +272,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$method = 'index';
 			}
 
-			if ( ! class_exists($class))
+			if ( ! class_exists($class, FALSE))
 			{
 				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
 				{
@@ -310,7 +310,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$method = 'index';
 			}
 
-			if ( ! class_exists($class))
+			if ( ! class_exists($class, FALSE))
 			{
 				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
 				{

@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -228,13 +228,10 @@ if ( ! function_exists('form_upload'))
 	 */
 	function form_upload($data = '', $value = '', $extra = '')
 	{
-		if ( ! is_array($data))
-		{
-			$data = array('name' => $data);
-		}
-
+		$defaults = array('type' => 'file', 'name' => '');
+		is_array($data) OR $data = array('name' => $data);
 		$data['type'] = 'file';
-		return form_input($data, $value, $extra);
+		return '<input '._parse_form_attributes($data, $defaults).$extra." />\n";
 	}
 }
 
@@ -264,7 +261,6 @@ if ( ! function_exists('form_textarea'))
 			unset($data['value']); // textareas don't use the value attribute
 		}
 
-		$name = is_array($data) ? $data['name'] : $data;
 		return '<textarea '._parse_form_attributes($data, $defaults).$extra.'>'.form_prep($val, TRUE)."</textarea>\n";
 	}
 }
@@ -645,14 +641,13 @@ if ( ! function_exists('set_value'))
 	 */
 	function set_value($field = '', $default = '', $is_textarea = FALSE)
 	{
-		if (FALSE === ($OBJ =& _get_validation_object()))
-		{
-			return isset($_POST[$field])
-				? form_prep($_POST[$field], $is_textarea)
-				: form_prep($default, $is_textarea);
-		}
+		$CI =& get_instance();
 
-		return form_prep($OBJ->set_value($field, $default), $is_textarea);
+		$value = (isset($CI->form_validation) && is_object($CI->form_validation) && $CI->form_validation->has_rule($field))
+			? $CI->form_validation->set_value($field, $default)
+			: $CI->input->post($field, FALSE);
+
+		return form_prep($value === NULL ? $default : $value, $is_textarea);
 	}
 }
 

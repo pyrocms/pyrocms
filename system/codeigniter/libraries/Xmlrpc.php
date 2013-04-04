@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -368,7 +368,7 @@ class CI_Xmlrpc {
 	 */
 	public function timeout($seconds = 5)
 	{
-		if ( ! is_null($this->client) && is_int($seconds))
+		if ($this->client !== NULL && is_int($seconds))
 		{
 			$this->client->timeout = $seconds;
 		}
