@@ -18,6 +18,7 @@ class Plugin_Global extends Plugin
 	public $description = array(
 		'en' => 'Access global variables.',
 		'el' => 'Πρόσβαση σε οικουμενικές μεταβλητές.',
+            'fa' => 'دسترسی به متغییر های اصلی',
 		'fr' => 'Accéder à des variables globales.',
 		'it' => 'Accedi a variabili globali',
 	);
