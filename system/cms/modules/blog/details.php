@@ -161,7 +161,7 @@ class Module_Blog extends Module
 			$table->string('title', 200)->unique();
 			$table->integer('category_id');
 			$table->string('attachment', 255)->default('');
-			// $table->text('body');
+			$table->text('body');
 			$table->text('parsed');
 			$table->string('keywords', 32)->default('');
 			$table->integer('author_id')->nullable();

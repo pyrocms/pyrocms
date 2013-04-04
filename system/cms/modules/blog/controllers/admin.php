@@ -159,6 +159,7 @@ class Admin extends Admin_Controller
 		// They are trying to put this live
 		if ($this->input->post('status') == 'live') {
 			role_or_die('blog', 'put_live');
+			$hash = "";
 		} else {
 			$hash = $this->_preview_hash();
 		}

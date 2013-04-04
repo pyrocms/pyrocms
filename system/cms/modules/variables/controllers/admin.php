@@ -259,6 +259,6 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
-		return ! Variable::findByNameWithId($from, (int) $id);
+		return ! Variable::findByNameWithId($name, (int) $id);
 	}
 }
