@@ -97,16 +97,6 @@ class User extends EloqentUser
 	}
 
 	/**
-	 * Check if user is activated
-	 *
-	 * @return bool
-	 */
-	public function isActivated()
-	{
-		return (bool) $this->is_activated;
-	}
-
-	/**
 	 * Get recent users
 	 *
 	 * @return     array
@@ -139,6 +129,8 @@ class User extends EloqentUser
 	 */
 	public function getStreamFields()
 	{
+		return array();
+		
 		$this->stream = ci()->streams_m->get_stream('profiles', true, 'users');
 
 		return ci()->streams_m->get_stream_fields($this->stream->id);
@@ -165,6 +157,16 @@ class User extends EloqentUser
 	public function isSuperUser()
 	{
 		return $this->isAdmin();
+	}
+
+	/**
+	 * Check if user is activated
+	 *
+	 * @return bool
+	 */
+	public function isActivated()
+	{
+		return (bool) $this->is_activated;
 	}
 
 	/**

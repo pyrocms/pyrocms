@@ -26,14 +26,18 @@
 					<td class="align-center"><?php echo form_checkbox('action_to[]', $member->id) ?></td>
 					<td>
 					<?php if ($link_profiles) : ?>
-						<?php echo anchor('admin/users/preview/' . $member->id, $member->display_name, 'target="_blank" class="modal-large"') ?>
+						<?php echo anchor('admin/users/preview/' . $member->id, $member->display_name ?: $member->username, 'target="_blank" class="modal-large"') ?>
 					<?php else: ?>
-						<?php echo $member->display_name ?>
+						<?php echo $member->display_name ?: $member->username ?>
 					<?php endif ?>
 					</td>
 					<td class="collapse"><?php echo mailto($member->email) ?></td>
-					<td><?php echo $member->group_name ?></td>
-					<td class="collapse"><?php echo $member->active ? lang('global:yes') : lang('global:no')  ?></td>
+					<td>
+						<ul>
+							<?php foreach ($member->getGroups() as $group) echo "<li>{$group->description}</li>" ?>
+						</ul>
+					</td>
+					<td class="collapse"><?php echo $member->isActivated() ? lang('global:yes') : lang('global:no')  ?></td>
 					<td class="collapse"><?php echo format_date($member->created_on) ?></td>
 					<td class="collapse"><?php echo ($member->last_login > 0 ? format_date($member->last_login) : lang('user:never_label')) ?></td>
 					<td class="actions">

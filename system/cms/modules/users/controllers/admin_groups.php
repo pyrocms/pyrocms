@@ -145,7 +145,7 @@ class Admin_groups extends Admin_Controller
      */
     public function delete($id = 0)
     {
-        if ($success = Group::find($id)->delete()) {
+        if (Group::find($id)->delete()) {
             // Fire an event. A group has been deleted.
             Events::trigger('group_deleted', $id);
 
