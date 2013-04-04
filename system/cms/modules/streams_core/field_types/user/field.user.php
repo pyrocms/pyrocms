@@ -63,6 +63,35 @@ class Field_user
 	
 		return form_dropdown($params['form_slug'], $users, $params['value'], 'id="'.$params['form_slug'].'"');
 	}
+	
+	/**
+	 * Pre Ouput
+	 *
+	 * Process before outputting on the CP. 
+	 *
+	 * @access	public
+	 * @param	array 	$input 	
+	 * @return	mixed 	null or string
+	 */
+	public function pre_output($input, $data)
+	{
+		if ( ! $input) return null;
+		
+		$row = $this->CI->db
+						->select()
+						->where('id', $input)
+						->get('users')
+						->row_array();
+		
+		if ($this->CI->uri->segment(1) == 'admin')
+		{
+			return '<a href="'.site_url('admin/users/preview/'.$row['id']).'">'.$row['email'].'</a>';
+		}
+		else
+		{
+			return $row;
+		}
+	}
 
 	// --------------------------------------------------------------------------
 
