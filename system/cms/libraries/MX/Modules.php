@@ -3,9 +3,9 @@
 global $CFG;
 
 /* get module locations from config settings or use the default module location and offset */
-is_array(Modules::$locations = $CFG->item('modules_locations')) OR Modules::$locations = array(
-	APPPATH.'modules/' => '../modules/',
-);
+Modules::$locations = is_array($CFG->item('modules_locations'))
+	? $CFG->item('modules_locations')
+	: array(APPPATH.'modules/' => '../modules/');
 
 /* PHP5 spl_autoload */
 spl_autoload_register('Modules::autoload');
@@ -189,11 +189,6 @@ class Modules
 			}
 		}
 
-		/* is it a global plugin? */
-		if ($base == 'plugins/') {
-			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);
-			show_error("Unable to locate the file: {$path}{$file_ext}");
-		}
 
 		/* is the file in an admin theme? */
 		if ($base == 'views/') {
