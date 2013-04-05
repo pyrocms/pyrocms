@@ -59,6 +59,15 @@ class Comments
 	protected $entry_hash;
 
 	/**
+	 * Comment Count
+	 *
+	 * Setting to 0 by default.
+	 *
+	 * @var 	int
+	 */
+	protected $count = 0;
+
+	/**
 	 * Function to display a comment
 	 *
 	 * Reference is a actually an object reference, a.k.a. categorization of the comments table rows.
@@ -140,9 +149,9 @@ class Comments
 	 *
 	 * @return	string 	Language string with the total in it
 	 */
-	public function count_string()
+	public function count_string($comment_count = null)
 	{
-		$total = $this->count();
+		$total = ($comment_count) ? $comment_count : $this->count;
 
 		switch ($total)
 		{

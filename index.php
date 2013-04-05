@@ -231,15 +231,6 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  	// This only allows you to change the name. ADDONPATH should still be used in the app
 	define('ADDON_FOLDER', $addon_folder.'/');
 	
-	// The site ref. Used for building site specific paths
-	define('SITE_REF', 'default');
-					
-	// Path to uploaded files for this site
-	define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-					
-	// Path to the addon folder for this site
-	define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-	
 	// Path to the addon folder that is shared between sites
 	define('SHARED_ADDONPATH', 'addons/shared_addons/');
 	

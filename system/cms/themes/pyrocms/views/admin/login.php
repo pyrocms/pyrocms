@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name=viewport content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="robots" content="noindex,nofollow">
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 
 	<base href="<?php echo base_url(); ?>"/>
@@ -39,7 +40,7 @@
 						</li>
 						<li class="animated fadeInDown" id="login-save">
 							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check"/>
+								<input type="checkbox" name="remember" id="remember-check" checked />
 								<?php echo lang('user:remember'); ?>
 							</label>
 						</li>
