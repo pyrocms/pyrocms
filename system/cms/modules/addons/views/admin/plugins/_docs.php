@@ -37,7 +37,7 @@
 												<td><?php echo $attribute ?></td>
 												<td><?php echo (isset($details['type']) ? str_replace('|', ' | ', $details['type']) : '') ?></td>
 												<td><?php echo (isset($details['flags']) ? str_replace('|', ' | ', $details['flags']) : '') ?></td>
-												<td><?php echo (isset($details['default']) and $details['default']) ? $details['default'] : lang('global:check-none') ?></td>
+												<td><?php echo (isset($details['default']) and is_scalar($details['default']) and $details['default'] !== '') ? $details['default'] : lang('global:check-none') ?></td>
 												<td><?php echo (isset($details['required']) and $details['required']) ? lang('global:yes') : lang('global:no') ?></td>
 											</tr>
 										<?php endforeach ?>

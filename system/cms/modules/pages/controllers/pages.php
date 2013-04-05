@@ -202,7 +202,7 @@ class Pages extends Public_Controller
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
 		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
 		$meta_keywords = '';
-		if ($page->meta_keywords or $page->layout->meta_description)
+		if ($page->meta_keywords or $page->layout->meta_keywords)
 		{
 			$meta_keywords = $page->meta_keywords ?
 								Keywords::get_string($page->meta_keywords) :

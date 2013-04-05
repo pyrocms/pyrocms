@@ -198,6 +198,63 @@ class Plugin_Url extends Plugin
 	{
 		return $this->uri->uri_string();
 	}
+	
+	/**
+	 * Current uri query_string
+	 *
+	 * Usage:
+	 *
+	 *     {{ url:query_string }}
+	 *
+	 * @return string The current URI string.
+	 */
+	public function query_string()
+	{
+		return $_SERVER['QUERY_STRING'];
+	}
+	
+	/**
+	 * Build a query string
+	 *
+	 * Usage:
+	 *
+	 *     {{ url:http_build_query use_query_string="no" skip="var1|var2" var3="foo" }}
+	 *
+	 * @return mixed Parameters
+	 */
+	public function http_build_query()
+	{
+		// Use current query_string?
+		if ($this->attribute('use_query_string') == 'yes' and $this->input->get())
+		{
+			$query = $this->input->get();
+		}
+		else
+		{
+			$query = array();
+		}
+
+		
+		// Skip any?
+		if ($skips = $this->attribute('skip'))
+		{
+			foreach (explode('|', $this->attribute('skip')) as $skip)
+			{
+				unset($query[$skip]);
+			}
+		}
+
+
+		// Build
+		foreach ($this->attributes() as $key=>$value)
+		{
+			if (in_array($key, array('use_query_string', 'skip', 'parse_params'))) continue;
+
+			$query[$key] = $value;
+		}
+
+		return http_build_query($query);
+	}
 
 	/**
 	 * Current uri string

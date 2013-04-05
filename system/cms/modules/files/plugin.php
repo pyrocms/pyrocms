@@ -56,7 +56,7 @@ class Plugin_Files extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 					),
 					'offset' => array(
@@ -322,7 +322,7 @@ class Plugin_Files extends Plugin
 
 		$folder_id = $this->attribute('folder', ''); // Id or Path
 		$tags      = $this->attribute('tagged', false);
-		$limit     = $this->attribute('limit', '10');
+		$limit     = $this->attribute('limit', null);
 		$offset    = $this->attribute('offset', '');
 		$type      = $this->attribute('type', '');
 		$fetch     = $this->attribute('fetch');

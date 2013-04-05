@@ -33,8 +33,7 @@ class Field_textarea
 	public function form_output($data, $entry_id, $field)
 	{
 		// Value
-		// We only use the default value if this is a new
-		// entry.
+		// We only use the default value if this is a new entry
 		if ( ! $entry_id)
 		{
 			$value = (isset($field->field_data['default_text']) and $field->field_data['default_text']) 
@@ -78,7 +77,7 @@ class Field_textarea
 	public function pre_output($input, $params)
 	{
 		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
-		$content_type = ( ! isset($params['content_type'])) ? 'text' : $params['content_type'];
+		$content_type = ( ! isset($params['content_type'])) ? 'html' : $params['content_type'];
 
 		// If this is the admin, show only the source
 		// @TODO This is hacky, there will be times when the admin wants to see a preview or something
@@ -106,10 +105,10 @@ class Field_textarea
 				$this->CI->load->helper('markdown');
 				return parse_markdown($content);
 
-			// case 'html':
-				// Do nothing
+			case 'html':
+				return $content;
 
-			default: 
+			default:
 				return strip_tags($content);
 		}
 

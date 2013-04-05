@@ -146,7 +146,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
 $lang['settings:form_option_activate_by_email']        	= 'Activate by email'; #translate
 $lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_no_activation']         	= 'Instant activation'; #translate
 
 // titles
 $lang['settings:edit_title']					= 'Editar configurações';

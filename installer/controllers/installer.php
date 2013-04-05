@@ -263,23 +263,20 @@ class Installer extends CI_Controller
 
 		$data = new stdClass;
 
-		$data->mysql = new stdClass();
-		$data->http_server = new stdClass();
-
 		// Check the PHP version
 		$data->php_min_version	= '5.2';
 		$data->php_acceptable	= $this->installer_lib->php_acceptable();
-		$data->php_version		= PHP_VERSION;
+		$data->php_running_version	= PHP_VERSION;
 
 		// Check the MySQL data
-		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
-		$data->mysql->client_version_acceptable = $this->installer_lib->mysql_acceptable('client');
-		$data->mysql->server_version = $this->installer_lib->mysql_server_version;
-		$data->mysql->client_version = $this->installer_lib->mysql_client_version;
+		$data->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
+		$data->client_version_acceptable = $this->installer_lib->mysql_acceptable('client');
+		$data->server_version = $this->installer_lib->mysql_server_version;
+		$data->client_version = $this->installer_lib->mysql_client_version;
 
 		// Check the GD data
 		$data->gd_acceptable = $this->installer_lib->gd_acceptable();
-		$data->gd_version = $this->installer_lib->gd_version;
+		$data->gd_running_version = $this->installer_lib->gd_version;
 
 		// Check to see if Zlib is enabled
 		$data->zlib_enabled = $this->installer_lib->zlib_available();
@@ -291,8 +288,8 @@ class Installer extends CI_Controller
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
-		$data->http_server->supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
-		$data->http_server->name = @$supported_servers[$selected_server]['name'];
+		$data->http_server_supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
+		$data->http_server_name = @$supported_servers[$selected_server]['name'];
 
 		// Check the final results
 		$data->step_passed = $this->installer_lib->check_server($data);

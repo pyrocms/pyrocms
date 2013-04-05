@@ -156,6 +156,12 @@ class Plugin_Comments extends Plugin
 	 */
 	public function count_string()
 	{
+		// Are we passing a number directly?
+		if ($comment_count = $this->attribute('count')) {
+			$this->load->library('comments/comments');
+			return $this->comments->count_string($comment_count);
+		}
+
 		$entry_id 		= $this->attribute('entry_id', $this->attribute('item_id'));
 		$entry_key 		= $this->attribute('entry_key');
 		$entry_plural 	= $this->attribute('entry_plural');

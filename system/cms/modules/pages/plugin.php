@@ -105,7 +105,7 @@ class Plugin_Pages extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 					),
 					'offset' => array(
@@ -402,7 +402,7 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit			= $this->attribute('limit', 10);
+		$limit			= $this->attribute('limit', null);
 		$offset			= $this->attribute('offset');
 		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
