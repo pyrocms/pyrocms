@@ -574,9 +574,7 @@ class Admin extends Admin_Controller
 		$this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
 		// Load navigation list
-		$navigation_groups = Navigation\Model\Group::getGroupOptions();
-		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
-
+		$this->template->navigation_groups = Navigation\Model\Group::getGroupOptions();
 		$this->template->group_options = Users\Model\Group::getGroupOptions();
 
 		$this->template
