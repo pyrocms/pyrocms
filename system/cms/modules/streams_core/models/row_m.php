@@ -1417,54 +1417,35 @@ class Row_m extends MY_Model {
 				{
 					$type = $this->type->types->{$field->field_type};
 		
-					if ( ! isset($type->alt_process) or ! $type->alt_process)
+					// If a pre_save function exists, go ahead and run it
+					if (method_exists($type, 'pre_save'))
 					{
-						// If a pre_save function exists, go ahead and run it
-						if (method_exists($type, 'pre_save'))
-						{
-							$return_data[$field->field_slug] = $type->pre_save(
-										$form_data[$field->field_slug],
-										$field,
-										$stream,
-										$row_id,
-										$form_data);
+						$return_data[$field->field_slug] = $type->pre_save(
+									$form_data[$field->field_slug],
+									$field,
+									$stream,
+									$row_id,
+									$form_data);
 
-							// We are unsetting the null values to as to
-							// not upset db can be null rules.
-							if (is_null($return_data[$field->field_slug]))
-							{
-								unset($return_data[$field->field_slug]);
-							}
-							else
-							{
-								$return_data[$field->field_slug] = $return_data[$field->field_slug];
-							}
+						// We are unsetting the null values to as to
+						// not upset db can be null rules.
+						if (is_null($return_data[$field->field_slug]))
+						{
+							unset($return_data[$field->field_slug]);
 						}
 						else
 						{
-							$return_data[$field->field_slug] = $form_data[$field->field_slug];
-		
-							// Make null - some fields don't like just blank values
-							if ($return_data[$field->field_slug] == '')
-							{
-								$return_data[$field->field_slug] = null;
-							}
+							$return_data[$field->field_slug] = $return_data[$field->field_slug];
 						}
 					}
 					else
 					{
-						// If this is an alt_process, there can still be a pre_save,
-						// it just won't return anything so we don't have to
-						// save the value
-						if (method_exists($type, 'pre_save'))
+						$return_data[$field->field_slug] = $form_data[$field->field_slug];
+
+						// Make null - some fields don't like just blank values
+						if ($return_data[$field->field_slug] == '')
 						{
-							$type->pre_save(
-										$form_data[$field->field_slug],
-										$field,
-										$stream,
-										$row_id,
-										$form_data
-							);
+							$return_data[$field->field_slug] = null;
 						}
 					}
 				}
@@ -1510,32 +1491,22 @@ class Row_m extends MY_Model {
 					
 					if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
 					{
-						// We don't process the alt process stuff.
-						// This is for field types that store data outside of the
-						// actual table
-						if (isset($type->alt_process) and $type->alt_process === true)
+						if (method_exists($type, 'pre_save'))
 						{
-							$alt_process[] = $field->field_slug;
+							$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
 						}
 						else
 						{
-							if (method_exists($type, 'pre_save'))
-							{
-								$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
-							}
-							else
-							{
-								$insert_data[$field->field_slug] = $data[$field->field_slug];
-							}
-
-							if (is_null($insert_data[$field->field_slug]))
-							{
-								unset($insert_data[$field->field_slug]);
-							}
-							elseif(is_string($insert_data[$field->field_slug]))
-							{
-								$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
-							}
+							$insert_data[$field->field_slug] = $data[$field->field_slug];
+						}
+	
+						if (is_null($insert_data[$field->field_slug]))
+						{
+							unset($insert_data[$field->field_slug]);
+						}
+						elseif(is_string($insert_data[$field->field_slug]))
+						{
+							$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
 						}
 					}
 					
