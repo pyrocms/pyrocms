@@ -685,7 +685,7 @@ class Streams_m extends MY_Model {
 	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
-		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
+		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset and empty($skips) )
 		{
 			return $this->stream_fields_cache[$stream_id];
 		}
