@@ -18,6 +18,7 @@ class Plugin_Theme extends Plugin
 	public $description = array(
 		'en' => 'Load and display theme assets.',
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
+            'fa' => 'بارگزاری و نمایش asset های قالب ها',
 		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.',
 		'it' => 'Carica e mostra gli asset del tema'
 	);

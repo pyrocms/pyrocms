@@ -18,6 +18,7 @@ class Plugin_Template extends Plugin
 	public $description = array(
 		'en' => 'Access and set theme settings and properties.',
 		'el' => 'Πρόσβαση και αλλαγή ρυθμίσεων και ιδιοτήτων του θέματος εμφάνισης.',
+            'fa' => 'دسترسی و ست کردن تنظیمات',
 		'fr' => 'Accéder aux paramètres et propriétés du thème.',
 		'it' => 'Accedi e imposta le impostazioni e le proprietà del tema'
 	);

@@ -14,9 +14,11 @@ class Plugin_Files extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Files',
+            'fa' => 'فایل ها',
 	);
 	public $description = array(
 		'en' => 'List files in specified folders and output images with cropping.',
+             'fa' => 'لیست فایل های موجود در پوشه ی مشخص شده و خروجی تصاویر',
 	);
 
 	/**
