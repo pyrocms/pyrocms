@@ -53,7 +53,6 @@ $lang['user:activated_account_title'] = 'Compte activé';
 $lang['user:reset_password_title']    = 'Réinitialisez le mot de passe';
 $lang['user:password_reset_title']    = 'Mot de passe réinitialisé';
 
-
 $lang['user:error_username'] = 'Le nom d\'utilisateur que vous avez entré est déjà utilisé';
 $lang['user:error_email']    = 'L\'adresse email que vous avez entré est déjà utilisée';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists']       = 'L\'adresse e-mail choisie est déjà affect�
 $lang['user:register_error']     = 'Nous pensons que vous êtes un robot. Si nous faisons erreur, merci d\'daccepter nos excuses.';
 $lang['user:register_reasons']   = 'Abonnez-vous pour accéder aux espaces réservés. Vos paramètres seront enregistrés, plus de contenu et moins de publicité.';
 
-
 // Activation
 $lang['user:activation_incorrect'] = 'L\'activation s\'est mal déroulée. S\'il vous plaît revoyer vos détails et assurez vous que les MAJUSCULES (CAPS LOCK) ne sont pas actives.';
 $lang['user:activated_message']    = 'Votre compte a été activé, vous pouvez maintenant vous y connecter.';
-
 
 // Login
 $lang['user:logged_in']         = 'Vous êtes connecté.';
 $lang['user:already_logged_in'] = 'Vous êtes déjà connecté. S\'il vous plaît déconnectez-vous avant de ré-essayer.';
 $lang['user:login_incorrect']   = 'L\'email ou le mot de passe sont erronés. S\'il vous plaît vérifiez votre login et assurez vous que les MAJUSCULES (CAPS LOCK) ne sont pas actives.';
 $lang['user:inactive']          = 'Le compte que vous tentez d\'accéder est inactif.<br />Vérifiez vos mails concernant l\'activation de votre compte - <em>il est peut être dans les spams</em>.';
-
 
 // Logged Out
 $lang['user:logged_out'] = 'Vous avez été déconnecté.';
@@ -143,13 +139,11 @@ $lang['user:forgot_incorrect'] = "Aucun compte correspondant à ces données n\'
 
 $lang['user:password_reset_message'] = "Votre mot de passe a été ré-initialisé. Vous devriez recevoir un e-mail dans les 2 heures suivantes. Sinon, il est peut être dans les spams par accident.";
 
-
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
 $lang['user:activation_email_subject'] = 'Activation requise';
 $lang['user:activation_email_body']    = 'Merci d\'avoir activé votre compte chez %s. Pour vous connecter au site, veuillez cliquer le lien ci-dessous:';
-
 
 $lang['user:activated_email_subject']       = 'Activation Réussie';
 $lang['user:activated_email_content_line1'] = 'Merci de vous être enregistré à %s. Avant de pouvoir activer votre compte, veuillez suivre entièrement le processus d\'enregistrement en cliquant sur le lien suivant :';

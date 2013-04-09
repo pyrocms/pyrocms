@@ -11,7 +11,7 @@ $lang['redirects:type']					= 'Scrivi';
 
 // redirect types
 $lang['redirects:301']					= '301 - Spostato permanentemente';
-$lang['redirects:302']					= '302 - Spostato temporaneamente'; 
+$lang['redirects:302']					= '302 - Spostato temporaneamente';
 
 // titles
 $lang['redirects:add_title'] 			= 'Aggiungi reindirizamento';

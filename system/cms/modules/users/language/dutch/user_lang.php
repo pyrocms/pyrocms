@@ -53,7 +53,6 @@ $lang['user:activated_account_title'] 	= 'Geactiveerd Account';
 $lang['user:reset_password_title'] 		= 'Reset Wachtwoord';
 $lang['user:password_reset_title'] 		= 'Wachtwoord Resetten';
 
-
 $lang['user:error_username'] 			= 'De gebruikersnaam die u ingevoerd heeft is reeds in gebruik';
 $lang['user:error_email'] 				= 'Het emailadres dat u ingevoerd heeft is reeds in gebruik';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 						= 'Het emailadres dat u ingevoerd heeft is al i
 $lang['user:register_error']				   = 'Wij denken dat u een bot bent. Als wij het mis hebben, sorry.';
 $lang['user:register_reasons'] 					= 'Registreer om afgeschermde gebieden te kunnen bezoeken. Ook worden uw instellingen onthouden. En bedenk: meer content, minder advertenties!';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'Activatie is mislukt. Verifieer de gegevens en kijk of CAPS LOCK niet aanstaat.';
 $lang['user:activated_message']   				= 'Uw account is geactiveerd, u kunt nu op uw account inloggen.';
-
 
 // Login
 $lang['user:logged_in']							= 'U bent ingelogd.';
 $lang['user:already_logged_in'] 				= 'U bent al ingelogd. Log eerst uit voordat u het opnieuw probeert.';
 $lang['user:login_incorrect'] 					= 'E-mail en wachtwoord kloppen niet. Verifieer uw logingegevens en kijk of CAPS LOCK niet aanstaat.';
 $lang['user:inactive']   						= 'Het account waarop u probeer in te loggen is inactief.<br />Bekijk de e-mail met instructies hoe u uw account kunt activeren - <em>de mail kan ook in uw spamfolder zitten</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'U bent uitgelogd.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "Uw wachtwoord is gereset. U kunt bi
 // Activation
 $lang['user:activation_email_subject'] 			= 'Activatie benodigd';
 $lang['user:activation_email_body'] 			= 'Hartelijk dank dat u uw account wilt activeren op %s. Om in te loggen op de site, klik op de link hieronder:';
-
 
 $lang['user:activated_email_subject'] 			= 'Activatie voltooid';
 $lang['user:activated_email_content_line1'] 	= 'Hartelijk dank voor uw registratie op %s. Voordat we uw account kunnen activeren, moet u het registratieproces voltooien. Klik hiervoor op de onderstaande link:';

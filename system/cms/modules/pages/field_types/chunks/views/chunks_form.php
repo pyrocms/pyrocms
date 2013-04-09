@@ -1,5 +1,5 @@
 <ul id="page-chunks">
-	<?php $count = 0; foreach ($chunks as $chunk): $chunk = (array)$chunk; ?>
+	<?php $count = 0; foreach ($chunks as $chunk): $chunk = (array) $chunk; ?>
 	<li class="page-chunk">
 		<?php echo form_input('chunk_slug['.$count.']', $chunk['slug'], 'class="label" placeholder="id"'); ?>
 		<?php echo form_input('chunk_class['.$count.']', $chunk['class'], 'class="label" placeholder="class"'); ?>

@@ -7,7 +7,7 @@
 		<div class="content">
 			<?php if ($blog) : ?>
 				<?php echo $this->load->view('admin/partials/filters') ?>
-	
+
 				<?php echo form_open('admin/blog/action') ?>
 					<div id="filter-stage">
 						<?php echo $this->load->view('admin/tables/posts') ?>

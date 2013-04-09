@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
 /**
  * CodeIgniter Dwoo Parser Class
@@ -12,27 +12,12 @@
 
 class MY_Parser extends CI_Parser {
 
-	private $_ci;
-
-	public function __construct($config = array())
-	{
-		$this->_ci = & get_instance();
-		
-		if ( ! class_exists('Lex_Autoloader'))
-		{
-			include APPPATH.'/libraries/Lex/Autoloader.php';
-		}
-	}
-
-	// --------------------------------------------------------------------
-
 	/**
 	 *  Parse a view file
 	 *
 	 * Parses pseudo-variables contained in the specified template,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -40,12 +25,10 @@ class MY_Parser extends CI_Parser {
 	 */
 	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
-		$string = $this->_ci->load->view($template, $data, true);
+		$string = ci()->load->view($template, $data, true);
 
 		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
-
-	// --------------------------------------------------------------------
 
 	/**
 	 *  String parse
@@ -53,7 +36,6 @@ class MY_Parser extends CI_Parser {
 	 * Parses pseudo-variables contained in the string content,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -64,15 +46,12 @@ class MY_Parser extends CI_Parser {
 		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
-	// --------------------------------------------------------------------
-
 	/**
 	 *  Parse
 	 *
 	 * Parses pseudo-variables contained in the specified template,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	protected
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -81,14 +60,12 @@ class MY_Parser extends CI_Parser {
 	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array())
 	{
 		// Start benchmark
-		$this->_ci->benchmark->mark('parse_start');
+		ci()->benchmark->mark('parse_start');
 
 		// Convert from object to array
 		is_array($data) or $data = (array) $data;
 
-		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
-
-		Lex_Autoloader::register();
+		$data = array_merge($data, ci()->load->_ci_cached_vars);
 
 		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
 		{
@@ -97,31 +74,27 @@ class MY_Parser extends CI_Parser {
 			// This is where that happens.
 			$id_name = (isset($streams_parse['id_name']) and $streams_parse['id_name']) ? $streams_parse['id_name'] : 'id';
 
-			$this->_ci->load->driver('Streams');
-			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace'], false, null, $id_name);
+			ci()->load->driver('Streams');
+			$parsed = ci()->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace'], false, null, $id_name);
 		}
 		else
 		{
-			$parser = new Lex_Parser();
-			$parser->scope_glue(':');
-			$parser->cumulative_noparse(true);
+			$parser = new Lex\Parser();
+			$parser->scopeGlue(':');
+			$parser->cumulativeNoparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
 		
 		// Finish benchmark
-		$this->_ci->benchmark->mark('parse_end');
+		ci()->benchmark->mark('parse_end');
 		
 		// Return results or not ?
-		if ( ! $return)
-		{
-			$this->_ci->output->append_output($parsed);
-			return;
+		if ($return) {
+			return $parsed;
 		}
-
-		return $parsed;
+		
+		ci()->output->append_output($parsed);		
 	}
-
-	// --------------------------------------------------------------------
 
 	/**
 	 * Callback from template parser
@@ -131,9 +104,9 @@ class MY_Parser extends CI_Parser {
 	 */
 	public function parser_callback($plugin, $attributes, $content)
 	{
-		$this->_ci->load->library('plugins');
+		ci()->load->library('plugins');
 
-		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content);
+		$return_data = ci()->plugins->locate($plugin, $attributes, $content);
 
 		if (is_array($return_data) && $return_data)
 		{
@@ -145,16 +118,10 @@ class MY_Parser extends CI_Parser {
 			// $content = $data['content']; # TODO What was this doing other than throw warnings in 2.0?
 			$parsed_return = '';
 
-			$parser = new Lex_Parser();
-			$parser->scope_glue(':');
+			$parser = new Lex\Parser();
+			$parser->scopeGlue(':');
 			
-			foreach ($return_data as $result)
-			{
-				// if ($data['skip_content'])
-				// {
-				// 	$simpletags->set_skip_content($data['skip_content']);
-				// }
-
+			foreach ($return_data as $result) {
 				$parsed_return .= $parser->parse($content, $result, array($this, 'parser_callback'));
 			}
 
@@ -163,7 +130,7 @@ class MY_Parser extends CI_Parser {
 			$return_data = $parsed_return;
 		}
 
-		return $return_data ? $return_data : null;
+		return $return_data ?: null;
 	}
 
 	// ------------------------------------------------------------------------
@@ -192,21 +159,15 @@ class MY_Parser extends CI_Parser {
 	{
 		$multi = array();
 		$return = array();
-		foreach ($flat as $item => $value)
-		{
-			if (is_object($value))
-			{
+		foreach ($flat as $item => $value) {
+			if (is_object($value)) {
 				$return[$item] = (array) $value;
-			}
-			else
-			{
+			} else {
 				$return[$i][$item] = $value;
 			}
 		}
 		return $return;
 	}
 }
-
-// END MY_Parser Class
 
 /* End of file MY_Parser.php */

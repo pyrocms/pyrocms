@@ -31,17 +31,13 @@
 </head>
 
 <body>
-
 	<div id="container">
-
 		<div class="topbar">
 			<div class="wrapper">
-
 			<div id="logo">
 				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
 			</div>
-
-<ul id="lang">
+			<ul id="lang">
 				<?php foreach($language_nav as $lang => $info):?>
 				<li>
 					<a href="<?php echo $info['action_url']; ?>" title="<?php echo $info['name']; ?>">
@@ -49,10 +45,9 @@
 					</a>
 				</li>
 				<?php endforeach; ?>
-</ul>
+			</ul>
 		</div>
 		</div>
-
 			<nav id="menu">
 				<ul>
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
@@ -72,7 +67,7 @@
 			<?php endif; ?>
 
 			<!-- Message type 2 (validation errors) -->
-			<?php if ( validation_errors() ): ?>
+			<?php if (validation_errors()): ?>
 				<div id="notification">
 					<ul class="block-message error">
 						<?php echo validation_errors('<li>', '</li>'); ?>
@@ -81,7 +76,7 @@
 			<?php endif; ?>
 
 			<!-- Message type 3 (data for the same page load) -->
-			<?php if($this->messages): ?>
+			<?php if ($this->messages): ?>
 				<?php foreach (array_keys($this->messages) as $type): ?>
 					<ul class="block-message <?php echo ($type) ? $type : 'success'; ?>">
 						<?php foreach ($this->messages as $key => $message): ?>

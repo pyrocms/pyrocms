@@ -18,7 +18,7 @@ class Admin_modules extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -30,7 +30,7 @@ class Admin_modules extends Admin_Controller
 
 	/**
 	 * Index method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index()
@@ -40,14 +40,10 @@ class Admin_modules extends Admin_Controller
 		$all_modules = $this->module_m->get_all(null, true);
 
 		$core_modules = $addon_modules = array();
-		foreach ($all_modules as $module)
-		{
-			if ($module['is_core'])
-			{
+		foreach ($all_modules as $module) {
+			if ($module['is_core']) {
 				$core_modules[] = $module;
-			}
-			else
-			{
+			} else {
 				$addon_modules[] = $module;
 			}
 		}
@@ -68,13 +64,11 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function upload()
 	{
-		if ( ! $this->settings->addons_upload)
-		{
+		if (! $this->settings->addons_upload) {
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
-		if ($this->input->post('btnAction') == 'upload')
-		{
+		if ($this->input->post('btnAction') == 'upload') {
 			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= 20480;
@@ -82,8 +76,7 @@ class Admin_modules extends Admin_Controller
 
 			$this->load->library('upload', $config);
 
-			if ($this->upload->do_upload())
-			{
+			if ($this->upload->do_upload()) {
 				$upload_data = $this->upload->data();
 
 				// Now try to unzip
@@ -91,22 +84,17 @@ class Admin_modules extends Admin_Controller
 				$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
 
 				// Try and extract
-				if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', true, true)) )
-				{
+				if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', true, true)) ) {
 					$redirect = 'addons/modules';
 					$this->session->set_flashdata('success', sprintf(lang('addons:modules:upload_success'), $slug));
-				}
-				else
-				{
+				} else {
 					$redirect = 'addons/modules/upload';
 					$this->session->set_flashdata('error', $this->unzip->error_string());
 				}
 
 				// Delete uploaded file
 				@unlink($upload_data['full_path']);
-			}
-			else
-			{
+			} else {
 				$redirect = 'addons/modules/upload';
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
@@ -118,7 +106,7 @@ class Admin_modules extends Admin_Controller
 			->title($this->module_details['name'], lang('addons:modules:upload_title'))
 			->build('admin/modules/upload');
 	}
-	
+
 	/**
 	 * Uninstall
 	 *
@@ -130,15 +118,12 @@ class Admin_modules extends Admin_Controller
 	public function uninstall($slug = '')
 	{
 
-		if ($this->module_m->uninstall($slug))
-		{
+		if ($this->module_m->uninstall($slug)) {
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $slug));
-			
-			// Fire an event. A module has been disabled when uninstalled. 
+
+			// Fire an event. A module has been disabled when uninstalled.
 			Events::trigger('module_disabled', $slug);
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:uninstall_error'), $slug));
 		}
 
@@ -156,32 +141,26 @@ class Admin_modules extends Admin_Controller
 	public function delete($slug = '')
 	{
 		// Don't allow user to delete the entire module folder
-		if ($slug === '/' or $slug === '*' or empty($slug))
-		{
+		if ($slug === '/' or $slug === '*' or empty($slug)) {
 			show_error(lang('addons:modules:module_not_specified'));
 		}
 
 		// lets kill this thing
-		if ($this->module_m->uninstall($slug) and $this->module_m->delete($slug))
-		{
+		if ($this->module_m->uninstall($slug) and $this->module_m->delete($slug)) {
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:delete_success'), $slug));
 
 			$path = ADDONPATH.'modules/'.$slug;
-			
+
 			// they can only delete it if it's in the addons folder
-			if ( is_dir($path) )
-			{
-				if (!$this->_delete_recursive($path))
-				{
+			if ( is_dir($path) ) {
+				if (!$this->_delete_recursive($path)) {
 					$this->session->set_flashdata('notice', sprintf(lang('addons:modules:manually_remove'), $path));
 				}
 			}
 
-			// Fire an event. A module has been disabled when deleted. 
+			// Fire an event. A module has been disabled when deleted.
 			Events::trigger('module_disabled', $slug);
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:delete_error'), $slug));
 		}
 
@@ -198,17 +177,14 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function install($slug)
 	{
-		if ($this->module_m->install($slug))
-		{
-			// Fire an event. A module has been enabled when installed. 
+		if ($this->module_m->install($slug)) {
+			// Fire an event. A module has been enabled when installed.
 			Events::trigger('module_enabled', $slug);
-							
+
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:install_error'), $slug));
 		}
 
@@ -225,17 +201,14 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function enable($slug)
 	{
-		if ($this->module_m->enable($slug))
-		{
-			// Fire an event. A module has been enabled. 
+		if ($this->module_m->enable($slug)) {
+			// Fire an event. A module has been enabled.
 			Events::trigger('module_enabled', $slug);
-			
+
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $slug));
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:enable_error'), $slug));
 		}
 
@@ -252,23 +225,20 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function disable($slug)
 	{
-		if ($this->module_m->disable($slug))
-		{
-			// Fire an event. A module has been disabled. 
+		if ($this->module_m->disable($slug)) {
+			// Fire an event. A module has been disabled.
 			Events::trigger('module_disabled', $slug);
-			
+
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $slug));
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:disable_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
 	}
-	
+
 	/**
 	 * Upgrade
 	 *
@@ -280,19 +250,17 @@ class Admin_modules extends Admin_Controller
 	public function upgrade($slug)
 	{
 		// If upgrade succeeded
-		if ($this->module_m->upgrade($slug))
-		{
-			// Fire an event. A module has been upgraded. 
+		if ($this->module_m->upgrade($slug)) {
+			// Fire an event. A module has been upgraded.
 			Events::trigger('module_upgraded', $slug);
-			
+
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:upgrade_success'), $slug));
 		}
 		// If upgrade failed
-		else
-		{
+		else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:upgrade_error'), $slug));
 		}
-		
+
 		redirect('admin/addons/modules');
 	}
 
@@ -306,16 +274,12 @@ class Admin_modules extends Admin_Controller
 	 */
 	private function _delete_recursive($str)
 	{
-        if (is_file($str))
-		{
+        if (is_file($str)) {
             return @unlink($str);
-        }
-		elseif (is_dir($str))
-		{
+        } elseif (is_dir($str)) {
             $scan = glob(rtrim($str,'/').'/*');
 
-			foreach($scan as $index => $path)
-			{
+			foreach ($scan as $path) {
                 $this->_delete_recursive($path);
             }
 

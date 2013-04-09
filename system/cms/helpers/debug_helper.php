@@ -22,8 +22,7 @@ function dump()
 	echo '<legend style="background:lightgrey; padding:5px;">'.$callee['file'].' @ line: '.$callee['line'].'</legend><pre>';
 
 	$i = 0;
-	foreach ($arguments as $argument)
-	{
+	foreach ($arguments as $argument) {
 		echo '<br/><strong>Debug #'.(++$i).' of '.$total_arguments.'</strong>: ';
 		var_dump($argument);
 	}

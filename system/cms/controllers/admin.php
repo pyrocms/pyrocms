@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * The admin class is basically the main controller for the backend.
  *
@@ -27,8 +28,7 @@ class Admin extends Admin_Controller
 			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
-		if (is_dir('./installer'))
-		{
+		if (is_dir('./installer')) {
 			$this->template
 				->set('messages', array('notice' => '<button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'.lang('cp:delete_installer_message')));
 		}
@@ -61,14 +61,14 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() or $this->ion_auth->logged_in())
-		{
-			// if they were trying to go someplace besides the 
+		if ($this->form_validation->run() or $this->sentry->check()) {
+			// if they were trying to go someplace besides the
+
 			// dashboard we'll have stored it in the session
 			$redirect = $this->session->userdata('admin_redirect');
 			$this->session->unset_userdata('admin_redirect');
 
-			redirect($redirect ? $redirect : 'admin');
+			redirect($redirect ?: 'admin');
 		}
 
 		$this->template
@@ -82,7 +82,7 @@ class Admin extends Admin_Controller
 	public function logout()
 	{
 		$this->load->language('users/user');
-		$this->ion_auth->logout();
+		$this->sentry->logout();
 		$this->session->set_flashdata('success', lang('user:logged_out'));
 		redirect('admin/login');
 	}
@@ -96,15 +96,43 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-		if ($this->ion_auth->login($email, $this->input->post('password'), (bool)$this->input->post('remember')))
-		{
-			Events::trigger('post_admin_login');
-			
-			return true;
+		$password = $this->input->post('password');
+
+		try {
+
+			$this->sentry->authenticate(array(
+				'email' => $email,
+				'password' => $password,
+			), (bool) $this->input->post('remember'));
+
+		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+			// Could not log in with password. Maybe its an old style pass?
+			try
+			{
+				// Try logging in with this double-hashed password
+				$this->sentry->authenticate(array(
+					'email' => $email,
+					'password' => whacky_old_password_hasher($email, $password),
+				), (bool) $this->input->post('remember'));
+
+			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+				// That madness didn't work, error
+				$this->form_validation->set_message('_check_login', 'Incorrect login.');
+				return false;
+			}
+
+		} catch (Exception $e) {
+
+			var_dump($e);
+			$this->form_validation->set_message('_check_login', $e->getMessage());
+			return false;
 		}
 
-		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
-		return false;
+		Events::trigger('post_admin_login');
+
+		return true;
 	}
 
 	/**
@@ -125,19 +153,16 @@ class Admin extends Admin_Controller
 
 	public function remove_installer_directory()
 	{
-		if ( ! $this->input->is_ajax_request())
-		{
+		if ( ! $this->input->is_ajax_request()) {
 			die('Nope, sorry');
 		}
 
 		header('Content-Type: application/json');
 
-		if (is_dir('./installer'))
-		{
+		if (is_dir('./installer')) {
 			$this->load->helper('file');
 			// if the contents of "installer" delete successfully then finish off the installer dir
-			if (delete_files('./installer', true) and count(scandir('./installer')) == 2)
-			{
+			if (delete_files('./installer', true) and count(scandir('./installer')) == 2) {
 				rmdir('./installer');
 				// This is the end, tell Sally I loved her.
 				die(json_encode(array('status' => 'success', 'message' => lang('cp:delete_installer_successfully_message'))));

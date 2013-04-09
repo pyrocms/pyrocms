@@ -1,12 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
 class Migration_Add_menu_stream_field extends CI_Migration
 {
     public function up()
     {
-       if ( ! $this->db->field_exists('menu_path', 'data_streams'))
-       {
+       if ( ! $this->db->field_exists('menu_path', 'data_streams')) {
             $columns = array(
                 'menu_path' => array(
                             'type' => 'VARCHAR',

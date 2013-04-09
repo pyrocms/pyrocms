@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
  * The public controller for the Pages module.
  *
@@ -7,7 +10,6 @@
  */
 class Pages extends Public_Controller
 {
-
 	/**
 	 * Constructor method
 	 */
@@ -15,22 +17,16 @@ class Pages extends Public_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('page_m');
-		$this->load->model('page_type_m');
-
 		// This basically keeps links to /home always pointing to
 		// the actual homepage even when the default_controller is
 		// changed
 
 		// No page is mentioned and we are not using pages as default
 		//  (eg blog on homepage)
-		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages')
-		{
+		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages') {
 			redirect('');
 		}
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Catch all requests to this page in one mega-function.
@@ -40,25 +36,19 @@ class Pages extends Public_Controller
 	public function _remap($method)
 	{
 		// This page has been routed to with pages/view/whatever
-		if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
-		{
+		if ($this->uri->rsegment(1, '').'/'.$method === 'pages/view') {
 			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($this->uri->rsegment_array(), 2) : null;
 		}
 
 		// not routed, so use the actual URI segments
-		else
-		{
-			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico')
-			{
+		else {
+			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico') {
 				$favicon = Asset::get_filepath_img('theme::favicon.ico');
 
-				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon))
-				{
+				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon)) {
 					header('Content-type: image/x-icon');
 					readfile(FCPATH.$favicon);
-				}
-				else
-				{
+				} else {
 					set_status_header(404);
 				}
 
@@ -74,8 +64,6 @@ class Pages extends Public_Controller
 			: $this->_page($url_segments);
 	}
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Page method
 	 *
@@ -83,34 +71,23 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		// Get our chunks field type if this is an
-		// upgraded site.
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
-		}
-
 		// If we are on the development environment,
 		// we should get rid of the cache. That ways we can just
 		// make updates to the page type files and see the
 		// results immediately.
-		if (ENVIRONMENT == PYRO_DEVELOPMENT)
-		{
-			$this->pyrocache->delete_all('page_m');
+		if (ENVIRONMENT == PYRO_DEVELOPMENT) {
+			$this->cache->clear('Page');
 		}
 
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
-
-		// Setting this so others may use it.
-		$this->template->set('page', $page);
+		// $page = $this->cache->method('Page::findByUri', array($url_segments, true));
+		$page = Page::findByUri($url_segments, true);
 
 		// If page is missing or not live (and the user does not have permission) show 404
-		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
-		{
+		if ( ! $page or ($page->status === 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live')))) {
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
-			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))) )
-			{
+			// if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
+			if ( ! ($page = Page::findByUri(404))) {
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
 		}
@@ -119,25 +96,21 @@ class Pages extends Public_Controller
 		isset($page->base_uri) OR $page->base_uri = $url_segments;
 
 		// If this is a homepage, do not show the slug in the URL
-		if ($page->is_home and $url_segments)
-		{
+		if ($page->is_home and $url_segments) {
 			redirect('', 'location', 301);
 		}
 
 		// If the page is missing, set the 404 status header
-		if ($page->slug == '404')
-		{
+		if ($page->slug == 404) {
 			$this->output->set_status_header(404);
 		}
 
 		// Nope, it is a page, but do they have access?
-		elseif ($page->restricted_to)
-		{
-			$page->restricted_to = (array)explode(',', $page->restricted_to);
+		elseif ($page->restricted_to) {
+			$page->restricted_to = (array) explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to)))
-			{
+			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to))) {
 				// send them to login but bring them back when they're done
 				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
@@ -145,52 +118,40 @@ class Pages extends Public_Controller
 
 		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or
 		// similar. Also we don't worry about breadcrumbs for 404
-		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
-		{
+		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1) {
 			// we dont care about the last one
 			array_pop($url_segments);
 
-			// This array of parents in the cache?
-			if ( ! $parents = $this->pyrocache->get('page_m/'.md5(implode('/', $url_segments))))
-			{
-				$parents = $breadcrumb_segments = array();
+			$parents = $breadcrumb_segments = array();
 
-				foreach ($url_segments as $segment)
-				{
-					$breadcrumb_segments[] = $segment;
+			// TODO Cache me! Phil delete it
+			foreach ($url_segments as $segment) {
+				$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true));
-				}
-
-				// Cache for next time
-				$this->pyrocache->write($parents, 'page_m/'.md5(implode('/', $url_segments)));
+				$parents[] = Page::findByUri($breadcrumb_segments, true);
 			}
 
-			foreach ($parents as $parent_page)
-			{
+			foreach ($parents as $parent_page) {
 				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
 			}
 		}
 
 		// If this page has an RSS feed, show it
-		if ($page->rss_enabled)
-		{
+		if ($page->rss_enabled) {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string().'.rss').'" />');
 		}
 
 		// Set pages layout files in your theme folder
-		if ($this->template->layout_exists($page->uri.'.html'))
-		{
+		if ($this->template->layout_exists($page->uri.'.html')) {
 			$this->template->set_layout($page->uri.'.html');
 		}
 
 		// If a Page Type has a Theme Layout that exists, use it
-		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
+		if ( ! empty($page->type->theme_layout) and $this->template->layout_exists($page->type->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
-		)
-		{
-			$this->template->set_layout($page->layout->theme_layout);
+			and ($this->template->layout_is('default.html') or $page->type->theme_layout !== 'default.html')
+		) {
+			$this->template->set_layout($page->type->theme_layout);
 		}
 
 		// ---------------------------------
@@ -199,22 +160,21 @@ class Pages extends Public_Controller
 
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
-		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
-		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+		$meta_title = ($page->meta_title ?: $page->type->meta_title);
+		$meta_description = ($page->meta_description ?: $page->type->meta_description);
 		$meta_keywords = '';
-		if ($page->meta_keywords or $page->layout->meta_keywords)
-		{
-			$meta_keywords = $page->meta_keywords ?
-								Keywords::get_string($page->meta_keywords) :
-								Keywords::get_string($page->layout->meta_keywords);
+
+		$keyword_hash = $page->meta_keywords ?: $page->type->meta_keywords;
+
+		if ($keyword_hash) {
+			$meta_keywords = Keywords::get_string($page->meta_keywords);
 		}
 
 		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ( ! $meta_title)
-		{
-			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
+		if (! $meta_title) {
+			$meta_title = $page->is_home ? Settings::get('site_slogan') : $page->title;
 		}
 
 		// ---------------------------------
@@ -228,21 +188,20 @@ class Pages extends Public_Controller
 
 		// make it possible to use {{ asset:inline_css }} #foo { color: red } {{ /asset:inline_css }}
 		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
-		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
+		$css = $this->parser->parse_string($page->type->css.$page->css, $this, true);
 
 		// there may not be any css (for sure after parsing Lex tags)
-		if ($css)
-		{
+		if ($css) {
 			$this->template->append_metadata('
 				<style type="text/css">
 					'.$css.'
 				</style>', 'late_header');
 		}
 
-		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
+		$js = $this->parser->parse_string($page->type->js.$page->js, $this, true);
+
 		// Add our page and page layout JS
-		if ($js)
-		{
+		if ($js) {
 			$this->template->append_metadata('
 				<script type="text/javascript">
 					'.$js.'
@@ -250,8 +209,7 @@ class Pages extends Public_Controller
 		}
 
 		// If comments are enabled, go fetch them all
-		if (Settings::get('enable_comments'))
-		{
+		if (Settings::get('enable_comments')) {
 			// Load Comments so we can work out what to do with them
 			$this->load->library('comments/comments', array(
 				'entry_id' 		=> $page->id,
@@ -262,8 +220,7 @@ class Pages extends Public_Controller
 			));
 		}
 
-		if ($page->slug == '404')
-		{
+		if ($page->slug == '404') {
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
@@ -271,7 +228,8 @@ class Pages extends Public_Controller
 		}
 
 		// Get our stream.
-		$stream = $this->streams_m->get_stream($page->layout->stream_id);
+		$this->load->driver('Streams');
+		$stream = $this->streams_m->get_stream($page->type->stream_id);
 
 		// We are going to pre-build this data so we have the data
 		// available to the template plugin (since we are pre-parsing our views).
@@ -291,8 +249,6 @@ class Pages extends Public_Controller
 		$this->template->build($view, array('page' => $page), false, false, true, $template);
 	}
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * RSS method
 	 *
@@ -305,55 +261,42 @@ class Pages extends Public_Controller
 		// Remove the .rss suffix
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
 
-
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
+		// TODO Cache me, Phil delete it
+		$page = Page::findByUri($url_segments, true);
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
 
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled)
-		{
+		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled) {
 			// Will try the page then try 404 eventually
 			$this->_page('404');
 			return;
 		}
 
-		// We need to get all the children of this page.
-		$query_options = array(
-			'parent_id' => $page->id,
-		);
-
 		// If the feed should only show live pages
-		if ( ! $include_draft)
-		{
-			// add the query where criteria
-			$query_options['status'] = 'live';
-		}
-		// Hit the query through PyroCache.
-		$children = $this->pyrocache->model('page_m', 'get_many_by', array($query_options));
+		$status = $include_draft ? null : 'live';
 
-		//var_dump($children);
+		// Hit the query through the cache.
+		$children = $this->cache->method('Page', 'findByIdAndStatus', array($id, $status));
 
 		$data = array(
 			'rss' => array(
-				'title' => ($page->meta_title ? $page->meta_title : $page->title).' | '.$this->settings->site_name,
+				'title' => ($page->meta_title ?: $page->title).' | '.Settings::get('site_name'),
 				'description' => $page->meta_description,
 				'link' => site_url($url_segments),
-				'creator_email' => $this->settings->contact_email,
+				'creator_email' => Settings::get('contact_email'),
 				'items' => array(),
 			),
 		);
 
-		if ( ! empty($children))
-		{
+		if ( ! empty($children)) {
 			$this->load->helper('xml');
 
-			foreach ($children as &$row)
-			{
-				$row->link = $row->uri ? $row->uri : $row->slug;
-				$row->created_on = standard_date('DATE_RSS', $row->created_on);
+			foreach ($children as &$row) {
+				$row->link = $row->uri ?: $row->slug;
+				$row->created_on = date(DATE_RSS, $row->created_on);
 
 				$data['rss']['items'][] = array(
 					//'author' => $row->author,
@@ -365,6 +308,7 @@ class Pages extends Public_Controller
 				);
 			}
 		}
+
 		// We are outputing RSS/Atom here... let them know.
 		$this->output->set_header('Content-Type: application/rss+xml');
 		$this->load->view('rss', $data);

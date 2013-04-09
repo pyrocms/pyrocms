@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\PageType;
+
 /**
  * Admin controller for the Page Types of the Pages module.
  *
@@ -21,7 +24,7 @@ class Admin_types extends Admin_Controller
 	 *
 	 * @var array
 	 */
-	private $validation_rules = array(
+	private static $validate = array(
 		array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
@@ -95,20 +98,10 @@ class Admin_types extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('page_type_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
 
-		$this->load->library('form_validation');
-
 		$this->load->driver('Streams');
-
-		// Get our chunks field type if this is an
-		// upgraded site.
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
-		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -119,7 +112,7 @@ class Admin_types extends Admin_Controller
 	public function index()
 	{
 		// Get all page types
-		$this->template->page_types = $this->page_type_m->get_all();
+		$this->template->page_types = PageType::all();
 
 		// Render the view
 		$this->template
@@ -137,39 +130,33 @@ class Admin_types extends Admin_Controller
 		role_or_die('pages', 'create_types');
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(static::$validate);
 
 		// Set page_type_m so we can use the page_type_m
 		// validation callbacks
 		$this->form_validation->set_model('page_type_m');
 
-		$data = new stdClass();
-		$data->page_type = new stdClass();
+		$data = new stdClass;
+		$data->page_type = new stdClass;
 
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$input = $this->input->post();
 
 			// they're using an existing stream or we autocreate a slug
-			if ($input['stream_id'] == 0)
-			{
+			if ($input['stream_id'] == 0) {
 				$stream_slug = url_title($input['title'], '_', true);
 
 				// check to see if they want us to make a table and then see if we can
-				if ( ! $stream_slug and $this->db->table_exists($stream_slug))
-				{
+				if ( ! $stream_slug and $this->db->table_exists($stream_slug)) {
 					$this->session->set_flashdata('notice', lang('page_types:already_exist_error'));
 					redirect('admin/pages/types/create');
-				}
-				else
-				{
+				} else {
 					// nope, no table conflicts so let's create the stream
 				}
 			}
 
 			// If they've indicated we create a new stream
-			if ($input['stream_id'] == 'new')
-			{
+			if ($input['stream_id'] == 'new') {
 				// Since this an automatically generated stream, we're not going to
 				// worry about auto-generating a slug as long as it doesn't conflict.
 				// We'll just append incrementing numbers to it until we get closer.
@@ -177,8 +164,7 @@ class Admin_types extends Admin_Controller
 				$stream_slug = url_title($input['title'], '_', true);
 				$original_stream_slug = $stream_slug;
 				$count = 2;
-				while ($this->streams->streams->check_table_exists($stream_slug, 'pages_'))
-				{
+				while ($this->streams->streams->check_table_exists($stream_slug, 'pages_')) {
 					$stream_slug = $original_stream_slug.'_'.$count;
 					$count++;
 				}
@@ -204,33 +190,27 @@ class Admin_types extends Admin_Controller
 				'save_as_files'		=> (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n'
 			));
 
-
 			// Success or fail?
-			if ($id > 0)
-			{
+			if ($id > 0) {
 				// Should we create some files?
-				if ($this->input->post('save_as_files') == 'y')
-				{
+				if ($this->input->post('save_as_files') == 'y') {
 					$this->page_type_m->place_page_layout_files($input);
 				}
 
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
 
-				$this->pyrocache->delete_all('page_m');
+				$this->cache->clear('page_m');
 
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
 
-				if ($this->input->post('stream_id') == 'new')
-				{
+				if ($this->input->post('stream_id') == 'new') {
 					$this->session->set_flashdata('success', lang('page_types:create_success_add_fields'));
 
 					// send them off to create their first fields
 					redirect('admin/pages/types/fields/' . $id);
 				}
-			}
-			else
-			{
+			} else {
 				$this->session->set_flashdata('notice', lang('page_types:create_error'));
 			}
 
@@ -238,8 +218,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$data->page_type->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -252,8 +231,7 @@ class Admin_types extends Admin_Controller
 		// Theme layouts dropdown data.
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
 		$data->theme_layouts = array();
-		foreach ($theme_layouts as $theme_layout)
-		{
+		foreach ($theme_layouts as $theme_layout) {
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
 		}
 
@@ -271,7 +249,6 @@ class Admin_types extends Admin_Controller
 	 * to choose an appropriate stream. These are
 	 * separated by namespace.
 	 *
-	 * @access 	private
 	 * @return 	array
 	 */
 	private function get_stream_dropdown_list()
@@ -284,10 +261,8 @@ class Admin_types extends Admin_Controller
 							->where('stream_namespace !=', 'users')
 							->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
 
-		foreach ($streams as $stream)
-		{
-			if ($stream->stream_namespace)
-			{
+		foreach ($streams as $stream) {
+			if ($stream->stream_namespace) {
 				$choices[ucfirst($stream->stream_namespace)][$stream->id] = $stream->stream_name;
 			}
 		}
@@ -320,49 +295,46 @@ class Admin_types extends Admin_Controller
 		$this->page_type_id = $id;
 
 		// Set data, if it exists
-		if ( ! $data->page_type = $this->page_type_m->get($id))
-		{
+		if ( ! $page_type = PageType::find($id)) {
 			$this->session->set_flashdata('error', lang('page_types:page_not_found_error'));
 			redirect('admin/pages/types/create');
 		}
 
 		// Give validation a try, who knows, it just might work!
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
+
 			$input = $this->input->post();
 
 			// Run the update code with the POST data
-			$this->page_type_m->update($id, array(
-				'title' 			=> $input['title'],
-				'description'       => $input['description'],
-				'meta_title' 		=> isset($input['meta_title']) ? $input['meta_title'] : null,
-				//'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
-				'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : null,
-				'theme_layout' 		=> $input['theme_layout'],
-				'body' 				=> ($input['body'] ? $input['body'] : false),
-				'css' 				=> $input['css'],
-				'js' 				=> $input['js'],
-				'content_label'		=> $this->input->post('content_label'),
-				'title_label'		=> $this->input->post('title_label'),
-				'save_as_files'		=> (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n'
-			));
+			$page_type->title 				= $input['title'];
+			$page_type->description       	= $input['description'];
+			$page_type->meta_title 			= isset($input['meta_title']) ? $input['meta_title'] : null;
+			$page_type->meta_description 	= isset($input['meta_description']) ? $input['meta_description'] : null;
+			$page_type->theme_layout 		= $input['theme_layout'];
+			$page_type->body 				= $input['body'] ?: null;
+			$page_type->css 				= $input['css'];
+			$page_type->js 					= $input['js'];
+			$page_type->content_label		= $this->input->post('content_label');
+			$page_type->title_label			= $this->input->post('title_label');
+			$page_type->save_as_files		= (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n';
+
+			$page_type->save();
 
 			// Wipe cache for this model as the data has changed
-			$this->pyrocache->delete_all('page_type_m');
+			$this->cache->clear('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 
-			$input['slug'] = $data->page_type->slug;
-			if ($this->input->post('save_as_files') == 'y')
-			{
+			$input['slug'] = $page_type->slug;
+
+			if ($this->input->post('save_as_files') == 'y') {
 				$this->page_type_m->place_page_layout_files($input);
-			}
-			else
-			{
+
+			} else {
 				$this->page_type_m->remove_page_layout_files($input['slug']);
 			}
 
-			$this->pyrocache->delete_all('page_m');
+			$this->cache->clear_all('page_m');
 
 			Events::trigger('page_type_updated', $id);
 
@@ -372,10 +344,8 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']))
-			{
+		foreach ($this->validation_rules as $rule) {
+			if ($this->input->post($rule['field'])) {
 				$data->page_type->{$rule['field']} = set_value($rule['field']);
 			}
 		}
@@ -385,8 +355,7 @@ class Admin_types extends Admin_Controller
 
 		$theme_layouts = $this->template->get_theme_layouts(Settings::get('default_theme'));
 		$data->theme_layouts = array();
-		foreach ($theme_layouts as $theme_layout)
-		{
+		foreach ($theme_layouts as $theme_layout) {
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
 		}
 
@@ -401,7 +370,6 @@ class Admin_types extends Admin_Controller
 	/**
 	 * Edit Fields for a certain page type.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function fields()
@@ -414,16 +382,11 @@ class Admin_types extends Admin_Controller
 		$this->load->driver('Streams');
 
 		// If we are adding a field, show the field form.
-		if ($this->uri->segment(6) == 'new_field')
-		{
+		if ($this->uri->segment(6) == 'new_field') {
 			return $this->_new_field($stream, $page_type);
-		}
-		elseif ($this->uri->segment(6) == 'edit_field')
-		{
+		} elseif ($this->uri->segment(6) == 'edit_field') {
 			return $this->_edit_field($stream, $page_type);
-		}
-		elseif ($this->uri->segment(6) == 'delete_field')
-		{
+		} elseif ($this->uri->segment(6) == 'delete_field') {
 			return $this->_delete_field($stream);
 		}
 
@@ -445,7 +408,6 @@ class Admin_types extends Admin_Controller
 			)
 		);
 
-
 		// Show our fields list.
 		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
 	}
@@ -455,7 +417,6 @@ class Admin_types extends Admin_Controller
 	/**
 	 * Sync page files for a certain page type.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function sync()
@@ -472,24 +433,17 @@ class Admin_types extends Admin_Controller
   		if (is_file($folder.'js')) $update_data['js'] = read_file($folder.'js');
  		if (is_file($folder.'css')) $update_data['css'] = read_file($folder.'css');
 
- 		if ($update_data)
- 		{
+ 		if ($update_data) {
  			$this->page_type_m->update_by('id', $page_type->id, $update_data);
  		}
 
- 		if (count($update_data) < 3)
- 		{
- 			if (count($update_data) != 0)
- 			{
+ 		if (count($update_data) < 3) {
+ 			if (count($update_data) != 0) {
 				$this->session->set_flashdata('notice', sprintf(lang('page_types:sync_notice'), implode(', ', $update_data)));
- 			}
- 			else
- 			{
+ 			} else {
 				$this->session->set_flashdata('error', lang('page_types:sync_fail'));
  			}
- 		}
- 		else
- 		{
+ 		} else {
 			$this->session->set_flashdata('success', lang('page_types:sync_success'));
 			$this->pyrocache->delete_all('page_m');
 			Events::trigger('page_type_updated', $page_type->id);
@@ -506,7 +460,6 @@ class Admin_types extends Admin_Controller
 	 * Used for any controller function that needs to make sure they
 	 * have a valid page type in a segment.
 	 *
-	 * @access 	private
 	 * @param 	int
 	 * @return 	void or page type obj
 	 */
@@ -586,7 +539,7 @@ class Admin_types extends Admin_Controller
 
 		$page_type = $this->page_type_m->get($id);
 
-		// if the page type doesn't exist or if they somehow bypassed 
+		// if the page type doesn't exist or if they somehow bypassed
 		// our front-end checks and are deleting 'default' directly
 		if ( ! $page_type or $page_type->slug === 'default') show_error('Invalid ID');
 
@@ -600,17 +553,14 @@ class Admin_types extends Admin_Controller
 		$this->load->driver('Streams');
 		$stream = $this->streams_m->get_stream($page_type->stream_id);
 
-		if ($stream->stream_namespace == 'pages')
-		{
+		if ($stream->stream_namespace == 'pages') {
 			// Are any other page types using this?
-			if ($this->page_type_m->count_by('stream_id', $page_type->stream_id) <= 1)
-			{
+			if ($this->page_type_m->count_by('stream_id', $page_type->stream_id) <= 1) {
 				$delete_stream = true;
 			}
 		}
 
-		if ($this->input->post('do_delete') == 'y')
-		{
+		if ($this->input->post('do_delete') == 'y') {
 
 			// Delete page
 			$this->page_type_m->delete($id, $delete_stream);
@@ -620,13 +570,12 @@ class Admin_types extends Admin_Controller
 			// type in streams and elsewhere is essentially useless.
 			$pages = $this->db->where('type_id', $id)->get('pages')->result();
 
-			foreach ($pages as $page)
-			{
+			foreach ($pages as $page) {
 				$this->page_m->delete($page->id);
 			}
 
 			// Wipe cache for this model, the content has changd
-			$this->pyrocache->delete_all('page_type_m');
+			$this->cache->clear_all('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
 

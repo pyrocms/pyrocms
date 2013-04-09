@@ -27,6 +27,7 @@ $lang['templates:default_title']			= '預設範本';
 $lang['templates:user_defined_title']		= '自定範本';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= '邮件模板 "%s" 已經儲存';
 $lang['templates:tmpl_create_error']		= '邮件模板 "%s" 沒有儲存';
 $lang['templates:tmpl_edit_success']		= '邮件模板 "%s" 的變更已經儲存。';

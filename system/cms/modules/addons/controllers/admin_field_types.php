@@ -25,7 +25,7 @@ class Admin_field_types extends Admin_Controller
 
 	/**
 	 * Index method
-	 * 
+	 *
 	 * Lists all plugins.
 	 */
 	public function index()
@@ -34,8 +34,7 @@ class Admin_field_types extends Admin_Controller
 
 		$this->load->driver('Streams');
 
-		foreach ($this->type->types as $type)
-		{
+		foreach ($this->type->types as $type) {
 			$data[$type->ft_mode][] = array(
 				'name'		=> $type->field_type_name,
 				'version'	=> (isset($type->version)) ? $type->version : null

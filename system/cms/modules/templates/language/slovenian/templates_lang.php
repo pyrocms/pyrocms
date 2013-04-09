@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Prednastavljene predloge';
 $lang['templates:user_defined_title']		= 'Uporabniško določene predloge';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Email predloga "%s" je bila shranjena.';
 $lang['templates:tmpl_create_error']		= 'Email predloga "%s" ni bila shranjena.';
 $lang['templates:tmpl_edit_success']		= 'Spremembe narejene v email predlogi "%s" so bile shranjene.';

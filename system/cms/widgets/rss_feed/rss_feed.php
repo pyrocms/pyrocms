@@ -2,7 +2,7 @@
 
 /**
  * Show RSS feeds in your site
- * 
+ *
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
@@ -53,8 +53,8 @@ class Widget_Rss_feed extends Widgets
 
 	/**
 	 * The author's website.
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $website = 'http://philsturgeon.co.uk/';
 
@@ -68,7 +68,7 @@ class Widget_Rss_feed extends Widgets
 	/**
 	 * The fields for customizing the options of the widget.
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	public $fields = array(
 		array(
@@ -87,7 +87,7 @@ class Widget_Rss_feed extends Widgets
 	 * The main function of the widget.
 	 *
 	 * @param array $options The options for displaying the RSS Feed.
-	 * @return array 
+	 * @return array
 	 */
 	public function run($options)
 	{
@@ -112,7 +112,7 @@ class Widget_Rss_feed extends Widgets
 	 * @todo What does this do ?
 	 *
 	 * @param array $options
-	 * @return array 
+	 * @return array
 	 */
 	public function save($options)
 	{

@@ -5,7 +5,6 @@ $lang['widgets:available_title']        = 'Widget yang Tersedia';
 $lang['widgets:widget_area_wrapper']    = 'Area yang Tersedia';
 $lang['widgets:instructions']           = 'Tarik & lepaskan untuk memasang';
 
-
 $lang['widgets:instances']            	= 'Instance';
 $lang['widgets:areas']            		= 'Area';
 

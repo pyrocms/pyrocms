@@ -5,12 +5,11 @@ $lang['header']			=	'Étape 1&nbsp;: Configurer la base de données et le serveu
 $lang['intro_text']		=	'PyroCMS est très simple à installer, ceci ne prends que quelques minutes. Cependant certaines question peuvent être déroutantes si vous n\'avez pas suffisament de connaissances techniques. Si vous rencontrez des difficultés contacter votre hébergeur ou <a href="http://www.pyrocms.com/contact" target="_blank">contactez nous</a>.';
 
 $lang['db_settings']	=	'Paramètres de la base de données';
-$lang['db_text']		=	'PyroCMS requiert une base de données (MySQL) pour stocker vos contenus et paramètres. Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données. Si vous ne comprenez pas les informations demandées merci de contacter votre hébergeur ou votre administrateur système pour les obtenir.';
+$lang['db_text']		=	'PyroCMS requiert une base de données (MySQL/SQLite) pour stocker vos contenus et paramètres. Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données. Si vous ne comprenez pas les informations demandées merci de contacter votre hébergeur ou votre administrateur système pour les obtenir.';
 $lang['db_missing']		=	'Le driver MySQL pour PHP n\'a pas été trouvé, l\'installation ne peut pas continuer. Demandez à votre adminstrateur réseau de l\'installer.';
 $lang['db_create']		=	'Créer la base de données';
 $lang['db_notice']		=	'Vous devez peut être effectuer cette action vous même via la panneau de configuration de votre hébergement';
 $lang['database']		=	'Base de données MySQL';
-
 $lang['server']			=	'Nom d\'hôte';
 $lang['username']		=	'Nom d\'utilisateur';
 $lang['password']		=	'Mot de passe';

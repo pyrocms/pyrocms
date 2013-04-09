@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -20,6 +20,5 @@ $lang['streams:datetime.storage'] = 'Lagringsformat';
 $lang['streams:datetime.input_type'] = 'Indatatyp';
 $lang['streams:invalid_input_for_date_range_check'] = 'Ogiltigt datum angivet.';
 
-
-/* End of file datetime_lang.php */  
-/* Location: system/cms/modules/streams_core/field_types/datetime/language/swedish/datetime_lang.php */  
+/* End of file datetime_lang.php */
+/* Location: system/cms/modules/streams_core/field_types/datetime/language/swedish/datetime_lang.php */

@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'القوالب الافتراضية';
 $lang['templates:user_defined_title']		= 'قوالب المستخدم';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'تم حفظ قالب البريد الإلكتروني "%s".';
 $lang['templates:tmpl_create_error']		= 'تعذر حفظ قالب البريد الإلكتروني "%s".';
 $lang['templates:tmpl_edit_success']		= 'تم حفظ التعديلات على قالب الإلكتروني "%s".';

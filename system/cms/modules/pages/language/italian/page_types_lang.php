@@ -35,7 +35,7 @@ $lang['page_types:delete_success']             = 'Il layout di pagina #%s è sta
 $lang['page_types:mass_delete_success']        = '%s layout di pagina sono stati eliminati.';
 $lang['page_types:delete_none_notice']         = 'Nessun layout di pagina è stato eliminato.';
 $lang['page_types:already_exist_error']        = 'Una tabella con quel nome esiste di già. Per favore scegli un nome diverso per il tipo di questa pagina.';
-$lang['page_types:_check_pt_slug_msg']         = 'Lo slug del tipo di pagina deve essere unico.'; 
+$lang['page_types:_check_pt_slug_msg']         = 'Lo slug del tipo di pagina deve essere unico.';
 
 $lang['page_types:variable_introduction']      = 'In questo campo sono disponibili due variabili';
 $lang['page_types:variable_title']             = 'Contiene il titolo della pagina.';
@@ -46,7 +46,7 @@ $lang['page_types:sync_fail']                  = 'Non è stato possibile sincron
 
 // Instructions
 $lang['page_types:stream_instructions']        = 'Questo stream manterrà i campi personalizzati per il tuo tipo di pagina. Puoi scegliere un nuovo stream o uno nuovo verrà creato per te.';
-$lang['page_types:saf_instructions']           = 'Selezionando questa opzione verrà salvato su un semplice file il layout della pagina, così come tutti i CSS e JS personalizzati, all\'interno della cartella assets/page_types.'; 
+$lang['page_types:saf_instructions']           = 'Selezionando questa opzione verrà salvato su un semplice file il layout della pagina, così come tutti i CSS e JS personalizzati, all\'interno della cartella assets/page_types.';
 $lang['page_types:content_label_instructions'] = 'Questo rinomina il tab che contiene lo stream dei campi per il tipo di pagina.';
 $lang['page_types:title_label_instructions']   = 'Questo rinomina il campi titolo della pagina da "Titolo" permettendoti di utilizzare qualsiasi altra cosa tu voglia, per esempio "Nome prodotto" o "Nome del dipendente".';
 

@@ -19,7 +19,7 @@
 			<?php foreach ($addon_modules as $module): ?>
 				<tr>
 					<td class="collapse"><?php echo ($module['is_backend'] and $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name'] ?></td>
-	
+
 					<td><?php echo $module['description'] ?></td>
 					<td class="align-center"><?php echo $module['version'] ?></td>
 					<td class="actions">
@@ -43,7 +43,7 @@
 			<?php endforeach ?>
 			</tbody>
 		</table>
-	
+
 		<?php endif ?>
 	</div>
 </section>
@@ -57,7 +57,7 @@
 <section class="item">
 	<div class="content">
 		<p><?php echo lang('addons:modules:core_introduction') ?></p>
-	
+
 		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
@@ -66,7 +66,7 @@
 					<th><?php echo lang('version_label');?></th>
 					<th></th>
 				</tr>
-			</thead>	
+			</thead>
 			<tbody>
 			<?php foreach ($core_modules as $module): ?>
 			<?php if ($module['slug'] === 'addons') continue ?>
@@ -83,9 +83,9 @@
 					</td>
 				</tr>
 			<?php endforeach ?>
-			</tbody>	
+			</tbody>
 		</table>
-		
+
 	</div>
 </section>
 </div>

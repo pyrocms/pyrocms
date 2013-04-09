@@ -7,8 +7,7 @@ class Migration_Add_is_hidden_field extends CI_Migration
 {
     public function up()
     {
-       if ( ! $this->db->field_exists('is_hidden', 'data_streams'))
-       {
+       if ( ! $this->db->field_exists('is_hidden', 'data_streams')) {
             $columns = array(
                 'is_hidden' => array(
                             'type' => 'ENUM',

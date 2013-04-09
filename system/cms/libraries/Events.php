@@ -17,15 +17,15 @@ class Events
 {
 	/**
 	 * An array of listeners
-	 * 
+	 *
 	 * @var	array
 	 */
 	protected static $_listeners = array();
 
 	/**
 	 * Constructor
-	 * 
-	 * Load up the modules. 
+	 *
+	 * Load up the modules.
 	 */
 	public function __construct()
 	{
@@ -45,16 +45,13 @@ class Events
 
 		$_ci->load->model('addons/module_m');
 
-		if ( ! $results = $_ci->enabled_modules)
-		{
+		if (! $results = $_ci->enabled_modules) {
 			return false;
 		}
 
-		foreach ($results as $row)
-		{
+		foreach ($results as $row) {
 			// This does not have a valid details.php file! :o
-			if (!$details_class = self::_spawn_class($row['slug'], $row['is_core']))
-			{
+			if (!$details_class = self::_spawn_class($row['slug'], $row['is_core'])) {
 				continue;
 			}
 		}
@@ -66,25 +63,23 @@ class Events
 	 * Spawn Class
 	 *
 	 * Checks to see if a events.php exists and returns a class
-	 * 
+	 *
 	 * @param string $slug The folder name of the module.
 	 * @param boolean $is_core Whether the module is a core module.
-	 * @return object|boolean 
+	 * @return object|boolean
 	 */
 	private static function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$events_file = $path.'modules/'.$slug.'/events'.EXT;
+		$events_file = $path.'modules/'.$slug.'/events.php';
 
 		// Check the details file exists
-		if (!is_file($events_file))
-		{
-			$events_file = SHARED_ADDONPATH.'modules/'.$slug.'/events'.EXT;
+		if (!is_file($events_file)) {
+			$events_file = SHARED_ADDONPATH.'modules/'.$slug.'/events.php';
 
-			if (!is_file($events_file))
-			{
+			if (!is_file($events_file)) {
 				return false;
 			}
 		}
@@ -116,7 +111,7 @@ class Events
 
 	/**
 	 * Triggers an event and returns the results.
-	 * 
+	 *
 	 * The results can be returned in the following formats:
 	 *  - 'array'
 	 *  - 'json'
@@ -134,12 +129,9 @@ class Events
 
 		$calls = array();
 
-		if (self::has_listeners($event))
-		{
-			foreach (self::$_listeners[$event] as $listener)
-			{
-				if (is_callable($listener))
-				{
+		if (self::has_listeners($event)) {
+			foreach (self::$_listeners[$event] as $listener) {
+				if (is_callable($listener)) {
 					$calls[] = call_user_func($listener, $data);
 				}
 			}
@@ -161,8 +153,7 @@ class Events
 	{
 		log_message('debug', 'Events::_format_return() - Formating calls in type "'.$return_type.'"');
 
-		switch ($return_type)
-		{
+		switch ($return_type) {
 			case 'array':
 				return $calls;
 				break;
@@ -174,8 +165,7 @@ class Events
 				break;
 			case 'string':
 				$str = '';
-				foreach ($calls as $call)
-				{
+				foreach ($calls as $call) {
 					$str .= $call;
 				}
 				return $str;
@@ -191,9 +181,8 @@ class Events
 
 	/**
 	 *
-	 * @access	public
-	 * @param	string	
-	 * @return	bool	
+	 * @param	string
+	 * @return	bool
 	 */
 
 	/**
@@ -206,8 +195,7 @@ class Events
 	{
 		log_message('debug', 'Events::has_listeners() - Checking if event "'.$event.'" has listeners.');
 
-		if (isset(self::$_listeners[$event]) and count(self::$_listeners[$event]) > 0)
-		{
+		if (isset(self::$_listeners[$event]) and count(self::$_listeners[$event]) > 0) {
 			return true;
 		}
 

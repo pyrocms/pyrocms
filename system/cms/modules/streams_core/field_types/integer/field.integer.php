@@ -12,17 +12,17 @@
 class Field_integer
 {
 	public $field_type_slug			= 'integer';
-	
+
 	public $db_col_type				= 'int';
-	
+
 	public $custom_parameters		= array('max_length', 'default_value');
-	
+
 	public $extra_validation		= 'integer';
 
 	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-		
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -39,9 +39,11 @@ class Field_integer
 		$options['value']	= $data['value'];
 		
 		// Max length
-		$max_length = (isset($data['max_length']) and $data['max_length']) ? $options['maxlength'] = $data['max_length'] : null;
+		if ( ! empty($data['max_length'])) {
+			$options['maxlength'] = $data['max_length'];
+		}
 
 		return form_input($options);
 	}
-	
+
 }

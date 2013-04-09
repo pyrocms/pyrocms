@@ -50,4 +50,4 @@ Asset::js(array('codemirror/codemirror.js',
 <style>section#content {margin-top: 170px!important;}</style>
 <?php endif; ?>
 
-<?php echo $template['metadata']; ?>
+<?php echo $template['metadata'];

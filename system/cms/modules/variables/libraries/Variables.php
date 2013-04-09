@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Variables\Model\Variable;
+
 /**
  * Variable Library
  *
@@ -7,8 +10,8 @@
  * @author		PyroCMS Dev Team
  * @package  	PyroCMS\Core\Modules\Variables\Libraries
  */
-class Variables {
-
+class Variables
+{
 	private $_CI;
 	private $_vars = null;
 
@@ -24,7 +27,6 @@ class Variables {
 	public function __construct()
 	{
 		$this->_CI =& get_instance();
-		$this->_CI->load->model('variables/variables_m');
 	}
 
 	// ------------------------------------------------------------------------
@@ -39,22 +41,20 @@ class Variables {
 	 */
 	public function __get($name)
 	{
-		// Variables are being used on this site and they 
+		// Variables are being used on this site and they
 		// haven't been loaded yet... now eager load them
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->get_all();
 		}
 
 		// the requested variable isn't in the database or cache; set it to null
-		if ( ! isset($this->_vars[$name]))
-		{
+		if ( ! isset($this->_vars[$name])) {
 			$this->_vars[$name] = null;
 		}
 
 		return $this->_vars[$name];
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	/**
@@ -67,10 +67,9 @@ class Variables {
 	 */
 	public function __set($name, $value)
 	{
-		// if $this->_vars is null then load them all as this is 
+		// if $this->_vars is null then load them all as this is
 		// the first time this library has been touched
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->get_all();
 		}
 
@@ -89,13 +88,11 @@ class Variables {
 	public function get_all()
 	{
 		// the variables haven't been fetched yet, load them
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->_vars = array();
-			$vars = $this->_CI->variables_m->get_all();
+			$vars = Variable::all();
 
-			foreach ($vars as $var)
-			{
+			foreach ($vars as $var) {
 				$this->_vars[$var->name] = $var->data;
 			}
 		}

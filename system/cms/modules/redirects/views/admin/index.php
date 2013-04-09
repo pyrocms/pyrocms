@@ -2,7 +2,7 @@
 	<h4><?php echo lang('redirects:list_title') ?></h4>
 </section>
 
-<?php if ($redirects): ?>
+<?php if ( ! $redirects->isEmpty()): ?>
 
 	<section class="item">
 		<div class="content">
@@ -42,12 +42,12 @@
 			<?php endforeach ?>
 		    </tbody>
 		</table>
-	
+
 		<div class="table_action_buttons">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
 		</div>
 	    <?php echo form_close() ?>
-		
+
 		</div>
 	</section>
 

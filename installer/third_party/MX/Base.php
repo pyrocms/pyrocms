@@ -41,8 +41,8 @@ class CI extends CI_Controller
 {
 	public static $APP;
 	
-	public function __construct() {
-		
+	public function __construct()
+	{
 		/* assign the application instance */
 		self::$APP = $this;
 		

@@ -5,7 +5,6 @@ $lang['page_types:html_label']                     = 'HTML';
 $lang['page_types:css_label']                      = 'CSS';
 $lang['page_types:basic_info']                	   = 'Βασικές Πληροφορίες';
 
-
 // labels
 $lang['page_types:updated_label']                  = 'Ενημερώθηκε';
 $lang['page_types:layout']                         = 'Διάταξη';

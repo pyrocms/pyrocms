@@ -53,7 +53,6 @@ $lang['user:activated_account_title']          = 'Akun Aktif';
 $lang['user:reset_password_title']             = 'Set Ulang Password';
 $lang['user:password_reset_title']             = 'Password Diset Ulang';
 
-
 $lang['user:error_username']                   = 'Username yang Anda pilih sudah digunakan';
 $lang['user:error_email']                      = 'Alamat email yang Anda masukkan sudah digunakan';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'Alamat email yang Anda pilih s
 $lang['user:register_error']				   = 'Kami kira Anda adalah bot. Apabila kami salah mohon maaf.';
 $lang['user:register_reasons']                 = 'Bergabung untuk mengakses area spesial secara umum dibatasi. Ini artinya pengaturan Anda akan diingat, dengan lebih banyak konten dan sedikit iklan.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Aktivasi gagal. Silakan cek detail Anda dan pastikan CAPS LOCK tidak dinyalakan.';
 $lang['user:activated_message']                = 'Akun Anda telah aktif, Anda sekarang dapat masuk ke akun Anda.';
-
 
 // Login
 $lang['user:logged_in']                        = 'Anda telah berhasil masuk.'; # TODO: Translate this in spanish
 $lang['user:already_logged_in']                = 'Anda sudah masuk. Silakan keluar sebelum mencoba lagi.';
 $lang['user:login_incorrect']                  = 'E-mail atau password tidak cocok. Silakan cek login Anda dan pastikan CAPS LOCK tidak dinyalakan.';
 $lang['user:inactive']                         = 'Akun yang Anda coba masuki ternyata tidak aktif.<br />Cek e-mail Anda untuk instruksi dan cara aktivasi akun - <em>kemungkinan ada di berkas spam</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Anda telah keluar.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']           = "Password Anda telah diset ulan
 // Activation
 $lang['user:activation_email_subject']         = 'Aktivasi Diperlukan';
 $lang['user:activation_email_body']            = 'Terima kasih telah mengaktifkan akun Anda dengan %s. Untuk masuk ke dalam situs, ikuti tautan berikut:';
-
 
 $lang['user:activated_email_subject']          = 'Aktivasi Selesai';
 $lang['user:activated_email_content_line1']    = 'Terima kasih telah registrasi di %s. Sebelum kami dapat mengaktifkan akun Anda, silakan lengkapi dahulu proses registrasi dengan mengklik tautan berikut:';

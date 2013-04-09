@@ -12,15 +12,15 @@
 class Field_url
 {
 	public $field_type_slug				= 'url';
-	
+
 	public $db_col_type					= 'varchar';
-	
+
 	public $extra_validation			= 'valid_url';
 
 	public $version						= '1.0.0';
-	
+
 	public $author						= array('name' => 'Parse19', 'url' => 'http://parse19.com');
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -35,7 +35,7 @@ class Field_url
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
-		
+
 		return form_input($options);
 	}
 

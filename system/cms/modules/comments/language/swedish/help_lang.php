@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -19,6 +19,5 @@ $lang['help_body'] = '<h4> Översikt </ h4>
 <h4> Hantering av kommentarer </ h4> <hr>
 <p> Kommentarer kan godkännas eller raderas när som helst genom kontrollpanelen.  </ p>';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/comments/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/comments/language/swedish/help_lang.php */

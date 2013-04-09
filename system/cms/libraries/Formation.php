@@ -58,7 +58,6 @@ class Formation
 	 * Imports the global config and custom config (if given).  We have this
 	 * to support CI's loader which calls the construct.
 	 *
-	 * @access	public
 	 * @param	array	$custom_config
 	 */
 	public function __construct($custom_config = array())
@@ -72,7 +71,6 @@ class Formation
 	 * Imports the global config and custom config (if given) and initializes
 	 * the global CI instance.
 	 *
-	 * @access	public
 	 * @param	array	$custom_config
 	 */
 	public static function init($custom_config = array())
@@ -80,23 +78,18 @@ class Formation
 		self::$_ci = & get_instance();
 
 		// Include the formation config and ensure it is formatted
-		if (file_exists(APPPATH.'config/formation.php'))
-		{
+		if (file_exists(APPPATH.'config/formation.php')) {
 			include(APPPATH.'config/formation.php');
-			if (!isset($formation) or !is_array($formation))
-			{
+			if (!isset($formation) or !is_array($formation)) {
 				show_error('Formation config is not formatted correctly.');
 			}
 			self::add_config($formation);
-		}
-		else
-		{
+		} else {
 			show_error('Formation config file is missing.');
 		}
 
 		// Merge the custom config into the global config
-		if (!empty($custom_config))
-		{
+		if (!empty($custom_config)) {
 			self::add_config($custom_config);
 		}
 	}
@@ -106,7 +99,6 @@ class Formation
 	 *
 	 * Merges a config array into the current config
 	 *
-	 * @access	public
 	 * @param	array	$config
 	 * @return	void
 	 */
@@ -115,10 +107,8 @@ class Formation
 		self::$_config = array_merge_recursive(self::$_config, $config);
 
 		// Add the forms from the config array
-		if (isset(self::$_config['forms']) and is_array(self::$_config['forms']))
-		{
-			foreach (self::$_config['forms'] as $form_name => $attributes)
-			{
+		if (isset(self::$_config['forms']) and is_array(self::$_config['forms'])) {
+			foreach (self::$_config['forms'] as $form_name => $attributes) {
 				$fields = $attributes['fields'];
 				unset($attributes['fields']);
 
@@ -133,7 +123,6 @@ class Formation
 	 *
 	 * Adds a form to the config
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$attributes
 	 * @param	array	$fields
@@ -141,8 +130,7 @@ class Formation
 	 */
 	public static function add_form($form_name, $attributes = array(), $fields = array())
 	{
-		if (self::form_exists($form_name))
-		{
+		if (self::form_exists($form_name)) {
 			show_error(sprintf('Form "%s" already exists.  If you were trying to modify the form, please use Formation::modify_form("%s", $attributes).', $form_name, $form_name));
 		}
 
@@ -157,14 +145,12 @@ class Formation
 	 *
 	 * Returns the form with all fields and options as an array
 	 *
-	 * @access	private
 	 * @param	string	$form_name
 	 * @return	array
 	 */
 	private static function get_form_array($form_name)
 	{
-		if (!self::form_exists($form_name))
-		{
+		if (!self::form_exists($form_name)) {
 			show_error(sprintf('Form "%s" does not exist.', $form_name));
 		}
 
@@ -176,7 +162,6 @@ class Formation
 	 *
 	 * Adds a field to a given form
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	array	$attributes
@@ -184,19 +169,16 @@ class Formation
 	 */
 	public static function add_field($form_name, $field_name, $attributes)
 	{
-		if (!self::form_exists($form_name))
-		{
+		if (!self::form_exists($form_name)) {
 			show_error(sprintf('Form "%s" does not exist.  You must first add the form using Formation::add_form("%s", $attributes).', $form_name, $form_name));
 		}
-		if (self::field_exists($form_name, $field_name))
-		{
+		if (self::field_exists($form_name, $field_name)) {
 			show_error(sprintf('Field "%s" already exists in form "%s".  If you were trying to modify the field, please use Formation::modify_field($form_name, $field_name, $attributes).', $field_name, $form_name));
 		}
 
 		self::$_forms[$form_name]['fields'][$field_name] = $attributes;
 
-		if ($attributes['type'] == 'file')
-		{
+		if ($attributes['type'] == 'file') {
 			self::$_forms[$form_name]['attributes']['enctype'] = 'multipart/form-data';
 		}
 
@@ -208,15 +190,13 @@ class Formation
 	 *
 	 * Allows you to add multiple fields at once.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$fields
 	 * @return	void
 	 */
 	public static function add_fields($form_name, $fields)
 	{
-		foreach ($fields as $field_name => $attributes)
-		{
+		foreach ($fields as $field_name => $attributes) {
 			self::add_field($form_name, $field_name, $attributes);
 		}
 	}
@@ -226,7 +206,6 @@ class Formation
 	 *
 	 * Allows you to modify a field.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	array	$attributes
@@ -234,8 +213,7 @@ class Formation
 	 */
 	public static function modify_field($form_name, $field_name, $attributes)
 	{
-		if (!self::field_exists($form_name, $field_name))
-		{
+		if (!self::field_exists($form_name, $field_name)) {
 			show_error(sprintf('Field "%s" does not exist in form "%s".', $field_name, $form_name));
 		}
 		self::$_forms[$form_name]['fields'][$field_name] = array_merge_recursive(self::$_forms[$form_name][$field_name], $attributes);
@@ -248,15 +226,13 @@ class Formation
 	 *
 	 * Allows you to modify multiple fields at once.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$fields
 	 * @return	void
 	 */
 	public static function modify_fields($form_name, $fields)
 	{
-		foreach ($fields as $field_name => $attributes)
-		{
+		foreach ($fields as $field_name => $attributes) {
 			self::modfy_field($form_name, $field_name, $attributes);
 		}
 	}
@@ -266,7 +242,6 @@ class Formation
 	 *
 	 * Checks if a form exists
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	bool
 	 */
@@ -294,7 +269,6 @@ class Formation
 	 *
 	 * Builds a form and returns well-formatted, valid XHTML for output.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	string
 	 */
@@ -314,7 +288,6 @@ class Formation
 	 *
 	 * Builds a field and returns well-formatted, valid XHTML for output.
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	string	$properties
 	 * @param	string	$form_name
@@ -324,17 +297,13 @@ class Formation
 	{
 		$return = '';
 
-		if (!isset($properties['name']))
-		{
+		if (!isset($properties['name'])) {
 			$properties['name'] = $name;
 		}
 		$required = false;
-		if (isset(self::$_validation[$form_name]))
-		{
-			foreach (self::$_validation[$form_name] as $rule)
-			{
-				if ($rule['field'] == $properties['name'] and $rule['rules'] and strpos('required', $rule['rules']) !== false)
-				{
+		if (isset(self::$_validation[$form_name])) {
+			foreach (self::$_validation[$form_name] as $rule) {
+				if ($rule['field'] == $properties['name'] and $rule['rules'] and strpos('required', $rule['rules']) !== false) {
 					$required = true;
 				}
 			}
@@ -342,30 +311,24 @@ class Formation
 
 		$return .= self::_open_field($properties['type'], $required);
 
-		switch ($properties['type'])
-		{
+		switch ($properties['type']) {
 			case 'hidden':
 				$return .= "\t\t".self::input($properties)."\n";
 				break;
 			case 'radio': case 'checkbox':
 				$return .= "\t\t\t".sprintf(self::$_config['label_wrapper_open'], $name).$properties['label'].self::$_config['label_wrapper_close']."\n";
-				if (isset($properties['items']))
-				{
+				if (isset($properties['items'])) {
 					$return .= "\t\t\t<span>\n";
 
-					if ($properties['type'] == 'checkbox' && count($properties['items']) > 1)
-					{
+					if ($properties['type'] == 'checkbox' && count($properties['items']) > 1) {
 						// More than one item exists, this should probably be an array
-						if (substr($properties['name'], -2) != '[]')
-						{
+						if (substr($properties['name'], -2) != '[]') {
 							$properties['name'] .= '[]';
 						}
 					}
 
-					foreach ($properties['items'] as $count => $element)
-					{
-						if (!isset($element['id']))
-						{
+					foreach ($properties['items'] as $count => $element) {
+						if (!isset($element['id'])) {
 							$element['id'] = str_replace('[]', '', $name).'_'.$count;
 						}
 
@@ -375,9 +338,7 @@ class Formation
 						$return .= "\t\t\t\t".self::input($element)."\n";
 					}
 					$return .= "\t\t\t</span>\n";
-				}
-				else
-				{
+				} else {
 					$return .= "\t\t\t".sprintf(self::$_config['label_wrapper_open'], $name).$properties['label'].self::$_config['label_wrapper_close']."\n";
 					$return .= "\t\t\t".self::input($properties)."\n";
 				}
@@ -406,22 +367,19 @@ class Formation
 	 *
 	 * Generates the fields opening tags.
 	 *
-	 * @access	private
 	 * @param	string	$type
 	 * @param	bool	$required
 	 * @return	string
 	 */
 	private static function _open_field($type, $required = false)
 	{
-		if ($type == 'hidden')
-		{
+		if ($type == 'hidden') {
 			return '';
 		}
 
 		$return = "\t\t".self::$_config['input_wrapper_open']."\n";
 
-		if ($required and self::$_config['required_location'] == 'before')
-		{
+		if ($required and self::$_config['required_location'] == 'before') {
 			$return .= "\t\t\t".self::$_config['required_tag']."\n";
 		}
 
@@ -433,22 +391,19 @@ class Formation
 	 *
 	 * Generates the fields closing tags.
 	 *
-	 * @access	private
 	 * @param	string	$type
 	 * @param	bool	$required
 	 * @return	string
 	 */
 	private static function _close_field($type, $required = false)
 	{
-		if ($type == 'hidden')
-		{
+		if ($type == 'hidden') {
 			return '';
 		}
 
 		$return = "";
 
-		if ($required and self::$_config['required_location'] == 'after')
-		{
+		if ($required and self::$_config['required_location'] == 'after') {
 			$return .= "\t\t\t".self::$_config['required_tag']."\n";
 		}
 
@@ -462,15 +417,13 @@ class Formation
 	 *
 	 * Generates a <select> element based on the given parameters
 	 *
-	 * @access	public
 	 * @param	array	$parameters
 	 * @param	int		$indent_amount
 	 * @return	string
 	 */
 	public static function select($parameters, $indent_amount = 0)
 	{
-		if (!isset($parameters['options']) or !is_array($parameters['options']))
-		{
+		if (!isset($parameters['options']) or !is_array($parameters['options'])) {
 			show_error(sprintf('Select element "%s" is either missing the "options" or "options" is not array.', $parameters['name']));
 		}
 		// Get the options then unset them from the array
@@ -482,21 +435,16 @@ class Formation
 		unset($parameters['selected']);
 
 		$input = "<select ".self::attr_to_string($parameters).">\n";
-		foreach ($options as $key => $val)
-		{
-			if (is_array($val))
-			{
+		foreach ($options as $key => $val) {
+			if (is_array($val)) {
 				$input .= str_repeat("\t", $indent_amount + 1).'<optgroup label="'.$key.'">'."\n";
-				foreach ($val as $opt_key => $opt_val)
-				{
+				foreach ($val as $opt_key => $opt_val) {
 					$extra = ($opt_key == $selected) ? ' selected="selected"' : '';
 					$input .= str_repeat("\t", $indent_amount + 2);
 					$input .= '<option value="'.$opt_key.'"'.$extra.'>'.self::prep_value($opt_val)."</option>\n";
 				}
 				$input .= str_repeat("\t", $indent_amount + 1)."</optgroup>\n";
-			}
-			else
-			{
+			} else {
 				$extra = ($key == $selected) ? ' selected="selected"' : '';
 				$input .= str_repeat("\t", $indent_amount + 1);
 				$input .= '<option value="'.$key.'"'.$extra.'>'.self::prep_value($val)."</option>\n";
@@ -512,7 +460,6 @@ class Formation
 	 *
 	 * Generates the opening <form> tag
 	 *
-	 * @access	public
 	 * @param	string	$action
 	 * @param	array	$options
 	 * @return	string
@@ -520,28 +467,24 @@ class Formation
 	public static function open($form_name = null, $options = array())
 	{
 		// The form name does not exist, must be an action as its not set in options either
-		if (self::form_exists($form_name))
-		{
+		if (self::form_exists($form_name)) {
 			$form = self::get_form_array($form_name);
 
 			$options = array_merge($form['attributes'], $options);
 		}
 
 		// There is a form name, but no action is set
-		elseif ($form_name && !isset($options['action']))
-		{
+		elseif ($form_name && !isset($options['action'])) {
 			$options['action'] = $form_name;
 		}
 
 		// If there is still no action set, self-post
-		if (empty($options['action']))
-		{
+		if (empty($options['action'])) {
 			$options['action'] = self::$_ci->uri->uri_string();
 		}
 
 		// If not a full URL, create one with CI
-		if (!strpos($options['action'], '://'))
-		{
+		if (!strpos($options['action'], '://')) {
 			$options['action'] = self::$_ci->config->site_url($options['action']);
 		}
 
@@ -558,7 +501,6 @@ class Formation
 	 *
 	 * Generates the list of fields without the form open and form close tags
 	 *
-	 * @access	public
 	 * @param	string	$action
 	 * @param	array	$options
 	 * @return	string
@@ -570,10 +512,8 @@ class Formation
 
 		$return = "\t".self::$_config['form_wrapper_open']."\n";
 
-		foreach ($form['fields'] as $name => $properties)
-		{
-			if ($properties['type'] == 'hidden')
-			{
+		foreach ($form['fields'] as $name => $properties) {
+			if ($properties['type'] == 'hidden') {
 				$hidden[$name] = $properties;
 				continue;
 			}
@@ -582,10 +522,8 @@ class Formation
 
 		$return .= "\t".self::$_config['form_wrapper_close']."\n";
 
-		foreach ($hidden as $name => $properties)
-		{
-			if (!isset($properties['name']))
-			{
+		foreach ($hidden as $name => $properties) {
+			if (!isset($properties['name'])) {
 				$properties['name'] = $name;
 			}
 			$return .= "\t".self::input($properties)."\n";
@@ -599,7 +537,6 @@ class Formation
 	 *
 	 * Generates the closing </form> tag
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	public static function close()
@@ -612,18 +549,16 @@ class Formation
 	 *
 	 * Generates a label based on given parameters
 	 *
-	 * @access	public
 	 * @param	string	$value
 	 * @param	string	$for
 	 * @return	string
 	 */
 	public static function label($value, $for = null)
 	{
-		if ($for === null)
-		{
+		if ($for === null) {
 			return '<label>'.$value.'</label>';
 		}
-		
+
 		return '<label for="'.$for.'">'.$value.'</label>';
 	}
 
@@ -632,18 +567,14 @@ class Formation
 	 *
 	 * Generates an <input> tag
 	 *
-	 * @access	public
 	 * @param	array	$options
 	 * @return	string
 	 */
 	public static function input($options)
 	{
-		if (!isset($options['type']))
-		{
+		if (!isset($options['type'])) {
 			show_error('You must specify a type for the input.');
-		}
-		elseif (!in_array($options['type'], self::$_valid_inputs))
-		{
+		} elseif (!in_array($options['type'], self::$_valid_inputs)) {
 			show_error(sprintf('"%s" is not a valid input type.', $options['type']));
 		}
 
@@ -655,15 +586,13 @@ class Formation
 	 *
 	 * Generates a <textarea> tag
 	 *
-	 * @access	public
 	 * @param	array	$options
 	 * @return	string
 	 */
 	public static function textarea($options)
 	{
 		$value = '';
-		if (isset($options['value']))
-		{
+		if (isset($options['value'])) {
 			$value = $options['value'];
 			unset($options['value']);
 		}
@@ -679,7 +608,6 @@ class Formation
 	 *
 	 * Takes an array of attributes and turns it into a string for an input
 	 *
-	 * @access	private
 	 * @param	array	$attr
 	 * @return	string
 	 */
@@ -687,19 +615,15 @@ class Formation
 	{
 		$attr_str = '';
 
-		if (!is_array($attr))
-		{
+		if (!is_array($attr)) {
 			$attr = (array) $attr;
 		}
 
-		foreach ($attr as $property => $value)
-		{
-			if ($property == 'label')
-			{
+		foreach ($attr as $property => $value) {
+			if ($property == 'label') {
 				continue;
 			}
-			if ($property == 'value')
-			{
+			if ($property == 'value') {
 				$value = self::prep_value($value);
 			}
 			$attr_str .= $property.'="'.$value.'" ';
@@ -714,7 +638,6 @@ class Formation
 	 *
 	 * Prepares the value for display in the form
 	 *
-	 * @access	public
 	 * @param	string	$value
 	 * @return	string
 	 */
@@ -732,23 +655,18 @@ class Formation
 	 * Adds the validation rules in each field to the $_validation array
 	 * and removes it from the field attributes
 	 *
-	 * @access	private
 	 * @return	void
 	 */
 	private static function parse_validation()
 	{
-		foreach (self::$_forms as $form_name => $form)
-		{
-			if (!isset($form['fields']))
-			{
+		foreach (self::$_forms as $form_name => $form) {
+			if (!isset($form['fields'])) {
 				continue;
 			}
 
 			$i = 0;
-			foreach ($form['fields'] as $name => $attr)
-			{
-				if (isset($attr['validation']))
-				{
+			foreach ($form['fields'] as $name => $attr) {
+				if (isset($attr['validation'])) {
 					self::$_validation[$form_name][$i]['field'] = $name;
 					self::$_validation[$form_name][$i]['label'] = $attr['label'];
 					self::$_validation[$form_name][$i]['rules'] = $attr['validation'];
@@ -765,14 +683,12 @@ class Formation
 	 *
 	 * Runs form validation on the given form
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	bool
 	 */
 	public static function validate($form_name)
 	{
-		if (!isset(self::$_validation[$form_name]))
-		{
+		if (!isset(self::$_validation[$form_name])) {
 			return true;
 		}
 		self::load_validation();
@@ -787,7 +703,6 @@ class Formation
 	 *
 	 * Returns a single form validation error
 	 *
-	 * @access	public
 	 * @param	string	$field_name
 	 * @param	string	$prefix
 	 * @param	string	$suffix
@@ -805,7 +720,6 @@ class Formation
 	 *
 	 * Returns all of the form validation errors
 	 *
-	 * @access	public
 	 * @param	string	$prefix
 	 * @param	string	$suffix
 	 * @return	string
@@ -822,7 +736,6 @@ class Formation
 	 *
 	 * Set's a fields value
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	mixed	$value
@@ -837,45 +750,29 @@ class Formation
 
 		$field = & self::$_forms[$form_name]['fields'][$field_name];
 
-		switch ($field['type'])
-		{
+		switch ($field['type']) {
 			case 'radio': case 'checkbox':
-				if (isset($field['items']))
-				{
-					foreach ($field['items'] as &$element)
-					{
-						if (is_array($value))
-						{
-							if (in_array($element['value'], $value))
-							{
+				if (isset($field['items'])) {
+					foreach ($field['items'] as &$element) {
+						if (is_array($value)) {
+							if (in_array($element['value'], $value)) {
 								$element['checked'] = 'checked';
-							}
-							else
-							{
-								if (isset($element['checked']))
-								{
+							} else {
+								if (isset($element['checked'])) {
 									unset($element['checked']);
 								}
 							}
-						}
-						else
-						{
-							if ($element['value'] === $value)
-							{
+						} else {
+							if ($element['value'] === $value) {
 								$element['checked'] = 'checked';
-							}
-							else
-							{
-								if (isset($element['checked']))
-								{
+							} else {
+								if (isset($element['checked'])) {
 									unset($element['checked']);
 								}
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$field['value'] = $value;
 				}
 				break;
@@ -893,7 +790,6 @@ class Formation
 	 *
 	 * Repopulates the entire form with the submitted data.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	string
 	 */
@@ -901,8 +797,7 @@ class Formation
 	{
 		self::load_validation();
 
-		foreach (self::$_forms[$form_name]['fields'] as $field_name => $attr)
-		{
+		foreach (self::$_forms[$form_name]['fields'] as $field_name => $attr) {
 			self::set_value($form_name, $field_name, (isset($attr['value']) ? $attr['value'] : null));
 		}
 	}
@@ -912,13 +807,11 @@ class Formation
 	 *
 	 * Checks if the form_validation library is loaded.  If it is not it loads it.
 	 *
-	 * @access	private
 	 * @return	void
 	 */
 	private static function load_validation()
 	{
-		if (!class_exists('CI_Form_validation'))
-		{
+		if (!class_exists('CI_Form_validation')) {
 			self::$_ci->load->library('form_validation');
 		}
 	}

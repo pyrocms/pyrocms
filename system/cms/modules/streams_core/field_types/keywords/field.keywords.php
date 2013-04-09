@@ -55,12 +55,10 @@ class Field_keywords
 		);
 	}
 
-
 	public function pre_save($input)
 	{
 		return Keywords::process($input);
 	}
-
 
 	public function pre_output($input, $data)
 	{
@@ -87,8 +85,8 @@ class Field_keywords
 		return Keywords::get_string($input);
 	}
 
-
-	public function param_return_type($value = 'array') {
+	public function param_return_type($value = 'array')
+	{
 		return array(
 			'instructions' => $this->CI->lang->line('streams:keywords.return_type.instructions'),
 			'input' =>

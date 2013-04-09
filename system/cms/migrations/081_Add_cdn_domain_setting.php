@@ -12,12 +12,12 @@ class Migration_Add_cdn_domain_setting extends CI_Migration
             'default' => '',
             'value' => '',
             'options' => '',
-            'is_required' => false,
-            'is_gui' => true,
+            'is_required' => 0,
+            'is_gui' => 1,
             'module' => 'integration',
             'order' => 1000,
         ));
-        
+
     }
 
     public function down()

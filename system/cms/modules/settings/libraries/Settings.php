@@ -8,31 +8,32 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Settings\Libraries
  */
-class Settings {
-
+class Settings
+{
 	/**
 	 * Settings cache
 	 *
 	 * @var	array
 	 */
 	private static $cache = array();
+
 	/**
 	 * The settings table columns
 	 *
 	 * @var	array
 	 */
-	private static $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
+	private static $columns = array(
+		'slug', 'title', 'description', 'type', 'default', 'value',
+		'options', 'is_required', 'is_gui', 'module', 'order'
+	);
 
 	/**
-	 * The Settings Construct
+	 * Settings Construct
 	 */
 	public function __construct()
 	{
-		ci()->load->model('settings/settings_m');
-
+		ci()->load->model('settings/setting_m');
 		ci()->lang->load('settings/settings');
-
-		self::get_all();
 	}
 
 	/**
@@ -40,11 +41,11 @@ class Settings {
 	 *
 	 * Gets the setting value requested
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 */
-	public function __get($name)
+	public function __get($key)
 	{
-		return self::get($name);
+		return self::get($key);
 	}
 
 	/**
@@ -52,13 +53,13 @@ class Settings {
 	 *
 	 * Sets the setting value requested
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public function __set($name, $value)
+	public function __set($key, $value)
 	{
-		return self::set($name, $value);
+		return self::set($key, $value);
 	}
 
 	/**
@@ -66,23 +67,22 @@ class Settings {
 	 *
 	 * Gets a setting.
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @return	bool
 	 */
-	public static function get($name)
+	public static function get($key)
 	{
-		if (isset(self::$cache[$name]))
-		{
-			return self::$cache[$name];
+		if (isset(self::$cache[$key])) {
+			return self::$cache[$key];
 		}
 
-		$setting = ci()->settings_m->get_by(array('slug' => $name));
+		$setting = ci()->setting_m->get($key);
 
 		// Setting doesn't exist, maybe it's a config option
-		$value = $setting ? $setting->value : config_item($name);
+		$value = $setting ? ($setting->value ?: $setting->default) : config_item($key);
 
 		// Store it for later
-		self::$cache[$name] = $value;
+		self::$cache[$key] = $value;
 
 		return $value;
 	}
@@ -92,20 +92,18 @@ class Settings {
 	 *
 	 * Sets a config item
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public static function set($name, $value)
+	public static function set($key, $value)
 	{
-		if (is_string($name))
-		{
-			if (is_scalar($value))
-			{
-				$setting = ci()->settings_m->update($name, array('value' => $value));
+		if (is_string($key)) {
+			if (is_scalar($value)) {
+				$setting = ci()->setting_m->update($key, array('value' => $value));
 			}
 
-			self::$cache[$name] = $value;
+			self::$cache[$key] = $value;
 
 			return true;
 		}
@@ -118,15 +116,15 @@ class Settings {
 	 *
 	 * Changes a setting for this request only. Does not modify the database
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public static function temp($name, $value)
+	public static function temp($key, $value)
 	{
 		// store the temp value in the cache so that all subsequent calls
 		// for this request will use it instead of the database value
-		self::$cache[$name] = $value;
+		self::$cache[$key] = $value;
 	}
 
 	/**
@@ -138,16 +136,14 @@ class Settings {
 	 */
 	public static function get_all()
 	{
-		if (self::$cache)
-		{
+		if (self::$cache) {
 			return self::$cache;
 		}
 
-		$settings = ci()->settings_m->get_many_by(array());
+		$settings = ci()->setting_m->getAll();
 
-		foreach ($settings as $setting)
-		{
-			self::$cache[$setting->slug] = $setting->value;
+		foreach ($settings as $setting) {
+			self::$cache[$setting['slug']] = $setting['value'];
 		}
 
 		return self::$cache;
@@ -163,11 +159,10 @@ class Settings {
 	 */
 	public static function add($setting)
 	{
-		if ( ! self::_check_format($setting))
-		{
+		if ( ! self::_check_format($setting)) {
 			return false;
 		}
-		return ci()->settings_m->insert($setting);
+		return ci()->setting_m->insert($setting);
 	}
 
 	/**
@@ -175,12 +170,12 @@ class Settings {
 	 *
 	 * Deletes setting to the database
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @return	bool
 	 */
 	public static function delete($name)
 	{
-		return ci()->settings_m->delete_by(array('slug' => $name));
+		return ci()->setting_m->delete($key);
 	}
 
 	/**
@@ -195,46 +190,37 @@ class Settings {
 	 */
 	public static function form_control(&$setting)
 	{
-		if ($setting->options)
-		{
+		if ($setting->options) {
 			// @usage func:function_name | func:helper/function_name | func:module/helper/function_name
 			// @todo: document the usage of prefix "func:" to get dynamic options
 			// @todo: document how construct functions to get here the expected data
-			if (substr($setting->options, 0, 5) == 'func:')
-			{
+			if (substr($setting->options, 0, 5) == 'func:') {
 				$func = substr($setting->options, 5);
 
-				if (($pos = strrpos($func, '/')) !== false)
-				{
+				if (($pos = strrpos($func, '/')) !== false) {
 					$helper	= substr($func, 0, $pos);
 					$func	= substr($func, $pos + 1);
 
-					if ($helper)
-					{
+					if ($helper) {
 						ci()->load->helper($helper);
 					}
 				}
 
-				if (is_callable($func))
-				{
+				if (is_callable($func)) {
 					// @todo: add support to use values scalar, bool and null correctly typed as params
 					$setting->options = call_user_func($func);
-				}
-				else
-				{
+				} else {
 					$setting->options = array('=' . lang('global:select-none'));
 				}
 			}
 
 			// If its an array un-CSV it
-			if (is_string($setting->options))
-			{
+			if (is_string($setting->options)) {
 				$setting->options = explode('|', $setting->options);
 			}
 		}
 
-		switch ($setting->type)
-		{
+		switch ($setting->type) {
 			default:
 			case 'text':
 				$form_control = form_input(array(
@@ -279,14 +265,10 @@ class Settings {
 				$form_control = '';
 				$stored_values = is_string($setting->value) ? explode(',', $setting->value) : $setting->value;
 
-				foreach (self::_format_options($setting->options) as $value => $label)
-				{
-					if (is_array($stored_values))
-					{
+				foreach (self::_format_options($setting->options) as $value => $label) {
+					if (is_array($stored_values)) {
 						$checked = in_array($value, $stored_values);
-					}
-					else
-					{
+					} else {
 						$checked = false;
 					}
 
@@ -304,8 +286,7 @@ class Settings {
 			case 'radio':
 
 				$form_control = '';
-				foreach (self::_format_options($setting->options) as $value => $label)
-				{
+				foreach (self::_format_options($setting->options) as $value => $label) {
 					$form_control .= '<label class="inline">' . form_radio(array(
 						'id'		=> $setting->slug,
 						'name'		=> $setting->slug,
@@ -331,16 +312,14 @@ class Settings {
 	{
 		$select_array = array();
 
-		foreach ($options as $option)
-		{
-			list($value, $name) = explode('=', $option);
+		foreach ($options as $option) {
+			list($value, $key) = explode('=', $option);
 
-			if (ci()->lang->line('settings:form_option_' . $name) !== false)
-			{
-				$name = ci()->lang->line('settings:form_option_' . $name);
+			if (ci()->lang->line('settings:form_option_' . $key) !== false) {
+				$key = ci()->lang->line('settings:form_option_' . $key);
 			}
 
-			$select_array[$value] = $name;
+			$select_array[$value] = $key;
 		}
 
 		return $select_array;
@@ -357,14 +336,11 @@ class Settings {
 	 */
 	private static function _check_format($setting)
 	{
-		if ( ! isset($setting))
-		{
+		if ( ! isset($setting)) {
 			return false;
 		}
-		foreach ($setting as $key => $value)
-		{
-			if ( ! in_array($key, self::$columns))
-			{
+		foreach ($setting as $key => $value) {
+			if ( ! in_array($key, self::$columns)) {
 				return false;
 			}
 		}

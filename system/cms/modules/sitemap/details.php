@@ -6,8 +6,8 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Sitemap
  */
-class Module_Sitemap extends Module {
-
+class Module_Sitemap extends Module
+{
 	public $version = '1.3.0';
 
 	public function info()
@@ -54,7 +54,7 @@ class Module_Sitemap extends Module {
 				'cn' => '站点地图模块创建一个索引的所有网页和XML网站地图搜索引擎。',
 				'th' => 'โมดูลไซต์แมพสามารถสร้างดัชนีของหน้าเว็บทั้งหมดสำหรับเครื่องมือค้นหา.',
 				'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
-				'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.'
+				'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.',
 			),
 			'frontend' => true,
 			'backend' => false,

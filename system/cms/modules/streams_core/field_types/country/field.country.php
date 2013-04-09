@@ -10,15 +10,15 @@
 class Field_country
 {
 	public $field_type_slug			= 'country';
-	
+
 	public $db_col_type				= 'varchar';
 
 	public $version					= '1.1.0';
 
-	public $custom_parameters   	= array('default_country'); 
+	public $custom_parameters   	= array('default_country');
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
-		
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -33,12 +33,9 @@ class Field_country
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if ( ! $data['value'] and ! $entry_id)
-		{
+		if (! $data['value'] and ! $entry_id) {
 			$value = (isset($field->field_data['default_country'])) ? $field->field_data['default_country'] : null;
-		}
-		else
-		{
+		} else {
 			$value = $data['value'];
 		}
 
@@ -57,13 +54,10 @@ class Field_country
 	public function pre_output($input)
 	{
 		$countries = $this->countries('yes');
-		
-		if (trim($input) != '')
-		{
+
+		if (trim($input) != '') {
 			return $countries[$input];
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
@@ -81,15 +75,12 @@ class Field_country
 	{
 		$countries = $this->countries('yes');
 
-		if (trim($input) != '')
-		{
+		if (trim($input) != '') {
 			$return['name'] = $countries[$input];
 			$return['code']	= $input;
-			
+
 			return $return;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
@@ -99,7 +90,6 @@ class Field_country
 	/**
 	 * Default Country Parameter
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function param_default_country($input)
@@ -116,19 +106,17 @@ class Field_country
 	 *
 	 * Returns an array of country choices
 	 *
-	 * @access	private
 	 * @param 	bool 	$is_required 	If set to true, it will add a null value to array
 	 * @return	array
-	 */	
+	 */
 	public function countries($is_required = false)
 	{
 		$choices = array();
-	
-		if ($is_required == 'no')
-		{
+
+		if ($is_required == 'no') {
 			$choices[null] = get_instance()->config->item('dropdown_choose_null');
 		}
-		
+
 		$countries = array(
 			"AD" => "Andorra",
 			"AE" => "United Arab Emirates",
@@ -378,7 +366,7 @@ class Field_country
 			"ZM" => "Zambia",
 			"ZW" => "Zimbabwe",
 		);
-	
+
 		return array_merge($choices, $countries);
 	}
 

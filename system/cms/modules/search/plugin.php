@@ -20,10 +20,10 @@ class Plugin_Search extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -78,7 +78,7 @@ class Plugin_Search extends Plugin
 				),
 			),// end results method
 		);
-	
+
 		return $info;
 	}
 
@@ -93,7 +93,7 @@ class Plugin_Search extends Plugin
 	public function form()
 	{
 		$attributes = $this->attributes();
-		
+
 		// This needs to be by itself
 		unset($attributes['action']);
 
@@ -120,8 +120,7 @@ class Plugin_Search extends Plugin
 		$segment = $this->attribute('page_segment', count(explode('/', $uri)) + 1);
 
 		// If it's POST, send it off to return as a GET
-		if ($this->input->post('q'))
-		{
+		if ($this->input->post('q')) {
 			redirect($uri.'?q='.$this->input->post('q'));
 		}
 
@@ -133,7 +132,7 @@ class Plugin_Search extends Plugin
 			->count($query);
 
 		$pagination = create_pagination($uri, $total, $limit, $segment);
-		
+
 		$results = $this->search_index_m
 			->limit($pagination['limit'], $pagination['offset'])
 			->filter($filter)
@@ -145,20 +144,16 @@ class Plugin_Search extends Plugin
 		$count = 1;
 
 		// Loop through found results to find extra information
-		foreach ($results as &$row)
-		{
+		foreach ($results as &$row) {
 			// We only want to load a lang file once
-			if ( ! isset($modules[$row->module]))
-			{
-				if ($this->module_m->exists($row->module))
-				{
+			if ( ! isset($modules[$row->module])) {
+				if ($this->module_m->exists($row->module)) {
 					$this->lang->load("{$row->module}/{$row->module}");
 
 					$modules[$row->module] = true;
 				}
 				// If module doesn't exist (for whatever reason) then sssh!
-				else
-				{
+				else {
 					$modules[$row->module] = false;
 				}
 			}

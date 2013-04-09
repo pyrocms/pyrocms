@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -21,6 +21,5 @@ $lang['wysiwyg.label.right'] = 'Höger';
 $lang['wysiwyg.label.none'] = 'Ingen';
 $lang['wysiwyg.meta.mime'] = 'Mime-typ';
 
-
-/* End of file wysiwyg_lang.php */  
-/* Location: system/cms/modules/wysiwyg/language/swedish/wysiwyg_lang.php */  
+/* End of file wysiwyg_lang.php */
+/* Location: system/cms/modules/wysiwyg/language/swedish/wysiwyg_lang.php */

@@ -1,14 +1,17 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Comments\Model\Comment;
+
 /**
  *
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Comments\Controllers
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * Array that contains the validation rules
-	 * @access private
+	 *
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -36,7 +39,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -46,8 +49,7 @@ class Admin extends Admin_Controller {
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->library('comments');
-		$this->load->helper('user');
-		$this->load->model(array('comment_m', 'comment_blacklists_m'));
+
 		$this->lang->load('comments');
 
 		// Set the validation rules
@@ -56,65 +58,74 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index()
 	{
-		// Only show is_active = 0 if we are moderating comments
-		$base_where = array('comments.is_active' => (int) ! Settings::get('moderate_comments'));
+		$filter = array();
 
-		//capture active
-		$base_where['comments.is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['comments.is_active'];
-		$base_where['comments.is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['comments.is_active'];
+		if ( ! is_null($this->input->post('f_active'))) {
+			$filter['is_active'] = (bool) $this->input->post('f_active');
+		}
+		elseif ( ! is_null($this->session->flashdata('is_active'))) {
+			$filter['is_active'] = (bool) $this->session->flashdata('is_active');
+		} else {
+			$filter['is_active'] = (bool) Settings::get('moderate_comments');
+		}
 
 		//capture module slug
-		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
+		if ($this->input->post('module_slug')) {
+			$filter += array('module' => $this->input->post('module_slug'));
+		}
 
 		// Create pagination links
-		$total_rows = $this->comment_m->count_by($base_where);
+		$total_rows = Comment::countWithFilter($filter);
 		$pagination = create_pagination('admin/comments/index', $total_rows);
 
-		$comments = $this->comment_m
-			->limit($pagination['limit'], $pagination['offset'])
-			->order_by('comments.created_on', 'desc')
-			->get_many_by($base_where);
+		// Add "limit" and "offset"
+		$filter += $pagination;
 
-		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
+		$filter['order-by'] = 'created_on';
+		$filter['order-dir'] = 'desc';
+
+		$comments = Comment::findWithFilter($filter);
+
+		$content_title = $filter['is_active']
+			? lang('comments:active_title')
+			: lang('comments:inactive_title');
 
 		$this->input->is_ajax_request() && $this->template->set_layout(false);
-
-		$module_list = $this->comment_m->get_slugs();
 
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('admin/filter.js')
-			->set('module_list',		$module_list)
-			->set('content_title',		$content_title)
-			->set('comments',			$this->comments->process($comments))
-			->set('comments_active',	$base_where['comments.is_active'])
-			->set('pagination',			$pagination);
-			
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
+			->set('module_list', Comment::getModuleSlugs())
+			->set('content_title', $content_title)
+			->set('comments', $this->comments->process($comments))
+			->set('comments_active', $filter['is_active'])
+			->set('pagination', $pagination);
+
+		$this->input->is_ajax_request()
+			? $this->template->build('admin/tables/comments')
+			: $this->template->build('admin/index');
 	}
 
 	/**
 	 * Action method, called whenever the user submits the form
-	 * 
+	 *
 	 * @return void
 	 */
 	public function action()
 	{
 		$action = strtolower($this->input->post('btnAction'));
 
-		if ($action)
-		{
+		if ($action) {
 			// Get the id('s)
 			$id_array = $this->input->post('action_to');
 
 			// Call the action we want to do
-			if (method_exists($this, $action))
-			{
+			if (method_exists($this, $action)) {
 				$this->{$action}($id_array);
 			}
 		}
@@ -124,7 +135,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Edit an existing comment
-	 * 
+	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -132,42 +143,34 @@ class Admin extends Admin_Controller {
 		$id or redirect('admin/comments');
 
 		// Get the comment based on the ID
-		$comment = $this->comment_m->get($id);
+		$comment = Comment::find($id);
 
 		// Validate the results
-		if ($this->form_validation->run())
-		{
-			if ($comment->user_id > 0)
-			{
-				$commenter['user_id'] = $this->input->post('user_id');
-			}
-			else
-			{
-				$commenter['user_name']	= $this->input->post('user_name');
-				$commenter['user_email'] = $this->input->post('user_email');
+		if ($this->form_validation->run()) {
+			if ($comment->user_id > 0) {
+				$comment->user_id = $this->input->post('user_id');
+			} else {
+				$comment->user_name = $this->input->post('user_name');
+				$comment->user_email = $this->input->post('user_email');
 			}
 
-			$comment = array_merge($commenter, array(
-				'user_website' => $this->input->post('user_website'),
-				'comment' => $this->input->post('comment'),
-			));
+			$comment->user_website = $this->input->post('user_website');
+			$comment->comment = $this->input->post('comment');
 
 			// Update the comment
-			$this->comment_m->update($id, $comment)
+			$comment->save()
 				? $this->session->set_flashdata('success', lang('comments:edit_success'))
 				: $this->session->set_flashdata('error', lang('comments:edit_error'));
 
 			// Fire an event. A comment has been updated.
-			Events::trigger('comment_updated', $id);
+			Events::trigger('comment_updated', $comment);
 
 			redirect('admin/comments');
 		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== null)
-			{
+		foreach ($this->validation_rules as $rule) {
+			if ($this->input->post($rule['field']) !== null) {
 				$comment->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
@@ -182,38 +185,31 @@ class Admin extends Admin_Controller {
 	// Admin: report a comment to local tables/Akismet as spam
 	public function report($id)
 	{
+		$comment = Comment::find($id);
+
 		$api_key = Settings::get('akismet_api_key');
-		$comment = $this->comment_m->get($id);
-		if ( ! empty($api_key))
-		{	
-			$akismet = $this->load->library('akismet');
-			$comment_array = array(
-				'user_name' => $comment->user_name,
-				'user_website' => $comment->user_website,
-				'user_email' => $comment->user_email,
-				'body' => $comment->comment
-			);
-      
-			$config = array(
-				'blog_url' => BASE_URL,
-				'api_key' => $api_key,
-				'comment' => $comment_array
-			);
 
-			$akismet->init($config);
+		if ( ! empty($api_key)) {
+			$akismet = new Akismet($api_key, BASE_URL);
 
-			//expecting to see $comment as an array not an object...
-			$akismet->submit_spam();          
+			$akismet->submitSpam(
+		        $comment->ip_address,
+		        $comment->user_agent,
+		        $comment->comment,
+		        $comment->user_name,
+		        $comment->user_email,
+		        $comment->user_website
+		    );
 		}
-            
-		$this->comment_blacklists_m->save(array(
-			'website' => $comment->user_website,
+
+        CommentBlacklist::create(array(
+        	'website' => $comment->user_website,
 			'email' => $comment->user_email
-		));
+        ));
 
 		$this->delete($id);
 
-		redirect('admin/comments');	
+		redirect('admin/comments');
 	}
 
         // Admin: Delete a comment
@@ -224,33 +220,29 @@ class Admin extends Admin_Controller {
 
 		// Go through the array of ids to delete
 		$comments = array();
-		foreach ($ids as $id)
-		{
+		foreach ($ids as $id) {
 			// Get the current comment so we can grab the id too
-			if ($comment = $this->comment_m->get($id))
-			{
-				$this->comment_m->delete((int) $id);
+			if ($comment = Comment::find($id)) {
+				$comment->delete();
 
 				// Wipe cache for this model, the content has changed
-				$this->pyrocache->delete('comment_m');
-				$comments[] = $comment->id;
+				$this->cache->clear('Comment');
+				$comments[] = $comment;
 			}
 		}
 
 		// Some comments have been deleted
-		if ( ! empty($comments))
-		{
+		if ( ! empty($comments)) {
 			(count($comments) == 1)
 				? $this->session->set_flashdata('success', sprintf(lang('comments:delete_single_success'), $comments[0]))				/* Only deleting one comment */
 				: $this->session->set_flashdata('success', sprintf(lang('comments:delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
-		
+
 			// Fire an event. One or more comments were deleted.
 			Events::trigger('comment_deleted', $comments);
 		}
 
 		// For some reason, none of them were deleted
-		else
-		{
+		else {
 			$this->session->set_flashdata('error', lang('comments:delete_error'));
 		}
 
@@ -259,7 +251,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Approve a comment
-	 * 
+	 *
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
@@ -273,7 +265,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Unapprove a comment
-	 * 
+	 *
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
@@ -282,8 +274,7 @@ class Admin extends Admin_Controller {
 	{
 		$id && $this->_do_action($id, 'unapprove');
 
-		if ($redirect)
-		{
+		if ($redirect) {
 			$this->session->set_flashdata('is_active', 1);
 
 			redirect('admin/comments');
@@ -292,7 +283,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for approve/unapprove
-	 * @access protected
+	 *
 	 * @param  int|array $ids	id or array of ids to process
 	 * @param  string $action	action to take: maps to model
 	 * @return void
@@ -303,22 +294,21 @@ class Admin extends Admin_Controller {
 		$multiple	= (count($ids) > 1) ? '_multiple' : null;
 		$status		= 'success';
 
-		foreach ($ids as $id)
-		{
-			if ( ! $this->comment_m->{$action}($id))
-			{
+		foreach ($ids as $id) {
+			if ( ! $comment = Comment::find($id)) {
 				$status = 'error';
 				break;
 			}
 
-			if ($action == 'approve')
-			{
+			if ($action == 'approve') {
+				$comment->is_active = true;
+				$comment->save();
 				// add an event so third-party devs can hook on
-				Events::trigger('comment_approved', $this->comment_m->get($id));
-			}
-			else
-			{
-				Events::trigger('comment_unapproved', $id);
+				Events::trigger('comment_approved', $comment);
+			} else {
+				$comment->is_active = false;
+				$comment->save();
+				Events::trigger('comment_unapproved', $comment);
 			}
 		}
 
@@ -329,7 +319,7 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->set_layout(false)
-			->set('comment', $this->comment_m->get($id))
+			->set('comment', Comment::find($id))
 			->build('admin/preview');
 	}
 

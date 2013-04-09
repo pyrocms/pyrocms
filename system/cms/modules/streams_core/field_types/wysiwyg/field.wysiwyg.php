@@ -12,45 +12,36 @@
 class Field_wysiwyg
 {
 	public $field_type_slug			= 'wysiwyg';
-	
+
 	public $db_col_type				= 'longtext';
 
 	public $admin_display			= 'full';
-	
+
 	public $custom_parameters 		= array('editor_type', 'allow_tags');
 
 	public $version					= '1.1.0';
 
 	public $author					= array('name' => 'Parse19', 'url'=>'http://parse19.com');
-	
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Event
 	 *
 	 * Called before the form is built.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function event()
 	{
-		if (defined('ADMIN_THEME'))
-		{
+		if (defined('ADMIN_THEME')) {
 			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_admin', null));
-		}
-		else
-		{
+		} else {
 			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre-Ouput WYSUWYG content
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */
@@ -73,10 +64,8 @@ class Field_wysiwyg
 			$this->CI->load->helper('text');
 			return escape_tags($input);
 		}
-		
-	}
 
-	// --------------------------------------------------------------------------
+	}
 
 	/**
 	 * Output form input
@@ -88,24 +77,19 @@ class Field_wysiwyg
 	public function form_output($data)
 	{
 		// Set editor type
-		if (isset($data['custom']['editor_type']))
-		{
+		if (isset($data['custom']['editor_type'])) {
 			$options['class']	= 'wysiwyg-'.$data['custom']['editor_type'];
-		}
-		else
-		{
+		} else {
 			$options['class']	= 'wysiwyg-simple';
 		}
-	
+
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
-		
+
 		return form_textarea($options);
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Editor Type Param
 	 *
@@ -117,12 +101,10 @@ class Field_wysiwyg
 			'simple'	=> lang('streams:wysiwyg.simple'),
 			'advanced'	=> lang('streams:wysiwyg.advanced')
 		);
-	
-		return form_dropdown('editor_type', $types, $value);
-	}	
 
-	// --------------------------------------------------------------------------
-	
+		return form_dropdown('editor_type', $types, $value);
+	}
+
 	/**
 	 * Allow tags param.
 	 *
@@ -134,11 +116,11 @@ class Field_wysiwyg
 			'n'	=> lang('global:no'),
 			'y'	=> lang('global:yes')
 		);
-	
+
 		// Defaults to No
-		$value = ($value) ? $value : 'n';
+		$value or $value = 'n';
 
 		return form_dropdown('allow_tags', $options, $value);
-	}	
+	}
 
 }

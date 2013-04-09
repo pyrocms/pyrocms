@@ -7,8 +7,7 @@
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package 	PyroCMS\Core\Helpers
  */
-if (!function_exists('gravatar'))
-{
+if (!function_exists('gravatar')) {
 
 	/**
 	 * Gravatar helper for CodeIgniter.
@@ -30,8 +29,7 @@ if (!function_exists('gravatar'))
 
 		$gravatar_url = $base_url.$email.$size.$rating.$default;
 		// URL only or the entire block of HTML ?
-		if ($url_only == true)
-		{
+		if ($url_only == true) {
 			return $gravatar_url;
 		}
 

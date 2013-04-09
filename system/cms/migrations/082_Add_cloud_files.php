@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_cloud_files extends CI_Migration {
-
+class Migration_Add_cloud_files extends CI_Migration
+{
 	public function up()
 	{
 		$this->load->model('files/file_m');
@@ -85,8 +85,7 @@ class Migration_Add_cloud_files extends CI_Migration {
 
 		$files = $this->file_m->select('id, filename')->get_all();
 
-		foreach ($files as $file) 
-		{
+		foreach ($files as $file) {
 			// build local paths so that we have a uniform style between local, amazon, and rackspace
 			$this->file_m
 				->where('type', 'i')

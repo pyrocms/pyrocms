@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Comments\Model\Comment;
+
 /**
  *
  * @author  PyroCMS Dev Team
@@ -88,10 +91,8 @@ class Admin extends Admin_Controller
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
 		$_categories = array();
-		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
-		{
-			foreach ($categories as $category)
-			{
+		if ($categories = $this->blog_categories_m->order_by('title')->get_all()) {
+			foreach ($categories as $category) {
 				$_categories[$category->id] = $category->title;
 			}
 		}
@@ -101,7 +102,6 @@ class Admin extends Admin_Controller
 			->set('hours', array_combine($hours = range(0, 23), $hours))
 			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
 			->set('categories', $_categories)
-
 			->append_css('module::blog.css');
 	}
 
@@ -114,18 +114,15 @@ class Admin extends Admin_Controller
 		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
-		if ($this->input->post('f_category'))
-		{
+		if ($this->input->post('f_category')) {
 			$base_where['category'] = $this->input->post('f_category');
 		}
 
-		if ($this->input->post('f_status'))
-		{
+		if ($this->input->post('f_status')) {
 			$base_where['status'] = $this->input->post('f_status');
 		}
 
-		if ($this->input->post('f_keywords'))
-		{
+		if ($this->input->post('f_keywords')) {
 			$base_where['keywords'] = $this->input->post('f_keywords');
 		}
 
@@ -159,20 +156,15 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-
 		// They are trying to put this live
-		if ($this->input->post('status') == 'live')
-		{
+		if ($this->input->post('status') == 'live') {
 			role_or_die('blog', 'put_live');
-
 			$hash = "";
-		}
-		else
-		{
+		} else {
 			$hash = $this->_preview_hash();
 		}
 
-		$post = new stdClass();
+		$post = new stdClass;
 
 		// Get the blog stream.
 		$this->load->driver('Streams');
@@ -181,24 +173,21 @@ class Admin extends Admin_Controller
 
 		// Get the validation for our custom blog fields.
 		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
-		
+
 		// Combine our validation rules.
 		$rules = array_merge($this->validation_rules, $blog_validation);
 
 		// Set our validation rules
 		$this->form_validation->set_rules($rules);
 
-		if ($this->input->post('created_on'))
-		{
+		if ($this->input->post('created_on')) {
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
-		}
-		else
-		{
-			$created_on = now();
+		} else {
+			$created_on = time();
 		}
 
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
+
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
 			$extra = array(
@@ -217,35 +206,28 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash
 			);
 
-			if ($id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra))
-			{
-				$this->pyrocache->delete_all('blog_m');
+			if ($id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)) {
+				$this->cache->clear('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
 
 				// Blog article has been updated, may not be anything to do with publishing though
 				Events::trigger('post_created', $id);
 
 				// They are trying to put this live
-				if ($this->input->post('status') == 'live')
-				{
+				if ($this->input->post('status') == 'live') {
 					// Fire an event, we're posting a new blog!
 					Events::trigger('post_published', $id);
 				}
-			}
-			else
-			{
+			} else {
 				$this->session->set_flashdata('error', lang('blog:post_add_error'));
 			}
 
 			// Redirect back to the form or main page
 			($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
-		}
-		else
-		{
+		} else {
 			// Go through all the known fields and get the post values
 			$post = new stdClass;
-			foreach ($this->validation_rules as $key => $field)
-			{
+			foreach ($this->validation_rules as $key => $field) {
 				$post->$field['field'] = set_value($field['field']);
 			}
 			$post->created_on = $created_on;
@@ -267,7 +249,7 @@ class Admin extends Admin_Controller
 			->append_js('module::blog_form.js')
 			->append_js('module::blog_category_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -284,8 +266,7 @@ class Admin extends Admin_Controller
 		$post = $this->blog_m->get($id);
 		
 		// They are trying to put this live
-		if ($post->status != 'live' and $this->input->post('status') == 'live')
-		{
+		if ($post->status != 'live' and $this->input->post('status') == 'live') {
 			role_or_die('blog', 'put_live');
 		}
 		
@@ -295,12 +276,9 @@ class Admin extends Admin_Controller
 		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
-		if ($this->input->post('created_on'))
-		{
+		if ($this->input->post('created_on')) {
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
-		}
-		else
-		{
+		} else {
 			$created_on = $post->created_on;
 		}
 
@@ -311,7 +289,7 @@ class Admin extends Admin_Controller
 
 		// Get the validation for our custom blog fields.
 		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
-		
+
 		$blog_validation = array_merge($this->validation_rules, array(
 			'title' => array(
 				'field' => 'title',
@@ -330,13 +308,11 @@ class Admin extends Admin_Controller
 
 		$hash = $this->input->post('preview_hash');
 
-		if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
-		{
+		if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '') {
 			$hash = $this->_preview_hash();
 		}
 
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$extra = array(
@@ -357,22 +333,18 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash,
 			);
 
-			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra))
-			{
+			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra)) {
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
 				// Blog article has been updated, may not be anything to do with publishing though
 				Events::trigger('post_updated', $id);
 
 				// They are trying to put this live
-				if ($post->status != 'live' and $this->input->post('status') == 'live')
-				{
+				if ($post->status != 'live' and $this->input->post('status') == 'live') {
 					// Fire an event, we're posting a new blog!
 					Events::trigger('post_published', $id);
 				}
-			}
-			else
-			{
+			} else {
 				$this->session->set_flashdata('error', lang('blog:edit_error'));
 			}
 
@@ -381,10 +353,8 @@ class Admin extends Admin_Controller
 		}
 
 		// Go through all the known fields and get the post values
-		foreach ($this->validation_rules as $key => $field)
-		{
-			if (isset($_POST[$field['field']]))
-			{
+		foreach ($this->validation_rules as $key => $field) {
+			if (isset($_POST[$field['field']])) {
 				$post->$field['field'] = set_value($field['field']);
 			}
 		}
@@ -402,8 +372,8 @@ class Admin extends Admin_Controller
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
 			->append_css('jquery/jquery.tagsinput.css')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -428,8 +398,7 @@ class Admin extends Admin_Controller
 	 */
 	public function action()
 	{
-		switch ($this->input->post('btnAction'))
-		{
+		switch ($this->input->post('btnAction')) {
 			case 'publish':
 				$this->publish();
 				break;
@@ -456,41 +425,34 @@ class Admin extends Admin_Controller
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
-		if ( ! empty($ids))
-		{
+		if ( ! empty($ids)) {
 			// Go through the array of slugs to publish
 			$post_titles = array();
-			foreach ($ids as $id)
-			{
+			foreach ($ids as $id) {
 				// Get the current page so we can grab the id too
-				if ($post = $this->blog_m->get($id))
-				{
+				if ($post = $this->blog_m->get($id)) {
 					$this->blog_m->publish($id);
 
 					// Wipe cache for this model, the content has changed
-					$this->pyrocache->delete('blog_m');
+					$this->cache->clear('blog_m');
 					$post_titles[] = $post->title;
 				}
 			}
 		}
 
 		// Some posts have been published
-		if ( ! empty($post_titles))
-		{
+		if ( ! empty($post_titles)) {
 			// Only publishing one post
-			if (count($post_titles) == 1)
-			{
+			if (count($post_titles) == 1) {
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:publish_success'), $post_titles[0]));
 			}
 			// Publishing multiple posts
-			else
-			{
+			else {
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:mass_publish_success'), implode('", "', $post_titles)));
 			}
 		}
 		// For some reason, none of them were published
-		else
-		{
+		else {
 			$this->session->set_flashdata('notice', $this->lang->line('blog:publish_error'));
 		}
 
@@ -504,29 +466,25 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comment_m');
-
 		role_or_die('blog', 'delete_live');
 
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
-		if ( ! empty($ids))
-		{
+		if ( ! empty($ids)) {
 			$post_titles = array();
 			$deleted_ids = array();
-			foreach ($ids as $id)
-			{
+			foreach ($ids as $id) {
 				// Get the current page so we can grab the id too
-				if ($post = $this->blog_m->get($id))
-				{
-					if ($this->blog_m->delete($id))
-					{
-						$this->comment_m->where('module', 'blog')->delete_by('entry_id', $id);
+				if ($post = $this->blog_m->get($id)) {
+					if ($this->blog_m->delete($id)) {
+						// Delete any blog comments for this entry
+						$comments = Comment::findManyByModuleAndEntryId('blog',$id);
+						$comments->delete();
 
 						// Wipe cache for this model, the content has changed
-						$this->pyrocache->delete('blog_m');
+						$this->cache->clear('blog_m');
 						$post_titles[] = $post->title;
 						$deleted_ids[] = $id;
 					}
@@ -538,22 +496,16 @@ class Admin extends Admin_Controller
 		}
 
 		// Some pages have been deleted
-		if ( ! empty($post_titles))
-		{
+		if ( ! empty($post_titles)) {
 			// Only deleting one page
-			if (count($post_titles) == 1)
-			{
+			if (count($post_titles) == 1) {
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:delete_success'), $post_titles[0]));
-			}
-			// Deleting multiple pages
-			else
-			{
+			} else {
+				// Deleting multiple pages
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:mass_delete_success'), implode('", "', $post_titles)));
 			}
-		}
-		// For some reason, none of them were deleted
-		else
-		{
+		} else {
+			// For some reason, none of them were deleted
 			$this->session->set_flashdata('notice', lang('blog:delete_error'));
 		}
 

@@ -53,7 +53,7 @@ class Admin_Categories extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->pyrocache->delete_all('module_m');
+		$this->cache->forget('module_m');
 
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
@@ -61,10 +61,10 @@ class Admin_Categories extends Admin_Controller
 
 		// Using this data, get the relevant results
 		$categories = $this->blog_categories_m
-								->order_by('title')
-								->limit($pagination['limit'])
-								->offset($pagination['offset'])
-								->get_all();
+			->order_by('title')
+			->limit($pagination['limit'])
+			->offset($pagination['offset'])
+			->get_all();
 
 		$this->template
 			->title($this->module_details['name'], lang('cat:list_title'))
@@ -81,10 +81,8 @@ class Admin_Categories extends Admin_Controller
 		$category = new stdClass;
 
 		// Validate the data
-		if ($this->form_validation->run())
-		{
-			if ($id = $this->blog_categories_m->insert($this->input->post()))
-			{
+		if ($this->form_validation->run()) {
+			if ($id = $this->blog_categories_m->insert($this->input->post())) {
 				// Fire an event. A new blog category has been created.
 				Events::trigger('blog_category_created', $id);
 
@@ -211,16 +209,17 @@ class Admin_Categories extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _check_title($title = '')
+	public function _check_title($title)
 	{
-		if ($this->blog_categories_m->check_title($title, $this->input->post('id')))
+		if ( ! $this->blog_categories_m->check_title($title, $this->input->post('id')))
 		{
-			$this->form_validation->set_message('_check_title', sprintf(lang('cat:already_exist_error'), $title));
-
-			return false;
+			return true;
 		}
 
-		return true;
+		var_dump(sprintf(lang('cat:already_exist_error'), $title));
+		
+		$this->form_validation->set_message('_check_title', sprintf(lang('cat:already_exist_error'), $title));
+		return false;
 	}
 
 	/**
@@ -230,16 +229,15 @@ class Admin_Categories extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _check_slug($slug = '')
+	public function _check_slug($slug)
 	{
-		if ($this->blog_categories_m->check_slug($slug, $this->input->post('id')))
+		if ( ! $this->blog_categories_m->check_slug($slug, $this->input->post('id')))
 		{
-			$this->form_validation->set_message('_check_slug', sprintf(lang('cat:already_exist_error'), $slug));
-
-			return false;
+			return true;
 		}
 
-		return true;
+		$this->form_validation->set_message('_check_slug', sprintf(lang('cat:already_exist_error'), $slug));
+		return false;
 	}
 
 	/**

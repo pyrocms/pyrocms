@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Redirects\Model\Redirect;
+
 /**
  * Code here is run before frontend controllers
  *
@@ -19,22 +22,17 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
 
 		// Check redirects if GET and Not AJAX
-		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
-		{
-			$this->load->model('redirects/redirect_m');
+		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET') {
 			$uri = trim(uri_string(), '/');
 
-			if ($uri and $redirect = $this->redirect_m->get_from($uri))
-			{
+			if ($uri and $redirect = Redirect::findByUri($uri)) {
 				// Check if it was direct match
-				if ($redirect->from == $uri)
-				{
+				if ($redirect->from == $uri) {
 					redirect($redirect->to, 'location', $redirect->type);
 				}
 
 				// If it has back reference
-				if (strpos($redirect->to, '$') !== false)
-				{
+				if (strpos($redirect->to, '$') !== false) {
 					$from = str_replace('%', '(.*?)', $redirect->from);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
 				}
@@ -46,22 +44,17 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) or $this->current_user->group != 'admin'))
-		{
+		if ( ! Settings::get('frontend_enabled') && (empty($this->current_user) or $this->current_user->group != 'admin')) {
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
+			$error = Settings::get('unavailable_message') ?: lang('cms:fatal_error');
 			show_error($error, 503);
 		}
-
-		// -- Navigation menu -----------------------------------
-		$this->load->model('pages/page_m');
 
 		// Load the current theme so we can set the assets right away
 		ci()->theme = $this->theme_m->get();
 
-		if (empty($this->theme->slug))
-		{
+		if (empty($this->theme->slug)) {
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
@@ -69,9 +62,8 @@ class Public_Controller extends MY_Controller
 		Asset::add_path('theme', $this->theme->path.'/');
 		Asset::set_path('theme');
 
-		// Support CDN URL's like Amazon CloudFront 
-		if (Settings::get('cdn_domain'))
-		{
+		// Support CDN URL's like Amazon CloudFront
+		if (Settings::get('cdn_domain')) {
 			$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 
 			// Make cdn.pyrocms.com into https://cdn.pyrocms.com/
@@ -82,14 +74,12 @@ class Public_Controller extends MY_Controller
 		$this->template->set_theme($this->theme->slug);
 
 		// Is there a layout file for this module?
-		if ($this->template->layout_exists($this->module.'.html'))
-		{
+		if ($this->template->layout_exists($this->module.'.html')) {
 			$this->template->set_layout($this->module.'.html');
 		}
 
 		// Nope, just use the default layout
-		elseif ($this->template->layout_exists('default.html'))
-		{
+		elseif ($this->template->layout_exists('default.html')) {
 			$this->template->set_layout('default.html');
 		}
 
@@ -97,8 +87,7 @@ class Public_Controller extends MY_Controller
 		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
 		// If there is a blog module, link to its RSS feed in the head
-		if (module_enabled('blog'))
-		{
+		if (module_enabled('blog')) {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}
 
@@ -106,7 +95,7 @@ class Public_Controller extends MY_Controller
 		$this->load->library('variables/variables');
 
 		// grab the theme options if there are any
-		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
+		$this->theme->options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
 
 		// Assign segments to the template the new way
 		$this->template->server = $_SERVER;

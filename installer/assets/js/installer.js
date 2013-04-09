@@ -1,5 +1,28 @@
 jQuery(document).ready(function ($) {
 
+	var updateDriverFields = function(enabled_driver) {
+		var default_port = {
+			'mysql' : 3306,
+			'pgsql' : 5432
+		};
+
+		var $settings = $('section#db-settings');
+		
+		$settings.find('.input').each(function() {
+			$input = $(this);
+			if ($input.hasClass(enabled_driver)) $input.show();
+			else $input.hide();
+		});
+
+		$settings.find('input#port').val(default_port[enabled_driver]);
+	};
+
+	// If any are checked then show the right fields
+	updateDriverFields($('section#db-driver input[name=db_driver]:checked').val());
+
+	// Show relevant input options for DB driver
+	$('section#db-driver input[name=db_driver]').change(function(){ updateDriverFields($(this).val()); });
+
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
 		focusin: function () {
@@ -25,9 +48,10 @@ jQuery(document).ready(function ($) {
 	$('input[name=password]').on('keyup focus', function () {
 
 		$.post(base_url + 'index.php/ajax/confirm_database', {
+				driver: $('input[name=db_driver]:checked').val(),
 				database: $('input[name=database]').val(),
 				create_db: $('input[name=create_db]').is(':checked'),
-				server: $('input[name=hostname]').val(),
+				hostname: $('input[name=hostname]').val(),
 				port: $('input[name=port]').val(),
 				username: $('input[name=username]').val(),
 				password: $('input[name=password]').val()

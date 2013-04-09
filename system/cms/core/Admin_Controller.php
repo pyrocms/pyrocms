@@ -8,8 +8,8 @@
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Controllers
  */
-class Admin_Controller extends MY_Controller {
-
+class Admin_Controller extends MY_Controller
+{
 	/**
 	 * Admin controllers can have sections, normally an arbitrary string
 	 *
@@ -30,15 +30,13 @@ class Admin_Controller extends MY_Controller {
 		$this->lang->load('buttons');
 		
 		// Show error and exit if the user does not have sufficient permissions
-		if ( ! self::_check_access())
-		{
+		if ( ! self::checkAccess()) {
 			$this->session->set_flashdata('error', lang('cp:access_denied'));
 			redirect();
 		}
 
 		// If the setting is enabled redirect request to HTTPS
-		if ($this->settings->admin_force_https and strtolower(substr(current_url(), 4, 1)) != 's')
-		{
+		if (Settings::get('admin_force_https') and strtolower(substr(current_url(), 4, 1)) != 's') {
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
 
@@ -60,7 +58,7 @@ class Admin_Controller extends MY_Controller {
 		Asset::set_path('theme');
 		
 		// grab the theme options if there are any
-		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME)));
+		ci()->theme_options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
 	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
@@ -88,12 +86,12 @@ class Admin_Controller extends MY_Controller {
 				'lang' => CURRENT_LANGUAGE
 			));
 
-			foreach ($modules as $module)
-			{				
+			foreach ($modules as $module) {
+
 				// If we do not have an admin_menu function, we use the
 				// regular way of checking out the details.php data.
-				if ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
-				{
+				if ($module['menu'] and ($this->current_user->hasAccess($module['slug']))) {
+
 					// Legacy module routing. This is just a rough
 					// re-route and modules should change using their 
 					// upgrade() details.php functions.
@@ -106,8 +104,7 @@ class Admin_Controller extends MY_Controller {
 				// If a module has an admin_menu function, then
 				// we simply run that and allow it to manipulate the
 				// menu array.
-				if (method_exists($module['module'], 'admin_menu'))
-				{
+				if (method_exists($module['module'], 'admin_menu')) {
 					$module['module']->admin_menu($menu_items);
 				}
 			}
@@ -115,9 +112,20 @@ class Admin_Controller extends MY_Controller {
 			// We always have our 
 			// edit profile links and such.
 			$menu_items['lang:global:profile'] = array(
-				'lang:cp:edit_profile_label'		=> 'edit-profile',
-				'lang:cp:logout_label'				=> 'admin/logout'
+				'lang:cp:edit_profile_label' => 'edit-profile',
+				'lang:cp:logout_label'		 => 'admin/logout'
 			);
+
+			// Trigger an event so modules can mess with the
+			// menu items array via the events structure. 
+			$event_output = Events::trigger('admin_menu', $menu_items);
+
+			// If we get an array, we assume they have altered the menu items
+			// and are returning them to us to use.
+			if (is_array($event_output))
+			{
+				$menu_items = $event_output;
+			}
 
 			// Order the menu items. We go by our menu_order array.
 			$ordered_menu = array();
@@ -168,7 +176,7 @@ class Admin_Controller extends MY_Controller {
 	 *
 	 * @return boolean 
 	 */
-	private function _check_access()
+	private function checkAccess()
 	{
 		// These pages get past permission checks
 		$ignored_pages = array('admin/login', 'admin/logout', 'admin/help');
@@ -177,35 +185,29 @@ class Admin_Controller extends MY_Controller {
 		$current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, 'index');
 
 		// Dont need to log in, this is an open page
-		if (in_array($current_page, $ignored_pages))
-		{
+		if (in_array($current_page, $ignored_pages)) {
 			return true;
 		}
 
-		if ( ! $this->current_user)
-		{
+		if ( ! $this->current_user) {
+			
 			// save the location they were trying to get to
 			$this->session->set_userdata('admin_redirect', $this->uri->uri_string());
 			redirect('admin/login');
-		}
-
-		// Admins can go straight in
-		if ($this->current_user->group === 'admin')
-		{
-			return true;
-		}
 
 		// Well they at least better have permissions!
-		if ($this->current_user)
-		{
+		} if ($this->current_user) {
+			
+			if ($this->current_user->isSuperUser()) {
+				return true;
+
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page == 'admin/index' && $this->permissions)
-			{
+			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
 				return true;
 			}
 
 			// Check if the current user can view that page
-			return array_key_exists($this->module, $this->permissions);
+			return $this->current_user->hasAccess("{$this->module}.*");
 		}
 
 		// god knows what this is... erm...

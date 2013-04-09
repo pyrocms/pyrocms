@@ -9,7 +9,7 @@ class Ajax extends MY_Controller
 {
 	/**
 	 * Update the order of the widgets
-	 * 
+	 *
 	 * @return void
 	 */
 	public function widget_update_order($to = 'instance')
@@ -22,24 +22,21 @@ class Ajax extends MY_Controller
 
 		$i = 0;
 
-		switch ($to)
-		{
+		switch ($to) {
 			case 'instance':
-				foreach ($ids as $id)
-				{
+				foreach ($ids as $id) {
 					$id = str_replace('instance-', '', $id);
 					$this->widgets->update_instance_order($id, ++$i);
 				}
 				break;
 
 			case 'widget':
-				foreach ($ids as $id)
-				{
+				foreach ($ids as $id) {
 					$this->widgets->update_widget_order($id, ++$i);
 				}
 				break;
 		}
 
-		$this->pyrocache->delete_all('widget_m');
+		$this->cache->clear('widget_m');
 	}
 }

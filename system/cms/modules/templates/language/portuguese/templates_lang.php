@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Modelos de e-mail pré-definidos';
 $lang['templates:user_defined_title']		= 'Modelos de e-mail criados pelo utilizador';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'O modelo de e-mail "%s" foi adicionado com sucesso.';
 $lang['templates:tmpl_create_error']		= 'Ocorreu um erro ao tentar criar o modelo de e-mail "%s".';
 $lang['templates:tmpl_edit_success']		= 'As alterações feitas no modelo de e-mail "%s" foram actualizadas com sucesso.';

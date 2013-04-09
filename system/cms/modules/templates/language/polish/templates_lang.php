@@ -16,6 +16,7 @@ $lang['templates:default_title']		= 'Domyślny szablon';
 $lang['templates:user_defined_title']		= 'Szablon zdefiniowany przez użytkownika';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Szablon e-mail "%s" została zapisana.';
 $lang['templates:tmpl_create_error']		= 'Szablon e-mail "%s" nie została zapisana.';
 $lang['templates:tmpl_edit_success']		= 'Zmiany w szablonie e-mail "%s" zostały zapisane.';

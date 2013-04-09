@@ -13,20 +13,19 @@
  * @link		http://parse19.com/pyrostreams
  */
 class Parameter_fields
-{	
-    function __construct()
+{
+    public function __construct()
     {
 		$this->CI = get_instance();
-		
+
 		$this->CI->load->helper('form');
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Maxlength field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */
@@ -38,7 +37,7 @@ class Parameter_fields
         	'value'       => $value,
         	'maxlength'   => '100'
  		);
-	
+
 		return form_input($data);
 	}
 
@@ -47,7 +46,6 @@ class Parameter_fields
 	/**
 	 * Upload location field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */
@@ -59,7 +57,7 @@ class Parameter_fields
         	'value'       => $value,
         	'maxlength'   => '255'
  		);
-	
+
 		return form_input($data);
 	}
 
@@ -68,7 +66,6 @@ class Parameter_fields
 	/**
 	 * Default default field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */
@@ -80,7 +77,7 @@ class Parameter_fields
         	'value'       => $value,
         	'maxlength'   => '255'
  		);
-	
+
 		return form_input($data);
 	}
 

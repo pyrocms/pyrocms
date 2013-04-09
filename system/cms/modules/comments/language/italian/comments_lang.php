@@ -56,6 +56,6 @@ $lang['comments:no_comments'] 				= 'Non ci sono commenti';
 // Helper counter comments
 $lang['comments:counter_none_label']		= 'Nessun commento';
 $lang['comments:counter_singular_label']	= '%d commento';
-$lang['comments:counter_plural_label']		= '%d commenti'; 
+$lang['comments:counter_plural_label']		= '%d commenti';
 
 /* End of file comments_lang.php */

@@ -4,7 +4,7 @@ $lang['user:add_field']                        	= 'Add User Profile Field';
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully';
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field';
 $lang['profile_user_basic_data_label']  		= 'Basic Data';
-$lang['profile_company']         	  			= 'Company'; 
+$lang['profile_company']         	  			= 'Company';
 $lang['profile_updated_on']           			= 'Updated On';
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields';
 
@@ -52,7 +52,6 @@ $lang['user:activate_label']                   = 'Activate';
 $lang['user:activated_account_title']          = 'Activated Account';
 $lang['user:reset_password_title']             = 'Reset Password';
 $lang['user:password_reset_title']             = 'Password Reset';
-
 
 $lang['user:error_username']                   = 'The username you selected is already in use.';
 $lang['user:error_email']                      = 'The email address you entered is already in use.';
@@ -122,18 +121,15 @@ $lang['user:email_exists']                     = 'The email address you have cho
 $lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.';
 $lang['user:register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Activation failed. Please check your details and make sure CAPS LOCK is not on.';
 $lang['user:activated_message']                = 'Your account has been activated, you can now log in to your account.';
-
 
 // Login
 $lang['user:logged_in']                        = 'You have logged in successfully.'; # TODO: Translate this in spanish
 $lang['user:already_logged_in']                = 'You are already logged in. Please logout before trying again.';
 $lang['user:login_incorrect']                  = 'E-mail or password do not match. Please check your login and make sure CAPS LOCK is not on.';
 $lang['user:inactive']                         = 'The account you are trying to access is currently inactive.<br />Check your e-mail for instructions on how to activate your account - <em>it may be in the junk folder</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'You have been logged out.';
@@ -143,13 +139,11 @@ $lang['user:forgot_incorrect']                 = "No account was found with thes
 
 $lang['user:password_reset_message']           = "Your password has been reset. You should recieve the email within the next 2 hours. If you don't, it might have gone into your junk mail by accident.";
 
-
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
 $lang['user:activation_email_subject']         = 'Activation Required';
 $lang['user:activation_email_body']            = 'Thank you for activting your account with %s. To log in to the site, please visit the link below:';
-
 
 $lang['user:activated_email_subject']          = 'Activation Complete';
 $lang['user:activated_email_content_line1']    = 'Thank you for registering at %s. Before we can activate your account, please complete the registration process by clicking on the following link:';

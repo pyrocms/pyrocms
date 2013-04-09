@@ -23,10 +23,10 @@ class Plugin_Global extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -162,14 +162,12 @@ class Plugin_Global extends Plugin
 	public function __call($name, $data)
 	{
 		// A constant
-		if (defined(strtoupper($name)))
-		{
+		if (defined(strtoupper($name))) {
 			return constant(strtoupper($name));
 		}
 
 		// A global variable ($this->controller etc)
-		if (isset(get_instance()->$name) and is_scalar($this->$name))
-		{
+		if (isset(get_instance()->$name) and is_scalar($this->$name)) {
 			return $this->$name;
 		}
 

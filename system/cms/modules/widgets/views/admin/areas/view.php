@@ -17,7 +17,7 @@
 			<ol>
 				<li class="empty-drop-item"></li>
 			</ol>
-		
+
 			<div style="clear:both"></div>
 		</div>
 	</div>

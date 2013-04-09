@@ -12,7 +12,7 @@
 class Field_user
 {
 	public $field_type_slug			= 'user';
-	
+
 	public $db_col_type				= 'int';
 
 	public $custom_parameters		= array('restrict_group');
@@ -25,7 +25,7 @@ class Field_user
 
 	// Run-time cache of users.
 	private $cache 					= array();
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -38,29 +38,26 @@ class Field_user
 	public function form_output($params, $entry_id, $field)
 	{
 		$this->CI->db->select('username, id');
-	
-		if (isset($params['custom']['restrict_group']) and is_numeric($params['custom']['restrict_group']))
-		{
+
+		if (isset($params['custom']['restrict_group']) and is_numeric($params['custom']['restrict_group'])) {
 			$this->CI->db->where('group_id', $params['custom']['restrict_group']);
 		}
-		
+
 		$users_raw = $this->CI->db->order_by('username', 'asc')->get('users')->result();
-		
+
 		$users = array();
 
 		// If this is not required, then
 		// let's allow a null option
-		if ($field->is_required == 'no')
-		{
+		if ($field->is_required == 'no') {
 			$users[null] = $this->CI->config->item('dropdown_choose_null');
 		}
-		
+
 		// Get user choices
-		foreach ($users_raw as $user)
-		{
+		foreach ($users_raw as $user) {
 			$users[$user->id] = $user->username;
 		}
-	
+
 		return form_dropdown($params['form_slug'], $users, $params['value'], 'id="'.$params['form_slug'].'"');
 	}
 
@@ -71,7 +68,6 @@ class Field_user
 	 *
 	 * This joins our user fields.
 	 *
-	 * @access 	public
 	 * @param 	array 	&$sql 	The sql array to add to.
 	 * @param 	obj 	$field 	The field obj
 	 * @param 	obj 	$stream The stream object
@@ -97,18 +93,17 @@ class Field_user
 	public function param_restrict_group($value = null)
 	{
 		$this->CI->db->order_by('name', 'asc');
-		
+
 		$db_obj = $this->CI->db->get('groups');
-		
+
 		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
-		
+
 		$groups_raw = $db_obj->result();
-		
-		foreach ($groups_raw as $group)
-		{
+
+		foreach ($groups_raw as $group) {
 			$groups[$group->id] = $group->name;
 		}
-	
+
 		return form_dropdown('restrict_group', $groups, $value);
 	}
 

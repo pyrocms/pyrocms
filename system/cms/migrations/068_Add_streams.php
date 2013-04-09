@@ -6,44 +6,42 @@
  * This takes into account the fact the user may already
  * have PyroStreams installed on their copy of PyroCMS.
  */
-class Migration_Add_streams extends CI_Migration {
-
+class Migration_Add_streams extends CI_Migration
+{
 	public function up()
 	{
 		$this->load->helper('date');
-		
+
 		// If they don't have the streams module theres not much point in trying this
 		// (Probably means its community not professional, but who knows)
-		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php'))
-		{
+		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php')) {
 			return;
 		}
-		
+
 		include APPPATH.'modules/streams/config/streams.php';
-		
+
 		$obj = $this->db->limit(1)->where('slug', 'streams')->get('modules');
-		
-		if ($obj->num_rows() == 0)
-		{
+
+		if ($obj->num_rows() == 0) {
 			// No streams entry in the modules table, so let's
 			// add it. This would happen by going to Add-ons, but
 			// why make the user go through the extra setp
 			require_once(APPPATH.'modules/streams/details.php');
-			
+
 			if(!class_exists('Module_streams')) return false;
-			
+
 			$details = new Module_streams();
-			
+
 			// Get some info for the db
 			$module = $details->info();
-	
+
 			// Now lets set some details ourselves
 			$module['slug']			= 'streams';
 			$module['version']		= $details->version;
 			$module['enabled']		= 1;
 			$module['installed']	= 1;
 			$module['is_core']		= 1;
-	
+
 			$this->db->insert('modules', array(
 				'name'			=> serialize($module['name']),
 				'slug'			=> $module['slug'],
@@ -59,11 +57,11 @@ class Migration_Add_streams extends CI_Migration {
 				'updated_on'	=> now()
 			));
 		}
-		
+
 		// Add the streams tables if they don't exist already
-		
+
 		if ( ! $this->db->table_exists($config['streams.streams_table'])):
-		
+
 			$this->db->query("
 			CREATE TABLE `".$this->db->dbprefix($config['streams.streams_table'])."` (
 			  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -76,11 +74,11 @@ class Migration_Add_streams extends CI_Migration {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 			");
-		
+
 		endif;
 
 		if ( ! $this->db->table_exists($config['streams.fields_table'])):
-		
+
 			$this->db->query("
 			CREATE TABLE `".$this->db->dbprefix($config['streams.fields_table'])."` (
 			  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -91,11 +89,11 @@ class Migration_Add_streams extends CI_Migration {
 			  `view_options` blob,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
-		
+
 		endif;
 
 		if ( ! $this->db->table_exists($config['streams.assignments_table'])):
-		
+
 			$this->db->query("
 			CREATE TABLE `".$this->db->dbprefix($config['streams.assignments_table'])."` (
 			  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -108,11 +106,11 @@ class Migration_Add_streams extends CI_Migration {
 			  `field_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
-		
+
 		endif;
 
 		if ( ! $this->db->table_exists($config['streams.searches_table'])):
-		
+
 			$this->db->query("
 			CREATE TABLE `".$this->db->dbprefix($config['streams.searches_table'])."` (
 			  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -124,34 +122,33 @@ class Migration_Add_streams extends CI_Migration {
 			  `stream_slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
-			
+
 		endif;
-		
+
 		return true;
 	}
 
 	public function down()
 	{
-		// They should have the core version if we are going 
+		// They should have the core version if we are going
 		// to go about removing all of their streams and data here
 		// in the down function
-		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php'))
-		{
+		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php')) {
 			return;
 		}
 
 		require_once(APPPATH.'modules/streams/config/streams.php');
 
 		$this->load->dbforge();
-		
+
 		$streams = $this->db->get($config['streams.streams_table'])->result();
-		
+
 		foreach( $streams as $stream ):
-		
+
 			$this->dbforge->drop_table($config['stream_prefix'].$stream->stream_slug);
-		
+
 		endforeach;
-		
+
 		// Drop the other tables
 		$this->dbforge->drop_table($config['streams.streams_table']);
 		$this->dbforge->drop_table($config['streams.fields_table']);

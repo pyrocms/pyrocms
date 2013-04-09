@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $lang['addons:modules'] 						= 'Módulos';
 $lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
@@ -35,7 +35,6 @@ $lang['addons:modules:confirm_disable']			= 'Tem certeza de que deseja desativar
 $lang['addons:modules:confirm_install']			= 'Tem certeza de que deseja instalar este módulo?';
 $lang['addons:modules:confirm_uninstall']		= 'Todos os registros do banco de dados serão removidos! Tem certeza de que deseja desinstalar este módulo?';
 $lang['addons:modules:confirm_delete']			= 'Tem certeza de que deseja desinstalar este módulo?';
-
 
 $lang['addons:themes:save_success']				= 'As opções do tema foram salvas com sucesso.';
 $lang['addons:themes:re-index_success']			= 'As opções do tema foram reindexadas com sucesso';

@@ -8,9 +8,9 @@
  */
 class Module_Search extends Module
 {
-	public $version = '1.0.0';
+    public $version = '1.0.0';
 
-	public $_tables = array('search_index');
+    public $_tables = array('search_index');
 
 	public function info()
 	{
@@ -35,59 +35,54 @@ class Module_Search extends Module
 				'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
 				'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
 			),
-			'frontend' => false,
-			'backend' => false,
-			'menu' => false,
 		);
 	}
 
-	public function install()
-	{
-		$this->dbforge->drop_table('search_index');
+    public function install()
+    {
+        $schema = $this->pdb->getSchemaBuilder();
+        $schema->dropIfExists('search_index');
 
-		$this->db->query("
-		CREATE TABLE ".$this->db->dbprefix('search_index')." (
-		  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-		  `title` char(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `description` text COLLATE utf8_unicode_ci,
-		  `keywords` text COLLATE utf8_unicode_ci,
-		  `keyword_hash` char(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `module` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_plural` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_id` varchar(255) DEFAULT NULL,
-		  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`(190)),
-		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		");
+        $schema->create('search_index', function($table) {
+            $table->increments('id');
+            $table->string('title', 255)->fulltext();
+            $table->text('description')->fulltext();
+            $table->text('keywords')->fulltext();
+            $table->text('keywords_hash');
+            $table->string('module', 40);
+            $table->string('entry_key', 100);
+            $table->string('entry_plural', 100);
+            $table->string('entry_id', 255);
+            $table->string('uri', 255);
+            $table->string('cp_edit_uri', 255);
+            $table->string('cp_delete_uri', 255);
+
+			//   FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
+
+            $table->unique(array('module', 'entry_key', 'entry_id'));
+        });
 
 		$this->load->model('search/search_index_m');
 		$this->load->library('keywords/keywords');
 
-		foreach ($this->db->get('pages')->result() as $page)
-		{
+		foreach ($this->pdb->table('pages')->get() as $page) {
 			// Only index live articles
-	    	if ($page->status === 'live')
-	    	{
+	    	if ($page->status === 'live') {
 	    		$hash = $this->keywords->process($page->meta_keywords);
 
-	    		$this->db
-	    			->set('meta_keywords', $hash)
+	    		$this->pdb
+	    			->table('pages')
 	    			->where('id', $page->id)
-	    			->update('pages');
+	    			->update(array('meta_keywords' => $hash));
 
 	    		$this->search_index_m->index(
 	    			'pages',
-	    			'pages:page', 
-	    			'pages:pages', 
+	    			'pages:page',
+	    			'pages:pages',
 	    			$page->id,
 	    			$page->uri,
 	    			$page->title,
-	    			$page->meta_description ? $page->meta_description : null, 
+	    			$page->meta_description ?: null,
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
@@ -102,17 +97,17 @@ class Module_Search extends Module
 
 	public function admin_menu()
 	{
-	}
+        return true;
+    }
 
-	public function uninstall()
-	{
-		// This is a core module, lets keep it around.
-		return false;
-	}
+    public function uninstall()
+    {
+        // This is a core module, lets keep it around.
+        return false;
+    }
 
-	public function upgrade($old_version)
-	{
-		return true;
-	}
-
+    public function upgrade($old_version)
+    {
+        return true;
+    }
 }

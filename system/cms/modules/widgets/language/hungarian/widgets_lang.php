@@ -5,7 +5,6 @@ $lang['widgets:available_title']        = 'Rendelkezésre álló widgetek';
 $lang['widgets:widget_area_wrapper']    = 'Rendelkezésre álló területek';
 $lang['widgets:instructions']           = 'Húzd és dobd telepítés';
 
-
 $lang['widgets:instances']              = 'Példányok';
 $lang['widgets:areas']                  = 'Területek';
 

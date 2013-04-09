@@ -5,7 +5,6 @@ $lang['widgets:available_title'] 			= 'Widgets disponibili';
 $lang['widgets:widget_area_wrapper']		= 'Aree disponibili';
 $lang['widgets:instructions']	 			= 'Drag & drop per installare';
 
-
 $lang['widgets:instances']            	= 'Istanze';
 $lang['widgets:areas']            		= 'Aree';
 

@@ -7,7 +7,7 @@ class Migration_Instant_activation extends CI_Migration
         $this->db
             ->where('slug', 'activation_email')
             ->update('settings', array(
-                'type' => 'select', 
+                'type' => 'select',
                 'options' => '0=activate_by_admin|1=activate_by_email|2=no_activation'
                 )
             );
@@ -18,7 +18,7 @@ class Migration_Instant_activation extends CI_Migration
         $this->db
             ->where('slug', 'activation_email')
             ->update('settings', array(
-                'type' => 'radio', 
+                'type' => 'radio',
                 'options' => '1=Enabled|0=Disabled'
                 )
             );

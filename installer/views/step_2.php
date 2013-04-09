@@ -19,7 +19,9 @@
 			<p class="result <?php echo ($http_server->supported === true) ? 'pass' : 'partial'; ?>">
 				<?php if ($http_server->supported === true): ?>
 					<?php echo $http_server->name; ?>
-				<?php else: ?>{server_fail}<?php endif; ?>
+				<?php else: ?>
+					{server_fail}
+				<?php endif; ?>
 			</p>
 		</li>
 
@@ -29,16 +31,15 @@
 			<p><?php echo sprintf(lang('php_required'), $php_min_version); ?></p>
 			<p class="result <?php echo ($php_acceptable) ? 'pass' : 'fail'; ?>">
 				{php_version} <strong><?php echo $php_version; ?></strong>.
-				<?php if (!$php_acceptable): ?>
-					<?php echo sprintf(lang('php_fail'), $php_min_version); ?>
-				<?php endif; ?>
+				<?php if (!$php_acceptable): ?><?php echo sprintf(lang('php_fail'), $php_min_version); ?><?php endif; ?>
 			</p>
 		</li>
 
 		<!-- MySQL -->
 		<li>
-			<h5><?php echo lang('mysql_settings'); ?></h5>
-			<p><?php echo lang('mysql_required'); ?></p>
+			<?php var_dump($mysql); ?>
+			<h5>{mysql_settings}</h5>
+			<p>{mysql_required}</p>
 			<!-- Server -->
 			<p class="result <?php echo ($mysql->server_version_acceptable) ? 'pass' : 'fail'; ?>">
 				{mysql_version1} <strong><?php echo $mysql->server_version; ?></strong>.
@@ -93,7 +94,7 @@
 	<h3>{summary}</h3>
 </section>
 <section class="item">
-<?php if($step_passed === true): ?>
+<?php if ($step_passed === true): ?>
 	<p class="success">{summary_success}</p>
 	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="{next_step}">{step3}</a>
 <?php elseif($step_passed == 'partial'): ?>

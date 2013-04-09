@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Výchozí šablony';
 $lang['templates:user_defined_title']		= 'Uživatelské šablony';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Šablona emailu "%s" byla uložena.';
 $lang['templates:tmpl_create_error']		= 'Šablona emailu "%s" nebyla uložena.';
 $lang['templates:tmpl_edit_success']		= 'Změny v šabloně emailu "%s" byly uložena.';

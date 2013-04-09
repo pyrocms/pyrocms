@@ -139,5 +139,4 @@ return array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhex'
 				'numbers' =>    'application/zip',
 			);
 
-
 /* End of file mimes.php */

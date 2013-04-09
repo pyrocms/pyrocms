@@ -2,7 +2,7 @@
 
 /**
  * PyroCMS Array Helpers
- * 
+ *
  * This overrides Codeigniter's helpers/array_helper.php file.
  *
  * @author      PyroCMS Dev Team
@@ -11,8 +11,7 @@
  */
 
 
-if ( ! function_exists('array_object_merge'))
-{
+if ( ! function_exists('array_object_merge')) {
 	/**
 	 * Merge an array or an object into another object
 	 *
@@ -24,20 +23,18 @@ if ( ! function_exists('array_object_merge'))
 		// Make sure we are dealing with an array.
 		is_array($array) OR $array = get_object_vars($array);
 
-		foreach ($array as $key => $value)
-		{
+		foreach ($array as $key => $value) {
 			$object->{$key} = $value;
 		}
 	}
 
 }
 
-if (!function_exists('array_for_select'))
-{
+if (!function_exists('array_for_select')) {
 	/**
 	 * @todo Document this please.
 	 *
-	 * @return boolean 
+	 * @return boolean
 	 */
 	function array_for_select()
 	{
@@ -45,8 +42,7 @@ if (!function_exists('array_for_select'))
 
 		$return = array();
 
-		switch (count($args))
-		{
+		switch (count($args)) {
 			case 3:
 				foreach ($args[0] as $itteration):
 					if (is_object($itteration))
@@ -78,20 +74,18 @@ if (!function_exists('array_for_select'))
 
 }
 
-if (!function_exists('html_to_assoc'))
-{
+if (!function_exists('html_to_assoc')) {
 	/**
 	 * @todo Document this please.
-	 * 
+	 *
 	 * @param array $html_array
-	 * @return array 
+	 * @return array
 	 */
 	function html_to_assoc($html_array)
 	{
 		$keys = array_keys($html_array);
 
-		if (!isset($keys[0]))
-		{
+		if (!isset($keys[0])) {
 			return array();
 		}
 
@@ -99,10 +93,8 @@ if (!function_exists('html_to_assoc'))
 
 		$array = array();
 
-		for ($i = 0; $i < $total; $i++)
-		{
-			foreach ($keys as $key)
-			{
+		for ($i = 0; $i < $total; $i++) {
+			foreach ($keys as $key) {
 				$array[$i][$key] = $html_array[$key][$i];
 			}
 		}
@@ -112,39 +104,32 @@ if (!function_exists('html_to_assoc'))
 
 }
 
-if (!function_exists('assoc_array_prop'))
-{
+if (!function_exists('assoc_array_prop')) {
 	/**
 	 * Associative array property
 	 *
-	 * Reindexes an array using a property of your elements. The elements should 
+	 * Reindexes an array using a property of your elements. The elements should
 	 * be a collection of array or objects.
 	 *
-	 * Note: To give a full result all elements must have the property defined 
+	 * Note: To give a full result all elements must have the property defined
 	 * in the second parameter of this function.
 	 *
 	 * @author Marcos Coelho
 	 * @param array $arr
 	 * @param string $prop Should be a common property with value scalar, as id, slug, order.
-	 * @return array 
+	 * @return array
 	 */
 	function assoc_array_prop(array &$arr = null, $prop = 'id')
 	{
 		$newarr = array();
 
-		foreach ($arr as $old_index => $element)
-		{
-			if (is_array($element))
-			{
-				if (isset($element[$prop]) && is_scalar($element[$prop]))
-				{
+		foreach ($arr as $old_index => $element) {
+			if (is_array($element)) {
+				if (isset($element[$prop]) && is_scalar($element[$prop])) {
 					$newarr[$element[$prop]] = $element;
 				}
-			}
-			elseif (is_object($element))
-			{
-				if (isset($element->{$prop}) && is_scalar($element->{$prop}))
-				{
+			} elseif (is_object($element)) {
+				if (isset($element->{$prop}) && is_scalar($element->{$prop})) {
 					$newarr[$element->{$prop}] = $element;
 				}
 			}
@@ -156,8 +141,7 @@ if (!function_exists('assoc_array_prop'))
 }
 
 
-if(!function_exists('in_array_r'))
-{
+if (!function_exists('in_array_r')) {
 	/**
 	 * Recursively search an array
 	 * This method was copied and pasted from this URL (http://stackoverflow.com/questions/4128323/in-array-and-multidimensional-array)
@@ -168,7 +152,8 @@ if(!function_exists('in_array_r'))
 	 * @param array $haystack multidimensional array to search
 	 * @param boolean $strict use strict comparison or not
 	 */
-	function in_array_r($needle, $haystack, $strict = false) {
+	function in_array_r($needle, $haystack, $strict = false)
+	{
 		foreach ($haystack as $item) {
 			if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
 				return true;

@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -142,6 +142,5 @@ $lang['profile_edit_success'] = 'Din användarprofil är sparad.';
 $lang['profile_edit_error'] = 'Ett fel inträffade.';
 $lang['profile_save_btn'] = 'Spara användarprofil';
 
-
-/* End of file user_lang.php */  
-/* Location: system/cms/modules/users/language/swedish/user_lang.php */  
+/* End of file user_lang.php */
+/* Location: system/cms/modules/users/language/swedish/user_lang.php */

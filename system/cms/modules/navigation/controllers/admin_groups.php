@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Navigation;
+
 /**
  * Admin_groups controller
  *
@@ -42,7 +45,6 @@ class Admin_groups extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('navigation_m');
 		$this->load->library('form_validation');
 		$this->lang->load('navigation');
 
@@ -64,17 +66,17 @@ class Admin_groups extends Admin_Controller
 	public function create()
 	{
 		// Validate
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			// Insert the new group
-			if ($id = $this->navigation_m->insert_group($_POST) > 0)
+			if ($group = Navigation\Model\Group::create(array(
+					'title' => $this->input->post('title'),
+					'abbrev' => $this->input->post('abbrev')
+				)))
 			{
 				$this->session->set_flashdata('success', $this->lang->line('nav:group_add_success'));
 				// Fire an event. A new navigation group has been created.
-				Events::trigger('navigation_group_created', $id);
-			}
-			else
-			{
+				Events::trigger('navigation_group_created', $group);
+			} else {
 				$this->session->set_flashdata('error', $this->lang->line('nav:group_add_error'));
 			}
 
@@ -83,8 +85,7 @@ class Admin_groups extends Admin_Controller
 		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$navigation_group[$rule['field']] = $this->input->post($rule['field']);
 		}
 
@@ -106,31 +107,27 @@ class Admin_groups extends Admin_Controller
 		$deleted_ids = false;
 
 		// Delete one
-		if ($id)
-		{
-			if ($this->navigation_m->delete_group($id))
-			{
+		if ($id) {
+			if ($group = Navigation\Model\Group::find($id)) {
 				$deleted_ids[] = $id;
-				$this->navigation_m->delete_link(array('navigation_group_id' => $id));
+				$group->links()->delete();
+				$group->delete();
 			}
 		}
 
 		// Delete multiple
-		else
-		{
-			foreach (array_keys($this->input->post('delete')) as $id)
-			{
-				if ($this->navigation_m->delete_group($id))
-				{
+		else {
+			foreach (array_keys($this->input->post('delete')) as $id) {
+				if ($group = Navigation\Model\Group::find($id)) {
 					$deleted_ids[] = $id;
-					$this->navigation_m->delete_link(array('navigation_group_id' => $id));
+					$group->links()->delete();
+					$group->delete();
 				}
 			}
 		}
 
 		// Fire an event. One or more navigation groups have been deleted.
-		if ( ! empty($deleted_ids))
-		{
+		if ( ! empty($deleted_ids)) {
 			Events::trigger('navigation_group_deleted', $deleted_ids);
 		}
 

@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File;
+
 /**
  * PyroStreams File Field Type
  *
@@ -39,33 +42,22 @@ class Field_file
 		$this->CI->load->config('files/files');
 
 		// Get the file
-		if ($params['value'])
-		{
-			$current_file = $this->CI->db
-							->where('id', $params['value'])
-							->limit(1)
-							->get('files')
-							->row();
-		}
-		else
-		{
+		if ($params['value']) {
+			$current_file = File::find($params['value']);
+		} else {
 			$current_file = null;
 		}
 
 		$out = '';
 
-		if ($current_file)
-		{
+		if ($current_file) {
 			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a></div>';
 		}
 
 		// Output the actual used value
-		if ($params['value'])
-		{
+		if ($params['value']) {
 			$out .= form_hidden($params['form_slug'], $params['value']);
-		}
-		else
-		{
+		} else {
 			$out .= form_hidden($params['form_slug'], 'dummy');
 		}
 
@@ -83,7 +75,6 @@ class Field_file
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
@@ -93,14 +84,10 @@ class Field_file
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
-		{
-			if ($this->CI->input->post($field->field_slug))
-			{
+		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name']) {
+			if ($this->CI->input->post($field->field_slug)) {
 				return $this->CI->input->post($field->field_slug);
-			}
-			else
-			{
+			} else {
 				return null;
 			}
 		}
@@ -112,14 +99,11 @@ class Field_file
 
 		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
 
-		if ( ! $return['status'])
-		{
+		if (! $return['status']) {
 			$this->CI->session->set_flashdata('notice', $return['message']);
 
 			return null;
-		}
-		else
-		{
+		} else {
 			// Return the ID of the file DB entry
 			return $return['data']['id'];
 		}
@@ -130,7 +114,6 @@ class Field_file
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	mixed - null or string
 	 */
@@ -140,14 +123,9 @@ class Field_file
 
 		$this->CI->load->config('files/files');
 
-		$file = $this->CI->db
-						->limit(1)
-						->select('name')
-						->where('id', $input)
-						->get('files')->row();
+		$file = File::find($input);
 
-		if ($file)
-		{
+		if ($file) {
 			return '<a href="'.base_url('files/download/'.$input).'">'.$file->name.'</a>';
 		}
 	}
@@ -161,7 +139,6 @@ class Field_file
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -176,29 +153,14 @@ class Field_file
 		$this->CI->load->config('files/files');
 		$this->CI->load->helper('html');
 
-		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
+		$file = File::find($input);
 
-		$file = $this->CI->db
-						->limit(1)
-						->select('name, extension, mimetype')
-						->where('id', $input)
-						->get('files')->row();
-
-		if ($file)
-		{
-			$file_data['filename']		= $file->name;
-			$file_data['file']			= site_url('files/download/'.$input);
-			$file_data['ext']			= $file->extension;
-			$file_data['mimetype']		= $file->mimetype;
-		}
-		else
-		{
-			$file_data['filename']		= null;
-			$file_data['ext']			= null;
-			$file_data['mimetype']		= null;
-		}
-
-		return $file_data;
+		return array(
+			'filename'	=> $file ? $file->name : null,
+			'file'		=> site_url('files/download/'.$input),
+			'ext'		=> $file ? $file->extension : null,
+			'mimetype'	=> $file ? $file->mimetype : null,
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -206,32 +168,27 @@ class Field_file
 	/**
 	 * Choose a folder to upload to.
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
 	public function param_folder($value = null)
 	{
+		$this->CI->load->library('files/files');
+
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		$tree = (array) Files::folderTreeRecursive();
 
-		$tree = $this->CI->file_folders_m->get_folders();
-
-		$tree = (array)$tree;
-
-		if ( ! $tree)
-		{
+		if (! $tree) {
 			return '<em>'.lang('streams:file.folder_notice').'</em>';
 		}
 
 		$choices = array();
 
-		foreach ($tree as $tree_item)
-		{
+		foreach ($tree as $tree_item) {
 			// We are doing this to be backwards compat
 			// with PyroStreams 1.1 and below where
 			// This is an array, not an object
-			$tree_item = (object)$tree_item;
+			$tree_item = (object) $tree_item;
 
 			$choices[$tree_item->id] = $tree_item->name;
 		}
@@ -244,7 +201,6 @@ class Field_file
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

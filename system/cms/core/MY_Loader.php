@@ -17,13 +17,12 @@ class MY_Loader extends MX_Loader
 	 */
 	public function __construct()
 	{
-		if ( ! defined('SPARKPATH'))
-		{
+		if ( ! defined('SPARKPATH')) {
 			define('SPARKPATH', 'system/sparks/');
 		}
-		
+
 		parent::__construct();
-		
+
 		$this->add_package_path(SHARED_ADDONPATH);
 	}
 
@@ -35,13 +34,10 @@ class MY_Loader extends MX_Loader
 	 */
 	public function set_view_path($path)
 	{
-		if (is_array($path))
-		{
+		if (is_array($path)) {
 			// if we're restoring saved paths we'll do them all
 			$this->_ci_view_paths = $path;
-		}
-		else
-		{
+		} else {
 			// otherwise we'll just add the specified one
 			$this->_ci_view_paths = array($path => true);
 		}
@@ -65,7 +61,7 @@ class MY_Loader extends MX_Loader
 	 * @var array
 	 * @author      Kenny Katzgrau <katzgrau@gmail.com>
 	 */
-	var $_ci_loaded_sparks = array();
+	public $_ci_loaded_sparks = array();
 
 	/**
 	 * To accomodate CI 2.1.0, we override the initialize() method instead of
@@ -100,10 +96,8 @@ class MY_Loader extends MX_Loader
 	 */
 	public function spark($spark, $autoload = array())
 	{
-		if (is_array($spark))
-		{
-			foreach ($spark as $s)
-			{
+		if (is_array($spark)) {
+			foreach ($spark as $s) {
 				$this->spark($s);
 			}
 		}
@@ -115,48 +109,33 @@ class MY_Loader extends MX_Loader
 		$spark_slug = strtolower($parts[0]);
 
 		// If we have already loaded this spark, bail
-		if (array_key_exists($spark_slug, $this->_ci_loaded_sparks))
-		{
+		if (array_key_exists($spark_slug, $this->_ci_loaded_sparks)) {
 			return true;
 		}
 
 		// Check that it exists. CI Does not check package existence by itself
-		if ( ! file_exists($spark_path))
-		{
+		if ( ! file_exists($spark_path)) {
 			show_error("Cannot find spark path at $spark_path");
 		}
 
-		if (count($parts) == 2)
-		{
+		if (count($parts) == 2) {
 			$this->_ci_loaded_sparks[$spark_slug] = $spark;
 		}
 
 		$this->add_package_path($spark_path);
 
-		foreach ($autoload as $type => $read)
-		{
-			if ($type == 'library')
-			{
+		foreach ($autoload as $type => $read) {
+			if ($type == 'library') {
 				$this->library($read);
-			}
-			elseif ($type == 'model')
-			{
+			} elseif ($type == 'model') {
 				$this->model($read);
-			}
-			elseif ($type == 'config')
-			{
+			} elseif ($type == 'config') {
 				$this->config($read);
-			}
-			elseif ($type == 'helper')
-			{
+			} elseif ($type == 'helper') {
 				$this->helper($read);
-			}
-			elseif ($type == 'view')
-			{
+			} elseif ($type == 'view') {
 				$this->view($read);
-			}
-			else
-			{
+			} else {
 				show_error("Could not autoload object of type '$type' ($read) for spark $spark");
 			}
 		}
@@ -179,92 +158,74 @@ class MY_Loader extends MX_Loader
 	 */
 	protected function ci_autoloader($basepath = null)
 	{
-		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload'.EXT;
+		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload.php';
 
-		if ( ! file_exists($autoload_path))
-		{
+		if ( ! file_exists($autoload_path)) {
 			return false;
 		}
 
 		include($autoload_path);
 
-		if ( ! isset($autoload))
-		{
+		if ( ! isset($autoload)) {
 			return false;
 		}
 
-		if ($basepath !== null)
-		{
+		if ($basepath !== null) {
 			// Autoload packages
-			if (isset($autoload['packages']))
-			{
-				foreach ($autoload['packages'] as $package_path)
-				{
+			if (isset($autoload['packages'])) {
+				foreach ($autoload['packages'] as $package_path) {
 					$this->add_package_path($package_path);
 				}
 			}
 		}
 
 		// Autoload sparks
-		if (isset($autoload['sparks']))
-		{
-			foreach ($autoload['sparks'] as $spark)
-			{
+		if (isset($autoload['sparks'])) {
+			foreach ($autoload['sparks'] as $spark) {
 				$this->spark($spark);
 			}
 		}
 
-		if ($basepath !== null)
-		{
-			if (isset($autoload['config']))
-			{
+		if ($basepath !== null) {
+			if (isset($autoload['config'])) {
 				// Load any custom config file
-				if (count($autoload['config']) > 0)
-				{
+				if (count($autoload['config']) > 0) {
 					$CI =& get_instance();
-					foreach ($autoload['config'] as $key => $val)
-					{
+					foreach ($autoload['config'] as $key => $val) {
 						$CI->config->load($val);
 					}
 				}
 			}
 
 			// Autoload helpers and languages
-			foreach (array('helper', 'language') as $type)
-			{
-				if (isset($autoload[$type]) and count($autoload[$type]) > 0)
-				{
+			foreach (array('helper', 'language') as $type) {
+				if (isset($autoload[$type]) and count($autoload[$type]) > 0) {
 					$this->$type($autoload[$type]);
 				}
 			}
 
 			// A little tweak to remain backward compatible
 			// The $autoload['core'] item was deprecated
-			if ( ! isset($autoload['libraries']) and isset($autoload['core']))
-			{
+			if ( ! isset($autoload['libraries']) and isset($autoload['core'])) {
 				$autoload['libraries'] = $autoload['core'];
 			}
 
 			// Load libraries
-			if (isset($autoload['libraries']) and count($autoload['libraries']) > 0)
-			{
+			if (isset($autoload['libraries']) and count($autoload['libraries']) > 0) {
 				// Load the database driver.
-				if (in_array('database', $autoload['libraries']))
-				{
+				if (in_array('database', $autoload['libraries'])) {
 					$this->database();
 					$autoload['libraries'] = array_diff($autoload['libraries'], array('database'));
 				}
 
 				// Load all other libraries
-				foreach ($autoload['libraries'] as $item)
-				{
+				foreach ($autoload['libraries'] as $item) {
 					$this->library($item);
 				}
 			}
 
 			// Autoload models
-			if (isset($autoload['model']))
-			{
+			if (isset($autoload['model'])) {
 				$this->model($autoload['model']);
 			}
 		}

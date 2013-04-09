@@ -40,11 +40,9 @@
 </div>
 <?php endif; ?>
 
-<?php 
+<?php
 
 	/**
 	 * Admin Notification Event
 	 */
 	Events::trigger('admin_notification');
-	
-?>

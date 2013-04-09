@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -24,6 +24,5 @@ $lang['maintenance:export_json'] = 'Exportera JSON';
 $lang['maintenance:table_label'] = 'Tabeller';
 $lang['maintenance:record_label'] = 'Poster';
 
-
-/* End of file maintenance_lang.php */  
-/* Location: system/cms/modules/maintenance/language/swedish/maintenance_lang.php */  
+/* End of file maintenance_lang.php */
+/* Location: system/cms/modules/maintenance/language/swedish/maintenance_lang.php */

@@ -10,7 +10,7 @@ $lang['help_body'] = "
 
 <h4>Catégories</h4>
 <p>
-Vous pouvez créer autant de catégories que vous le souhaitez pour organiser vos posts. Si vous souhaitez que vos lecteurs soient capables de 
+Vous pouvez créer autant de catégories que vous le souhaitez pour organiser vos posts. Si vous souhaitez que vos lecteurs soient capables de
 naviguer dans votre site par catégories, intégrez le Widget Catégories du Blog sur votre site dans Panneau d'administration > Contenus > Widgets.
 </p>
 

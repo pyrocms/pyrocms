@@ -10,6 +10,4 @@
 |
 */
 
-
-
 /* End of file hooks.php */

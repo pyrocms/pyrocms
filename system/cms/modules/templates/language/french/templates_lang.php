@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Template par défaut';
 $lang['templates:user_defined_title']		= 'Template définit par l\'utilisateur';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Template d\'email sauvegardée';
 $lang['templates:tmpl_create_error']		= 'La template d\'email n\'a pas été sauvegardée';
 $lang['templates:tmpl_edit_success']		= 'Les modifications de la template d\'email "%s" ont été sauvegardées.';

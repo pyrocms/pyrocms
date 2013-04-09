@@ -8,6 +8,6 @@ $lang['help_body'] = "<h4>Visão Geral</h4>
 <p>Preencha os detalhes do utilizador (incluindo senha) e salve. Se tem os e-mails de ativação ativado nas configurações de e-mail, será enviado para o novo utilizador com um link de ativação.</p>
 
 <h4>Ativar Novos Utilizadores</h4>
-<p>Se os e-mails de ativação estiverem desativados nas Configurações de utilizadores, os utilizadores que se registam no site (front-end), irá aparecer sob o item Utilizadores inativos no menu até aprovar ou excluir a conta. Se os e-mails de ativação estiverem ativados os utilizadores podem registar-se 
+<p>Se os e-mails de ativação estiverem desativados nas Configurações de utilizadores, os utilizadores que se registam no site (front-end), irá aparecer sob o item Utilizadores inativos no menu até aprovar ou excluir a conta. Se os e-mails de ativação estiverem ativados os utilizadores podem registar-se
 sozinhos, sem a ajuda de um administrador.
 </p>";

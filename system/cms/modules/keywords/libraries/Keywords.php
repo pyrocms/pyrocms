@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Keywords\Model\Keyword;
+use Pyro\Module\Keywords\Model\Applied;
+
 /**
  * Keywords Library
  *
@@ -9,33 +13,24 @@
 class Keywords
 {
 	/**
-	 * The Keywords Construct
-	 */
-	public function __construct()
-	{
-		ci()->load->model('keywords/keyword_m');
-	}
-
-	/**
 	 * Get keywords
 	 *
-	 * Gets all the keywords
+	 * Gets all the keywords as a comma-delimited string
 	 *
 	 * @param	string	$hash	The unique hash stored for a entry
-	 * @return	array
+	 * @return	string
 	 */
 	public static function get_string($hash)
 	{
 		$keywords = array();
-		
-		foreach (ci()->keyword_m->get_applied($hash) as $keyword)
-		{
+
+		foreach (Applied::getNamesByHash($hash) as $keyword) {
 			$keywords[] = $keyword->name;
 		}
-		
+
 		return implode(', ', $keywords);
 	}
-	
+
 	/**
 	 * Get keywords
 	 *
@@ -47,15 +42,14 @@ class Keywords
 	public static function get_array($hash)
 	{
 		$keywords = array();
-		
-		foreach (ci()->keyword_m->get_applied($hash) as $keyword)
-		{
+
+		foreach (Applied::getNamesByHash($hash) as $keyword) {
 			$keywords[] = $keyword->name;
 		}
-		
+
 		return $keywords;
 	}
-	
+
 	/**
 	 * Get full array of keywords
 	 *
@@ -66,7 +60,7 @@ class Keywords
 	 */
 	public static function get($hash)
 	{
-		return ci()->keyword_m->get_applied($hash);
+		return Applied::getNamesByHash($hash);
 	}
 
 	/**
@@ -79,7 +73,7 @@ class Keywords
 	 */
 	public static function add($keyword)
 	{
-		return ci()->keyword_m->insert(array('name' => self::prep($keyword)));
+		return Keyword::add(static::prep($keyword))->id;
 	}
 
 	/**
@@ -88,16 +82,13 @@ class Keywords
 	 * Gets a keyword ready to be saved
 	 *
 	 * @param	string	$keyword
-	 * @return	bool
+	 * @return	string
 	 */
 	public static function prep($keyword)
 	{
-		if (function_exists('mb_strtolower'))
-		{
+		if (function_exists('mb_strtolower')) {
 			return mb_strtolower(trim($keyword));
-		}
-		else
-		{
+		} else {
 			return strtolower(trim($keyword));
 		}
 	}
@@ -110,49 +101,42 @@ class Keywords
 	 * @param	string	$group	Arbitrary string to "namespace" unique requests
 	 * @param	string	$keywords	String containing unprocessed list of keywords
 	 * @param	string	$old_hash	If running an update, provide the old hash so we can remove it
+	 *
 	 * @return	string
 	 */
 	public static function process($keywords, $old_hash = null)
 	{
 		// Remove the old keyword assignments if we're updating
-		if ($old_hash !== null)
-		{
-			ci()->db->delete('keywords_applied', array('hash' => $old_hash));
+		if ($old_hash !== null) {
+			Applied::deleteByHash($old_hash);
 		}
 
 		// No keywords? Let's not bother then
-		if ( ! ($keywords = trim($keywords)))
-		{
+		if ( ! ($keywords = trim($keywords))) {
 			return '';
 		}
 
 		$assignment_hash = md5(microtime().mt_rand());
-		
+
 		// Split em up and prep away
 		$keywords = explode(',', $keywords);
-		foreach ($keywords as &$keyword)
-		{
+		foreach ($keywords as &$keyword) {
 			$keyword = self::prep($keyword);
 
 			// Keyword already exists
-			if (($row = ci()->db->where('name', $keyword)->get('keywords')->row()))
-			{
+			if (($row = Keyword::findByName($keyword))) {
 				$keyword_id = $row->id;
 			}
-			
+
 			// Create it, and keep the record
-			else
-			{
+			else {
 				$keyword_id = self::add($keyword);
 			}
-			
+
 			// Create assignment record
-			ci()->db->insert('keywords_applied', array(
-				'hash' => $assignment_hash,
-				'keyword_id' => $keyword_id,
-			));
+			Applied::add($assignment_hash, $keyword_id);
 		}
-		
+
 		return $assignment_hash;
 	}
 

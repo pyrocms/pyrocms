@@ -23,10 +23,10 @@ class Plugin_Template extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -286,8 +286,7 @@ class Plugin_Template extends Plugin
 
 		$data = & $this->load->_ci_cached_vars;
 
-		if (isset($data['template']['partials'][$name]))
-		{
+		if (isset($data['template']['partials'][$name])) {
 			return $this->content() ? array(array('partial' => $data['template']['partials'][$name])) : true;
 		}
 

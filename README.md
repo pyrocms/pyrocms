@@ -1,24 +1,23 @@
 # PyroCMS Community Edition
 
-[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.2/develop)](https://travis-ci.org/pyrocms/pyrocms)
+[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.3/develop)](https://travis-ci.org/pyrocms/pyrocms)
 
 * [Website](https://www.pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://forum.pyrocms.com)
-* Version: 2.2.0
+* Version: 2.3.0-dev
 
 ## Team
 
 * [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
-* [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Joshua Pekera](http://joshuapekera.com/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
 
 ## Description
 
-PyroCMS is a CMS built using the CodeIgniter PHP framework. Using an MVC architecture
-it was built with modularity in mind. Lightweight, themeable and dynamic.
+PyroCMS is an MVC PHP Content Management System built to be easy to use, theme and develop with. It is used by individuals and organizations of all sizes around the world.
 
 PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 
@@ -59,8 +58,10 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Matt Frost](http://shortwhitebaldguy.com)
 * [Ryan Thompson](http://aiwebsystems.com)
+* [Scott Parry](http://ikreativ.com/)
 * [Steve Williamson](http://sjdub.com)
 * [Andrew Smith](http://silentworks.co.uk)
+* [Dave Shoreman](http://codeM0nK3Y.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 

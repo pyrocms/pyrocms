@@ -4,7 +4,7 @@
 * Thai translation.
 *
 * @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS  
+* @package	PyroCMS
 * @link		http://pyrocms.com
 * @date		2012-04-19
 * @version	1.0.0
@@ -112,7 +112,7 @@ $lang['settings:comment_order_desc']			= 'เลือกการแสดง�
 
 $lang['settings:enable_comments'] 				= 'เปิดแสดงความเห็น';
 $lang['settings:enable_comments_desc']			= 'ต้องการเปิดใช้งานหรือไม่?';
-	
+
 $lang['settings:moderate_comments']				= 'อนุมัติความเห็น';
 $lang['settings:moderate_comments_desc']		= 'บังคับให้ความคิดเห็นต้องได้รับอนุญาตก่อนแสดงขึ้นบนเว็บ';
 

@@ -1,9 +1,12 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Variables\Model\Variable;
+
 /**
  * Admin controller for the variables module
  *
  * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Variables\Controllers
+ * @package	 	PyroCMS\Core\Modules\Variables\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -22,14 +25,14 @@ class Admin extends Admin_Controller
 	 * @var		array
 	 */
 	private $_validation_rules = array(
-		array(
+		'name' => array(
 			'field' => 'name',
 			'label' => 'lang:global:name',
-			'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name[0]'
+			'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name'
 		),
 		array(
 			'field' => 'data',
-			'label' => 'lang:variables.data_label',
+			'label' => 'lang:variables:data_label',
 			'rules' => 'trim|max_length[250]'
 		),
 	);
@@ -43,15 +46,10 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('variables_m');
 		$this->lang->load('variables');
 
-		// Set the validation rules
-		$this->form_validation->set_rules($this->_validation_rules);
-
 		// Set template layout to false if request is of ajax type
-		if ($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			$this->template->set_layout(false);
 		}
 	}
@@ -61,15 +59,11 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-
 		// Create pagination links
-		$this->template->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
+		$this->template->pagination = create_pagination('admin/variables/index', Variable::all()->count());
 
 		// Using this data, get the relevant results
-		$this->template->variables = $this->variables_m
-			->order_by('name')
-			->limit($this->template->pagination['limit'])
-			->get_all();
+		$this->template->variables = Variable::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -84,30 +78,33 @@ class Admin extends Admin_Controller
 	{
 		$variable = new stdClass();
 
+		// Set the validation rules
+		$this->form_validation->set_rules($this->_validation_rules);
+
 		// Got validation?
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$name = $this->input->post('name');
 
-			if ($this->variables_m->insert($this->input->post()))
-			{
+			$result = Variable::create(array(
+				'name' => $this->input->post('name'),
+				'data' => $this->input->post('data')
+			));
+
+			if ($result) {
 				$message = sprintf(lang('variables:add_success'), $name);
 				$status = 'success';
-			}
-			else
-			{
+			} else {
 				$message = sprintf(lang('variables:add_error'), $name);
 				$status = 'error';
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
+			if ($this->input->is_ajax_request()) {
 				$data = array();
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, true);
 
-				return print (json_encode((object)array(
+				return print (json_encode((object) array(
 					'status' => $status,
 					'message' => $message
 				)));
@@ -115,12 +112,9 @@ class Admin extends Admin_Controller
 
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables'.($status === 'error' ? '/create' : ''));
-		}
-		elseif (validation_errors())
-		{
+		} elseif (validation_errors()) {
 			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
+			if ($this->input->is_ajax_request()) {
 				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
@@ -130,11 +124,10 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$variable = new stdClass();
+		$variable = new Variable;
 
 		// Loop through each validation rule
-		foreach ($this->_validation_rules as $rule)
-		{
+		foreach ($this->_validation_rules as $rule) {
 			$variable->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -151,33 +144,32 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$variable = new stdClass();
-
-		// Got ID?
-		$id OR redirect('admin/variables');
-
 		// Get the variable
-		$this->template->variable = $this->variables_m->get($id);
-		$this->template->variable OR redirect('admin/variables');
+		$variable = Variable::find($id);
+		$variable OR redirect('admin/variables');
 
-		if ($this->form_validation->run())
-		{
-			$name = $this->input->post('name');
+		$this->form_validation->set_rules(array_merge($this->_validation_rules, array(
+			'name' => array(
+				'field' => 'name',
+				'label' => 'lang:global:name',
+				'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name['.$id.']'
+			)
+        )));
 
-			if ($this->variables_m->update($id, $this->input->post()))
-			{
-				$message = sprintf(lang('variables:edit_success'), $name);
+		if ($this->form_validation->run()) {
+			$variable->name = $this->input->post('name');
+			$variable->data = $this->input->post('data');
+
+			if ($variable->save()) {
+				$message = sprintf(lang('variables:edit_success'), $variable->name);
 				$status = 'success';
-			}
-			else
-			{
-				$message = sprintf(lang('variables:edit_error'), $name);
+			} else {
+				$message = sprintf(lang('variables:edit_error'), $variable->name);
 				$status = 'error';
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
+			if ($this->input->is_ajax_request()) {
 				$data = array();
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, true);
@@ -185,17 +177,14 @@ class Admin extends Admin_Controller
 				return $this->template->build_json(array(
 					'status' => $status,
 					'message' => $message,
-					'title' => sprintf(lang('variables:edit_title'), $name)
+					'title' => sprintf(lang('variables:edit_title'), $variable->name)
 				));
 			}
 
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables'.($status === 'error' ? '/edit' : ''));
-		}
-		elseif (validation_errors())
-		{
-			if ($this->input->is_ajax_request())
-			{
+		} elseif (validation_errors()) {
+			if ($this->input->is_ajax_request()) {
 				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
@@ -205,22 +194,14 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Loop through each validation rule
-		foreach ($this->_validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== false)
-			{
-				$variable->{$rule['field']} = set_value($rule['field']);
-			}
-		}
+		$this->template->set('variable', $variable);
 
-		if ($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			return $this->template->build('admin/form_inline');
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $this->template->variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $variable->name))
 			->build('admin/form');
 	}
 
@@ -236,40 +217,31 @@ class Admin extends Admin_Controller
 		$deleted = array();
 
 		// Try do deletion
-		foreach ($ids as $id)
-		{
+		foreach ($ids as $id) {
 			// Get the row to use a value.. as title, name
-			if ($variable = $this->variables_m->get($id))
-			{
+			if ($variable = Variable::find($id)) {
 				// Make deletion retrieving an status and store an value to display in the messages
-				$deleted[($this->variables_m->delete($id) ? 'success' : 'error')][] = $variable->name;
+				$deleted[(Variable::find($id)->delete() ? 'success' : 'error')][] = $variable->name;
 			}
 		}
 
 		// Set status messages
-		foreach ($deleted as $status => $values)
-		{
+		foreach ($deleted as $status => $values) {
 			// Mass deletion
-			if (($status_total = sizeof($values)) > 1)
-			{
+			if (($status_total = sizeof($values)) > 1) {
 				$last_value = array_pop($values);
 				$first_values = implode(', ', $values);
 
 				// Success / Error message
 				$this->session->set_flashdata($status, sprintf(lang('variables:mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
-			}
-
-			// Single deletion
-			else
-			{
+			} else {
 				// Success / Error messages
 				$this->session->set_flashdata($status, sprintf(lang('variables:delete_'.$status), $values[0]));
 			}
 		}
 
 		// He arrived here but it was not done nothing, certainly valid ids not were selected
-		if ( ! $deleted)
-		{
+		if (! $deleted) {
 			$this->session->set_flashdata('error', lang('variables:no_select_error'));
 		}
 
@@ -283,10 +255,10 @@ class Admin extends Admin_Controller
 	 *
 	 * @return	bool
 	 */
-	public function _check_name($name = '')
+	public function _check_name($name = '', $id = null)
 	{
 		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
-		return ! $this->variables_m->check_name($name, (int)$this->input->post('variable_id'));
+		return ! Variable::findByNameWithId($name, (int) $id);
 	}
 }

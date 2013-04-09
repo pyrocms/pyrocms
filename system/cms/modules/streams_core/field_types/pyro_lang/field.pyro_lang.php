@@ -14,15 +14,15 @@
 class Field_pyro_lang
 {
 	public $field_type_slug			= 'pyro_lang';
-	
+
 	public $db_col_type				= 'varchar';
 
 	public $version					= '1.0.0';
 
 	public $author					= array('name' => 'PyroCMS', 'url' => 'http://www.pyrocms.com');
-	
+
 	public $custom_parameters		= array('filter_theme');
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -36,25 +36,19 @@ class Field_pyro_lang
 	{
 	    $languages = array();
 
-	    if ($data['custom']['filter_theme'] = 'yes')
-	    {
+	    if ($data['custom']['filter_theme'] = 'yes') {
 	  		// get the languages offered on the front-end
 		    $site_public_lang = explode(',', Settings::get('site_public_lang'));
-		
-		    foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang)
-		    {
+
+		    foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
 		       // if the supported language is offered on the front-end
-		       if (in_array($lang_code, $site_public_lang))
-		       {
+		       if (in_array($lang_code, $site_public_lang)) {
 	          		// add it to the dropdown list
 	        	   $languages[$lang_code] = $lang['name'];
 		       }
 		    }
-	    }
-	    else
-	    {
-	    	foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang)
-			{
+	    } else {
+	    	foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
 				// add it to the dropdown list
 				$languages[$lang_code] = $lang['name'];
 			}
@@ -64,34 +58,30 @@ class Field_pyro_lang
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Should we filter by the current theme
 	 * and what languages they support?
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
 	public function param_filter_theme($value = null)
 	{
-		if ($value == 'no')
-		{
+		if ($value == 'no') {
 			$no_select 		= true;
 			$yes_select 	= false;
-		}
-		else
-		{
+		} else {
 			$no_select 		= false;
 			$yes_select 	= true;
 		}
-	
+
 		$form  = '<ul><li><label>'.form_radio('filter_theme', 'yes', $yes_select).' Yes</label></li>';
-		
+
 		$form .= '<li><label>'.form_radio('filter_theme', 'no', $no_select).' No</label></li>';
-		
+
 		return $form;
-	}	
+	}
 
 	// --------------------------------------------------------------------------
 
@@ -106,8 +96,7 @@ class Field_pyro_lang
 	{
 		$langs = $this->CI->config->item('supported_languages');
 
-		if (isset($langs[$input]))
-		{
+		if (isset($langs[$input])) {
 			return $langs[$input]['name'];
 		}
 	}

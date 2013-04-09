@@ -40,18 +40,15 @@
 		<strong><?php echo lang('pages:meta_desc_label') ?>:</strong> <?php echo $page->meta_description ?>
 	</p>
 	<?php endif ?>
-</fieldset>	
+</fieldset>
 <?php endif ?>
 
 <div class="buttons">
-	<?php 
+	<?php
 
-		if ($this->db->count_all('page_types') > 1)
-		{
+		if ($this->db->count_all('page_types') > 1) {
 			echo anchor('admin/pages/choose_type?modal=true&parent='.$page->id, lang('pages:create_label'), 'class="button modal"');
-		}
-		else
-		{
+		} else {
 			$type_id = $this->db->select('id')->limit(1)->get('page_types')->row()->id;
 			echo anchor('admin/pages/create?parent='.$page->id.'&page_type='.$type_id, lang('pages:create_label'), 'class="button"');
 		}

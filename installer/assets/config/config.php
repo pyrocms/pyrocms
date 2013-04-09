@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '__INDEX__';
+$config['index_page'] = '{index}';
 
 /*
 |--------------------------------------------------------------------------
@@ -277,6 +277,7 @@ $config['cookie_prefix']	= (substr_count($_SERVER['SERVER_NAME'], '.') > 1) ? su
 $config['cookie_domain']	= ($_SERVER['SERVER_NAME'] == 'localhost') ? '' : $_SERVER['SERVER_NAME'];
 $config['cookie_path']		= BASE_URI;
 $config['cookie_secure']	= false;
+$config['cookie_httponly']  = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -352,7 +353,6 @@ $config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this o
 */
 $config['time_reference'] = 'gmt';
 
-
 /*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
@@ -364,7 +364,6 @@ $config['time_reference'] = 'gmt';
 |
 */
 $config['rewrite_short_tags'] = false;
-
 
 /*
 |--------------------------------------------------------------------------

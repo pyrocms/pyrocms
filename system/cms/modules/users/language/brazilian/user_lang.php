@@ -53,7 +53,6 @@ $lang['user:activated_account_title'] 	= 'Contas ativadas';
 $lang['user:reset_password_title'] 		= 'Redefinir senha';
 $lang['user:password_reset_title'] 		= 'Redefinicão de senha';
 
-
 $lang['user:error_username'] 			= 'O nome de usuário selecionado já encontra-se em uso';
 $lang['user:error_email'] 				= 'O endereço de email que você informou já está em uso';
 
@@ -122,18 +121,15 @@ $lang['user:email_exists'] 						= 'O endereço de email que você escolheu já 
 $lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user:register_reasons'] 					= 'Entre para acessar áreas especiais que normalmente são restritas. Isto significa que você será relembrado, terá acesso a mais conteúdos e menos publicidade.';
 
-
 // Activation
 $lang['user:activation_incorrect']   			= 'A ativação falhou. Por favor, verifique seus detalhes e tenha certeza de não estar com o CAPS LOCK ( CAIXA ALTA ) ativo.';
 $lang['user:activated_message']   				= 'Sua conta foi ativada, agora você pode entrar em sua conta.';
-
 
 // Login
 $lang['user:logged_in']							= 'Você entrou em sua conta.';
 $lang['user:already_logged_in'] 				= 'Você já está em sua conta. Por favor, saia antes de tentar entrar.';
 $lang['user:login_incorrect'] 					= 'E-mail ou senha não confere. Por favor, verifique se as suas informações de acesso estão corretas e certifique-se que o CAPS LOCK ( CAIXA ALTA ) não esteja ativo.';
 $lang['user:inactive']   						= 'A conta que você tentou acessar está desativada.<br />Verifique o seu e-mail para maiores informações de como ativar a sua conta - <em>pode estar na pasta de lixo eletrônico</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']   						= 'Você saiu.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']   			= "Sua senha foi redefinida. Você dev
 // Activation
 $lang['user:activation_email_subject'] 			= 'Ativação necessária';
 $lang['user:activation_email_body'] 			= 'Obrigado por ativar sua conta em %s. Para entrar no site, por favor, visite o link abaixo:';
-
 
 $lang['user:activated_email_subject'] 			= 'Ativação concluída';
 $lang['user:activated_email_content_line1'] 	= 'Obrigado por se cadastrar em %s. Agora você pode concluir a ativação de sua conta terminando o processo de cadastro clicando no seguinte link:';

@@ -16,6 +16,7 @@ $lang['templates:default_title']		= 'Αρχικά πρότυπα';
 $lang['templates:user_defined_title']		= 'Πρότυπα ορισμένα από τον χρήστη';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Το πρότυπο email "%s" αποθηκεύτηκε.';
 $lang['templates:tmpl_create_error']		= 'Το πρότυπο email "%s" δεν αποθηκεύτηκε.';
 $lang['templates:tmpl_edit_success']		= 'Οι αλλαγές που εγιναν στο πρότυπο email "%s" αποθηκεύτηκαν.';

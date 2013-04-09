@@ -9,13 +9,13 @@
 class Field_state
 {
 	public $field_type_slug			= 'state';
-	
+
 	public $db_col_type				= 'varchar';
 
 	public $version					= '1.3.0';
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
-	
+
 	public $custom_parameters		= array('state_display', 'default_state');
 
 	// --------------------------------------------------------------------------
@@ -23,17 +23,16 @@ class Field_state
 	/**
 	 * Our glorious 50 states!
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $raw_states = array(
-		'AL' => 'Alabama',  
-		'AK'=> 'Alaska',  
-		'AZ'=> 'Arizona',  
+		'AL' => 'Alabama',
+		'AK'=> 'Alaska',
+		'AZ'=> 'Arizona',
 		'AR'=> 'Arkansas',
-		'CA'=> 'California',  
-		'CO'=> 'Colorado',  
-		'CT'=> 'Connecticut',  
+		'CA'=> 'California',
+		'CO'=> 'Colorado',
+		'CT'=> 'Connecticut',
 		'DE'=> 'Deleware',
 		'DC'=> 'District of Columbia',
 		'FL'=> 'Florida',
@@ -41,15 +40,15 @@ class Field_state
 		'HI'=> 'Hawaii',
 		'ID'=> 'Idaho',
 		'IL'=> 'Illinois',
-		'IN'=> 'Indiana',  
+		'IN'=> 'Indiana',
 		'IA'=> 'Iowa',
-		'KS'=> 'Kansas', 
+		'KS'=> 'Kansas',
 		'KY'=> 'Kentucky',
 		'LA'=> 'Louisiana',
 		'ME'=> 'Maine',
 		'MD'=> 'Maryland',
 		'MA'=> 'Massachusetts',
-		'MI'=> 'Michigan',  
+		'MI'=> 'Michigan',
 		'MN'=> 'Minnesota',
 		'MS'=> 'Mississippi',
 		'MO'=> 'Missouri',
@@ -63,16 +62,16 @@ class Field_state
 		'NC'=> 'North Carolina',
 		'ND'=> 'North Dakota',
 		'OH'=> 'Ohio',
-		'OK'=> 'Oklahoma', 
+		'OK'=> 'Oklahoma',
 		'OR'=> 'Oregon',
 		'PA'=> 'Pennsylvania',
-		'RI'=> 'Rhode Island',  
+		'RI'=> 'Rhode Island',
 		'SC'=> 'South Carolina',
 		'SD'=> 'South Dakota',
 		'TN'=> 'Tennessee',
 		'TX'=> 'Texas',
 		'UT'=> 'Utah',
-		'VT'=> 'Vermont', 
+		'VT'=> 'Vermont',
 		'VA'=> 'Virginia',
 		'WA'=> 'Washington',
 		'WV'=> 'West Virginia',
@@ -92,23 +91,19 @@ class Field_state
 	public function form_output($data, $entry_id, $field)
 	{
 		// Default is abbr for backwards compat.
-		if ( ! isset($data['custom']['state_display']))
-		{
+		if ( ! isset($data['custom']['state_display'])) {
 			$data['custom']['state_display'] = 'abbr';
 		}
 
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if ( ! $data['value'] and ! $entry_id)
-		{
+		if (! $data['value'] and ! $entry_id) {
 			$value = (isset($field->field_data['default_state'])) ? $field->field_data['default_state'] : null;
-		}
-		else
-		{
+		} else {
 			$value = $data['value'];
 		}
-	
+
 		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $value, 'id="'.$data['form_slug'].'"');
 	}
 
@@ -116,7 +111,7 @@ class Field_state
 
 	/**
 	 * Pre Output for Plugin
-	 * 
+	 *
 	 * Has two options:
 	 *
 	 * - abbr
@@ -146,16 +141,16 @@ class Field_state
 	 * @return	string
 	 */
 	public function pre_output($input, $data)
-	{	
+	{
 		// Default is abbr for backwards compat.
 		if( ! isset($data['state_display']) ):
-		
+
 			$data['state_display'] = 'abbr';
-	
+
 		endif;
 
 		$states = $this->states('yes', $data['state_display']);
-	
+
 		return ( isset($states[$input]) ) ? $states[$input] : null;
 	}
 
@@ -164,16 +159,15 @@ class Field_state
 	/**
 	 * Do we want the state full name of abbreviation?
 	 *
-	 * @access	public
 	 * @return	string
-	 */	
+	 */
 	public function param_state_display($value = null)
-	{	
+	{
 		$options = array(
 			'full' => $this->CI->lang->line('streams:state.full'),
 			'abbr' => $this->CI->lang->line('streams:state.abbr')
 		);
-	
+
 		return form_dropdown('state_display', $options, $value);
 	}
 
@@ -182,7 +176,6 @@ class Field_state
 	/**
 	 * Default Country Parameter
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function param_default_state($input)
@@ -193,40 +186,39 @@ class Field_state
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * State
 	 *
 	 * Returns an array of states
 	 *
-	 * @access	private
 	 * @return	array
 	 */
 	private function states($is_required, $state_display = 'abbr')
-	{	
+	{
 		if( $state_display != 'abbr' and $state_display != 'full') $state_display = 'abbr';
-	
+
 		$choices = array();
-	
+
 		if($is_required == 'no') $choices[null] = get_instance()->config->item('dropdown_choose_null');
-	
+
 		$states = array();
-		
+
 		if($state_display == 'abbr'):
-		
+
 			foreach($this->raw_states as $abbr => $full):
-			
+
 				$states[$abbr] = $abbr;
-			
+
 			endforeach;
-			
+
 		else:
-		
+
 			$states = $this->raw_states;
-		
-		endif; 
-		
+
+		endif;
+
 		return array_merge($choices, $states);
 	}
-	
+
 }

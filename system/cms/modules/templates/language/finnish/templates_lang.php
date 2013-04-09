@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Oletus viestipohjat';
 $lang['templates:user_defined_title']		= 'Käyttäjän määrittämät viestipohjat';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Viestipohja "%s" on poistettu.';
 $lang['templates:tmpl_create_error']		= 'Viestipohja "%s" ei poistettu.';
 $lang['templates:tmpl_edit_success']		= 'Muutokset "%s" viestipohjaan on tallennettu.';

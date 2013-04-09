@@ -8,7 +8,7 @@
 			<ul class="button-menu-source buttons">
 				<li class="button animated fadeIn" data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh') ?></li>
 				<li class="button animated fadeIn" data-applies-to="folder" data-menu="open"><?php echo lang('files:open') ?></li>
-				<li class="button animated fadeIn" data-role="create_folder"	data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
+				<li class="button animated fadeIn" data-role="create_folder" data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
 				<li class="button animated fadeIn" data-role="upload" data-applies-to="folder pane" data-menu="upload"><?php echo lang('files:upload') ?></li>
 				<li class="button animated fadeIn" data-role="edit_file" data-applies-to="file" data-menu="rename"><?php echo lang('files:rename') ?></li>
 				<li class="button animated fadeIn" data-role="edit_folder" data-applies-to="folder" data-menu="rename"><?php echo lang('files:rename') ?></li>
@@ -17,7 +17,7 @@
 				<li class="button animated fadeIn" data-role="upload delete_file" data-applies-to="file" data-menu="replace"><?php echo lang('files:replace') ?></li>
 				<li class="button animated fadeIn" data-role="delete_file" data-applies-to="file" data-menu="delete"><?php echo lang('files:delete') ?></li>
 				<li class="button animated fadeIn" data-role="delete_folder" data-applies-to="folder" data-menu="delete"><?php echo lang('files:delete') ?></li>
-				<li class="button animated fadeIn" data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details') ?></li>
+				<li class="button animated fadeIn" data-applies-to="folder file pane" data-menu="details"><?php echo lang('files:details') ?></li>
 			</ul>
 		</div>
 		<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message') ?>"/>
@@ -28,7 +28,7 @@
 	<section class="side">
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
-			<?php if ( ! $folders) : ?>
+			<?php if (empty($folders)) : ?>
 				<li class="no_data"><?php echo lang('files:no_folders_places') ?></li>
 			<?php elseif ($folder_tree) : ?>
 				<?php echo tree_builder($folder_tree, '<li class="folder" data-id="{{ id }}" data-name="{{ name }}"><div></div><a href="#">{{ name }}</a>{{ children }}</li>') ?>
@@ -38,7 +38,7 @@
 
 	<section class="center">
 
-			<?php if ( ! $folders) : ?>
+			<?php if (empty($folders)) : ?>
 				<div class="no_data"><?php echo lang('files:no_folders') ?></div>
 			<?php endif ?>
 
@@ -67,7 +67,7 @@
 	</section>
 
 	<div class="hidden">
-		
+
 		<script type="text/javascript">
 
 			/*
@@ -76,16 +76,16 @@
 			 */
 
 			$('body').append('<div class="hidden"><div id="files-uploader"><div id="file-to-replace"><h4><?php echo lang("files:replace_file")?>:<span class="name"></span></h4><span class="alert-warning"><?php echo lang("files:replace_warning")?></span></div><div class="files-uploader-browser"><form action="<?php echo site_url('admin/files/upload'); ?>"method="post"accept-charset="utf-8"enctype="multipart/form-data"><label for="file"class="upload"><?php echo lang("files:uploader")?></label><input type="file"name="file"value=""multiple="multiple"/><input type="hidden"name="replace-id"value=""/></form><div class="buttons"><a href="#"title=""class="button start-upload"><?php echo lang("files:upload")?></a><a href="#"title=""class="button cancel-upload"><?php echo lang("buttons:cancel");?></a></div><ul id="files-uploader-queue"class="ui-corner-all"></ul></div></div></div>');
-			
+
 		</script>
 
 		<div id="item-details">
 			<h4><?php echo lang('files:details') ?></h4>
 			<ul>
-				<li><label><?php echo lang('files:id') ?>:</label> 
+				<li><label><?php echo lang('files:id') ?>:</label>
 					<span class="id"></span>
 				</li>
-				<li><label><?php echo lang('files:name') ?>:</label> 
+				<li><label><?php echo lang('files:name') ?>:</label>
 					<span class="name"></span>
 				</li>
 
@@ -95,44 +95,44 @@
 			</ul>
 
 			<ul class="meta-data">
-				<li><label><?php echo lang('files:slug') ?>:</label> 
+				<li><label><?php echo lang('files:slug') ?>:</label>
 					<span class="slug"></span>
 				</li>
-				<li><label><?php echo lang('files:path') ?>:</label> 
+				<li><label><?php echo lang('files:path') ?>:</label>
 					<input readonly="readonly" type="text" class="path"/>
 				</li>
-				<li><label><?php echo lang('files:added') ?>:</label> 
+				<li><label><?php echo lang('files:added') ?>:</label>
 					<span class="added"></span>
 				</li>
-				<li><label><?php echo lang('files:width') ?>:</label> 
+				<li><label><?php echo lang('files:width') ?>:</label>
 					<span class="width"></span>
 				</li>
-				<li><label><?php echo lang('files:height') ?>:</label> 
+				<li><label><?php echo lang('files:height') ?>:</label>
 					<span class="height"></span>
 				</li>
-				<li><label><?php echo lang('files:filename') ?>:</label> 
+				<li><label><?php echo lang('files:filename') ?>:</label>
 					<span class="filename"></span>
 				</li>
-				<li><label><?php echo lang('files:filesize') ?>:</label> 
+				<li><label><?php echo lang('files:filesize') ?>:</label>
 					<span class="filesize"></span>
 				</li>
-				<li><label><?php echo lang('files:download_count') ?>:</label> 
+				<li><label><?php echo lang('files:download_count') ?>:</label>
 					<span class="download_count"></span>
 				</li>
-				<li><label><?php echo lang('files:location') ?>:</label> 
+				<li><label><?php echo lang('files:location') ?>:</label>
 					<span class="location-static"></span>
 				</li>
-				<li><label><?php echo lang('files:container') ?>:</label> 
+				<li><label><?php echo lang('files:container') ?>:</label>
 					<span class="container-static"></span>
 				</li>
-				<li><label><?php echo lang('files:location') ?>:</label> 
+				<li><label><?php echo lang('files:location') ?>:</label>
 					<?php echo form_dropdown('location', $locations, '', 'class="location"') ?>
 				</li>
-				<li><label><?php echo lang('files:bucket') ?>:</label> 
+				<li><label><?php echo lang('files:bucket') ?>:</label>
 					<?php echo form_input('bucket', '', 'class="container amazon-s3"') ?>
 					<a class="container-button button"><?php echo lang('files:check_container') ?></a>
 				</li>
-				<li><label><?php echo lang('files:container') ?>:</label> 
+				<li><label><?php echo lang('files:container') ?>:</label>
 					<?php echo form_input('container', '', 'class="container rackspace-cf"') ?>
 					<a class="container-button button"><?php echo lang('files:check_container') ?></a>
 				</li>

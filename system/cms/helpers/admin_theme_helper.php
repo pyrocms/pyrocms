@@ -65,8 +65,7 @@ function template_partial($name = '')
  */
 function add_admin_menu_place($key, $place)
 {
-	if ( ! is_numeric($place) or $place < 1)
-	{
+	if ( ! is_numeric($place) or $place < 1) {
 		return null;
 	}
 
@@ -86,23 +85,18 @@ function add_admin_menu_place($key, $place)
  */
 function accented_characters()
 {
-	if (defined('ENVIRONMENT') and is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
-	{
+	if (defined('ENVIRONMENT') and is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php')) {
 		include(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php');
-	}
-	elseif (is_file(APPPATH.'config/foreign_chars.php'))
-	{
+	} elseif (is_file(APPPATH.'config/foreign_chars.php')) {
 		include(APPPATH.'config/foreign_chars.php');
 	}
 
-	if (!isset($foreign_characters))
-	{
+	if (!isset($foreign_characters)) {
 		return;
 	}
 
 	$languages = array();
-	foreach ($foreign_characters as $key => $value)
-	{
+	foreach ($foreign_characters as $key => $value) {
 		$languages[] = array(
 			'search' => $key,
 			'replace' => $value

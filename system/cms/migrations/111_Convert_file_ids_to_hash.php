@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
 class Migration_Convert_file_ids_to_hash extends CI_Migration
 {
     public function up()

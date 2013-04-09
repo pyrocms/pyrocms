@@ -2,30 +2,30 @@
 
 /**
  * Widget library takes care of the logic for widgets
- * 
+ *
  * @package		PyroCMS\Core\Modules\Widgets\Libraries
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Widgets 
+class Widgets
 {
 	/**
 	 * Current widget in use (yay singletons!)
-	 * 
+	 *
 	 * @var	object
 	 */
 	protected $_widget = null;
-	
+
 	/**
 	 * Cache of rendered widget areas (html)
-	 * 
+	 *
 	 * @var	array
 	 */
 	protected $_rendered_areas = array();
-	
+
 	/**
 	 * Locations where widget files are located
-	 * 
+	 *
 	 * @var	array
 	 */
 	protected $_widget_locations = array();
@@ -38,15 +38,14 @@ class Widgets
 	public function __construct()
 	{
 		$this->load->model('addons/widget_m');
-		
+
 		$locations = array(
 		   APPPATH,
 		   ADDONPATH,
 		   SHARED_ADDONPATH,
 		);
-		
-		if (defined('ADMIN_THEME'))
-		{
+
+		if (defined('ADMIN_THEME')) {
 			$locations += array(
 			   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
 			   APPPATH.'themes/'.ADMIN_THEME.'/',
@@ -55,26 +54,22 @@ class Widgets
 		}
 
 		// Map where all widgets are
-		foreach ($locations as $path)
-		{
+		foreach ($locations as $path) {
 			$widgets = glob($path.'widgets/*', GLOB_ONLYDIR);
 
-			if ( ! is_array($widgets))
-			{
+			if ( ! is_array($widgets)) {
 				$widgets = array();
 			}
 
 			$module_widgets = glob($path.'modules/*/widgets/*', GLOB_ONLYDIR);
 
-			if ( ! is_array($module_widgets))
-			{
+			if ( ! is_array($module_widgets)) {
 				$module_widgets = array();
 			}
 
 			$widgets = array_merge($widgets, $module_widgets);
 
-			foreach ($widgets as $widget_path)
-			{
+			foreach ($widgets as $widget_path) {
 				$slug = basename($widget_path);
 
 				// Set this so we know where it is later
@@ -85,13 +80,13 @@ class Widgets
 
 	/**
 	 * List available widget areas
-	 * 
+	 *
 	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
 	 *
 	 * <code>
 	 * echo $this->widgets->list_areas();
 	 * </code>
-	 * 
+	 *
 	 * @return array
 	 */
 	public function list_areas()
@@ -101,31 +96,31 @@ class Widgets
 
 	/**
 	 * List area instances
-	 * 
+	 *
 	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
 	 *
 	 * <code>
 	 * echo $this->widgets->list_area_instances();
 	 * </code>
-	 * 
+	 *
 	 * @return array
 	 */
 	public function list_area_instances($slug)
 	{
-		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
+		return is_array($slug) ? $this->widget_m->findByAreas($slug) : $this->widget_m->findByArea($slug);
 	}
 
 	/**
 	 * List available widgets
-	 * 
+	 *
 	 * These are all installed widgets that are available to be used by the system.
-	 * 
+	 *
 	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
 	 *
 	 * <code>
 	 * echo $this->widgets->list_available_widgets();
 	 * </code>
-	 * 
+	 *
 	 * @return array
 	 */
 	public function list_available_widgets()
@@ -133,8 +128,7 @@ class Widgets
 		// Firstly, install any uninstalled widgets
 		$uninstalled_widgets = $this->list_uninstalled_widgets();
 
-		foreach ($uninstalled_widgets as $widget)
-		{
+		foreach ($uninstalled_widgets as $widget) {
 			$this->add_widget((array) $widget);
 		}
 
@@ -143,20 +137,17 @@ class Widgets
 
 		$avaliable = array();
 
-		foreach ($installed_widgets as $widget)
-		{
-			if ( ! isset($this->_widget_locations[$widget->slug]))
-			{
+		foreach ($installed_widgets as $widget) {
+			if ( ! isset($this->_widget_locations[$widget->slug])) {
 				$this->delete_widget($widget->slug);
 
 				continue;
 			}
 
 			// Finally, check if is need and update the widget info
-			$widget_file = FCPATH.$this->_widget_locations[$widget->slug].$widget->slug.EXT;
+			$widget_file = FCPATH.$this->_widget_locations[$widget->slug].$widget->slug.'.php';
 
-			if (file_exists($widget_file) and (filemtime($widget_file) > $widget->updated_on))
-			{
+			if (file_exists($widget_file) and (filemtime($widget_file) > $widget->updated_on)) {
 				$this->reload_widget($widget->slug);
 
 				log_message('debug', sprintf('The information of the widget "%s" has been updated', $widget->slug));
@@ -170,9 +161,9 @@ class Widgets
 
 	/**
 	 * List uninstalled widgets
-	 * 
+	 *
 	 * Called by list_available_widgets() to automatically install any uninstalled widgets
-	 * 
+	 *
 	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
 	 *
 	 * @return array
@@ -182,19 +173,16 @@ class Widgets
 		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
 
-		foreach ($available as $widget)
-		{
+		foreach ($available as $widget) {
 			$available_slugs[] = $widget->slug;
 		}
 		unset($widget);
 
 		$uninstalled = array();
-		foreach ($this->_widget_locations as $widget_path)
-		{
+		foreach ($this->_widget_locations as $widget_path) {
 			$slug = basename($widget_path);
 
-			if ( ! in_array($slug, $available_slugs) and ($widget = $this->read_widget($slug)))
-			{
+			if ( ! in_array($slug, $available_slugs) and ($widget = $this->read_widget($slug))) {
 				$uninstalled[] = $widget;
 			}
 		}
@@ -204,22 +192,21 @@ class Widgets
 
 	/**
 	 * Get Instance
-	 * 
+	 *
 	 * Nothing to do with the CodeIgniter get instance, this refers to Widget Instance data
 	 *
 	 * <code>
-	 * echo $this->widgets->get_instance($instance_id);
+	 * echo $this->widgets->find($instance_id);
 	 * </code>
-	 * 
+	 *
 	 * @param  int    $instance_id	Widget instance id number
 	 * @return array
 	 */
 	public function get_instance($instance_id)
 	{
-		$widget = $this->widget_m->get_instance($instance_id);
+		$widget = $this->widget_m->find($instance_id);
 
-		if ($widget)
-		{
+		if ($widget) {
 			$widget->options = $this->_unserialize_options($widget->options);
 
 			return $widget;
@@ -234,7 +221,7 @@ class Widgets
 	 * <code>
 	 * echo $this->widgets->get_area($id);
 	 * </code>
-	 * 
+	 *
 	 * @param  int    $id	Widget area id number
 	 * @return object stdObject
 	 */
@@ -247,20 +234,19 @@ class Widgets
 	 * Read widget
 	 *
 	 * Spawn a widget and get some basic information back, such as the module and wether its an addon or not
-	 * 
+	 *
 	 * <code>
 	 * echo $this->widgets->read_widget($id);
 	 * </code>
-	 * 
-	 * @param  int    $slug	
+	 *
+	 * @param  int    $slug
 	 * @return object stdObject
 	 */
 	public function read_widget($slug)
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets'))
-		{
+		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets')) {
 			return false;
 		}
 
@@ -276,11 +262,11 @@ class Widgets
 	 * Render
 	 *
 	 * Display the actual widget HTML based on slug and options provided
-	 * 
+	 *
 	 * <code>
 	 * echo $this->widgets->render('rss_feed', array('feed_url' => 'http://philsturgeon.co.uk/blog/feed.rss'));
 	 * </code>
-	 * 
+	 *
 	 * @param  int    $slug	    Widget slug
 	 * @param  array  $options	Options (data saved in the DB or provided on-the-fly)
 	 * @return string
@@ -292,8 +278,7 @@ class Widgets
 		$data = method_exists($this->_widget, 'run') ? call_user_func(array($this->_widget, 'run'), $options) : array();
 
 		// Don't run this widget
-		if ($data === false)
-		{
+		if ($data === false) {
 			return false;
 		}
 
@@ -304,23 +289,22 @@ class Widgets
 		is_array($data) OR $data = (array) $data;
 
 		$data['options'] = $options;
-		
+
 		// Check that the widget is enabled = 1 , if it's 1
 		// we go ahead and return it
 		$result = $this->db->select('enabled')
 		->where('slug', $name)
 		->get('widgets');
-		if($result->row()->enabled == 1)
-		{
+		if ($result->row()->enabled == 1) {
 			return $this->load_view('display', $data);
-		}	
+		}
 	}
 
 	/**
 	 * Render Backend
 	 *
 	 * Display the widget form for the Control Panel
-	 * 
+	 *
 	 * @param  int    $slug	    	Widget slug
 	 * @param  array  $saved_data	Options (data saved in the DB or provided on-the-fly)
 	 * @return string
@@ -330,23 +314,19 @@ class Widgets
 		$this->_spawn_widget($slug);
 
 		// No fields, no backend, no rendering
-		if (empty($this->_widget->fields))
-		{
+		if (empty($this->_widget->fields)) {
 			return '';
 		}
 
 		$options = array();
 		$_arrays = array();
 
-		foreach ($this->_widget->fields as $field)
-		{
+		foreach ($this->_widget->fields as $field) {
 			$field_name = &$field['field'];
-			if (($pos = strpos($field_name, '[')) !== false)
-			{
+			if (($pos = strpos($field_name, '[')) !== false) {
 				$key = substr($field_name, 0, $pos);
 
-				if ( ! in_array($key, $_arrays))
-				{
+				if ( ! in_array($key, $_arrays)) {
 					$options[$key] = $this->input->post($key);
 					$_arrays[] = $key;
 				}
@@ -356,8 +336,7 @@ class Widgets
 		}
 
 		// Any extra data? Merge it in, but options wins!
-		if ( ! empty($saved_data))
-		{
+		if ( ! empty($saved_data)) {
 			$options = array_merge($saved_data, $options);
 		}
 
@@ -374,52 +353,45 @@ class Widgets
 	 * Render Area
 	 *
 	 * Display the widget area HTML
-	 * 
+	 *
 	 * <code>
 	 * echo $this->widgets->read_widget('sidebar');
 	 * </code>
-	 * 
+	 *
 	 * @param  int    $slug	    Widget slug
 	 * @param  array  $options	Options (data saved in the DB or provided on-the-fly)
 	 * @return string
 	 */
 	public function render_area($area)
 	{
-		if (isset($this->_rendered_areas[$area]))
-		{
+		if (isset($this->_rendered_areas[$area])) {
 			return $this->_rendered_areas[$area];
 		}
 
-		$widgets = $this->widget_m->get_by_area($area);
+		$widgets = $this->widget_m->findByArea($area);
 
 		$output = '';
 
-		if ($area == 'dashboard')
-		{
+		if ($area == 'dashboard') {
 			$view = 'admin/widget_wrapper';
-		}
-		else
-		{
+		} else {
 			$view = 'widget_wrapper';
 		}
 
 		$path = $this->template->get_views_path().'modules/widgets/';
 
-		if ( ! file_exists($path.$view.EXT))
-		{
+		if ( ! file_exists($path.$view.'.php')) {
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
 
 		// save the existing view array so we can restore it
 		$save_path = $this->load->get_view_paths();
 
-		foreach ($widgets as $widget)
-		{
+		foreach ($widgets as $widget) {
 			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
-			if ($widget->body !== false)
-			{
+			if ($widget->body !== false) {
 				// add this view location to the array
 				$this->load->set_view_path($path);
 
@@ -437,12 +409,9 @@ class Widgets
 
 	public function reload_widget($slug)
 	{
-		if (is_array($slug))
-		{
-			foreach ($slug as $_slug)
-			{
-				if ( ! $this->reload_widget($_slug))
-				{
+		if (is_array($slug)) {
+			foreach ($slug as $_slug) {
+				if ( ! $this->reload_widget($_slug)) {
 					return false;
 				}
 			}
@@ -500,8 +469,7 @@ class Widgets
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $data))
-		{
+		if ($error = $this->validation_errors($slug, $data)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
@@ -521,10 +489,9 @@ class Widgets
 
 	public function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
 	{
-		$slug = $this->widget_m->get_instance($instance_id)->slug;
+		$slug = $this->widget_m->find($instance_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $options))
-		{
+		if ($error = $this->validation_errors($slug, $options)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
@@ -558,13 +525,11 @@ class Widgets
 
 		$this->_widget OR $this->_spawn_widget($name);
 
-		if (property_exists($this->_widget, 'fields'))
-		{
+		if (property_exists($this->_widget, 'fields')) {
 			$this->form_validation->set_rules($this->_widget->fields);
 		}
 
-		if ( ! $this->form_validation->run('', false))
-		{
+		if ( ! $this->form_validation->run('', false)) {
 			return validation_errors();
 		}
 	}
@@ -573,8 +538,7 @@ class Widgets
 	{
 		$this->_widget or $this->_spawn_widget($name);
 
-		if (method_exists($this->_widget, 'save'))
-		{
+		if (method_exists($this->_widget, 'save')) {
 			return (array) call_user_func(array(&$this->_widget, 'save'), $options);
 		}
 
@@ -584,10 +548,9 @@ class Widgets
 	protected function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
-		$widget_file = FCPATH.$widget_path.$name.EXT;
+		$widget_file = FCPATH.$widget_path.$name.'.php';
 
-		if (file_exists($widget_file))
-		{
+		if (file_exists($widget_file)) {
 			require_once $widget_file;
 			$class_name = 'Widget_'.ucfirst($name);
 
@@ -602,8 +565,7 @@ class Widgets
 
 	public function __get($var)
 	{
-		if (isset(get_instance()->$var))
-		{
+		if (isset(get_instance()->$var)) {
 			return get_instance()->$var;
 		}
 	}
@@ -615,13 +577,13 @@ class Widgets
 		return $view == 'display'
 
 			? $this->parser->parse_string($this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.EXT,
+				'_ci_path'		=> $path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			)), array(), true)
 
 			: $this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.EXT,
+				'_ci_path'		=> $path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			));

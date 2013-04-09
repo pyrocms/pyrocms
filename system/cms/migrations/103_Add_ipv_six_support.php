@@ -5,7 +5,7 @@
  *
  * Basically switches any IP db columns from
  * 16 characters to 45 for IPv6.
- * 
+ *
  * Added September 12, 2012
  */
 class Migration_Add_ipv_six_support extends CI_Migration
@@ -40,8 +40,7 @@ class Migration_Add_ipv_six_support extends CI_Migration
 		));
 
 		// Stream Searches, if we have that table
-		if ($this->db->table_exists('data_stream_searches'))
-		{
+		if ($this->db->table_exists('data_stream_searches')) {
 			$this->dbforge->modify_column('data_stream_searches', array(
 				'ip_address' => array(
 					'type' => 'VARCHAR',
@@ -73,7 +72,7 @@ class Migration_Add_ipv_six_support extends CI_Migration
 
 		$this->db->set_dbprefix(SITE_REF.'_');
 	}
-	
+
 	public function down()
 	{
 		// Sessions
@@ -104,8 +103,7 @@ class Migration_Add_ipv_six_support extends CI_Migration
 		));
 
 		// Stream Searches, if we have that table
-		if ($this->db->table_exists('data_stream_searches'))
-		{
+		if ($this->db->table_exists('data_stream_searches')) {
 			$this->dbforge->modify_column('data_stream_searches', array(
 				'ip_address' => array(
 					'type' => 'VARCHAR',

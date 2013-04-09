@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Markdown_cache extends CI_Migration {
-
+class Migration_Markdown_cache extends CI_Migration
+{
 	public function up()
 	{
 		$this->dbforge->add_column('blog', array(
@@ -9,13 +9,13 @@ class Migration_Markdown_cache extends CI_Migration {
 				'type'			=> 'text'
 			)
 		));
-		
+
 		$this->dbforge->add_column('page_chunks', array(
 			'parsed' => array(
 				'type'			=> 'text'
 			)
 		));
-		
+
 		$this->dbforge->add_column('comments', array(
 			'parsed' => array(
 				'type'			=> 'text'

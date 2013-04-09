@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -18,12 +18,13 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter Encryption Class
@@ -121,7 +122,7 @@ class CI_Encrypt {
 	 * Set the encryption key
 	 *
 	 * @param	string
-	 * @return	object
+	 * @return	CI_Encrypt
 	 */
 	public function set_key($key = '')
 	{
@@ -165,7 +166,7 @@ class CI_Encrypt {
 	 */
 	public function decode($string, $key = '')
 	{
-		if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string))
+		if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string) OR base64_encode(base64_decode($string)) !== $string)
 		{
 			return FALSE;
 		}
@@ -243,7 +244,7 @@ class CI_Encrypt {
 		$rand = '';
 		do
 		{
-			$rand .= mt_rand(0, mt_getrandmax());
+			$rand .= mt_rand();
 		}
 		while (strlen($rand) < 32);
 
@@ -418,7 +419,7 @@ class CI_Encrypt {
 	 * Set the Mcrypt Cipher
 	 *
 	 * @param	int
-	 * @return	object
+	 * @return	CI_Encrypt
 	 */
 	public function set_cipher($cipher)
 	{
@@ -432,7 +433,7 @@ class CI_Encrypt {
 	 * Set the Mcrypt Mode
 	 *
 	 * @param	int
-	 * @return	object
+	 * @return	CI_Encrypt
 	 */
 	public function set_mode($mode)
 	{
@@ -484,7 +485,7 @@ class CI_Encrypt {
 	 */
 	public function set_hash($type = 'sha1')
 	{
-		$this->_hash_type = ($type !== 'sha1' && $type !== 'md5') ? 'sha1' : $type;
+		$this->_hash_type = in_array($type, hash_algos()) ? $type : 'sha1';
 	}
 
 	// --------------------------------------------------------------------
@@ -497,7 +498,7 @@ class CI_Encrypt {
 	 */
 	public function hash($str)
 	{
-		return ($this->_hash_type === 'sha1') ? sha1($str) : md5($str);
+		return hash($this->_hash_type, $str);
 	}
 
 }

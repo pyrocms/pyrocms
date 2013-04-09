@@ -37,10 +37,10 @@
 <?php
 $cmds_d = '';
 $cmds_f ='';
-foreach($permissions['directories'] as $directory => $status) {
+foreach ($permissions['directories'] as $directory => $status) {
 	$cmds_d .= $status ? '' : 'chmod 777 '.$directory.PHP_EOL;
 }
-foreach($permissions['files'] as $files => $status) {
+foreach ($permissions['files'] as $files => $status) {
 	$cmds_f .= $status ? '' : 'chmod 666 '.$files.PHP_EOL;
 }
 ?>
@@ -49,7 +49,6 @@ foreach($permissions['files'] as $files => $status) {
 	<a href="#" id="show-commands">+ <?php echo lang('show_commands'); ?></a>
 	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands'); ?></a>
 </p>
-
 
 <textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:100%; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
 <?php echo $cmds_d;?>

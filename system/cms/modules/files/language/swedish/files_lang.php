@@ -102,6 +102,5 @@ $lang['files:type_d'] = 'Dokument';
 $lang['files:type_i'] = 'Bild';
 $lang['files:type_o'] = 'Annat';
 
-
 /* End of file files_lang.php */
-/* Location: system/cms/modules/files/language/swedish/files_lang.php */  
+/* Location: system/cms/modules/files/language/swedish/files_lang.php */

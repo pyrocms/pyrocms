@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Addons_upload_permissions extends CI_Migration {
-
+class Migration_Addons_upload_permissions extends CI_Migration
+{
 	public function up()
 	{
 		$this->db->insert('settings',

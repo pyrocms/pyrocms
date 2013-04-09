@@ -10,7 +10,7 @@
 class Field_textarea
 {
 	public $field_type_slug			= 'textarea';
-	
+
 	public $db_col_type				= 'longtext';
 
 	public $admin_display			= 'full';
@@ -21,8 +21,6 @@ class Field_textarea
 
 	public $custom_parameters		= array('default_text', 'allow_tags', 'content_type');
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Output form input
 	 *
@@ -43,13 +41,10 @@ class Field_textarea
 
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			if ( ! $value and isset($field->field_data['default_value']))
-			{
+			if ( ! $value and isset($field->field_data['default_value'])) {
 				$value = $field->field_data['default_value'];
 			}
-		}
-		else
-		{
+		} else {
 			$value = $data['value'];
 		}
 
@@ -72,7 +67,6 @@ class Field_textarea
 	/**
 	 * Pre-Ouput content
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function pre_output($input, $params)
@@ -116,11 +110,10 @@ class Field_textarea
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Default Textarea Value
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -134,7 +127,7 @@ class Field_textarea
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Allow tags param.
 	 *
@@ -172,6 +165,6 @@ class Field_textarea
 		$value or $value = 'text';
 	
 		return form_dropdown('content_type', $options, $value);
-	}	
+	}
 
 }

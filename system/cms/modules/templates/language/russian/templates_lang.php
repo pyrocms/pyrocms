@@ -26,6 +26,7 @@ $lang['templates:default_title']					= 'Шаблоны по-умолчанию';
 $lang['templates:user_defined_title']			= 'Шаблоны пользователя';
 
 // Сообщения
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Шаблон "%s" сохранён.';
 $lang['templates:tmpl_create_error']			= 'Во время создания шаблона "%s" произошла ошибка.';
 $lang['templates:tmpl_edit_success']			= 'Шаблон "%s" сохранён.';

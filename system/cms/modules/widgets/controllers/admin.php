@@ -2,23 +2,23 @@
 
 /**
  * Admin controller for the widgets module.
- * 
+ *
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * The current active section
-	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $section = 'instances';
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct()
@@ -30,8 +30,7 @@ class Admin extends Admin_Controller {
 
 		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
-		if (in_array($this->method, array('index', 'manage')))
-		{
+		if (in_array($this->method, array('index', 'manage'))) {
 			// requires to install and/or uninstall widgets
 			$this->widgets->list_available_widgets();
 		}
@@ -43,7 +42,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Index method, lists all active widgets
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index()
@@ -62,22 +61,19 @@ class Admin extends Admin_Controller {
 		// Go through all widget areas
 		$slugs = array();
 
-		foreach ($data['widget_areas'] as $key => $area)
-		{
+		foreach ($data['widget_areas'] as $key => $area) {
 			$slugs[$area->id] = $area->slug;
 
 			$data['widget_areas'][$key]->widgets = array();
 		}
 
-		if ($data['widget_areas'])
-		{
+		if ($data['widget_areas']) {
 			$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
 		}
 
 		$instances = $this->widgets->list_area_instances($slugs);
 
-		foreach ($instances as $instance)
-		{
+		foreach ($instances as $instance) {
 			$data['widget_areas'][$instance->widget_area_id]->widgets[$instance->id] = $instance;
 		}
 
@@ -90,7 +86,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Manage method, lists all widgets to install, uninstall, etc..
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function manage()
@@ -115,7 +110,6 @@ class Admin extends Admin_Controller {
 			->order_by('`order`')
 			->get_many_by($base_where);
 
-
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
@@ -127,7 +121,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Enable widget
 	 *
-	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
 	 * @return	void
@@ -136,8 +129,7 @@ class Admin extends Admin_Controller {
 	{
 		$id && $this->_do_action($id, 'enable');
 
-		if ($redirect)
-		{
+		if ($redirect) {
 			$this->session->set_flashdata('enabled', 0);
 
 			redirect('admin/widgets/manage');
@@ -147,7 +139,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Disable widget
 	 *
-	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
 	 * @return	void
@@ -162,7 +153,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Do the actual work for enable/disable
 	 *
-	 * @access	protected
 	 * @param	int|array	$ids	Id or array of Ids to process
 	 * @param	string		$action	Action to take: maps to model
 	 * @return	void
@@ -173,23 +163,18 @@ class Admin extends Admin_Controller {
 		$multiple	= (count($ids) > 1) ? '_mass' : null;
 		$status		= 'success';
 
-		foreach ($ids as $id)
-		{
-			if ( ! $this->widget_m->{$action . '_widget'}($id))
-			{
+		foreach ($ids as $id) {
+			if ( ! $this->widget_m->{$action . '_widget'}($id)) {
 				$status = 'error';
 				break;
-			}
-			else
-			{
-				// Fire an Event. A widget has been enabled or disabled. 
-				switch ($action)
-				{
-					case 'enable':		
+			} else {
+				// Fire an Event. A widget has been enabled or disabled.
+				switch ($action) {
+					case 'enable':
 						Events::trigger('widget_enabled', $ids);
 						break;
-					
-					case 'disable':		
+
+					case 'disable':
 						Events::trigger('widget_disabled', $ids);
 						break;
 				}

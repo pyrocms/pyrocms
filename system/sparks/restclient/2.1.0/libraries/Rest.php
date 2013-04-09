@@ -8,9 +8,9 @@
  * @subpackage    	Libraries
  * @category    	Libraries
  * @author        	Philip Sturgeon
- * @created			04/06/2009
  * @license         http://philsturgeon.co.uk/code/dbad-license
  * @link			http://getsparks.org/packages/restclient/show
+ * @deprecated
  */
 
 class REST

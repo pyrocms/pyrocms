@@ -8,9 +8,7 @@ $lang['recommended']        = 'Empfohlen';
 $lang['server_settings']    = 'HTTP Server Einstellungen';
 $lang['server_version']     = 'Ihre Server Software:';
 
-
 $lang['server_fail']        = 'Ihre HTTP-Software wird nicht unterst&uuml;tzt. Daher wird PyroCMS nicht ordnungsgem&auml;&szlig; funktionieren. Solange Ihre PHP- und MySQL-Installation nicht auf dem neuesten Stand ist wird PyroCMS nicht in der Lage sein richtig laufen zu k&ouml;nnen ohne die Anzeige und Verarbeitung von sauberen URL\'s.';
-
 
 $lang['php_settings']       = 'PHP-Einstellungen';
 $lang['php_required']       = 'PyroCMS ben&ouml;tigt PHP version %s oder h&ouml;her.';
@@ -27,14 +25,12 @@ $lang['gd_settings']        = 'GD Einstellungen';
 $lang['gd_required']        = 'PyroCMS ben&ouml;tigt die GD-Library 1.0 oder h&ouml;her um Bilder zu bearbeiten.';
 $lang['gd_version']         = 'Auf diesem Server l&auml;uft aktuell die Version';
 
-
 $lang['gd_fail']            = 'Die Version der GD-Libary kann nicht erkannt werden. Das k&ouml;nnte bedeuten das die GD-Libary nicht installiert ist. PyroCMS wird ordnungsgem&auml;&szlig; funktionieren. Dennoch werden einige Funktionen zur Bildverarbeitung nicht einwandfrei vom System angewendet werden k&ouml;nnen. Es wird ausdr&uuml;cklich empfohlen die GD-Bibliothek zu installieren.';
 
 $lang['summary']            = 'Ergebnis';
 
 $lang['zlib']               = 'Zlib';
 $lang['zlib_required']      = 'PyroCMS ben&ouml;tigt Zlib um Themes zu entpacken und zu installieren.';
-
 
 $lang['zlib_fail']          = 'Die Zlib-Bibliothek kann nicht gefunden werden. Das bedeutet normalerweilse das Zlib nicht installiert ist. PyroCMS wird ordnungsgem&auml;&szlig; funktionieren. Nur wird die Installation von neuen Themes &uuml;ber die Upload-Funktion des CMS nicht m&ouml;glich sein. Es wird ausdr&uuml;cklich empfohlen Zlib-Bibliothek zu installieren.';
 

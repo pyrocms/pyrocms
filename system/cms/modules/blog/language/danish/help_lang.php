@@ -10,7 +10,7 @@ $lang['help_body'] = "
 
 <h4>Categories</h4>
 <p>
-	Du kan oprette så mange kategorier som du vil, for at organisere dine indlæg. 
+	Du kan oprette så mange kategorier som du vil, for at organisere dine indlæg.
 	Hvis du vil lade besøgende sortere efter kategori, skal du blot indsætte Blog Kategori widget'en i din front-end
 </p>
 

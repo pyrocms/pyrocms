@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Users\Model;
 
 /**
  * User controller for the users module (frontend)
@@ -11,15 +13,12 @@ class Users extends Public_Controller
 {
 	/**
 	 * Constructor method
-	 *
-	 * @return \Users
 	 */
 	public function __construct()
 	{
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('user_m');
 		$this->load->helper('user');
 		$this->lang->load('user');
 		$this->load->library('form_validation');
@@ -30,12 +29,9 @@ class Users extends Public_Controller
 	 */
 	public function index()
 	{
-		if (isset($this->current_user->id))
-		{
-			$this->view($this->current_user->id);
-		}
-		else
-		{
+		if ($this->current_user) {
+			$this->view($this->current_user->username);
+		} else {
 			redirect('users/login/users');
 		}
 	}
@@ -73,15 +69,13 @@ class Users extends Public_Controller
 				break;
 		}
 
-		// Don't make a 2nd db call if the user profile is the same as the logged in user
-		if ($this->current_user && $username === $this->current_user->username)
-		{
+		if ($this->current_user && $username === $this->current_user->username) {
+			// Don't make a 2nd db call if the user profile is the same as the logged in user
 			$user = $this->current_user;
-		}
-		// Fine, just grab the user from the DB
-		else
-		{
-			$user = $this->ion_auth->get_user($username);
+		
+		} else {
+			// Fine, just grab the user from the DB
+			$user = Model\User::findByUsername($username);
 		}
 
 		// No user? Show a 404 error
@@ -103,8 +97,7 @@ class Users extends Public_Controller
 			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
-		if ( ! $_POST and $args = func_get_args())
-		{
+		if ( ! $_POST and $args = func_get_args()) {
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
 
@@ -186,14 +179,11 @@ class Users extends Public_Controller
 		// allow third party devs to do things right before the user leaves
 		Events::trigger('pre_user_logout');
 
-		$this->ion_auth->logout();
+		$this->sentry->logout();
 
-		if ($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			exit(json_encode(array('status' => true, 'message' => lang('user:logged_out'))));
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('success', lang('user:logged_out'));
 			redirect('');
 		}

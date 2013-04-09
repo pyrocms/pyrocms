@@ -6,9 +6,9 @@
 	<div class="content">
 		<?php if ($setting_sections): ?>
 			<?php echo form_open('admin/settings/edit', 'class="crud"');?>
-		
+
 				<div class="tabs">
-		
+
 					<ul class="tab-menu">
 						<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 						<li>
@@ -18,7 +18,7 @@
 						</li>
 						<?php endforeach ?>
 					</ul>
-		
+
 					<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 					<div class="form_inputs" id="<?php echo $section_slug;?>">
 						<fieldset>
@@ -29,7 +29,7 @@
 										<?php echo $setting->title ?>
 										<?php if($setting->description): echo '<small>'.$setting->description.'</small>'; endif ?>
 									</label>
-		
+
 									<div class="input <?php echo 'type-'.$setting->type ?>">
 										<?php echo $setting->form_control ?>
 									</div>
@@ -40,13 +40,13 @@
 						</fieldset>
 					</div>
 					<?php endforeach ?>
-		
+
 				</div>
-		
+
 				<div class="buttons padding-top">
 					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )) ?>
 				</div>
-		
+
 			<?php echo form_close() ?>
 		<?php else: ?>
 			<div>

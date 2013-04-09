@@ -11,6 +11,7 @@
  * @author        	Philip Sturgeon
  * @license         http://philsturgeon.co.uk/code/dbad-license
  * @link			http://philsturgeon.co.uk/code/codeigniter-curl
+ * @deprecated
  */
 class Curl {
 

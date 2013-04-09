@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Capsule\Schema;
 
 /**
  * Blog module
@@ -92,21 +94,19 @@ class Module_Blog extends Module
 			),
 		);
 
-		if (function_exists('group_has_role'))
-		{
-			if(group_has_role('blog', 'admin_blog_fields'))
-			{
+		if (function_exists('group_has_role')) {
+			if (group_has_role('blog', 'admin_blog_fields')) {
 				$info['sections']['fields'] = array(
-							'name' 	=> 'global:custom_fields',
-							'uri' 	=> 'admin/blog/fields',
-								'shortcuts' => array(
-									'create' => array(
-										'name' 	=> 'streams:add_field',
-										'uri' 	=> 'admin/blog/fields/create',
-										'class' => 'add'
-										)
-									)
-							);
+					'name' 	=> 'global:custom_fields',
+					'uri' 	=> 'admin/blog/fields',
+						'shortcuts' => array(
+							'create' => array(
+								'name' 	=> 'streams:add_field',
+								'uri' 	=> 'admin/blog/fields/create',
+								'class' => 'add'
+								)
+							)
+					);
 			}
 		}
 
@@ -115,27 +115,24 @@ class Module_Blog extends Module
 
 	public function install()
 	{
-		$this->dbforge->drop_table('blog_categories');
+		Schema::dropIfExists('blog');
+		Schema::dropIfExists('blog_categories');
+
+		Schema::create('blog_categories', function($table) {
+			$table->increments('id');
+			$table->string('slug', 100)->nullable()->unique();
+			$table->string('title', 100)->nullable()->unique();
+		});
 
 		$this->load->driver('Streams');
 		$this->streams->utilities->remove_namespace('blogs');
 
-		// Just in case.
-		$this->dbforge->drop_table('blog');
-
-		if ($this->db->table_exists('data_streams'))
-		{
-			$this->db->where('stream_namespace', 'blogs')->delete('data_streams');
+		if (Schema::hasTable('data_streams')) {
+			$this->pdb
+				->table('data_streams')
+				->where('stream_namespace', 'blogs')
+				->delete();
 		}
-
-		// Create the blog categories table.
-		$this->install_tables(array(
-			'blog_categories' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true, 'key' => true),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
-			),
-		));
 
 		$this->streams->streams->add_stream(
 			'lang:blog:blog_title',
@@ -158,23 +155,28 @@ class Module_Blog extends Module
 		);
 		$this->streams->fields->add_field($intro_field);
 
-		// Ad the rest of the blog fields the normal way.
-		$blog_fields = array(
-				'title' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false, 'unique' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false),
-				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'body' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT'),
-				'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => ''),
-				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'created_on' => array('type' => 'INT', 'constraint' => 11),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'comments_enabled' => array('type' => 'ENUM', 'constraint' => array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'), 'default' => '3 months'),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-				'preview_hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => ''),
-		);
-		return $this->dbforge->add_column('blog', $blog_fields);
+		// Add fields to streamsy table
+		Schema::table('blog', function($table) {
+			$table->string('slug', 200)->unique();
+			$table->string('title', 200)->unique();
+			$table->integer('category_id');
+			$table->string('attachment', 255)->default('');
+			$table->text('body');
+			$table->text('parsed');
+			$table->string('keywords', 32)->default('');
+			$table->integer('author_id')->nullable();
+			$table->enum('comments_enabled', array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'))->default('3 months');
+			$table->enum('status', array('draft', 'live'))->default('draft');
+			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+	        $table->string('preview_hash', 32)->nullable();
+			$table->string('created_on', 11);
+			$table->string('updated_on', 11)->nullable();
+
+			$table->index('slug');
+			$table->index('category_id');
+		});
+
+		return true;
 	}
 
 	public function uninstall()

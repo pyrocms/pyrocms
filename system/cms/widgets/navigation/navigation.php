@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Navigation;
 
 /**
  * Show RSS feeds in your site
@@ -53,8 +55,8 @@ class Widget_Navigation extends Widgets
 
 	/**
 	 * The author's website.
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $website = 'http://philsturgeon.co.uk/';
 
@@ -68,7 +70,7 @@ class Widget_Navigation extends Widgets
 	/**
 	 * The fields for customizing the options of the widget.
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	public $fields = array(
 		array(
@@ -77,15 +79,7 @@ class Widget_Navigation extends Widgets
 			'rules' => 'required'
 		)
 	);
-	/**	
-	 * Constructor method
-	 */	
-	public function __construct()	
-	{
-		// Load the navigation model from the navigation module.	
-		$this->load->model('navigation/navigation_m');
-	}
-	
+
 	/**
 	 * Get the navigation groups.
 	 *
@@ -93,12 +87,11 @@ class Widget_Navigation extends Widgets
 	 */
 	public function form()
 	{
-		// Loop aroung them and add them in an array keyed by their abbreviated 
+		// Loop aroung them and add them in an array keyed by their abbreviated
 		// title.
 		$groups = array();
-		$_groups = $this->navigation_m->get_groups();
-		foreach ($_groups as $group)
-		{
+		$_groups = Navigation\Model\Group::getGroupOptions();
+		foreach ($_groups as $group) {
 			$groups[$group->abbrev] = $group->title;
 		}
 
@@ -112,27 +105,21 @@ class Widget_Navigation extends Widgets
 	 * The main function of the widget.
 	 *
 	 * @param array $options The options for displaying a Navigation menu.
-	 * @return array 
+	 * @return array
 	 */
 	public function run($options)
 	{
 		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
 		$params = array(
-			$options['group'],
-			array(
-				'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
-				'front_end' => true,
-				'is_secure' => IS_SECURE,
-			)
+			'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
+			'front_end' => true,
+			'is_secure' => IS_SECURE,
 		);
 
-		// Load the navigation model from the navigation module.
-		$this->load->model('navigation/navigation_m');
-		
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, config_item('navigation_cache'));
+		$links = Navigation\Model\Links::getTreeByGroup($option['group'], $params);
 
 		// Shorter alias
-		$widget = & $options['widget'];
+		$widget = &$options['widget'];
 
 		// The title of the navigation menu
 		$title = isset($widget['title_tag']) ? '<'.$widget['title_tag'].'>'.$widget['instance_title'].'</'.$widget['title_tag'].'>' : '';

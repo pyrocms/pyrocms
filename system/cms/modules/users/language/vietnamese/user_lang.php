@@ -64,7 +64,6 @@ $lang['user:activated_account_title']          = 'Tài khoản đã kích hoạt
 $lang['user:reset_password_title']             = 'Khởi tạo lại mật khẩu';
 $lang['user:password_reset_title']             = 'Mật khẩu khởi tạo lại';
 
-
 $lang['user:error_username']                   = 'Username bạn chọn đã được sử dụng';
 $lang['user:error_email']                      = 'Địa chỉ email bạn chọn đã được sử dụng';
 
@@ -133,18 +132,15 @@ $lang['user:email_exists']                     = 'Email trùng với email của
 $lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user:register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
-
 // Activation
 $lang['user:activation_incorrect']             = 'Lỗi kích hoạt. Vui lòng kiểm tra lại và chắc chắn rằng bạn đã tắt CAPS LOCK.';
 $lang['user:activated_message']                = 'Tài khoản của bạn đã được kích hoạt, bạn có thể đăng nhập vào hệ thống.';
-
 
 // Login
 $lang['user:logged_in']                        = 'Bạn đã đăng nhập thành công.';
 $lang['user:already_logged_in']                = 'Bạn đã đăng nhập. Hãy đăng xuất trước khi thử lại';
 $lang['user:login_incorrect']                  = 'Email hoặc mật khẩu không khớp. Hãy kiểm tra lại và chắc chắn rằng bạn đã tắt CAPS LOCK.';
 $lang['user:inactive']                         = 'Tài khoản bạn đang truy cập hiện không hoạt động.<br />Kiểm tra email của bạn để được hướng dẫn kích hoạt - <em>lưu ý kiểm tra cà thư mục junk hoặc spam</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Bạn đã đăng xuất.';
@@ -159,7 +155,6 @@ $lang['user:password_reset_message']           = "Mật khẩu đã được kh�
 // Activation
 $lang['user:activation_email_subject']         = 'Yêu cầu kích hoạt';
 $lang['user:activation_email_body']            = 'Cám ơn bạn đã kích hoạt tài khoản tại %s. Để đăng nhập, hãy bấm vào liên kết dưới đây:';
-
 
 $lang['user:activated_email_subject']          = 'Kích hoạt hoàn tất';
 $lang['user:activated_email_content_line1']    = 'Cám ơn bạn đã đăng ký tại %s. Trước khi kích hoạt tài khoản của bạn, xin vui lòng hoàn tất quá trình đăng ký bằng cách bấm vào liên kết sau:';

@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -36,6 +36,5 @@ I fältet Klass kan du lägga till en unik CSS-klass för länken. </ P>
 <p> Visningsordning på länkarrna i kontrollpanelen återspeglas på webbplatsen.
 Om du vill ändra ordningen på dem så dra och släppa dem tills de är i den ordning som du önskar. </ P>';
 
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/navigation/language/swedish/help_lang.php */  
+/* End of file help_lang.php */
+/* Location: system/cms/modules/navigation/language/swedish/help_lang.php */

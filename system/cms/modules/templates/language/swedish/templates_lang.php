@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -20,6 +20,7 @@ $lang['templates:edit_title'] = 'Redigera mall "%s"';
 $lang['templates:clone_title'] = 'Kopiera mall "%s"';
 $lang['templates:list_title'] = 'Mallar';
 $lang['templates:default_title'] = 'Standardmallar';
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:user_defined_title'] = 'Användardefinierade mallar';
 $lang['templates:tmpl_create_success'] = 'E-postmallen "%s" är sparad.';
 $lang['templates:tmpl_create_error'] = 'E-postmallen "%s" kunde inte sparas.';
@@ -34,6 +35,5 @@ $lang['templates:default_delete_error'] = 'Ett fel inträffade, standardmallen k
 $lang['templates:no_select_error'] = 'Du måste välja en E-postmall först.';
 $lang['templates:already_exist_error'] = 'En E-postmall med namnet "%s" finns redan.';
 
-
-/* End of file templates_lang.php */  
-/* Location: system/cms/modules/templates/language/swedish/templates_lang.php */  
+/* End of file templates_lang.php */
+/* Location: system/cms/modules/templates/language/swedish/templates_lang.php */

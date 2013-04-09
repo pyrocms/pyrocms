@@ -23,10 +23,10 @@ class Plugin_Theme extends Plugin
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -332,7 +332,7 @@ class Plugin_Theme extends Plugin
 				),
 			),// end js_url method
 		);
-	
+
 		return $info;
 	}
 
@@ -470,24 +470,17 @@ class Plugin_Theme extends Plugin
 		$alt        = $this->attribute('alt', $file);
 		$attributes = $this->attributes();
 
-		foreach (array('file', 'alt') as $key)
-		{
-			if (isset($attributes[$key]))
-			{
+		foreach (array('file', 'alt') as $key) {
+			if (isset($attributes[$key])) {
 				unset($attributes[$key]);
-			}
-			else if ($key == 'file')
-			{
+			} elseif ($key == 'file') {
 				return '';
 			}
 		}
 
-		try
-		{
+		try {
 			return Asset::img($file, $alt, $attributes);
-		}
-		catch (Asset_Exception $e)
-		{
+		} catch (Asset_Exception $e) {
 			return '';
 		}
 	}
@@ -587,16 +580,14 @@ class Plugin_Theme extends Plugin
 	 */
 	public function variables()
 	{
-		if (!isset($variables))
-		{
+		if (!isset($variables)) {
 			static $variables = array();
 		}
 
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		if ($value !== null)
-		{
+		if ($value !== null) {
 			$variables[$name] = $value;
 
 			return;
@@ -657,14 +648,12 @@ class Plugin_Theme extends Plugin
 		$line      = $this->attribute('line');
 		$default   = $this->attribute('default');
 		// Return an empty string as the attribute LINE is missing
-		if ( ! isset($line))
-		{
+		if ( ! isset($line)) {
 			return "";
 		}
 
 		$deft_lang = CI::$APP->config->item('language');
-		if ($lang = Modules::load_file($lang_file . '_lang', CI::$APP->template->get_theme_path() . '/language/' . $deft_lang . '/', 'lang'))
-		{
+		if ($lang = Modules::load_file($lang_file . '_lang', CI::$APP->template->get_theme_path() . '/language/' . $deft_lang . '/', 'lang')) {
 			CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
 			CI::$APP->lang->is_loaded[] = $lang_file . '_lang' . EXT;
 			unset($lang);

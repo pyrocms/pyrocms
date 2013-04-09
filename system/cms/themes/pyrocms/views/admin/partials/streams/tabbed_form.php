@@ -18,21 +18,21 @@
 
 			<ul>
 
-			<?php foreach( $tab['fields'] as $field ) { ?>
+			<?php foreach ($tab['fields'] as $field) { ?>
 
 				<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
 					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
-					
+
 					<?php if( $fields[$field]['instructions'] != '' ): ?>
 						<br /><small><?php echo $this->fields->translate_label($fields[$field]['instructions']); ?></small>
 					<?php endif; ?>
 					</label>
-					
+
 					<div class="input"><?php echo $fields[$field]['input']; ?></div>
 				</li>
 
 			<?php } ?>
-			
+
 			</ul>
 
 		</fieldset>
@@ -42,11 +42,11 @@
 
 </div>
 
-	<?php if ($mode == 'edit'){ ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
+	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
 		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 
-<?php echo form_close();?>
+<?php echo form_close();

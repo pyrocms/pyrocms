@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Template Standar';
 $lang['templates:user_defined_title']		= 'Template Pilihan Pengguna';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Template Email "%s" telah disimpan.';
 $lang['templates:tmpl_create_error']		= 'Template Email "%s" gagal disimpan.';
 $lang['templates:tmpl_edit_success']		= 'Perubahan untuk template email "%s" telah disimpan.';

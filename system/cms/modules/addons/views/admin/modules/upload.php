@@ -12,7 +12,7 @@
 			<input type="file" name="userfile" class="input" />
 		</li>
 	</ul>
-	
+
 	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )) ?>
 	</div>

@@ -53,7 +53,6 @@ $lang['user:activated_account_title']          = 'Aktiviran račun';
 $lang['user:reset_password_title']             = 'Ponastavi geslo';
 $lang['user:password_reset_title']             = 'Ponastavitev gesla';
 
-
 $lang['user:error_username']                   = 'Uporabniško ime katerega ste vnesli je že v uporabi';
 $lang['user:error_email']                      = 'Email naslov katerega ste vnesli je že v uporabi';
 
@@ -119,21 +118,18 @@ $lang['user:mass_delete_error']                = 'Najprej morate izbrati uporabn
 // Register
 $lang['user:email_pass_missing']               = 'Email ali geslo polje nista izpolnjena.';
 $lang['user:email_exists']                     = 'Email naslov katerega ste vnesli je že v uporabi pri drugem uporabniku.';
-$lang['user:register_error']				   = 'Mislimo da si robot. Če smo se zmotili sprejmite naše opravičilo in nas kontaktirajte.'; 
+$lang['user:register_error']				   = 'Mislimo da si robot. Če smo se zmotili sprejmite naše opravičilo in nas kontaktirajte.';
 $lang['user:register_reasons']                 = 'Pridružite se za dostop do zaklenjenih predelov strani. To pomeni da bodo vaše nastavitve shranjene več vsebine manj oglasov.';
-
 
 // Activation
 $lang['user:activation_incorrect']             = 'Aktivacija ni uspela. Prosimo preverite vaše podrobnosti in prepričajte se da nimate vključenega CAPS LOCK-a.';
 $lang['user:activated_message']                = 'Vaš račun je bil aktiviran. Sedaj se lahko prijavite v vaš uporabniški račun.';
-
 
 // Login
 $lang['user:logged_in']                        = 'Uspešno se se prijavili.';
 $lang['user:already_logged_in']                = 'Ste že prijavljeni.Prosimo odjavite se predno ponovno poizkusite.';
 $lang['user:login_incorrect']                  = 'E-mail ali geslo se ne ujemata. Prosimo preverite vaše prijavne podatke ter da nimate vključenega CAPS LOCK-a.';
 $lang['user:inactive']                         = 'Račun do katerega želite dostopati je trenutno onemogočen.<br />Preverite vaš e-mail za navodila za aktivaicijo računa - <em>lahko da je v SPAM/JUNK mapi</em>.';
-
 
 // Logged Out
 $lang['user:logged_out']                       = 'Uspešno ste se odjavili.';
@@ -148,7 +144,6 @@ $lang['user:password_reset_message']           = "Vaše geslo je bilo ponastavlj
 // Activation
 $lang['user:activation_email_subject']         = 'Zahtevana je aktivacija';
 $lang['user:activation_email_body']            = 'Zahvaljujemo se vam za aktivacjo računa pri %s. Za prijavo na stran kliknite na spodaj navedeno povezavo:';
-
 
 $lang['user:activated_email_subject']          = 'Aktivacija računa zaključena';
 $lang['user:activated_email_content_line1']    = 'Zahvaljujemo se vam za registracijo pri %s. Predno lahko aktiviramo vaš račun, prosimo dokončajte registracijski postopek s klikom na spodnjo povezavo:';

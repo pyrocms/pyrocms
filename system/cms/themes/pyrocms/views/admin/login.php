@@ -59,7 +59,7 @@
 </div>
 <footer id="login-footer">
 	<div class="wrapper animated fadeInUp" id="login-credits">
-		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
+		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC
 		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 	</div>
 </footer>
