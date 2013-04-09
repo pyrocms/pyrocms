@@ -14,6 +14,7 @@ class Module_Widgets extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
+                                'bg' => 'Джаджи',
 				'br' => 'Widgets',
 				'pt' => 'Widgets',
 				'cs' => 'Widgety',
@@ -39,6 +40,7 @@ class Module_Widgets extends Module {
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"ودجتس".',
+                            	'bg' => 'Управление на малки самостоятелни блокове ("Джаджи").',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'pt' => 'Gerir pequenas secções de conteúdos em bloco conhecidos como "Widgets".',
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',

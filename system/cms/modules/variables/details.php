@@ -16,6 +16,7 @@ class Module_Variables extends Module {
 			'name' => array(
 				'en' => 'Variables',
 				'ar' => 'المتغيّرات',
+                                'bg' => 'Променливи',
 				'br' => 'Variáveis',
 				'pt' => 'Variáveis',
 				'cs' => 'Proměnné',
@@ -42,6 +43,7 @@ class Module_Variables extends Module {
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
 				'ar' => 'إدارة المُتغيّرات العامة لاستخدامها في أرجاء الموقع.',
+                                'bg' => 'Управление на глобални променливи достъпни навсякъде.',
 				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'pt' => 'Gerir as variáveis globais acessíveis de qualquer lugar.',
 				'cs' => 'Spravujte globální proměnné přístupné odkudkoliv.',

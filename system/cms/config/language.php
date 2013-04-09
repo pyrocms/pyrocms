@@ -23,6 +23,13 @@ $config['supported_languages'] = array(
         'codes'        => array('en', 'english', 'en_US'),
         'ckeditor'    => null
     ),
+    'bg' => array(
+        'name'        => 'Български',
+        'folder'    => 'bulgarian',
+        'direction'    => 'ltr',
+        'codes'        => array('bg', 'bulgarian', 'bg_BG'),
+        'ckeditor'    => null
+    ), 
     'de' => array(
         'name'        => 'Deutsch',
         'folder'    => 'german',

@@ -11,16 +11,18 @@ class Plugin_Navigation extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Navigation',
+                'bg' => 'Навигация',
 	);
 	public $description = array(
 		'en' => 'Build navigation links including links in dropdown menus.',
+                'bg' => 'Създай връзки в навигационните менютата.',
 	);
 
 	/**
-	 * Returns a PluginDoc array that PyroCMS uses 
+	 * Returns a PluginDoc array that PyroCMS uses
 	 * to build the reference in the admin panel
 	 *
-	 * All options are listed here but refer 
+	 * All options are listed here but refer
 	 * to the Blog plugin for a larger example
 	 *
 	 * @todo fill the  array with details about this plugin, then uncomment the return value.
@@ -131,7 +133,7 @@ class Plugin_Navigation extends Plugin
 				),
 			),// end links method
 		);
-	
+
 		return $info;
 	}
 
@@ -172,7 +174,7 @@ class Plugin_Navigation extends Plugin
 
 	/**
 	 * Builds the Page Tree into HTML
-	 * 
+	 *
 	 * @param array $links      Page Tree array from `navigation_m->get_link_tree`
 	 * @param bool  $return_arr Return as an Array instead of HTML
 	 * @return array|string
