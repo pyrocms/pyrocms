@@ -11,9 +11,11 @@ class Plugin_Comments extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Comments',
+            'fa'  => 'نظرات',
 	);
 	public $description = array(
 		'en' => 'Display information about site comments.',
+            'fa' => 'نمایش اطلاعاتی در مورد کامنت های سایت',
 	);
 
 	/**
