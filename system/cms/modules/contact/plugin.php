@@ -14,9 +14,11 @@ class Plugin_Contact extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Contact',
+            'fa' => 'تماس با ما'
 	);
 	public $description = array(
 		'en' => 'Displays a contact form for site visitors.',
+            'fa' => 'نمایش فرم تماس با ما برای مراجعین سایت',
 	);
 
 	/**

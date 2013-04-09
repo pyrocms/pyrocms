@@ -13,9 +13,11 @@ class Plugin_Pages extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Pages',
+            'fa' => 'صفحه ها',
 	);
 	public $description = array(
 		'en' => 'Output page data or build a list of pages in a page tree.',
+            'fa'=> 'محتویات صفحه را نشان دهید و یا ساختار درختی صفحات را نمایش دهید'
 	);
 
 	/**

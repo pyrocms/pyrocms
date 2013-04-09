@@ -402,7 +402,7 @@ class Admin extends Admin_Controller
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $post->id))
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');
