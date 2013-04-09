@@ -13,11 +13,13 @@ class Plugin_Permissions extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Permissions',
-		'it' => 'Permessi'
+		'it' => 'Permessi',
+            'fa' => 'اجازه ها',
 	);
 	public $description = array(
 		'en' => 'Access the current user\'s permission level.',
-		'it' => 'Accedi al livello di permessi dell\'utente corrente.'
+		'it' => 'Accedi al livello di permessi dell\'utente corrente.',
+            'fa' => 'دسترسی به سطح دسترسی کاربر حاضر'
 	);
 
 	/**
