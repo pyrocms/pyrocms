@@ -96,6 +96,11 @@ class Page_m extends MY_Model
 
     // --------------------------------------------------------------------------
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('pages/page_type_m');
+	}
+
 	/**
 	 * Get a page by its URI
 	 *
