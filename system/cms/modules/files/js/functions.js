@@ -513,7 +513,7 @@ jQuery(function($){
 				}
 
 				// is it an allowed type?
-				regexp = new RegExp(pyro.files.valid_extensions);
+				regexp = new RegExp('\\.('+pyro.files.valid_extensions+')$', 'i');
 				// Using the filename extension for our test,
 				// as legacy browsers don't report the mime type
 				if (!regexp.test(files[index].name.toLowerCase())) {
