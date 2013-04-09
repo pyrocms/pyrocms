@@ -23,9 +23,7 @@ class Admin extends Admin_Controller {
 		$this->config->load('files');
 		$this->lang->load('files');
 		$this->load->library('files/files');
-
-		$allowed_extensions = '';
-
+		
 		$allowed_extensions = array();
 		foreach (config_item('files:allowed_file_ext') as $type) 
 		{
