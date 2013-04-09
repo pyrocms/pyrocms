@@ -35,12 +35,12 @@ class Admin_groups extends Admin_Controller
             array(
                 'field' => 'name',
                 'label' => lang('users:groups:name'),
-                'rules' => 'trim|required|max_length[100]'
+                'rules' => 'trim|required|max_length[100]',
             ),
             array(
                 'field' => 'description',
                 'label' => lang('users:groups:description'),
-                'rules' => 'trim|required|max_length[250]'
+                'rules' => 'trim|required|max_length[250]',
             )
         );
     }
@@ -120,6 +120,22 @@ class Admin_groups extends Admin_Controller
                 }
                 $group->description = $this->input->post('description');
 
+                // Save permissions
+                $new_perms = array();
+                $roles = $this->input->post('module_roles');
+                foreach ($this->input->post('modules') as $module) {
+                    if (isset($roles[$module]) and is_array($roles[$module])) {
+
+                        foreach ($roles[$module] as $role) {
+                            $new_perms["{$module}.{$role}"] = 1;
+                        }
+
+                    } else {
+                        $new_perms["{$module}.general"] = 1;
+                    }
+                }
+                $group->permissions = $new_perms;
+
                 if ($group->save()) {
                     // Fire an event. A group has been updated.
                     Events::trigger('group_updated', $group);
@@ -132,9 +148,17 @@ class Admin_groups extends Admin_Controller
             }
         }
 
+        $modules = $this->module_m->get_all(array('is_backend' => true, 'installed' => true));
+
+        foreach ($modules as &$module) {
+            $module['roles'] = $this->module_m->roles($module['slug']);
+        }
+
         $this->template
             ->title($this->module_details['name'], sprintf(lang('users:groups:edit_title'), $group->name))
+            ->append_js('module::group.js')
             ->set('group', $group)
+            ->set('modules', $modules)
             ->build('admin/groups/form');
     }
 

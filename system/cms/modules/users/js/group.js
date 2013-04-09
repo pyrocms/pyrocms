@@ -1,10 +1,10 @@
 (function ($) {
 	$(function () {
 
-		$('.select-row').change(function (e) {
+		$('.js-perm-module').change(function (e) {
 			$(e.target)
 				.parents('tr')
-				.find('input[type=checkbox].select-rule')
+				.find('input[type=checkbox].js-perm-role')
 				.attr('checked', e.target.checked);
 		});
 
@@ -13,10 +13,10 @@
 			
 			var enabled = 0,
 				$this = $(el),
-				$row_checkbox = $this.parents('tr').find('input[type=checkbox].select-row');
+				$row_checkbox = $this.parents('tr').find('input[type=checkbox].js-perm-module');
 
-			// Get a list of the enabled rule checkboxes
-			$this.parents('td').find('input[type=checkbox].select-rule').each(function(index, ele) {
+			// Get a list of the enabled role checkboxes
+			$this.parents('td').find('input[type=checkbox].js-perm-module').each(function(index, ele) {
 				if(ele.checked) {
 					enabled++;
 				}
@@ -35,24 +35,14 @@
 		};
 		
 		// On rule checkbox click
-		$('input[type=checkbox].select-rule').change( function(e) {
+		$('input[type=checkbox].js-perm-role').change( function(e) {
 			_check_disable_first_checkbox(e.target);
 		});
 		
 		// On DOM ready
-		$('input.select-rule').each(function(i,v) {
+		$('input.js-perm-role').each(function(i,v) {
 			_check_disable_first_checkbox(this);
 		});
-		
-		// On form submission
-		$('form#edit-permissions').on('submit', function(e){
-			// We need to remove the disabled state for every checkbox,
-			// it will not go through to the POST.
-			$('input[type=checkbox]').each(function() {
-				if (this.disabled === true) {
-					this.disabled = false;
-				}
-			})
-		});
+
 	});
 })(jQuery);
