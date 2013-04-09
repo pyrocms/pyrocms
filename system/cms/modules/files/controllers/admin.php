@@ -23,12 +23,11 @@ class Admin extends Admin_Controller {
 		$this->config->load('files');
 		$this->lang->load('files');
 		$this->load->library('files/files');
-
-		$allowed_extensions = '';
-
+		
+		$allowed_extensions = array();
 		foreach (config_item('files:allowed_file_ext') as $type) 
 		{
-			$allowed_extensions .= implode('|', $type).'|';
+			$allowed_extensions = array_merge($allowed_extensions, $type);
 		}
 
 		$this->template->append_metadata(
@@ -48,7 +47,7 @@ class Admin extends Admin_Controller {
 				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
 				pyro.files.max_size_possible = '".Files::$max_size_possible."';
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
-				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
+				pyro.files.valid_extensions = '".implode('|', $allowed_extensions)."';
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
 				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
