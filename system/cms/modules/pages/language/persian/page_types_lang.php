@@ -34,7 +34,7 @@ $lang['page_types:delete_success']             = 'page layout مورد نظر د
 $lang['page_types:mass_delete_success']        = '%s مورد از نوع-صفحه ها حذف شدند.';
 $lang['page_types:delete_none_notice']         = 'هیچ موردی حذف نشد.';
 $lang['page_types:already_exist_error']        = 'جدولی با این نام همینک وجود دارد لطفا یک نام دیگر انتخاب نماید.';
-$lang['page_types:_check_pt_slug_msg']         = 'اسلاگ مربوط به نوع-صفحه باید یکتا باشد.';
+$lang['page_types:_check_pt_slug_msg']         = 'نام انگلیسی مربوط به نوع-صفحه باید یکتا باشد.';
 
 $lang['page_types:variable_introduction']      = 'در اینجا دو نوع متغییر قابل دسترس است.';
 $lang['page_types:variable_title']             = 'دربرگیرنده ی عنوان صفحه ';

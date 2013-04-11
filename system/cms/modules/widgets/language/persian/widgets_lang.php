@@ -27,7 +27,7 @@ $lang['widgets:edit_area']              = 'ویرایش مکان';
 // Widget area field names
 $lang['widgets:widget_area']            = 'مکان';
 $lang['widgets:widget_area_title']      = 'نام مکان';
-$lang['widgets:widget_area_slug']       = 'نام کوتاه مکان';
+$lang['widgets:widget_area_slug']       = 'نام انگلیسی مکان';
 
 $lang['widgets:view_code']	= 'مشاهده ی کد';
 
