@@ -5,7 +5,7 @@ $lang['templates:language_label']			= 'زبان';
 $lang['templates:choose_lang_label']		= 'انتخاب زبان';
 $lang['templates:subject_label']			= 'موضوع';
 $lang['templates:body_label']				= 'بدنه';
-$lang['templates:slug_label']				= 'اسلاگ';
+$lang['templates:slug_label']				= 'نام انگلیسی';
 
 // Titles
 $lang['templates:create_title']				= 'قالب جدید';
