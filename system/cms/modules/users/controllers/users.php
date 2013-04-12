@@ -101,74 +101,66 @@ class Users extends Public_Controller
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
 
-		// Get the user data
-		$user = (object) array(
-			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
-		);
-
-		$validation = array(
+		// Set the validation rules
+		$this->validation_rules = array(
 			array(
 				'field' => 'email',
 				'label' => lang('global:email'),
-				'rules' => 'required|trim|callback__check_login'
+				'rules' => 'required|callback__check_login'
 			),
 			array(
 				'field' => 'password',
 				'label' => lang('global:password'),
-				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
-			),
+				'rules' => 'required'
+			)
 		);
 
-		// Set the validation rules
-		$this->form_validation->set_rules($validation);
+		// Call validation and set rules
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() or $this->current_user)
-		{
+		if ($this->form_validation->run() or $this->sentry->check()) {
+			
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
-			if ($this->input->is_ajax_request())
-			{
-				$user = $this->ion_auth->get_user_by_email($user->email);
-				$user->password = '';
-				$user->salt = '';
+			if ($this->input->is_ajax_request()) {
+				$user = Model\User::findByEmail($user->email);
 
-				exit(json_encode(array('status' => true, 'message' => lang('user:logged_in'), 'data' => $user)));
-			}
-			else
-			{
+				exit(json_encode(array(
+					'status' => true,
+					'message' => lang('user:logged_in'),
+					'data' => $user->toArray()
+				)));
+
+			} else {
 				$this->session->set_flashdata('success', lang('user:logged_in'));
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0)
-			{
+			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0) {
 				// Just login to the homepage
 				redirect('');
-			}
 
 			// Passes muster, on your way
-			else
-			{
-				redirect($redirect_to ? $redirect_to : '');
+			} else {
+				redirect($redirect_to ?: '');
 			}
 		}
 
-		if ($_POST and $this->input->is_ajax_request())
-		{
+
+		if ($_POST and $this->input->is_ajax_request()) {
 			exit(json_encode(array('status' => false, 'message' => validation_errors())));
 		}
 
 		$this->template
-			->build('login', array(
-				'_user' => $user,
-				'redirect_to' => $redirect_to,
-			));
+			->set('_user', $user)
+			->set('redirect_to', $redirect_to)
+			->build('login');
 	}
 
 	/**
@@ -802,27 +794,48 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * Callback method used during login
+	 * Callback From: login()
 	 *
-	 * @param str $email The Email address
+	 * @param string $email The Email address to validate
 	 *
 	 * @return bool
 	 */
 	public function _check_login($email)
 	{
-		$remember = false;
-		if ($this->input->post('remember') == 1)
-		{
-			$remember = true;
+		$password = $this->input->post('password');
+
+		try {
+
+			$this->sentry->authenticate(array(
+				'email' => $email,
+				'password' => $password,
+			), (bool) $this->input->post('remember'));
+
+		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+			// Could not log in with password. Maybe its an old style pass?
+			try
+			{
+				// Try logging in with this double-hashed password
+				$this->sentry->authenticate(array(
+					'email' => $email,
+					'password' => whacky_old_password_hasher($email, $password),
+				), (bool) $this->input->post('remember'));
+
+			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+				// That madness didn't work, error
+				$this->form_validation->set_message('_check_login', 'Incorrect login.');
+				return false;
+			}
+
+		} catch (Exception $e) {
+
+			$this->form_validation->set_message('_check_login', $e->getMessage());
+			return false;
 		}
 
-		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
-		{
-			return true;
-		}
-
-		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
-		return false;
+		return true;
 	}
 
 	/**

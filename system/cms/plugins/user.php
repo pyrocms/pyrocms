@@ -1,5 +1,6 @@
 <?php
 
+use Cartalyst\Sentry;
 use Pyro\Module\Users;
 
 /**
@@ -42,7 +43,7 @@ class Plugin_User extends Plugin
 		$info = array();
 
 		// dynamically build the array for the magic method __call
-		$user = (array) $this->current_user;
+		$user = $this->current_user->toArray();
 		ksort($user);
 
 		foreach ($user as $key => $value)
@@ -82,17 +83,25 @@ class Plugin_User extends Plugin
 	 */
 	public function logged_in()
 	{
-		$group = $this->attribute('group', null);
+		$group = $this->attribute('group');
 
-		if ($this->current_user) {
-			if ($group and $group !== $this->current_user->group) {
-				return '';
-			}
-
-			return $this->content() ?: true;
+		if ( ! $this->current_user) {
+			return null;
 		}
 
-		return '';
+		if ( ! is_null($group)) {
+			try {
+				$group = $this->sentry->getGroupProvider()->findByName($group);
+			} catch (Sentry\Groups\GroupNotFoundException $e) {
+				return;
+			}
+
+			if ( ! $this->current_user->inGroup($group)) {
+				return;
+			}
+		}
+
+		return $this->content() ?: true;
 	}
 
 	/**
@@ -113,12 +122,20 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if (!$this->current_user or ($group and $group !== $this->current_user->group))
-		{
-			return $this->content() ? $this->content() : true;
+		if ($this->current_user) {
+
+			try {
+				$group = $this->sentry->getGroupProvider()->findByName($group);
+			} catch (Sentry\Groups\GroupNotFoundException $e) {
+				return $this->content() ?: true;
+			}
+
+			if ($this->current_user->inGroup($group)) {
+				return;
+			}
 		}
 
-		return '';
+		return $this->content() ?: true;
 	}
 
 	/**
@@ -136,9 +153,8 @@ class Plugin_User extends Plugin
 	 */
 	public function has_cp_permissions()
 	{
-		if ($this->current_user)
-		{
-			if (!($this->current_user->hasAccess('admin') or $this->permission_m->get_group($this->current_user->group_id))) {
+		if ($this->current_user) {
+			if (!($this->current_user->hasAccess('*'))) {
 				return '';
 			}
 

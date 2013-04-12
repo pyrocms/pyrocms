@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
 require APPPATH."libraries/MX/Controller.php";
 
@@ -67,10 +67,9 @@ class MY_Controller extends MX_Controller
 		
 		if ( ! ($schema_version = $this->migration->current())) {
 			show_error($this->migration->error_string());
-		}
 
 		// Result of schema version migration
-		elseif (is_numeric($schema_version)) {
+		} elseif (is_numeric($schema_version)) {
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
 
@@ -163,8 +162,7 @@ class MY_Controller extends MX_Controller
 
 
 		// certain places (such as the Dashboard) we aren't running a module, provide defaults
-		if ( ! $this->module)
-		{
+		if ( ! $this->module) {
 			$this->module_details = array(
 				'name' => null,
 				'slug' => null,

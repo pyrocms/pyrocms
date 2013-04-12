@@ -124,8 +124,6 @@ class Admin extends Admin_Controller
 			}
 
 		} catch (Exception $e) {
-
-			var_dump($e);
 			$this->form_validation->set_message('_check_login', $e->getMessage());
 			return false;
 		}
