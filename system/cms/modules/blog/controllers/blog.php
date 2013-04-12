@@ -361,7 +361,7 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				if (isset($post['category']))
+				if (isset($post['category']) and ! in_array($post['category']['title'], $keywords))
 				{
 					$keywords[] = $post['category']['title'];
 				}
