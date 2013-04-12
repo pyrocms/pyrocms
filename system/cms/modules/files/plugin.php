@@ -87,6 +87,22 @@ class Plugin_Files extends Plugin
 					),
 				),
 			),// end listing method
+			'folders' => array(
+				'description' => array(
+					'en' => 'List folders and files (optional) from a specified folder'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'folders|files|parent_id',
+				'attributes' => array(
+					'folder' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|slug',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '0',// attribute defaults to this if no value is given
+						'required' => false, // is this attribute required?
+					),
+				),
+			),// end folders method
 			'folder_exists' => array(
 				'description' => array(
 					'en' => 'Check if a folder exists in the database.'
@@ -396,6 +412,85 @@ class Plugin_Files extends Plugin
 		$files and array_merge($this->_files, (array) $files);
 
 		return $files;
+	}
+
+	/**
+	 * Folder contents
+	 *
+	 * Creates a list of folders
+	 *
+	 * Usage:
+	 * 
+	 * {{ files:folders folder="home-slider" include_files="no|yes" }}
+	 * 	{{ folders }}
+	 * 		// Your html logic
+	 * 	{{ /folders }}
+	 *
+	 * 	{{ files }}
+	 * 		// your html logic
+	 * 	{{ /files }}
+	 * {{ /files:folders }}
+	 *
+	 * The tags that are available to use from this method are listed below
+	 *
+	 * {{ folders }}
+	 * {{ files }}
+	 * {{ parent_id }}
+	 *
+	 * @return	array
+	 */
+	public function folders()
+	{
+		$parent = $this->attribute('folder', 0); // Id or Path
+		$include_files = $this->attribute('include_files', 'no');
+		
+		$data = array();
+
+		if ( ! is_numeric($parent))
+		{
+			$segment = explode('/', trim($parent, '/#'));
+			$result = $this->file_folders_m->get_by('slug', array_pop($segment));
+
+			$parent = ($result ? $result->id : 0);
+		}
+
+		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->where('hidden', 0)
+			->order_by('sort')
+			->get_all();
+
+		$files = ($include_files == 'yes')
+			? ci()->file_m->where('folder_id', $parent)->order_by('sort')->get_all()
+			: false;
+
+		// let's be nice and add a date in that's formatted like the rest of the CMS
+		if ($folders)
+		{
+			foreach ($folders as &$folder) 
+			{
+				$folder->formatted_date = format_date($folder->date_added);
+
+				$folder->file_count = ci()->file_m->count_by('folder_id', $folder->id);
+			}
+			$data['folders'] = $folders;
+		}
+
+		if ($files)
+		{
+			ci()->load->library('keywords/keywords');
+
+			foreach ($files as &$file) 
+			{
+				$file->keywords_hash = $file->keywords;
+				$file->keywords = ci()->keywords->get_string($file->keywords);
+				$file->formatted_date = format_date($file->date_added);
+			}
+			$data['files'] = $files;
+		}
+		
+		$data['parent_id'] = $parent;
+
+		return array($data);
 	}
 
 	public function file($return = '', $type = '')
