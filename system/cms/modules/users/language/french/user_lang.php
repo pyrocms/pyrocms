@@ -139,9 +139,9 @@ $lang['user:inactive']          = 'Le compte que vous tentez d\'accéder est ina
 $lang['user:logged_out'] = 'Vous avez été déconnecté.';
 
 // Forgot Pass
-$lang['user:forgot_incorrect'] = "Aucun compte correspondant à ces données n\'a été trouvé.";
+$lang['user:forgot_incorrect'] = 'Aucun compte correspondant à ces données n\'a été trouvé.';
 
-$lang['user:password_reset_message'] = "Votre mot de passe a été ré-initialisé. Vous devriez recevoir un e-mail dans les 2 heures suivantes. Sinon, il est peut être dans les spams par accident.";
+$lang['user:password_reset_message'] = 'Votre mot de passe a été ré-initialisé. Vous devriez recevoir un e-mail dans les 2 heures suivantes. Sinon, il est peut être dans les spams par accident.';
 
 
 // Emails ----------------------------------------------------------------------------------------------------
