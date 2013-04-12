@@ -588,15 +588,16 @@ class Fields_m extends CI_Model {
 		}
 		
 		// Remove from cache
-		if(isset($this->fields_cache['by_id'][$field_id]))
+		if (isset($this->fields_cache['by_id'][$field_id]))
 		{
 			unset($this->fields_cache['by_id'][$field_id]);
 		}
-		$field_namespace = $field->field_namespace;
-		$field_slug = $field->field_slug;
-		if(isset($this->fields_cache['by_slug'][$field_namespace.':'.$field_slug]))
+
+		$namespace_key = $field->field_namespace.':'.$field->field_slug;
+		
+		if (isset($this->fields_cache['by_slug'][$namespace_key]))
 		{
-			unset($this->fields_cache['by_slug'][$field_namespace.':'.$field_slug]);
+			unset($this->fields_cache['by_slug'][$namespace_key]);
 		}
 	
 		// Find assignments, and delete rows from table
