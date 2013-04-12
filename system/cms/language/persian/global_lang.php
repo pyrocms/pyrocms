@@ -9,7 +9,7 @@ $lang['desc_label'] 				= 'شرح';
 $lang['version_label'] 				= 'ورژن';
 $lang['global:author'] 				= 'پدیدآور';
 $lang['global:action'] 				= 'عملیات';
-$lang['global:slug'] 				= 'Slug';
+$lang['global:slug'] 				= 'نام انگلیسی';
 $lang['global:slug_instructions']                   = 'حروف انگلیسی کوچک و آندرلاین قابل قبول است';
 $lang['global:user'] 				= 'کاربر';
 

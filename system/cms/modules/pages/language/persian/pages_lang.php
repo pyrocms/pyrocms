@@ -63,7 +63,7 @@ $lang['pages:mass_delete_success']      = '%s صفحه ها حذف شده اند
 $lang['pages:delete_none_notice']       = 'هیچ صفحه ای حذف نشد.';
 $lang['pages:page_already_exist_error'] = 'همینک صفحه ای با آدرس %s در %s وجود دارد.';
 $lang['pages:parent_not_exist_error']   = 'صفحه ای که به عنوان بالادستی انتخاب کرده اید وجود خارجی ندارد.';
-$lang['pages:chunk_slug_length']        = 'اسلاگ های تکه صفحه ها نمی توانند بیش از 30 کاراکتر باشند.';
+$lang['pages:chunk_slug_length']        = 'نام های انگلیسی تکه صفحه ها نمی توانند بیش از 30 کاراکتر باشند.';
 $lang['pages:root_folder']              = 'سطح بالایی';
 
 $lang['pages:tree_explanation_title']   = 'توضیحات';
