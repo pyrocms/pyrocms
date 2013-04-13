@@ -184,7 +184,27 @@ class Admin extends Admin_Controller {
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = (array)$this->page_m->get($id);
+		// We are going to get the page in a stripped down way since
+		// we need to only get what is in the database, in order
+		// to be able to duplicate it.
+		$page_raw = $this->db
+						->select('pages.*, page_types.stream_id as pt_stream_id')
+						->join('page_types', 'page_types.id = pages.type_id')
+						->limit(1)->where('pages.id', $id)->get('pages')->row_array();
+
+		$stream = $this->streams_m->get_stream($page_raw['pt_stream_id']);
+
+		// Get entry
+		$entry = $this->db->limit(1)
+						->where('id', $page_raw['entry_id'])
+						->get($stream->stream_prefix.$stream->stream_slug)->row_array();
+
+		unset($page_raw['pt_stream_id']);
+		unset($page_raw['entry_id']);
+
+		// We can merge because there are rules in place so no stream slugs
+		// are the same as slugs in the pages table.
+		$page = $page_raw + $entry;
 
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
@@ -220,7 +240,7 @@ class Admin extends Admin_Controller {
 		$page['restricted_to'] = null;
 		$page['navigation_group_id'] = 0;
 
-		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
+		$new_page = $this->page_m->create($page, $stream);
 
 		foreach ($children as $child)
 		{
