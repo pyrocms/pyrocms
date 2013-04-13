@@ -240,6 +240,7 @@ class Pages extends Public_Controller
 		}
 
 		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
+		
 		// Add our page and page layout JS
 		if ($js)
 		{
@@ -262,14 +263,6 @@ class Pages extends Public_Controller
 			));
 		}
 
-		if ($page->slug == '404')
-		{
-			log_message('error', 'Page Missing: '.$this->uri->uri_string());
-
-			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), false, false));
-		}
-
 		// Get our stream.
 		$stream = $this->streams_m->get_stream($page->layout->stream_id);
 
@@ -287,6 +280,15 @@ class Pages extends Public_Controller
 			'namespace' => $stream->stream_namespace,
 			'id_name' => 'entry_id'
 		));
+
+		if ($page->slug == '404')
+		{
+			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+
+			// things behave a little differently when called by MX from MY_Exceptions' show_404()
+			exit($this->template->build($view, array('page' => $page), false, false, true, $template));
+		}
+
 
 		$this->template->build($view, array('page' => $page), false, false, true, $template);
 	}
