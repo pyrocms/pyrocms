@@ -27,7 +27,7 @@ $lang['widgets:edit_area']              = 'ویرایش ناحیه';
 // Widget area field names
 $lang['widgets:widget_area']            = 'ناحیه';
 $lang['widgets:widget_area_title']      = 'نام ناحیه';
-$lang['widgets:widget_area_slug']       = 'نام کوتاه ناحیه';
+$lang['widgets:widget_area_slug']       = 'نام انگلیسی ناحیه';
 
 $lang['widgets:view_code']          = 'مشاهده کد';
 

@@ -205,6 +205,8 @@
 			</div>
 	
 		</div>
+
+		<input type="hidden" name="row_edit_id" value="<?php if ($this->method != 'create'): echo $page->entry_id; endif; ?>" />
 	
 		<div class="buttons align-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )) ?>

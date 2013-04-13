@@ -26,19 +26,19 @@
 	<section id="content">
 		<div id="content-body">
 
-			<div class="animated fadeInDown" id="login-logo"></div>
+			<div class="animated bounceIn" id="login-logo"></div>
 			<?php $this->load->view('admin/partials/notices') ?>
 				<?php echo form_open('admin/login'); ?>
 				<div class="form_inputs">
 					<ul>
 						<li>
-							<div class="input animated fadeInDown" id="login-un"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
+							<div class="input animated fadeIn" id="login-un"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
 						</li>
 
 						<li>
-							<div class="input animated fadeInDown" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
+							<div class="input animated fadeIn" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
 						</li>
-						<li class="animated fadeInDown" id="login-save">
+						<li class="animated fadeIn" id="login-save">
 							<label for="remember-check" id="login-remember">
 								<input type="checkbox" name="remember" id="remember-check" checked />
 								<?php echo lang('user:remember'); ?>
@@ -59,7 +59,7 @@
 	</section>
 </div>
 <footer id="login-footer">
-	<div class="wrapper animated fadeInUp" id="login-credits">
+	<div class="wrapper animated fadeIn" id="login-credits">
 		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
 		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 	</div>

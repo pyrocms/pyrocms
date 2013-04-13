@@ -67,9 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées devons nous mon
 $lang['settings:rss_feed_items'] 				= 'Nombre de flux RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS ?';
 
-$lang['settings:require_lastname'] 				= 'Nom requis ?';
-$lang['settings:require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom ?';
-
 $lang['settings:enable_profiles'] 				= 'Activer les profils';
 $lang['settings:enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';
 
@@ -137,7 +134,7 @@ $lang['settings:profile_visibility']            = 'Visibilité du Profil';
 $lang['settings:profile_visibility_desc']       = 'Permet de spécifier qui peut voir les profils utilisateurs sur le site public';
 
 $lang['settings:cdn_domain']                    = 'Domaine CDN';
-$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';  // todo : check translation
+$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';
 
 #section titles
 $lang['settings:section_general']				= 'Général';

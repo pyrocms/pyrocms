@@ -216,6 +216,15 @@ class Page_m extends MY_Model
 		}
 
 		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page));
+
+		// ---------------------------------
 		// Get Stream Entry
 		// ---------------------------------
 
@@ -276,6 +285,19 @@ class Page_m extends MY_Model
         }
         
 		$page->stream_entry_found = false;
+
+		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page));
+
+		// ---------------------------------
+		// Get Page Stream Entry
+		// ---------------------------------
 
 		if ($page and $page->type_id and $get_data)
 		{

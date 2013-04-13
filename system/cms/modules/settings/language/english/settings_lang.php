@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'How many records should we show per
 $lang['settings:rss_feed_items']				= 'Feed item count';
 $lang['settings:rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Require last names?';
-$lang['settings:require_lastname_desc']			= 'For some situations, a last name may not be required. Do you want to force users to enter one or not?';
 
 $lang['settings:enable_profiles']				= 'Enable profiles';
 $lang['settings:enable_profiles_desc']			= 'Allow users to add and edit profiles.';

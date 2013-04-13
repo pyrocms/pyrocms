@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Kolik záznamů si přejete zobrazo
 $lang['settings:rss_feed_items'] 				= 'Počet položek v RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Kolik položek se má zobrazovat v RSS zdroji vašeho webu?';
 
-$lang['settings:require_lastname'] 				= 'Požadovat přijmení?';
-$lang['settings:require_lastname_desc'] 		= 'V některých situacích může být znalost příjmení uživatelů žádoucí. Chcete je od uživatele požadovat?';
 
 $lang['settings:enable_profiles'] 				= 'Povolit profily';
 $lang['settings:enable_profiles_desc'] 			= 'Umožnit uživatelům přidávat a spravovat své profily?';

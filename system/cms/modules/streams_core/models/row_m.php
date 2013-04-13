@@ -676,6 +676,16 @@ class Row_m extends MY_Model {
 		$rows = $this->db->query($sql)->result_array();
 
 		// -------------------------------------
+		// Reset SQL
+		// We no longer need any of the SQL data.
+		// If anything goes wrong with the items
+		// below, we want to make sure we cleared
+		// the SQL.
+		// -------------------------------------
+
+		$this->reset_sql();
+
+		// -------------------------------------
 		// Partials
 		// -------------------------------------
 		// Paritals are done after the data grab
@@ -697,7 +707,7 @@ class Row_m extends MY_Model {
 				}
 			}
 		}
-		
+
 		// -------------------------------------
 		// Run formatting
 		// -------------------------------------
@@ -706,7 +716,6 @@ class Row_m extends MY_Model {
 	
 		// Reset
 		$this->get_rows_hook = array();
-		$this->reset_sql();
 		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;

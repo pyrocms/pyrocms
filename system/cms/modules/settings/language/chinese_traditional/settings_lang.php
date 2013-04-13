@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc'] 		= '在管理系統中，每頁所顯�
 $lang['settings:rss_feed_items'] 				= 'Feed 項目數量';
 $lang['settings:rss_feed_items_desc'] 			= '在 RSS/blog feeds 中所顯示的項目數量';
 
-$lang['settings:require_lastname'] 				= '需要輸入姓氏？';
-$lang['settings:require_lastname_desc'] 		= '某些情況下，姓氏是不需要輸入的項目。您要強制用戶輸入這項資料嗎？';
 
 $lang['settings:enable_profiles'] 				= '啟用個人簡介';
 $lang['settings:enable_profiles_desc'] 			= '讓用戶能夠編輯自己的個人簡介。';

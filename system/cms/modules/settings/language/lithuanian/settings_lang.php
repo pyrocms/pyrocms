@@ -66,8 +66,6 @@ $lang['settings:records_per_page_desc']            = 'Kiek irašu turi buti rodo
 $lang['settings:rss_feed_items']                = 'Feed įrašų kiekis';
 $lang['settings:rss_feed_items_desc']            = 'Kiek įrašu turime rodyti RSS/blog ';
 
-$lang['settings:require_lastname']                = 'Reikalauti pavardės?';
-$lang['settings:require_lastname_desc']            = 'Kaikuriuose situacijose pavardė nėra būtina. Priversti lankytojus įvesti pavardę?';
 
 $lang['settings:enable_profiles']                = 'Ijungti profilius?';
 $lang['settings:enable_profiles_desc']            = 'Leidžia vartotojams kurti bei tvarkyti profilius.';

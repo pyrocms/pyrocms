@@ -40,7 +40,7 @@ $lang['streams:invalid_row']					= "سطر غیر قابل قبول";
 $lang['streams:invalid_id']						= "آی دی غیر قابل قبول";
 $lang['streams:cannot_find_assign']				= "واگذاری فیلد یافت نشد.";
 $lang['streams:cannot_find_pyrostreams']				= "PyroStreams یافت نشد";
-$lang['streams:table_exists']					= "جدولی با اسلاگ %s همینک وجود دارد.";
+$lang['streams:table_exists']					= "جدولی با نام %s همینک وجود دارد.";
 $lang['streams:no_results']					= "بدون نتیجه";
 $lang['streams:no_entry']						= "ورودی یافت نشد.";
 $lang['streams:invalid_search_type']				= "نوع سرج مناسبی نیست.";
@@ -48,11 +48,11 @@ $lang['streams:search_not_found']					= "جستجو یافت نشد.";
 
 /* Validation Messages */
 
-$lang['streams:field_slug_not_unique']				= "این اسلاگ برای فیلد همینک در وجود دارد.";
+$lang['streams:field_slug_not_unique']				= "این نام انگلیسی برای فیلد همینک در وجود دارد.";
 $lang['streams:not_mysql_safe_word']				= "فیلد %s توسط مای اسکیول رزرو شده است.";
 $lang['streams:not_mysql_safe_characters']				= "فیلد %s شامل کاراکتر های غیر قابل قبولی است.";
 $lang['streams:type_not_valid']					= "لطفا یک نوع-فیلد قابل قبول انتخاب کنید.";
-$lang['streams:stream_slug_not_unique']				= "اسلاگ این استریم همینک وجود دارد.";
+$lang['streams:stream_slug_not_unique']				= "نام انگلیسی این استریم همینک وجود دارد.";
 $lang['streams:field_unique']					= "فیلد %s باید یکتا باشد.";
 $lang['streams:field_is_required']					= "فیلد %s اجباری است.";
 $lang['streams:date_out_or_range']				= "تاریخی که برای %s انتخاب کرده اید در رنج قابل قبول نیست.";
@@ -65,7 +65,7 @@ $lang['streams:label.field_unique']					= "فیلد یکتا ";
 $lang['streams:label.field_instructions']				= "دستورالعمل فیلد";
 $lang['streams:label.make_field_title_column']			= "ستون عنوان، این فیلد باشد";
 $lang['streams:label.field_name']					= "نام فیلد";
-$lang['streams:label.field_slug']					= "اسلاگ فیلد";
+$lang['streams:label.field_slug']					= "نام انگلیسی فیلد";
 $lang['streams:label.field_type']					= "نوع فیلد";
 $lang['streams:id']						= "ID";
 $lang['streams:created_by']					= "ایجاد شده توسط";
@@ -80,7 +80,7 @@ $lang['streams:stream_prefix']					= "پیشوند استریم";
 
 $lang['streams:instr.field_instructions']				= "بر روی فرم در هنگام ورود یا ویرایش اطلاعات نمایش داده می شود";
 $lang['streams:instr.stream_full_name']				= "نام کامل استریم";
-$lang['streams:instr.slug']						= "حروف کوچک و آندرلاین قابل قبول است.";
+$lang['streams:instr.slug']						= "حروف کوچک انگلیسی و آندرلاین قابل قبول است.";
 
 /* Titles */
 
@@ -100,7 +100,7 @@ $lang['streams:sure']						= "مطمئن هستید؟";
 $lang['streams:field_assignments'] 				= "نسبت داده فیلد ها به استریم";
 $lang['streams:new_field_assign']					= "نسبت دادن فیلد";
 $lang['streams:stream_name']					= "نام استریم";
-$lang['streams:stream_slug']					= "اسلاگ";
+$lang['streams:stream_slug']					= "نام انگلیسی";
 $lang['streams:about']						= "درباره";
 $lang['streams:total_entries']					= "تعداد کل ورودی ها";
 $lang['streams:add_stream']					= "استریم جدید";

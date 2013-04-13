@@ -74,8 +74,6 @@ $lang['settings:records_per_page_desc']			= 'Monta riviä haluat näytettävän 
 $lang['settings:rss_feed_items']				= 'Syötteen lukumäärä';
 $lang['settings:rss_feed_items_desc']			= 'Monta artikkelia haluat näyttää RSS/uutis syötteissä?';
 
-$lang['settings:require_lastname']				= 'Vaadi sukunimet?';
-$lang['settings:require_lastname_desc']			= 'Tietyissä tilanteissa sukunimi ei ole pakollinen. Haluatko vaatia käyttäjiltä sukunimeä?';
 
 $lang['settings:enable_profiles']				= 'Profiili ominaisuus';
 $lang['settings:enable_profiles_desc']			= 'Anna käyttäjille mahdollisuus muokata profiilia.';

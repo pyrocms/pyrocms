@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc']			= 'Número de registros a ser mostrado
 $lang['settings:rss_feed_items']				= 'Número de items RSS';
 $lang['settings:rss_feed_items_desc']			= 'Cantidad de items que se mostrarán en los feeds RSS';
 
-$lang['settings:require_lastname']				= 'Requerir Apellido';
-$lang['settings:require_lastname_desc'] 		= 'Para algunas situaciones es requerido el apellido. Marque esta casilla si deseas forzar el ingreso del apellido.';
 
 $lang['settings:enable_profiles']				= 'Habilitar Perfiles';
 $lang['settings:enable_profiles_desc']			= 'Permitir a los usuarios editar sus perfiles.';

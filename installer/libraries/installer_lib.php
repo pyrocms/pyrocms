@@ -158,13 +158,13 @@ class Installer_lib
 			return false;
 		}
 
-		if ($data->http_server->supported === false)
+		if ($data->http_server_supported === false)
 		{
 			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
+		if ($data->http_server_supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
 		{
 			return 'partial';
 		}

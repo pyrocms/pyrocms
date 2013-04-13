@@ -845,7 +845,7 @@ class Template
 		}
 
 		// Not found it yet? Just load, its either in the module or root view
-		return self::_load_view($view, $this->_data + $data, $parse_view);
+		return self::_load_view($view, $data + $this->_data, $parse_view);
 	}
 
 	private function _load_view($view, array $data, $parse_view = true, $override_view_path = null)

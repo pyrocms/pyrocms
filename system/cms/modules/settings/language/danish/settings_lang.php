@@ -70,8 +70,6 @@ $lang['settings:records_per_page_desc']			= 'Hvor mange resultater skal vises pe
 $lang['settings:rss_feed_items']				= 'Feed poster antal';
 $lang['settings:rss_feed_items_desc']			= 'Hvor mange poster skal vi vise i RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Påkræv efternavn?';
-$lang['settings:require_lastname_desc']			= 'I nogle situationer er efternavn ikke påkrævet, vil du tvinge brugerne til at indtaste et eller ej?';
 
 $lang['settings:enable_profiles']				= 'Slå profiler til';
 $lang['settings:enable_profiles_desc']			= 'Tillad at brugere tilføjer og redigerer profiler.';
