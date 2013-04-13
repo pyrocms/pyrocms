@@ -28,7 +28,7 @@ $lang['forgot_password_unsuccessful'] = 'Impossible de réinitialiser le mot de 
 
 // Activation
 $lang['activate_successful'] = 'Compte activé';
-$lang['activate_unsuccessful'] = 'Impossible d\'activé le compte';
+$lang['activate_unsuccessful'] = 'Impossible d\'activer le compte';
 $lang['deactivate_successful'] = 'Compte désactivé';
 $lang['deactivate_unsuccessful'] = 'Impossible de désactivé le compte';
 $lang['activation_email_successful'] = 'Email d\'activation envoyé avec succès';

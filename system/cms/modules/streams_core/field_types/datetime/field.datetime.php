@@ -136,7 +136,7 @@ class Field_datetime
 			if ( ! $restrict['start_stamp'] and $restrict['end_stamp'])
 			{
 				// Is now after the future point
-				if ($value > $pieces[1])
+				if ($value > $restrict['end_stamp'])
 				{
 					return lang('streams:date_out_or_range');
 				}
