@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Hoeveel records zal de website per 
 $lang['settings:rss_feed_items'] 				= 'Feed item teller';
 $lang['settings:rss_feed_items_desc'] 			= 'Hoeveel items worden er getoond in de RSS/blog feeds?';
 
-$lang['settings:require_lastname'] 				= 'Achternamen verplicht';
-$lang['settings:require_lastname_desc'] 		= 'Wilt u een ingevulde achternaam als verplicht veld?';
 
 $lang['settings:enable_profiles'] 				= 'Gebruikersprofielen';
 $lang['settings:enable_profiles_desc'] 			= 'Staat gebruikers in staat om een profiel toe te voegen en te bewerken.';

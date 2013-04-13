@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']		= 'Πόσα στοιχεία να πρ�
 $lang['settings:rss_feed_items']		= 'Αριθμός Στοιχείων Τροφοδοσίας';
 $lang['settings:rss_feed_items_desc']		= 'Πόσα στοιχεία πρέπει να περιέχουν οι τροφοδοσίες RSS και Ιστολογίου;';
 
-$lang['settings:require_lastname']		= 'Να Απαιτούνται Επώνυμα;';
-$lang['settings:require_lastname_desc']		= 'Για κάποιες περιπτώσεις, μπορεί να απαιτείται η εισαγωγή του επωνύμου. Θέλετε να αναγκάσετε τους χρήστες σας να το εισάγουν ή όχι;';
 
 $lang['settings:enable_profiles']		= 'Ενεργοποίηση των προφίλ';
 $lang['settings:enable_profiles_desc']		= 'Να επιτρέπεται στους χρήστες να προσθέτουν και να επεξεργάζονται τα προφίλ τους.';

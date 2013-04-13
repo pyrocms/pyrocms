@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées devons nous mon
 $lang['settings:rss_feed_items'] 				= 'Nombre de flux RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS ?';
 
-$lang['settings:require_lastname'] 				= 'Nom requis ?';
-$lang['settings:require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom ?';
 
 $lang['settings:enable_profiles'] 				= 'Activer les profils';
 $lang['settings:enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';

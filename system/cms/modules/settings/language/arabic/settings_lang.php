@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc'] 		= 'كم عدد السجلات التي
 $lang['settings:rss_feed_items'] 				= 'عدد عناصر التغذية الإخبارية';
 $lang['settings:rss_feed_items_desc'] 			= 'كم عنصراً تريد عرضها في تغذية RSS أو الأخبار؟';
 
-$lang['settings:require_lastname'] 				= 'طلب إسم العائلة؟';
-$lang['settings:require_lastname_desc'] 		= 'في بعض الحالات، قد لا يكون إسم العائلة مطلوباً. هل تريد إجبار المستخدمين كتابته أم لا؟';
 
 $lang['settings:enable_profiles'] 				= 'تمكين الملفات الشخصية';
 $lang['settings:enable_profiles_desc'] 			= 'تمكين المستخدمين من إضافة وتعديل ملفّاتهم الشخصيّة.';

@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']             = 'Hány bejegyzés jelenjen
 $lang['settings:rss_feed_items']                    = 'RSS csatorna bejegyzéseinek száma';
 $lang['settings:rss_feed_items_desc']               = 'Hány bejegyzés jelenjen meg az RSS csatornában, illetve a blogban?';
 
-$lang['settings:require_lastname']                  = 'Vezetéknév szükséges?';
-$lang['settings:require_lastname_desc']             = 'Néhány esetben a vezetéknév kitöltése nem kötelező. A beállítás aktiválásával rákényszerülnek a felhasználók';
 
 $lang['settings:enable_profiles']                   = 'Profilok bekapcsolása';
 $lang['settings:enable_profiles_desc']              = 'Saját profil engedélyezése a felhasználók számára.';

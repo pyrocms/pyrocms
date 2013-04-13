@@ -66,8 +66,6 @@ $lang['settings:records_per_page_desc']			= 'כמה שיאים אנחנו צרי
 $lang['settings:rss_feed_items']				= 'מספר פריטי RSS';
 $lang['settings:rss_feed_items_desc']			= 'כמה פריטי RSS או בלוג להראות?';
 
-$lang['settings:require_lastname']				= 'לדרוש שם משפחה?';
-$lang['settings:require_lastname_desc']			= 'במצבים מסוימים, שם משפחה לא ייתכן שיידרש. האם אתה רוצה לאלץ משתמשים להזין שם משפחה או לא?';
 
 $lang['settings:enable_profiles']				= 'אפשר פרופילים';
 $lang['settings:enable_profiles_desc']			= 'לאפשר למשתמשים להוסיף ולערוך פרופילים.';

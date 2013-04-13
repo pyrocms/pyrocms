@@ -77,8 +77,6 @@ $lang['settings:records_per_page_desc']				= 'Какое количество з
 $lang['settings:rss_feed_items']						= 'Кол-во записей в лентах';
 $lang['settings:rss_feed_items_desc']					= 'Какое количество записей выводить в RSS лентах/новостях?';
 
-$lang['settings:require_lastname']					= 'Требовать фамилию?';
-$lang['settings:require_lastname_desc']				= 'В некоторых случаях фамилия может быть ненужна. Вы хотите требовать от регистрирующихся пользователей ввода фамилии?';
 
 $lang['settings:enable_profiles']						= 'Разрешить профили';
 $lang['settings:enable_profiles_desc']				= 'Разрешить пользователям добавлять и редактировать профили.';

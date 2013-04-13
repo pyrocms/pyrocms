@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc'] 		= 'Quantos registos nos devemos mostra
 $lang['settings:rss_feed_items'] 				= 'Quantidade de itens do Feed';
 $lang['settings:rss_feed_items_desc'] 			= 'Quantos itens nos devemos mostrar nos feeds de RSS/novidades?';
 
-$lang['settings:require_lastname'] 				= 'Sobrenomes obrigatórios?';
-$lang['settings:require_lastname_desc'] 		= 'Em algumas situações, um sobrenome pode não ser necessário. Deseja forçar os utilizadores a digita-lo ou não?';
 
 $lang['settings:enable_profiles'] 				= 'Activar perfis';
 $lang['settings:enable_profiles_desc'] 			= 'Permitir que utilizadores adicionem e editem perfis.';
