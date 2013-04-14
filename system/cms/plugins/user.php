@@ -153,15 +153,9 @@ class Plugin_User extends Plugin
 	 */
 	public function has_cp_permissions()
 	{
-		if ($this->current_user) {
-			if (!($this->current_user->hasAccess('*'))) {
-				return '';
-			}
-
+		if ($this->current_user and $this->current_user->getPermissions()) {
 			return $this->content() ?: true;
 		}
-
-		return '';
 	}
 
 	public function profile_fields()
@@ -255,15 +249,13 @@ class Plugin_User extends Plugin
 	public function profile()
 	{
 		// We can't parse anything if there is no content.
-		if ( ! $this->content())
-		{
+		if ( ! $this->content()) {
 			return null;
 		}
 
 		$profile_data = $this->get_user_profile();
 
-		if (is_null($profile_data))
-		{
+		if (is_null($profile_data)) {
 			return null;
 		}
 
@@ -375,8 +367,7 @@ class Plugin_User extends Plugin
 				$user->stream, 
 				true
 			);
-		}
-		else {
+		} else {
 			$formatted_column = $user[$var];
 		}
 
@@ -403,8 +394,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt')))
-		{
+		if (in_array($name, array('password', 'salt'))) {
 			return;
 		}
 
@@ -412,18 +402,14 @@ class Plugin_User extends Plugin
 
 		// If we do not have a user id and there is
 		// no currently logged in user, there's nothing we can do
-		if (is_null($user_id) and !isset($this->current_user->id))
-		{
+		if (is_null($user_id) and ! isset($this->current_user->id)) {
 			return null;
-		}
-		elseif (is_null($user_id) and isset($this->current_user->id))
-		{
+		} elseif (is_null($user_id) and isset($this->current_user->id)) {
 			// Otherwise, we can use the current user id
 			$user_id = $this->current_user->id;
 
 			// but first, is it data we already have? (such as user:username)
-			if (isset($this->current_user->{$name}))
-			{
+			if (isset($this->current_user->{$name})) {
 				return $this->current_user->{$name};
 			}
 		}
