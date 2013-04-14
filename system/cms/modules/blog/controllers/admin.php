@@ -334,7 +334,9 @@ class Admin extends Admin_Controller
 		{
 			$hash = $this->_preview_hash();
 		}
-
+                //it is going to be published we don't need the hash
+                ($this->input->post('status') == 'live') AND $hash = '';
+                
 		if ($this->form_validation->run())
 		{
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
