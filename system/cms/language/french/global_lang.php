@@ -113,6 +113,6 @@ $lang['global:plugins']					= 'Plugins';
 $lang['global:plugin']					= 'Plugin';
 
 $lang['global:options']					= 'Options';
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:plain-text']				= 'Texte intégral';
 
 /* End of file global_lang.php */
