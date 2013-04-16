@@ -13,8 +13,7 @@ class Maintenance_m extends MY_Model
 		{
 			case 'users':
 				$data_array = $this->db
-					->select('users.id, email, IF(active = 1, "Y", "N") as active', false)
-					->select('first_name, last_name, display_name, company, lang, gender, website')
+					->select('* , IF(active = 1, "Y", "N") as active', false)
 					->join('profiles', 'profiles.user_id = users.id')
 					->get('users')
 					->result_array();
