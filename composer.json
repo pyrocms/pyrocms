@@ -21,6 +21,9 @@
         "classmap": [
             "system/cms/controllers",
             "system/cms/libraries"
-        ]
+        ],
+        "psr-0": {
+            "Pyro": "system/cms/src/"
+        }
     }
 }

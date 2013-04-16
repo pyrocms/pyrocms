@@ -22,11 +22,7 @@ class Admin extends Admin_Controller
 	protected $section = 'pages';
 
 	/**
-	 * Constructor method
-	 *
-	 * Loads the form_validation library, the pages, pages layout
-	 * and navigation models along with the language for the pages
-	 * module.
+	 * Constructor
 	 */
 	public function __construct()
 	{
@@ -232,73 +228,107 @@ class Admin extends Admin_Controller
 	{
 		$page = new Page;
 
-		// Parent ID
-		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
-		$this->template->set('parent_id', $parent_id);
-
         // What type of page are we creating?
-        $page->type = PageType::find($this->input->get('page_type'));
+        $page_type = PageType::find($this->input->get('page_type'));
 
         // Redirect to the page type selection menu if no page type was specified
-        if (! $page->type) {
+        if (! $page_type) {
             redirect('admin/pages/choose_type');
         }
+	
+		// Get the stream that we are using for this page type.
+		$stream = $page_type->getStream();
 
-		$stream = $this->_setup_stream_fields($page->type);
+		$stream_validation = $this->_setup_stream_fields($stream);
 
-		// Run our validation. At this point, this is running the
-		// compiled validation for both stream and standard.
-		if ($this->form_validation->run()) {
+		if ($this->input->method() === 'post') {
+			
 			$input = $this->input->post();
 
-			// do they have permission to proceed?
-			if ($input['status'] == 'live') {
+			// Do they have permission to proceed?
+			if ($input['status'] === 'live') {
 				role_or_die('pages', 'put_live');
 			}
 
-			// We need to manually add this since we don't allow
-			// users to change it in the page form.
-			$input['type_id'] = $page->type->id;
+			// 
+			$page->slug				= $input['slug'];
+			$page->title			= $input['title'];
+			$page->parent_id		= (int) $input['parent_id'];
+			$page->type_id			= (int) $page_type->id;
+			$page->css				= isset($input['css']) ? $input['css'] : null;
+			$page->js				= isset($input['js']) ? $input['js'] : null;
+			$page->meta_title    	= isset($input['meta_title']) ? $input['meta_title'] : null;
+			$page->meta_keywords 	= isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : null;
+			$page->meta_description = isset($input['meta_description']) ? $input['meta_description'] : null;
+			$page->rss_enabled		= ! empty($input['rss_enabled']);
+			$page->comments_enabled	= ! empty($input['comments_enabled']);
+			$page->status			= $input['status'];
+			$page->created_on		= time();
+			$page->restricted_to	= isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : 0;
+			$page->strict_uri		= ! empty($input['strict_uri']);
+			$page->is_home			= ! empty($input['is_home']);
+			$page->order			= time();
 
 			// Insert the page data, along with
-			// TODO Stream data needs to get saved somehow!
-			if ($id = $page->create($input)) {
-				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
-					$this->cache->clear('page_m');
-					//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-					$this->cache->clear('navigation_m');
+			if ($page->save()) {
+
+				if ( ! empty($input['is_home'])) {
+					$page->setHomePage();
 				}
 
-				Events::trigger('page_created', $id);
+				// We define this for the field type
+				define('PAGE_ID', $page->id);
+
+				$page->buildLookup();
+
+				// Add a Navigation Link
+				if ( ! empty($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
+					foreach ($input['navigation_group_id'] as $group_id) {
+
+						$link = Navigation\Model\Link::create(array(
+							'title'					=> $page->title,
+							'link_type'				=> 'page',
+							'page_id'				=> $page->id,
+							'navigation_group_id'	=> $group_id
+						));
+
+						if ($link) {
+
+							//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+							$this->cache->clear('navigation_m');
+
+							Events::trigger('post_navigation_create', $link);
+						}
+					}
+				}
+
+				// Add the stream data.
+				if ($stream) {
+					$this->load->driver('Streams');
+
+					// Insert the stream using the streams driver.
+					if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace)) {
+						// Update with our new entry id
+						if ( ! $this->db->limit(1)->where('id', $page->id)->update('pages', array('entry_id' => $entry_id))) {
+							return false;
+						}
+					} else {
+						// Something went wrong. Abort!
+						return false;
+					}
+				}
+
+				$this->cache->clear('page_m');
+
+				Events::trigger('page_created', $page);
 
 				$this->session->set_flashdata('success', lang('pages:create_success'));
 
 				// Redirect back to the form or main page
-				$input['btnAction'] == 'save_exit'
+				$input['btnAction'] === 'save_exit'
 					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$id);
-			}
-		}
+					: redirect('admin/pages/edit/'.$page->id);
 
-		// Loop through each rule for the standard page fields and
-		// set our current value for the form.
-		foreach (Page::$validate as $field) {
-			switch ($field) {
-				case 'restricted_to[]':
-					$page->restricted_to = set_value($field['field'], array('0'));
-					break;
-
-				case 'navigation_group_id[]':
-					$page->navigation_group_id = $this->input->post('navigation_group_id');
-					break;
-
-				case 'strict_uri':
-					$page->strict_uri = set_value($field['field'], true);
-					break;
-
-				default:
-					$page->{$field['field']} = set_value($field['field']);
-					break;
 			}
 		}
 
@@ -322,14 +352,6 @@ class Admin extends Admin_Controller
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
 
-		$parent_page = new stdClass;
-
-		// If a parent id was passed, fetch the parent details
-		if ($parent_id > 0) {
-			$page->parent_id = $parent_id;
-			$parent_page = Page::find($parent_id);
-		}
-
 		// Set some data that both create and edit forms will need
 		$this->_form_data();
 
@@ -339,7 +361,6 @@ class Admin extends Admin_Controller
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
-			->set('parent_page', $parent_page)
 			->build('admin/form');
 	}
 
@@ -378,7 +399,9 @@ class Admin extends Admin_Controller
 			show_error('No page type found.');
 		}
 
-		$stream = $this->_setup_stream_fields($page->type, 'edit', $page->entry_id);
+		$stream = $page->type->getStream();
+
+		$stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
 		// If there's a keywords hash
 		if ($page->meta_keywords != '') {
@@ -408,10 +431,14 @@ class Admin extends Admin_Controller
 				$page->setHomePage();
 			}
 
+			// Translate the data of restricted_to to something we can use in the form.
+			if ($input['restricted_to'][0] == '') {
+				$input['restricted_to'][0] = '0';
+			}
+
 			// Assign post data to the page
 			$page->slug				= $input['slug'];
 			$page->title			= $input['title'];
-			$page->uri			 	= null;
 			$page->parent_id		= (int) $input['parent_id'];
 			$page->css			 	= isset($input['css']) ? $input['css'] : null;
 			$page->js			 	= isset($input['js']) ? $input['js'] : null;
@@ -436,10 +463,10 @@ class Admin extends Admin_Controller
 
 					// Insert the stream using the streams driver. Our only extra field is the page_id
 					// which links this particular entry to our page.
-					$this->streams->entries->update_entry($entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
+					$this->streams->entries->update_entry($page->entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
 				}
 
-				$this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $input['title']));
+				$this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $page->title));
 
 				Events::trigger('page_updated', $page);
 
@@ -454,32 +481,6 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Loop through each validation rule
-		foreach (Page::$validate as $field) {
-			$field = $field['field'];
-
-			// Nothing to do for the navigation field
-			if (in_array($field, array('navigation_group_id[]'))) {
-				continue;
-			}
-
-			// Translate the data of restricted_to to something we can use in the form.
-			if ($field === 'restricted_to[]') {
-				$restricted_to = set_value($field, $page->restricted_to);
-
-				if ($restricted_to[0] == '') {
-					$restricted_to[0] = '0';
-				}
-
-				// TODO I cant remember what this shit is all about
-				$page->restricted_to = $restricted_to;
-
-				continue;
-			}
-
-			// Set all the other fields
-			$page->{$field} = set_value($field, $page->{$field});
-		}
 
 		// Go through our stream fields and set the current value
 		// for the form. Since we are creating a new form, this should
@@ -529,37 +530,12 @@ class Admin extends Admin_Controller
 	 * @param 	int - entry id
 	 * @return 	obj - the stream object
 	 */
-	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
+	private function _setup_stream_fields($stream, $method = 'new', $id = null)
 	{
-		// Get the stream that we are using for this page type.
-		// TODO Convert this to be a Eloquent relationship. Phil
-		$stream = $this->pdb->table('data_streams')->take(1)->where('id', $page_type->stream_id)->first();
-
 		$this->load->driver('Streams');
-		$this->load->library('Form_validation');
-
-		// So we can use the callbacks in page_m
-		$this->form_validation->set_model('page_m');
-
-		// If we have renamed the title, then we need to change that in the validation array
-		if ($page_type->title_label) {
-			foreach (Page::$validate as $k => $v) {
-				if ($v['field'] == 'title') {
-					Page::$validate[$k]['label'] = lang_label($page_type->title_label);
-				}
-			}
-		}
 
 		// Get validation for our page fields.
 		$page_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
-
-		// TODO I don't know what any of this is and i dont like it at all. Phil
-		Page::$compiled_validate = array_merge(Page::$validate, $page_validation);
-
-		// Set the validation rules based on the compiled validation.
-		$this->form_validation->set_rules(Page::$compiled_validate);
-
-		return $stream;
 	}
 
 	/**

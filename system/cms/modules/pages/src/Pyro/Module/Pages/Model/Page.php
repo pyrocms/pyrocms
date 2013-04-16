@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Pages\Model;
 
-use Pyro\Module\Navigation\Model\Link;
+use Pyro\Model\Eloquent;
 
 /**
  * Pages model
@@ -9,7 +9,7 @@ use Pyro\Module\Navigation\Model\Link;
  * @package  PyroCMS\Core\Modules\Pages\Models
  * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Pages.Model.Page.html
  */
-class Page extends \Illuminate\Database\Eloquent\Model
+class Page extends Eloquent
 {
     /**
      * Define the table name
@@ -37,81 +37,88 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	 *
 	 * @var array
 	 */
-	public static $validate = array(
-		array(
-			'field' => 'title',
-			'label'	=> 'lang:global:title',
-			'rules'	=> 'trim|required|max_length[250]'
-		),
-		'slug' => array(
-			'field' => 'slug',
-			'label'	=> 'lang:global:slug',
-			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
-		),
-		array(
-			'field'	=> 'css',
-			'label'	=> 'lang:pages:css_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field'	=> 'js',
-			'label'	=> 'lang:pages:js_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'meta_title',
-			'label' => 'lang:pages:meta_title_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
-			'field'	=> 'meta_keywords',
-			'label' => 'lang:pages:meta_keywords_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
-			'field'	=> 'meta_description',
-			'label'	=> 'lang:pages:meta_description_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'restricted_to[]',
-			'label'	=> 'lang:pages:access_label',
-			'rules'	=> 'trim|required'
-		),
-		array(
-			'field' => 'rss_enabled',
-			'label'	=> 'lang:pages:rss_enabled_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'comments_enabled',
-			'label'	=> 'lang:pages:comments_enabled_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'is_home',
-			'label'	=> 'lang:pages:is_home_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'strict_uri',
-			'label'	=> 'lang:pages:strict_uri_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field'	=> 'status',
-			'label'	=> 'lang:pages:status_label',
-			'rules'	=> 'trim|alpha|required'
-		),
-		array(
-			'field' => 'navigation_group_id[]',
-			'label' => 'lang:pages:navigation_label',
-			'rules' => 'numeric'
-		)
-	);
+	public function validate()
+	{
+		ci()->load->library('form_validation');
 
-	// For streams
-	public static $compiled_validate = array();
+		$rules = array(
+			array(
+				'field' => 'title',
+				'label'	=> 'lang:global:title',
+				'rules'	=> 'trim|required|max_length[250]'
+			),
+			'slug' => array(
+				'field' => 'slug',
+				'label'	=> 'lang:global:slug',
+				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]',//|callback__check_slug'
+			),
+			array(
+				'field'	=> 'css',
+				'label'	=> 'lang:pages:css_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'js',
+				'label'	=> 'lang:pages:js_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'meta_title',
+				'label' => 'lang:pages:meta_title_label',
+				'rules' => 'trim|max_length[250]'
+			),
+			array(
+				'field'	=> 'meta_keywords',
+				'label' => 'lang:pages:meta_keywords_label',
+				'rules' => 'trim|max_length[250]'
+			),
+			array(
+				'field'	=> 'meta_description',
+				'label'	=> 'lang:pages:meta_description_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'restricted_to[]',
+				'label'	=> 'lang:pages:access_label',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'rss_enabled',
+				'label'	=> 'lang:pages:rss_enabled_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'comments_enabled',
+				'label'	=> 'lang:pages:comments_enabled_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'is_home',
+				'label'	=> 'lang:pages:is_home_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'strict_uri',
+				'label'	=> 'lang:pages:strict_uri_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'status',
+				'label'	=> 'lang:pages:status_label',
+				'rules'	=> 'trim|alpha|required'
+			),
+			array(
+				'field' => 'navigation_group_id[]',
+				'label' => 'lang:pages:navigation_label',
+				'rules' => 'numeric'
+			)
+		);
+		
+		ci()->form_validation->set_rules($rules);
+		ci()->form_validation->set_data($this->toArray());
+
+		return ci()->form_validation->run();
+	}
 
 	/**
 	 * Relationship: Type
@@ -423,24 +430,18 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 		$segments = array();
 		do {
-
 			// Only want a bit of this data
 			$page = static::select('slug', 'parent_id')
 				->find($current_id);
-
-			// Save this first one for later
-			if ( ! isset($original_page)) {
-				$original_page = $page;
-			}
 
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
 		} while ($page->parent_id > 0);
 
 		// Save this new uri by joining the array
-		$original_page->uri = implode('/', $segments);
+		$this->uri = implode('/', $segments);
 
-		return $original_page->save();
+		return $this->save();
 	}
 
 	/**
@@ -474,98 +475,6 @@ class Page extends \Illuminate\Database\Eloquent\Model
 		foreach ($root_pages as $page) {
 			$this->reindex_descendants($page);
 		}
-	}
-
-    // --------------------------------------------------------------------------
-
-	/**
-	 * Create a new page
-	 *
-	 * @param array $input The page data to insert.
-	 * @param obj   $stream The stream tied to this page.
-	 *
-	 * @return bool `true` on success, `false` on failure.
-	 */
-	public function createOld($input, $stream = false)
-	{
-		$this->db->trans_start();
-
-		if ( ! empty($input['is_home'])) {
-			// Remove other homepages so this one can have the spot
-			$this->skip_validation = true;
-			$this->update_by('is_home', 1, array('is_home' => 0));
-		}
-
-		// validate the data and insert it if it passes
-		$id = $this->insert(array(
-			'slug'				=> $input['slug'],
-			'title'				=> $input['title'],
-			'uri'				=> null,
-			'parent_id'			=> (int) $input['parent_id'],
-			'type_id'			=> (int) $input['type_id'],
-			'css'				=> isset($input['css']) ? $input['css'] : null,
-			'js'				=> isset($input['js']) ? $input['js'] : null,
-			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
-			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> ! empty($input['rss_enabled']),
-			'comments_enabled'	=> ! empty($input['comments_enabled']),
-			'status'			=> $input['status'],
-			'created_on'		=> now(),
-			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
-			'strict_uri'		=> ! empty($input['strict_uri']),
-			'is_home'			=> ! empty($input['is_home']),
-			'order'				=> now()
-		));
-
-		// did it pass validation?
-		if ( ! $id) return false;
-
-		// We define this for the field type.
-		define('PAGE_ID', $id);
-
-		$this->buildLookup($id);
-
-		// Add a Navigation Link
-		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
-			if (isset($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
-				foreach ($input['navigation_group_id'] as $group_id) {
-					$link = Link::create(array(
-						'title'					=> $input['title'],
-						'link_type'				=> 'page',
-						'page_id'				=> $id,
-						'navigation_group_id'	=> $group_id
-					));
-
-					if ($link) {
-						//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-						$this->cache->clear('navigation_m');
-
-						Events::trigger('post_navigation_create', $link);
-					}
-				}
-			}
-		}
-
-		// Add the stream data.
-		if ($stream) {
-			$this->load->driver('Streams');
-
-			// Insert the stream using the streams driver.
-			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace)) {
-				// Update with our new entry id
-				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id))) {
-					return false;
-				}
-			} else {
-				// Something went wrong. Abort!
-				return false;
-			}
-		}
-
-		$this->db->trans_complete();
-
-		return ($this->db->trans_status() === false) ? false : $id;
 	}
 
 	/**

@@ -1,0 +1,33 @@
+<?php namespace Pyro\Model;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Eloquent Model
+ *
+ * Extends Illuminates Eloquent model and adds validation
+ *
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Model\Eloquent
+ */
+abstract class Eloquent extends Model
+{
+    abstract public function validate();
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = array())
+    {
+        if ($this->validate($options)) {
+            return parent::save();
+        }
+
+        return false;
+    }
+}
+
+/* End of file Eloquent.php */

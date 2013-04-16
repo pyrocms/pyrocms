@@ -153,7 +153,7 @@ class Plugin_User extends Plugin
 	 */
 	public function has_cp_permissions()
 	{
-		if ($this->current_user and $this->current_user->getPermissions()) {
+		if ($this->current_user and $this->current_user->getMergedPermissions()) {
 			return $this->content() ?: true;
 		}
 	}

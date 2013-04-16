@@ -41,6 +41,20 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
+     * Relationship: Page
+     *
+     * @todo Turn me into a real relationship and rename to stream()
+     * @return array
+     */
+    public function getStream()
+    {
+        return ci()->pdb->table('data_streams')
+            ->take(1)
+            ->where('id', $this->stream_id)
+            ->first();
+    }
+
+    /**
      * Validation callback to check the
      * page type slug. We want page type slugs
      * to be unique so we can use them as folder
