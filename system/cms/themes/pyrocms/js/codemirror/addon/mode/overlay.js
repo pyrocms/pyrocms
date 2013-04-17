@@ -6,7 +6,8 @@
 // overlay wins, unless the combine argument was true, in which case
 // the styles are combined.
 
-CodeMirror.overlayParser = function(base, overlay, combine) {
+// overlayParser is the old, deprecated name
+CodeMirror.overlayMode = CodeMirror.overlayParser = function(base, overlay, combine) {
   return {
     startState: function() {
       return {
@@ -43,9 +44,16 @@ CodeMirror.overlayParser = function(base, overlay, combine) {
       else return state.overlayCur;
     },
     
-    indent: function(state, textAfter) {
+    indent: base.indent && function(state, textAfter) {
       return base.indent(state.base, textAfter);
     },
-    electricChars: base.electricChars
+    electricChars: base.electricChars,
+
+    innerMode: function(state) { return {state: state.base, mode: base}; },
+    
+    blankLine: function(state) {
+      if (base.blankLine) base.blankLine(state.base);
+      if (overlay.blankLine) overlay.blankLine(state.overlay);
+    }
   };
 };
