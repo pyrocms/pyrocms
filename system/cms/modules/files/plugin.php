@@ -396,16 +396,35 @@ class Plugin_Files extends Plugin
 		}
 
 		$type      and $this->db->where('type', $type);
-		$limit     and $this->db->limit($limit);
-		$offset    and $this->db->offset($offset);
+
+		if ( ! empty($folder_id))
+		{
+			$limit     and $this->db->limit($limit);
+			$offset    and $this->db->offset($offset);
+		}
+
 		$order_by  and $this->db->order_by($order_by, $order_dir);
 
-    if ($tags)
-    {
+		if ($tags)
+		{
 			$files = $this->file_m->get_tagged($tags);
-    }
-    else
-    {
+
+			// Set limit and offset on $files array
+			if (empty($folder) AND ! empty($limit) AND ! empty($offset))
+			{
+				$files = array_slice($files, (int)$offset, (int)$limit);
+			}
+			elseif (empty($folder) AND  ! empty($limit) AND empty($offset))
+			{
+				$files = array_slice($files, 0, (int)$limit);
+			}
+			elseif (empty($folder) AND  empty($limit) AND ! empty($offset))
+			{
+				$files = array_slice($files, $offset);
+			}
+		}
+		else
+		{
 			$files = $this->file_m->get_all();
 		}
 
