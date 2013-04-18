@@ -398,7 +398,24 @@ class Streams_m extends MY_Model {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
+	/**
+	 * Empty a stream
+	 *
+	 * @access	public
+	 * @param	obj
+	 * @return	bool
+	 */
+	public function empty_stream($stream)
+	{
+		if ( ! is_object($stream)) return null;
+
+		// Empty table
+		return $this->db->empty_table($stream->stream_prefix.$stream->stream_slug);
+	}
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Delete a stream
 	 *

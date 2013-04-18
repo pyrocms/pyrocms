@@ -16,6 +16,8 @@ $lang['streams:create_stream_error']					= "There was a problem creating your st
 $lang['streams:create_stream_success']					= "Stream created successfully.";
 $lang['streams:stream_update_error']					= "There was a problem updating this stream.";
 $lang['streams:stream_update_success']					= "Stream updated successfully.";
+$lang['streams:stream_empty_error']						= "There was a problem with emptying this stream.";
+$lang['streams:stream_empty_success']					= "Stream emptied successfully.";
 $lang['streams:stream_delete_error']					= "There was a problem with deleting this stream.";
 $lang['streams:stream_delete_success']					= "Stream deleted successfully.";
 $lang['streams:stream_field_ass_add_error']				= "There was a problem adding this field to this stream.";
@@ -28,6 +30,7 @@ $lang['streams:new_entry_error']						= "There was a problem adding this entry."
 $lang['streams:new_entry_success']						= "Entry added successfully.";
 $lang['streams:edit_entry_error']						= "There was a problem updating this entry.";
 $lang['streams:edit_entry_success']						= "Entry updated successfully.";
+$lang['streams:empty_summary']							= "Are you sure you want to empty the <strong>%s</strong> stream? This will <strong>empty %s %s</strong> permanently.";
 $lang['streams:delete_summary']							= "Are you sure you want to delete the <strong>%s</strong> stream? This will <strong>delete %s %s</strong> permanently.";
 
 /* Misc Errors */
@@ -113,6 +116,7 @@ $lang['streams:edit_entry']								= "Edit Entry";
 $lang['streams:view_options']							= "View Options";
 $lang['streams:stream_view_options']					= "Stream View Options";
 $lang['streams:backup_table']							= "Backup Stream Table";
+$lang['streams:empty_stream']							= "Empty Stream";
 $lang['streams:delete_stream']							= "Delete Stream";
 $lang['streams:entry']									= "Entry";
 $lang['streams:field_types']							= "Field Types";
@@ -134,7 +138,7 @@ $lang['streams:start.create_field_here']				= "create a field here";
 $lang['streams:start.no_streams']						= "There are no streams yet, but you can start by";
 $lang['streams:start.no_streams_yet']					= "There are no streams yet.";
 $lang['streams:start.adding_one']						= "adding one";
-$lang['streams:start.no_fields_to_add']					= "No Fields to Add";		
+$lang['streams:start.no_fields_to_add']					= "No Fields to Add";
 $lang['streams:start.no_fields_msg']					= "There are no fields to add to this stream. In PyroStreams, field types can be shared between streams and must be created before being added to a stream. You can start by";
 $lang['streams:start.adding_a_field_here']				= "adding a field here";
 $lang['streams:start.no_entries']						= "There are no entries yet for <strong>%s</strong>. To start, you can";
@@ -151,6 +155,7 @@ $lang['streams:start.no_fields_to_assign']				= "Looks like there are no fields 
 
 /* Buttons */
 
+$lang['streams:yes_empty']								= "Yes, Empty";
 $lang['streams:yes_delete']								= "Yes, Delete";
 $lang['streams:no_thanks']								= "No Thanks";
 $lang['streams:new_field']								= "New Field";
