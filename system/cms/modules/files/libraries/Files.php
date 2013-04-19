@@ -1018,7 +1018,12 @@ class Files
 		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
-		if ($results['file'] or $results['folder'])
+		// search for file by tagged keyword
+		$results['tagged'] = ci()->file_m->select('files.*')
+			->limit($limit)
+			->get_tagged($search);
+
+		if ($results['file'] or $results['folder'] or $results['tagged'])
 		{
 			return self::result(true, null, null, $results);
 		}
