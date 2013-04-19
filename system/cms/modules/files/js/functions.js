@@ -110,7 +110,7 @@ jQuery(function($){
 		// after the folder contents have loaded highlight the results
 		$(window).on('load-completed', function(e, results){
 			$('.folders-center').find('li').removeClass('selected');
-			$('.folders-center :contains('+text+')').parent('li').addClass('selected');
+			$('.folders-center').find('[data-name="'+text+'"]').addClass('selected');
 		});
 	});
 
@@ -682,6 +682,7 @@ jQuery(function($){
 				content_interval = window.setInterval(function(){
 					if (typeof(items[i]) == 'undefined') {
 						clearInterval(content_interval);
+						$(window).trigger('load-completed');
 
 						return;
 					}
@@ -737,7 +738,6 @@ jQuery(function($){
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
 				$(window).trigger('show-message', results);
-				$(window).trigger('load-completed');
 
 				// Show the applicable buttons.
 				$('.item .folders-center').trigger('click');
