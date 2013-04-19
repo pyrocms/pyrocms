@@ -29,13 +29,12 @@ jQuery(function($) {
 	 * Overload the json converter to avoid error when json is null or empty.
 	 */
 	$.ajaxSetup({
-		//allowEmpty: true,
 		converters: {
 			'text json': function(text) {
-				var json = jQuery.parseJSON(text);
-				if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
+				var json = $.parseJSON(text);
+				if (!$.ajaxSettings.allowEmpty && (json == null || $.isEmptyObject(json)))
 				{
-					jQuery.error('The server is not responding correctly, please try again later.');
+					$.error('The server is not responding correctly, please try again later.');
 				}
 				return json;
 			}
