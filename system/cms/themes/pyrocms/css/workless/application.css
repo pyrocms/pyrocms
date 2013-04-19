@@ -1105,6 +1105,10 @@ table > thead > tr {
   border-bottom: 2px solid #ddd;
 }
 
+table {
+  /*border-spacing:0;*/
+}
+
 table > tbody > tr {
   border-bottom: 1px solid #ddd;
 }
