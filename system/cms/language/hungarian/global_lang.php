@@ -113,6 +113,6 @@ $lang['global:plugins']					= 'Pluginek';
 $lang['global:plugin']					= 'Plugin';
 
 $lang['global:options']					= 'Opciók';
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:plain-text']				= 'Egyszerű szöveg';
 
 /* End of file global_lang.php */
