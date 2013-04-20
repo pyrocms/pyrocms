@@ -47,6 +47,16 @@ class Page_m extends MY_Model
 			'label' => 'lang:pages:meta_keywords_label',
 			'rules' => 'trim|max_length[250]'
 		),
+	        array(
+			'field'    => 'meta_robots_no_index',
+			'label'    => 'lang:pages:meta_robots_no_index_label',
+			'rules'    => 'trim'
+		 ),
+                array(
+			'field'    => 'meta_robots_no_follow',
+			'label'    => 'lang:pages:meta_robots_no_follow_label',
+			'rules'    => 'trim'
+		),
 		array(
 			'field'	=> 'meta_description',
 			'label'	=> 'lang:pages:meta_description_label',
@@ -599,7 +609,9 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
-			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
+			'meta_robots_no_index'	=> ! empty($input['meta_robots_no_index']),
+                        'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),
+	    	        'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
@@ -696,6 +708,8 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
+			'meta_robots_no_index'    => ! empty($input['meta_robots_no_index']),
+                        'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),	
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
