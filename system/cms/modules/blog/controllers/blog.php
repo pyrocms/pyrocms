@@ -7,6 +7,8 @@
  */
 class Blog extends Public_Controller
 {
+	public $stream;
+
 	/**
 	 * Every time this controller is called should:
 	 * - load the blog and blog_categories models.
@@ -32,6 +34,10 @@ class Blog extends Public_Controller
 		{
 			$this->categories[$cate['id']] = $cate;
 		}
+
+		// Get blog stream. We use this to set the template
+		// stream throughout the blog module.
+		$this->stream = $this->streams_m->get_stream('blog', true, 'blogs');
 	}
 
 	/**
@@ -70,6 +76,11 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts['entries']);
 
+		$data = array(
+			'pagination' => $posts['pagination'],
+			'posts' => $posts['entries']
+		);
+
 		$this->template
 			->title($this->module_details['name'])
 			->set_breadcrumb(lang('blog:blog_title'))
@@ -79,7 +90,7 @@ class Blog extends Public_Controller
 			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
-			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->build('posts');
 	}
@@ -123,6 +134,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('category', (array)$category)
 			->build('posts');
@@ -169,6 +181,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('month_year', $month_year)
 			->build('archive');
@@ -299,6 +312,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('tag', $tag)
 			->build('posts');
@@ -453,6 +467,7 @@ class Blog extends Public_Controller
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
 			->set_breadcrumb($post['title'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('post', array($post))
 			->build('view');
 	}

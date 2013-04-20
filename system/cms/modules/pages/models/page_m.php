@@ -364,7 +364,7 @@ class Page_m extends MY_Model
 	public function get_page_tree()
 	{
 		$all_pages = $this->db
-			->select('id, parent_id, title')
+			->select('id, parent_id, title, status')
 			->order_by('`order`')
 			->get('pages')
 			->result_array();

@@ -41,6 +41,8 @@ class Template
 
 	private $_is_mobile = false;
 
+	private $_stream = array();
+
 	// Seconds that cache will be alive for
 	private $cache_lifetime = 0;//7200;
 
@@ -344,6 +346,8 @@ class Template
 			$this->_ci->output->set_output($this->_body);
 		}
 
+		$this->_stream = array();
+
 		return $this->_body;
 	}
 
@@ -429,6 +433,28 @@ class Template
 		return $this;
 	}
 
+	/**
+	 * Set Stream
+	 *
+	 * This function allows you to identify
+	 * a variable loop in your view that needs
+	 * to be parsed by the special streams parser.
+	 *
+	 * This simply sets the stream loop data, the actual
+	 * parsing is done in the build function.
+	 *
+	 * @param 	string $stream_slug The name of the stream
+	 * @param 	string $stream_namespace The stream namespace
+	 * @param 	string [$id_name] Override for the id name (see build function for more info)
+	 * @return 	void
+	 */
+	public function set_stream($stream_slug, $stream_namespace, $id_name = null)
+	{
+		$this->_stream = array('stream' => $stream_slug,
+			'namespace' => $stream_namespace, 'id_name' => $id_name);
+	
+		return $this;
+	}
 
 	/**
 	 * Set metadata for output later
@@ -850,7 +876,7 @@ class Template
 
 	private function _load_view($view, array $data, $parse_view = true, $override_view_path = null)
 	{
-		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
+		// Severe hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== null)
 		{
 			if ($this->_parser_enabled === true and $parse_view === true)
@@ -860,7 +886,7 @@ class Template
 					'_ci_path' => $override_view_path.$view.self::_ext($view),
 					'_ci_vars' => $data,
 					'_ci_return' => true
-				)), $data, true);
+				)), $data, true, false, $this->_stream);
 			}
 
 			else
@@ -881,10 +907,10 @@ class Template
 			$content = ($this->_parser_enabled === true AND $parse_view === true)
 
 				// Parse that bad boy
-				? $this->_ci->parser->parse($view, $data, true )
+				? $this->_ci->parser->parse($view, $data, true, false, $this->_stream)
 
 				// None of that fancy stuff for me!
-				: $this->_ci->load->view($view, $data, true );
+				: $this->_ci->load->view($view, $data, true);
 		}
 
 		return $content;

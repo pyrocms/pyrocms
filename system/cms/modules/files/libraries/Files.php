@@ -356,6 +356,8 @@ class Files
 
 		if ($folder)
 		{
+			ci()->load->library('upload');
+
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
@@ -367,7 +369,7 @@ class Files
 			// current file's type.
 			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
 
-			ci()->load->library('upload', $upload_config);
+			ci()->upload->initialize($upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{
@@ -1018,7 +1020,12 @@ class Files
 		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
-		if ($results['file'] or $results['folder'])
+		// search for file by tagged keyword
+		$results['tagged'] = ci()->file_m->select('files.*')
+			->limit($limit)
+			->get_tagged($search);
+
+		if ($results['file'] or $results['folder'] or $results['tagged'])
 		{
 			return self::result(true, null, null, $results);
 		}
