@@ -16,7 +16,7 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 		{
 			$this->dbforge->add_column('pages', array(
 				'meta_robots_no_index' => array(
-					'type' => 'INT',
+					'type' => 'tinyint',
 					'constraint' => 1,
 					'default' => 0,
 					'null' => false
@@ -28,7 +28,7 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 		{
 			$this->dbforge->add_column('pages', array(
 				'meta_robots_no_follow' => array(
-					'type' => 'INT',
+					'type' => 'tinyint',
 					'constraint' => 1,
 					'default' => 0,
 					'null' => false

@@ -225,7 +225,7 @@ class Pages extends Public_Controller
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($this->parser->parse_string($meta_title, $page, true))
 			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
-			->set_metadata('robots',$this->parser->parse_string($meta_robots, $page, true))
+			->set_metadata('robots', $meta_robots)
 			->set_metadata('description', $this->parser->parse_string($meta_description, $page, true))
 			->set_breadcrumb($page->title);
 
