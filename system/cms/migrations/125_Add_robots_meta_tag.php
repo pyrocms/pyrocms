@@ -12,9 +12,9 @@ class Migration_Add_robots_meta_tag extends CI_Migration
   public function up()
 	{
 		// Add meta robots index
-		if (! $this->db->field_exists('meta_robots_no_index', 'default_pages'))
+		if ( ! $this->db->field_exists('meta_robots_no_index', 'pages'))
 		{
-			$this->dbforge->add_column('default_pages', array(
+			$this->dbforge->add_column('pages', array(
 				'meta_robots_no_index' => array(
 					'type' => 'INT',
 					'constraint' => 1,
@@ -24,9 +24,9 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 			));
 		}
 		// Add meta robots follow
-		if (! $this->db->field_exists('meta_robots_no_follow', 'default_pages'))
+		if ( ! $this->db->field_exists('meta_robots_no_follow', 'pages'))
 		{
-			$this->dbforge->add_column('default_pages', array(
+			$this->dbforge->add_column('pages', array(
 				'meta_robots_no_follow' => array(
 					'type' => 'INT',
 					'constraint' => 1,
@@ -39,6 +39,6 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 	
 	public function down()
 	{
-		
+		return true;
 	}
 }
