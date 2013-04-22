@@ -5,12 +5,10 @@
 			allowEmpty: true
 		});
 
-		pyro.field_tags_input = function(form_slug)
-		{
-			$('#'+form_slug).tagsInput({
+		$('.keywords_input').each(function(i, el) {
+			$(this).tagsInput({
 				autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
 			});
-		}
-
+		});
 	});
 })(jQuery);
