@@ -42,14 +42,12 @@ function module_array()
  *
  * @param	string	$slug		The name of the module we are testing
  * @return	string
+ * @deprecated 2.3
  */
 
-function module_exists($slug = '')
+function module_exists($slug)
 {
-	// Start looking
-	$ci =& get_instance();
-
-	return $ci->module_m->exists($slug);
+	return ModuleLocator::moduleExists($slug);
 }
 
 /**
@@ -59,14 +57,12 @@ function module_exists($slug = '')
  *
  * @param	string	$slug		The name of the module we are testing
  * @return	bool
+ * @deprecated 2.3
  */
 
-function module_enabled($slug = '')
+function module_enabled($slug)
 {
-	// Start looking
-	$ci =& get_instance();
-
-	return $ci->module_m->enabled($slug);
+	return ModuleLocator::moduleEnabled($slug);
 }
 
 /**
@@ -76,9 +72,10 @@ function module_enabled($slug = '')
  *
  * @param	string	$slug		The name of the module we are testing
  * @return bool
+ * @deprecated 2.3
  */
 
-function module_installed($slug = '')
+function module_installed($slug)
 {
 	// Start looking
 	$ci =& get_instance();

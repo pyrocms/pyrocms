@@ -1,6 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 use Capsule\Schema;
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Keywords module
@@ -8,7 +9,7 @@ use Capsule\Schema;
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Keywords
  */
-class Module_Keywords extends Module
+class Module_Keywords extends AbstractModule
 {
     public $version = '1.1.0';
 

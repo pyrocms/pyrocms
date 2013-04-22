@@ -1,11 +1,14 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\AbstractModule;
+
 /**
  * Widgets Module
  *
  * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Widgets
  */
-class Module_Widgets extends Module
+class Module_Widgets extends AbstractModule
 {
 
 	public $version = '1.2.0';

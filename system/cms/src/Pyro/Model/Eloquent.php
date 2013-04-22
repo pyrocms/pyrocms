@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class Eloquent extends Model
 {
-    abstract public function validate();
+    // abstract public function validate();
 
     /**
      * Save the model to the database.

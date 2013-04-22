@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+
 
 /**
  * Addons Module
@@ -6,7 +8,7 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Modules
  */
-class Module_Addons extends Module
+class Module_Addons extends Pyro\Module\Addons\AbstractModule
 {
 	public $version = '2.0.0';
 

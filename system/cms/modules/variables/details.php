@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Variables Module
@@ -6,7 +8,7 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Variables
  */
-class Module_Variables extends Module
+class Module_Variables extends AbstractModule
 {
     public $version = '0.4';
 

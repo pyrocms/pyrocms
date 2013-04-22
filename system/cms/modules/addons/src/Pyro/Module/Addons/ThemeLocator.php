@@ -1,11 +1,12 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace Pyro\Module\Addons;
+
 /**
  * Theme model
  *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Themes\Model
  */
-class Theme_m extends MY_Model
+class ThemeLocator extends MY_Model
 {
 	/**
 	 * Default Theme

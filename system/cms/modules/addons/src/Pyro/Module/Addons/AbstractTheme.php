@@ -1,4 +1,5 @@
-<?php  defined('BASEPATH') or exit('No direct script access allowed');
+<?php namespace Pyro\Module\Addons;
+
 /**
  * PyroCMS Theme Definition
  *
@@ -9,7 +10,7 @@
  * @package		PyroCMS\Core\Libraries
  * @abstract
  */
-abstract class Theme
+abstract class AbstractTheme
 {
 	/**
 	 * @var theme name

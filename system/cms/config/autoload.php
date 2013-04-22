@@ -109,8 +109,6 @@ $autoload['language'] = array('errors');
 |
 */
 
-// Autoloaded in MY_Controller
-//	addons/module_m', 'pages/pages_m
 $autoload['model'] = array();
 
 /* End of file autoload.php */

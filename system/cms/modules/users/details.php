@@ -1,6 +1,7 @@
 <?php
 
 use Capsule\Schema;
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Users Module
@@ -8,7 +9,7 @@ use Capsule\Schema;
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Users
  */
-class Module_Users extends Module
+class Module_Users extends AbstractModule
 {
     public $version = '2.1.0';
 

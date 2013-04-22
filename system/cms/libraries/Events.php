@@ -43,15 +43,13 @@ class Events
 
 		$is_core = true;
 
-		$_ci->load->model('addons/module_m');
-
-		if (! $results = $_ci->enabled_modules) {
+		if (( ! $results = $_ci->moduleManager->getAllEnabled())) {
 			return false;
 		}
 
 		foreach ($results as $row) {
 			// This does not have a valid details.php file! :o
-			if (!$details_class = self::_spawn_class($row['slug'], $row['is_core'])) {
+			if (( ! $details_class = self::spawnClass($row['slug'], $row['is_core']))) {
 				continue;
 			}
 		}
@@ -68,7 +66,7 @@ class Events
 	 * @param boolean $is_core Whether the module is a core module.
 	 * @return object|boolean
 	 */
-	private static function _spawn_class($slug, $is_core = false)
+	private static function spawnClass($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 

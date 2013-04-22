@@ -1,5 +1,7 @@
 <?php
 
+use Pyro\Module\Addons\AbstractModule;
+
 /**
  * PyroStreams Core Module
  *
@@ -9,7 +11,7 @@
  * @license        http://parse19.com/pyrostreams/docs/license
  * @link           http://parse19.com/pyrostreams
  */
-class Module_Streams_core extends Module
+class Module_Streams_core extends AbstractModule
 {
 	public $version = '1.3.0';
 

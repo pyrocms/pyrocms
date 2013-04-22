@@ -1,6 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 use Capsule\Schema;
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Pages Module
@@ -8,7 +9,7 @@ use Capsule\Schema;
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Pages
  */
-class Module_Pages extends Module
+class Module_Pages extends AbstractModule
 {
     public $version = '2.2.0';
 

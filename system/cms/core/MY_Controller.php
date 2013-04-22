@@ -3,6 +3,8 @@
 require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
+use Composer\Autoload\ClassLoader;
+use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -118,21 +120,30 @@ class MY_Controller extends MX_Controller
         ci()->controller = $this->controller = $this->router->fetch_class();
         ci()->method = $this->method = $this->router->fetch_method();
 
-        // Loaded after $this->current_user is set so that data can be used everywhere
-        $this->load->model(array(
-            'addons/module_m',
-            'addons/theme_m',
-        ));
+        // Lets PSR-0 up our modules
+        $loader = new ClassLoader;
+
+        // Register module manager for usage everywhere, its handy
+        $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
+        $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
+        
+        // activate the autoloader
+        $loader->register();
+
+        // Is there a logged in user?
+        ci()->sentry = $this->sentry = $this->setupSentry();
+
+        // Assign to EVERYTHING
+        $user = $this->sentry->getUser();
+
+        $this->template->current_user = ci()->current_user = $this->current_user = $user;
+
+        ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
 
         // load all modules (the Events library uses them all) and make their details widely available
-        ci()->enabled_modules = $this->module_m->get_all();
-        
-        // set defaults
-        $this->template->module_details = ci()->module_details = $this->module_details = false;
+        $enabled_modules = $this->moduleManager->getAllEnabled();
 
-        // Lets PSR-0 up our modules
-        $loader = new \Composer\Autoload\ClassLoader;
-        foreach (ci()->enabled_modules as $module) {
+        foreach ($enabled_modules as $module) {
 
             // register classes with namespaces
             $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
@@ -148,14 +159,6 @@ class MY_Controller extends MX_Controller
 
         // activate the autoloader
         $loader->register();
-
-		// Is there a logged in user?
-        ci()->sentry = $this->sentry = $this->setupSentry();
-
-        // Assign to EVERYTHING
-        $user = $this->sentry->getUser();
-
-        $this->template->current_user = ci()->current_user = $this->current_user = $user;
 
 		// now that we have a list of enabled modules
 		$this->load->library('events');

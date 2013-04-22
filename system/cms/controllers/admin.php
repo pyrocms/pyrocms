@@ -145,7 +145,7 @@ class Admin extends Admin_Controller
 	{
 		$this->template
 			->set_layout('modal', 'admin')
-			->set('help', $this->module_m->help($slug))
+			->set('help', $this->moduleManager->help($slug))
 			->build('admin/partials/help');
 	}
 

@@ -1,6 +1,7 @@
 <?php
 
 use Capsule\Schema;
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Blog module
@@ -8,7 +9,7 @@ use Capsule\Schema;
  * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Blog
  */
-class Module_Blog extends Module
+class Module_Blog extends AbstractModule
 {
 	public $version = '2.0.0';
 

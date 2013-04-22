@@ -37,7 +37,7 @@ class Admin_modules extends Admin_Controller
 	{
 		$this->module_m->import_unknown();
 
-		$all_modules = $this->module_m->get_all(null, true);
+		$all_modules = $this->module_m->get_all();
 
 		$core_modules = $addon_modules = array();
 		foreach ($all_modules as $module) {
@@ -201,7 +201,9 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function enable($slug)
 	{
-		if ($this->module_m->enable($slug)) {
+		$module = Module::findBySlug($slug)->enable();
+		
+		if ($->enable()) {
 			// Fire an event. A module has been enabled.
 			Events::trigger('module_enabled', $slug);
 

@@ -1,49 +1,43 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace Pyro\Module\Addons;
+
+use Pyro\Model;
+
 /**
  * Model to handle widgets
  *
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Widgets\Models
  */
-class Widget_m extends MY_Model
+class WidgetModel extends Model
 {
-	public function __construct()
+	public function find($id)
 	{
-		parent::__construct();
-
-		$this->load->helper('date');
-	}
-
-	public function get_instance($id)
-	{
-		$this->db
+		$instance = ci()->pdb
+			->table('widget_areas wa')
 			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->from('widget_areas wa')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
-			->where('wi.id', $id);
+			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id', '=', 'w.id')
+			->where('wi.id', $id)
+			->take(1)
+			->first();
 
-		$result = $this->db->get()->row();
-
-		if ($result) {
-			$this->unserialize_fields($result);
+		if ($instance) {
+			$this->unserialize_fields($instance);
 		}
 
-		return $result;
+		return $instance;
 	}
 
 	public function findByArea($slug)
 	{
-		$this->db
-			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
-			->from('widget_areas wa')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
-			->where('wa.slug', $slug)
-			->order_by('wi.order');
-
-		$result = $this->db->get()->result();
+		$result = ci()->pdb
+			->table('widget_areas')
+			->select('widget_instances.id', 'widgets.slug', 'widget_instances.id as instance_id', 'widget_instances.title as instance_title', 'widgets.title', 'widget_instances.widget_area_id', 'widget_areas.slug as widget_area_slug', 'widget_instances.options')
+			->join('widget_instances', 'widget_areas.id', '=', 'widget_instances.widget_area_id')
+			->join('widgets', 'widget_instances.widget_id', '=', 'widgets.id')
+			->where('widget_areas.slug', $slug)
+			->orderBy('widget_instances.order')
+			->get();
 
 		if ($result) {
 			array_map(array($this, 'unserialize_fields'), $result);
@@ -54,7 +48,6 @@ class Widget_m extends MY_Model
 
 	public function findByAreas($slug = array())
 	{
-
 		if ( ! (is_array($slug) && $slug)) {
 			return array();
 		}
@@ -62,8 +55,8 @@ class Widget_m extends MY_Model
 		$this->db
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
-			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
-			->join('widgets w', 'wi.widget_id = w.id')
+			->join('widget_instances wi', 'wa.id', '=', 'wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id', '=', 'w.id')
 			->where_in('wa.slug', $slug)
 			->order_by('wi.order');
 
@@ -154,7 +147,7 @@ class Widget_m extends MY_Model
 			'version' 		=> $input['version'],
 			'enabled' 		=> $input['enabled'],
 			'order' 		=> $input['order'],
-			'updated_on'	=> now()
+			'updated_on'	=> time()
 		));
 	}
 
@@ -173,7 +166,7 @@ class Widget_m extends MY_Model
 				'author' 		=> $input['author'],
 				'website' 		=> $input['website'],
 				'version' 		=> $input['version'],
-				'updated_on'	=> now()
+				'updated_on'	=> time()
 			));
 	}
 
@@ -249,7 +242,7 @@ class Widget_m extends MY_Model
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
 			'order'				=> $order,
-			'created_on'		=> now(),
+			'created_on'		=> time(),
 		));
 	}
 
@@ -261,7 +254,7 @@ class Widget_m extends MY_Model
         	'title'				=> $input['title'],
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
-			'updated_on'		=> now()
+			'updated_on'		=> time()
 		));
 	}
 

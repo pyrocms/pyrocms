@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace Pyro\Module\Addons;
 
 /**
  * Widget library takes care of the logic for widgets
@@ -7,7 +7,7 @@
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Widgets
+class WidgetLocator
 {
 	/**
 	 * Current widget in use (yay singletons!)

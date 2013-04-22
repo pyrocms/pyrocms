@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\AbstractModule;
 
 /**
  * Redirects module
@@ -6,7 +8,7 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Redirects
  */
-class Module_Redirects extends Module
+class Module_Redirects extends AbstractModule
 {
 	public $version = '1.0.0';
 
