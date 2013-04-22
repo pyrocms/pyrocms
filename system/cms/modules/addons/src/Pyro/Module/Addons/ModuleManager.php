@@ -206,7 +206,7 @@ class ModuleManager
             
             if ( ! empty($params['is_backend'])) {
                 // This user has no permissions for this module
-                if (( ! $user->hasAccess($record->slug.'.*'))) {
+                if (( ! $this->user->hasAccess($record->slug.'.*'))) {
                     continue;
                 }
             }
@@ -477,6 +477,72 @@ class ModuleManager
         }
 
         return true;
+    }
+
+    /**
+     * Module Exists
+     *
+     * Checks if a module exists
+     *
+     * @param   string  $slug   The module slug
+     * @return  bool
+     */
+    public function moduleExists($slug)
+    {
+        if (( ! $slug)) {
+            return false;
+        }
+
+        if (isset($this->exists[$slug])) {
+            return $this->exists[$slug];
+        }
+
+        // Go forth, find the answer, cache it and let us know
+        return $this->exists[$slug] = $this->modules->moduleExists($slug);
+    }
+
+    /**
+     * Module Enabled
+     *
+     * Checks if a module is enabled
+     *
+     * @param   string  $slug   The module slug
+     * @return  bool
+     */
+    public function moduleEnabled($slug)
+    {
+        if (( ! $slug)) {
+            return false;
+        }
+
+        if (isset($this->enabled[$slug])) {
+            return $this->enabled[$slug];
+        }
+
+        // Go forth, find the answer, cache it and let us know
+        return $this->enabled[$slug] = $this->modules->moduleEnabled($slug);
+    }
+
+    /**
+     * Module Installed
+     *
+     * Checks if a module is installed
+     *
+     * @param   string  $slug   The module slug
+     * @return  bool
+     */
+    public function moduleInstalled($slug)
+    {
+        if (( ! $slug)) {
+            return false;
+        }
+
+        if (isset($this->installed[$slug])) {
+            return $this->installed[$slug];
+        }
+
+        // Go forth, find the answer, cache it and let us know
+        return $this->installed[$slug] = $this->modules->moduleInstalled($slug);
     }
 
     /**

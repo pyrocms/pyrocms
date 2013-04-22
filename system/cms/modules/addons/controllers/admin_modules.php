@@ -35,9 +35,9 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->module_m->import_unknown();
+		$this->moduleManager->discoverNonexistantModules()
 
-		$all_modules = $this->module_m->get_all();
+		$all_modules = $this->moduleManager->getAll();
 
 		$core_modules = $addon_modules = array();
 		foreach ($all_modules as $module) {

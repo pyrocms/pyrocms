@@ -5,6 +5,7 @@ require APPPATH."libraries/MX/Controller.php";
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
 use Pyro\Module\Addons\ModuleManager;
+use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -139,6 +140,7 @@ class MY_Controller extends MX_Controller
         $this->template->current_user = ci()->current_user = $this->current_user = $user;
 
         ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
+        ci()->themeManager = $this->themeManager = new ThemeManager();
 
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
@@ -163,47 +165,26 @@ class MY_Controller extends MX_Controller
 		// now that we have a list of enabled modules
 		$this->load->library('events');
 
+		if ($this->module) {
+            // If this a disabled module then show a 404
+            if (empty($this->module_details['enabled'])) {
+                show_404();
+            }
 
-		// certain places (such as the Dashboard) we aren't running a module, provide defaults
-		if ( ! $this->module) {
-			$this->module_details = array(
-				'name' => null,
-				'slug' => null,
-				'version' => null,
-				'description' => null,
-				'skip_xss' => null,
-				'is_frontend' => null,
-				'is_backend' => null,
-				'menu' => null,
-				'enabled' => true,
-				'sections' => array(),
-				'shortcuts' => array(),
-				'is_core' => null,
-				'is_current' => null,
-				'current_version' => null,
-				'updated_on' => null
-			);
-		}
+    		if (empty($this->module_details['skip_xss'])) {
+    			$_POST = $this->security->xss_clean($_POST);
+    		}
 
-		// If the module is disabled then show a 404.
-		empty($this->module_details['enabled']) and show_404();
-
-		if ( ! $this->module_details['skip_xss'])
-		{
-			$_POST = $this->security->xss_clean($_POST);
-		}
-
-		// Assign "This" module as its own namespace
-		if ($this->module and isset($this->module_details['path']))
-		{
-			Asset::add_path('module', $this->module_details['path'].'/');
-		}
+    		// Assign "This" module as its own namespace
+    		if (isset($this->module_details['path'])) {
+    			Asset::add_path('module', $this->module_details['path'].'/');
+    		}
+        }
 		
 		$this->benchmark->mark('my_controller_end');
 
 		// Enable profiler on local box
-	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET))
-	    {
+	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET)) {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
 	    }

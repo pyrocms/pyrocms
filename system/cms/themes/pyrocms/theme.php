@@ -1,8 +1,9 @@
 <?php
 
+use Pyro\Module\Addons\AbstractTheme;
 use Pyro\Module\Comments\Model\Comment;
 
-class Theme_Pyrocms extends Theme
+class Theme_Pyrocms extends AbstractTheme
 {
     public $name			= 'PyroCMS - Admin Theme';
     public $author			= 'PyroCMS Dev Team';
@@ -59,11 +60,15 @@ class Theme_Pyrocms extends Theme
 	public function run()
 	{
 		// only load these items on the dashboard
-		if ($this->module == '' && $this->method !== 'login' && $this->method !== 'help') {
+		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme_options->pyrocms_analytics_graph == 'yes')	self::getAnalytics();
-			if ($this->theme_options->pyrocms_news_feed == 'yes')		self::getRssFeed();
-			if ($this->theme_options->pyrocms_recent_comments == 'yes')	self::getRecentComments();
+			if ($this->theme->options) {
+				$options = $this->theme->options;
+
+				if ($options->pyrocms_analytics_graph == 'yes')	self::getAnalytics();
+				if ($options->pyrocms_news_feed == 'yes')		self::getRssFeed();
+				if ($options->pyrocms_recent_comments == 'yes')	self::getRecentComments();
+			}
 		}
 	}
 

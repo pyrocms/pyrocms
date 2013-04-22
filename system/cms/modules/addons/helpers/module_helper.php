@@ -27,9 +27,7 @@ function module_directories()
  */
 function module_array()
 {
-	$ci =& get_instance();
-
-	$modules = $ci->module_m->get_all();
+	$modules = ci()->module_m->get_all();
 	asort($modules);
 
 	return $modules;
@@ -47,7 +45,7 @@ function module_array()
 
 function module_exists($slug)
 {
-	return ModuleLocator::moduleExists($slug);
+	return ci()->moduleManager->moduleExists($slug);
 }
 
 /**
@@ -62,7 +60,7 @@ function module_exists($slug)
 
 function module_enabled($slug)
 {
-	return ModuleLocator::moduleEnabled($slug);
+	return ci()->moduleManager->moduleEnabled($slug);
 }
 
 /**
@@ -77,10 +75,7 @@ function module_enabled($slug)
 
 function module_installed($slug)
 {
-	// Start looking
-	$ci =& get_instance();
-
-	return $ci->module_m->installed($slug);
+	return ci()->moduleManager->moduleInstalled($slug);
 }
 
 /**

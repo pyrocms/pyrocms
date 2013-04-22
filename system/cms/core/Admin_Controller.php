@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Addons\ThemeOptionModel;
+
 /**
  * This is the basis for the Admin class that is used throughout PyroCMS.
  * 
@@ -42,24 +44,22 @@ class Admin_Controller extends MY_Controller
 
 		$this->load->helper('admin_theme');
 		
-		ci()->admin_theme = $this->theme_m->get_admin();
+		$theme = $this->themeManager->get(Settings::get('admin_theme'));
 		
 		// Using a bad slug? Weak
-		if (empty($this->admin_theme->slug))
-		{
+		if (is_null($theme)) {
 			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
+		$this->theme = ci()->theme = $theme;
+
 		// make a constant as this is used in a lot of places
-		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
+		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->slug);
 			
 		// Set the location of assets
-		Asset::add_path('theme', $this->admin_theme->web_path.'/');
+		Asset::add_path('theme', $this->theme->web_path.'/');
 		Asset::set_path('theme');
 		
-		// grab the theme options if there are any
-		ci()->theme_options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
-	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
 		
@@ -80,10 +80,8 @@ class Admin_Controller extends MY_Controller
 			// This array controls the order of the admin items.
 			$this->template->menu_order = array('lang:cp:nav_content', 'lang:cp:nav_structure', 'lang:cp:nav_data', 'lang:cp:nav_users', 'lang:cp:nav_settings', 'lang:global:profile');
 
-			$modules = $this->module_m->get_all(array(
+			$modules = $this->moduleManager->getAllEnabled(array(
 				'is_backend' => true,
-				'group' => $this->current_user->group,
-				'lang' => CURRENT_LANGUAGE
 			));
 
 			foreach ($modules as $module) {
@@ -162,12 +160,12 @@ class Admin_Controller extends MY_Controller
 		// Template configuration
 		$this->template
 			->enable_parser(false)
-			->set('theme_options', $this->theme_options)
+			->set('theme_options', $this->theme->options)
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
 
 		// trigger the run() method in the selected admin theme
-		$class = 'Theme_'.ucfirst($this->admin_theme->slug);
+		$class = 'Theme_'.ucfirst($this->theme->slug);
 		call_user_func(array(new $class, 'run'));
 	}
 

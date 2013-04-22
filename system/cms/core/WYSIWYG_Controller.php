@@ -27,20 +27,21 @@ class WYSIWYG_Controller extends MY_Controller
 			show_error(lang('files:no_permissions'));
 		}
 
-		ci()->admin_theme = $this->theme_m->get_admin();
-
+		$theme = $this->themeManager->get(Settings::get('admin_theme'));
+		
 		// Using a bad slug? Weak
-		if (empty($this->admin_theme->slug))
-		{
+		if (is_null($theme)) {
 			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
+		$this->theme = ci()->theme = $theme;
+
 		// Make a constant as this is used in a lot of places
-		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
+		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->slug);
 
 		// Set the location of assets
 		Asset::add_path('module', APPPATH.'modules/wysiwyg/');
-		Asset::add_path('theme', $this->admin_theme->web_path.'/');
+		Asset::add_path('theme', $this->theme->web_path.'/');
 		Asset::set_path('theme');
 
 		$this->load->library('files/files');

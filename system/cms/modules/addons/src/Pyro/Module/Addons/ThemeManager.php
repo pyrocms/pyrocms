@@ -1,42 +1,29 @@
 <?php namespace Pyro\Module\Addons;
 
 /**
- * Theme model
+ * Theme Manager
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Modules\Themes\Model
+ * @package     PyroCMS\Core\Addons
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @link        http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Addons.ThemeManager.html
  */
-class ThemeLocator extends MY_Model
+class ThemeManager
 {
-	/**
-	 * Default Theme
-	 *
-	 * @var string
-	 */
-	public $_theme = null;
-
-	/**
-	 * Default Admin Theme
-	 *
-	 * @var string
-	 */
-	public $_admin_theme = null;
-
 	/**
 	 * Available Themes
 	 *
 	 * @var array
 	 */
-	public $_themes = null;
+	public $exists = array();
 
 	/**
-	 * Sets the current default theme
+	 * Constructor
 	 */
     public function __construct()
     {
-        parent::__construct();
-        $this->_theme = $this->settings->default_theme;
-		$this->_admin_theme = $this->settings->admin_theme;
+
+        
     }
 
     /**
@@ -72,31 +59,7 @@ class ThemeLocator extends MY_Model
 	{
 		$slug OR $slug = $this->_theme;
 
-		foreach ($this->template->theme_locations() as $location) {
-			if (is_dir($location.$slug)) {
-				$theme = $this->_get_details($location, $slug);
-
-				if ($theme !== false) {
-					return $theme;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Get the admin theme
-	 *
-	 * @param string $slug
-	 *
-	 * @return bool|object
-	 */
-	public function get_admin($slug = '')
-	{
-		$slug OR $slug = $this->_admin_theme;
-
-		foreach ($this->template->theme_locations() as $location) {
+		foreach (ci()->template->theme_locations() as $location) {
 			if (is_dir($location.$slug)) {
 				$theme = $this->_get_details($location, $slug);
 
@@ -131,7 +94,7 @@ class ThemeLocator extends MY_Model
 			//path to theme
 			$web_path = $location.$slug;
 
-			$theme                 = new stdClass();
+			$theme                 = new \stdClass();
 			$theme->slug           = $slug;
 			$theme->is_core        = $is_core;
 			$theme->path           = $path;
@@ -147,17 +110,11 @@ class ThemeLocator extends MY_Model
 			$theme->version        = '??';
 
 			//load the theme details.php file
-			$details = $this->_spawn_class($slug, $is_core);
+			$details = $this->spawnClass($slug, $is_core);
 
 			//assign values
 			if ($details) {
 				foreach (get_object_vars($details) as $key => $val) {
-					if ($key == 'options' and is_array($val)) {
-						// only save to the database if there are no options saved already
-						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result()) {
-							$this->_save_options($slug, $val);
-						}
-					}
 					$theme->{$key} = $val;
 				}
 			}
@@ -249,7 +206,7 @@ class ThemeLocator extends MY_Model
 	 *
 	 * @return array
 	 */
-	private function _spawn_class($slug, $is_core = false)
+	private function spawnClass($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
