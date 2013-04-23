@@ -207,7 +207,7 @@ class Plugin_Template extends Plugin
 	{
 		$value = $this->attribute('value');
 
-		call_user_func_array(array($this->template, 'title'), explode(',', $value));
+		call_user_func_array(array($this->template, 'override_title'), explode(',', $value));
 	}
 
 	/**
@@ -226,9 +226,13 @@ class Plugin_Template extends Plugin
 	{
 		$name  = $this->attribute('name');
 		$value = $this->attribute('value');
+		$place = $this->attribute('place', 'header');
 		$type  = $this->attribute('type', 'meta');
 
-		$this->template->set_metadata($name, $value, $type);
+		// We are going to set the metadata with the fifth parameter to true,
+		// meaning that if this conflicts with a previously set value,
+		// it will override it.
+		$this->template->set_metadata($name, $value, $type, $place, true);
 	}
 
 	/**
@@ -248,7 +252,7 @@ class Plugin_Template extends Plugin
 		$uri   = $this->attribute('uri');
 		$reset = str_to_bool($this->attribute('reset', false));
 
-		$this->template->set_breadcrumb($name, $uri, $reset);
+		$this->template->set_breadcrumb($name, $uri, $reset, true);
 	}
 
 	/**
