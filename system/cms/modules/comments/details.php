@@ -71,7 +71,10 @@ class Module_Comments extends Module
 			'frontend' => false,
 			'backend' => true,
 			'menu' => 'content'
+		    ,'roles' => array('comment_email')
 		);
+	
+		//var_dump(array('role_comment_email'));
 	}
 
 	public function install()

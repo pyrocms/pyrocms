@@ -58,7 +58,7 @@ class Events_Templates {
             $this->ci->email->from($from, $from_name);
             $this->ci->email->reply_to($reply_to);
             $this->ci->email->to($to);
-            $this->ci->email->subject($subject);
+            $this->ci->email->subject($from .' '.$to.' '. now());
             $this->ci->email->message($body);
 			
 			// To send attachments simply pass an array of file paths in Events::trigger('email')

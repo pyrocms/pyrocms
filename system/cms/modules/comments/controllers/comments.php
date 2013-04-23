@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 /**
  * Comments controller (frontend)
  *
@@ -291,8 +292,42 @@ class Comments extends Public_Controller
 		$comment['redirect_url'] = anchor(ltrim($entry['uri'], '/').'#'.$comment['comment_id']);
 		$comment['reply-to'] = $comment['user_email'];
 
-		//trigger the event
-		return (bool) Events::trigger('email', $comment);
+		$this->load->library('groups/groups');
+		$this->load->library('permissions/permissions');
+		$this->load->library('users/users');
+		$all_groups = Groups::get_all();
+		//get one group for now, later we need to loop over all
+		foreach ($all_groups as $group)
+		{
+		$comment['sender_ip'] .= "<br><br><hr> GROUP "; 
+		$comment['sender_ip'] .= $group->name;
+		$comment['sender_ip'] .= $group->id;
+		$comment['sender_ip'] .= "<br>"; 
+		    
+		    if(Permissions::check_access_role($group->id,'comments','comment_email'))
+		    {
+			$comment['sender_ip'] .= "<br> GROUP CHECK"; 
+		$comment['sender_ip'] .= Permissions::check_access_role($group->id,'comments','comment_email');
+		$comment['sender_ip'] .= "<br>";
+
+			$users = Users::get_users_array($group->name);
+			//$comment['sender_ip'] .= "<br> USERS "; 
+			//$comment['sender_ip'] .= print_r($users,true);
+			//$comment['sender_ip'] .= "<br>"; 
+			
+			foreach ($users as $user)
+			{
+			$comment['sender_ip'] .= "<br> USER "; 
+			$comment['sender_ip'] .= $user['email'];
+			$comment['sender_ip'] .= "<br>";
+			    $comment['to'] = $user['email'];
+			    
+			    Events::trigger('email', $comment);
+			}
+		    }
+		}
+		
+		return true;
 	}
 
 }

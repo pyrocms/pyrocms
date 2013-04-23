@@ -115,6 +115,60 @@ class Permission_m extends CI_Model
 			->where('group_id', $group_id)
 			->count_all_results('permissions') > 0;
 	}
+	/**
+	 * Get a rule & role based on the ID
+	 *
+	 * @param int $group_id The id for the group to get the rule for.
+	 * @param null|string $module The module to check access against
+	 * @param  $role The role to check access against
+	 * @return bool
+	 */
+	
+	//bookmark after this function works, need also in the library
+	public function check_access_role($group_id, $module = null,$role = null)
+	{
+	    $access = "";
+	    $count = 0;
+		// If no module is set, just make sure they have SOMETHING
+		if ($module !== null)
+		{
+			$this->db->where('module', $module);
+		}
+
+		
+		//the above is checking for the module
+		//below is searching inside all lines with the module of the group is part of it
+		
+		//we select the group
+		$group_result = $this->db
+			->get_where('default_permissions',array('group_id' => $group_id));
+			
+		//$group_result= $this->db->get('default_permissions');
+
+		//iterate over the rows in the result 
+		foreach ($group_result->result() as $row)
+		{
+		    $row_string = print_r($row,true);
+
+		    $json = $row->roles;
+		    //put the role in to a json
+
+		    $role_array = json_decode($json, true);
+		    foreach ($role_array as $role_key => $value)
+			{
+			$condition = ($role ==$role_key && $value ==1);
+			$access .="<br>CONDITION EVAL = $condition<br>";
+			
+			 if($role ==$role_key && $value ==1)
+			 {
+			     ++$count;
+			 }
+			}
+		}
+		
+		
+		return $count >0;
+	}
 
 	/**
 	 * Save the permissions passed
