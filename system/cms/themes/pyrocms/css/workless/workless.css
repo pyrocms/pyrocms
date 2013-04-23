@@ -2068,6 +2068,7 @@ li.pill {
     -moz-opacity: .5;
          opacity: .5;
   filter: alpha(opacity=50);
+  overflow: hidden;  
 }
 
 .topbar ul li ul {
