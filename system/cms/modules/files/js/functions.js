@@ -938,7 +938,7 @@ jQuery(function($){
 
 			// set up keywords
 			$('#keyword_input').tagsInput({
-				autocomplete_url:'admin/keywords/autocomplete'
+				autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
 			});
 
 			// when the colorbox is closed kill the tag input

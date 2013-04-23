@@ -7,7 +7,7 @@
  */
 class Pages extends Public_Controller
 {
-
+	
 	/**
 	 * Constructor method
 	 */
@@ -217,16 +217,18 @@ class Pages extends Public_Controller
 			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
 
-		// ---------------------------------
-
-		// We do this before parsing the page contents so that
-		// title, meta, & breadcrumbs can be overridden with tags in the page content
+		// Set the title, keywords, description, and breadcrumbs.
 		$this->template->title($this->parser->parse_string($meta_title, $page, true))
 			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
+<<<<<<< HEAD
+=======
+			->set_metadata('robots', $meta_robots)
+>>>>>>> 63164500df7012ed2c624099d398db784d175de3
 			->set_metadata('description', $this->parser->parse_string($meta_description, $page, true))
 			->set_breadcrumb($page->title);
 
-		// make it possible to use {{ asset:inline_css }} #foo { color: red } {{ /asset:inline_css }}
+		// Parse the CSS so we can use tags like {{ asset:inline_css }}
+		// #foo {color: red} {{ /asset:inline_css }}
 		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
 		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
 
@@ -289,8 +291,8 @@ class Pages extends Public_Controller
 			exit($this->template->build($view, array('page' => $page), false, false, true, $template));
 		}
 
-
-		$this->template->build($view, array('page' => $page), false, false, true, $template);
+		$this->template
+					->build($view, array('page' => $page), false, false, true, $template);
 	}
 
     // --------------------------------------------------------------------------

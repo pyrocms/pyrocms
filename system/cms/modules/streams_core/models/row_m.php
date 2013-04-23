@@ -636,21 +636,58 @@ class Row_m extends MY_Model {
 			// Run the query as is. It does not
 			// have limit/offset, so we can get the
 			// total num rows with the current
-			// parameters we have applie.
+			// parameters we have applied.
 			$return['pag_count'] = $this->db->query($sql)->num_rows();
+
+			// Get the number.
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string') 
+			{
+				// Get the query string var
+				if ( ! isset($pag_query_var) or $pag_query_var) {
+					$pag_query_var = 'page';
+				}
+
+				$pag_id = $this->input->get($pag_query_var);
+
+				// We, at the very least, need to be on page 1.
+				if ( ! $pag_id or ! is_numeric($pag_id) or $pag_id < 1)
+				{
+					$pag_id = 1;
+				}
+			}
+			else
+			{
+				$pag_id = $this->uri->segment($pag_segment, 0);
+			}
 			
-			// Set the offset. Blank segment
-			// is a 0 offset.
-			$offset = $this->uri->segment($pag_segment, 0);
+			if (isset($pag_method))
+			{
+				if ($pag_method == 'page') 
+				{	
+					$offset = $limit*($pag_id-1);
+				}
+				else
+				{
+					// Default is 'offset',
+					// our segment holds the offset
+					$offset = $pag_id;
+				}
+			}
+			else
+			{
+				// If there is no pag_method set, we will
+				// just use $pag_id as the offset.
+				$offset = $pag_id;
+			}
 		}
 
 		// -------------------------------------
 		// Offset 
 		// -------------------------------------
-		// Just in case.
+		// Normalize offset to 0 just in case.
 		// -------------------------------------
 
-		if ( ! isset($offset))
+		if ( ! isset($offset) or ! is_numeric($offset) or ! $offset or $offset < 0)
 		{
 			$offset = 0;
 		}
@@ -1665,20 +1702,69 @@ class Row_m extends MY_Model {
 	 * @param 	string [$pag_base] optional manual pagination base
 	 * @return	string
 	 */
-	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars, $pag_base = null)
+	public function build_pagination($config, $limit, $total_rows, $pagination_vars, $pag_base = null)
 	{
 		$this->load->library('pagination');
+		$pagination_config = array();
 
 		// -------------------------------------
-		// Validate pag_segment
+		// Page Config.
 		// -------------------------------------
-		// Needs to be a number. Let's
-		// default to 2.
+		// For backwards compatability, you can
+		// pass the first variable as the $pag_segment,
+		// but you can also pass an array of
+		// config values.
 		// -------------------------------------
-	
+
+		if ( ! is_array($config))
+		{
+			$pag_segment = $conifg;
+		}
+		else
+		{
+			$pag_segment = (isset($config['pag_segment'])) ? $config['pag_segment'] : 2;
+			$pag_method = (isset($config['pag_method'])) ? $config['pag_method'] : 'offset';
+			$pag_uri_method = (isset($config['pag_uri_method'])) ? $config['pag_uri_method'] : 'segment;';
+			$pag_query_var = (isset($config['pag_query_var'])) ? $config['pag_query_var'] : 'page';
+		}
+
+		// Validate pag_segment	
 		if ( ! is_numeric($pag_segment))
 		{
 			$pag_segment = 2;
+		}
+
+		// -------------------------------------
+		// Config Set
+		// -------------------------------------
+
+		// We always reuse the query string
+		$pagination_config['reuse_query_string'] = true;
+
+		// Set use_page_numbers
+		if ($pag_method == 'page')
+		{
+			$pagination_config['use_page_numbers'] = true;
+		} else {
+			$pagination_config['uri_segment'] 		= $pag_segment;
+		}
+
+		// We want to preserve the query string
+		// if we are using the query_string method.
+		if ($pag_uri_method == 'query_string')
+		{
+			$pagination_config['page_query_string'] = true;
+		}
+
+		// Override $pag_base with config if we need to.
+		if (isset($config['pag_base_url']) and $config['pag_base_url'])
+		{
+			$pag_base = $config['pag_base_url'];
+		}
+
+		if ($pag_query_var)
+		{
+			$pagination_config['query_string_segment'] = $pag_query_var;
 		}
 
 		// -------------------------------------
@@ -1691,20 +1777,37 @@ class Row_m extends MY_Model {
 
 		if ( ! $pag_base)
 		{
-			$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
-			$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+			// Are we using a query string? If so, we just need to take
+			// The entire current URL. Otherwise, we take the URL up to the
+			// pagination segment.
+			if ($pag_uri_method == 'query_string')
+			{
+				$pagination_config['base_url'] = current_url().'?';
+			}
+			else
+			{ 
+				$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
+				$pagination_config['base_url'] = site_url(implode('/', $segments).'/');
+			}
 		}
 		else
 		{
+			// We always set a manual base if it is provided.
 			$pagination_config['base_url'] = $pag_base;
 		}
 
 		// -------------------------------------
-		// Figure Limit and Offset
+		// Determine Limit
 		// -------------------------------------
 		
-		if ( ! is_numeric($limit)) $limit = 0;
-		if ($limit < 0) $limit = 0;
+		if ( ! is_numeric($limit)) {
+			$limit = 0;
+		}
+		
+		// We cannot have a negative limit
+		if ($limit < 0) {
+			$limit = 0;
+		}
 
 		// -------------------------------------
 		// Set basic pagination data
@@ -1712,8 +1815,7 @@ class Row_m extends MY_Model {
 
 		$pagination_config['total_rows'] 		= $total_rows;
 		$pagination_config['per_page'] 			= $limit;
-		$pagination_config['uri_segment'] 		= $pag_segment;
-		
+
 		// Add in our pagination vars
 		$pagination_config = array_merge($pagination_config, $pagination_vars);
 
