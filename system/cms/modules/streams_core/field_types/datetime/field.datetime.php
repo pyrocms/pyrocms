@@ -93,7 +93,7 @@ class Field_datetime
 
 		if ( ! isset($field->field_data['input_type']))
 		{
-			$field->field_data['input_type'] = 'dropdown';
+			$field->field_data['input_type'] = 'datepicker';
 		}
 
 		if ($field->field_data['input_type'] == 'dropdown' and $required)
