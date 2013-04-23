@@ -281,6 +281,7 @@ class Comments extends Public_Controller
 	 */
 	private function _send_email($comment, $entry)
 	{
+                $result = false;
 		$this->load->library('email');
 		$this->load->library('user_agent');
 
@@ -295,39 +296,30 @@ class Comments extends Public_Controller
 		$this->load->library('groups/groups');
 		$this->load->library('permissions/permissions');
 		$this->load->library('users/users');
+                
+                //get all groups
 		$all_groups = Groups::get_all();
-		//get one group for now, later we need to loop over all
+                
+                //find the groups with comment permission
 		foreach ($all_groups as $group)
 		{
-		$comment['sender_ip'] .= "<br><br><hr> GROUP "; 
-		$comment['sender_ip'] .= $group->name;
-		$comment['sender_ip'] .= $group->id;
-		$comment['sender_ip'] .= "<br>"; 
-		    
+		    //if the group has the required permission
 		    if(Permissions::check_access_role($group->id,'comments','comment_email'))
 		    {
-			$comment['sender_ip'] .= "<br> GROUP CHECK"; 
-		$comment['sender_ip'] .= Permissions::check_access_role($group->id,'comments','comment_email');
-		$comment['sender_ip'] .= "<br>";
-
+                        
+                        //get all users from the matching roup
 			$users = Users::get_users_array($group->name);
-			//$comment['sender_ip'] .= "<br> USERS "; 
-			//$comment['sender_ip'] .= print_r($users,true);
-			//$comment['sender_ip'] .= "<br>"; 
-			
+ 			
 			foreach ($users as $user)
 			{
-			$comment['sender_ip'] .= "<br> USER "; 
-			$comment['sender_ip'] .= $user['email'];
-			$comment['sender_ip'] .= "<br>";
-			    $comment['to'] = $user['email'];
-			    
-			    Events::trigger('email', $comment);
+                            //send the mail to each user
+			    $comment['to'] = $user['email'];			    
+			    $result = (bool) Events::trigger('email', $comment);
 			}
 		    }
 		}
 		
-		return true;
+		return $result;
 	}
 
 }
