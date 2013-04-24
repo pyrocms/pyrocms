@@ -40,7 +40,10 @@ class Streams_entries extends CI_Driver {
 			'sort'				=> 'desc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
+			'pag_method'		=> 'offset', 	// 'offset' or 'page'
+			'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
 			'pag_segment'		=> 2,
+			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
 			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
 			'site_ref'			=> SITE_REF
@@ -57,7 +60,7 @@ class Streams_entries extends CI_Driver {
 	 * @access 	public
 	 * @var 	array
 	 */
-	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close', 'suffix', 'first_url');
+	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close', 'suffix', 'first_url',  'reuse_query_string');
 
 	// --------------------------------------------------------------------------
 
