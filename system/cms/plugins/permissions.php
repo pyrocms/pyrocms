@@ -37,7 +37,7 @@ class Plugin_Permissions extends Plugin
 			);
 
 		// dynamically build the array for the magic method __call
-		$modules = $this->module_m->get_all(array('installed' => true));
+		$modules = ci()->moduleManager->getAll(array('installed' => true));
 
 		foreach ($modules as $module) {
 			$info[$module['slug']]['description'] = array('en' => 'Check if the user has permissions for the '.$module['name'].' module. A single tag returns true or false while a double tag protects its content');
@@ -45,7 +45,7 @@ class Plugin_Permissions extends Plugin
 			$info[$module['slug']]['double'] = true;
 			$info[$module['slug']]['variables'] = '';
 
-			$roles = implode('|', $this->module_m->roles($module['slug']));
+			$roles = implode('|', $this->moduleManager->roles($module['slug']));
 
 			if ($roles) {
 				$info[$module['slug']]['params'] = array(

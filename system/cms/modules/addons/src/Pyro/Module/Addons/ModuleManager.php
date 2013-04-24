@@ -608,7 +608,7 @@ class ModuleManager
                 $info = $module_class->info();
 
                 if ( ! empty($info['roles'])) {
-                    $this->lang->load($slug.'/permission');
+                    ci()->lang->load($slug.'/permission');
                     return $info['roles'];
                 }
             }
