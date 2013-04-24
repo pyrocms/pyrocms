@@ -14,13 +14,5 @@
 {{ theme:js file="localscroll.js" }}
 {{ theme:js file="scrollto.js" }}
 {{ theme:js file="easing.js" }}
-{{ if theme:options:cufon_enabled == 'yes' }}
-	{{ theme:js file="cufon.js" }}
-	{{ theme:js file=settings:theme_default:cufon_font }}
-{{ endif }}
 {{ theme:js file="global.js" }}
 <!-- End scripts -->
-
-{{ if theme:options:cufon_enabled == 'yes' }}
-	<script type="text/javascript">Cufon.now();</script>
-{{ endif }}

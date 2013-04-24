@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'Koliko zapisov želite da se prika�
 $lang['settings:rss_feed_items']				= 'Štetje RSS podajalnika';
 $lang['settings:rss_feed_items_desc']			= 'Koliko prispevkov želite da se prikaže v RSS/blog podajalniku?';
 
-$lang['settings:require_lastname']				= 'Zahtevaj priimek?';
-$lang['settings:require_lastname_desc']			= 'V določenih primerih, priimek ne bo zahtevan. Ali želite da je priimek zahtevan ali ne?';
 
 $lang['settings:enable_profiles']				= 'Omogoči profile';
 $lang['settings:enable_profiles_desc']			= 'Dovoli uporabnikom dodajanje n urejanje profila.';

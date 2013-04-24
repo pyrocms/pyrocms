@@ -488,7 +488,7 @@ class Fields
 				// Format tht error
 				if ($fields[$count]['error_raw']) 
 				{
-					$fields[$count]['error']		= $this->CI->form_validation->format_error($fields[$count]['error_raw']);
+					$fields[$count]['error']		= $fields[$count]['error_raw'];
 				}
 				else
 				{

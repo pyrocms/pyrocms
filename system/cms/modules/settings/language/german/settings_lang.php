@@ -70,8 +70,6 @@ $lang['settings:records_per_page_desc']            = 'Wie viele Eintr&auml;ge so
 $lang['settings:rss_feed_items']                = 'RSS-Feed Anzahl';
 $lang['settings:rss_feed_items_desc']            = 'Wie viele Eintr&auml;ge sollen im RSS/News-Bereich der Seite angezeigt werden?';
 
-$lang['settings:require_lastname']                = 'Nachnamen sind Pflicht?';
-$lang['settings:require_lastname_desc']            = 'In manchen Sitationen werden Nachnamen der Benutzer nicht ben&ouml;tigt. M&ouml;chtest du die Angabe der Nachnamen der Benutzer erzwingen?';
 
 $lang['settings:enable_profiles']                = 'Profile aktivieren';
 $lang['settings:enable_profiles_desc']            = 'Erlaubt das Erstellen und Bearbeiten von Benutzer-Profilen.';
@@ -144,7 +142,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
 $lang['settings:form_option_activate_by_email']            = 'Activate by email'; #translate
 $lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_no_activation']         	= 'Instant activation'; #translate
 
 // titles
 $lang['settings:edit_title']                    = 'Einstellungen bearbeiten';

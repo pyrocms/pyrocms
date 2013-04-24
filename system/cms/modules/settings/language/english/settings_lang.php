@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'How many records should we show per
 $lang['settings:rss_feed_items']				= 'Feed item count';
 $lang['settings:rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Require last names?';
-$lang['settings:require_lastname_desc']			= 'For some situations, a last name may not be required. Do you want to force users to enter one or not?';
 
 $lang['settings:enable_profiles']				= 'Enable profiles';
 $lang['settings:enable_profiles_desc']			= 'Allow users to add and edit profiles.';
@@ -167,7 +165,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible';
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user';
 $lang['settings:form_option_activate_by_email']				= 'Activate by email';
 $lang['settings:form_option_activate_by_admin']				= 'Activate by admin';
-$lang['settings:form_option_no_activation']				= 'No activation';
+$lang['settings:form_option_no_activation']				= 'Instant activation';
 
 // messages
 $lang['settings:no_settings']					= 'There are currently no settings.';

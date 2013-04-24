@@ -41,12 +41,29 @@ class Template
 
 	private $_is_mobile = false;
 
+	private $_stream = array();
+
 	// Seconds that cache will be alive for
 	private $cache_lifetime = 0;//7200;
 
 	private $_ci;
 
 	private $_data = array();
+
+	/**
+	 * Override Values
+	 *
+	 * These are values that will override existing
+	 * values in the template library (if they are)
+	 * set already.
+	 *
+	 * These values are added right before the template
+	 * build process, so they can be used any time up until
+	 * the site is rendered.
+	 */	
+	private $_override_title;
+	private $_override_meta = array();
+	private $_override_breadcrumbs = array();
 
 	/**
 	 * Constructor - Sets Preferences
@@ -191,6 +208,45 @@ class Template
 	// --------------------------------------------------------------------
 
 	/**
+	 * Build Template Data
+	 *
+	 * Gathers and builds a $template array
+	 * with basic template data.
+	 *
+	 * @return 	array
+	 */
+	public function build_template_data()
+	{
+		// If we don't have a title, we'll take our best guess.
+		// We are doing this before we check the override so
+		// a user can set the title to blank if they want to.
+		if (empty($this->_title))
+		{
+			$this->_title = $this->_guess_title();
+		}
+
+		// Title override.
+		$title = ($this->_override_title) ? $this->_override_title : $this->_title;
+
+		$template['title']			= strip_tags($title);
+		$template['page_title']		= $title;
+
+		$template['breadcrumbs']	= array_merge($this->_breadcrumbs, $this->_override_breadcrumbs);
+
+		$template['metadata']		= $this->get_metadata().Asset::render('extra').$this->get_metadata('late_header');
+		
+		$template['partials']		= array();
+
+		// Load this into our cached vars so plugins
+		// can use it.
+		$this->_ci->load->vars(array('template' => $template));
+
+		return $template;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Build the entire HTML output combining partials, layouts and views.
 	 *
 	 * @param	string	$view
@@ -200,7 +256,7 @@ class Template
 	 * @param 	bool 	$pre_parsed_view	Did we already parse our view?
 	 * @return	string
 	 */
-	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false)
+	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false, $template = array())
 	{
 		// Set whatever values are given. These will be available to all view files
 		is_array($data) OR $data = (array) $data;
@@ -211,21 +267,15 @@ class Template
 		// We don't need you any more buddy
 		unset($data);
 
-		// If we don't have a title, we'll take our best guess.
-		// Everybody needs a title!
-		if (empty($this->_title))
+		// If you want, you can use the build_template_data() 
+		// to pre-build this template data. This is an edge case so you'll
+		// probably always just leave it to array(), but it's here if
+		// you need it.
+		if ( ! $template) 
 		{
-			$this->_title = $this->_guess_title();
+			$template = $this->build_template_data();
 		}
 
-		// Output template variables to the template
-		$template['title']			= strip_tags($this->_title);
-		$template['page_title']		= $this->_title;
-		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= $this->get_metadata() . Asset::render('extra') . $this->get_metadata('late_header');
-		$template['partials']		= array();
-
-		// Assign by reference, as all loaded views will need access to partials
 		$this->_data['template'] =& $template;
 
 		// Process partials.
@@ -316,6 +366,8 @@ class Template
 			$this->_ci->output->set_output($this->_body);
 		}
 
+		$this->_stream = array();
+
 		return $this->_body;
 	}
 
@@ -347,6 +399,14 @@ class Template
 		return $this;
 	}
 
+	public function override_title()
+	{
+		// If we have some segments passed
+		if ($title_segments = func_get_args())
+		{
+			$this->_override_title = implode($this->_title_separator, $title_segments);
+		}
+	}
 
 	/**
 	 * Put extra javascipt, css, meta tags, etc before all other head data
@@ -356,7 +416,8 @@ class Template
 	 */
 	public function prepend_metadata($line, $place = 'header')
 	{
-		//we need to declare all new key's in _metadata as an array for the unshift function to work
+		// we need to declare all new key's in _metadata as an
+		// array for the unshift function to work
 		if ( ! isset($this->_metadata[$place]))
 		{
 			$this->_metadata[$place] = array();
@@ -366,7 +427,6 @@ class Template
 
 		return $this;
 	}
-
 
 	/**
 	 * Put extra javascipt, css, meta tags, etc after other head data
@@ -401,6 +461,28 @@ class Template
 		return $this;
 	}
 
+	/**
+	 * Set Stream
+	 *
+	 * This function allows you to identify
+	 * a variable loop in your view that needs
+	 * to be parsed by the special streams parser.
+	 *
+	 * This simply sets the stream loop data, the actual
+	 * parsing is done in the build function.
+	 *
+	 * @param 	string $stream_slug The name of the stream
+	 * @param 	string $stream_namespace The stream namespace
+	 * @param 	string [$id_name] Override for the id name (see build function for more info)
+	 * @return 	void
+	 */
+	public function set_stream($stream_slug, $stream_namespace, $id_name = null)
+	{
+		$this->_stream = array('stream' => $stream_slug,
+			'namespace' => $stream_namespace, 'id_name' => $id_name);
+	
+		return $this;
+	}
 
 	/**
 	 * Set metadata for output later
@@ -408,9 +490,12 @@ class Template
 	 * @param	string	$name		keywords, description, etc
 	 * @param	string	$content	The content of meta data
 	 * @param	string	$type		Meta-data comes in a few types, links for example
+	 * @param 	string 	[$place]	Defaults to 'header'
+	 * @param 	bool 	[$override] Should we save this to the meta overrides instead of the
+	 * 									main meta array?
 	 * @return	object	$this
 	 */
-	public function set_metadata($name, $content, $type = 'meta')
+	public function set_metadata($name, $content, $type = 'meta', $place = 'header', $override = false)
 	{
 		$name = htmlspecialchars(strip_tags($name));
 		$content = trim(htmlspecialchars(strip_tags($content)));
@@ -424,16 +509,40 @@ class Template
 		switch($type)
 		{
 			case 'meta':
-				$this->_metadata['header'][$name] = '<meta name="'.$name.'" content="'.$content.'" />';
+
+				$meta = '<meta name="'.$name.'" content="'.$content.'" />';
+
+				if ($override) {
+					$this->_override_meta[$place][$name] = $meta;
+				} else {
+					$this->_metadata[$place][$name] = $meta;
+				}
+					
 			break;
 
 			case 'link':
-				$this->_metadata['header'][$content] = '<link rel="'.$name.'" href="'.$content.'" />';
-			break;
+				
+				$link = '<link rel="'.$name.'" href="'.$content.'" />';
+
+				if ($override) {
+					$this->_override_meta[$place][$content] = $link;
+				} else {
+					$this->_metadata[$place][$content] = $link;
+				}				
+			
+				break;
 
 			case 'og':
-				$this->_metadata['header'][md5($name.$content)] = '<meta property="'.$name.'" content="'.$content.'" />';
-			break;
+
+				$meta = '<meta property="'.$name.'" content="'.$content.'" />';
+
+				if ($override) {
+					$this->_override_meta[$place][md5($name.$content)] = $meta;
+				} else {
+					$this->_metadata[$place][md5($name.$content)] = $meta;
+				}				
+			
+				break;
 		}
 
 		return $this;
@@ -537,15 +646,24 @@ class Template
 	 * @param	string	$uri	The URL segment
 	 * @return	object	$this
 	 */
-	public function set_breadcrumb($name, $uri = '', $reset = false)
+	public function set_breadcrumb($name, $uri = '', $reset = false, $override = false)
 	{
 		// perhaps they want to start over
-		if ($reset)
-		{
+		if ($reset) {
+
 			$this->_breadcrumbs = array();
+		
+			if ($override) {
+				$this->_override_breadcrumbs = array();
+			}
 		}
 
-		$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
+		if ($override) {
+			$this->_override_breadcrumbs[] = array('name' => $name, 'uri' => $uri);			
+		} else {
+			$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri);			
+		}
+
 		return $this;
 	}
 
@@ -666,10 +784,40 @@ class Template
 		return $layouts;
 	}
 
+	/**
+	 * Get Metadata
+	 *
+	 * @param 	string 	$place
+	 * @return 	string
+	 */
 	public function get_metadata($place = 'header')
 	{
-		return isset($this->_metadata[$place]) && is_array($this->_metadata[$place])
-			? implode("\n\t\t", $this->_metadata[$place]) :	null;
+		// We are going to set this to a blank array if this
+		// does not exist in the right format, since we are going to
+		// see if any overrides are in place that we can use as well.
+		if ( ! isset($this->_metadata[$place]) or ! is_array($this->_metadata[$place])) {
+			$this->_metadata[$place] = array();
+		}
+
+		// Go through any 'header' place overrides
+		if (isset($this->_override_meta[$place])) {
+			foreach ($this->_override_meta[$place] as $key => $meta) {
+
+				// If this already exists, unset it.
+				if (isset($this->_metadata[$place][$key])) {
+					unset($this->_metadata[$place][$key]);
+				}
+
+				$this->_metadata[$place][$key] = $this->_override_meta[$place][$key];
+			}
+		}
+
+		// Still nothing? Now we can return null.
+		if ( ! $this->_metadata[$place]) {
+			return null;
+		}
+
+		return implode("\n\t\t", $this->_metadata[$place]);
 	}
 
 	/**
@@ -783,6 +931,16 @@ class Template
 		return $this->_ci->load->_ci_cached_vars['template_views'] = $view_folder;
 	}
 
+	/**
+	 * Wrapper function for _find_view()
+	 * so we can manually get a theme view
+	 * that can be overriden.
+	 */
+	public function load_view($view, array $data, $parse_view = true)
+	{
+		return $this->_find_view($view, $data, $parse_view);
+	}
+
 	// A module view file can be overriden in a theme
 	private function _find_view($view, array $data, $parse_view = true)
 	{
@@ -807,12 +965,12 @@ class Template
 		}
 
 		// Not found it yet? Just load, its either in the module or root view
-		return self::_load_view($view, $this->_data + $data, $parse_view);
+		return self::_load_view($view, $data + $this->_data, $parse_view);
 	}
 
 	private function _load_view($view, array $data, $parse_view = true, $override_view_path = null)
 	{
-		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
+		// Severe hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== null)
 		{
 			if ($this->_parser_enabled === true and $parse_view === true)
@@ -822,7 +980,7 @@ class Template
 					'_ci_path' => $override_view_path.$view.self::_ext($view),
 					'_ci_vars' => $data,
 					'_ci_return' => true
-				)), $data, true);
+				)), $data, true, false, $this->_stream);
 			}
 
 			else
@@ -843,10 +1001,10 @@ class Template
 			$content = ($this->_parser_enabled === true AND $parse_view === true)
 
 				// Parse that bad boy
-				? $this->_ci->parser->parse($view, $data, true )
+				? $this->_ci->parser->parse($view, $data, true, false, $this->_stream)
 
 				// None of that fancy stuff for me!
-				: $this->_ci->load->view($view, $data, true );
+				: $this->_ci->load->view($view, $data, true);
 		}
 
 		return $content;

@@ -1019,7 +1019,7 @@ class Streams_cp extends CI_Driver {
 		{	
 			$data['pagination'] = create_pagination(
 											$pagination_uri,
-											$CI->fields_m->count_fields($namespace),
+											$CI->fields_m->count_assignments_for_stream($stream->id),
 											$pagination,
 											$offset_uri
 										);

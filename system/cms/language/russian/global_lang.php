@@ -117,5 +117,6 @@ $lang['global:plugins']					= 'Плагины';
 $lang['global:plugin']					= 'Плагин';
 
 $lang['global:options']					= 'Опции';
+$lang['global:plain-text']				= 'Plain Text'; #translate
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

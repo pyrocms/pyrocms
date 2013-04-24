@@ -13,9 +13,11 @@ class Plugin_Pages extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Pages',
+            'fa' => 'صفحه ها',
 	);
 	public $description = array(
 		'en' => 'Output page data or build a list of pages in a page tree.',
+            'fa'=> 'محتویات صفحه را نشان دهید و یا ساختار درختی صفحات را نمایش دهید'
 	);
 
 	/**
@@ -90,6 +92,36 @@ class Plugin_Pages extends Plugin
 						'default' => '',
 						'required' => false,
 					),
+					'order-by' => array(
+						'type' => 'flag',
+						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
+						'default' => 'order',
+						'required' => false,
+					),
+					'order-dir' => array(
+						'type' => 'flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
+						'required' => false,
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'offset' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '0',
+						'required' => false,
+					),
+					'include-types' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
 				),
 			),// end children method
 			'page_tree' => array(// the name of the method you are documenting
@@ -121,7 +153,7 @@ class Plugin_Pages extends Plugin
 					'order-by' => array(
 						'type' => 'flag',
 						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
-						'default' => 'sort',
+						'default' => 'order',
 						'required' => false,
 					),
 					'order-dir' => array(
@@ -372,10 +404,11 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit			= $this->attribute('limit', 10);
+		$limit			= $this->attribute('limit', null);
+		$offset			= $this->attribute('offset');
 		$order_by 		= $this->attribute('order-by', 'order');
 		$order_dir 		= $this->attribute('order-dir', 'ASC');
-		$page_types 	= $this->attribute('include_types');
+		$page_types 	= $this->attribute('include-types', $this->attribute('include_types'));
 
 		// Restrict page types.
 		// Page types can be provided in a pipe (|) delimited string.
@@ -396,6 +429,7 @@ class Plugin_Pages extends Plugin
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
+			->offset($offset)
 			->get('pages')
 			->result_array();
 

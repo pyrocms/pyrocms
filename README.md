@@ -4,14 +4,13 @@
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://forum.pyrocms.com)
-* Version: 2.2.0
+* Version: 2.2.1
 
 ## Team
 
 * [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Joshua Pekera](http://joshuapekera.com/)
 
 ## Description
 
@@ -83,3 +82,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
+* [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)

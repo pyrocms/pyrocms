@@ -113,5 +113,6 @@ $lang['global:plugins']					= 'Pluginit';
 $lang['global:plugin']					= 'Plugin';
 
 $lang['global:options']					= 'Valinnat';
+$lang['global:plain-text']				= 'Plain Text'; #translate
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

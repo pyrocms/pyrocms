@@ -591,7 +591,13 @@ class Streams_m extends MY_Model {
 		// Set Ordering
 		// -------------------------------------
 
-		if ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
+		// Query string API overrides all
+		// Check if there is one now
+		if ($this->input->get('order-'.$stream->stream_slug))
+		{
+			$this->db->order_by($this->input->get('order-'.$stream->stream_slug), $this->input->get('order-'.$stream->stream_slug) ? $this->input->get('order-'.$stream->stream_slug) : 'ASC');
+		}
+		elseif ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
 		{
 			if ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
 			{
@@ -679,7 +685,7 @@ class Streams_m extends MY_Model {
 	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
-		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
+		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset and empty($skips) )
 		{
 			return $this->stream_fields_cache[$stream_id];
 		}

@@ -18,6 +18,7 @@ class Plugin_Helper extends Plugin
 	public $description = array(
 		'en' => 'Access helper functions and other helpful items.',
 		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
+            'fa' => 'دسترسی به توابع هلپر ها و برخی موارد مفید دیگر',
 		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.',
 		'it' => 'Accedi alle funzioni di aiuto e ad altre cose utili',
 	);
@@ -266,6 +267,25 @@ class Plugin_Helper extends Plugin
 		$timestamp = $this->attribute('timestamp', now());
 
 		return format_date($timestamp, $format);
+	}
+	
+	/**
+	 * Timespan
+	 *
+	 * Gets the timespan from the timestamp passed to it.
+	 *
+	 * Usage:
+	 *
+	 *     {{ helper:timespan timestamp="xyz" }}
+	 *
+	 * @return string the timespan string.
+	 */
+	
+	public function timespan()
+	{
+		$timespan = date($this->attribute('timestamp', now())); 
+		
+		return timespan($timespan, time());
 	}
 
 	/**

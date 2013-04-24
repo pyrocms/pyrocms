@@ -70,8 +70,6 @@ $lang['settings:records_per_page_desc']			= 'Hvor mange resultater skal vises pe
 $lang['settings:rss_feed_items']				= 'Feed poster antal';
 $lang['settings:rss_feed_items_desc']			= 'Hvor mange poster skal vi vise i RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Påkræv efternavn?';
-$lang['settings:require_lastname_desc']			= 'I nogle situationer er efternavn ikke påkrævet, vil du tvinge brugerne til at indtaste et eller ej?';
 
 $lang['settings:enable_profiles']				= 'Slå profiler til';
 $lang['settings:enable_profiles_desc']			= 'Tillad at brugere tilføjer og redigerer profiler.';
@@ -144,7 +142,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
 $lang['settings:form_option_activate_by_email']        	= 'Activate by email'; #translate
 $lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_no_activation']         	= 'Instant activation'; #translate
 
 /* End of file settings_lang.php */
 /* Location: ./system/cms/modules/settings/language/english/settings_lang.php */

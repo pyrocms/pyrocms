@@ -39,7 +39,7 @@
 				</li>
 		
 				<li class="editor">
-					<label for="body"><?php echo lang('blog:content_label') ?></label><br>
+					<label for="body"><?php echo lang('blog:content_label') ?> <span>*</span></label><br>
 					<div class="input small-side">
 						<?php echo form_dropdown('type', array(
 							'html' => 'html',
@@ -53,7 +53,6 @@
 						<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)) ?>
 					</div>
 				</li>
-
 
 			</ul>
 		<?php echo form_hidden('preview_hash', $post->preview_hash)?>
@@ -129,6 +128,8 @@
 	</div>
 
 </div>
+
+<input type="hidden" name="row_edit_id" value="<?php if ($this->method != 'create'): echo $post->id; endif; ?>" />
 
 <div class="buttons">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>

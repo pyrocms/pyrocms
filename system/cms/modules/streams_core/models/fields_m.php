@@ -499,6 +499,22 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
+    /**
+     * Count assignments for a stream
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments_for_stream($stream_id)
+	{
+		if ( ! $stream_id) return 0;
+
+		return $this->db
+				->where('stream_id', $stream_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
+	}
+
 	// --------------------------------------------------------------------------
 	
 	/**
@@ -569,6 +585,19 @@ class Fields_m extends CI_Model {
 		if ( ! $field = $this->get_field($field_id))
 		{
 			return false;
+		}
+		
+		// Remove from cache
+		if (isset($this->fields_cache['by_id'][$field_id]))
+		{
+			unset($this->fields_cache['by_id'][$field_id]);
+		}
+
+		$namespace_key = $field->field_namespace.':'.$field->field_slug;
+		
+		if (isset($this->fields_cache['by_slug'][$namespace_key]))
+		{
+			unset($this->fields_cache['by_slug'][$namespace_key]);
 		}
 	
 		// Find assignments, and delete rows from table

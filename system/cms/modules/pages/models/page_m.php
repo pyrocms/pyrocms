@@ -48,6 +48,16 @@ class Page_m extends MY_Model
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
+			'field'    => 'meta_robots_no_index',
+			'label'    => 'lang:pages:meta_robots_no_index_label',
+			'rules'    => 'trim'
+		),
+		array(
+			'field'    => 'meta_robots_no_follow',
+			'label'    => 'lang:pages:meta_robots_no_follow_label',
+			'rules'    => 'trim'
+		),
+		array(
 			'field'	=> 'meta_description',
 			'label'	=> 'lang:pages:meta_description_label',
 			'rules'	=> 'trim'
@@ -95,6 +105,11 @@ class Page_m extends MY_Model
 	public $compiled_validate = array();
 
     // --------------------------------------------------------------------------
+
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('pages/page_type_m');
+	}
 
 	/**
 	 * Get a page by its URI
@@ -203,13 +218,21 @@ class Page_m extends MY_Model
 		// End Legacy Logic
 		// ---------------------------------
 
-
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
 		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
 		{
 			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
 			$page->layout = $this->page_type_m->get(1);
 		}
+
+		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page));
 
 		// ---------------------------------
 		// Get Stream Entry
@@ -224,9 +247,19 @@ class Page_m extends MY_Model
 
 			if ($stream)
 			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				$params = array(
+					'limit' => 1,
+					'stream' => $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'id' => $page->entry_id
+				);
+
+				if ($entry = $this->streams->entries->get_entries($params))
 				{
-					$page = (object) array_merge((array)$entry, (array)$page);
+					if (isset($entry['entries'][0]))
+					{
+						$page = (object) array_merge((array)$entry['entries'][0], (array)$page);
+					}
 				}
 			}
 		}
@@ -262,6 +295,19 @@ class Page_m extends MY_Model
         }
         
 		$page->stream_entry_found = false;
+
+		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page));
+
+		// ---------------------------------
+		// Get Page Stream Entry
+		// ---------------------------------
 
 		if ($page and $page->type_id and $get_data)
 		{
@@ -328,7 +374,7 @@ class Page_m extends MY_Model
 	public function get_page_tree()
 	{
 		$all_pages = $this->db
-			->select('id, parent_id, title')
+			->select('id, parent_id, title, status')
 			->order_by('`order`')
 			->get('pages')
 			->result_array();
@@ -563,6 +609,8 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
+			'meta_robots_no_index'	=> ! empty($input['meta_robots_no_index']),
+			'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
@@ -660,6 +708,8 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
+			'meta_robots_no_index'    => ! empty($input['meta_robots_no_index']),
+			'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),	
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),

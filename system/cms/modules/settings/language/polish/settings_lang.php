@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']				= 'Jak wiele rekordów na stronę pow
 $lang['settings:rss_feed_items']				= 'Ilość blogów RSS';
 $lang['settings:rss_feed_items_desc']				= 'Ile elementów należy pokazać w kanale RSS/nowości?';
 
-$lang['settings:require_lastname']				= 'Wymagane nazwisko?';
-$lang['settings:require_lastname_desc']				= 'W niektórych sytuacjach nazwisko nie musi być wymagane. Czy chcesz wymusić na użytkownikach jego podawanie?';
 
 $lang['settings:enable_profiles']				= 'Włącz profile';
 $lang['settings:enable_profiles_desc']				= 'Pozwól użytkownikom na dodawanie i edycję profili.';

@@ -212,7 +212,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->set('email_template', $email_template)
-			->title(lang('templates:edit_title'))
+			->title(sprintf(lang('templates:edit_title'), $email_template->name))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('module::form.js')
 			->build('admin/form');

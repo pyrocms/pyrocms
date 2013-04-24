@@ -93,7 +93,7 @@ class Field_datetime
 
 		if ( ! isset($field->field_data['input_type']))
 		{
-			$field->field_data['input_type'] = 'dropdown';
+			$field->field_data['input_type'] = 'datepicker';
 		}
 
 		if ($field->field_data['input_type'] == 'dropdown' and $required)
@@ -136,7 +136,7 @@ class Field_datetime
 			if ( ! $restrict['start_stamp'] and $restrict['end_stamp'])
 			{
 				// Is now after the future point
-				if ($value > $pieces[1])
+				if ($value > $restrict['end_stamp'])
 				{
 					return lang('streams:date_out_or_range');
 				}

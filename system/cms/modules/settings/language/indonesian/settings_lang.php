@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'Berapa banyak baris data yang harus
 $lang['settings:rss_feed_items']				= 'Banyak Feed item';
 $lang['settings:rss_feed_items_desc']			= 'Berapa banyak item yang harus ditampilkan di RSS/blog feed?';
 
-$lang['settings:require_lastname']				= 'Perlukan nama belakang?';
-$lang['settings:require_lastname_desc']			= 'Untuk beberapa situasi, nama belakang mungkin tidak diperlukan. Apakah Anda akan mewajibkan pengguna untuk memasukkan nama belakang?';
 
 $lang['settings:enable_profiles']				= 'Nyalakan profil';
 $lang['settings:enable_profiles_desc']			= 'Izinkan Pengguna untuk menambahkan dan memperbaharui profil.';

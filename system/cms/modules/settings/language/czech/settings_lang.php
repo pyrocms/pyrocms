@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Kolik záznamů si přejete zobrazo
 $lang['settings:rss_feed_items'] 				= 'Počet položek v RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Kolik položek se má zobrazovat v RSS zdroji vašeho webu?';
 
-$lang['settings:require_lastname'] 				= 'Požadovat přijmení?';
-$lang['settings:require_lastname_desc'] 		= 'V některých situacích může být znalost příjmení uživatelů žádoucí. Chcete je od uživatele požadovat?';
 
 $lang['settings:enable_profiles'] 				= 'Povolit profily';
 $lang['settings:enable_profiles_desc'] 			= 'Umožnit uživatelům přidávat a spravovat své profily?';
@@ -141,7 +139,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
 $lang['settings:form_option_activate_by_email']          = 'Activate by email'; #translate
 $lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_no_activation']         	= 'Instant activation'; #translate
 
 // titles
 $lang['settings:edit_title'] 					= 'Upravit nastavení';

@@ -88,7 +88,7 @@ class Installer_lib
 			// Connect to MySQL
 			if ($db = @mysql_connect($server, $username, $password))
 			{
-				$this->mysql_server_version = @mysql_get_server_info($db);
+				$this->mysql_server_version = preg_replace('/^.*?([4-8]\.[0-9]).*?$/', '$1', @mysql_get_server_info($db));
 
 				// Close the connection
 				@mysql_close($db);
@@ -104,7 +104,7 @@ class Installer_lib
 		// Client version
 
 		// Get the version
-		$this->mysql_client_version = preg_replace('/[^0-9\.]/', '', mysql_get_client_info());
+		$this->mysql_client_version = preg_replace('/^.*?([4-8]\.[0-9]).*?$/', '$1', mysql_get_client_info());
 
 		// MySQL client version should be at least version 5
 		return ($this->mysql_client_version >= 5);
@@ -158,13 +158,13 @@ class Installer_lib
 			return false;
 		}
 
-		if ($data->http_server->supported === false)
+		if ($data->http_server_supported === false)
 		{
 			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
+		if ($data->http_server_supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
 		{
 			return 'partial';
 		}

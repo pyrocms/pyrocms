@@ -66,7 +66,7 @@ class Field_wysiwyg
 		// let it through. Otherwise we will escape them.
 		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
 		{
-			return $input;
+			return $this->CI->parser->parse_string($input, array(), true);
 		}
 		else
 		{

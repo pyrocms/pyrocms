@@ -7,6 +7,8 @@
  */
 class Blog extends Public_Controller
 {
+	public $stream;
+
 	/**
 	 * Every time this controller is called should:
 	 * - load the blog and blog_categories models.
@@ -32,6 +34,10 @@ class Blog extends Public_Controller
 		{
 			$this->categories[$cate['id']] = $cate;
 		}
+
+		// Get blog stream. We use this to set the template
+		// stream throughout the blog module.
+		$this->stream = $this->streams_m->get_stream('blog', true, 'blogs');
 	}
 
 	/**
@@ -43,6 +49,12 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
+		// Get our comment count whil we're at it.
+		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
+				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
+				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
+				AND entry_id=".$this->db->protect_identifiers('blog.id', true).") as `comment_count`";
+
 		// Get the latest blog posts
 		$params = array(
 			'stream'		=> 'blog',
@@ -50,7 +62,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
-			'pag_base'		=> 'blog/page',
+			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
 		);
 		$posts = $this->streams->entries->get_entries($params);
@@ -64,6 +76,11 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts['entries']);
 
+		$data = array(
+			'pagination' => $posts['pagination'],
+			'posts' => $posts['entries']
+		);
+
 		$this->template
 			->title($this->module_details['name'])
 			->set_breadcrumb(lang('blog:blog_title'))
@@ -73,7 +90,7 @@ class Blog extends Public_Controller
 			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
-			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->build('posts');
 	}
@@ -117,6 +134,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('category', (array)$category)
 			->build('posts');
@@ -163,6 +181,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('month_year', $month_year)
 			->build('archive');
@@ -253,9 +272,13 @@ class Blog extends Public_Controller
 		// we need to figure out where this sort of stuff should go.
 		// Maybe the entire blog moduel should be replaced with stream
 		// calls with items like this. Otherwise, this currently works.
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers('blog.keywords', true);
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.
+			$this->db->protect_identifiers('keywords_applied.hash', true).' = '.
+			$this->db->protect_identifiers('blog.keywords', true);
 
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.
+			$this->db->protect_identifiers('keywords.id', true).' = '.
+			$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
 
 		$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $tag)."'";
 
@@ -264,6 +287,7 @@ class Blog extends Public_Controller
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
+			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
 			'pag_segment'	=> 4
 		);
@@ -288,6 +312,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('tag', $tag)
 			->build('posts');
@@ -350,9 +375,9 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				if (isset($post['category']))
+				if (isset($post['category']) and ! in_array($post['category']['title'], $keywords))
 				{
-					$keywords[] = $post['category']['title'].', '.$post['category']['slug'];
+					$keywords[] = $post['category']['title'];
 				}
 
 				$description[] = $post['title'];
@@ -384,6 +409,8 @@ class Blog extends Public_Controller
 		}
 
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
+
+		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
 
 		if ($post['category_id'] > 0)
 		{
@@ -439,8 +466,8 @@ class Blog extends Public_Controller
 			->set_metadata('article:modified_time', date(DATE_ISO8601, $post['updated_on']), 'og')
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($post['title'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('post', array($post))
 			->build('view');
 	}

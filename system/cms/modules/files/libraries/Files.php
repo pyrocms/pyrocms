@@ -69,7 +69,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
+	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '', $hidden = 0)
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
@@ -90,7 +90,8 @@ class Files
 						'location' => $location,
 						'remote_container' => $remote_container,
 						'date_added' => now(), 
-						'sort' => now()
+						'sort' => now(),
+						'hidden' => $hidden,
 						);
 
 		$id = ci()->file_folders_m->insert($insert);
@@ -152,6 +153,7 @@ class Files
 		}
 
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->where('hidden', 0)
 			->order_by('sort')
 			->get_all();
 
@@ -203,7 +205,7 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		ci()->db->select('id, parent_id, slug, name')->where('hidden', 0)->order_by('sort');
 		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
@@ -354,6 +356,8 @@ class Files
 
 		if ($folder)
 		{
+			ci()->load->library('upload');
+
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
@@ -365,7 +369,7 @@ class Files
 			// current file's type.
 			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
 
-			ci()->load->library('upload', $upload_config);
+			ci()->upload->initialize($upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{
@@ -1016,7 +1020,12 @@ class Files
 		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
-		if ($results['file'] or $results['folder'])
+		// search for file by tagged keyword
+		$results['tagged'] = ci()->file_m->select('files.*')
+			->limit($limit)
+			->get_tagged($search);
+
+		if ($results['file'] or $results['folder'] or $results['tagged'])
 		{
 			return self::result(true, null, null, $results);
 		}

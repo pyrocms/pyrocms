@@ -11,9 +11,11 @@ class Plugin_Comments extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Comments',
+            'fa'  => 'نظرات',
 	);
 	public $description = array(
 		'en' => 'Display information about site comments.',
+            'fa' => 'نمایش اطلاعاتی در مورد کامنت های سایت',
 	);
 
 	/**
@@ -156,14 +158,22 @@ class Plugin_Comments extends Plugin
 	 */
 	public function count_string()
 	{
-		$entry_id 	= $this->attribute('entry_id', $this->attribute('item_id'));
-		$entry_key 	= $this->attribute('entry_key');
-		$module  	= $this->attribute('module', $this->module);
+		// Are we passing a number directly?
+		if ($comment_count = $this->attribute('count')) {
+			$this->load->library('comments/comments');
+			return $this->comments->count_string($comment_count);
+		}
+
+		$entry_id 		= $this->attribute('entry_id', $this->attribute('item_id'));
+		$entry_key 		= $this->attribute('entry_key');
+		$entry_plural 	= $this->attribute('entry_plural');
+		$module  		= $this->attribute('module', $this->module);
 		
 		$this->load->library('comments/comments', 
 			array(
 				'entry_id' => $entry_id, 
-				'singular' => $entry_key, 
+				'singular' => $entry_key,
+				'plural' => $entry_plural,
 				'module' => $module
 				)
 			);

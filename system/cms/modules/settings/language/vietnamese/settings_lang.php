@@ -77,8 +77,6 @@ $lang['settings:records_per_page_desc']			= 'Bao nhiêu bản ghi hiển thị t
 $lang['settings:rss_feed_items']				= 'Đếm bài Feed';
 $lang['settings:rss_feed_items_desc']			= 'Bao nhiêu bài viết hiển thị trong RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Yêu cầu tên họ (last name)?';
-$lang['settings:require_lastname_desc']			= 'Trong một vài tình huống, tên họ (last name) không cần phải bắt buộc.  Bạn có muốn yêu cầu người dùng phải nhập?';
 
 $lang['settings:enable_profiles']				= 'Kích hoạt hồ sơ cá nhân';
 $lang['settings:enable_profiles_desc']			= 'Cho phép người dùng thêm và sửa hồ sơ cá nhân.';
