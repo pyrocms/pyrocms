@@ -5,15 +5,15 @@
 
 	<section class="item">
 		<div class="content">
-			<?php if ($options_array): ?>
+			<?php if ($theme->options): ?>
 
 				<div class="padding-top">
-					<?php echo form_open('admin/addons/themes/options/'.$slug, 'class="form_inputs options-form"');?>
+					<?php echo form_open('admin/addons/themes/options/'.$theme->slug, 'class="options-form"');?>
 
-						<?php echo form_hidden('slug', $slug) ?>
+						<?php echo form_hidden('slug', $theme->slug) ?>
 
 						<ul>
-						<?php foreach($options_array as $option): ?>
+						<?php foreach ($theme->options as $option): ?>
 							<li id="<?php echo $option->slug ?>" class="<?php echo alternator('even', '') ?>">
 								<label for="<?php echo $option->slug ?>">
 									<?php echo $option->title ?>

@@ -22,11 +22,11 @@ abstract class Eloquent extends Model
      */
     public function save(array $options = array())
     {
-        if ($this->validate($options)) {
-            return parent::save();
+        if (method_exists($this, 'validate') and ! $this->validate()) {
+            return false;
         }
-
-        return false;
+        
+        return parent::save($options);
     }
 }
 

@@ -224,4 +224,28 @@ class ModuleModel extends Eloquent
     {
         return (bool) $this->installed;
     }
+
+    // Accessors and Mutators ----
+
+    /**
+     * Is Installed
+     *
+     * @return  bool
+     */
+    public function getNameAttribute()
+    {
+        $names = unserialize($this->attributes['name']);
+        return ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
+    }
+
+    /**
+     * Is Installed
+     *
+     * @return  bool
+     */
+    public function getDescriptionAttribute()
+    {
+        $desc = unserialize($this->attributes['description']);
+        return ! isset($desc[CURRENT_LANGUAGE]) ? $desc['en'] : $desc[CURRENT_LANGUAGE];
+    }
 }

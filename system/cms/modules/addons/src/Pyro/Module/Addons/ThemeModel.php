@@ -80,7 +80,24 @@ class ThemeModel extends Eloquent
      */
     public function findAll()
     {
-        return $this->with('options')->all();
+        return $this->with('options')->get();
+    }
+
+    // In Scope
+
+    /**
+     * Reset Options
+     *
+     * Go through each option and reset it to its default value
+     *
+     * @return  bool
+     */
+    public function resetOptions()
+    {
+        foreach ($this->options as $op) {
+            $op->value = $op->default;
+            $op->save();
+        }
     }
 
 }

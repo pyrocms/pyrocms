@@ -26,6 +26,16 @@ class ThemeManager
     }
 
 	/**
+	 * Get Module
+	 *
+	 * @return Pyro\Module\Addons\ThemeModel
+	 */
+	public function getModel()
+	{
+		return $this->themes;
+	}
+
+	/**
 	 * Locate
 	 *
 	 * @param string $slug

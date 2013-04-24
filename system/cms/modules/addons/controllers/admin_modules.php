@@ -25,6 +25,8 @@ class Admin_modules extends Admin_Controller
 	{
 		parent::__construct();
 
+		$this->modules = $this->moduleManager->getModel();
+
 		$this->lang->load('addons');
 	}
 
@@ -35,7 +37,7 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->moduleManager->discoverNonexistantModules()
+		$this->moduleManager->discoverNonexistantModules();
 
 		$all_modules = $this->moduleManager->getAll();
 
@@ -64,7 +66,7 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function upload()
 	{
-		if (! $this->settings->addons_upload) {
+		if (( ! Settings::get('addons_upload'))) {
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
@@ -117,7 +119,6 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function uninstall($slug = '')
 	{
-
 		if ($this->module_m->uninstall($slug)) {
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $slug));
 
@@ -201,17 +202,17 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function enable($slug)
 	{
-		$module = Module::findBySlug($slug)->enable();
+		$module = $this->modules->findBySlug($slug);
 		
-		if ($->enable()) {
+		if ($module and $module->enable()) {
 			// Fire an event. A module has been enabled.
-			Events::trigger('module_enabled', $slug);
+			Events::trigger('module_enabled', $module);
 
 			// Clear the module cache
 			$this->cache->clear('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $module->name));
 		} else {
-			$this->session->set_flashdata('error', sprintf(lang('addons:modules:enable_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:enable_error'), $module->name));
 		}
 
 		redirect('admin/addons/modules');
@@ -227,15 +228,17 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function disable($slug)
 	{
-		if ($this->module_m->disable($slug)) {
+		$module = $this->modules->findBySlug($slug);
+
+		if ($module and $module->disable()) {
 			// Fire an event. A module has been disabled.
-			Events::trigger('module_disabled', $slug);
+			Events::trigger('module_disabled', $module);
 
 			// Clear the module cache
 			$this->cache->clear('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $module->name));
 		} else {
-			$this->session->set_flashdata('error', sprintf(lang('addons:modules:disable_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:disable_error'), $module->name));
 		}
 
 		redirect('admin/addons/modules');
@@ -251,16 +254,18 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function upgrade($slug)
 	{
-		// If upgrade succeeded
-		if ($this->module_m->upgrade($slug)) {
-			// Fire an event. A module has been upgraded.
-			Events::trigger('module_upgraded', $slug);
+		$module = $this->modules->findBySlug($slug);
 
-			$this->session->set_flashdata('success', sprintf(lang('addons:modules:upgrade_success'), $slug));
+		// If upgrade succeeded
+		if ($module->upgrade()) {
+			// Fire an event. A module has been upgraded.
+			Events::trigger('module_upgraded', $module);
+
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:upgrade_success'), $module->name));
 		}
 		// If upgrade failed
 		else {
-			$this->session->set_flashdata('error', sprintf(lang('addons:modules:upgrade_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:upgrade_error'), $module->name));
 		}
 
 		redirect('admin/addons/modules');

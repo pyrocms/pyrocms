@@ -35,10 +35,21 @@ class ModuleManager
      */
     protected $user;
 
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->modules = new ModuleModel;
         
         $this->user = $user;
+    }
+
+    /**
+     * Get Model
+     *
+     * @return Pyro\Module\Addons\ModuleModel
+     */
+    public function getModel()
+    {
+        return $this->modules;
     }
 
     /**
@@ -406,7 +417,6 @@ class ModuleManager
         // in_array can not search a multi array.
         if ($known->count() > 0) {
             foreach ($known as $item) {
-                array_unshift($known_array, $item->slug);
                 $known_mtime[$item->slug] = $item;
             }
         }
@@ -421,12 +431,12 @@ class ModuleManager
                 $slug = basename($path);
 
                 // Yeah yeah we know
-                if (in_array($slug, $known_array)) {
+                if (isset($known_mtime[$slug])) {
                     $details_file = $directory.'modules/'.$slug.'/details.php';
 
                     // This file has changed since the last "updated" date
-                    if (file_exists($details_file) &&
-                        filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&
+                    if (file_exists($details_file) and
+                        filemtime($details_file) > $known_mtime[$slug]->updated_on and
                         $located = $this->spawnClass($slug, $is_core))
                     {
                         list($module_class) = $located;
@@ -434,14 +444,15 @@ class ModuleManager
                         // Get some basic info
                         $input = $module_class->info();
 
-                        $this->update($slug, array(
+                        // Update the DB record with the new stuff
+                        $known_mtime[$slug]->save(array(
                             'name'        => serialize($input['name']),
                             'description' => serialize($input['description']),
                             'is_frontend' => ! empty($input['frontend']),
                             'is_backend'  => ! empty($input['backend']),
                             'skip_xss'    => ! empty($input['skip_xss']),
                             'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
-                            'updated_on'  => now()
+                            'updated_on'  => time()
                         ));
 
                         log_message('debug', sprintf('The information of the module "%s" has been updated', $slug));
