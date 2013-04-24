@@ -220,10 +220,7 @@ class Pages extends Public_Controller
 		// Set the title, keywords, description, and breadcrumbs.
 		$this->template->title($this->parser->parse_string($meta_title, $page, true))
 			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
-<<<<<<< HEAD
-=======
-			->set_metadata('robots', $meta_robots)
->>>>>>> 63164500df7012ed2c624099d398db784d175de3
+                        ->set_metadata('robots', $meta_robots)
 			->set_metadata('description', $this->parser->parse_string($meta_description, $page, true))
 			->set_breadcrumb($page->title);
 
