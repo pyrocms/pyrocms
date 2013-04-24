@@ -40,7 +40,10 @@ class Streams_entries extends CI_Driver {
 			'sort'				=> 'desc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
+			'pag_method'		=> 'offset', 	// 'offset' or 'page'
+			'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
 			'pag_segment'		=> 2,
+			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
 			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
 			'site_ref'			=> SITE_REF
