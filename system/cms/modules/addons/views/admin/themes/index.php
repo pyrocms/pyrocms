@@ -43,7 +43,7 @@
 
 					<td class="align-center"><?php echo $theme->version ?></td>
 					<td class="actions">
-						<?php echo isset($theme->options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="button options"') : '' ?>
+						<?php echo isset($theme_options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="button options"') : '' ?>
 						<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="button modal"><?php echo lang('buttons:preview') ?></a>
 						<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm button delete"'); } ?>
 					</td>

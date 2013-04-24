@@ -46,7 +46,7 @@ class ModuleModel extends Eloquent
         return $this
             ->where('slug', '=', $slug)
             ->take(1)
-            ->get();
+            ->first();
     }
 
     /**

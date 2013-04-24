@@ -26,7 +26,7 @@ class ThemeManager
     }
 
 	/**
-	 * Get a specific theme
+	 * Locate
 	 *
 	 * @param string $slug
 	 *
@@ -45,18 +45,6 @@ class ThemeManager
 		}
 
 		return false;
-	}
-
-	/**
-	 * Get a specific theme
-	 *
-	 * @param string $slug
-	 *
-	 * @return bool|object
-	 */
-	public function get($slug)
-	{
-		return $this->themes->findBySlug($slug);
 	}
 
 	/**
@@ -86,29 +74,14 @@ class ThemeManager
 		//load the theme details.php file
 		$details = $this->spawnClass($slug, $is_core);
 
-		return array_merge(
-			// Lets make some assumptions first just in case there is a typo in details class
-			array(
-				'name'           => $slug,
-				'author'         => '????',
-				'author_website' => null,
-				'website'        => null,
-				'description'    => '',
-				'version'        => '??',
-			),
+		$theme = $this->themes->findBySlug($slug);
 
-			// Get the user defined bits
-			get_object_vars($details),
+		// Add some extra bits, that aren't in the DB
+		$theme->path       = $path;
+		$theme->web_path   = $web_path;
+		$theme->screenshot = $web_path.'/screenshot.png';
 
-			// And some core (non-overridable) things
-			array(
-				'slug'           => $slug,
-				'is_core'        => $is_core,
-				'path'           => $path,
-				'web_path'       => $web_path,
-				'screenshot'     => $web_path.'/screenshot.png',
-			)
-		);
+		return $theme;
 	}
 
 	/**

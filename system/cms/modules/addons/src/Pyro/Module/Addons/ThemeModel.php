@@ -40,12 +40,18 @@ class ThemeModel extends Eloquent
      */
     public function options()
     {
-        return $this->hasMany('Pyro\Module\Addons\ThemeOptionModel');
+        return $this->hasMany('Pyro\Module\Addons\ThemeOptionModel', 'theme_id');
     }
 
-    public function getOptions()
+    public function getOptionValues()
     {
-        dump($this->options);
+        $options = array();
+
+        foreach ($this->options()->select('slug', 'default', 'value')->get() as $option) {
+            $options[$option->slug] = is_null($option->value) ? $option->default : $option->value;
+        }
+
+        return $options;
     }
 
     /**
@@ -59,9 +65,10 @@ class ThemeModel extends Eloquent
     public function findBySlug($slug)
     {
         return $this
+            ->with('options')
             ->where('slug', '=', $slug)
             ->take(1)
-            ->get();
+            ->first();
     }
 
     /**
@@ -73,7 +80,7 @@ class ThemeModel extends Eloquent
      */
     public function findAll()
     {
-        return $this->all();
+        return $this->with('options')->all();
     }
 
 }

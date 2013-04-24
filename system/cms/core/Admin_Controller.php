@@ -44,8 +44,8 @@ class Admin_Controller extends MY_Controller
 
 		$this->load->helper('admin_theme');
 		
-		$theme = $this->themeManager->get(Settings::get('admin_theme'));
-		
+		$theme = $this->themeManager->locate(Settings::get('admin_theme'));
+
 		// Using a bad slug? Weak
 		if (is_null($theme)) {
 			show_error('This site has been set to use an admin theme that does not exist.');
@@ -160,7 +160,7 @@ class Admin_Controller extends MY_Controller
 		// Template configuration
 		$this->template
 			->enable_parser(false)
-			->set('theme_options', $this->theme->getOptions())
+			->set('theme_options', (object) $this->theme->getOptionValues())
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
 

@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Addons;
 
-use Pyro\Model;
+use Pyro\Model\Eloquent;
 
 /**
  * Theme Option Model
@@ -10,7 +10,7 @@ use Pyro\Model;
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @link        http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Addons.ThemeOptionModel.html
  */
-class ThemeOptionModel extends Model
+class ThemeOptionModel extends Eloquent
 {
     /**
      * Define the table name

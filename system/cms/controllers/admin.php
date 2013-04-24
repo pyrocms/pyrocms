@@ -28,10 +28,8 @@ class Admin extends Admin_Controller
 			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
-
 		if (is_dir('./installer')) {
-			$this->template
-				->set('messages', array('notice' => '<button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'.lang('cp:delete_installer_message')));
+			$this->template->set('messages', array('notice' => '<button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'.lang('cp:delete_installer_message')));
 		}
 
 		$this->template->build('admin/dashboard');

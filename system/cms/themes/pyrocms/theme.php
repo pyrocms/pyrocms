@@ -62,12 +62,17 @@ class Theme_Pyrocms extends AbstractTheme
 		// only load these items on the dashboard
 		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme->options) {
-				$options = $this->theme->options;
+			if (( ! $opt = $this->theme->getOptionValues())) {
 
-				if ($options->pyrocms_analytics_graph == 'yes')	self::getAnalytics();
-				if ($options->pyrocms_news_feed == 'yes')		self::getRssFeed();
-				if ($options->pyrocms_recent_comments == 'yes')	self::getRecentComments();
+				if (isset($opt->pyrocms_analytics_graph) and $opt->pyrocms_analytics_graph == 'yes')	{ 
+					self::getAnalytics();
+				}
+				if (isset($opt->pyrocms_news_feed) and $opt->pyrocms_news_feed == 'yes') { 
+					self::getRssFeed();
+				}
+				if (isset($opt->pyrocms_recent_comments) and $opt->pyrocms_recent_comments == 'yes')	{ 
+					self::getRecentComments();
+				}
 			}
 		}
 	}
