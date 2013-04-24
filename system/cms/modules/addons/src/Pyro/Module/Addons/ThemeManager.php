@@ -22,31 +22,8 @@ class ThemeManager
 	 */
     public function __construct()
     {
-
-        
+        $this->themes = new ThemeModel;
     }
-
-    /**
-     * Get all available themes
-     *
-     * @return <array>
-     */
-    public function get_all()
-    {
-        foreach ($this->template->theme_locations() as $location) {
-			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR)) {
-				continue;
-			}
-
-			foreach ($themes as $theme_path) {
-				$this->_get_details(dirname($theme_path).'/', basename($theme_path));
-			}
-		}
-
-		ksort($this->_themes);
-
-		return $this->_themes;
-	}
 
 	/**
 	 * Get a specific theme
@@ -55,13 +32,11 @@ class ThemeManager
 	 *
 	 * @return bool|object
 	 */
-	public function get($slug = '')
+	public function locate($slug)
 	{
-		$slug OR $slug = $this->_theme;
-
 		foreach (ci()->template->theme_locations() as $location) {
 			if (is_dir($location.$slug)) {
-				$theme = $this->_get_details($location, $slug);
+				$theme = $this->readDetails($location, $slug);
 
 				if ($theme !== false) {
 					return $theme;
@@ -73,59 +48,67 @@ class ThemeManager
 	}
 
 	/**
+	 * Get a specific theme
+	 *
+	 * @param string $slug
+	 *
+	 * @return bool|object
+	 */
+	public function get($slug)
+	{
+		return $this->themes->findBySlug($slug);
+	}
+
+	/**
 	 * Get details about a theme
 	 *
 	 * @param $location
 	 * @param $slug
 	 *
-	 * @return bool|object
+	 * @return array
 	 */
-	private function _get_details($location, $slug)
+	protected function readDetails($location, $slug)
 	{
 		// If it exists already, use it
-		if ( ! empty($this->_themes[$slug])) {
-			return $this->_themes[$slug];
+		if ( ! empty($this->exists[$slug])) {
+			return $this->exists[$slug];
 		}
 
-		if (is_dir($path = $location.$slug) and is_file($path.'/theme.php')) {
-			// Core theme or third party?
-			$is_core = trim($location, '/') === APPPATH.'themes';
-
-			//path to theme
-			$web_path = $location.$slug;
-
-			$theme                 = new \stdClass();
-			$theme->slug           = $slug;
-			$theme->is_core        = $is_core;
-			$theme->path           = $path;
-			$theme->web_path       = $web_path; // TODO Same thing as path?
-			$theme->screenshot     = $web_path.'/screenshot.png';
-
-			//lets make some assumptions first just in case there is a typo in details class
-			$theme->name           = $slug;
-			$theme->author         = '????';
-			$theme->author_website = null;
-			$theme->website        = null;
-			$theme->description    = '';
-			$theme->version        = '??';
-
-			//load the theme details.php file
-			$details = $this->spawnClass($slug, $is_core);
-
-			//assign values
-			if ($details) {
-				foreach (get_object_vars($details) as $key => $val) {
-					$theme->{$key} = $val;
-				}
-			}
-
-			// Save for later
-			$this->_themes[$slug] = $theme;
-
-			return $theme;
+		if ( ! (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))) {
+			return false;
 		}
+		// Core theme or third party?
+		$is_core = trim($location, '/') === APPPATH.'themes';
 
-		return false;
+		//path to theme
+		$web_path = $location.$slug;
+
+		//load the theme details.php file
+		$details = $this->spawnClass($slug, $is_core);
+
+		return array_merge(
+			// Lets make some assumptions first just in case there is a typo in details class
+			array(
+				'name'           => $slug,
+				'author'         => '????',
+				'author_website' => null,
+				'website'        => null,
+				'description'    => '',
+				'version'        => '??',
+			),
+
+			// Get the user defined bits
+			get_object_vars($details),
+
+			// And some core (non-overridable) things
+			array(
+				'slug'           => $slug,
+				'is_core'        => $is_core,
+				'path'           => $path,
+				'web_path'       => $web_path,
+				'screenshot'     => $web_path.'/screenshot.png',
+			)
+		);
 	}
 
 	/**
@@ -167,7 +150,7 @@ class ThemeManager
 	 */
 	public function count()
 	{
-		return $this->theme_infos == null ? count($this->get_all()) : count($this->_themes);
+		return $this->theme_infos == null ? count($this->get_all()) : count($this->exists);
 	}
 
 	/**

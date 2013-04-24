@@ -118,12 +118,12 @@ class Module_Widgets extends AbstractModule
 		$schema->dropIfExists('widgets');
 		$schema->create('widgets', function ($table) {
 			$table->increments('id');
-			$table->string('slug')->default('');
+			$table->string('slug');
 			$table->string('title');
 			$table->text('description');
-			$table->string('author')->default('');
-			$table->string('website')->default('');
-			$table->string('version')->default('');
+			$table->string('author')->nullable();
+			$table->string('website')->nullable();
+			$table->string('version')->default('1.0.0');
 			$table->boolean('enabled')->default(true);
 			$table->integer('order')->default(0);
 			$table->integer('created_on');

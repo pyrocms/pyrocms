@@ -1,7 +1,9 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-class Theme_Conjuction extends Theme {
+use Pyro\Module\Addons\AbstractTheme;
 
+class Theme_Conjuction extends AbstractTheme
+{
     public $name = 'Conjuction';
     public $author = 'Free CSS Templates';
     public $author_website = 'http://freecsstemplates.org';

@@ -60,7 +60,7 @@ class ModuleModel extends Eloquent
     {
         return $this->all();
     }
-        
+
     /**
      * Find With Filter
      *

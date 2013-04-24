@@ -66,4 +66,4 @@ abstract class AbstractTheme
 	}
 }
 
-/* End of file Theme.php */
+/* End of file AbstractTheme.php */

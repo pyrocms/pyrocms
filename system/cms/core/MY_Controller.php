@@ -59,6 +59,16 @@ class MY_Controller extends MX_Controller
 		// Set up the Illuminate\Database layer
 		ci()->pdb = self::setupDatabase();
 
+        // Lets PSR-0 up our modules
+        $loader = new ClassLoader;
+
+        // Register module manager for usage everywhere, its handy
+        $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
+        $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
+        
+        // activate the autoloader
+        $loader->register();
+
 		// the Quick\Cache package is instantiated to $this->cache in the config file
 		$this->load->config('cache');
 
@@ -120,16 +130,6 @@ class MY_Controller extends MX_Controller
         ci()->module = $this->module = $this->router->fetch_module();
         ci()->controller = $this->controller = $this->router->fetch_class();
         ci()->method = $this->method = $this->router->fetch_method();
-
-        // Lets PSR-0 up our modules
-        $loader = new ClassLoader;
-
-        // Register module manager for usage everywhere, its handy
-        $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
-        $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
-        
-        // activate the autoloader
-        $loader->register();
 
         // Is there a logged in user?
         ci()->sentry = $this->sentry = $this->setupSentry();
@@ -278,17 +278,15 @@ class MY_Controller extends MX_Controller
             $lang = strtolower(substr($_GET['lang'], 0, 2));
 
             log_message('debug', 'Set language in URL via GET: '.$lang);
-        }
 
         // Lang has already been set and is stored in a session
-        elseif ( ! empty($_SESSION['lang_code'])) {
+        } elseif ( ! empty($_SESSION['lang_code'])) {
             $lang = $_SESSION['lang_code'];
 
             log_message('debug', 'Set language in Session: '.$lang);
-        }
 
         // Lang has is picked by a user.
-        elseif ( ! empty($_COOKIE['lang_code'])) {
+        } elseif ( ! empty($_COOKIE['lang_code'])) {
             $lang = strtolower($_COOKIE['lang_code']);
 
             log_message('debug', 'Set language in Cookie: '.$lang);
@@ -345,8 +343,7 @@ class MY_Controller extends MX_Controller
         $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
         // Sets a constant to use throughout ALL of CI.
-        if ( ! defined('AUTO_LANGUAGE'))
-        {
+        if ( ! defined('AUTO_LANGUAGE')) {
             define('AUTO_LANGUAGE', $lang);    
         }
         

@@ -41,28 +41,29 @@ class Theme_Default extends AbstractTheme
 	{
 		$supported_lang	= config_item('supported_languages');
 
-		$cufon_enabled	= $supported_lang[CURRENT_LANGUAGE]['direction'] !== 'rtl';
-		$cufon_font		= 'qk.font.js';
+		if (defined('CURRENT_LANGUAGE')) {
+		
+			$cufon_enabled	= $supported_lang[CURRENT_LANGUAGE]['direction'] !== 'rtl';
+			$cufon_font		= 'qk.font.js';
 
-		// Translators, only if the default font is incompatible with the chars of your
-		// language generate a new font (link: <http://cufon.shoqolate.com/generate/>) and add
-		// your case in switch bellow. Important: use a licensed font and harmonic with design
+			// Translators, only if the default font is incompatible with the chars of your
+			// language generate a new font (link: <http://cufon.shoqolate.com/generate/>) and add
+			// your case in switch bellow. Important: use a licensed font and harmonic with design
 
-		switch (CURRENT_LANGUAGE) {
-			case 'zh':
-				$cufon_enabled	= false;
-				break;
-			case 'ar':
-				$cufon_enabled = false;
-				break;
-			case 'he':
-				$cufon_enabled	= true;
-			case 'ru':
-				$cufon_font		= 'times.font.js';
-				break;
+			switch (CURRENT_LANGUAGE) {
+				case 'zh':
+				case 'ar':
+					$cufon_enabled = false;
+					break;
+				case 'he':
+					$cufon_enabled	= true;
+				case 'ru':
+					$cufon_font		= 'times.font.js';
+					break;
+			}
+
+			Settings::temp('theme_default', compact('cufon_enabled', 'cufon_font'));
 		}
-
-		Settings::temp('theme_default', compact('cufon_enabled', 'cufon_font'));
 	}
 }
 

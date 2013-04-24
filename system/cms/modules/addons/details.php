@@ -133,6 +133,24 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
+        $schema->dropIfExists('themes');
+
+        $schema->create('themes', function($table) {
+            $table->increments('id');
+            $table->integer('site_id')->nullable();
+            $table->string('slug');
+            $table->string('name');
+            $table->text('description');
+            $table->string('author')->nullable();
+            $table->string('author_website')->nullable();
+            $table->string('website')->nullable();
+            $table->string('version')->default('1.0.0');
+            $table->boolean('enabled')->default(true);
+            $table->integer('order')->default(0);
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
+        });
+
         $schema->dropIfExists('theme_options');
 
         $schema->create('theme_options', function($table) {
@@ -145,7 +163,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
             $table->string('value', 255);
             $table->text('options');
             $table->boolean('is_required');
-            $table->string('theme', 50);
+            $table->integer('theme_id')->nullable();
         });
 
         $this->pdb->table('settings')->insert(array(
@@ -154,11 +172,11 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
                 'title' => 'Addons Upload Permissions',
                 'description' => 'Keeps mere admins from uploading addons by default',
                 'type' => 'text',
-                'default' => '0',
-                'value' => '0',
+                'default' => false,
+                'value' => false,
                 'options' => '',
-                'is_required' => 1,
-                'is_gui' => 0,
+                'is_required' => true,
+                'is_gui' => false,
                 'module' => '',
                 'order' => 0,
             ),
@@ -170,8 +188,8 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
                 'default' => 'default',
                 'value' => 'default',
                 'options' => 'func:get_themes',
-                'is_required' => 1,
-                'is_gui' => 0,
+                'is_required' => true,
+                'is_gui' => false,
                 'module' => '',
                 'order' => 0,
             ),
@@ -183,8 +201,8 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
                 'default' => '',
                 'value' => 'pyrocms',
                 'options' => 'func:get_themes',
-                'is_required' => 1,
-                'is_gui' => 0,
+                'is_required' => true,
+                'is_gui' => false,
                 'module' => '',
                 'order' => 0,
             ),

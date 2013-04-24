@@ -160,7 +160,7 @@ class Admin_Controller extends MY_Controller
 		// Template configuration
 		$this->template
 			->enable_parser(false)
-			->set('theme_options', $this->theme->options)
+			->set('theme_options', $this->theme->getOptions())
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
 
