@@ -1,5 +1,7 @@
 # PyroCMS Community Edition
 
+[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.2/develop)](https://travis-ci.org/pyrocms/pyrocms)
+
 * [Website](https://www.pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
