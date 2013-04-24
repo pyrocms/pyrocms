@@ -1718,7 +1718,7 @@ class Row_m extends MY_Model {
 
 		if ( ! is_array($config))
 		{
-			$pag_segment = $conifg;
+			$pag_segment = $config;
 		}
 		else
 		{
