@@ -208,7 +208,8 @@ class Pages extends Public_Controller
 								Keywords::get_string($page->meta_keywords) :
 								Keywords::get_string($page->layout->meta_keywords);
 		}
-
+                $meta_robots = $page->meta_robots_no_index ? 'noindex' : 'index';
+                $meta_robots .= $page->meta_robots_no_follow ? ',nofollow' : ',follow';
 		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
