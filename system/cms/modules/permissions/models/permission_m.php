@@ -124,36 +124,33 @@ class Permission_m extends CI_Model
 	 * @return int
 	 */
 	
-	//bookmark after this function works, need also in the library
 	public function check_access_role($group_id, $module = null,$role = null)
 	{
-	    $count = 0;
+		$count = 0;
 		// If no module is set, just make sure they have SOMETHING
 		if ($module !== null)
 		{
 			$this->db->where('module', $module);
 		}
-		
-		//we select the group
-		$group_result = $this->db
-			->get_where('default_permissions',array('group_id' => $group_id));
+
+		//get the group
+		$this->db->where('group_id',$group_id);
+		$this->db->from('permissions');
+		$query = $this->db->get();
 			
 		//iterate over the rows in the result 
-		foreach ($group_result->result() as $row)
+		foreach ($query->result() as $row)
 		{
-		    $json = $row->roles;
-		    //put the role in to a json
+			//parse the json string
+			$json = $row->roles;
+			$roles = json_decode($json, true);
 
-		    $role_array = json_decode($json, true);
-		    foreach ($role_array as $role_key => $value)
+			// if the value of the role = 1
+			if(array_search(1,$roles) === $role)
 			{
-			 if($role ==$role_key && $value ==1)
-			 {
-			     ++$count;
-			 }
+				++$count;
 			}
 		}
-		
 		
 		return $count >0;
 	}
