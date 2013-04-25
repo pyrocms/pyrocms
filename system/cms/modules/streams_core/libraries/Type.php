@@ -239,8 +239,14 @@ class Type
 		{
 			$lang = $this->CI->config->item('language');
 
-			// Fallback on English
-			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
+			// Fallback on English.
+			if ( ! $lang) {
+				$lang = 'english';
+			}
+
+			if ( ! is_dir($path.$type.'/language/'.$lang)) {
+				$lang = 'english';
+			}
 
 			$this->CI->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
 			
