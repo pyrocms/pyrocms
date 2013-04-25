@@ -74,7 +74,6 @@ class Module_Comments extends Module
 		    ,'roles' => array('comment_email')
 		);
 	
-		//var_dump(array('role_comment_email'));
 	}
 
 	public function install()
