@@ -1777,7 +1777,7 @@ class Row_m extends MY_Model {
 			// Are we using a query string? If so, we just need to take
 			// The entire current URL. Otherwise, we take the URL up to the
 			// pagination segment.
-			if ($pag_uri_method == 'query_string')
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
 			{
 				$pagination_config['base_url'] = current_url().'?';
 			}
