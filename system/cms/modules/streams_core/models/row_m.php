@@ -1718,7 +1718,7 @@ class Row_m extends MY_Model {
 
 		if ( ! is_array($config))
 		{
-			$pag_segment = $conifg;
+			$pag_segment = $config;
 		}
 		else
 		{
@@ -1738,11 +1738,8 @@ class Row_m extends MY_Model {
 		// Config Set
 		// -------------------------------------
 
-		// We always reuse the query string
-		$pagination_config['reuse_query_string'] = true;
-
 		// Set use_page_numbers
-		if ($pag_method == 'page')
+		if (isset($pag_method) and $pag_method == 'page')
 		{
 			$pagination_config['use_page_numbers'] = true;
 		} else {
@@ -1751,7 +1748,7 @@ class Row_m extends MY_Model {
 
 		// We want to preserve the query string
 		// if we are using the query_string method.
-		if ($pag_uri_method == 'query_string')
+		if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
 		{
 			$pagination_config['page_query_string'] = true;
 		}
@@ -1762,7 +1759,7 @@ class Row_m extends MY_Model {
 			$pag_base = $config['pag_base_url'];
 		}
 
-		if ($pag_query_var)
+		if (isset($pag_query_var) and $pag_query_var)
 		{
 			$pagination_config['query_string_segment'] = $pag_query_var;
 		}
