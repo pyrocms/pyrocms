@@ -32,19 +32,19 @@ $lang['cp:nav_settings']				= 'Nustatymai';
 $lang['cp:nav_addons']					= 'Priedai';
 $lang['cp:nav_modules']					= 'Moduliai';
 $lang['cp:nav_users']					= 'Vartotojai';
-$lang['cp:nav_data']					= 'Data'; #translate
-$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_data']					= 'Duomenys';
+$lang['cp:nav_structure']				= 'Struktūra';
 $lang['cp:nav_content']					= 'Turinys';
-$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_misc']					= 'Įvairialypis';
 
-$lang['cp:search']                      = 'Search'; #translate
+$lang['cp:search']                      = 'Paieška';
 
 $lang['cp:must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp:access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'nstaliavimo direktorija vis dar egzistuoja! Ištrinkite ją iš serverio! Jei paliksite, liks galimybė svetainės kontrolę perimti kiteims.';
+$lang['cp:delete_installer']					 = 'Ištrinti instaliavimo direktoriją';
+$lang['cp:delete_installer_successfully_message'] = 'Instaliavimo direktorija sėkmingai ištrinta.';
+$lang['cp:delete_installer_manually_message']     = 'Intaliavimo direktorijos nepavyksta ištrinti.<strong>Ištrinkite rankiniu būdu!</strong>';
 $lang['cp:upgrade_message']				= 'Jūsų naudojama versija %s, tačiau duomenų bazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duomenų bazę.';
 $lang['cp:google_analytics_missing']	= 'Google Analytics nustatymai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
 $lang['cp:google_analytics_no_connect']	= 'Negalime prisijungti prie Google Analytics. Patikrinkite %s.';
