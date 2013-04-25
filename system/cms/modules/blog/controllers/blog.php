@@ -92,6 +92,7 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $meta['keywords'])
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
+			->set('pagination', $posts['pagination'])
 			->build('posts');
 	}
 
