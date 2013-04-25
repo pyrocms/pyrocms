@@ -5,8 +5,6 @@ $lang['permissions:roles']                  = 'Rollen';
 $lang['permissions:module']                      = 'Modul';
 $lang['permissions:edit']                    = 'Zugriffsrechte berarbeiten';
 
-
-$lang['permissions:role_comment_email']		= 'Kommentare per Email senden';
 $lang['permissions:introduction']            = 'Du kannst eigene Zugriffsrechte f&uuml;r unterschiedliche Benutzer anlegen indem du ihnen in "Benutzer" > "Benutzer verwalten" Gruppen zuweist. Danach kannst du unterschiedliche Zugriffsrechte f&uuml;r die jeweiligen Gruppen festlegen. Dabei kannst du festlegen, welche Module und Rollen eine Gruppe erh&auml;lt.';
 
 $lang['permissions:message_group_saved_success']    = 'Die Zugriffsrechte f&uuml;r diese Gruppe wurden gespeichert.';

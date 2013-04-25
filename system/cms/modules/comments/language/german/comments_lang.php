@@ -56,5 +56,4 @@ $lang['comments:counter_none_label']		= 'Keine Kommentare';
 $lang['comments:counter_singular_label']	= '%d Kommentar';
 $lang['comments:counter_plural_label']		= '%d Kommentare';
 
-$lang['comments:role_comment_email']		= 'Kommentare per Email senden';
 /* End of file comments_lang.php */
