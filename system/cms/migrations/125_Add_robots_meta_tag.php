@@ -18,8 +18,7 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 				'meta_robots_no_index' => array(
 					'type' => 'tinyint',
 					'constraint' => 1,
-					'default' => 0,
-					'null' => false
+					'null' => true
 				)
 			));
 		}
@@ -30,8 +29,7 @@ class Migration_Add_robots_meta_tag extends CI_Migration
 				'meta_robots_no_follow' => array(
 					'type' => 'tinyint',
 					'constraint' => 1,
-					'default' => 0,
-					'null' => false
+					'null' => true
 				)
 			));
 		}
