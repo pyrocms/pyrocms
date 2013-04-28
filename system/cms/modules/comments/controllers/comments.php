@@ -281,7 +281,7 @@ class Comments extends Public_Controller
 	 */
 	private function _send_email($comment, $entry)
 	{
-                $result = false;
+		$result = false;
 		$this->load->library('email');
 		$this->load->library('user_agent');
 
