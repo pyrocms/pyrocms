@@ -280,6 +280,7 @@ class Comments extends Public_Controller
 	 */
 	private function _send_email($comment, $entry)
 	{
+		$result = false;
 		$this->load->library('email');
 		$this->load->library('user_agent');
 
@@ -291,8 +292,32 @@ class Comments extends Public_Controller
 		$comment['redirect_url'] = anchor(ltrim($entry['uri'], '/').'#'.$comment['comment_id']);
 		$comment['reply-to'] = $comment['user_email'];
 
-		//trigger the event
-		return (bool) Events::trigger('email', $comment);
+		$this->load->library('groups/groups');
+		$this->load->library('permissions/permissions');
+		$this->load->library('users/users');
+		
+		//get all groups
+		$all_groups = Groups::get_all();
+		
+		//find the groups with comment permission
+		foreach ($all_groups as $group)
+		{
+			//if the group has the required permission
+			if(Permissions::check_access_role($group->id,'comments','comment_email'))
+			{
+				
+				//get all users from the matching roup
+				$users = Users::get_users_array($group->name);
+				
+				foreach ($users as $user)
+				{
+					//send the mail to each user
+					$comment['to'] = $user['email'];
+					$result = (bool) Events::trigger('email', $comment);
+				}
+			}
+		}
+		return $result;
 	}
 
 }
