@@ -35,7 +35,7 @@ $lang['buttons:edit']		= 'Redaguoti';
 $lang['buttons:clone']		= 'Klonuoti';
 $lang['buttons:re-index']	= 'Perindeksuoti';
 $lang['buttons:copy']		= 'Kopijuoti';
-$lang['buttons:filter']		= 'Filter'; #translate
-$lang['buttons:clear']		= 'Clear'; #translate
+$lang['buttons:filter']		= 'Filtruoti';
+$lang['buttons:clear']		= 'Valyti';
 
 /* End of file buttons_lang.php */
