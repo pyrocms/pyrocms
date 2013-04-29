@@ -26,7 +26,7 @@
  */
 
 $lang['migration_none_found']			= "Nincsenek migrációk.";
-$lang['migration_not_found']			= "Ez a migráció nem található.";
+$lang['migration_not_found']			= "Ez a migráció nem található: %d.";
 $lang['migration_multiple_version']		= "Ez egy töbszörös adatmigráció, aminek a verziója: %d.";
 $lang['migration_class_doesnt_exist']           = "A(z) \"%s\" migrációs osztály nem található.";
 $lang['migration_missing_up_method']            = "A(z) \"%s\" migrációs osztály eltűnt a 'fenti' múdon.";
