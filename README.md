@@ -31,8 +31,8 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Bugs & Feature Requests
 
-[Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://forum.pyrocms.com)
+* [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
+* [Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
