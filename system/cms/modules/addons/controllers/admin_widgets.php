@@ -18,7 +18,6 @@ class Admin_Widgets extends Admin_Controller
 
 	/**
 	 * Every time this controller is called it should:
-	 * - load the widgets library
 	 * - load the widgets and addons language files
 	 * - remove the view layout if the request is an AJAX request
 	 */
@@ -26,15 +25,16 @@ class Admin_Widgets extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->load->library('widgets');
 		$this->lang->load('addons');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(false);
+		if ($this->input->is_ajax_request()) {
+			$this->template->set_layout(false);
+		}
 
 		if (in_array($this->method, array('index', 'manage'))) {
 			// requires to install and/or uninstall widgets
-			$this->widgets->list_available_widgets();
+			$this->widgetManager->list_available_widgets();
 		}
 
 		$this->template
@@ -49,7 +49,7 @@ class Admin_Widgets extends Admin_Controller
 	{
 		$data = array();
 
-		$base_where = array('enabled' => 1);
+		$base_where = array('enabled' => true);
 
 		//capture active
 		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];

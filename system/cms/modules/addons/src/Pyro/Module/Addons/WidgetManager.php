@@ -1,44 +1,36 @@
 <?php namespace Pyro\Module\Addons;
 
 /**
- * Widget library takes care of the logic for widgets
+ * Widget Manager
  *
- * @package		PyroCMS\Core\Modules\Widgets\Libraries
+ * @package     PyroCMS\Core\Addons
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @link        http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Addons.WidgetManager.html
  */
-class WidgetLocator
+class WidgetManager
 {
-	/**
-	 * Current widget in use (yay singletons!)
-	 *
-	 * @var	object
-	 */
-	protected $_widget = null;
-
 	/**
 	 * Cache of rendered widget areas (html)
 	 *
 	 * @var	array
 	 */
-	protected $_rendered_areas = array();
+	protected $rendered_areas = array();
 
 	/**
 	 * Locations where widget files are located
 	 *
 	 * @var	array
 	 */
-	protected $_widget_locations = array();
+	protected $located_widgets = array();
 
 	/**
 	 * Constructor
-	 *
-	 * @return void
 	 */
 	public function __construct()
-	{
-		$this->load->model('addons/widget_m');
-
+    {
+        $this->widgets = new WidgetModel;
+        
 		$locations = array(
 		   APPPATH,
 		   ADDONPATH,
@@ -73,7 +65,7 @@ class WidgetLocator
 				$slug = basename($widget_path);
 
 				// Set this so we know where it is later
-				$this->_widget_locations[$slug] = $widget_path.'/';
+				$this->located_widgets[$slug] = $widget_path.'/';
 			}
 		}
 	}
@@ -91,7 +83,7 @@ class WidgetLocator
 	 */
 	public function list_areas()
 	{
-		return $this->widget_m->get_areas();
+		return $this->widgets->get_areas();
 	}
 
 	/**
@@ -107,7 +99,7 @@ class WidgetLocator
 	 */
 	public function list_area_instances($slug)
 	{
-		return is_array($slug) ? $this->widget_m->findByAreas($slug) : $this->widget_m->findByArea($slug);
+		return is_array($slug) ? $this->widgets->findByAreas($slug) : $this->widgets->findByArea($slug);
 	}
 
 	/**
@@ -133,19 +125,18 @@ class WidgetLocator
 		}
 
 		// Secondly, uninstall any installed widgets missed
-		$installed_widgets = $this->widget_m->order_by('slug')->get_all();
+		$installed_widgets = $this->widgets->order_by('slug')->get_all();
 
 		$avaliable = array();
 
 		foreach ($installed_widgets as $widget) {
-			if ( ! isset($this->_widget_locations[$widget->slug])) {
-				$this->delete_widget($widget->slug);
-
+			if ( ! isset($this->located_widgets[$widget->slug])) {
+				$this->deleteWidget($widget->slug);
 				continue;
 			}
 
 			// Finally, check if is need and update the widget info
-			$widget_file = FCPATH.$this->_widget_locations[$widget->slug].$widget->slug.'.php';
+			$widget_file = FCPATH.$this->located_widgets[$widget->slug].$widget->slug.'.php';
 
 			if (file_exists($widget_file) and (filemtime($widget_file) > $widget->updated_on)) {
 				$this->reload_widget($widget->slug);
@@ -170,7 +161,7 @@ class WidgetLocator
 	 */
 	protected function list_uninstalled_widgets()
 	{
-		$available = $this->widget_m->order_by('slug')->get_all();
+		$available = $this->widgets->order_by('slug')->get_all();
 		$available_slugs = array();
 
 		foreach ($available as $widget) {
@@ -179,7 +170,7 @@ class WidgetLocator
 		unset($widget);
 
 		$uninstalled = array();
-		foreach ($this->_widget_locations as $widget_path) {
+		foreach ($this->located_widgets as $widget_path) {
 			$slug = basename($widget_path);
 
 			if ( ! in_array($slug, $available_slugs) and ($widget = $this->read_widget($slug))) {
@@ -204,10 +195,10 @@ class WidgetLocator
 	 */
 	public function get_instance($instance_id)
 	{
-		$widget = $this->widget_m->find($instance_id);
+		$widget = $this->widgets->find($instance_id);
 
 		if ($widget) {
-			$widget->options = $this->_unserialize_options($widget->options);
+			$widget->options = $this->unserializeOptions($widget->options);
 
 			return $widget;
 		}
@@ -227,7 +218,7 @@ class WidgetLocator
 	 */
 	public function get_area($id)
 	{
-		return is_numeric($id) ? $this->widget_m->get_area_by('id', $id) : $this->widget_m->get_area_by('slug', $id);
+		return is_numeric($id) ? $this->widgets->get_area_by('id', $id) : $this->widgets->get_area_by('slug', $id);
 	}
 
 	/**
@@ -236,24 +227,23 @@ class WidgetLocator
 	 * Spawn a widget and get some basic information back, such as the module and wether its an addon or not
 	 *
 	 * <code>
-	 * echo $this->widgets->read_widget($id);
+	 * echo $this->widgets->get($id);
 	 * </code>
 	 *
 	 * @param  int    $slug
 	 * @return object stdObject
 	 */
-	public function read_widget($slug)
+	public function get($slug)
 	{
-		$this->_spawn_widget($slug);
+		$widget = $this->spawnWidget($slug);
 
-		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets')) {
+		if ($widget === false or ! ($widget instanceof AbstractWidget)) {
 			return false;
 		}
 
-		$widget = (object) get_object_vars($this->_widget);
 		$widget->slug = $slug;
-		$widget->module = strpos($this->_widget->path, 'modules/') ? basename(dirname($this->_widget->path)) : null;
-		$widget->is_addon = strpos($this->_widget->path, 'system/') === false;
+		$widget->module = strpos($widget->path, 'modules/') ? basename(dirname($widget->path)) : null;
+		$widget->is_addon = strpos($widget->path, 'system/') === false;
 
 		return $widget;
 	}
@@ -273,9 +263,9 @@ class WidgetLocator
 	 */
 	public function render($slug, array $options = array())
 	{
-		$this->_spawn_widget($slug);
+		$widget = $this->spawnWidget($slug);
 
-		$data = method_exists($this->_widget, 'run') ? call_user_func(array($this->_widget, 'run'), $options) : array();
+		$data = method_exists($widget, 'run') ? call_user_func(array($widget, 'run'), $options) : array();
 
 		// Don't run this widget
 		if ($data === false) {
@@ -292,11 +282,13 @@ class WidgetLocator
 
 		// Check that the widget is enabled = 1 , if it's 1
 		// we go ahead and return it
-		$result = $this->db->select('enabled')
-		->where('slug', $name)
-		->get('widgets');
+		$result = $this->db
+			->select('enabled')
+			->where('slug', $name)
+			->get('widgets');
+
 		if ($result->row()->enabled == 1) {
-			return $this->load_view('display', $data);
+			return $this->loadView('display', $data);
 		}
 	}
 
@@ -311,17 +303,16 @@ class WidgetLocator
 	 */
 	public function render_backend($slug, array $saved_data = array())
 	{
-		$this->_spawn_widget($slug);
+		$widget = $this->spawnWidget($slug);
 
 		// No fields, no backend, no rendering
-		if (empty($this->_widget->fields)) {
+		if (empty($widget->fields)) {
 			return '';
 		}
 
-		$options = array();
-		$_arrays = array();
+		$options = $_arrays = array();
 
-		foreach ($this->_widget->fields as $field) {
+		foreach ($widget->fields as $field) {
 			$field_name = &$field['field'];
 			if (($pos = strpos($field_name, '[')) !== false) {
 				$key = substr($field_name, 0, $pos);
@@ -341,12 +332,12 @@ class WidgetLocator
 		}
 
 		// Check for default data if there is any
-		$data = method_exists($this->_widget, 'form') ? call_user_func(array(&$this->_widget, 'form'), $options) : array();
+		$data = method_exists($widget, 'form') ? call_user_func(array(&$widget, 'form'), $options) : array();
 
 		// Options we'rent changed, lets use the defaults
 		isset($data['options']) OR $data['options'] = $options;
 
-		return $this->load_view('form', $data);
+		return $this->loadView('form', $data);
 	}
 
 	/**
@@ -364,15 +355,11 @@ class WidgetLocator
 	 */
 	public function render_area($area)
 	{
-		if (isset($this->_rendered_areas[$area])) {
-			return $this->_rendered_areas[$area];
+		if (isset($this->rendered_areas[$area])) {
+			return $this->rendered_areas[$area];
 		}
 
-		$widgets = $this->widget_m->findByArea($area);
-
-		$output = '';
-
-		if ($area == 'dashboard') {
+		if ($area === 'dashboard') {
 			$view = 'admin/widget_wrapper';
 		} else {
 			$view = 'widget_wrapper';
@@ -387,8 +374,10 @@ class WidgetLocator
 		// save the existing view array so we can restore it
 		$save_path = $this->load->get_view_paths();
 
+		$widgets = $this->widgets->findByArea($area);
+
+		$output = '';
 		foreach ($widgets as $widget) {
-			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
 			if ($widget->body !== false) {
@@ -402,7 +391,7 @@ class WidgetLocator
 			}
 		}
 
-		$this->_rendered_areas[$area] = $output;
+		$this->rendered_areas[$area] = $output;
 
 		return $output;
 	}
@@ -432,101 +421,73 @@ class WidgetLocator
 
 	public function add_widget($input)
 	{
-		return $this->widget_m->insert_widget($input);
+		return $this->widgets->insert_widget($input);
 	}
 
 	public function edit_widget($input)
 	{
-		return $this->widget_m->update_widget($input);
+		return $this->widgets->update_widget($input);
 	}
 
 	public function update_widget_order($id, $position)
 	{
-		return $this->widget_m->update_widget_order($id, $position);
-	}
-
-	public function delete_widget($slug)
-	{
-		return $this->widget_m->delete_widget($slug);
-	}
-
-	public function add_area($input)
-	{
-		return $this->widget_m->insert_area((array) $input);
-	}
-
-	public function edit_area($input)
-	{
-		return $this->widget_m->update_area((array) $input);
-	}
-
-	public function delete_area($slug)
-	{
-		return $this->widget_m->delete_area($slug);
+		return $this->widgets->update_widget_order($id, $position);
 	}
 
 	public function add_instance($title, $widget_id, $widget_area_id, $options = array(), $data = array())
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $data)) {
+		if ($error = $this->validate($slug, $data)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
 		// The widget has to do some stuff before it saves
-		$options = $this->widgets->prepare_options($slug, $options);
+		$options = $this->widgets->prepareOptions($slug, $options);
 
-		$this->widget_m->insert_instance(array(
+		$this->widgets->create(array(
 			'title' => $title,
 			'widget_id' => $widget_id,
 			'widget_area_id' => $widget_area_id,
-			'options' => $this->_serialize_options($options),
+			'options' => $options,
 			'data' => $data
 		));
 
 		return array('status' => 'success');
 	}
 
-	public function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
+	public function edit_instance($instance_id, $title, $widget_area_id, array $options = array(), array $data = array())
 	{
-		$slug = $this->widget_m->find($instance_id)->slug;
+		$widget = $this->widgets->find($instance_id);
 
-		if ($error = $this->validation_errors($slug, $options)) {
+		if (( ! $widget)) {
+			return false;
+		}
+
+		if ($error = $this->validate($widget->slug, $data)) {
 			return array('status' => 'error', 'error' => $error);
 		}
 
 		// The widget has to do some stuff before it saves
-		$options = $this->widgets->prepare_options($slug, $options);
+		$options = $this->widgets->prepareOptions($slug, $options);
 
-		$this->widget_m->update_instance($instance_id, array(
+		$this->widgets->create($instance_id, array(
 			'title' => $title,
 			'widget_area_id' => $widget_area_id,
-			'options' => $this->_serialize_options($options),
+			'options' => $options,
 			'data' => $data
 		));
 
 		return array('status' => 'success');
 	}
 
-	public function update_instance_order($id, $position)
-	{
-		return $this->widget_m->update_instance_order($id, $position);
-	}
-
-	public function delete_instance($id)
-	{
-		return $this->widget_m->delete_instance($id);
-	}
-
-	public function validation_errors($name, $options)
+	public function validate(AbstractWidget $widget, WidgetModel $instance)
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
 
-		$this->_widget OR $this->_spawn_widget($name);
-
-		if (property_exists($this->_widget, 'fields')) {
-			$this->form_validation->set_rules($this->_widget->fields);
+		if (property_exists($widget, 'fields')) {
+			$this->form_validation->set_rules($widget->fields);
 		}
 
 		if ( ! $this->form_validation->run('', false)) {
@@ -534,72 +495,48 @@ class WidgetLocator
 		}
 	}
 
-	public function prepare_options($name, array $options = array())
+	public function prepareOptions(AbstractWidget $widget, WidgetModel $instance)
 	{
-		$this->_widget or $this->_spawn_widget($name);
-
-		if (method_exists($this->_widget, 'save')) {
-			return (array) call_user_func(array(&$this->_widget, 'save'), $options);
+		if (method_exists($widget, 'save')) {
+			return (array) call_user_func(array(&$widget, 'save'), $instance->options);
 		}
 
-		return $options;
+		return $instance->options;
 	}
 
-	protected function _spawn_widget($name)
+	protected function spawnWidget($name)
 	{
-		$widget_path = $this->_widget_locations[$name];
+		$widget_path = $this->located_widgets[$name];
 		$widget_file = FCPATH.$widget_path.$name.'.php';
 
 		if (file_exists($widget_file)) {
-			require_once $widget_file;
-			$class_name = 'Widget_'.ucfirst($name);
-
-			$this->_widget = new $class_name;
-			$this->_widget->path = $widget_path;
-
-			return;
+			return false;
 		}
+	
+		require_once $widget_file;
+		$class_name = 'Widget_'.ucfirst($name);
 
-		$this->_widget = null;
+		$widget = new $class_name;
+		$widget->path = $widget_path;
+
+		return $widget;
 	}
 
-	public function __get($var)
+	protected function loadView(AbstractWidget $widget, $view, $data = array())
 	{
-		if (isset(get_instance()->$var)) {
-			return get_instance()->$var;
-		}
-	}
-
-	protected function load_view($view, $data = array())
-	{
-		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
-
 		return $view == 'display'
 
 			? $this->parser->parse_string($this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.'.php',
+				'_ci_path'		=> $widget->path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			)), array(), true)
 
 			: $this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.'.php',
+				'_ci_path'		=> $widget->path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			));
 	}
 
-	protected function _serialize_options($options)
-	{
-		return serialize((array) $options);
-	}
-
-	protected function _unserialize_options($options)
-	{
-		$options = (array) unserialize($options);
-
-		isset($options['show_title']) OR $options['show_title'] = false;
-
-		return $options;
-	}
 }

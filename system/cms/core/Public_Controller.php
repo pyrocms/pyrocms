@@ -52,7 +52,7 @@ class Public_Controller extends MY_Controller
 		}
 
 		// Load the current theme so we can set the assets right away
-		ci()->theme = $this->theme_m->get(Settings::get('default_theme'));
+		ci()->theme = $this->themeManager->locate(Settings::get('default_theme'));
 
 		if (empty($this->theme->slug)) {
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');

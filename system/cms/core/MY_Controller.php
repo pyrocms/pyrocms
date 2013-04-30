@@ -6,6 +6,7 @@ use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
+use Pyro\Module\Addons\WidgetManager;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -141,6 +142,7 @@ class MY_Controller extends MX_Controller
 
         ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
         ci()->themeManager = $this->themeManager = new ThemeManager();
+        ci()->widgetManager = $this->widgetManager = new WidgetManager();
 
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();

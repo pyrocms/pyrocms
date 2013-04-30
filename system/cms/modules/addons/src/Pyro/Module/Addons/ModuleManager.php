@@ -3,10 +3,12 @@
 use Pyro\Module\Users\Model\User;
 
 /**
- * ModuleManager
+ * Module Manager
  *
- * @author   PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Addons\ModuleManagerManagerLocator.html
+ * @package     PyroCMS\Core\Addons
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @link        http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Addons.ModuleManager.html
  */
 class ModuleManager
 {
@@ -96,7 +98,7 @@ class ModuleManager
      *
      * Return an array containing module data
      *
-     * @param   string  $slug       The name of the module to load
+     * @param   string  $slug  The name of the module to load
      * @return  array
      */
     public function get($slug)
