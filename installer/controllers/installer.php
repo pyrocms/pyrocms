@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\ThemeManager;
+use Pyro\Module\Addons\WidgetManager;
 
 // This is for using the the settings library in PyroCMS when installing.
 // This is a copy of the function that exists in system/cms/core/My_Controller.php
@@ -453,7 +454,17 @@ class Installer extends CI_Controller
 			$this->module_import->import_all();
 
         	$themeManager = new ThemeManager();
+        	$themeManager->setLocations(array(
+				PYROPATH.'themes/',
+			));
+
         	$themeManager->registerUnavailableThemes();
+
+        	$widgetManager = new WidgetManager();
+        	$widgetManager->setLocations(array(
+				PYROPATH.'widgets/',
+			));
+        	$widgetManager->registerUnavailableWidgets();
 
 			redirect('installer/complete');
 		}

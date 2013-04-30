@@ -24,7 +24,7 @@ class Module_Widgets extends AbstractModule
 				'de' => 'Widgets',
 				'el' => 'Widgets',
 				'es' => 'Widgets',
-                            'fa' => 'ویجت ها',
+				'fa' => 'ویجت ها',
 				'fi' => 'Vimpaimet',
 				'fr' => 'Widgets',
 				'id' => 'Widget',
@@ -50,7 +50,7 @@ class Module_Widgets extends AbstractModule
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
 				'es' => 'Manejar pequeñas secciones de lógica autocontenida en bloques o "Widgets"',
-                            'fa' => 'مدیریت قسمت های کوچکی از سایت به طور مستقل',
+				'fa' => 'مدیریت قسمت های کوچکی از سایت به طور مستقل',
 				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Vimpaimia".',
 				'fr' => 'Gérer des mini application ou "Widgets".',
 				'id' => 'Mengatur bagian-bagian kecil dari blok-blok yang memuat sesuatu atau dikenal dengan istilah "Widget".',
@@ -96,7 +96,7 @@ class Module_Widgets extends AbstractModule
 		$schema->create('widget_areas', function ($table) {
 			$table->increments('id');
 			$table->string('slug')->nullable();
-			$table->string('title')->nullable();
+			$table->string('name')->nullable();
 		});
 
 		$schema->dropIfExists('widget_instances');
@@ -118,9 +118,10 @@ class Module_Widgets extends AbstractModule
 		$schema->create('widgets', function ($table) {
 			$table->increments('id');
 			$table->string('slug');
-			$table->string('title');
+			$table->string('name');
 			$table->text('description');
 			$table->string('author')->nullable();
+            $table->string('author_website')->nullable();
 			$table->string('website')->nullable();
 			$table->string('version')->default('1.0.0');
 			$table->boolean('enabled')->default(true);
@@ -131,7 +132,7 @@ class Module_Widgets extends AbstractModule
 
 		// Add the default data
 		$pdb->table('widget_areas')->insert(array(
-			'title' => 'Sidebar',
+			'name' => 'Sidebar',
 			'slug' => 'sidebar',
 		));
 
