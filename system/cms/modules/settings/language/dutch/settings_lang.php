@@ -83,15 +83,6 @@ $lang['settings:ga_profile_desc']				= 'Profiel-ID voor deze website in Google A
 $lang['settings:ga_tracking'] 					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Voer uw Google Analytics Tracking Code in voor het activeren van Google Analytics om datacaptatie te bekijken. E.g: UA-19483569-6';
 
-$lang['settings:twitter_username'] 				= 'Gebruikersnaam';
-$lang['settings:twitter_username_desc'] 		= 'Twitter gebruikersnaam.';
-
-$lang['settings:twitter_feed_count'] 			= 'Feed Teller';
-$lang['settings:twitter_feed_count_desc'] 		= 'Hoeveel tweets moeten getoond worden in het Twitter feed blok?';
-
-$lang['settings:twitter_cache'] 				= 'Cache tijd';
-$lang['settings:twitter_cache_desc'] 			= 'Hoeveel minuten moeten de Tweets tijdelijk bewaard worden?';
-
 $lang['settings:akismet_api_key'] 				= 'Akismet API Sleutel';
 $lang['settings:akismet_api_key_desc'] 			= 'Akismet is een spam-blokker van het WordPress team. Het houdt spam onder controle zonder gebruikers te dwingen een mens-checkend CAPTCHA formulier te gebruiken.';
 
@@ -143,7 +134,6 @@ $lang['settings:section_integration']			= 'Integratie';
 $lang['settings:section_comments']				= 'Reacties';
 $lang['settings:section_users']					= 'Gebruikers';
 $lang['settings:section_statistics']			= 'Statistieken';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Bestanden';
 
 #checkbox and radio options

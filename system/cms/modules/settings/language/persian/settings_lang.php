@@ -83,15 +83,6 @@ $lang['settings:ga_profile_desc']				= 'Profile ID شما در گوگل آنال
 $lang['settings:ga_tracking']				= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'کد گوگل خود را اینجا وارد کنید به عنوان مثال UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'تویتر';
-$lang['settings:twitter_username_desc']			= 'نام کاربری در تویتر';
-
-$lang['settings:twitter_feed_count']			= 'تعداد فید ها';
-$lang['settings:twitter_feed_count_desc']		= 'چند فید از تویتر دریافت شود؟';
-
-$lang['settings:twitter_cache']				= 'زمان کش';
-$lang['settings:twitter_cache_desc']			= 'توییت ها هر چند ثانیه یکبار باید دریافت شوند؟';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet یک سیستم جلوگیری از اسپم است که توسط تیم وردپرس ارائه شده است و بدون اینکه کاربران را مجبور به وارد کردن کپچا کنید اسپم ها را کنترل می کنید.';
 
@@ -143,7 +134,6 @@ $lang['settings:section_integration']			= 'یکپارچه سازی';
 $lang['settings:section_comments']				= 'نظرات';
 $lang['settings:section_users']				= 'کاربران';
 $lang['settings:section_statistics']                         = 'آمار ها';
-$lang['settings:section_twitter']				= 'تویتر';
 $lang['settings:section_files']				= 'فایل ها';
 
 # checkbox and radio options

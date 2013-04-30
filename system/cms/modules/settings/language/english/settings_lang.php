@@ -83,15 +83,6 @@ $lang['settings:ga_profile_desc']				= 'Profile ID for this website in Google An
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'Username';
-$lang['settings:twitter_username_desc']			= 'Twitter username.';
-
-$lang['settings:twitter_feed_count']			= 'Feed Count';
-$lang['settings:twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';
-
-$lang['settings:twitter_cache']					= 'Cache time';
-$lang['settings:twitter_cache_desc']			= 'How many seconds should your Tweets be stored?';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';
 
@@ -143,7 +134,6 @@ $lang['settings:section_integration']			= 'Integration';
 $lang['settings:section_comments']				= 'Comments';
 $lang['settings:section_users']					= 'Users';
 $lang['settings:section_statistics']			= 'Statistics';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Files';
 
 # checkbox and radio options
