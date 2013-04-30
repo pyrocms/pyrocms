@@ -126,11 +126,6 @@ aside #navigation { padding: 0 0 25px 0; }
 aside #navigation ul { width: 235px; }
 aside #navigation ul li { list-style: none; padding: 0 0 15px 3px; }
 
-/* Twitter widget */
-.widget ul.rss li { list-style:none; border-bottom: 1px solid #c9c9c9; padding: 10px 0 10px 0; }
-.widget ul.rss li p.date { font-size: 11px; padding: 15px 0 0 0; }
-.widget ul.rss li a { font-size: 12px; }
-
 /* Gallery widget */
 ul.galleries_list li { float: left; padding: 0 20px 0 0; list-style: none; width: 106px; height: 126px; }
 ul.galleries_list li a img { max-width: 100px; max-height: 100px; }

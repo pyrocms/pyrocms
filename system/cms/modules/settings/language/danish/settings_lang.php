@@ -86,15 +86,6 @@ $lang['settings:ga_profile_desc']				= 'Profil-ID for dette website i Google Ana
 $lang['settings:ga_tracking']					= 'Google Sporingskode';
 $lang['settings:ga_tracking_desc']				= 'Indtast din Google Analytic Sporingskode for at aktivere Google Analytics data indfangelse. F.eks.: UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'Brugernavn';
-$lang['settings:twitter_username_desc']			= 'Twitter brugernavn.';
-
-$lang['settings:twitter_feed_count']			= 'Feed Antal';
-$lang['settings:twitter_feed_count_desc']		= 'Hvor mange tweets skal vises i twitter feed blokken?';
-
-$lang['settings:twitter_cache']					= 'Cache tid';
-$lang['settings:twitter_cache_desc']			= 'Hvor mange minutter skal dine Tweets gemmes?';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet er en spam-blocker fra WordPress teamet. Det holder spam under kontrol uden at tvinge brugere til at udfylde CAPTCHA formularer.';
 
@@ -125,7 +116,6 @@ $lang['settings:section_integration']			= 'Integration';
 $lang['settings:section_comments']				= 'Kommentarer';
 $lang['settings:section_users']					= 'Brugere';
 $lang['settings:section_statistics']			= 'Statistik';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Åben';

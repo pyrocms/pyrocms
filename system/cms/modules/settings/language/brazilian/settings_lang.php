@@ -85,15 +85,6 @@ $lang['settings:ga_profile_desc']				= 'ID do Perfil para este site no Google An
 $lang['settings:ga_tracking'] 					= 'Cód. de acompanhamento Google';
 $lang['settings:ga_tracking_desc']				= 'Digite seu código de acompanhamento do Google Analytics para ativar a captura de dados do Google Analytics. Ex.: UA-19483569-6';
 
-$lang['settings:twitter_username'] 				= 'Nome de usuário';
-$lang['settings:twitter_username_desc'] 		= 'Nome de usuário do Twitter.';
-
-$lang['settings:twitter_feed_count'] 			= 'Contador do Feed';
-$lang['settings:twitter_feed_count_desc'] 		= 'Quantos tweets devem ser retornados para o bloco de feed do Twitter?';
-
-$lang['settings:twitter_cache'] 				= 'Tempo de cache';
-$lang['settings:twitter_cache_desc'] 			= 'Quantos minutos seus Tweets devem ser armazenados temporariamente?';
-
 $lang['settings:akismet_api_key'] 				= 'Chave da API do Akismet';
 $lang['settings:akismet_api_key_desc'] 			= 'Akismet é um bloqueador de spam da equipe WordPress. Isto mantém spam sobre controle sem forçar que usuários façam a confirmação humana de CAPTCHA nos formulários.';
 
@@ -127,7 +118,6 @@ $lang['settings:section_integration']			= 'Integração';
 $lang['settings:section_comments']				= 'Comentários';
 $lang['settings:section_users']					= 'Usuários';
 $lang['settings:section_statistics']			= 'Estatísticas';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Aberto';
