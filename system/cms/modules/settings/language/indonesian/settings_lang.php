@@ -83,15 +83,6 @@ $lang['settings:ga_profile_desc']				= 'ID Profil untuk situs ini di Google Anal
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Masukkan Google Analytic Tracking Code Anda untuk mengaktifkan tampilan Google Analytics view data. Contohnya: UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'Username';
-$lang['settings:twitter_username_desc']			= 'Twitter username.';
-
-$lang['settings:twitter_feed_count']			= 'Banyak Feed';
-$lang['settings:twitter_feed_count_desc']		= 'Berapa banyak tweet yang akan ditampilkan di dalam blok Twitter?';
-
-$lang['settings:twitter_cache']					= 'Waktu Cache';
-$lang['settings:twitter_cache_desc']			= 'Setiap berapa menit tweet Anda dimuat?';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet adalah spam-blocker dari tim WordPress. Alat ini mengontrol datangnya spam tanpa memaksa pengguna untuk melalui  pengecekan manusia dengan form CAPTCHA.';
 
@@ -143,7 +134,6 @@ $lang['settings:section_integration']			= 'Integrasi';
 $lang['settings:section_comments']				= 'Komentar';
 $lang['settings:section_users']					= 'Pengguna';
 $lang['settings:section_statistics']			= 'Statistik';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'File'; #translate
 
 #checkbox and radio options

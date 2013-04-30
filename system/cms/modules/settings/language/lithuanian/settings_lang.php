@@ -82,15 +82,6 @@ $lang['settings:ga_profile_desc']                = 'Profilio ID šitam puslapiui
 $lang['settings:ga_tracking']                    = 'Google Tracking kodas';
 $lang['settings:ga_tracking_desc']                = 'Irašykite Google Analytic Tracking Code kad aktyvuotumėte Google Analytics peržiųrų skaičiavima. Pvz: UA-19483569-6';
 
-$lang['settings:twitter_username']                = 'Vartotojas';
-$lang['settings:twitter_username_desc']            = 'Twitterio vartotojas.';
-
-$lang['settings:twitter_feed_count']            = 'Parašu kiekis';
-$lang['settings:twitter_feed_count_desc']        = 'Kiek įrašų turi būti gražinta į Twitterio bloką?';
-
-$lang['settings:twitter_cache']                    = 'Talpyklos (cache) laikas';
-$lang['settings:twitter_cache_desc']            = 'Kiek minučių jūsų Twitterio irašai bus saugomi talpykolje?';
-
 $lang['settings:akismet_api_key']                = 'Akismet API raktas';
 $lang['settings:akismet_api_key_desc']            = 'Akismet yra anti-spamas nuo WordPress komandos. Užtikrina spam apsaugą nenaudojant CAPTCHA formų.';
 
@@ -121,7 +112,6 @@ $lang['settings:section_integration']            = 'Integracija';
 $lang['settings:section_comments']                = 'Komentarai';
 $lang['settings:section_users']                    = 'Vartotojai';
 $lang['settings:section_statistics']            = 'Statistika';
-$lang['settings:section_twitter']                = 'Twitteris';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']                = 'Atidaryta';

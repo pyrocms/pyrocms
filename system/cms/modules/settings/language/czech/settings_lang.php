@@ -83,15 +83,6 @@ $lang['settings:ga_profile_desc']				= 'ID rpofilu pro tento web v Google Analyt
 $lang['settings:ga_tracking'] 					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Vložte svůj Google Analytic Tracking Code pro aktivaci snímání dat Google Analytics, např: UA-19483569-6';
 
-$lang['settings:twitter_username'] 				= 'Uživatelské jméno';
-$lang['settings:twitter_username_desc'] 		= 'Uživatelské jméno na Twitteru.';
-
-$lang['settings:twitter_feed_count'] 			= 'Počet příspěvků';
-$lang['settings:twitter_feed_count_desc'] 		= 'Kolik tweetů se má zobrazit v sekci Twitteru?';
-
-$lang['settings:twitter_cache'] 				= 'Doba cache';
-$lang['settings:twitter_cache_desc'] 			= 'Kolik minut by měly být tweety dočasně uloženy u nás?';
-
 $lang['settings:akismet_api_key'] 				= 'API klíč pro Akismet';
 $lang['settings:akismet_api_key_desc'] 			= 'Akismet je služba blokující spam. Blokuje ho a při tom neobtěžuje uživatele nutností vyplňovat captcha.';
 
@@ -122,7 +113,6 @@ $lang['settings:section_integration']			= 'Integrace';
 $lang['settings:section_comments']				= 'Komentáře';
 $lang['settings:section_users']					= 'Uživatelé';
 $lang['settings:section_statistics']			= 'Statistiky';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Otevřeno';

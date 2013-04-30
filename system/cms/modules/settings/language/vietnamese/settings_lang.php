@@ -93,15 +93,6 @@ $lang['settings:ga_profile_desc']				= 'Profile ID cho website này trong Google
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Điền Google Analytic Tracking Code để kích hoạt  Google Analytics thu thập dữ liệu. E.g: UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'Tên đăng nhập';
-$lang['settings:twitter_username_desc']			= 'Tên đăng nhập Twitter.';
-
-$lang['settings:twitter_feed_count']			= 'Đếm Feed';
-$lang['settings:twitter_feed_count_desc']		= 'Bao nhiêu tweets hiển thị trên ô Twitter feed?';
-
-$lang['settings:twitter_cache']					= 'Thời gian lưu cache';
-$lang['settings:twitter_cache_desc']			= 'Tweets sẽ được lưu trong bao nhiêu phút?';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet là chương trình ngăn spam phát triển bởi WordPress. Chúng giúp chặn spam mà không yêu cầu người dùng sử dụng CAPTCHA.';
 
@@ -132,7 +123,6 @@ $lang['settings:section_integration']			= 'Tích hợp';
 $lang['settings:section_comments']				= 'Phản hồi';
 $lang['settings:section_users']					= 'Người dùng';
 $lang['settings:section_statistics']			= 'Thống kê';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Mở';
