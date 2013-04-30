@@ -86,15 +86,6 @@ $lang['settings:ga_profile_desc']                = 'Profil ID f&uuml;r diese Web
 $lang['settings:ga_tracking']                    = 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']                = 'Gib deinen Google Analytic Tracking Code ein um Google Analytics\' view data capturing zu aktivieren. z.B: UA-19483569-6';#translate; no idea what view data capturing is...
 
-$lang['settings:twitter_username']                = 'Twitter-Benutzername';
-$lang['settings:twitter_username_desc']            = 'Dein Twitter-Benutzername.';
-
-$lang['settings:twitter_feed_count']            = 'Anzahl der Feeds';
-$lang['settings:twitter_feed_count_desc']        = 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';
-
-$lang['settings:twitter_cache']                    = 'Dauer im Cache';
-$lang['settings:twitter_cache_desc']            = 'Wie lange sollen deine Tweets tempor&auml;r im Cache gesichert werden?';
-
 $lang['settings:akismet_api_key']                = 'Akismet API Schl&uuml;ssel';
 $lang['settings:akismet_api_key_desc']            = 'Akismet ist ein Spam-Blocker der Wordpress-Entwickler. Es h&auml;lt Spam unter Kontrolle ohne das Benutzer Captchas nutzen m&uuml;ssen.';
 
@@ -125,7 +116,6 @@ $lang['settings:section_integration']            = 'Integrierung';
 $lang['settings:section_comments']                = 'Kommentare';
 $lang['settings:section_users']                    = 'Benutzer';
 $lang['settings:section_statistics']            = 'Statistiken';
-$lang['settings:section_twitter']                = 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']                = 'Ge&ouml;ffnet';

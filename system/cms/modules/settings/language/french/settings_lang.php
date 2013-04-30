@@ -82,15 +82,6 @@ $lang['settings:ga_profile_desc']				= 'ID du profil pour ce site dans Google An
 $lang['settings:ga_tracking'] 					= 'Code Google Tracking';
 $lang['settings:ga_tracking_desc']				= 'Code de tracking Google Analytics pour activer la capture de données de visites. Ex. : UA-19483569-6';
 
-$lang['settings:twitter_username'] 				= 'Nom d\'utilisateur';
-$lang['settings:twitter_username_desc'] 		= 'Nom d\'utilisateur Twitter.';
-
-$lang['settings:twitter_feed_count'] 			= 'Nombre de tweets';
-$lang['settings:twitter_feed_count_desc'] 		= 'Combien de tweet doivent être affiché dans le block Twitter&nbsp;?';
-
-$lang['settings:twitter_cache'] 				= 'Durée de vie du cache';
-$lang['settings:twitter_cache_desc'] 			= 'Combien de temps conserver les tweets dans le cache&nbsp;?';
-
 $lang['settings:akismet_api_key'] 				= 'Clé d\'API Akismet';
 $lang['settings:akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par l\'équipe de Wordpress. Il limite les spam sans obliger les utilisateurs à valider une CAPTCHA';
 
@@ -142,7 +133,6 @@ $lang['settings:section_integration']			= 'Intégration';
 $lang['settings:section_comments']				= 'Commentaires';
 $lang['settings:section_users']					= 'Utilisateurs';
 $lang['settings:section_statistics']			= 'Statistiques';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Fichiers';
 
 #checkbox and radio options

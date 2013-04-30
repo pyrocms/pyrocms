@@ -85,15 +85,6 @@ $lang['settings:ga_profile_desc']				= 'مُعرّف السجل لهذا الم�
 $lang['settings:ga_tracking'] 					= 'رمز تتبّع جوجل';
 $lang['settings:ga_tracking_desc']				= 'أدخل رمز تتبع خدمة إحصائيات جوجل لتفعيل عرض بيانات الخدمة. مثال: UA-19483569-6';
 
-$lang['settings:twitter_username'] 				= 'إسم المستخدم';
-$lang['settings:twitter_username_desc'] 		= 'إسم مستخدم تويتر.';
-
-$lang['settings:twitter_feed_count'] 			= 'عدد رسائل تويتر';
-$lang['settings:twitter_feed_count_desc'] 		= 'ما عدد رسائل تويتر التي يجب قراءتها في بلوك تويتر؟';
-
-$lang['settings:twitter_cache'] 				= 'وقت الكاش';
-$lang['settings:twitter_cache_desc'] 			= 'ما المدة بالدقائق التي يجب خلالها تخزين رسائل تويتر بشكل مؤقت؟';
-
 $lang['settings:akismet_api_key'] 				= 'رمز API لخدمة أكيزمت';
 $lang['settings:akismet_api_key_desc'] 			= 'خدمة أكيزمت هي خدمة منع الرسائل الغير مرغوبة أنشأها فريق وورد برس. تسيطر هذه الخدمة على المُحتوى الغير مرغوب دون الحاجة إلى استخدام الكابتشا في الاستمارات.';
 
@@ -124,7 +115,6 @@ $lang['settings:section_integration']			= 'الدمج';
 $lang['settings:section_comments']				= 'تعليقات';
 $lang['settings:section_users']					= 'المستخدمون';
 $lang['settings:section_statistics']			= 'إحصاءيات';
-$lang['settings:section_twitter']				= 'تويتر';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'مفتوح';

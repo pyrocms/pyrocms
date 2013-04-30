@@ -93,15 +93,6 @@ $lang['settings:ga_profile_desc']				= 'Profile IDสำหรับเว็บ
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'ป้อน Google Analytic Tracking Code ของคุณเพื่อปิดใช้งานการดึงข้อมูล เช่น: UA-19483569-6';
 
-$lang['settings:twitter_username']				= 'ชื่อบัญชี';
-$lang['settings:twitter_username_desc']			= 'ชื่อบัญชีของ Twitter';
-
-$lang['settings:twitter_feed_count']			= 'Feed Count';
-$lang['settings:twitter_feed_count_desc']		= 'ต้องการแสดงจำนวน Twitter เป็นจำนวนเท่าไหร่?';
-
-$lang['settings:twitter_cache']					= 'เวลาของแคช';
-$lang['settings:twitter_cache_desc']			= 'ต้องการเก็บ Tweets เป็นระบเวลาเท่าไหร่';
-
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet คือตามป้องกันสแปมจากผู้พัฒนา WordPress. มันช่วยควบคุมสแปมโดยไม่ต้องบัคับผู้ใช้งานกรอกฟอร์ม CAPTCHA';
 
@@ -153,7 +144,6 @@ $lang['settings:section_integration']			= 'ผสานระบบ';
 $lang['settings:section_comments']				= 'ความเห็น';
 $lang['settings:section_users']					= 'ผู้ใช้งาน';
 $lang['settings:section_statistics']			= 'สถิติ';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'ไฟล์';
 
 # checkbox and radio options
