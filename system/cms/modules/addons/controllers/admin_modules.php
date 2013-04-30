@@ -67,7 +67,7 @@ class Admin_modules extends Admin_Controller
 	public function upload()
 	{
 		if (( ! Settings::get('addons_upload'))) {
-			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
+			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator.');
 		}
 
 		if ($this->input->post('btnAction') == 'upload') {
@@ -95,7 +95,7 @@ class Admin_modules extends Admin_Controller
 				}
 
 				// Delete uploaded file
-				@unlink($upload_data['full_path']);
+				unlink($upload_data['full_path']);
 			} else {
 				$redirect = 'addons/modules/upload';
 				$this->session->set_flashdata('error', $this->upload->display_errors());
@@ -119,13 +119,15 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function uninstall($slug = '')
 	{
-		if ($this->module_m->uninstall($slug)) {
-			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $slug));
+		$module = $this->modules->findBySlug($slug);
+
+		if ($module->uninstall()) {
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $module->name));
 
 			// Fire an event. A module has been disabled when uninstalled.
-			Events::trigger('module_disabled', $slug);
+			Events::trigger('module_disabled', $module);
 		} else {
-			$this->session->set_flashdata('error', sprintf(lang('addons:modules:uninstall_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:uninstall_error'), $module->name));
 		}
 
 		redirect('admin/addons/modules');
@@ -178,15 +180,17 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function install($slug)
 	{
-		if ($this->module_m->install($slug)) {
+		$module = $this->modules->findBySlug($slug);
+
+		if ($module and $module->install()) {
 			// Fire an event. A module has been enabled when installed.
-			Events::trigger('module_enabled', $slug);
+			Events::trigger('module_enabled', $module);
 
 			// Clear the module cache
 			$this->cache->clear('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $module->name));
 		} else {
-			$this->session->set_flashdata('error', sprintf(lang('addons:modules:install_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:install_error'), $module->name));
 		}
 
 		redirect('admin/addons/modules');
@@ -221,8 +225,6 @@ class Admin_modules extends Admin_Controller
 	/**
 	 * Disable
 	 *
-	 * Disables an addon module
-	 *
 	 * @param	string	$slug	The slug of the module to disable
 	 * @return	void
 	 */
@@ -246,8 +248,6 @@ class Admin_modules extends Admin_Controller
 
 	/**
 	 * Upgrade
-	 *
-	 * Upgrade an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to disable
 	 * @return	void

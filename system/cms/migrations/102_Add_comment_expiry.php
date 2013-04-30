@@ -86,8 +86,6 @@ class Migration_Add_comment_expiry extends CI_Migration
 					break;
 			}
 
-			$this->load->model('addons/module_m');
-
 			// Use the old comment logic to grab title names, then we can never have to use this junk again
 			if (in_array($comment->module, array('blog', 'pages'))) {
 				// Grab an item
