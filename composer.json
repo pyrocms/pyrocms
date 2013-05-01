@@ -1,6 +1,13 @@
 {
     "minimum-stability": "dev",
 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git://github.com/philsturgeon/capsule.git"
+        }
+    ],
+    
     "require": {
         "pyrocms/lex": "2.2.*",
         
