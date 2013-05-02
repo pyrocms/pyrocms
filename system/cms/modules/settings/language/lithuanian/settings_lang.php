@@ -82,15 +82,6 @@ $lang['settings:ga_profile_desc']                = 'Profilio ID šitam puslapiui
 $lang['settings:ga_tracking']                    = 'Google Tracking kodas';
 $lang['settings:ga_tracking_desc']                = 'Irašykite Google Analytic Tracking Code kad aktyvuotumėte Google Analytics peržiųrų skaičiavima. Pvz: UA-19483569-6';
 
-$lang['settings:twitter_username']                = 'Vartotojas';
-$lang['settings:twitter_username_desc']            = 'Twitterio vartotojas.';
-
-$lang['settings:twitter_feed_count']            = 'Parašu kiekis';
-$lang['settings:twitter_feed_count_desc']        = 'Kiek įrašų turi būti gražinta į Twitterio bloką?';
-
-$lang['settings:twitter_cache']                    = 'Talpyklos (cache) laikas';
-$lang['settings:twitter_cache_desc']            = 'Kiek minučių jūsų Twitterio irašai bus saugomi talpykolje?';
-
 $lang['settings:akismet_api_key']                = 'Akismet API raktas';
 $lang['settings:akismet_api_key_desc']            = 'Akismet yra anti-spamas nuo WordPress komandos. Užtikrina spam apsaugą nenaudojant CAPTCHA formų.';
 
@@ -109,8 +100,8 @@ $lang['settings:ckeditor_config_desc']          = 'Pamatuti ivairius konfiguravi
 $lang['settings:enable_registration']           = 'Įjungti vartotojų registraciją';
 $lang['settings:enable_registration_desc']      = 'Leidžia vartotojų registraciją jūsų puslapyje.';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Profilio matomumas';
+$lang['settings:profile_visibility_desc']       = 'Nurodyti, kas gali peržiūrėti vartotojo profilį viešai';
 
 $lang['settings:cdn_domain']                    = 'CDN domenas';
 $lang['settings:cdn_domain_desc']               = 'CDN domenas leidžia jums nuimti (statinių nuotraukų, css, js skriptų) apkrovimą nuo pagrindinio serverio. Pvz naudojant providerius tokius kaip Amazon CloudFront arba MaxCDN.';
@@ -121,7 +112,6 @@ $lang['settings:section_integration']            = 'Integracija';
 $lang['settings:section_comments']                = 'Komentarai';
 $lang['settings:section_users']                    = 'Vartotojai';
 $lang['settings:section_statistics']            = 'Statistika';
-$lang['settings:section_twitter']                = 'Twitteris';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']                = 'Atidaryta';
