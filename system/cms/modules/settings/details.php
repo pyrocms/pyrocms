@@ -97,7 +97,7 @@ class Module_Settings extends Module
 				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox'),),
 				'default' => array('type' => 'TEXT',),
 				'value' => array('type' => 'TEXT',),
-				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'options' => array('type' => 'TEXT'),
 				'is_required' => array('type' => 'INT', 'constraint' => 1,),
 				'is_gui' => array('type' => 'INT', 'constraint' => 1,),
 				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
