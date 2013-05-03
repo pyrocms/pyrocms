@@ -633,11 +633,13 @@ class Row_m extends MY_Model {
 		
 		if (isset($paginate) and $paginate == 'yes')
 		{
+			$count_sql = $this->build_count_query($this->sql);
+
 			// Run the query as is. It does not
 			// have limit/offset, so we can get the
 			// total num rows with the current
 			// parameters we have applied.
-			$return['pag_count'] = $this->db->query($sql)->num_rows();
+			$return['pag_count'] = $this->db->query($count_sql)->row()->count;
 
 			// Get the number.
 			if (isset($pag_uri_method) and $pag_uri_method == 'query_string') 
@@ -797,12 +799,11 @@ class Row_m extends MY_Model {
 	 * be taken care of after pagination is 
 	 * calculated.
 	 *
-	 * @access 	public
 	 * @param 	array 	[$sql] 	an array of sql elements to parse
 	 * 							into a sql string.
 	 * @return 	string 	the compiled query
 	 */
-	public function build_query($sql = array())
+	public function build_query(array $sql = array())
 	{
 		// -------------------------------------
 		// Select
@@ -905,6 +906,88 @@ class Row_m extends MY_Model {
 		{$where}
 		{$misc}
 		{$order_by} ";
+	}
+
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Build Count Query
+	 *
+	 * Run a count with the same critera as the main query
+	 *
+	 * @param 	array 	[$sql] 	an array of sql elements to parse
+	 * 							into a sql string.
+	 * @return 	string 	the compiled query
+	 */
+	public function build_count_query(array $sql = array())
+	{
+		// -------------------------------------
+		// From
+		// -------------------------------------
+
+		if (isset($this->sql['from']) and is_string($sql['from']))
+		{
+			$from = $this->sql['from'];
+		}
+		else
+		{
+			$from = implode(', ', $sql['from']);
+		}
+
+		// -------------------------------------
+		// Join
+		// -------------------------------------
+
+		if (isset($sql['join']) and is_string($sql['join']))
+		{
+			$join = $sql['join'];
+		}
+		else
+		{
+			(isset($sql['join'])) ? $join = implode(' ', $sql['join']) : $join = null;
+		}
+
+		// -------------------------------------
+		// Where
+		// -------------------------------------
+
+		if (isset($sql['where']) and is_string($sql['where']))
+		{
+			$where = $sql['where'];
+		}
+		else
+		{
+			$where = (isset($sql['where'])) ? implode(' AND ', $sql['where']) : null;
+		}
+
+		if ($where != '')
+		{
+			$where = 'WHERE '.$where;
+		}
+
+		// -------------------------------------
+		// Misc
+		// -------------------------------------
+
+		if (isset($sql['misc']) && is_string($sql['misc']))
+		{
+			$misc = $sql['misc'];
+		}
+		else
+		{
+			(isset($sql['misc'])) ? $misc = implode(' ', $sql['misc']) : $misc = null;
+		}
+
+		// -------------------------------------
+		// Return Built Query
+		// -------------------------------------
+
+		return "SELECT count(*) as `count`
+		FROM {$from}
+		{$join}
+		{$where}
+		{$misc}";
 	}
 
 	// --------------------------------------------------------------------------
