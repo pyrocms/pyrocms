@@ -538,6 +538,7 @@ jQuery(function($) {
 		    tabMode: 'indent',
 			height : '500px',
 			width : '500px',
+			lineWrapping: true
 		});
 	});
 
@@ -547,6 +548,7 @@ jQuery(function($) {
 		    tabMode: 'indent',
 			height : '500px',
 			width : '500px',
+			lineWrapping: true
 		});
 	});
 
@@ -556,6 +558,7 @@ jQuery(function($) {
 		    tabMode: 'indent',
 			height : '500px',
 			width : '500px',
+			lineWrapping: true
 		});
 	});
 });
