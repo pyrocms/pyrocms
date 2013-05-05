@@ -66,3 +66,7 @@ $lang['blog:twitter_error'] 			= 'Twitter Fout';
 
 // date
 $lang['blog:archive_date_format']		= "%B %Y";
+
+// widgets
+$lang['blog:num_of_entries'] = 'Number of entries to display:';
+$lang['blog:num_of_characters'] = 'Number of characters to display per entry:';

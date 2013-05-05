@@ -66,4 +66,7 @@ $lang['blog:twitter_error']                  = 'Twitter napaka';
 // date
 $lang['blog:archive_date_format']		= "%d' %m' %Y";
 
+// widgets
+$lang['blog:num_of_entries'] = 'Number of entries to display:';
+$lang['blog:num_of_characters'] = 'Number of characters to display per entry:';
 /* End of file blog_lang.php */

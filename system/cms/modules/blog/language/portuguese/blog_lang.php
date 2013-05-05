@@ -65,3 +65,7 @@ $lang['blog:twitter_error']				= 'Erro do Twitter';
 
 // date
 $lang['blog:archive_date_format']		= "%B de %Y";
+
+// widgets
+$lang['blog:num_of_entries'] = 'Number of entries to display:';
+$lang['blog:num_of_characters'] = 'Number of characters to display per entry:';
