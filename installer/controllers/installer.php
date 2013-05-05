@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\ThemeManager;
 
 // This is for using the the settings library in PyroCMS when installing.
 // This is a copy of the function that exists in system/cms/core/My_Controller.php
@@ -449,6 +451,15 @@ class Installer extends CI_Controller
 			));
 
 			$this->module_import->import_all();
+
+			$themeManager = new ThemeManager();
+
+			// Just install the core ones
+        	$themeManager->setLocations(array(
+        		PYROPATH.'themes/'
+        	));
+
+			$themeManager->discoverNonexistantThemes();
 
 			redirect('installer/complete');
 		}

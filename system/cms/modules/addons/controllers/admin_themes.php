@@ -44,25 +44,19 @@ class Admin_themes extends Admin_Controller
 	{
 		$themes = $this->themes->findAll();
 
-		$data = array();
-
-		foreach ($themes as $theme)
-		{
-			if ( ! isset($theme->type) or $theme->type != 'admin')
-			{
-				if ($theme->slug == Settings::get('default_theme'))
-				{
+		foreach ($themes as &$theme) {
+			if (( ! isset($theme->type)) or $theme->type !== 'admin') {
+				if ($theme->slug == Settings::get('default_theme')) {
 					$theme->is_default = true;
 				}
-
-				$data['themes'][] = $theme;
 			}
 		}
 
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/themes/index', $data);
+			->set('themes', $themes)
+			->build('admin/themes/index');
 	}
 	
 	/**
@@ -76,7 +70,7 @@ class Admin_themes extends Admin_Controller
 
 		$theme = $this->themes->findBySlug($slug);
 
-		if ( ! $theme) {
+		if (( ! $theme)) {
 			show_404();
 		}
 

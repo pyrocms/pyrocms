@@ -142,6 +142,10 @@ class MY_Controller extends MX_Controller
 
         ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
         ci()->themeManager = $this->themeManager = new ThemeManager();
+        
+        // Let the Theme Manager where our Template library thinks themes
+        $this->themeManager->setLocations($this->template->theme_locations());
+
         ci()->widgetManager = $this->widgetManager = new WidgetManager();
 
         // load all modules (the Events library uses them all) and make their details widely available

@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Addons;
 
+use Pyro\Module\Addons\AbstractTheme;
+
 /**
  * Theme Manager
  *
@@ -18,12 +20,27 @@ class ThemeManager
 	public $exists = array();
 
 	/**
+	 * Theme Locations
+	 *
+	 * @var array
+	 */
+	public $locations = array();
+
+	/**
 	 * Constructor
 	 */
     public function __construct()
     {
         $this->themes = new ThemeModel;
     }
+
+	/**
+	 * Set Locations
+	 */
+	public function setLocations(array $locations)
+	{
+		$this->locations = $locations;
+	}
 
 	/**
 	 * Get Module
@@ -44,7 +61,11 @@ class ThemeManager
 	 */
 	public function locate($slug)
 	{
-		foreach (ci()->template->theme_locations() as $location) {
+		if (count($this->locations) === 0) {
+			throw new Exception('No locations have been set, so how can anything be found?');
+		}
+
+		foreach ($this->locations as $location) {
 			if (is_dir($location.$slug)) {
 				$theme = $this->readDetails($location, $slug);
 
@@ -75,14 +96,12 @@ class ThemeManager
 		if ( ! (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))) {
 			return false;
 		}
-		// Core theme or third party?
-		$is_core = trim($location, '/') === APPPATH.'themes';
 
 		//path to theme
 		$web_path = $location.$slug;
 
 		//load the theme details.php file
-		$details = $this->spawnClass($slug, $is_core);
+		$details = $this->spawnClass($location, $slug);
 
 		if (( ! $theme = $this->themes->findBySlug($slug))) {
 			throw new \Exception("Theme '{$slug}' does not exist!");
@@ -97,194 +116,98 @@ class ThemeManager
 	}
 
 	/**
-	 * Index Options
-	 *
-	 * @param string $theme The theme to save options for
-	 * @param array $options The theme options to save to the db
-	 *
-	 * @return boolean
-	 */
-	public function _save_options($theme, $options)
-	{
-		foreach ($options AS $slug => $values) {
-			// build the db insert array
-			$insert = array(
-				'slug' => $slug,
-				'title' => $values['title'],
-				'description' => $values['description'],
-				'default' => $values['default'],
-				'type' => $values['type'],
-				'value' => $values['default'],
-				'options' => $values['options'],
-				'is_required' => $values['is_required'],
-				'theme' => $theme,
-			);
-
-			$this->db->insert('theme_options', $insert);
-		}
-
-		$this->cache->clear('theme_m');
-
-		return true;
-	}
-
-	/**
-	 * Count the number of available themes
-	 *
-	 * @return int
-	 */
-	public function count()
-	{
-		return $this->theme_infos == null ? count($this->get_all()) : count($this->exists);
-	}
-
-	/**
-	 * Get the default theme
-	 *
-	 * @return string
-	 */
-	public function get_default()
-	{
-		return $this->_theme;
-	}
-
-	/**
-	 * Set a new default theme
-	 *
-	 * @param string $input
-	 *
-	 * @return string
-	 */
-	public function set_default($input)
-	{
-		if ($input['method'] == 'index') {
-			return $this->settings->set('default_theme', $input['theme']);
-		} elseif ($input['method'] == 'admin_themes') {
-			return $this->settings->set('admin_theme', $input['theme']);
-		}
-	}
-
-	/**
 	 * Spawn Class
 	 *
 	 * Checks to see if a details.php exists and returns a class
 	 *
+     * @param string $path The location of the theme (APPPATH, SHARED_PATH, etc)
 	 * @param string $slug The folder name of the theme
-	 * @param bool $is_core
 	 *
 	 * @return array
 	 */
-	private function spawnClass($slug, $is_core = false)
+	private function spawnClass($path, $slug)
 	{
-		$path = $is_core ? APPPATH : ADDONPATH;
-
-		// Before we can install anything we need to know some details about the module
-		$details_file = "{$path}themes/{$slug}/theme.php";
-
-		// Check the details file exists
-		if ( ! is_file($details_file)) {
-			$details_file = SHARED_ADDONPATH.'themes/'.$slug.'/theme.php';
-
-			if ( ! is_file($details_file)) {
-				return false;
-			}
-		}
+		// Before we can install anything we need to know some details about the theme
+		$details_file = "{$path}{$slug}/theme.php";
 
 		// Sweet, include the file
-		include_once $details_file;
+		require_once $details_file;
 
 		// Now call the details class
 		$class = 'Theme_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : false;
+		return new $class;
 	}
 
-	/**
-	 * Delete Options
-	 *
-	 * @param string $theme The theme to delete options for
-	 *
-	 * @return boolean
-	 */
-	public function delete_options($theme)
-	{
-		$this->cache->clear('theme_m');
 
-		return $this->db
-			->where('theme', $theme)
-			->delete('theme_options');
-	}
+    /**
+     * Discover Nonexistant Modules
+     *
+     * Go through the list of themes in the file system and see 
+     * if they exist in the database
+     * 
+     * @return  bool
+     */
+    public function discoverNonexistantThemes()
+    {
+        $known = $this->themes->findAll();
 
-	/**
-	 * Get option
-	 *
-	 * @param array|string $params The where conditions to fetch the option by
-	 *
-	 * @return array
-	 */
-	public function get_option($params = array())
-	{
-		return $this->db
-			->select('value')
-			->where($params)
-			->where('theme', $this->_theme)
-			->get('theme_options')
-			->row();
-	}
+        $known_array = $known_mtime = array();
 
-	/**
-	 * Get options by
-	 *
-	 * @param array|string $params The where conditions to fetch options by
-	 *
-	 * @return array
-	 */
-	public function get_options_by($params = array())
-	{
-		return $this->db
-			->where($params)
-			->get('theme_options')
-			->result();
-	}
+        // Loop through the known array and assign it to a single dimension because
+        // in_array can not search a multi array.
+        if ($known->count() > 0) {
+            foreach ($known as $item) {
+                $known_mtime[$item->slug] = $item;
+            }
+        }
+	
+        $themes = array();
+        foreach ($this->locations as $location) {
+            // some servers return false instead of an empty array
+            if (( ! $temp_themes = glob($location.'*', GLOB_ONLYDIR))) {
+                continue;
+            }
 
-	/**
-	 * Get values by
-	 *
-	 * @param array|string $params The where conditions to fetch options by
-	 *
-	 * @return array
-	 */
-	public function get_values_by($params = array())
-	{
-		$options = new stdClass;
+            foreach ($temp_themes as $path) {
+                $slug = basename($path);
 
-		$query = $this->db
-			->select('slug, value')
-			->where($params)
-			->get('theme_options');
+                $theme_class = $this->spawnClass($location, $slug);
 
-		foreach ($query->result() as $option) {
-			$options->{$option->slug} = $option->value;
-		}
+                // This didnt work out right at all. Bail on this one theme.
+                if ($theme_class === false or ! ($theme_class instanceof AbstractTheme)) {
+                    continue;
+                }	
 
-		return $options;
-	}
+                // Looks like it installed ok, add a record
+                $record = $this->themes->create(array(
+                    'slug'              => $slug,
+                	'name'				=> $theme_class->name,
+					'author'			=> $theme_class->author,
+					'author_website'	=> $theme_class->author_website,
+					'website'			=> $theme_class->website,
+					'description'		=> $theme_class->description,
+					'version'			=> $theme_class->version,
+				));
 
-	/**
-	 * Update options
-	 *
-	 * @param array $input The values to update
-	 * @param string $slug The slug of the option to update
-	 *
-	 * @return boolean
-	 */
-	public function update_options($slug, $input)
-	{
-		$this->db
-			->where('slug', $slug)
-			->update('theme_options', $input);
+                foreach ($theme_class->options as $key => $option) {
+                    $record->options()->create(array(
+                        'slug'          => $key,
+                        'title'         => $option['title'],
+                        'description'   => $option['description'],
+                        'default'       => $option['default'],
+                        'value'         => $option['value'],
+                        'type'          => $option['type'],
+                        'options'       => $option['options'],
+                        'is_required'   => $option['is_required'],
+                    ));
+                }
+            }
+            unset($temp_themes);
+        }
 
-		$this->cache->clear('theme_m');
-	}
+        return true;
+    }
+
 }

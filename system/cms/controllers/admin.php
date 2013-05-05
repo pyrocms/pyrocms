@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Cartalyst\Sentry\Users\UserNotFoundException;
 
 /**
  * The admin class is basically the main controller for the backend.
@@ -103,7 +105,7 @@ class Admin extends Admin_Controller
 				'password' => $password,
 			), (bool) $this->input->post('remember'));
 
-		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+		} catch (UserNotFoundException $e) {
 
 			// Could not log in with password. Maybe its an old style pass?
 			try
@@ -114,7 +116,7 @@ class Admin extends Admin_Controller
 					'password' => whacky_old_password_hasher($email, $password),
 				), (bool) $this->input->post('remember'));
 
-			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+			} catch (UserNotFoundException $e) {
 
 				// That madness didn't work, error
 				$this->form_validation->set_message('_check_login', 'Incorrect login.');

@@ -99,7 +99,7 @@ class Installer_lib
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ($data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false) {
+		if ($data->http_server->supported === 'partial' or $this->gd_acceptable() === false or $this->zlib_available() === false) {
 			return 'partial';
 		}
 
@@ -277,7 +277,8 @@ class Installer_lib
 	 */
 	private function _write_file_vars($destination, $template, $replacements)
 	{
-		return (file_put_contents($destination, str_replace(array_keys($replacements), $replacements, file_get_contents($template))) !== false);
+		$str = str_replace(array_keys($replacements), $replacements, file_get_contents($template));
+		return (file_put_contents($destination, $str) !== false);
 	}
 
 }
