@@ -33,6 +33,21 @@ class WidgetModel extends Eloquent
      */
     public $timestamps = false;
 
+    
+    
+    /**
+     * Find Many In ID
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function findManyInId($ids)
+    {
+        return $this
+            ->orderBy('slug')
+            ->whereIn('id', $ids)
+            ->get();
+    }
+    
     /**
      * Find All Installed
      *
@@ -65,9 +80,8 @@ class WidgetModel extends Eloquent
      */
     public function enable()
     {
-        return $this->save(array(
-            'enabled' => true
-        ));
+        $this->enabled = true;
+        return $this->save();
     }
 
 	/**
@@ -79,9 +93,8 @@ class WidgetModel extends Eloquent
 	 */
 	public function disable()
 	{
-		return $this->save(array(
-        	'enabled' => false
-		));
+        $this->enabled = false;
+		return $this->save();
 	}
 
 	/**

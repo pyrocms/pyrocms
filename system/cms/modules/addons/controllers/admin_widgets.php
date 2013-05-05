@@ -97,26 +97,24 @@ class Admin_Widgets extends Admin_Controller
 	{
 		$ids = ( ! is_array($ids)) ? array($ids) : $ids;
 		$multiple = (count($ids) > 1) ? '_mass' : null;
-		$status = 'success';
 
-		foreach ($ids as $id) {
-			if ( ! $this->widget_m->{$action.'_widget'}($id)) {
-				$status = 'error';
-				break;
-			}
+		$widgets = $this->widgets->findManyInId($ids);
 
-			// Fire an Event. A widget has been enabled or disabled.
+		foreach ($widgets as $widget) {
+
 			switch ($action) {
 				case 'enable':
-					Events::trigger('widget_enabled', $ids);
+					$widget->enable();
+					Events::trigger('widget_enabled', $widget);
 					break;
+
 				case 'disable':
-					Events::trigger('widget_disabled', $ids);
-					break;
+					$widget->disable();
+					Events::trigger('widget_disabled', $widget);
 			}
 		}
 
-		$this->session->set_flashdata(array($status => lang('widgets:'.$action.'_'.$status.$multiple)));
+		$this->session->set_flashdata(array('success' => lang('widgets:'.$action.'_success'.$multiple)));
 	}
 
 }
