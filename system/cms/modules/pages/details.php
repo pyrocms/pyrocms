@@ -95,7 +95,7 @@ class Module_Pages extends AbstractModule
 
             // Do we have more than one page type? If we don't, no need to have a modal
             // ask them to choose a page type.
-            if ($this->pdb->table('page_types')->count() > 1) {
+            if (ci()->pdb->table('page_types')->count() > 1) {
                 $info['sections']['pages']['shortcuts'] = array(
                     array(
                         'name' => 'pages:create_title',
@@ -105,7 +105,7 @@ class Module_Pages extends AbstractModule
                 );
             } else {
                 // Get the one page type.
-                $page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
+                $page_type = ci()->pdb->table('page_types')->take(1)->select('id')->first();
 
                 if ($page_type) {
                     $info['sections']['pages']['shortcuts'] = array(
@@ -120,11 +120,11 @@ class Module_Pages extends AbstractModule
         }
 
         // Show the correct +Add button based on the page
-        if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5)) {
+        if (ci()->uri->segment(4) == 'fields' and ci()->uri->segment(5)) {
             $info['sections']['types']['shortcuts'] = array(
                 array(
                     'name' => 'streams:new_field',
-                    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
+                    'uri' => 'admin/pages/types/fields/'.ci()->uri->segment(5).'/new_field',
                     'class' => 'add'
                 )
             );
@@ -200,23 +200,23 @@ class Module_Pages extends AbstractModule
             $table->index('parent_id');
         });
 
-        $this->load->driver('Streams');
+        ci()->load->driver('Streams');
 
         // Remove pages namespace, just in case its a 2nd install
-        $this->streams->utilities->remove_namespace('pages');
+        ci()->streams->utilities->remove_namespace('pages');
 
         // Remove existing page streams
-        $this->pdb
+        ci()->pdb
             ->table('data_streams')
             ->where('stream_namespace', '=', 'pages')
             ->delete();
 
-        $this->load->config('pages/pages');
+        ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
         Schema::dropIfExists('def_page_fields');
 
-        $stream_id = $this->streams->streams->add_stream(
+        $stream_id = ci()->streams->streams->add_stream(
             'Default',
             'def_page_fields',
             'pages',
@@ -225,10 +225,10 @@ class Module_Pages extends AbstractModule
         );
 
         // add the fields to the streams
-        $this->streams->fields->add_fields(config_item('pages:default_fields'));
+        ci()->streams->fields->add_fields(config_item('pages:default_fields'));
 
         // Insert the page type structures
-        $def_page_type_id = $this->pdb->table('page_types')->insert(array(
+        $def_page_type_id = ci()->pdb->table('page_types')->insert(array(
             'id' => 1,
             'title' => 'Default',
             'slug' => 'default',
@@ -281,12 +281,12 @@ class Module_Pages extends AbstractModule
 
         foreach ($page_entries as $key => $d) {
             // Contact Page
-            $page_id = $this->pdb->table('pages')->insert($d);
+            $page_id = ci()->pdb->table('pages')->insert($d);
 
-            $entry_id = $this->pdb->table('def_page_fields')->insert($page_content[$key]);
+            $entry_id = ci()->pdb->table('def_page_fields')->insert($page_content[$key]);
 
             // Update the page with this entry_id
-            $this->pdb->table('pages')->where('id', $page_id)->update(array('entry_id' => $entry_id));
+            ci()->pdb->table('pages')->where('id', $page_id)->update(array('entry_id' => $entry_id));
 
             unset($page_id, $entry_id);
         }

@@ -10,7 +10,6 @@ use Pyro\Module\Addons\AbstractModule;
  */
 class Module_Widgets extends AbstractModule
 {
-
 	public $version = '1.2.0';
 
 	public function info()
@@ -131,7 +130,7 @@ class Module_Widgets extends AbstractModule
 		});
 
 		// Add the default data
-		$this->pdb->table('widget_areas')->insert(array(
+		ci()->pdb->table('widget_areas')->insert(array(
 			'title' => 'Sidebar',
 			'slug' => 'sidebar',
 		));

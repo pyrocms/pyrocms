@@ -125,17 +125,17 @@ class Module_Blog extends AbstractModule
 			$table->string('title', 100)->nullable()->unique();
 		});
 
-		$this->load->driver('Streams');
-		$this->streams->utilities->remove_namespace('blogs');
+		ci()->load->driver('Streams');
+		ci()->streams->utilities->remove_namespace('blogs');
 
 		if (Schema::hasTable('data_streams')) {
-			$this->pdb
+			ci()->pdb
 				->table('data_streams')
 				->where('stream_namespace', 'blogs')
 				->delete();
 		}
 
-		$this->streams->streams->add_stream(
+		ci()->streams->streams->add_stream(
 			'lang:blog:blog_title',
 			'blog',
 			'blogs',
@@ -154,7 +154,7 @@ class Module_Blog extends AbstractModule
 			'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
 			'required'	=> true
 		);
-		$this->streams->fields->add_field($intro_field);
+		ci()->streams->fields->add_field($intro_field);
 
 		// Add fields to streamsy table
 		Schema::table('blog', function($table) {

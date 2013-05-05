@@ -1,9 +1,9 @@
 <section class="title">
-	<h3>{header}</h3>
+	<h3>{step3_header}</h3>
 </section>
 
 <section class="item">
-	<p>{intro_text}</p>
+	<p>{step3_intro_text}</p>
 </section>
 
 <section class="title">
@@ -14,10 +14,10 @@
 	<ul class="permissions folders">
 		<?php foreach ($permissions['directories'] as $directory => $status): ?>
 			<li>
-				<span><?php echo $directory; ?></span>
-			<?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?>
+				<span><?php echo $directory ?></span>
+			<?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>' ?>
 			</li>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	</ul>
 </section>
 
@@ -30,8 +30,8 @@
 
 	<ul class="permissions files">
 		<?php foreach($permissions['files'] as $file => $status): ?>
-			<li><?php echo $file; ?> <?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?></li>
-		<?php endforeach; ?>
+			<li><?php echo $file.' '.$status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>' ?></li>
+		<?php endforeach ?>
 	</ul>
 
 <?php
@@ -46,15 +46,15 @@ foreach ($permissions['files'] as $files => $status) {
 ?>
 <?php if ( ! empty($cmds_d) || ! empty($cmds_f)): ?>
 <p>
-	<a href="#" id="show-commands">+ <?php echo lang('show_commands'); ?></a>
-	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands'); ?></a>
+	<a href="#" id="show-commands">+ <?php echo lang('show_commands') ?></a>
+	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands') ?></a>
 </p>
 
-<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:100%; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
+<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:100%; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']) ?>">
 <?php echo $cmds_d;?>
 <?php echo $cmds_f;?>
 </textarea>
-<?php endif; ?>
+<?php endif ?>
 
 <script type="text/javascript">
 	$(function(){
@@ -79,8 +79,8 @@ foreach ($permissions['files'] as $files => $status) {
 </script>
 
 <?php if($step_passed): ?>
-	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_4') ?>" title="{next_step}">{step4}</a>
 <?php else: ?>
-	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
-<?php endif; ?>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3') ?>">{retry}</a>
+<?php endif ?>
 </section>

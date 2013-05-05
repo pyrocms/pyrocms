@@ -1,8 +1,8 @@
 <section class="title">
-	<h3>{header}</h3>
+	<h3>{step4_header}</h3>
 </section>
 <section class="item">
-	<p>{intro_text}</p>
+	<p>{step4_intro_text}</p>
 </section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"') ?>

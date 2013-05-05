@@ -154,7 +154,7 @@ class Module_Users extends AbstractModule
             $table->unique('name');
         });
 
-        $this->pdb->table('groups')->insert(array(
+        ci()->pdb->table('groups')->insert(array(
             array(
                 'name' => 'admin',
                 'description' => 'Administrator',
@@ -169,9 +169,9 @@ class Module_Users extends AbstractModule
 
         // Load up the streams driver and convert the profiles table
         // into a stream.
-        $this->load->driver('Streams');
+        ci()->load->driver('Streams');
 
-        if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
+        if ( ! ci()->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
             return false;
         }
 
@@ -260,7 +260,7 @@ class Module_Users extends AbstractModule
         foreach ($columns as $field_slug => $column) {
             // We only want fields that actually exist in the
             // DB. The user could have deleted some of them.
-            if ($this->db->field_exists($field_slug, 'profiles')) {
+            if (ci()->db->field_exists($field_slug, 'profiles')) {
                 $extra = array();
                 $assign = array();
 
@@ -272,7 +272,7 @@ class Module_Users extends AbstractModule
                     $assign = $column['assign'];
                 }
 
-                $this->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
+                ci()->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
 
                 unset($extra);
                 unset($assign);
@@ -280,7 +280,7 @@ class Module_Users extends AbstractModule
         }
 
         // Install the settings
-        $this->pdb->table('settings')->insert(array(
+        ci()->pdb->table('settings')->insert(array(
             array(
                 'slug' => 'auto_username',
                 'title' => 'Auto Username',

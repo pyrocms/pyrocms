@@ -13,7 +13,7 @@
         
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
-        "dhorrigan/capsule": "2.1.*",
+        "dhorrigan/capsule": "dev-master",
         "ircmaxell/password-compat": "1.0.*",
         "illuminate/database": "dev-master",
         "nesbot/Carbon": "1.2.*",

@@ -1,9 +1,8 @@
 <?php
 
-include PYROPATH.'core/MY_Model.php';
+use Composer\Autoload\ClassLoader;
 
-// All modules talk to the Module class, best get that!
-include PYROPATH.'libraries/Module.php';
+include PYROPATH.'core/MY_Model.php';
 
 class Module_import
 {
@@ -11,16 +10,50 @@ class Module_import
 	{
 		ci()->pdb = $this->pdb = $params['pdb'];
 
+		// Make sure folders exist for addon structure
+		$this->buildFolderStructure(ADDONPATH, dirname(FCPATH));
+
+		// Lets PSR-0 up our modules
+		$this->registerAutoloader(new ClassLoader, realpath(PYROPATH));
+	}
+
+	/**
+	 * Build folder structure
+	 * Creates folders if they are missing for modules, themes, widgets, etc
+	 *
+	 * @param string $app_path The location of the PyroCMS application folder
+	 * @param string $base_path The location of the root of the PyroCMS installation
+	 */
+	public function buildFolderStructure($app_path, $base_path)
+	{
 		// create the site specific addon folder
-		is_dir(ADDONPATH.'modules') or mkdir(ADDONPATH.'modules', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'themes') or mkdir(ADDONPATH.'themes', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'widgets') or mkdir(ADDONPATH.'widgets', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'field_types') or mkdir(ADDONPATH.'field_types', DIR_READ_MODE, true);
+		is_dir($app_path.'modules') or mkdir($app_path.'modules', DIR_READ_MODE, true);
+		is_dir($app_path.'themes') or mkdir($app_path.'themes', DIR_READ_MODE, true);
+		is_dir($app_path.'widgets') or mkdir($app_path.'widgets', DIR_READ_MODE, true);
+		is_dir($app_path.'field_types') or mkdir($app_path.'field_types', DIR_READ_MODE, true);
 
 		// create the site specific upload folder
-		if ( ! is_dir(dirname(FCPATH).'/uploads/default')) {
-			mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, true);
+		if ( ! is_dir($base_path.'/uploads/default')) {
+			mkdir($base_path.'/uploads/default', DIR_WRITE_MODE, true);
 		}
+	}
+
+	/**
+	 * Register Autoloader
+	 *
+	 * @param Composer\Autoload\ClassLoader $loader Instance of the Composer autoloader
+	 * @param string $app_path The location of the PyroCMS application folder
+	 *
+	 * @return Composer\Autoload\ClassLoader
+	 */
+	public function registerAutoloader($loader, $app_path)
+	{
+        $loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
+        
+        // activate the autoloader
+        $loader->register();
+
+        return $loader;
 	}
 
 	/**

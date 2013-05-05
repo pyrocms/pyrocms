@@ -37,7 +37,7 @@ class ModuleManager
      */
     protected $user;
 
-    public function __construct(User $user)
+    public function __construct(User $user = null)
     {
         $this->modules = new ModuleModel;
         

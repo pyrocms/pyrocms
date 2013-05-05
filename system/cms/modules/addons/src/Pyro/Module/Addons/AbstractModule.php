@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Addons;
 
+use Illuminate\Database\Connection as DbConnection;
+
 /**
  * PyroCMS Module Definition
  *
@@ -76,7 +78,7 @@ abstract class AbstractModule
 	 *
 	 * @param Illuminate\Database\Connection $pdb The Laravel database connection
 	 */
-	public function __construct(Illuminate\Database\Connection $pdb = null)
+	public function __construct(DbConnection $pdb = null)
 	{
 		$pdb and $this->pdb = $pdb;
 	}
@@ -90,19 +92,6 @@ abstract class AbstractModule
 	 */
 	public function help()
 	{
-		return lang('modules.no_help');
-	}
-
-	/**
-	 * Allows this class and classes that extend this to use $this-> just like
-	 * you were in a controller.
-	 *
-	 * @return mixed
-	 */
-	public function __get($var)
-	{
-		static $ci;
-		isset($ci) OR $ci =& get_instance();
-		return $ci->{$var};
+		return lang('modules:no_help');
 	}
 }

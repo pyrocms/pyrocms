@@ -10,8 +10,8 @@ $lang['installer.passwords_match']		= "Passwords Match.";
 $lang['installer.passwords_dont_match']	= "Passwords Don\'t Match.";
 
 // labels
-$lang['header']			=	'Step 1: Configure Database and Server';
-$lang['intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://www.pyrocms.com/contact" target="_blank">contact us</a> for support.';
+$lang['step1_header']			=	'Step 1: Configure Database and Server';
+$lang['step1_intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://www.pyrocms.com/contact" target="_blank">contact us</a> for support.';
 
 $lang['db_driver']		=	 'Database Driver';
 $lang['mysql_about']    =    'MySQL is the world\'s most used open-source database. It is fast, popular and installed on the majority of web servers.';
@@ -46,8 +46,8 @@ $lang['db_success']			=	'The database settings are tested and working fine.';
 $lang['db_failure']			=	'Problem connecting to the database: ';
 
 // labels
-$lang['header']			=	'Step 2: Check Requirements';
-$lang['intro_text']		= 	'The second step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
+$lang['step2_header']			=	'Step 2: Check Requirements';
+$lang['step2_intro_text']		= 	'The second step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
 $lang['mandatory']		= 	'Mandatory';
 $lang['recommended']	= 	'Recommended';
 
@@ -92,8 +92,8 @@ $lang['retry']			=	'Try again';
 $lang['step1_failure']	=	'Please fill in the required database settings in the form below..';
 
 // labels
-$lang['header']			=	'Step 3: Set Permissions';
-$lang['intro_text']		= 	'Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too!';
+$lang['step3_header']			=	'Step 3: Set Permissions';
+$lang['step3_intro_text']		= 	'Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too!';
 
 $lang['folder_perm']		= 'Folder Permissions';
 $lang['folder_text']		= 'The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).';
@@ -112,8 +112,8 @@ $lang['step4']			= 'Step 4';
 $lang['retry']			= 'Try again';
 
 // labels
-$lang['header']			=	'Step 4: Create Database';
-$lang['intro_text']		=	'Complete the form below and hit the button labelled "Install" to install PyroCMS. Be sure to install PyroCMS into the right database since all existing changes will be lost!';
+$lang['step4_header']			=	'Step 4: Create Database';
+$lang['step4_intro_text']		=	'Complete the form below and hit the button labelled "Install" to install PyroCMS. Be sure to install PyroCMS into the right database since all existing changes will be lost!';
 
 $lang['default_user']		=	'Default User';
 $lang['site_settings']		= 	'Site Settings';

@@ -84,7 +84,9 @@ class ThemeManager
 		//load the theme details.php file
 		$details = $this->spawnClass($slug, $is_core);
 
-		$theme = $this->themes->findBySlug($slug);
+		if (( ! $theme = $this->themes->findBySlug($slug))) {
+			throw new \Exception("Theme '{$slug}' does not exist!");
+		}
 
 		// Add some extra bits, that aren't in the DB
 		$theme->path       = $path;

@@ -1,9 +1,9 @@
 <!-- Install PyroCMS - Step two -->
 <section class="title">
-	<h3>{header}</h3>
+	<h3>{step2_header}</h3>
 </section>
 <section class="item">
-	<p>{intro_text}</p>
+	<p>{step2_intro_text}</p>
 </section>
 
 <!-- Recommended -->

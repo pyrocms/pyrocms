@@ -42,7 +42,7 @@ class Module_Search extends AbstractModule
 
     public function install()
     {
-        $schema = $this->pdb->getSchemaBuilder();
+        $schema = ci()->pdb->getSchemaBuilder();
         $schema->dropIfExists('search_index');
 
         $schema->create('search_index', function($table) {
@@ -64,20 +64,20 @@ class Module_Search extends AbstractModule
             $table->unique(array('module', 'entry_key', 'entry_id'));
         });
 
-		$this->load->model('search/search_index_m');
-		$this->load->library('keywords/keywords');
+		ci()->load->model('search/search_index_m');
+		ci()->load->library('keywords/keywords');
 
-		foreach ($this->pdb->table('pages')->get() as $page) {
+		foreach (ci()->pdb->table('pages')->get() as $page) {
 			// Only index live articles
 	    	if ($page->status === 'live') {
-	    		$hash = $this->keywords->process($page->meta_keywords);
+	    		$hash = ci()->keywords->process($page->meta_keywords);
 
-	    		$this->pdb
+	    		ci()->pdb
 	    			->table('pages')
 	    			->where('id', $page->id)
 	    			->update(array('meta_keywords' => $hash));
 
-	    		$this->search_index_m->index(
+	    		ci()->search_index_m->index(
 	    			'pages',
 	    			'pages:page',
 	    			'pages:pages',
