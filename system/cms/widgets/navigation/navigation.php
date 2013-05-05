@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Addons\WidgetAbstract;
 use Pyro\Module\Navigation;
 
 /**
@@ -9,7 +10,7 @@ use Pyro\Module\Navigation;
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
-class Widget_Navigation extends Widgets
+class Widget_Navigation extends WidgetAbstract
 {
 
 	/**

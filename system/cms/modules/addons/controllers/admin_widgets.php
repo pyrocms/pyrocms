@@ -25,16 +25,13 @@ class Admin_Widgets extends Admin_Controller
 	{
 		parent::__construct();
 
+		$this->widgets = $this->widgetManager->getModel();
+
 		$this->lang->load('addons');
 		$this->lang->load('widgets');
 
 		if ($this->input->is_ajax_request()) {
 			$this->template->set_layout(false);
-		}
-
-		if (in_array($this->method, array('index', 'manage'))) {
-			// requires to install and/or uninstall widgets
-			$this->widgetManager->list_available_widgets();
 		}
 
 		$this->template
@@ -43,27 +40,20 @@ class Admin_Widgets extends Admin_Controller
 	}
 
 	/**
-	 * Index method, lists both enabled and disabled widgets
+	 * Index method
+	 * lists both enabled and disabled widgets
 	 */
 	public function index()
 	{
-		$data = array();
+		$this->widgetManager->registerUnavailableWidgets();
 
-		$base_where = array('enabled' => true);
-
-		//capture active
-		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];
-		$base_where['enabled'] = is_numeric($this->input->post('f_enabled')) ? $this->input->post('f_enabled') : $base_where['enabled'];
-
-		$data['widgets_active'] = $base_where['enabled'];
-
-		$data['widgets'] = $this->widget_m
-			->order_by('`order`, enabled')->get_all();
+		$widgets = $this->widgets->findAllInstalled();
 
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/widgets/index', $data);
+			->set('widgets', $widgets)
+			->build('admin/widgets/index');
 	}
 
 	/**
@@ -72,9 +62,9 @@ class Admin_Widgets extends Admin_Controller
 	 * @param string $id       The id of the widget
 	 * @param bool   $redirect Optional if a redirect should be done
 	 */
-	public function enable($id = '', $redirect = true)
+	public function enable($id = null, $redirect = true)
 	{
-		$id && $this->_do_action($id, 'enable');
+		$id and $this->doAction(array($id), 'enable');
 
 		if ($redirect) {
 			$this->session->set_flashdata('enabled', 0);
@@ -91,18 +81,19 @@ class Admin_Widgets extends Admin_Controller
 	 */
 	public function disable($id = '', $redirect = true)
 	{
-		$id && $this->_do_action($id, 'disable');
+		$id and $this->doAction(array($id), 'disable');
+
 		// todo: Shouldn't there be a: $this->session->flashdata('disabled',0); as in the enable() above?
-		$redirect AND redirect('admin/addons/widgets');
+		$redirect and redirect('admin/addons/widgets');
 	}
 
 	/**
 	 * Do the actual work for enable/disable
 	 *
-	 * @param int|array $ids    Id or array of Ids to process
-	 * @param string    $action Action to take: maps to model
+	 * @param array  $ids    Id or array of Ids to process
+	 * @param string $action Action to take: maps to model
 	 */
-	protected function _do_action($ids = array(), $action = '')
+	protected function doAction(array $ids, $action)
 	{
 		$ids = ( ! is_array($ids)) ? array($ids) : $ids;
 		$multiple = (count($ids) > 1) ? '_mass' : null;

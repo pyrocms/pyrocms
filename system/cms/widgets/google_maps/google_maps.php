@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\WidgetAbstract;
 
 /**
  * Show a Google Map in your site
@@ -7,7 +9,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
-class Widget_Google_maps extends Widgets
+class Widget_Google_maps extends WidgetAbstract
 {
 
 	/**

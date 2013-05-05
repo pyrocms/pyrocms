@@ -37,7 +37,7 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->moduleManager->discoverNonexistantModules();
+		$this->moduleManager->registerUnavailableModules();
 
 		$all_modules = $this->moduleManager->getAll();
 

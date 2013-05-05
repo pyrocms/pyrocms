@@ -60,6 +60,8 @@ class Admin_Controller extends MY_Controller
 		Asset::add_path('theme', $this->theme->web_path.'/');
 		Asset::set_path('theme');
 		
+		$this->registerWidgetLocations();
+
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
 		
@@ -120,26 +122,22 @@ class Admin_Controller extends MY_Controller
 
 			// If we get an array, we assume they have altered the menu items
 			// and are returning them to us to use.
-			if (is_array($event_output))
-			{
+			if (is_array($event_output)) {
 				$menu_items = $event_output;
 			}
 
 			// Order the menu items. We go by our menu_order array.
 			$ordered_menu = array();
 
-			foreach ($this->template->menu_order as $order)
-			{
-				if (isset($menu_items[$order]))
-				{
+			foreach ($this->template->menu_order as $order) {
+				if (isset($menu_items[$order])) {
 					$ordered_menu[lang_label($order)] = $menu_items[$order];
 					unset($menu_items[$order]);
 				}
 			}
 
 			// Any stragglers?
-			if ($menu_items)
-			{
+			if ($menu_items) {
 				$translated_menu_items = array();
 
 				// translate any additional top level menu keys so the array_merge works
@@ -210,6 +208,21 @@ class Admin_Controller extends MY_Controller
 
 		// god knows what this is... erm...
 		return false;
+	}
+
+	/**
+	 * Let the Frontend know where Widgets are hiding
+	 */
+	protected function registerWidgetLocations()
+	{
+		$this->widgetManager->setLocations(array(
+		   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/widgets/',
+		   APPPATH.'themes/'.ADMIN_THEME.'/widgets/',
+		   ADDONPATH.'themes/'.ADMIN_THEME.'/widgets/',
+		   APPPATH.'widgets/',
+		   ADDONPATH.'widgets/',
+		   SHARED_ADDONPATH.'widgets/',
+		));
 	}
 
 }

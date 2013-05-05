@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\WidgetAbstract;
 
 /**
  * Show a login box in your widget areas
@@ -6,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
-class Widget_Login extends Widgets
+class Widget_Login extends WidgetAbstract
 {
 
 	/**

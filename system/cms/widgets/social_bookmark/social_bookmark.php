@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+use Pyro\Module\Addons\WidgetAbstract;
 
 /**
  * Show RSS feeds in your site
@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
-class Widget_Social_bookmark extends Widgets
+class Widget_Social_bookmark extends WidgetAbstract
 {
 
 	/**

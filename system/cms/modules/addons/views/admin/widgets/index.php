@@ -22,14 +22,14 @@
 			<?php foreach ($widgets as $widget): ?>
 			<tr>
 				<td><span class="move-handle"></span></td>
-				<td><?php echo $widget->title ?></td>
+				<td><?php echo $widget->name ?></td>
 				<td><?php echo $widget->description ?></td>
 				<td>
 					<?php echo $widget->website ? anchor($widget->website, $widget->author, array('target' => '_blank')) : $widget->author ?>
 				</td>
 				<td class="align-center"><?php echo $widget->version ?></td>
 				<td class="align-center buttons buttons-small actions">
-				<?php if ($widget->enabled == '1'): ?>
+				<?php if ($widget->enabled): ?>
 					<?php echo anchor('admin/addons/widgets/disable/' . $widget->id, lang('buttons:disable'), 'class="button disable"') ?>
 				<?php else: ?>
 					<?php echo anchor('admin/addons/widgets/enable/' . $widget->id, lang('buttons:enable'), 'class="button enable"') ?>

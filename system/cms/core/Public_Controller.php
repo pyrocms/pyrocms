@@ -62,6 +62,8 @@ class Public_Controller extends MY_Controller
 		Asset::add_path('theme', $this->theme->path.'/');
 		Asset::set_path('theme');
 
+		$this->registerWidgetLocations();
+
 		// Support CDN URL's like Amazon CloudFront
 		if (Settings::get('cdn_domain')) {
 			$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
@@ -99,5 +101,17 @@ class Public_Controller extends MY_Controller
 		$this->template->theme = $this->theme;
 
 		$this->benchmark->mark('public_controller_end');
+	}
+
+	/**
+	 * Let the Frontend know where Widgets are hiding
+	 */
+	public function registerWidgetLocations()
+	{
+		$this->widgetManager->setLocations(array(
+		   APPPATH.'widgets/',
+		   ADDONPATH.'widgets/',
+		   SHARED_ADDONPATH.'widgets/',
+		));
 	}
 }

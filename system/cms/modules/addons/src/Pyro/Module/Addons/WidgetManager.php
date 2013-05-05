@@ -18,6 +18,13 @@ class WidgetManager
 	protected $rendered_areas = array();
 
 	/**
+	 * Theme Locations
+	 *
+	 * @var array
+	 */
+	protected $locations = array();
+
+	/**
 	 * Locations where widget files are located
 	 *
 	 * @var	array
@@ -30,45 +37,78 @@ class WidgetManager
 	public function __construct()
     {
         $this->widgets = new WidgetModel;
-        
-		$locations = array(
-		   APPPATH,
-		   ADDONPATH,
-		   SHARED_ADDONPATH,
-		);
+	}
 
-		if (defined('ADMIN_THEME')) {
-			$locations += array(
-			   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
-			   APPPATH.'themes/'.ADMIN_THEME.'/',
-			   ADDONPATH.'themes/'.ADMIN_THEME.'/',
-			);
-		}
+	/**
+	 * Set Locations
+	 */
+	public function setLocations(array $locations)
+	{
+		$this->locations = $locations;
+	}
+
+	/**
+	 * Get Module
+	 *
+	 * @return Pyro\Module\Addons\WidgetModel
+	 */
+	public function getModel()
+	{
+		return $this->widgets;
+	}
+
+    /**
+     * Locate Paths
+     *
+     * Go on a hunting trip, to see where the Widgets live
+     *
+     * @return  array
+     */
+    public function locatePaths() //$params = null, $return_disabled = true
+    {
+		$all_widgets = array();
 
 		// Map where all widgets are
-		foreach ($locations as $path) {
-			$widgets = glob($path.'widgets/*', GLOB_ONLYDIR);
+		foreach ($this->locations as $location) {
+			$widgets = glob($location.'*', GLOB_ONLYDIR);
 
-			if ( ! is_array($widgets)) {
-				$widgets = array();
+			if (is_array($widgets) and count($widgets) > 0) {
+				$all_widgets = array_merge($all_widgets, $widgets);
 			}
 
-			$module_widgets = glob($path.'modules/*/widgets/*', GLOB_ONLYDIR);
+			$module_widgets = glob(dirname($location).'modules/*/widgets/*', GLOB_ONLYDIR);
 
 			if ( ! is_array($module_widgets)) {
-				$module_widgets = array();
-			}
-
-			$widgets = array_merge($widgets, $module_widgets);
-
-			foreach ($widgets as $widget_path) {
-				$slug = basename($widget_path);
-
-				// Set this so we know where it is later
-				$this->located_widgets[$slug] = $widget_path.'/';
+				$all_widgets = array_merge($all_widgets, $module_widgets);
 			}
 		}
+
+		return $all_widgets;
 	}
+
+	/**
+     * Get All
+     *
+     * Return an array of objects containing module related data
+     *
+     * @param   array   $params             The array containing the modules to load
+     * @param   bool    $return_disabled    Whether to return disabled modules
+     * @return  array
+     */
+    public function getAll($params = null, $return_disabled = true)
+    {
+    	$available = $this->locatePaths();
+
+    	$widgets = array_map(function($location) {
+
+    		$slug = pathinfo($location, PATHINFO_BASENAME);
+
+    		return $this->spawnClass($location, $slug);
+
+    	}, $available);
+
+    	return $widgets;
+    }
 
 	/**
 	 * List available widget areas
@@ -117,17 +157,8 @@ class WidgetManager
 	 */
 	public function list_available_widgets()
 	{
-		// Firstly, install any uninstalled widgets
-		$uninstalled_widgets = $this->list_uninstalled_widgets();
-
-		foreach ($uninstalled_widgets as $widget) {
-			$this->add_widget((array) $widget);
-		}
-
 		// Secondly, uninstall any installed widgets missed
-		$installed_widgets = $this->widgets->order_by('slug')->get_all();
-
-		$avaliable = array();
+		$installed_widgets = $this->widgets->findAllInstalled();
 
 		foreach ($installed_widgets as $widget) {
 			if ( ! isset($this->located_widgets[$widget->slug])) {
@@ -159,27 +190,49 @@ class WidgetManager
 	 *
 	 * @return array
 	 */
-	protected function list_uninstalled_widgets()
+	public function registerUnavailableWidgets()
 	{
-		$available = $this->widgets->order_by('slug')->get_all();
-		$available_slugs = array();
+		$available = $this->widgets->findAllInstalled()->map(function($widget) {
+			return $widget->slug;
+		})->toArray();
 
-		foreach ($available as $widget) {
-			$available_slugs[] = $widget->slug;
-		}
-		unset($widget);
+		foreach ($this->locatePaths() as $location) {
 
-		$uninstalled = array();
-		foreach ($this->located_widgets as $widget_path) {
-			$slug = basename($widget_path);
+			$slug = basename($location);
 
-			if ( ! in_array($slug, $available_slugs) and ($widget = $this->read_widget($slug))) {
-				$uninstalled[] = $widget;
+			if ( ! in_array($slug, $available)) {
+				$widget = $this->spawnClass($location, $slug);
+
+				if ($widget !== false and $widget instanceof WidgetAbstract) {
+					$this->register($widget, $slug);
+				}
 			}
 		}
-
-		return $uninstalled;
 	}
+
+	   /**
+     * Register 
+     *
+     * Read a theme from the file system and save it to the DB
+     * 
+     * @param WidgetAbstract $theme Theme info instance
+     * @param string $slug The folder name of the theme
+     *
+     * @return  Pyro\Addons\WidgetModel
+     */
+    public function register(WidgetAbstract $widget, $slug) {
+
+        return $this->widgets->create(array(
+            'slug'              => $slug,
+            // Title is deprecated, remove in 3.0. Name is new
+            'name'              => isset($widget->title) ? $widget->title : $widget->name,
+            'author'            => $widget->author,
+            'author_website'    => isset($widget->author_website) ? $widget->author_website : null,
+            'website'           => $widget->website,
+            'description'       => $widget->description,
+            'version'           => $widget->version,
+        ));
+    }
 
 	/**
 	 * Get Instance
@@ -235,9 +288,15 @@ class WidgetManager
 	 */
 	public function get($slug)
 	{
-		$widget = $this->spawnWidget($slug);
+		foreach ($this->locations as $location) {			
+			$widget = $this->spawnClass($location, $slug);
 
-		if ($widget === false or ! ($widget instanceof AbstractWidget)) {
+			if ($widget !== false and $widget instanceof WidgetAbstract) {
+				break;
+			}
+		}
+
+		if (empty($widget)) {
 			return false;
 		}
 
@@ -346,7 +405,7 @@ class WidgetManager
 	 * Display the widget area HTML
 	 *
 	 * <code>
-	 * echo $this->widgets->read_widget('sidebar');
+	 * echo $this->widgets->renderArea('sidebar');
 	 * </code>
 	 *
 	 * @param  int    $slug	    Widget slug
@@ -407,11 +466,11 @@ class WidgetManager
 			return true;
 		}
 
-		$widget = $this->read_widget($slug);
+		$widget = $this->spawnClass($slug);
 
 		return $this->edit_widget(array(
 			'title' 		=> $widget->title,
-			'slug' 			=> $widget->slug,
+			'slug' 			=> $slug,
 			'description' 	=> $widget->description,
 			'author' 		=> $widget->author,
 			'website' 		=> $widget->website,
@@ -481,7 +540,7 @@ class WidgetManager
 		return array('status' => 'success');
 	}
 
-	public function validate(AbstractWidget $widget, WidgetModel $instance)
+	public function validate(WidgetAbstract $widget, WidgetModel $instance)
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
@@ -495,7 +554,7 @@ class WidgetManager
 		}
 	}
 
-	public function prepareOptions(AbstractWidget $widget, WidgetModel $instance)
+	public function prepareOptions(WidgetAbstract $widget, WidgetModel $instance)
 	{
 		if (method_exists($widget, 'save')) {
 			return (array) call_user_func(array(&$widget, 'save'), $instance->options);
@@ -504,25 +563,34 @@ class WidgetManager
 		return $instance->options;
 	}
 
-	protected function spawnWidget($name)
+	/**
+	 * Spawn Class
+	 *
+	 * Turn a location and a widget name into an actuall instance
+	 *
+     * @param string $path The location of the widget
+	 * @param string $slug The short name of the widget
+	 *
+	 * @return array
+	 */
+	protected function spawnClass($location, $slug)
 	{
-		$widget_path = $this->located_widgets[$name];
-		$widget_file = FCPATH.$widget_path.$name.'.php';
+		$path = "{$location}/{$slug}.php";
 
-		if (file_exists($widget_file)) {
+		if ( ! file_exists($path)) {
 			return false;
 		}
 	
-		require_once $widget_file;
-		$class_name = 'Widget_'.ucfirst($name);
+		require_once $path;
+		$class_name = 'Widget_'.ucfirst(strtolower($slug));
 
 		$widget = new $class_name;
-		$widget->path = $widget_path;
+		$widget->path = $path;
 
 		return $widget;
 	}
 
-	protected function loadView(AbstractWidget $widget, $view, $data = array())
+	protected function loadView(WidgetAbstract $widget, $view, $data = array())
 	{
 		return $view == 'display'
 

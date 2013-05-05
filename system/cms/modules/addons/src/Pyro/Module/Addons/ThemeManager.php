@@ -17,14 +17,14 @@ class ThemeManager
 	 *
 	 * @var array
 	 */
-	public $exists = array();
+	protected $exists = array();
 
 	/**
 	 * Theme Locations
 	 *
 	 * @var array
 	 */
-	public $locations = array();
+	protected $locations = array();
 
 	/**
 	 * Constructor
@@ -140,20 +140,19 @@ class ThemeManager
 		return new $class;
 	}
 
-
     /**
-     * Discover Nonexistant Modules
+     * Discover Unavailable Themes
      *
      * Go through the list of themes in the file system and see 
      * if they exist in the database
      * 
      * @return  bool
      */
-    public function discoverNonexistantThemes()
+    public function registerUnavailableThemes()
     {
         $known = $this->themes->findAll();
 
-        $known_array = $known_mtime = array();
+        $known_array = array();
 
         // Loop through the known array and assign it to a single dimension because
         // in_array can not search a multi array.
@@ -163,7 +162,6 @@ class ThemeManager
             }
         }
 	
-        $themes = array();
         foreach ($this->locations as $location) {
             // some servers return false instead of an empty array
             if (( ! $temp_themes = glob($location.'*', GLOB_ONLYDIR))) {
@@ -180,34 +178,49 @@ class ThemeManager
                     continue;
                 }	
 
-                // Looks like it installed ok, add a record
-                $record = $this->themes->create(array(
-                    'slug'              => $slug,
-                	'name'				=> $theme_class->name,
-					'author'			=> $theme_class->author,
-					'author_website'	=> $theme_class->author_website,
-					'website'			=> $theme_class->website,
-					'description'		=> $theme_class->description,
-					'version'			=> $theme_class->version,
-				));
-
-                foreach ($theme_class->options as $key => $option) {
-                    $record->options()->create(array(
-                        'slug'          => $key,
-                        'title'         => $option['title'],
-                        'description'   => $option['description'],
-                        'default'       => $option['default'],
-                        'value'         => $option['value'],
-                        'type'          => $option['type'],
-                        'options'       => $option['options'],
-                        'is_required'   => $option['is_required'],
-                    ));
-                }
+                $this->register($theme_class, $slug);
             }
-            unset($temp_themes);
         }
 
         return true;
     }
 
+    /**
+     * Register 
+     *
+     * Read a theme from the file system and save it to the DB
+     * 
+     * @param AbstractTheme $theme Theme info instance
+     * @param string $slug The folder name of the theme
+     *
+     * @return  Pyro\Addons\ThemeModel
+     */
+    public function register(AbstractTheme $theme, $slug) {
+
+        // Looks like it installed ok, add a record
+        $record = $this->themes->create(array(
+            'slug'              => $slug,
+            'name'              => $theme->name,
+            'author'            => $theme->author,
+            'author_website'    => $theme->author_website,
+            'website'           => $theme->website,
+            'description'       => $theme->description,
+            'version'           => $theme->version,
+        ));
+
+        foreach ($theme->options as $key => $option) {
+            $record->options()->create(array(
+                'slug'          => $key,
+                'title'         => $option['title'],
+                'description'   => $option['description'],
+                'default'       => $option['default'],
+                'value'         => $option['value'],
+                'type'          => $option['type'],
+                'options'       => $option['options'],
+                'is_required'   => $option['is_required'],
+            ));
+        }
+
+        return $record;
+    }
 }

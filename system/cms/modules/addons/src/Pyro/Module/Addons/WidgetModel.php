@@ -33,19 +33,42 @@ class WidgetModel extends Eloquent
      */
     public $timestamps = false;
 
-	/**
-	 * Enable
-	 *
-	 * Enabling allows the widget to be used.
-	 *
-	 * @return bool
-	 */
-	public function enable()
-	{
-		return $this->save(array(
-        	'enabled' => true
-		));
-	}
+    /**
+     * Find All Installed
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function findAllInstalled()
+    {
+        return $this->orderBy('slug')->get();
+    }
+
+    /**
+     * Find All Enabled
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function findAllEnabledOrder()
+    {
+        return $this
+            ->where('enabled', '=', true)
+            ->orderBy('order')
+            ->get();
+    }
+
+    /**
+     * Enable
+     *
+     * Enabling allows the widget to be used.
+     *
+     * @return bool
+     */
+    public function enable()
+    {
+        return $this->save(array(
+            'enabled' => true
+        ));
+    }
 
 	/**
 	 * Disable
@@ -62,23 +85,29 @@ class WidgetModel extends Eloquent
 	}
 
 	/**
-	 * Set Title Attribute
+	 * Set Name Attribute
 	 *
 	 * @return void
 	 */
-	protected function setTitleAttribute($value)
+	protected function setNameAttribute($value)
 	{
-		$this->attributes['title'] = serialize($value);
+		$this->attributes['name'] = serialize($value);
 	}
 
 	/**
-	 * Get Title Attribute
+	 * Get Name Attribute
 	 *
 	 * @return array
 	 */
-	protected function getTitleAttribute($value)
+	protected function getNameAttribute($value)
 	{
-		return unserialize($value);
+		$names = unserialize($value);
+        
+        if (is_string($names)) {
+            return $names;
+        }
+        
+        return ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 	}
 
 	/**
@@ -98,6 +127,7 @@ class WidgetModel extends Eloquent
 	 */
 	protected function getDescriptionAttribute($value)
 	{
-		return unserialize($value);
+        $descriptions = unserialize($value);
+        return ! isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 	}
 }

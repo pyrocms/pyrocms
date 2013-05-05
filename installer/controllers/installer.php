@@ -459,7 +459,7 @@ class Installer extends CI_Controller
         		PYROPATH.'themes/'
         	));
 
-			$themeManager->discoverNonexistantThemes();
+			$themeManager->registerUnavailableThemes();
 
 			redirect('installer/complete');
 		}

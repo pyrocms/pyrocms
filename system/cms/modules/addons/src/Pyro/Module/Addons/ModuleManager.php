@@ -149,7 +149,7 @@ class ModuleManager
     }
 
     /**
-     * Get Modules
+     * Get All
      *
      * Return an array of objects containing module related data
      *
@@ -404,7 +404,7 @@ class ModuleManager
      * 
      * @return  bool
      */
-    public function discoverNonexistantModules()
+    public function registerUnavailableModules()
     {
         $modules = array();
 
