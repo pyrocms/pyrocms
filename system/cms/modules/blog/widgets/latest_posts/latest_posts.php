@@ -6,14 +6,15 @@
  * Intended for use in cms pages or sidebar. Usage :
  * in a CMS page or sidebar add:
  *
- *     {widget_area('name_of_area')}
+ *     {{ widgets:area slug="name_of_area" }}
  *
  * 'name_of_area' is the name of the widget area you created in the  admin
  * control panel
  *
  * @author Erik Bermen
+ * @author  PyroCMS Dev Team
  * @author  Michael Webber
- * @package Addons/ * /widgets
+ * @package PyroCMS\Core\Modules\Blog\Widgets
  */
 class Widget_Latest_posts extends Widgets
 {
