@@ -11,16 +11,16 @@
  * 'name_of_area' is the name of the widget area you created in the  admin
  * control panel
  *
+ * @author Erik Bermen
  * @author  Michael Webber
- * @author  PyroCMS Noob
  * @package Addons/ * /widgets
  */
 class Widget_Latest_posts extends Widgets
 {
 
-	public $author = 'Michael Webber';
+	public $author = 'Erik Berman';
 
-	public $website = 'http://wildbluechicken.com';
+	public $website = 'http://www.nukleo.fr';
 
 	public $version = '1.1.1';
 
