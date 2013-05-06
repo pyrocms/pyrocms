@@ -214,7 +214,8 @@ class ThemeManager
                 'title'         => $option['title'],
                 'description'   => $option['description'],
                 'default'       => $option['default'],
-                'value'         => $option['value'],
+                'value'         => (isset($option['value'])) 
+                	? $option['value'] : $option['default'],
                 'type'          => $option['type'],
                 'options'       => $option['options'],
                 'is_required'   => $option['is_required'],
