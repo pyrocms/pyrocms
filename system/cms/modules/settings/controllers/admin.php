@@ -57,7 +57,7 @@ class Admin extends Admin_Controller
 			if ( ! isset($setting_sections[$setting->module])) {
 				$section_name = lang('settings:section_'.$setting->module);
 
-				if ($this->module_m->exists($setting->module)) {
+				if ($this->moduleManager->moduleExists($setting->module)) {
 					list($path, $_langfile) = Modules::find('settings_lang', $setting->module, 'language/'.config_item('language').'/');
 
 					if ($path !== false) {

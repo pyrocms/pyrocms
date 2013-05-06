@@ -42,14 +42,12 @@ class Setting_m extends CI_Model
 	/**
 	 * Gets all settings that should be visible in the settings GUI.
 	 *
-	 * @param	mixed  $where
 	 * @return	array  Settings with is_gui set to true
 	 */
-	public function getGui($key)
+	public function getGui()
 	{
 		return $this->pdb
 			->table('settings')
-			->where('slug', '=', $key)
 			->where('is_gui', '=', 1)
 			->orderBy('order', 'DESC')
 			->get();

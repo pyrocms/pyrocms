@@ -33,8 +33,6 @@ class WidgetModel extends Eloquent
      */
     public $timestamps = false;
 
-    
-    
     /**
      * Find Many In ID
      *

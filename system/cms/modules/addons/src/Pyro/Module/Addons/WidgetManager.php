@@ -37,6 +37,8 @@ class WidgetManager
 	public function __construct()
     {
         $this->widgets = new WidgetModel;
+        $this->widgetInstances = new WidgetInstanceModel;
+        $this->widgetAreas = new WidgetAreaModel;
 	}
 
 	/**
@@ -408,49 +410,56 @@ class WidgetManager
 	 * echo $this->widgets->renderArea('sidebar');
 	 * </code>
 	 *
-	 * @param  int    $slug	    Widget slug
-	 * @param  array  $options	Options (data saved in the DB or provided on-the-fly)
+	 * @param  string $short_name Widget area short name
 	 * @return string
 	 */
-	public function render_area($area)
+	public function renderArea($short_name)
 	{
-		if (isset($this->rendered_areas[$area])) {
-			return $this->rendered_areas[$area];
+		if (isset($this->rendered_areas[$short_name])) {
+			return $this->rendered_areas[$short_name];
 		}
 
-		if ($area === 'dashboard') {
-			$view = 'admin/widget_wrapper';
-		} else {
-			$view = 'widget_wrapper';
-		}
+		// @HACK: Let's get this out of here somehow
+		$view = ($short_name === 'dashboard') ? 'admin/widget_wrapper' : 'widget_wrapper';
 
-		$path = $this->template->get_views_path().'modules/widgets/';
+		// @HACK: Less reliance on global code
+		$path = ci()->template->get_views_path().'modules/widgets/';
 
 		if ( ! file_exists($path.$view.'.php')) {
-			list($path, $view) = Modules::find($view, 'widgets', 'views/');
+			list($path, $view) = \Modules::find($view, 'widgets', 'views/');
 		}
 
 		// save the existing view array so we can restore it
-		$save_path = $this->load->get_view_paths();
+		$save_path = ci()->load->get_view_paths();
 
-		$widgets = $this->widgets->findByArea($area);
+		$area = $this->widgetAreas->findBySlugWithInstances($short_name);
+
+		if (is_null($area) or ! $area->instances) {
+			return '';
+		}
 
 		$output = '';
-		foreach ($widgets as $widget) {
-			$widget->body = $this->render($widget->slug, $widget->options);
+		foreach ($area->instances as $instance) {
 
-			if ($widget->body !== false) {
+			$instance->body = $this->render($instance->widget->slug, $instance->options);
+
+			if ($instance->body !== false) {
+
 				// add this view location to the array
 				$this->load->set_view_path($path);
 
-				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => true))."\n";
+				$output .= $this->load->_ci_load(array(
+					'_ci_view' => $view, 
+					'_ci_vars' => array('widget' => $widget), 
+					'_ci_return' => true
+				))."\n";
 
 				// Put the old array back
 				$this->load->set_view_path($save_path);
 			}
 		}
 
-		$this->rendered_areas[$area] = $output;
+		$this->rendered_areas[$short_name] = $output;
 
 		return $output;
 	}
