@@ -186,15 +186,13 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
-		if ($this->current_user)
-		{
+		if ($this->current_user) {
 			$this->session->set_flashdata('notice', lang('user:already_logged_in'));
 			redirect();
 		}
 
 		/* show the disabled registration message */
-		if ( ! Settings::get('enable_registration'))
-		{
+		if ( ! Settings::get('enable_registration')) {
 			$this->template
 				->title(lang('user:register_title'))
 				->build('disabled');

@@ -167,11 +167,95 @@ class Module_Users extends AbstractModule
             ),
         ));
 
+
+        // Install the settings
+        ci()->pdb->table('settings')->insert(array(
+            array(
+                'slug' => 'auto_username',
+                'title' => 'Auto Username',
+                'description' => 'Create the username automatically, meaning users can skip making one on registration.',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Enabled|0=Disabled',
+                'is_required' => false,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 964,
+            ),
+            array(
+                'slug' => 'enable_profiles',
+                'title' => 'Enable profiles',
+                'description' => 'Allow users to add and edit profiles.',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Enabled|0=Disabled',
+                'is_required' => true,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 963,
+            ),
+            array(
+                'slug' => 'require_lastname',
+                'title' => 'Require last names?',
+                'description' => 'For some situations, a last name may not be required. Do you want to force users to enter one or not?',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Required|0=Optional',
+                'is_required' => true,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 962,
+            ),
+            array(
+                'slug' => 'activation_email',
+                'title' => 'Activation Email',
+                'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Enabled|0=Disabled',
+                'is_required' => false,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 961,
+            ),
+            array(
+                'slug' => 'registered_email',
+                'title' => 'User Registered Email',
+                'description' => 'Send a notification email to the contact e-mail when someone registers.',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Enabled|0=Disabled',
+                'is_required' => false,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 960,
+            ),
+            array(
+                'slug' => 'enable_registration',
+                'title' => 'Enable user registration',
+                'description' => 'Allow users to register in your site.',
+                'type' => 'radio',
+                'default' => true,
+                'value' => '',
+                'options' => '1=Enabled|0=Disabled',
+                'is_required' => false,
+                'is_gui' => true,
+                'module' => 'users',
+                'order' => 959,
+            ),
+        ));
+
         // Load up the streams driver and convert the profiles table
         // into a stream.
         ci()->load->driver('Streams');
 
         if ( ! ci()->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
+            // throw new Exception('Could not convert users:profiles table to stream.');
             return false;
         }
 
@@ -278,88 +362,6 @@ class Module_Users extends AbstractModule
                 unset($assign);
             }
         }
-
-        // Install the settings
-        ci()->pdb->table('settings')->insert(array(
-            array(
-                'slug' => 'auto_username',
-                'title' => 'Auto Username',
-                'description' => 'Create the username automatically, meaning users can skip making one on registration.',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Enabled|0=Disabled',
-                'is_required' => false,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 964,
-            ),
-            array(
-                'slug' => 'enable_profiles',
-                'title' => 'Enable profiles',
-                'description' => 'Allow users to add and edit profiles.',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Enabled|0=Disabled',
-                'is_required' => true,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 963,
-            ),
-            array(
-                'slug' => 'require_lastname',
-                'title' => 'Require last names?',
-                'description' => 'For some situations, a last name may not be required. Do you want to force users to enter one or not?',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Required|0=Optional',
-                'is_required' => true,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 962,
-            ),
-            array(
-                'slug' => 'activation_email',
-                'title' => 'Activation Email',
-                'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Enabled|0=Disabled',
-                'is_required' => false,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 961,
-            ),
-            array(
-                'slug' => 'registered_email',
-                'title' => 'User Registered Email',
-                'description' => 'Send a notification email to the contact e-mail when someone registers.',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Enabled|0=Disabled',
-                'is_required' => false,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 962,
-            ),
-            array(
-                'slug' => 'enable_registration',
-                'title' => 'Enable user registration',
-                'description' => 'Allow users to register in your site.',
-                'type' => 'radio',
-                'default' => true,
-                'value' => '',
-                'options' => '1=Enabled|0=Disabled',
-                'is_required' => false,
-                'is_gui' => true,
-                'module' => 'users',
-                'order' => 961,
-            ),
-        ));
 
         return true;
     }
