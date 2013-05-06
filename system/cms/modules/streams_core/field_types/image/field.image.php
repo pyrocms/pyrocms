@@ -32,6 +32,12 @@ class Field_image
 		get_instance()->load->library('image_lib');
 	}
 
+	public function event()
+	{
+		$this->CI->type->add_js('image', 'imagefield.js');
+		$this->CI->type->add_css('image', 'imagefield.css');		
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -59,8 +65,6 @@ class Field_image
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
-		$this->CI->type->add_js('image', 'imagefield.js');
-		$this->CI->type->add_css('image', 'imagefield.css');
 		return $out .= form_upload($options);
 	}
 
