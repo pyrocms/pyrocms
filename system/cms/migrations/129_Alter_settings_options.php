@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Migration 127: Alter settings options
+ * Migration 129: Alter settings options
  *
  * This will allow us to set use larger option strings
  * 

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Migration 128: Extend Widget Fields
+ *
+ * Store more widget names in the title array
+ * 
+ * Added April 30th, 2013
+ */
+
 class Migration_Extend_widget_fields extends CI_Migration
 {
     public function up()
