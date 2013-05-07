@@ -58,7 +58,7 @@ $lang['blog:publish_error']                  = 'No posts were published.';
 $lang['blog:delete_success']                 = 'The post "%s" has been deleted.';
 $lang['blog:mass_delete_success']            = 'The posts "%s" have been deleted.';
 $lang['blog:delete_error']                   = 'No posts were deleted.';
-$lang['blog:already_exist_error']            = 'An post with this URL already exists.';
+$lang['blog:already_exist_error']            = 'A post with this URL already exists.';
 
 $lang['blog:twitter_posted']                 = 'Posted "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Error';

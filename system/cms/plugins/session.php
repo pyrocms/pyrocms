@@ -18,6 +18,7 @@ class Plugin_Session extends Plugin
 	public $description = array(
 		'en' => 'Access and set session variables.',
 		'el' => 'Ανάκτηση και απόθεση τιμών και μεταβλητών του session.',
+            'fa' => 'دسترسی و ست کردن متغییر های سشن',
 		'fr' => 'Accéder aux variables de session. ',
 		'it' => 'Accedi e imposta le variabili di sessione'
 	);

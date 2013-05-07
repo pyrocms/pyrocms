@@ -27,6 +27,7 @@ class Widget_Rss_feed extends WidgetAbstract
 		'id' => 'RSS Feed',
 		'fi' => 'RSS Syöte',
 		'fr' => 'Flux RSS',
+            'fa' => 'خبر خوان RSS',
 	);
 
 	/**
@@ -44,6 +45,7 @@ class Widget_Rss_feed extends WidgetAbstract
 		'id' => 'Menampilkan kutipan RSS feed di situs Anda',
 		'fi' => 'Näytä purettu RSS syöte sivustollasi',
 		'fr' => 'Affichez un flux RSS sur votre site web',
+            'fa' => 'نمایش خوراک های RSS در سایت',
 	);
 
 	/**

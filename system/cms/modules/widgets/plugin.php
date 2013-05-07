@@ -14,11 +14,13 @@ class Plugin_Widgets extends Plugin
 	public $name = array(
 		'en' => 'Widgets',
 		'ar' => 'الودجتس',
+            'fa' => 'ویجت ها',
 	);
 
 	public $description = array(
 		'en' => 'Display widgets by widget area or individually.',
 		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
+            'fa' => 'نمایش دادن ویجت ها با استفاده از مکان ها و یا به صورتی تکی',
 		'it' => 'Mostra singolarmente o a gruppi i Widget',
 	);
 

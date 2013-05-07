@@ -120,16 +120,17 @@
 					}
 
 					$data['input_name']		= $this->lang->line('streams:'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
-				} else {
+				
+				} elseif (method_exists($parameters, $param)) {			
 					$data['input'] 			= $parameters->$param($value);
 					$data['input_name']		= $this->lang->line('streams:'.$param);
 				}
 
-				$data['input_slug']		= $param;
+				$data['input_slug']	= $param;
 
 				echo $this->load->view('streams_core/extra_field', $data, TRUE);
 
-				$data['count']++;
+				++$data['count'];
 				unset($value);
 
 			endforeach;

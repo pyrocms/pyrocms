@@ -1,4 +1,16 @@
-<h1><?php echo $user->first_name . ' ' . $user->last_name ?></h1>
+<?php
+
+	// Use display_name if no first_name or
+	// last_name are present.
+	if ( ! isset($user->first_name) or ! isset($user->last_name)) {
+		$name = $user->display_name;
+	} else {
+		$name = $user->first_name.' '.$user->last_name;
+	}
+
+?>
+
+<h1><?php echo $name; ?></h1>
 
 <p style="float:left; width: 40%;">
 	<?php echo anchor('user/' . $user->username, null, 'target="_blank"') ?>

@@ -18,6 +18,7 @@ class Plugin_Url extends Plugin
 	public $description = array(
 		'en' => 'Access URL variables, segments, and more.',
 		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
+            'fa' => 'دسترسی به متغییر ها و سگمت ها و موارد دیگری از URL',
 		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).',
 		'it' => 'Accedi alle variabili URL, ai segmenti e molto altro'
 	);

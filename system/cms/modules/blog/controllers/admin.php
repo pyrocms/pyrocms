@@ -311,6 +311,11 @@ class Admin extends Admin_Controller
 		if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '') {
 			$hash = $this->_preview_hash();
 		}
+		//it is going to be published we don't need the hash
+		elseif ($this->input->post('status') == 'live')
+		{
+			$hash = '';
+		}
 
 		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
@@ -373,7 +378,7 @@ class Admin extends Admin_Controller
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $post->id))
 			->set('post', $post)
 			->build('admin/form');
 	}

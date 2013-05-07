@@ -26,9 +26,10 @@ class Module_Streams_core extends AbstractModule
 			'name' => array(
 				'en' => 'Streams Core',
 				'pt' => 'Núcleo Fluxos',
-                'fi' => 'Striimit ydin',
-				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
+                'fa' => 'هسته استریم ها',
+                'fr' => 'Noyau Flux',
+                'fi' => 'Striimit ydin',
 				'se' => 'Streams grundmodul',
 				'tw' => 'Streams 核心',
 				'cn' => 'Streams 核心',
@@ -38,6 +39,7 @@ class Module_Streams_core extends AbstractModule
 			'description' => array(
 				'en' => 'Core data module for streams.',
 				'pt' => 'Módulo central de dados para fluxos.',
+                'fa' => 'ماژول مرکزی برای استریم ها',
                 'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',

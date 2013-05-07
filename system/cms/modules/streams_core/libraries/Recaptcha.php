@@ -41,22 +41,24 @@
 * @author      Jon Trelfa <jtrelfa@gmail.com>
 */
 
-class Recaptcha
+class Recaptcha 
 {
-
-  public $_rConfig;
-  public $_CI;
-  public $_error;
-
-  public function __construct()
+  
+  var $_rConfig;
+  var $_CI;
+  var $_error;
+  
+  function __construct() 
   {
-	$this->_CI =& get_instance();
+    $this->_CI =& get_instance();
+    
+    $this->_CI->load->config('streams_core/recaptcha');
 
     $this->_rConfig = $this->_CI->config->item('recaptcha');
-
+    
     log_message('info',$this->_CI->lang->line('recaptcha_class_initialized'));
 	}
-
+	
 	/**
     * Calls an HTTP POST function to verify if the user's guess was correct
     * @param string $privkey
@@ -66,23 +68,25 @@ class Recaptcha
     * @param array $extra_params an array of extra variables to post to the server
     * @return ReCaptchaResponse
     */
-  public function check_answer ($remoteip, $challenge, $response, $extra_params = array())
+  function check_answer ($remoteip, $challenge, $response, $extra_params = array()) 
   {
     log_message('debug','Recaptcha::check_answer('.$remoteip.','.$challenge.','.$response.','.print_r($extra_params,true).')');
-  	if ($this->_rConfig['private'] == '') {
+  	if ($this->_rConfig['private'] == '') 
+  	{
   		log_message('error',$this->_CI->lang->line('recaptcha_no_private_key'));
   		return false;
   	}
-
-  	if ($remoteip == null || $remoteip == '') {
+  
+  	if ($remoteip == null || $remoteip == '') 
+  	{
   		log_message('error',$this->_CI->lang->line('recaptcha_no_remoteip'));
   		return false;
   	}
 
     //discard spam submissions
-    if ($challenge == null || strlen($challenge) == 0 || $response == null || strlen($response) == 0) {
+    if ($challenge == null || strlen($challenge) == 0 || $response == null || strlen($response) == 0) 
+    {
       $this->_error = 'incorrect-captcha-sol';
-
       return false;
     }
 
@@ -99,15 +103,17 @@ class Recaptcha
     log_message('debug','Recaptcha::_http_post response:'.print_r($response,true));
     $answers = explode ("\n", $response[1]);
 
-    if (trim($answers[0]) == 'true') {
+    if (trim($answers[0]) == 'true') 
+    {
       return true;
-    } else {
+    } 
+    else 
+    {
       $this->_error = $answers[1];
-
       return false;
     }
   }
-
+	
 	/**
    * Gets the challenge HTML (javascript and non-javascript version).
    * This is called from the browser, and the resulting reCAPTCHA HTML widget
@@ -115,26 +121,30 @@ class Recaptcha
    * @param string $pubkey A public key for reCAPTCHA
    * @param string $error The error given by reCAPTCHA (optional, default is null)
    * @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
-
+  
    * @return string - The HTML to be embedded in the user's form.
    */
-  public function get_html ($lang = 'en',$use_ssl = false)
+  function get_html ($lang = 'en',$use_ssl = false) 
   {
   	log_message('debug','Recaptcha::get_html('.$use_ssl.')');
-  	if ($this->_rConfig['public'] == '') {
+  	if ($this->_rConfig['public'] == '') 
+  	{
       log_message('error',$this->_CI->lang->line('recaptcha_no_private_key'));
-
       return $this->_CI->lang->line('recaptcha_html_error');
   	}
-
-  	if ($use_ssl) {
+  	
+  	if ($use_ssl) 
+  	{
   	  $server = $this->_rConfig['RECAPTCHA_API_SECURE_SERVER'];
-  	} else {
+  	} 
+  	else 
+  	{
   	  $server = $this->_rConfig['RECAPTCHA_API_SERVER'];
   	}
 
     $errorpart = '';
-    if ($this->_error !== '') {
+    if ($this->_error !== '') 
+    {
        $errorpart = "&amp;error=" . $this->_error;
     }
     $html_data = array(
@@ -146,9 +156,10 @@ class Recaptcha
       'errorpart' => $errorpart
     );
     //load a view - more configurable than embedding HTML in the library
-    return $this->_CI->load->view('streams_core/recaptcha', $html_data, true);
+    
+    return $this->_CI->load->view('streams_core/recaptcha', $html_data, true); 
   }
-
+  
   /**
    * gets a URL where the user can sign up for reCAPTCHA. If your application
    * has a configuration page where you enter a key, you should provide a link
@@ -156,17 +167,18 @@ class Recaptcha
    * @param string $domain The domain where the page is hosted
    * @param string $appname The name of your application
    */
-  public function get_signup_url ($domain = null, $appname = null)
+  function get_signup_url ($domain = null, $appname = null) 
   {
   	return $this->_rConfig['RECAPTCHA_SIGNUP_URL'].'?'.$this->_qsencode(array ('domain' => $domain, 'app' => $appname));
   }
 
+	
 	/**
    * Encodes the given data into a query string format
    * @param $data - array of string elements to be encoded
    * @return string - encoded request
    */
-  public function _qsencode($data)
+  function _qsencode($data) 
   {
     log_message('debug',"Recaptcha::_qsencode(\n".print_r($data,true)."\n)");
     //http_build_query() = PHP 5 ONLY!
@@ -181,10 +193,10 @@ class Recaptcha
    * @param int port
    * @return array response
    */
-  public function _http_post($host, $path, $data, $port = 80)
+  function _http_post($host, $path, $data, $port = 80) 
   {
     log_message('debug','Recaptcha::http_post('.$host.','.$path.','.print_r($data,true).','.$port.')');
-
+    
     $req = $this->_qsencode($data);
     $http_request = implode('',array(
       "POST $path HTTP/1.0\r\n",
@@ -195,17 +207,19 @@ class Recaptcha
       "\r\n",
       $req));
     $response = '';
-    if ( false == ( $fs = @fsockopen($host, $port, $errno, $errstr, 10) ) ) {
+    if( false == ( $fs = @fsockopen($host, $port, $errno, $errstr, 10) ) ) 
+    {
       log_message('error',$this->_CI->lang->line('recaptcha_socket_fail'));
     }
-
+    
     fwrite($fs, $http_request);
-    while (!feof($fs)) {
+    while (!feof($fs)) 
+    {
       $response .= fgets($fs, 1160); // One TCP-IP packet
     }
     fclose($fs);
     $response = explode("\r\n\r\n", $response, 2);
-
+    
     return $response;
   }
 }

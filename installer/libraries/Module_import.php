@@ -66,7 +66,7 @@ class Module_import
 	 */
 	public function install($slug, $is_core = false)
 	{
-		if ( ! ($details_class = $this->_spawn_class($slug, $is_core))) {
+		if ( ! ($details_class = $this->spawnClass($slug, $is_core))) {
 			exit("The module $slug is missing a details.php");
 		}
 
@@ -140,8 +140,11 @@ class Module_import
 	{
 		// Install settings and streams core first. Other modules may need them.
 		$this->install('settings', true);
+
 		ci()->load->library('settings/settings');
+		
 		$this->install('streams_core', true);
+		$this->install('templates', true);
 
 		// Are there any modules to install on this path?
 		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR)) {
@@ -149,12 +152,12 @@ class Module_import
 			foreach ($modules as $module_name) {
 				$slug = basename($module_name);
 
-				if ($slug == 'streams_core' or $slug == 'settings') {
+				if ($slug == 'streams_core' or $slug == 'settings' or $slug == 'templates') {
 					continue;
 				}
 
 				// invalid details class?
-				if ( ! $details_class = $this->_spawn_class($slug, true)) {
+				if ( ! $details_class = $this->spawnClass($slug, true)) {
 					continue;
 				}
 
@@ -182,7 +185,7 @@ class Module_import
 	 *
 	 * @return    Module
 	 */
-	private function _spawn_class($slug, $is_core = false)
+	private function spawnClass($slug, $is_core = false)
 	{
 		$path = $is_core ? PYROPATH : ADDONPATH;
 

@@ -12,7 +12,6 @@
 
 * [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
-* [Joshua Pekera](http://joshuapekera.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 
 ## Description
@@ -23,7 +22,9 @@ PyroCMS Community Edition is free to use, redistribute and/or modify for any pur
 
 ## Installation
 
-Run http://example.com/installer to run the web-based installation script.
+* [Documentation: Getting Started](http://docs.pyrocms.com/2.3/manual/getting-started)
+
+**tl;dr:** Run http://example.com/installer to run the web-based installation script.
 
 ## Upgrading
 
@@ -31,8 +32,8 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Bugs & Feature Requests
 
-[Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://forum.pyrocms.com)
+* [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
+* [Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
@@ -86,3 +87,5 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
+* [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)
+* [huglester](http://webas.lt/) Lithuanian

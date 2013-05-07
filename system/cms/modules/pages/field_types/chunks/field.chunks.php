@@ -91,7 +91,7 @@ class Field_chunks
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $input)
+	public function pre_save($raw_input, $field, $stream, $row_id, $input)
 	{
 		$this->CI->load->model('page_chunk_m');
 

@@ -110,7 +110,7 @@ jQuery(function($){
 		// after the folder contents have loaded highlight the results
 		$(window).on('load-completed', function(e, results){
 			$('.folders-center').find('li').removeClass('selected');
-			$('.folders-center :contains('+text+')').parent('li').addClass('selected');
+			$('.folders-center').find('[data-name="'+text+'"]').addClass('selected');
 		});
 	});
 
@@ -513,7 +513,7 @@ jQuery(function($){
 				}
 
 				// is it an allowed type?
-				regexp = new RegExp(pyro.files.valid_extensions);
+				regexp = new RegExp('\\.('+pyro.files.valid_extensions+')$', 'i');
 				// Using the filename extension for our test,
 				// as legacy browsers don't report the mime type
 				if (!regexp.test(files[index].name.toLowerCase())) {
@@ -682,6 +682,7 @@ jQuery(function($){
 				content_interval = window.setInterval(function(){
 					if (typeof(items[i]) == 'undefined') {
 						clearInterval(content_interval);
+						$(window).trigger('load-completed');
 
 						return;
 					}
@@ -737,7 +738,6 @@ jQuery(function($){
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
 				$(window).trigger('show-message', results);
-				$(window).trigger('load-completed');
 
 				// Show the applicable buttons.
 				$('.item .folders-center').trigger('click');
@@ -872,9 +872,8 @@ jQuery(function($){
 					if ($folders_center.find('li').length === 0 && pyro.files.current_level === 0) {
 						$('.no_data').fadeIn('fast');
 					}
-
-					$(window).trigger('show-message', results);
 				}
+				$(window).trigger('show-message', results);
 			});
 		});
 	 };
@@ -938,7 +937,7 @@ jQuery(function($){
 
 			// set up keywords
 			$('#keyword_input').tagsInput({
-				autocomplete_url:'admin/keywords/autocomplete'
+				autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
 			});
 
 			// when the colorbox is closed kill the tag input

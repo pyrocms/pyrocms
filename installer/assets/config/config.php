@@ -389,7 +389,7 @@ $config['proxy_ips'] = '';
 */
 $config['modules_locations'] = array(
 	APPPATH.'modules/' => '../modules/',
-	ADDON_FOLDER.'default/modules/' => '../../../addons/default/modules/',
+	ADDON_FOLDER.'__SITE_REF__/modules/' => '../../../addons/__SITE_REF__/modules/',
 	SHARED_ADDONPATH.'modules/' => '../../../addons/shared_addons/modules/'
 );
 

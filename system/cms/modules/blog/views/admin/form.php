@@ -39,7 +39,7 @@
 				</li>
 
 				<li class="editor">
-					<label for="body"><?php echo lang('blog:content_label') ?></label><br>
+					<label for="body"><?php echo lang('blog:content_label') ?> <span>*</span></label><br>
 					<div class="input small-side">
 						<?php echo form_dropdown('type', array(
 							'html' => 'html',
@@ -129,6 +129,8 @@
 	</div>
 
 </div>
+
+<input type="hidden" name="row_edit_id" value="<?php if ($this->method != 'create'): echo $post->id; endif; ?>" />
 
 <div class="buttons">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>

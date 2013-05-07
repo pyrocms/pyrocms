@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc']			= 'Número de registros a ser mostrado
 $lang['settings:rss_feed_items']				= 'Número de items RSS';
 $lang['settings:rss_feed_items_desc']			= 'Cantidad de items que se mostrarán en los feeds RSS';
 
-$lang['settings:require_lastname']				= 'Requerir Apellido';
-$lang['settings:require_lastname_desc'] 		= 'Para algunas situaciones es requerido el apellido. Marque esta casilla si deseas forzar el ingreso del apellido.';
 
 $lang['settings:enable_profiles']				= 'Habilitar Perfiles';
 $lang['settings:enable_profiles_desc']			= 'Permitir a los usuarios editar sus perfiles.';
@@ -86,15 +84,6 @@ $lang['settings:ga_profile_desc']				= 'ID del perfil para este sitio web en Goo
 
 $lang['settings:ga_tracking'] 					= 'Código de seguimiento de Google';
 $lang['settings:ga_tracking_desc']				= 'Inserte su código de seguimiento de Google para permitir que Google Analytics capture los datos. E.g: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Usuario';
-$lang['settings:twitter_username_desc']			= 'Usuario de Twitter.';
-
-$lang['settings:twitter_feed_count']			= 'Cantidad de Tweets';
-$lang['settings:twitter_feed_count_desc']		= 'Cantidad de tweets que seran mostrados en el bloque de twitter.';
-
-$lang['settings:twitter_cache']					= 'Tiempo de Cache';
-$lang['settings:twitter_cache_desc']			= 'Tiempo en minutos que serán almacenados los tweets temporarlmente.';
 
 $lang['settings:akismet_api_key']				= 'Clave de Akismet';
 $lang['settings:akismet_api_key_desc']			= 'Akismet es un bloqueador de spam del equipo de Wordpress. Mantiene el spam bajo control forzando a los usuarios a rellenar CAPTCHAS.';
@@ -126,7 +115,6 @@ $lang['settings:section_integration']			= 'Integración';
 $lang['settings:section_comments']				= 'Comentarios';
 $lang['settings:section_users']					= 'Usuarios';
 $lang['settings:section_statistics']			= 'Estadísticas';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Abierto';

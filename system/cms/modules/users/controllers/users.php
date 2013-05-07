@@ -1,5 +1,6 @@
 <?php
 
+use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
 
 /**
@@ -746,7 +747,7 @@ class Users extends Public_Controller
 				'password' => $password,
 			), (bool) $this->input->post('remember'));
 
-		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+		} catch (UserNotFoundException $e) {
 
 			// Could not log in with password. Maybe its an old style pass?
 			try {
@@ -756,7 +757,7 @@ class Users extends Public_Controller
 					'password' => whacky_old_password_hasher($email, $password),
 				), (bool) $this->input->post('remember'));
 
-			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+			} catch (UserNotFoundException $e) {
 
 				// That madness didn't work, error
 				$this->form_validation->set_message('_check_login', 'Incorrect login.');
@@ -764,6 +765,9 @@ class Users extends Public_Controller
 			}
 
 		} catch (Exception $e) {
+
+			Events::trigger('login_failed', $email);
+			error_log('Login failed for user '.$email);
 
 			$this->form_validation->set_message('_check_login', $e->getMessage());
 			return false;
@@ -775,16 +779,13 @@ class Users extends Public_Controller
 	/**
 	 * Username check
 	 *
-	 * @author Ben Edmunds
-	 *
 	 * @param string $username The username to check.
 	 *
 	 * @return bool
 	 */
 	public function _username_check($username)
 	{
-		if ($this->ion_auth->username_check($username))
-		{
+		if ($this->ion_auth->username_check($username)) {
 			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
@@ -795,16 +796,13 @@ class Users extends Public_Controller
 	/**
 	 * Email check
 	 *
-	 * @author Ben Edmunds
-	 *
 	 * @param string $email The email to check.
 	 *
 	 * @return bool
 	 */
 	public function _email_check($email)
 	{
-		if ($this->ion_auth->email_check($email))
-		{
+		if ($this->ion_auth->email_check($email)) {
 			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}

@@ -15,20 +15,20 @@
 
 		<div class="author">
 			{{ helper:lang line="blog:written_by_label" }}
-			<span><a href="user/{{ created_by:user_id }}">{{ created_by:display_name }}</a></span>
+			<span><a href="{{ url:site }}user/{{ created_by:user_id }}">{{ created_by:display_name }}</a></span>
 		</div>
 
 		{{ if category }}
 		<div class="category">
 			{{ helper:lang line="blog:category_label" }}
-			<span><a href="blog/category/{{ category:slug }}">{{ category:title }}</a></span>
+			<span><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
 		</div>
 		{{ endif }}
 
 		{{ if keywords }}
 		<div class="keywords">
 			{{ keywords }}
-				<span><a href="blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
+				<span><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
 			{{ /keywords }}
 		</div>
 		{{ endif }}

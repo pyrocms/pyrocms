@@ -5,8 +5,6 @@ if ( ! defined('UPLOAD_PATH')) define('UPLOAD_PATH', null);
 
 $config['files:path'] = UPLOAD_PATH.'files/';
 
-$config['files:image_cache_path'] = APPPATH.'cache/' . SITE_REF . '/image_files/';
-
 $config['files:encrypt_filename'] = true;
 
 $config['files:allowed_file_ext'] = array(
@@ -14,5 +12,5 @@ $config['files:allowed_file_ext'] = array(
 	'v'	=> array('mpeg', 'mpg', 'mpe', 'mp4', 'flv', 'qt', 'mov', 'avi', 'movie'),
 	'd'	=> array('pdf', 'xls', 'ppt', 'pptx', 'txt', 'text', 'log', 'rtx', 'rtf', 'xml', 'xsl', 'doc', 'docx', 'xlsx', 'word', 'xl', 'csv', 'pages', 'numbers'),
 	'i'	=> array('bmp', 'gif', 'jpeg', 'jpg', 'jpe', 'png', 'tiff', 'tif'),
-	'o'	=> array('psd', 'gtar', 'swf', 'tar', 'tgz', 'xhtml', 'zip', 'css', 'html', 'htm', 'shtml')
+	'o'	=> array('psd', 'gtar', 'swf', 'tar', 'tgz', 'xhtml', 'zip', 'css', 'html', 'htm', 'shtml', 'svg'),
 );

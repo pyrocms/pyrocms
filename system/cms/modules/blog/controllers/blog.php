@@ -7,6 +7,8 @@
  */
 class Blog extends Public_Controller
 {
+	public $stream;
+
 	/**
 	 * Every time this controller is called should:
 	 * - load the blog and blog_categories models.
@@ -18,7 +20,7 @@ class Blog extends Public_Controller
 		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
-		$this->load->library('keywords/keywords');
+		$this->load->library(array('keywords/keywords'));
 		$this->lang->load('blog');
 
 		$this->load->driver('Streams');
@@ -27,10 +29,15 @@ class Blog extends Public_Controller
 		// easily access them later when processing posts.
 		$cates = $this->db->get('blog_categories')->result_array();
 		$this->categories = array();
-
-		foreach ($cates as $cate) {
+	
+		foreach ($cates as $cate)
+		{
 			$this->categories[$cate['id']] = $cate;
 		}
+
+		// Get blog stream. We use this to set the template
+		// stream throughout the blog module.
+		$this->stream = $this->streams_m->get_stream('blog', true, 'blogs');
 	}
 
 	/**
@@ -42,8 +49,14 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
+		// Get our comment count whil we're at it.
+		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
+				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
+				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
+				AND entry_id=".$this->db->protect_identifiers('blog.id', true).") as `comment_count`";
+
 		// Get the latest blog posts
-		$params = array(
+		$posts = $this->streams->entries->get_entries(array(
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
@@ -51,16 +64,21 @@ class Blog extends Public_Controller
 			'paginate'		=> 'yes',
 			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
-		);
-		$posts = $this->streams->entries->get_entries($params);
+		));
 
 		// Process posts
-		foreach ($posts['entries'] as &$post) {
+		foreach ($posts['entries'] as &$post)
+		{
 			$this->_process_post($post);
 		}
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts['entries']);
+
+		$data = array(
+			'pagination' => $posts['pagination'],
+			'posts' => $posts['entries']
+		);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -71,8 +89,9 @@ class Blog extends Public_Controller
 			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
-			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
+			->set('pagination', $posts['pagination'])
 			->build('posts');
 	}
 
@@ -100,7 +119,8 @@ class Blog extends Public_Controller
 		$posts = $this->streams->entries->get_entries($params);
 
 		// Process posts
-		foreach ($posts['entries'] as &$post) {
+		foreach ($posts['entries'] as &$post)
+		{
 			$this->_process_post($post);
 		}
 
@@ -114,6 +134,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('category', (array)$category)
 			->build('posts');
@@ -145,7 +166,8 @@ class Blog extends Public_Controller
 
 		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
 
-		foreach ($posts['entries'] as &$post) {
+		foreach ($posts['entries'] as &$post)
+		{
 			$this->_process_post($post);
 		}
 
@@ -159,6 +181,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('month_year', $month_year)
 			->build('archive');
@@ -172,7 +195,8 @@ class Blog extends Public_Controller
 	public function view($slug = '')
 	{
 		// We need a slug to make this work.
-		if (! $slug) {
+		if ( ! $slug)
+		{
 			redirect('blog');
 		}
 
@@ -185,7 +209,8 @@ class Blog extends Public_Controller
 		$data = $this->streams->entries->get_entries($params);
 		$post = (isset($data['entries'][0])) ? $data['entries'][0] : null;
 
-		if ( ! $post or ($post['status'] !== 'live' and ! $this->ion_auth->is_admin())) {
+		if ( ! $post or ($post['status'] !== 'live' and ! $this->ion_auth->is_admin()))
+		{
 			redirect('blog');
 		}
 
@@ -199,7 +224,8 @@ class Blog extends Public_Controller
 	 */
 	public function preview($hash = '')
 	{
-		if (! $hash) {
+		if ( ! $hash)
+		{
 			redirect('blog');
 		}
 
@@ -212,11 +238,13 @@ class Blog extends Public_Controller
 		$data = $this->streams->entries->get_entries($params);
 		$post = (isset($data['entries'][0])) ? $data['entries'][0] : null;
 
-		if (! $post) {
+		if ( ! $post)
+		{
 			redirect('blog');
 		}
 
-		if ($post['status'] === 'live') {
+		if ($post['status'] === 'live')
+		{
 			redirect('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
 		}
 
@@ -244,9 +272,13 @@ class Blog extends Public_Controller
 		// we need to figure out where this sort of stuff should go.
 		// Maybe the entire blog moduel should be replaced with stream
 		// calls with items like this. Otherwise, this currently works.
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers('blog.keywords', true);
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.
+			$this->db->protect_identifiers('keywords_applied.hash', true).' = '.
+			$this->db->protect_identifiers('blog.keywords', true);
 
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.
+			$this->db->protect_identifiers('keywords.id', true).' = '.
+			$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
 
 		$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $tag)."'";
 
@@ -255,13 +287,15 @@ class Blog extends Public_Controller
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
+			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
 			'pag_segment'	=> 4
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
 		// Process posts
-		foreach ($posts['entries'] as &$post) {
+		foreach ($posts['entries'] as &$post)
+		{
 			$this->_process_post($post);
 		}
 
@@ -278,6 +312,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
 			->set('pagination', $posts['pagination'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('tag', $tag)
 			->build('posts');
@@ -286,7 +321,7 @@ class Blog extends Public_Controller
 	/**
 	 * Process Post
 	 *
-	 * Process data that was not part of the
+	 * Process data that was not part of the 
 	 * initial streams call.
 	 *
 	 * @return 	void
@@ -300,7 +335,8 @@ class Blog extends Public_Controller
 		$formatted_keywords = array();
 		$keywords_arr = array();
 
-		foreach ($keywords as $key) {
+		foreach ($keywords as $key)
+		{
 			$formatted_keywords[] 	= array('keyword' => $key->name);
 			$keywords_arr[] 		= $key->name;
 
@@ -310,13 +346,14 @@ class Blog extends Public_Controller
 
 		// Full URL for convenience.
 		$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
-
+	
 		// What is the preview? If there is a field called intro,
 		// we will use that, otherwise we will cut down the blog post itself.
 		$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 
 		// Category
-		if ($post['category_id'] > 0 and isset($this->categories[$post['category_id']])) {
+		if ($post['category_id'] > 0 and isset($this->categories[$post['category_id']]))
+		{
 			$post['category'] = $this->categories[$post['category_id']];
 		}
 	}
@@ -334,10 +371,13 @@ class Blog extends Public_Controller
 		$description = array();
 
 		// Loop through posts and use titles for meta description
-		if ( ! empty($posts)) {
-			foreach ($posts as &$post) {
-				if (isset($post['category'])) {
-					$keywords[] = $post['category']['title'].', '.$post['category']['slug'];
+		if ( ! empty($posts))
+		{
+			foreach ($posts as &$post)
+			{
+				if (isset($post['category']) and ! in_array($post['category']['title'], $keywords))
+				{
+					$keywords[] = $post['category']['title'];
 				}
 
 				$description[] = $post['title'];
@@ -345,7 +385,7 @@ class Blog extends Public_Controller
 		}
 
 		return array(
-			'keywords' => implode(', ', array_unique($keywords)),
+			'keywords' => implode(', ', $keywords),
 			'description' => implode(', ', $description)
 		);
 	}
@@ -356,25 +396,31 @@ class Blog extends Public_Controller
 	 * Generate a page for viewing a single
 	 * blog post.
 	 *
+	 * @access 	private
 	 * @param 	array $post The post to view
 	 * @return 	void
 	 */
 	private function _single_view($post)
 	{
 		// if it uses markdown then display the parsed version
-		if ($post['type'] === 'markdown') {
+		if ($post['type'] === 'markdown')
+		{
 			$post['body'] = $post['parsed'];
 		}
 
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
-		if ($post['category_id'] > 0) {
-			// Get the category. We'll just do it ourselves since we need an array
-			// @TODO Change this to use a model method
-			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array()) {
+		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
+
+		if ($post['category_id'] > 0)
+		{
+			// Get the category. We'll just do it ourselves
+			// since we need an array.
+			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array())
+			{
 				$this->template->set_breadcrumb($category['title'], 'blog/category/'.$category['slug']);
 
-				// Set category OG metadata
+				// Set category OG metadata			
 				$this->template->set_metadata('article:section', $category['title'], 'og');
 
 				// Add to $post
@@ -385,12 +431,14 @@ class Blog extends Public_Controller
 		$this->_process_post($post);
 
 		// Add in OG keywords
-		foreach ($post['keywords_arr'] as $keyword) {
+		foreach ($post['keywords_arr'] as $keyword)
+		{
 			$this->template->set_metadata('article:tag', $keyword, 'og');
 		}
 
 		// If comments are enabled, go fetch them all
-		if (Settings::get('enable_comments')) {
+		if (Settings::get('enable_comments'))
+		{
 			// Load Comments so we can work out what to do with them
 			$this->load->library('comments/comments', array(
 				'entry_id' => $post['id'],
@@ -418,8 +466,8 @@ class Blog extends Public_Controller
 			->set_metadata('article:modified_time', date(DATE_ISO8601, $post['updated_on']), 'og')
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($post['title'])
+			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('post', array($post))
 			->build('view');
 	}

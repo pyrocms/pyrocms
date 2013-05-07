@@ -13,9 +13,11 @@ class Plugin_Settings extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Settings',
+            'fa' => 'تنظیمات',
 	);
 	public $description = array(
 		'en' => 'Retrieve a setting from the database.',
+            'fa' => 'دریافت تنظیمات سایت از دیتابیس',
 	);
 
 	/**

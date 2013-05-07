@@ -13,10 +13,12 @@ class Plugin_Search extends Plugin
 
 	public $name = array(
 		'en' => 'Search',
+            'fa' => 'جستجو',
 	);
 
 	public $description = array(
 		'en' => 'Create a search form and display search results.',
+            'fa' => 'ایجاد فرم جستجو و نمایش نتایج',
 	);
 
 	/**

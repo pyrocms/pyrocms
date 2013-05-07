@@ -77,8 +77,6 @@ $lang['settings:records_per_page_desc']				= 'Какое количество з
 $lang['settings:rss_feed_items']						= 'Кол-во записей в лентах';
 $lang['settings:rss_feed_items_desc']					= 'Какое количество записей выводить в RSS лентах/новостях?';
 
-$lang['settings:require_lastname']					= 'Требовать фамилию?';
-$lang['settings:require_lastname_desc']				= 'В некоторых случаях фамилия может быть ненужна. Вы хотите требовать от регистрирующихся пользователей ввода фамилии?';
 
 $lang['settings:enable_profiles']						= 'Разрешить профили';
 $lang['settings:enable_profiles_desc']				= 'Разрешить пользователям добавлять и редактировать профили.';
@@ -94,15 +92,6 @@ $lang['settings:ga_profile_desc']							= 'ID профиля этого сайт
 
 $lang['settings:ga_tracking'] 							= 'Код отслеживания Google Tracking';
 $lang['settings:ga_tracking_desc']						= 'Укажите код отслеживания Google Analytic для активации учёта посетителей вашего сайта. Например: UA-19483569-6';
-
-$lang['settings:twitter_username']					= 'Логин';
-$lang['settings:twitter_username_desc']				= 'Имя пользователя Twitter.';
-
-$lang['settings:twitter_feed_count']				= 'Кол-во записей';
-$lang['settings:twitter_feed_count_desc']			= 'Какое количество твитов должно быть показано в блоке фидов Твиттера?';
-
-$lang['settings:twitter_cache']							= 'Время кэширования';
-$lang['settings:twitter_cache_desc']					= 'На какое количество минут кэшировать ваши твиты?';
 
 $lang['settings:akismet_api_key']						= 'API-ключ Akismet';
 $lang['settings:akismet_api_key_desc']				= 'Akismet - это система блокирования спама от комманды WordPress. Она держит спам под контролем, без необходимости ввода пользователями капчи.';
@@ -134,7 +123,6 @@ $lang['settings:section_integration']					= 'Интеграция';
 $lang['settings:section_comments']						= 'Комментарии';
 $lang['settings:section_users']								= 'Пользователи';
 $lang['settings:section_statistics']					= 'Статистика';
-$lang['settings:section_twitter']							= 'Twitter';
 
 // чекбоксы и прочая фигня
 $lang['settings:form_option_Open']						= 'Работает';

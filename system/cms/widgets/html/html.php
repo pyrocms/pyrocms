@@ -34,6 +34,7 @@ class Widget_Html extends WidgetAbstract
 		'id' => 'Membuat blok HTML apapun',
 		'fi' => 'Luo lohkoja omasta HTML koodista',
 		'fr' => 'Créez des blocs HTML personnalisés',
+            'fa' => 'ایجاد قسمت ها به صورت اچ تی ام ال',
 	);
 
 	/**

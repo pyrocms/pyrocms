@@ -109,6 +109,7 @@ Special outer level classes used in this file:
 {
   border: 1px solid #0d0d0d;
   padding: 6px 8px 2px;
+  white-space:normal;
 
   -moz-border-radius: 2px 2px 0 0;
   -webkit-border-radius: 2px 2px 0 0;

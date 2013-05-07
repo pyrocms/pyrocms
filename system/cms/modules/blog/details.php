@@ -22,6 +22,7 @@ class Module_Blog extends AbstractModule
 				'br' => 'Blog',
 				'pt' => 'Blog',
 				'el' => 'Ιστολόγιο',
+                            'fa' => 'بلاگ',
 				'he' => 'בלוג',
 				'id' => 'Blog',
 				'lt' => 'Blogas',
@@ -46,6 +47,7 @@ class Module_Blog extends AbstractModule
 				'fi' => 'Kirjoita blogi artikkeleita.',
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
+                                'fa' => 'مقالات منتشر شده در بلاگ',
 				'fr' => 'Poster des articles d\'actualités.',
 				'he' => 'ניהול בלוג',
 				'id' => 'Post entri blog',

@@ -79,8 +79,6 @@ $lang['settings:records_per_page_desc'] 		= '在管理系統中，每頁所顯�
 $lang['settings:rss_feed_items'] 				= 'Feed 項目數量';
 $lang['settings:rss_feed_items_desc'] 			= '在 RSS/blog feeds 中所顯示的項目數量';
 
-$lang['settings:require_lastname'] 				= '需要輸入姓氏？';
-$lang['settings:require_lastname_desc'] 		= '某些情況下，姓氏是不需要輸入的項目。您要強制用戶輸入這項資料嗎？';
 
 $lang['settings:enable_profiles'] 				= '啟用個人簡介';
 $lang['settings:enable_profiles_desc'] 			= '讓用戶能夠編輯自己的個人簡介。';
@@ -96,15 +94,6 @@ $lang['settings:ga_profile_desc']				= 'Google Analytics 中的 Profile ID 代�
 
 $lang['settings:ga_tracking'] 					= 'Google 網站追蹤碼';
 $lang['settings:ga_tracking_desc']				= '請輸入您的 Tracking Code 來啟用 Google Analytics 的資料讀取。例如：UA-19483569-6';
-
-$lang['settings:twitter_username'] 				= '用戶名稱';
-$lang['settings:twitter_username_desc'] 		= 'Twitter 的用戶名稱(Username)。';
-
-$lang['settings:twitter_feed_count'] 			= 'Feed 數量';
-$lang['settings:twitter_feed_count_desc'] 		= '請設定在 Twitter feed 區塊內顯示的 Tweets 訊息數量。';
-
-$lang['settings:twitter_cache'] 				= '暫存時間';
-$lang['settings:twitter_cache_desc'] 			= '您的 Tweets 應該暫時保存多少分鐘呢？';
 
 $lang['settings:akismet_api_key'] 				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc'] 			= 'Akismet 是由 WordPress 團隊所提供，一個阻擋垃圾訊息入侵的機制。它會使垃圾訊息受到控制，卻不用一般強制用戶輸入檢查碼的方式。';
@@ -157,7 +146,6 @@ $lang['settings:section_integration']			= '整合';
 $lang['settings:section_comments']				= '回應';
 $lang['settings:section_users']					= '用戶';
 $lang['settings:section_statistics']			= '統計';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= '檔案';
 
 #checkbox and radio options

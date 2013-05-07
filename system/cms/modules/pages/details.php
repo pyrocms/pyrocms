@@ -186,6 +186,8 @@ class Module_Pages extends AbstractModule
             $table->string('meta_title', 255)->nullable();
             $table->string('meta_keywords', 32)->nullable();
             $table->text('meta_description')->nullable();
+            $table->boolean('meta_robots_no_index')->nullable();
+            $table->boolean('meta_robots_no_follow')->nullable();
             $table->integer('rss_enabled')->default(false);
             $table->integer('comments_enabled')->default(false);
             $table->enum('status', array('draft', 'live'))->default('draft');

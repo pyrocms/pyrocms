@@ -13,9 +13,11 @@ class Plugin_Variables extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Variables',
+            'fa' => 'متغییر ها',
 	);
 	public $description = array(
 		'en' => 'Set and retrieve variable data.',
+            'fa' => 'ایجاد و نمایش متغییر ها',
 	);
 
 	/**

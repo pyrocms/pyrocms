@@ -788,7 +788,9 @@ table {
   margin-bottom: 18px;
   font-size: 13px;
   border: 1px solid #ddd;
-  border-collapse: separate;
+	border-collapse: separate;
+	border-spacing: 0px;
+	*border-collapse: expression('separate', cellSpacing = '0px');
   border-radius: 3px;
 }
 
@@ -2066,6 +2068,7 @@ li.pill {
     -moz-opacity: .5;
          opacity: .5;
   filter: alpha(opacity=50);
+  overflow: hidden;  
 }
 
 .topbar ul li ul {

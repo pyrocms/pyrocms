@@ -74,8 +74,6 @@ $lang['settings:records_per_page_desc']			= 'Monta riviä haluat näytettävän 
 $lang['settings:rss_feed_items']				= 'Syötteen lukumäärä';
 $lang['settings:rss_feed_items_desc']			= 'Monta artikkelia haluat näyttää RSS/uutis syötteissä?';
 
-$lang['settings:require_lastname']				= 'Vaadi sukunimet?';
-$lang['settings:require_lastname_desc']			= 'Tietyissä tilanteissa sukunimi ei ole pakollinen. Haluatko vaatia käyttäjiltä sukunimeä?';
 
 $lang['settings:enable_profiles']				= 'Profiili ominaisuus';
 $lang['settings:enable_profiles_desc']			= 'Anna käyttäjille mahdollisuus muokata profiilia.';
@@ -91,15 +89,6 @@ $lang['settings:ga_profile_desc']				= 'Google Analyticsin profiilin ID.';
 
 $lang['settings:ga_tracking']					= 'Google Tracking koodi';
 $lang['settings:ga_tracking_desc']				= 'Syötä Google Analyticsin seuranta koodi, joka on muotoa: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Käyttäjätunnus';
-$lang['settings:twitter_username_desc']			= 'Twitterin käyttäjätunnus.';
-
-$lang['settings:twitter_feed_count']			= 'Syöte lukumäärä';
-$lang['settings:twitter_feed_count_desc']		= 'Monta Twitterin syötteitä haluat näyttää lohkossa?';
-
-$lang['settings:twitter_cache']					= 'Välimuistin aika';
-$lang['settings:twitter_cache_desc']			= 'Monen minuutin välimuistitusta haluat käyttää Twitterin viesteihin?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API avain';
 $lang['settings:akismet_api_key_desc']			= 'Akismet on roskapostin suodattaja WordPressin tekjöiltä. Se suojaa roskapostilta ilman, että käyttäjät joutuvat syöttämään kuvatunnisteen kirjaimia.';
@@ -152,7 +141,6 @@ $lang['settings:section_integration']			= 'Integrointi';
 $lang['settings:section_comments']				= 'Kommentit';
 $lang['settings:section_users']					= 'Käyttäjät';
 $lang['settings:section_statistics']			= 'Statistiikat';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Tiedostot';
 
 #checkbox and radio options

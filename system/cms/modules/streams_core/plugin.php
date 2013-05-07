@@ -18,9 +18,11 @@ class Plugin_Streams_core extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Streams Core',
+            'fa' => 'استریم ها',
 	);
 	public $description = array(
 		'en' => 'A basic plugin for working with stream data.',
+            'fa' => 'یک پلاگین ساده برای کارکردن با اطلاعات استریم',
 	);
 
 	/**

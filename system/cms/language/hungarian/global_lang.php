@@ -53,7 +53,7 @@ $lang['required_error_label']                   = 'Kötelező mező nincs kitöl
 $lang['note_label']                             = 'Jegyzet';
 $lang['success_label']                          = 'Siker';
 $lang['global:fields']							= 'Mezők';
-$lang['global:custom_fields']					= 'Custom Fields'; #translate
+$lang['global:custom_fields']					= 'Egyéni mezők';
 
 $lang['login_title']                            = 'Bejelentkezés';
 $lang['global:fatal_error']                     = 'Végzetes hiba! Telepítve van a CMS?';
@@ -113,6 +113,6 @@ $lang['global:plugins']					= 'Pluginek';
 $lang['global:plugin']					= 'Plugin';
 
 $lang['global:options']					= 'Opciók';
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:plain-text']				= 'Egyszerű szöveg';
 
 /* End of file global_lang.php */

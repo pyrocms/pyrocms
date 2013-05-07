@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']		= 'Πόσα στοιχεία να πρ�
 $lang['settings:rss_feed_items']		= 'Αριθμός Στοιχείων Τροφοδοσίας';
 $lang['settings:rss_feed_items_desc']		= 'Πόσα στοιχεία πρέπει να περιέχουν οι τροφοδοσίες RSS και Ιστολογίου;';
 
-$lang['settings:require_lastname']		= 'Να Απαιτούνται Επώνυμα;';
-$lang['settings:require_lastname_desc']		= 'Για κάποιες περιπτώσεις, μπορεί να απαιτείται η εισαγωγή του επωνύμου. Θέλετε να αναγκάσετε τους χρήστες σας να το εισάγουν ή όχι;';
 
 $lang['settings:enable_profiles']		= 'Ενεργοποίηση των προφίλ';
 $lang['settings:enable_profiles_desc']		= 'Να επιτρέπεται στους χρήστες να προσθέτουν και να επεξεργάζονται τα προφίλ τους.';
@@ -84,15 +82,6 @@ $lang['settings:ga_profile_desc']		= 'Το ID του προφίλ του Google 
 
 $lang['settings:ga_tracking']			= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']		= 'Εισάγεται τον Google Analytic Tracking Code σας για να ενεργοποιήσετε την καταγραφή επισκέψεων μέσω του Google Analytics. Π.χ.: UA-19483569-6';
-
-$lang['settings:twitter_username']		= 'Όνομα χρήστη';
-$lang['settings:twitter_username_desc']		= 'Όνομα χρήστη στο Twitter.';
-
-$lang['settings:twitter_feed_count']		= 'Αριθμός Τροφοδοσίας';
-$lang['settings:twitter_feed_count_desc']	= 'Πόσα tweets να επιστρέφονται από το μπλοκ τροφοδοσίας του Twitter;';
-
-$lang['settings:twitter_cache']			= 'Χρόνος Cache';
-$lang['settings:twitter_cache_desc']		= 'Για πόσα λεπτά να αποθηκεύονται τα Tweets σας;';
 
 $lang['settings:akismet_api_key']		= 'Κλειδί API για το Akismet';
 $lang['settings:akismet_api_key_desc']		= 'Το Akismet σταματάει το spam και δημιουργήθηκε από τον ομάδα του WordPress. Κρατάει το spam υπό έλεγχο χωρίς να υποχρεώνει τους χρήστες να περάσουν δοκιμασίες για να αποδείξουν ότι είναι άνθρωποι και όχι προγράμματα.';
@@ -145,7 +134,6 @@ $lang['settings:section_integration']		= 'Ενσωμάτωση';
 $lang['settings:section_comments']		= 'Σχόλια';
 $lang['settings:section_users']			= 'Χρήστες';
 $lang['settings:section_statistics']		= 'Στατιστικά';
-$lang['settings:section_twitter']		= 'Twitter';
 $lang['settings:section_files']			= 'Αρχεία';
 
 #checkbox and radio options
