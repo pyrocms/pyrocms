@@ -28,6 +28,16 @@ class Field_choice
 									);
 
 	public $plugin_return			= 'merge';
+
+	/**
+	 * Input Types
+	 * 
+	 * Valid input types for the choices field
+	 * type. The default is "dropdown".
+	 *
+	 * @var 	array
+	 */
+	public $input_types = array('dropdown', 'multiselect', 'radio', 'checkboxes');
 		
 	// --------------------------------------------------------------------------
 
@@ -44,6 +54,9 @@ class Field_choice
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
+
+		$params['custom']['choice_type'] 
+			= $this->validate_input_type($params['custom']['choice_type']);
 		
 		if ($params['custom']['choice_type'] == 'dropdown')
 		{
@@ -192,9 +205,11 @@ class Field_choice
 	public function pre_output($input, $data)
 	{
 		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], 'no', false);
-		
+
+		$data['choice_type'] = $this->validate_input_type($data['choice_type']);
+
 		// Checkboxes?
-		if ($data['choice_type'] == 'checkboxes' ||$data['choice_type']== 'multiselect')
+		if ($data['choice_type'] == 'checkboxes' or $data['choice_type']== 'multiselect')
 		{
 			$vals = explode("\n", $input);
 
@@ -230,6 +245,9 @@ class Field_choice
 	 */	
 	public function pre_save($input, $field)
 	{
+		$field->field_data['choice_type'] 
+			= $this->validate_input_type($field->field_data['choice_type']);
+
 		// We only need to do this for checkboxes
 		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type']== 'multiselect') and is_array($input))
 		{
@@ -263,12 +281,24 @@ class Field_choice
 		}
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Do we have a correct choice type? If not, we will
+     * default to dropdown to save ourselves errors.
+	 *
+	 * @return 	string The input type
+	 */
+	private function validate_input_type($var)
+	{
+		if ( ! in_array($var, $this->input_types)) {
+			$var = 'dropdown';
+		}
+
+		return $var;
+	}
 
 	/**
 	 * Validate input
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string - mode: edit or new
 	 * @param	object

@@ -56,7 +56,7 @@ class Blog extends Public_Controller
 				AND entry_id=".$this->db->protect_identifiers('blog.id', true).") as `comment_count`";
 
 		// Get the latest blog posts
-		$params = array(
+		$posts = $this->streams->entries->get_entries(array(
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
@@ -64,8 +64,7 @@ class Blog extends Public_Controller
 			'paginate'		=> 'yes',
 			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
-		);
-		$posts = $this->streams->entries->get_entries($params);
+		));
 
 		// Process posts
 		foreach ($posts['entries'] as &$post)

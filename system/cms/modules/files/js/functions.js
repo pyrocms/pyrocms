@@ -872,9 +872,8 @@ jQuery(function($){
 					if ($folders_center.find('li').length === 0 && pyro.files.current_level === 0) {
 						$('.no_data').fadeIn('fast');
 					}
-
-					$(window).trigger('show-message', results);
 				}
+				$(window).trigger('show-message', results);
 			});
 		});
 	 };
