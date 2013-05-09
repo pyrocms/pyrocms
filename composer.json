@@ -1,21 +1,14 @@
 {
     "minimum-stability": "dev",
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git://github.com/philsturgeon/capsule.git"
-        }
-    ],
     
     "require": {
         "pyrocms/lex": "2.2.*",
         
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
-        "dhorrigan/capsule": "dev-master",
         "ircmaxell/password-compat": "1.0.*",
         "illuminate/database": "dev-master",
+        "league/capsule": "2.2.*",
         "nesbot/Carbon": "1.2.*",
         "quick/cache": "1.0.*",
         "ruudk/twitter-oauth": "*",
