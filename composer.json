@@ -7,7 +7,6 @@
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
         "ircmaxell/password-compat": "1.0.*",
-        "illuminate/database": "dev-master",
         "league/capsule": "2.2.*",
         "nesbot/Carbon": "1.2.*",
         "quick/cache": "1.0.*",
