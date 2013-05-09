@@ -171,7 +171,7 @@ class Field_file
 	{
 		if ( ! $input) return null;
 
-		$image_data = array();
+		$file_data = array();
 
 		$this->CI->load->config('files/files');
 		$this->CI->load->helper('html');
@@ -180,7 +180,7 @@ class Field_file
 
 		$file = $this->CI->db
 						->limit(1)
-						->select('name, extension, mimetype')
+						->select('name, extension, mimetype, filesize')
 						->where('id', $input)
 						->get('files')->row();
 
@@ -190,12 +190,14 @@ class Field_file
 			$file_data['file']			= site_url('files/download/'.$input);
 			$file_data['ext']			= $file->extension;
 			$file_data['mimetype']		= $file->mimetype;
+			$file_data['filesize']		= $file->filesize;
 		}
 		else
 		{
 			$file_data['filename']		= null;
 			$file_data['ext']			= null;
 			$file_data['mimetype']		= null;
+			$file_data['filesize']		= null;
 		}
 
 		return $file_data;
