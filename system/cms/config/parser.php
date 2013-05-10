@@ -47,6 +47,7 @@ $config['allowed_functions']	=	array(
 	'word_censor',
 	'word_limiter',
 	'word_wrap',
+	'alternator'
 	);
 
 /* End of file parser.php */
