@@ -4,6 +4,7 @@ require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
+use Illuminate\Database\Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
@@ -220,15 +221,15 @@ class MY_Controller extends MX_Controller
         include APPPATH.'config/database.php';
 
         $config = $db[ENVIRONMENT];
-        $subdriver = current(explode(':', $config['dsn']));
 
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
 
         	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            preg_match('/dbname=(\w+)/', $config['dsn'], $matches);
-            $database = $matches[1];
+            preg_match('/(mysql|pgsql|sqlite)+:.+dbname=(\w+)/', $config['dsn'], $matches);
+            $subdriver = $matches[1];
+            $database = $matches[2];
             unset($matches);
 
             $drivers = array(
@@ -240,24 +241,37 @@ class MY_Controller extends MX_Controller
             // Make a connection instance with the existing PDO connection
             $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
 
-            $resolver = Capsule\Database\Connection::getResolver();
+            $resolver = new Illuminate\Database\ConnectionResolver;
             $resolver->addConnection('default', $conn);
             $resolver->setDefaultConnection('default');
 
-            \Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
+            Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
 
         // Not using the new PDO driver
         } else {
 
-            $conn = Capsule\Database\Connection::make('default', array(
-                'driver' => $subdriver,
-                'dsn' => $config["dsn"],
-                'username' => $config["username"],
-                'password' => $config["password"],
-                'charset' => $config["char_set"],
-                'collation' => $config["dbcollat"],
-            ), true);
+            $capsule = new Capsule(array(
+                'fetch' => PDO::FETCH_CLASS,
+                'default' => 'default',
+                'connections' => array(
+                    'default' => array(
+                        'driver' => $config['dbdriver'],
+                        'host' => $config["hostname"],
+                        'database' => $config["database"],
+                        'username' => $config["username"],
+                        'prefix' => $prefix,
+                        'password' => $config["password"],
+                        'charset' => $config["char_set"],
+                        'collation' => $config["dbcollat"],
+                    ),
+                ),
+            ));
+
+            $capsule->bootEloquent();
+
+            $conn = $capsule->connection();
         }
+
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 
