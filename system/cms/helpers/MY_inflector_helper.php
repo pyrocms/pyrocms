@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed.');
 
+use Patchwork\Utf8;
+
 /**
  * PyroCMS Inflector Helpers
  *
@@ -27,6 +29,7 @@ if ( ! function_exists('keywords')) {
 }
 
 if (!function_exists('slugify')) {
+
 	/**
 	 * Make slug from a given string
 	 *
@@ -36,17 +39,15 @@ if (!function_exists('slugify')) {
 	 */
 	function slugify($string, $separator = '-')
 	{
-		$string = trim($string);
-		$string = strtolower($string);
-		$string = preg_replace('/[\s-]+/', $separator, $string);
-		$string = preg_replace("/[^0-9a-zA-Z-]/", '', $string);
-
-		return $string;
+		$string = strtolower(trim(Utf8::toAscii($string)));
+		$string = preg_replace('/[\s]+/', $separator, $string);
+		
+		return preg_replace("/[^0-9a-z]/i", '', $string);
 	}
 }
 
-if(!function_exists('rand_string'))
-{
+if ( ! function_exists('rand_string')) {
+
 	/**
 	 * Create a random hash string based on microtime
 	 * @param 	int $length

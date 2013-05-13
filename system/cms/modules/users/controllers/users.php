@@ -296,13 +296,13 @@ class Users extends Public_Controller
 
 				if (Settings::get('auto_username')) {
 					if ($this->input->post('first_name') and $this->input->post('last_name')) {
-						$this->load->helper('url');
-						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
+
+						$username = slugify($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
 
 						// do they have a long first name + last name combo?
 						if (strlen($username) > 19) {
 							// try only the last name
-							$username = url_title($this->input->post('last_name'), '-', true);
+							$username = slugify($this->input->post('last_name'), '-', true);
 
 							if (strlen($username) > 19) {
 								// even their last name is over 20 characters, snip it!
@@ -404,7 +404,7 @@ class Users extends Public_Controller
 			}
 
 		// Is there a user hash?
-		] else {
+		} else {
 			if (($user_hash = $this->session->userdata('user_hash'))) {
 				// Convert the array to an object
 				$user->email = ( ! empty($user_hash['email'])) ? $user_hash['email'] : '';

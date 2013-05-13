@@ -28,16 +28,20 @@
 <div class="subbar">
 	<div class="wrapper">
 		<div class="subbar-inner">
-			<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard') ?></h2>
 		
+			<?php if ($this->module): ?>
+			<h2><?php echo anchor('admin/'.$module_details['slug'], $module_details['name']) ?></h2>
+
 			<small>
-				<?php if ( $this->uri->segment(2) ) { echo '<span class="divider">&nbsp; | &nbsp;</span>'; } ?>
-				<?php echo $module_details['description'] ? $module_details['description'] : '' ?>
-				<?php if ( $this->uri->segment(2) ) { echo '<span class="divider">&nbsp; | &nbsp;</span>'; } ?>
-				<?php if($module_details['slug']): ?>
+				<span class="divider">&nbsp; | &nbsp;</span>
+				<?php echo $module_details['description'] ?>
+				<span class="divider">&nbsp; | &nbsp;</span>
 				<?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => $module_details['name'].'&nbsp;'.lang('help_label'), 'class' => 'modal')); ?>
-				<?php endif; ?>
 			</small>
+
+			<?php else: ?>
+			<h2><?php echo lang('global:dashboard') ?></h2>
+			<?php endif ?>
 			
 			<?php file_partial('shortcuts') ?>
 	

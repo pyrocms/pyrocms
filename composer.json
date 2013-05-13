@@ -9,6 +9,7 @@
         "ircmaxell/password-compat": "1.0.*",
         "illuminate/database": "4.0.*",
         "nesbot/Carbon": "1.2.*",
+        "patchwork/utf8": "1.1.*",
         "quick/cache": "1.0.*",
         "ruudk/twitter-oauth": "*",
         "simplepie/simplepie": "1.3.*",
