@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Versión';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Acción';
 $lang['global:slug'] 					= 'Slug';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Caracteres en minúscula y guiones bajos solamente.';
 $lang['global:user'] 					= 'Usuario';
 
 $lang['global:dialog:delete_message'] 	= '¿Está seguro que desea eliminar esto? Esto no se puede deshacer.';
@@ -32,12 +32,12 @@ $lang['global:operators:not-equal'] 	= 'Distinto a';
 $lang['global:operators:less-than'] 	= 'Menor que';
 $lang['global:operators:greater-than'] 	= 'Mayor que';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'Un día';
+$lang['global:duration:1-week']			= 'Una semana';
+$lang['global:duration:2-weeks']		= 'Dos semanas';
+$lang['global:duration:1-month']		= 'Un mes';
+$lang['global:duration:3-months']		= 'Tres meses';
+$lang['global:duration:always']			= 'Siempre';
 
 $lang['navigation_headline'] 			= 'Navegación';
 $lang['breadcrumb_base_label'] 			= 'Inicio';
@@ -52,8 +52,8 @@ $lang['general_error_label'] 			= 'Error';
 $lang['required_error_label'] 			= 'Campo obligatorio faltante';
 $lang['note_label'] 					= 'Advertencia';
 $lang['success_label'] 					= 'Éxito';
-$lang['global:fields']					= 'Fields'; #translate
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields']					= 'Campos';
+$lang['global:custom_fields']			= 'Campos Personalizados';
 
 $lang['login_title'] 					= 'Iniciar sesión';
 $lang['globalfatal_error'] 			= 'Error grave. ¿El CMS está instalado?';
@@ -102,17 +102,17 @@ $lang['global:remove']					= 'Eliminar';
 
 $lang['global:keywords']				= 'Palabras claves';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'o'; 
+$lang['global:and']						= 'y'; 
+$lang['global:at']						= 'en';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Widgets'; 
+$lang['global:themes']					= 'Temas'; 
+$lang['global:field_types']				= 'Tipos de Campos';
+$lang['global:plugins']					= 'Añadidos'; 
+$lang['global:plugin']					= 'Añadido';
 
-$lang['global:options']					= 'Options'; #translate
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:options']					= 'Opciones';
+$lang['global:plain-text']				= 'Texto Plano';
 
 /* End of file global_lang.php */

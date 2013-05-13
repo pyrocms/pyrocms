@@ -32,19 +32,19 @@ $lang['cp:nav_settings']				= 'Configuraciones';
 $lang['cp:nav_addons']					= 'Agregados';
 $lang['cp:nav_modules']					= 'Módulos';
 $lang['cp:nav_users']					= 'Usuarios';
-$lang['cp:nav_data']					= 'Data'; #translate
-$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_data']					= 'Datos';
+$lang['cp:nav_structure']				= 'Estructura';
 $lang['cp:nav_content']					= 'Contenido';
-$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_misc']					= 'Misceláneas';
 
 $lang['cp:search']                      = 'Buscar';
 
 $lang['cp:must_login']			        = 'Debes estar logueado para ver esta página.';
 $lang['cp:access_denied']		        = 'No tienes el permiso suficiente para ver esta página.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'El directorio de instalación aún existe! Por favor, borrelo de su servidor! Dejarlo en línea significa que cualquiera pueda tener control del sitio.';
+$lang['cp:delete_installer']					 = 'Borrar instalador';
+$lang['cp:delete_installer_successfully_message'] = 'El directorio de instalación ha sido borrado.';
+$lang['cp:delete_installer_manually_message']     = 'El directorio de instalación no puede ser borrado. <strong>Por favor, borrelo manualmente!</strong>';
 $lang['cp:upgrade_message']		        = 'Actualmente estas ejecutando la versión %s, pero la version de tu base de datos es %s. Por favor, <a href="%s">haz clic aquí para actualizar la base de datos.</a>.';
 $lang['cp:google_analytics_missing']	= 'La configuración para Google Analytics aún no ha sido especificada. Agreguelas en %s o contacte su administrador.';
 $lang['cp:google_analytics_no_connect']	= 'No se pudo conectar a Google Analytics. Chequear en %s.';
