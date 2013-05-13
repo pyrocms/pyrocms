@@ -232,7 +232,7 @@ class Page_m extends MY_Model
 		// can access vars like {{ page:id }}
 		// ---------------------------------
 
-		$this->load->vars(array('page' => $page));
+		$this->load->vars(array('page' => $page, 'current_user' => $this->current_user));
 
 		// ---------------------------------
 		// Get Stream Entry
