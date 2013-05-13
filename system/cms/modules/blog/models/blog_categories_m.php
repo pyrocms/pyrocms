@@ -86,9 +86,7 @@ class Blog_categories_m extends MY_Model
 	{
 		return parent::insert(array(
 			'title' => $input['title'],
-			//is something wrong with convert_accented_characters?
-			//'slug'=>url_title(strtolower(convert_accented_characters($input['title'])))
-			'slug' => url_title(strtolower($input['title']))
+			'slug' => slugify($input['title']))
 		));
 	}
 }

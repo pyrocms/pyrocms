@@ -144,7 +144,7 @@ class Admin_types extends Admin_Controller
 
 			// they're using an existing stream or we autocreate a slug
 			if ($input['stream_id'] == 0) {
-				$stream_slug = url_title($input['title'], '_', true);
+				$stream_slug = slugify($input['title'], '_', true);
 
 				// check to see if they want us to make a table and then see if we can
 				if ( ! $stream_slug and $this->db->table_exists($stream_slug)) {
@@ -161,7 +161,7 @@ class Admin_types extends Admin_Controller
 				// worry about auto-generating a slug as long as it doesn't conflict.
 				// We'll just append incrementing numbers to it until we get closer.
 				// Plus, we are using the pages_ prefix, so conflict probability is low.
-				$stream_slug = url_title($input['title'], '_', true);
+				$stream_slug = slugify($input['title'], '_', true);
 				$original_stream_slug = $stream_slug;
 				$count = 2;
 				while ($this->streams->streams->check_table_exists($stream_slug, 'pages_')) {

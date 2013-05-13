@@ -44,14 +44,7 @@
 
 <script type="text/javascript">
 	jQuery(function($) {
-		$('form input[name="description"]').keyup($.debounce(300, function(){
-
-			var slug = $('input[name="name"]');
-
-			$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(new_slug){
-				slug.val( new_slug );
-			});
-		}));
+		pyro.generate_slug('input[name="description"]', 'input[name="name"]');
 	});
 </script>
 

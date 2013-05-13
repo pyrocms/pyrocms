@@ -148,10 +148,10 @@ class Admin_groups extends Admin_Controller
             }
         }
 
-        $modules = $this->module_m->get_all(array('is_backend' => true, 'installed' => true));
+        $modules = $this->moduleManager->getAll(array('is_backend' => true, 'installed' => true));
 
         foreach ($modules as &$module) {
-            $module['roles'] = $this->module_m->roles($module['slug']);
+            $module['roles'] = $this->moduleManager->roles($module['slug']);
         }
 
         $this->template
