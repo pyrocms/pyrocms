@@ -39,9 +39,9 @@
 
 								<div class="btn-group pull-left">
 									<?php if ($widget->enabled == '1'): ?>
-										<?php echo anchor('admin/addons/widgets/disable/' . $widget->id, lang('buttons:disable'), 'class="btn disable"') ?>
+										<?php echo anchor('admin/addons/widgets/disable/' . $widget->id, lang('buttons:disable'), 'class="btn btn-small disable"') ?>
 									<?php else: ?>
-										<?php echo anchor('admin/addons/widgets/enable/' . $widget->id, lang('buttons:enable'), 'class="btn enable"') ?>
+										<?php echo anchor('admin/addons/widgets/enable/' . $widget->id, lang('buttons:enable'), 'class="btn btn-small enable"') ?>
 									<?php endif ?>
 								</div>
 

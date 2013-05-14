@@ -49,9 +49,9 @@
 						<td class="align-center"><?php echo $theme->version ?></td>
 						<td>
 							<div class="btn-group">
-								<?php echo isset($theme->options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="btn options"') : '' ?>
-								<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="btn" data-toggle="modal"><?php echo lang('buttons:preview') ?></a>
-								<?php if($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm btn btn-danger"'); } ?>
+								<?php echo isset($theme->options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="btn btn-small options"') : '' ?>
+								<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="btn btn-small" data-toggle="modal"><?php echo lang('buttons:preview') ?></a>
+								<?php if($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm btn btn-small btn-danger"'); } ?>
 							</div>
 						</td>
 					</tr>

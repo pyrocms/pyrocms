@@ -31,12 +31,12 @@
 
 										<div class="btn-group">
 											<?php if ($page_type->save_as_files == 'y' and $page_type->needs_sync): ?>
-											<?php echo anchor('admin/pages/types/sync/'.$page_type->id, lang('page_types:sync_files'), array('class'=>'btn'));?> 
+											<?php echo anchor('admin/pages/types/sync/'.$page_type->id, lang('page_types:sync_files'), array('class'=>'btn btn-small'));?> 
 											<?php endif; ?>
 			
-											<?php echo anchor('admin/pages/types/fields/'.$page_type->id, lang('global:fields'), array('class'=>'btn'));?> 
-											<?php echo anchor('admin/pages/types/edit/' . $page_type->id, lang('global:edit'), array('class'=>'btn'));?> 
-											<?php if ($page_type->slug !== 'default') echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'btn btn-danger'));?>
+											<?php echo anchor('admin/pages/types/fields/'.$page_type->id, lang('global:fields'), array('class'=>'btn btn-small'));?> 
+											<?php echo anchor('admin/pages/types/edit/' . $page_type->id, lang('global:edit'), array('class'=>'btn btn-small'));?> 
+											<?php if ($page_type->slug !== 'default') echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'btn btn-small btn-danger'));?>
 										</div>
 
 									</td>
