@@ -32,8 +32,8 @@
 							<td class="align-center">
 
 								<div class="btn-group">
-									<?php echo anchor('admin/blog/categories/edit/'.$category->id, lang('global:edit'), 'class="btn edit"') ?>
-									<?php echo anchor('admin/blog/categories/delete/'.$category->id, lang('global:delete'), 'class="confirm btn btn-danger"') ;?>
+									<?php echo anchor('admin/blog/categories/edit/'.$category->id, lang('global:edit'), 'class="btn btn-small edit"') ?>
+									<?php echo anchor('admin/blog/categories/delete/'.$category->id, lang('global:delete'), 'class="confirm btn btn-small btn-danger"') ;?>
 								</div>
 
 							</td>
