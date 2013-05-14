@@ -83,9 +83,8 @@ class Module_Navigation extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
         $schema->dropIfExists('navigation_groups');
 
         $schema->create('navigation_groups', function($table) {
@@ -116,22 +115,23 @@ class Module_Navigation extends AbstractModule
             $table->index('navigation_group_id');
         });
 
-        $this->pdb->table('navigation_groups')->insert(array(
+        $pdb->table('navigation_groups')->insert(array(
             array('title' => 'Header', 'abbrev' => 'header'),
             array('title' => 'Sidebar', 'abbrev' => 'sidebar'),
             array('title' => 'Footer', 'abbrev' => 'footer'),
         ));
 
-        $this->pdb->table('navigation_links')->insert(array(
+        $pdb->table('navigation_links')->insert(array(
             array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
             array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 2, 'navigation_group_id' => 1, 'position' => 3,),
         ));
-        $this->pdb->table('navigation_links')->insert(array(
+        
+        $pdb->table('navigation_links')->insert(array(
             array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
         ));
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Addons Module
  *
@@ -131,7 +129,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 		add_admin_menu_place('lang:cp:nav_addons', 6);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
@@ -213,7 +211,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

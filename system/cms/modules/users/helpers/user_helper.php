@@ -124,7 +124,7 @@ function whacky_old_password_hasher($identity, $password)
         ->take(1)
         ->pluck('salt');
 
-    if ( ! $user) {
+    if ( ! $salt) {
         return false;
     }
 

@@ -1,6 +1,5 @@
 <?php
 
-use Capsule\Schema;
 use Pyro\Module\Addons\AbstractModule;
 
 /**
@@ -65,18 +64,18 @@ class Module_Keywords extends AbstractModule
         );
     }
 
-    public function install()
+    public function install($pdb, $schema)
     {
-        Schema::dropIfExists('keywords');
+        $schema->dropIfExists('keywords');
 
-        Schema::create('keywords', function($table) {
+        $schema->create('keywords', function($table) {
             $table->increments('id');
             $table->string('name', 50);
         });
 
-        Schema::dropIfExists('keywords_applied');
+        $schema->dropIfExists('keywords_applied');
 
-        Schema::create('keywords_applied', function($table) {
+        $schema->create('keywords_applied', function($table) {
             $table->increments('id');
             $table->string('hash', 32)->default('');
             $table->integer('keyword_id');
@@ -87,7 +86,7 @@ class Module_Keywords extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;

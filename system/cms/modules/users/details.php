@@ -1,6 +1,5 @@
 <?php
 
-use Capsule\Schema;
 use Pyro\Module\Addons\AbstractModule;
 
 /**
@@ -129,13 +128,13 @@ class Module_Users extends AbstractModule
      *
      * This is handled by the installer only so that a default user can be created.
      *
-     * @return boolean
+     * @return bool
      */
-    public function install()
+    public function install($pdb, $schema)
     {
-        Schema::dropIfExists('permissions');
+        $schema->dropIfExists('permissions');
 
-        Schema::create('permissions', function($table) {
+        $schema->create('permissions', function($table) {
             $table->increments('id');
             $table->integer('group_id');
             $table->string('module');
@@ -144,9 +143,9 @@ class Module_Users extends AbstractModule
             $table->index('group_id'); // TODO: consider $table->foreign('group_id');
         });
 
-        Schema::dropIfExists('groups');
+        $schema->dropIfExists('groups');
 
-        Schema::create('groups', function($table) {
+        $schema->create('groups', function($table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
@@ -171,7 +170,7 @@ class Module_Users extends AbstractModule
 
 
         // Install the settings
-        ci()->pdb->table('settings')->insert(array(
+        $pdb->table('settings')->insert(array(
             array(
                 'slug' => 'auto_username',
                 'title' => 'Auto Username',
@@ -368,7 +367,7 @@ class Module_Users extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;

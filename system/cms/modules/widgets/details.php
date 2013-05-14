@@ -90,10 +90,8 @@ class Module_Widgets extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
-
 		$schema->dropIfExists('widget_areas');
 		$schema->create('widget_areas', function ($table) {
 			$table->increments('id');
@@ -132,7 +130,7 @@ class Module_Widgets extends AbstractModule
 		});
 
 		// Add the default data
-		ci()->pdb->table('widget_areas')->insert(array(
+		$pdb->table('widget_areas')->insert(array(
 			'title' => 'Sidebar',
 			'slug' => 'sidebar',
 		));
@@ -140,7 +138,7 @@ class Module_Widgets extends AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

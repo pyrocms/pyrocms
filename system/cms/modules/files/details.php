@@ -77,10 +77,8 @@ class Module_Files extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
-
 		$schema->dropIfExists('files');
 		$schema->dropIfExists('file_folders');
 
@@ -240,10 +238,10 @@ class Module_Files extends AbstractModule
 			),
 		);
 
-		return $this->pdb->table('settings')->insert($settings);
+		return $pdb->table('settings')->insert($settings);
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

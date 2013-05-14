@@ -6,21 +6,23 @@ class Migration_Add_themes_table extends CI_Migration
     {
         $schema = $this->pdb->getSchemaBuilder();
 
-        $schema->create('themes', function($table) {
-            $table->increments('id');
-            $table->integer('site_id')->nullable();
-            $table->string('slug');
-            $table->string('name');
-            $table->text('description');
-            $table->string('author')->nullable();
-            $table->string('author_website')->nullable();
-            $table->string('website')->nullable();
-            $table->string('version')->default('1.0.0');
-            $table->boolean('enabled')->default(true);
-            $table->integer('order')->default(0);
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
-        });
+        if ( ! $schema->hasTable('themes')) {
+            $schema->create('themes', function($table) {
+                $table->increments('id');
+                $table->integer('site_id')->nullable();
+                $table->string('slug');
+                $table->string('name');
+                $table->text('description');
+                $table->string('author')->nullable();
+                $table->string('author_website')->nullable();
+                $table->string('website')->nullable();
+                $table->string('version')->default('1.0.0');
+                $table->boolean('enabled')->default(true);
+                $table->integer('order')->default(0);
+                $table->integer('created_on');
+                $table->integer('updated_on')->nullable();
+            });
+        }
 
         $schema->table('theme_options', function($table) {
             $table->integer('theme_id')->nullable();
@@ -85,7 +87,8 @@ class Migration_Add_themes_table extends CI_Migration
 
         $this->pdb->statement("
             UPDATE {$prefix}theme_options `to` 
-            JOIN {$prefix}themes t ON t.slug = CONVERT(`to`.theme USING utf8)
+            JOIN {$prefix}themes t 
+                ON CONVERT(`to`.theme USING utf8) = CONVERT(`to`.theme USING utf8)
             SET `to`.theme_id = t.id 
         ");
 

@@ -159,7 +159,7 @@ class Page extends Eloquent
 	 */
 	public static function findStatus($status)
 	{
-		return static::where('status', '=', $status)->all();
+		return static::where('status', '=', $status)->get();
 	}
 
 	/**

@@ -81,9 +81,8 @@ class Module_Redirects extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
         $schema->dropIfExists('redirects');
 
         $schema->create('redirects', function($table) {
@@ -98,7 +97,7 @@ class Module_Redirects extends AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

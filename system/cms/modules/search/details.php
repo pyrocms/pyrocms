@@ -42,9 +42,8 @@ class Module_Search extends AbstractModule
 		);
 	}
 
-    public function install()
+    public function install($pdb, $schema)
     {
-        $schema = ci()->pdb->getSchemaBuilder();
         $schema->dropIfExists('search_index');
 
         $schema->create('search_index', function($table) {
@@ -74,7 +73,7 @@ class Module_Search extends AbstractModule
 	    	if ($page->status === 'live') {
 	    		$hash = ci()->keywords->process($page->meta_keywords);
 
-	    		ci()->pdb
+	    		$pdb
 	    			->table('pages')
 	    			->where('id', $page->id)
 	    			->update(array('meta_keywords' => $hash));
@@ -104,7 +103,7 @@ class Module_Search extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;

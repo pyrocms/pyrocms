@@ -66,12 +66,12 @@ class Module_Sitemap extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return true;

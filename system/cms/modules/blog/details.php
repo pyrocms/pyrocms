@@ -1,6 +1,5 @@
 <?php
 
-use Capsule\Schema;
 use Pyro\Module\Addons\AbstractModule;
 
 /**
@@ -116,12 +115,19 @@ class Module_Blog extends AbstractModule
 		return $info;
 	}
 
-	public function install()
+	/**
+     * Install
+     *
+     * This function is run to install the module
+     *
+     * @return bool
+     */
+	public function install($pdb, $schema)
 	{
-		Schema::dropIfExists('blog');
-		Schema::dropIfExists('blog_categories');
+		$schema->dropIfExists('blog');
+		$schema->dropIfExists('blog_categories');
 
-		Schema::create('blog_categories', function($table) {
+		$schema->create('blog_categories', function($table) {
 			$table->increments('id');
 			$table->string('slug', 100)->nullable()->unique();
 			$table->string('title', 100)->nullable()->unique();
@@ -130,9 +136,8 @@ class Module_Blog extends AbstractModule
 		ci()->load->driver('Streams');
 		ci()->streams->utilities->remove_namespace('blogs');
 
-		if (Schema::hasTable('data_streams')) {
-			ci()->pdb
-				->table('data_streams')
+		if ($schema->hasTable('data_streams')) {
+			$pdb->table('data_streams')
 				->where('stream_namespace', 'blogs')
 				->delete();
 		}
@@ -159,7 +164,7 @@ class Module_Blog extends AbstractModule
 		ci()->streams->fields->add_field($intro_field);
 
 		// Add fields to streamsy table
-		Schema::table('blog', function($table) {
+		$schema->table('blog', function($table) {
 			$table->string('slug', 200)->unique();
 			$table->string('title', 200)->unique();
 			$table->integer('category_id');
@@ -182,7 +187,7 @@ class Module_Blog extends AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

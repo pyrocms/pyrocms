@@ -81,7 +81,14 @@ class Module_Settings extends AbstractModule
 		add_admin_menu_place('lang:cp:nav_settings', 7);
 	}
 
-	public function install()
+    /**
+     * Install
+     *
+     * This function is run to install the module
+     *
+     * @return bool
+     */
+	public function install($pdb, $schema)
 	{
 		log_message('debug', '-- Settings: going to install the default settings');
 
@@ -420,7 +427,7 @@ class Module_Settings extends AbstractModule
         foreach ($settings as $setting) {
             log_message('debug', '-- Settings: installing '.$setting['slug']);
 
-            if ( ! $this->pdb->table('settings')->insert($setting)) {
+            if ( ! $pdb->table('settings')->insert($setting)) {
                 log_message('error', '-- -- could not install '.$setting['slug']);
 
                 return false;
@@ -430,7 +437,7 @@ class Module_Settings extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;

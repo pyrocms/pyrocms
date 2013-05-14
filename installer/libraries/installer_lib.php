@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Capsule\Database;
+use Illuminate\Database\Capsule;
 
 /**
  * @author  PyroCMS Dev Team
@@ -105,7 +105,6 @@ class Installer_lib
 
 		// Must be fine
 		return true;
-
 	}
 
 	/**
@@ -208,10 +207,18 @@ class Installer_lib
 				break;
 		}
 
-		// Connect using the Laravel Database component
-		$conn = Database\Connection::make('default', $config, true);
+		$capsule = new Capsule(array(
+            'fetch' => PDO::FETCH_CLASS,
+            'default' => 'default',
+            'connections' => array(
+                'default' => $config,
+            ),
+        ));
 
-        $conn->setFetchMode(PDO::FETCH_OBJ);
+        $capsule->bootEloquent();
+
+		// Connect using the Laravel Database component
+        $conn = $capsule->connection();
 
 		ci()->load->model('install_m');
 

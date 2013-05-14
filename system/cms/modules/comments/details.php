@@ -10,7 +10,6 @@ use Pyro\Module\Addons\AbstractModule;
  */
 class Module_Comments extends AbstractModule
 {
-
 	public $version = '1.1.0';
 
 	public function info()
@@ -76,10 +75,8 @@ class Module_Comments extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
-
 		$schema->dropIfExists('comments');
 
 		$schema->create('comments', function($table) {
@@ -111,7 +108,7 @@ class Module_Comments extends AbstractModule
 		});
 
 		// Install the settings
-		$this->pdb->table('settings')->insert(array(
+		$pdb->table('settings')->insert(array(
 			array(
 				'slug' => 'akismet_api_key',
 				'title' => 'Akismet API Key',
@@ -182,7 +179,7 @@ class Module_Comments extends AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

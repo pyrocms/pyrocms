@@ -56,14 +56,14 @@ abstract class AbstractModule
 	 *
 	 * @return	bool	Whether the module was installed
 	 */
-	abstract public function install();
+	abstract public function install($pdb, $schema);
 
 	/**
 	 * Called upon the uninstall of the module.
 	 *
 	 * @return	bool	Whether the module was uninstalled
 	 */
-	abstract public function uninstall();
+	abstract public function uninstall($pdb, $schema);
 
 	/**
 	 * Called when this is a newer version than currently installed.

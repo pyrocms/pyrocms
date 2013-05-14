@@ -87,7 +87,7 @@ class Module_import
 		// Run the install method to get it into the database
 		// try
 		// {
-			$details_class->install();
+			$details_class->install($this->pdb, $this->pdb->getSchemaBuilder());
 		// }
 		// catch (Exception $e)
 		// {

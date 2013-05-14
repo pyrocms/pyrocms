@@ -108,8 +108,7 @@ class Admin extends Admin_Controller
 		} catch (UserNotFoundException $e) {
 
 			// Could not log in with password. Maybe its an old style pass?
-			try
-			{
+			try {
 				// Try logging in with this double-hashed password
 				$this->sentry->authenticate(array(
 					'email' => $email,

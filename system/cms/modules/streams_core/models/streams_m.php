@@ -1,7 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Capsule\Schema;
-
 /**
  * PyroStreams Streams Model
  *
@@ -190,12 +188,14 @@ class Streams_m extends CI_Model
 	 */
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null, $extra = array())
 	{
+		$schema = ci()->pdb->getSchemaBuilder();
+
 		// See if table exists. You never know if it sneaked past validation
-		if (Schema::hasTable($prefix.$stream_slug)) {
+		if ($schema->hasTable($prefix.$stream_slug)) {
 			return false;
 		}
 
-		Schema::create($prefix.$stream_slug, function($table) {
+		$schema->create($prefix.$stream_slug, function($table) {
             $table->increments('id');
             $table->datetime('created');
             $table->datetime('updated');

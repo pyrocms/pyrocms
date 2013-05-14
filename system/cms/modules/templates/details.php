@@ -75,9 +75,8 @@ class Module_Templates extends AbstractModule
 		);
 	}
 
-	public function install()
+	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
 		$schema->dropIfExists('email_templates');
 
 		$schema->create('email_templates', function($table) {
@@ -97,7 +96,7 @@ class Module_Templates extends AbstractModule
 		// Insert the default email templates
 
 		// @todo move this to the comments module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'comments',
 			'name' => 'Comment Notification',
 			'description' => 'Email that is sent to admin when someone creates a comment',
@@ -116,7 +115,7 @@ class Module_Templates extends AbstractModule
 		));
 
 		// @todo move this to the contact module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'contact',
 			'name' => 'Contact Notification',
 			'description' => 'Template for the contact form',
@@ -138,7 +137,7 @@ class Module_Templates extends AbstractModule
 		));
 
 		// @todo move this to the users module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'registered',
 			'name' => 'New User Registered',
 			'description' => 'Email sent to the site contact e-mail when a new user registers',
@@ -154,7 +153,7 @@ class Module_Templates extends AbstractModule
 		));
 
 		// @todo move this to the users module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'activation',
 			'name' => 'Activation Email',
 			'description' => 'The email which contains the activation code that is sent to a new user',
@@ -172,7 +171,7 @@ class Module_Templates extends AbstractModule
 		));
 
 		// @todo move this to the users module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'forgotten_password',
 			'name' => 'Forgotten Password Email',
 			'description' => 'The email that is sent containing a password reset code',
@@ -186,7 +185,7 @@ class Module_Templates extends AbstractModule
 		));
 
 		// @todo move this to the users module
-		$this->pdb->table('email_templates')->insert(array(
+		$pdb->table('email_templates')->insert(array(
 			'slug' => 'new_password',
 			'name' => 'New Password Email',
 			'description' => 'After a password is reset this email is sent containing the new password',
@@ -202,7 +201,7 @@ class Module_Templates extends AbstractModule
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
 		// This is a core module, lets keep it around.
 		return false;

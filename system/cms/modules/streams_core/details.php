@@ -57,17 +57,17 @@ class Module_Streams_core extends AbstractModule
 	}
 
 	/**
-	 * Install PyroStreams Core Tables
-	 *
-	 * @return bool
-	 */
-	public function install()
+     * Install
+     *
+     * This function is run to install the module
+     *
+     * @return bool
+     */
+    public function install($pdb, $schema)
 	{
-		if ( ! ($config = $this->_load_config())) {
+		if ( ! ($config = $this->loadConfig())) {
 			return false;
 		}
-
-		$schema = $this->pdb->getSchemaBuilder();
 
 		// Streams Table
         $schema->dropIfExists($config['streams:streams_table']);
@@ -129,13 +129,11 @@ class Module_Streams_core extends AbstractModule
 	 *
 	 * @return bool
 	 */
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
-		if ( ! ($config = $this->_load_config())) {
+		if ( ! ($config = $this->loadConfig())) {
 			return false;
 		}
-
-		$schema = $this->pdb->getSchemaBuilder();
 
 		// Streams Table
         $schema->dropIfExists($config['streams:streams_table']);
@@ -156,7 +154,7 @@ class Module_Streams_core extends AbstractModule
 	 *
 	 * @return mixed False or the config array
 	 */
-	private function _load_config()
+	private function loadConfig()
 	{
 		if (defined('PYROPATH')) {
 			require_once(PYROPATH.'modules/streams_core/config/streams.php');

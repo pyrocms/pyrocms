@@ -41,9 +41,9 @@ class Module_WYSIWYG extends AbstractModule
         );
     }
 
-    public function install()
+    public function install($pdb, $schema)
     {
-        $this->pdb->table('settings')->insert(array(
+        $pdb->table('settings')->insert(array(
             'slug' => 'ckeditor_config',
             'title' => 'CKEditor Config',
             'description' => 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>',
@@ -60,7 +60,7 @@ class Module_WYSIWYG extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;

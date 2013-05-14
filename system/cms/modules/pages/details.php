@@ -1,6 +1,5 @@
 <?php
 
-use Capsule\Schema;
 use Pyro\Module\Addons\AbstractModule;
 
 /**
@@ -141,11 +140,11 @@ class Module_Pages extends AbstractModule
         return $info;
     }
 
-    public function install()
+    public function install($pdb, $schema)
     {
-        Schema::dropIfExists('page_types');
+        $schema->dropIfExists('page_types');
 
-        Schema::create('page_types', function($table) {
+        $schema->create('page_types', function($table) {
             $table->increments('id');
             $table->string('slug', 255);
             $table->string('title', 60);
@@ -165,13 +164,13 @@ class Module_Pages extends AbstractModule
         });
 
         // Pages Schema ----
-        Schema::dropIfExists('pages');
+        $schema->dropIfExists('pages');
 
         // Just in case. If this is a new install, we
         // definiitely should not have a page_chunks table.
-        Schema::dropIfExists('page_chunks');
+        $schema->dropIfExists('page_chunks');
 
-        Schema::create('pages', function($table) {
+        $schema->create('pages', function($table) {
             $table->increments('id');
 
             $table->string('slug', 255)->nullable();
@@ -208,7 +207,7 @@ class Module_Pages extends AbstractModule
         ci()->streams->utilities->remove_namespace('pages');
 
         // Remove existing page streams
-        ci()->pdb
+        $pdb
             ->table('data_streams')
             ->where('stream_namespace', '=', 'pages')
             ->delete();
@@ -216,7 +215,7 @@ class Module_Pages extends AbstractModule
         ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
-        Schema::dropIfExists('def_page_fields');
+        $schema->dropIfExists('def_page_fields');
 
         $stream_id = ci()->streams->streams->add_stream(
             'Default',
@@ -230,7 +229,7 @@ class Module_Pages extends AbstractModule
         ci()->streams->fields->add_fields(config_item('pages:default_fields'));
 
         // Insert the page type structures
-        $def_page_type_id = ci()->pdb->table('page_types')->insert(array(
+        $def_page_type_id = $pdb->table('page_types')->insert(array(
             'id' => 1,
             'title' => 'Default',
             'slug' => 'default',
@@ -283,12 +282,14 @@ class Module_Pages extends AbstractModule
 
         foreach ($page_entries as $key => $d) {
             // Contact Page
-            $page_id = ci()->pdb->table('pages')->insert($d);
+            $page_id = $pdb->table('pages')->insert($d);
 
-            $entry_id = ci()->pdb->table('def_page_fields')->insert($page_content[$key]);
+            $entry_id = $pdb->table('def_page_fields')->insert($page_content[$key]);
 
             // Update the page with this entry_id
-            ci()->pdb->table('pages')->where('id', $page_id)->update(array('entry_id' => $entry_id));
+            $pdb->table('pages')
+                ->where('id', $page_id)
+                ->update(array('entry_id' => $entry_id));
 
             unset($page_id, $entry_id);
         }
@@ -296,7 +297,7 @@ class Module_Pages extends AbstractModule
         return true;
     }
 
-    public function uninstall()
+    public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;
