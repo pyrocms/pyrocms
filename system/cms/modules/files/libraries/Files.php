@@ -1052,7 +1052,7 @@ class Files
 				if (in_array(strtolower($ext), $ext_arr)) {
 					self::$_type		= $type;
 					self::$_ext			= implode('|', $ext_arr);
-					self::$_filename	= trim(url_title($_FILES[$field]['name'], 'dash', true), '-');
+					self::$_filename	= slugify($_FILES[$field]['name']);
 
 					break;
 				}

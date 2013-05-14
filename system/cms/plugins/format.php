@@ -123,8 +123,6 @@ class Plugin_format extends Plugin
 	 */
 	public function url_title()
 	{
-		$this->load->helper('url');
-
 		$attrs = $this->attributes();
 
 		// fix 'true' or 'false' to real bools.
@@ -133,7 +131,7 @@ class Plugin_format extends Plugin
 			array_splice($attrs, 2, 1, array_map('str_to_bool', $bool));
 		}
 
-		return call_user_func_array('url_title', $attrs);
+		return call_user_func_array('slugify', $attrs);
 	}
 
 }
