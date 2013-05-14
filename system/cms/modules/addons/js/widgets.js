@@ -5,6 +5,7 @@ jQuery(function ($) {
 		init: function () {
 			$('#widgets-list').find('tbody').livequery(function () {
 				$(this).sortable({
+					placeholder : 'ui-state-highlight',
 					handle: 'span.move-handle',
 					stop: function () {
 						var $table_body = $('#widgets-list').find('tbody');
