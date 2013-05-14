@@ -110,7 +110,9 @@ class Module_Addons extends Module
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
-					'class' => 'add modal',
+					'class' => 'add',
+					'data-toggle' => 'modal',
+					'data-target' => '#upload-modal',
 				),
 			);
 		}
@@ -121,7 +123,7 @@ class Module_Addons extends Module
 	public function admin_menu(&$menu)
 	{
 		$menu['lang:cp:nav_addons'] = array(
-			'lang:cp:nav_modules'			=> 'admin/addons',
+			'lang:cp:nav_modules'			=> 'admin/addons/modules',
 			'lang:global:themes'			=> 'admin/addons/themes',
 			'lang:global:plugins'			=> 'admin/addons/plugins',
 			'lang:global:widgets'			=> 'admin/addons/widgets',
