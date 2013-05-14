@@ -1,4 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
+use Sitemap\Collection as SitemapCollection;
+use Sitemap\Sitemap\SitemapEntry;
+use Sitemap\Formatter\XML\URLSet;
+
 /**
  *
  * @author		PyroCMS Dev Team
@@ -13,31 +20,27 @@ class Sitemap extends Public_Controller
 	 */
 	public function xml()
 	{
-		$doc = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />');
-
 		// Get all pages
-		$pages = $this->page_m->get_many_by('status', 'live');
+		$pages = Page::findStatus('live');
 
-		// send em to XML!
+		$collection = new SitemapCollection;
+		$collection->setFormatter(new URLSet);
+
 		foreach ($pages as $page) {
 			// Skip the 404 page!
 			if (in_array($page->uri, array('404'))) {
 				continue;
 			}
 
-			$node = $doc->addChild('url');
+			$entry = new SitemapEntry;
+			$entry->setLocation(site_url($page->is_home ? '' : $page->uri));
+			$entry->setLastMod(date(DATE_W3C, $page->updated_on ?: $page->created_on));
 
-			$loc = site_url($page->is_home ? '' : $page->uri);
-
-			$node->addChild('loc', $loc);
-
-			if ($page->updated_on) {
-				$node->addChild('lastmod', date(DATE_W3C, $page->updated_on));
-			}
+			$collection->addSitemap($entry);
 		}
 
 		$this->output
 			->set_content_type('application/xml')
-			->set_output($doc->asXML());
+			->set_output($collection->output());
 	}
 }

@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Sitemap\Collection as SitemapCollection;
+use Sitemap\Sitemap\SitemapEntry;
+use Sitemap\Formatter\XML\URLSet;
 
 /**
  * @author  PyroCMS Dev Team
@@ -13,26 +17,25 @@ class Sitemap extends Public_Controller
 	{
 		$this->load->model('blog_m');
 
-		$doc = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />');
-
-		// Get all pages
 		$articles = $this->blog_m->get_many_by(array('status', 'live'));
+
+		$collection = new SitemapCollection;
+		$collection->setFormatter(new URLSet);
 
 		// send em to XML!
 		foreach ($articles as $article) {
-			$node = $doc->addChild('url');
+			$entry = new SitemapEntry;
 
 			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
+			
+			$entry->setLocation($loc);
+			$entry->setLastMod(date(DATE_W3C, $article->updated_on ?: $article->created_on));
 
-			$node->addChild('loc', $loc);
-
-			if ($article->updated_on) {
-				$node->addChild('lastmod', date(DATE_W3C, $article->updated_on));
-			}
+			$collection->addSitemap($entry);
 		}
 
 		$this->output
 			->set_content_type('application/xml')
-			->set_output($doc->asXML());
+			->set_output($collection->output());
 	}
 }
