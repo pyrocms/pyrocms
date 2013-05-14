@@ -1,14 +1,14 @@
 <?php
 
 $lang['addons:modules'] 						= 'Módulos';
-$lang['addons:admin_themes'] 					= 'Administración de Temas'; #translate
+$lang['addons:admin_themes'] 					= 'Administración de Temas'; 
 $lang['addons:themes'] 							= 'Temas';
 $lang['addons:widgets'] 						= 'Widgets';
 
 $lang['addons:modules:core_list']				= 'Módulos del Núcleo';
 $lang['addons:modules:addon_list']				= 'Módulos Agregados';
 $lang['addons:modules:introduction']			= 'Debajo hay una lista de los módulos instalados y su información, como la descripción y la versión del mismo.';
-$lang['addons:modules:core_introduction']		= 'Debajo hay una lista de los módulos instalados y su información básica. Ud. puede desactivarlos, pero debe hacerlo con extremo cuidado. Desactivar módulos como "Usuarios" hará que su sitio deje de funcionar.'; 
+$lang['addons:modules:core_introduction']		= 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
 $lang['addons:modules:disable_error'] 			= 'No se pudo desactivar el módulo "%s".';
 $lang['addons:modules:disable_success']			= 'El módulo "%s" ha sido desactivado.';
 $lang['addons:modules:enable_error']			= 'No se pudo activar el módulo "%s".';
@@ -16,10 +16,10 @@ $lang['addons:modules:enable_success']			= 'El módulo "%s" ha sido activado.';
 $lang['addons:modules:install_error']			= 'No se pudo instalar el módulo.';
 $lang['addons:modules:install_success']			= 'El módulo ha sido instalado.';
 
-$lang['addons:modules:module_upload_success']   = 'El módulo "%s" ha sido actualizado.';
+$lang['addons:modules:module_upload_success']   = 'El módulo "%s" ha sido subido.'; 
 
-$lang['addons:modules:delete_success']			= 'El módulo "%s" ha sido eliminado.';
-$lang['addons:modules:delete_error']			= 'No se puede eliminar el módulo "%s".';
+$lang['addons:modules:delete_success']			= 'El módulo "%s" ha sido borrado.';
+$lang['addons:modules:delete_error']			= 'No se ha podido borrar el módulo "%s".';
 $lang['addons:modules:uninstall_error']			= 'No se pudo desinstalar el módulo "%s".';
 $lang['addons:modules:uninstall_success']		= 'El módulo "%s" ha sido desinstalado.';
 $lang['addons:modules:upgrade_error']			= 'No se pudo actualizar el módulo "%s".';
@@ -35,7 +35,7 @@ $lang['addons:modules:upload_desc']				= 'Por favor, elije un archivo y haz clic
 $lang['addons:modules:confirm_enable']			= 'Estás seguro que quieres activar este módulo?';
 $lang['addons:modules:confirm_disable']			= 'Estás seguro que quieres desactivar este módulo?';
 $lang['addons:modules:confirm_install']			= 'Estás seguro que quieres instalar este módulo?';
-$lang['addons:modules:confirm_uninstall']		= 'Todos los registros de la base de datos serán eliminados! Está seguro de desinstalar el módulo?';
+$lang['addons:modules:confirm_uninstall']		= 'Todos los registros de la base de datos serán borrados! Está seguro de desinstalar este módulo?';
 $lang['addons:modules:confirm_delete']      	= 'Estás seguro que quieres desinstalar este módulo?';
 $lang['addons:modules:confirm_upgrade']			= 'Estás seguro que quieres actualizar este módulo?';
 
@@ -56,7 +56,7 @@ $lang['addons:themes:upload_title']				= 'Subir tema';
 $lang['addons:themes:list_title']				= 'Lista de temas';
 $lang['addons:themes:upload_desc']				= 'Por favor, selecciona un archivo y presiona el botón "Subir"';
 
-$lang['addons:themes:options']					= 'Opciones';
+$lang['addons:themes:options']					= 'Opciones'; #translate
 $lang['addons:themes:theme_label']				= 'Tema';
 $lang['addons:themes:make_default']				= 'Hacer tema predeterminado';
 $lang['addons:themes:version_label']			= 'Versión';

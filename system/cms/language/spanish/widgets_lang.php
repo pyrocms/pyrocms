@@ -9,7 +9,7 @@ $lang['widgets:widget']					= 'Widget';
 $lang['widgets:widget_author']			= 'Autor';
 $lang['widgets:widget_short_name']		= 'Nombre corto';
 $lang['widgets:widget_version']			= 'Versión';
-$lang['widgets:status_label']			= 'Estado';
+$lang['widgets:status_label']			= 'Estatus';
 
 $lang['widgets:inactive_title'] 		= 'Widgets deshabilitados';
 $lang['widgets:active_title'] 			= 'Widgets habilitados';
@@ -27,7 +27,7 @@ $lang['widgets:widget_area_slug']		= 'Nombre corto del área';
 $lang['widgets:view_code']				= 'Ver código';
 
 $lang['widgets:instance_title']			= 'Título';
-$lang['widgets:show_title']				= 'Mostrar título del widget?';
+$lang['widgets:show_title']				= 'Mostrar título del Widget?';
 $lang['widgets:tag_title']				= 'Etiqueta';
 
 $lang['widgets:no_available_widgets']	= 'No hay widgets disponibles.';
