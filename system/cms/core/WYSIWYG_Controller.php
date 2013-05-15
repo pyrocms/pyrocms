@@ -18,16 +18,12 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 		// Not logged in or not an admin and don't have permission to see files
-		if ( ! $this->current_user or
-			($this->current_user->group !== 'admin' AND 
-			($this->current_user->hasAccess('files')) OR
-			  ! isset($this->permissions['files']['wysiwyg']))))
-		{
+		if ( ! $this->current_user or ! $this->current_user->hasAccess('files.wysiwyg')) {
 			$this->load->language('files/files');
 			show_error(lang('files:no_permissions'));
 		}
 
-		$theme = $this->themeManager->get(Settings::get('admin_theme'));
+		$theme = $this->themeManager->locate(Settings::get('admin_theme'));
 		
 		// Using a bad slug? Weak
 		if (is_null($theme)) {

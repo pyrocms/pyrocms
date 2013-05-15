@@ -92,7 +92,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      * @param  int  $parent_id
      * @return void
      */
-    public static function findByParentByName($parent_id = 0)
+    public static function findByParentAndSortByName($parent_id = 0)
     {
         return static::where('parent_id','=',$parent_id)->orderBy('name')->get();
     }
