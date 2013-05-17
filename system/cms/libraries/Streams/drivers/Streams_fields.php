@@ -332,12 +332,14 @@ class Streams_fields extends CI_Driver {
 	 * This includes the input and other
 	 * associated data.
 	 *
-	 * @access	public
-	 * @param	[int - limit]
-	 * @param	[int - offset]
+	 * @param	string 	$stream 			Stream name
+	 * @param	string 	$stream_namespace	Namespace name
+	 * @param 	array 	$current_data		Any data that should be populated
+	 * @param 	int 	$entry_id 			Entry if we are editing the fields.
+	 * @param 	string 	$slug_prefix 		Optional prefix for field slugs.
 	 * @return	object
 	 */
-	public function get_stream_fields($stream, $stream_namespace, $current_data = array(), $entry_id = null)
+	public function get_stream_fields($stream, $stream_namespace, $current_data = array(), $entry_id = null, $slug_prefix = null)
 	{
 		$assignments = $this->CI->fields_m->get_assignments_for_stream($this->stream_id($stream, $stream_namespace));
 		
@@ -351,6 +353,13 @@ class Streams_fields extends CI_Driver {
 
 		foreach ($assignments as $assign)
 		{
+			// Do we have a prefix for the slug?
+			// This is useful for things like Grid which need
+			// to prefix the field slufs so it can have multiples.
+			if ($slug_prefix) {
+				$assign->field_slug = $slug_prefix.$assign->field_slug;
+			}
+
 			$value = (isset($current_data[$assign->field_slug])) ? $current_data[$assign->field_slug] : null;
 
 			// Format the serialized stuff.
