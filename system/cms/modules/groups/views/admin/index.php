@@ -35,11 +35,11 @@
 							<td>
 
 								<div class="btn-group pull-right">
-									<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons:edit'), 'class="btn btn-small"') ?>
+									<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons:edit'), 'class="btn"') ?>
 									<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-										<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons:delete'), 'class="confirm btn btn-small btn-danger"') ?>
+										<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons:delete'), 'class="confirm btn btn-danger"') ?>
 									<?php endif ?>
-									<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions:edit').' &rarr;', 'class="btn btn-small"') ?>
+									<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions:edit').' &rarr;', 'class="btn"') ?>
 								</div>
 
 							</td>

@@ -29,12 +29,12 @@
 
 						<div class="btn-group pull-right">
 							<?php if($post->status=='live') : ?>
-								<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="btn btn-small" target="_blank"><?php echo lang('global:view')?></a>
+								<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="btn" target="_blank"><?php echo lang('global:view')?></a>
 							<?php else: ?>
-								<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="btn btn-small" target="_blank"><?php echo lang('global:preview')?></a>
+								<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="btn" target="_blank"><?php echo lang('global:preview')?></a>
 							<?php endif ?>
-							<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="btn btn-small"><?php echo lang('global:edit')?></a>
-							<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="btn btn-small btn-danger confirm"><?php echo lang('global:delete')?></a>
+							<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="btn"><?php echo lang('global:edit')?></a>
+							<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="btn btn-danger confirm"><?php echo lang('global:delete')?></a>
 						</div>
 
 					</td>

@@ -26,7 +26,7 @@
 						<td>
 
 							<?php if ($admin_group != $group->name):?>
-								<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions:edit'), array('class'=>'btn btn-small')) ?>
+								<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions:edit'), array('class'=>'btn')) ?>
 							<?php else: ?>
 								<?php echo lang('permissions:admin_has_all_permissions') ?>
 							<?php endif ?>

@@ -32,8 +32,8 @@
 								<td>
 
 									<div class="btn-group pull-right">
-										<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons:edit'), 'class="btn btn-small"') ?>
-										<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons:delete'), array('class'=>'confirm btn btn-small btn-danger')) ?>
+										<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons:edit'), 'class="btn"') ?>
+										<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons:delete'), array('class'=>'confirm btn btn-danger')) ?>
 									</div>
 
 								</td>

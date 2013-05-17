@@ -32,19 +32,19 @@
 							<div class="btn-group pull-right">
 								<?php if ($module['installed']): ?>
 									<?php if ($module['enabled']): ?>
-										<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm btn btn-small', 'title'=>lang('addons:modules:confirm_disable'))) ?>
+										<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm btn', 'title'=>lang('addons:modules:confirm_disable'))) ?>
 									<?php else: ?>
-										<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm btn btn-small', 'title'=>lang('addons:modules:confirm_enable'))) ?>
+										<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm btn', 'title'=>lang('addons:modules:confirm_enable'))) ?>
 									<?php endif ?>
 									<?php if ($module['is_current']): ?>
-										<?php echo anchor('admin/addons/modules/uninstall/'.$module['slug'], lang('global:uninstall'), array('class'=>'confirm btn btn-warning btn-small', 'title'=>lang('addons:modules:confirm_uninstall'))) ?>
+										<?php echo anchor('admin/addons/modules/uninstall/'.$module['slug'], lang('global:uninstall'), array('class'=>'confirm btn btn-warning', 'title'=>lang('addons:modules:confirm_uninstall'))) ?>
 									<?php else: ?>
-										<?php echo anchor('admin/addons/modules/upgrade/'.$module['slug'], lang('global:upgrade'), array('class'=>'confirm btn btn-small', 'title'=>lang('addons:modules:confirm_upgrade'))) ?>
+										<?php echo anchor('admin/addons/modules/upgrade/'.$module['slug'], lang('global:upgrade'), array('class'=>'confirm btn', 'title'=>lang('addons:modules:confirm_upgrade'))) ?>
 									<?php endif ?>
 								<?php else: ?>
-									<?php echo anchor('admin/addons/modules/install/'.$module['slug'], lang('global:install'), array('class'=>'confirm btn btn-small', 'title'=>lang('addons:modules:confirm_install'))) ?>
+									<?php echo anchor('admin/addons/modules/install/'.$module['slug'], lang('global:install'), array('class'=>'confirm btn', 'title'=>lang('addons:modules:confirm_install'))) ?>
 								<?php endif ?>
-								<?php echo anchor('admin/addons/modules/delete/'.$module['slug'], lang('global:delete'), array('class'=>'confirm btn btn-danger btn-small', 'title'=>lang('addons:modules:confirm_delete'))) ?>
+								<?php echo anchor('admin/addons/modules/delete/'.$module['slug'], lang('global:delete'), array('class'=>'confirm btn btn-danger', 'title'=>lang('addons:modules:confirm_delete'))) ?>
 							</div>
 
 						</td>
@@ -90,9 +90,9 @@
 
 							<div class="btn-group pull-right">
 								<?php if ($module['enabled']): ?>
-				 					<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm btn btn-warning btn-small', 'title'=>lang('addons:modules:confirm_disable'))) ?>
+				 					<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm btn btn-warning', 'title'=>lang('addons:modules:confirm_disable'))) ?>
 								<?php else: ?>
-									<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm btn btn-small', 'title'=>lang('addons:modules:confirm_enable'))) ?>
+									<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm btn', 'title'=>lang('addons:modules:confirm_enable'))) ?>
 								<?php endif ?>
 							</div>
 

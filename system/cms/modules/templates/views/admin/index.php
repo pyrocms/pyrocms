@@ -39,9 +39,9 @@
 			                <td>
 								
 								<div class="btn-group pull-right">
-									<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons:preview'), 'class="btn btn-small"') ?>
-				                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons:edit'), 'class="btn btn-small edit"') ?>
-									<?php echo anchor('admin/templates/create_copy/' . $template->id, lang('buttons:clone'), 'class="btn btn-small clone"') ?>
+									<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons:preview'), 'class="btn"') ?>
+				                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons:edit'), 'class="btn edit"') ?>
+									<?php echo anchor('admin/templates/create_copy/' . $template->id, lang('buttons:clone'), 'class="btn clone"') ?>
 								</div>
 
 			                </td>

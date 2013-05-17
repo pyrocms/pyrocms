@@ -31,9 +31,9 @@
 						<td><?php echo $keyword->name ?></td>
 						<td>
 							<div class="pull-right btn-group">
-								<?php echo anchor('admin/keywords/edit/'.$keyword->id, lang('global:edit'), 'class="btn btn-small"') ?>
+								<?php echo anchor('admin/keywords/edit/'.$keyword->id, lang('global:edit'), 'class="btn"') ?>
 								<?php if ( ! in_array($keyword->name, array('user', 'admin'))): ?>
-									<?php echo anchor('admin/keywords/delete/'.$keyword->id, lang('global:delete'), 'class="confirm btn btn-small btn-danger"') ?>
+									<?php echo anchor('admin/keywords/delete/'.$keyword->id, lang('global:delete'), 'class="confirm btn btn-danger"') ?>
 								<?php endif ?>
 							</div>
 

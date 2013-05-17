@@ -54,15 +54,15 @@
 						<div class="btn-group pull-right">
 							<?php if ($this->settings->moderate_comments): ?>
 								<?php if ($comment->is_active): ?>
-									<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), 'class="btn btn-small deactivate"') ?>
+									<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), 'class="btn deactivate"') ?>
 								<?php else: ?>
-									<?php echo anchor('admin/comments/approve/'.$comment->id, lang('buttons:activate'), 'class="btn btn-small activate"') ?>
+									<?php echo anchor('admin/comments/approve/'.$comment->id, lang('buttons:activate'), 'class="btn activate"') ?>
 								<?php endif ?>
 							<?php endif ?>
 						
-							<?php echo anchor('admin/comments/edit/'.$comment->id, lang('global:edit'), 'class="btn btn-small edit"') ?>
-							<?php echo anchor('admin/comments/delete/'.$comment->id, lang('global:delete'), array('class'=>'confirm btn btn-small btn-danger delete')) ?>
-							<?php echo anchor('admin/comments/report/'.$comment->id, 'Report', array('class'=>'btn btn-small edit')) ?>
+							<?php echo anchor('admin/comments/edit/'.$comment->id, lang('global:edit'), 'class="btn edit"') ?>
+							<?php echo anchor('admin/comments/delete/'.$comment->id, lang('global:delete'), array('class'=>'confirm btn btn-danger delete')) ?>
+							<?php echo anchor('admin/comments/report/'.$comment->id, 'Report', array('class'=>'btn edit')) ?>
 						</div>
 
 					</td>

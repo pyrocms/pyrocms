@@ -39,8 +39,8 @@
 					<td>
 
 						<div class="btn-group pull-right">
-							<?php echo anchor('admin/users/edit/' . $member->id, lang('global:edit'), array('class'=>'btn btn-small')) ?>
-							<?php echo anchor('admin/users/delete/' . $member->id, lang('global:delete'), array('class'=>'confirm btn btn-small btn-danger delete')) ?>
+							<?php echo anchor('admin/users/edit/' . $member->id, lang('global:edit'), array('class'=>'btn')) ?>
+							<?php echo anchor('admin/users/delete/' . $member->id, lang('global:delete'), array('class'=>'confirm btn btn-danger delete')) ?>
 						</div>
 
 					</td>
