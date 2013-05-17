@@ -11,7 +11,7 @@
 	
 	<?php echo form_open(uri_string(), 'id="nav-' . $this->method . '" class="form_inputs"') ?>
 	
-		<ul>
+		<ul class="padded">
 <?php if ($this->method == 'edit'): ?>
 			<?php echo form_hidden('link_id', $link->id) ?>
 <?php endif ?>

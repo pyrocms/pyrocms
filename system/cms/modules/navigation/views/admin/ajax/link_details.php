@@ -36,8 +36,8 @@
 		</p>
 	</fieldset>	
 	
-	<div class="buttons">
-		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('global:edit'), 'rel="'.$link->navigation_group_id.'" class="button ajax"') ?>
-		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('global:delete'), 'class="confirm button"') ?>
+	<div class="btn-group">
+		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('global:edit'), 'rel="'.$link->navigation_group_id.'" class="btn btn-small ajax"') ?>
+		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('global:delete'), 'class="btn btn-small btn-danger confirm"') ?>
 	</div>
 </div>
