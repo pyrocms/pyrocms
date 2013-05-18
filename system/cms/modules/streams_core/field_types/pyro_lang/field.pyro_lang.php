@@ -78,7 +78,7 @@ class Field_pyro_lang
 
 		$form  = '<ul><li><label>'.form_radio('filter_theme', 'yes', $yes_select).' Yes</label></li>';
 
-		$form .= '<li><label>'.form_radio('filter_theme', 'no', $no_select).' No</label></li>';
+		$form .= '<li><label>'.form_radio('filter_theme', 'no', $no_select).' No</label></li></ul>';
 
 		return $form;
 	}
