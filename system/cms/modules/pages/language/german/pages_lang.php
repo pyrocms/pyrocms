@@ -4,11 +4,11 @@ $lang['pages:page']                     = 'Seite';
 $lang['pages:pages']                    = 'Seiten';
 
 // tabs
-$lang['pages:details_label']            = 'Page Details'; #translate
+$lang['pages:details_label']            = 'Informationen';
 $lang['pages:content_label']            = 'Inhalt';
 $lang['pages:meta_label']               = 'Meta-Daten';
 $lang['pages:design_label']             = 'Design';
-$lang['pages:script_label']             = 'Script'; //Don't translate
+$lang['pages:script_label']             = 'Script'; //Don't translate, it's fine in German
 $lang['pages:options_label']            = 'Optionen';
 $lang['pages:detail_label']             = 'Details';
 
@@ -22,7 +22,7 @@ $lang['pages:navigation_label']         = 'Zur Navigation hinzuf&uuml;gen';
 $lang['pages:body_label']               = 'Inhalt';
 $lang['pages:meta_title_label']         = 'Meta-Titel';
 $lang['pages:meta_keywords_label']      = 'Meta-Schlagw&ouml;rter';
-$lang['pages:meta_robots_no_index_label']	= 'Robots: Diese Seite nicht indexieren:';
+$lang['pages:meta_robots_no_index_label']  = 'Robots: Diese Seite nicht indexieren:';
 $lang['pages:meta_robots_no_follow_label']	= 'Robots: Links auf dieser Seite nicht folgen:';
 $lang['pages:meta_desc_label']          = 'Meta-Beschreibung';
 $lang['pages:type_id_label']            = 'Seitenlayout';
@@ -37,8 +37,8 @@ $lang['pages:strict_uri_label']         = 'Benötigt diese Seite eine genau zutr
 $lang['pages:status_label']             = 'Status';
 $lang['pages:draft_label']              = 'Entwurf';
 $lang['pages:live_label']               = 'Live';
-$lang['pages:revisions_label']          = 'Revisions'; #translate
-$lang['pages:compare_label']            = 'Compare'; #translate
+$lang['pages:revisions_label']          = 'Versionshistorie';
+$lang['pages:compare_label']            = 'Vergleiche';
 $lang['pages:preview_label']            = 'Vorschau';
 $lang['pages:current_label']            = 'Aktuelle';
 $lang['pages:view_label']               = 'Ansicht';
