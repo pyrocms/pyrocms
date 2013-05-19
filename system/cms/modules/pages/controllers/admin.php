@@ -51,9 +51,6 @@ class Admin extends Admin_Controller {
 
 			->title($this->module_details['name'])
 
-			->append_js('jquery/jquery.ui.nestedSortable.js')
-			->append_js('jquery/jquery.cooki.js')
-			->append_js('jquery/jquery.stickyscroll.js')
 			->append_js('module::index.js')
 
 			->append_css('module::index.css')

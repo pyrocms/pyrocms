@@ -15,7 +15,7 @@ $('#<?php echo $field_slug ?>_select').keyup(function() {
 });
 
 // Select, populate, and close
-$('.<?php echo $stream_slug ?>_autocomplete_item').live('click', function() {
+$('.<?php echo $stream_slug ?>_autocomplete_item').bind('click', function() {
  
  	// Populate the hidden val
  	$('#<?php echo $field_slug ?>').val($(this).attr('id'));

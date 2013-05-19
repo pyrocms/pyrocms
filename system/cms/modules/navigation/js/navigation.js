@@ -25,7 +25,7 @@
 		});
 
 		// load edit via ajax
-		$('a.ajax').live('click', function(){
+		$('a.ajax').bind('click', function(){
 			// make sure we load it into the right one
 			var id = $(this).attr('rel');
 			if ($(this).hasClass('add')) {
@@ -46,7 +46,7 @@
 		});
 
 		// submit create form via ajax
-		$('#nav-create button:submit').live('click', function(e){
+		$('#nav-create button:submit').bind('click', function(e){
 			e.preventDefault();
 			$.post(SITE_URL + 'admin/navigation/create', $('#nav-create').serialize(), function(message){
 
@@ -64,7 +64,7 @@
 		});
 
 		// submit edit form via ajax
-		$('#nav-edit button:submit').live('click', function(e){
+		$('#nav-edit button:submit').bind('click', function(e){
 			e.preventDefault();
 			$.post(SITE_URL + 'admin/navigation/edit/' + $('input[name="link_id"]').val(), $('#nav-edit').serialize(), function(message){
 
@@ -83,7 +83,7 @@
 		});
 
 		// Pick a rule type, show the correct field
-		$('input[name="link_type"]').live('change', function(){
+		$('input[name="link_type"]').bind('change', function(){
 			$(this).parents('ul').find('#navigation-' + $(this).val())
 
 			// Show only the selected type

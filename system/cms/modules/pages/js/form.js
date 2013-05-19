@@ -40,7 +40,7 @@
 		});
 		
 		// add another page chunk
-		$('a.add-chunk').live('click', function(e){
+		$('a.add-chunk').bind('click', function(e){
 			e.preventDefault();
 
 			// The date in hexdec
@@ -70,7 +70,7 @@
 			pyro.chosen();
 		});
 
-		$('a.remove-chunk').live('click', function(e) {
+		$('a.remove-chunk').bind('click', function(e) {
 			e.preventDefault();
 
 			var removemsg = $(this).attr('title');
@@ -83,7 +83,7 @@
 			}
 		});
 
-		$('select[name^=chunk_type]').live('change', function() {
+		$('select[name^=chunk_type]').bind('change', function() {
 			chunk = $(this).closest('li.page-chunk');
 			textarea = $('textarea', chunk);
 

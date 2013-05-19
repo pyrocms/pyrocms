@@ -14,7 +14,7 @@
 		});
 
 		// editor switcher
-		$('select[name^=type]').live('change', function () {
+		$('select[name^=type]').bind('change', function () {
 			var chunk = $(this).closest('li.editor');
 			var textarea = $('textarea', chunk);
 
@@ -40,7 +40,7 @@
 				$.colorbox.resize();
 				var $form_categories = $('form#categories');
 				$form_categories.removeAttr('action');
-				$form_categories.live('submit', function (e) {
+				$form_categories.bind('submit', function (e) {
 
 					var form_data = $(this).serialize();
 

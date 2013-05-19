@@ -113,7 +113,7 @@ jQuery(function($){
 			});
 
 			// Delete Areas
-			$('.widget-area-content > .buttons > button[value=delete]').live('click-confirmed', function(e){
+			$('.widget-area-content > .buttons > button[value=delete]').bind('click-confirmed', function(e){
 				e.preventDefault();
 
 				var $area	= $(this).parents('section.widget-area-box'),
@@ -132,7 +132,7 @@ jQuery(function($){
 			});
 
 			// Edit Instances
-			$('.widget-actions > a.button.edit').live('click', function(e){
+			$('.widget-actions > a.button.edit').bind('click', function(e){
 				e.preventDefault();
 
 				var $anchor = $(this);
@@ -152,7 +152,7 @@ jQuery(function($){
 			});
 
 			// Delete Instances
-			$('.widget-actions > button[value=delete]').live('click-confirmed', function(e){
+			$('.widget-actions > button[value=delete]').bind('click-confirmed', function(e){
 				e.preventDefault();
 
 				var $item	= $(this).parents('li.widget-instance'),

@@ -1,7 +1,7 @@
 (function($){
 
 	// Live typing for var names.
-	$('input[name=name]').live('keyup', function() {
+	$('input[name=name]').bind('keyup', function() {
 		$('#var_'+$(this).attr('id')).html($('input[name=name]').val()).replace(/[a-zA-Z]+[0-9]+/), '';
 	});
 	
@@ -18,7 +18,7 @@
 			/**
 			 * Loads create and list views
 			 */
-			$('a[rel=ajax]').live('click', function(e){
+			$('a[rel=ajax]').bind('click', function(e){
 				var fetch_url = $(this).attr('href');
 
 				pyro.clear_notifications();
@@ -37,7 +37,7 @@
 			/**
 			 * Cancel button click behavior
 			 */
-			$('a.button.cancel').live('click', function(e){
+			$('a.button.cancel').bind('click', function(e){
 				pyro.clear_notifications();
 
 				variables.$content.slideUp(function(){
@@ -50,7 +50,7 @@
 			/**
 			 * In Line Edit Event Behavior
 			 */
-			$('a.button.edit').live('click', function(e){
+			$('a.button.edit').bind('click', function(e){
 				var load_url	= $(this).attr('href'),
 					orig_tr		= $(this).parents('tr'),
 
@@ -72,7 +72,7 @@
 			/**
 			 * Form submit behavior, both create and edit trigger
 			 */
-			$('button[value=save]').live('click', function(e){
+			$('button[value=save]').bind('click', function(e){
 				e.preventDefault();
 
 				var form_data	= {

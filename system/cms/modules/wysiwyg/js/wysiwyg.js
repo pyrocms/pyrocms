@@ -92,7 +92,7 @@ $(function()
      *  - handles loading of different folders
      *  - manipulates dom classes etc
      */
-    $('#files-nav li a').live('click', function(e) {
+    $('#files-nav li a').bind('click', function(e) {
         
         e.preventDefault();
         
@@ -138,7 +138,7 @@ $(function()
 		
 	});
     
-    $('select[name=parent_id]').live('change', function() {
+    $('select[name=parent_id]').bind('change', function() {
         var folder_id = $(this).val();
 		var controller = $(this).attr('title');
         var href_val = SITE_URL + 'admin/wysiwyg/' + controller + '/index/' + folder_id;
@@ -192,7 +192,7 @@ $(function()
 	});
 
 	// Close the notifications when the close link is clicked
-	$('a.close').live('click', function(e){
+	$('a.close').bind('click', function(e){
 		e.preventDefault();
 		$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 		$(this).parent().fadeTo(200, 0);

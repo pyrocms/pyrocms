@@ -11,7 +11,7 @@
 		$details_id	= $('div#page-details #page-id');
 
 		// show the page details pane
-		$item_list.find('li a').live('click', function(e) {
+		$item_list.find('li a').bind('click', function(e) {
 			e.preventDefault();
 
 			$a = $(this);
