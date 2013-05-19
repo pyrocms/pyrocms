@@ -28,23 +28,23 @@
 			
 						<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 						<div class="tab-pane <?php echo array_search($section_name, array_values($setting_sections)) == '0' ? 'active' : null; ?>" id="<?php echo $section_slug;?>">
-							<fieldset>
-								<ul>
-								<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
-									<li id="<?php echo $setting->slug ?>" class="<?php echo $section_count++ % 2 == 0 ? 'even' : '' ?>">
+							
+							<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
+								<div id="<?php echo $setting->slug ?>" class="row-fluid row-inputs <?php echo $section_count++ % 2 == 0 ? 'even' : '' ?>">
+									<div class="span3">
 										<label for="<?php echo $setting->slug ?>">
 											<?php echo $setting->title ?>
 											<?php if($setting->description): echo '<small>'.$setting->description.'</small>'; endif ?>
 										</label>
-			
-										<div class="input <?php echo 'type-'.$setting->type ?>">
-											<?php echo $setting->form_control ?>
-										</div>
-										<span class="move-handle"></span>
-									</li>
-								<?php endforeach ?>
-								</ul>
-							</fieldset>
+									</div>
+		
+									<div class="input span9 <?php echo 'type-'.$setting->type ?>">
+										<?php echo $setting->form_control ?>
+									</div>
+									<span class="move-handle"></span>
+								</div>
+							<?php endforeach ?>
+
 						</div>
 						<?php endforeach ?>
 			
