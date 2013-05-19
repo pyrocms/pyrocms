@@ -46,8 +46,6 @@ class Field_keywords
 
 	public function event($field)
 	{
-		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
-		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
 		$this->CI->type->add_js('keywords', 'keywords.js');
 	}
 

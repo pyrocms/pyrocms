@@ -620,11 +620,7 @@ class Admin extends Admin_Controller {
 		}
 		$this->template->group_options = $group_options;
 
-		$this->template
-			->append_js('jquery/jquery.tagsinput.js')
-			->append_js('jquery/jquery.cooki.js')
-			->append_js('module::form.js')
-			->append_css('jquery/jquery.tagsinput.css');
+		$this->template->append_js('module::form.js');
 	}
 
 	/**
