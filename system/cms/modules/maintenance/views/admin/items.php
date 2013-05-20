@@ -13,7 +13,7 @@
 			<div class="padded">
 		
 				<?php if ( ! empty($tables)): ?>
-					<table class="table table-hover">
+					<table class="table table-hover table-bordered table-striped">
 						<thead>
 							<tr>
 								<th><?php echo lang('maintenance:table_label') ?></th>
@@ -59,7 +59,7 @@
 			<div class="padded">
 		
 				<?php if ( ! empty($folders)): ?>
-					<table class="table table-hover">
+					<table class="table table-hover table-bordered table-striped">
 						<thead>
 							<tr>
 								<th><?php echo lang('name_label') ?></th>

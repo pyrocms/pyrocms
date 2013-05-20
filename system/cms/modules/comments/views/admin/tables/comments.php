@@ -63,7 +63,7 @@
 		</tbody>
 	</table>
 
-	<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
+	<?php $this->load->view('admin/partials/pagination') ?>
 	
 <?php else: ?>
 

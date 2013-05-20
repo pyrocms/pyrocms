@@ -11,7 +11,7 @@
 		<div class="padded">
 
 			<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions')) ?>
-				<table class="table table-hover">
+				<table class="table table-hover table-bordered table-striped">
 					<thead>
 						<tr>
 							<th><?php echo form_checkbox(array('id'=>'check-all', 'name' => 'action_to_all', 'class' => 'check-all', 'title' => lang('permissions:checkbox_tooltip_action_to_all'))) ?></th>

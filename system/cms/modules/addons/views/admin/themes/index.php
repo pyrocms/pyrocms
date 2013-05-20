@@ -13,7 +13,7 @@
 		
 			<?php echo form_open('admin/addons/themes/set_default') ?>
 			<?php echo form_hidden('method', $this->method) ?>
-			<table class="table table-hover" cellspacing="0">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label') ?></th>

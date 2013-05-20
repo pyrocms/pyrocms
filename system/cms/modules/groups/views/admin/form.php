@@ -21,22 +21,23 @@
 				<div class="form_inputs">
 				
 				    <ul>
-						<li>
-							<label for="description"><?php echo lang('groups:name');?> <span>*</span></label>
-							<div class="input"><?php echo form_input('description', $group->description);?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="description"><?php echo lang('groups:name');?> <span>*</span></label>
+							<div class="input span9">
+								<?php echo form_input('description', $group->description);?>
+							</div>
 						</li>
 						
-						<li class="even">
-							<label for="name"><?php echo lang('groups:short_name');?> <span>*</span></label>
+						<li class="row-fluid input-row">
+							<label class="span3" for="name"><?php echo lang('groups:short_name');?> <span>*</span></label>
 							
-							<div class="input">
+							<div class="input span9">
 				
-							<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-							<?php echo form_input('name', $group->name);?>
-				
-							<?php else: ?>
-							<p><?php echo $group->name ?></p>
-							<?php endif ?>
+								<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
+									<?php echo form_input('name', $group->name);?>
+								<?php else: ?>
+									<p><?php echo $group->name ?></p>
+								<?php endif ?>
 							
 							</div>
 						</li>
@@ -44,7 +45,9 @@
 				
 				</div>
 			
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+				<div class="btn-group padded">
+					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+				</div>
 				
 			<?php echo form_close();?>
 

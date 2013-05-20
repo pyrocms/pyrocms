@@ -11,7 +11,7 @@
 		<div class="padded">
 			
 			<?php if ($addon_modules): ?>
-			<table class="table table-hover" cellspacing="0">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>
@@ -70,7 +70,7 @@
 
 			<p><?php echo lang('addons:modules:core_introduction') ?></p>
 		
-			<table class="table table-hover" cellspacing="0">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>

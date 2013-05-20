@@ -16,7 +16,7 @@
 		
 			    <?php echo form_open('admin/templates/action') ?>
 			
-			    <table class="table table-hover">
+			    <table class="table table-hover table-bordered table-striped">
 			        <thead>
 			            <tr>
 			                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
@@ -75,7 +75,7 @@
 
 			<div class="padded">
 				
-				<table class="table table-hover">
+				<table class="table table-hover table-bordered table-striped">
 			        <thead>
 			            <tr>
 			                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>

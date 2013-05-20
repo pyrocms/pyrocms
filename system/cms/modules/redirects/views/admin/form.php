@@ -12,34 +12,35 @@
 		<?php endif ?>
 		</section>
 
-		<div class="padded">
-			<?php echo form_open(uri_string(), 'class="crud"') ?>
-				<ul>
-					<li>
-						<label for="type"><?php echo lang('redirects:type');?></label><br>
+		<?php echo form_open(uri_string(), 'class="crud"') ?>
+			<ul>
+				<li class="row-fluid input-row">
+					<label class="span3" for="type"><?php echo lang('redirects:type');?></label><br>
+					<div class="input span9">
 						<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect['type']) ? $redirect['type'] : '302');?>
-					</li>
-			
-					<hr>
-					<li>
-						<label for="from"><?php echo lang('redirects:from');?></label><br>
+					</div>
+				</li>
+		
+				<li class="row-fluid input-row">
+					<label class="span3" for="from"><?php echo lang('redirects:from');?></label><br>
+					<div class="input span9">
 						<?php echo form_input('from', str_replace('%', '*', $redirect['from']));?>
-					</li>
-			
-					<hr>
-			
-					<li>
-						<label for="to"><?php echo lang('redirects:to');?></label><br>
+					</div>
+				</li>
+		
+				<li class="row-fluid input-row">
+					<label class="span3" for="to"><?php echo lang('redirects:to');?></label><br>
+					<div class="input span9">
 						<?php echo form_input('to', $redirect['to']);?>
-					</li>
-				</ul>
-		
-				<hr>
-		
+					</div>
+				</li>
+			</ul>
+	
+			<div class="btn-group padded">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+			</div>
 
-			<?php echo form_close() ?>
-		</div>
+		<?php echo form_close() ?>
 	</section>
 
 

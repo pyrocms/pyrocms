@@ -14,7 +14,7 @@
 
 				<?php echo form_open('admin/blog/categories/delete') ?>
 
-				<table border="0" class="table table-hover">
+				<table class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>

@@ -13,7 +13,7 @@
 			<div class="padded">
 
 		    <?php echo form_open('admin/redirects/delete') ?>
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered table-striped">
 			    <thead>
 					<tr>
 						<th width="15"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
@@ -40,8 +40,8 @@
 					<td>
 					
 						<div class="btn-group pull-right">
-							<?php echo anchor('admin/redirects/edit/' . $redirect->id, lang('redirects:edit'), 'class="button edit"');?>
-							<?php echo anchor('admin/redirects/delete/' . $redirect->id, lang('redirects:delete'), array('class'=>'confirm button delete'));?>
+							<?php echo anchor('admin/redirects/edit/' . $redirect->id, lang('redirects:edit'), 'class="btn edit"');?>
+							<?php echo anchor('admin/redirects/delete/' . $redirect->id, lang('redirects:delete'), array('class'=>'confirm btn btn-danger'));?>
 						</div>
 
 					</td>

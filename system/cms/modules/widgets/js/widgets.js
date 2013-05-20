@@ -99,19 +99,6 @@ jQuery(function($){
 
 		init: function()
 		{
-			// Create/Edit Areas
-			$('a.create-area, .widget-area-content > .buttons > a.edit').livequery(function(){
-				$(this).colorbox({
-					scrolling	: false,
-					width		:'700',
-					height		:'400',
-
-					onComplete	: function(){
-						pyro.widgets.handle_area_form(this);
-					}
-				});
-			});
-
 			// Delete Areas
 			$('.widget-area-content > .buttons > button[value=delete]').bind('click-confirmed', function(e){
 				e.preventDefault();
@@ -212,24 +199,22 @@ jQuery(function($){
 
 			// MANAGE ------------------------------------------------------------------------------
 
-			$('#widgets-list > tbody').livequery(function(){
-				$(this).sortable({
-					handle: 'span.move-handle',
-					stop: function(){
-						$('#widgets-list > tbody > tr').removeClass('alt');
-						$('#widgets-list > tbody > tr:nth-child(even)').addClass('alt');
+			$('#widgets-list > tbody').sortable({
+				handle: 'span.move-handle',
+				stop: function(){
+					$('#widgets-list > tbody > tr').removeClass('alt');
+					$('#widgets-list > tbody > tr:nth-child(even)').addClass('alt');
 
-						var order = [];
+					var order = [];
 
-						$('#widgets-list > tbody > tr input[name="action_to\[\]"]').each(function(){
-							order.push(this.value);
-						});
+					$('#widgets-list > tbody > tr input[name="action_to\[\]"]').each(function(){
+						order.push(this.value);
+					});
 
-						order = order.join(',');
+					order = order.join(',');
 
-						$.post(SITE_URL + 'widgets/ajax/update_order/widget', { order: order });
-					}
-				});
+					$.post(SITE_URL + 'widgets/ajax/update_order/widget', { order: order });
+				}
 			});
 
 		},

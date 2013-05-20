@@ -11,7 +11,7 @@
 		<div class="padded">
 
 		<?php if ($keywords): ?>
-		    <table class="table table-hover">
+		    <table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th width="40%"><?php echo lang('keywords:name');?></th>

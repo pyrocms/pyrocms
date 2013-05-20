@@ -25,7 +25,7 @@
 		});
 
 		// load edit via ajax
-		$('a.ajax').bind('click', function(){
+		$('a.ajax').live('click', function(){
 			// make sure we load it into the right one
 			var id = $(this).attr('rel');
 			if ($(this).hasClass('add')) {
@@ -83,7 +83,8 @@
 		});
 
 		// Pick a rule type, show the correct field
-		$('input[name="link_type"]').bind('change', function(){
+		$('input[name="link_type"]').live('change', function(){
+			
 			$(this).parents('ul').find('#navigation-' + $(this).val())
 
 			// Show only the selected type
@@ -96,7 +97,7 @@
 		}).filter(':checked').change();
 
 		// show link details
-		$('#link-list li a').livequery('click', function()
+		$('#link-list li a').bind('click', function()
 		{
 			var id = $(this).attr('rel');
 			link_id = $(this).attr('alt');
@@ -113,7 +114,7 @@
 			return false;
 		});
 		
-		$('.box:visible ul.sortable').livequery(function(){
+		$('.box:visible ul.sortable').bind(function(){
 			$item_list		= $(this);
 			$url			= 'admin/navigation/order';
 			$cookie			= 'open_links';

@@ -12,29 +12,29 @@
 			<?php endif ?>
 		</section>
 
-		<div class="padded">
-			
-			<?php echo form_open($this->uri->uri_string(), 'class="crud'.((isset($mode)) ? ' '.$mode : '').'" id="categories"') ?>
+		<?php echo form_open($this->uri->uri_string(), 'class="crud'.((isset($mode)) ? ' '.$mode : '').'" id="categories"') ?>
 
-			<div class="form_inputs">
-
+			<fieldset>
 				<ul>
-					<li class="even">
-						<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
-						<div class="input"><?php echo  form_input('title', $category->title) ?></div>
-						<label for="slug"><?php echo lang('global:slug') ?> <span>*</span></label>
-						<div class="input"><?php echo  form_input('slug', $category->slug) ?></div>
+					<li class="row-fluid input-row">
+						<label class="span3" for="title"><?php echo lang('global:title');?> <span>*</span></label>
+						<div class="input span9"><?php echo  form_input('title', $category->title) ?></div>
+					</li>
+
+					<li class="row-fluid input-row">
+						<label class="span3" for="slug"><?php echo lang('global:slug') ?> <span>*</span></label>
+						<div class="input span9"><?php echo  form_input('slug', $category->slug) ?></div>
 						<?php echo  form_hidden('id', $category->id) ?>
 					</li>
 				</ul>
 
+			<fieldset>
+
+			<div class="btn-group padded">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
 
-			<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?></div>
-
-			<?php echo form_close() ?>
-
-		</div>
+		<?php echo form_close() ?>
 		
 	</section>
 

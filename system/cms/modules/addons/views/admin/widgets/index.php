@@ -14,7 +14,7 @@
 				<?php echo form_open(uri_string(), 'class="crud"') ?>
 				<!-- Available Widget List -->
 
-				<table border="0" id="widgets-list" class="table table-hover" cellspacing="0">
+				<table class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th width="30"></th>

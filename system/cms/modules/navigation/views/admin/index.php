@@ -17,9 +17,9 @@
 
 							<ul class="box-toolbar">
 								<li class="ibutton-container">
-									<div class="btn-group pull-right">
-										<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav:link_create_title'), 'rel="'.$group->id.'" class="btn btn-success ajax"') ?>
-										<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('global:delete'), array('class' => 'confirm btn btn-danger',  'title' => lang('nav:group_delete_confirm'))) ?>
+									<div class="btn-group pull-right margin-right">
+										<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav:link_create_title'), 'rel="'.$group->id.'" class="btn btn-small btn-success ajax"') ?>
+										<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('global:delete'), array('class' => 'confirm btn btn-small btn-danger',  'title' => lang('nav:group_delete_confirm'))) ?>
 									</div>
 								</li>
 							</ul>

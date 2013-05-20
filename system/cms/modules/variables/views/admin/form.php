@@ -12,34 +12,36 @@
 			<?php endif ?>
 		</section>
 
-		<div class="padded">
 
-			<?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"') ?>
-			<?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id) ?>
-			
-			<div class="form_inputs">
-			
-				<ul>
-					<li class="even">
-						<label for="name"><?php echo lang('name_label');?> <span>*</span></label>
-						<div class="input"><?php echo  form_input('name', $variable->name) ?></div>
-					</li>
-					
-					<li class="">
-						<label for="data"><?php echo lang('variables:data_label');?> <span>*</span></label>
-						<div class="input"><?php echo  form_input('data', $variable->data) ?></div>
-					</li>
-				</ul>
-					
-				<div>
-					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
-				</div>
-			
+		<?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"') ?>
+		<?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id) ?>
+		
+		<div class="form_inputs">
+		
+			<ul>
+				<li class="row-fluid input-row">
+					<label class="span3" for="name"><?php echo lang('name_label');?> <span>*</span></label>
+					<div class="input span9">
+						<?php echo  form_input('name', $variable->name) ?>
+					</div>
+				</li>
+				
+				<li class="row-fluid input-row">
+					<label class="span3" for="data"><?php echo lang('variables:data_label');?> <span>*</span></label>
+					<div class="input span9">
+						<?php echo  form_input('data', $variable->data) ?>
+					</div>
+				</li>
+			</ul>
+				
+			<div class="btn-group padded">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
-			
-			<?php echo form_close() ?>
-			
+		
 		</div>
+		
+		<?php echo form_close() ?>
+		
 	</section>
 
 

@@ -1,8 +1,8 @@
-<li class="streams_param_input">
-	<label for="<?php echo $input_slug ?>"><?php echo $input_name ?>
+<li class="row-fluid input-row streams-param-input">
+		<label class="span3" for="<?php echo $input_slug ?>"><?php echo $input_name ?>
 	<?php if( isset($instructions) and $instructions ): ?>
-		<br /><small><?php echo $instructions ?></small>
+		<small><?php echo $instructions ?></small>
 	<?php endif ?>
 	</label>
-	<div class="input"><?php echo $input ?></div>
+	<div class="input span9"><?php echo $input ?></div>
 </li>

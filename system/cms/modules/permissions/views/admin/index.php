@@ -12,7 +12,7 @@
 
 			<p><?php echo lang('permissions:introduction') ?></p>
 
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><?php echo lang('permissions:group') ?></th>

@@ -13,7 +13,7 @@
 			<h2><?php echo lang('addons:plugins:core_field_types') ?></h2>
 
 			<?php if ($core): ?>
-			<table class="table table-hover" cellspacing="0">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>
@@ -34,7 +34,7 @@
 			<h2><?php echo lang('addons:plugins:add_on_field_types') ?></h2>
 
 			<?php if ( ! empty($addon)): ?>
-			<table class="table-list" cellspacing="0">
+			<table class="table table-hover table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>

@@ -14,26 +14,28 @@
 			</section>
 		<?php endif ?>
 
-		<div class="padded">
 
-			<?php echo form_open(uri_string(), 'class="crud"') ?>
+		<?php echo form_open(uri_string(), 'class="crud"') ?>
 
-			<div class="form_inputs">
-				
-			    <ul>
-					<li>
-						<label for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
-						<div class="input"><?php echo form_input('name', $keyword->name);?></div>
-					</li>
-			    </ul>
-			    
-			</div>
-			    
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
-				
-			<?php echo form_close();?>
-
+		<div class="form_inputs">
+			
+		    <ul>
+				<li class="row-fluid input-row">
+					<label class="span3" for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
+					<div class="input span9">
+						<?php echo form_input('name', $keyword->name);?>
+					</div>
+				</li>
+		    </ul>
+		    
 		</div>
+		
+		
+		<div class="btn-group padded">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+		</div>
+			
+		<?php echo form_close();?>
 
 	</section>
 

@@ -12,7 +12,7 @@
 
 			<?php if ($groups): ?>
 
-				<table class="table table-hover">
+				<table class="table table-hover table-bordered table-striped">
 					<thead>
 						<tr>
 							<th width="40%"><?php echo lang('groups:name');?></th>
