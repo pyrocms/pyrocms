@@ -15,7 +15,8 @@
 
 		// editor switcher
 		$('select[name^=type]').bind('change', function () {
-			var chunk = $(this).closest('li.editor');
+
+			var chunk = $(this).closest('.input-row');
 			var textarea = $('textarea', chunk);
 
 			// Destroy existing WYSIWYG instance
@@ -31,7 +32,7 @@
 			pyro.init_ckeditor();
 		});
 
-		$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({
+		/*$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({
 			srollable: false,
 			innerWidth: 600,
 			innerHeight: 280,
@@ -76,6 +77,6 @@
 				});
 
 			}
-		});
+		});*/
 	});
 })(jQuery);

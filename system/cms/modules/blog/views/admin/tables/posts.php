@@ -1,4 +1,4 @@
-	<table class="table table-hover">
+	<table class="table table-hover table-bordered table-striped">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
@@ -7,7 +7,7 @@
 				<th class="collapse"><?php echo lang('blog:date_label') ?></th>
 				<th class="collapse"><?php echo lang('blog:written_by_label') ?></th>
 				<th><?php echo lang('blog:status_label') ?></th>
-				<th class="pull-right"><?php echo lang('global:actions') ?></th>
+				<th><div class="pull-right"><?php echo lang('global:actions') ?></div></th>
 			</tr>
 		</thead>
 		<tbody>

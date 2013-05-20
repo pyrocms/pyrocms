@@ -1,6 +1,6 @@
 <?php if ( ! empty($comments)): ?>
 
-	<table class="table table-hover">
+	<table class="table table-hover table-bordered table-striped">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
@@ -11,14 +11,6 @@
 				<th></th>
 			</tr>
 		</thead>
-	
-		<tfoot>
-			<tr>
-				<td colspan="7">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
-				</td>
-			</tr>
-		</tfoot>
 	
 		<tbody>
 			<?php foreach ($comments as $comment): ?>
@@ -70,6 +62,8 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
+
+	<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
 	
 <?php else: ?>
 

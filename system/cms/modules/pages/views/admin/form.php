@@ -19,7 +19,7 @@
 			<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form" data-mode="'.$this->method.'"') ?>
 			<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id) ?>
 				
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs padded no-padding-bottom grayLightest-bg">
 				<li class="active"><a href="#page-details" data-toggle="tab"><span><?php echo lang('pages:details_label') ?></span></a></li>
 				<?php if ($stream_fields): ?><li><a href="#page-content" data-toggle="tab"><span><?php if ($page_type->content_label): echo lang_label($page_type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
 				<li><a href="#page-meta" data-toggle="tab"><span><?php echo lang('pages:meta_label') ?></span></a></li>
@@ -37,15 +37,15 @@
 				
 					<ul>
 						
-						<li>
-							<label for="title"><?php if ($page_type->title_label): echo lang_label($page_type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
-							<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="title"><?php if ($page_type->title_label): echo lang_label($page_type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
+							<div class="input span9"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
 						</li>
 						
-						<li>
-							<label for="slug"><?php echo lang('global:slug') ?>  <span>*</span></label>
+						<li class="row-fluid input-row">
+							<label class="span3" for="slug"><?php echo lang('global:slug') ?>  <span>*</span></label>
 							
-							<div class="input">
+							<div class="input span9">
 							<?php if ( ! empty($page->parent_id)): ?>
 								<?php echo site_url($parent_page->uri) ?>/
 							<?php else: ?>
@@ -58,9 +58,9 @@
 		
 							<?php if (in_array($page->slug, array('home', '404'))): ?>
 								<?php echo form_hidden('slug', $page->slug) ?>
-								<?php echo form_input('', $page->slug, 'id="slug" size="20" disabled="disabled"') ?>
+								<?php echo form_input('', $page->slug, 'id="slug" size="20" disabled="disabled" class="inline"') ?>
 							<?php else: ?>
-								<?php echo form_input('slug', $page->slug, 'id="slug" size="20" class="'.($this->method == 'edit' ? ' disabled' : '').'"') ?>
+								<?php echo form_input('slug', $page->slug, 'id="slug" size="20" class="inline '.($this->method == 'edit' ? ' disabled' : '').'"') ?>
 							<?php endif ?>
 		
 							<?php echo config_item('url_suffix') ?>
@@ -68,15 +68,15 @@
 							</div>
 						</li>
 						
-						<li>
-							<label for="category_id"><?php echo lang('pages:status_label') ?></label>
-							<div class="input"><?php echo form_dropdown('status', array('draft'=>lang('pages:draft_label'), 'live'=>lang('pages:live_label')), $page->status, 'id="category_id"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="category_id"><?php echo lang('pages:status_label') ?></label>
+							<div class="input span9"><?php echo form_dropdown('status', array('draft'=>lang('pages:draft_label'), 'live'=>lang('pages:live_label')), $page->status, 'id="category_id"') ?></div>
 						</li>
 						
 						<?php if ($this->method == 'create'): ?>
-						<li>
-							<label for="navigation_group_id"><?php echo lang('pages:navigation_label') ?></label>
-							<div class="input"><?php echo form_multiselect('navigation_group_id[]', array(lang('global:select-none')) + $navigation_groups, $page->navigation_group_id) ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="navigation_group_id"><?php echo lang('pages:navigation_label') ?></label>
+							<div class="input span9"><?php echo form_multiselect('navigation_group_id[]', array(lang('global:select-none')) + $navigation_groups, $page->navigation_group_id) ?></div>
 						</li>
 						<?php endif ?>
 					</ul>
@@ -110,30 +110,30 @@
 					<fieldset>
 				
 					<ul>
-						<li>
-							<label for="meta_title"><?php echo lang('pages:meta_title_label') ?></label>
-							<div class="input"><input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title ?>" /></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="meta_title"><?php echo lang('pages:meta_title_label') ?></label>
+							<div class="input span9"><input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title ?>" /></div>
 						</li>
 										
 						<?php if ( ! module_enabled('keywords')): ?>
 							<?php echo form_hidden('keywords'); ?>
 						<?php else: ?>
-							<li>
-								<label for="meta_keywords"><?php echo lang('pages:meta_keywords_label') ?></label>
-								<div class="input"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords ?>" /></div>
+							<li class="row-fluid input-row">
+								<label class="span3" for="meta_keywords"><?php echo lang('pages:meta_keywords_label') ?></label>
+								<div class="input span9"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords ?>" /></div>
 							</li>
 						<?php endif; ?>
-							<li>
-								<label for="meta_robots_no_index"><?php echo lang('pages:meta_robots_no_index_label') ?></label>
-								<div class="input"><?php echo form_checkbox('meta_robots_no_index', true, $page->meta_robots_no_index == true, 'id="meta_robots_no_index"') ?></div>
+							<li class="row-fluid input-row">
+								<label class="span3" for="meta_robots_no_index"><?php echo lang('pages:meta_robots_no_index_label') ?></label>
+								<div class="input span9"><?php echo form_checkbox('meta_robots_no_index', true, $page->meta_robots_no_index == true, 'id="meta_robots_no_index"') ?></div>
 							</li>
 
-							<li>
-								<label for="meta_robots_no_follow"><?php echo lang('pages:meta_robots_no_follow_label') ?></label>
-								<div class="input"><?php echo form_checkbox('meta_robots_no_follow', true, $page->meta_robots_no_follow == true, 'id="meta_robots_no_follow"') ?></div>
+							<li class="row-fluid input-row">
+								<label class="span3" for="meta_robots_no_follow"><?php echo lang('pages:meta_robots_no_follow_label') ?></label>
+								<div class="input span9"><?php echo form_checkbox('meta_robots_no_follow', true, $page->meta_robots_no_follow == true, 'id="meta_robots_no_follow"') ?></div>
 							</li>
-						<li>
-							<label for="meta_description"><?php echo lang('pages:meta_desc_label') ?></label>
+						<li class="row-fluid input-row">
+							<label class="span3" for="meta_description"><?php echo lang('pages:meta_desc_label') ?></label>
 							<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)) ?>
 						</li>
 					</ul>
@@ -148,7 +148,7 @@
 					<fieldset>
 					
 					<ul>
-						<li>
+						<li class="row-fluid input-row">
 							<label for="css"><?php echo lang('pages:css_label') ?></label><br />
 							<div>
 								<?php echo form_textarea('css', $page->css, 'class="css_editor"') ?>
@@ -184,33 +184,33 @@
 					<fieldset>
 		
 					<ul>
-						<li>
-							<label for="restricted_to[]"><?php echo lang('pages:access_label') ?></label>
-							<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="restricted_to[]"><?php echo lang('pages:access_label') ?></label>
+							<div class="input span9"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
 						</li>
 										
 						<?php if ( ! module_enabled('comments')): ?>
 							<?php echo form_hidden('comments_enabled'); ?>
 						<?php else: ?>
-							<li>
-								<label for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
-								<div class="input"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
+							<li class="row-fluid input-row">
+								<label class="span3" for="comments_enabled"><?php echo lang('pages:comments_enabled_label') ?></label>
+								<div class="input span9"><?php echo form_checkbox('comments_enabled', true, $page->comments_enabled == true, 'id="comments_enabled"') ?></div>
 							</li>
 						<?php endif; ?>
 										
-						<li>
-							<label for="rss_enabled"><?php echo lang('pages:rss_enabled_label') ?></label>
-							<div class="input"><?php echo form_checkbox('rss_enabled', true, $page->rss_enabled == true, 'id="rss_enabled"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="rss_enabled"><?php echo lang('pages:rss_enabled_label') ?></label>
+							<div class="input span9"><?php echo form_checkbox('rss_enabled', true, $page->rss_enabled == true, 'id="rss_enabled"') ?></div>
 						</li>
 										
-						<li>
-							<label for="is_home"><?php echo lang('pages:is_home_label') ?></label>
-							<div class="input"><?php echo form_checkbox('is_home', true, $page->is_home == true, 'id="is_home"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="is_home"><?php echo lang('pages:is_home_label') ?></label>
+							<div class="input span9"><?php echo form_checkbox('is_home', true, $page->is_home == true, 'id="is_home"') ?></div>
 						</li>
 		
-						<li>
-							<label for="strict_uri"><?php echo lang('pages:strict_uri_label') ?></label>
-							<div class="input"><?php echo form_checkbox('strict_uri', 1, $page->strict_uri == true, 'id="strict_uri"') ?></div>
+						<li class="row-fluid input-row">
+							<label class="span3" for="strict_uri"><?php echo lang('pages:strict_uri_label') ?></label>
+							<div class="input span9"><?php echo form_checkbox('strict_uri', 1, $page->strict_uri == true, 'id="strict_uri"') ?></div>
 						</li>
 					</ul>
 		

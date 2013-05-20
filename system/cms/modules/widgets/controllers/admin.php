@@ -120,7 +120,6 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'])
 			->set_partial('filters', 'admin/partials/filters')
-			->append_js('admin/filter.js')
 			->build('admin/manage', $data);
 	}
 

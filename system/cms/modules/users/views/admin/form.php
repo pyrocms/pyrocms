@@ -17,20 +17,20 @@
 			<?php endif ?>
 
 		</section>
-
-		<div class="padded">
 		
 			
-			<!-- Tabs -->
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a href="#user-basic-data-tab" data-toggle="tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a>
-				</li>
-				<li>
-					<a href="#user-profile-fields-tab" data-toggle="tab"><span><?php echo lang('user:profile_fields_label') ?></span></a>
-				</li>
-			</ul>
-	
+		<!-- Tabs -->
+		<ul class="nav nav-tabs padded no-padding-bottom grayLightest-bg">
+			<li class="active">
+				<a href="#user-basic-data-tab" data-toggle="tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a>
+			</li>
+			<li>
+				<a href="#user-profile-fields-tab" data-toggle="tab"><span><?php echo lang('user:profile_fields_label') ?></span></a>
+			</li>
+		</ul>
+
+
+		<div class="padded">	
 
 			<div class="tab-content">
 
