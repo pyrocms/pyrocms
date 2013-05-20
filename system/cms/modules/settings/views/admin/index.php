@@ -22,7 +22,7 @@
 					<?php endforeach ?>
 				</ul>
 
-				<div class="tab-content padded no-padding-top">
+				<div class="tab-content">
 		
 					<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 					<div class="tab-pane <?php echo array_search($section_name, array_values($setting_sections)) == '0' ? 'active' : null; ?>" id="<?php echo $section_slug;?>">
@@ -46,7 +46,7 @@
 		
 				</div>
 		
-				<div class="buttons padding-top">
+				<div class="btn-group padded">
 					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )) ?>
 				</div>
 		
