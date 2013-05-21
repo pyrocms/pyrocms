@@ -17,7 +17,7 @@
 
 			
 		<!-- .nav-tabs -->
-		<ul class="nav nav-tabs padded no-padding-bottom grayLightest-bg">
+		<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
 
 			<li class="active">
 				<a href="#blog-content-tab" data-toggle="tab">

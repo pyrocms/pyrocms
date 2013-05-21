@@ -16,7 +16,7 @@
 		
 			
 		<!-- Tabs -->
-		<ul class="nav nav-tabs padded no-padding-bottom grayLightest-bg">
+		<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
 			<li class="active">
 				<a href="#user-basic-data-tab" data-toggle="tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a>
 			</li>

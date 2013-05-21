@@ -12,7 +12,7 @@
 
 			<?php echo form_open('admin/settings/edit', 'class="crud"');?>
 		
-				<ul class="nav nav-tabs padded no-padding-bottom grayLightest-bg">
+				<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
 					<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 					<li class="<?php echo array_search($section_name, array_values($setting_sections)) == '0' ? 'active' : null; ?>">
 						<a href="#<?php echo $section_slug ?>" data-toggle="tab" title="<?php printf(lang('settings:section_title'), $section_name) ?>">
