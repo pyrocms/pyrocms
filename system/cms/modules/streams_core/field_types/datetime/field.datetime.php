@@ -350,8 +350,10 @@ class Field_datetime
 			if ($date['year'] and $date['month'] and $date['day'])
 			{
 				$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
-			}	
-				
+			}
+
+			$options['data-date-format'] = 'yyyy-mm-dd';
+			
 			$date_input .= form_input($options)."&nbsp;&nbsp;";
 		}
 		else
