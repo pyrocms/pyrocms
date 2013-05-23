@@ -406,6 +406,8 @@ class Template
 		{
 			$this->_override_title = implode($this->_title_separator, $title_segments);
 		}
+		
+		return $this;
 	}
 
 	/**
@@ -514,15 +516,20 @@ class Template
 		{
 		    case 'meta':
 	
-			$meta = '<meta name="' . $name . '" content="' . $content . '" />';
-	
 			if ($override)
 			{
-			    $this->_override_meta[$place][$type][$name] = $meta;
+			    $this->_override_meta[$place][$type][$name] = $content;
 			}
 			else
 			{
-			    $this->_metadata[$place][$type][$name] = $meta;
+			    if(isset($this->_metadata[$place][$type][$name]))
+			    {
+				$this->_metadata[$place][$type][$name] .= $content;
+			    }
+			    else
+			    {
+				$this->_metadata[$place][$type][$name] = $content;
+			    }
 			}
 	
 			break;
@@ -815,7 +822,7 @@ class Template
 		    return implode("\n\t\t", $this->_metadata['extra']);
 		}
 		
-		$metadata_types = array('http-equiv', 'meta', 'og', 'link');
+		$metadata_types = array('meta', 'http-equiv', 'og', 'link');
 	
 		$out = '';
 	
@@ -850,8 +857,18 @@ class Template
 		    {
 			continue;
 		    }
-	
-		    $out .= implode("\n\t\t", $this->_metadata[$place][$metadata_type]);
+		
+		
+		    if(isset($this->_metadata[$place]['meta']))
+		    {
+			foreach( $this->_metadata[$place]['meta'] as $name => $content )
+			{
+			    $out .= '<meta name="' . $name . '" content="' . $content . '" />'."\n";
+			}
+			unset($this->_metadata[$place]['meta']);
+		    }
+			    
+		    $out .= implode("\n", $this->_metadata[$place][$metadata_type])."\n";
 		}
 	
 		return $out;
