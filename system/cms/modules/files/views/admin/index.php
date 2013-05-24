@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -73,7 +73,7 @@
 
 		<div class="clearfix"></div>
 
-		<section class="box-footer padded">
+		<section class="box-footer">
 			<span id="file-breadcrumbs">
 				<span id="crumb-root">
 					<a data-id="0" href="#"><?php echo lang('files:places') ?></a>

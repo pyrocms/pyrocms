@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo $module_details['name'] ?></h4>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 
 		<?php if ($keywords): ?>
 		    <table class="table table-hover table-bordered table-striped">

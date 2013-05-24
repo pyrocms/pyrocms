@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('global:field_types');?></span>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 
 			<h2><?php echo lang('addons:plugins:core_field_types') ?></h2>
 

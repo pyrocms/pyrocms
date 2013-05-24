@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -16,7 +16,7 @@
 		
 			
 		<!-- Tabs -->
-		<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
+		<ul class="nav nav-tabs form-nav-tabs no-padding-bottom bg grayLightest">
 			<li class="active">
 				<a href="#user-basic-data-tab" data-toggle="tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a>
 			</li>
@@ -120,7 +120,7 @@
 		<!-- /.tab-content -->
 
 
-		<div class="btn-group padded">
+		<div class="btn-group form-btn-group">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )) ?>
 		</div>
 		

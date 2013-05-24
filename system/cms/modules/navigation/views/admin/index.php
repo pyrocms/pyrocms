@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -26,7 +26,7 @@
 
 						</section>
 
-						<div class="box-content padded">
+						<div class="box-content">
 
 							<?php if ( ! empty($navigation[$group->id])): ?>
 

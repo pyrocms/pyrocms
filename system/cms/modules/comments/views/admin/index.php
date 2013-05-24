@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('comments:title') ?></span>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 			
 			<?php echo $this->load->view('admin/partials/filters') ?>
 

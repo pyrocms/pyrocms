@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('user:list_title') ?></span>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 		
 			<?php template_partial('filters') ?>
 		

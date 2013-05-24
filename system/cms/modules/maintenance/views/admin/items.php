@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -10,7 +10,7 @@
 				<span class="title"><?php echo lang('maintenance:export_data') ?></span>
 			</section>
 
-			<div class="padded">
+			<div class="box-content">
 		
 				<?php if ( ! empty($tables)): ?>
 					<table class="table table-hover table-bordered table-striped">
@@ -56,7 +56,7 @@
 				<span class="title"><?php echo lang('maintenance:list_label') ?></span>
 			</section>
 
-			<div class="padded">
+			<div class="box-content">
 		
 				<?php if ( ! empty($folders)): ?>
 					<table class="table table-hover table-bordered table-striped">

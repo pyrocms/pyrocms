@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('addons:themes') ?></span>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 		<?php if ($themes): ?>
 		
 			<?php echo form_open('admin/addons/themes/set_default') ?>

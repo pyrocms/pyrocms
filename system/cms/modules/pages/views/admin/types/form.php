@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -12,7 +12,7 @@
 			<?php endif; ?>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 		
 			<?php echo form_open(); ?>
 			

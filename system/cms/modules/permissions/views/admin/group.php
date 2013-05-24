@@ -1,4 +1,4 @@
-<section class="padded">
+<section class="content-wrapper">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo $group->description ?></span>
 		</section>
 
-		<div class="padded">
+		<div class="box-content">
 
 			<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions')) ?>
 				<table class="table table-hover table-bordered table-striped">
