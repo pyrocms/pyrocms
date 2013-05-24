@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('addons:modules:addon_list');?></span>
 		</section>
 
-		<div class="box-content">
+		<div class="padded">
 			
 			<?php if ($addon_modules): ?>
 			<table class="table table-hover table-bordered table-striped">
@@ -66,7 +66,7 @@
 			<span class="title"><?php echo lang('addons:modules:core_list');?></span>
 		</section>
 
-		<div class="box-content">
+		<div class="padded">
 
 			<p><?php echo lang('addons:modules:core_introduction') ?></p>
 		

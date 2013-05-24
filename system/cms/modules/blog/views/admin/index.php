@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 	
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('blog:posts_title') ?></span>
 		</section>
 
-		<section class="box-content">
+		<section class="padded">
 
 				<?php if ($blog) : ?>
 					<?php echo $this->load->view('admin/partials/filters') ?>

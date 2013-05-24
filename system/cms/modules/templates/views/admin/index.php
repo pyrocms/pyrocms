@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -12,7 +12,7 @@
 				<span class="title"><?php echo lang('templates:default_title') ?></span>
 			</section>
 
-			<div class="box-content">
+			<div class="padded">
 		
 			    <?php echo form_open('admin/templates/action') ?>
 			
@@ -73,7 +73,7 @@
 				<span class="title"><?php echo lang('templates:user_defined_title') ?></span>
 			</section>
 
-			<div class="box-content">
+			<div class="padded">
 				
 				<table class="table table-hover table-bordered table-striped">
 			        <thead>

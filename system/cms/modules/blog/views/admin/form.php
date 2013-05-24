@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -17,7 +17,7 @@
 
 			
 		<!-- .nav-tabs -->
-		<ul class="nav nav-tabs form-nav-tabs no-padding-bottom bg grayLightest">
+		<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
 
 			<li class="active">
 				<a href="#blog-content-tab" data-toggle="tab">
@@ -163,7 +163,7 @@
 
 		<input type="hidden" name="row_edit_id" value="<?php if ($this->method != 'create'): echo $post->id; endif; ?>" />
 
-		<div class="btn-group form-btn-group">
+		<div class="btn-group padded">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 		</div>
 

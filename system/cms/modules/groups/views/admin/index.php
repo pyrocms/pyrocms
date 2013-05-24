@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo $module_details['name'] ?></span>
 		</section>
 
-		<div class="box-content">
+		<div class="padded">
 
 			<?php if ($groups): ?>
 

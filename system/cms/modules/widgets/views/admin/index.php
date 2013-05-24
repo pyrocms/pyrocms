@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -11,7 +11,7 @@
 				<span class="title"><?php echo lang('widgets:available_title') ?></span>
 			</section>
 
-			<section class="box-content">
+			<section class="padded">
 
 				<?php if ($available_widgets): ?>
 				<ul>
@@ -39,7 +39,7 @@
 				<span class="title"><?php echo lang('widgets:widget_area_wrapper') ?></span>
 			</section>
 
-			<section class="box-content">
+			<section class="padded">
 
 				<?php if ($widget_areas): ?>
 				<!-- Available Widget Areas -->

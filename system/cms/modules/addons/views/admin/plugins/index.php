@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('global:plugins');?></span>
 		</section>
 		
-		<div class="box-content">
+		<div class="padded">
 			
 			<h4><?php echo lang('addons:plugins:add_on_plugins');?></h4>
 			<?php echo $this->load->view('admin/plugins/_table', array('plugins' => $plugins), true) ?>

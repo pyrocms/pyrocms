@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -14,7 +14,7 @@
 			</section>
 		<?php endif ?>
 
-		<div class="box-content">
+		<div class="padded">
 
 			<?php echo form_open(uri_string(), 'class="crud"') ?>
 			
@@ -45,7 +45,7 @@
 				
 				</div>
 			
-				<div class="btn-group form-btn-group">
+				<div class="btn-group padded">
 					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 				</div>
 				

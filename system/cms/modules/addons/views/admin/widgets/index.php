@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -8,7 +8,7 @@
 			<span class="title"><?php echo lang('addons:widgets') ?></span>
 		</section>
 
-		<div class="box-content">
+		<div class="padded">
 
 			<?php if ($widgets): ?>
 				<?php echo form_open(uri_string(), 'class="crud"') ?>

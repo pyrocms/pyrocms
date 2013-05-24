@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -30,7 +30,7 @@
 
 			<fieldset>
 
-			<div class="btn-group form-btn-group">
+			<div class="btn-group padded">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
 

@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -10,7 +10,7 @@
 				<span class="title"><?php echo lang('pages:list_title') ?></span>
 			</section>
 			
-			<section class="box-content">
+			<section class="padded">
 				
 				<div id="page-list">
 				<ul class="sortable">
@@ -27,7 +27,7 @@
 				<span class="title"><?php echo lang('pages:tree_explanation_title') ?></span>
 			</section>
 			
-			<section class="box-content">
+			<section class="padded">
 
 				<div id="page-details">
 					<p>

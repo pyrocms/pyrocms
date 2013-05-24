@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -18,7 +18,7 @@
 		<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form" data-mode="'.$this->method.'"') ?>
 		<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id) ?>
 			
-		<ul class="nav nav-tabs form-nav-tabs no-padding-bottom bg grayLightest">
+		<ul class="nav nav-tabs padded no-padding-bottom bg grayLightest">
 			<li class="active"><a href="#page-details" data-toggle="tab"><span><?php echo lang('pages:details_label') ?></span></a></li>
 			<?php if ($stream_fields): ?><li><a href="#page-content" data-toggle="tab"><span><?php if ($page_type->content_label): echo lang_label($page_type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
 			<li><a href="#page-meta" data-toggle="tab"><span><?php echo lang('pages:meta_label') ?></span></a></li>
@@ -219,7 +219,7 @@
 
 			<input type="hidden" name="row_edit_id" value="<?php if ($this->method != 'create'): echo $page->entry_id; endif; ?>" />
 		
-			<div class="btn-group form-btn-group">
+			<div class="btn-group padded">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )) ?>
 			</div>
 		

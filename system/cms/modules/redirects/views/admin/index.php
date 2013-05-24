@@ -1,4 +1,4 @@
-<section class="content-wrapper">
+<section class="padded">
 <div class="container-fluid">
 
 
@@ -10,7 +10,7 @@
 				<span class="title"><?php echo lang('redirects:list_title') ?></span>
 			</section>
 
-			<div class="box-content">
+			<div class="padded">
 
 		    <?php echo form_open('admin/redirects/delete') ?>
 			<table class="table table-hover table-bordered table-striped">
@@ -66,7 +66,7 @@
 				<span class="title"><?php echo lang('redirects:list_title') ?></span>
 			</section>
 
-			<div class="box-content">
+			<div class="padded">
 				<div class="no_data"><?php echo lang('redirects:no_redirects');?></div>
 			</div>
 			
