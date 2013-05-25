@@ -449,14 +449,14 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function append_css($files, $min_file = null, $group = 'extra')
+	public function append_css($files, $min_file = null, $group = 'global')
 	{
 		Asset::css($files, $min_file, $group);
 		
 		return $this;
 	}
 	
-	public function append_js($files, $min_file = null, $group = 'extra')
+	public function append_js($files, $min_file = null, $group = 'global')
 	{
 		Asset::js($files, $min_file, $group);
 		
