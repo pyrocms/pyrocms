@@ -1,29 +1,25 @@
 
 <?php foreach($plugins as $group): ?>
 	<?php foreach ($group as $plugin): ?>
-		<div id="<?php echo $plugin['slug'] ?>">
-			<section class="method-area">
+		<div id="plugin-<?php echo $plugin['slug'] ?>" class="modal hide fade" role="dialog" tabindex="-1" aria-labelledby="plugin-<?php echo $plugin['slug'] ?>" aria-hidden="true">
+			<section class="method-area modal-body">
 				<?php if ($plugin['self_doc'] and $plugin['self_doc']): ?>
 					<?php foreach ($plugin['self_doc'] as $method => $doc): ?>
 						<div class="method">
-							<h1><?php echo $plugin['slug'].':'.$method ?></h1>
+							<h2><?php echo $plugin['slug'].':'.$method ?></h2>
 							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
 <pre>
-<code>
 <?php if (isset($doc['single']) and $doc['single']): ?>
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
-
 <?php endif ?>
 <?php if (isset($doc['double']) and $doc['double']): ?>
-
 {{ <?php echo $plugin['slug'].':'.$method ?> }}
     <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
 {{ /<?php echo $plugin['slug'].':'.$method ?> }}
 <?php endif; ?>
-</code>
 </pre>
 							<?php if (isset($doc['attributes']) and $doc['attributes']): ?>
-								<table cellpadding="0" cellspacing="0">
+								<table class="table table-bordered table-striped">
 									<tbody>
 										<tr>
 											<th>Name</th>
