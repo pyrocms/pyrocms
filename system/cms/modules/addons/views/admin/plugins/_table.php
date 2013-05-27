@@ -16,11 +16,11 @@
 		<td width="60%"><?php echo $plugin['description'] ?></td>
 		<td><?php echo $plugin['version'] ?></td>
 		<td><?php if ($plugin['self_doc']): ?>
-			<a data-inline-modal="#<?php echo $plugin['slug'] ?>" 
-				href="<?php echo site_url('#') ?>" 
+			<a  href="#plugin-<?php echo $plugin['slug'] ?>" 
 				title="<?php echo lang('global:preview')?>" 
-				class="icon-search ti" 
-				style="margin-right:8px;"></a>
+				class="icon-search ti"
+				role="button"
+				data-toggle="modal">&nbsp;</a>
 			<?php endif ?>
 		</td>
 	</tr>

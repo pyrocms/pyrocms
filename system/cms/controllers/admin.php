@@ -123,6 +123,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->set_layout('modal', 'admin')
 			->set('help', $this->module_m->help($slug))
+			->set('module', $this->module_m->get($slug))
 			->build('admin/partials/help');
 	}
 
