@@ -120,9 +120,10 @@ class Admin extends Admin_Controller
 	 */
 	public function help($slug)
 	{
-		$this->template
-			->set_layout('modal', 'admin')
-			->set('help', $this->module_m->help($slug))
+		// Unset the layout if request is ajax
+		$this->input->is_ajax_request() ? $this->template->set_layout(false) : $this->template->set_layout('modal', 'admin');
+		
+		$this->template->set('help', $this->module_m->help($slug))
 			->set('module', $this->module_m->get($slug))
 			->build('admin/partials/help');
 	}
