@@ -86,23 +86,17 @@ class Widget_Latest_posts extends Widgets
 			->limit($options['limit'])
 			->get_many_by(array('status' => 'live'));
 			
-			// set final returned array if there are no results. Checked in the view (This stops the OhMaGerd PHP error notice)
-			$returned_widget = array();
-			
 		// If results	
 		if (! empty ($blog_widget) )
 		{
 			// loop through the array
-			foreach ($blog_widget as $post_widget) 
+			foreach ($blog_widget as &$post_widget) 
 			{
 				// limit characters to the user's preference if we have results
 				$post_widget->body = substr(strip_tags($post_widget->body), 0, $options['characters']);
-				
-				// add it to the final returned array
-				$returned_widget[] = $post_widget;
 			}
 		}
 		// returns the variables to be used within the widget's view
-		return array('blog_widget' => $returned_widget);
+		return array('blog_widget' => $blog_widget);
 	}
 }
