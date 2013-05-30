@@ -10,7 +10,7 @@ use Pyro\Module\Addons\AbstractModule;
  */
 class Module_Widgets extends AbstractModule
 {
-	public $version = '1.2.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
@@ -71,7 +71,6 @@ class Module_Widgets extends AbstractModule
 			'skip_xss' => true,
 
 			'sections' => array(
-
 			    'instances' => array(
 				    'name' => 'widgets:instances',
 				    'uri' => 'admin/widgets',
@@ -110,15 +109,15 @@ class Module_Widgets extends AbstractModule
 			$table->integer('created_on');
 			$table->integer('updated_on')->nullable();
 
-			// $table->foreign('widget_id'); // TODO: Need more documentation to make this work.
-			// $table->foreign('widget_area_id'); // TODO: Need more documentation to make this work.
+			$table->index('widget_id');
+			$table->index('widget_area_id');
 		});
 
 		$schema->dropIfExists('widgets');
 		$schema->create('widgets', function ($table) {
 			$table->increments('id');
 			$table->string('slug');
-			$table->string('name');
+			$table->text('name');
 			$table->text('description');
 			$table->string('author')->nullable();
             $table->string('author_website')->nullable();
