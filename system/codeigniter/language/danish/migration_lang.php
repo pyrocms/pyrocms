@@ -1,12 +1,17 @@
 <?php
 
-$lang['migration_none_found']			= "No migrations were found.";
-$lang['migration_not_found']			= "This migration could not be found: %d.";
-$lang['migration_multiple_version']		= "This are multiple migrations with the same version number: %d.";
-$lang['migration_class_doesnt_exist']	= "The migration class \"%s\" could not be found.";
-$lang['migration_missing_up_method']	= "The migration class \"%s\" is missing an 'up' method.";
-$lang['migration_missing_down_method']	= "The migration class \"%s\" is missing an 'down' method.";
-$lang['migration_invalid_filename']		= "Migration \"%s\" has an invalid filename.";
+$lang['migration_none_found']			= "Ingen migrations blev fundet.";
+
+$lang['migration_not_found']			= "Denne migration kunne ikke findes: %d.";
+
+$lang['migration_multiple_version']		= "Der er flere migrations med det samme versions nummer: %d.";
+
+$lang['migration_class_doesnt_exist']	= "Migration classen \"%s\" kunne ikke findes.";
+
+$lang['migration_missing_up_method']	= "Migration classen \"%s\" mangler en 'up' metode.";
+
+$lang['migration_missing_down_method']	= "Migration classen \"%s\" mangler en 'down' metode.";
+$lang['migration_invalid_filename']		= "Migration \"%s\" har et ugyldigt filnavn.";
 
 
 /* End of file migration_lang.php */
