@@ -96,19 +96,19 @@ class Streams_m extends CI_Model
 	private function run_cache()
 	{
 		foreach ($this->pdb->table($this->table)->get() as $stream) {
-			if (trim($stream->view_options) == '') {
-				$stream->view_options = array();
+			if (trim($stream['view_options']) == '') {
+				$stream['view_options'] = array();
 			} else {
-				$stream->view_options = unserialize($stream->view_options);
+				$stream['view_options'] = unserialize($stream['view_options']);
 
 				// Just in case we get bad data
-				if ( ! is_array($stream->view_options)) {
-					$stream->view_options = array();
+				if ( ! is_array($stream['view_options'])) {
+					$stream['view_options'] = array();
 				}
 			}
 
-			$this->streams_cache[$stream->id] = $stream;
-			$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
+			$this->streams_cache[$stream['id']] = $stream;
+			$this->streams_cache['ns'][$stream['stream_namespace']][$stream['stream_slug']] = $stream;
 		}
 
 	}
