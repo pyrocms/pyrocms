@@ -12,7 +12,7 @@ use Pyro\Model\Eloquent;
  */
 class WidgetInstanceModel extends Eloquent
 {
-	/**
+    /**
      * Define the table name
      *
      * @var string
@@ -24,7 +24,7 @@ class WidgetInstanceModel extends Eloquent
      *
      * @var array
      */
-    protected $guarded = array();
+    protected $guarded = array('id', 'options', 'order', 'created_on', 'updated_on');
 
     /**
      * Disable updated_at and created_at on table
@@ -51,6 +51,34 @@ class WidgetInstanceModel extends Eloquent
     public function widget()
     {
         return $this->belongsTo('Pyro\Module\Addons\WidgetModel');
+    }
+
+    /**
+     * Array containing the validation rules
+     *
+     * @var array
+     */
+    public function validate()
+    {
+        ci()->load->library('form_validation');
+
+        $rules = array(
+            array(
+                'field' => 'name',
+                'label' => 'lang:widgets:widget_area_name',
+                'rules' => 'trim|required|max_length[100]'
+            ),
+            array(
+                'field' => 'slug',
+                'label' => 'lang:widgets:widget_area_slug',
+                'rules' => 'trim|required|alpha_dash|max_length[100]'
+            ),
+        );
+        
+        ci()->form_validation->set_rules($rules);
+        ci()->form_validation->set_data($this->toArray());
+
+        return ci()->form_validation->run();
     }
 
 	public function insert_instance($input)
@@ -83,15 +111,6 @@ class WidgetInstanceModel extends Eloquent
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
 			'updated_on'		=> time()
-		));
-	}
-
-	public function update_instance_order($id, $order)
-	{
-		$this->db->where('id', $id);
-
-		return $this->db->update('widget_instances', array(
-        	'order' => (int) $order
 		));
 	}
 

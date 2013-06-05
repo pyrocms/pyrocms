@@ -44,20 +44,30 @@ class WidgetAreaModel extends Eloquent
     }
 
     /**
-	 * Find By Slug With Instances
-	 *
-	 * Find an area, along with all of its instances
-	 *
-	 * @param  string $slug 
-	 * @return string
-	 */
-	public function findBySlugWithInstances($slug)
-	{
-		return $this
-			->with('instances', 'instances.widget')
-			->where('slug', '=', $slug)
-			->take(1)
-			->first();
-	}
+     * Find all areas, along with all of their instances
+     *
+     * @return string
+     */
+    public function findAllWithInstances()
+    {
+        return $this
+            ->with('instances', 'instances.widget')
+            ->get();
+    }
+
+    /**
+     * Find an area, along with all of its instances
+     *
+     * @param  string $slug
+     * @return string
+     */
+    public function findBySlugWithInstances($slug)
+    {
+        return $this
+            ->with('instances', 'instances.widget')
+            ->where('slug', '=', $slug)
+            ->take(1)
+            ->first();
+    }
 
 }
