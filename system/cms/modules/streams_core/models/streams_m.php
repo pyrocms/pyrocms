@@ -464,10 +464,10 @@ class Streams_m extends CI_Model
 
 		$stream = $query->take(1)->first();
 
-		if ( ! isset($stream->view_options) or trim($stream->view_options) == '') {
-			$stream->view_options = array();
+		if ( ! isset($stream['view_options']) or trim($stream['view_options']) == '') {
+			$stream['view_options'] = array();
 		} else {
-			$stream->view_options = unserialize($stream->view_options);
+			$stream['view_options'] = unserialize($stream['view_options']);
 		}
 
 		// Save to cache
