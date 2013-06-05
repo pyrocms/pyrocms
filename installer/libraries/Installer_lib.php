@@ -220,8 +220,12 @@ class Installer_lib
 			'collation' => $config['collation'],
         ));
 
+        // Set the fetch mode FETCH_CLASS so we 
+        // get objects back by default.
+        $capsule->setFetchMode(PDO::FETCH_CLASS);
+        
         $capsule->bootEloquent();
-
+        
         $capsule->setAsGlobal();
 
 		// Connect using the Laravel Database component

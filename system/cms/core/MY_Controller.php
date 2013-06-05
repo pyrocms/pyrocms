@@ -263,6 +263,10 @@ class MY_Controller extends MX_Controller
                 'collation' => $config["dbcollat"],
             ));
 
+            // Set the fetch mode FETCH_CLASS so we 
+            // get objects back by default.
+            $capsule->setFetchMode(PDO::FETCH_CLASS);
+
             // Setup the Eloquent ORM
             $capsule->bootEloquent();
 
