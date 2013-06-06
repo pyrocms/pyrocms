@@ -107,7 +107,7 @@ class WidgetManager
     }
 
     /**
-     * Return an array of objects containing module related data
+     * Return an array of objects containing widget related data
      *
      * @param   array   $params             The array containing the modules to load
      * @param   bool    $return_disabled    Whether to return disabled modules
@@ -133,7 +133,7 @@ class WidgetManager
      */
     public function registerUnavailableWidgets()
     {
-        $available = $this->widgets->findAllInstalled()->map(function($widget) {
+        $installed = $this->widgets->findAllInstalled()->map(function($widget) {
             return $widget->slug;
         })->toArray();
 
@@ -141,8 +141,8 @@ class WidgetManager
 
             $slug = basename($location);
 
-            if ( ! in_array($slug, $available)) {
-                $widget = $this->spawnClass($location, $slug);
+            if (! in_array($slug, $installed)) {
+                $widget = $this->spawnClass(dirname($location), $slug);
 
                 if ($widget !== false and $widget instanceof WidgetAbstract) {
                     $this->register($widget, $slug);
@@ -174,7 +174,8 @@ class WidgetManager
     }
 
     /**
-     * Spawn a widget and get some basic information back, such as the module and wether its an addon or not
+     * Spawn a widget and get some basic information back, such as the module 
+     * and wether its an addon or not
      *
      * <code>
      * echo $this->widgets->get($id);
@@ -244,7 +245,7 @@ class WidgetManager
             ->get('widgets');
 
         if ($result->row()->enabled == 1) {
-            return $this->loadView('display', $data);
+            return $this->loadView('display', $widget, $data);
         }
     }
 
@@ -276,8 +277,7 @@ class WidgetManager
                     $_arrays[] = $key;
                 }
             }
-            $options[$field_name] = set_value($field_name, isset($saved_data[$field_name]) ? $saved_data[$field_name] : '');
-            unset($saved_data[$field_name]);
+            $options[$field_name] = set_value($field_name, isset($instance->options[$field_name]) ? $instance->options[$field_name] : '');
         }
 
         // Check for default data if there is any
@@ -288,7 +288,7 @@ class WidgetManager
             $data['options'] = $options;
         }
 
-        return $this->loadView('form', $data);
+        return $this->loadView('form', $widget, $data);
     }
 
     /**
@@ -336,16 +336,16 @@ class WidgetManager
             if ($instance->body !== false) {
 
                 // add this view location to the array
-                $this->load->set_view_path($path);
+                ci()->load->set_view_path($path);
 
-                $output .= $this->load->_ci_load(array(
+                $output .= ci()->load->_ci_load(array(
                     '_ci_view' => $view, 
                     '_ci_vars' => array('widget' => $widget), 
                     '_ci_return' => true
                 ))."\n";
 
                 // Put the old array back
-                $this->load->set_view_path($save_path);
+                ci()->load->set_view_path($save_path);
             }
         }
 
@@ -377,66 +377,16 @@ class WidgetManager
         ));
     }
 
-
-    public function add_instance($title, $widget_id, $widget_area_id, $options = array(), $data = array())
+    public function validate(WidgetAbstract $widget)
     {
-        $slug = $this->get_widget($widget_id)->slug;
-
-        if ($error = $this->validate($slug, $data)) {
-            return array('status' => 'error', 'error' => $error);
-        }
-
-        // The widget has to do some stuff before it saves
-        $options = $this->widgets->prepareOptions($slug, $options);
-
-        $this->widgets->create(array(
-            'title' => $title,
-            'widget_id' => $widget_id,
-            'widget_area_id' => $widget_area_id,
-            'options' => $options,
-            'data' => $data
-        ));
-
-        return array('status' => 'success');
-    }
-
-    public function edit_instance($instance_id, $title, $widget_area_id, array $options = array(), array $data = array())
-    {
-        $widget = $this->widgets->find($instance_id);
-
-        if (( ! $widget)) {
-            return false;
-        }
-
-        if ($error = $this->validate($widget->slug, $data)) {
-            return array('status' => 'error', 'error' => $error);
-        }
-
-        // The widget has to do some stuff before it saves
-        $options = $this->widgets->prepareOptions($slug, $options);
-
-        $this->widgets->create($instance_id, array(
-            'title' => $title,
-            'widget_area_id' => $widget_area_id,
-            'options' => $options,
-            'data' => $data
-        ));
-
-        return array('status' => 'success');
-    }
-
-    public function validate(WidgetAbstract $widget, WidgetInstanceModel $instance)
-    {
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
+        ci()->load->library('form_validation');
+        ci()->form_validation->set_rules('name', lang('global:title'), 'trim|required|max_length[100]');
 
         if (property_exists($widget, 'fields')) {
-            $this->form_validation->set_rules($widget->fields);
+            ci()->form_validation->set_rules($widget->fields);
         }
 
-        if ( ! $this->form_validation->run('', false)) {
-            return validation_errors();
-        }
+        return ci()->form_validation->run('', false);
     }
 
     public function prepareOptions(WidgetAbstract $widget, WidgetInstanceModel $instance)
@@ -460,33 +410,37 @@ class WidgetManager
      */
     protected function spawnClass($location, $slug)
     {
-        $path = "{$location}/{$slug}.php";
+        $widget_path = rtrim($location, '/')."/{$slug}/";
+        $class_path = $widget_path."{$slug}.php";
 
-        if ( ! file_exists($path)) {
+        if ( ! file_exists($class_path)) {
+            // throw new Exception("Widget {$slug} does not exist in {$location}.");
             return false;
         }
     
-        require_once $path;
+        require_once $class_path;
         $class_name = 'Widget_'.ucfirst(strtolower($slug));
 
-        $widget = new $class_name;
-        $widget->path = $path;
+        $widget = new $class_name();
+        $widget->path = $widget_path;
 
         return $widget;
     }
 
-    protected function loadView(WidgetAbstract $widget, $view, $data = array())
+    protected function loadView($view, WidgetAbstract $widget, array $data = array())
     {
+        $view_path = $widget->path.'views/'.$view.'.php';
+
         return $view == 'display'
 
-            ? $this->parser->parse_string($this->load->_ci_load(array(
-                '_ci_path'      => $widget->path.'views/'.$view.'.php',
+            ? $this->parser->parse_string(ci()->load->_ci_load(array(
+                '_ci_path'      => $view_path,
                 '_ci_vars'      => $data,
                 '_ci_return'    => true
             )), array(), true)
 
-            : $this->load->_ci_load(array(
-                '_ci_path'      => $widget->path.'views/'.$view.'.php',
+            : ci()->load->_ci_load(array(
+                '_ci_path'      => $view_path,
                 '_ci_vars'      => $data,
                 '_ci_return'    => true
             ));

@@ -11,8 +11,8 @@
 
     <ol>
         <li>
-            <label for="title"><?php echo lang('widgets:instance_title') ?>:</label>
-            <?php echo form_input('title', set_value('title', $instance->title)) ?>
+            <label for="name"><?php echo lang('widgets:instance_title') ?>:</label>
+            <?php echo form_input('name', set_value('name', $instance->name)) ?>
             <span class="required-icon tooltip"><?php echo lang('required_label') ?></span>
         </li>
 

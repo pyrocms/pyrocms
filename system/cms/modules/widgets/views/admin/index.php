@@ -28,7 +28,7 @@
 	</section>
 	<section class="item">
 		<div class="content">
-			<?php if ($widget_areas): ?>
+			<?php if ($areas): ?>
 			<!-- Available Widget Areas -->
 			<div id="widget-areas-list">
 				<?php $this->load->view('admin/areas/index', compact('widget_areas')) ?>

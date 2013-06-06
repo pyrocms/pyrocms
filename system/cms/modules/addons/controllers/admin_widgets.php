@@ -33,10 +33,6 @@ class Admin_Widgets extends Admin_Controller
 		if ($this->input->is_ajax_request()) {
 			$this->template->set_layout(false);
 		}
-
-		$this->template
-			->append_js('module::widgets.js')
-			->append_css('module::widgets.css');
 	}
 
 	/**

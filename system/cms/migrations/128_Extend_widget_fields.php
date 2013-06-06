@@ -27,6 +27,14 @@ class Migration_Extend_widget_fields extends CI_Migration
             ),
         ));
 
+        $this->dbforge->modify_column('widget_instances', array(
+            'title' => array(
+                'name' => 'name',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ),
+        ));
+
         $schema = $this->pdb->getSchemaBuilder();
 
         $schema->table('widgets', function($table) {
@@ -45,6 +53,14 @@ class Migration_Extend_widget_fields extends CI_Migration
         ));
 
         $this->dbforge->modify_column('widget_areas', array(
+            'name' => array(
+                'name' => 'title',
+                'type' => 'varchar',
+                'constraint' => 255,
+            ),
+        ));
+
+        $this->dbforge->modify_column('widget_instances', array(
             'name' => array(
                 'name' => 'title',
                 'type' => 'varchar',

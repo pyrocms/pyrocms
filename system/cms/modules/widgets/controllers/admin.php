@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Addons\WidgetInstanceModel;
+
 /**
  * Admin controller for widgets instances.
  *
@@ -54,8 +56,8 @@ class Admin extends Admin_Controller
         $areas = $this->widgetAreas->findAllWithInstances();
 
         $this->template
-            ->name($this->module_details['name'])
-            ->set('widget_areas', $areas)
+            ->title($this->module_details['name'])
+            ->set('areas', $areas)
             ->set('available_widgets', $available_widgets)
             ->build('admin/index');
     }
@@ -66,11 +68,16 @@ class Admin extends Admin_Controller
      * @param str $slug The slug of the widget
      * @return void
      */
-    public function ajax_instances($slug = '')
+    public function ajax_instances($slug = null)
     {
-        $widgets = $this->widgets->list_area_instances($slug);
+        if (! $slug) {
+            set_status_header(404);
+            return;
+        }
 
-        $this->load->view('admin/ajax/instance/index', array('widgets' => $widgets));
+        $area = $this->widgetAreas->findBySlug($slug);
+
+        $this->load->view('admin/ajax/instance/index', array('instances' => $area->instances));
     }
 
     /**
@@ -80,47 +87,61 @@ class Admin extends Admin_Controller
      */
     public function create($slug = '')
     {
-        if ( ! ($slug and $widget = $this->widgets->findBySlug($slug))) {
+        if (! $slug) {
             set_status_header(404);
             return;
         }
 
-        $data = array();
+        $widget = $this->widgetManager->get($slug);
 
-        if ($input = $this->input->post()) {
+        if (! $widget) {
+            set_status_header(404);
+            return;
+        }
 
-            $name           = $input['name'];
-            $widget_id      = $input['widget_id'];
-            $widget_area_id = $input['widget_area_id'];
 
-            $options = array_diff(array('name' => 1, 'widget_id' => 1, 'widget_area_id' => 1), $input);
+        // Empty, fresh and clean
+        $instance = new WidgetInstanceModel;
 
-            // Create the widget with basic info
-            $instance = $this->widgets->create(compact('name', 'widget_id', 'widget_area_id', 'options'));
+        // Process the form
+        if ($this->input->method() === 'post') {
 
-            if ($result['status'] === 'success') {
-                // Fire an event. A widget instance has been created. pass the widget id
-                Events::trigger('widget_instance_created', $widget_id);
+            $instance->name           = $this->input->post('name');
+            $instance->widget_id      = $this->input->post('widget_id');
+            $instance->widget_area_id = $this->input->post('widget_area_id');
+            $instance->created_on     = time();
+
+            $options = $this->input->post();
+            unset($options['name'], $options['widget_id'], $options['widget_area_id']);
+
+            $instance->options = $options;
+
+            if ($this->widgetManager->validate($widget) and $widget->save()) {
+
+                // Pass the widget instance to the widget_instance_created event
+                Events::trigger('widget_instance_created', $instance);
 
                 $status     = 'success';
                 $message    = lang('success_label');
 
-                $area = $this->widgets->get_area($widget_area_id);
             } else {
                 $status     = 'error';
                 $message    = $result['error'];
             }
 
             if ($this->input->is_ajax_request()) {
+                
                 $data = array();
+                if ($status === 'success') {
+                    $data['messages'][$status] = $message;
+                }
 
-                $status === 'success' AND $data['messages'][$status] = $message;
                 $message = $this->load->view('admin/partials/notices', $data, true);
 
                 return $this->template->build_json(array(
                     'status'    => $status,
                     'message'   => $message,
-                    'active'    => (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
+                    'active'    => ($instance->area ? '#area-' . $instance->area->slug . ' header' : false)
                 ));
             }
 
@@ -130,16 +151,20 @@ class Admin extends Admin_Controller
                 return;
             }
 
-            $data['messages'][$status] = $message;
+            $this->template->set('messages', array($status => $message));
         }
 
         // Use the Widget Manager to render HTML for the form
         $form = $this->widgetManager->renderBackend($widget, $instance);
 
+        // Record, not the class file
+        $widget_record = $this->widgets->findBySlug($slug);
+
         $this->template
-            ->set('widget', $widget)
+            ->set('widget', $widget_record)
             ->set('form', $form)
-            ->build('admin/instances/form', $data);
+            ->set('instance', $instance)
+            ->build('admin/instances/form');
     }
 
     /**
@@ -149,7 +174,7 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-        if ( ! ($id && $widget = $this->widgets->find($id))) {
+        if ( ! ($id and $widget = $this->widgets->find($id))) {
             // @todo: set error
             return false;
         }
@@ -219,7 +244,10 @@ class Admin extends Admin_Controller
      */
     public function delete($id = 0)
     {
-        if ($this->widgets->delete_instance($id)) {
+        $instance = $this->widgetInstances->find($id);
+
+        if ($instance and $instance->delete()) {
+
             // Fire an event. A widget instance has been deleted.
             Events::trigger('widget_instance_deleted', $id);
 
@@ -231,9 +259,7 @@ class Admin extends Admin_Controller
         }
 
         if ($this->input->is_ajax_request()) {
-            $data = array();
-
-            $data['messages'][$status] = $message;
+            $data = array('messages' => array($status => $message));
             $message = $this->load->view('admin/partials/notices', $data, true);
 
             return $this->template->build_json(array(
