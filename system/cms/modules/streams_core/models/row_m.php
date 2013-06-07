@@ -349,6 +349,7 @@ class Row_m extends MY_Model {
 			foreach ($stream_fields as $field_slug => $stream_field)
 			{
 				if ( ! in_array($field_slug, $disable)
+						and isset($stream_field->field_type)
 						and isset($this->type->types->{$stream_field->field_type})
 						and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
 				{
