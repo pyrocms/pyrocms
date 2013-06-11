@@ -11,86 +11,86 @@ $lang['installer.passwords_match']		= 'Les mots de passe correspondent.';
 $lang['installer.passwords_dont_match']	= 'Les mots de passe ne correspondent pas.';
 
 // labels
-$lang['step1_header']			=	'Step 1: Configure Database and Server';
-$lang['step1_intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://www.pyrocms.com/contact" target="_blank">contact us</a> for support.';
+$lang['step1_header']			=	'Étape 1&nbsp;: Configurer la base de données et le serveur';
+$lang['step1_intro_text']		=	'PyroCMS est très simple à installer, ceci ne prends que quelques minutes. Cependant certaines question peuvent être déroutantes si vous n\'avez pas suffisament de connaissances techniques. Si vous rencontrez des difficultés contacter votre hébergeur ou <a href="http://www.pyrocms.com/contact" target="_blank">contactez nous</a>.';
 
-$lang['db_driver']		=	 'Database Driver';
-$lang['mysql_about']    =    'MySQL is the world\'s most used open-source database. It is fast, popular and installed on the majority of web servers.';
-$lang['use_mysql']		= 	 'Use MySQL';
-$lang['pgsql_about'] 	=    'PostgreSQL is a popular alternative to MySQL. It is often slightly quicker but is installed on less servers by default.';
-$lang['use_pgsql']		= 	 'Use PostgreSQL';
-$lang['sqlite_about']   =    'SQLite is a lightweight file-based SQL engine, which installed on many servers and part of PHP as of PHP 5.3.';
-$lang['use_sqlite']		= 	 'Use SQLite';
+$lang['db_driver']		=	 'Choisissez votre base de données';
+$lang['mysql_about']    =    'MySQL est la base de données open-source la plus utilisée dans le monde. Elle est rapide, populaire et installé sur la majorité des serveurs web.';
+$lang['use_mysql']		= 	 'Utilisez MySQL';
+$lang['pgsql_about'] 	=    'PostgreSQL est une alternative à MySQL. Il est souvent un peu plus rapide, mais moins souvent installé par défaut par les hébergeurs.';
+$lang['use_pgsql']		= 	 'Utilisez PostgreSQL';
+$lang['sqlite_about']   =    'SQLite est un moteur SQL basé sur un fichier léger. Souvent installé par défaut sur les serveurs, PHP l\'intègre d\'ailleurs à partir de la version 5.3.';
+$lang['use_sqlite']		= 	 'Utilisez SQLite';
 
 $lang['not_available']		= 	 'Not Available';
 
-$lang['db_settings']		=	'Settings';
-$lang['db_server']			=	'Hostname';
-$lang['db_location']		=	'Location';
-$lang['db_username']		=	'Username';
-$lang['db_password']		=	'Password';
+$lang['db_settings']	=	'Paramètres de la base de données';
+$lang['db_server']			=	'Nom d\'hôte';
+$lang['db_location']		=	'Chemin du fichier de votre base de données';
+$lang['db_username']		=	'Nom d\'utilisateur';
+$lang['db_password']		=	'Mot de passe';
 $lang['db_portnr']			=	'Port';
-$lang['db_database']		=	'Database Name';
-$lang['db_create']			=	'Create Database';
-$lang['db_notice']			=	'You might need to do this yourself';
+$lang['db_database']		=	'Base de données';
+$lang['db_create']			=	'Créer la base de données';
+$lang['db_notice']			=	'Vous devez peut être effectuer cette action vous même via la panneau de configuration de votre hébergement';
 
-$lang['server_settings']	=	'Server Settings';
-$lang['httpserver']			=	'HTTP Server';
+$lang['server_settings']=	'Paramètres serveur';
+$lang['httpserver']		=	'Serveur HTTP';
 
-$lang['httpserver_text']	=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if we know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.';
-$lang['rewrite_fail']		=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']		=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
-$lang['step2']				=	'Step 2';
+$lang['httpserver_text']=	'PyroCMS requiert un serveur HTTP pour afficher dynamiquement du contenu quand un utilisateur viens sur votre site web. Il semble que vous disposez déjà d\'un serveur vu que vous affichez cette page, si vous connaissez précisemment le type de serveur alors PyroCMS peut effectuer une configuration automatique. Si vous ne connaissez pas le type de serveur utilisé alors ignorez cette partie et continuez l\'installation.';
+$lang['rewrite_fail']	=	'Vous avez sélectionné "(Apache with mod_rewrite)" mais nous ne pouvons confirmer que mod_rewrite est activé sur votre serveur. Demandez à votre hébergeur si mod_rewrite est bien activé ou continuez l\'installation à vos propres risques.';
+$lang['mod_rewrite']	=	'Vous avez sélectionné "(Apache with mod_rewrite)" mais votre serveur ne possède pas le module rewrite activé. Demandez à votre hébergeur de l\'activer ou installez PyroCMS en utilisant l\'option "(Apache without mod_rewrite)"';
+$lang['step2']			=	'Étape 2';
 
 // messages
-$lang['db_success']			=	'The database settings are tested and working fine.';
-$lang['db_failure']			=	'Problem connecting to the database: ';
+$lang['db_success']		=	'Les paramètres de la base de données ont été testés et fonctionnent correctement';
+$lang['db_failure']		=	'Problème de connexion à la base de données&nbsp;: ';
 
 // labels
-$lang['step2_header']			=	'Step 2: Check Requirements';
-$lang['step2_intro_text']		= 	'The second step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
-$lang['mandatory']		= 	'Mandatory';
-$lang['recommended']	= 	'Recommended';
+$lang['step2_header']			=	'Étape 2&nbsp;: Vérification des exigences';
+$lang['step2_intro_text']		= 	'La première étape de l\'installation va vérifier si votre serveur supporte PyroCMS. La plupart des serveurs peuvent lancer cette procédure sans aucun problème.';
+$lang['mandatory']		= 	'Obligatoire';
+$lang['recommended']	= 	'Recommandé';
 
-$lang['server_settings']= 	'HTTP Server Settings';
-$lang['server_version']	=	'Your server software:';
-$lang['server_fail']	=	'Your server software is not supported, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations are up to date PyroCMS should be able to run properly, just without clean URL\'s.';
+$lang['server_settings']= 	'Paramètres serveur HTTP';
+$lang['server_version']	=	'Les logiciels de votre serveur&nbsp;:';
+$lang['server_fail']	=	'Les logiciels de votre serveur ne sont pas supportés, PyroCMS peut ou ne peut pas fonctionner. Tant que votre PHP et votre MySQL n\'est pas mis à jour. PyroCMS devrait être en mesure de fonctionner correctement, il suffit de nettoyer les URL.';
 
-$lang['php_settings']	=	'PHP Settings';
-$lang['php_required']	=	'PyroCMS requires PHP version %s or higher.';
-$lang['php_version']	=	'Your server is currently running version';
-$lang['php_fail']		=	'Your PHP version is not supported. PyroCMS requires PHP version %s or higher to run properly.';
+$lang['php_settings']	=	'Paramètres PHP';
+$lang['php_required']	=	'PyroCMS nécessite la version PHP %s ou supérieure.';
+$lang['php_version']	=	'Votre serveur a la bonne version';
+$lang['php_fail']		=	'Votre version de PHP n\'est pas supportée. PyroCMS nécessite la version PHP %s ou supérieure pour fonctionner correctement.';
 
-$lang['mysql_settings']	=	'MySQL Settings';
-$lang['mysql_required']	=	'PyroCMS requires access to a MySQL database running version 5.0 or higher.';
-$lang['mysql_version1']	=	'Your server is currently running';
-$lang['mysql_version2']	=	'Your client is currently running';
-$lang['mysql_fail']		=	'Your MySQL version is not supported. PyroCMS requires MySQL version 5.0 or higher to run properly.';
+$lang['mysql_settings']	=	'Paramètres MySQL';
+$lang['mysql_required']	=	'PyroCMS nécessite un accès à une base de données MySQL en version 5.0 ou supérieure.';
+$lang['mysql_version1']	=	'Votre serveur a la bonne version';
+$lang['mysql_version2']	=	'Votre client a la bonne version';
+$lang['mysql_fail']		=	'Votre version de MySQL n\'est pas supportée. PyroCMS nécéssite MySQL version 5.0 ou supérieure pour fonctionner correctement.';
 
-$lang['gd_settings']	=	'GD Settings';
-$lang['gd_required']	= 	'PyroCMS requires GD library 1.0 or higher to manipulate images.';
-$lang['gd_version']		= 	'Your server is currently running version';
-$lang['gd_fail']		=	'We cannot determine the version of the GD library. This usually means that the GD library is not installed. PyroCMS will still run properly but some of the image functions might not work. It is highly recommended to enable the GD library.';
+$lang['gd_settings']	=	'Paramètres GD';
+$lang['gd_required']	= 	'PyroCMS nécessite la librairie GD 1.0 ou supérieur pour manipuler les images.';
+$lang['gd_version']		= 	'Votre serveur a la bonne version';
+$lang['gd_fail']		=	'Nous ne pouvons pas déterminer la version de la librairie GD. Cela signifie que GD n\'est pas installé. PyroCMS peut tourner correctement sur votre serveur, mais certaines actions sur les images ne seront pas possibles. Il est vivement recommandé d\'activer la librairie GD.';
 
-$lang['summary']		=	'Summary';
+$lang['summary']		=	'Résumé';
 
 $lang['zlib']			=	'Zlib';
-$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.';
-$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.';
+$lang['zlib_required']	= 	'PyroCMS nécessite Zlib afin de désarchiver et installer les thèmes.';
+$lang['zlib_fail']		=	'Zlib n\'as pas été trouvé. Cela indique habituellement que Zlib n\'est pas installé. PyroCMS fonctionnera correctement, cependant l\'installation des thèmes ne fonctionnera pas. Il est vivement recommandé d\'installer Zlib.';
 
 $lang['curl']			=	'Curl';
-$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.';
-$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.';
+$lang['curl_required']	=	'PyroCMS requiert Curl afin de se connecter à d\'autres sites.';
+$lang['curl_fail']		=	'Curl n\'as pas été trouvé. Cela indique habituellement que Curl n\'est pas installé. PyroCMS fonctionnera correctement, cependant certaines fonctions ne fonctionneront pas. Il est vivement recommandé d\'activé la librairie Curl.';
 
-$lang['summary_success']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
-$lang['summary_partial']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
-$lang['summary_failure']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
-$lang['next_step']		=	'Proceed to the next step';
-$lang['step3']			=	'Step 3';
-$lang['retry']			=	'Try again';
+$lang['summary_success']	=	'Votre serveur est prêt pour l\'installation de PyroCMS, cliquez sur le bouton ci-dessous pour passer à la prochaine étape.';
+$lang['summary_partial']	=	'Votre serveur contient quasiment tous les logiciels nécessaires à l\'installation de PyroCMS. Cela signifie vous pouvez lancer l\'installation, mais vous pourriez rencontrer des problèmes lors de la redimension d\'image et la création de vignette.';
+$lang['summary_failure']	=	'Il semblerait que votre serveur ne puisse pas installé PyroCMS. Merci de contacter votre administrateur serveur ou votre hébergeur pour résoudre ce problème..';
+$lang['next_step']		=	'Passer à la prochaine étape';
+$lang['step3']			=	'Étape 3';
+$lang['retry']			=	'Essayez encore';
 
 // messages
-$lang['step1_failure']	=	'Please fill in the required database settings in the form below..';
+$lang['step1_failure']	=	'Merci de remplir les champs obligatoires pour les paramètres de la base de données dans le formulaire ci-dessous...';
 
 // labels
 $lang['step3_header']			=	'Étape 3&nbsp;: Définir les permissions';
