@@ -35,7 +35,7 @@
 		<div class="topbar">
 			<div class="wrapper">
 			<div id="logo">
-				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
+				<img src="<?php echo base_url(); ?>assets/img/logo.png" alt="PyroCMS" />
 			</div>
 			<ul id="lang">
 				<?php foreach($language_nav as $lang => $info):?>
