@@ -16,6 +16,9 @@
   	<meta name="author" content="Scott Parry - iKreativ">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
+	
+	<!-- meta keywords, description, .. -->
+	{{ template:metadata in="header" }}
 
   	<!-- Mobile viewport optimized -->
   	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -40,8 +43,8 @@
   	{{ theme:js file="libs/modernizr.js" }}
   	{{ theme:js file="libs/jquery.js" }}
 
-	
-	{{ template:metadata }}
+	<!-- extra metadata  js, css inline, ... -->
+	{{ template:metadata in="extra" }}
 	
 	<!-- Google Analytics -->
 	{{ integration:analytics }}

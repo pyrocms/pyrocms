@@ -591,7 +591,7 @@ class Asset {
 			return;
 		}
 
-		self::add_asset('js', $script, $script_min, $group);
+		return self::add_asset('js', $script, $script_min, $group);
 	}
 
 	/**
@@ -614,7 +614,7 @@ class Asset {
 			return;
 		}
 		
-		self::add_asset('css', $sheet, $sheet_min, $group);
+		return self::add_asset('css', $sheet, $sheet_min, $group);
 	}
 
 
@@ -664,6 +664,13 @@ class Asset {
 		}
 
 		array_push(self::$groups[$type][$group]['files'], $files);
+                
+                //return cached tag for pyrochache
+	        if (ENVIRONMENT == PYRO_PRODUCTION)
+	        {
+	            return '<!--cache asset:'.$type.' file="'.$script.'" group="'.$group.'" cache-->';
+	        }
+
 	}
 
 

@@ -101,6 +101,12 @@ class Pages extends Public_Controller
 
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
+		
+		// Load assets from widgets, ... in production mode
+		if (ENVIRONMENT == PYRO_PRODUCTION)
+		{
+		    $page->body = str_replace(array('<!--cache', 'cache-->'), array('{{', '}}'), $page->body);
+		}
 
 		// Setting this so others may use it.
 		$this->template->set('page', $page);
