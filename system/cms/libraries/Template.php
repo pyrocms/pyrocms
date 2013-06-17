@@ -233,7 +233,7 @@ class Template
 
 		$template['breadcrumbs']	= array_merge($this->_breadcrumbs, $this->_override_breadcrumbs);
 
-		$template['metadata']		= $this->get_metadata().Asset::render('extra').$this->get_metadata('late_header');
+		$template['metadata']		= $this->get_metadata('extra').Asset::render('extra').$this->get_metadata('late_header');
 		
 		$template['partials']		= array();
 
@@ -406,6 +406,8 @@ class Template
 		{
 			$this->_override_title = implode($this->_title_separator, $title_segments);
 		}
+		
+		return $this;
 	}
 
 	/**
@@ -414,7 +416,7 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function prepend_metadata($line, $place = 'header')
+	public function prepend_metadata($line, $place = 'extra')
 	{
 		// we need to declare all new key's in _metadata as an
 		// array for the unshift function to work
@@ -434,7 +436,7 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function append_metadata($line, $place = 'header')
+	public function append_metadata($line, $place = 'extra')
 	{
 		$this->_metadata[$place][] = $line;
 
@@ -447,14 +449,14 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function append_css($files, $min_file = null, $group = 'extra')
+	public function append_css($files, $min_file = null, $group = 'global')
 	{
 		Asset::css($files, $min_file, $group);
 		
 		return $this;
 	}
 	
-	public function append_js($files, $min_file = null, $group = 'extra')
+	public function append_js($files, $min_file = null, $group = 'global')
 	{
 		Asset::js($files, $min_file, $group);
 		
@@ -495,58 +497,80 @@ class Template
 	 * 									main meta array?
 	 * @return	object	$this
 	 */
-	public function set_metadata($name, $content, $type = 'meta', $place = 'header', $override = false)
-	{
-		$name = htmlspecialchars(strip_tags($name));
+	    public function set_metadata($name, $content, $type = 'meta', $place = 'header', $override = false)
+	    {
+		
+		// if place or name == extra
+		// return this->append_metadata($content)
+		
+		$name	 = htmlspecialchars(strip_tags($name));
 		$content = trim(htmlspecialchars(strip_tags($content)));
-
+	
 		// Keywords with no comments? ARG! comment them
-		if ($name == 'keywords' and ! strpos($content, ','))
+		if ($name == 'keywords' and !strpos($content, ','))
 		{
-			$content = preg_replace('/[\s]+/', ', ', trim($content));
+		    $content = preg_replace('/[\s]+/', ', ', trim($content));
 		}
-
-		switch($type)
+	
+		switch ($type)
 		{
-			case 'meta':
-
-				$meta = '<meta name="'.$name.'" content="'.$content.'" />';
-
-				if ($override) {
-					$this->_override_meta[$place][$name] = $meta;
-				} else {
-					$this->_metadata[$place][$name] = $meta;
-				}
-					
+		    case 'meta':
+	
+			if ($override)
+			{
+			    $this->_override_meta[$place][$type][$name] = $content;
+			}
+			else
+			{
+			    if(isset($this->_metadata[$place][$type][$name]))
+			    {
+				$this->_metadata[$place][$type][$name] .= $content;
+			    }
+			    else
+			    {
+				$this->_metadata[$place][$type][$name] = $content;
+			    }
+			}
+	
 			break;
-
-			case 'link':
-				
-				$link = '<link rel="'.$name.'" href="'.$content.'" />';
-
-				if ($override) {
-					$this->_override_meta[$place][$content] = $link;
-				} else {
-					$this->_metadata[$place][$content] = $link;
-				}				
+		    
+		    case 'http-equiv':
+			$this->_metadata[$place][$type][$name] = '<meta http-equiv="' . $name . '" content="' . $content . '" />';
+			break;
+		    
+		    case 'link':
+	
+			$link = '<link rel="' . $name . '" href="' . $content . '" />';
+	
+			if ($override)
+			{
+			    $this->_override_meta[$place][$type][$content] = $link;
+			}
+			else
+			{
+			    $this->_metadata[$place][$type][$content] = $link;
+			}
+	
+			break;
+	
+		    case 'og':
 			
-				break;
-
-			case 'og':
-
-				$meta = '<meta property="'.$name.'" content="'.$content.'" />';
-
-				if ($override) {
-					$this->_override_meta[$place][md5($name.$content)] = $meta;
-				} else {
-					$this->_metadata[$place][md5($name.$content)] = $meta;
-				}				
+			$meta = '<meta property="' . $name . '" content="' . $content . '" />';
 			
-				break;
+			if ($override)
+			{
+			    $this->_override_meta[$place][$type][md5($name . $content)] = $meta;
+			}
+			else
+			{
+			    $this->_metadata[$place][$type][md5($name . $content)] = $meta;
+			}
+	
+			break;
 		}
-
+	
 		return $this;
-	}
+	    }
 
 
 	/**
@@ -790,35 +814,65 @@ class Template
 	 * @param 	string 	$place
 	 * @return 	string
 	 */
-	public function get_metadata($place = 'header')
-	{
-		// We are going to set this to a blank array if this
-		// does not exist in the right format, since we are going to
-		// see if any overrides are in place that we can use as well.
-		if ( ! isset($this->_metadata[$place]) or ! is_array($this->_metadata[$place])) {
-			$this->_metadata[$place] = array();
+	    public function get_metadata($place = 'header')
+	    {
+		// append, preppend metadata - extra type
+		if($place == 'extra') 
+		{
+		    return implode("\n\t\t", $this->_metadata['extra']);
 		}
-
-		// Go through any 'header' place overrides
-		if (isset($this->_override_meta[$place])) {
-			foreach ($this->_override_meta[$place] as $key => $meta) {
-
-				// If this already exists, unset it.
-				if (isset($this->_metadata[$place][$key])) {
-					unset($this->_metadata[$place][$key]);
-				}
-
-				$this->_metadata[$place][$key] = $this->_override_meta[$place][$key];
+		
+		$metadata_types = array('meta', 'http-equiv', 'og', 'link');
+	
+		$out = '';
+	
+		foreach ($metadata_types as $metadata_type)
+		{
+		    // We are going to set this to a blank array if this
+		    // does not exist in the right format, since we are going to
+		    // see if any overrides are in place that we can use as well.
+		    if (!isset($this->_metadata[$place][$metadata_type]) or !is_array($this->_metadata[$place][$metadata_type]))
+		    {
+			$this->_metadata[$place][$metadata_type] = array();
+		    }
+	
+		    // Go through any 'header' place overrides
+		    if (isset($this->_override_meta[$place][$metadata_type]))
+		    {
+			foreach ($this->_override_meta[$place] as $type => $metadata_key)
+			{
+	
+			    // If this already exists, unset it.
+			    if (isset($this->_metadata[$place][$type][$metadata_key]))
+			    {
+				unset($this->_metadata[$place][$type][$metadata_key]);
+			    }
+	
+			    $this->_metadata[$place][$type][$metadata_key] = $this->_override_meta[$place][$type][$metadata_key];
 			}
+		    }
+	
+		    // Still nothing? Now we can return null.
+		    if (!$this->_metadata[$place][$metadata_type])
+		    {
+			continue;
+		    }
+		
+		
+		    if(isset($this->_metadata[$place]['meta']))
+		    {
+			foreach( $this->_metadata[$place]['meta'] as $name => $content )
+			{
+			    $out .= '<meta name="' . $name . '" content="' . $content . '" />'."\n";
+			}
+			unset($this->_metadata[$place]['meta']);
+		    }
+			    
+		    $out .= implode("\n", $this->_metadata[$place][$metadata_type])."\n";
 		}
-
-		// Still nothing? Now we can return null.
-		if ( ! $this->_metadata[$place]) {
-			return null;
-		}
-
-		return implode("\n\t\t", $this->_metadata[$place]);
-	}
+	
+		return $out;
+	    }
 
 	/**
 	 * get_layouts
