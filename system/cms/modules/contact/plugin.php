@@ -45,13 +45,13 @@ class Plugin_Contact extends Plugin
 				'attributes' => array(
 					'name' => array(
 						'type' => 'text',
-						'flags' => 'text|required',
+						'flags' => 'text|required|placeholder=Name',
 						'default' => '',
 						'required' => false,
 					),
 					'email' => array(
 						'type' => 'text',
-						'flags' => 'text|required|valid_email',
+						'flags' => 'text|required|valid_email|placeholder=E-mail',
 						'default' => '',
 						'required' => false,
 					),
@@ -63,7 +63,7 @@ class Plugin_Contact extends Plugin
 					),
 					'message' => array(
 						'type' => 'text',
-						'flags' => 'textarea|required|trim',
+						'flags' => 'textarea|required|trim|placeholder=Message',
 						'default' => '',
 						'required' => false,
 					),
@@ -165,10 +165,10 @@ class Plugin_Contact extends Plugin
 	 * Usage:
 	 *
 	 * {{ contact:form
-	 *    name             = "text|required"
-	 *    email            = "text|required|valid_email"
+	 *    name             = "text|required|placeholder=NAme"
+	 *    email            = "text|required|valid_email|placeholder=Email"
 	 * 	  subject          = "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
-	 * 	  message          = "textarea|required"
+	 * 	  message          = "textarea|required|placeholder=Message"
 	 * 	  attachment       = "file|jpg|png|zip
 	 *    max-size         = "10000"
 	 * 	  reply-to         = "visitor@somewhere.com" * Read note below *
@@ -257,7 +257,18 @@ class Plugin_Contact extends Plugin
 		foreach ($field_list as $field => $rules)
 		{
 			$rule_array = explode('|', $rules);
-			
+
+			foreach ($rule_array as $rule) {
+
+				$pos = strpos($rule,'placeholder=');
+				if($pos === FALSE){
+				}else{
+					$placeholder = explode('=',$rule);
+					$form_meta[$field]['placeholder'] = $placeholder[1];
+
+				}
+			}			
+
 			// Take the simplified form names and turn them into the real deal
 			switch ($rule_array[0]) {
 				case '':
@@ -502,10 +513,14 @@ class Plugin_Contact extends Plugin
 			}
 			else
 			{
+				$input_meta = 'id="contact_'.$form.'" class="'.$form.'"';
+				if(isset($value['placeholder']) && !empty($value['placeholder'])){
+					$input_meta .= ' placeholder="'.$value['placeholder'].'"';
+				}
 				$parse_data[$form] .= call_user_func('form_'.$value['type'],
 														$form,
 														set_value($form),
-														'id="contact_'.$form.'" class="'.$form.'"'
+														$input_meta
 													 );
 			}
 		}
