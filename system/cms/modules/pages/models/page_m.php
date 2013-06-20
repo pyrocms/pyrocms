@@ -124,10 +124,7 @@ class Page_m extends MY_Model
 		// it's the home page
 		if ($uri === null)
 		{
-			$page = $this->db
-				->where('is_home', true)
-				->get('pages')
-				->row();
+			$page = $this->pyrocache->model('page_m', 'get_home', array());
 		}
 		else
 		{
@@ -141,11 +138,7 @@ class Page_m extends MY_Model
 
 			while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 			{
-				$page = $this->db
-					->where('uri', $uri)
-					->limit(1)
-					->get('pages')
-					->row();
+				$page = $this->pyrocache->model('page_m', 'get_page_simple', array($uri));
 
 				// if it's not a normal page load (plugin or etc. that is not cached)
 				// then we won't do our recursive search
@@ -219,10 +212,10 @@ class Page_m extends MY_Model
 		// ---------------------------------
 
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
+		if ( ! $page->layout = $this->pyrocache->model('page_type_m', 'get', array($page->type_id)))
 		{
 			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_type_m->get(1);
+			$page->layout = $this->pyrocache->model('page_type_m', 'get', array(1));
 		}
 
 		// ---------------------------------
@@ -243,7 +236,7 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 
 			// Get Streams
-			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+			$stream = $this->pyrocache->model('streams_m', 'get_stream', array($page->layout->stream_id));
 
 			if ($stream)
 			{
@@ -352,8 +345,6 @@ class Page_m extends MY_Model
 	/**
 	 * Get the home page
 	 *
-	 * @DEPRECATED
-	 * 
 	 * @return object
 	 */
 	public function get_home()
@@ -443,6 +434,23 @@ class Page_m extends MY_Model
 				}
 			}
 		}
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Get Page Simple
+	 *
+	 * @param 	string $uri
+	 * @return 	obj
+	 */
+	public function get_page_simple($uri)
+	{
+		return $this->db
+			->where('uri', $uri)
+			->limit(1)
+			->get('pages')
+			->row();		
 	}
 
     // --------------------------------------------------------------------------
