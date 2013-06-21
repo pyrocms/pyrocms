@@ -19,6 +19,7 @@ class Files_front extends MX_Controller
 		
 		$this->config->load('files');
 		$this->load->library('files/files');
+		$this->config->load('pyrocache');
 
 		$this->_path = FCPATH.rtrim($this->config->item('files:path'), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 	}
