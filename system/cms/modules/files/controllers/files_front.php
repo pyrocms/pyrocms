@@ -18,7 +18,7 @@ class Files_front extends MX_Controller
 		$this->db->set_dbprefix(SITE_REF.'_');		
 		
 		$this->config->load('files');
-		$this->load->library('files/files');
+		$this->load->library('settings/settings', 'files/files');
 		$this->config->load('pyrocache');
 
 		$this->_path = FCPATH.rtrim($this->config->item('files:path'), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
