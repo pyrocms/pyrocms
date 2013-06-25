@@ -2,20 +2,16 @@
 /**
  * Frontend controller for files and stuffs
  * 
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
-class Files_front extends MX_Controller
+class Files_front extends Public_Controller
 {
 	private	$_path = '';
 	
 	public function __construct()
 	{
 		parent::__construct();
-		
-		// By changing the prefix we are essentially "namespacing" each site
-		$this->db->set_dbprefix(SITE_REF.'_');		
 		
 		$this->config->load('files');
 		$this->load->library('files/files');
