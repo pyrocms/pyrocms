@@ -4,7 +4,7 @@ require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
-use Illuminate\Database\Capsule;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
