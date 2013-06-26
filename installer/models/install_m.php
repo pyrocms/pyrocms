@@ -148,7 +148,8 @@ class Install_m extends CI_Model
 		});
 
 		// HEAR YE HEAR YE, THE DB PREFIX CHANGES NOW!
-		$conn->setTablePrefix($db['site_ref'].'_');
+		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');	// Set for grammer ($schema)
+		$conn->setTablePrefix($db['site_ref'].'_'); // Set for connection ($conn)
 
 		// Profiles
 		$schema->create('profiles', function($table) {
