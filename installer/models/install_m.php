@@ -151,7 +151,7 @@ class Install_m extends CI_Model
 		$conn->setTablePrefix($db['site_ref'].'_');
 
 		// Profiles
-		$schema->create('profiles', function($table) {
+		$schema->create($db['site_ref'].'_profiles', function($table) {
 		    $table->increments('id');
 		    $table->integer('user_id');
 		    $table->string('display_name', 50); // TODO Revise these lengths
@@ -179,7 +179,7 @@ class Install_m extends CI_Model
 		));
 
 		// Migrations
-		$schema->create('migrations', function($table) {
+		$schema->create($db['site_ref'].'_migrations', function($table) {
 		    $table->integer('version');
 		});
 
@@ -190,7 +190,7 @@ class Install_m extends CI_Model
 
 		// Modules
 		// TODO make migration to remove "type" field from here
-		$schema->create('modules', function($table) {
+		$schema->create($db['site_ref'].'_modules', function($table) {
 		    $table->increments('id');
 		    $table->text('name');
 		    $table->string('slug', 50);
@@ -211,7 +211,7 @@ class Install_m extends CI_Model
 		    $table->index('is_backend');
 		});
 
-		$schema->create('settings', function($table) {
+		$schema->create($db['site_ref'].'_settings', function($table) {
 		    $table->string('slug', 30);
 		    $table->string('title', 100);
 		    $table->text('description');
