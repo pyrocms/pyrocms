@@ -46,7 +46,10 @@ class Streams_entries extends CI_Driver {
 			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
 			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
-			'site_ref'			=> SITE_REF
+			'site_ref'			=> SITE_REF,
+			'cache_query'		=> false, 		// Should we cache the query?
+			'cache_folder'		=> 'streams_query',	// The folder to place the cache
+			'cache_expires'		=> null,		// Expiration in seconds for cache
 	);
 
 	// --------------------------------------------------------------------------

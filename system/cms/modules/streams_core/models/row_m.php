@@ -623,10 +623,19 @@ class Row_m extends MY_Model {
 		}
 		
 		// -------------------------------------
-		// Run Our Select
+		// Build Our Query
 		// -------------------------------------
 
 		$sql = $this->build_query($this->sql);
+
+		// -------------------------------------
+		// Caching Vars
+		// -------------------------------------
+
+		$cache_query = (isset($cache_query) and $cache_query == true) ? true : false;
+		$cache_folder = (isset($cache_folder) and $cache_folder) ? $cache_folder : 'streams_query';
+
+		$cache_expires = (isset($cache_expires)) ? $cache_expires : 9000;
 
 		// -------------------------------------
 		// Pagination
@@ -636,11 +645,26 @@ class Row_m extends MY_Model {
 		{
 			$count_sql = $this->build_count_query($this->sql);
 
-			// Run the query as is. It does not
-			// have limit/offset, so we can get the
-			// total num rows with the current
-			// parameters we have applied.
-			$return['pag_count'] = $this->db->query($count_sql)->row()->count;
+			// Run the query as is. It simply counts the
+			// results.
+			if ($cache_query)
+			{
+				$cache_hash = md5($count_sql);
+
+				$pag_count = $this->pyrocache->get($cache_folder.DIRECTORY_SEPARATOR.$cache_hash.'-count');
+
+				if ($pag_count == false) {
+	
+					$pag_count = $this->db->query($count_sql)->row()->count;
+					$this->pyrocache->write($pag_count, $cache_folder.DIRECTORY_SEPARATOR.$cache_hash.'-count', $cache_expires);
+				}
+			}
+			else
+			{
+				$pag_count = $this->db->query($count_sql)->row()->count;
+			}
+
+			$return['pag_count'] = $pag_count;
 
 			// Get the number.
 			if (isset($pag_uri_method) and $pag_uri_method == 'query_string') 
@@ -713,7 +737,24 @@ class Row_m extends MY_Model {
 		// Run the Get
 		// -------------------------------------
 
-		$rows = $this->db->query($sql)->result_array();
+		if ($cache_query)
+		{
+			// Now we need to cache it with the
+			// limit/offset.
+			$cache_hash = md5($sql);
+
+			$rows = $this->pyrocache->get($cache_folder.DIRECTORY_SEPARATOR.$cache_hash);
+
+			if ($rows == false)
+			{
+				$rows = $this->db->query($sql)->result_array();
+				$this->pyrocache->write($rows, $cache_folder.DIRECTORY_SEPARATOR.$cache_hash, $cache_expires);
+			}
+		}
+		else
+		{
+			$rows = $this->db->query($sql)->result_array();
+		}
 
 		// -------------------------------------
 		// Reset SQL

@@ -244,7 +244,10 @@ class Page_m extends MY_Model
 					'limit' => 1,
 					'stream' => $stream->stream_slug,
 					'namespace' => $stream->stream_namespace,
-					'id' => $page->entry_id
+					'id' => $page->entry_id,
+					'cache_query' => true,
+					'cache_folder' => 'page_m',
+					'cache_expires'=> 9000
 				);
 
 				if ($entry = $this->streams->entries->get_entries($params))
