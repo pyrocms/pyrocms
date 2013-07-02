@@ -133,6 +133,9 @@ class Comments extends Public_Controller
 					} else {
 						// Do we need to approve the comment?
 						$this->session->set_flashdata('success', lang('comments:add_approve'));
+						
+						// Trigger an event
+						Events::trigger('comment_added', $comment);
 					}
 
 					// If markdown is allowed we will parse the body for the email
