@@ -157,7 +157,7 @@ class Theme_m extends MY_Model
 			$theme->version        = '??';
 
 			//load the theme details.php file
-			$details = $this->_spawn_class($slug, $is_core);
+			$details = $this->_spawn_class($location, $slug);
 
 			//assign values
 			if ($details)
@@ -267,22 +267,15 @@ class Theme_m extends MY_Model
 	 *
 	 * @return array
 	 */
-	private function _spawn_class($slug, $is_core = false)
+	private function _spawn_class($location, $slug)
 	{
-		$path = $is_core ? APPPATH : ADDONPATH;
-
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path.'themes/'.$slug.'/theme'.EXT;
+		$details_file = $location.$slug.'/theme'.EXT;
 
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH.'themes/'.$slug.'/theme'.EXT;
-
-			if ( ! is_file($details_file))
-			{
-				return false;
-			}
+			return false;
 		}
 
 		// Sweet, include the file
