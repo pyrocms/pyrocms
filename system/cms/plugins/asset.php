@@ -576,4 +576,22 @@ class Plugin_Asset extends Plugin
 		return Asset::render_js_inline();
 	}
 
+    /**
+     * Asset Add Namespace
+     *
+     * Add namespace.
+     *
+     * Usage:
+     *
+     * {{ asset:add_path namespace="" path="" }}
+     *
+     */
+    function add_path()
+    {
+        $namespace = $this->attribute('namespace', '');
+        $path = $this->attribute('path', '');
+
+        Asset::add_path($namespace, $path);
+    }
+
 }
