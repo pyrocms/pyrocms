@@ -79,6 +79,13 @@
 			<ul>
 
 				<li>
+					<label for="author_id"><?php echo lang('blog:author_name_label') ?></label>
+					<div class="input">
+					<?php echo form_dropdown('author_id', $users, @$post->author_id) ?>
+					</div>
+				</li>
+
+				<li>
 					<label for="category_id"><?php echo lang('blog:category_label') ?></label>
 					<div class="input">
 					<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>

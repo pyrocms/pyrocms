@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Comments\Model\Comment;
+use Pyro\Module\Users\Model\User;
 
 /**
  *
@@ -27,6 +28,11 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'category_id',
 			'label' => 'lang:blog:category_label',
+			'rules' => 'trim|numeric'
+		),
+		array(
+			'field' => 'author_id',
+			'label' => 'lang:blog:author_name_label',
 			'rules' => 'trim|numeric'
 		),
 		array(
@@ -102,6 +108,7 @@ class Admin extends Admin_Controller
 			->set('hours', array_combine($hours = range(0, 23), $hours))
 			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
 			->set('categories', $_categories)
+			->set('users', User::all()->lists('username','id'))
 			->append_css('module::blog.css');
 	}
 
@@ -200,7 +207,7 @@ class Admin extends Admin_Controller
 				'created_on'       => $created_on,
 				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
-				'author_id'        => $this->current_user->id,
+				'author_id'        => $this->input->post('author_id'),
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash
@@ -318,7 +325,6 @@ class Admin extends Admin_Controller
 		}
 
 		if ($this->form_validation->run()) {
-			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$extra = array(
 				'title'            => $this->input->post('title'),
@@ -332,7 +338,7 @@ class Admin extends Admin_Controller
 				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'updated'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
-				'author_id'        => $author_id,
+				'author_id'        => $this->input->post('author_id'),
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash,
