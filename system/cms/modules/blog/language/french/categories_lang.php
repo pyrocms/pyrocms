@@ -6,7 +6,7 @@ $lang['cat:category_label'] = 'Catégorie';
 // titles
 $lang['cat:create_title'] = 'Créer une catégorie';
 $lang['cat:edit_title']   = 'Modifier la catégorie "%s"';
-$lang['cat:list_title']   = 'Lister les catégories';
+$lang['cat:list_title']   = 'Catégories';
 
 // messages
 $lang['cat:no_categories']       = 'Il n\'y a pas de catégorie.';
