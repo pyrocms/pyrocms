@@ -1939,6 +1939,8 @@ class Row_m extends MY_Model {
 			$ordering_count = 1;
 		}
 		
+		Events::trigger('streams_pre_delete_entry', array('entry_id' => $row_id, 'stream' => $stream));
+		
 		// Delete the actual row
 		$this->db->where('id', $row_id);
 		
@@ -1948,7 +1950,6 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			Events::trigger('streams_pre_delete_entry', array('entry_id' => $row_id, 'stream' => $stream));
 			
 			// -------------------------------------
 			// Entry Destructs
