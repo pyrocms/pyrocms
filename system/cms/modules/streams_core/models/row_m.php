@@ -1948,6 +1948,8 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
+			Events::trigger('streams_pre_delete_entry', array('entry_id' => $row_id, 'stream' => $stream));
+			
 			// -------------------------------------
 			// Entry Destructs
 			// -------------------------------------
