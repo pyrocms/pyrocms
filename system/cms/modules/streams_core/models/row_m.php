@@ -109,6 +109,15 @@ class Row_m extends MY_Model {
 	 * @var		obj
 	 */
 	public $get_rows_hook_data;
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Runtime cache for gather_structure()
+	 *
+	 * @var		obj
+	 */
+	public $gather_structure_cache;
 
 	// --------------------------------------------------------------------------
 
@@ -1369,30 +1378,41 @@ class Row_m extends MY_Model {
 	 */
 	public function gather_structure()
 	{		
-		$obj = $this->db->query('
-			SELECT '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.*, '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id as stream_id, '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.* 
-			FROM '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.', '.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.', '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'
-			WHERE '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id and
-			'.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id');
+		if (empty($this->gather_structure_cache)) {
 
-		$fields = $obj->result();
-		
-		$struct = array();
-		
-		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
-		{
-			if ($stream_id == 'ns') continue;
+			$obj = $this->db->query('
+				SELECT '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.*, '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id as stream_id, '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.* 
+				FROM '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.', '.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.', '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'
+				WHERE '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id and
+				'.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id');
 
-			$struct[$stream_id]['stream'] = $stream;
+			$fields = $obj->result();
 			
-			foreach ($fields as $field)
-			{
-				if ($field->stream_slug == $stream->stream_slug)
-				{
-					$struct[$stream_id]['fields'][] = $field;
+			$struct = array();
+			
+			foreach ($this->streams_m->streams_cache as $stream_id => $stream) {
+
+				if ($stream_id == 'ns') continue;
+
+				$struct[$stream_id]['stream'] = $stream;
+				
+				foreach ($fields as $field) {
+
+					if ($field->stream_slug == $stream->stream_slug) {
+
+						$struct[$stream_id]['fields'][] = $field;
+						
+					}
 				}
 			}
-		}
+
+			$this->gather_structure_cache = $struct;
+
+		} else {
+
+			$struct = $this->gather_structure_cache;
+
+		}	
 		
 		return $struct;
 	}
