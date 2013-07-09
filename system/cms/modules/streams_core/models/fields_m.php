@@ -12,6 +12,15 @@
 class Fields_m extends CI_Model
 {
 	public $table;
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Runtime cache for get_all_fields($namespace = false)
+	 *
+	 * @var    array
+	 */
+	public $get_all_fields_cache = array();
 
 	/**
 	 * Fields Validation
@@ -83,23 +92,35 @@ class Fields_m extends CI_Model
      * @param	int offset
      * @return array
      */
-    public function get_all_fields($namespace = false)
-	{
-		// Limit to namespace
-		if ($namespace) $this->db->where('field_namespace', $namespace);
+    public function get_all_fields($namespace = false) {
 
-		$obj = $this->db->order_by('field_name', 'asc')->get($this->table);
+		// Check runtime cache
+		if (! isset($this->get_all_fields_cache[$namespace])) {
 
-		$fields = $obj->result_array();
+			// Limit to namespace
+			if ($namespace) $this->db->where('field_namespace', $namespace);
+			
+			$obj = $this->db->order_by('field_name', 'DESC')->get($this->table);
+			
+			$fields = $obj->result_array();
+			
+			$return_fields = array();
 
-		$return_fields = array();
+			foreach($fields as $key => $field) {
 
-		foreach ($fields as $key => $field) {
-			$return_fields[$field['field_slug']] = $field;
- 			$return_fields[$field['field_slug']]['field_data'] = unserialize($field['field_data']);
+				$return_fields[$field['field_slug']] = $field;
+	 			$return_fields[$field['field_slug']]['field_data'] = unserialize($field['field_data']);
+			}
+
+			$this->get_all_fields_cache[$namespace] = $return_fields;
+
+		} else {
+
+			$return_fields = $this->get_all_fields_cache[$namespace];
+
 		}
 
-    	return $return_fields;
+		return $return_fields;
 	}
 
     /**
