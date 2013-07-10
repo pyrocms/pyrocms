@@ -27,7 +27,6 @@ $lang['widgets:widget_area_slug']       = 'Srities trumpasis vardas';
 
 $lang['widgets:view_code']				= 'Parodyti kodą';
 
-$lang['widgets:instance_title']         = 'Pavadinimas';
 $lang['widgets:show_title']				= 'Rodyti papildinio pavadinimą?';
 $lang['widgets:tag_title']              = 'Tagai';
 
