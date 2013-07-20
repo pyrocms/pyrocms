@@ -86,7 +86,7 @@ class Blog_categories_m extends MY_Model
 	{
 		return parent::insert(array(
 			'title' => $input['title'],
-			'slug' => slugify($input['title']))
+			'slug' => slugify($input['title']),
 		));
 	}
 }

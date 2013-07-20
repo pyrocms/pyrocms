@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Illuminate\Database\Capsule;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 /**
  * @author  PyroCMS Dev Team
@@ -207,15 +207,26 @@ class Installer_lib
 				break;
 		}
 
-		$capsule = new Capsule(array(
-            'fetch' => PDO::FETCH_CLASS,
-            'default' => 'default',
-            'connections' => array(
-                'default' => $config,
-            ),
+		$capsule = new Capsule;
+
+        $capsule->addConnection(array(
+			'driver' => $config['driver'],
+			'host' => $config['host'],
+			'database' => $config['database'],
+			'username' => $config['username'],
+			'prefix' => $config['prefix'],
+			'password' => $config['password'],
+			'charset' => $config['charset'],
+			'collation' => $config['collation'],
         ));
 
+        // Set the fetch mode FETCH_CLASS so we 
+        // get objects back by default.
+        $capsule->setFetchMode(PDO::FETCH_CLASS);
+        
         $capsule->bootEloquent();
+        
+        $capsule->setAsGlobal();
 
 		// Connect using the Laravel Database component
         $conn = $capsule->connection();

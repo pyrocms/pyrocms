@@ -1,18 +1,18 @@
 <ol>
-<?php if ($widgets): ?>
-	<?php foreach($widgets as $widget): ?>
-	<li id="instance-<?php echo $widget->id ?>" class="widget-instance">
-		<h4><span><?php echo $widget->title ?>:</span> <?php echo $widget->instance_title ?></h4>
-		<div class="widget-actions buttons buttons-small">
-			<?php $this->load->view('admin/partials/buttons', array('button_type'=>'secondary', 'buttons' => array('edit' => array('id' => '../instances/edit/' . $widget->id), 'delete')) ) ?>
-			<button class="button instance-code" id="instance-code-<?php echo $widget->id ?>"><?php echo lang('widgets:view_code') ?></button>
-		</div>
-		<div id="instance-code-<?php echo $widget->id ?>-wrap" style="display: none;">
-			<input type="text" class="widget-code" value='{{ widgets:instance id="<?php echo $widget->id ?>"}}' />
-		</div>
-		<div style="clear:both"></div>
-	</li>
-	<?php endforeach ?>
+<?php if ($instances): ?>
+    <?php foreach($instances as $instance): ?>
+    <li id="instance-<?php echo $instance->id ?>" class="widget-instance">
+        <h4><span><?php echo $instance->widget->name ?>:</span> <?php echo $instance->name ?></h4>
+        <div class="widget-actions buttons buttons-small">
+            <?php $this->load->view('admin/partials/buttons', array('button_type'=>'secondary', 'buttons' => array('edit' => array('id' => '../instances/edit/'.$instance->id), 'delete'))) ?>
+            <button class="button instance-code" id="instance-code-<?php echo $instance->id ?>"><?php echo lang('widgets:view_code') ?></button>
+        </div>
+        <div id="instance-code-<?php echo $instance->id ?>-wrap" style="display: none;">
+            <input type="text" class="widget-code" value='{{ widgets:instance id="<?php echo $instance->id ?>"}}' />
+        </div>
+        <div style="clear:both"></div>
+    </li>
+    <?php endforeach ?>
 <?php endif ?>
-	<li class="empty-drop-item no-sortable"></li>
+    <li class="empty-drop-item no-sortable"></li>
 </ol>

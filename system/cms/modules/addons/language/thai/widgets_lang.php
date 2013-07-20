@@ -40,7 +40,6 @@ $lang['widgets:widget_area_slug']       = 'ชื่อย่อพื้นท�
 
 $lang['widgets:view_code']				= 'ดูโต้ด'; #translate
 
-$lang['widgets:instance_title']         = 'ชื่อ';
 $lang['widgets:show_title']				= 'แสดงชื่อวิดเจ็ตหรือไม่?'; #translate
 $lang['widgets:tag_title']              = 'แท็ก';
 

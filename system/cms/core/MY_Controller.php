@@ -4,7 +4,7 @@ require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
-use Illuminate\Database\Capsule;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
@@ -250,28 +250,31 @@ class MY_Controller extends MX_Controller
         // Not using the new PDO driver
         } else {
 
-            $capsule = new Capsule(array(
-                'fetch' => PDO::FETCH_CLASS,
-                'default' => 'default',
-                'connections' => array(
-                    'default' => array(
-                        'driver' => $config['dbdriver'],
-                        'host' => $config["hostname"],
-                        'database' => $config["database"],
-                        'username' => $config["username"],
-                        'prefix' => $prefix,
-                        'password' => $config["password"],
-                        'charset' => $config["char_set"],
-                        'collation' => $config["dbcollat"],
-                    ),
-                ),
+            $capsule = new Capsule;
+
+            $capsule->addConnection(array(
+                'driver' => $config['dbdriver'],
+                'host' => $config["hostname"],
+                'database' => $config["database"],
+                'username' => $config["username"],
+                'prefix' => $prefix,
+                'password' => $config["password"],
+                'charset' => $config["char_set"],
+                'collation' => $config["dbcollat"],
             ));
 
+            // Set the fetch mode FETCH_CLASS so we 
+            // get objects back by default.
+            $capsule->setFetchMode(PDO::FETCH_CLASS);
+
+            // Setup the Eloquent ORM
             $capsule->bootEloquent();
+
+            // Make this Capsule instance available globally via static methods... (optional)
+            $capsule->setAsGlobal();
 
             $conn = $capsule->connection();
         }
-
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 

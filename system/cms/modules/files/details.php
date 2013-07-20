@@ -114,6 +114,7 @@ class Module_Files extends AbstractModule
 			$table->string('remote_container', 100)->nullable();
 			$table->integer('date_added');
 			$table->integer('sort')->default(0);
+			$table->integer('hidden')->default(0);
 		});
 
 		// Install the settings

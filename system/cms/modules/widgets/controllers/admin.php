@@ -1,187 +1,275 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Addons\WidgetInstanceModel;
+
 /**
- * Admin controller for the widgets module.
+ * Admin controller for widgets instances.
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Widgets\Controllers
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin extends Admin_Controller
 {
-	/**
-	 * The current active section
-	 *
-	 * @var string
-	 */
-	protected $section = 'instances';
+    /**
+     * The current active section
+     *
+     * @var string
+     */
+    protected $section = 'instances';
 
-	/**
-	 * Constructor method
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Constructor method
+     *
+     * @return \Admin_instances
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->load->library('widgets');
-		$this->lang->load('widgets');
+        $this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(false);
+        $this->widgets = $this->widgetManager->getModel();
+        $this->widgetAreas = $this->widgetManager->getAreaModel();
+        $this->widgetInstances = $this->widgetManager->getInstanceModel();
 
-		if (in_array($this->method, array('index', 'manage'))) {
-			// requires to install and/or uninstall widgets
-			$this->widgets->list_available_widgets();
-		}
+        if ($this->input->is_ajax_request()) {
+            $this->template->set_layout(false);
+        }
 
-		$this->template
-			->append_js('module::widgets.js')
-			->append_css('module::widgets.css');
-	}
+        $this->template
+            ->append_js('module::widgets.js')
+            ->append_css('module::widgets.css');
+    }
 
-	/**
-	 * Index method, lists all active widgets
-	 *
-	 * @return void
-	 */
-	public function index()
-	{
-		$data = array();
+    /**
+     * Index method, lists all active widgets
+     *
+     * @return void
+     */
+    public function index()
+    {
+        // Find all available widgets
+        $available_widgets = $this->widgets->findAllEnabledOrder();
 
-		// Get Widgets
-		$this->db->where('enabled', 1)->order_by('order');
-		$data['available_widgets'] = $this->widget_m->get_all();
+        // Find areas, with instances and their widgets
+        $areas = $this->widgetAreas->findAllWithInstances();
 
-		// Get Areas
-		$this->db->order_by('`title`');
+        $this->template
+            ->title($this->module_details['name'])
+            ->set('areas', $areas)
+            ->set('available_widgets', $available_widgets)
+            ->build('admin/index');
+    }
 
-		$data['widget_areas'] = $this->widgets->list_areas();
+    /**
+     * List all available widgets
+     *
+     * @param str $slug The slug of the widget
+     * @return void
+     */
+    public function ajax_instances($slug = null)
+    {
+        if (! $slug) {
+            set_status_header(404);
+            return;
+        }
 
-		// Go through all widget areas
-		$slugs = array();
+        $area = $this->widgetAreas->findBySlug($slug);
 
-		foreach ($data['widget_areas'] as $key => $area) {
-			$slugs[$area->id] = $area->slug;
+        $this->load->view('admin/ajax/instance/index', array('instances' => $area->instances));
+    }
 
-			$data['widget_areas'][$key]->widgets = array();
-		}
+    /**
+     * Create the form for a new widget instance
+     *
+     * @return void
+     */
+    public function create($slug = '')
+    {
+        if (! $slug) {
+            set_status_header(404);
+            return;
+        }
 
-		if ($data['widget_areas']) {
-			$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
-		}
+        $widget = $this->widgetManager->get($slug);
 
-		$instances = $this->widgets->list_area_instances($slugs);
+        if (! $widget) {
+            set_status_header(404);
+            return;
+        }
 
-		foreach ($instances as $instance) {
-			$data['widget_areas'][$instance->widget_area_id]->widgets[$instance->id] = $instance;
-		}
 
-		// Create the layout
-		$this->template
-			->title($this->module_details['name'])
-			->build('admin/index', $data);
-	}
+        // Empty, fresh and clean
+        $instance = new WidgetInstanceModel;
 
-	/**
-	 * Manage method, lists all widgets to install, uninstall, etc..
-	 *
-	 * @return	void
-	 */
-	public function manage()
-	{
-		$data = array();
+        // Process the form
+        if ($this->input->method() === 'post') {
 
-		$base_where = array('enabled' => 1);
+            $instance->name           = $this->input->post('name');
+            $instance->widget_id      = $this->input->post('widget_id');
+            $instance->widget_area_id = $this->input->post('widget_area_id');
+            $instance->created_on     = time();
 
-		//capture active
-		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];
-		$base_where['enabled'] = is_numeric($this->input->post('f_enabled')) ? $this->input->post('f_enabled') : $base_where['enabled'];
+            $options = $this->input->post();
+            unset($options['name'], $options['widget_id'], $options['widget_area_id']);
 
-		// Create pagination links
-		// @todo: fixes pagination and sort compatibility
-		//$total_rows = $this->widget_m->count_by($base_where);
-		//$data['pagination'] = create_pagination('admin/widgets/manage', $total_rows);
+            $instance->options = $options;
 
-		$data['widgets_active'] = $base_where['enabled'];
+            if ($this->widgetManager->validate($widget) and $instance->save()) {
 
-		$data['widgets'] = $this->widget_m
-			//->limit($data['pagination']['limit'])
-			->order_by('`order`')
-			->get_many_by($base_where);
+                // Pass the widget instance to the widget_instance_created event
+                Events::trigger('widget_instance_created', $instance);
 
-		// Create the layout
-		$this->template
-			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
-			->append_js('admin/filter.js')
-			->build('admin/manage', $data);
-	}
+                $status     = 'success';
+                $message    = lang('success_label');
 
-	/**
-	 * Enable widget
-	 *
-	 * @param	string	$id			The id of the widget
-	 * @param	bool	$redirect	Optional if a redirect should be done
-	 * @return	void
-	 */
-	public function enable($id = '', $redirect = true)
-	{
-		$id && $this->_do_action($id, 'enable');
+            } else {
+                $status     = 'error';
+                $message    = $result['error'];
+            }
 
-		if ($redirect) {
-			$this->session->set_flashdata('enabled', 0);
+            if ($this->input->is_ajax_request()) {
+                
+                $data = array();
+                if ($status === 'success') {
+                    $data['messages'][$status] = $message;
+                }
 
-			redirect('admin/widgets/manage');
-		}
-	}
+                $message = $this->load->view('admin/partials/notices', $data, true);
 
-	/**
-	 * Disable widget
-	 *
-	 * @param	string	$id			The id of the widget
-	 * @param	bool	$redirect	Optional if a redirect should be done
-	 * @return	void
-	 */
-	public function disable($id = '', $redirect = true)
-	{
-		$id && $this->_do_action($id, 'disable');
+                return $this->template->build_json(array(
+                    'status'    => $status,
+                    'message'   => $message,
+                    'active'    => ($instance->area ? '#area-' . $instance->area->slug . ' header' : false)
+                ));
+            }
 
-		$redirect AND redirect('admin/widgets/manage');
-	}
+            if ($status === 'success') {
+                $this->session->set_flashdata($status, $message);
+                redirect('admins/widgets');
+                return;
+            }
 
-	/**
-	 * Do the actual work for enable/disable
-	 *
-	 * @param	int|array	$ids	Id or array of Ids to process
-	 * @param	string		$action	Action to take: maps to model
-	 * @return	void
-	 */
-	protected function _do_action($ids = array(), $action = '')
-	{
-		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
-		$multiple	= (count($ids) > 1) ? '_mass' : null;
-		$status		= 'success';
+            $this->template->set('messages', array($status => $message));
+        }
 
-		foreach ($ids as $id) {
-			if ( ! $this->widget_m->{$action . '_widget'}($id)) {
-				$status = 'error';
-				break;
-			} else {
-				// Fire an Event. A widget has been enabled or disabled.
-				switch ($action) {
-					case 'enable':
-						Events::trigger('widget_enabled', $ids);
-						break;
+        // Use the Widget Manager to render HTML for the form
+        $form = $this->widgetManager->renderBackend($widget, $instance);
 
-					case 'disable':
-						Events::trigger('widget_disabled', $ids);
-						break;
-				}
-			}
-		}
+        // Record, not the class file
+        $widget_record = $this->widgets->findBySlug($slug);
 
-		$this->session->set_flashdata( array($status=> lang('widgets:'.$action.'_'.$status.$multiple)));
-	}
+        $this->template
+            ->set('widget', $widget_record)
+            ->set('form', $form)
+            ->set('instance', $instance)
+            ->build('admin/instances/form');
+    }
+
+    /**
+     * Create the form for editing a widget instance
+     *
+     * @return void
+     */
+    public function edit($id = 0)
+    {
+        if ( ! ($id and $widget = $this->widgets->find($id))) {
+            // @todo: set error
+            return false;
+        }
+
+        $data = array();
+
+        if ($input = $this->input->post()) {
+            $name          = $input['name'];
+            $widget_id      = $input['widget_id'];
+            $widget_area_id = $input['widget_area_id'];
+            $instance_id    = $input['widget_instance_id'];
+
+            unset($input['name'], $input['widget_id'], $input['widget_area_id'], $input['widget_instance_id']);
+
+            $result = $this->widgets->edit_instance($instance_id, $name, $widget_area_id, $input);
+
+            if ($result['status'] === 'success') {
+                // Fire an event. A widget instance has been updated pass the widget instance id.
+                Events::trigger('widget_instance_updated', $instance_id);
+
+                $status     = 'success';
+                $message    = lang('success_label');
+
+                $area = $this->widgets->get_area($widget_area_id);
+            } else {
+                $status     = 'error';
+                $message    = $result['error'];
+            }
+
+            if ($this->input->is_ajax_request()) {
+                $data = array();
+
+                $status === 'success' AND $data['messages'][$status] = $message;
+                $message = $this->load->view('admin/partials/notices', $data, true);
+
+                return $this->template->build_json(array(
+                    'status'    => $status,
+                    'message'   => $message,
+                    'active'    => (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
+                ));
+            }
+
+            if ($status === 'success') {
+                $this->session->set_flashdata($status, $message);
+                redirect('admins/widgets');
+                return;
+            }
+
+            $data['messages'][$status] = $message;
+        }
+
+        $this->db->order_by('`name`');
+
+        $areas = $this->widgets->list_areas();
+        $areas = array_for_select($areas, 'id', 'name');
+
+        $data['widget'] = $widget;
+        $data['form']   = $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
+
+        $this->template->build('admin/instances/form', $data);
+    }
+
+    /**
+     * Delete a widget instance
+     *
+     * @return void
+     */
+    public function delete($id = 0)
+    {
+        $instance = $this->widgetInstances->find($id);
+
+        if ($instance and $instance->delete()) {
+
+            // Fire an event. A widget instance has been deleted.
+            Events::trigger('widget_instance_deleted', $id);
+
+            $status = 'success';
+            $message = lang('success_label');
+        } else {
+            $status = 'error';
+            $message = lang('general_error_label');
+        }
+
+        if ($this->input->is_ajax_request()) {
+            $data = array('messages' => array($status => $message));
+            $message = $this->load->view('admin/partials/notices', $data, true);
+
+            return $this->template->build_json(array(
+                'status'    => $status,
+                'message'   => $message
+            ));
+        }
+
+        $this->session->set_flashdata($status, $message);
+        redirect('admin/widgets');
+    }
 
 }

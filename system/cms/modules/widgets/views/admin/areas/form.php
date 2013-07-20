@@ -9,20 +9,20 @@
 
 	<ul>
 		<li>
-			<label for="title"><?php echo lang('widgets:widget_area_title') ?></label>
-			<?php echo form_input('title', $area->title, 'class="new-area-title"') ?>
+			<label for="name"><?php echo lang('widgets:widget_area_title') ?></label>
+			<?php echo form_input('name', $area->name) ?>
 			<span class="required-icon tooltip"><?php echo lang('required_label') ?></span>
 		</li>
 
 		<li class="even">
 			<label for="slug"><?php echo lang('widgets:widget_area_slug') ?></label>
-			<?php echo form_input('slug', $area->slug, 'class="new-area-slug"') ?>
+			<?php echo form_input('slug', $area->slug) ?>
 			<span class="required-icon tooltip"><?php echo lang('required_label') ?></span>
 		</li>
 
 	</ul>
 
-	<div class="buttons align-right padding-top">
+	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))) ?>
 	</div>
 

@@ -155,12 +155,7 @@ class Field_file
 
 		$file = File::find($input);
 
-		return array(
-			'filename'	=> $file ? $file->name : null,
-			'file'		=> site_url('files/download/'.$input),
-			'ext'		=> $file ? $file->extension : null,
-			'mimetype'	=> $file ? $file->mimetype : null,
-		);
+		return $file ? $file : false;
 	}
 
 	// --------------------------------------------------------------------------
