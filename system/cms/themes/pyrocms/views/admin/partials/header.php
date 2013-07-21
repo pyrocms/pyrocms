@@ -1,3 +1,4 @@
+<?php if ($this->module): ?>
 <?php if (! isset($template['partials']['alternate_header'])): ?>
 <section class="information padded">
 
@@ -36,3 +37,4 @@
 
 
 <?php if ( ! empty($module_details['sections'])) file_partial('sections'); ?>
+<?php endif; ?>
