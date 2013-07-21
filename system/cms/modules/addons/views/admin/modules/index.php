@@ -61,7 +61,7 @@
 			</table>
 			<?php else: ?>
 
-				<div class="alert margin"><?php echo lang('streams:no_results'); ?></div>
+				<div class="alert margin"><?php echo lang('global:empty'); ?></div>
 
 			<?php endif; ?>
 
