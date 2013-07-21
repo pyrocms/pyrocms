@@ -1,18 +1,14 @@
 <?php if ($comments): ?>
-
+	
 	<?php foreach ($comments as $item): ?>
-
+		
 		<div class="comment">
 			<div class="image">
 				<?php echo gravatar($item->user_email, 60) ?>
 			</div>
 			<div class="details">
 				<div class="name">
-					<?php if ($item->website): ?>
-						<a href="<?php echo $item->website ?>"><?php echo $item->user_name ?></a>
-					<?php else: ?>
-						<?php echo $item->user_name ?>
-					<?php endif ?>
+					<?php echo $item->user_name ?>
 				</div>
 				<div class="date">
 					<p><?php echo format_date($item->created_on) ?></p>
@@ -27,7 +23,7 @@
 			</div>
 		</div><!-- close .comment -->
 	<?php endforeach ?>
-
+	
 <?php else: ?>
 	<p><?php echo lang('comments:no_comments') ?></p>
-<?php endif;
+<?php endif ?>

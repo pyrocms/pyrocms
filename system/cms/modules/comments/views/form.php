@@ -34,4 +34,4 @@
 		<?php echo form_submit('submit', lang('comments:send_label')) ?>
 	</div>
 
-<?php echo form_close();
+<?php echo form_close() ?>
