@@ -25,7 +25,7 @@ class Module_Files extends AbstractModule
 				'de' => 'Dateien',
 				'el' => 'Αρχεία',
 				'es' => 'Archivos',
-                            'fa' => 'فایل ها',
+				'fa' => 'فایل ها',
 				'fi' => 'Tiedostot',
 				'fr' => 'Fichiers',
 				'he' => 'קבצים',
@@ -51,7 +51,7 @@ class Module_Files extends AbstractModule
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'es' => 'Administra archivos y carpetas en tu sitio.',
-                            'fa' => 'مدیریت فایل های چند رسانه ای و فولدر ها سایت',
+				'fa' => 'مدیریت فایل های چند رسانه ای و فولدر ها سایت',
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
@@ -114,7 +114,7 @@ class Module_Files extends AbstractModule
 			$table->string('remote_container', 100)->nullable();
 			$table->integer('date_added');
 			$table->integer('sort')->default(0);
-			$table->integer('hidden')->default(0);
+			$table->enum('hidden', array(0, 1))->default(0);
 		});
 
 		// Install the settings
