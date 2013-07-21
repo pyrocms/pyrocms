@@ -1,4 +1,4 @@
-<table class="table-list" cellspacing="0">
+<table class="table table-hover table-striped">
 
 	<thead>
 		<tr>
@@ -16,10 +16,10 @@
 		<td width="60%"><?php echo $plugin['description'] ?></td>
 		<td><?php echo $plugin['version'] ?></td>
 		<td><?php if ($plugin['self_doc']): ?>
-			<a data-inline-modal="#<?php echo $plugin['slug'] ?>"
-				href="<?php echo site_url('#') ?>"
-				title="<?php echo lang('global:preview')?>"
-				class="icon-search ti"
+			<a data-toggle="modal" 
+				href="#<?php echo $plugin['slug'] ?>-docs" 
+				title="<?php echo lang('global:preview')?>" 
+				class="icon-search" 
 				style="margin-right:8px;"></a>
 			<?php endif ?>
 		</td>
