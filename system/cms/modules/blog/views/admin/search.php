@@ -4,7 +4,7 @@
 
 <?php if (!empty($blog)): ?>
 
-	<table border="0" class="table-list" cellspacing="0">
+	<table class="table table-hover table-striped">
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
@@ -48,4 +48,4 @@
 	<p><?php echo lang('blog_no_posts');?></p>
 <?php endif ?>
 
-<?php echo form_close();
+<?php echo form_close();?>
