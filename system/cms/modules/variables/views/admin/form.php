@@ -1,38 +1,58 @@
-<section class="title">
-	<?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('variables:create_title');?></h4>
-	<?php else: ?>
-	<h4><?php echo sprintf(lang('variables:edit_title'), $variable->name);?></h4>
-	<?php endif ?>
-</section>
+<section class="padded">
+<div class="container-fluid">
 
-<section class="item">
-	<div class="content">
 
-		<?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"') ?>
-		<?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id) ?>
+	<!-- Box -->
+	<section class="box">
 
-		<div class="form_inputs">
+		<!-- Header -->
+		<section class="box-header">
+			<span class="title">
+				<?php if ($this->method == 'create'): ?>
+					<?php echo lang('variables:create_title');?>
+				<?php else: ?>
+					<?php echo sprintf(lang('variables:edit_title'), $variable->name);?>
+				<?php endif ?>
+			</span>
+		</section>
 
-			<ul>
-				<li class="even">
-					<label for="name"><?php echo lang('name_label');?> <span>*</span></label>
-					<div class="input"><?php echo  form_input('name', $variable->name) ?></div>
-				</li>
 
-				<li class="">
-					<label for="data"><?php echo lang('variables:data_label');?> <span>*</span></label>
-					<div class="input"><?php echo  form_input('data', $variable->data) ?></div>
-				</li>
-			</ul>
+		<!-- Box Content -->
+		<section class="box-content">
 
-			<div>
+
+			<?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"') ?>
+			<?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id) ?>
+			
+			<fieldset class="padding-top">
+			
+				<ul>
+					<li class="row-fluid input-row">
+						<label class="span3" for="name"><?php echo lang('name_label');?> <span>*</span></label>
+						<div class="input span9"><?php echo  form_input('name', $variable->name) ?></div>
+					</li>
+					
+					<li class="row-fluid input-row">
+						<label class="span3" for="data"><?php echo lang('variables:data_label');?> <span>*</span></label>
+						<div class="input span9"><?php echo  form_input('data', $variable->data) ?></div>
+					</li>
+				</ul>
+
+			</fieldset>
+					
+			<div class="btn-group padded no-padding-bottom">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
 
-		</div>
 
-		<?php echo form_close() ?>
+			<?php echo form_close() ?>
 
-	</div>
+
+		</section>
+		<!-- /Box Content -->
+
+	</section>
+	<!-- /Box -->
+
+</div>
 </section>
