@@ -118,6 +118,31 @@ class Module_Streams_core extends AbstractModule
             // $table->foreign('field_id'); //TODO Set up foreign keys
         });
 
+        // Forms Table
+        $schema->dropIfExists($config['streams:forms_table']);
+
+        $schema->create($config['streams:forms_table'], function($table) {
+            $table->increments('id');
+            $table->string('namespace', 100);
+            $table->string('stream', 100);
+            $table->string('title', 100);
+            $table->text('form_structure')->nullable();
+        });
+
+        // Views Table
+        $schema->dropIfExists($config['streams:views_table']);
+
+        $schema->create($config['streams:views_table'], function($table) {
+            $table->increments('id');
+            $table->string('namespace', 100);
+            $table->string('stream', 100);
+            $table->string('title', 100);
+            $table->string('order_by', 100);
+            $table->enum('sort', array('ASC', 'DESC'))->default('ASC');
+            $table->string('search', 255)->nullable();
+            $table->text('filters')->nullable();
+        });
+
 		return true;
 	}
 

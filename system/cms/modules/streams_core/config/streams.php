@@ -16,6 +16,8 @@
 $config['streams:streams_table'] 		= 'data_streams';
 $config['streams:fields_table'] 		= 'data_fields';
 $config['streams:assignments_table'] 	= 'data_field_assignments';
+$config['streams:forms_table'] 			= 'data_forms';
+$config['streams:views_table'] 			= 'data_views';
 $config['streams:searches_table'] 		= 'data_stream_searches';
 
 // --------------------------------------------------------------------------
