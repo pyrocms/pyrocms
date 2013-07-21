@@ -10,12 +10,12 @@
 		<label for="email"><?php echo lang('global:email') ?></label>
 		<?php echo form_input('email') ?>
 	</li>
-
+	
 	<li>
 		<label for="password"><?php echo lang('global:password') ?></label>
 		<?php echo form_password('password') ?>
 	</li>
-
+	
 	<li class="form_buttons">
 		<input type="submit" value="<?php echo lang('user:login_btn') ?>" name="btnLogin" />
 	</li>
