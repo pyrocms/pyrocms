@@ -18,7 +18,7 @@ $lang['variables:data_label'] 			    = 'Valeur';
 // titles
 $lang['variables:create_title']				= 'Ajouter une variable';
 $lang['variables:edit_title'] 				= 'Editer la variable "%s"';
-$lang['variables:list_title'] 				= 'Liste des variables';
+$lang['variables:list_title'] 				= 'Variables';
 
 // messages
 $lang['variables:no_variables']				= 'Il n\'y a pas de variables';
