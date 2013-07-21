@@ -1,0 +1,412 @@
+// Variables
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins.less";
+
+
+/**
+ * All APP specific CSS goes in here.
+ *
+ * Going foreward the ONLY files we should edit are
+ *
+ * - css/bootstrap/application.less
+ * - css/bootstrap/overrides.less
+ * - css/bootstrap/variables.less
+ * - css/bootstrap/mixins.less
+ *
+ * AI Web Systems, Inc. - Ryan Thompson
+ */
+
+
+/* Branding */
+.navbar-inverse .brand
+{
+  position: absolute !important;
+  left: 15px;
+  width: 75px;
+  padding-left: 40px;
+  margin: 0;
+  background: url('../img/logo.png') no-repeat left center;
+  color: @white;
+  border-right: 1px solid rgba(255,255,255,0.1)
+}
+
+
+
+/**
+ * Let's get the big fuckers out of the way first
+ *
+ * Generally - Try and keep this file TBRL
+ */
+
+body
+{
+  background: @grayLighter url('../img/bg.png') repeat;
+}
+
+body.login .box.login
+{
+  margin-top: 180px;
+}
+
+/* Primary content wrapper */
+section#main
+{
+  margin-top: 40px;
+  margin-left: 151px;
+}
+
+/* Primary content */
+section#main-content
+{
+  position: relative;
+}
+
+
+
+/**
+ * Header
+ */
+
+/* Search */
+#search-api
+{
+  margin-left: 136px;
+  padding-top: 7px;
+  margin-bottom: 0;
+  border-left: 1px solid rgba(0,0,0,0.1);
+}
+
+#search-api .search-input.hasResults
+{
+  .border-radius(0 @baseBorderRadius 0 0);
+  border-bottom: 1px solid @white;
+}
+
+
+/* Search Results */
+#search-api ul.typeahead.dropdown-menu
+{
+  position: absolute;
+  left: 151px !important;
+  right: 0px;
+  top: 40px !important;
+  border: none;
+  .border-radius(0) !important;
+}
+
+
+/* Info */
+section#info .information
+{
+  background: darken(@grayLighter, 5%);
+  border-bottom: 1px solid darken(@grayLighter, 10%);
+}
+
+section#info .information h2
+{
+  font-size: 24px;
+  line-height: 24px;
+  display: inline;
+  margin: 0;
+  font-weight: lighter;
+}
+
+section#info .information h2 a
+{
+  color: @grayDark;
+}
+
+section#info .information h2 small
+{
+  font-size: 12px;
+  color: @grayLight;
+}
+
+/* Breadcrumb */
+section#info ul.breadcrumb
+{
+  font-size: 13px;
+  border-bottom: 1px solid darken(@grayLighter, 5%);
+  margin-bottom: 0;
+  .border-radius(0px);
+}
+
+
+
+/**
+ * Primary Navigation
+ */
+
+/* btn-navbar */
+header .navbar-inverse .btn-navbar,
+header .navbar-inverse .btn-navbar:hover
+{
+  background: none;
+  border: none;
+  .box-shadow(none);
+  margin-right: 0;
+  margin-top: 7px;
+}
+
+/* Sidebar */
+header aside
+{
+  position: absolute;
+  top: 40px;
+  left: 0;
+  bottom: 0;
+  width: 150px;
+}
+
+header aside .background
+{
+  position: fixed;
+  z-index: -1;
+  top: 40px;
+  left: 0;
+  bottom: 0;
+  width: 150px;
+  background: @grayDarker;
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+header aside.nav-collapse.collapse
+{
+  position: absolute;
+  border: none;
+}
+
+header aside.nav-collapse.in.collapse nav
+{
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
+/* General */
+header aside ul,
+header aside ul li
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header aside ul li
+{
+  color: @grayLight;
+}
+
+header aside ul li:hover > a
+{
+  color: @white;
+}
+
+/* Primary */
+header aside ul > li
+{
+  position: relative;
+}
+
+header aside nav > ul > li.current > a,
+header aside nav > ul > li.has_current > a
+{
+  border-left: 5px solid @red;
+  color: @white;
+}
+
+header aside ul > li > a
+{
+  display: block;
+  color: inherit;
+}
+
+/* Submenu */
+header aside ul > li > ul
+{
+  display: none;
+  position: absolute;
+  z-index: 999;
+  left: 100%;
+  top: 10px;
+  width: 170px;
+  background: darken(@grayDark, 10%);
+  padding: 5px 0;
+}
+
+header aside ul > li > ul:before
+{
+  content: '';
+  border: 10px solid transparent;
+  border-right-color: darken(@grayDark, 10%);
+  position: absolute;
+  top: 5px;
+  left: -20px;
+  z-index: 100;
+}
+
+header aside ul > li:hover > ul
+{
+  display: inherit;
+}
+
+header aside ul > li > ul > li > a
+{
+  font-size: 12px;
+  padding: 5px 15px;
+  display: block;
+}
+
+header aside nav > ul > li > ul > li.current > a,
+header aside nav > ul > li > ul > li.has_current > a
+{
+  color: @white;
+}
+
+
+
+/**
+ * Forms and inner form HTML
+ */
+
+form label small
+{
+  font-weight: normal;
+  color: @grayLight;
+  display: block;
+  margin-top: 5px;
+}
+
+form fieldset > ul
+{
+  position: relative;
+  //padding: 0 @padded 0 @padded;
+  border-bottom: 1px solid @grayLighter;
+}
+
+form fieldset > ul > li
+{
+  padding: @padded 0 8px 0;
+}
+
+form fieldset > ul > li:first-child
+{
+  padding-top: 0;
+}
+
+form fieldset > ul > li > label
+{
+  padding: 0 @padded;
+}
+
+
+/**
+ * Responsive stuff..
+ */
+
+@media (max-width: 979px) {
+
+  /**
+   * Allow full width navs
+   */
+  
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top
+  {
+    margin-right: 0;
+  }
+
+  .navbar-fixed-top .navbar-inner,
+  .navbar-fixed-bottom .navbar-inner,
+  .navbar-static-top .navbar-inner
+  {
+    padding: 0 0 0 20px;
+  }
+
+
+
+  /**
+   * No margin
+   * - Sidebar went away and navbar is no longer fixed!
+   */
+  section#main
+  {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+
+  /* Branding */
+  .navbar-inverse .brand
+  {
+    position: absolute !important;
+    left: 15px;
+    width: 85px;
+    padding-left: 40px;
+    margin: 0;
+    background: url('../img/logo.png') no-repeat left center;
+    color: @white;
+    border-right: 1px solid rgba(255,255,255,0.1)
+  }
+
+  /* Search */
+  #search-api
+  {
+    margin-left: 131px;
+  }
+
+  /* Search Results */
+  #search-api ul.typeahead.dropdown-menu
+  {
+    left: 0 !important;
+  }
+
+
+  /**
+   * Collapsed Primary Navigation
+   */
+
+  header aside.nav-collapse.collapse
+  {
+    position: static;
+    margin-top: -16px;
+    width: 100%;
+    background: @grayDarker;
+  }
+
+  /* Primary Navigation - Submenu */
+  header aside ul > li:hover > ul
+  {
+    position: static;
+    width: 100%;
+  }
+
+  header aside ul > li > ul:before
+  {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  
+  /**
+   * Remove padding 
+   * We're handling this ourselves
+   */
+  
+  body
+  {
+    padding: 0;
+  }
+
+  body.login .box.login
+  {
+    margin-top: 40px;
+  }
+
+  #search-api
+  {
+    margin-left: 151px;
+  }
+}
