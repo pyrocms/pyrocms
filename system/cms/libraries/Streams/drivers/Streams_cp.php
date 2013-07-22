@@ -375,8 +375,6 @@ class Streams_cp extends CI_Driver {
 			$data['no_fields_message'] = $extra['no_fields_message'];
 		}
 		
-		$CI->template->append_js('streams/entry_form.js');
-		
 		if ($data['tabs'] === false)
 		{
 			$form = $CI->load->view('admin/partials/streams/form', $data, true);
