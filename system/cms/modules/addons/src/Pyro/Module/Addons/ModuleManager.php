@@ -306,7 +306,7 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the install method to get it into the database
-        if ($module_class->install()) {
+        if ($module_class->install(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
 
             // TURN ME ON BABY!
             $module->enabled = true;
