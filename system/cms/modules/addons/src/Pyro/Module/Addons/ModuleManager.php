@@ -481,7 +481,21 @@ class ModuleManager
                 $input['is_core']   = $is_core; // is core if core
 
                 // Looks like it installed ok, add a record
-                $this->modules->create($input);
+                $this->modules->create(
+                    array(
+                        'name' => serialize($input['name']),
+                        'slug' => $input['slug'],
+                        'version' => $input['version'],
+                        'description' => serialize($input['description']),
+                        'is_frontend' => ! empty($input['frontend']),
+                        'is_backend'  => ! empty($input['backend']),
+                        'skip_xss'    => ! empty($input['skip_xss']),
+                        'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
+                        'enabled' => $input['enabled'],
+                        'installed' => $input['installed'],
+                        'is_core' => $input['is_core'],
+                        )
+                    );
             }
             unset($temp_modules);
 
