@@ -473,15 +473,20 @@ class ModuleManager
                 // Get some basic info
                 $input = $module_class->info();
 
-                // Now lets set some details ourselves
-                $input['slug']      = $slug;
-                $input['version']   = $module_class->version;
-                $input['enabled']   = $is_core; // enable if core
-                $input['installed'] = $is_core; // install if core
-                $input['is_core']   = $is_core; // is core if core
-
                 // Looks like it installed ok, add a record
-                $this->modules->create($input);
+                $this->modules->create(array(
+                    'name' => serialize($input['name']),
+                    'slug' => $input['slug'],
+                    'version' => $module_class->version,
+                    'description' => serialize($input['description']),
+                    'skip_xss' => ! empty($input['skip_xss']),
+                    'is_frontend' => ! empty($input['frontend']),
+                    'is_backend' => ! empty($input['backend']),
+                    'menu' => ! empty($input['menu']) ? $input['menu'] : false,
+                    'enabled' => $is_core,
+                    'installed' => $is_core,
+                    'is_core' => $is_core
+                ));
             }
             unset($temp_modules);
 
