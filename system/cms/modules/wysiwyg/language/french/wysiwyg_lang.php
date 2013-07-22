@@ -3,8 +3,8 @@
 $lang['wysiwyg.meta.width'] = 'Largeur';
 $lang['wysiwyg.meta.height'] = 'Hauteur';
 $lang['wysiwyg.meta.size'] = 'Taille';
-$lang['wysiwyg.label.insert_width'] = 'Inserer la largeur de l\'image:';
-$lang['wysiwyg.label.no_limit'] = 'Taille Totale';
+$lang['wysiwyg.label.insert_width'] = 'Insérer la largeur de l\'image:';
+$lang['wysiwyg.label.no_limit'] = 'Taille totale';
 $lang['wysiwyg.label.float'] = 'Flottant';
 $lang['wysiwyg.label.left'] = 'Gauche';
 $lang['wysiwyg.label.right'] = 'Droite';

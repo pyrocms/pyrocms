@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['maintenance:list_label'] 		= 'Maintenance du Cache';
-$lang['maintenance:no_items'] 			= 'Aucun dossier Cache';
+$lang['maintenance:list_label'] 		= 'Maintenance du cache';
+$lang['maintenance:no_items'] 			= 'Aucun dossier cache';
 
 $lang['maintenance:count_label'] 		= 'Éléments';
 
-$lang['maintenance:empty_msg'] 			= '%s Élément(s) supprimé du dossier %s';
+$lang['maintenance:empty_msg'] 			= '%s élément(s) supprimé du dossier %s';
 $lang['maintenance:remove_msg'] 		= 'Dossier %2$s supprimé';
 
 $lang['maintenance:empty_msg_err'] 		= 'Erreur lors du vidage du dossier %s';
