@@ -8,11 +8,11 @@ $lang['page_types:basic_info']                 = 'Informations basiques';
 // labels
 $lang['page_types:updated_label']              = 'Mis à jour';
 $lang['page_types:layout']                     = 'Gabarit (Layout)';
-$lang['page_types:auto_create_stream']         = 'Créer un nouveau Stream pour ce Type de page';
+$lang['page_types:auto_create_stream']         = 'Créer un nouveau Stream pour ce type de page';
 $lang['page_types:select_stream']              = 'flux Stream';
 $lang['page_types:theme_layout_label']         = 'Gabarit du thème';
 $lang['page_types:save_as_files']              = 'Sauvegarder comme fichiers';
-$lang['page_types:content_label']              = 'Label Onglet de contenu';
+$lang['page_types:content_label']              = 'Label onglet de contenu';
 $lang['page_types:title_label']                = 'Titre du label';
 $lang['page_types:sync_files']                 = 'Synchroniser les fichiers';
 
@@ -24,9 +24,9 @@ $lang['page_types:edit_title']                 = 'Editer le gabarit "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Il n\'y a pas de modèle.';
-$lang['page_types:create_success_add_fields']  = 'Vous avez créé un nouveau type de page; vous pouvez ajouter les champs que vous souhaitez retrouver sur votre page.';
+$lang['page_types:create_success_add_fields']  = 'Vous avez créé un nouveau type de page ; vous pouvez ajouter les champs que vous souhaitez retrouver sur votre page.';
 $lang['page_types:create_success']             = 'Le modèle a été créé';
-$lang['page_types:success_add_tag']            = 'Le champ de page a été ajouté. Afin que ce champ soit affiché vous devez insérer le tag du champ dans votre gabarit.';
+$lang['page_types:success_add_tag']            = 'Le champ de page a été ajouté. Afin que ce champ soit affiché, vous devez insérer le tag du champ dans votre gabarit.';
 $lang['page_types:create_error']               = 'Le modèle n\'a pas été créé.';
 $lang['page_types:page_type.not_found_error']  = 'Ce modèle n\'existe pas.';
 $lang['page_types:edit_success']               = 'Le modèle "%s" a été enregistré.';
@@ -45,12 +45,12 @@ $lang['page_types:sync_success']               = 'Fichiers synchronisés avec su
 $lang['page_types:sync_fail']                  = 'Synchronisation de vos fichiers impossible.';
 
 // Instructions
-$lang['page_types:stream_instructions']        = 'Ce flux Stream conservera les champs personnalisés pour votre Type de page. Vous pouvez sélectionner un nouveau flux Stream ou un nouveau flux sera créé pour vous.';
+$lang['page_types:stream_instructions']        = 'Ce flux Stream conservera les champs personnalisés pour votre type de page. Vous pouvez sélectionner un nouveau flux Stream ou un nouveau flux sera créé pour vous.';
 $lang['page_types:saf_instructions']           = 'Lorsque vous activez cette option, votre gabarit de page et vos JS et CSS personnalisés seront ajoutés dans un fichier disponible dans le dossier assets/page_types.';
 $lang['page_types:content_label_instructions'] = 'Utilisé comme label pour l\'onglet qui contient les champs personnalisés de votre type de page.';
-$lang['page_types:title_label_instructions']   = 'Permet de renommer le label de titre de page (par défaut "Titre"). Ceci est utilise si vous souhaitez afficher par exemple "Nom de produit" ou "Nom d\'équipe".';
+$lang['page_types:title_label_instructions']   = 'Permet de renommer le label de titre de page (par défaut "Titre"). Ceci est utilisé si vous souhaitez afficher par exemple "Nom de produit" ou "Nom d\'équipe".';
 
 // Misc
-$lang['page_types:delete_message']             = 'Êtes-vous sur de vouloir supprimer ce type de page&nbsp;? Cette action supprimera <strong>%s</strong> utilisant ce gabarit, ainsi que les pages enfants de ces pages et les entrées de flux associées à ces pages. <strong>Vous ne pouvez pas annuler cette action une fois effectuée.</strong> ';
+$lang['page_types:delete_message']             = 'Êtes-vous sûr(e) de vouloir supprimer ce type de page&nbsp;? Cette action supprimera <strong>%s</strong> utilisant ce gabarit, ainsi que les pages enfants de ces pages et les entrées de flux associées à ces pages. <strong>Vous ne pouvez pas annuler cette action, une fois celle-ci effectuée.</strong> ';
 
 $lang['page_types:delete_streams_message']     = 'Cette action supprimera également le <strong>flux Stream %s</strong> associé avec ce type de page.';
