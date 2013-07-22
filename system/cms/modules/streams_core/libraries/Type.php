@@ -375,4 +375,83 @@ class Type
 		return $return;
 	}
 
+	// --------------------------------------------------------------------------   
+
+	/**
+	 * Filter Output
+	 *
+	 * Create output for filtering purposes
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	public function filter_output($stream, $stream_field, $value = null)
+	{
+		// Standard filter conditions
+ 		$standard_filter_conditions = array(
+ 			'is' => 'is',
+			'isnot' => 'is not',
+			'contains' => 'contains',
+			'doesnotcontain' => 'does not contain',
+			'startswith' => 'starts with',
+			'endswith' => 'ends with',
+			'isempty' => 'is empty',
+			'notempty' => 'is not empty',
+ 			);
+
+ 		
+		if (isset($stream_field->field_type) and method_exists($this->types->{$stream_field->field_type}, 'filter_output'))
+		{
+			// Filter input name
+ 			$stream_field->filter_input_name = 'f-'.$stream->stream_slug.'-value[]';
+
+			return array(
+				'conditions' => $standard_filter_conditions,
+				'input' => $this->types->{$stream_field->field_type}->filter_output($stream, $stream_field, $value),
+				);
+		}
+		elseif (isset($stream_field->field_type))
+		{
+			// Filter input name
+ 			$stream_field->filter_input_name = 'f-'.$stream->stream_slug.'-value[]';
+
+			// No method - use generic
+			switch ($stream_field->field_type)
+			{
+				case 'choice':
+
+					// Build dropdown options
+					$options = array();
+
+					foreach (explode("\n", $stream_field->field_data['choice_data']) as $choice_option)
+					{
+						$options[current(explode(' : ', $choice_option))] = lang_label(end(explode(' : ', $choice_option)));
+					}
+
+					return array(
+						'conditions' => $standard_filter_conditions,
+						'input' => form_dropdown($stream_field->filter_input_name, $options, $value, 'class="skip no-margin"'),
+						);
+					break;
+				
+				default:
+
+					return array(
+						'conditions' => $standard_filter_conditions,
+						'input' => form_input($stream_field->filter_input_name, $value),
+						);
+					break;
+			}
+		}
+		else
+		{
+
+			// TODO: Swith on what field (the ones added just above this code)
+			// Use dropdown / picker / datepicker / etc
+			return array(
+				'conditions' => $standard_filter_conditions,
+				'input' => form_input('f-'.$stream->stream_slug.'-value[]', $value),
+				);
+		}
+	}
 }
