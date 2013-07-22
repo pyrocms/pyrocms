@@ -119,9 +119,7 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function uninstall($slug = '')
 	{
-		$module = $this->modules->findBySlug($slug);
-
-		if ($module->uninstall()) {
+		if ($this->moduleManager->install($slug)) {
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $module->name));
 
 			// Fire an event. A module has been disabled when uninstalled.
@@ -180,9 +178,7 @@ class Admin_modules extends Admin_Controller
 	 */
 	public function install($slug)
 	{
-		$module = $this->modules->findBySlug($slug);
-
-		if ($module and $module->install()) {
+		if ($this->moduleManager->install($slug)) {
 			// Fire an event. A module has been enabled when installed.
 			Events::trigger('module_enabled', $module);
 
