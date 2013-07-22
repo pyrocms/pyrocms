@@ -120,7 +120,7 @@ class Admin extends Admin_Controller
 
         $this->input->is_ajax_request()
             ? $this->template->build('admin/users/tables/users') 
-            : $this->template->build('admin/users/index');
+            : $this->template->build('admin/index');
     }
 
     /**
