@@ -55,7 +55,7 @@ class Admin_groups extends Admin_Controller
         $this->template
             ->title($this->module_details['name'])
             ->set('groups', $groups)
-            ->build('admin/groups/index');
+            ->build('admin/index');
     }
 
     /**
