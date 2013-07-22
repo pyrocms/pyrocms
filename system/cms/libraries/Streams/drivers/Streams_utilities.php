@@ -120,10 +120,10 @@ class Streams_utilities extends CI_Driver
 		// Order The Columns
 		// ----------------------------
 
-		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN created DATETIME AFTER id");
-		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN updated DATETIME AFTER created");
-		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN created_by INT AFTER updated");
-		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN ordering_count INT AFTER created_by");
+		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN created DATETIME AFTER id");
+		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN updated DATETIME AFTER created");
+		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN created_by INT AFTER updated");
+		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN ordering_count INT AFTER created_by");
 
 		// ----------------------------
 		// Add to stream table
