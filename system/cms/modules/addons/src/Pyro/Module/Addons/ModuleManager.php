@@ -334,6 +334,7 @@ class ModuleManager
     {
         if (( ! $located = $this->spawnClass($slug, $is_core))) {
             // the files are missing so let's clean the "modules" table
+
             return $this->modules->findBySlug($slug)->delete();
         }
 
@@ -344,11 +345,11 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the uninstall method to drop the module's tables
-        if (( ! $module_class->uninstall())) {
+        if (! $module_class->uninstall(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
             return false;
         }
 
-        $record = $this->findBySlug($slug);
+        $record = $this->modules->findBySlug($slug);
 
         $record->enabled   = false;
         $record->installed = false;
