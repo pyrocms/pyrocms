@@ -115,7 +115,7 @@ class Admin extends Admin_Controller
             ->title($this->module_details['name'])
             // ->set('pagination', $pagination)
             ->set('users', $users)
-            ->set_partial('filters', 'admin/partials/filters')
+            ->set_partial('filters', 'admin/users/partials/filters')
             ->append_js('admin/filter.js');
 
         $this->input->is_ajax_request()
