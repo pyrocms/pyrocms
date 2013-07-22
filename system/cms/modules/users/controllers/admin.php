@@ -119,7 +119,7 @@ class Admin extends Admin_Controller
             ->append_js('admin/filter.js');
 
         $this->input->is_ajax_request()
-            ? $this->template->build('admin/users/tables/users') 
+            ? $this->template->build('admin/tables/users') 
             : $this->template->build('admin/index');
     }
 
