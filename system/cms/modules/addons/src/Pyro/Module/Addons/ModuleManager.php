@@ -306,7 +306,7 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the install method to get it into the database
-        if ($module_class->install(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
+        if ($module_class->install()) {
 
             // TURN ME ON BABY!
             $module->enabled = true;
@@ -481,21 +481,7 @@ class ModuleManager
                 $input['is_core']   = $is_core; // is core if core
 
                 // Looks like it installed ok, add a record
-                $this->modules->create(
-                    array(
-                        'name' => serialize($input['name']),
-                        'slug' => $input['slug'],
-                        'version' => $input['version'],
-                        'description' => serialize($input['description']),
-                        'is_frontend' => ! empty($input['frontend']),
-                        'is_backend'  => ! empty($input['backend']),
-                        'skip_xss'    => ! empty($input['skip_xss']),
-                        'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
-                        'enabled' => $input['enabled'],
-                        'installed' => $input['installed'],
-                        'is_core' => $input['is_core'],
-                        )
-                    );
+                $this->modules->create($input);
             }
             unset($temp_modules);
 
