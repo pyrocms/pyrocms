@@ -1,13 +1,13 @@
 <script type="text/javascript">var SITE_URL	= "<?php echo site_url() ?>";</script>
 
-<?php
+<?php 
 	$this->admin_theme = $this->theme_m->get_admin();
 	Asset::add_path('admin', $this->admin_theme->web_path.'/');
 ?>
 
 <script type="text/javascript">pyro = {};</script>
-<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/ckeditor.js') ?>"></script>
-<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/adapters/jquery.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('admin::plugins/ckeditor/ckeditor.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('admin::plugins/ckeditor/adapters/jquery.js') ?>"></script>
 
 <script type="text/javascript">
 
@@ -26,7 +26,7 @@
 				pyro.init_ckeditor_maximize();
 			};
 			pyro.init_ckeditor();
-
+			
 		});
 	})(jQuery);
 </script>
