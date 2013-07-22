@@ -456,6 +456,7 @@ class Fields
 				$fields[$count]['input_title'] 		= $field->field_name;
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
+				$fields[$count]['field_type']	 	= $field->field_type;
 
 				// The default default value is null.
 				if ( ! isset($field->field_data['default_value']))
