@@ -287,9 +287,12 @@ class Streams_fields extends CI_Driver {
 	 * This includes the input and other
 	 * associated data.
 	 *
-	 * @param	[int - limit]
-	 * @param	[int - offset]
-	 * @return	object
+	 * @access	public
+	 * @param	string - stream_slug
+	 * @param	string - stream_namespace
+         * @param	[array - current_data]
+         * @param	[int - entry_id]
+	 * @return	array
 	 */
 	public function get_stream_fields($stream, $stream_namespace, $current_data = array(), $entry_id = null)
 	{
