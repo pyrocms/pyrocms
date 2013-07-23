@@ -166,6 +166,7 @@ class Admin extends Admin_Controller
 
 	public function autocomplete()
 	{
+		ob_end_clean();
 		echo json_encode(
 			$this->keyword_m->select('name value')
 				->like('name', $this->input->get('term'))

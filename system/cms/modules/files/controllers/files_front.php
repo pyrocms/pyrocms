@@ -237,7 +237,7 @@ class Files_front extends Public_Controller
 
 		header('Content-type: ' . $file->mimetype);
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
-		ob_clean();
+		ob_end_clean();
 		readfile($thumb_filename);
 	}
 
@@ -270,6 +270,7 @@ class Files_front extends Public_Controller
 				exit();
 			}
 
+			ob_end_clean();
 			header('Content-type: ' . $file->mimetype);
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
 			readfile($thumb_filename);
