@@ -52,8 +52,18 @@ class Field_keywords
 	}
 
 
-	public function pre_save($input)
+	public function pre_save($input, $field=null, $stream=null, $row_id=null)
 	{
+		// Remove any existing applied keywords
+		if (!empty($row_id) and !empty($stream))
+		{
+			$this->CI->load->model(array('keywords/keyword_m', 'streams_core/row_m'));
+
+			$row = $this->CI->row_m->get_row($row_id, $stream, false);
+			$keyword_hash = $row->keywords;
+			$this->CI->keyword_m->delete_applied($keyword_hash);
+		}
+
 		return Keywords::process($input);
 	}
 
