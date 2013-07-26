@@ -600,7 +600,7 @@ class Streams_m extends CI_Model
 		if (is_numeric($limit)) {
 			$query->take($limit);
 		}
-		if (is_numeric($offset)) {
+		if (is_numeric($offset) and ! empty($offset)) {
 			$query->skip($offset);
 		}
 
