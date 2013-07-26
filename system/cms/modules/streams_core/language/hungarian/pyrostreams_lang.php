@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']                 = 'Hiba történt a bejegyzés 
 $lang['streams:new_entry_success']               = 'Bejegyzés sikeresen hozzáadva.';
 $lang['streams:edit_entry_error']                = 'Hiba történt a bejegyzés frissítése közben.';
 $lang['streams:edit_entry_success']              = 'Bejegyzés sikeresen frissítve.';
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']                  = 'Biztos vagy benne hogy törölni akarod a <strong>%s</strong> adatfolyamot? Ez <strong>törölni fogja %s %s-t</strong> véglegesen.';
 
 /* Misc Errors */

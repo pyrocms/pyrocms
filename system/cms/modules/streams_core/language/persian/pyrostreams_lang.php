@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']					= "اضافه کردن این ورودی ب
 $lang['streams:new_entry_success']				= "ورودی با موفقیت اضافه شد.";
 $lang['streams:edit_entry_error']					= "به روز رسانی این ورودی با خطا همراه بود";
 $lang['streams:edit_entry_success']				= "ورودی مورد نظر به روز رسانی شد.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']					= "آیا اطمینان دارد که می خواهید استریم <strong>%s</strong> را حذف کنید . این کار استریم <strong>%s %s</strong> را کلا حذف خواهد کرد.";
 
 /* Misc Errors */
