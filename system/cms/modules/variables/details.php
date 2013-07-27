@@ -113,10 +113,8 @@ class Module_Variables extends AbstractModule
 
 		ci()->streams->streams->add_stream('lang:variables:name', 'variables', 'variables');
 
-		ci()->load->model('files/file_folders_m');
-
         // Create the Variables folder. For the image field
-        $folder = Folder::create(array(
+        $folder_id = $pdb->table('file_folders')->insertGetId(array(
             'parent_id' => 0,
             'slug' => 'variables',
             'name' => 'lang:variables:variables',
@@ -163,7 +161,7 @@ class Module_Variables extends AbstractModule
 			array('namespace' => 'variables','name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
 			array('namespace' => 'variables','name' => 'lang:streams:email.name','slug' => 'email','type' => 'email'),
 			array('namespace' => 'variables','name' => 'lang:streams:encrypt.name','slug' => 'encrypt','type' => 'encrypt', 'extra' => array('hide_typing' => 'yes')),
-			array('namespace' => 'variables','name' => 'lang:streams:image.name','slug' => 'image','type' => 'image', 'extra' => array('folder' => $folder->id)),
+			array('namespace' => 'variables','name' => 'lang:streams:image.name','slug' => 'image','type' => 'image', 'extra' => array('folder' => $folder_id)),
 			array('namespace' => 'variables','name' => 'lang:streams:integer.name','slug' => 'number','type' => 'integer'),
 			array('namespace' => 'variables','name' => 'lang:streams:keywords.name','slug' => 'keywords','type' => 'keywords'),
 			array('namespace' => 'variables','name' => 'lang:streams:pyro_lang.name','slug' => 'pyro_lang','type' => 'pyro_lang'),
