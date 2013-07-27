@@ -716,12 +716,14 @@ class Streams_m extends CI_Model
 		}
 
 		// Grab table prefix from installer
-		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
+		// We set the prefix for the cms installer but not the module intall
+		// until we can figure out how to replace dbforge with the Schema builder here
+		$prefix = ! defined('ADMIN_THEME') ? $this->pdb->getQueryGrammar()->getTablePrefix() : null;
 
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 
 		if ($field_type->db_col_type !== false and $create_column === true) {
-			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 
 		// -------------------------------------
