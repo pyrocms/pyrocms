@@ -664,7 +664,7 @@ class Streams_m extends CI_Model
 	 * @param	[bool - should we create the column?]
 	 * @return	mixed - false or assignment ID
 	 */
-	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
+	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true, $field_assignment_construct = true)
 	{
 		// TODO This whole method needs to be recoded to use Schema...
 
@@ -693,7 +693,7 @@ class Streams_m extends CI_Model
 		if ( ! $field_type) return false;
 
 		// Do we have a pre-add function?
-		if (method_exists($field_type, 'field_assignment_construct')) {
+		if (method_exists($field_type, 'field_assignment_construct') and $field_assignment_construct) {
 			$field_type->field_assignment_construct($field, $stream);
 		}
 
