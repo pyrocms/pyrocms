@@ -14,6 +14,8 @@ class Streams_cp extends CI_Driver {
 
 	private $CI;
 
+	public $where = array();
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -155,84 +157,107 @@ class Streams_cp extends CI_Driver {
 		// Filter API
 		// -------------------------------------
 
-		$where = array();
+		$this->where = array();
 
-		if ($CI->input->get('filter-'.$stream->stream_slug))
+
+		// First check for simple searching
+		if ($CI->input->get('search-'.$stream->stream_slug) and $CI->input->get('search-'.$stream->stream_slug.'-term'))
+		{
+			$search = array();
+
+			foreach (explode('|', $CI->input->get('search-'.$stream->stream_slug)) as $filter)
+			{
+				$search[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($CI->input->get('search-'.$stream->stream_slug.'-term')).'%"';
+			}
+			
+			// Add our search fragment
+			$this->where[] = ' ( '.implode(' OR ', $search).' ) ';
+		}
+
+
+		// Now check for advanced filters
+		if ($CI->input->get('f-'.$stream->stream_slug.'-filter'))
 		{
 			// Get all URL variables
-			$url_variables = $CI->input->get();
-
-			$processed = array();
+			$query_string_variables = $CI->input->get();
 
 			// Loop and process
-			foreach ($url_variables as $filter => $value)
+			foreach ($query_string_variables['f-'.$stream->stream_slug.'-filter'] as $k => $filter)
 			{
 				// -------------------------------------
-				// Filter API Params
+				// NICE! Now figure out the condition
 				// -------------------------------------
-				// They all start with f-
-				// No value? No soup for you!
-				// -------------------------------------
-
-				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
-
-				if (strlen($value) == 0) continue;				// No value.. boo
-
-				$filter = substr($filter, 2);					// Remove identifier
-
-
-				// -------------------------------------
-				// Not
-				// -------------------------------------
-				// Default: false
+				// is
+				// isnot
+				// contains
+				// doesnotcontain
+				// startswith
+				// endswith
+				// isempty
+				// isnotempty
+				// ........ To be continued
 				// -------------------------------------
 
-				$not = substr($filter, 0, 4) == 'not-';
+				$value = urldecode($query_string_variables['f-'.$stream->stream_slug.'-value'][$k]);
 
-				if ($not) $filter = substr($filter, 4);			// Remove identifier
-
-
-				// -------------------------------------
-				// Exact
-				// -------------------------------------
-				// Default: false
-				// -------------------------------------
-
-				$exact = substr($filter, 0, 6) == 'exact-';
-
-				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+				// We really need a value unless it's a couple of specific cases
+				if (empty($value) and ! in_array($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k], array('isempty', 'isnotempty'))) continue;
 
 
-				// -------------------------------------
-				// Construct the where segment
-				// -------------------------------------
-
-				if ($exact)
+				// What are we doing?
+				switch ($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k])
 				{
-					if ($not)
-					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
-					}
-					else
-					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
-					}
-				}
-				else
-				{
-					if ($not)
-					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
-					}
-					else
-					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
-					}
+
+					case 'is':
+
+						// Referencing another field?
+						if (substr($value, 0, 2) == '${')
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.trim(substr($value, 2, -1)));
+						}
+						else
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
+						}
+						break;
+
+					case 'isnot':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.$value.'"';
+						break;
+
+					case 'contains':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'%"';
+						break;
+
+					case 'doesnotcontain':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.$value.'%"';
+						break;
+
+					case 'startswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "'.$value.'%"';
+						break;
+
+					case 'endswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'"';
+						break;
+
+					case 'isempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NULL OR '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "") ';
+						break;
+
+					case 'isnotempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NOT NULL AND '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "") ';
+						break;
+					
+					default:
+						// is
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.$value.'"';
+						break;
 				}
 			}
 		}
 
-		$filter_data = $where;
+		$filter_data = $this->where;
 
  		// -------------------------------------
 		// Get Entries
@@ -374,8 +399,6 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['no_fields_message'] = $extra['no_fields_message'];
 		}
-		
-		$CI->template->append_js('streams/entry_form.js');
 		
 		if ($data['tabs'] === false)
 		{
