@@ -292,23 +292,21 @@ class Field_field
     {
     	$max_length = isset($field->field_data['max_length']) ? $field->field_data['max_length'] : 100;
 
-		// The field id column
-		$fields[$field->field_slug.'_field_slug'] = array(
-			'type' => 'VARCHAR',
-			'constraint' => $max_length,
-			'null' => true,
-			'default' => 'text'
-		);
+    	$schema = ci()->pdb->getSchemaBuilder();
+		
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) {
+			// Add a column to store the field slug
+			$table
+				->string($field->field_slug.'_field_slug', $max_length)
+				->default('text')
+				->nullable();
 
-		// The optional value column
-		if ($field->field_data['storage'] != 'custom')
-		{
-			$fields[$field->field_slug] = array(
-				'type' => 'TEXT',
-			);
-		}            
-
-    	$this->CI->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $fields);
+			// Add a column to store the value if it doesn't use custom storage
+			if ($field->field_data['storage'] != 'custom')
+			{
+				$table->text($field->field_slug);
+			}
+		});
     }
 
     /**
@@ -320,11 +318,18 @@ class Field_field
     */
     public function field_assignment_destruct($field, $stream)
     {
-		$this->CI->dbforge->drop_column($stream->stream_prefix.$stream->stream_slug, $field->field_slug.'_field_slug');
-		if ($field->field_data['storage'] != 'custom')
-    	{
-			$this->CI->dbforge->drop_column($stream->stream_prefix.$stream->stream_slug, $field->field_slug);
-		}
+    	$schema = ci()->pdb->getSchemaBuilder();
+
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) {
+			// Drop the field slug column
+			$table->dropColumn($field->field_slug.'_field_slug');
+
+			// Drop the value column if it doesn't use custom storage
+			if ($field->field_data['storage'] != 'custom')
+			{
+				$table->drop($field->field_slug);
+			}
+		});
     }
 
     /**
