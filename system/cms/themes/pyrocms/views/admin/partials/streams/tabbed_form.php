@@ -23,6 +23,7 @@
 				<ul>
 
 				<?php foreach( $tab['fields'] as $field ): ?>
+				<?php if (isset($fields[$field])): ?>
 
 					<li class="row-fluid input-row streams-field-<?php echo $field; ?> streams-field-type-<?php echo $fields[$field]['field_type']; ?> <?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
 						<label class="span3" for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
@@ -35,6 +36,7 @@
 						<div class="input span9"><?php echo $fields[$field]['input']; ?></div>
 					</li>
 
+				<?php endif; ?>
 				<?php endforeach; ?>
 				
 				</ul>
