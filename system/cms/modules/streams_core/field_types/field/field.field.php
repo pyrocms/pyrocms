@@ -294,12 +294,12 @@ class Field_field
 
     	$schema = ci()->pdb->getSchemaBuilder();
 		
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) {
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field, $max_length) {
+
 			// Add a column to store the field slug
 			$table
 				->string($field->field_slug.'_field_slug', $max_length)
-				->default('text')
-				->nullable();
+				->default('text');
 
 			// Add a column to store the value if it doesn't use custom storage
 			if ($field->field_data['storage'] != 'custom')
@@ -320,7 +320,7 @@ class Field_field
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) {
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field) {
 			// Drop the field slug column
 			$table->dropColumn($field->field_slug.'_field_slug');
 

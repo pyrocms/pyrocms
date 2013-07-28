@@ -331,7 +331,7 @@ class Streams_m extends CI_Model
 			$insert_data['view_options']		= serialize(array('id', 'created'));
 		}
 
-		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
+		return $this->pdb->table($this->table)->where('id', '=', $stream_id)->update($update_data);
 	}
 
 	/**
@@ -403,22 +403,15 @@ class Streams_m extends CI_Model
 	 */
 	public function get_stream_id_from_slug($slug, $namespace)
 	{
-		// TODO This was added because some other streams code was missing a ->get()
-		// This was effecting this query. Please fix! Phil
-		$this->db->reset_query();
-
-		$db = $this->db
-			->limit(1)
-			->where('stream_slug', $slug)
-			->where('stream_namespace', $namespace)
-			->get($this->table);
-
-		if ($db->num_rows() == 0) {
-			return false;
+		if ($stream = $this->pdb->table($this->table)
+			->where('stream_slug', '=', $slug)
+			->where('stream_namespace', '=', $namespace)
+			->take(1)
+			->first())
+		{
+			return $stream->id;
 		} else {
-			$row = $db->row();
-
-			return $row->id;
+			return false;
 		}
 	}
 
