@@ -33,9 +33,9 @@ $lang['buttons:preview']	= 'Vis';
 $lang['buttons:close']		= 'Luk';
 $lang['buttons:edit']		= 'Redigér';
 $lang['buttons:clone']		= 'Kopiér';
-$lang['buttons:re-index']	= 'Gen-indeksere';
+$lang['buttons:re-index']	= 'Gen-indekser';
 $lang['buttons:copy']		= 'Kopiér';
-$lang['buttons:filter']		= 'Filter'; #translate
-$lang['buttons:clear']		= 'Clear'; #translate
+$lang['buttons:filter']		= 'Filtrer';
+$lang['buttons:clear']		= 'Ryd';
 
 /* End of file buttons_lang.php */

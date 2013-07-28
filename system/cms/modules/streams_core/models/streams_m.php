@@ -600,7 +600,7 @@ class Streams_m extends CI_Model
 		if (is_numeric($limit)) {
 			$query->take($limit);
 		}
-		if (is_numeric($offset)) {
+		if (is_numeric($offset) and ! empty($offset)) {
 			$query->skip($offset);
 		}
 
@@ -716,7 +716,9 @@ class Streams_m extends CI_Model
 		}
 
 		// Grab table prefix from installer
-		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
+		// We set the prefix for the cms installer but not the module intall
+		// until we can figure out how to replace dbforge with the Schema builder here
+		$prefix = ! defined('ADMIN_THEME') ? $this->pdb->getQueryGrammar()->getTablePrefix() : null;
 
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 

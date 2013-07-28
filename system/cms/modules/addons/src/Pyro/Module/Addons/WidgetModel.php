@@ -12,7 +12,7 @@ use Pyro\Model\Eloquent;
  */
 class WidgetModel extends Eloquent
 {
-	 /**
+    /**
      * Define the table name
      *
      * @var string
@@ -34,11 +34,26 @@ class WidgetModel extends Eloquent
     public $timestamps = false;
 
     /**
+     * Find By Slug
+     *
+     * @param  string $slug
+     * @return WidgetModel
+     */
+    public function findBySlug($slug)
+    {
+        return $this
+            ->where('slug', '=', $slug)
+            ->take(1)
+            ->first();
+    }
+
+    /**
      * Find Many In ID
      *
+     * @param  array $ids
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function findManyInId($ids)
+    public function findManyInId(array $ids)
     {
         return $this
             ->orderBy('slug')

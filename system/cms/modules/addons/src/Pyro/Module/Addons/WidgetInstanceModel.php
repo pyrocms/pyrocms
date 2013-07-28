@@ -12,7 +12,7 @@ use Pyro\Model\Eloquent;
  */
 class WidgetInstanceModel extends Eloquent
 {
-	/**
+    /**
      * Define the table name
      *
      * @var string
@@ -24,7 +24,7 @@ class WidgetInstanceModel extends Eloquent
      *
      * @var array
      */
-    protected $guarded = array();
+    protected $guarded = array('id', 'options', 'order', 'created_on', 'updated_on');
 
     /**
      * Disable updated_at and created_at on table
@@ -53,47 +53,35 @@ class WidgetInstanceModel extends Eloquent
         return $this->belongsTo('Pyro\Module\Addons\WidgetModel');
     }
 
-	public function insert_instance($input)
-	{
-		$last_widget = $this->db
-			->select('`order`')
-			->order_by('`order`', 'desc')
-			->limit(1)
-			->get_where('widget_instances', array('widget_area_id' => $input['widget_area_id']))
-			->row();
+        /**
+     * Array containing the validation rules
+     *
+     * @var array
+     */
+    public function validate()
+    {
+        ci()->load->library('form_validation');
 
-		$order = isset($last_widget->order) ? $last_widget->order + 1 : 1;
+        ci()->form_validation->set_rules(array(
+            array(
+                'field' => 'name',
+                'label' => 'lang:name_label',
+                'rules' => 'trim|required|max_length[250]',
+            ),
+            array(
+                'field' => 'widget_id',
+                'rules' => 'trim|numeric|required',
+            ),
+            array(
+                'field' => 'widget_area_id',
+                'rules' => 'trim|numeric|required',
+            ),
+        ));
+        
+        ci()->form_validation->set_data($this->toArray());
 
-		return $this->db->insert('widget_instances', array(
-			'title'				=> $input['title'],
-			'widget_id'			=> $input['widget_id'],
-			'widget_area_id'	=> $input['widget_area_id'],
-			'options'			=> $input['options'],
-			'order'				=> $order,
-			'created_on'		=> time(),
-		));
-	}
-
-	public function update_instance($instance_id, $input)
-	{
-		$this->db->where('id', $instance_id);
-
-		return $this->db->update('widget_instances', array(
-        	'title'				=> $input['title'],
-			'widget_area_id'	=> $input['widget_area_id'],
-			'options'			=> $input['options'],
-			'updated_on'		=> time()
-		));
-	}
-
-	public function update_instance_order($id, $order)
-	{
-		$this->db->where('id', $id);
-
-		return $this->db->update('widget_instances', array(
-        	'order' => (int) $order
-		));
-	}
+        return ci()->form_validation->run();
+    }
 
 	protected function setOptionsAttribute($value)
 	{

@@ -41,7 +41,6 @@ $lang['widgets:widget_area_slug'] 			= '区块简称';
 
 $lang['widgets:view_code']				= '查看代码';
 
-$lang['widgets:instance_title'] 			= '标题';
 $lang['widgets:show_title']				= '显示标题?';
 $lang['widgets:tag_title']					= '标签';
 

@@ -306,7 +306,7 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the install method to get it into the database
-        if ($module_class->install()) {
+        if ($module_class->install(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
 
             // TURN ME ON BABY!
             $module->enabled = true;
@@ -334,6 +334,7 @@ class ModuleManager
     {
         if (( ! $located = $this->spawnClass($slug, $is_core))) {
             // the files are missing so let's clean the "modules" table
+
             return $this->modules->findBySlug($slug)->delete();
         }
 
@@ -344,11 +345,11 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the uninstall method to drop the module's tables
-        if (( ! $module_class->uninstall())) {
+        if (! $module_class->uninstall(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
             return false;
         }
 
-        $record = $this->findBySlug($slug);
+        $record = $this->modules->findBySlug($slug);
 
         $record->enabled   = false;
         $record->installed = false;
@@ -481,7 +482,21 @@ class ModuleManager
                 $input['is_core']   = $is_core; // is core if core
 
                 // Looks like it installed ok, add a record
-                $this->modules->create($input);
+                $this->modules->create(
+                    array(
+                        'name' => serialize($input['name']),
+                        'slug' => $input['slug'],
+                        'version' => $input['version'],
+                        'description' => serialize($input['description']),
+                        'is_frontend' => ! empty($input['frontend']),
+                        'is_backend'  => ! empty($input['backend']),
+                        'skip_xss'    => ! empty($input['skip_xss']),
+                        'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
+                        'enabled' => $input['enabled'],
+                        'installed' => $input['installed'],
+                        'is_core' => $input['is_core'],
+                        )
+                    );
             }
             unset($temp_modules);
 

@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "添加该条目出错。";
 $lang['streams:new_entry_success']						= "成功添加该条目。";
 $lang['streams:edit_entry_error']						= "更新该条目出错。";
 $lang['streams:edit_entry_success']						= "成功更新该条目。";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "您确定要删除 <strong>%s</strong> 流? 这将会<strong>永久性地删除 %s %s</strong>.";
 
 /* Misc Errors */

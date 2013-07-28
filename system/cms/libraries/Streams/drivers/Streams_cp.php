@@ -14,6 +14,8 @@ class Streams_cp extends CI_Driver {
 
 	private $CI;
 
+	public $where = array();
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -155,8 +157,6 @@ class Streams_cp extends CI_Driver {
 		// Filter API
 		// -------------------------------------
 
-		$where = array();
-
 		if ($CI->input->get('filter-'.$stream->stream_slug))
 		{
 			// Get all URL variables
@@ -211,28 +211,28 @@ class Streams_cp extends CI_Driver {
 				{
 					if ($not)
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
 					}
 					else
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
 					}
 				}
 				else
 				{
 					if ($not)
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
 					}
 					else
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
 					}
 				}
 			}
 		}
 
-		$filter_data = $where;
+		$filter_data = $this->where;
 
  		// -------------------------------------
 		// Get Entries
@@ -374,8 +374,6 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['no_fields_message'] = $extra['no_fields_message'];
 		}
-		
-		$CI->template->append_js('streams/entry_form.js');
 		
 		if ($data['tabs'] === false)
 		{

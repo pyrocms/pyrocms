@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Kontrolpanel';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profil';
 
 $lang['global:title'] 					= 'Titel';
 $lang['name_label'] 					= 'Navn';
@@ -10,8 +10,8 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Forfatter';
 $lang['global:action'] 					= 'Handling';
 $lang['global:slug'] 					= 'Slug'; #translate
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-$lang['global:user'] 					= 'User'; #translate
+$lang['global:slug_instructions']		= 'Kun små bogstaver og understreger.';
+$lang['global:user'] 					= 'Bruger';
 
 $lang['global:dialog:delete_message'] 	= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
 $lang['global:dialog:confirm'] 			= 'Bekræft';
@@ -32,15 +32,15 @@ $lang['global:operators:not-equal'] 	= 'Ikke lig med';
 $lang['global:operators:less-than'] 	= 'Mindre end';
 $lang['global:operators:greater-than'] 	= 'Større end';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'En dag';
+$lang['global:duration:1-week']			= 'En uge';
+$lang['global:duration:2-weeks']		= 'To uger';
+$lang['global:duration:1-month']		= 'En måned';
+$lang['global:duration:3-months']		= 'Tre måneder';
+$lang['global:duration:always']			= 'Altid';
 
 $lang['navigation_headline'] 			= 'Navigation';
-$lang['breadcrumb_base_label'] 			= 'Hjem';
+$lang['breadcrumb_base_label'] 			= 'Forside';
 
 $lang['logged_in_welcome']				= 'Velkommen %s, du er logget ind.';
 $lang['logout_label'] 					= 'Log ud';
@@ -52,17 +52,18 @@ $lang['general_error_label'] 			= 'Fejl';
 $lang['required_error_label'] 			= 'Nødvendigt felt mangler';
 $lang['note_label'] 					= 'Bemærk';
 $lang['success_label'] 					= 'Gennemført';
-$lang['global:fields']					= 'Fields'; #translate
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields']					= 'Felter';
+$lang['global:custom_fields']			= 'Brugerdefinerede Felter';
 
 $lang['login_title'] 					= 'Log ind';
 $lang['global:fatal_error'] 				= 'Fejl! Er CMS installeret?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+
+$lang['global:demo_restrictions']       = 'Nogle funktioner på denne side er blevet deaktiveret for demoen.';
 
 $lang['login_error_label'] 				= 'Fejl ved log ind';
-$lang['forgot_password_label'] 			= 'Glemt password ?';
+$lang['forgot_password_label'] 			= 'Glemt kodeord ?';
 $lang['global:email'] 					= 'E-mail';
-$lang['global:password'] 				= 'Password';
+$lang['global:password'] 				= 'Kodeord';
 $lang['login_label'] 					= 'Log ind';
 
 $lang['help_label'] 					= 'Hjælp';
@@ -80,39 +81,39 @@ $lang['global:install'] 					= 'Installér';
 $lang['global:upgrade'] 					= 'Opgradér';
 $lang['global:enable']					= 'Aktivér';
 $lang['global:disable'] 					= 'Deaktivér';
-$lang['global:enabled']					= 'Enabled'; #translate
-$lang['global:disabled'] 				= 'Disabled'; #translate
+$lang['global:enabled']					= 'Aktiveret';
+$lang['global:disabled'] 				= 'Deaktiveret';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['all_right_reserved']				= 'Alle rigtigheder forbeholdes.';
+$lang['powered_by_pyrocms']				= 'Drevet af PyroCMS';
+$lang['top_page']						= 'Top';
+$lang['back_to_top']					= 'Tilbage til toppen';
 
-$lang['global:filters'] 				= 'Filters'; #translate
-$lang['global:image'] 					= 'Image'; #translate
-$lang['global:description']				= 'Description'; #translate
+$lang['global:filters'] 				= 'Filtre';
+$lang['global:image'] 					= 'Billede';
+$lang['global:description']				= 'Beskrivelse';
 $lang['global:actions']					= 'Handlinger';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
-$lang['global:edit']					= 'Edit'; #translate
-$lang['global:empty']					= 'Empty'; #translate
-$lang['global:delete']					= 'Delete'; #translate
-$lang['global:remove']					= 'Remove'; #translate
+$lang['global:view']					= 'Vis';
+$lang['global:preview']					= 'Eksempel';
+$lang['global:add']						= 'Tilføj';
+$lang['global:edit']					= 'Redigér';
+$lang['global:empty']					= 'Tøm';
+$lang['global:delete']					= 'Slet';
+$lang['global:remove']					= 'Fjern';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Nøgleord';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'eller';
+$lang['global:and']						= 'og';
+$lang['global:at']						= 'på';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Temaer';
+$lang['global:field_types']				= 'Felt typer';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
 
-$lang['global:options']					= 'Options'; #translate
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:options']					= 'Muligheder';
+$lang['global:plain-text']				= 'Almindelig tekst';
 
 /* End of file global_lang.php */

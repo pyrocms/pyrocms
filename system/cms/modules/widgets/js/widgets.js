@@ -116,7 +116,7 @@ jQuery(function($){
 			$('.widget-area-content > .buttons > button[value=delete]').live('click-confirmed', function(e){
 				e.preventDefault();
 
-				var $area	= $(this).parents('section.widget-area-box'),
+				var $area	= $(this).parents('.js-widget-area'),
 					id		= $area.attr('data-id'),
 					url		= SITE_URL + 'admin/widgets/areas/delete/' + id;
 
@@ -157,7 +157,7 @@ jQuery(function($){
 
 				var $item	= $(this).parents('li.widget-instance'),
 					id		= $item.attr('id').replace(/instance-/, ''),
-					url		= SITE_URL + 'admin/widgets/instances/delete/' + id;
+					url		= SITE_URL + 'admin/widgets/delete/' + id;
 
 				$.post(url, {}, function(response){
 					if (response.status == 'success')
@@ -207,7 +207,7 @@ jQuery(function($){
 			pyro.widgets.$boxes.draggable(pyro.widgets.ui_options.draggable);
 
 			// Create a slug
-			pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+			pyro.generate_slug('input[name="name"]', 'input[name="slug"]');
 
 
 			// MANAGE ------------------------------------------------------------------------------
@@ -314,7 +314,7 @@ jQuery(function($){
 			action || (action = 'add');
 
 			var key	= (action == 'add') ? $(item).attr('id').replace(/^widget-/, '') : $(container).attr('id').replace(/^instance-/, ''),
-				url	= (action == 'add') ? SITE_URL + 'admin/widgets/instances/create/' + key : $(item).attr('href');
+				url	= (action == 'add') ? SITE_URL + 'admin/widgets/create/' + key : $(item).attr('href');
 
 			// known? receive the action form
 			if (key in pyro.cache.widget_forms[action])
@@ -366,7 +366,7 @@ jQuery(function($){
 			var $form		= $(form),
 				$submit		= $form.find('#instance-actions button[value=save]'),
 				$cancel		= $form.find('#instance-actions a.cancel')
-				area_id		= $form.parents('section.widget-area-box').attr('data-id'),
+				area_id		= $form.parents('.js-widget-area').attr('data-id'),
 				url			= $form.attr('action');
 
 			if ($form.data('has_events'))
