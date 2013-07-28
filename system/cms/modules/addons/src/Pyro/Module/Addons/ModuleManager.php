@@ -130,6 +130,7 @@ class ModuleManager
 
         return array(
             'name' => $name,
+            'module' => $module_class,
             'slug' => $record->slug,
             'version' => $record->version,
             'description' => $description,
