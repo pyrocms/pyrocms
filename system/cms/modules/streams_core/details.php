@@ -96,6 +96,7 @@ class Module_Streams_core extends AbstractModule
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
             $table->string('field_type', 50);
+            $table->string('field_map', 100)->nullable();
             $table->binary('field_data')->nullable();
             $table->binary('view_options')->nullable();
             $table->enum('is_locked', array('yes', 'no'))->default('no');
