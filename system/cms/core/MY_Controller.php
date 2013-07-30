@@ -287,7 +287,7 @@ class MY_Controller extends MX_Controller
          */ 
         $platform = $conn->getDoctrineSchemaManager()->getDatabasePlatform();
 
-        if ($platform == 'Doctrine\DBAL\Platforms\MySqlPlatform')
+        if (get_class($platform) == 'Doctrine\DBAL\Platforms\MySqlPlatform')
         {
             $platform->registerDoctrineTypeMapping('enum', 'string');
         }
