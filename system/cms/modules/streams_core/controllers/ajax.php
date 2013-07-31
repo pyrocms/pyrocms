@@ -103,6 +103,7 @@ class Ajax extends MY_Controller {
 			
 			$data['input_slug'] = $field;
 		
+			ob_get_level() and ob_end_clean();
 			echo $this->load->view('extra_field', $data, true);
 			
 			$data['count']++;
