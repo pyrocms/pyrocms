@@ -179,6 +179,9 @@ class Page_m extends MY_Model
 
 				// things like breadcrumbs need to know the actual uri, not the uri with extra segments
 				$page->base_uri = $uri;
+				
+				// Assign a flag to determine if the current page has any Children
+				$page->hasChildren = $this->has_children($page->id);
 			}
 		}
 
