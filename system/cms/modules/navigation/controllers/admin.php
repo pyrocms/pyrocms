@@ -223,6 +223,7 @@ class Admin extends Admin_Controller {
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 			// Got post?
+			ob_end_clean();
 			if ($this->navigation_m->insert_link($input) > 0)
 			{
 				$this->pyrocache->delete_all('navigation_m');

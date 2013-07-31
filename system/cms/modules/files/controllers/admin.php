@@ -106,6 +106,7 @@ class Admin extends Admin_Controller {
 
 		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
 
+		ob_end_flush();
 		echo json_encode($result);
 	}
 
@@ -132,6 +133,7 @@ class Admin extends Admin_Controller {
 	{
 		$parent = $this->input->post('parent');
 
+		ob_end_clean();
 		echo json_encode(Files::folder_contents($parent));
 	}
 
@@ -196,6 +198,7 @@ class Admin extends Admin_Controller {
 			
 			$result['status'] AND Events::trigger('file_folder_updated', $id);
 
+			ob_end_flush();
 			echo json_encode($result);
 		}
 	}
@@ -249,6 +252,7 @@ class Admin extends Admin_Controller {
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
 
+		ob_end_flush();
 		echo json_encode($result);		
 	}
 
