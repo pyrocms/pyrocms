@@ -196,7 +196,7 @@ $config['supported_languages'] = array(
         'folder'    =>  'hindi',
         'direction' =>  'ltr',
         'codes' =>  array('hi', 'hindi', 'hi_IN'),
-        'ckeditor'  =>  NULL
+        'ckeditor'  =>  null
     )
 );
 
