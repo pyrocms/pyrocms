@@ -14,7 +14,8 @@
         "quick/cache": "1.0.*",
         "ruudk/twitter-oauth": "*",
         "simplepie/simplepie": "1.3.*",
-        "tijsverkoyen/akismet": "1.1.*"
+        "tijsverkoyen/akismet": "1.1.*",
+        "loic-sharma/profiler": "1.1.*"
     },
     
     "autoload": {
