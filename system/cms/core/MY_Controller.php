@@ -203,7 +203,6 @@ class MY_Controller extends MX_Controller
 
 		// Enable profiler on local box
 	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET)) {
-			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
 	    }
 	}
