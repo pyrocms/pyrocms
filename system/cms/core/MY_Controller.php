@@ -61,6 +61,11 @@ class MY_Controller extends MX_Controller
 		// Set up the Illuminate\Database layer
 		ci()->pdb = self::setupDatabase();
 
+        // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
+        // See https://github.com/loic-sharma/profiler        
+        $logger = new \Profiler\Logger\Logger;         
+        ci()->profiler = new \Profiler\Profiler($logger);
+
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
