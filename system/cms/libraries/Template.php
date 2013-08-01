@@ -363,6 +363,24 @@ class Template
 		// Want it returned or output to browser?
 		if ( ! $return)
 		{
+			// Run the profiler if user is admin and _debug is in the query string
+			if (ci()->current_user and ci()->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET))
+			{
+				unset($_GET['_debug']);
+				
+				// Get the Illuminate query log
+				$query_log = ci()->pdb->getQueryLog();
+
+				// Log all queries using the profiler
+				foreach ($query_log as $query)
+				{
+				    ci()->profiler->log->query($query['query'], $query['time']);
+				}
+
+				// Append the profiler to the body
+				$this->_body .= ci()->profiler;
+			}	
+			
 			$this->_ci->output->set_output($this->_body);
 		}
 
