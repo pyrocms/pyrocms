@@ -156,9 +156,9 @@ class Admin extends Admin_Controller
     public function create()
     {
         // Extra validation for basic data
-        $this->validation_rules['email']['rules'] .= '|callback__email_check';
+        //$this->validation_rules['email']['rules'] .= '|callback__email_check';
         $this->validation_rules['password']['rules'] .= '|required';
-        $this->validation_rules['username']['rules'] .= '|callback__username_check';
+        //$this->validation_rules['username']['rules'] .= '|callback__username_check';
 
         // Get the profile fields validation array from streams
         $this->load->driver('Streams');
@@ -181,9 +181,12 @@ class Admin extends Admin_Controller
         $assignments = $this->streams->streams->get_assignments('profiles', 'users');
         $profile_data = array();
 
+        if ( ! empty($assignments))
+        {
         foreach ($assignments as $assign) {
             $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
         }
+    }
 
         // Some stream fields need $_POST as well.
         $profile_data = array_merge($profile_data, $_POST);
@@ -202,26 +205,32 @@ class Admin extends Admin_Controller
             $group = Users\Model\Group::find($group_id);
 
             // Register the user (they are activated by default if an activation email isn't requested)
-            if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-                if ($activate === '0') {
+            //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
+            if ($user = Users\Model\User::create(array(
+                    'username' => $username,
+                    'password' => $password,
+                    'email' => $email,
+                    'is_activated' => $activate
+                ))) {
+                //if ($activate === '0') {
                     // admin selected Inactive
-                    $this->ion_auth_model->deactivate($user_id);
-                }
+                    //$this->ion_auth_model->deactivate($user_id);
+                //}
 
                 // Fire an event. A new user has been created
-                Events::trigger('user_created', $user_id);
+                Events::trigger('user_created', $user);
 
                 // Set the flashdata message and redirect
-                $this->session->set_flashdata('success', $this->ion_auth->messages());
+               // $this->session->set_flashdata('success', $this->ion_auth->messages());
 
                 // Redirect back to the form or main page
                 $this->input->post('btnAction') === 'save_exit'
                     ? redirect('admin/users')
-                    : redirect('admin/users/edit/'.$user_id);
+                    : redirect('admin/users/edit/'.$user->id);
 
             // Error
             } else {
-                $this->template->error_string = $this->ion_auth->errors();
+                //$this->template->error_string = $this->ion_auth->errors();
             }
         } else {
             // Dirty hack that fixes the issue of having to
@@ -234,6 +243,7 @@ class Admin extends Admin_Controller
 
         if (! isset($user)) {
             $user = new stdClass();
+            $user->active = false;
         }
 
         // Loop through each validation rule
@@ -254,7 +264,7 @@ class Admin extends Admin_Controller
             ->set('member', $user)
             ->set('display_name', set_value('display_name', $this->input->post('display_name')))
             ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
-            ->build('admin/form');
+            ->build('admin/users/form');
     }
 
     /**
@@ -295,17 +305,22 @@ class Admin extends Admin_Controller
         $assignments = $this->streams->streams->get_assignments('profiles', 'users');
         $profile_data = array();
 
-        foreach ($assignments as $assign)
+        if ( ! empty($assignments))
         {
-            if (isset($_POST[$assign->field_slug]))
+            foreach ($assignments as $assign)
             {
-                $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-            }
-            elseif (isset($user->{$assign->field_slug}))
-            {
-                $profile_data[$assign->field_slug] = $user->{$assign->field_slug};
-            }
+                if (isset($_POST[$assign->field_slug]))
+                {
+                    $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+                }
+                elseif (isset($user->{$assign->field_slug}))
+                {
+                    $profile_data[$assign->field_slug] = $user->{$assign->field_slug};
+                }
+            }            
         }
+
+
 
         if ($this->form_validation->run() === true)
         {
@@ -389,7 +404,7 @@ class Admin extends Admin_Controller
         // This theoretically could be different from the actual user id.
         if ($id)
         {
-            $profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
+            //$profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
         }
         else
         {
@@ -409,9 +424,9 @@ class Admin extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
             ->set('display_name', $user->display_name)
-            ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
+            ->set('profile_fields', array()) //$this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
             ->set('member', $user)
-            ->build('admin/form');
+            ->build('admin/users/form');
     }
 
     /**
