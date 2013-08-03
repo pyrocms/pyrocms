@@ -33,7 +33,14 @@
 			<?php echo form_password(array('id' => 'user_password', 'name' => 'user[password]', 'value' => set_value('user[password]'))) ?>
 			<div id="progressbar"><div id="progress"></div></div>
 			<div id="status"><div><span id="complexity">0% Complex</span></div></div>
-		</div>
+		</div>		
+		<br style="clear:both" />
+	</div>
+	<div class="input">
+		<label for="password">{conf_password}</label>
+		<div class="password-wrapper">
+			<?php echo form_password(array('id' => 'conf_password', 'name' => 'user[conf_password]', 'value' => set_value('user[conf_password]'))) ?>			
+		</div>		
 		<br style="clear:both" />
 	</div>
 	<hr />

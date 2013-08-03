@@ -228,7 +228,7 @@ if (!file_exists('../vendor/autoload.php')) {
 	exit("<pre>cd ".realpath('..')."\nphp composer.phar install</pre>");
 }
 require_once '../vendor/autoload.php';
-
+ 
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

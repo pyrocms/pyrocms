@@ -401,6 +401,11 @@ class Installer extends CI_Controller
 				'field' => 'user[password]',
 				'label' => 'lang:password',
 				'rules' => 'trim|min_length[6]|max_length[20]|required'
+			),			
+			array(
+				'field' => 'user[conf_password]',
+				'label' => 'lang:conf_password',
+				'rules' => 'matches[password]'
 			),
 		));
 
