@@ -67,7 +67,7 @@ class Admin extends Admin_Controller
 
 		$extra['success_message'] = lang('variables:add_success');
 
-		$extra['return'] = 'admin/variables';
+		$extra['return'] = $extra['cancel_uri'] = 'admin/variables/edit/-id-';
 
 		$defaults = array();
 
@@ -87,6 +87,9 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = null)
 	{
+		// From cancel_uri?
+		if ($id == '-id-') redirect(site_url('admin/variables'));
+		
 		$form = $this->selectable_fields_form('---', true);
 
 		$extra['title'] = 'Edit '.$form;
