@@ -3,7 +3,7 @@
     
     "require": {
         "pyrocms/lex": "2.2.*",
-        
+        "doctrine/dbal": "2.4.x",
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
         "ircmaxell/password-compat": "1.0.*",
