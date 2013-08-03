@@ -77,7 +77,7 @@ class Admin extends Admin_Controller
 			$defaults['data'] = $field_slug;
 		}
 		
-		$this->streams->cp->entry_form('variables', 'variables', 'new', null, true, $extra, array('syntax'), false, array(), $defaults);
+		$this->streams->cp->entry_form('variables', 'variables', 'new', null, true, $extra, array(), false, array('syntax'), $defaults);
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Admin extends Admin_Controller
 
 		$extra['return'] = 'admin/variables';
 		
-		$this->streams->cp->entry_form('variables', 'variables', 'edit', $id, true, $extra, array('syntax'), false, array());
+		$this->streams->cp->entry_form('variables', 'variables', 'edit', $id, true, $extra, array(), false, array('syntax'));
 	}
 
 	/**
