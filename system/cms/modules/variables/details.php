@@ -78,15 +78,16 @@ class Module_Variables extends AbstractModule
 				'variables' => array(
 					'name' => 'variables:name',
 					'uri' => 'admin/variables',
+					'shortcuts' => array(
+						array(
+							'name' => 'global:add',
+							'uri' => 'admin/variables/create',
+							'class' => 'add',
+							),
+						),
+					),
 				),
-				/* @todo - We will bring this back once we finish the improvements to the Streams CP and finish the Admin_fields controller
-				'fields' => array(
-					'name' => 'streams:fields',
-					'uri' => 'admin/variables/fields'
-				)
-				*/
-			)
-		);
+			);
 	}
 
 	public function install($pdb, $schema)
