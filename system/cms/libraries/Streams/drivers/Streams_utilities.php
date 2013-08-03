@@ -154,7 +154,7 @@ class Streams_utilities extends CI_Driver
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
+	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array(),  $field_assignment_construct = true)
 	{
 		// Get the stream
 		if ( ! $stream = $this->stream_obj($stream_slug, $namespace)) {
@@ -220,7 +220,7 @@ class Streams_utilities extends CI_Driver
 		// Add actual assignment
 		// The 4th parameter is to stop the column from being
 		// created, since we already did that.
-		return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
+		return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false, $field_assignment_construct);
 	}
 
 }
