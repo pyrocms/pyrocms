@@ -25,9 +25,6 @@ $lang['variables:list_title'] 				= 'List variables';
 $lang['variables:fields_title'] 			= 'Selectable Fields';
 
 // messages
-$lang['variables:field_field_type_required'] 			= 'The Field field type is required. Download it from <a target="_blank" href="https://github.com/obrignoni/field">Github - Field</a>';
-$lang['variables:template_field_type_required'] 		= 'The Template field type is required. Download it from <a target="_blank" href="https://github.com/obrignoni/template">Github - Template</a>';
-
 $lang['variables:no_variables'] 			= 'There are no variables.';
 $lang['variables:add_success'] 				= 'The variable has been created.';
 $lang['variables:add_error'] 				= 'An error occurred while trying to save the variable "%s".';

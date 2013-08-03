@@ -40,15 +40,15 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             ));
             
             $fields = array(
-                // This will display the syntax in the admin using the Template field type
+                // This will display the syntax in the admin using the Merge Tags field type
                 array(
                     'name'          => 'lang:variables:syntax_label',
                     'slug'          => 'syntax',
-                    'type'          => 'template',
+                    'type'          => 'merge_tags',
                     'namespace'     => 'variables',
                     'assign'        => 'variables',
                     'extra'         => 
-                        array('template' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
+                        array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
                 ),
                 // A default set of selectable fields
                 array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),

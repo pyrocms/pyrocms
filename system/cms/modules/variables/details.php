@@ -105,13 +105,6 @@ class Module_Variables extends AbstractModule
 			return false;
 		}
 
-		if ( ! ci()->type->load_single_type('template'))
-		{
-			ci()->session->set_flashdata('notice', lang('variables:template_field_type_required'));
-
-			return false;
-		}
-
 		ci()->streams->streams->add_stream('lang:variables:name', 'variables', 'variables');
 
         // Create the Variables folder. For the image field
@@ -151,11 +144,11 @@ class Module_Variables extends AbstractModule
 			array(
 				'name'			=> 'lang:variables:syntax_label',
 				'slug'			=> 'syntax',
-				'type'			=> 'template',
+				'type'			=> 'merge_tags',
 				'namespace'		=> 'variables',
 				'assign'		=> 'variables',
 				'extra'			=> 
-					array('template' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
+					array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
 			),
 		    // A default set of selectable fields
 			array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
