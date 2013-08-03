@@ -148,7 +148,7 @@ class Module_Variables extends AbstractModule
 				'namespace'		=> 'variables',
 				'assign'		=> 'variables',
 				'extra'			=> 
-					array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
+					array('pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'),
 			),
 		    // A default set of selectable fields
 			array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
