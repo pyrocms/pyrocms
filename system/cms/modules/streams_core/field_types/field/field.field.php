@@ -275,7 +275,7 @@ class Field_field
 		{
 			$output = is_string($output) ? ci()->parser->parse_string($output, array(), true) : $output;
 			$output = '<div class="streams-field-field-output '.$selected_field->field_slug.'">'. 
-			$output .'<br><small class="muted">'.lang_label($selected_field->field_name).'</small></div>';
+			$output .' <span class="muted">('.lang_label($selected_field->field_name).')</span></div>';
 		}
 		}
 
