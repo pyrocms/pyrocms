@@ -36,6 +36,11 @@ class FieldAssignment extends Eloquent
     	return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream', 'stream_id');
     }
 
+    public function field()
+    {
+        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Field', 'field_id');
+    }
+
     public function getIsRequiredAttribute($is_required)
     {
         return $is_required == 'yes' ? true : false;

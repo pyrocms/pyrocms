@@ -30,4 +30,34 @@ class Field extends Eloquent
     {
         return new FieldCollection($models);
     }
+
+    public function assignments()
+    {
+        return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
+    }
+
+    public function getFieldDataAttribute($field_data)
+    {
+        return unserialize($field_data);
+    }
+
+    public function getViewOptionsAttribute($view_options)
+    {
+        return unserialize($view_options);
+    }
+
+    public function setViewOptionsAttribute($view_options)
+    {   
+        $this->attributes['view_options'] = serialize($view_options);
+    }
+
+    public function getIsLockedAttribute($is_locked)
+    {
+        return $is_locked == 'yes' ? true : false;
+    }
+
+    public function setIsLockedAttribute($is_locked)
+    {
+        $this->attributes['is_locked'] = ! $is_locked ? 'no' : 'yes';
+    }
 }

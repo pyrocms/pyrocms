@@ -157,14 +157,14 @@ class Stream extends Eloquent
 	}
 
 	public function getViewOptionsAttribute($view_options)
-    {
-        return unserialize($view_options);
-    }
+	{
+	    return unserialize($view_options);
+	}
 
 	public function setViewOptionsAttribute($view_options)
-    {	
-    	$this->attributes['view_options'] = serialize($view_options);
-    }
+	{	
+		$this->attributes['view_options'] = serialize($view_options);
+	}
 
 	public function getPermissionsAttribute($permissions)
     {
