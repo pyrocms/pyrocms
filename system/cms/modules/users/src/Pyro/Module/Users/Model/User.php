@@ -88,8 +88,7 @@ class User extends EloqentUser
 	{
 		$user = $this->findByUsername($login) ?: $this->findByEmail($login);
 
-		if ( ! $user)
-		{
+		if (! $user) {
 			throw new UserNotFoundException("A user could not be found with a login value of [$login].");
 		}
 
