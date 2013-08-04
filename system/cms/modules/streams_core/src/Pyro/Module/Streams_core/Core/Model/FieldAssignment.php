@@ -36,4 +36,24 @@ class FieldAssignment extends Eloquent
     	return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream', 'stream_id');
     }
 
+    public function getIsRequiredAttribute($is_required)
+    {
+        return $is_required == 'yes' ? true : false;
+    }
+
+    public function setIsRequiredAttribute($is_required)
+    {
+        $this->attributes['is_required'] = ! $is_required ? 'no' : 'yes';
+    }
+
+    public function getIsUniqueAttribute($is_unique)
+    {
+        return $is_unique == 'yes' ? true : false;
+    }
+
+    public function setIsUniqueAttribute($is_unique)
+    {
+        $this->attributes['is_unique'] = ! $is_unique ? 'no' : 'yes';
+    }
+
 }

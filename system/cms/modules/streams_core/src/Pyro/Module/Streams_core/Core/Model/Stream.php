@@ -130,69 +130,17 @@ class Stream extends Eloquent
 	 */
 	public function update(array $attributes = array())
 	{
-		// See if the stream slug is different
-		//$stream = static::find($id);
+		$attributes['stream_prefix'] = isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : $this->attribute['stream_prefix'];
+		$attributes['stream_slug'] = isset($attributes['stream_slug']) ? $attributes['stream_slug'] : $this->attribute['stream_slug'];
 
-		if ($stream->stream_slug != $data['stream_slug'] or (isset($data['stream_prefix']) and $stream->stream_prefix != $data['stream_prefix'])) {
-			// Use the right DB prefix
-			if (isset($data['stream_prefix'])) {
-				$prefix = $data['stream_prefix'];
-				$attributes['stream_prefix'] = $prefix;
-			} else {
-				$prefix = $stream->stream_prefix;
-			}
+		$schema = ci()->pdb->getSchemaBuilder();
 
-			// Use the right stream slug
-			if (isset($data['stream_slug'])) {
-				$stream_slug = $data['stream_slug'];
-				$attributes['stream_slug'] = $stream_slug;
-			} else {
-				$stream_slug = $stream->stream_slug;
-			}
+		$from = $this->attributes['stream_prefix'].$this->attributes['stream_slug'];
+		$to = $attributes['stream_prefix'].$attributes['stream_slug'];
 
-			// Okay looks like we need to alter the table name.
-			// Check to see if there is a table, then alter it.
-			if ($this->db->table_exists($prefix.$stream_slug)) {
-				show_error(sprintf(lang('streams:table_exists'), $data['stream_slug']));
-			}
-
-			$this->load->dbforge();
-
-			// Using the PyroStreams DB prefix because rename_table
-			// does not prefix the table name properly, it would seem
-			if ( ! $this->dbforge->rename_table($stream->stream_prefix.$stream->stream_slug, $prefix.$stream_slug)) {
-				return false;
-			}
-		}
-
-		if (isset($data['stream_name']))		$attributes['stream_name']		= $data['stream_name'];
-		if (isset($data['about']))				$attributes['about']			= $data['about'];
-		if (isset($data['sorting']))			$attributes['sorting']			= $data['sorting'];
-		if (isset($data['title_column']))		$attributes['title_column']		= 	$data['title_column'];
-		if (isset($data['is_hidden']))			$attributes['is_hidden']		= $data['is_hidden'];
-		if (isset($data['sorting']))			$attributes['sorting']			= $data['sorting'];
-		if (isset($data['menu_path']))			$attributes['menu_path']		= $data['menu_path'];
-
-		// Extra enum data checks
-
-
-		if (isset($attributes['sorting']) and $attributes['sorting'] != 'title' and $attributes['sorting'] != 'custom')
+		if ($schema->hasTable($from) and $from != $to)
 		{
-			$attributes['sorting'] = 'title';
-		}
-
-		// Permissions
-		if (isset($data['permissions']) and is_array($data['permissions'])) {
-			$attributes['permissions']		= serialize($data['permissions']);
-		}
-
-		// View options.
-		if (isset($extra['view_options']) and is_array($extra['view_options'])) {
-			$insert_data['view_options']		= serialize($extra['view_options']);
-		} else {
-			// Since this is a new stream, we are going to add a basic view profile
-			// with data we know will be there.
-			$insert_data['view_options']		= serialize(array('id', 'created'));
+			$schema->rename($from, $to);
 		}
 
 		return parent::update($attributes);
@@ -230,6 +178,6 @@ class Stream extends Eloquent
 
 	public function assignments()
 	{
-		return $this->hasMany('Pyro\Module\Streams_core\Model\FieldAssignment', 'stream_id');
+		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment', 'stream_id');
 	}
 }
