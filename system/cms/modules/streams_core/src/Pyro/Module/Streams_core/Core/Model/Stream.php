@@ -178,6 +178,6 @@ class Stream extends Eloquent
 
 	public function assignments()
 	{
-		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment', 'stream_id');
+		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
 	}
 }

@@ -27,7 +27,7 @@ class Formatter
 		// 
 	}
 
-	public static function formatAttribute($model, $attribute_name)
+	public static function formatValue($value, $field)
 	{
 
 	}
