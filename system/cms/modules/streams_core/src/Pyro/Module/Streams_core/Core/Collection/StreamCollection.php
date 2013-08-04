@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Streams_core\Collection;
+<?php namespace Pyro\Module\Streams_core\Core\Collection;
 
 use Pyro\Collection\EloquentCollection;
 
