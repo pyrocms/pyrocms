@@ -27,13 +27,13 @@ if ( ! function_exists('tree_builder')) {
 
 		foreach ($items as $item) {
 
-			if ($item->children) {
+			if (isset($item->children->items) and ! empty($item->children->items)) {
 
 				// if there are children we build their html and set it up to be parsed as {{ children }}
 				$item->children = '<ul>'.tree_builder($item->children, $html).'</ul>';
 
 			} else {
-				$item->children = null;
+				unset($item->children); // Lex will bitch if we don't do this..
 			}
 
 			// now that the children html is sorted we parse the html that they passed

@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 // labels
 $lang['variables:syntax_label']				= 'סינטאקס';
 $lang['variables:data_label'] 			    = 'ערך';
