@@ -23,9 +23,7 @@ class Rss extends Public_Controller
 		), Settings::get('rss_cache'));
 
 		$this->output->set_content_type('application/rss+xml');
-		$html = $this->load->view('rss', $this->_build_feed($posts, $this->lang->line('blog:rss_name_suffix')), true);
-
-		echo $this->parser->parse_string($html, $posts);
+		echo $this->load->view('rss', $this->_build_feed($posts, $this->lang->line('blog:rss_name_suffix')), true);
 	}
 
 	public function category($slug = '')
@@ -44,9 +42,7 @@ class Rss extends Public_Controller
 		), Settings::get('rss_cache'));
 
 		$this->output->set_content_type('application/rss+xml');
-		$html = $this->load->view('rss', $this->_build_feed($posts, $category->title.$this->lang->line('blog:rss_category_suffix')), true);
-
-		echo $this->parser->parse_string($html, $posts);
+		echo $this->load->view('rss', $this->_build_feed($posts, $category->title.$this->lang->line('blog:rss_category_suffix')), true);
 	}
 
 	public function _build_feed($posts = array(), $suffix = '')
