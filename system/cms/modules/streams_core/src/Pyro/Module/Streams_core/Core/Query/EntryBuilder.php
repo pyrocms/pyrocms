@@ -32,10 +32,43 @@ class EntryBuilder extends Builder
 		// 
 		// i.e.
 		// 
-		// $models = Field\Formatter::formatEntries($models);
-		// 
+		// $models = Field\Formatter::formatModels($models);
 
-		return $this->model->newCollection($models);
+		// Both arrays of formatted and unformatted models are passed to the new collection construct
+		// This will allow us to return a formatted collection by default
+		// 
+		// i.e.
+		// echo $entries;
+		// 
+		// or to return the unformatted collection
+		// 
+		// i.e
+		// echo $entries->unformatted();
+		// 
+		return $this->model->newCollection($this->formatModels($models), $models);
 	}
 
+	// This is experimental until we finish the Formatter class
+	public function formatModels(array $models = array())
+	{	
+		$clones = array();
+
+		foreach ($models as $model)
+		{
+			// must be an eloquent model because we need to replicate it
+			if ($model instanceof \Illuminate\Database\Eloquent\Model)
+			{
+				// We must replicate the models to keep the original models intact
+				// This is a test to prove we can return formatted model attributes
+				$clone = $model->replicate();
+				$clone->display_name = 'monkey';
+				$clone->id = $model->id; // @todo - get the primary key dinamically
+
+				$clones[] = $clone;
+			}
+
+		}
+		
+		return $clones;
+	}
 }

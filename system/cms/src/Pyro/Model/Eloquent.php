@@ -55,7 +55,12 @@ abstract class Eloquent extends Model
      */
     public static function getCache($key)
     {
-        return static::$runtime_cache[get_called_class()][$key];
+        if (static::isCache($key))
+        {
+            return static::$runtime_cache[get_called_class()][$key];    
+        }
+
+        return false;
     }
 
     /**
