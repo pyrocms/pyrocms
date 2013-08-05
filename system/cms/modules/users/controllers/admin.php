@@ -436,7 +436,7 @@ class Admin extends Admin_Controller
      */
     public function preview($id = 0)
     {
-        $user = $this->ion_auth->get_user($id);
+        $user = Users\Model\User::find($id);
 
         $this->template
             ->set_layout('modal', 'admin')
@@ -462,7 +462,11 @@ class Admin extends Admin_Controller
         $to_activate = 0;
         foreach ($ids as $id)
         {
-            if ($this->ion_auth->activate($id))
+            $user = Users\Model\User::find($id);
+            $user->activated    = true;
+            $this->activated_at = new DateTime;
+
+            if ($user->save())
             {
                 $activated++;
             }
@@ -492,19 +496,21 @@ class Admin extends Admin_Controller
         {
             $deleted = 0;
             $to_delete = 0;
-            $deleted_ids = array();
+            $deleted_users = array();
             foreach ($ids as $id)
             {
                 // Make sure the admin is not trying to delete themself
-                if ($this->ion_auth->get_user()->id == $id)
+                if ($this->current_user->id == $id)
                 {
                     $this->session->set_flashdata('notice', lang('user:delete_self_error'));
                     continue;
                 }
 
-                if ($this->ion_auth->delete_user($id))
+                $user = Users\Model\User::find($id);
+
+                if ($user->delete())
                 {
-                    $deleted_ids[] = $id;
+                    $deleted_users[] = $user;
                     $deleted++;
                 }
                 $to_delete++;
@@ -513,7 +519,7 @@ class Admin extends Admin_Controller
             if ($to_delete > 0)
             {
                 // Fire an event. One or more users have been deleted. 
-                Events::trigger('user_deleted', $deleted_ids);
+                Events::trigger('user_deleted', $deleted_users);
 
                 $this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
             }
@@ -538,7 +544,7 @@ class Admin extends Admin_Controller
      */
     public function _username_check()
     {
-        if ($this->ion_auth->username_check($this->input->post('username')))
+        if (Users\Model\User::findByUsername($this->input->post('username')))
         {
             $this->form_validation->set_message('_username_check', lang('user:error_username'));
             return false;
@@ -557,7 +563,7 @@ class Admin extends Admin_Controller
      */
     public function _email_check()
     {
-        if ($this->ion_auth->email_check($this->input->post('email')))
+        if (Users\Model\User::findByEmail($this->input->post('email')))
         {
             $this->form_validation->set_message('_email_check', lang('user:error_email'));
             return false;
