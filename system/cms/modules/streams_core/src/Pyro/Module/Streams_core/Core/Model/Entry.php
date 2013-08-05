@@ -1,8 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Collection\EntryCollection;
-use Pyro\Module\Streams_core\Core\Query\EntryBuilder;
 use Pyro\Module\Streams_core\Core\Model\Stream;
 
 // Eloquent was not designed to talk to different tables from a single model but
@@ -88,44 +86,17 @@ class Entry extends Eloquent
         }
     }
 
-    public function newCollection(array $models = array())
-    {
-        return new EntryCollection($models);
-    }
-
-    /**
-     * Get a new query builder for the model's table.
-     *
-     * @param  bool  $excludeDeleted
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public function newQuery($excludeDeleted = true)
-    {
-        $builder = new EntryBuilder($this->newBaseQueryBuilder());
-
-        // Once we have the query builders, we will set the model instances so the
-        // builder can easily access any information it may need from the model
-        // while it is constructing and executing various queries against it.
-        $builder->setModel($this)->with($this->with);
-
-        if ($excludeDeleted and $this->softDelete)
-        {
-            $builder->whereNull($this->getQualifiedDeletedAtColumn());
-        }
-
-        return $builder;
-    }
-    
     public static function setStream($slug, $namespace)
     {
         $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
         
-        return static::instance($stream->stream_prefix.$stream->stream_slug);
+        return static::instance($stream);
     }
 
-    public static function instance($table)
+    public static function instance($stream)
     {
-        static::setCache('table', $table);
+        //static::setCache('stream', $stream);
+        static::setCache('table', $stream->stream_prefix.$stream->stream_slug);
 
         return static::setCache('instance', new static);
     }
@@ -193,4 +164,33 @@ class Entry extends Eloquent
 
         return $this->belongsTo('Pyro\Module\Streams_core\Model\Entry', $foreign_key);
     }
+
+    public function newCollection(array $entries = array(), array $unformatted_entries = array())
+    {
+        return new \Pyro\Module\Streams_core\Core\Collection\EntryCollection($entries, $unformatted_entries);
+    }
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param  bool  $excludeDeleted
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $builder = new \Pyro\Module\Streams_core\Core\Query\EntryBuilder($this->newBaseQueryBuilder());
+
+        // Once we have the query builders, we will set the model instances so the
+        // builder can easily access any information it may need from the model
+        // while it is constructing and executing various queries against it.
+        $builder->setModel($this)->with($this->with);
+
+        if ($excludeDeleted and $this->softDelete)
+        {
+            $builder->whereNull($this->getQualifiedDeletedAtColumn());
+        }
+
+        return $builder;
+    }
+
 }
