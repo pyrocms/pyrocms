@@ -191,4 +191,26 @@ class User extends EloqentUser
 		$this->save();
 	}
 
+	public static function assignGroupIdsToUser(User $user = null, $group_ids = array())
+    {
+        if ( ! $user->isSuperUser() and ! empty($group_ids) and $groups = Group::findManyInId($group_ids))
+        {
+            foreach ($groups as $group)
+            {
+                // Add the groups to the user
+                // We must pass a Group model to addGroup()
+                $user->addGroup($group);
+            }
+
+            // Remove any groups that are not selected
+            foreach ($user->groups as $group)
+            {
+                if ( ! in_array($group->id, $groups->modelKeys()))
+                {
+                    $user->removeGroup($group);
+                }
+            }
+        }
+    }
+
 }

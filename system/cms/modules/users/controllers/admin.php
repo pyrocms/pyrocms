@@ -222,6 +222,8 @@ class Admin extends Admin_Controller
                     //$this->ion_auth_model->deactivate($user_id);
                 //}
 
+                Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
+
                 // Fire an event. A new user has been created
                 Events::trigger('user_created', $user);
 
@@ -240,16 +242,11 @@ class Admin extends Admin_Controller
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
-            if ($_POST) {
-                $user = (object) $_POST;
-            }
 
         }
 
-        if (! isset($user)) {
-            $user = new stdClass();
-            $user->active = false;
-        }
+        $user = new Users\Model\User;
+        $user->is_active = false;
 
         // Loop through each validation rule
         foreach ($this->validation_rules as $rule) {
@@ -267,6 +264,7 @@ class Admin extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], lang('user:add_title'))
             ->set('member', $user)
+            ->set('current_group_ids', array())
             ->set('display_name', set_value('display_name', $this->input->post('display_name')))
             ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
             ->build('admin/users/form');
@@ -341,27 +339,7 @@ class Admin extends Admin_Controller
             $user->is_activated = $this->input->post('active');
             $user->username = $this->input->post('username');
 
-            // Prevent the admin from removing his own super group - needs more thought
-            if ( ! $this->current_user->isSuperUser() and 
-                $group_ids = $this->input->post('groups') and 
-                $groups = Users\Model\Group::findManyInId($group_ids))
-            {
-                // Add groups to the user
-                foreach ($groups as $group)
-                {
-                    // We must pass a Group model to addGroup()
-                    $user->addGroup($group);
-                }
-
-                // Remove any groups that are not selected
-                foreach ($user->groups as $group)
-                {
-                    if ( ! in_array($group->id, $groups->modelKeys()))
-                    {
-                        $user->removeGroup($group);
-                    }
-                }
-            }
+            Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
             //$user->groups = $this->input->post('groups');
 
