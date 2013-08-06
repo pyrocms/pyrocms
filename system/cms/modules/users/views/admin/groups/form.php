@@ -9,7 +9,7 @@
 <?php endif ?>
 
 <?php echo form_open() ?>
-
+<div class="one_full">
 <section class="item">
 	<div class="content">
 
@@ -47,12 +47,15 @@
 		pyro.generate_slug('input[name="description"]', 'input[name="name"]');
 	});
 </script>
+</div>
 
+<div class="one_full">
 <section class="title">
-	<h4><?php echo $group->description ?></h4>
+	<h4><?php echo $group->description ?> </h4>
 </section>
 <section class="item">
 	<div class="content js-permissions">
+		<?php if ($group->name != 'admin'): ?>
 		<?php echo form_open() ?>
 		<table border="0" class="table-list" cellspacing="0">
 			<thead>
@@ -102,8 +105,12 @@
 		</table>
 		
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
+		<?php else: ?>
 
+			Administrators can do anything.
+
+		<?php endif; ?>
 	</div>
 </section>
-
+</div>
 <?php echo form_close() ?>
