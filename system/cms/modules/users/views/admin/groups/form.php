@@ -30,7 +30,8 @@
 					<?php echo form_input('name', $group->name) ?>
 
 					<?php else: ?>
-					<p><?php echo $group->name ?></p>
+						<p><?php echo $group->name; ?></p>
+						<?php echo form_hidden('name', $group->name); ?>
 					<?php endif ?>
 
 					</div>
@@ -107,7 +108,8 @@
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 		<?php else: ?>
 
-			Administrators can do anything.
+			<!-- @todo - language string -->
+			Administrators can do anything. 
 
 		<?php endif; ?>
 	</div>
