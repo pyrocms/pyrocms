@@ -51,10 +51,21 @@ class Group extends EloquentGroup
      * @param ids - The group ids to get
      * @return array
      */
-	public static function findManyInId($ids = array())
+	public static function findManyGroupOptionsInId($ids = array())
 	{
-		return static::whereIn('id', $ids)->lists('description', 'id');
+		return static::findManyInId($ids)->lists('description', 'id');
 	}
+
+    /**
+     * Get groups by ids as a collection
+     *
+     * @param ids - The group ids to get
+     * @return collection
+     */
+    public static function findManyInId($ids = array())
+    {
+        return static::whereIn('id', $ids)->get();
+    }
 
 	/**
      * Get group by name
