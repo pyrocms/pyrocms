@@ -26,7 +26,9 @@
                         <td><?php echo $group->description ?></td>
                         <td><?php echo $group->name ?></td>
                         <td class="actions">
-                        <?php echo anchor('admin/users/groups/edit/'.$group->id, lang('buttons:edit'), 'class="button edit"') ?>
+                        <?php if ($group->name != 'admin'): ?>
+                            <?php echo anchor('admin/users/groups/edit/'.$group->id, lang('buttons:edit'), 'class="button edit"') ?>
+                        <?php endif; ?>
                         <?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
                             <?php echo anchor('admin/users/groups/delete/'.$group->id, lang('buttons:delete'), 'class="confirm button delete"') ?>
                         <?php endif ?>

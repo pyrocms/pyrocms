@@ -94,6 +94,7 @@ class Admin_groups extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], lang('users:groups:add_title'))
             ->set('group', $group)
+            ->set('modules', $this->get_modules_and_permissions())
             ->build('admin/groups/form');
     }
 
@@ -123,17 +124,25 @@ class Admin_groups extends Admin_Controller
                 // Save permissions
                 $new_perms = array();
                 $roles = $this->input->post('module_roles');
-                foreach ($this->input->post('modules') as $module) {
-                    if (isset($roles[$module]) and is_array($roles[$module])) {
 
-                        foreach ($roles[$module] as $role) {
-                            $new_perms["{$module}.{$role}"] = 1;
+                if ($modules = $this->input->post('modules'))
+                {
+                    foreach ($this->input->post('modules') as $module)
+                    {
+                        if (isset($roles[$module]) and is_array($roles[$module]))
+                        {
+                            foreach ($roles[$module] as $role)
+                            {
+                                $new_perms["{$module}.{$role}"] = 1;
+                            }
+                        } 
+                        else 
+                        {
+                            $new_perms["{$module}.general"] = 1;
                         }
-
-                    } else {
-                        $new_perms["{$module}.general"] = 1;
                     }
                 }
+
                 $group->permissions = $new_perms;
 
                 if ($group->save()) {
@@ -148,17 +157,11 @@ class Admin_groups extends Admin_Controller
             }
         }
 
-        $modules = $this->moduleManager->getAll(array('is_backend' => true, 'installed' => true));
-
-        foreach ($modules as &$module) {
-            $module['roles'] = $this->moduleManager->roles($module['slug']);
-        }
-
         $this->template
             ->title($this->module_details['name'], sprintf(lang('users:groups:edit_title'), $group->name))
             ->append_js('module::group.js')
             ->set('group', $group)
-            ->set('modules', $modules)
+            ->set('modules', $this->get_modules_and_permissions())
             ->build('admin/groups/form');
     }
 
@@ -179,5 +182,17 @@ class Admin_groups extends Admin_Controller
         }
 
         redirect('admin/users/groups');
+    }
+
+    private function get_modules_and_permissions()
+    {
+        $modules = $this->moduleManager->getAll(array('is_backend' => true, 'installed' => true));
+
+        foreach ($modules as &$module)
+        {
+            $module['roles'] = $this->moduleManager->roles($module['slug']);
+        }
+
+        return $modules;
     }
 }
