@@ -67,7 +67,7 @@ class Admin extends Admin_Controller
         // Load the required classes
         $this->load->helper('user');
         $this->load->library('form_validation');
-        $this->lang->load('user');
+        $this->lang->load(array('user', 'group'));
 
         if ($this->current_user->isSuperUser())  {
             $this->template->group_options = Users\Model\Group::getGeneralGroupOptions();
