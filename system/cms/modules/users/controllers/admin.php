@@ -41,11 +41,6 @@ class Admin extends Admin_Controller
             'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
         ),
         array(
-            'field' => 'group_id',
-            'label' => 'lang:user_group_label',
-            'rules' => 'required|callback__group_check'
-        ),
-        array(
             'field' => 'is_activated',
             'label' => 'lang:user_active_label',
             'rules' => ''
@@ -69,9 +64,19 @@ class Admin extends Admin_Controller
         $this->load->library('form_validation');
         $this->lang->load(array('user', 'group'));
 
-        if ($this->current_user->isSuperUser())  {
+        if ($this->current_user->isSuperUser()) 
+        {
             $this->template->group_options = Users\Model\Group::getGeneralGroupOptions();
-        }  else  {
+        }  
+        else
+        {
+            // Require for non super users
+            $this->validation[] =   array(
+                'field' => 'groups[]',
+                'label' => 'lang:user_group_label',
+                'rules' => 'required|callback__group_check'
+            );
+
             $this->template->group_options = Users\Model\Group::getGroupOptions();
         }
     }
@@ -274,13 +279,14 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
+
         // Get the user's data
         if ( ! ($user = Users\Model\User::find($id)))
         {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
         }
-        
+
         // Check to see if we are changing usernames
         if ($user->username != $this->input->post('username'))
         {
@@ -331,21 +337,48 @@ class Admin extends Admin_Controller
             }
 
             // Get the POST data
-            $update_data['email'] = $this->input->post('email');
-            $update_data['active'] = $this->input->post('active');
-            $update_data['username'] = $this->input->post('username');
-            // allow them to update their one group but keep users with user editing privileges from escalating their accounts to admin
-            $update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $user->group_id : $this->input->post('group_id');
+            $user->email = $this->input->post('email');
+            $user->is_activated = $this->input->post('active');
+            $user->username = $this->input->post('username');
 
-            if ($update_data['active'] === '2')
+            // Prevent the admin from removing his own super group - needs more thought
+            if ( ! $this->current_user->isSuperUser() and 
+                $group_ids = $this->input->post('groups') and 
+                $groups = Users\Model\Group::findManyInId($group_ids))
             {
-                $this->ion_auth->activation_email($id);
-                unset($update_data['active']);
+                // Add groups to the user
+                foreach ($groups as $group)
+                {
+                    // We must pass a Group model to addGroup()
+                    $user->addGroup($group);
+                }
+
+                // Remove any groups that are not selected
+                foreach ($user->groups as $group)
+                {
+                    if ( ! in_array($group->id, $groups->modelKeys()))
+                    {
+                        $user->removeGroup($group);
+                    }
+                }
             }
-            else
-            {
-                $update_data['active'] = (bool) $update_data['active'];
-            }
+
+            //$user->groups = $this->input->post('groups');
+
+            // @todo - commented out but their some work to be done here with email activation
+
+            // allow them to update their one group but keep users with user editing privileges from escalating their accounts to admin
+            // $update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $user->group_id : $this->input->post('group_id');
+
+            // if ($update_data['active'] === '2')
+            // {
+            //     //$this->ion_auth->activation_email($id);
+            //     unset($update_data['active']);
+            // }
+            // else
+            // {
+            //     $user->is_activated = (bool) $update_data['active'];
+            // }
 
             $profile_data = array();
 
@@ -366,13 +399,15 @@ class Admin extends Admin_Controller
             {
                 $update_data['password'] = $this->input->post('password');
             }
+            // $id, $update_data, $profile_data
+            //
 
-            if ($this->ion_auth->update_user($id, $update_data, $profile_data))
+            if ($user->save())
             {
                 // Fire an event. A user has been updated. 
-                Events::trigger('user_updated', $id);
+                Events::trigger('user_updated', $user);
 
-                $this->session->set_flashdata('success', $this->ion_auth->messages());
+                $this->session->set_flashdata('success', 'User saved.'); // @todo - language
             }
             else
             {
@@ -387,7 +422,7 @@ class Admin extends Admin_Controller
             // Dirty hack that fixes the issue of having to re-add all data upon an error
             if ($_POST)
             {
-                $user = (object) $_POST;
+                //$user = (object) $_POST;
             }
         }
 
@@ -424,6 +459,7 @@ class Admin extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
             ->set('display_name', $user->display_name)
+            ->set('current_group_ids', $user->groups->modelKeys())
             ->set('profile_fields', array()) //$this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
             ->set('member', $user)
             ->build('admin/users/form');
@@ -463,7 +499,7 @@ class Admin extends Admin_Controller
         foreach ($ids as $id)
         {
             $user = Users\Model\User::find($id);
-            $user->activated    = true;
+            $user->is_activated    = true;
             $this->activated_at = new DateTime;
 
             if ($user->save())
