@@ -191,7 +191,7 @@ class User extends EloqentUser
 		$this->save();
 	}
 
-	public static function assignGroupIdsToUser(User $user = null, array $group_ids = array())
+	public static function assignGroupIdsToUser(User $user = null, $group_ids = array())
     {
         if ( ! $user->isSuperUser() and ! empty($group_ids) and $groups = Group::findManyInId($group_ids))
         {
