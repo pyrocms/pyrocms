@@ -224,6 +224,12 @@ class Admin extends Admin_Controller
 
                 Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
+                // Create profile
+                $profile_id = $this->streams->entries->insert_entry($profile_data, 'profiles', 'users');
+
+                // Update the user_id
+                $this->pdb->table('profiles')->where('id', '=', $profile_id)->update(array('user_id' => $user->id));
+
                 // Fire an event. A new user has been created
                 Events::trigger('user_created', $user);
 
@@ -325,6 +331,17 @@ class Admin extends Admin_Controller
         }
 
 
+        // We need the profile ID to pass to get_stream_fields.
+        // This theoretically could be different from the actual user id.
+        if ($id)
+        {
+            $profile_id = $this->pdb->table('profiles')->take(1)->where('user_id', '=', $id)->pluck('id');
+        }
+        else
+        {
+            $profile_id = null;
+        }
+
 
         if ($this->form_validation->run() === true)
         {
@@ -377,8 +394,13 @@ class Admin extends Admin_Controller
             {
                 $update_data['password'] = $this->input->post('password');
             }
-            // $id, $update_data, $profile_data
-            //
+            
+            // Update / create profile
+            if (empty($profile_id)) {
+                $this->streams->entries->insert_entry(array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
+            } else {
+                $this->streams->entries->update_entry($profile_id, array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
+            }
 
             if ($user->save())
             {
@@ -413,17 +435,6 @@ class Admin extends Admin_Controller
             }
         }
 
-        // We need the profile ID to pass to get_stream_fields.
-        // This theoretically could be different from the actual user id.
-        if ($id)
-        {
-            //$profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
-        }
-        else
-        {
-            $profile_id = null;
-        }
-
         $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
 
         $profile = $this->db->limit(1)->where('user_id', $id)->get('profiles')->row();
@@ -438,7 +449,7 @@ class Admin extends Admin_Controller
             ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
             ->set('display_name', $user->display_name)
             ->set('current_group_ids', $user->groups->modelKeys())
-            ->set('profile_fields', array()) //$this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
+            ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
             ->set('member', $user)
             ->build('admin/users/form');
     }
@@ -534,6 +545,9 @@ class Admin extends Admin_Controller
             {
                 // Fire an event. One or more users have been deleted. 
                 Events::trigger('user_deleted', $deleted_users);
+
+                // Delet the profile
+                $this->pdb->table('profiles')->where('user_id', '=', $id)->delete();
 
                 $this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
             }
