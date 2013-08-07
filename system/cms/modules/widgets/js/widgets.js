@@ -116,7 +116,7 @@ jQuery(function($){
 			$('.widget-area-content > .buttons > button[value=delete]').live('click-confirmed', function(e){
 				e.preventDefault();
 
-				var $area	= $(this).parents('section.widget-area-box'),
+				var $area	= $(this).parents('.js-widget-area'),
 					id		= $area.attr('data-id'),
 					url		= SITE_URL + 'admin/widgets/areas/delete/' + id;
 
@@ -366,7 +366,7 @@ jQuery(function($){
 			var $form		= $(form),
 				$submit		= $form.find('#instance-actions button[value=save]'),
 				$cancel		= $form.find('#instance-actions a.cancel')
-				area_id		= $form.parents('section.widget-area-box').attr('data-id'),
+				area_id		= $form.parents('.js-widget-area').attr('data-id'),
 				url			= $form.attr('action');
 
 			if ($form.data('has_events'))

@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Nastal problém při přidávání záz
 $lang['streams:new_entry_success']						= "Záznam byl přidán.";
 $lang['streams:edit_entry_error']						= "Nastal problém při úpravě záznamu.";
 $lang['streams:edit_entry_success']					= "Záznam byl upraven.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Jste si jistý/á, že chcete odstranit stream <strong>%s</strong>?";
 
 /* Misc Errors */

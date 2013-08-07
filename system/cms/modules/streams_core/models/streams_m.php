@@ -331,7 +331,7 @@ class Streams_m extends CI_Model
 			$insert_data['view_options']		= serialize(array('id', 'created'));
 		}
 
-		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
+		return $this->pdb->table($this->table)->where('id', '=', $stream_id)->update($update_data);
 	}
 
 	/**
@@ -403,22 +403,15 @@ class Streams_m extends CI_Model
 	 */
 	public function get_stream_id_from_slug($slug, $namespace)
 	{
-		// TODO This was added because some other streams code was missing a ->get()
-		// This was effecting this query. Please fix! Phil
-		$this->db->reset_query();
-
-		$db = $this->db
-			->limit(1)
-			->where('stream_slug', $slug)
-			->where('stream_namespace', $namespace)
-			->get($this->table);
-
-		if ($db->num_rows() == 0) {
-			return false;
+		if ($stream = $this->pdb->table($this->table)
+			->where('stream_slug', '=', $slug)
+			->where('stream_namespace', '=', $namespace)
+			->take(1)
+			->first())
+		{
+			return $stream->id;
 		} else {
-			$row = $db->row();
-
-			return $row->id;
+			return false;
 		}
 	}
 
@@ -517,14 +510,9 @@ class Streams_m extends CI_Model
 		// Filter results
 		// -------------------------------------
 
-		if ($filter_data != null) {
-
-			// Loop through and apply the filters
-			foreach ($filter_data['filters'] as $filter=>$value) {
-				if ( strlen($value) > 0 ) {
-					$this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
-				}
-			}
+		foreach ($filter_data as $filter)
+		{
+			$this->db->where($filter, null, false);
 		}
 
 		// -------------------------------------
@@ -600,7 +588,7 @@ class Streams_m extends CI_Model
 		if (is_numeric($limit)) {
 			$query->take($limit);
 		}
-		if (is_numeric($offset)) {
+		if (is_numeric($offset) and ! empty($offset)) {
 			$query->skip($offset);
 		}
 
@@ -664,7 +652,7 @@ class Streams_m extends CI_Model
 	 * @param	[bool - should we create the column?]
 	 * @return	mixed - false or assignment ID
 	 */
-	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
+	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true, $field_assignment_construct = true)
 	{
 		// TODO This whole method needs to be recoded to use Schema...
 
@@ -693,7 +681,7 @@ class Streams_m extends CI_Model
 		if ( ! $field_type) return false;
 
 		// Do we have a pre-add function?
-		if (method_exists($field_type, 'field_assignment_construct')) {
+		if (method_exists($field_type, 'field_assignment_construct') and $field_assignment_construct) {
 			$field_type->field_assignment_construct($field, $stream);
 		}
 
@@ -716,12 +704,14 @@ class Streams_m extends CI_Model
 		}
 
 		// Grab table prefix from installer
-		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
+		// We set the prefix for the cms installer but not the module intall
+		// until we can figure out how to replace dbforge with the Schema builder here
+		$prefix = ! defined('ADMIN_THEME') ? $this->pdb->getQueryGrammar()->getTablePrefix() : null;
 
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 
 		if ($field_type->db_col_type !== false and $create_column === true) {
-			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 
 		// -------------------------------------

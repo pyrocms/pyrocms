@@ -14,7 +14,7 @@
 
 $lang['buttons:submit']		= 'Enregistrer';
 $lang['buttons:cancel']		= 'Annuler';
-$lang['buttons:upload']		= 'Uploader';
+$lang['buttons:upload']		= 'Charger';
 $lang['buttons:save']		= 'Enregistrer';
 $lang['buttons:save_exit']	= 'Enregister et sortir';
 $lang['buttons:delete']		= 'Supprimer';

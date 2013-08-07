@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 
             $instance->options = $options;
 
-            if ($this->widgetManager->validate($widget) and $widget->save()) {
+            if ($this->widgetManager->validate($widget) and $instance->save()) {
 
                 // Pass the widget instance to the widget_instance_created event
                 Events::trigger('widget_instance_created', $instance);
