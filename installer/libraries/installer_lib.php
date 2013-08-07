@@ -243,6 +243,11 @@ class Installer_lib
 			return array('status' => false,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 
+		if ($this->mysql_server_version >= '5.0.7')
+		{
+			@mysql_set_charset('utf8', $this->db);
+		}
+
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
 		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
@@ -255,11 +260,6 @@ class Installer_lib
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
 		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
-
-		if ($this->mysql_server_version >= '5.0.7')
-		{
-			@mysql_set_charset('utf8', $this->db);
-		}
 
 		// Select the database we created before
 		if ( ! mysql_select_db($database, $this->db) )
