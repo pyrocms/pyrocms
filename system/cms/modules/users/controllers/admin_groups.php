@@ -73,6 +73,32 @@ class Admin_groups extends Admin_Controller
                 $group->name = $this->input->post('name');
                 $group->description = $this->input->post('description');
 
+
+                // Save permissions
+                $new_perms = array();
+                $roles = $this->input->post('module_roles');
+
+                if ($modules = $this->input->post('modules'))
+                {
+                    foreach ($this->input->post('modules') as $module)
+                    {
+                        if (isset($roles[$module]) and is_array($roles[$module]))
+                        {
+                            foreach ($roles[$module] as $role)
+                            {
+                                $new_perms["{$module}.{$role}"] = 1;
+                            }
+                        } 
+                        else 
+                        {
+                            $new_perms["{$module}.general"] = 1;
+                        }
+                    }
+                }
+
+                $group->permissions = $new_perms;
+
+
                 if ($group->save()) {
                     // Fire an event. A new group has been created.
                     Events::trigger('group_created', $group);
