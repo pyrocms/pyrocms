@@ -16,7 +16,7 @@
 		<div class="tabs">
 
 			<ul class="tab-menu">
-				<li><a href="#user-basic-data-tab"><span><?php echo lang('profile:user_basic_data_label') ?></span></a></li>
+				<li><a href="#user-basic-data-tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a></li>
 				<li><a href="#user-profile-fields-tab"><span><?php echo lang('user:profile_fields_label') ?></span></a></li>
 			</ul>
 
@@ -38,20 +38,23 @@
 							</div>
 						</li>
 
-						<li>
-							<label for="group_id"><?php echo lang('user:group_label') ?></label>
-							<div class="input">
-								<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $group_options, $member->group_id, 'id="group_id"') ?>
-							</div>
-						</li>
+						<?php if ( ! $member->isSuperUser() and $this->current_user->id != $member->id): ?>
+							<li>
+								<label for="group_id"><?php echo lang('user:group_label') ?></label>
+								<div class="input">
+									<?php echo form_multiselect('groups[]', $group_options, $current_group_ids); ?>
+								</div>
+							</li>
 
-						<li class="even">
-							<label for="active"><?php echo lang('user:activate_label') ?></label>
-							<div class="input">
-								<?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
-								<?php echo form_dropdown('active', $options, $member->active, 'id="active"') ?>
-							</div>
-						</li>
+							<li class="even">
+								<label for="active"><?php echo lang('user:activate_label') ?></label>
+								<div class="input">
+									<?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
+									<?php echo form_dropdown('active', $options, $member->is_activated, 'id="active"') ?>
+								</div>
+							</li>
+						<?php endif; ?>
+
 						<li class="even">
 							<label for="password">
 								<?php echo lang('global:password') ?>
@@ -69,13 +72,6 @@
 
 				<fieldset>
 					<ul>
-
-						<li>
-							<label for="display_name"><?php echo lang('profile:display_name') ?> <span>*</span></label>
-							<div class="input">
-								<?php echo form_input('display_name', $display_name, 'id="display_name"') ?>
-							</div>
-						</li>
 
 						<?php foreach ($profile_fields as $field): ?>
 						<li>

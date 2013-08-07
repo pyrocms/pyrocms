@@ -30,7 +30,6 @@ $lang['widgets:widget_area_slug'] 			= '區塊簡稱';
 
 $lang['widgets:view_code']				= '查看代码';
 
-$lang['widgets:instance_title'] 			= '標題';
 $lang['widgets:show_title']				= '显示组件的标题?';
 $lang['widgets:tag_title']					= '標籤';
 

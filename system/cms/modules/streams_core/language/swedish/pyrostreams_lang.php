@@ -36,6 +36,7 @@ $lang['streams:new_entry_error'] = 'Det gick inte att lägga till posten.';
 $lang['streams:new_entry_success'] = 'Posten tillagd.';
 $lang['streams:edit_entry_error'] = 'Det gick inte att uppdatera posten.';
 $lang['streams:edit_entry_success'] = 'Posten raderad.';
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary'] = 'Är du säker på att du vill radera <strong>%s</strong> stream? Detta kommer att <strong>radera %s %s</strong>.';
 $lang['streams:no_stream_provided'] = 'Ingen stream har valts.';
 $lang['streams:invalid_stream'] = 'Ogiltig stream.';

@@ -31,7 +31,6 @@ $lang['widgets:widget_area_slug']       = 'نام انگلیسی ناحیه';
 
 $lang['widgets:view_code']          = 'مشاهده کد';
 
-$lang['widgets:instance_title']         = 'عنوان';
 $lang['widgets:show_title']		    = 'عنوان ویجت ها نشان داده شوند؟'; #translate
 $lang['widgets:tag_title']              = 'تگ';
 

@@ -30,7 +30,6 @@ $lang['widgets:widget_area_slug'] = 'Nom court';
 
 $lang['widgets:view_code'] = 'Voir le code';
 
-$lang['widgets:instance_title'] = 'Titre';
 $lang['widgets:show_title'] = 'Afficher le titre du Widget&nbsp;?';
 $lang['widgets:tag_title'] = 'Tag';
 

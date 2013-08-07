@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Υπήρξε κάποιο πρόβλη�
 $lang['streams:new_entry_success']						= "Η εγγραφή προστέθηκε με επιτυχία.";
 $lang['streams:edit_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την ενημέρωση αυτής της εγγραφής.";
 $lang['streams:edit_entry_success']					= "Η εγγραφή ενημερώθηκε με επιτυχία.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Είσαστε σίγουροι ότι θέλετε να διαγράψετε την ροή <strong>%s</strong>; Αυτό θα <strong>διαγράψει %s %s</strong> για πάντα.";
 
 /* Misc Errors */

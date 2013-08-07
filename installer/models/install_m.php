@@ -151,34 +151,6 @@ class Install_m extends CI_Model
 		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');	// Set for grammer ($schema)
 		$conn->setTablePrefix($db['site_ref'].'_'); // Set for connection ($conn)
 
-		// Profiles
-		$schema->create('profiles', function($table) {
-		    $table->increments('id');
-		    $table->integer('user_id');
-		    $table->string('display_name', 50); // TODO Revise these lengths
-		    $table->string('first_name', 50);
-		    $table->string('last_name', 50)->nullable();
-		    $table->string('company', 100)->nullable();
-		    $table->string('lang', 2)->default('en');
-		    $table->text('bio')->nullable();
-		    $table->integer('dob')->nullable();
-		    $table->enum('gender', array('m', 'f', ''))->default('');
-		    $table->string('phone', 20)->nullable();
-		    $table->string('website', 255)->nullable();
-		    $table->integer('updated_on')->nullable();
-
-		    $table->index('user_id');
-		});
-
-		// Populate site profiles
-		$conn->table('profiles')->insert(array(
-			'user_id'       => 1,
-			'first_name'    => $user['firstname'],
-			'last_name'     => $user['lastname'],
-			'display_name'  => $user['firstname'].' '.$user['lastname'],
-			'lang'          => 'en',
-		));
-
 		// Migrations
 		$schema->create('migrations', function($table) {
 		    $table->integer('version');

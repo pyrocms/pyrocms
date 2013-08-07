@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "There was a problem adding this entry."
 $lang['streams:new_entry_success']						= "Entry added successfully.";
 $lang['streams:edit_entry_error']						= "There was a problem updating this entry.";
 $lang['streams:edit_entry_success']						= "Entry updated successfully.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Are you sure you want to delete the <strong>%s</strong> stream? This will <strong>delete %s %s</strong> permanently.";
 
 /* Misc Errors */
