@@ -119,7 +119,11 @@ class Field_datetime
 					return lang('streams:invalid_input_for_date_range_check');
 				}
 
-				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
+				$year = $this->CI->input->post($field->field_slug.'_year');
+				$month = $this->two_digit_number($_POST[$field->field_slug.'_month']);
+				$day = $this->two_digit_number($_POST[$field->field_slug.'_day']);
+
+				$value = $year.'-'.$month.'-'.$day;
 			}
 
 
@@ -697,7 +701,6 @@ class Field_datetime
 	 * Turns a single digit number into a
 	 * two digit number
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */
