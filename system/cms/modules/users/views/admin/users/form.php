@@ -73,13 +73,6 @@
 				<fieldset>
 					<ul>
 
-						<li>
-							<label for="display_name"><?php echo lang('profile_display_name') ?> <span>*</span></label>
-							<div class="input">
-								<?php echo form_input('display_name', $display_name, 'id="display_name"') ?>
-							</div>
-						</li>
-
 						<?php foreach ($profile_fields as $field): ?>
 						<li>
 							<label for="<?php echo $field['field_slug'] ?>">
