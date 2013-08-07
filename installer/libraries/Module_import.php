@@ -165,7 +165,7 @@ class Module_import
 			}
 		}
 
-		$user = $this->session->userdata('user');
+		$user = ci()->session->userdata('user');
 
 		// Populate site profiles
 		$this->pdb

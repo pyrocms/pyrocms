@@ -261,11 +261,6 @@ class Module_Users extends AbstractModule
             return false;
         }
 
-         // Index user_id
-        $schema->table('profiles', function($table) {
-            $table->index('user_id');
-        });
-
         // Go ahead and add the profile fields
         $fields = array(
             array(
@@ -275,7 +270,7 @@ class Module_Users extends AbstractModule
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
-                'assign'     => array('required' => true)
+                'required' => true,
             ),
             array(
                 'name'          => 'lang:user:first_name_label',
@@ -284,7 +279,7 @@ class Module_Users extends AbstractModule
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
-                'assign'     => array('required' => true)
+                'required' => true,
             ),
             array(
                 'name'          => 'lang:user:last_name_label',
@@ -293,7 +288,7 @@ class Module_Users extends AbstractModule
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
-                'assign'     => array('required' => true)
+                'required' => true,
             ),
             array(
                 'name'          => 'lang:user:profile_company',
@@ -395,6 +390,12 @@ class Module_Users extends AbstractModule
                 'assign'        => 'profiles',
             )
         );
+
+         // Index user_id
+        $schema->table('profiles', function($table) {
+            $table->integer('user_id');
+            $table->index('user_id');
+        });
 
         ci()->streams->fields->add_fields($fields);
 
