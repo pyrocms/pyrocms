@@ -14,10 +14,12 @@ class Plugin_Contact extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Contact',
+		'br' => 'Contato',
             'fa' => 'تماس با ما'
 	);
 	public $description = array(
 		'en' => 'Displays a contact form for site visitors.',
+		'br' => 'Exibe um formulário de contato para os visitantes do site.',
             'fa' => 'نمایش فرم تماس با ما برای مراجعین سایت',
 	);
 
@@ -37,7 +39,8 @@ class Plugin_Contact extends Plugin
 		$info = array(
 			'form' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display a contact form anywhere on your site. Each wildcard attribute that you pass ("email" for example) is available as a variable in the email template and between the double tags to output the form field.'
+					'en' => 'Display a contact form anywhere on your site. Each wildcard attribute that you pass ("email" for example) is available as a variable in the email template and between the double tags to output the form field.',
+					'br' => 'Exibe um formulário de contato em qualquer parte no seu site. Cada atributo coringa que você passar ("e-mail", por exemplo) estará disponível como uma variável de template e entre tags duplas para exibir o campo do formulário.'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?

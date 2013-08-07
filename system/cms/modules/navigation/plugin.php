@@ -11,9 +11,11 @@ class Plugin_Navigation extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Navigation',
+		'br' => 'Navegação'
 	);
 	public $description = array(
 		'en' => 'Build navigation links including links in dropdown menus.',
+		'br' => 'Monta links de navegação incluindo links em menus dropdown.'
 	);
 
 	/**
@@ -32,7 +34,8 @@ class Plugin_Navigation extends Plugin
 		$info = array(
 			'links' => array(
 				'description' => array(
-					'en' => 'Output links from a single navigation group. If [group_segment] is used it loads the group specified by that uri segment.'
+					'en' => 'Output links from a single navigation group. If [group_segment] is used it loads the group specified by that uri segment.',
+					'br' => 'Exibe links de um único grupo de navegação. Se o atributo [group_segment] for utilizado, o grupo especificado por este segmento de uri é carregado.'
 				),
 				'single' => true,
 				'double' => true,

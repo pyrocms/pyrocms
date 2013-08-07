@@ -13,10 +13,12 @@ class Plugin_Settings extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Settings',
+		'br' => 'Configurações',
             'fa' => 'تنظیمات',
 	);
 	public $description = array(
 		'en' => 'Retrieve a setting from the database.',
+		'br' => 'Recupera uma configuração do banco de dados.',
             'fa' => 'دریافت تنظیمات سایت از دیتابیس',
 	);
 
@@ -37,7 +39,8 @@ class Plugin_Settings extends Plugin
 		foreach ($settings as $slug => $value)
 		{
 			$info[$slug]['description'] = array(
-				'en' => 'Retrieve the value for setting '.$slug.'.'
+				'en' => 'Retrieve the value for setting '.$slug.'.',
+				'br' => 'Recupera o valor da configuração "'.$slug.'".'
 			);
 			$info[$slug]['single'] = true;
 			$info[$slug]['double'] = false;

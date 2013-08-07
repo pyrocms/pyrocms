@@ -17,6 +17,7 @@ class Plugin_Template extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access and set theme settings and properties.',
+		'br' => 'Acessa e define propriedades e configurações do tema.',
 		'el' => 'Πρόσβαση και αλλαγή ρυθμίσεων και ιδιοτήτων του θέματος εμφάνισης.',
             'fa' => 'دسترسی و ست کردن تنظیمات',
 		'fr' => 'Accéder aux paramètres et propriétés du thème.',
@@ -39,7 +40,8 @@ class Plugin_Template extends Plugin
 		$info = array(
 			'breadcrumbs' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Loop through the breadcrumbs and output them as links.'
+					'en' => 'Loop through the breadcrumbs and output them as links.',
+					'br' => 'Passa pelos breadcrumbs e os retorna como links.'
 				),
 				'single' => false,
 				'double' => true,
@@ -48,7 +50,8 @@ class Plugin_Template extends Plugin
 			),// end breadcrumbs method
 			'set_breadcrumb' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Add a segment to the breadcrumb trail. If [reset] is used all breadcrumbs will be cleared first.'
+					'en' => 'Add a segment to the breadcrumb trail. If [reset] is used all breadcrumbs will be cleared first.',
+					'br' => 'Adiciona um segmento ao rastro do breadcrumb. Se [reset] for utilizado, todos os breadcrumbs serão removidos primeiro.'
 				),
 				'single' => true,
 				'double' => false,
@@ -76,7 +79,8 @@ class Plugin_Template extends Plugin
 			),// end set_breadcrumb method
 			'has_breadcrumbs' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Check if any breadcrumbs exist.'
+					'en' => 'Check if any breadcrumbs exist.',
+					'br' => 'Checa se algum breadcrumb existe.'
 				),
 				'single' => true,
 				'double' => false,
@@ -85,7 +89,8 @@ class Plugin_Template extends Plugin
 			),// end has_breadcrumbs method
 			'title' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the template title.'
+					'en' => 'Output the template title.',
+					'br' => 'Exibe o título do template.'
 				),
 				'single' => true,
 				'double' => false,
@@ -94,7 +99,8 @@ class Plugin_Template extends Plugin
 			),// end title method
 			'set_title' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Set the template title from within your content.'
+					'en' => 'Set the template title from within your content.',
+					'br' => 'Define o título do template a partir do seu conteúdo.'
 				),
 				'single' => true,
 				'double' => false,
@@ -110,7 +116,8 @@ class Plugin_Template extends Plugin
 			),// end title method
 			'metadata' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the compiled metadata set by any and all controllers.'
+					'en' => 'Output the compiled metadata set by any and all controllers.',
+					'br' => 'Exibe os metadados compilados que foram definidos por todo e qualquer controller.'
 				),
 				'single' => true,
 				'double' => false,
@@ -119,7 +126,8 @@ class Plugin_Template extends Plugin
 			),// end metadata method
 			'set_metadata' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Set metadata by name/value pairs.'
+					'en' => 'Set metadata by name/value pairs.',
+					'br' => 'Define metadados por pares nome/valor.'
 				),
 				'single' => true,
 				'double' => false,
@@ -147,7 +155,8 @@ class Plugin_Template extends Plugin
 			),// end set_metadata method
 			'partial' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output a template partial set in a controller. Note that a theme partial different.'
+					'en' => 'Output a template partial set in a controller. Note that a theme partial different.',
+					'br' => 'Exibe um partial do template definido em um controller. Note que um partial de tema é diferente.'
 				),
 				'single' => true,
 				'double' => false,
@@ -163,7 +172,8 @@ class Plugin_Template extends Plugin
 			),// end partial method
 			'has_partial' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Check if a template partial has been set.'
+					'en' => 'Check if a template partial has been set.',
+					'br' => 'Checa se um partial de template foi definido.'
 				),
 				'single' => true,
 				'double' => false,
@@ -179,7 +189,8 @@ class Plugin_Template extends Plugin
 			),// end has_partial method
 			'body' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the completed template. This is the final output.'
+					'en' => 'Output the completed template. This is the final output.',
+					'br' => 'Exibe o template completo. Esta é a saída final.'
 				),
 				'single' => true,
 				'double' => false,

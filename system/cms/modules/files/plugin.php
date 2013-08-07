@@ -14,10 +14,12 @@ class Plugin_Files extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Files',
+		'br' => 'Arquivos',
             'fa' => 'فایل ها',
 	);
 	public $description = array(
 		'en' => 'List files in specified folders and output images with cropping.',
+		'br' => 'Lista arquivos em pastas específicas e exibe imagens com recortes',
              'fa' => 'لیست فایل های موجود در پوشه ی مشخص شده و خروجی تصاویر',
 	);
 
@@ -37,7 +39,8 @@ class Plugin_Files extends Plugin
 		$info = array(
 			'listing' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.'
+					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.',
+					'br' => 'Itera através dos arquivos contidos em uma pasta específica ou que possuem tags específicas.'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?
@@ -89,7 +92,8 @@ class Plugin_Files extends Plugin
 			),// end listing method
 			'folders' => array(
 				'description' => array(
-					'en' => 'List folders and files (optional) from a specified folder'
+					'en' => 'List folders and files (optional) from a specified folder.',
+					'br' => 'Lista pastas e arquivos (opcional) de uam pasta específica.'
 				),
 				'single' => false,
 				'double' => true,
@@ -105,7 +109,8 @@ class Plugin_Files extends Plugin
 			),// end folders method
 			'folder_exists' => array(
 				'description' => array(
-					'en' => 'Check if a folder exists in the database.'
+					'en' => 'Check if a folder exists in the database.',
+					'br' => 'Checa se uma pasta existe no banco de dados.'
 				),
 				'single' => true,
 				'double' => false,
@@ -121,7 +126,8 @@ class Plugin_Files extends Plugin
 			),// end folder_exists method
 			'exists' => array(
 				'description' => array(
-					'en' => 'Check if a file exists in the database.'
+					'en' => 'Check if a file exists in the database.',
+					'br' => 'Checa se um arquivo existe no banco de dados.'
 				),
 				'single' => true,
 				'double' => false,
@@ -137,7 +143,8 @@ class Plugin_Files extends Plugin
 			),// end exists method
 			'image' => array(
 				'description' => array(
-					'en' => 'Output an image tag while resizing the image.'
+					'en' => 'Output an image tag while resizing the image.',
+					'br' => 'Exibe uma tag <img /> ao mesmo tempo que recorta a imagem.'
 				),
 				'single' => true,
 				'double' => false,
@@ -177,7 +184,8 @@ class Plugin_Files extends Plugin
 			),// end image method
 			'image' => array(
 				'description' => array(
-					'en' => 'Output an image tag while resizing the image.'
+					'en' => 'Output an image tag while resizing the image.',
+					'br' => 'Exibe uma tag <img /> ao mesmo tempo que recorta a imagem.'
 				),
 				'single' => true,
 				'double' => false,
@@ -217,7 +225,8 @@ class Plugin_Files extends Plugin
 			),// end image method
 			'image_url' => array(
 				'description' => array(
-					'en' => 'Output a url to the specified image.'
+					'en' => 'Output a url to the specified image.',
+					'br' => 'Exibe uma URL para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -233,7 +242,8 @@ class Plugin_Files extends Plugin
 			),// end image url method
 			'image_path' => array(
 				'description' => array(
-					'en' => 'Output a filesystem path to the specified image.'
+					'en' => 'Output a filesystem path to the specified image.',
+					'br' => 'Exibe um caminho do sistema de arquivos para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -249,7 +259,8 @@ class Plugin_Files extends Plugin
 			),// end image path method
 			'url' => array(
 				'description' => array(
-					'en' => 'Output a url to the specified file.'
+					'en' => 'Output a url to the specified file.',
+					'br' => 'Exibe uma URL para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -265,7 +276,8 @@ class Plugin_Files extends Plugin
 			),// end file url method
 			'path' => array(
 				'description' => array(
-					'en' => 'Output a filesystem path to the specified file.'
+					'en' => 'Output a filesystem path to the specified file.',
+					'br' => 'Exibe um caminho do sistema de arquivos para o arquivo especificado.'
 				),
 				'single' => true,
 				'double' => false,

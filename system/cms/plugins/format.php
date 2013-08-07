@@ -17,6 +17,7 @@ class Plugin_format extends Plugin
 	);
 	public $description = array(
 		'en' => 'Format strings, including Markdown and Textile.',
+		'br' => 'Formata strings, incluindo Markdown e Textile.',
 		'el' => 'Μορφοποίηση κειμενοσειρών, συμπεριλαμβανομένων των Markdown και Textile.',
             'fa' => 'به فرمت در آوردن  رشته های مانندMarkdown و Textile ',
 		'fr' => 'Formatter des chaînes de caractères, incluant Markdown et Textile.',
@@ -37,7 +38,8 @@ class Plugin_format extends Plugin
 		$info = array(
 			'markdown' => array(
 				'description' => array(
-					'en' => 'Send some content through the Markdown processor.'
+					'en' => 'Send some content through the Markdown processor.',
+					'br' => 'Passa algum conteúdo pelo processador Markdown.'
 				),
 				'single' => false,
 				'double' => true,
@@ -47,7 +49,8 @@ class Plugin_format extends Plugin
 			
 			'textile' => array(
 				'description' => array(
-					'en' => 'Send some content through the Textile processor.'
+					'en' => 'Send some content through the Textile processor.',
+					'br' => 'Passa algum conteúdo pelo processador Textile.'
 				),
 				'single' => false,
 				'double' => true,
@@ -57,7 +60,8 @@ class Plugin_format extends Plugin
 			
 			'url_title' => array(
 				'description' => array(
-					'en' => 'A Plugin shortcut to the CodeIgniter url_title() function.'
+					'en' => 'A Plugin shortcut to the CodeIgniter url_title() function.',
+					'br' => 'Um Plugin de atalho para a função url_title() do CodeIgniter.'
 				),
 				'single' => true,
 				'double' => false,
