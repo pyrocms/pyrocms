@@ -3,11 +3,9 @@
 /**
  * PyroStreams Row Model
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Models
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Row_m extends MY_Model {
 

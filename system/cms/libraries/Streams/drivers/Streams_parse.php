@@ -9,8 +9,9 @@
  * tag tomfoolery which allows Streams to do some interesting
  * things while keeping the tag structure nice and clean.
  * 
- * @author  	Adam Fairholm - PyroCMS Dev Team
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
 class Streams_parse extends CI_Driver {
 

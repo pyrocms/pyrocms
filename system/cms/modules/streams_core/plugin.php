@@ -6,11 +6,9 @@
  * This plugin houses common Streams functions that need to be
  * globally accessible by streams tags, not just PyroStreams.
  *
- * @package   PyroStreams
- * @author    Parse19
- * @copyright Copyright (c) 2011 - 2012, Parse19
- * @license   http://parse19.com/pyrostreams/docs/license
- * @link      http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Plugin_Streams_core extends Plugin
 {
