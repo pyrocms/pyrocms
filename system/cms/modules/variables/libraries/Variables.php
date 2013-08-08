@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Variables\Model\Variable;
+
 /**
  * Variable Library
  *
@@ -7,8 +10,9 @@
  * @author		PyroCMS Dev Team
  * @package  	PyroCMS\Core\Modules\Variables\Libraries
  */
-class Variables {
-
+class Variables
+{
+	private $_CI;
 	private $_vars = null;
 
 	// ------------------------------------------------------------------------
@@ -22,7 +26,7 @@ class Variables {
 	 */
 	public function __construct()
 	{
-		ci()->load->driver('Streams');
+		$this->_CI =& get_instance();
 	}
 
 	// ------------------------------------------------------------------------
@@ -37,22 +41,20 @@ class Variables {
 	 */
 	public function __get($name)
 	{
-		// Variables are being used on this site and they 
+		// Variables are being used on this site and they
 		// haven't been loaded yet... now eager load them
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->get_all();
 		}
 
 		// the requested variable isn't in the database or cache; set it to null
-		if ( ! isset($this->_vars[$name]))
-		{
+		if ( ! isset($this->_vars[$name])) {
 			$this->_vars[$name] = null;
 		}
 
 		return $this->_vars[$name];
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	/**
@@ -65,10 +67,9 @@ class Variables {
 	 */
 	public function __set($name, $value)
 	{
-		// if $this->_vars is null then load them all as this is 
+		// if $this->_vars is null then load them all as this is
 		// the first time this library has been touched
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->get_all();
 		}
 
@@ -87,28 +88,16 @@ class Variables {
 	public function get_all()
 	{
 		// the variables haven't been fetched yet, load them
-		if ($this->_vars === null)
-		{
+		if ($this->_vars === null) {
 			$this->_vars = array();
-			if ( ! ($cached_vars = ci()->cache->get('variables_library_vars')))
-			{
-				$entries = ci()->streams->entries->get_entries(array(
-	    			'stream'    => 'variables',
-	    			'namespace' => 'variables'
-				));
+			$vars = Variable::all();
 
-				foreach ($entries['entries'] as $var)
-				{
-					$this->_vars[$var['name']] = $var['data'];
-				}
-			} 
-			else
-			{
-				$this->_vars = $cached_vars;
+			foreach ($vars as $var) {
+				$this->_vars[$var->name] = $var->data;
 			}
 		}
 
-		return ci()->cache->set('variables_library_vars', $this->_vars);
+		return $this->_vars;
 	}
 }
 

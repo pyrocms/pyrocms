@@ -35,6 +35,7 @@ $lang['widgets:widget_area_slug']       = 'Alueen polkutunnus';
 
 $lang['widgets:view_code']				= 'Näytä koodi';
 
+$lang['widgets:instance_title']         = 'Otsikko';
 $lang['widgets:show_title']				= 'Näytä vimpaimen otsikko?';
 $lang['widgets:tag_title']              = 'Avainsana';
 

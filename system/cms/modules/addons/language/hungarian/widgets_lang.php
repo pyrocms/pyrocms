@@ -30,6 +30,7 @@ $lang['widgets:widget_area_slug']       = 'Terület rövid neve';
 
 $lang['widgets:view_code']              = 'Kód megtekintése';
 
+$lang['widgets:instance_title']         = 'Cím';
 $lang['widgets:show_title']             = 'Widget címének megjelenítése?';
 $lang['widgets:tag_title']              = 'Címszó';
 

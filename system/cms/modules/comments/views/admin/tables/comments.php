@@ -33,7 +33,11 @@
 					</td>
 					
 					<td>
-						<?php echo mailto($comment->user_email, $comment->user_name) ?>
+						<?php if ($comment->user_id > 0): ?>
+							<?php echo anchor('admin/users/edit/'.$comment->user_id, user_displayname($comment->user_id, false)) ?>
+						<?php else: ?>
+							<?php echo mailto($comment->user_email, $comment->user_name) ?>
+						<?php endif ?>
 					</td>
 				
 					<td><?php echo format_date($comment->created_on) ?></td>

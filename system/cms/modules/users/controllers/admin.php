@@ -41,6 +41,11 @@ class Admin extends Admin_Controller
             'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
         ),
         array(
+            'field' => 'group_id',
+            'label' => 'lang:user_group_label',
+            'rules' => 'required|callback__group_check'
+        ),
+        array(
             'field' => 'is_activated',
             'label' => 'lang:user_active_label',
             'rules' => ''
@@ -62,21 +67,11 @@ class Admin extends Admin_Controller
         // Load the required classes
         $this->load->helper('user');
         $this->load->library('form_validation');
-        $this->lang->load(array('user', 'group'));
+        $this->lang->load('user');
 
-        if ($this->current_user->isSuperUser()) 
-        {
+        if ($this->current_user->isSuperUser())  {
             $this->template->group_options = Users\Model\Group::getGeneralGroupOptions();
-        }  
-        else
-        {
-            // Require for non super users
-            $this->validation[] =   array(
-                'field' => 'groups[]',
-                'label' => 'lang:user_group_label',
-                'rules' => 'required|callback__group_check'
-            );
-
+        }  else  {
             $this->template->group_options = Users\Model\Group::getGroupOptions();
         }
     }
@@ -161,9 +156,9 @@ class Admin extends Admin_Controller
     public function create()
     {
         // Extra validation for basic data
-        //$this->validation_rules['email']['rules'] .= '|callback__email_check';
+        $this->validation_rules['email']['rules'] .= '|callback__email_check';
         $this->validation_rules['password']['rules'] .= '|required';
-        //$this->validation_rules['username']['rules'] .= '|callback__username_check';
+        $this->validation_rules['username']['rules'] .= '|callback__username_check';
 
         // Get the profile fields validation array from streams
         $this->load->driver('Streams');
@@ -186,12 +181,9 @@ class Admin extends Admin_Controller
         $assignments = $this->streams->streams->get_assignments('profiles', 'users');
         $profile_data = array();
 
-        if ( ! empty($assignments))
-        {
         foreach ($assignments as $assign) {
             $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
         }
-    }
 
         // Some stream fields need $_POST as well.
         $profile_data = array_merge($profile_data, $_POST);
@@ -210,49 +202,39 @@ class Admin extends Admin_Controller
             $group = Users\Model\Group::find($group_id);
 
             // Register the user (they are activated by default if an activation email isn't requested)
-            //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($user = Users\Model\User::create(array(
-                    'username' => $username,
-                    'password' => $password,
-                    'email' => $email,
-                    'is_activated' => $activate
-                ))) {
-                //if ($activate === '0') {
+            if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
+                if ($activate === '0') {
                     // admin selected Inactive
-                    //$this->ion_auth_model->deactivate($user_id);
-                //}
-
-                Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
-
-                // Create profile
-                $profile_id = $this->streams->entries->insert_entry($profile_data, 'profiles', 'users');
-
-                // Update the user_id
-                $this->pdb->table('profiles')->where('id', '=', $profile_id)->update(array('user_id' => $user->id));
+                    $this->ion_auth_model->deactivate($user_id);
+                }
 
                 // Fire an event. A new user has been created
-                Events::trigger('user_created', $user);
+                Events::trigger('user_created', $user_id);
 
                 // Set the flashdata message and redirect
-               // $this->session->set_flashdata('success', $this->ion_auth->messages());
+                $this->session->set_flashdata('success', $this->ion_auth->messages());
 
                 // Redirect back to the form or main page
                 $this->input->post('btnAction') === 'save_exit'
                     ? redirect('admin/users')
-                    : redirect('admin/users/edit/'.$user->id);
+                    : redirect('admin/users/edit/'.$user_id);
 
             // Error
             } else {
-                //$this->template->error_string = $this->ion_auth->errors();
+                $this->template->error_string = $this->ion_auth->errors();
             }
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
+            if ($_POST) {
+                $user = (object) $_POST;
+            }
 
         }
 
-        $user = new Users\Model\User;
-        $user->is_active = false;
+        if (! isset($user)) {
+            $user = new stdClass();
+        }
 
         // Loop through each validation rule
         foreach ($this->validation_rules as $rule) {
@@ -270,10 +252,9 @@ class Admin extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], lang('user:add_title'))
             ->set('member', $user)
-            ->set('current_group_ids', array())
             ->set('display_name', set_value('display_name', $this->input->post('display_name')))
             ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
-            ->build('admin/users/form');
+            ->build('admin/form');
     }
 
     /**
@@ -283,14 +264,13 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-
         // Get the user's data
         if ( ! ($user = Users\Model\User::find($id)))
         {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
         }
-
+        
         // Check to see if we are changing usernames
         if ($user->username != $this->input->post('username'))
         {
@@ -315,33 +295,17 @@ class Admin extends Admin_Controller
         $assignments = $this->streams->streams->get_assignments('profiles', 'users');
         $profile_data = array();
 
-        if ( ! empty($assignments))
+        foreach ($assignments as $assign)
         {
-            foreach ($assignments as $assign)
+            if (isset($_POST[$assign->field_slug]))
             {
-                if (isset($_POST[$assign->field_slug]))
-                {
-                    $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-                }
-                elseif (isset($user->{$assign->field_slug}))
-                {
-                    $profile_data[$assign->field_slug] = $user->{$assign->field_slug};
-                }
-            }            
+                $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+            }
+            elseif (isset($user->{$assign->field_slug}))
+            {
+                $profile_data[$assign->field_slug] = $user->{$assign->field_slug};
+            }
         }
-
-
-        // We need the profile ID to pass to get_stream_fields.
-        // This theoretically could be different from the actual user id.
-        if ($id)
-        {
-            $profile_id = $this->pdb->table('profiles')->take(1)->where('user_id', '=', $id)->pluck('id');
-        }
-        else
-        {
-            $profile_id = null;
-        }
-
 
         if ($this->form_validation->run() === true)
         {
@@ -352,28 +316,21 @@ class Admin extends Admin_Controller
             }
 
             // Get the POST data
-            $user->email = $this->input->post('email');
-            $user->is_activated = $this->input->post('active');
-            $user->username = $this->input->post('username');
-
-            Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
-
-            //$user->groups = $this->input->post('groups');
-
-            // @todo - commented out but their some work to be done here with email activation
-
+            $update_data['email'] = $this->input->post('email');
+            $update_data['active'] = $this->input->post('active');
+            $update_data['username'] = $this->input->post('username');
             // allow them to update their one group but keep users with user editing privileges from escalating their accounts to admin
-            // $update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $user->group_id : $this->input->post('group_id');
+            $update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $user->group_id : $this->input->post('group_id');
 
-            // if ($update_data['active'] === '2')
-            // {
-            //     //$this->ion_auth->activation_email($id);
-            //     unset($update_data['active']);
-            // }
-            // else
-            // {
-            //     $user->is_activated = (bool) $update_data['active'];
-            // }
+            if ($update_data['active'] === '2')
+            {
+                $this->ion_auth->activation_email($id);
+                unset($update_data['active']);
+            }
+            else
+            {
+                $update_data['active'] = (bool) $update_data['active'];
+            }
 
             $profile_data = array();
 
@@ -394,20 +351,13 @@ class Admin extends Admin_Controller
             {
                 $update_data['password'] = $this->input->post('password');
             }
-            
-            // Update / create profile
-            if (empty($profile_id)) {
-                $this->streams->entries->insert_entry(array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
-            } else {
-                $this->streams->entries->update_entry($profile_id, array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
-            }
 
-            if ($user->save())
+            if ($this->ion_auth->update_user($id, $update_data, $profile_data))
             {
                 // Fire an event. A user has been updated. 
-                Events::trigger('user_updated', $user);
+                Events::trigger('user_updated', $id);
 
-                $this->session->set_flashdata('success', 'User saved.'); // @todo - language
+                $this->session->set_flashdata('success', $this->ion_auth->messages());
             }
             else
             {
@@ -422,7 +372,7 @@ class Admin extends Admin_Controller
             // Dirty hack that fixes the issue of having to re-add all data upon an error
             if ($_POST)
             {
-                //$user = (object) $_POST;
+                $user = (object) $_POST;
             }
         }
 
@@ -433,6 +383,17 @@ class Admin extends Admin_Controller
             {
                 $user->{$rule['field']} = set_value($rule['field']);
             }
+        }
+
+        // We need the profile ID to pass to get_stream_fields.
+        // This theoretically could be different from the actual user id.
+        if ($id)
+        {
+            $profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
+        }
+        else
+        {
+            $profile_id = null;
         }
 
         $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
@@ -448,10 +409,9 @@ class Admin extends Admin_Controller
         $this->template
             ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
             ->set('display_name', $user->display_name)
-            ->set('current_group_ids', $user->groups->modelKeys())
             ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
             ->set('member', $user)
-            ->build('admin/users/form');
+            ->build('admin/form');
     }
 
     /**
@@ -461,7 +421,7 @@ class Admin extends Admin_Controller
      */
     public function preview($id = 0)
     {
-        $user = Users\Model\User::find($id);
+        $user = $this->ion_auth->get_user($id);
 
         $this->template
             ->set_layout('modal', 'admin')
@@ -487,11 +447,7 @@ class Admin extends Admin_Controller
         $to_activate = 0;
         foreach ($ids as $id)
         {
-            $user = Users\Model\User::find($id);
-            $user->is_activated    = true;
-            $this->activated_at = new DateTime;
-
-            if ($user->save())
+            if ($this->ion_auth->activate($id))
             {
                 $activated++;
             }
@@ -521,21 +477,19 @@ class Admin extends Admin_Controller
         {
             $deleted = 0;
             $to_delete = 0;
-            $deleted_users = array();
+            $deleted_ids = array();
             foreach ($ids as $id)
             {
                 // Make sure the admin is not trying to delete themself
-                if ($this->current_user->id == $id)
+                if ($this->ion_auth->get_user()->id == $id)
                 {
                     $this->session->set_flashdata('notice', lang('user:delete_self_error'));
                     continue;
                 }
 
-                $user = Users\Model\User::find($id);
-
-                if ($user->delete())
+                if ($this->ion_auth->delete_user($id))
                 {
-                    $deleted_users[] = $user;
+                    $deleted_ids[] = $id;
                     $deleted++;
                 }
                 $to_delete++;
@@ -544,10 +498,7 @@ class Admin extends Admin_Controller
             if ($to_delete > 0)
             {
                 // Fire an event. One or more users have been deleted. 
-                Events::trigger('user_deleted', $deleted_users);
-
-                // Delet the profile
-                $this->pdb->table('profiles')->where('user_id', '=', $id)->delete();
+                Events::trigger('user_deleted', $deleted_ids);
 
                 $this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
             }
@@ -572,7 +523,7 @@ class Admin extends Admin_Controller
      */
     public function _username_check()
     {
-        if (Users\Model\User::findByUsername($this->input->post('username')))
+        if ($this->ion_auth->username_check($this->input->post('username')))
         {
             $this->form_validation->set_message('_username_check', lang('user:error_username'));
             return false;
@@ -591,7 +542,7 @@ class Admin extends Admin_Controller
      */
     public function _email_check()
     {
-        if (Users\Model\User::findByEmail($this->input->post('email')))
+        if ($this->ion_auth->email_check($this->input->post('email')))
         {
             $this->form_validation->set_message('_email_check', lang('user:error_email'));
             return false;

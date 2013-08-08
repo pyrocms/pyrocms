@@ -14,7 +14,7 @@ $lang['nav:uri_label'] 							= 'Lien interne (URI)';
 $lang['nav:page_label'] 						= 'Page';
 $lang['nav:module_label'] 						= 'Module';
 $lang['nav:restricted_to']						= 'Restreint à';
-$lang['nav:abbrev_label'] 						= 'Abréviation';
+$lang['nav:abbrev_label'] 						= 'Abbréviation';
 
 $lang['nav:link_target_self'] 					= 'Fenêtre actuelle (default)';
 $lang['nav:link_target_blank'] 					= 'Nouvelle fenêtre (_blank)';
@@ -23,13 +23,13 @@ $lang['nav:link_target_blank'] 					= 'Nouvelle fenêtre (_blank)';
 $lang['nav:link_create_title'] 					= 'Ajouter un lien de navigation';
 $lang['nav:group_create_title']					= 'Ajouter un groupe';
 $lang['nav:link_edit_title'] 					= 'Editer le lien "%s"';
-$lang['nav:link_list_title'] 					= 'Liens';
+$lang['nav:link_list_title'] 					= 'Lister les liens';
 $lang['nav:group_list_title']                   = 'Groupes';
 
 // messages
 $lang['nav:group_no_links'] 					= 'Il n\'y a pas de lien dans ce groupe.';
 $lang['nav:no_groups'] 							= 'Il n\'y a pas de groupe de navigation.';
-$lang['nav:group_delete_confirm'] 				= 'Etes-vous sûr(e) de vouloir supprimer ce groupe&nbsp;? Cela supprimera tous les liens de navigation de ce groupe et les fichiers de gabarit (Layout) devront être modifiés pour enlever toute référence à ceux-ci.';
+$lang['nav:group_delete_confirm'] 				= 'Etes-vous sûr de vouloir supprimer ce groupe&nbsp;? Cela supprimera tous les liens de navigation de ce groupe, les fichiers de Layout devront être modifiés pour enlever toute référence à ceux-ci.';
 $lang['nav:group_add_success'] 					= 'Votre groupe de navigation a été enregistré.';
 $lang['nav:group_add_error'] 					= 'Une erreur est survenue.';
 $lang['nav:group_mass_delete_success'] 			= 'Le groupe de navigation a été supprimé.';

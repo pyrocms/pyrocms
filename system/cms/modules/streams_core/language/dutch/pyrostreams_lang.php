@@ -28,7 +28,6 @@ $lang['streams:new_entry_error']						  = "Er was een probleem met het toevoegen
 $lang['streams:new_entry_success']						= "Uw ingave is succesvol toegevoegd.";
 $lang['streams:edit_entry_error']						  = "Er was een probleem met het bijwerken van uw ingave.";
 $lang['streams:edit_entry_success']						= "Uw ingave is succesvol bijgewerkt.";
-$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']						  	= "Weet u zeker dat u de stream <strong>%s</strong> wilt verwijderen? Dit verwijderd <strong>delete %s %s</strong> permanent.";
 
 /* Misc Errors */

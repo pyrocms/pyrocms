@@ -5,7 +5,7 @@ $lang['global:dashboard'] = 'Tableau de bord';
 $lang['cp:admin_quick_links'] = 'Liens rapides';
 
 $lang['cp:welcome_title'] = 'Bienvenue';
-$lang['cp:welcome_message'] = 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer l\'essentiel de votre site Internet.<br/> Si vous rencontrez un bug dans le système, merci de créer un ticket dans notre bugtracker.';
+$lang['cp:welcome_message'] = 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer la quasi totalité de votre site Internet.<br/> Au cas ou vous rencontrez un bug dans le système, veuillez s\'il vous plait créer un ticket dans notre bugtracker.';
 
 $lang['cp:news_feed_title'] = 'Flux d\'actualités';
 
@@ -39,16 +39,16 @@ $lang['cp:nav_misc'] = 'Divers';
 
 $lang['cp:search'] = 'Recherche';
 
-$lang['cp:must_login'] = 'Vous devez être identifié(e) pour voir cette page.';
+$lang['cp:must_login'] = 'Vous devez être identifié pour voir cette page.';
 $lang['cp:access_denied'] = 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 
-$lang['cp:delete_installer_message'] = 'Le dossier installer existe toujours&nbsp;! Veuillez le supprimer de votre serveur&nbsp;!<br>Le conserver peut causer des failles de sécurité et permettre à des personnes malveillantes de prendre possession du site.';
+$lang['cp:delete_installer_message'] = 'Le dossier installer existe toujours&nbsp;! Veuillez le supprimer de votre serveur&nbsp;!<br>Le conserver peut engendrer des failles de sécurité et de permettre à des personnes malveillantes de prendre possession du site.';
 $lang['cp:delete_installer'] = 'Supprimer le dossier Installer';
 
 $lang['cp:delete_installer_successfully_message'] = 'Le dossier installer a été supprimé avec succès.';
-$lang['cp:delete_installer_manually_message'] = 'Le dossier installer n\'a pu être supprimé. <strong>Merci de le supprimer manuellement&nbsp;!</strong>';
+$lang['cp:delete_installer_manually_message'] = 'Le dossier installer n\'as pu être supprimé. <strong>Merci de le supprimer manuellement&nbsp;!</strong>';
 $lang['cp:upgrade_message'] = 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';
-$lang['cp:google_analytics_missing'] = 'Les paramètres Google Analytics sont manquants. Merci de les ajouter dans %s ou contactez votre administrateur.';
+$lang['cp:google_analytics_missing'] = 'Google Analytics paramètres sont manquants. Les ajouter dans %s ou contactez votre administrateur.';
 $lang['cp:google_analytics_no_connect'] = 'Impossible de se connecter à Google Analytics. Vérifiez dans %s.';
 
 $lang['required_label'] = 'Requis';

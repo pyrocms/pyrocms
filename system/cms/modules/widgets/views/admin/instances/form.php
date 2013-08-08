@@ -4,15 +4,14 @@
 
     <?php if ($instance): ?>
         <?php echo form_hidden('id', $instance->id) ?>
+        <?php echo form_hidden('widget_id', $instance->widget_id) ?>
     <?php endif ?>
-    
-    <?php echo form_hidden('widget_id', $widget->id) ?>
 
     <?php if (! empty($error)) echo $error ?>
 
     <ol>
         <li>
-            <label for="name"><?php echo lang('name_label') ?>:</label>
+            <label for="name"><?php echo lang('widgets:instance_title') ?>:</label>
             <?php echo form_input('name', set_value('name', $instance->name)) ?>
             <span class="required-icon tooltip"><?php echo lang('required_label') ?></span>
         </li>

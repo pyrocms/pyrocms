@@ -182,7 +182,7 @@ class Admin extends Admin_Controller
 
 		$ids = explode(',', $link->restricted_to);
 
-		$group_options = Users\Model\Group::findManyGroupOptionsInId($ids);
+		$group_options = Users\Model\Group::findManyInId($ids);
 
 		$link->restricted_to = implode(', ', $group_options);
 

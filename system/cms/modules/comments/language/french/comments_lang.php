@@ -26,15 +26,15 @@ $lang['comments:send_label'] 				= 'Commentaire';
 $lang['comments:inactive_title'] 			= 'En attente d\'approbation';
 $lang['comments:active_title'] 				= 'Commentaires approuvés';
 $lang['comments:edit_title'] 				= 'Editer le commentaire';
-$lang['comments:list_title'] 				= 'Commentaires';
+$lang['comments:list_title'] 				= 'Lister les commentaires';
 
 // messages
 $lang['comments:add_success'] 				= 'Le commentaire a été sauvegardé.';
 $lang['comments:add_approve'] 				= 'Le commentaire a été sauvegardé et est en attente d\'approbation.';
 $lang['comments:add_error']					= 'Un problème est survenu lors de l\'ajout de votre commentaire. Ré-essayez plus tard.';
 
-$lang['comments:edit_success'] 				= 'Le commentaire a bien été modifié.';
-$lang['comments:edit_error'] 				= 'Le commentaire n\'a pas pu être modifié.';
+$lang['comments:edit_success'] 				= 'Le commentaire a été modifié avec succès.';
+$lang['comments:edit_error'] 				= 'Le commentaire n\'a pu être modifié.';
 
 $lang['comments:approve_success'] 			= 'Ce commentaire a été approuvé.';
 $lang['comments:approve_success_multiple'] 	= 'Les commentaires sélectionnés ont été approuvés.';
@@ -42,14 +42,14 @@ $lang['comments:approve_error'] 			= 'Un problème est survenu lors de l\'approb
 $lang['comments:approve_error_multiple'] 	= 'Une erreur s\'est produite lors de l\'approbation des commentaires sélectionnés.';
 
 $lang['comments:unapprove_success'] 		= 'Le commentaire a été refusé et n\'apparaîtra plus sur le site.';
-$lang['comments:unapprove_success_multiple'] = 'Le commentaire sélectionné a été désaprouvé et ne s\'affichera plus sur le site.';
-$lang['comments:unapprove_error'] 			= 'Un problème est survenu lors du refus de ce commentaire. Vous pouvez alternativement essayer de le supprimer.';
-$lang['comments:unapprove_error_multiple']	= 'Une erreur est survenue lors de la désapprobation des commentaires sélectionnés. Les supprimer pourrait résoudre le problème.';
+$lang['comments:unapprove_success_multiple'] = 'Le commentaire sélectionné a été désaprouvé et ne s\'affichera plus sur le site en ligne.';
+$lang['comments:unapprove_error'] 			= 'Un problème est survenu lors du refus de ce commentaire. Essayez alors de le supprimer ?';
+$lang['comments:unapprove_error_multiple']	= 'Une erreur est survenue lors de la désapprobation des commentaires sélectionnés. Les effacer pourrait-il résoudre le problème ?';
 
 $lang['comments:delete_single_success'] 	= 'Le commentaire #%s a été supprimé et n\'apparaîtra plus sur le site.';
 $lang['comments:delete_multi_success'] 		= 'Les commentaires #%s ont été supprimés et n\'apparaîtront plus sur le site.';
 
-$lang['comments:no_comments'] 				= 'Il n\'y a pas de commentaires';
+$lang['comments:no_comments'] 				= 'Il n\'y pas de commentaires';
 
 // Helper counter comments
 $lang['comments:counter_none_label']		= 'Aucun commentaire';

@@ -53,36 +53,6 @@ class WidgetInstanceModel extends Eloquent
         return $this->belongsTo('Pyro\Module\Addons\WidgetModel');
     }
 
-        /**
-     * Array containing the validation rules
-     *
-     * @var array
-     */
-    public function validate()
-    {
-        ci()->load->library('form_validation');
-
-        ci()->form_validation->set_rules(array(
-            array(
-                'field' => 'name',
-                'label' => 'lang:name_label',
-                'rules' => 'trim|required|max_length[250]',
-            ),
-            array(
-                'field' => 'widget_id',
-                'rules' => 'trim|numeric|required',
-            ),
-            array(
-                'field' => 'widget_area_id',
-                'rules' => 'trim|numeric|required',
-            ),
-        ));
-        
-        ci()->form_validation->set_data($this->toArray());
-
-        return ci()->form_validation->run();
-    }
-
 	protected function setOptionsAttribute($value)
 	{
 		$this->attributes['options'] = serialize((array) $value);

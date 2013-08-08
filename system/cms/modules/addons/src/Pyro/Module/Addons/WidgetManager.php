@@ -206,40 +206,52 @@ class WidgetManager
     }
 
     /**
+     * Render
+     *
      * Display the actual widget HTML based on slug and options provided
      *
      * <code>
      * echo $this->widgets->render('rss_feed', array('feed_url' => 'http://philsturgeon.co.uk/blog/feed.rss'));
      * </code>
      *
-     * @param  int    $slug     Widget
+     * @param  int    $slug     Widget slug
      * @param  array  $options  Options (data saved in the DB or provided on-the-fly)
      * @return string
      */
-    public function render(WidgetAbstract $widget, WidgetInstanceModel $instance = null)
+    public function render($slug, array $options = array())
     {
-        $options = $instance ? $instance->options : array();
+        $widget = $this->get($slug);
+
         $data = method_exists($widget, 'run') ? call_user_func(array($widget, 'run'), $options) : array();
 
-        // BAIL
+        // Don't run this widget
         if ($data === false) {
             return false;
+        }
 
         // If we have true, just make an empty array
-        } elseif ($data === true) {
-            $data = array();
+        $data !== true OR $data = array();
 
-        // Make sure its an array
-        } elseif (! is_array($data)) {
-            $data = (array) $data;
-        }
+        // convert to array
+        is_array($data) OR $data = (array) $data;
 
         $data['options'] = $options;
 
-        return $this->loadView('display', $widget, $data);
+        // Check that the widget is enabled = 1 , if it's 1
+        // we go ahead and return it
+        $result = $this->db
+            ->select('enabled')
+            ->where('slug', $name)
+            ->get('widgets');
+
+        if ($result->row()->enabled == 1) {
+            return $this->loadView('display', $widget, $data);
+        }
     }
 
     /**
+     * Render Backend
+     *
      * Display the widget form for the Control Panel
      *
      * @param  WidgetAbstract       $slug       Widget class
@@ -280,6 +292,8 @@ class WidgetManager
     }
 
     /**
+     * Render Area
+     *
      * Display the widget area HTML
      *
      * <code>
@@ -316,28 +330,23 @@ class WidgetManager
 
         $output = '';
         foreach ($area->instances as $instance) {
-      
-            // If this widget is disabled then skip it
-            if ( ! $instance->widget->enabled) {
-                continue;
+
+            $instance->body = $this->render($instance->widget->slug, $instance->options);
+
+            if ($instance->body !== false) {
+
+                // add this view location to the array
+                ci()->load->set_view_path($path);
+
+                $output .= ci()->load->_ci_load(array(
+                    '_ci_view' => $view, 
+                    '_ci_vars' => array('widget' => $widget), 
+                    '_ci_return' => true
+                ))."\n";
+
+                // Put the old array back
+                ci()->load->set_view_path($save_path);
             }
-
-            // Widget 
-            $widget_class = $this->get($instance->widget->slug);
-
-            $instance->body = $this->render($widget_class, $instance);
-
-            // add this view location to the array
-            ci()->load->set_view_path($path);
-
-            $output .= ci()->load->_ci_load(array(
-                '_ci_view' => $view, 
-                '_ci_vars' => array('widget' => $widget_class), 
-                '_ci_return' => true
-            ))."\n";
-
-            // Put the old array back
-            ci()->load->set_view_path($save_path);
         }
 
         $this->rendered_areas[$short_name] = $output;
@@ -371,9 +380,7 @@ class WidgetManager
     public function validate(WidgetAbstract $widget)
     {
         ci()->load->library('form_validation');
-        ci()->form_validation->set_rules('name', lang('name_label'), 'trim|required|max_length[100]');
-        ci()->form_validation->set_rules('widget_id', null, 'trim|required|numeric');
-        ci()->form_validation->set_rules('widget_area_id', null, 'trim|required|numeric');
+        ci()->form_validation->set_rules('name', lang('global:title'), 'trim|required|max_length[100]');
 
         if (property_exists($widget, 'fields')) {
             ci()->form_validation->set_rules($widget->fields);
@@ -392,6 +399,8 @@ class WidgetManager
     }
 
     /**
+     * Spawn Class
+     *
      * Turn a location and a widget name into an actuall instance
      *
      * @param string $path The location of the widget
@@ -418,30 +427,23 @@ class WidgetManager
         return $widget;
     }
 
-    /**
-     * Turn a location and a widget name into an actuall instance
-     *
-     * @param string          $view   View name
-     * @param WidgetAbstract  $widget Widget class
-     * @param array           $data   Extra data to be send to the view
-     *
-     * @return array
-     */
     protected function loadView($view, WidgetAbstract $widget, array $data = array())
     {
         $view_path = $widget->path.'views/'.$view.'.php';
 
-        $view_content = ci()->load->_ci_load(array(
-            '_ci_path'      => $view_path,
-            '_ci_vars'      => $data,
-            '_ci_return'    => true
-        ));
-
         return $view == 'display'
 
-            ? ci()->parser->parse_string($view_content, array(), true)
+            ? $this->parser->parse_string(ci()->load->_ci_load(array(
+                '_ci_path'      => $view_path,
+                '_ci_vars'      => $data,
+                '_ci_return'    => true
+            )), array(), true)
 
-            : $view_content;
+            : ci()->load->_ci_load(array(
+                '_ci_path'      => $view_path,
+                '_ci_vars'      => $data,
+                '_ci_return'    => true
+            ));
     }
 
 }

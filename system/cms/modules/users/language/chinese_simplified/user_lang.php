@@ -7,7 +7,7 @@
  * @subpackage 	Users Module
  * @category	Modules
  * @link		http://pyrocms.com
- * @since		2012-06-22
+ * @date		2012-06-22
  * @version		1.0
  */
 
@@ -37,6 +37,7 @@ $lang['user:edit_title'] 				= '編輯用戶 "%s"';
 $lang['user:details_label'] 			= '內容';
 $lang['user:first_name_label'] 			= '大名';
 $lang['user:last_name_label'] 			= '姓氏';
+$lang['user:email_label'] 				= 'E-mail';
 $lang['user:group_label'] 				= '群組';
 $lang['user:activate_label'] 			= '啟動';
 $lang['user:password_label'] 			= '密碼';
