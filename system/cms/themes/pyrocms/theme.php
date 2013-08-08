@@ -5,12 +5,11 @@ use Pyro\Module\Comments\Model\Comment;
 
 class Theme_Pyrocms extends AbstractTheme
 {
-
-    public $name			= 'Admin Theme';
-    public $author			= 'AI Web Systems, Inc. - Ryan Thompson';
-    public $author_website	= 'http://aiwebsystems.com/';
-    public $website			= 'http://aiwebsystems.com/';
-    public $description		= 'PyroCMS admin theme. HTML5, CSS3, Bootstrap and more.';
+    public $name			= 'PyroCMS - Admin Theme';
+    public $author			= 'PyroCMS Dev Team';
+    public $author_website	= 'http://pyrocms.com/';
+    public $website			= 'http://pyrocms.com/';
+    public $description		= 'PyroCMS admin theme. HTML5 and CSS3 styling.';
     public $version			= '1.0.0';
 	public $type			= 'admin';
 	public $options 		= array(
@@ -50,13 +49,12 @@ class Theme_Pyrocms extends AbstractTheme
 			'is_required'   => true
 		),
 	);
-	
+
 	/**
 	 * Run() is triggered when the theme is loaded for use
 	 *
 	 * This should contain the main logic for the theme.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function run()
@@ -78,104 +76,145 @@ class Theme_Pyrocms extends AbstractTheme
 			}
 		}
 	}
-	
-	public function get_analytics()
+
+	/**
+	 * Generate Menu
+	 *
+	 * Get a list of all modules available to this user/group
+	 *
+	 * @return	void
+	 */
+	private function generate_menu()
 	{
-		if ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)
-		{
-			// Not false? Return it
-			if ($cached_response = $this->pyrocache->get('analytics'))
-			{
-				$data['analytic_visits'] = $cached_response['analytic_visits'];
-				$data['analytic_views'] = $cached_response['analytic_views'];
+		if (! $this->current_user) {
+			return;
+		}
+
+		$modules = $this->module_m->get_all(array(
+			'is_backend' => true,
+			'group' => $this->current_user->group,
+			'lang' => CURRENT_LANGUAGE
+		));
+
+		$grouped_modules = array();
+
+		$grouped_menu[] = 'content';
+
+		foreach ($modules as $module) {
+			if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0') {
+				$grouped_menu[] = $module['menu'];
 			}
+		}
 
-			else
-			{
-				try
-				{
-					$this->load->library('analytics', array(
-						'username' => $this->settings->ga_email,
-						'password' => $this->settings->ga_password
-					));
+		array_push($grouped_menu, 'design', 'users', 'utilities');
 
-					// Set by GA Profile ID if provided, else try and use the current domain
-					$this->analytics->setProfileById('ga:'.$this->settings->ga_profile);
+		$grouped_menu = array_unique($grouped_menu);
 
-					$end_date = date('Y-m-d');
-					$start_date = date('Y-m-d', strtotime('-1 month'));
+		foreach ($modules as $module) {
+			$grouped_modules[$module['menu']][$module['name']] = $module;
+		}
 
-					$this->analytics->setDateRange($start_date, $end_date);
+		// pass them on as template variables
+		$this->template->menu_items = $grouped_menu;
+		$this->template->modules = $grouped_modules;
+	}
 
-					$visits = $this->analytics->getVisitors();
-					$views = $this->analytics->getPageviews();
+	/**
+	 * Get Analytics
+	 *
+	 * Fetch Google Analytics information for the dashboard graph
+	 *
+	 * @return	void
+	 */
+	public function getAnalytics()
+	{
+		if ( ! (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))) {
+			return;
+		}
 
-					/* build tables */
-					if (count($visits))
-					{
-						foreach ($visits as $date => $visit)
-						{
-							$year = substr($date, 0, 4);
-							$month = substr($date, 4, 2);
-							$day = substr($date, 6, 2);
+		// Not false? Return it
+		if ($cached_response = $this->cache->get('analytics')) {
+			$data['analytic_visits'] = $cached_response['analytic_visits'];
+			$data['analytic_views'] = $cached_response['analytic_views'];
+		} else {
+			try {
+				$this->load->library('analytics', array(
+					'username' => Settings::get('ga_email'),
+					'password' => Settings::get('ga_password'),
+				));
 
-							$utc = mktime(date('h') + 1, null, null, $month, $day, $year) * 1000;
+				// Set by GA Profile ID if provided, else try and use the current domain
+				$this->analytics->setProfileById('ga:'.Settings::get('ga_profile'));
 
-							$flot_datas_visits[] = '[' . $utc . ',' . $visit . ']';
-							$flot_datas_views[] = '[' . $utc . ',' . $views[$date] . ']';
-						}
+				$end_date = date('Y-m-d');
+				$start_date = date('Y-m-d', strtotime('-1 month'));
 
-						$flot_data_visits = '[' . implode(',', $flot_datas_visits) . ']';
-						$flot_data_views = '[' . implode(',', $flot_datas_views) . ']';
+				$this->analytics->setDateRange($start_date, $end_date);
+
+				$visits = $this->analytics->getVisitors();
+				$views = $this->analytics->getPageviews();
+
+				/* build tables */
+				if (count($visits)) {
+					foreach ($visits as $date => $visit) {
+						$year = substr($date, 0, 4);
+						$month = substr($date, 4, 2);
+						$day = substr($date, 6, 2);
+
+						$utc = mktime(date('h') + 1, null, null, $month, $day, $year) * 1000;
+
+						$flot_datas_visits[] = '[' . $utc . ',' . $visit . ']';
+						$flot_datas_views[] = '[' . $utc . ',' . $views[$date] . ']';
 					}
 
-					$data['analytic_visits'] = $flot_data_visits;
-					$data['analytic_views'] = $flot_data_views;
-
-					// Call the model or library with the method provided and the same arguments
-					$this->pyrocache->write(array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 'analytics', 60 * 60 * 6); // 6 hours
+					$flot_data_visits = '[' . implode(',', $flot_datas_visits) . ']';
+					$flot_data_views = '[' . implode(',', $flot_datas_views) . ']';
 				}
 
-				catch (Exception $e)
-				{
-					$data['messages']['notice'] = sprintf(lang('cp:google_analytics_no_connect'), anchor('admin/settings', lang('cp:nav_settings')));
-				}
+				$data['analytic_visits'] = $flot_data_visits;
+				$data['analytic_views'] = $flot_data_views;
+
+				// Call the model or library with the method provided and the same arguments
+				$this->cache->set('analytics', array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 60 * 60 * 6); // 6 hours
+			} catch (Exception $e) {
+				$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
 			}
-
-			// make it available in the theme
-			$this->template->set($data);
 		}
+
+		// make it available in the theme
+		$this->template->set($data);
 	}
-	
-	public function get_rss_feed()
+
+	/**
+	 * Get RSS Feed
+	 *
+	 * Fetch articles for whatever RSS feed is in settings
+	 */
+	public function getRssFeed()
 	{
 		// Dashboard RSS feed (using SimplePie)
-		$this->load->library('simplepie');
-		$this->simplepie->set_cache_location($this->config->item('simplepie_cache_dir'));
-		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
-		$this->simplepie->init();
-		$this->simplepie->handle_content_type();
+		$pie = new SimplePie;
+		$pie->set_cache_location($this->config->item('simplepie_cache_dir'));
+		$pie->set_feed_url(Settings::get('dashboard_rss'));
+		$pie->init();
+		$pie->handle_content_type();
 
-		// Store the feed items
-		$data['rss_items'] = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
-		
-		// you know
-		$this->template->set($data);
+		$this->template->rss_items = $pie->get_items(0, Settings::get('dashboard_rss_count'));
 	}
-	
-	public function get_recent_comments()
+
+	/**
+	 * Get Recent Comments
+	 *
+	 * Fetch recent comments and work out what they attach to.
+	 */
+	public function getRecentComments()
 	{
 		$this->load->library('comments/comments');
-		$this->load->model('comments/comment_m');
-
-		$this->load->model('users/user_m');
-
 		$this->lang->load('comments/comments');
 
-		$recent_comments = $this->comment_m->get_recent(5);
-		$data['recent_comments'] = $this->comments->process($recent_comments);
-		
-		$this->template->set($data);
+		$recent_comments = Comment::findRecent(5);
+
+		$this->template->recent_comments = $this->comments->process($recent_comments);
 	}
 }
 
