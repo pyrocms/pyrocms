@@ -1,5 +1,6 @@
 <h2 class="page-title">{{ user:display_name user_id= _user:id }}</h2>
 
+
 <!-- Container for the user's profile -->
 <div id="user_profile_container">
 	<?php echo gravatar($_user->email, 50);?>
@@ -7,7 +8,7 @@
 	<div id="user_details">
 
 		<table>
-
+	
 			{{# we use _user:id as that is the id passed to this view. Different than the logged in user's user:id #}}
 			{{ user:profile_fields user_id= _user:id }}
 				{{#   viewing own profile?    are they an admin?        ok it's a regular user, we'll show the non-sensitive items #}}
@@ -20,5 +21,6 @@
 		</table>
 
 	</div>
+	
 
 </div>

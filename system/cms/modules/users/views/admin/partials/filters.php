@@ -1,7 +1,7 @@
 <fieldset id="filters">
 
 	<legend><?php echo lang('global:filters') ?></legend>
-
+	
 	<?php echo form_open('') ?>
 	<?php echo form_hidden('f_module', $module_details['slug']) ?>
 		<ul>
@@ -12,9 +12,9 @@
 
 			<li>
 				<?php echo lang('user:group_label', 'f_group') ?>
-				<?php echo form_dropdown('f_group', array(0 => lang('global:select-all')) + $group_options) ?>
+				<?php echo form_dropdown('f_group', array(0 => lang('global:select-all')) + $groups_select) ?>
 			</li>
-
+			
 			<li><?php echo form_input('f_keywords') ?></li>
 			<li><?php echo anchor(current_url(), lang('buttons:cancel'), 'class="cancel"') ?></li>
 		</ul>
