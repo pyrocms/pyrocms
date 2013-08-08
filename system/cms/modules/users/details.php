@@ -118,11 +118,6 @@ class Module_Users extends AbstractModule
         return $info;
     }
 
-    public function admin_menu(&$menu)
-    {
-        $menu['lang:cp_nav_users']['lang:cp:nav_users'] = 'admin/users';
-    }
-
     /**
      * Installation logic
      *
