@@ -26,6 +26,8 @@ class FieldAssignment extends Eloquent
      */
     public $timestamps = false;
 
+    //public function findManyByStreamId()
+
     public function newCollection(array $models = array())
     {
         return new FieldAssignmentCollection($models);
@@ -38,7 +40,7 @@ class FieldAssignment extends Eloquent
 
     public function field()
     {
-        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Field', 'field_id');
+        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Field');
     }
 
     public function getIsRequiredAttribute($is_required)

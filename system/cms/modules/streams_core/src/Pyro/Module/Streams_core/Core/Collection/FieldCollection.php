@@ -4,5 +4,8 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
-	// We can add custom methods here that will be available in the collection returned by the FieldAssignment model
+	public function findBySlug($field_slug)
+	{
+		return $this->findByAttribute($field_slug, 'field_slug');
+	}
 }
