@@ -1,6 +1,10 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-class Theme_Pyrocms extends Theme {
+use Pyro\Module\Addons\AbstractTheme;
+use Pyro\Module\Comments\Model\Comment;
+
+class Theme_Pyrocms extends AbstractTheme
+{
 
     public $name			= 'Admin Theme';
     public $author			= 'AI Web Systems, Inc. - Ryan Thompson';
@@ -9,6 +13,7 @@ class Theme_Pyrocms extends Theme {
     public $description		= 'PyroCMS admin theme. HTML5, CSS3, Bootstrap and more.';
     public $version			= '1.0.0';
 	public $type			= 'admin';
+	public $options			= array();
 	
 	/**
 	 * Run() is triggered when the theme is loaded for use
