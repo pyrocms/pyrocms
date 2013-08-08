@@ -4,5 +4,18 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldAssignmentCollection extends EloquentCollection
 {
-	// We can add custom methods here that will be available in the collection returned by the FieldAssignment model
+	public function getFields()
+	{
+		$fields = array();
+
+		foreach ($this->items as $assignment)
+		{	
+			if ($assignment->field)
+			{
+				$fields[] = $assignment->field;
+			}
+		}
+
+		return new FieldCollection($fields);
+	}
 }

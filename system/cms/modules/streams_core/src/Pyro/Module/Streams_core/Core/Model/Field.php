@@ -33,7 +33,7 @@ class Field extends Eloquent
 
     public function assignments()
     {
-        return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
+        return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment', 'field_id');
     }
 
     public function getFieldDataAttribute($field_data)
