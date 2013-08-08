@@ -165,6 +165,18 @@ class Module_import
 			}
 		}
 
+		$user = ci()->session->userdata('user');
+
+		// Populate site profiles
+		$this->pdb
+			->table('profiles')->insert(array(
+				'user_id'       => 1,
+				'first_name'    => $user['firstname'],
+				'last_name'     => $user['lastname'],
+				'display_name'  => $user['firstname'].' '.$user['lastname'],
+				'lang'          => 'en',
+			));
+
 		// After modules are imported we need to modify the settings table
 		// This allows regular admins to upload addons on the first install but not on multi
 		$this->pdb
