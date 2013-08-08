@@ -45,6 +45,8 @@ class Entry extends Eloquent
 
     protected $stream_prefix = null;
 
+    protected $field_assignments = null;
+
     protected static $instance;
 
     /**
@@ -74,10 +76,14 @@ class Entry extends Eloquent
             $this->setTable($this->stream_prefix.$this->stream_slug);
         }
         
-        // This picks up the stream that was set at runtime with the setStream() method
-        if ($stream = static::getCache('stream'))
+        // This picks up the stream that was set at runtime with the stream() method
+        if ($this->stream = static::getCache('stream'))
         {
-            $this->setTable($stream->stream_prefix.$stream->stream_slug);
+            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
+
+            // Eager load assignments nested with fields 
+            // @todo - find a way to cache the eager load
+            $this->stream->load('assignments.field');
         }
 
         if ($table = static::getCache('table'))
@@ -86,7 +92,7 @@ class Entry extends Eloquent
         }
     }
 
-    public static function setStream($slug, $namespace)
+    public static function stream($slug, $namespace)
     {
         $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
         
@@ -95,10 +101,15 @@ class Entry extends Eloquent
 
     public static function instance($stream)
     {
-        //static::setCache('stream', $stream);
+        static::setCache('stream', $stream);
         static::setCache('table', $stream->stream_prefix.$stream->stream_slug);
 
         return static::setCache('instance', new static);
+    }
+
+    public function getStream()
+    {
+        return $this->stream;
     }
 
     public function getDates()
@@ -141,7 +152,7 @@ class Entry extends Eloquent
     {
         $stream_table = $this->getTable();
 
-        static::setStream($slug, $namespace);
+        static::stream($slug, $namespace);
 
         if ( ! $foreign_key)
         {

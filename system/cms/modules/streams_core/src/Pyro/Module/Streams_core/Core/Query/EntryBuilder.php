@@ -13,14 +13,14 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'))
 	{
-		$models = $this->getModels($columns);
+		$entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
 		// have been specified as needing to be eager loaded, which will solve the
 		// n+1 query issue for the developers to avoid running a lot of queries.
-		if (count($models) > 0)
+		if (count($entries) > 0)
 		{
-			$models = $this->eagerLoadRelations($models);
+			$entries = $this->eagerLoadRelations($entries);
 		}
 
 		// The problem: Mutators and accesors are nice but they have to be added to a model before hand
@@ -32,7 +32,7 @@ class EntryBuilder extends Builder
 		// 
 		// i.e.
 		// 
-		// $models = Field\Formatter::formatModels($models);
+		// $entries = Field\Formatter::formatModels($entries);
 
 		// Both arrays of formatted and unformatted models are passed to the new collection construct
 		// This will allow us to return a formatted collection by default
@@ -44,31 +44,17 @@ class EntryBuilder extends Builder
 		// 
 		// i.e
 		// echo $entries->unformatted();
-		// 
-		return $this->model->newCollection($this->formatModels($models), $models);
+		//
+
+		return $this->model->newCollection($this->getFormattedEntries($entries), $entries);
 	}
 
-	// This is experimental until we finish the Formatter class
-	public function formatModels(array $models = array())
-	{	
-		$clones = array();
+	public function getFormattedEntries(array $entries = array())
+	{
+        $formatter = new \Pyro\Module\Streams_core\Core\Field\Formatter($entries);
 
-		foreach ($models as $model)
-		{
-			// must be an eloquent model because we need to replicate it
-			if ($model instanceof \Illuminate\Database\Eloquent\Model)
-			{
-				// We must replicate the models to keep the original models intact
-				// This is a test to prove we can return formatted model attributes
-				$clone = $model->replicate();
-				$clone->display_name = 'monkey';
-				$clone->id = $model->id; // @todo - get the primary key dinamically
+        $formatter->setModel($this->model);
 
-				$clones[] = $clone;
-			}
-
-		}
-		
-		return $clones;
+        return $formatter->getFormattedEntries();
 	}
 }
