@@ -13,7 +13,7 @@ $lang['global:slug'] 					= 'Slug';
 $lang['global:slug_instructions']		= 'Caractères en minuscule et underscores seulement.';
 $lang['global:user'] 					= 'Utilisateur';
 
-$lang['global:dialog:delete_message'] 	= 'Etes-vous sûr(e) de vouloir supprimer ce fichier&nbsp;? Cette action ne peut pas être annulée.';
+$lang['global:dialog:delete_message'] 	= 'Etes-vous sûr de vouloir supprimer ce fichier&nbsp;? Cette action ne peut-être annulée.';
 $lang['global:dialog:confirm'] 			= 'Confirmez';
 
 $lang['global:yes'] 					= 'Oui';
@@ -42,7 +42,7 @@ $lang['global:duration:always']			= 'Toujours';
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Accueil';
 
-$lang['logged_in_welcome']				= 'Bienvenue %s, vous êtes connecté(e).';
+$lang['logged_in_welcome']				= 'Bienvenue %s, vous êtes connecté.';
 $lang['logout_label'] 					= 'Déconnexion';
 $lang['edit_profile_label'] 			= 'Mise à jour Profil';
 $lang['settings_label'] 				= 'Paramètres';
@@ -56,10 +56,10 @@ $lang['global:fields']					= 'Champs';
 $lang['global:custom_fields']			= 'Champs personnalisés';
 
 $lang['login_title'] 					= 'Connexion';
-$lang['global:fatal_error'] 			= 'Erreur fatale : CMS déjà installé&nbsp;?';
+$lang['global:fatal_error'] 			= 'Erreur Fatale, CMS déjà installé&nbsp;?';
 $lang['global:demo_restrictions'] 		= 'Certaines fonctionnalités de cette page ont été désactivées pour la démonstration.';
 
-$lang['login_error_label'] 				= 'Erreur de connexion';
+$lang['login_error_label'] 				= 'Erreur de Connexion';
 $lang['forgot_password_label'] 			= 'Mot de passe oublié ?';
 $lang['global:email'] 					= 'E-mail';
 $lang['global:password'] 				= 'Mot de passe';
@@ -72,9 +72,9 @@ $lang['update_label'] 					= 'Mettre à jour la légende';
 $lang['global:delete'] 					= 'Supprimer';
 $lang['activate_label'] 				= 'Activer';
 $lang['global:approve']					= 'Approuver';
-$lang['global:unapprove']				= 'Désapprouver';
+$lang['global:unapprove']				= 'Désaprouver';
 $lang['publish_label'] 					= 'Publier';
-$lang['global:upload'] 					= 'Charger';
+$lang['global:upload'] 					= 'Uploader';
 $lang['global:uninstall'] 				= 'Désinstaller';
 $lang['global:install'] 				= 'Installer';
 $lang['global:upgrade'] 				= 'Mise à jour';

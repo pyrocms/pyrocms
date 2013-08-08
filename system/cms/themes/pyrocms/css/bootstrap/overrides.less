@@ -1,0 +1,349 @@
+/**
+ * 
+ * Override anything you need for Bootstrap here.
+ *
+ * Try and keep the order of files you're overriding in tact.
+ *
+ * AI Web Systems, Inc. - Ryan Thompson
+ */
+
+
+/**
+ * Core variables and mixins
+ * 
+ * @import "variables.less"; // Modify this for custom colors, font-sizes, etc
+ * @import "mixins.less";
+ */
+
+/**
+ * CSS Reset
+ *
+ * @import "reset.less";
+ */
+
+ul,
+li
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/**
+ * Grid system and page structure
+ *
+ * @import "scaffolding.less";
+ * @import "grid.less";
+ * @import "layouts.less";
+ */
+
+.container-fluid
+{
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/**
+ * Base CSS
+ *
+ * @import "type.less";
+ * @import "code.less";
+ * @import "forms.less";
+ * @import "tables.less";
+ */
+
+/* type.less */
+a:hover { text-decoration: none; }
+
+/* forms.less */
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  margin-bottom: 0;
+  background-color: @inputBackground;
+  border: 1px solid @inputBorder;
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+  .transition(~"border linear .2s, box-shadow linear .2s");
+
+  // Focus state
+  &:focus {
+    outline: 0;
+    border: 1px solid @inputBorder;
+    .box-shadow(none);
+  }
+}
+
+input[type="radio"],
+input[type="checkbox"]
+{
+  margin-top: 0;
+}
+
+label
+{
+  color: @grayDark;
+  font-weight: bold;
+  display: block;
+}
+
+.add-on
+{
+  #gradient > .vertical(@boxBackground, @boxBackgroundHighlight);
+}
+
+.input-prepend.input-block-level {
+  display: table;
+  width: 100%;
+}
+
+.input-prepend.input-block-level .add-on {
+  display: table-cell;
+  background-color: white;
+}
+
+.input-prepend.input-block-level > input,
+.input-append.input-block-level > input {
+  box-sizing: border-box;
+  height: 30px;
+  display: table-cell;
+  width: 100%;
+  border-left-style: none;
+}
+
+/* tables.less */
+.table thead:first-child tr:first-child th
+{
+  background: @grayDarker;
+  color: @white;
+  border-top: 1px solid darken(@grayDarker, 5%);
+  border-bottom: 1px solid darken(@grayDarker, 5%);
+}
+
+.table tr:last-child td,
+.table tr:last-child th
+{
+  border-bottom: 1px solid @tableBorder;
+}
+
+
+/**
+ * Components: common
+ *
+ * @import "sprites.less";
+ * @import "dropdowns.less";
+ * @import "wells.less";
+ * @import "component-animations.less";
+ * @import "close.less";
+ */
+
+/**
+ * Components: Buttons & Alerts
+ *
+ * @import "buttons.less";
+ * @import "button-groups.less";
+ * @import "alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+ */
+
+/**
+ * Components: Nav
+ *
+ * @import "navs.less";
+ * @import "navbar.less";
+ * @import "breadcrumbs.less";
+ * @import "pagination.less";
+ * @import "pager.less";
+ */
+
+/* navs.less */
+.nav-tabs > li > a
+{
+  font-size: 12px;
+}
+
+.tab-content
+{
+  overflow: inherit;
+}
+
+
+/* navbar.less */
+.navbar-inner
+{
+  .border-radius(0);
+  border: none;
+}
+
+.navbar-inverse
+{
+
+  .navbar-inner {
+    background: darken(@grayDark, 10%);
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    .box-shadow(none);
+  }
+}
+
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner
+{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+
+/**
+ * Components: Popovers
+ *
+ * @import "modals.less";
+ * @import "tooltip.less";
+ * @import "popovers.less";
+ */
+
+/* modals.less */
+.modal-body
+{
+  overflow-x: hidden !important;
+}
+
+/**
+ * Components: Misc
+ *
+ * @import "thumbnails.less";
+ * @import "media.less";
+ * @import "labels-badges.less";
+ * @import "progress-bars.less";
+ * @import "accordion.less";
+ * @import "carousel.less";
+ * @import "hero-unit.less";
+ */
+
+/**
+ * Utility classes
+ * @import "utilities.less"; // Has to be last to override when necessary
+ */
+
+/**
+ * Elusive Font Icons
+ * @import "elusive-webfont.less"; // Has to be last to override when necessary
+ */
+
+
+
+
+/**
+ * Everything Else
+ */
+
+@media (max-width: 979px) {
+
+  /**
+   * Allow full width navs
+   */
+  
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top
+  {
+    margin-right: 0;
+  }
+
+  .navbar-fixed-top .navbar-inner,
+  .navbar-fixed-bottom .navbar-inner,
+  .navbar-static-top .navbar-inner
+  {
+    padding: 0 0 0 20px;
+  }
+
+
+
+  /**
+   * No margin
+   * - Sidebar went away and navbar is no longer fixed!
+   */
+  section#main
+  {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+
+  /* Branding */
+  .navbar-inverse .brand
+  {
+    position: absolute !important;
+    left: 15px;
+    width: 85px;
+    padding-left: 40px;
+    padding-right: 10px;
+    margin: 0;
+    background: url('../img/logo.png') no-repeat left center;
+    color: @white;
+    border-right: 1px solid rgba(255,255,255,0.2)
+  }
+
+
+  /**
+   * Collapsed Primary Navigation
+   */
+
+  header aside.nav-collapse.collapse
+  {
+    position: static;
+    margin-top: -16px;
+    width: 100%;
+    background: @grayDarker;
+  }
+
+  /* Primary Navigation - Submenu */
+  header aside ul > li:hover > ul
+  {
+    position: static;
+    width: 100%;
+  }
+
+  header aside ul > li > ul:before
+  {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  
+  /**
+   * Remove padding 
+   * We're handling this ourselves
+   */
+  
+  body
+  {
+    padding: 0;
+  }
+
+  body.login .box.login
+  {
+    margin-top: 40px;
+  }
+
+
+
+  /* Search Results */
+  ul.ui-autocomplete.search-results
+  {
+    width: 179px !important;
+  }
+}

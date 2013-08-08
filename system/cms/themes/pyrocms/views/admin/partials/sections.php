@@ -1,18 +1,26 @@
-<div class="sections_bar">
-	<div class="wrapper">
+<?php if (! isset($template['partials']['alternate_sections'])): ?>
+<ul class="breadcrumb">
+		
+	<?php foreach ($module_details['sections'] as $name => $section): ?>
+	<?php if(isset($section['name']) && isset($section['uri'])): ?>		
 
-		<ul>
-			<?php foreach ($module_details['sections'] as $name => $section): ?>
-			<?php if(isset($section['name']) && isset($section['uri'])): ?>
-			<li class="<?php if ($name === $active_section) echo 'current' ?>">
-				<?php echo anchor($section['uri'], (lang($section['name']) ? lang($section['name']) : $section['name'])); ?>
-				<?php if ($name === $active_section): ?>
-					<!-- <?php echo Asset::img('admin/section_arrow.png', ''); ?> -->
-				<?php endif; ?>
-			</li>
+		<li class="<?php if ($name === $active_section) echo 'active' ?>">
+
+			<?php if ($name === $active_section): ?>
+				<strong>
+					<a href="<?php echo site_url($section['uri']); ?>"><?php echo (lang($section['name']) ? lang($section['name']) : $section['name']); ?></a>
+				</strong>
+			<?php else: ?>
+				<a href="<?php echo site_url($section['uri']); ?>"><?php echo (lang($section['name']) ? lang($section['name']) : $section['name']); ?></a>
 			<?php endif; ?>
-			<?php endforeach; ?>
-		</ul>
 
-	</div>
-</div>
+			<span class="divider">/</span>
+		</li>
+
+	<?php endif; ?>
+	<?php endforeach; ?>
+
+</ul>
+<?php else: ?>
+	<?php echo $template['partials']['alternate_sections']; ?>
+<?php endif; ?>

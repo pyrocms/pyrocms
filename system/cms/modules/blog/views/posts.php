@@ -43,7 +43,7 @@
 	{{ pagination }}
 
 {{ else }}
-
+	
 	{{ helper:lang line="blog:currently_no_posts" }}
 
 {{ endif }}

@@ -8,16 +8,16 @@ $lang['settings:site_slogan'] 					= 'Slogan du site';
 $lang['settings:site_slogan_desc'] 				= 'Le slogan du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacements.';
 
 $lang['settings:site_lang']						= 'Langue du site';
-$lang['settings:site_lang_desc']				= 'La langue native du site web. Permet de choisir les modèles de notifications par emails.';
+$lang['settings:site_lang_desc']				= 'La langue native du site web, permet de choisir les modèles de notifications par emails.';
 
 $lang['settings:contact_email'] 				= 'E-mail de contact';
 $lang['settings:contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';
 
 $lang['settings:server_email'] 					= 'E-mail du serveur';
-$lang['settings:server_email_desc'] 			= 'Tous les emails envoyés depuis le site auront pour expéditeur cette adresse email.';
+$lang['settings:server_email_desc'] 			= 'Tous les emails seront envoyés depuis le site auront pour expéditeur cette adresse email.';
 
 $lang['settings:meta_topic']					= 'Balise Meta';
-$lang['settings:meta_topic_desc']				= 'Deux ou trois mots décrivant la nature de votre site web.';
+$lang['settings:meta_topic_desc']				= 'Deux ou trois mots décrivant le type de société / site web.';
 
 $lang['settings:currency'] 						= 'Devise';
 $lang['settings:currency_desc'] 				= 'Le symbole de la monnaie pour une utilisation sur les produits, services, etc.';
@@ -29,10 +29,10 @@ $lang['settings:dashboard_rss_count'] 			= 'Nombre d\'entrées RSS à afficher s
 $lang['settings:dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher sur le tableau de bord&nbsp;?';
 
 $lang['settings:date_format'] 					= 'Format de date';
-$lang['settings:date_format_desc']				= 'Comment les dates doivent être affichées dans le site et panel d\'administration&nbsp; ? Utiliser le <a href="http://php.net/manual/en/function.date.php" target="_black">format de date</a> de PHP - OU - Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaine formaté en tant que date</a> de PHP.';
+$lang['settings:date_format_desc']				= 'Comment les dates doivent être affichées dans le site et panel d\'administration&nbsp;? Utiliser le <a href="http://php.net/manual/en/function.date.php" target="_black">format de date</a> de PHP - OU - Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaine formaté en tant que date</a> de PHP.';
 
 $lang['settings:frontend_enabled'] 				= 'Statut du site';
-$lang['settings:frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors-ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
+$lang['settings:frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
 
 $lang['settings:mail_protocol'] 				= 'Protocole email';
 $lang['settings:mail_protocol_desc'] 			= 'Sélectionnez le protocole souhaité.';
@@ -53,19 +53,19 @@ $lang['settings:mail_smtp_user'] 				= 'Nom d\'utilisateur SMTP';
 $lang['settings:mail_smtp_user_desc'] 			= 'Le nom d\'utilisateur SMTP.';
 
 $lang['settings:unavailable_message']			= 'Message non disponible';
-$lang['settings:unavailable_message_desc'] 		= 'Lorsque le site est en mode "hors-ligne" ou s\'il ya un problème majeur, ce message sera affiché aux utilisateurs.';
+$lang['settings:unavailable_message_desc'] 		= 'Lorsque le site est en mode "hors ligne" ou s\'il ya un problème majeur, ce message sera indiqué aux utilisateurs.';
 
 $lang['settings:default_theme'] 				= 'Thème par défaut';
-$lang['settings:default_theme_desc'] 			= 'Sélectionnez le thème que vous souhaitez que les utilisateurs voient par défaut.';
+$lang['settings:default_theme_desc'] 			= 'Sélectionnez le thème que vous souhaitez que les utilisateurs voie par défaut.';
 
 $lang['settings:activation_email'] 				= 'E-mail d\'activation';
 $lang['settings:activation_email_desc'] 		= 'Envoyer un e-mail quand un utilisateur s\'inscrit avec un lien d\'activation. Désactiver cette option pour laisser les admins activer les comptes.';
 
 $lang['settings:records_per_page'] 				= 'Entrées par page';
-$lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées doivent être affichées par page ? (valable dans la partie publique du site et dans l\'interface d\'administration) Ex. : articles du blog, utilisateurs etc.';
+$lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées devons nous montrer par page ? (valable dans la partie publique du site et dans l\'interface d\'administration) Ex. : articles du blog, utilisateurs etc.';
 
 $lang['settings:rss_feed_items'] 				= 'Nombre de flux RSS';
-$lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrées à afficher dans les flux blog et RSS ?';
+$lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS ?';
 
 $lang['settings:enable_profiles'] 				= 'Activer les profils';
 $lang['settings:enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';
@@ -95,7 +95,7 @@ $lang['settings:moderate_comments'] 			= 'Modérer les commentaires';
 $lang['settings:moderate_comments_desc']		= 'Exige l\'approbation des commentaires avant leur publication sur le site.';
 
 $lang['settings:comment_markdown']				= 'Autoriser Markdown';
-$lang['settings:comment_markdown_desc']			= 'Voulez-vous autoriser les internautes à poster des commentaires en utilisant Markdown&nbsp;?';
+$lang['settings:comment_markdown_desc']			= 'Voulez vous autoriser les internautes à poster des commentaires en utilisant Markdown&nbsp;?';
 
 $lang['settings:version'] 						= 'Version';
 $lang['settings:version_desc'] 					= '';
@@ -125,7 +125,7 @@ $lang['settings:profile_visibility']            = 'Visibilité du Profil';
 $lang['settings:profile_visibility_desc']       = 'Permet de spécifier qui peut voir les profils utilisateurs sur le site public';
 
 $lang['settings:cdn_domain']                    = 'Domaine CDN';
-$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de charger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';
+$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';
 
 #section titles
 $lang['settings:section_general']				= 'Général';
@@ -151,13 +151,13 @@ $lang['settings:form_option_No']				= 'Non';
 $lang['settings:form_option_profile_public']	= 'Visible par tout le monde';
 $lang['settings:form_option_profile_owner']		= 'Visible uniquement par le propriétaire du profil';
 $lang['settings:form_option_profile_hidden']	= 'Jamais visible';
-$lang['settings:form_option_profile_member']	= 'Visible par tous les utilisateurs connectés';
+$lang['settings:form_option_profile_member']	= 'Visible par tout les utilisateurs connectés';
 $lang['settings:form_option_activate_by_email']          = 'Activer par mail';
 $lang['settings:form_option_activate_by_admin']        	= 'Activer par un administrateur';
 $lang['settings:form_option_no_activation']         	= 'Pas d\'activation';
 
 // messages
-$lang['settings:no_settings']					= 'Il n\'y a aucun paramétrage actuellement.';
+$lang['settings:no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';
 $lang['settings:save_success'] 					= 'Vos paramètres ont été enregistrés !';
 
 /* End of file settings_lang.php */

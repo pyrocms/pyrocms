@@ -245,12 +245,6 @@ class Field_relationship
 
 		// We should do something with this in the future.
 		$disable = array();
-		
-		// Load our row data if needed
-		if (! is_array($row) and ! is_object($row))
-		{
-			$row = (array) $this->CI->db->select()->where('id', $row)->limit(1)->get($stream->stream_prefix.$stream->stream_slug)->row(0);
-		}
 
 		return $this->CI->row_m->format_row($row, $stream_fields, $stream, false, true, $disable);
 	}

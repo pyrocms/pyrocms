@@ -1,24 +1,51 @@
-<?php
-Asset::js('jquery/jquery.js');
-Asset::js_inline('jQuery.noConflict();');
-Asset::js('jquery/jquery-ui.min.js', 'jquery/jquery-ui.min.js');
-Asset::js('jquery/jquery.colorbox.js');
-Asset::js('jquery/jquery.cooki.js');
-Asset::js('jquery/jquery.slugify.js');
+<!-- Load our minified / compiled CSS -->
+<?php Asset::css(array('bootstrap.css', 'components.css', 'plugins.css', 'application.css')); ?>
 
-Asset::js(array('codemirror/codemirror.js',
-	'codemirror/mode/css/css.js',
-	'codemirror/mode/htmlmixed/htmlmixed.js',
-	'codemirror/mode/javascript/javascript.js',
-	'codemirror/mode/markdown/markdown.js',
-	'plugins.js',
-	'scripts.js'
-)) ?>
+<!-- Load JS -->
+<?php
+	
+	Asset::js(
+		array(
+			
+			// Application
+			'application/jquery.js',
+			'application/modernizr.js',
+			'application/bootstrap.js',
+
+			// Components
+			'components/datepicker.js',
+			'components/dialog2.js',
+			'components/messenger.js',
+			'components/modalmanager.js',
+			'components/nestable.js',
+			'components/sortable.js',
+			'components/timepicker.js',
+
+			// Plugins
+			'plugins/chosen.js',
+			'plugins/colorbox.js',
+			'plugins/cooki.js',
+			'plugins/highlight.js',
+			'plugins/log.js',
+			'plugins/slugify.js',
+			'plugins/sortable.js',
+			'plugins/tagsinput.js',
+			'plugins/timeago.js',
+			'plugins/ckeditor/ckeditor.js',
+
+			// Our customness
+			'application/scripts.js',
+			)
+		);
+?>
+
+
 
 <?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
-	<?php Asset::js('jquery/jquery.excanvas.min.js') ?>
-	<?php Asset::js('jquery/jquery.flot.js') ?>
+	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
+	<?php Asset::js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>
+
 
 <script type="text/javascript">
 	pyro = { 'lang' : {} };
@@ -36,18 +63,13 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
 </script>
 
-<?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css', 'animate/animate.css')); ?>
-
-<?php echo Asset::render() ?>
+<?php echo Asset::render(); ?>
 
 <!--[if lt IE 9]>
-<?php echo Asset::css('ie8.css', null, 'ie8'); ?>
-<?php echo Asset::render_css('ie8'); ?>
+<?php echo Asset::css('ie.css', null, 'ie'); ?>
+<?php echo Asset::render_css('ie'); ?>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<?php if (isset($module_details['sections'])): ?>
-<style>section#content { margin-top: 170px !important; }</style>
-<?php endif ?>
 
-<?php echo $template['metadata'] ?>
+<?php echo $template['metadata']; ?>

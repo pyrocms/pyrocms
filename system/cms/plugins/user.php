@@ -76,7 +76,7 @@ class Plugin_User extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ if {user:logged_in group="admin"} }}
+	 *     {{ user:logged_in group="admin" }}
 	 *         <p>Hello admin!</p>
 	 *     {{ endif }}
 	 *
@@ -112,7 +112,7 @@ class Plugin_User extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ if {user:not_logged_in group="admin"} }}
+	 *     {{ user:not_logged_in group="admin" }}
 	 *            <p>Hello not an admin</p>
 	 *     {{ endif }}
 	 *

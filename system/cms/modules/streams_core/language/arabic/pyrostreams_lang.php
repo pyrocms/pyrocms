@@ -28,7 +28,6 @@ $lang['streams:new_entry_error']						= "حدث خطأ بإضافة هذا ال�
 $lang['streams:new_entry_success']						= "تم إضافة المُدخل بنجاح.";
 $lang['streams:edit_entry_error']						= "حدث خطأ بتحديث هذا المُدخل.";
 $lang['streams:edit_entry_success']						= "تم تحديث المُدخل بنجاح";
-$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "متأكد أنك تريد حذف الجدول <strong>%s</strong>؟ سيتم <strong>حذف %s %s</strong> نهائياً.";
 
 /* Misc Errors */

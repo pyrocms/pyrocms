@@ -27,6 +27,7 @@ $lang['widgets:widget_area_slug']     = 'Bereichskurzname';
 
 $lang['widgets:view_code']                = 'Code ansehen';
 
+$lang['widgets:instance_title']       = 'Titel';
 $lang['widgets:show_title']				= 'Widget-Titel anzeigen?';
 $lang['widgets:tag_title']            = 'Tag';
 

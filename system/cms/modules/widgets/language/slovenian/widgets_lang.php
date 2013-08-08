@@ -30,6 +30,7 @@ $lang['widgets:widget_area_slug']       = 'Kratko ime področja';
 
 $lang['widgets:view_code']				= 'Ogled kode';
 
+$lang['widgets:instance_title']         = 'Naslov';
 $lang['widgets:show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets:tag_title']              = 'Značka';
 

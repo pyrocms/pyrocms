@@ -120,10 +120,10 @@ class Streams_utilities extends CI_Driver
 		// Order The Columns
 		// ----------------------------
 
-		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN created DATETIME AFTER id");
-		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN updated DATETIME AFTER created");
-		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN created_by INT AFTER updated");
-		ci()->db->query("ALTER TABLE ".ci()->db->dbprefix($prefix.$table_slug)." MODIFY COLUMN ordering_count INT AFTER created_by");
+		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN created DATETIME AFTER id");
+		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN updated DATETIME AFTER created");
+		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN created_by INT AFTER updated");
+		ci()->db->query("ALTER TABLE {ci()->db->dbprefix($prefix.$table_slug)} MODIFY COLUMN ordering_count INT AFTER created_by");
 
 		// ----------------------------
 		// Add to stream table
@@ -154,7 +154,7 @@ class Streams_utilities extends CI_Driver
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array(),  $field_assignment_construct = true)
+	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
 		// Get the stream
 		if ( ! $stream = $this->stream_obj($stream_slug, $namespace)) {
@@ -220,7 +220,7 @@ class Streams_utilities extends CI_Driver
 		// Add actual assignment
 		// The 4th parameter is to stop the column from being
 		// created, since we already did that.
-		return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false, $field_assignment_construct);
+		return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
 	}
 
 }

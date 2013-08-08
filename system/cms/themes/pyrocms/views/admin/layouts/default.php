@@ -18,19 +18,6 @@
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
-	<?php echo Asset::css('plugins.css'); ?>
-	<?php echo Asset::css('workless/workless.css'); ?>
-	<?php echo Asset::css('workless/application.css'); ?>
-	<?php echo Asset::css('workless/responsive.css'); ?>
-        <?php
-        $vars = $this->load->_ci_cached_vars;
-        if ($vars['lang']['direction']=='rtl'){
-            echo Asset::css('workless/rtl/rtl.css');
-        }
-        ?>
-	<!-- End CSS-->
-
 	<!-- Load up some favicons -->
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -46,46 +33,31 @@
 
 <body>
 
-	<div id="container">
+	<header>
+		<?php file_partial('topbar'); ?>
+		<?php file_partial('navigation') ?>
+	</header>
 
-		<section id="content">
 
-			<header class="hide-on-ckeditor-maximize">
+	<section id="main">
+
+		<section id="info">
+
 			<?php file_partial('header'); ?>
-			</header>
 
-			<div id="content-body">
-				<?php file_partial('notices'); ?>
-				<?php echo $template['body']; ?>
-			</div>
+			<?php file_partial('notices'); ?>
 
 		</section>
 
-	</div>
+		<section id="main-content">
 
-	<footer class="clearfix">
-		<div class="wrapper">
-			<p class="credits">Copyright &copy;<?php echo date('Y'); ?> PyroCMS LLC &nbsp; <span>Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</span></p>
+			<?php echo $template['body']; ?>
 
-			<ul id="lang">
-				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
-					<select class="chzn" name="lang" onchange="this.form.submit();">
-						<?php foreach(config_item('supported_languages') as $key => $lang): ?>
-							<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? ' selected="selected" ' : ''; ?>>
-								 <?php echo $lang['name']; ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				</form>
-			</ul>
 		</div>
-	</footer>
 
-	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
-	<!--[if lt IE 7 ]>
-	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-	<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-	<![endif]-->
+	</section>
+
+	<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
 
 </body>
 </html>

@@ -1,0 +1,40 @@
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.sortable .dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+  /* Extend this in your module */
+}
+
+.sortable .placeholder {
+  position: relative;
+  min-height: 30px;
+  background: @white;
+  border: 1px dashed @grayLight;
+  /* Extend this in your module */
+}
+
+
+
+/**
+ * Sortable Tabs
+ */
+
+.sortable.nav.nav-tabs
+{
+  position: relative;
+}
+
+.sortable.nav.nav-tabs .placeholder
+{
+  width: 70px;
+  height: 34px;
+  border: 1px dashed @grayLight;
+  border-bottom: none;
+  background: @white;
+  
+  .border-radius(4px 4px 0 0);
+}

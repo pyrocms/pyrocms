@@ -1,0 +1,229 @@
+.arrow-box-left {
+  position: relative;
+  background: #fafeff;
+  border: 1px solid darken(@grayLighter, 15%);
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.arrow-box-left:after, .arrow-box-left:before {
+  right: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow-box-left:after {
+  border-right-color: #fafeff;
+  border-width: 6px;
+  top: 7px;
+}
+
+.arrow-box-left:before {
+  border-right-color: @grayLight;
+  border-width: 7px;
+  top: 6px;
+}
+
+.arrow-box-left.gray {
+  background: nil;
+  border-color: #d8d8d8;
+}
+
+.arrow-box-left.gray:before {
+  border-right-color: #d8d8d8;
+}
+
+.arrow-box-left {
+  -webkit-box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+}
+
+.arrow-box-right {
+  position: relative;
+  background: #fafeff;
+  border: 1px solid @grayLight;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.arrow-box-right:after, .arrow-box-right:before {
+  left: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow-box-right:after {
+  border-left-color: #fafeff;
+  border-width: 6px;
+  top: 7px;
+}
+
+.arrow-box-right:before {
+  border-left-color: @grayLight;
+  border-width: 7px;
+  top: 6px;
+}
+
+.arrow-box-right.gray {
+  background: nil;
+  border-color: #d8d8d8;
+}
+
+.arrow-box-right.gray:before {
+  border-left-color: #d8d8d8;
+}
+
+.arrow-box-right {
+  -webkit-box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box.timeline .arrow-box-left {
+  padding: 0;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  min-height: auto;
+  margin-right: 0;
+}
+
+.chat-box.timeline .info, .chat-box.timeline .content {
+  background: #fafafa;
+  padding: 5px 10px;
+}
+
+.chat-box.timeline .content {
+  *zoom: 1;
+  border-top: 1px solid #cccccc;
+  background: #f8f8f8;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-box.timeline .content:before, .chat-box.timeline .content:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.chat-box.timeline .content:after {
+  clear: both;
+}
+
+.chat-box.timeline blockquote {
+  margin: 10px 0;
+}
+
+.chat-box.timeline .chat-message-box {
+  display: inline-block;
+  min-width: 100px;
+  margin-left: 64px;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.chat-box.timeline + .closable-chat-box {
+  margin-left: 65px;
+}
+
+.chat-box {
+  list-style: none;
+  margin: 0;
+}
+
+.chat-box .avatar {
+  position: absolute;
+  top: 0;
+}
+
+.chat-box .arrow-box-left, .chat-box .arrow-box-right {
+  min-height: 40px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+}
+
+.chat-box .arrow-box-left {
+  margin-left: 65px;
+  margin-right: 15px;
+}
+
+.chat-box .arrow-box-left .avatar-small {
+  left: -50px;
+}
+
+.chat-box .arrow-box-left .avatar-medium {
+  left: -65px;
+}
+
+.chat-box .arrow-box-left.gray .info .name strong {
+  color: #393939;
+}
+
+.chat-box .arrow-box-right {
+  margin-right: 65px;
+  margin-left: 15px;
+}
+
+.chat-box .arrow-box-right .avatar-small {
+  right: -50px;
+}
+
+.chat-box .arrow-box-right .avatar-medium {
+  right: -65px;
+}
+
+.chat-box .arrow-box-right.gray .info .name strong {
+  color: #393939;
+}
+
+.chat-box .info {
+  *zoom: 1;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.chat-box .info:before, .chat-box .info:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.chat-box .info:after {
+  clear: both;
+}
+
+.chat-box .info .name {
+  float: left;
+}
+
+.chat-box .info .time {
+  float: right;
+}
+

@@ -96,6 +96,7 @@ class Module_Streams_core extends AbstractModule
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
             $table->string('field_type', 50);
+            $table->string('field_map', 100)->nullable();
             $table->binary('field_data')->nullable();
             $table->binary('view_options')->nullable();
             $table->enum('is_locked', array('yes', 'no'))->default('no');
@@ -125,7 +126,7 @@ class Module_Streams_core extends AbstractModule
             $table->increments('id');
             $table->string('namespace', 100);
             $table->string('stream', 100);
-            $table->string('title', 100);
+            $table->string('slug', 100);
             $table->text('form_structure')->nullable();
         });
 
@@ -136,10 +137,13 @@ class Module_Streams_core extends AbstractModule
             $table->increments('id');
             $table->string('namespace', 100);
             $table->string('stream', 100);
+            $table->string('slug', 100);
             $table->string('title', 100);
+            $table->enum('is_locked', array('yes', 'no'))->default('no');
             $table->string('order_by', 100);
             $table->enum('sort', array('ASC', 'DESC'))->default('ASC');
-            $table->string('search', 255)->nullable();
+            $table->text('search')->nullable();
+            $table->text('columns')->nullable();
             $table->text('filters')->nullable();
         });
 

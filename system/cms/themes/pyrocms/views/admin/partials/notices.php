@@ -1,48 +1,53 @@
 <?php if ($this->session->flashdata('error')): ?>
-<div class="alert error animated fadeIn">
-	<p><?php echo $this->session->flashdata('error'); ?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $this->session->flashdata('error'); ?>', type: 'error', showCloseButton: true});
+</script>
 <?php endif; ?>
 
 <?php if (validation_errors()): ?>
-<div class="alert error animated fadeIn">
-	<p><?php echo validation_errors(); ?></p>
-</div>
+<script type="text/javascript">
+	<?php foreach (explode("\n", validation_errors()) as $message): ?>
+	<?php if (empty($message)) continue; ?>
+	Messenger().post({message: '<?php echo $message; ?>', type: 'error', showCloseButton: true});
+	<?php endforeach; ?>
+</script>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['error'])): ?>
-<div class="alert error animated fadeIn">
-	<p><?php echo $messages['error']; ?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $messages['error']; ?>', type: 'error', showCloseButton: true});
+</script>
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('notice')): ?>
-<div class="alert warning animated fadeIn">
-	<p><?php echo $this->session->flashdata('notice');?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $this->session->flashdata('notice'); ?>', type: 'info', showCloseButton: true});
+</script>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['notice'])): ?>
-<div class="alert warning animated fadeIn">
-	<p><?php echo $messages['notice']; ?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $messages['notice']; ?>', type: 'info', showCloseButton: true});
+</script>
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('success')): ?>
-<div class="alert success animated fadeIn">
-	<p><?php echo $this->session->flashdata('success'); ?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $this->session->flashdata('success'); ?>', type: 'success', showCloseButton: true});
+</script>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['success'])): ?>
-<div class="alert success animated fadeIn">
-	<p><?php echo $messages['success']; ?></p>
-</div>
+<script type="text/javascript">
+	Messenger().post({message: '<?php echo $messages['success']; ?>', type: 'success', showCloseButton: true});
+</script>
 <?php endif; ?>
 
-<?php
+<?php 
 
 	/**
 	 * Admin Notification Event
 	 */
 	Events::trigger('admin_notification');
+	
+?>

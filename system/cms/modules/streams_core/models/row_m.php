@@ -109,15 +109,6 @@ class Row_m extends MY_Model {
 	 * @var		obj
 	 */
 	public $get_rows_hook_data;
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Runtime cache for gather_structure()
-	 *
-	 * @var		obj
-	 */
-	public $gather_structure_cache;
 
 	// --------------------------------------------------------------------------
 
@@ -232,97 +223,77 @@ class Row_m extends MY_Model {
 
 		$filter_api = array();
 
-		
-		// First check for simple searching
-		if ($this->input->get('search-'.$stream->stream_slug) and $this->input->get('search-'.$stream->stream_slug.'-term'))
-		{
-			$search = array();
-
-			foreach (explode('|', $this->input->get('search-'.$stream->stream_slug)) as $filter)
-			{
-				$search[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($this->input->get('search-'.$stream->stream_slug.'-term')).'%"';
-			}
-			
-			// Add our search fragment
-			$filter_api[] = ' ( '.implode(' OR ', $search).' ) ';
-		}
-
-
-		// Now check for advanced filters
-		if ($this->input->get('f-'.$stream->stream_slug.'-filter'))
+		if ($this->input->get('filter-'.$stream->stream_slug))
 		{
 			// Get all URL variables
-			$query_string_variables = $this->input->get();
+			$url_variables = $this->input->get();
+
+			$processed = array();
 
 			// Loop and process
-			foreach ($query_string_variables['f-'.$stream->stream_slug.'-filter'] as $k => $filter)
+			foreach ($url_variables as $filter => $value)
 			{
 				// -------------------------------------
-				// NICE! Now figure out the condition
+				// Filter API Params
 				// -------------------------------------
-				// is
-				// isnot
-				// contains
-				// doesnotcontain
-				// startswith
-				// endswith
-				// isempty
-				// isnotempty
-				// ........ To be continued
+				// They all start with f-
+				// No value? No soup for you!
 				// -------------------------------------
 
-				// We really need a value unless it's a couple of specific cases
-				if (empty($value) and ! in_array($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k], array('isempty', 'isnotempty'))) continue;
+				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+
+				if (strlen($value) == 0) continue;				// No value.. boo
+
+				$filter = substr($filter, 2);					// Remove identifier
 
 
-				// What are we doing?
-				switch ($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k])
+				// -------------------------------------
+				// Not
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$not = substr($filter, 0, 4) == 'not-';
+
+				if ($not) $filter = substr($filter, 4);			// Remove identifier
+
+
+				// -------------------------------------
+				// Exact
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$exact = substr($filter, 0, 6) == 'exact-';
+
+				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+
+
+				// -------------------------------------
+				// Construct the where segment
+				// -------------------------------------
+
+				if ($exact)
 				{
-
-					case 'is':
-						// Like another field?
-						if (substr($value, 0, 2) == '${')
-						{
-							$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.trim(substr($value, 2, -1)));
-						}
-						else
-						{
-							$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
-						}
-						break;
-
-					case 'isnot':
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.$value.'"';
-						break;
-
-					case 'contains':
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'%"';
-						break;
-
-					case 'doesnotcontain':
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.$value.'%"';
-						break;
-
-					case 'startswith':
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "'.$value.'%"';
-						break;
-
-					case 'endswith':
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'"';
-						break;
-
-					case 'isempty':
-						$filter_api[] = ' ('.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NULL OR '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "") ';
-						break;
-
-					case 'isnotempty':
-						$filter_api[] = ' ('.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NOT NULL AND '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "") ';
-						break;
-					
-					default:
-						// is
-						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
-						break;
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.urldecode($value).'"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.urldecode($value).'"';
+					}
+				}
+				else
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.urldecode($value).'%"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($value).'%"';
+					}
 				}
 			}
 		}
@@ -1398,41 +1369,30 @@ class Row_m extends MY_Model {
 	 */
 	public function gather_structure()
 	{		
-		if (empty($this->gather_structure_cache)) {
+		$obj = $this->db->query('
+			SELECT '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.*, '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id as stream_id, '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.* 
+			FROM '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.', '.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.', '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'
+			WHERE '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id and
+			'.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id');
 
-			$obj = $this->db->query('
-				SELECT '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.*, '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id as stream_id, '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.* 
-				FROM '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.', '.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.', '.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'
-				WHERE '.PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id and
-				'.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id');
+		$fields = $obj->result();
+		
+		$struct = array();
+		
+		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
+		{
+			if ($stream_id == 'ns') continue;
 
-			$fields = $obj->result();
+			$struct[$stream_id]['stream'] = $stream;
 			
-			$struct = array();
-			
-			foreach ($this->streams_m->streams_cache as $stream_id => $stream) {
-
-				if ($stream_id == 'ns') continue;
-
-				$struct[$stream_id]['stream'] = $stream;
-				
-				foreach ($fields as $field) {
-
-					if ($field->stream_slug == $stream->stream_slug) {
-
-						$struct[$stream_id]['fields'][] = $field;
-						
-					}
+			foreach ($fields as $field)
+			{
+				if ($field->stream_slug == $stream->stream_slug)
+				{
+					$struct[$stream_id]['fields'][] = $field;
 				}
 			}
-
-			$this->gather_structure_cache = $struct;
-
-		} else {
-
-			$struct = $this->gather_structure_cache;
-
-		}	
+		}
 		
 		return $struct;
 	}
@@ -1979,8 +1939,6 @@ class Row_m extends MY_Model {
 			$ordering_count = 1;
 		}
 		
-		Events::trigger('streams_pre_delete_entry', array('entry_id' => $row_id, 'stream' => $stream));
-		
 		// Delete the actual row
 		$this->db->where('id', $row_id);
 		
@@ -1990,7 +1948,6 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			
 			// -------------------------------------
 			// Entry Destructs
 			// -------------------------------------

@@ -26,14 +26,14 @@ $(function(){
 			});
 
 			//listener for keywords
-			$('input[type="text"]', pyro.filter.$filter_form).on('keyup', $.debounce(500, function(){
+			$('input[type="text"]', pyro.filter.$filter_form).on('keyup', function() {
 
 				//build the form data
 				form_data = pyro.filter.$filter_form.serialize();
 
 				pyro.filter.do_filter(pyro.filter.f_module, form_data);
 			
-			}));
+			});
 	
 			//listener for pagination
 			$('body').on('click', '.pagination a', function(e){
@@ -76,8 +76,6 @@ $(function(){
 			if (typeof url !== 'undefined'){
 				post_url = url;
 			}
-
-			pyro.clear_notifications();
 
 			pyro.filter.$content.fadeOut('fast', function(){
 				//send the request to the server

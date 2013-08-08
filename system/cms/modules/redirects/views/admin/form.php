@@ -1,39 +1,67 @@
-<section class="title">
-<?php if($this->method == 'add'): ?>
-	<h4><?php echo lang('redirects:add_title');?></h4>
-<?php else: ?>
-	<h4><?php echo lang('redirects:edit_title');?></h4>
-<?php endif ?>
-</section>
+<section class="padded">
+<div class="container-fluid">
 
-<section class="item">
-	<div class="content">
-		<?php echo form_open(uri_string(), 'class="crud"') ?>
-			<ul>
-			<li>
-				<label for="type"><?php echo lang('redirects:type');?></label><br>
-				<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect->type) ? $redirect->type : '302');?>
-			</li>
 
-			<hr>
-			<li>
-				<label for="from"><?php echo lang('redirects:from');?></label><br>
-				<?php echo form_input('from', str_replace('%', '*', $redirect->from));?>
-			</li>
+	<!-- Box -->
+	<section class="box">
 
-			<hr>
+		<!-- Header -->
+		<section class="box-header">
+			<span class="title">
+				<?php if($this->method == 'add'): ?>
+					<?php echo lang('redirects:add_title');?>
+				<?php else: ?>
+					<?php echo lang('redirects:edit_title');?>
+				<?php endif ?>
+			</span>
+		</section>
 
-			<li>
-				<label for="to"><?php echo lang('redirects:to');?></label><br>
-				<?php echo form_input('to', $redirect->to);?>
-			</li>
-			</ul>
 
-			<hr>
+		<!-- Box Content -->
+		<section class="box-content">
 
-			<div class="buttons">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
-			</div>
-		<?php echo form_close() ?>
-	</div>
+
+			<?php echo form_open(uri_string(), 'class="crud"') ?>
+				<fieldset class="padding-top">
+				
+					<ul>
+
+						<li class="row-fluid input-row">
+							<label class="span3" for="type"><?php echo lang('redirects:type');?></label>
+							<div class="input span9">
+								<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect['type']) ? $redirect['type'] : '302');?>
+							</div>
+						</li>
+
+						<li class="row-fluid input-row">
+							<label class="span3" for="from"><?php echo lang('redirects:from');?></label>
+							<div class="input span9">
+								<?php echo form_input('from', str_replace('%', '*', $redirect['from']));?>
+							</div>
+						</li>
+
+						<li class="row-fluid input-row">
+							<label class="span3" for="to"><?php echo lang('redirects:to');?></label>
+							<div class="input span9">
+								<?php echo form_input('to', $redirect['to']);?>
+							</div>
+						</li>
+
+					</ul>
+
+				</fieldset>
+		
+				<div class="btn-group padded no-padding-bottom">
+					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+				</div>
+			<?php echo form_close() ?>
+
+
+		</section>
+		<!-- /Box Content -->
+
+	</section>
+	<!-- /Box -->
+
+</div>
 </section>

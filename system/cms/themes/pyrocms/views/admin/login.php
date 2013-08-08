@@ -1,68 +1,136 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-	<meta charset="utf-8">
-	<meta name=viewport content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
-	<meta name="robots" content="noindex,nofollow">
+
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="author" content="AI Web Systems, Inc. - Ryan Thompson"/>
+	
+
+	<!-- Mobile Viewport -->
+	<meta name="viewport" content="width=device-width"/>
+
+
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 
-	<base href="<?php echo base_url(); ?>"/>
-	<meta name="robots" content="noindex, nofollow"/>
 
-	<?php Asset::css('workless/workless.css'); ?>
-	<?php Asset::css('workless/application.css'); ?>
-	<?php Asset::css('workless/responsive.css'); ?>
-	<?php Asset::css('animate/animate.css'); ?>
+	<!-- CSS -->
+	<?php Asset::css(array('bootstrap.css', 'components.css', 'plugins.css', 'application.css')); ?>
+	
 
-	<?php Asset::js('jquery/jquery.js'); ?>
-	<?php Asset::js('admin/login.js'); ?>
+	<!--[if lt IE 9]>
+		<?php Asset::css('ie.css'); ?>
+	<![endif]-->
 
+
+	<!-- JS -->
+	<?php
+		
+		Asset::js(
+			array(
+				
+				// Application
+				'application/jquery.js',
+				'application/modernizr.js',
+				'application/bootstrap.js',
+
+				// Components
+				'components/messenger.js',
+				
+				// Our customness
+				'application/scripts.js',
+				)
+			);
+	?>
+	
+
+	<!-- Render -->
 	<?php echo Asset::render() ?>
+
 </head>
 
-<body id="login-body">
+<body class="login">
 
-<div id="container" class="login-screen">
-	<section id="content">
-		<div id="content-body">
+<!-- Navbar -->
+<div class="navbar navbar-top navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
 
-			<div class="animated bounceIn" id="login-logo"></div>
-			<?php $this->load->view('admin/partials/notices') ?>
-				<?php echo form_open('admin/login'); ?>
-				<div class="form_inputs">
-					<ul>
-						<li>
-							<div class="input animated fadeIn" id="login-un"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
-						</li>
+			<a class="brand" href="#">aiws</a>
 
-						<li>
-							<div class="input animated fadeIn" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
-						</li>
-						<li class="animated fadeIn" id="login-save">
-							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check" checked />
-								<?php echo lang('user:remember'); ?>
-							</label>
-						</li>
-					</ul>
-					<div class="animated fadeIn" id="login-action">
-						<div class="buttons padding-top" id="login-buttons">
-							<button id="login-submit" class="btn" ontouchstart="" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
-								<span><?php echo lang('login_label'); ?></span>
-							</button>
-						</div>
-					</div>
-					<!-- </div> -->
-				<?php echo form_close(); ?>
-			</div>
 		</div>
-	</section>
-</div>
-<footer id="login-footer">
-	<div class="wrapper animated fadeIn" id="login-credits">
-		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
-		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 	</div>
-</footer>
+</div>
+
+
+<!-- Login Container -->
+<div class="container padded">
+
+	<!-- Wrapper -->
+	<div class="span4 offset4">
+
+		<?php $this->load->view('admin/partials/notices') ?>
+
+		<!-- Box Styling -->
+		<div class="login box animated dropDown">
+
+
+			<!-- Topbar -->
+			<div class="box-header">
+				<span class="title">Login</span>
+				<ul class="box-toolbar">
+					<li class="toolbar-link">
+						<a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><i class="icon-question"></i> Forgot Password</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<?php echo form_open('admin/login', 'onsubmit="$(\'.login.box\').removeClass(\'dropDown\').removeClass(\'animated\').addClass(\'animated-zing\').addClass(\'dropUp\');"'); ?>
+
+				<div class="padded">
+
+					<!-- Email -->
+					<div class="input-prepend input-append input-block-level">
+						<span class="add-on" href="#">
+							@
+						</span>
+						<input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/>
+					</div>
+
+					<!-- Password -->
+					<div class="input-prepend input-append input-block-level">
+						<span class="add-on" href="#">
+							<i class="icon-key"> </i>
+						</span>
+						<input class="input-block-level" type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/>
+					</div>
+
+					<!-- Login -->
+					<div class="input-block-level">
+						<label for="remember-check">
+							<input type="checkbox" name="remember" id="remember-check" checked />
+							<?php echo lang('user:remember'); ?>
+						</label>
+					</div>
+
+					<div class="input-block-level">
+						<button type="submit" class="btn btn-blue btn-block">
+							<?php echo lang('login_label'); ?>
+						</button>
+					</div>
+
+				</div>
+
+			<?php echo form_close(); ?>
+
+		</div>
+
+	</div>
+	
+</div>
+	
 </body>
 </html>

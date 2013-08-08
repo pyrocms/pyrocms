@@ -1,37 +1,55 @@
-<?php if ($this->method == 'edit'): ?>
-	<section class="title">
-    	<h4><?php echo sprintf(lang('keywords:edit_title'), $keyword->name) ?></h4>
+<section class="padded">
+<div class="container-fluid">
+
+
+	<!-- Box -->
+	<section class="box">
+
+		<!-- Header -->
+		<section class="box-header">
+			<span class="title">
+				<?php if ($this->method == 'edit'): ?>
+					<?php echo sprintf(lang('keywords:edit_title'), $keyword->name) ?>
+				<?php else: ?>
+					<?php echo lang('keywords:add_title') ?>
+				<?php endif ?>
+			</span>
+		</section>
+
+
+		<!-- Box Content -->
+		<section class="box-content">
+
+
+			<?php echo form_open(uri_string(), 'class="crud"') ?>
+
+			<fieldset class="padding-top">
+				
+			    <ul>
+					<li class="row-fluid input-row">
+						<label class="span3" for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
+						<div class="input span9"><?php echo form_input('name', $keyword->name);?></div>
+					</li>
+			    </ul>
+			    
+			</fieldset>
+			    
+			<div class="btn-group padded no-padding-bottom">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
+			</div>	
+				
+			<?php echo form_close();?>
+
+
+		</section>
+		<!-- /Box Content -->
+
 	</section>
-<?php else: ?>
-	<section class="title">
-    	<h4><?php echo lang('keywords:add_title') ?></h4>
-	</section>
-<?php endif ?>
-
-<section class="item">
-<div class="content">
-
-<?php echo form_open(uri_string(), 'class="crud"') ?>
-
-<div class="form_inputs">
-
-    <ul>
-		<li>
-			<label for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
-			<div class="input"><?php echo form_input('name', $keyword->name);?></div>
-		</li>
-    </ul>
-
-</div>
-
-	<div class="buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
-	</div>
-
-<?php echo form_close();?>
+	<!-- /Box -->
 
 </div>
 </section>
+
 
 <script type="text/javascript">
 	jQuery(function($) {

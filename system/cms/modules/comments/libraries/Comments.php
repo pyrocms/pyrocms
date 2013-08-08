@@ -98,9 +98,6 @@ class Comments
 			isset($params['entry_id']) and $this->entry_id = $params['entry_id'];
 			isset($params['entry_title']) and $this->entry_title = $params['entry_title'];
 		}
-
-		// TODO: Put this on an IoC when we have one
-		$this->moduleManager = ci()->moduleManager;
 	}
 
 	/**
@@ -173,7 +170,7 @@ class Comments
 
 			// We only want to load a lang file once
 			if ( ! isset($modules[$comment->module])) {
-				if ($this->moduleManager->moduleExists($comment->module)) {
+				if (ci()->module_m->exists($comment->module)) {
 					ci()->lang->load("{$comment->module}/{$comment->module}");
 
 					$modules[$comment->module] = true;

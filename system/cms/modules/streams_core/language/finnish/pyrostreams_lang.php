@@ -28,7 +28,6 @@ $lang['streams:new_entry_error']						= "Merkinnän lisäämisessä tapahtui vir
 $lang['streams:new_entry_success']						= "Merkintä lisättiin onnistuneesti.";
 $lang['streams:edit_entry_error']						= "Tämän merkinnän muokkaamisessa tapahtui virhe.";
 $lang['streams:edit_entry_success']						= "Merkinnän muokkaaminen onnistui.";
-$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Oletko varma, että haluat poistaa <strong>%s</strong> striimin? Tämä <strong>poistaa %s %s</strong> pysyvästi.";
 
 /* Misc Errors */

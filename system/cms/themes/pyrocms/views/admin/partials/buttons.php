@@ -1,17 +1,17 @@
 <?php if (isset($buttons) && is_array($buttons)): ?>
 
-	<?php
-
+	<?php 
+	
 		// What type of buttons?
 		if(isset($button_type) && $button_type == 'primary'):
 			$btn_class = 'btn';
 		elseif(isset($button_type) && $button_type == 'secondary'):
-			$btn_class = 'button';
+			$btn_class = 'btn';
 		else:
 			// Default to primary
 			$btn_class = 'btn';
 		endif;
-
+	
 	?>
 
 	<?php foreach ($buttons as $key => $button): ?>
@@ -24,9 +24,9 @@
 		<?php $button	= ! is_numeric($key) && ($extra = $button) ? $key : $button; ?>
 
 		<?php switch ($button) :
-			case 'delete':
-				if($btn_class == 'btn') $btn_class .= ' red';
-
+			case 'delete': 
+				if($btn_class == 'btn') $btn_class .= ' btn-danger';
+			
 			?>
 				<button type="submit" name="btnAction" value="delete" class="<?php echo $btn_class; ?> confirm">
 					<span><?php echo lang('buttons:delete'); ?></span>
@@ -45,7 +45,7 @@
 			case 'save_exit':
 			case 'unapprove':
 			case 'upload': ?>
-				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> blue">
+				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> btn-notice">
 					<span><?php echo lang('buttons:' . $button); ?></span>
 				</button>
 				<?php break;
@@ -56,10 +56,11 @@
 				$uri = 'admin/' . $this->module_details['slug'];
 				$active_section = $this->load->get_var('active_section');
 
-				if ($active_section && isset($this->module_details['sections'][$active_section]['uri'])) {
+				if ($active_section && isset($this->module_details['sections'][$active_section]['uri']))
+				{
 					$uri = $this->module_details['sections'][$active_section]['uri'];
 				}
-
+				
 				echo anchor($uri, lang('buttons:' . $button), 'class="'.$btn_class. ' ' . $button . '"');
 				break;
 
@@ -76,4 +77,4 @@
 
 		<?php endswitch; ?>
 	<?php endforeach; ?>
-<?php endif;
+<?php endif; ?>
