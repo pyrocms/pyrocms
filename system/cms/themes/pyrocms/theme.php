@@ -13,7 +13,43 @@ class Theme_Pyrocms extends AbstractTheme
     public $description		= 'PyroCMS admin theme. HTML5, CSS3, Bootstrap and more.';
     public $version			= '1.0.0';
 	public $type			= 'admin';
-	public $options			= array();
+	public $options 		= array(
+		'pyrocms_recent_comments' => array(
+			'title' 		=> 'Recent Comments',
+			'description'   => 'Would you like to display recent comments on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => true
+		),
+
+		'pyrocms_news_feed' => 	array(
+			'title' 		=> 'News Feed',
+			'description'   => 'Would you like to display the news feed on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => true
+		),
+
+		'pyrocms_quick_links' => array(
+			'title' 		=> 'Quick Links',
+			'description'   => 'Would you like to display quick links on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => true
+		),
+
+		'pyrocms_analytics_graph' => array(
+			'title' 		=> 'Analytics Graph',
+			'description'   => 'Would you like to display the graph on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => true
+		),
+	);
 	
 	/**
 	 * Run() is triggered when the theme is loaded for use
@@ -26,12 +62,20 @@ class Theme_Pyrocms extends AbstractTheme
 	public function run()
 	{
 		// only load these items on the dashboard
-		if ($this->module == '' && $this->method != 'login' && $this->method != 'help')
-		{
+		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme_options->pyrocms_analytics_graph == 'yes')		self::get_analytics();
-			if ($this->theme_options->pyrocms_news_feed == 'yes')			self::get_rss_feed();
-			if ($this->theme_options->pyrocms_recent_comments == 'yes')		self::get_recent_comments();
+			if (( ! $opt = $this->theme->getOptionValues())) {
+
+				if (isset($opt->pyrocms_analytics_graph) and $opt->pyrocms_analytics_graph == 'yes')	{ 
+					self::getAnalytics();
+				}
+				if (isset($opt->pyrocms_news_feed) and $opt->pyrocms_news_feed == 'yes') { 
+					self::getRssFeed();
+				}
+				if (isset($opt->pyrocms_recent_comments) and $opt->pyrocms_recent_comments == 'yes')	{ 
+					self::getRecentComments();
+				}
+			}
 		}
 	}
 	
