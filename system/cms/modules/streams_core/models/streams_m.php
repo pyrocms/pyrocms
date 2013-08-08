@@ -510,14 +510,9 @@ class Streams_m extends CI_Model
 		// Filter results
 		// -------------------------------------
 
-		if ($filter_data != null) {
-
-			// Loop through and apply the filters
-			foreach ($filter_data['filters'] as $filter=>$value) {
-				if ( strlen($value) > 0 ) {
-					$this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
-				}
-			}
+		foreach ($filter_data as $filter)
+		{
+			$this->db->where($filter, null, false);
 		}
 
 		// -------------------------------------
@@ -716,7 +711,7 @@ class Streams_m extends CI_Model
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 
 		if ($field_type->db_col_type !== false and $create_column === true) {
-			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 
 		// -------------------------------------
