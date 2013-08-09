@@ -82,7 +82,7 @@ class Module_Streams_core extends AbstractModule
             $table->binary('view_options');
             $table->string('title_column', 255)->nullable();
             $table->enum('sorting', array('title', 'custom'))->default('title');
-            $table->text('permissions');
+            $table->text('permissions')->nullable();
             $table->enum('is_hidden', array('yes','no'))->default('no');
             $table->string('menu_path', 255)->nullable();
         });
