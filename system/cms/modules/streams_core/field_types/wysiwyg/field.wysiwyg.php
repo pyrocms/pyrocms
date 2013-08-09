@@ -13,7 +13,7 @@ class Field_wysiwyg
 {
 	public $field_type_slug			= 'wysiwyg';
 
-	public $db_col_type				= 'longtext';
+	public $db_col_type				= 'long_text';
 
 	public $admin_display			= 'full';
 

@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 /**
  * PyroStreams Streams Model
@@ -331,7 +333,7 @@ class Streams_m extends CI_Model
 			$insert_data['view_options']		= serialize(array('id', 'created'));
 		}
 
-		return $this->pdb->table($this->table)->where('id', '=', $stream_id)->update($update_data);
+		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
 	}
 
 	/**
@@ -403,15 +405,22 @@ class Streams_m extends CI_Model
 	 */
 	public function get_stream_id_from_slug($slug, $namespace)
 	{
-		if ($stream = $this->pdb->table($this->table)
-			->where('stream_slug', '=', $slug)
-			->where('stream_namespace', '=', $namespace)
-			->take(1)
-			->first())
-		{
-			return $stream->id;
-		} else {
+		// TODO This was added because some other streams code was missing a ->get()
+		// This was effecting this query. Please fix! Phil
+		$this->db->reset_query();
+
+		$db = $this->db
+			->limit(1)
+			->where('stream_slug', $slug)
+			->where('stream_namespace', $namespace)
+			->get($this->table);
+
+		if ($db->num_rows() == 0) {
 			return false;
+		} else {
+			$row = $db->row();
+
+			return $row->id;
 		}
 	}
 
@@ -593,7 +602,7 @@ class Streams_m extends CI_Model
 		if (is_numeric($limit)) {
 			$query->take($limit);
 		}
-		if (is_numeric($offset) and ! empty($offset)) {
+		if (is_numeric($offset)) {
 			$query->skip($offset);
 		}
 
@@ -657,7 +666,7 @@ class Streams_m extends CI_Model
 	 * @param	[bool - should we create the column?]
 	 * @return	mixed - false or assignment ID
 	 */
-	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true, $field_assignment_construct = true)
+	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
 	{
 		// TODO This whole method needs to be recoded to use Schema...
 
@@ -686,7 +695,7 @@ class Streams_m extends CI_Model
 		if ( ! $field_type) return false;
 
 		// Do we have a pre-add function?
-		if (method_exists($field_type, 'field_assignment_construct') and $field_assignment_construct) {
+		if (method_exists($field_type, 'field_assignment_construct')) {
 			$field_type->field_assignment_construct($field, $stream);
 		}
 
@@ -694,29 +703,11 @@ class Streams_m extends CI_Model
 		// Create database column
 		// -------------------------------------
 
-		$this->load->dbforge();
-
-		$field_data = array();
-
-		$field_data['field_slug']				= $field->field_slug;
-
-		if (isset($field->field_data['max_length'])) {
-			$field_data['max_length']			= $field->field_data['max_length'];
-		}
-
-		if (isset($field->field_data['default_value'])) {
-			$field_data['default_value']		= $field->field_data['default_value'];
-		}
-
 		// Grab table prefix from installer
-		// We set the prefix for the cms installer but not the module intall
-		// until we can figure out how to replace dbforge with the Schema builder here
-		$prefix = ! defined('ADMIN_THEME') ? $this->pdb->getQueryGrammar()->getTablePrefix() : null;
-
-		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
+		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
 
 		if ($field_type->db_col_type !== false and $create_column === true) {
-			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			$this->schema_thing($stream, $field_type, $field);
 		}
 
 		// -------------------------------------
@@ -768,6 +759,54 @@ class Streams_m extends CI_Model
 		}
 
 		return $this->db->insert_id();
+	}
+
+	public function schema_thing($stream, $type, $field)
+	{
+		Capsule::table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
+
+			$db_type_method = camel_case($type->db_col_type);
+
+			// This seems like a sane default, and allows for 2.2 style widgets
+			if (! method_exists($type, $db_type_method)) {
+				$db_type_method = 'text';
+			}
+
+			// -------------------------------------
+			// Constraint
+			// -------------------------------------
+
+			$constraint = null;
+
+			// First we check and see if a constraint has been added
+			if (isset($type->col_constraint) and $type->col_constraint) {
+				$constraint = $type->col_constraint;
+
+			// Otherwise, we'll check for a max_length field
+			} elseif (isset($field->field_data['max_length']) and is_numeric($field->field_data['max_length'])) {
+				$constraint = $field->field_data['max_length'];
+			}
+
+			// Only the string method cares about a constraint
+			if ($db_type_method === 'string') {
+				$col = $table->{$db_type_method}($field->slug, $constraint);
+			} else {
+				$col = $table->{$db_type_method}($field->slug);
+			}
+
+			// -------------------------------------
+			// Default
+			// -------------------------------------
+			if (! empty($field->field_data['default_value']) and ! in_array($db_type_method, array('text', 'longText'))) {
+				$col->default($field->field_data['default_value']);
+			}
+
+			// -------------------------------------
+			// Default to allow null
+			// -------------------------------------
+
+			$col->nullable();
+		});
 	}
 
     // --------------------------------------------------------------------------
