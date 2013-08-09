@@ -4,9 +4,11 @@ php:
   - "5.4"
 before_script:
   - "sudo chmod -R 777  ."
+  - "sudo apt-get update"
   - "sudo apt-get install apache2"
   - "sudo a2enmod actions"
   - "sudo a2enmod rewrite"
+  - "composer self-update" 
   - echo "export PATH=/home/vagrant/.phpenv/bin:$PATH" | sudo tee -a /etc/apache2/envvars > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/16d751c979fdeb5a14e3/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
