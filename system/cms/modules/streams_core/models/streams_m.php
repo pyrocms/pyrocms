@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Query\Expression as DBExpression;
 
 /**
  * PyroStreams Streams Model
@@ -466,6 +467,10 @@ class Streams_m extends CI_Model
 
 		$stream = $query->take(1)->first();
 
+		if (is_null($stream)) {
+			throw new Exception();
+		}
+
 		if ( ! isset($stream->view_options) or trim($stream->view_options) == '') {
 			$stream->view_options = array();
 		} else {
@@ -733,16 +738,14 @@ class Streams_m extends CI_Model
 		$insert_data['instructions']	= isset($data['instructions']) ? $data['instructions'] : null;
 
 		// +1 for ordering.
-		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
-		$query = $this->db->get($prefix.ASSIGN_TABLE);
+		$top_num = ci()->pdb
+			->table(ASSIGN_TABLE)
+			->select(new DBExpression('MAX(sort_order) as top_num'))
+			->where('stream_id', $stream->id)
+			->pluck('top_num');
 
-		if ($query->num_rows() == 0) {
-			// First one! Make it 1
-			$insert_data['sort_order'] = 1;
-		} else {
-			$row = $query->row();
-			$insert_data['sort_order'] = $row->top_num + 1;
-		}
+		// First one! Make it 1
+		$insert_data['sort_order'] = $top_num ? $top_num + 1 : 1;
 
 		// Is Required
 		if (isset($data['is_required']) and $data['is_required'] == 'yes') {
@@ -754,16 +757,13 @@ class Streams_m extends CI_Model
 			$insert_data['is_unique'] = 'yes';
 		}
 
-		if ( ! $this->db->insert($prefix.ASSIGN_TABLE, $insert_data)) {
-			return false;
-		}
-
-		return $this->db->insert_id();
+		// Return the new ID or false
+		return ci()->pdb->table(ASSIGN_TABLE)->insertGetId($insert_data) ?: false;
 	}
 
 	public function schema_thing($stream, $type, $field)
 	{
-		Capsule::table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
+		Capsule::schema()->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
 
 			$db_type_method = camel_case($type->db_col_type);
 
@@ -789,9 +789,9 @@ class Streams_m extends CI_Model
 
 			// Only the string method cares about a constraint
 			if ($db_type_method === 'string') {
-				$col = $table->{$db_type_method}($field->slug, $constraint);
+				$col = $table->{$db_type_method}($field->field_slug, $constraint);
 			} else {
-				$col = $table->{$db_type_method}($field->slug);
+				$col = $table->{$db_type_method}($field->field_slug);
 			}
 
 			// -------------------------------------
