@@ -13,7 +13,7 @@ class Field_merge_tags
 	
 	public $field_type_slug			= 'merge_tags';
 	
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $custom_parameters		= array('pattern');
 

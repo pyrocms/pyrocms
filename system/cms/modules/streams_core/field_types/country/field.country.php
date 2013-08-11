@@ -11,7 +11,7 @@ class Field_country
 {
 	public $field_type_slug			= 'country';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.1.0';
 

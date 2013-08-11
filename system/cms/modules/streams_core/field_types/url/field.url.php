@@ -13,7 +13,7 @@ class Field_url
 {
 	public $field_type_slug				= 'url';
 
-	public $db_col_type					= 'varchar';
+	public $db_col_type					= 'string';
 
 	public $extra_validation			= 'valid_url';
 

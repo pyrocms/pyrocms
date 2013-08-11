@@ -13,7 +13,7 @@ class Field_year
 {
 	public $field_type_slug			= 'year';
 
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
 
 	public $col_constraint			= 4;
 
