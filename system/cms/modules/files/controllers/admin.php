@@ -1,10 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Files\Model\Folder as FolderModel;
+
 /**
  * PyroCMS file Admin Controller
  *
  * Provides an admin for the file module.
  *
- * @author		Jerel Unruh - PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
 class Admin extends Admin_Controller {
@@ -23,10 +26,9 @@ class Admin extends Admin_Controller {
 		$this->config->load('files');
 		$this->lang->load('files');
 		$this->load->library('files/files');
-		
+
 		$allowed_extensions = array();
-		foreach (config_item('files:allowed_file_ext') as $type) 
-		{
+		foreach (config_item('files:allowed_file_ext') as $type) {
 			$allowed_extensions = array_merge($allowed_extensions, $type);
 		}
 
@@ -44,7 +46,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.untitled_folder = '".lang('files:untitled_folder')."';
 				pyro.lang.exceeds_server_setting = '".lang('files:exceeds_server_setting')."';
 				pyro.lang.exceeds_allowed = '".lang('files:exceeds_allowed')."';
-				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
+				pyro.files = { permissions : ".json_encode(Files::allowedActions($this->current_user))." };
 				pyro.files.max_size_possible = '".Files::$max_size_possible."';
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
 				pyro.files.valid_extensions = '".implode('|', $allowed_extensions)."';
@@ -72,14 +74,13 @@ class Admin extends Admin_Controller {
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
 			// should we show the "no data" message to them?
-			->set('folders', $this->file_folders_m->count_by('parent_id', 0))
+			->set('folders', FolderModel::countByParentId(0))
 			->set('locations', array_combine(Files::$providers, Files::$providers))
-			->set('folder_tree', Files::folder_tree());
+			->set('folder_tree', Files::folderTree());
 
-		$path_check = Files::check_dir(Files::$path);
+		$path_check = Files::checkDir(Files::$path);
 
-		if ( ! $path_check['status'])
-		{
+		if ( ! $path_check['status']) {
 			$this->template->set('messages', array('error' => $path_check['message']));
 		}
 
@@ -94,19 +95,20 @@ class Admin extends Admin_Controller {
 	public function new_folder()
 	{
 		// This is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('create_folder', Files::allowed_actions()))
-		{
+		if ( ! in_array('create_folder', Files::allowedActions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
 		$parent_id = $this->input->post('parent');
 		$name = $this->input->post('name');
 
-		$result = Files::create_folder($parent_id, $name);
+		$result = Files::createFolder($parent_id, $name);
 
-		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
+		if ($result['status']) {
+			Events::trigger('file_folder_created', $result['data']);
+		}
 
-		echo json_encode($result);
+		exit(json_encode($result));
 	}
 
 	/**
@@ -132,7 +134,7 @@ class Admin extends Admin_Controller {
 	{
 		$parent = $this->input->post('parent');
 
-		echo json_encode(Files::folder_contents($parent));
+		echo json_encode(Files::folderContents($parent));
 	}
 
 	/**
@@ -146,7 +148,7 @@ class Admin extends Admin_Controller {
 		$name = $this->input->post('name');
 		$location = $this->input->post('location');
 
-		echo json_encode(Files::check_container($name, $location));
+		echo json_encode(Files::checkContainer($name, $location));
 	}
 
 	/**
@@ -185,7 +187,7 @@ class Admin extends Admin_Controller {
 	public function rename_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_folder', Files::allowed_actions()))
+		if ( ! in_array('edit_folder', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
@@ -206,7 +208,7 @@ class Admin extends Admin_Controller {
 	public function delete_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_folder', Files::allowed_actions()))
+		if ( ! in_array('delete_folder', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
@@ -227,9 +229,9 @@ class Admin extends Admin_Controller {
 	public function upload()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('upload', Files::allowed_actions()) AND
+		if ( ! in_array('upload', Files::allowedActions()) AND
 			// replacing files needs upload and delete permission
-			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowed_actions()) )
+			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowedActions()) )
 		)
 		{
 			show_error(lang('files:no_permissions'));
@@ -258,7 +260,7 @@ class Admin extends Admin_Controller {
 	public function rename_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_file', Files::allowed_actions()))
+		if ( ! in_array('edit_file', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
@@ -311,7 +313,7 @@ class Admin extends Admin_Controller {
 	public function save_location()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('set_location', Files::allowed_actions()))
+		if ( ! in_array('set_location', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
@@ -330,7 +332,7 @@ class Admin extends Admin_Controller {
 	public function synchronize()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('synchronize', Files::allowed_actions()))
+		if ( ! in_array('synchronize', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
@@ -352,7 +354,7 @@ class Admin extends Admin_Controller {
 	public function delete_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_file', Files::allowed_actions()))
+		if ( ! in_array('delete_file', Files::allowedActions()))
 		{
 			show_error(lang('files:no_permissions'));
 		}
