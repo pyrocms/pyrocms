@@ -7,7 +7,7 @@
 					<?php foreach ($plugin['self_doc'] as $method => $doc): ?>
 						<div class="method">
 							<h1><?php echo $plugin['slug'].':'.$method ?></h1>
-							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
+							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : (isset($doc['description']['en']) ? $doc['description']['en'] : ''), ENT_COMPAT, 'UTF-8') ?></p>
 <pre>
 <code>
 <?php if (isset($doc['single']) and $doc['single']): ?>

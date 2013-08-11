@@ -3,11 +3,9 @@
 /**
  * PyroStreams Date/Time Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_datetime
 {	
@@ -119,7 +117,11 @@ class Field_datetime
 					return lang('streams:invalid_input_for_date_range_check');
 				}
 
-				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
+				$year = $this->CI->input->post($field->field_slug.'_year');
+				$month = $this->two_digit_number($_POST[$field->field_slug.'_month']);
+				$day = $this->two_digit_number($_POST[$field->field_slug.'_day']);
+
+				$value = $year.'-'.$month.'-'.$day;
 			}
 
 
@@ -697,7 +699,6 @@ class Field_datetime
 	 * Turns a single digit number into a
 	 * two digit number
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */

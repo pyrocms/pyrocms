@@ -3,8 +3,9 @@
 /**
  * Entries Driver
  * 
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Streams_streams extends CI_Driver {
 

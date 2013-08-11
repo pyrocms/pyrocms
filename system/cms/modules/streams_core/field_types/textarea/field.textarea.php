@@ -3,9 +3,9 @@
 /**
  * PyroStreams Textarea Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Adam Fairholm
- * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_textarea
 {

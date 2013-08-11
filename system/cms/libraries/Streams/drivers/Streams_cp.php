@@ -6,8 +6,9 @@
  * constructing PyrCMS stream control
  * panel elements.
  *
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
  
 class Streams_cp extends CI_Driver {
