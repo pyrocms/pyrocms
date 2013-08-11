@@ -79,6 +79,7 @@ class Install_m extends CI_Model
 		    $table->string('username', 20);
 		    $table->string('email', 60);
 		    $table->string('password', 255);
+		    $table->string('salt', 6);
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_code')->nullable();
