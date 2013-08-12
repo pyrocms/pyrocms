@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('addons:widgets') ?></h4>
+	<h4>{{ helper:lang line="addons:widget" }}</h4>
 </section>
 <section class="item">
 <div class="content">
@@ -11,10 +11,10 @@
 		<thead>
 		<tr>
 			<th width="30"></th>
-			<th width="20%"><?php echo lang('global:title') ?></th>
-			<th><?php echo lang('desc_label') ?></th>
-			<th width="130"><?php echo lang('global:author') ?></th>
-			<th width="80" class="align-center"><?php echo lang('version_label') ?></th>
+			<th width="20%">{{ helper:lang line="global:title" }}</th>
+			<th>{{ helper:lang line="desc_label" }}</th>
+			<th width="130">{{ helper:lang line="global:author" }}</th>
+			<th width="80" class="align-center">{{ helper:lang line="version_label" }}</th>
 			<th width="150"></th>
 		</tr>
 		</thead>
@@ -42,7 +42,7 @@
 	<?php echo form_close() ?>
 
 <?php else: ?>
-	<p><?php echo lang('widgets:no_available_widgets') ?></p>
+	<p>{{ helper:lang line="widgets:no_available_widgets" }}</p>
 <?php endif ?>
 </div>
 </section>

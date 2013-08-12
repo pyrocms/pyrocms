@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('addons:themes:upload_title');?></h4>
+	<h4>{{ helper:lang line="addons:themes:upload_title" }}</h4>
 </section>
 
 <section class="item">
@@ -9,7 +9,7 @@
 
 			<ul>
 				<li>
-					<h4><?php echo lang('addons:themes:upload_desc') ?></h4>
+					<h4>{{ helper:lang line="addons:themes:upload_desc" }}</h4>
 				</li>
 
 				<li>

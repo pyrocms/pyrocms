@@ -2,9 +2,9 @@
 
 	<thead>
 		<tr>
-			<th><?php echo lang('name_label');?></th>
-			<th class="collapse"><span><?php echo lang('desc_label');?></span></th>
-			<th><?php echo lang('version_label');?></th>
+			<th>{{ helper:lang line="name_label" }}</th>
+			<th class="collapse"><span>{{ helper:lang line="desc_label" }}</span></th>
+			<th>{{ helper:lang line="version_label" }}</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -18,7 +18,7 @@
 		<td><?php if ($plugin['self_doc']): ?>
 			<a data-inline-modal="#<?php echo $plugin['slug'] ?>"
 				href="<?php echo site_url('#') ?>"
-				title="<?php echo lang('global:preview')?>"
+				title="{{ helper:lang line="global:preview" }}"
 				class="icon-search ti"
 				style="margin-right:8px;"></a>
 			<?php endif ?>

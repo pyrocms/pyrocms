@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('addons:modules:upload_title');?></h4>
+	<h4>{{ helper:lang line="addons:modules:upload_title" }}</h4>
 </section>
 
 <section class="item">
@@ -8,7 +8,7 @@
 
 	<ul>
 		<li>
-			<label for="userfile"><?php echo lang('addons:modules:upload_desc');?></label><br/>
+			<label for="userfile">{{ helper:lang line="addons:modules:upload_desc" }}</label><br/>
 			<input type="file" name="userfile" class="input" />
 		</li>
 	</ul>
