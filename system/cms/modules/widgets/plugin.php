@@ -13,13 +13,11 @@ class Plugin_Widgets extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Widgets',
-		'br' => 'Widgets',
 		'ar' => 'الودجتس',
             'fa' => 'ویجت ها',
 	);
 	public $description = array(
 		'en' => 'Display widgets by widget area or individually.',
-		'br' => 'Exibe widgets por área ou individualmente.',
 		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
             'fa' => 'نمایش دادن ویجت ها با استفاده از مکان ها و یا به صورتی تکی',
 		'it' => 'Mostra singolarmente o a gruppi i Widget',
@@ -37,7 +35,6 @@ class Plugin_Widgets extends Plugin
 			'area' => array(
 				'description' => array(
 					'en' => 'Render a widget area specified by either its slug or the number of a uri segment that holds its slug.',
-					'br' => 'Renderiza uma área de widget definida pelo seu slug ou pelo número do segmento de uri que contém seu slug.',
 					'ar' => 'عرض مساحة ودجت بتحديد اسمها المختر أو جزء العنوان الذي يحتوي اسمها المختصر',
 				),
 				'single' => true,
@@ -61,7 +58,6 @@ class Plugin_Widgets extends Plugin
 			'instance' => array(
 				'description' => array(
 					'en' => 'Render a widget specified by its id.',
-					'br' => 'Renderiza um widget definido pelo seu ID.',
 					'ar' => 'عرض ودجت بتحديد id الخاص بها',
 				),
 				'single' => true,
