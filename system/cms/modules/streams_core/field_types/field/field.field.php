@@ -1,11 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * Field Field Type
  *
  * @author  Osvaldo Brignoni
  * @package PyroCMS\Addon\FieldType
  */
-class Field_field
+class Field_field extends AbstractField
 {
 	/**
 	 * Field Type Name
@@ -223,24 +226,22 @@ class Field_field
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_pre_output($row_id, $extra, $type, $stream)
+	public function alt_pre_output($value)
 	{
 		$output = '';
 
-		$selected_field_slug_column = $extra['field_slug'].'_field_slug';
+		$selected_field_slug_column = $this->field->field_data['field_slug'].'_field_slug';
 
-		$selectable_fields_namespace = ! empty($extra['namespace']) ? $extra['namespace'] : $stream->stream_namespace;
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $stream->stream_namespace;
 
 		// Get the only the entry columns we need
 		$select[] = $selected_field_slug_column; 
-		if ($extra['storage'] != 'custom')
+		if ($this->field->field_data['storage'] != 'custom')
 		{
-			$select[] = $extra['field_slug'];
+			$select[] = $this->field->field_data['field_slug'];
 		}
 
-		if (($row = $row_id ? ci()->db->select(implode(',', $select))
-			->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug)->row() : null) 
-			and ($selected_field = ci()->fields_m->get_field_by_slug($row->{$selected_field_slug_column}, $selectable_fields_namespace)))
+		if ($selected_field = ci()->fields_m->get_field_by_slug($this->entry->{$selected_field_slug_column}, $selectable_fields_namespace))
 		{
 
 			// This is an option for field types that primarily return an array
@@ -248,26 +249,28 @@ class Field_field
 			if ($selected_type = ci()->type->load_single_type($selected_field->field_type)
 				and method_exists($selected_type, 'alt_pre_output_field_field_type'))
 			{
-				$output = $selected_type->alt_pre_output_field_field_type($row, $extra, $type, $stream, $selected_field);
+				$output = $selected_type->alt_pre_output_field_field_type($this->entry, $this->field->field_data, $type, $this->stream, $selected_field);
 			}
 			// Check if the field has $return_unprocessed_field_field_type property and return the unprocessed column value
 			elseif ($selected_type 
 				and isset($selected_type->return_unprocessed_field_field_type)
 				and ! $selected_type->return_unprocessed_field_field_type
-				and isset($row->{$extra['field_slug']}))
+				and isset($this->entry->{$this->field->field_data['field_slug']}))
 			{
-				$output = $row->{$extra['field_slug']};					
+				$output = $this->entry->{$this->field->field_data['field_slug']};					
 			}
 			// Else we will expect this field to go through its pre process and return a string
-			elseif ($extra['storage'] != 'custom')
+			elseif ($this->field->field_data['storage'] != 'custom')
 			{
 				$output = ci()->row_m->format_column(
-					$selected_field->field_slug, $row->{$extra['field_slug']}, $row_id, 
-					$selected_field->field_type, $selected_field->field_data, $stream, false);
+					$selected_field->field_slug, $this->entry->{$this->field->field_data['field_slug']}, $this->entry->id, 
+					$selected_field->field_type, $selected_field->field_data, $this->stream, false);
+
+				$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
 
 				// Double check if this is a string, decode any html entities. Else, return the unprocessed value
 				// This ensures that Lex tags get decoded before getting parsed
-				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $row->{$extra['field_slug']};
+				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $this->entry->{$this->field->field_data['field_slug']};
 				// Wrap this in some nice html, only for the Admin pages
 			}
 

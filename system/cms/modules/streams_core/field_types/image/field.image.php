@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Image Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_image
+class Field_image extends AbstractField
 {
 	public $field_type_slug			= 'image';
 

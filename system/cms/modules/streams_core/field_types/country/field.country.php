@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Country Field Type
  *
@@ -7,7 +9,7 @@
  * @author		Adam Fairholm
  * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
-class Field_country
+class Field_country extends AbstractField
 {
 	public $field_type_slug			= 'country';
 

@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * Merge Tags Field Type
  *
@@ -7,7 +9,7 @@
  * @copyright	Copyright (c) 2008-2013, AI Web Systems, Inc.
  * @link		http://aiwebsystems.com/
  */
-class Field_merge_tags
+class Field_merge_tags extends AbstractField
 {
 	public $field_type_name 		= 'Merge Tags';
 	
@@ -37,6 +39,6 @@ class Field_merge_tags
 
 	public function pre_save($input, $field)
 	{
-		return ci()->parser->parse_string($field->field_data['pattern'], $_POST, true);
+		return ci()->parser->parse_string($this->field->field_data['pattern'], $_POST, true);
 	}
 }
