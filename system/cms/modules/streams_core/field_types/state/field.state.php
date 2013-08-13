@@ -10,7 +10,7 @@ class Field_state
 {
 	public $field_type_slug			= 'state';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.3.0';
 
