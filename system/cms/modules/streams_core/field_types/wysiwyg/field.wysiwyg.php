@@ -97,7 +97,7 @@ class Field_wysiwyg
 	
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
-		$options['value']	= html_entity_decode($data['value'], ENT_COMPAT | ENT_HTML401, 'UTF-8');
+		$options['value']	= html_entity_decode($data['value'], null, 'UTF-8');
 		
 		return form_textarea($options);
 	}
