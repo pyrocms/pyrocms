@@ -466,7 +466,7 @@ class Admin extends Admin_Controller
         $this->template
             ->set_layout('modal', 'admin')
             ->set('user', $user)
-            ->build('admin/preview');
+            ->build('admin/users/preview');
     }
 
     /**

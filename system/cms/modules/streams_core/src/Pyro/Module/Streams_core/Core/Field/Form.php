@@ -15,62 +15,33 @@ use Pyro\Module\Streams_core\Core\Field\Type;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Builder
+class Form
 {
 	public $field_type_events_run = array();
 
+	protected $entry;
+
+	protected $method = 'new';
+
+	protected $recaptcha = false;
+
+	protected $values = array();
+
+	protected $key_check = false;
+
+	protected $skips = array();
+
 	// --------------------------------------------------------------------------
 
-    public function __construct()
+    public function __construct($entry = null)
     {
-    	$this->CI = get_instance();
+    	$this->entry = $entry;
+
+    	$this->fields = $entry->getStream()->getModel()->getRelation('assignments')->getFields();
+
+    	$this->method = $entry->exists ? 'edit' : 'new';
     
-		$this->CI->load->helper('form');
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Build form input
-	 *
-	 * Builds an individual form input from the
-	 * type object
-	 *
-	 * @access	public
-	 * @param	obj
-	 * @param	bool
-	 * @return	string
-	 */
-	public function buildForm($field, $value = null, $row_id = null, $plugin = false)
-	{
-		$form_data['form_slug']		= $field->field_slug;
-		$form_data['custom'] 		= $field->field_data;
-		$form_data['value']			= $value;
-		$form_data['max_length']	= (isset($field->field_data['max_length'])) ? $field->field_data['max_length'] : null;
-
-		// We need the field type to go on.
-		if ( ! isset($this->CI->type->types->{$field->field_type}))
-		{
-			return null;
-		}
-
-		// If this is for a plugin, this relies on a function that
-		// many field types will not have
-		if ($plugin)
-		{
-			if (method_exists($this->CI->type->types->{$field->field_type}, 'form_output_plugin'))
-			{
-				return $this->CI->type->types->{$field->field_type}->form_output_plugin($form_data, $row_id, $field);
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return $this->CI->type->types->{$field->field_type}->form_output($form_data, $row_id, $field);
-		}
+		ci()->load->helper('form');
 	}
 
 	// --------------------------------------------------------------------------
@@ -101,10 +72,11 @@ class Builder
      *
      * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array(), $defaults = array())
+    // $stream, $this->method, $row = false, $plugin = false, $this->recaptcha = false, $skips = array(), $extra = array(), $defaults = array()
+ 	public function buildForm()
  	{
- 		$this->CI->load->helper(array('form', 'url'));
- 	
+ 		ci()->load->helper(array('form', 'url'));
+
  		// -------------------------------------
 		// Set default extras
 		// -------------------------------------
@@ -115,11 +87,11 @@ class Builder
 			'error_start'				=> null,
 			'error_end'					=> null,
 			'required'					=> '<span>*</span>',
-			'success_message'			=> 'lang:streams:'.$method.'_entry_success',
-			'failure_message'			=> 'lang:streams:'.$method.'_entry_error'
+			'success_message'			=> 'lang:streams:'.$this->method.'_entry_success',
+			'failure_message'			=> 'lang:streams:'.$this->method.'_entry_error'
 		);
 
-		$this->CI->load->language('streams_core/pyrostreams');
+		ci()->load->language('streams_core/pyrostreams');
 		
 		// Go through our defaults and see if anything has been
 		// passed in the $extra array to replace any values.		
@@ -142,9 +114,9 @@ class Builder
 		$form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
 
 		// Form key check. If no data, we must assume it is true.
-		if ($form_key and $this->CI->input->post('_streams_form_key'))
+		if ($form_key and ci()->input->post('_streams_form_key'))
 		{
-			$key_check = ($form_key == $this->CI->input->post('_streams_form_key'));
+			$key_check = ($form_key == ci()->input->post('_streams_form_key'));
 		}
 		else
 		{
@@ -155,10 +127,10 @@ class Builder
 		// Get Stream Fields
 		// -------------------------------------
 		
-		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
+		//$stream_fields = ci()->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if ($stream_fields === false)
+		if (empty($this->fields))
 		{
 			return null;
 		}
@@ -167,7 +139,7 @@ class Builder
 		// Get row id, if applicable
 		// -------------------------------------
 
-		$row_id = ($method == 'edit') ? $row->id : null;
+		$row_id = ($this->method == 'edit') ? $entry->id : null;
 			
 		// -------------------------------------
 		// Set Validation Rules
@@ -181,33 +153,35 @@ class Builder
 
 		if ($_POST and $key_check)
 		{
-			$this->CI->form_validation->reset_validation();
-			$this->set_rules($stream_fields, $method, $skips, false, $row_id);
+			ci()->form_validation->reset_validation();
+			$this->set_rules($stream_fields, $this->method, $skips, false, $row_id);
 		}
 
 		// -------------------------------------
 		// Set Error Delimns
 		// -------------------------------------
 
-		$this->CI->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
+		ci()->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
 
 		// -------------------------------------
 		// Set reCAPTCHA
 		// -------------------------------------
  
-		if ($recaptcha and $_POST)
+		if ($this->recaptcha and $_POST)
 		{
-			$this->CI->config->load('streams_core/recaptcha');
-			$this->CI->load->library('streams_core/Recaptcha');
+			ci()->config->load('streams_core/recaptcha');
+			ci()->load->library('streams_core/Recaptcha');
 			
-			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_recaptcha');
+			ci()->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_recaptcha');
 		}
 		
 		// -------------------------------------
 		// Set Values
 		// -------------------------------------
 
-		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults, $key_check);
+		//$stream_fields, $row, $this->method, $skips, $defaults, $key_check
+
+		$this->values = $this->set_values();
 
 		// -------------------------------------
 		// Run Type Events
@@ -217,7 +191,9 @@ class Builder
 		// and other processes.
 		// -------------------------------------
 
-		$this->run_field_events($stream_fields, $skips, $values);
+		// $stream_fields, $skips, $values
+
+		$this->run_field_events();
 
 		// -------------------------------------
 		// Validation
@@ -227,13 +203,13 @@ class Builder
 
 		if ($_POST and $key_check)
 		{
-			if ($this->CI->form_validation->run() === true)
+			if (ci()->form_validation->run() === true)
 			{
-				if ($method == 'new')
+				if ($this->method == 'new')
 				{
-					if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
+					if ( ! $result_id = ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
+						ci()->session->set_flashdata('notice', ci()->fields->translate_label($failure_message));
 					}
 					else
 					{
@@ -245,26 +221,26 @@ class Builder
 						{
 							foreach ($extra['email_notifications'] as $notify)
 							{
-								$this->send_email($notify, $result_id, $method = 'new', $stream);
+								$this->send_email($notify, $result_id, $this->method = 'new', $stream);
 							}
 						}
 		
 						// -------------------------------------
 					
-						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+						ci()->session->set_flashdata('success', ci()->fields->translate_label($extra['success_message']));
 					}
 				}
 				else
 				{
-					if ( ! $result_id = $this->CI->row_m->update_entry(
+					if ( ! $result_id = ci()->row_m->update_entry(
 														$stream_fields,
 														$stream,
 														$row->id,
-														$this->CI->input->post(),
+														ci()->input->post(),
 														$skips
 													))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+						ci()->session->set_flashdata('notice', ci()->fields->translate_label($extra['failure_message']));	
 					}
 					else
 					{
@@ -276,13 +252,13 @@ class Builder
 						{
 							foreach($extra['email_notifications'] as $notify)
 							{
-								$this->send_email($notify, $result_id, $method = 'update', $stream);
+								$this->send_email($notify, $result_id, $this->method = 'update', $stream);
 							}
 						}
 		
 						// -------------------------------------
 					
-						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+						ci()->session->set_flashdata('success', ci()->fields->translate_label($extra['success_message']));
 					}
 				}
 			
@@ -303,7 +279,8 @@ class Builder
 		// Set Fields & Return Them
 		// -------------------------------------
 
-		return $this->build_fields($stream_fields, $values, $row, $method, $skips, $extra['required']);
+		// $stream_fields, $values, $row, $this->method, $skips, $extra['required']
+		return $this->build_fields();
 	}
 
 	// --------------------------------------------------------------------------
@@ -320,30 +297,31 @@ class Builder
 	 * @param 	[array - skips]
 	 * @return 	array
 	 */
-	public function run_field_events($stream_fields, $skips = array(), $values = array())
+	// $stream_fields, $skips = array(), $values = array()
+	public function run_field_events()
 	{
-		if ( ! $stream_fields or ( ! is_array($stream_fields) and ! is_object($stream_fields))) return null;
+		if ( ! $this->fields or ( ! is_array($this->fields) and ! is_object($this->fields))) return null;
 
-		foreach ($stream_fields as $field)
+		foreach ($this->fields as $field)
 		{
 			// We need the slug to go on.
-			if ( ! isset($this->CI->type->types->{$field->field_type}))
+			if ( ! isset(ci()->type->types->{$field->field_type}))
 			{
 				continue;
 			}
 
 			// Set the value
-			if ( isset($values[$field->field_slug]) ) $field->value = $values[$field->field_slug];
+			if ( isset($this->values[$field->field_slug]) ) $field->value = $this->values[$field->field_slug];
 
-			if ( ! in_array($field->field_slug, $skips))
+			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				// If we haven't called it (for dupes),
 				// then call it already.
 				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if (method_exists($this->CI->type->types->{$field->field_type}, 'event'))
+					if (method_exists(ci()->type->types->{$field->field_type}, 'event'))
 					{
-						$this->CI->type->types->{$field->field_type}->event($field);
+						ci()->type->types->{$field->field_type}->event($field);
 					}
 					
 					$this->field_type_events_run[] = $field->field_type;
@@ -366,25 +344,26 @@ class Builder
 	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true)
+	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true
+	public function set_values()
 	{
 		$values = array();
 
 		// If we don't have any stream fields, 
 		// we don't have anything to do.
-		if ( ! $stream_fields) {
+		if ( empty($this->fields)) {
 			return $values;
 		}
 
-		foreach ($stream_fields as $stream_field)
+		foreach ($this->fields as $field)
 		{
-			if ( ! in_array($stream_field->field_slug, $skips))
+			if ( ! in_array($field->field_slug, $this->skips))
 			{
-				if ( ! $key_check)
+				if ( ! $this->key_check)
 				{
-					$values[$stream_field->field_slug] = null;
+					$values[$field->field_slug] = null;
 				}
-				elseif ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
+				elseif ( ! isset($_POST[$field->field_slug]) and ! isset($_POST[$field->field_slug.'[]']))
 				{
 					// If this is a new entry and there is no post data,
 					// we see if:
@@ -392,13 +371,13 @@ class Builder
 					// b - 1. there is a defaults value sent to the form ($defaults)
 					// b - 2. there is a default value to show from the assignment
 					// Otherwise, it's just null
-					if (isset($row->{$stream_field->field_slug}))
+					if (isset($row->{$field->field_slug}))
 					{
-						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
+						$values[$field->field_slug] = $row->{$field->field_slug};
 					}
 					elseif ($mode == 'new')
 					{
-						$values[$stream_field->field_slug] = (isset($defaults[$stream_field->field_slug]) ? $defaults[$stream_field->field_slug] : (isset($stream_field->field_data['default_value']) ? $stream_field->field_data['default_value'] : null));
+						$values[$field->field_slug] = (isset($defaults[$field->field_slug]) ? $defaults[$field->field_slug] : (isset($field->field_data['default_value']) ? $field->field_data['default_value'] : null));
 					}
 					elseif ($mode == 'edit')
 					{
@@ -406,7 +385,7 @@ class Builder
 						// an edit page, then we don't want to show the default.
 						// Edit pages should *always* reflect the current data,
 						// and nothing more.
-						$values[$stream_field->field_slug] = null;
+						$values[$field->field_slug] = null;
 					}
 				}
 				else
@@ -417,18 +396,18 @@ class Builder
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$stream_field->field_slug]))
+					if (isset($_POST[$field->field_slug]))
 					{
-						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+						$values[$field->field_slug] = ci()->input->post($field->field_slug);
 					}
-					elseif (isset($_POST[$stream_field->field_slug.'[]']))
+					elseif (isset($_POST[$field->field_slug.'[]']))
 					{
-						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug.'[]');
+						$values[$field->field_slug] = ci()->input->post($field->field_slug.'[]');
 					}
 					else
 					{
 						// Last ditch.
-						$values[$stream_field->field_slug] = null;
+						$values[$field->field_slug] = null;
 					}
 				}
 			}
@@ -445,49 +424,50 @@ class Builder
 	 * Builds fields (no validation)
 	 *
 	 */
-	public function build_fields($stream_fields, $values = array(), $row = null, $method = 'new', $skips = array(), $required = '<span>*</span>')
+	// $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
+	public function build_fields()
 	{
 		$fields = array();
 
 		$count = 0;
 		
-		$this->run_field_events($stream_fields, $skips, $values);
+		// $stream_fields, $skips, $values
+		$this->run_field_events();
 
-		foreach($stream_fields as $slug => $field)
+		foreach($this->fields as $field)
 		{
-			if ( ! in_array($field->field_slug, $skips))
+			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				$fields[$count]['input_title'] 		= $field->field_name;
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
-
-				// The default default value is null.
-				if ( ! isset($field->field_data['default_value']))
-				{
-					$field->field_data['default_value'] = null;
-				}
 				
 				// Set the value. In the odd case it isn't set,
 				// jst set it to null.
-				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : null;
+				$value = (isset($this->values[$field->field_slug])) ? $this->values[$field->field_slug] : null;
 
 				// Return the raw value as well - can be useful
 				$fields[$count]['value'] 			= $value;
 
+				$type = $this->entry->getFieldType($field->field_slug);
+
 				// Get the acutal form input
-				if ($method == 'edit')
+				$fields[$count]['input'] 		= $type->getForm();	
+				$fields[$count]['input_parts'] 	= $type->setPlugin(true)->getForm();
+				
+				/*if ($this->method == 'edit')
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $value, $row->id);
-					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, $row->id, true);
+					$fields[$count]['input'] 		= $type->getForm();
+					$fields[$count]['input_parts'] 	= $type->setIsPlugin(false)->getForm();
 				}
 				else
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $value, null);			
-					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, null, true);
-				}
+					$fields[$count]['input'] 		= $type->build_form_input($field, $value, null);			
+					$fields[$count]['input_parts'] 	= $type->build_form_input($field, $value, null, true);
+				}*/
 
 				// Set the error if there is one
-				$fields[$count]['error_raw']		= $this->CI->form_validation->error($field->field_slug);
+				$fields[$count]['error_raw']		= ci()->form_validation->error($field->field_slug);
 
 				// Format tht error
 				if ($fields[$count]['error_raw']) 
@@ -526,7 +506,8 @@ class Builder
 	 * @param 	bool - return the array or set the validation
 	 * @param 	mixed - array or true
 	 */	
-	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
+	// $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
+	public function set_rules()
 	{
 		if ( ! $stream_fields or ! is_object($stream_fields)) return array();
 
@@ -543,12 +524,12 @@ class Builder
 				$rules = array();
 
 				// If we don't have the type, then no need to go on.
-				if ( ! isset($this->CI->type->types->{$stream_field->field_type}))
+				if ( ! isset(ci()->type->types->{$stream_field->field_type}))
 				{
 					continue;
 				}
 
-				$type = $this->CI->type->types->{$stream_field->field_type};
+				$type = ci()->type->types->{$stream_field->field_type};
 
 				// -------------------------------------
 				// Pre Validation Event
@@ -585,7 +566,7 @@ class Builder
 
 				if (method_exists($type, 'validate'))
 				{
-					$rules[] = "streams_field_validation[{$stream_field->field_id}:{$method}]";
+					$rules[] = "streams_field_validation[{$stream_field->field_id}:{$this->method}]";
 				}
 
 				// -------------------------------------
@@ -594,7 +575,7 @@ class Builder
 	
 				if ($stream_field->is_unique == 'yes')
 				{
-					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.':'.$row_id.']';
+					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$this->method.':'.$stream_field->stream_id.':'.$row_id.']';
 				}
 
 				// -------------------------------------
@@ -646,7 +627,7 @@ class Builder
 		}
 		else
 		{
-			$this->CI->form_validation->set_rules($validation_rules);
+			ci()->form_validation->set_rules($validation_rules);
 			return true;		
 		}
 	}
@@ -665,13 +646,14 @@ class Builder
 	 * @param 	[obj or null (for new fields) - field]
 	 * @return 	
 	 */
-	public function run_field_setup_events($stream = null, $method = 'new', $field = null)
+	// $stream = null, $this->method = 'new', $field = null
+	public function run_field_setup_events()
 	{
-		foreach ($this->CI->type->types as $ft)
+		foreach (ci()->type->types as $ft)
 		{
 			if (method_exists($ft, 'field_setup_event'))
 			{
-				$ft->field_setup_event($stream, $method, $field);
+				$ft->field_setup_event($stream, $this->method, $field);
 			}
 		}
 	}
@@ -699,7 +681,7 @@ class Builder
 		{
 			$line = substr($label, 5);
 
-			if (($label = $this->CI->lang->line($line)) === false)
+			if (($label = ci()->lang->line($line)) === false)
 			{
 				return $line;
 			}
@@ -718,11 +700,12 @@ class Builder
 	 * @access	public
 	 * @param	string 	$notify 	a or b
 	 * @param	int 	$entry_id 	the entry id
-	 * @param	string 	$method 	edit or new
+	 * @param	string 	$this->method 	edit or new
 	 * @param	obj 	$stream 	the stream
 	 * @return	void
 	 */
-	public function send_email($notify, $entry_id, $method, $stream)
+	// $notify, $entry_id, $this->method, $stream
+	public function send_email()
 	{
 		extract($notify);
 
@@ -755,7 +738,7 @@ class Builder
 		// special vars to pass off.
 		// -------------------------------------
 
-		$layout = $this->CI->db
+		$layout = ci()->db
 							->limit(1)
 							->where('slug', $template)
 							->get('email_templates')
@@ -769,12 +752,12 @@ class Builder
 		// These are for use in the email template.
 		// -------------------------------------
 
-		$this->CI->load->library('user_agent');
+		ci()->load->library('user_agent');
 		
 		$data = array(
-			'sender_ip'			=> $this->CI->input->ip_address(),
-			'sender_os'			=> $this->CI->agent->platform(),
-			'sender_agent'		=> $this->CI->agent->agent_string()
+			'sender_ip'			=> ci()->input->ip_address(),
+			'sender_os'			=> ci()->agent->platform(),
+			'sender_agent'		=> ci()->agent->agent_string()
 		);
 		
 		// -------------------------------------
@@ -785,7 +768,7 @@ class Builder
 				'id'			=> $entry_id,
 				'stream'		=> $stream->stream_slug);
 		
-		$rows = $this->CI->row_m->get_rows($params, $this->CI->streams_m->get_stream_fields($stream->id), $stream);
+		$rows = ci()->row_m->get_rows($params, ci()->streams_m->get_stream_fields($stream->id), $stream);
 		
 		$data['entry']			= $rows['rows'];
 		
@@ -793,9 +776,9 @@ class Builder
 		// Parse the body and subject
 		// -------------------------------------
 
-		$layout->body = html_entity_decode($this->CI->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->body), $data, true));
+		$layout->body = html_entity_decode(ci()->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->body), $data, true));
 
-		$layout->subject = html_entity_decode($this->CI->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->subject), $data, true));
+		$layout->subject = html_entity_decode(ci()->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->subject), $data, true));
 
 		// -------------------------------------
 		// Set From
@@ -804,7 +787,7 @@ class Builder
 		// a name/email separated by a pipe (|).
 		// -------------------------------------
 
-		$this->CI->load->library('Email');
+		ci()->load->library('Email');
 		
 		if (isset($from) and $from)
 		{
@@ -813,36 +796,36 @@ class Builder
 			// For two segments we process it as email_address|name
 			if (count($email_pieces) == 2) {
 				$email_address 	= $this->_process_email_address($email_pieces[0]);
-				$name 			= ($this->CI->input->post($email_pieces[1])) ? 
-										$this->CI->input->post($email_pieces[1]) : $email_pieces[1];
+				$name 			= (ci()->input->post($email_pieces[1])) ? 
+										ci()->input->post($email_pieces[1]) : $email_pieces[1];
 
-				$this->CI->email->from($email_address, $name);
+				ci()->email->from($email_address, $name);
 			}
 			else {
-				$this->CI->email->from($this->_process_email_address($email_pieces[0]));
+				ci()->email->from($this->_process_email_address($email_pieces[0]));
 			}
 		}
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from(Settings::get('server_email'), Settings::get('site_name'));
+			ci()->email->from(Settings::get('server_email'), Settings::get('site_name'));
 		}
 
 		// -------------------------------------
 		// Set Email Data
 		// -------------------------------------
 
-		$this->CI->email->to($emails); 
-		$this->CI->email->subject($layout->subject);
-		$this->CI->email->message($layout->body);
+		ci()->email->to($emails); 
+		ci()->email->subject($layout->subject);
+		ci()->email->message($layout->body);
 
 		// -------------------------------------
 		// Send, Log & Clear
 		// -------------------------------------
 
-		$return = $this->CI->email->send();
+		$return = ci()->email->send();
 
-		$this->CI->email->clear();			
+		ci()->email->clear();			
 	
 		return $return;
 	}
@@ -859,9 +842,9 @@ class Builder
 	 */
 	private function _process_email_address($email)
 	{	
-		if (strpos($email, '@') === false and $this->CI->input->post($email))
+		if (strpos($email, '@') === false and ci()->input->post($email))
 		{
-			return $this->CI->input->post($email);
+			return ci()->input->post($email);
 		}
 
 		return $email;

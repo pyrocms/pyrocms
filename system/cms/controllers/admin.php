@@ -98,40 +98,53 @@ class Admin extends Admin_Controller
 	{
 		$password = $this->input->post('password');
 
+		if ( ! $this->do_shit($email, $password) && ! $this->do_shit($email, $password, true)) {
+
+			// That madness didn't work, error
+			$this->form_validation->set_message('_check_login', 'Incorrect login.');
+
+			Events::trigger('login_failed', $email);
+			error_log('Login failed for user '.$email);
+
+			return false;
+		}
+
+		Events::trigger('post_admin_login');
+
+		return true;
+	}
+
+	/**
+	 * Do Shit
+	 *
+	 * @param string $email The Email address to validate
+	 *
+	 * @return bool
+	 */
+	protected function do_shit($email, $password, $old = false)
+	{
+		if ($old) $password = whacky_old_password_hasher($email, $password);
+
 		try {
 
 			$this->sentry->authenticate(array(
 				'email' => $email,
 				'password' => $password,
 			), (bool) $this->input->post('remember'));
+		} catch (WrongPasswordException $e) {
+			
+			// This'll happen for all old logins
+			return false;
 
 		} catch (UserNotFoundException $e) {
 
-			// Could not log in with password. Maybe its an old style pass?
-			try {
-				// Try logging in with this double-hashed password
-				$this->sentry->authenticate(array(
-					'email' => $email,
-					'password' => whacky_old_password_hasher($email, $password),
-				), (bool) $this->input->post('remember'));
-
-			} catch (UserNotFoundException $e) {
-
-				// That madness didn't work, error
-				$this->form_validation->set_message('_check_login', 'Incorrect login.');
-				return false;
-			}
+			// Generic fuckup
+			return false;
 
 		} catch (Exception $e) {
 
-			Events::trigger('login_failed', $email);
-			error_log('Login failed for user '.$email);
-
-			$this->form_validation->set_message('_check_login', $e->getMessage());
 			return false;
 		}
-
-		Events::trigger('post_admin_login');
 
 		return true;
 	}

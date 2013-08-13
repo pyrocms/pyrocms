@@ -47,6 +47,8 @@ class Entry extends Eloquent
 
     protected $field_assignments = null;
 
+    protected $field_type_instances = null;
+
     protected static $instance;
 
     /**
@@ -77,14 +79,21 @@ class Entry extends Eloquent
         }
         
         // This picks up the stream that was set at runtime with the stream() method
-        if ($this->stream = static::getCache('stream'))
+        if ($this->stream_object = static::getCache('stream'))
         {
-            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
+            $this->setTable($this->getStream()->stream_prefix.$this->getStream()->stream_slug);
 
-            // Eager load assignments nested with fields 
-            // @todo - find a way to cache the eager load
-            $this->stream->load('assignments.field');
+            if ($relations = $this->getStream()->getModel()->getRelations());
+            
+            if (empty($relations))
+            {
+                // Eager load assignments nested with fields 
+                // @todo - find a way to cache the eager load
+                $this->getStream()->load('assignments.field');    
+            }
         }
+
+        $this->instance = static::getCache('instance');
 
         if ($table = static::getCache('table'))
         {
@@ -96,11 +105,6 @@ class Entry extends Eloquent
     {
         $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
         
-        return static::instance($stream);
-    }
-
-    public static function instance($stream)
-    {
         static::setCache('stream', $stream);
         static::setCache('table', $stream->stream_prefix.$stream->stream_slug);
 
@@ -109,12 +113,56 @@ class Entry extends Eloquent
 
     public function getStream()
     {
-        return $this->stream;
+        return $this->stream_object;
+    }
+
+    public function getStreamFields()
+    {
+        $this->getStream()->getModel()->getRelation('assignments');
     }
 
     public function getDates()
     {
         return array('created', 'updated');
+    }
+
+    public function getFieldType($field_slug = '')
+    {
+        $entry = new static;
+        
+        if ( ! $field = $entry->getStream()->getModel()->getRelation('assignments')->getFields()->findBySlug($field_slug))
+        {
+            return false;
+        }
+
+        // @todo - replace the Type library with the PSR version
+        if ( ! $type = isset(ci()->type->types->{$field->field_type}) ? ci()->type->types->{$field->field_type} : null)
+        {
+            return false;
+        }
+
+        $type->setEntryBuilder($this->newQuery());
+        $type->setModel($this);
+        $type->setField($field);
+        $type->setEntry($entry);
+
+        if ($this->exists and $value = $this->getAttributeValue($field_slug)) {
+            
+            $type->setValue($value);
+            $type->setEntries($this->newCollection($this->newQuery()->getModels()));
+
+        }
+
+        return $type;
+    }
+
+    public function buildForm()
+    {
+        $entry = $this->exists ? $this : new static;
+
+        $form = new \Pyro\Module\Streams_core\Core\Field\Form($entry); 
+
+        return $form->buildForm();
     }
 
     public function first(array $columns = array('*'))
