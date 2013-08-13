@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Slug Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_slug
+class Field_slug extends AbstractField
 {
 	public $field_type_slug			= 'slug';
 

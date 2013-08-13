@@ -257,9 +257,9 @@ class Installer_lib
 	public function write_db_file($db)
 	{
 		$replace = array(
-			'{driver}' => $db['driver'],
+			'{driver}'   => $db['driver'],
 			'{hostname}' => $db['hostname'],
-			'{port}' => $db['port'],
+			'{port}' 	 => $db['port'],
 			'{database}' => $db['database'],
 			'{username}' => $db['username'],
 			'{password}' => $db['password']

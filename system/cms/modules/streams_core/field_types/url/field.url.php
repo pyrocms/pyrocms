@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams URL Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_url
+class Field_url extends AbstractField
 {
 	public $field_type_slug				= 'url';
 
@@ -30,11 +32,11 @@ class Field_url
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['name'] 	= $this->form_data['form_slug'];
+		$options['id']		= $this->form_data['form_slug'];
+		$options['value']	= $this->form_data['value'];
 
 		return form_input($options);
 	}

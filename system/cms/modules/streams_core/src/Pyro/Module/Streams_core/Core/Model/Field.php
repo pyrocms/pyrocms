@@ -1,7 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Collection\FieldCollection;
 
 class Field extends Eloquent
 {
@@ -28,7 +27,7 @@ class Field extends Eloquent
 
     public function newCollection(array $models = array())
     {
-        return new FieldCollection($models);
+        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection($models);
     }
 
     public function assignments()

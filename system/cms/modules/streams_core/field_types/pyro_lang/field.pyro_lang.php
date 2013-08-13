@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroCMS Language Field Type
  *
@@ -11,7 +13,7 @@
  * @author		PyroCMS
  * @copyright	Copyright (c) 2011 - 2012, PyroCMS
  */
-class Field_pyro_lang
+class Field_pyro_lang extends AbstractField
 {
 	public $field_type_slug			= 'pyro_lang';
 
@@ -32,11 +34,11 @@ class Field_pyro_lang
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
 	    $languages = array();
 
-	    if ($data['custom']['filter_theme'] = 'yes') {
+	    if ($this->form_data['custom']['filter_theme'] = 'yes') {
 	  		// get the languages offered on the front-end
 		    $site_public_lang = explode(',', Settings::get('site_public_lang'));
 
@@ -54,7 +56,7 @@ class Field_pyro_lang
 			}
 		}
 
-		return form_dropdown($data['form_slug'], $languages, $data['value']);
+		return form_dropdown($this->form_data['form_slug'], $languages, $this->form_data['value']);
 	}
 
 	// --------------------------------------------------------------------------
@@ -92,12 +94,12 @@ class Field_pyro_lang
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$langs = $this->CI->config->item('supported_languages');
+		$langs = ci()->config->item('supported_languages');
 
-		if (isset($langs[$input])) {
-			return $langs[$input]['name'];
+		if ( ! empty($langs) and isset($langs[$this->value])) {
+			return $langs[$this->value]['name'];
 		}
 	}
 

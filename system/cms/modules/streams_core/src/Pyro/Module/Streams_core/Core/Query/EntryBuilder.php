@@ -1,10 +1,11 @@
 <?php namespace Pyro\Module\Streams_core\Core\Query;
 
 use Illuminate\Database\Eloquent\Builder;
-// use Pyro\Module\Streams_core\Core\Field;
 
 class EntryBuilder extends Builder
 {
+	protected $entries = array();
+
 	/**
 	 * Execute the query as a "select" statement.
 	 *
@@ -13,48 +14,62 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'))
 	{
-		$entries = $this->getModels($columns);
+		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
 		// have been specified as needing to be eager loaded, which will solve the
 		// n+1 query issue for the developers to avoid running a lot of queries.
-		if (count($entries) > 0)
+		if (count($this->entries) > 0)
 		{
-			$entries = $this->eagerLoadRelations($entries);
+			$entries = $this->eagerLoadRelations($this->entries);
 		}
 
-		// The problem: Mutators and accesors are nice but they have to be added to a model before hand
-		// and there is now way of predicting what fields will be added to the stream
-		// 
-		// The solution: Here we have a chance to process the models when they are returned by any query
-		// and process their attributes with field types
-		// This is a key part of making field types play nice with eloquent
-		// 
-		// i.e.
-		// 
-		// $entries = Field\Formatter::formatModels($entries);
-
-		// Both arrays of formatted and unformatted models are passed to the new collection construct
-		// This will allow us to return a formatted collection by default
-		// 
-		// i.e.
-		// echo $entries;
-		// 
-		// or to return the unformatted collection
-		// 
-		// i.e
-		// echo $entries->unformatted();
-		//
-
-		return $this->model->newCollection($this->getFormattedEntries($entries), $entries);
+		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
 	}
 
-	public function getFormattedEntries(array $entries = array())
+	public function formatEntries(array $entries = array())
+	{	
+		// returns the models with the attributes formated by their corresponding field type
+		$formatted = array();
+
+		$this->stream = $this->model->getStream();
+
+		$this->assignments = $this->stream->assignments;
+
+		foreach ($entries as $entry)
+		{
+			$formatted[] = $this->formatEntry($entry);
+		}
+
+		return $formatted;
+	}
+
+	public function formatEntry($entry = null, $properties = array())
 	{
-        $formatter = new \Pyro\Module\Streams_core\Core\Field\Formatter($entries);
+		// Replicate the model to keep the original intact
+		$clone = $entry->replicate();
 
-        $formatter->setModel($this->model);
+		foreach (array_keys($clone->getAttributes()) as $field_slug)
+		{
+			// Get the field type instance from the entry
+			if ($type = $entry->getFieldType($field_slug))
+			{
+				// If there exist a field for the corresponding attribute, format it
+				$clone->{$field_slug} = $type->getFormattedValue();
+			}
+			else
+			{
+				// If not replicate the raw value
+				$clone->{$field_slug} = $entry->{$field_slug};
+			}
+		};
 
-        return $formatter->getFormattedEntries();
+		// Restore the primary key to the replicated model, only if it is set
+		if (isset($entry->{$this->model->getKeyName()}))
+		{
+			$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
+		}
+
+		return $clone;	
 	}
 }

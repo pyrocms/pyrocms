@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams WYSIWYG Field Type
  *
@@ -9,11 +11,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_wysiwyg
+class Field_wysiwyg extends AbstractField
 {
 	public $field_type_slug			= 'wysiwyg';
 
-	public $db_col_type				= 'longtext';
+	public $db_col_type				= 'long_text';
 
 	public $admin_display			= 'full';
 
