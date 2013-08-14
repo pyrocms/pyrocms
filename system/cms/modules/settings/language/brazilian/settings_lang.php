@@ -11,7 +11,7 @@ $lang['settings:site_lang']						= 'Idioma do site';
 $lang['settings:site_lang_desc']				= 'O idioma nativo do website, usado para escolher modelos de e-mail para notificações internas e recebimento de contato dos visitantes além de outras funcionalidades que não devem se flexionar ao idioma de um usuário.';
 
 $lang['settings:contact_email'] 				= 'E-mail de contato';
-$lang['settings:contact_email_desc'] 			= 'Todos os e-mails de usuários, visitantes e do site irão ir para este endereço.';
+$lang['settings:contact_email_desc'] 			= 'Todos os e-mails de usuários, visitantes e do site irão para este endereço.';
 
 $lang['settings:server_email'] 					= 'E-mail do servidor';
 $lang['settings:server_email_desc'] 			= 'Todos e-mails para usuários virão deste endereço de e-mail.';
