@@ -15,12 +15,11 @@ class Module_Maintenance extends Module
 		return array(
 			'name' => array(
 				'en' => 'Maintenance',
-				'br' => 'Manutenção',
 				'pt' => 'Manutenção',
 				'ar' => 'الصيانة',
 				'el' => 'Συντήρηση',
 				'hu' => 'Karbantartás',
-                'fa' => 'نگه داری',
+                            'fa' => 'نگه داری',
 				'fi' => 'Ylläpito',
 				'fr' => 'Maintenance',
 				'id' => 'Pemeliharaan',
@@ -33,13 +32,12 @@ class Module_Maintenance extends Module
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
-				'br' => 'Gerencia o cache do site e exporta informações do banco de dados.',
 				'pt' => 'Gerir o cache do seu site e exportar informações da base de dados.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
 				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της περιοχής διαχείρισης.',
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
 				'it' => 'Gestisci la cache del sito e esporta le informazioni dal database',
-                'fa' => 'مدیریت کش سایت و صدور اطلاعات از دیتابیس',
+                            'fa' => 'مدیریت کش سایت و صدور اطلاعات از دیتابیس',
 				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
 				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
 				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
