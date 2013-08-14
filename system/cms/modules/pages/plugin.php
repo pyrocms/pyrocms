@@ -13,10 +13,12 @@ class Plugin_Pages extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Pages',
+		'br' => 'Páginas',
             'fa' => 'صفحه ها',
 	);
 	public $description = array(
 		'en' => 'Output page data or build a list of pages in a page tree.',
+		'br' => 'Exibe informações da página ou monta uma lista de páginas em formato de árvore.',
             'fa'=> 'محتویات صفحه را نشان دهید و یا ساختار درختی صفحات را نمایش دهید'
 	);
 
@@ -36,7 +38,8 @@ class Plugin_Pages extends Plugin
 		$info = array(
 			'url' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Outputs the page url.'
+					'en' => 'Outputs the page url.',
+					'br' => 'Exibe a URL da página.'
 				),
 				'single' => true,
 				'double' => false,
@@ -52,7 +55,8 @@ class Plugin_Pages extends Plugin
 			),// end url method
 			'display' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the data of any live page.'
+					'en' => 'Output the data of any live page.',
+					'br' => 'Exibe os dados de qualquer página pública.'
 				),
 				'single' => true,
 				'double' => true,
@@ -74,7 +78,8 @@ class Plugin_Pages extends Plugin
 			),// end display method
 			'children' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Show the children of any page.'
+					'en' => 'Show the children of any page.',
+					'br' => 'Mostra os filhos de qualquer página.'
 				),
 				'single' => false,
 				'double' => true,
@@ -127,6 +132,7 @@ class Plugin_Pages extends Plugin
 			'page_tree' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
 					'en' => 'Create a tree of a page\'s children specified by the ID or URI.',
+					'br' => 'Cria uma árvore de páginas-filhas especificadas pelo ID ou pela URI.'
 				),
 				'single' => true,
 				'double' => false,
@@ -179,6 +185,7 @@ class Plugin_Pages extends Plugin
 			'is' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
 					'en' => 'Check the relationship of a page to another by passing the IDs to check. [children] can take multiple IDs separated with |',
+					'br' => 'Checa o relacionamento de uma página com outra, passando os IDs a checar. [children] pode receber múltiplos IDs separados com |'
 				),
 				'single' => true,
 				'double' => false,
@@ -213,6 +220,7 @@ class Plugin_Pages extends Plugin
 			'has' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
 					'en' => 'Check if a page has a child with the specified ID',
+					'br' => 'Checa se uma página tem um filho com o ID informado.'
 				),
 				'single' => true,
 				'double' => false,

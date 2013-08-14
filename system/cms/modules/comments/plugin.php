@@ -11,10 +11,12 @@ class Plugin_Comments extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Comments',
+		'br' => 'Comentários',
             'fa'  => 'نظرات',
 	);
 	public $description = array(
 		'en' => 'Display information about site comments.',
+		'br' => 'Exibe informações sobre comentários no site.',
             'fa' => 'نمایش اطلاعاتی در مورد کامنت های سایت',
 	);
 
@@ -34,7 +36,8 @@ class Plugin_Comments extends Plugin
 		$info = array(
 			'count' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display the number of comments for the specified item.'
+					'en' => 'Display the number of comments for the specified item.',
+					'br' => 'Exibe o número de comentários sobre o item especificado.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
@@ -62,7 +65,8 @@ class Plugin_Comments extends Plugin
 			),// end first method
 			'count_string' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display the comment count as a translated string.'
+					'en' => 'Display the comment count as a translated string.',
+					'br' => 'Exibe a contagem de comentários como uma string traduzida.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
@@ -90,7 +94,8 @@ class Plugin_Comments extends Plugin
 			),// end second method
 			'display' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the comments html for the specified item.'
+					'en' => 'Output the comments html for the specified item.',
+					'br' => 'Exibe o código HTML dos comentários do item especificado.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?

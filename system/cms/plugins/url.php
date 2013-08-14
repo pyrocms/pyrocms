@@ -17,6 +17,7 @@ class Plugin_Url extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access URL variables, segments, and more.',
+		'br' => 'Acessa variáveis da URL, segmentos, e mais.',
 		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
             'fa' => 'دسترسی به متغییر ها و سگمت ها و موارد دیگری از URL',
 		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).',
@@ -35,7 +36,8 @@ class Plugin_Url extends Plugin
 		$info = array(
 			'current' => array(
 				'description' => array(
-					'en' => 'Output the current url.'
+					'en' => 'Output the current url.',
+					'br' => 'Exibe a URL atual.'
 				),
 				'single' => true,
 				'double' => false,
@@ -44,7 +46,8 @@ class Plugin_Url extends Plugin
 				),
 			'uri_string' => array(
 				'description' => array(
-					'en' => 'Output the current uri string.'
+					'en' => 'Output the current uri string.',
+					'br' => 'Exibe a URI string atual.'
 				),
 				'single' => true,
 				'double' => false,
@@ -53,7 +56,8 @@ class Plugin_Url extends Plugin
 				),
 			'get' => array(
 				'description' => array(
-					'en' => 'Retrieve a GET variable from the url.'
+					'en' => 'Retrieve a GET variable from the url.',
+					'br' => 'Recupera uma variável GET da URL.'
 				),
 				'single' => true,
 				'double' => false,
@@ -69,7 +73,8 @@ class Plugin_Url extends Plugin
 				),
 			'site' => array(
 				'description' => array(
-					'en' => 'Display the site url of this installation with or without the index.php (depending on url rewrite settings).'
+					'en' => 'Display the site url of this installation with or without the index.php (depending on url rewrite settings).',
+					'br' => 'Exibe a URL do site desta instalação com ou sem o "index.php" (dependendo das configurações de url_rewrite).'
 				),
 				'single' => true,
 				'double' => false,
@@ -85,7 +90,8 @@ class Plugin_Url extends Plugin
 				),
 			'base' => array(
 				'description' => array(
-					'en' => 'Display the base url of the installation without the index.php'
+					'en' => 'Display the base url of the installation without the index.php.',
+					'br' => 'Exibe a URL base da instalação sem o "index.php".'
 				),
 				'single' => true,
 				'double' => false,
@@ -94,7 +100,8 @@ class Plugin_Url extends Plugin
 				),
 			'segments' => array(
 				'description' => array(
-					'en' => 'Return the specified segments from the url.'
+					'en' => 'Return the specified segments from the url.',
+					'br' => 'Retorna os segmentos especificos da URL.'
 				),
 				'single' => true,
 				'double' => false,
@@ -116,7 +123,8 @@ class Plugin_Url extends Plugin
 				),
 			'anchor' => array(
 				'description' => array(
-					'en' => 'Build an anchor tag with the url segments you pass in.'
+					'en' => 'Build an anchor tag with the url segments you pass in.',
+					'br' => 'Constrói uma tag <a> com os segmentos de URL que você passar.'
 				),
 				'single' => true,
 				'double' => false,
@@ -144,7 +152,8 @@ class Plugin_Url extends Plugin
 				),
 			'is_ssl' => array(
 				'description' => array(
-					'en' => 'Returns true if the site is running on https'
+					'en' => 'Returns true if the site is running on https.',
+					'br' => 'Retorna true se o site estiver rodando em https.'
 				),
 				'single' => true,
 				'double' => false,
@@ -153,7 +162,8 @@ class Plugin_Url extends Plugin
 				),
 			'redirect' => array(
 				'description' => array(
-					'en' => 'Send the visitor to another url.'
+					'en' => 'Send the visitor to another url.',
+					'br' => 'Envia o visitante para outra URL.'
 				),
 				'single' => true,
 				'double' => false,

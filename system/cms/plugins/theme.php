@@ -17,6 +17,7 @@ class Plugin_Theme extends Plugin
 	);
 	public $description = array(
 		'en' => 'Load and display theme assets.',
+		'br' => 'Carrega e exibe recursos do tema.',
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
             'fa' => 'بارگزاری و نمایش asset های قالب ها',
 		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.',
@@ -39,7 +40,8 @@ class Plugin_Theme extends Plugin
 		$info = array(
 			'path' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Outputs the path to the theme relative to the web root.'
+					'en' => 'Outputs the path to the theme relative to the web root.',
+					'br' => 'Exibe o caminho para o tema relativo à raiz web.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
@@ -48,7 +50,8 @@ class Plugin_Theme extends Plugin
 			),// end path method
 			'partial' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Outputs a theme partial file at the location of this tag (usually in your layout file).'
+					'en' => 'Outputs a theme partial file at the location of this tag (usually in your layout file).',
+					'br' => 'Exibe um arquivo partial do tema no local desta tag (geralmente em seu arquivo de layout).'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
@@ -64,7 +67,8 @@ class Plugin_Theme extends Plugin
 			),// end partial method
 			'variables' => array(
 				'description' => array(
-					'en' => 'Set and display temporary variables.'
+					'en' => 'Set and display temporary variables.',
+					'br' => 'Define e exibe variáveis temporárias.'
 				),
 				'single' => true,
 				'double' => false,
@@ -86,7 +90,8 @@ class Plugin_Theme extends Plugin
 			),// end variables method
 			'favicon' => array(
 				'description' => array(
-					'en' => 'Display a favicon for your site.'
+					'en' => 'Display a favicon for your site.',
+					'br' => 'Exibe um favicon para seu site.'
 				),
 				'single' => true,
 				'double' => false,
@@ -126,7 +131,8 @@ class Plugin_Theme extends Plugin
 			),// end favicon method
 			'lang' => array(
 				'description' => array(
-					'en' => 'Output a translated string from the language file specified by [lang]. Use [default] to output a fallback string.'
+					'en' => 'Output a translated string from the language file specified by [lang]. Use [default] to output a fallback string.',
+					'br' => 'Exibe uma string traduzida do arquivo de idioma especificad por [lang]. use [default] para retornar uma string fallback.'
 				),
 				'single' => true,
 				'double' => false,
@@ -154,7 +160,8 @@ class Plugin_Theme extends Plugin
 			),// end lang method
 			'css' => array(
 				'description' => array(
-					'en' => 'Load a CSS file from the theme\'s css folder',
+					'en' => 'Load a CSS file from the theme\'s css folder.',
+					'br' => 'Carrega um arquivo CSS da pasta css do tema.'
 				),
 				'single' => true,
 				'double' => false,
@@ -195,6 +202,7 @@ class Plugin_Theme extends Plugin
 			'css_path' => array(
 				'description' => array(
 					'en' => 'Output the filesystem path to the specified CSS file.',
+					'br' => 'Exibe o caminho de arquivo para o arquivo CSS especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -211,6 +219,7 @@ class Plugin_Theme extends Plugin
 			'css_url' => array(
 				'description' => array(
 					'en' => 'Output the url to the specified CSS file.',
+					'br' => 'Exibe a URL para o arquivo CSS especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -227,6 +236,7 @@ class Plugin_Theme extends Plugin
 			'image' => array(
 				'description' => array(
 					'en' => 'Output a theme image from the theme\'s img folder. Extra attributes can be used to set the class or etc.',
+					'br' => 'Exibe uma imagem da pasta img do tema. Atributos extras podem ser usados para definir a classe ou outros.'
 				),
 				'single' => true,
 				'double' => false,
@@ -255,6 +265,7 @@ class Plugin_Theme extends Plugin
 			'image_path' => array(
 				'description' => array(
 					'en' => 'Output the filesystem path to the specified image file.',
+					'br' => 'Exibe o caminho do arquivo para o arquivo de imagem especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -271,6 +282,7 @@ class Plugin_Theme extends Plugin
 			'image_url' => array(
 				'description' => array(
 					'en' => 'Output the url to the specified image file.',
+					'br' => 'Exibe a URL para o arquivo de imagem especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -286,7 +298,8 @@ class Plugin_Theme extends Plugin
 			),// end image_url method
 			'js' => array(
 				'description' => array(
-					'en' => 'Include a JavaScript file from the theme\'s js folder',
+					'en' => 'Include a JavaScript file from the theme\'s js folder.',
+					'br' => 'Inclui um arquivo JavaScript da pasta js do tema.'
 				),
 				'single' => true,
 				'double' => false,
@@ -303,6 +316,7 @@ class Plugin_Theme extends Plugin
 			'js_path' => array(
 				'description' => array(
 					'en' => 'Output the filesystem path to the specified js file.',
+					'br' => 'Exibe o caminho de arquivo para o arquivo js especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -319,6 +333,7 @@ class Plugin_Theme extends Plugin
 			'js_url' => array(
 				'description' => array(
 					'en' => 'Output the url to the specified js file.',
+					'br' => 'Exibe a URL para o arquivo JS especificado.'
 				),
 				'single' => true,
 				'double' => false,
