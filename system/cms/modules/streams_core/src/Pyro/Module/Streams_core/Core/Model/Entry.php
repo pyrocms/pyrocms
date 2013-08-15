@@ -43,13 +43,17 @@ class Entry extends Eloquent
 
     protected $stream_namespace = null;
 
+    protected $stream = null;
+
     protected $stream_prefix = null;
 
     protected $field_assignments = null;
 
     protected $field_type_instances = null;
 
-    protected static $instance;
+    protected $unformatted_values = array();
+
+    protected $instance = null;
 
     /**
      * The name of the "created at" column.
@@ -79,26 +83,21 @@ class Entry extends Eloquent
         }
         
         // This picks up the stream that was set at runtime with the stream() method
-        if ($this->stream_object = static::getCache('stream'))
+        if ($this->stream = static::getCache('stream'))
         {
-            $this->setTable($this->getStream()->stream_prefix.$this->getStream()->stream_slug);
-
-            if ($relations = $this->getStream()->getModel()->getRelations());
+            $this->setTable($this->stream->stream_prefix.$this->getStream()->stream_slug);
             
-            if (empty($relations))
+            $relations = $this->stream->getModel()->getRelations();
+            
+            // Check if the assignments are already loaded
+            if ( ! isset($relations['assignments']))
             {
                 // Eager load assignments nested with fields 
-                // @todo - find a way to cache the eager load
                 $this->getStream()->load('assignments.field');    
             }
         }
 
         $this->instance = static::getCache('instance');
-
-        if ($table = static::getCache('table'))
-        {
-            $this->setTable($table);
-        }
     }
 
     public static function stream($slug, $namespace)
@@ -106,14 +105,13 @@ class Entry extends Eloquent
         $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
         
         static::setCache('stream', $stream);
-        static::setCache('table', $stream->stream_prefix.$stream->stream_slug);
 
         return static::setCache('instance', new static);
     }
 
     public function getStream()
     {
-        return $this->stream_object;
+        return $this->stream;
     }
 
     public function getStreamFields()
@@ -145,15 +143,21 @@ class Entry extends Eloquent
         $type->setModel($this);
         $type->setField($field);
         $type->setEntry($entry);
-
-        if ($this->exists and $value = $this->getAttributeValue($field_slug)) {
-            
-            $type->setValue($value);
-            $type->setEntries($this->newCollection($this->newQuery()->getModels()));
-
-        }
+        $type->setValue($this->getAttributeValue($field_slug));
 
         return $type;
+    }
+
+    public function setUnformattedValue($key = null, $value = null)
+    {
+        if ($key) {
+            $this->unformatted_values[$key] = $value;   
+        }
+    }
+
+    public function getUnformattedValue($key)
+    {
+        return isset($this->unformatted_values[$key]) ? $this->unformatted_values[$key] : null;
     }
 
     public function buildForm()
@@ -184,6 +188,103 @@ class Entry extends Eloquent
         }
 
         return static::setCache('table::all', static::getCache('instance')->newQuery()->get($columns));
+    }
+
+    /**
+     * Get data from a stream.
+     *
+     * Only really shown on the back end.
+     *
+     * @param   obj
+     * @param   obj
+     * @param   int
+     * @param   int
+     * @return  obj
+     */
+    public function getEntries($limit = null, $offset = 0, $order = null, $filter_data = array())
+    {
+        ci()->load->config('streams');
+
+        $query = static::getCache('instance')->newQuery();
+
+        // -------------------------------------
+        // Set Ordering
+        // -------------------------------------
+
+        // Query string API overrides all
+        // Check if there is one now
+/*        if ($this->input->get('order-'.$stream->stream_slug))
+        {
+            $this->db->order_by($this->input->get('order-'.$stream->stream_slug), $this->input->get('order-'.$stream->stream_slug) ? $this->input->get('order-'.$stream->stream_slug) : 'ASC');
+        }
+        elseif ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
+        {
+            if ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
+            {
+                $this->db->order_by($stream->title_column, 'ASC');
+            }
+        } elseif ($stream->sorting == 'custom') {
+            $this->db->order_by('ordering_count', 'ASC');
+        } else {
+            $this->db->order_by('created', 'DESC');
+        }*/
+
+        // -------------------------------------
+        // Filter results
+        // -------------------------------------
+
+/*        if ( ! empty($filter_data)) {
+
+            // Loop through and apply the filters
+            foreach ($filter_data['filters'] as $filter=>$value) {
+                if ( strlen($value) > 0 ) {
+                    $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
+                }
+            }
+        }*/
+
+        // -------------------------------------
+        // Optional Limit
+        // -------------------------------------
+
+/*        if (is_numeric($limit)) {
+            $this->db->limit($limit, $offset);
+        }*/
+
+        // -------------------------------------
+        // Created By
+        // -------------------------------------
+
+/*        $this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
+        $this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');*/
+
+        // -------------------------------------
+        // Get Data
+        // -------------------------------------
+
+        //$entries = $query->get();
+
+        // -------------------------------------
+        // Get Format Profile
+        // -------------------------------------
+
+/*        $stream_fields = $this->streams_m->get_stream_fields($stream->id);
+*/
+        // -------------------------------------
+        // Run formatting
+        // -------------------------------------
+
+/*        if (count($entries) != 0) {
+            $fields = new stdClass;
+
+            foreach ($entries as $id => $item) {
+                $fields->$id = $this->row_m->format_row($item, $stream_fields, $stream);
+            }
+        } else {
+            $fields = false;
+        }
+*/
+        return $query->get();
     }
 
 
