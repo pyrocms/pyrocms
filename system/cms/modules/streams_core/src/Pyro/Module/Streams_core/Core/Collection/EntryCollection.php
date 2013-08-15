@@ -9,7 +9,10 @@ class EntryCollection extends EloquentCollection
 
 	public function __construct(array $entries = array(), array $unformatted_entries = array())
 	{
+		// Put the formatted entries as the default collection
 		parent::__construct($entries);
+
+		// Store the unformatted entries in case we need them later
 		$this->unformatted_entries = $unformatted_entries;
 	}
 
