@@ -13,10 +13,12 @@ class Plugin_Blog extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Blog',
+		'br' => 'Blog',
             'fa' => 'بلاگ',
 	);
 	public $description = array(
 		'en' => 'A plugin to display information such as blog categories and posts.',
+		'br' => 'Um plugin para exibir informações como categorias e postagens do blog.',
             'fa' => 'یک پلاگین برای نمایش اطلاعاتی مانند مجموعه های بلاگ و پست ها',
         'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
 	);
@@ -33,6 +35,7 @@ class Plugin_Blog extends Plugin
 			'posts' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
 					'en' => 'Display blog posts optionally filtering them by category.',
+					'br' => 'Mostra postagens do blog opcionalmente filtrados por categoria.',
                     'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
 				),
 				'single' => false,// single tag or double tag (tag pair)
@@ -74,6 +77,7 @@ class Plugin_Blog extends Plugin
 			'categories' => array(
 				'description' => array(
 					'en' => 'List blog categories.',
+					'br' => 'Lista categorias do blog.',
                     'fr' => 'Lister les catégories du blog'
 				),
 				'single' => false,
@@ -103,6 +107,7 @@ class Plugin_Blog extends Plugin
 			'count_posts' => array(
 				'description' => array(
 					'en' => 'Count blog posts that meet the conditions specified.',
+					'br' => 'Conta as postagens do blog que satisfazem as condições especificadas.',
                     'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
 				),
 				'single' => true,
@@ -133,6 +138,7 @@ class Plugin_Blog extends Plugin
 			'tags' => array(
 				'description' => array(
 					'en' => 'Retrieve all tags that have been applied to blog posts.',
+					'br' => 'Recupera todas as tags que foram aplicadas à postagens do blog.',
                     'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
 				),
 				'single' => false,

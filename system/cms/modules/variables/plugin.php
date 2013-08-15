@@ -13,10 +13,12 @@ class Plugin_Variables extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Variables',
+		'br' => 'Variáveis',
             'fa' => 'متغییر ها',
 	);
 	public $description = array(
 		'en' => 'Set and retrieve variable data.',
+		'br' => 'Define e recupera dados de variáveis.',
             'fa' => 'ایجاد و نمایش متغییر ها',
 	);
 
@@ -39,7 +41,8 @@ class Plugin_Variables extends Plugin
 		foreach ($variables as $slug => $value)
 		{
 			$info[$slug]['description'] = array(
-				'en' => 'Retrieve the value for variable '.$slug.'.'
+				'en' => 'Retrieve the value for variable '.$slug.'.',
+				'br' => 'Recupera o valor da variável "'.$slug.'".'
 			);
 			$info[$slug]['single'] = true;
 			$info[$slug]['double'] = false;

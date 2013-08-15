@@ -17,6 +17,7 @@ class Plugin_Asset extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access to static content such as CSS or Javascript file assets.',
+		'br' => 'Acesso a conteúdo estático, como arquivos de recursos CSS ou Javascript.',
                 'fa' => 'دسترسی به فایل های استاتیک مانند CSS و Javascript',
 		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
 		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).',
@@ -37,7 +38,8 @@ class Plugin_Asset extends Plugin
 		$info = array(
 			'css' => array(
 				'description' => array(
-					'en' => 'Add a StyleSheet to a specific group. Returns empty.'
+					'en' => 'Add a StyleSheet to a specific group. Returns empty.',
+					'br' => 'Adiciona uma folha de estilo a um grupo específico. Retorna vazio.'
 				),
 				'single' => true,
 				'double' => false,
@@ -61,7 +63,8 @@ class Plugin_Asset extends Plugin
 			),
 			'css_inline' => array(
 				'description' => array(
-					'en' => 'Add inline CSS to the Assets Library. Automatically wrapped in <style> tag.'
+					'en' => 'Add inline CSS to the Assets Library. Automatically wrapped in <style> tag.',
+					'br' => 'Adiciona CSS inline à biblioteca Assets. Automaticamente envolto pela tag <style>.'
 				),
 				'single' => false,
 				'double' => true,
@@ -70,7 +73,8 @@ class Plugin_Asset extends Plugin
 			),
 			'css_url' => array(
 				'description' => array(
-					'en' => 'Get the full file URL to a CSS asset.'
+					'en' => 'Get the full file URL to a CSS asset.',
+					'en' => 'Pega a URL completa para um recurso CSS.'
 				),
 				'single' => true,
 				'double' => false,
@@ -84,7 +88,8 @@ class Plugin_Asset extends Plugin
 			),
 			'css_path' => array(
 				'description' => array(
-					'en' => 'Get the file path to a CSS asset.'
+					'en' => 'Get the file path to a CSS asset.',
+					'br' => 'Pega o caminho de arquivo para um recurso CSS.'
 				),
 				'single' => true,
 				'double' => false,
@@ -99,7 +104,8 @@ class Plugin_Asset extends Plugin
 			
 			'js' => array(
 				'description' => array(
-					'en' => 'Add a JavaScript file to a specific group. Returns empty.'
+					'en' => 'Add a JavaScript file to a specific group. Returns empty.',
+					'br' => 'Adiciona um arquivo JavaScript a um grupo específico. Retorna vazio.'
 				),
 				'single' => true,
 				'double' => false,
@@ -123,7 +129,8 @@ class Plugin_Asset extends Plugin
 			),
 			'js_inline' => array(
 				'description' => array(
-					'en' => 'Add inline JS to the Assets Library. Automatically wrapped in <script> tag.'
+					'en' => 'Add inline JS to the Assets Library. Automatically wrapped in <script> tag.',
+					'br' => 'Adiciona JS inline à biblioteca Assets. Automaticamente envolto pela tag <script>.'
 				),
 				'single' => false,
 				'double' => true,
@@ -132,7 +139,8 @@ class Plugin_Asset extends Plugin
 			),
 			'js_url' => array(
 				'description' => array(
-					'en' => 'Get the full file URL to a JS asset.'
+					'en' => 'Get the full file URL to a JS asset.',
+					'br' => 'Pega a URL completa para um recurso JS.'
 				),
 				'single' => true,
 				'double' => false,
@@ -146,7 +154,8 @@ class Plugin_Asset extends Plugin
 			),
 			'js_path' => array(
 				'description' => array(
-					'en' => 'Get the file path to a JS asset.'
+					'en' => 'Get the file path to a JS asset.',
+					'br' => 'Pega o caminho de arquivo para um recurso JS.'
 				),
 				'single' => true,
 				'double' => false,
@@ -161,7 +170,8 @@ class Plugin_Asset extends Plugin
 			
 			'image' => array(
 				'description' => array(
-					'en' => 'Return an <img/> tag with an image from Assets.'
+					'en' => 'Return an <img/> tag with an image from Assets.',
+					'br' => 'Retorna uma tag <img/>com uma imagem dos Assets (Recursos).'
 				),
 				'single' => true,
 				'double' => false,
@@ -184,7 +194,8 @@ class Plugin_Asset extends Plugin
 			),
 			'image_url' => array(
 				'description' => array(
-					'en' => 'Get the URL of an image from Assets.'
+					'en' => 'Get the URL of an image from Assets.',
+					'br' => 'Pega a URL de uma imagem dos Assets (Recursos).'
 				),
 				'single' => true,
 				'double' => false,
@@ -198,7 +209,8 @@ class Plugin_Asset extends Plugin
 			),
 			'image_path' => array(
 				'description' => array(
-					'en' => 'Get the file path of an image from Assets.'
+					'en' => 'Get the file path of an image from Assets.',
+					'br' => 'Pega o caminho de arquivo de uma imagem dos Assets (Recursos).'
 				),
 				'single' => true,
 				'double' => false,
@@ -213,7 +225,8 @@ class Plugin_Asset extends Plugin
 			
 			'render' => array(
 				'description' => array(
-					'en' => 'Render the CSS and JS of a specific group.'
+					'en' => 'Render the CSS and JS of a specific group.',
+					'br' => 'Renderiza os CSS e JS de um grupo específico.'
 				),
 				'single' => true,
 				'double' => false,
@@ -228,7 +241,8 @@ class Plugin_Asset extends Plugin
 			),
 			'render_css' => array(
 				'description' => array(
-					'en' => 'Render only the CSS of a specific group.'
+					'en' => 'Render only the CSS of a specific group.',
+					'br' => 'Renderiza apenas os CSS de um grupo específico.'
 				),
 				'single' => true,
 				'double' => false,
@@ -243,7 +257,8 @@ class Plugin_Asset extends Plugin
 			),
 			'render_css_inline' => array(
 				'description' => array(
-					'en' => 'Render only the inline CSS.'
+					'en' => 'Render only the inline CSS.',
+					'br' => 'Renderiza apenas o CSS inline.'
 				),
 				'single' => true,
 				'double' => false,
@@ -252,7 +267,8 @@ class Plugin_Asset extends Plugin
 			),
 			'render_js' => array(
 				'description' => array(
-					'en' => 'Render only the JS of a specific group.'
+					'en' => 'Render only the JS of a specific group.',
+					'br' => 'Renderiza apenas os JS de um grupo específico.'
 				),
 				'single' => true,
 				'double' => false,
@@ -267,7 +283,8 @@ class Plugin_Asset extends Plugin
 			),
 			'render_js_inline' => array(
 				'description' => array(
-					'en' => 'Render only the inline JS.'
+					'en' => 'Render only the inline JS.',
+					'br' => 'Renderiza apenas os JS inline.'
 				),
 				'single' => true,
 				'double' => false,
