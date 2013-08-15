@@ -169,6 +169,10 @@ class Admin_groups extends Admin_Controller
                     }
                 }
 
+                // Out with the old
+                unset($group->permissions);
+
+                // In with the new
                 $group->permissions = $new_perms;
 
                 if ($group->save()) {
