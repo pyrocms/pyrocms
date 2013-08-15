@@ -11,7 +11,7 @@ class Field_textarea
 {
 	public $field_type_slug			= 'textarea';
 
-	public $db_col_type				= 'longtext';
+	public $db_col_type				= 'text';
 
 	public $admin_display			= 'full';
 

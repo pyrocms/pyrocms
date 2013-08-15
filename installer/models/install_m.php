@@ -79,6 +79,7 @@ class Install_m extends CI_Model
 		    $table->string('username', 20);
 		    $table->string('email', 60);
 		    $table->string('password', 255);
+		    $table->string('salt', 6);
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_code')->nullable();
@@ -183,6 +184,40 @@ class Install_m extends CI_Model
 		    $table->index('is_frontend');
 		    $table->index('is_backend');
 		});
+
+		$schema->dropIfExists('themes');
+
+        $schema->create('themes', function($table) {
+            $table->increments('id');
+            $table->integer('site_id')->nullable();
+            $table->string('slug');
+            $table->string('name');
+            $table->text('description');
+            $table->string('author')->nullable();
+            $table->string('author_website')->nullable();
+            $table->string('website')->nullable();
+            $table->string('version')->default('1.0.0');
+            $table->boolean('enabled')->default(true);
+            $table->integer('order')->default(0);
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
+        });
+
+        $schema->dropIfExists('theme_options');
+
+        $schema->create('theme_options', function($table) {
+            $table->increments('id');
+            $table->string('slug', 30);
+            $table->string('title', 100);
+            $table->text('description');
+            $table->enum('type', array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker'));
+            $table->string('default', 255);
+            $table->string('value', 255);
+            $table->text('options');
+            $table->boolean('is_required');
+            $table->integer('theme_id')->nullable();
+        });
+
 
 		$schema->create('settings', function($table) {
 		    $table->string('slug', 30);
