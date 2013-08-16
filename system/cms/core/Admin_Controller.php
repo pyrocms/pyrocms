@@ -198,7 +198,7 @@ class Admin_Controller extends MY_Controller
 				return true;
 
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
+			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('admin.general')){
 				return true;
 			}
 

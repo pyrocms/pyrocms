@@ -67,6 +67,27 @@
 				</tr>
 			</thead>
 			<tbody>
+
+				<tr>
+					<td style="width: 30px">
+						<?php echo form_checkbox(array(
+							'value' => 'admin',
+							'name'=>'modules[]',
+							'checked'=> $group->hasAccess('admin.general'),
+							'title' => lang('global:dashboard'),
+							'class' => 'js-perm-module',
+						)) ?>
+					</td>
+					<td>
+						<label class="inline" for="dashboard">
+							<?php echo lang('global:dashboard') ?>
+						</label>
+					</td>
+					<td>
+						<!-- None -->
+					</td>
+				</tr>
+
 				<?php foreach ($modules as $module): ?>
 
 				<tr>
