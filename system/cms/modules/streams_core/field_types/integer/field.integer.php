@@ -15,7 +15,7 @@ class Field_integer extends AbstractField
 {
 	public $field_type_slug			= 'integer';
 
-	public $db_col_type				= 'int';
+	public $db_col_type				= 'integer';
 
 	public $custom_parameters		= array('max_length', 'default_value');
 

@@ -18,7 +18,8 @@ class Field_file extends AbstractField
 	public $field_type_slug			= 'file';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
+	
 	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'allowed_types');

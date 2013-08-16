@@ -15,7 +15,7 @@ class Field_merge_tags extends AbstractField
 	
 	public $field_type_slug			= 'merge_tags';
 	
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $custom_parameters		= array('pattern');
 

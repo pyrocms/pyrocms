@@ -15,7 +15,7 @@ class Field_relationship extends AbstractField
 {
 	public $field_type_slug			= 'relationship';
 
-	public $db_col_type				= 'int';
+	public $db_col_type				= 'integer';
 
 	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 

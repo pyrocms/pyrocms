@@ -17,7 +17,7 @@ class Field_pyro_lang extends AbstractField
 {
 	public $field_type_slug			= 'pyro_lang';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.0.0';
 

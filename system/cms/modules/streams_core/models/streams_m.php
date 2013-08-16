@@ -768,7 +768,19 @@ class Streams_m extends CI_Model
 
 	public function schema_thing($stream, $type, $field)
 	{
-		Capsule::schema()->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
+		$schema = ci()->pdb->getSchemaBuilder();
+
+		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+		// Check if the table exists
+		if ( ! $schema->hasTable($stream->stream_prefix.$stream->stream_slug)) return false;
+
+		// Check if the column does not exist already to avoid errors, specially on migrations
+		// @todo - hasColunm() has a bug in illuminate/database where it does not apply the table prefix, we have to pass it ourselves
+		// Remove the prefix as soon as the pull request / fix gets merged https://github.com/laravel/framework/pull/2070
+		if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug)) return false;
+
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
 
 			$db_type_method = camel_case($type->db_col_type);
 

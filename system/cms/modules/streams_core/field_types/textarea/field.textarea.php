@@ -13,7 +13,7 @@ class Field_textarea extends AbstractField
 {
 	public $field_type_slug			= 'textarea';
 
-	public $db_col_type				= 'blob';
+	public $db_col_type				= 'text';
 
 	public $admin_display			= 'full';
 

@@ -15,7 +15,7 @@ class Field_choice extends AbstractField
 {	
 	public $field_type_slug			= 'choice';
 	
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.1.0';
 
