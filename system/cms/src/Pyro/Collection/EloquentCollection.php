@@ -18,8 +18,16 @@ class EloquentCollection extends Collection
  		return false;
  	}
 
- 	public function setModel( \Pyro\Model\Eloquent $model = null)
+	public function setModel( \Pyro\Model\Eloquent $model = null)
 	{
 		$this->model = $model;
+
+		return $this;
 	}
+
+	public function getModel()
+	{
+		return $this->model;
+	}
+
 }
