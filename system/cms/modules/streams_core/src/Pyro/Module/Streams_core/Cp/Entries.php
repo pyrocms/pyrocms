@@ -13,7 +13,7 @@ class Entries extends AbstractCp
 
 	public static $field_names = array();
 
-	protected static $columns = array('*');
+	protected static $columns = array('id', 'created', 'updated', 'created_by');
 
 	protected static $standard_columns = array();
 
