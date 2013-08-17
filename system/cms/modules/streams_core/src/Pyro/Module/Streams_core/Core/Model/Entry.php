@@ -62,6 +62,8 @@ class Entry extends Eloquent
 
     protected $plugin = true;
 
+    protected $user_columns = array('id', 'username');
+
 
 
     /**
@@ -336,7 +338,7 @@ class Entry extends Eloquent
 
     public function user()
     {
-        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by');
+        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }
 
     // Exploring some ideas for relationships
