@@ -11,6 +11,16 @@ class Entries extends AbstractCp
 
 	public static $fields = null;
 
+	public static $field_names = array();
+
+	protected static $columns;
+
+	protected static $standard_columns = array('id', 'created', 'created_by');
+
+	protected static $field_slugs = array();
+
+	protected static $stream_fields;
+
 	/**
 	 * Entries Table
 	 *
@@ -44,7 +54,8 @@ class Entries extends AbstractCp
 	 * see docs for more explanation
 	 */
 	public static function table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $extra = array())
-	{		
+	{	
+		// Set the current render function
 		static::$render = __function__;
 
 		// Get stream
@@ -53,7 +64,7 @@ class Entries extends AbstractCp
 
 		static::$query = Model\Entry::stream($stream_slug, $namespace_slug);
 
-		static::$stream = static::$query->getStream();
+		static::$data['stream'] = static::$stream = static::$query->getStream();
 
  		// -------------------------------------
 		// Get Header Fields
@@ -78,16 +89,16 @@ class Entries extends AbstractCp
  		$stream_fields->updated->field_name 		= lang('streams:updated_date');
  		$stream_fields->created_by->field_name 		= lang('streams:created_by');*/
 
-  		static::$fields = static::$stream->getRelation('assignments')->getFields();
+  		static::$fields = static::$query->getFields();
 
-  		$stream_fields = new \stdClass;
+  		static::$field_slugs = static::$fields->getFieldSlugs();
 
+  		static::$stream_fields = new \stdClass;
 
-  		static::$fields->each(function($field) use ($stream_fields) {
-
-  			$stream_fields->{$field->field_slug} = $field;
-
-  		});
+  		foreach (static::$fields as $field)
+  		{
+  			static::$stream_fields->{$field->field_slug} = $field;
+  		}
 
   		// -------------------------------------
 		// Sorting
@@ -110,7 +121,7 @@ class Entries extends AbstractCp
   
   		static::$data = array(
   			'stream'		=> static::$stream,
-  			'stream_fields'	=> $stream_fields,
+  			'stream_fields'	=> static::$stream_fields,
   			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : null,
   			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
   			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
@@ -234,53 +245,64 @@ class Entries extends AbstractCp
 		return new static;
 	}
 
-	public static function render($return = false)
+
+
+	protected static function renderTable($return = false)
 	{
-		
-		switch(static::$render)
+  		// -------------------------------------
+		// Columns 
+		// @since 2.3
+		// -------------------------------------
+		// If we have array('*'), get all columns
+		// We do it this way to mirror how the query builder selects columns
+		if ( ! empty(static::$columns) and static::$columns[0] === '*')
 		{
-			case 'table':
+			static::$stream->view_options = array_merge(static::$standard_columns, static::$field_slugs);
+		}
+		// If exclude is set to true, get all columns except the ones passed
+		elseif (static::$exclude)
+		{
+			static::$stream->view_options = static::$fields->getFieldSlugsExclude(static::$columns);
+		}
+		// Or get just the columns that were passed
+		elseif (static::$columns)
+		{
+			static::$stream->view_options = static::$columns;
+		}
+		// Or default to use the standard columns
+		else
+		{
+			static::$stream->view_options = static::$standard_columns;
+		}
 
-		  		// -------------------------------------
-				// Columns
-				// @since 2.1.5
-				// -------------------------------------
+  		static::$data['field_names'] = array();
 
-				if (static::$columns)
-				{
-					static::$stream->view_options = ! static::$columns_exclude ? static::$columns : static::$fields->getFieldsSlugsExclusive(static::$columns);
-				}
+  		foreach (static::$stream->view_options as $view_option)
+  		{
+  			static::$data['field_names'][] = in_array($view_option, static::$field_slugs) ? lang_label(static::$stream_fields->{$view_option}->field_name) : ucfirst($view_option);
+  		}
 
-				static::$data['entries'] = static::$query->get(static::$columns, static::$columns_exclude);
+		static::$data['entries'] = static::$query->get(static::$stream->view_options, static::$exclude);
 
+//echo static::$data['entries']; exit;
+/*		static::$data['pagination'] = create_pagination(
+									static::$pagination_uri,
+									ci()->db->select('id')->count_all_results(static::$stream->stream_prefix.static::$stream->stream_slug),
+									static::$pagination,
+									static::$offset_uri
+								);*/
 
-				static::$data['pagination'] = create_pagination(
-											static::$pagination_uri,
-											ci()->db->select('id')->count_all_results(static::$stream->stream_prefix.static::$stream->stream_slug),
-											static::$pagination,
-											static::$offset_uri
-										);
+		$table = ci()->load->view('admin/partials/streams/entries', static::$data, true);
 
-				$table = ci()->load->view('admin/partials/streams/entries', static::$data, true);
-
-				if ( ! $return)
-				{
-					// Hooray, we are building the template ourself.
-					ci()->template->build('admin/partials/blank_section', array('content' => $table));
-				}
-				else
-				{
-					// Otherwise, we are returning the table
-					return $table;
-				}
-
-				break;
-
-			default:
-				// do nothing
-
+		if ( ! $return)
+		{
+			// Hooray, we are building the template ourself.
+			ci()->template->build('admin/partials/blank_section', array('content' => $table));
+		}
+		else
+		{
+			// Otherwise, we are returning the table
+			return $table;
 		}
 	}
-
-
 }
