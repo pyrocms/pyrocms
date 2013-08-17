@@ -4,6 +4,8 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
+	protected $standard_columns = array();
+
 	public function findBySlug($field_slug)
 	{
 		return $this->findByAttribute($field_slug, 'field_slug');
@@ -16,6 +18,20 @@ class FieldCollection extends EloquentCollection
 
 	public function getFieldSlugsExclude(array $columns = array())
 	{
-		return array_diff($this->getFieldSlugsArray(), $columns);
+		$all = array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+
+		return array_diff($all, $columns);
+	}
+
+	public function setStandardColumns(array $standard_columns = array())
+	{
+		$this->standard_columns = $standard_columns;
+
+		return $this;
+	}
+
+	public function getStandardColumns()
+	{
+		return $this->standard_columns;
 	}
 }

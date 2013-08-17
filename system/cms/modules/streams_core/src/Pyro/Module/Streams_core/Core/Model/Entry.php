@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Type;
 use Pyro\Module\Streams_core\Core\Model\Stream;
 
 // Eloquent was not designed to talk to different tables from a single model but
@@ -39,6 +40,8 @@ class Entry extends Eloquent
 
     protected $dates = array('created', 'updated');
 
+    protected $audits = array('created_by');
+
     protected $stream_slug = null;
 
     protected $stream_namespace = null;
@@ -47,13 +50,19 @@ class Entry extends Eloquent
 
     protected $stream_prefix = null;
 
-    protected $field_assignments = null;
+    protected $assignments = null;
 
     protected $field_type_instances = null;
 
     protected $unformatted_values = array();
 
     protected $instance = null;
+
+    protected $format = true;
+
+    protected $plugin = true;
+
+
 
     /**
      * The name of the "created at" column.
@@ -95,16 +104,19 @@ class Entry extends Eloquent
                 // Eager load assignments nested with fields 
                 $this->getStream()->load('assignments.field');    
             }
+
+            $this->assignments = $this->stream->getModel()->getRelation('assignments');
         }
 
         $this->instance = static::getCache('instance');
     }
 
     public static function stream($slug, $namespace)
-    {
-        $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
-        
-        static::setCache('stream', $stream);
+    {   
+        if ( ! static::getCache('stream'))
+        {
+            static::setCache('stream', Stream::findBySlugAndNamespace($slug, $namespace));
+        }
 
         return static::setCache('instance', new static);
     }
@@ -114,38 +126,59 @@ class Entry extends Eloquent
         return $this->stream;
     }
 
-    public function getStreamFields()
+    public function getFields()
     {
-        $this->getStream()->getModel()->getRelation('assignments');
+        $fields = $this->assignments->getFields();
+
+        $fields->setStandardColumns($this->getStandardColumns());
+
+        return $fields;
     }
 
     public function getDates()
     {
-        return array('created', 'updated');
+        return $this->dates;
+    }
+
+    public function getAudits()
+    {
+        return $this->audits;
     }
 
     public function getFieldType($field_slug = '')
     {
-        $entry = new static;
+        $entry = $this->exists ? $this : new static;
         
-        if ( ! $field = $entry->getStream()->getModel()->getRelation('assignments')->getFields()->findBySlug($field_slug))
+        if ( ! $field = $entry->getFields()->findBySlug($field_slug))
         {
             return false;
         }
 
-        // @todo - replace the Type library with the PSR version
-        if ( ! $type = isset(ci()->type->types->{$field->field_type}) ? ci()->type->types->{$field->field_type} : null)
-        {
-            return false;
-        }
+        return Type::getFieldType($field, $entry);
+    }
 
-        $type->setEntryBuilder($this->newQuery());
-        $type->setModel($this);
-        $type->setField($field);
-        $type->setEntry($entry);
-        $type->setValue($this->getAttributeValue($field_slug));
+    public function setPlugin($plugin = true)
+    {
+        $this->plugin = $plugin;
 
-        return $type;
+        return $this;
+    }
+
+    public function setFormat($format = true)
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    public function isFormat()
+    {
+        return $this->format;
+    }
+
+    public function isPlugin()
+    {
+        return $this->plugin;
     }
 
     public function setUnformattedValue($key = null, $value = null)
@@ -169,6 +202,11 @@ class Entry extends Eloquent
         return $form->buildForm();
     }
 
+    public function getEntry($id, array $columns = array('*'))
+    {
+        return $this->newQuery()->where($this->getKeyName(), '=', $id)->first($columns);
+    }
+
     public function first(array $columns = array('*'))
     {
         return $this->newQuery()->take(1)->get($columns)->first();
@@ -188,6 +226,15 @@ class Entry extends Eloquent
         }
 
         return static::setCache('table::all', static::getCache('instance')->newQuery()->get($columns));
+    }
+
+    /**
+     * Get all the non-field standard columns for entries as an array
+     * @return array An array of standard columns
+     */
+    public function getStandardColumns()
+    {
+        return array_merge($this->getDates(), $this->getAudits());
     }
 
     /**
