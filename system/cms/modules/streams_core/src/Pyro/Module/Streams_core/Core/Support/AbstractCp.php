@@ -22,9 +22,9 @@ abstract class AbstractCp
 
 	protected static $stream = null;
 
-	protected static $columns = null;
+	protected static $columns = array('*');
 
-	protected static $columns_exclude = false;
+	protected static $exclude = false;
 
 	public static function query(Closure $callback = null)
 	{
@@ -33,7 +33,7 @@ abstract class AbstractCp
 		return new static;
 	}
 
-	public static function setPagination($pagination = null, $pagination_uri = null)
+	public static function pagination($pagination = null, $pagination_uri = null)
 	{
 		static::$pagination = $pagination;
 		static::$pagination_uri = $pagination_uri;
@@ -64,12 +64,26 @@ abstract class AbstractCp
 		return new static;
 	}
 
-	public static function setColumns(array $columns = array('*'), $exclude = false)
+	public static function columns($columns = '*', $exclude = false)
 	{
+		$columns = is_string($columns) ? array($columns) : $columns;
+		
 		static::$columns = $columns;
-		static::$columns_exclude = $exclude;
+		static::$exclude = $exclude;
 
 		return new static;
+	}
+
+	public function render()
+	{
+		$method = camel_case('render'.static::$render);
+
+		if (method_exists($this, $method))
+		{
+			return $this->{$method}();
+		}
+
+		return false;
 	}
 
 }
