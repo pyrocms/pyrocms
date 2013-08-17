@@ -8,4 +8,14 @@ class FieldCollection extends EloquentCollection
 	{
 		return $this->findByAttribute($field_slug, 'field_slug');
 	}
+
+	public function getFieldSlugsArray()
+	{
+		return array_values($this->lists('field_slug'));
+	}
+
+	public function getFieldsSlugsExclusive(array $exlude = array())
+	{
+		return array_diff($this->getFieldSlugsArray(), $exlude);
+	}
 }

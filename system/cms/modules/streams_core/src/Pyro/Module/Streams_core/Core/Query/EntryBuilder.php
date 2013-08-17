@@ -12,8 +12,16 @@ class EntryBuilder extends Builder
 	 * @param  array  $columns
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 */
-	public function get($columns = array('*'))
+	public function get($columns = array('*'), $exclude = false)
 	{
+		$this->stream = $this->model->getStream();
+
+		if ($exclude)
+		{
+			$columns = $this->stream->assignments->getFields()->getFieldsSlugsExclusive($columns);
+			// @todo - restore the non-field columns like id, updated, 
+		}
+
 		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
@@ -31,10 +39,6 @@ class EntryBuilder extends Builder
 	{	
 		// returns the models with the attributes formated by their corresponding field type
 		$formatted = array();
-
-		$this->stream = $this->model->getStream();
-
-		$this->assignments = $this->stream->assignments;
 
 		foreach ($entries as $entry)
 		{
@@ -54,8 +58,12 @@ class EntryBuilder extends Builder
 			// Get the field type instance from the entry
 			if ($type = $entry->getFieldType($field_slug))
 			{
+				// Set the unformatted value, we might need it
+				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
+				
 				// If there exist a field for the corresponding attribute, format it
 				$clone->{$field_slug} = $type->getFormattedValue();
+
 			}
 			else
 			{

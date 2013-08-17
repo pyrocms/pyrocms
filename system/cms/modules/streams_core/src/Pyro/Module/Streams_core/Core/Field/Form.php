@@ -134,12 +134,6 @@ class Form
 		{
 			return null;
 		}
-		
-		// -------------------------------------
-		// Get row id, if applicable
-		// -------------------------------------
-
-		$row_id = ($this->method == 'edit') ? $entry->id : null;
 			
 		// -------------------------------------
 		// Set Validation Rules
@@ -154,7 +148,7 @@ class Form
 		if ($_POST and $key_check)
 		{
 			ci()->form_validation->reset_validation();
-			$this->set_rules($stream_fields, $this->method, $skips, false, $row_id);
+			$this->setRules($stream_fields, $this->method, $skips, false, $this->entry->id);
 		}
 
 		// -------------------------------------
@@ -172,7 +166,7 @@ class Form
 			ci()->config->load('streams_core/recaptcha');
 			ci()->load->library('streams_core/Recaptcha');
 			
-			ci()->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_recaptcha');
+			ci()->form_validation->setRules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_recaptcha');
 		}
 		
 		// -------------------------------------
@@ -181,7 +175,7 @@ class Form
 
 		//$stream_fields, $row, $this->method, $skips, $defaults, $key_check
 
-		$this->values = $this->set_values();
+		$this->setValues();
 
 		// -------------------------------------
 		// Run Type Events
@@ -193,7 +187,7 @@ class Form
 
 		// $stream_fields, $skips, $values
 
-		$this->run_field_events();
+		$this->runFieldEvents();
 
 		// -------------------------------------
 		// Validation
@@ -209,7 +203,7 @@ class Form
 				{
 					if ( ! $result_id = ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 					{
-						ci()->session->set_flashdata('notice', ci()->fields->translate_label($failure_message));
+						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($failure_message));
 					}
 					else
 					{
@@ -221,13 +215,13 @@ class Form
 						{
 							foreach ($extra['email_notifications'] as $notify)
 							{
-								$this->send_email($notify, $result_id, $this->method = 'new', $stream);
+								$this->sendEmail($notify, $result_id, $this->method = 'new', $stream);
 							}
 						}
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', ci()->fields->translate_label($extra['success_message']));
+						ci()->session->set_flashdata('success', ci()->fields->translateLabel($extra['success_message']));
 					}
 				}
 				else
@@ -240,7 +234,7 @@ class Form
 														$skips
 													))
 					{
-						ci()->session->set_flashdata('notice', ci()->fields->translate_label($extra['failure_message']));	
+						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($extra['failure_message']));	
 					}
 					else
 					{
@@ -252,13 +246,13 @@ class Form
 						{
 							foreach($extra['email_notifications'] as $notify)
 							{
-								$this->send_email($notify, $result_id, $this->method = 'update', $stream);
+								$this->sendEmail($notify, $result_id, $this->method = 'update', $stream);
 							}
 						}
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', ci()->fields->translate_label($extra['success_message']));
+						ci()->session->set_flashdata('success', ci()->fields->translateLabel($extra['success_message']));
 					}
 				}
 			
@@ -280,7 +274,7 @@ class Form
 		// -------------------------------------
 
 		// $stream_fields, $values, $row, $this->method, $skips, $extra['required']
-		return $this->build_fields();
+		return $this->buildFields();
 	}
 
 	// --------------------------------------------------------------------------
@@ -298,7 +292,7 @@ class Form
 	 * @return 	array
 	 */
 	// $stream_fields, $skips = array(), $values = array()
-	public function run_field_events()
+	public function runFieldEvents()
 	{
 		if ( ! $this->fields or ( ! is_array($this->fields) and ! is_object($this->fields))) return null;
 
@@ -311,7 +305,7 @@ class Form
 			}
 
 			// Set the value
-			if ( isset($this->values[$field->field_slug]) ) $field->value = $this->values[$field->field_slug];
+			if ( isset($this->entry->{$field->field_slug}) ) $field->value = $this->entry->{$field->field_slug};
 
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
@@ -345,48 +339,15 @@ class Form
 	 * @return 	array
 	 */
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true
-	public function set_values()
+	public function setValues()
 	{
-		$values = array();
-
-		// If we don't have any stream fields, 
-		// we don't have anything to do.
-		if ( empty($this->fields)) {
-			return $values;
-		}
-
 		foreach ($this->fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				if ( ! $this->key_check)
 				{
-					$values[$field->field_slug] = null;
-				}
-				elseif ( ! isset($_POST[$field->field_slug]) and ! isset($_POST[$field->field_slug.'[]']))
-				{
-					// If this is a new entry and there is no post data,
-					// we see if:
-					// a - there is data from the DB to show
-					// b - 1. there is a defaults value sent to the form ($defaults)
-					// b - 2. there is a default value to show from the assignment
-					// Otherwise, it's just null
-					if (isset($row->{$field->field_slug}))
-					{
-						$values[$field->field_slug] = $row->{$field->field_slug};
-					}
-					elseif ($mode == 'new')
-					{
-						$values[$field->field_slug] = (isset($defaults[$field->field_slug]) ? $defaults[$field->field_slug] : (isset($field->field_data['default_value']) ? $field->field_data['default_value'] : null));
-					}
-					elseif ($mode == 'edit')
-					{
-						// If there is no post data and no existing data and this is 
-						// an edit page, then we don't want to show the default.
-						// Edit pages should *always* reflect the current data,
-						// and nothing more.
-						$values[$field->field_slug] = null;
-					}
+					$this->entry->{$field->field_slug} = null;
 				}
 				else
 				{
@@ -398,22 +359,20 @@ class Form
 					// post value, so we check for that as well.
 					if (isset($_POST[$field->field_slug]))
 					{
-						$values[$field->field_slug] = ci()->input->post($field->field_slug);
+						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug);
 					}
 					elseif (isset($_POST[$field->field_slug.'[]']))
 					{
-						$values[$field->field_slug] = ci()->input->post($field->field_slug.'[]');
+						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
 					}
 					else
 					{
 						// Last ditch.
-						$values[$field->field_slug] = null;
+						$this->entry->{$field->field_slug} = null;
 					}
 				}
 			}
 		}
-
-		return $values;		
 	}
 
 	// --------------------------------------------------------------------------
@@ -425,67 +384,52 @@ class Form
 	 *
 	 */
 	// $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
-	public function build_fields()
+	public function buildFields()
 	{
 		$fields = array();
-
-		$count = 0;
 		
 		// $stream_fields, $skips, $values
-		$this->run_field_events();
+		$this->runFieldEvents();
 
-		foreach($this->fields as $field)
+		foreach($this->fields as $key => $field)
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
-				$fields[$count]['input_title'] 		= $field->field_name;
-				$fields[$count]['input_slug'] 		= $field->field_slug;
-				$fields[$count]['instructions'] 	= $field->instructions;
+				$fields[$key]['input_title'] 		= $field->field_name;
+				$fields[$key]['input_slug'] 		= $field->field_slug;
+				$fields[$key]['instructions'] 	= $field->instructions;
 				
 				// Set the value. In the odd case it isn't set,
 				// jst set it to null.
-				$value = (isset($this->values[$field->field_slug])) ? $this->values[$field->field_slug] : null;
+				$value = (isset($this->entry->{$field->field_slug})) ? $this->entry->{$field->field_slug} : null;
 
 				// Return the raw value as well - can be useful
-				$fields[$count]['value'] 			= $value;
+				$fields[$key]['value'] = $this->entry->getUnformattedValue($field->field_slug);
 
 				$type = $this->entry->getFieldType($field->field_slug);
 
 				// Get the acutal form input
-				$fields[$count]['input'] 		= $type->getForm();	
-				$fields[$count]['input_parts'] 	= $type->setPlugin(true)->getForm();
-				
-				/*if ($this->method == 'edit')
-				{
-					$fields[$count]['input'] 		= $type->getForm();
-					$fields[$count]['input_parts'] 	= $type->setIsPlugin(false)->getForm();
-				}
-				else
-				{
-					$fields[$count]['input'] 		= $type->build_form_input($field, $value, null);			
-					$fields[$count]['input_parts'] 	= $type->build_form_input($field, $value, null, true);
-				}*/
+				$fields[$key]['input'] 		= $type->getForm();	
+				$fields[$key]['input_parts'] 	= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
-				$fields[$count]['error_raw']		= ci()->form_validation->error($field->field_slug);
+				$fields[$key]['error_raw']		= ci()->form_validation->error($field->field_slug);
 
 				// Format tht error
-				if ($fields[$count]['error_raw']) 
+				if ($fields[$key]['error_raw']) 
 				{
-					$fields[$count]['error']		= $fields[$count]['error_raw'];
+					$fields[$key]['error']		= $fields[$key]['error_raw'];
 				}
 				else
 				{
-					$fields[$count]['error']		= null;
+					$fields[$key]['error']		= null;
 				}
 
 				// Set the required string
-				$fields[$count]['required'] = ($field->is_required == 'yes') ? $required : null;
+				$fields[$key]['required'] = ($field->is_required == 'yes') ? $required : null;
 
 				// Set even/odd
-				$fields[$count]['odd_even'] = (($count+1)%2 == 0) ? 'even' : 'odd';
-
-				$count++;
+				$fields[$key]['odd_even'] = (($key+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
 		
@@ -507,7 +451,7 @@ class Form
 	 * @param 	mixed - array or true
 	 */	
 	// $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
-	public function set_rules()
+	public function setRules()
 	{
 		if ( ! $stream_fields or ! is_object($stream_fields)) return array();
 
@@ -627,7 +571,7 @@ class Form
 		}
 		else
 		{
-			ci()->form_validation->set_rules($validation_rules);
+			ci()->form_validation->setRules($validation_rules);
 			return true;		
 		}
 	}
@@ -647,7 +591,7 @@ class Form
 	 * @return 	
 	 */
 	// $stream = null, $this->method = 'new', $field = null
-	public function run_field_setup_events()
+	public function runFieldSetupEvents()
 	{
 		foreach (ci()->type->types as $ft)
 		{
@@ -674,7 +618,7 @@ class Form
 	 * @param 	string - the field label
 	 * @return 	string - translated or original label
 	 */
-	public function translate_label($label)
+	public function translateLabel($label)
 	{
 		// Look for lang
 		if (substr($label, 0, 5) === 'lang:')
@@ -705,7 +649,7 @@ class Form
 	 * @return	void
 	 */
 	// $notify, $entry_id, $this->method, $stream
-	public function send_email()
+	public function sendEmail()
 	{
 		extract($notify);
 
@@ -727,7 +671,7 @@ class Form
 		// we take it from the form's post values.
 		foreach ($emails as $key => $piece)
 		{
-			$emails[$key] = $this->_process_email_address($piece);
+			$emails[$key] = $this->processEmailAddress($piece);
 		}
 		
 		// -------------------------------------
@@ -795,14 +739,14 @@ class Form
 
 			// For two segments we process it as email_address|name
 			if (count($email_pieces) == 2) {
-				$email_address 	= $this->_process_email_address($email_pieces[0]);
+				$email_address 	= $this->processEmailAddress($email_pieces[0]);
 				$name 			= (ci()->input->post($email_pieces[1])) ? 
 										ci()->input->post($email_pieces[1]) : $email_pieces[1];
 
 				ci()->email->from($email_address, $name);
 			}
 			else {
-				ci()->email->from($this->_process_email_address($email_pieces[0]));
+				ci()->email->from($this->processEmailAddress($email_pieces[0]));
 			}
 		}
 		else
@@ -840,7 +784,7 @@ class Form
 	 * @param	email
 	 * @return	string
 	 */
-	private function _process_email_address($email)
+	private function processEmailAddress($email)
 	{	
 		if (strpos($email, '@') === false and ci()->input->post($email))
 		{
