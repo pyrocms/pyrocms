@@ -6,8 +6,8 @@
 		<thead>
 			<tr>
 				<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
-				<?php foreach ($stream->view_options as $view_option): ?>
-				<th><?php echo lang_label($stream_fields->$view_option->field_name); ?></th>
+				<?php foreach ($field_names as $field_name): ?>
+					<th><?php echo $field_name; ?></th>
 				<?php endforeach; ?>
 			    <th></th>
 			</tr>
@@ -24,18 +24,23 @@
 
 				<input type="hidden" name="action_to[]" value="<?php echo $data_item->id;?>" />
 
-				<?php
+				<?php if ($data_item->$view_option instanceof \Carbon\Carbon) {
+						
+					if ($data_item->$view_option): echo $data_item->$view_option->format('M j Y g:i a'); endif; 
 
-					if ($view_option == 'created' or $view_option == 'updated') {
-						if ($data_item->$view_option):echo date('M j Y g:i a', $data_item->$view_option); endif;
-					} elseif ($view_option == 'created_by') {
+				} elseif ($view_option == 'created_by') { ?>
 
-						?><a href="<?php echo site_url('admin/users/edit/'. $data_item->created_by_user_id); ?>"><?php echo $data_item->created_by_username; ?></a><?php
-					} else {
+					<a href="<?php echo site_url('admin/users/edit/'. $data_item->created_by_user_id); ?>">
+						<?php echo $data_item->created_by_username; ?>
+					</a>
+			
+				<?php } else {
+						
 						echo $data_item->$view_option;
-					}
+					
+				} ?>
 
-				?></td>
+				</td>
 				<?php endforeach; endif; ?>
 				<td class="actions">
 
@@ -61,7 +66,7 @@
 		</tbody>
     </table>
 
-<?php echo $pagination['links']; ?>
+<?php // echo $pagination['links']; ?>
 
 <?php } else { ?>
 
