@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($entries as $field => $data_item) { ?>
+		<?php foreach ($entries as $field => $entry) { ?>
 
 			<tr>
 
@@ -22,21 +22,21 @@
 				<?php if (is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
 				<td>
 
-				<input type="hidden" name="action_to[]" value="<?php echo $data_item->id;?>" />
+				<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-				<?php if ($data_item->$view_option instanceof \Carbon\Carbon) {
+				<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
 						
-					if ($data_item->$view_option): echo $data_item->$view_option->format('M j Y g:i a'); endif; 
+					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
 
 				} elseif ($view_option == 'created_by') { ?>
 
-					<a href="<?php echo site_url('admin/users/edit/'. $data_item->created_by_user_id); ?>">
-						<?php echo $data_item->created_by_username; ?>
+					<a href="<?php echo site_url('admin/users/edit/'. $entry->user->id); ?>">
+						<?php echo $entry->user->username; ?>
 					</a>
 			
 				<?php } else {
 						
-						echo $data_item->$view_option;
+						echo $entry->$view_option;
 					
 				} ?>
 
@@ -52,7 +52,7 @@
 							foreach ($buttons as $button) {
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
-								$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), $button['label'], 'class="'.$class.'"');
+								$all_buttons[] = anchor(str_replace('-entry_id-', $entry->id, $button['url']), $button['label'], 'class="'.$class.'"');
 							}
 
 							echo implode('&nbsp;', $all_buttons);
