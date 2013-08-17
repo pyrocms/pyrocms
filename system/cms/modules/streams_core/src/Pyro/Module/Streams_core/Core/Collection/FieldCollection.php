@@ -9,13 +9,13 @@ class FieldCollection extends EloquentCollection
 		return $this->findByAttribute($field_slug, 'field_slug');
 	}
 
-	public function getFieldSlugsArray()
+	public function getFieldSlugs()
 	{
 		return array_values($this->lists('field_slug'));
 	}
 
-	public function getFieldsSlugsExclusive(array $exlude = array())
+	public function getFieldSlugsExclude(array $columns = array())
 	{
-		return array_diff($this->getFieldSlugsArray(), $exlude);
+		return array_diff($this->getFieldSlugsArray(), $columns);
 	}
 }
