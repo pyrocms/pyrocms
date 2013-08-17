@@ -13,13 +13,13 @@ class Entries extends AbstractCp
 
 	public static $field_names = array();
 
-	protected static $columns;
+	protected static $columns = array('*');
 
-	protected static $standard_columns = array('id', 'created', 'created_by');
+	protected static $standard_columns = array();
 
 	protected static $field_slugs = array();
 
-	protected static $stream_fields;
+	protected static $stream_fields = null;
 
 	/**
 	 * Entries Table
@@ -92,6 +92,8 @@ class Entries extends AbstractCp
   		static::$fields = static::$query->getFields();
 
   		static::$field_slugs = static::$fields->getFieldSlugs();
+
+  		static::$standard_columns = static::$fields->getStandardColumns();
 
   		static::$stream_fields = new \stdClass;
 
@@ -279,7 +281,7 @@ class Entries extends AbstractCp
 
   		foreach (static::$stream->view_options as $view_option)
   		{
-  			static::$data['field_names'][] = in_array($view_option, static::$field_slugs) ? lang_label(static::$stream_fields->{$view_option}->field_name) : ucfirst($view_option);
+  			static::$data['field_names'][] = in_array($view_option, static::$field_slugs) ? lang_label(static::$stream_fields->{$view_option}->field_name) : lang('streams:'.$view_option);
   		}
 
 		static::$data['entries'] = static::$query->get(static::$stream->view_options, static::$exclude);
