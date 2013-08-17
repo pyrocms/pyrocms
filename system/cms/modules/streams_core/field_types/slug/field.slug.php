@@ -63,10 +63,10 @@ class Field_slug extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
 		$this->CI->load->helper('text');
-		return escape_tags($input);
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
