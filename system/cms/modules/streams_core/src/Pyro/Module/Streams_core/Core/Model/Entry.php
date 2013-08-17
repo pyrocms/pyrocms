@@ -234,7 +234,7 @@ class Entry extends Eloquent
      */
     public function getStandardColumns()
     {
-        return array_merge($this->getDates(), $this->getAudits());
+        return array_merge(array($this->getKeyName()), $this->dates, $this->audits);
     }
 
     /**

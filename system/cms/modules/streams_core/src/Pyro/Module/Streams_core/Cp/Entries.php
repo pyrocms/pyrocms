@@ -13,7 +13,7 @@ class Entries extends AbstractCp
 
 	public static $field_names = array();
 
-	protected static $columns = array('id', 'created', 'updated', 'created_by');
+	protected static $columns = array();
 
 	protected static $standard_columns = array();
 
@@ -93,7 +93,7 @@ class Entries extends AbstractCp
 
   		static::$field_slugs = static::$fields->getFieldSlugs();
 
-  		static::$standard_columns = static::$fields->getStandardColumns();
+  		static::$columns = static::$standard_columns = static::$fields->getStandardColumns();
 
   		static::$stream_fields = new \stdClass;
 
