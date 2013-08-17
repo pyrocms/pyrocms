@@ -14,11 +14,13 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'), $exclude = false)
 	{
-
 		if ($exclude)
 		{
 			$columns = array_merge($columns, $this->model->getFields()->getFieldSlugsExclude($columns));
 		}
+
+		// Chances are we are always going to need the primary key regardless
+		$columns = array_merge(array($this->model->getKeyName()), $columns);
 
 		$this->entries = $this->getModels($columns);
 
