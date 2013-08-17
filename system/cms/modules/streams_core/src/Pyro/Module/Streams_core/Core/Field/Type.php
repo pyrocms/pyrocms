@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Streams_core\Field;
+<?php namespace Pyro\Module\Streams_core\Core\Field;
 
 /**
  * PyroStreams Core Field Type Library
@@ -32,7 +32,7 @@ class Type
 	 */
     public function __construct()
     {
-		ci()->load->helper('directory');
+/*		ci()->load->helper('directory');
 		ci()->load->config('streams_core/streams');
 
 		// These constants are used throughout the models.
@@ -79,7 +79,7 @@ class Type
 		// add another place for addons.
 		if ( ! class_exists('Module_import')) {
 			Events::trigger('streams_core_add_addon_path', $this);
-		}
+		}*/
 	}
 
 	public static function addPath($key, $path)
@@ -123,6 +123,38 @@ class Type
 			static::loadTypesFromFolder($path, $mode);
 		}
 	}
+
+	public static function getFieldType(\Pyro\Module\Streams_core\Core\Model\Field $field = null, \Pyro\Module\Streams_core\Core\Model\Entry $entry = null)
+    {
+        if ( ! $field)
+        {
+            return false;
+        }
+
+        // If no entry was passed at least instantiate an empty entry object
+        if ( ! $entry)
+        {
+        	$entry = new \Pyro\Module\Streams_core\Core\Model\Entry;
+        }
+
+        // @todo - replace the Type library with the PSR version
+        if ( ! $type = isset(ci()->type->types->{$field->field_type}) ? ci()->type->types->{$field->field_type} : null)
+        {
+            return false;
+        }
+
+        $type->setField($field);
+
+        $type->setEntry($entry);
+        
+        $type->setModel($entry->getModel());
+        
+        $type->setEntryBuilder($entry->getModel()->newQuery());
+        
+        $type->setValue($entry->{$field->field_slug});
+
+        return $type;
+    }
 
 	/**
 	 * Load field types from a certain folder.
