@@ -6,7 +6,7 @@ abstract class AbstractField
 
 	protected $value = null;
 
-	protected $is_plugin = false;
+	protected $plugin = false;
 
 	protected $query = null;
 
@@ -32,13 +32,6 @@ abstract class AbstractField
 	public function setMethod($method = 'new')
 	{
 		$this->method = $method;
-
-		return $this;
-	}
-
-	public function setPlugin($is_plugin = true)
-	{
-		$this->is_plugin = $is_plugin;
 
 		return $this;
 	}
@@ -103,7 +96,7 @@ abstract class AbstractField
 		// Is this an alt process type?
 		if ($this->alt_process === true)
 		{
-			if ( ! $this->is_plugin and method_exists($this, 'alt_pre_output'))
+			if ( ! $this->plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
@@ -114,7 +107,7 @@ abstract class AbstractField
 		{
 			// If not, check and see if there is a method
 			// for pre output or pre_output_plugin
-			if ($this->is_plugin and method_exists($this, 'pre_output_plugin'))
+			if ($this->plugin and method_exists($this, 'pre_output_plugin'))
 			{
 				return $this->pre_output_plugin();
 			}
@@ -137,7 +130,7 @@ abstract class AbstractField
 
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->is_plugin)
+		if ($this->plugin)
 		{
 			if (method_exists($this, 'form_output_plugin'))
 			{
