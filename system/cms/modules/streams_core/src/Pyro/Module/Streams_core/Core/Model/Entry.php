@@ -94,12 +94,12 @@ class Entry extends Eloquent
         // This picks up the stream that was set at runtime with the stream() method
         if ($this->stream = static::getCache('stream'))
         {
-            $this->setTable($this->stream->stream_prefix.$this->getStream()->stream_slug);
+            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
             
-            $relations = $this->stream->getModel()->getRelations();
+            $stream_relations = $this->stream->getModel()->getRelations();
             
             // Check if the assignments are already loaded
-            if ( ! isset($relations['assignments']))
+            if ( ! isset($stream_relations['assignments']))
             {
                 // Eager load assignments nested with fields 
                 $this->getStream()->load('assignments.field');    
@@ -234,7 +234,7 @@ class Entry extends Eloquent
      */
     public function getStandardColumns()
     {
-        return array_merge(array($this->getKeyName()), $this->dates, $this->audits);
+        return array_merge(array($this->getKeyName()), $this->getDates(), $this->getAudits());
     }
 
     /**
@@ -334,6 +334,10 @@ class Entry extends Eloquent
         return $query->get();
     }
 
+    public function user()
+    {
+        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by');
+    }
 
     // Exploring some ideas for relationships
 

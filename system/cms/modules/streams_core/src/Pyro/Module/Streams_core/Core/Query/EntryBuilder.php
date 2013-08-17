@@ -20,8 +20,11 @@ class EntryBuilder extends Builder
 		}
 
 		// Chances are we are always going to need the primary key regardless
-		$columns = array_merge(array($this->model->getKeyName()), $columns);
-
+		if ( ! in_array($this->model->getKeyName(), $columns))
+		{
+			$columns = array_unshift($columns, $this->model->getKeyName());	
+		}
+		
 		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
@@ -29,7 +32,14 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$entries = $this->eagerLoadRelations($this->entries);
+			$relations = $this->entries[0]->getModel()->getRelations();
+
+			if (in_array('created_by', $columns) and empty($relations['user']))
+			{
+				$this->with('user');
+			}
+
+			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
 		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
