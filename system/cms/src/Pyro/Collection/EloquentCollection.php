@@ -10,7 +10,7 @@ class EloquentCollection extends Collection
  	{	
  		foreach ($this->items as $model)
  		{
-			if(isset($model->{$attribute}) and $model->{$attribute} == $value)
+			if($model->{$attribute} == $value)
  			{
  				return $model;
  			}
