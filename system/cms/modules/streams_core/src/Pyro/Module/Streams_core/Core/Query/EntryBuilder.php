@@ -20,10 +20,7 @@ class EntryBuilder extends Builder
 		}
 
 		// Chances are we are always going to need the primary key regardless
-		if ( ! in_array($this->model->getKeyName(), $columns))
-		{
-			$columns = array_unshift($columns, $this->model->getKeyName());	
-		}
+		$columns = $this->requireKey($columns);
 		
 		$this->entries = $this->getModels($columns);
 
@@ -89,4 +86,14 @@ class EntryBuilder extends Builder
 
 		return $clone;	
 	}
+
+    protected function requireKey(array $columns = array('*'))
+    {
+        if ( ! $columns[0] === '*' and ! in_array($this->model->getKeyName(), $columns))
+        {
+            array_unshift($columns, $this->model->getKeyName());
+        }
+
+        return $columns;
+    }
 }
