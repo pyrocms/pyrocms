@@ -27,9 +27,17 @@ class Form
 
 	protected $values = array();
 
-	protected $key_check = false;
+	protected $form_key = null;
+
+	protected $key_check = null;
 
 	protected $skips = array();
+
+	protected $return_validation_rules = false;
+
+	protected $field_types = array();
+
+	protected $return = null;
 
 	// --------------------------------------------------------------------------
 
@@ -39,8 +47,8 @@ class Form
 
     	$this->fields = $entry->getStream()->getModel()->getRelation('assignments')->getFields();
 
-    	$this->method = $entry->exists ? 'edit' : 'new';
-    
+    	$this->method = $entry->getKey() ? 'edit' : 'new';
+
 		ci()->load->helper('form');
 	}
 
@@ -111,16 +119,16 @@ class Form
 		// page the fields library will handle.
 		// -------------------------------------
 
-		$form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
+		//$this->form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
 
 		// Form key check. If no data, we must assume it is true.
-		if ($form_key and ci()->input->post('_streams_form_key'))
+		if ($this->form_key and ci()->input->post('_streams_form_key'))
 		{
-			$key_check = ($form_key == ci()->input->post('_streams_form_key'));
+			$this->key_check = ($this->form_key == ci()->input->post('_streams_form_key'));
 		}
 		else
 		{
-			$key_check = true;
+			$this->key_check = true;
 		}
 
  		// -------------------------------------
@@ -145,10 +153,11 @@ class Form
 		// we decide what to do with the form.
 		// -------------------------------------
 
-		if ($_POST and $key_check)
+		if ($_POST and $this->key_check)
 		{
 			ci()->form_validation->reset_validation();
-			$this->setRules($stream_fields, $this->method, $skips, false, $this->entry->id);
+			// $stream_fields, $this->method, $skips, false, $this->entry->id
+			$this->setRules();
 		}
 
 		// -------------------------------------
@@ -173,7 +182,7 @@ class Form
 		// Set Values
 		// -------------------------------------
 
-		//$stream_fields, $row, $this->method, $skips, $defaults, $key_check
+		//$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
 
 		$this->setValues();
 
@@ -195,13 +204,16 @@ class Form
 		
 		$result_id = '';
 
-		if ($_POST and $key_check)
+		if ($_POST and $this->key_check)
 		{
-			if (ci()->form_validation->run() === true)
+			// @todo - restore validation here
+			// ci()->form_validation->run() === true
+			if (true)
 			{
 				if ($this->method == 'new')
 				{
-					if ( ! $result_id = ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
+					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
+					if ( ! $result_id = $this->entry->save())
 					{
 						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($failure_message));
 					}
@@ -226,15 +238,20 @@ class Form
 				}
 				else
 				{
-					if ( ! $result_id = ci()->row_m->update_entry(
+
+/*					ci()->row_m->update_entry(
 														$stream_fields,
 														$stream,
 														$row->id,
 														ci()->input->post(),
 														$skips
-													))
+													)*/
+
+					$this->entry->exists = true;
+
+					if ( ! $result_id =  $this->entry->save() and isset($extra['failure_message']))
 					{
-						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($extra['failure_message']));	
+						ci()->session->set_flashdata('notice', lang_label($extra['failure_message']));	
 					}
 					else
 					{
@@ -252,15 +269,18 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', ci()->fields->translateLabel($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($extra['success_message']));
 					}
 				}
 			
 				// If return url is set, redirect and replace -id- with the result ID
 				// Otherwise return id
-				if ($extra['return'] or $plugin === true)
+				if ($this->entry->isPlugin() === true)
 				{
-					redirect(str_replace('-id-', $result_id, $extra['return']));
+					if ($this->return)
+					{
+						redirect(str_replace('-id-', $result_id, $this->return));
+					}
 				}
 				else
 				{
@@ -338,7 +358,7 @@ class Form
 	 * @param 	array
 	 * @return 	array
 	 */
-	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true
+	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
 	public function setValues()
 	{
 		if ( ! $_POST)
@@ -349,11 +369,7 @@ class Form
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
-				if ( ! $this->key_check)
-				{
-					$this->entry->{$field->field_slug} = null;
-				}
-				else
+				if ($this->key_check)
 				{
 					// Post Data - we always show
 					// post data above any other data that
@@ -374,6 +390,29 @@ class Form
 		}
 	}
 
+	public function getFieldTypes()
+	{
+		if (empty($this->field_types))
+		{
+			foreach ($this->fields as $field)
+			{
+				if ($type = $this->entry->getFieldType($field->field_slug))
+				{
+					$this->field_types[$field->field_slug] = $type;	
+				}
+			}			
+		}
+
+		return $this->field_types;
+	}
+
+	public function getFieldType($field_slug)
+	{
+		$types = $this->getFieldTypes();
+
+		return isset($types[$field_slug]) ? $types[$field_slug] : false;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -392,7 +431,6 @@ class Form
 
 		foreach($this->fields as $key => $field)
 		{
-			
 
 			if ($type = $this->entry->getFieldType($field->field_slug))
 			{
@@ -451,7 +489,8 @@ class Form
 	// $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
 	public function setRules()
 	{
-		if ( ! $stream_fields or ! is_object($stream_fields)) return array();
+
+		if ( ! $this->fields or ! is_object($this->fields)) return array();
 
 		$validation_rules = array();
 
@@ -459,19 +498,19 @@ class Form
 		// Loop through and set the rules
 		// -------------------------------------
 
-		foreach ($stream_fields  as $stream_field)
+		foreach ($this->fields as $field)
 		{
-			if ( ! in_array($stream_field->field_slug, $skips))
+			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				$rules = array();
 
 				// If we don't have the type, then no need to go on.
-				if ( ! isset(ci()->type->types->{$stream_field->field_type}))
+				if ( ! isset(ci()->type->types->{$field->field_type}))
 				{
 					continue;
 				}
 
-				$type = ci()->type->types->{$stream_field->field_type};
+				$type = ci()->type->types->{$field->field_type};
 
 				// -------------------------------------
 				// Pre Validation Event
@@ -479,18 +518,18 @@ class Form
 
 				if (method_exists($type, 'pre_validation_compile'))
 				{
-					$type->pre_validation_compile($stream_field);
+					$type->pre_validation_compile($field);
 				}
 
 				// -------------------------------------
 				// Set required if necessary
 				// -------------------------------------
 							
-				if ($stream_field->is_required == 'yes')
+				if ($field->is_required == 'yes')
 				{
 					if (isset($type->input_is_file) && $type->input_is_file === true)
 					{
-						$rules[] = 'streams_file_required['.$stream_field->field_slug.']';
+						$rules[] = 'streams_file_required['.$field->field_slug.']';
 					}
 					else
 					{
@@ -508,16 +547,16 @@ class Form
 
 				if (method_exists($type, 'validate'))
 				{
-					$rules[] = "streams_field_validation[{$stream_field->field_id}:{$this->method}]";
+					$rules[] = "streams_field_validation[{$field->field_id}:{$this->method}]";
 				}
 
 				// -------------------------------------
 				// Set unique if necessary
 				// -------------------------------------
 	
-				if ($stream_field->is_unique == 'yes')
+				if ($field->is_unique == 'yes')
 				{
-					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$this->method.':'.$stream_field->stream_id.':'.$row_id.']';
+					$rules[] = 'streams_unique['.$field->field_slug.':'.$this->method.':'.$field->stream_id.':'.$row_id.']';
 				}
 
 				// -------------------------------------
@@ -550,8 +589,8 @@ class Form
 				// -------------------------------------
 
 				$validation_rules[] = array(
-					'field'	=> $stream_field->field_slug,
-					'label' => lang_label($stream_field->field_name),
+					'field'	=> $field->field_slug,
+					'label' => lang_label($field->field_name),
 					'rules'	=> implode('|', $rules)				
 				);
 
@@ -563,13 +602,13 @@ class Form
 		// Set the rules or return them
 		// -------------------------------------
 
-		if ($return_array)
+		if ($this->return_validation_rules)
 		{
 			return $validation_rules;
 		}
 		else
 		{
-			ci()->form_validation->setRules($validation_rules);
+			//ci()->form_validation->set_rules($validation_rules);
 			return true;		
 		}
 	}
@@ -598,6 +637,13 @@ class Form
 				$ft->field_setup_event($stream, $this->method, $field);
 			}
 		}
+	}
+
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------

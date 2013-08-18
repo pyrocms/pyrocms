@@ -112,7 +112,20 @@ class Entry extends Eloquent
         }
 
         $this->instance = static::getCache('instance');
+
+        $this->exists = $this->getKey() ? true : false;
     }
+
+    public static function saving($entry)
+    {
+        echo 'Saving!'; exit;
+    }
+/*    public static function boot()
+    {
+        parent::boot();
+
+        static::observe(new \Pyro\Module\Streams_core\Core\Event\EntryObserver);
+    }*/
 
     public static function stream($slug, $namespace)
     {   

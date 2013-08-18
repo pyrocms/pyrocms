@@ -57,6 +57,11 @@ abstract class AbstractField
 		return $this;
 	}
 
+	public function getField()
+	{
+		return $this->field;
+	}
+
 	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
 	{
 		$this->stream = $stream;

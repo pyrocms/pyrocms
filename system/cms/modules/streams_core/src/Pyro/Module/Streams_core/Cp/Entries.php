@@ -8,31 +8,6 @@ use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 
 class Entries extends AbstractCp
 {
-
-	protected $fields = null;
-
-	protected $field_names = array();
-
-	protected $standard_columns = array();
-
-	protected $field_slugs = array();
-
-	protected $stream_fields = null;
-
-	protected $form_fields = null;
-
-	protected $tabs = array();
-
-	protected $hidden = array();
-
-	protected $entry = null;
-
-	protected $mode = null;
-
-	protected $view_override = true;
-
-	protected $no_fields_message = null;
-
 	/**
 	 * Entries Table
 	 *
@@ -318,17 +293,21 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance($stream_slug, $stream_namespace, __function__);
 
-		$entry = $instance->model->getEntry($id);
+		$instance->entry = $instance->model->getEntry($id);
 
-		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($entry);
+		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($instance->entry);
 
-		$instance->form_fields = $instance->form->buildForm();
-		
+
+
 		return $instance;	
 	}
 
 	public function renderForm()
 	{
+		$this->form->redirect($this->return);
+
+		$this->form_fields = $this->form->buildForm();
+
 		$this->data['fields']	= $this->form_fields;
 		$this->data['tabs']		= $this->tabs;
 		$this->data['hidden']	= $this->hidden;
@@ -336,7 +315,7 @@ class Entries extends AbstractCp
 		$this->data['entry']	= $this->entry;
 		$this->data['fields']	= $this->form_fields;
 		$this->data['mode']		= $this->mode;
-		
+
 		// Set return uri
 		$this->data['return']	= $this->return;
 
@@ -371,5 +350,4 @@ class Entries extends AbstractCp
 
 		return $instance;
 	}
-
 }

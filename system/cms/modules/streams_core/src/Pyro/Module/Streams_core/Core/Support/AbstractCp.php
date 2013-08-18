@@ -6,41 +6,92 @@ use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractCp
 {
-	protected static $instance;
 
-	protected $query = null;
+	protected $buttons = array();
+
+	protected $columns = array('*');
 
 	protected $data = array();
 
-	protected $render = null;
+	protected $defaults = array();
 
-	protected $pagination = null;
+	protected $entry = null;
 
-	protected $pagination_uri = null;
+	protected $exclude = false;
+
+	protected $fields = null;
+
+	protected $field_names = array();
+
+	protected $field_slugs = array();
+
+	protected $form = null;
+
+	protected $form_fields = null;
+
+	protected $form_wrapper = true;
+
+	protected $hidden = array();
+
+	protected static $instance;
+
+	protected $mode = null;
+
+	protected $model = null;
+
+	protected $no_fields_message = null;
 
 	protected $offset = null;
 
 	protected $offset_uri = null;
 
-	protected $stream = null;
+	protected $pagination = null;
 
-	protected $columns = array('*');
+	protected $pagination_uri = null;
 
-	protected $buttons = array();
-
-	protected $title = null;
-
-	protected $exclude = false;
-
-	protected $form = null;
-
-	protected $defaults = array();
+	protected $render = null;
 
 	protected $return = null;
 
-	public function query(Closure $callback = null)
+	protected $standard_columns = array();
+
+	protected $stream = null;
+
+	protected $stream_fields = null;
+
+	protected $tabs = array();
+
+	protected $title = null;
+
+	protected $view_override = true;
+
+	public function buttons(array $buttons = array())
 	{
-		$this->model = call_user_func($callback, $this->model);
+		$this->buttons = $buttons;
+
+		return $this;
+	}
+
+	public function columns($columns = '*', $exclude = false)
+	{
+		$columns = is_string($columns) ? array($columns) : $columns;
+		
+		$this->columns = $columns;
+		$this->exclude = $exclude;
+
+		return $this;
+	}
+
+	public static function defaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public static function hidden(array $hidden = array())
+	{
+		$this->hidden = $hidden;
 
 		return $this;
 	}
@@ -76,28 +127,9 @@ abstract class AbstractCp
 		return $this;
 	}
 
-	public function columns($columns = '*', $exclude = false)
+	public function query(Closure $callback = null)
 	{
-		$columns = is_string($columns) ? array($columns) : $columns;
-		
-		$this->columns = $columns;
-		$this->exclude = $exclude;
-
-		return $this;
-	}
-
-	public function buttons(array $buttons = array())
-	{
-		$this->buttons = $buttons;
-
-		return $this;
-	}
-
-	public function title($title = null)
-	{
-		ci()->template->title(lang_label($title));
-
-		$this->title;
+		$this->model = call_user_func($callback, $this->model);
 
 		return $this;
 	}
@@ -109,16 +141,11 @@ abstract class AbstractCp
 		return $this;
 	}
 
-	public static function hidden(array $hidden = array())
+	public function title($title = null)
 	{
-		$this->hidden = $hidden;
+		ci()->template->title(lang_label($title));
 
-		return $this;
-	}
-
-	public static function defaults(array $defaults = array())
-	{
-		$this->defaults = $defaults;
+		$this->title;
 
 		return $this;
 	}
