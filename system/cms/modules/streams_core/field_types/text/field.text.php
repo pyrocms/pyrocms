@@ -34,12 +34,13 @@ class Field_text extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->form_data['form_slug'];
-		$options['id']		= $this->form_data['form_slug'];
-		$options['value']	= $this->form_data['value'];
+		$options['name'] 	= $this->field->field_slug;
+		$options['id']		= $this->field->field_slug;
+		$options['value']	= $this->value;
 
-		if (isset($this->form_data['max_length']) and is_numeric($this->form_data['max_length'])) {
-			$options['maxlength'] = $this->form_data['max_length'];
+		if (isset($this->field->field_data['max_length']) and is_numeric($this->field->field_data['max_length']))
+		{
+			$options['maxlength'] = $this->field->field_data['max_length'];
 		}
 
 		return form_input($options);

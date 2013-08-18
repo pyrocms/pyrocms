@@ -283,9 +283,6 @@ class Field_datetime extends AbstractField
 		// of the date range.
 		// -------------------------------------
 
-		if ( ! isset($this->field->field_data['start_date'])) $this->field->field_data['start_date'] = null;
-		if ( ! isset($this->field->field_data['end_date'])) $this->field->field_data['end_date'] = null;
-
 		$start_restrict 	= $this->parse_single_restrict($this->field->field_data['start_date'], 'start', false);
 		$end_restrict 		= $this->parse_single_restrict($this->field->field_data['end_date'], 'end', false);
 

@@ -38,21 +38,22 @@ class Field_textarea extends AbstractField
 		{
 			$value = (isset($this->field->field_data['default_text']) and $this->field->field_data['default_text']) 
 				? $this->field->field_data['default_text']
-				: $this->form_data['value'];
+				: $this->value;
 
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			if ( ! $value and isset($this->field->field_data['default_value'])) {
+			if ( ! $value and isset($this->field->field_data['default_value']))
+			{
 				$value = $this->field->field_data['default_value'];
 			}
 		} else {
-			$value = $this->form_data['value'];
+			$value = $this->value;
 		}
 
 		return form_textarea(array(
-			'name'		=> $this->form_data['form_slug'],
-			'id'		=> $this->form_data['form_slug'],
-			'value'		=> $this->value
+			'name'		=> $this->field->field_slug,
+			'id'		=> $this->field->field_slug,
+			'value'		=> $value
 		));
 	}
 

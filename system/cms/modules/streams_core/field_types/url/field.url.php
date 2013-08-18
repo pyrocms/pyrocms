@@ -34,9 +34,9 @@ class Field_url extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->form_data['form_slug'];
-		$options['id']		= $this->form_data['form_slug'];
-		$options['value']	= $this->form_data['value'];
+		$options['name'] 	= $this->field->field_slug;
+		$options['id']		= $this->field->field_slug;
+		$options['value']	= $this->value;
 
 		return form_input($options);
 	}
