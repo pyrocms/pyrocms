@@ -45,6 +45,10 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance($stream_slug, $stream_namespace, __function__);
 
+		$instance->model = Model\Entry::stream($stream_slug, $namespace_slug);
+
+		$instance->data['stream'] = $instance->stream = $instance->model->getStream();
+
  		// -------------------------------------
 		// Get Header Fields
 		// -------------------------------------
@@ -297,8 +301,6 @@ class Entries extends AbstractCp
 
 		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($instance->entry);
 
-
-
 		return $instance;	
 	}
 
@@ -336,18 +338,5 @@ class Entries extends AbstractCp
 		$this->data['content'] = $form;
 		
 		ci()->template->build('admin/partials/blank_section', $this->data);
-	}
-
-	protected static function instance($stream_slug, $namespace_slug, $render = null)
-	{
-		$instance = new static;
-
-		$instance->render = $render;
-
-		$instance->model = Model\Entry::stream($stream_slug, $namespace_slug);
-
-		$instance->data['stream'] = $instance->stream = $instance->model->getStream();
-
-		return $instance;
 	}
 }

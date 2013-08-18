@@ -10,5 +10,9 @@ class Entries
 		return Model\Entry::stream($stream_slug, $stream_namespace)->setFormat($format)->setPlugin($plugin)->getEntry($id);
 	}
 
+	public static function deleteEntry()
+	{
+		
+	}
 
 }

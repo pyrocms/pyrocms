@@ -7,6 +7,8 @@ use Pyro\Module\Streams_core\Core\Model;
 abstract class AbstractCp
 {
 
+	protected $add_uri = null;
+
 	protected $buttons = array();
 
 	protected $columns = array('*');
@@ -39,6 +41,8 @@ abstract class AbstractCp
 
 	protected $model = null;
 
+	protected $namespace = null;
+
 	protected $no_fields_message = null;
 
 	protected $offset = null;
@@ -55,6 +59,8 @@ abstract class AbstractCp
 
 	protected $standard_columns = array();
 
+	protected $skips = null;
+
 	protected $stream = null;
 
 	protected $stream_fields = null;
@@ -65,6 +71,19 @@ abstract class AbstractCp
 
 	protected $view_override = true;
 
+	public function __construct()
+	{
+		// @todo - This is here to make sure the types are remove this when we finish the new Type class. language depends on this too
+		ci()->load->driver('Streams');
+	}
+
+	public function addUri($add_uri = null)
+	{
+		$this->add_uri = $add_uri;
+
+		return $this;
+	}	
+
 	public function buttons(array $buttons = array())
 	{
 		$this->buttons = $buttons;
@@ -72,7 +91,14 @@ abstract class AbstractCp
 		return $this;
 	}
 
-	public function columns($columns = '*', $exclude = false)
+	public function defaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function fields($columns = '*', $exclude = false)
 	{
 		$columns = is_string($columns) ? array($columns) : $columns;
 		
@@ -82,18 +108,20 @@ abstract class AbstractCp
 		return $this;
 	}
 
-	public static function defaults(array $defaults = array())
-	{
-		$this->defaults = $defaults;
-
-		return $this;
-	}
-
 	public static function hidden(array $hidden = array())
 	{
 		$this->hidden = $hidden;
 
 		return $this;
+	}
+
+	protected static function instance($render = null)
+	{
+		$instance = new static;
+
+		$instance->render = $render;
+
+		return $instance;
 	}
 
 	public function pagination($pagination = null, $pagination_uri = null)
