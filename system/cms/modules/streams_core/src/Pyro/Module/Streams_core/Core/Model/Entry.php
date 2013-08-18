@@ -38,17 +38,13 @@ class Entry extends Eloquent
      */
     protected $guarded = array('id');
 
-    protected $dates = array('created', 'updated');
-
-    protected $audits = array('created_by');
-
     protected $stream_slug = null;
 
     protected $stream_namespace = null;
 
-    protected $stream = null;
-
     protected $stream_prefix = null;
+
+    protected $stream = null;
 
     protected $assignments = null;
 
@@ -64,8 +60,6 @@ class Entry extends Eloquent
 
     protected $user_columns = array('id', 'username');
 
-
-
     /**
      * The name of the "created at" column.
      *
@@ -79,6 +73,13 @@ class Entry extends Eloquent
      * @var string
      */
     const UPDATED_AT = 'updated';
+
+    /**
+     * The name of the "created at" column.
+     *
+     * @var string
+     */
+    const CREATED_BY = 'created_by';
 
     public function __construct(array $attributes = array())
     {
@@ -139,24 +140,24 @@ class Entry extends Eloquent
 
     public function getDates()
     {
-        return $this->dates;
-    }
+        $dates = array(static::CREATED_AT, static::UPDATED_AT);
 
-    public function getAudits()
-    {
-        return $this->audits;
+        if ($this->softDelete)
+        {
+            $dates = array_push($dates, static::DELETED_AT);
+        }
+
+        return $dates;
     }
 
     public function getFieldType($field_slug = '')
     {
-        $entry = $this->exists ? $this : new static;
-        
-        if ( ! $field = $entry->getFields()->findBySlug($field_slug))
+        if ( ! $field = $this->getFields()->findBySlug($field_slug))
         {
             return false;
         }
 
-        return Type::getFieldType($field, $entry);
+        return Type::getFieldType($field, $this);
     }
 
     public function setPlugin($plugin = true)
@@ -204,12 +205,12 @@ class Entry extends Eloquent
         return $form->buildForm();
     }
 
-    public function getEntry($id, array $columns = array('*'))
+    public function getEntry($id = null, array $columns = array('*'))
     {
         return $this->newQuery()->where($this->getKeyName(), '=', $id)->first($columns);
     }
 
-    public function first(array $columns = array('*'))
+    public function first(array $columns = array('id'))
     {
         return $this->newQuery()->take(1)->get($columns)->first();
     }
@@ -218,7 +219,6 @@ class Entry extends Eloquent
     {
 
     }
-
 
     public static function all($columns = array('*'))
     {
@@ -236,7 +236,7 @@ class Entry extends Eloquent
      */
     public function getStandardColumns()
     {
-        return array_merge(array($this->getKeyName()), $this->getDates(), $this->getAudits());
+        return array_merge(array($this->getKeyName()), $this->getDates(), array(static::CREATED_BY));
     }
 
     /**

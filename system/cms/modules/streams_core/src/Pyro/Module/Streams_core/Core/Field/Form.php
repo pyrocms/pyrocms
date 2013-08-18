@@ -341,6 +341,10 @@ class Form
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $key_check = true
 	public function setValues()
 	{
+		if ( ! $_POST)
+		{
+			return;
+		}
 		foreach ($this->fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
@@ -365,11 +369,6 @@ class Form
 					{
 						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
 					}
-					else
-					{
-						// Last ditch.
-						$this->entry->{$field->field_slug} = null;
-					}
 				}
 			}
 		}
@@ -393,43 +392,42 @@ class Form
 
 		foreach($this->fields as $key => $field)
 		{
-			if ( ! in_array($field->field_slug, $this->skips))
+			
+
+			if ($type = $this->entry->getFieldType($field->field_slug))
 			{
-				$fields[$key]['input_title'] 		= $field->field_name;
-				$fields[$key]['input_slug'] 		= $field->field_slug;
-				$fields[$key]['instructions'] 	= $field->instructions;
+				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
+				$fields[$field->field_slug]['input_slug']		= $field->field_slug;
+				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
 				
 				// Set the value. In the odd case it isn't set,
 				// jst set it to null.
-				$value = (isset($this->entry->{$field->field_slug})) ? $this->entry->{$field->field_slug} : null;
 
 				// Return the raw value as well - can be useful
-				$fields[$key]['value'] = $this->entry->getUnformattedValue($field->field_slug);
-
-				$type = $this->entry->getFieldType($field->field_slug);
+				$fields[$field->field_slug]['value']			= $this->entry->getUnformattedValue($field->field_slug);
 
 				// Get the acutal form input
-				$fields[$key]['input'] 		= $type->getForm();	
-				$fields[$key]['input_parts'] 	= $type->setPlugin(true)->getForm();
+				$fields[$field->field_slug]['input'] 			= $type->getForm();	
+				$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
-				$fields[$key]['error_raw']		= ci()->form_validation->error($field->field_slug);
+				$fields[$field->field_slug]['error_raw']		= ci()->form_validation->error($field->field_slug);
 
 				// Format tht error
-				if ($fields[$key]['error_raw']) 
+				if ($fields[$field->field_slug]['error_raw']) 
 				{
-					$fields[$key]['error']		= $fields[$key]['error_raw'];
+					$fields[$field->field_slug]['error']		= $fields[$field->field_slug]['error_raw'];
 				}
 				else
 				{
-					$fields[$key]['error']		= null;
+					$fields[$field->field_slug]['error']		= null;
 				}
 
 				// Set the required string
-				$fields[$key]['required'] = ($field->is_required == 'yes') ? $required : null;
+				$fields[$field->field_slug]['required']		= ($field->is_required == 'yes') ? $required : null;
 
 				// Set even/odd
-				$fields[$key]['odd_even'] = (($key+1)%2 == 0) ? 'even' : 'odd';
+				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
 		

@@ -32,6 +32,7 @@ class Type
 	 */
     public function __construct()
     {
+
 /*		ci()->load->helper('directory');
 		ci()->load->config('streams_core/streams');
 
@@ -126,6 +127,8 @@ class Type
 
 	public static function getFieldType(\Pyro\Module\Streams_core\Core\Model\Field $field = null, \Pyro\Module\Streams_core\Core\Model\Entry $entry = null)
     {
+    	ci()->load->library('streams_core/Type');
+
         if ( ! $field)
         {
             return false;

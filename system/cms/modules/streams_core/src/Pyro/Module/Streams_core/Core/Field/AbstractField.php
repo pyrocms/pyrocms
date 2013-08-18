@@ -29,6 +29,13 @@ abstract class AbstractField
 		$this->value = $value;
 	}
 
+	public function setPlugin($plugin = null)
+	{
+		$this->plugin = $plugin;
+
+		return $this;
+	}
+
 	public function setMethod($method = 'new')
 	{
 		$this->method = $method;
@@ -100,8 +107,6 @@ abstract class AbstractField
 			{
 				return $this->alt_pre_output();
 			}
-			
-			return $this->value;
 		}	
 		else
 		{
@@ -117,34 +122,24 @@ abstract class AbstractField
 			}
 		}
 
-		return $this->value;
+		return $this->getValue();
 	}
 
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
-		$this->form_data['form_slug']	= $this->field->field_slug;
-		$this->form_data['custom'] 		= $this->field->field_data;
-		$this->form_data['value']		= $this->value;
-		$this->form_data['max_length']	= (isset($this->field->field_data['max_length'])) ? $this->field->field_data['max_length'] : null;
-
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->plugin)
+		if ($this->plugin and method_exists($this, 'form_output_plugin'))
 		{
-			if (method_exists($this, 'form_output_plugin'))
-			{
-				return $this->form_output_plugin();
-			}
-			else
-			{
-				return false;
-			}
+			return $this->form_output_plugin();
 		}
-		else
+		elseif (method_exists($this, 'form_output'))
 		{
 			return $this->form_output();
 		}
+
+		return false;
 	}
 
 }
