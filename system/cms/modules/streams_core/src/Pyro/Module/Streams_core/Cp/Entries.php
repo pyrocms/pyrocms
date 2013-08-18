@@ -9,17 +9,29 @@ use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 class Entries extends AbstractCp
 {
 
-	public static $fields = null;
+	protected $fields = null;
 
-	public static $field_names = array();
+	protected $field_names = array();
 
-	protected static $columns = array();
+	protected $standard_columns = array();
 
-	protected static $standard_columns = array();
+	protected $field_slugs = array();
 
-	protected static $field_slugs = array();
+	protected $stream_fields = null;
 
-	protected static $stream_fields = null;
+	protected $form_fields = null;
+
+	protected $tabs = array();
+
+	protected $hidden = array();
+
+	protected $entry = null;
+
+	protected $mode = null;
+
+	protected $view_override = true;
+
+	protected $no_fields_message = null;
 
 	/**
 	 * Entries Table
@@ -30,7 +42,7 @@ class Entries extends AbstractCp
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
 	 * @param	[null - pagination uri without offset]
-	 * @param	[bool - setting this to true will take care of the static::$template business
+	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @param	[array - extra params (see below)]
 	 * @return	mixed - void or string
 	 *
@@ -53,18 +65,10 @@ class Entries extends AbstractCp
 	 *
 	 * see docs for more explanation
 	 */
-	public static function table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $extra = array())
+	public static function table($stream_slug, $stream_namespace, $pagination = null, $pagination_uri = null, $extra = array())
 	{	
-		// Set the current render function
-		static::$render = __function__;
-
-		// Get stream
-/*		static::$stream = $stream_obj($stream_slug, $namespace_slug);
-		if ( ! $stream) static::$log_error('invalid_stream', 'entries_table');*/
-
-		static::$query = Model\Entry::stream($stream_slug, $namespace_slug);
-
-		static::$data['stream'] = static::$stream = static::$query->getStream();
+		// Prepare the stream, model and render method
+		$instance = static::instance($stream_slug, $stream_namespace, __function__);
 
  		// -------------------------------------
 		// Get Header Fields
@@ -89,17 +93,17 @@ class Entries extends AbstractCp
  		$stream_fields->updated->field_name 		= lang('streams:updated_date');
  		$stream_fields->created_by->field_name 		= lang('streams:created_by');*/
 
-  		static::$fields = static::$query->getFields();
+  		$instance->fields = $instance->model->getFields();
 
-  		static::$field_slugs = static::$fields->getFieldSlugs();
+  		$instance->field_slugs = $instance->fields->getFieldSlugs();
 
-  		static::$columns = static::$standard_columns = static::$fields->getStandardColumns();
+  		$instance->columns = $instance->standard_columns = $instance->fields->getStandardColumns();
 
-  		static::$stream_fields = new \stdClass;
+  		$instance->stream_fields = new \stdClass;
 
-  		foreach (static::$fields as $field)
+  		foreach ($instance->fields as $field)
   		{
-  			static::$stream_fields->{$field->field_slug} = $field;
+  			$instance->stream_fields->{$field->field_slug} = $field;
   		}
 
   		// -------------------------------------
@@ -107,34 +111,26 @@ class Entries extends AbstractCp
 		// @since 2.1.5
 		// -------------------------------------
 
-		if (static::$stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
+		if ($instance->data['stream']->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
-			static::$stream->sorting = 'custom';
+			$instance->data['stream']->sorting = 'custom';
 
 			// As an added measure of obsurity, we are going to encrypt the
 			// slug of the module so it isn't easily changed.
 			ci()->load->library('encrypt');
 
 			// We need some variables to use in the sort.
-			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.static::$stream->id.'; var stream_offset='.$offset.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug']).'";
+			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$instance->data['stream']->id.'; var stream_offset='.$offset.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug']).'";
 				</script>');
 			ci()->template->append_js('streams/entry_sorting.js');
 		}
-  
-  		static::$data = array(
-  			'stream'		=> static::$stream,
-  			'stream_fields'	=> static::$stream_fields,
-  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : null,
-  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
-  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
-  		);
  
  		
  		// -------------------------------------
 		// Filter API
 		// -------------------------------------
 
-		if (ci()->input->get('filter-'.static::$stream->stream_slug))
+		if (ci()->input->get('filter-'.$instance->data['stream']->stream_slug))
 		{
 			// Get all URL variables
 			$url_variables = ci()->input->get();
@@ -188,22 +184,22 @@ class Entries extends AbstractCp
 				{
 					if ($not)
 					{
-						static::$where[] = static::$stream->stream_prefix.static::$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
+						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
 					}
 					else
 					{
-						static::$where[] = static::$stream->stream_prefix.static::$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
+						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
 					}
 				}
 				else
 				{
 					if ($not)
 					{
-						static::$where[] = static::$stream->stream_prefix.static::$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
+						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
 					}
 					else
 					{
-						static::$where[] = static::$stream->stream_prefix.static::$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
+						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
 					}
 				}
 			}
@@ -215,7 +211,7 @@ class Entries extends AbstractCp
 		// Get Entries
 		// -------------------------------------
 		
-		$limit = (static::$pagination) ? $pagination : null;
+		$limit = ($instance->pagination) ? $pagination : null;
 
 
 
@@ -233,68 +229,74 @@ class Entries extends AbstractCp
 		// -------------------------------------
 		
 		// Set title
-		if (isset($extra['title']))
+/*		if (isset($extra['title']))
 		{
 			ci()->template->title(lang_label($extra['title']));
-		}
+		}*/
 
 		// Set custom no data message
 		if (isset($extra['no_entries_message']))
 		{
-			static::$data['no_entries_message'] = $extra['no_entries_message'];
+			$instance->data['no_entries_message'] = $extra['no_entries_message'];
 		}
 
-		return new static;
+		return $instance;
 	}
 
-
-
-	protected static function renderTable($return = false)
+	protected function renderTable($return = false)
 	{
+  		$this->data = array(
+  			'stream'		=> $this->data['stream'],
+  			'stream_fields'	=> $this->stream_fields,
+  			'buttons'		=> $this->buttons,
+  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
+  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
+  		);
+
   		// -------------------------------------
 		// Columns 
 		// @since 2.3
 		// -------------------------------------
 		// If we have array('*'), get all columns
-		// We do it this way to mirror how the query builder selects columns
-		if ( ! empty(static::$columns) and static::$columns[0] === '*')
+		// We do it this way to mirror how the model builder selects columns
+		if ( ! empty($this->columns) and $this->columns[0] === '*')
 		{
-			static::$stream->view_options = array_merge(static::$standard_columns, static::$field_slugs);
+			$this->data['stream']->view_options = array_merge($this->standard_columns, $this->field_slugs);
 		}
 		// If exclude is set to true, get all columns except the ones passed
-		elseif (static::$exclude)
+		elseif ($this->exclude)
 		{
-			static::$stream->view_options = static::$fields->getFieldSlugsExclude(static::$columns);
+			$this->data['stream']->view_options = $this->fields->getFieldSlugsExclude($this->columns);
 		}
 		// Or get just the columns that were passed
-		elseif (static::$columns)
+		elseif ($this->columns)
 		{
-			static::$stream->view_options = static::$columns;
+			$this->data['stream']->view_options = $this->columns;
 		}
 		// Or default to use the standard columns
 		else
 		{
-			static::$stream->view_options = static::$standard_columns;
+			$this->data['stream']->view_options = $this->standard_columns;
 		}
 
-  		static::$data['field_names'] = array();
+  		$this->data['field_names'] = array();
 
-  		foreach (static::$stream->view_options as $view_option)
+  		foreach ($this->data['stream']->view_options as $view_option)
   		{
-  			static::$data['field_names'][] = in_array($view_option, static::$field_slugs) ? lang_label(static::$stream_fields->{$view_option}->field_name) : lang('streams:'.$view_option);
+  			$this->data['field_names'][] = in_array($view_option, $this->field_slugs) ? lang_label($this->stream_fields->{$view_option}->field_name) : lang('streams:'.$view_option);
   		}
 
-		static::$data['entries'] = static::$query->get(static::$stream->view_options, static::$exclude);
+		$this->data['entries'] = $this->model->get($this->data['stream']->view_options, $this->exclude);
 
-//echo static::$data['entries']; exit;
-/*		static::$data['pagination'] = create_pagination(
-									static::$pagination_uri,
-									ci()->db->select('id')->count_all_results(static::$stream->stream_prefix.static::$stream->stream_slug),
-									static::$pagination,
-									static::$offset_uri
+//echo $this->data['entries']; exit;
+/*		$this->data['pagination'] = create_pagination(
+									$this->pagination_uri,
+									ci()->db->select('id')->count_all_results($this->stream->stream_prefix.$this->stream->stream_slug),
+									$this->pagination,
+									$this->offset_uri
 								);*/
 
-		$table = ci()->load->view('admin/partials/streams/entries', static::$data, true);
+		$table = ci()->load->view('admin/partials/streams/entries', $this->data, true);
 
 		if ( ! $return)
 		{
@@ -307,4 +309,67 @@ class Entries extends AbstractCp
 			return $table;
 		}
 	}
+
+	public static function form($stream_slug, $stream_namespace, $id = null)
+	{	
+		// Load up things we'll need for the form
+		ci()->load->library(array('form_validation'));
+
+		// Prepare the stream, model and render method
+		$instance = static::instance($stream_slug, $stream_namespace, __function__);
+
+		$entry = $instance->model->getEntry($id);
+
+		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($entry);
+
+		$instance->form_fields = $instance->form->buildForm();
+		
+		return $instance;	
+	}
+
+	public function renderForm()
+	{
+		$this->data['fields']	= $this->form_fields;
+		$this->data['tabs']		= $this->tabs;
+		$this->data['hidden']	= $this->hidden;
+		$this->data['defaults']	= $this->defaults;
+		$this->data['entry']	= $this->entry;
+		$this->data['fields']	= $this->form_fields;
+		$this->data['mode']		= $this->mode;
+		
+		// Set return uri
+		$this->data['return']	= $this->return;
+
+		// Set the no fields mesage. This has a lang default.
+		$this->data['no_fields_message']	= $this->no_fields_message;
+		
+		if (empty($this->data['tabs']))
+		{
+			$form = ci()->load->view('admin/partials/streams/form', $this->data, true);
+		}
+		else
+		{
+			$form = ci()->load->view('admin/partials/streams/tabbed_form', $this->data, true);
+		}
+		
+		if ($this->view_override === false) return $form;
+		
+		$this->data['content'] = $form;
+		
+		ci()->template->build('admin/partials/blank_section', $this->data);
+	}
+
+	protected static function instance($stream_slug, $namespace_slug, $render = null)
+	{
+		$instance = new static;
+
+		$instance->render = $render;
+
+		$instance->model = Model\Entry::stream($stream_slug, $namespace_slug);
+
+		$instance->data['stream'] = $instance->stream = $instance->model->getStream();
+
+		return $instance;
+	}
+
 }

@@ -6,77 +6,133 @@ use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractCp
 {
-	protected static $query = null;
+	protected static $instance;
 
-	protected static $data = array();
+	protected $query = null;
 
-	protected static $render = null;
+	protected $data = array();
 
-	protected static $pagination = null;
+	protected $render = null;
 
-	protected static $pagination_uri = null;
+	protected $pagination = null;
 
-	protected static $offset = null;
+	protected $pagination_uri = null;
 
-	protected static $offset_uri = null;
+	protected $offset = null;
 
-	protected static $stream = null;
+	protected $offset_uri = null;
 
-	protected static $columns = array('*');
+	protected $stream = null;
 
-	protected static $exclude = false;
+	protected $columns = array('*');
 
-	public static function query(Closure $callback = null)
+	protected $buttons = array();
+
+	protected $title = null;
+
+	protected $exclude = false;
+
+	protected $form = null;
+
+	protected $defaults = array();
+
+	protected $return = null;
+
+	public function query(Closure $callback = null)
 	{
-		static::$query = call_user_func($callback, static::$query);
+		$this->model = call_user_func($callback, $this->model);
 
-		return new static;
+		return $this;
 	}
 
-	public static function pagination($pagination = null, $pagination_uri = null)
+	public function pagination($pagination = null, $pagination_uri = null)
 	{
-		static::$pagination = $pagination;
-		static::$pagination_uri = $pagination_uri;
+		$this->pagination = $pagination;
+		$this->pagination_uri = $pagination_uri;
 		
 		// -------------------------------------
 		// Find offset URI from array
 		// -------------------------------------
 
-		if (is_numeric(static::$pagination))
+		if (is_numeric($this->pagination))
 		{
-			$segs = explode('/', static::$pagination_uri);
-			static::$offset_uri = count($segs)+1;
+			$segs = explode('/', $this->pagination_uri);
+			$this->offset_uri = count($segs)+1;
 
-				static::$offset = ci()->uri->segment(static::$offset_uri, 0);
+				$this->offset = ci()->uri->segment($this->offset_uri, 0);
 
 			// Calculate actual offset if not first page
 			if ( $offset > 0 )
 			{
-				static::$offset = ($offset - 1) * static::$pagination;
+				$this->offset = ($offset - 1) * $this->pagination;
 			}
 		}
 		else
 		{
-			static::$offset_uri = null;
-			static::$offset = 0;
+			$this->offset_uri = null;
+			$this->offset = 0;
 		}
 	
-		return new static;
+		return $this;
 	}
 
-	public static function columns($columns = '*', $exclude = false)
+	public function columns($columns = '*', $exclude = false)
 	{
 		$columns = is_string($columns) ? array($columns) : $columns;
 		
-		static::$columns = $columns;
-		static::$exclude = $exclude;
+		$this->columns = $columns;
+		$this->exclude = $exclude;
 
-		return new static;
+		return $this;
+	}
+
+	public function buttons(array $buttons = array())
+	{
+		$this->buttons = $buttons;
+
+		return $this;
+	}
+
+	public function title($title = null)
+	{
+		ci()->template->title(lang_label($title));
+
+		$this->title;
+
+		return $this;
+	}
+
+	public function tabs(array $tabs = array())
+	{
+		$this->tabs = $tabs;
+
+		return $this;
+	}
+
+	public static function hidden(array $hidden = array())
+	{
+		$this->hidden = $hidden;
+
+		return $this;
+	}
+
+	public static function defaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
 	}
 
 	public function render()
 	{
-		$method = camel_case('render'.static::$render);
+		$method = camel_case('render'.$this->render);
 
 		if (method_exists($this, $method))
 		{
