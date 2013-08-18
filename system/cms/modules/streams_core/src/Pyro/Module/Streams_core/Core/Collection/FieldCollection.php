@@ -6,7 +6,7 @@ class FieldCollection extends EloquentCollection
 {
 	protected $standard_columns = array();
 
-	public function findBySlug($field_slug)
+	public function findBySlug($field_slug = null)
 	{
 		return $this->findByAttribute($field_slug, 'field_slug');
 	}
