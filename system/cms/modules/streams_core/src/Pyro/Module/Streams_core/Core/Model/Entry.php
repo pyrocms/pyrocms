@@ -116,9 +116,18 @@ class Entry extends Eloquent
         $this->exists = $this->getKey() ? true : false;
     }
 
-    public static function saving($entry)
+    /**
+     * Return a new Entry model only if the stream is set
+     * @return Pyro\Module\Streams_core\Core\Model\Entry The new Entry model
+     */
+    public function newEntry()
     {
-        echo 'Saving!'; exit;
+        if ( ! $this->stream)
+        {
+            return false;
+        }
+
+        return $this->newInstance();
     }
 /*    public static function boot()
     {
