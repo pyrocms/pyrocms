@@ -163,7 +163,7 @@ class Field_image
 
 		$this->CI->load->library('files/files');
 
-		$file = Files::get_file($input);
+		$file = Files::getFile($input);
 
 		if ($file['status'])
 		{
