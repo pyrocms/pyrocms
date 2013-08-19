@@ -4,72 +4,197 @@ namespace Pyro\Module\Streams_core\Core\Support;
 use Closure;
 use Pyro\Module\Streams_core\Core\Model;
 
-abstract class AbstractCp
+abstract class AbstractCp extends AbstractSupport
 {
-	protected static $query = null;
 
-	protected static $data = array();
+	protected $add_uri = null;
 
-	protected static $render = null;
+	protected $buttons = array();
 
-	protected static $pagination = null;
+	protected $columns = array('*');
 
-	protected static $pagination_uri = null;
+	protected $data = array();
 
-	protected static $offset = null;
+	protected $defaults = array();
 
-	protected static $offset_uri = null;
+	protected $entry = null;
 
-	protected static $stream = null;
+	protected $exclude = false;
 
-	protected static $columns = null;
+	protected $fields = null;
 
-	protected static $columns_exclude = false;
+	protected $field_names = array();
 
-	public static function query(Closure $callback = null)
+	protected $field_slugs = array();
+
+	protected $form = null;
+
+	protected $form_fields = null;
+
+	protected $form_wrapper = true;
+
+	protected $hidden = array();
+
+	protected static $instance;
+
+	protected $mode = null;
+
+	protected $model = null;
+
+	protected $namespace = null;
+
+	protected $no_fields_message = null;
+
+	protected $offset = null;
+
+	protected $offset_uri = null;
+
+	protected $pagination = null;
+
+	protected $pagination_uri = null;
+
+	protected $render = null;
+
+	protected $return = null;
+
+	protected $standard_columns = array();
+
+	protected $skips = null;
+
+	protected $stream = null;
+
+	protected $stream_fields = null;
+
+	protected $tabs = array();
+
+	protected $title = null;
+
+	protected $view_override = true;
+
+	public function __construct()
 	{
-		static::$query = call_user_func($callback, static::$query);
-
-		return new static;
+		// @todo - This is here to make sure the types are remove this when we finish the new Type class. language depends on this too
+		ci()->load->driver('Streams');
 	}
 
-	public static function setPagination($pagination = null, $pagination_uri = null)
+	public function addUri($add_uri = null)
 	{
-		static::$pagination = $pagination;
-		static::$pagination_uri = $pagination_uri;
+		$this->add_uri = $add_uri;
+
+		return $this;
+	}	
+
+	public function buttons(array $buttons = array())
+	{
+		$this->buttons = $buttons;
+
+		return $this;
+	}
+
+	public function defaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function fields($columns = '*', $exclude = false)
+	{
+		$columns = is_string($columns) ? array($columns) : $columns;
+		
+		$this->columns = $columns;
+		$this->exclude = $exclude;
+
+		return $this;
+	}
+
+	public static function hidden(array $hidden = array())
+	{
+		$this->hidden = $hidden;
+
+		return $this;
+	}
+
+	protected static function instance($render = null)
+	{
+		$instance = new static;
+
+		$instance->render = $render;
+
+		return $instance;
+	}
+
+	public function pagination($pagination = null, $pagination_uri = null)
+	{
+		$this->pagination = $pagination;
+		$this->pagination_uri = $pagination_uri;
 		
 		// -------------------------------------
 		// Find offset URI from array
 		// -------------------------------------
 
-		if (is_numeric(static::$pagination))
+		if (is_numeric($this->pagination))
 		{
-			$segs = explode('/', static::$pagination_uri);
-			static::$offset_uri = count($segs)+1;
+			$segs = explode('/', $this->pagination_uri);
+			$this->offset_uri = count($segs)+1;
 
-				static::$offset = ci()->uri->segment(static::$offset_uri, 0);
+				$this->offset = ci()->uri->segment($this->offset_uri, 0);
 
 			// Calculate actual offset if not first page
 			if ( $offset > 0 )
 			{
-				static::$offset = ($offset - 1) * static::$pagination;
+				$this->offset = ($offset - 1) * $this->pagination;
 			}
 		}
 		else
 		{
-			static::$offset_uri = null;
-			static::$offset = 0;
+			$this->offset_uri = null;
+			$this->offset = 0;
 		}
 	
-		return new static;
+		return $this;
 	}
 
-	public static function setColumns(array $columns = array('*'), $exclude = false)
+	public function query(Closure $callback = null)
 	{
-		static::$columns = $columns;
-		static::$columns_exclude = $exclude;
+		$this->model = call_user_func($callback, $this->model);
 
-		return new static;
+		return $this;
+	}
+
+	public function tabs(array $tabs = array())
+	{
+		$this->tabs = $tabs;
+
+		return $this;
+	}
+
+	public function title($title = null)
+	{
+		ci()->template->title(lang_label($title));
+
+		$this->title;
+
+		return $this;
+	}
+
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
+	}
+
+	public function render()
+	{
+		$method = camel_case('render'.$this->render);
+
+		if (method_exists($this, $method))
+		{
+			return $this->{$method}();
+		}
+
+		return false;
 	}
 
 }

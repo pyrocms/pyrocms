@@ -4,18 +4,34 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
-	public function findBySlug($field_slug)
+	protected $standard_columns = array();
+
+	public function findBySlug($field_slug = null)
 	{
 		return $this->findByAttribute($field_slug, 'field_slug');
 	}
 
-	public function getFieldSlugsArray()
+	public function getFieldSlugs()
 	{
 		return array_values($this->lists('field_slug'));
 	}
 
-	public function getFieldsSlugsExclusive(array $exlude = array())
+	public function getFieldSlugsExclude(array $columns = array())
 	{
-		return array_diff($this->getFieldSlugsArray(), $exlude);
+		$all = array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+
+		return array_diff($all, $columns);
+	}
+
+	public function setStandardColumns(array $standard_columns = array())
+	{
+		$this->standard_columns = $standard_columns;
+
+		return $this;
+	}
+
+	public function getStandardColumns()
+	{
+		return $this->standard_columns;
 	}
 }

@@ -8,11 +8,11 @@
 
 	<?php foreach ($fields as $field) { ?>
 
-		<li class="<?php echo in_array($field['input_slug'], $hidden) ? 'hidden' : null; ?>">
-			<label for="<?php echo $field['input_slug'];?>"><?php echo $this->fields->translate_label($field['input_title']);?> <?php echo $field['required'];?>
+		<li class="<?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
+			<label for="<?php echo $field['input_slug'];?>"><?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
 
 			<?php if( $field['instructions'] != '' ): ?>
-				<br /><small><?php echo $this->fields->translate_label($field['instructions']); ?></small>
+				<br /><small><?php echo lang_label($field['instructions']); ?></small>
 			<?php endif; ?>
 			</label>
 

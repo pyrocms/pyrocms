@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Streams_core\Cp;
+
 /**
  * Control Panel Driver
  *
@@ -64,6 +67,8 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
+		return Cp\Entries::table($stream_slug, $namespace_slug)->render();
+
 		$CI = get_instance();
 		
 		// Get stream

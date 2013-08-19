@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
-
+use Pyro\Module\Streams_core\Core\Model;
 /**
  * Field Field Type
  *
@@ -68,6 +68,9 @@ class Field_field extends AbstractField
 	 */
 	public $author					= array('name' => 'Osvaldo Brignoni', 'url' => 'http://obrignoni.com');
 
+	protected $selected_field = null;
+
+	protected $selected_type = null;
 
     /**
     * Output the form
@@ -77,17 +80,11 @@ class Field_field extends AbstractField
     * @param   object
     * @return  string
     */
-    public function form_output($data, $row_id, $field)
+    public function form_output()
     {	
     	$form = '';
 
-    	$row = $row_id ? ci()->db->where('id', $row_id)->get($field->stream_prefix.$field->stream_slug)->row() : null;
-    	
-    	$selectable_fields_namespace	= ! empty($field->field_data['namespace']) ? $field->field_data['namespace'] : $field->stream_namespace;	
-    	$selected_field_slug_column		= $field->field_slug.'_field_slug'; 
-    	$selected_field_slug			= isset($row->{$selected_field_slug_column}) ? $row->{$selected_field_slug_column} : $data['value'];
-    	
-    	if ($selected_field = ci()->fields_m->get_field_by_slug($selected_field_slug, $selectable_fields_namespace))
+    	if ($selected_field = $this->getSelectedField())
     	{
 			// This is a field instance not an assignment. Ensure this is a complete field object.
 			$selected_field = $this->field_obj($selected_field);
@@ -99,15 +96,17 @@ class Field_field extends AbstractField
 			$default_value = isset($selected_field->field_data['default_value']) ? $selected_field->field_data['default_value'] : null;
 
 			// Set the value if any
-			$value = isset($row->{$field->field_slug}) ? $row->{$field->field_slug} : $default_value;
+			$value = isset($this->entry->{$field->field_slug}) ? $this->entry->{$field->field_slug} : $default_value;
+
+			$selected_type = $this->getSelectedFieldType();
 
 			// Build the selected field form
-			$form .= form_hidden($field->field_slug, $selected_field_slug);
-    		$form .= ci()->fields->build_form_input($selected_field, $value, $row_id);
+			$form .= form_hidden($field->field_slug, $selected_field->field_slug);
+    		$form .= $selected_type->getForm();
     	}
 		elseif($options = $this->get_selectable_fields($field->stream_slug, $field->stream_namespace, $selectable_fields_namespace, $field->field_slug))
 		{	
-			$form = form_dropdown($field->field_slug, $options, $selected_field_slug);
+			$form = form_dropdown($field->field_slug, $options, $selected_field->field_slug);
 		}
     	else
     	{
@@ -161,7 +160,7 @@ class Field_field extends AbstractField
     public function pre_save($input, $field, $stream, $row_id, $form_data)
     {
     	// First, determine if we have saved the selected field, if not, consider this a new entry
-    	$row = ci()->db->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
+    	$row = ci()->db->where('id', $row_id)->get($this->stream->stream_prefix.$this->stream->stream_slug)->row();
 
     	// @todo - find a less hacky way of checking if it has been updated
     	$method = strtotime($row->updated) > 0 ? 'edit' : 'new';
@@ -175,7 +174,7 @@ class Field_field extends AbstractField
 	        	$field->field_slug.'_field_slug' => $input
 	        );
 
-			ci()->db->where('id', $row_id)->update($stream->stream_prefix.$stream->stream_slug, $update_data);
+			ci()->db->where('id', $row_id)->update($this->stream->stream_prefix.$this->stream->stream_slug, $update_data);
     	
 	    	if (isset($form_data[$selected_field->field_slug]))
 	    	{
@@ -198,7 +197,7 @@ class Field_field extends AbstractField
 						$field->field_slug => $pre_process_data[$selected_field->field_slug]
 					);
 					// Save it
-					if (ci()->db->where('id', $row_id)->update($stream->stream_prefix.$stream->stream_slug, $update_data))
+					if (ci()->db->where('id', $row_id)->update($this->stream->stream_prefix.$this->stream->stream_slug, $update_data))
 					{
 						// Fire an event to after updating this entry
 						Events::trigger('field_field_type_updated', array(
@@ -226,13 +225,13 @@ class Field_field extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_pre_output($value)
+	public function alt_pre_output()
 	{
 		$output = '';
-
+exit;
 		$selected_field_slug_column = $this->field->field_data['field_slug'].'_field_slug';
 
-		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $stream->stream_namespace;
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->stream->stream_namespace;
 
 		// Get the only the entry columns we need
 		$select[] = $selected_field_slug_column; 
@@ -241,13 +240,12 @@ class Field_field extends AbstractField
 			$select[] = $this->field->field_data['field_slug'];
 		}
 
-		if ($selected_field = ci()->fields_m->get_field_by_slug($this->entry->{$selected_field_slug_column}, $selectable_fields_namespace))
+		if ($selected_type = $this->getSelectedFieldType())
 		{
 
 			// This is an option for field types that primarily return an array
 			// First check if the field wants to alternatively return a string
-			if ($selected_type = ci()->type->load_single_type($selected_field->field_type)
-				and method_exists($selected_type, 'alt_pre_output_field_field_type'))
+			if (method_exists($selected_type, 'alt_pre_output_field_field_type'))
 			{
 				$output = $selected_type->alt_pre_output_field_field_type($this->entry, $this->field->field_data, $type, $this->stream, $selected_field);
 			}
@@ -262,11 +260,9 @@ class Field_field extends AbstractField
 			// Else we will expect this field to go through its pre process and return a string
 			elseif ($this->field->field_data['storage'] != 'custom')
 			{
-				$output = ci()->row_m->format_column(
-					$selected_field->field_slug, $this->entry->{$this->field->field_data['field_slug']}, $this->entry->id, 
-					$selected_field->field_type, $selected_field->field_data, $this->stream, false);
+				$output = $selected_type->getFormattedValue();
 
-				$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
+				//$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
 
 				// Double check if this is a string, decode any html entities. Else, return the unprocessed value
 				// This ensures that Lex tags get decoded before getting parsed
@@ -277,8 +273,8 @@ class Field_field extends AbstractField
 					if (defined('ADMIN_THEME'))
 		{
 			$output = is_string($output) ? ci()->parser->parse_string($output, array(), true) : $output;
-			$output = '<div class="streams-field-field-output '.$selected_field->field_slug.'">'. 
-			$output .' <span class="muted">('.lang_label($selected_field->field_name).')</span></div>';
+			$output = '<div class="streams-field-field-output '.$selected_type->field->field_slug.'">'. 
+			$output .' <span class="muted">('.lang_label($selected_type->field->field_name).')</span></div>';
 		}
 		}
 
@@ -298,7 +294,7 @@ class Field_field extends AbstractField
 
     	$schema = ci()->pdb->getSchemaBuilder();
 		
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field, $max_length) {
+		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($field, $max_length) {
 
 			// Add a column to store the field slug
 			$table
@@ -324,7 +320,7 @@ class Field_field extends AbstractField
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field) {
+		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($field) {
 			// Drop the field slug column
 			$table->dropColumn($field->field_slug.'_field_slug');
 
@@ -422,6 +418,29 @@ class Field_field extends AbstractField
 		$field->is_unique = isset($field->is_required) ? $field->is_required : 'no';
 
 		return $field;
+	}
+
+	public function getSelectedField()
+	{
+		//echo $this->field; exit;
+
+		$selected_field_slug_column = $this->field->field_slug.'_field_slug'; 
+
+		$selected_field_slug = $this->entry->{$selected_field_slug_column} ? $this->entry->{$selected_field_slug_column} : $this->value;
+
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->stream_namespace;
+
+		$selected_field = Model\Field::getBySlugAndNamespace($selected_field_slug, $selectable_fields_namespace);
+	}
+
+	public function getSelectedFieldType()
+	{
+		if ($selected_type = Type::getFieldType($selected_field, $this->entry))
+		{
+			return $selected_type;	
+		}
+
+		return false;
 	}
 
 }

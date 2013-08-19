@@ -32,38 +32,28 @@ class Stream extends Eloquent
 	}
 
 	// This returns a consistent Eloquent Collection from either the cache or a new query
-	public static function findManyByNamespace($namespace)
+	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = 0)
 	{
-		if (static::isCache('all'))
-		{	
-			return static::all()->findManyByNamespace($namespace);
-		}
-		else
-		{
-			return static::where('namespace', '=', $namespace)->get();
-		}
+		return static::where('namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
 	}
 
     // This returns a consistent Eloquent model from either the cache or a new query
-	public static function findBySlugAndNamespace($slug = '', $namespace = '')
+	public static function findBySlugAndNamespace($stream_slug = '', $stream_namespace = '')
 	{
-		// If the cache is set, get the model from it, if not query it.
-		if (static::isCache('all'))
-		{	
-			return static::all()->findBySlugAndNamespace($slug, $namespace);
-		} 
-		else
-		{
-			return static::where('stream_slug', $slug)
-				->where('stream_namespace', $namespace)
-				->take(1)
-				->first();
-		}
+		return static::where('stream_slug', $stream_slug)
+			->where('stream_namespace', $stream_namespace)
+			->take(1)
+			->first();
 	}
 
-	public static function getIdFromSlugAndNamespace($slug = '', $namespace = '')
+	public static function findBySlug($stream_slug = '')
 	{
-		if ($stream = static::findBySlugAndNamespace($slug, $namespace))
+		return static::where('stream_slug', $stream_slug)->take(1)->first();
+	}
+
+	public static function getIdFromSlugAndNamespace($stream_slug = '', $stream_namespace = '')
+	{
+		if ($stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace))
 		{
 			return $stream->id;
 		}
@@ -71,11 +61,11 @@ class Stream extends Eloquent
 		return false;
 	}
 
-	public static function total($namespace = null)
+	public static function total($stream_namespace = null)
 	{
-		if ($namespace)
+		if ($stream_namespace)
 		{
-			return static::findManyByNamespace($namespace)->count();	
+			return static::findManyByNamespace($stream_namespace)->count();	
 		}
 
 		return static::all()->count();
@@ -95,7 +85,6 @@ class Stream extends Eloquent
 			return false;
 		}
 
-		$attributes['stream_prefix']	= isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : null;
 		$attributes['is_hidden']		= isset($attributes['is_hidden']) ? $attributes['is_hidden'] : false;
 		$attributes['sorting']			= isset($attributes['sorting']) ? $attributes['sorting'] : 'title';
 		$attributes['view_options']		= isset($attributes['view_options']) ? $attributes['view_options'] : array('id', 'created');
@@ -144,6 +133,15 @@ class Stream extends Eloquent
 		}
 
 		return parent::update($attributes);
+	}
+
+	public function delete()
+	{
+		$schema = ci()->pdb->getSchemaBuilder();
+
+		$schema->dropIfExists($this->getAttribute('prefix').$this->getAttribute('stream_slug'));
+
+		return parent::delete();
 	}
 
 	public function getIsHiddenAttribute($is_hidden)

@@ -6,7 +6,7 @@ abstract class AbstractField
 
 	protected $value = null;
 
-	protected $is_plugin = false;
+	protected $plugin = false;
 
 	protected $query = null;
 
@@ -29,16 +29,16 @@ abstract class AbstractField
 		$this->value = $value;
 	}
 
-	public function setMethod($method = 'new')
+	public function setPlugin($plugin = null)
 	{
-		$this->method = $method;
+		$this->plugin = $plugin;
 
 		return $this;
 	}
 
-	public function setPlugin($is_plugin = true)
+	public function setMethod($method = 'new')
 	{
-		$this->is_plugin = $is_plugin;
+		$this->method = $method;
 
 		return $this;
 	}
@@ -55,6 +55,11 @@ abstract class AbstractField
 		$this->field = $field;
 
 		return $this;
+	}
+
+	public function getField()
+	{
+		return $this->field;
 	}
 
 	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
@@ -103,18 +108,16 @@ abstract class AbstractField
 		// Is this an alt process type?
 		if ($this->alt_process === true)
 		{
-			if ( ! $this->is_plugin and method_exists($this, 'alt_pre_output'))
+			if ( ! $this->plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
-			
-			return $this->value;
 		}	
 		else
 		{
 			// If not, check and see if there is a method
 			// for pre output or pre_output_plugin
-			if ($this->is_plugin and method_exists($this, 'pre_output_plugin'))
+			if ($this->plugin and method_exists($this, 'pre_output_plugin'))
 			{
 				return $this->pre_output_plugin();
 			}
@@ -124,34 +127,24 @@ abstract class AbstractField
 			}
 		}
 
-		return $this->value;
+		return $this->getValue();
 	}
 
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
-		$this->form_data['form_slug']	= $this->field->field_slug;
-		$this->form_data['custom'] 		= $this->field->field_data;
-		$this->form_data['value']		= $this->value;
-		$this->form_data['max_length']	= (isset($this->field->field_data['max_length'])) ? $this->field->field_data['max_length'] : null;
-
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->is_plugin)
+		if ($this->plugin and method_exists($this, 'form_output_plugin'))
 		{
-			if (method_exists($this, 'form_output_plugin'))
-			{
-				return $this->form_output_plugin();
-			}
-			else
-			{
-				return false;
-			}
+			return $this->form_output_plugin();
 		}
-		else
+		elseif (method_exists($this, 'form_output'))
 		{
 			return $this->form_output();
 		}
+
+		return false;
 	}
 
 }

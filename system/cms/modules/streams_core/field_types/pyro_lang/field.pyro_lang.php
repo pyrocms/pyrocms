@@ -17,7 +17,7 @@ class Field_pyro_lang extends AbstractField
 {
 	public $field_type_slug			= 'pyro_lang';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.0.0';
 
@@ -38,11 +38,12 @@ class Field_pyro_lang extends AbstractField
 	{
 	    $languages = array();
 
-	    if ($this->form_data['custom']['filter_theme'] = 'yes') {
+	    if ($this->field->field_data['filter_theme'] == 'yes') {
 	  		// get the languages offered on the front-end
 		    $site_public_lang = explode(',', Settings::get('site_public_lang'));
 
-		    foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
+		    foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang)
+		    {
 		       // if the supported language is offered on the front-end
 		       if (in_array($lang_code, $site_public_lang)) {
 	          		// add it to the dropdown list
@@ -50,13 +51,14 @@ class Field_pyro_lang extends AbstractField
 		       }
 		    }
 	    } else {
-	    	foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
+	    	foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang)
+	    	{
 				// add it to the dropdown list
 				$languages[$lang_code] = $lang['name'];
 			}
 		}
 
-		return form_dropdown($this->form_data['form_slug'], $languages, $this->form_data['value']);
+		return form_dropdown($this->field->field_slug, $languages, $this->value);
 	}
 
 	// --------------------------------------------------------------------------
