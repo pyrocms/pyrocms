@@ -1,8 +1,10 @@
 <?php namespace Pyro\Module\Streams_core\Data;
 
+use Closure;
 use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\Core\Support\AbstractData;
 
-class Entries
+class Entries extends AbstractData
 {
 
 	public static function getEntry($id = null, $stream_slug = null, $stream_namespace = null, $format = true, $plugin = true)
@@ -12,7 +14,7 @@ class Entries
 
 	public static function deleteEntry()
 	{
-		
+
 	}
 
 }
