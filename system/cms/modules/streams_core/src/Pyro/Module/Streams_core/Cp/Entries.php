@@ -43,9 +43,9 @@ class Entries extends AbstractCp
 	public static function table($stream_slug, $stream_namespace, $pagination = null, $pagination_uri = null, $extra = array())
 	{	
 		// Prepare the stream, model and render method
-		$instance = static::instance($stream_slug, $stream_namespace, __function__);
+		$instance = static::instance(__function__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $namespace_slug);
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 
 		$instance->data['stream'] = $instance->stream = $instance->model->getStream();
 
@@ -222,6 +222,30 @@ class Entries extends AbstractCp
 		return $instance;
 	}
 
+	public static function form($stream_slug, $stream_namespace, $id = null)
+	{	
+		// Load up things we'll need for the form
+		ci()->load->library(array('form_validation'));
+
+		// Prepare the stream, model and render method
+		$instance = static::instance(__function__);
+
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
+
+		if ($id)
+		{
+			$instance->entry = $instance->model->getEntry($id);
+		}
+		else
+		{
+			$instance->entry = $instance->model->newEntry();
+		}
+
+		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($instance->entry);
+
+		return $instance;	
+	}
+
 	protected function renderTable($return = false)
 	{
   		$this->data = array(
@@ -287,21 +311,6 @@ class Entries extends AbstractCp
 			// Otherwise, we are returning the table
 			return $table;
 		}
-	}
-
-	public static function form($stream_slug, $stream_namespace, $id = null)
-	{	
-		// Load up things we'll need for the form
-		ci()->load->library(array('form_validation'));
-
-		// Prepare the stream, model and render method
-		$instance = static::instance($stream_slug, $stream_namespace, __function__);
-
-		$instance->entry = $instance->model->getEntry($id);
-
-		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($instance->entry);
-
-		return $instance;	
 	}
 
 	public function renderForm()

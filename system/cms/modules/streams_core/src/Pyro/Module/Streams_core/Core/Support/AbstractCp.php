@@ -4,7 +4,7 @@ namespace Pyro\Module\Streams_core\Core\Support;
 use Closure;
 use Pyro\Module\Streams_core\Core\Model;
 
-abstract class AbstractCp
+abstract class AbstractCp extends AbstractSupport
 {
 
 	protected $add_uri = null;
