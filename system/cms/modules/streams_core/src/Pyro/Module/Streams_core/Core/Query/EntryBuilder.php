@@ -60,6 +60,8 @@ class EntryBuilder extends Builder
 		// Replicate the model to keep the original intact
 		$clone = $entry->replicate();
 
+		$clone->setFields($this->model->getFields());
+		
 		// Restore the primary key to the replicated model, only if it is set
 		if (isset($entry->{$this->model->getKeyName()}))
 		{
@@ -74,7 +76,7 @@ class EntryBuilder extends Builder
 				// If not replicate the raw value
 				$clone->{$field_slug} = $entry->{$field_slug};
 			}
-			elseif ($type = $entry->getFieldType($field_slug, $entry))
+			elseif ($type = $entry->getFieldType($field_slug))
 			{
 				// Set the unformatted value, we might need it
 				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
@@ -89,11 +91,11 @@ class EntryBuilder extends Builder
 
     protected function requireKey(array $columns = array('*'))
     {
-        if ( ! $columns[0] === '*' and ! in_array($this->model->getKeyName(), $columns))
+        if ( ! count($columns) !== 1 and $columns[0] !== '*')
         {
             array_unshift($columns, $this->model->getKeyName());
         }
 
-        return $columns;
+        return array_unique($columns);
     }
 }
