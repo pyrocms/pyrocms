@@ -29,6 +29,8 @@ class Form
 
 	protected $form_key = null;
 
+	protected $fields = null;
+
 	protected $key_check = null;
 
 	protected $skips = array();
@@ -44,8 +46,8 @@ class Form
     public function __construct($entry = null)
     {
     	$this->entry = $entry;
-
-    	$this->fields = $entry->getStream()->getModel()->getRelation('assignments')->getFields();
+		
+		$this->fields = $entry->getModel()->getFields();
 
     	$this->method = $entry->getKey() ? 'edit' : 'new';
 
