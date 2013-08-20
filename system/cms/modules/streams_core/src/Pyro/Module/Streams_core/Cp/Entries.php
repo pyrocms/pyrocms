@@ -48,7 +48,7 @@ class Entries extends AbstractCp
 
 		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 
-		$instance->data['stream'] = $instance->stream = Data\Streams::getStream($stream_slug, $stream_namespace);
+		$instance->data['stream'] = $instance->model->getStream();
 
  		// -------------------------------------
 		// Get Header Fields
