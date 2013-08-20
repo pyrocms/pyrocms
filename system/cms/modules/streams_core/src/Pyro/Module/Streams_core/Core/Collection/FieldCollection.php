@@ -6,9 +6,21 @@ class FieldCollection extends EloquentCollection
 {
 	protected $standard_columns = array();
 
+	protected $indexed_by_slug = array();
+
+	public function __construct(array $fields = array())
+	{
+		parent::__construct($fields);
+
+		foreach ($fields as $field)
+		{
+			$this->indexed_by_slug[$field->field_slug] = $field;
+		}
+	}
+
 	public function findBySlug($field_slug = null)
 	{
-		return $this->findByAttribute($field_slug, 'field_slug');
+		return isset($this->indexed_by_slug[$field_slug]) ? $this->indexed_by_slug[$field_slug] : null;
 	}
 
 	public function getFieldSlugs()
@@ -33,5 +45,10 @@ class FieldCollection extends EloquentCollection
 	public function getStandardColumns()
 	{
 		return $this->standard_columns;
+	}
+
+	protected function getArrayIndexedBySlug()
+	{
+		return $this->indexed_by_slug;
 	}
 }
