@@ -1,6 +1,6 @@
 <?php $this->load->view('admin/partials/streams/filters'); ?>
 
-<?php if ($entries) { ?>
+<?php if ($entries->count() > 0) { ?>
 
     <table class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
@@ -28,7 +28,7 @@
 						
 					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
 
-				} elseif ($view_option == 'created_by') { ?>
+				} elseif ($view_option == 'created_by' and isset($entry->user)) { ?>
 
 					<a href="<?php echo site_url('admin/users/edit/'. $entry->user->id); ?>">
 						<?php echo $entry->user->username; ?>

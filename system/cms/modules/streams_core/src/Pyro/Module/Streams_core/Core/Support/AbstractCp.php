@@ -21,6 +21,8 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $exclude = false;
 
+	protected $exclude_types = null;
+
 	protected $fields = null;
 
 	protected $field_names = array();
@@ -34,6 +36,10 @@ abstract class AbstractCp extends AbstractSupport
 	protected $form_wrapper = true;
 
 	protected $hidden = array();
+
+	protected $include_types = null;
+
+	protected $id = null;
 
 	protected static $instance;
 

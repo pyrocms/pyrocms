@@ -3,6 +3,7 @@
 // The CP driver is broken down into more logical classes
 
 use Closure;
+use Pyro\Module\Streams_core\Data;
 use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 
@@ -47,7 +48,7 @@ class Entries extends AbstractCp
 
 		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 
-		$instance->data['stream'] = $instance->stream = $instance->model->getStream();
+		$instance->data['stream'] = $instance->stream = Data\Streams::getStream($stream_slug, $stream_namespace);
 
  		// -------------------------------------
 		// Get Header Fields
@@ -241,7 +242,7 @@ class Entries extends AbstractCp
 			$instance->entry = $instance->model->newEntry();
 		}
 
-		$instance->form = new \Pyro\Module\Streams_core\Core\Field\Form($instance->entry);
+		$instance->form = $instance->entry->newFormBuilder();
 
 		return $instance;	
 	}
@@ -291,7 +292,7 @@ class Entries extends AbstractCp
 
 		$this->data['entries'] = $this->model->get($this->data['stream']->view_options, $this->exclude);
 
-//echo $this->data['entries']; exit;
+
 /*		$this->data['pagination'] = create_pagination(
 									$this->pagination_uri,
 									ci()->db->select('id')->count_all_results($this->stream->stream_prefix.$this->stream->stream_slug),
