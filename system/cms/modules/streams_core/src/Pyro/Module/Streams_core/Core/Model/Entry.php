@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Type;
 use Pyro\Module\Streams_core\Core\Model\Stream;
 
 // Eloquent was not designed to talk to different tables from a single model but
@@ -37,23 +38,27 @@ class Entry extends Eloquent
      */
     protected $guarded = array('id');
 
-    protected $dates = array('created', 'updated');
-
     protected $stream_slug = null;
 
     protected $stream_namespace = null;
 
-    protected $stream = null;
-
     protected $stream_prefix = null;
 
-    protected $field_assignments = null;
+    protected $stream = null;
+
+    protected $assignments = null;
 
     protected $field_type_instances = null;
 
     protected $unformatted_values = array();
 
     protected $instance = null;
+
+    protected $format = true;
+
+    protected $plugin = true;
+
+    protected $user_columns = array('id', 'username');
 
     /**
      * The name of the "created at" column.
@@ -68,6 +73,13 @@ class Entry extends Eloquent
      * @var string
      */
     const UPDATED_AT = 'updated';
+
+    /**
+     * The name of the "created at" column.
+     *
+     * @var string
+     */
+    const CREATED_BY = 'created_by';
 
     public function __construct(array $attributes = array())
     {
@@ -85,26 +97,51 @@ class Entry extends Eloquent
         // This picks up the stream that was set at runtime with the stream() method
         if ($this->stream = static::getCache('stream'))
         {
-            $this->setTable($this->stream->stream_prefix.$this->getStream()->stream_slug);
+            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
             
-            $relations = $this->stream->getModel()->getRelations();
+            $stream_relations = $this->stream->getModel()->getRelations();
             
             // Check if the assignments are already loaded
-            if ( ! isset($relations['assignments']))
+            if ( ! isset($stream_relations['assignments']))
             {
                 // Eager load assignments nested with fields 
                 $this->getStream()->load('assignments.field');    
             }
+
+            $this->assignments = $this->stream->getModel()->getRelation('assignments');
         }
 
         $this->instance = static::getCache('instance');
+
+        $this->exists = $this->getKey() ? true : false;
     }
 
-    public static function stream($slug, $namespace)
+    /**
+     * Return a new Entry model only if the stream is set
+     * @return Pyro\Module\Streams_core\Core\Model\Entry The new Entry model
+     */
+    public function newEntry()
     {
-        $stream = Stream::all()->findBySlugAndNamespace($slug, $namespace);
-        
-        static::setCache('stream', $stream);
+        if ( ! $this->stream)
+        {
+            return false;
+        }
+
+        return $this->newInstance();
+    }
+/*    public static function boot()
+    {
+        parent::boot();
+
+        static::observe(new \Pyro\Module\Streams_core\Core\Event\EntryObserver);
+    }*/
+
+    public static function stream($slug, $namespace)
+    {   
+        if ( ! static::getCache('stream'))
+        {
+            static::setCache('stream', Stream::findBySlugAndNamespace($slug, $namespace));
+        }
 
         return static::setCache('instance', new static);
     }
@@ -114,38 +151,59 @@ class Entry extends Eloquent
         return $this->stream;
     }
 
-    public function getStreamFields()
+    public function getFields()
     {
-        $this->getStream()->getModel()->getRelation('assignments');
+        $fields = $this->assignments->getFields();
+
+        $fields->setStandardColumns($this->getStandardColumns());
+
+        return $fields;
     }
 
     public function getDates()
     {
-        return array('created', 'updated');
+        $dates = array(static::CREATED_AT, static::UPDATED_AT);
+
+        if ($this->softDelete)
+        {
+            $dates = array_push($dates, static::DELETED_AT);
+        }
+
+        return $dates;
     }
 
     public function getFieldType($field_slug = '')
     {
-        $entry = new static;
-        
-        if ( ! $field = $entry->getStream()->getModel()->getRelation('assignments')->getFields()->findBySlug($field_slug))
+        if ( ! $field = $this->getFields()->findBySlug($field_slug))
         {
             return false;
         }
 
-        // @todo - replace the Type library with the PSR version
-        if ( ! $type = isset(ci()->type->types->{$field->field_type}) ? ci()->type->types->{$field->field_type} : null)
-        {
-            return false;
-        }
+        return Type::getFieldType($field, $this);
+    }
 
-        $type->setEntryBuilder($this->newQuery());
-        $type->setModel($this);
-        $type->setField($field);
-        $type->setEntry($entry);
-        $type->setValue($this->getAttributeValue($field_slug));
+    public function setPlugin($plugin = true)
+    {
+        $this->plugin = $plugin;
 
-        return $type;
+        return $this;
+    }
+
+    public function setFormat($format = true)
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    public function isFormat()
+    {
+        return $this->format;
+    }
+
+    public function isPlugin()
+    {
+        return $this->plugin;
     }
 
     public function setUnformattedValue($key = null, $value = null)
@@ -169,7 +227,12 @@ class Entry extends Eloquent
         return $form->buildForm();
     }
 
-    public function first(array $columns = array('*'))
+    public function getEntry($id = null, array $columns = array('*'))
+    {
+        return $this->newQuery()->where($this->getKeyName(), '=', $id)->first($columns);
+    }
+
+    public function first(array $columns = array('id'))
     {
         return $this->newQuery()->take(1)->get($columns)->first();
     }
@@ -179,7 +242,6 @@ class Entry extends Eloquent
 
     }
 
-
     public static function all($columns = array('*'))
     {
         if ($all = static::getCache('table::all'))
@@ -188,6 +250,15 @@ class Entry extends Eloquent
         }
 
         return static::setCache('table::all', static::getCache('instance')->newQuery()->get($columns));
+    }
+
+    /**
+     * Get all the non-field standard columns for entries as an array
+     * @return array An array of standard columns
+     */
+    public function getStandardColumns()
+    {
+        return array_merge(array($this->getKeyName()), $this->getDates(), array(static::CREATED_BY));
     }
 
     /**
@@ -287,6 +358,10 @@ class Entry extends Eloquent
         return $query->get();
     }
 
+    public function user()
+    {
+        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
+    }
 
     // Exploring some ideas for relationships
 

@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
+use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
 
 /**
  * User model for the users module.
@@ -8,7 +8,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends EloqentUser
+class User extends EloquentUser
 {
     /**
      * Define the table name

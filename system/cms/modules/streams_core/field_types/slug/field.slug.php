@@ -15,7 +15,7 @@ class Field_slug extends AbstractField
 {
 	public $field_type_slug			= 'slug';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $custom_parameters		= array( 'space_type', 'slug_field' );
 
@@ -63,10 +63,10 @@ class Field_slug extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
 		$this->CI->load->helper('text');
-		return escape_tags($input);
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------

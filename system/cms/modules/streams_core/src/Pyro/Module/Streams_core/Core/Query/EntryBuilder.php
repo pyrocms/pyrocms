@@ -14,14 +14,14 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'), $exclude = false)
 	{
-		$this->stream = $this->model->getStream();
-
 		if ($exclude)
 		{
-			$columns = $this->stream->assignments->getFields()->getFieldsSlugsExclusive($columns);
-			// @todo - restore the non-field columns like id, updated, 
+			$columns = array_merge($columns, $this->model->getFields()->getFieldSlugsExclude($columns));
 		}
 
+		// Chances are we are always going to need the primary key regardless
+		$columns = $this->requireKey($columns);
+		
 		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
@@ -29,7 +29,14 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$entries = $this->eagerLoadRelations($this->entries);
+			$relations = $this->entries[0]->getModel()->getRelations();
+
+			if (in_array('created_by', $columns) and empty($relations['user']))
+			{
+				$this->with('user');
+			}
+
+			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
 		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
@@ -48,29 +55,10 @@ class EntryBuilder extends Builder
 		return $formatted;
 	}
 
-	public function formatEntry($entry = null, $properties = array())
+	public function formatEntry($entry = null)
 	{
 		// Replicate the model to keep the original intact
 		$clone = $entry->replicate();
-
-		foreach (array_keys($clone->getAttributes()) as $field_slug)
-		{
-			// Get the field type instance from the entry
-			if ($type = $entry->getFieldType($field_slug))
-			{
-				// Set the unformatted value, we might need it
-				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
-				
-				// If there exist a field for the corresponding attribute, format it
-				$clone->{$field_slug} = $type->getFormattedValue();
-
-			}
-			else
-			{
-				// If not replicate the raw value
-				$clone->{$field_slug} = $entry->{$field_slug};
-			}
-		};
 
 		// Restore the primary key to the replicated model, only if it is set
 		if (isset($entry->{$this->model->getKeyName()}))
@@ -78,6 +66,34 @@ class EntryBuilder extends Builder
 			$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
 		}
 
+		foreach (array_keys($clone->getAttributes()) as $field_slug)
+		{
+			// Get the field type instance from the entry
+			if (in_array($field_slug, $this->model->getStandardColumns()))
+			{
+				// If not replicate the raw value
+				$clone->{$field_slug} = $entry->{$field_slug};
+			}
+			elseif ($type = $entry->getFieldType($field_slug, $entry))
+			{
+				// Set the unformatted value, we might need it
+				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
+				
+				// If there exist a field for the corresponding attribute, format it
+				$clone->{$field_slug} = $type->getFormattedValue();
+			}
+		};
+
 		return $clone;	
 	}
+
+    protected function requireKey(array $columns = array('*'))
+    {
+        if ( ! $columns[0] === '*' and ! in_array($this->model->getKeyName(), $columns))
+        {
+            array_unshift($columns, $this->model->getKeyName());
+        }
+
+        return $columns;
+    }
 }

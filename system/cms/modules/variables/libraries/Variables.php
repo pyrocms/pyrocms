@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+use Pyro\Module\Streams_core\Core\Model;
+
 /**
  * Variable Library
  *
@@ -92,10 +95,12 @@ class Variables {
 			$this->_vars = array();
 			if ( ! ($cached_vars = ci()->cache->get('variables_library_vars')))
 			{
-				$entries = ci()->streams->entries->get_entries(array(
+				/*$entries = ci()->streams->entries->get_entries(array(
 	    			'stream'    => 'variables',
 	    			'namespace' => 'variables'
-				));
+				));*/
+
+				//$entries = Model\Entry::stream('variables', 'variables')->get(array('name', 'data'));
 
 				foreach ($entries['entries'] as $var)
 				{

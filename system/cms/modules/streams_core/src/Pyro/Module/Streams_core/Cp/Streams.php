@@ -2,7 +2,7 @@
 
 // The CP driver is broken down into more logical classes
 
-class Streams
+class Streams extends AbstractCp
 {
 		
 }

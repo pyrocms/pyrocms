@@ -30,6 +30,16 @@ class Field extends Eloquent
         return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection($models);
     }
 
+    public static function getManyByNamespace($field_namespace = null, $pagination = false, $offset = 0, $skips = null)
+    {
+        return static::where('field_namespace', '=', $field_namespace)->get();
+    }
+
+    public static function findBySlugAndNamespace($field_slug = '', $field_namespace = '')
+    {
+        return static::where('field_slug', '='. $field_slug)->where('field_namespace', '='. $field_namespace)->first();
+    }
+
     public function assignments()
     {
         return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment', 'field_id');
