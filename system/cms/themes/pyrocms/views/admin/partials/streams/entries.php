@@ -19,7 +19,7 @@
 
 				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<?php if (is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
+				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
 				<td>
 
 				<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />

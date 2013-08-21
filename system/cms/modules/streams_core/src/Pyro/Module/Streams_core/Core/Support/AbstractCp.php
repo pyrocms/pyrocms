@@ -191,13 +191,13 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public function render()
+	public function render($return = false)
 	{
 		$method = camel_case('render'.$this->render);
 
 		if (method_exists($this, $method))
 		{
-			return $this->{$method}();
+			return $this->{$method}($return);
 		}
 
 		return false;

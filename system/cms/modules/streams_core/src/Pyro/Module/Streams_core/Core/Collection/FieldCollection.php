@@ -35,19 +35,7 @@ class FieldCollection extends EloquentCollection
 		return array_diff($all, $columns);
 	}
 
-	public function setStandardColumns(array $standard_columns = array())
-	{
-		$this->standard_columns = $standard_columns;
-
-		return $this;
-	}
-
-	public function getStandardColumns()
-	{
-		return $this->standard_columns;
-	}
-
-	protected function getArrayIndexedBySlug()
+	public function getArrayIndexedBySlug()
 	{
 		return $this->indexed_by_slug;
 	}

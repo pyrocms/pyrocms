@@ -77,7 +77,7 @@ class Entries extends AbstractCp
 
   		$instance->field_slugs = $instance->fields->getFieldSlugs();
 
-  		$instance->columns = $instance->standard_columns = $instance->fields->getStandardColumns();
+  		//$instance->columns = $instance->standard_columns = $instance->model->getStandardColumns();
 
   		$instance->stream_fields = new \stdClass;
 
@@ -251,47 +251,17 @@ class Entries extends AbstractCp
 	{
   		$this->data = array(
   			'stream'		=> $this->data['stream'],
-  			'stream_fields'	=> $this->stream_fields,
+  			'stream_fields'	=> $this->model->getFields(),
   			'buttons'		=> $this->buttons,
   			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
   			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
   		);
 
-  		// -------------------------------------
-		// Columns 
-		// @since 2.3
-		// -------------------------------------
-		// If we have array('*'), get all columns
-		// We do it this way to mirror how the model builder selects columns
-		if ( ! empty($this->columns) and $this->columns[0] === '*')
-		{
-			$this->data['stream']->view_options = array_merge($this->standard_columns, $this->field_slugs);
-		}
-		// If exclude is set to true, get all columns except the ones passed
-		elseif ($this->exclude)
-		{
-			$this->data['stream']->view_options = $this->fields->getFieldSlugsExclude($this->columns);
-		}
-		// Or get just the columns that were passed
-		elseif ($this->columns)
-		{
-			$this->data['stream']->view_options = $this->columns;
-		}
-		// Or default to use the standard columns
-		else
-		{
-			$this->data['stream']->view_options = $this->standard_columns;
-		}
+  		$this->data['entries'] = $this->model->get($this->columns, $this->exclude);
 
-  		$this->data['field_names'] = array();
+ 		$this->data['view_options'] = $this->model->getViewOptions();
 
-  		foreach ($this->data['stream']->view_options as $view_option)
-  		{
-  			$this->data['field_names'][] = in_array($view_option, $this->field_slugs) ? lang_label($this->stream_fields->{$view_option}->field_name) : lang('streams:'.$view_option);
-  		}
-
-		$this->data['entries'] = $this->model->get($this->data['stream']->view_options, $this->exclude);
-
+  		$this->data['field_names'] = $this->model->getViewOptionsFieldNames();
 
 /*		$this->data['pagination'] = create_pagination(
 									$this->pagination_uri,

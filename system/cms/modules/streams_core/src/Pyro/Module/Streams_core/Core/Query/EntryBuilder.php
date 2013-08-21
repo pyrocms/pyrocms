@@ -16,12 +16,17 @@ class EntryBuilder extends Builder
 	{
 		if ($exclude)
 		{
-			$columns = array_merge($columns, $this->model->getFields()->getFieldSlugsExclude($columns));
+			$columns = $this->model->getAllColumnsExclude($columns);
 		}
 
-		// Chances are we are always going to need the primary key regardless
+		$columns = $this->prepareColumns($columns);
+
+		// We prepare the view options after preparing the columns and before the key is required
+		$this->prepareViewOptions($columns);
+
+		// We need to return the models with their keys
 		$columns = $this->requireKey($columns);
-		
+
 		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
@@ -49,7 +54,7 @@ class EntryBuilder extends Builder
 
 		foreach ($entries as $entry)
 		{
-			$formatted[] = $this->formatEntry($entry);
+			$formatted[$entry->getKey()] = $this->formatEntry($entry);
 		}
 
 		return $formatted;
@@ -89,13 +94,59 @@ class EntryBuilder extends Builder
 		return $clone;	
 	}
 
-    protected function requireKey(array $columns = array('*'))
+    protected function prepareColumns(array $columns = array('*'))
     {
-        if ( ! count($columns) !== 1 and $columns[0] !== '*')
+    	// Remove any columns that don't exist
+        $columns = array_intersect($columns, $this->model->getAllColumns());
+
+    	// If for some reason we passed an empty array, put the asterisk back
+    	$columns = empty($columns) ? array('*') : $columns;
+
+        // Make sure there are no duplicate columns
+        return array_unique($columns);
+    }
+
+    public function requireKey(array $columns = array())
+    {
+    	// Always include the primary key if we are selecting specific columns, regardless
+        if (count($columns) === 1 and $columns[0] !== '*')
         {
             array_unshift($columns, $this->model->getKeyName());
         }
 
-        return array_unique($columns);
+        return $columns;
     }
+
+    public function hasAsterisk(array $columns = array())
+    {
+    	if ( ! empty($columns))
+    	{
+			foreach ($columns as $column)
+			{
+				if ($column == '*') return true;
+			}
+    	}
+    	
+    	return false;
+    }
+
+    protected function prepareViewOptions(array $columns = array('*'))
+    {	
+    	// Use existing stored view options only if we have an asterisk 
+    	if ($this->hasAsterisk($columns) and $stream = $this->model->getStream() and ! empty($stream->view_options))
+    	{
+    		$columns = $stream->view_options;
+    	}
+    	// If there are no stored options and there is an asterisk, get all columns
+		elseif ($this->hasAsterisk($columns))
+		{
+			$columns = $this->model->getAllColumns();
+		}
+
+		// or we just set the columns that were passed to the method
+		$this->model->setViewOptions($columns);
+
+		return $columns;
+    }
+
 }

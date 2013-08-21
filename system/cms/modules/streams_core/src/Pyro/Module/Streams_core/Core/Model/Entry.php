@@ -59,6 +59,8 @@ class Entry extends Eloquent
 
     protected $plugin = true;
 
+    protected $view_options = array();
+
     protected $user_columns = array('id', 'username');
 
     /**
@@ -104,7 +106,7 @@ class Entry extends Eloquent
         if ( ! isset($stream_relations['assignments']))
         {
             // Eager load assignments nested with fields 
-            $instance->getStream()->load('assignments.field');    
+            $instance->stream->load('assignments.field');    
         }
 
         $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
@@ -144,14 +146,7 @@ class Entry extends Eloquent
         return $this->stream;
     }
 
-    public function setFieldType($field_slug, $type)
-    {
-        $this->fields[$field_slug] = $type;
-
-        return $this;
-    }
-
-    public function setFields($fields = null)
+    public function setFields(\Pyro\Module\Streams_core\Core\Collection\FieldCollection $fields = null)
     {
         $this->fields = $fields;
 
@@ -160,7 +155,22 @@ class Entry extends Eloquent
 
     public function getFields()
     {
-        return $this->fields;
+        if ($this->fields instanceof \Pyro\Module\Streams_core\Core\Collection\FieldCollection)
+        {
+            return $this->fields;
+        }
+
+        return false;
+    }
+
+    public function getFieldSlugs()
+    {
+        if ($this->getFields())
+        {
+            return $this->getFields()->getFieldSlugs();
+        }
+
+        return false;
     }
 
     public function getDates()
@@ -177,12 +187,12 @@ class Entry extends Eloquent
 
     public function getFieldType($field_slug = '')
     {
-        if ( ! $this->fields instanceof \Pyro\Module\Streams_core\Core\Collection\FieldCollection)
+        if ( ! $this->getFields())
         {
             return false;
         }
 
-        if ( ! $field = $this->fields->findBySlug($field_slug))
+        if ( ! $field = $this->getFields()->findBySlug($field_slug))
         {
             return false;
         }
@@ -216,7 +226,8 @@ class Entry extends Eloquent
 
     public function setUnformattedValue($key = null, $value = null)
     {
-        if ($key) {
+        if ($key)
+        {
             $this->unformatted_values[$key] = $value;   
         }
     }
@@ -262,6 +273,44 @@ class Entry extends Eloquent
     public function getStandardColumns()
     {
         return array_merge(array($this->getKeyName()), $this->getDates(), array(static::CREATED_BY));
+    }
+
+    public function getAllColumns()
+    {
+        return array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+    }
+
+    public function getAllColumnsExclude(array $columns = array())
+    {
+       return array_diff($this->getAllColumns(), $columns);
+    }
+
+    public function setViewOptions(array $columns = array())
+    {
+        $this->view_options = $columns;
+
+        return $this;
+    }
+
+    public function getViewOptions()
+    {
+        return $this->view_options;
+    }
+
+    public function getViewOptionsFieldNames()
+    {
+        $field_names = array();
+
+        $fields = $this->getFields()->getArrayIndexedBySlug();
+
+        foreach ($this->getViewOptions() as $column)
+        {
+            $field_name = isset($fields[$column]) ? lang_label($fields[$column]->field_name) : null; 
+
+            $field_names[] = $field_name ? $field_name : lang('streams:'.$column);
+        }
+
+        return $field_names;
     }
 
     /**
