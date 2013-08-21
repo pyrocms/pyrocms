@@ -36,9 +36,9 @@ class EntryBuilder extends Builder
 		{
 			$relations = $this->entries[0]->getModel()->getRelations();
 
-			if (in_array('created_by', $columns) and empty($relations['user']))
+			if (in_array('created_by', $columns) and empty($relations['createdByUser']))
 			{
-				$this->with('user');
+				$this->with('createdByUser');
 			}
 
 			$this->entries = $this->eagerLoadRelations($this->entries);
@@ -75,8 +75,13 @@ class EntryBuilder extends Builder
 
 		foreach (array_keys($clone->getAttributes()) as $field_slug)
 		{
+			if ($field_slug == 'created_by')
+			{
+				$clone->setUnformattedValue('created_by', $entry->created_by);
+				$clone->created_by = $entry->created_by_user;
+			}
 			// Get the field type instance from the entry
-			if (in_array($field_slug, $this->model->getStandardColumns()))
+			elseif (in_array($field_slug, $this->model->getStandardColumns()))
 			{
 				// If not replicate the raw value
 				$clone->{$field_slug} = $entry->{$field_slug};
@@ -126,7 +131,7 @@ class EntryBuilder extends Builder
 				if ($column == '*') return true;
 			}
     	}
-    	
+
     	return false;
     }
 

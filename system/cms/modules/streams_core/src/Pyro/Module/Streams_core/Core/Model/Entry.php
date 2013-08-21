@@ -160,7 +160,7 @@ class Entry extends Eloquent
             return $this->fields;
         }
 
-        return false;
+        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection;
     }
 
     public function getFieldSlugs()
@@ -410,7 +410,7 @@ class Entry extends Eloquent
         return $query->get();
     }
 
-    public function user()
+    public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }

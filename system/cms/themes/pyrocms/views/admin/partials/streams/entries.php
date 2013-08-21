@@ -28,10 +28,10 @@
 						
 					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
 
-				} elseif ($view_option == 'created_by' and isset($entry->user)) { ?>
+				} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
 
-					<a href="<?php echo site_url('admin/users/edit/'. $entry->user->id); ?>">
-						<?php echo $entry->user->username; ?>
+					<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
+						<?php echo $entry->created_by->username; ?>
 					</a>
 			
 				<?php } else {
