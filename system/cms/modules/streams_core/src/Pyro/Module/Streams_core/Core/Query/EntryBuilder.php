@@ -90,6 +90,8 @@ class EntryBuilder extends Builder
 			{
 				// Set the unformatted value, we might need it
 				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
+
+				$clone->setPluginValue($field_slug, $type->getFormattedValue(true));
 				
 				// If there exist a field for the corresponding attribute, format it
 				$clone->{$field_slug} = $type->getFormattedValue();
