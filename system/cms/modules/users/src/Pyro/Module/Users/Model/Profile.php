@@ -1,19 +1,23 @@
 <?php namespace Pyro\Module\Users\Model; 
 
+use Pyro\Module\Streams_core\Core\Model\Entry as StreamEntry;
+
 /**
  * Profile model for the users module.
  * 
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class Profile extends \Illuminate\Database\Eloquent\Model
+class Profile extends StreamEntry
 {
     /**
      * Define the table name
      *
      * @var string
      */
-    protected $table = 'profiles';
+    protected $stream_slug = 'profiles';
+
+    protected $stream_namespace = 'users';
 
     /**
      * Disable updated_at and created_at on table

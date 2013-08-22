@@ -59,6 +59,8 @@ class Entry extends Eloquent
 
     protected $plugin = true;
 
+    protected $plugin_values = array();
+
     protected $view_options = array();
 
     protected $user_columns = array('id', 'username');
@@ -86,7 +88,37 @@ class Entry extends Eloquent
 
     public function __construct(array $attributes = array())
     {
+        parent::__construct($attributes);
 
+        if ($this->stream_slug and $this->stream_namespace)
+        {
+            if ( ! $this->stream = Stream::findBySlugAndNamespace($this->stream_slug, $this->stream_namespace))
+            {
+                throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
+            }
+
+            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
+
+            $stream_relations = $this->stream->getModel()->getRelations();
+            
+            // Check if the assignments are already loaded
+            if ( ! isset($stream_relations['assignments']))
+            {
+                // Eager load assignments nested with fields 
+                $this->stream->load('assignments.field');    
+            }
+
+            $this->assignments = $this->stream->getModel()->getRelation('assignments');
+
+            $fields = array();
+
+            foreach ($this->assignments as $assignment)
+            {
+                $fields[] = $assignment->field;
+            }
+
+            $this->setFields($this->newFieldCollection($fields));
+        }
     }
 
     public static function stream($stream_slug, $stream_namespace)
@@ -222,6 +254,19 @@ class Entry extends Eloquent
     public function isPlugin()
     {
         return $this->plugin;
+    }
+
+    public function setPluginValue($key = null, $value = null)
+    {
+        if ($key)
+        {
+            $this->plugin_values[$key] = $value;   
+        }
+    }
+
+    public function getPluginValue($key)
+    {
+        return isset($this->plugin_values[$key]) ? $this->plugin_values[$key] : $this->getAttribute($key);
     }
 
     public function setUnformattedValue($key = null, $value = null)
