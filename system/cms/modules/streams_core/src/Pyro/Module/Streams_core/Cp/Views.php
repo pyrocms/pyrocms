@@ -2,7 +2,7 @@
 
 // The CP driver is broken down into more logical classes
 
-class Views
+class Views extends AbstractCp
 {
 
 }

@@ -21,6 +21,8 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $exclude = false;
 
+	protected $exclude_types = null;
+
 	protected $fields = null;
 
 	protected $field_names = array();
@@ -34,6 +36,10 @@ abstract class AbstractCp extends AbstractSupport
 	protected $form_wrapper = true;
 
 	protected $hidden = array();
+
+	protected $include_types = null;
+
+	protected $id = null;
 
 	protected static $instance;
 
@@ -185,13 +191,13 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public function render()
+	public function render($return = false)
 	{
 		$method = camel_case('render'.$this->render);
 
 		if (method_exists($this, $method))
 		{
-			return $this->{$method}();
+			return $this->{$method}($return);
 		}
 
 		return false;

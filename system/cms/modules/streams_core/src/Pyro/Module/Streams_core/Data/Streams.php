@@ -27,28 +27,28 @@ class Streams extends AbstractData
 		// Do we have a stream name?
 		if ( ! trim($stream_name))
 		{
-			$this->logError('empty_stream_name', __method__);
+			static::logError('empty_stream_name', __method__);
 			return false;
 		}				
 
 		// Do we have a stream slug?
 		if ( ! trim($stream_slug))
 		{
-			$this->logError('empty_stream_slug', __method__);
+			static::logError('empty_stream_slug', __method__);
 			return false;
 		}				
 
 		// Do we have a stream namespace?
 		if ( ! trim($stream_namespace))
 		{
-			$this->logError('empty_stream_namespace', __method__);
+			static::logError('empty_stream_namespace', __method__);
 			return false;
 		}
 
 		// Is this stream slug already available?
 		if(Model\Stream::findBySlug($stream_slug))
 		{
-			$this->logError('stream_slug_in_use', __method__, $stream_slug.' slug was attepted.');
+			static::logError('stream_slug_in_use', __method__, $stream_slug.' slug was attepted.');
 			return false;
 		}
 	
@@ -88,7 +88,7 @@ class Streams extends AbstractData
 	{
 		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
 		{
-			$this->logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
+			static::logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
 		}
 
 		return $stream;
@@ -108,7 +108,7 @@ class Streams extends AbstractData
 	{
 		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
 		{
-			$this->logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
+			static::logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
 		}
 	
 		return $stream->delete();
@@ -129,7 +129,7 @@ class Streams extends AbstractData
 	{	
 		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
 		{
-			$this->logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
+			static::logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
 		}
 
 		return $stream->update($data);
@@ -149,7 +149,7 @@ class Streams extends AbstractData
 	{
 		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
 		{
-			$this->logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
+			static::logError('invalid_stream', __method__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
 		}
 
 		return $stream->assignments;

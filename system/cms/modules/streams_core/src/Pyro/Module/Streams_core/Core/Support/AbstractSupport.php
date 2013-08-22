@@ -3,11 +3,13 @@
 abstract class AbstractSupport
 {
 
-	protected $debug = true;
+	protected static $debug = true;
 
-	public function debug($debug = true)
+	public static function debug($debug = true)
 	{
-		$this->debug = $debug;
+		static::$debug = $debug;
+
+		return new static;
 	}
 
 	/**
@@ -19,7 +21,7 @@ abstract class AbstractSupport
 	 * @param	info $info additional information
 	 * @return	void
 	 */
-	public function logError($lang_code = null, $function = null, $info = null)
+	public static function logError($lang_code = null, $function = null, $info = null)
 	{
 
 		if ( ! $lang_code or ! $function)
@@ -38,7 +40,7 @@ abstract class AbstractSupport
 		// Log the message either way
 		log_message('error', $error);
 
-		if ($this->debug === true) show_error($error);
+		if (static::$debug === true) show_error($error);
 	}
 
 }

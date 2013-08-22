@@ -1,6 +1,6 @@
 <?php $this->load->view('admin/partials/streams/filters'); ?>
 
-<?php if ($entries) { ?>
+<?php if ($entries->count() > 0) { ?>
 
     <table class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
@@ -19,7 +19,7 @@
 
 				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<?php if (is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
+				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
 				<td>
 
 				<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
@@ -28,10 +28,10 @@
 						
 					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
 
-				} elseif ($view_option == 'created_by') { ?>
+				} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
 
-					<a href="<?php echo site_url('admin/users/edit/'. $entry->user->id); ?>">
-						<?php echo $entry->user->username; ?>
+					<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
+						<?php echo $entry->created_by->username; ?>
 					</a>
 			
 				<?php } else {

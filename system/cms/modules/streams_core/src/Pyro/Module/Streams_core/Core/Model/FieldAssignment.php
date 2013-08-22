@@ -26,7 +26,10 @@ class FieldAssignment extends Eloquent
      */
     public $timestamps = false;
 
-    //public function findManyByStreamId()
+/*    public static function findManyByStreamId()
+    {
+        return static::where('stream_id', '')
+    }*/
 
     public function newCollection(array $models = array())
     {

@@ -1,4 +1,4 @@
-<?php if (!empty($fields)): ?>
+<?php if ( isset($fields) and count($fields)): ?>
 
     <table class="table-list" border="0" cellspacing="0">
 		<thead>

@@ -30,18 +30,18 @@ class Field_country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if (! $data['value'] and ! $entry_id) {
-			$value = (isset($field->field_data['default_country'])) ? $field->field_data['default_country'] : null;
+		if ( ! $this->value and ! $this->entry->getKey()) {
+			$value = (isset($this->field->field_data['default_country'])) ? $this->field->field_data['default_country'] : null;
 		} else {
-			$value = $data['value'];
+			$value = $this->value;
 		}
 
-		return form_dropdown($data['form_slug'], $this->countries($field->is_required), $value, 'id="'.$data['form_slug'].'"');
+		return form_dropdown($this->field->field_slug, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -53,12 +53,12 @@ class Field_country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
 		$countries = $this->countries('yes');
 
-		if (trim($input) != '') {
-			return $countries[$input];
+		if (trim($this->value) != '') {
+			return $countries[$this->value];
 		} else {
 			return null;
 		}
