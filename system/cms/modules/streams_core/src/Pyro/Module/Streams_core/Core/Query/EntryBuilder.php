@@ -16,12 +16,17 @@ class EntryBuilder extends Builder
 	{
 		if ($exclude)
 		{
-			$columns = array_merge($columns, $this->model->getFields()->getFieldSlugsExclude($columns));
+			$columns = $this->model->getAllColumnsExclude($columns);
 		}
 
-		// Chances are we are always going to need the primary key regardless
+		$columns = $this->prepareColumns($columns);
+
+		// We prepare the view options after preparing the columns and before the key is required
+		$this->prepareViewOptions($columns);
+
+		// We need to return the models with their keys
 		$columns = $this->requireKey($columns);
-		
+
 		$this->entries = $this->getModels($columns);
 
 		// If we actually found models we will also eager load any relationships that
@@ -31,9 +36,9 @@ class EntryBuilder extends Builder
 		{
 			$relations = $this->entries[0]->getModel()->getRelations();
 
-			if (in_array('created_by', $columns) and empty($relations['user']))
+			if (in_array('created_by', $columns) and empty($relations['createdByUser']))
 			{
-				$this->with('user');
+				$this->with('createdByUser');
 			}
 
 			$this->entries = $this->eagerLoadRelations($this->entries);
@@ -49,7 +54,7 @@ class EntryBuilder extends Builder
 
 		foreach ($entries as $entry)
 		{
-			$formatted[] = $this->formatEntry($entry);
+			$formatted[$entry->getKey()] = $this->formatEntry($entry);
 		}
 
 		return $formatted;
@@ -60,6 +65,8 @@ class EntryBuilder extends Builder
 		// Replicate the model to keep the original intact
 		$clone = $entry->replicate();
 
+		$clone->setFields($this->model->getFields());
+		
 		// Restore the primary key to the replicated model, only if it is set
 		if (isset($entry->{$this->model->getKeyName()}))
 		{
@@ -68,16 +75,23 @@ class EntryBuilder extends Builder
 
 		foreach (array_keys($clone->getAttributes()) as $field_slug)
 		{
+			if ($field_slug == 'created_by')
+			{
+				$clone->setUnformattedValue('created_by', $entry->created_by);
+				$clone->created_by = $entry->created_by_user;
+			}
 			// Get the field type instance from the entry
-			if (in_array($field_slug, $this->model->getStandardColumns()))
+			elseif (in_array($field_slug, $this->model->getStandardColumns()))
 			{
 				// If not replicate the raw value
 				$clone->{$field_slug} = $entry->{$field_slug};
 			}
-			elseif ($type = $entry->getFieldType($field_slug, $entry))
+			elseif ($type = $entry->getFieldType($field_slug))
 			{
 				// Set the unformatted value, we might need it
 				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
+
+				$clone->setPluginValue($field_slug, $type->getFormattedValue(true));
 				
 				// If there exist a field for the corresponding attribute, format it
 				$clone->{$field_slug} = $type->getFormattedValue();
@@ -87,13 +101,59 @@ class EntryBuilder extends Builder
 		return $clone;	
 	}
 
-    protected function requireKey(array $columns = array('*'))
+    protected function prepareColumns(array $columns = array('*'))
     {
-        if ( ! $columns[0] === '*' and ! in_array($this->model->getKeyName(), $columns))
+    	// Remove any columns that don't exist
+        $columns = array_intersect($columns, $this->model->getAllColumns());
+
+    	// If for some reason we passed an empty array, put the asterisk back
+    	$columns = empty($columns) ? array('*') : $columns;
+
+        // Make sure there are no duplicate columns
+        return array_unique($columns);
+    }
+
+    public function requireKey(array $columns = array())
+    {
+    	// Always include the primary key if we are selecting specific columns, regardless
+        if (count($columns) === 1 and $columns[0] !== '*')
         {
             array_unshift($columns, $this->model->getKeyName());
         }
 
         return $columns;
     }
+
+    public function hasAsterisk(array $columns = array())
+    {
+    	if ( ! empty($columns))
+    	{
+			foreach ($columns as $column)
+			{
+				if ($column == '*') return true;
+			}
+    	}
+
+    	return false;
+    }
+
+    protected function prepareViewOptions(array $columns = array('*'))
+    {	
+    	// Use existing stored view options only if we have an asterisk 
+    	if ($this->hasAsterisk($columns) and $stream = $this->model->getStream() and ! empty($stream->view_options))
+    	{
+    		$columns = $stream->view_options;
+    	}
+    	// If there are no stored options and there is an asterisk, get all columns
+		elseif ($this->hasAsterisk($columns))
+		{
+			$columns = $this->model->getAllColumns();
+		}
+
+		// or we just set the columns that were passed to the method
+		$this->model->setViewOptions($columns);
+
+		return $columns;
+    }
+
 }

@@ -103,7 +103,7 @@ abstract class AbstractField
 	 * @access 	public
 	 * @params	
 	 */
-	public function getFormattedValue()
+	public function getFormattedValue($plugin = false)
 	{
 		// Is this an alt process type?
 		if ($this->alt_process === true)
@@ -117,7 +117,7 @@ abstract class AbstractField
 		{
 			// If not, check and see if there is a method
 			// for pre output or pre_output_plugin
-			if ($this->plugin and method_exists($this, 'pre_output_plugin'))
+			if ($plugin and method_exists($this, 'pre_output_plugin'))
 			{
 				return $this->pre_output_plugin();
 			}

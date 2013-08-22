@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Streams_core\Field;
+<?php namespace Pyro\Module\Streams_core\Core\Field;
 
 class Parameter
 {

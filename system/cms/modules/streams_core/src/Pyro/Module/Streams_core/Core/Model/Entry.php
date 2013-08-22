@@ -2,7 +2,6 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\Core\Field\Type;
-use Pyro\Module\Streams_core\Core\Model\Stream;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
@@ -20,9 +19,9 @@ use Pyro\Module\Streams_core\Core\Model\Stream;
 // i.e. class Profile extends Entry
 // {
 // 
-//      protected $stream = 'profiles';
+//      protected $stream_slug = 'profiles';
 //      
-//      protected $namespace = 'users';
+//      protected $stream_namespace = 'users';
 //      
 //      protected $prefix = ''
 //      
@@ -48,6 +47,8 @@ class Entry extends Eloquent
 
     protected $assignments = null;
 
+    protected $fields = null;
+
     protected $field_type_instances = null;
 
     protected $unformatted_values = array();
@@ -57,6 +58,10 @@ class Entry extends Eloquent
     protected $format = true;
 
     protected $plugin = true;
+
+    protected $plugin_values = array();
+
+    protected $view_options = array();
 
     protected $user_columns = array('id', 'username');
 
@@ -85,35 +90,69 @@ class Entry extends Eloquent
     {
         parent::__construct($attributes);
 
-        /*
-         * When a model extends Entry you can set the stream_prefix, stream_slug and stream_namespace
-         * properties in order for the model to interact with the stream table
-         */
-        if ($this->stream_prefix and $this->stream_slug and $this->stream_namespace)
+        if ($this->stream_slug and $this->stream_namespace)
         {
-            $this->setTable($this->stream_prefix.$this->stream_slug);
-        }
-        
-        // This picks up the stream that was set at runtime with the stream() method
-        if ($this->stream = static::getCache('stream'))
-        {
+            if ( ! $this->stream = Stream::findBySlugAndNamespace($this->stream_slug, $this->stream_namespace))
+            {
+                throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
+            }
+
             $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
-            
+
             $stream_relations = $this->stream->getModel()->getRelations();
             
             // Check if the assignments are already loaded
             if ( ! isset($stream_relations['assignments']))
             {
                 // Eager load assignments nested with fields 
-                $this->getStream()->load('assignments.field');    
+                $this->stream->load('assignments.field');    
             }
 
             $this->assignments = $this->stream->getModel()->getRelation('assignments');
+
+            $fields = array();
+
+            foreach ($this->assignments as $assignment)
+            {
+                $fields[] = $assignment->field;
+            }
+
+            $this->setFields($this->newFieldCollection($fields));
+        }
+    }
+
+    public static function stream($stream_slug, $stream_namespace)
+    {   
+        $instance = new static;
+
+        if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+        {
+            throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
         }
 
-        $this->instance = static::getCache('instance');
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
-        $this->exists = $this->getKey() ? true : false;
+        $stream_relations = $instance->stream->getModel()->getRelations();
+        
+        // Check if the assignments are already loaded
+        if ( ! isset($stream_relations['assignments']))
+        {
+            // Eager load assignments nested with fields 
+            $instance->stream->load('assignments.field');    
+        }
+
+        $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
+
+        $fields = array();
+
+        foreach ($instance->assignments as $assignment)
+        {
+            $fields[] = $assignment->field;
+        }
+
+        $instance->setFields($instance->newFieldCollection($fields));
+
+        return $instance;
     }
 
     /**
@@ -127,23 +166,11 @@ class Entry extends Eloquent
             return false;
         }
 
-        return $this->newInstance();
-    }
-/*    public static function boot()
-    {
-        parent::boot();
+        $new = $this->newInstance();
 
-        static::observe(new \Pyro\Module\Streams_core\Core\Event\EntryObserver);
-    }*/
+        $new->setFields($this->getFields());
 
-    public static function stream($slug, $namespace)
-    {   
-        if ( ! static::getCache('stream'))
-        {
-            static::setCache('stream', Stream::findBySlugAndNamespace($slug, $namespace));
-        }
-
-        return static::setCache('instance', new static);
+        return $new;
     }
 
     public function getStream()
@@ -151,13 +178,31 @@ class Entry extends Eloquent
         return $this->stream;
     }
 
+    public function setFields(\Pyro\Module\Streams_core\Core\Collection\FieldCollection $fields = null)
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
     public function getFields()
     {
-        $fields = $this->assignments->getFields();
+        if ($this->fields instanceof \Pyro\Module\Streams_core\Core\Collection\FieldCollection)
+        {
+            return $this->fields;
+        }
 
-        $fields->setStandardColumns($this->getStandardColumns());
+        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection;
+    }
 
-        return $fields;
+    public function getFieldSlugs()
+    {
+        if ($this->getFields())
+        {
+            return $this->getFields()->getFieldSlugs();
+        }
+
+        return false;
     }
 
     public function getDates()
@@ -174,6 +219,11 @@ class Entry extends Eloquent
 
     public function getFieldType($field_slug = '')
     {
+        if ( ! $this->getFields())
+        {
+            return false;
+        }
+
         if ( ! $field = $this->getFields()->findBySlug($field_slug))
         {
             return false;
@@ -206,9 +256,23 @@ class Entry extends Eloquent
         return $this->plugin;
     }
 
+    public function setPluginValue($key = null, $value = null)
+    {
+        if ($key)
+        {
+            $this->plugin_values[$key] = $value;   
+        }
+    }
+
+    public function getPluginValue($key)
+    {
+        return isset($this->plugin_values[$key]) ? $this->plugin_values[$key] : $this->getAttribute($key);
+    }
+
     public function setUnformattedValue($key = null, $value = null)
     {
-        if ($key) {
+        if ($key)
+        {
             $this->unformatted_values[$key] = $value;   
         }
     }
@@ -218,23 +282,18 @@ class Entry extends Eloquent
         return isset($this->unformatted_values[$key]) ? $this->unformatted_values[$key] : null;
     }
 
-    public function buildForm()
+    public function newFormBuilder()
     {
-        $entry = $this->exists ? $this : new static;
+        $entry = $this->getKey() ? $this : new static;
 
-        $form = new \Pyro\Module\Streams_core\Core\Field\Form($entry); 
+        $entry->setFields($this->fields);
 
-        return $form->buildForm();
+        return new \Pyro\Module\Streams_core\Core\Field\Form($entry);
     }
 
     public function getEntry($id = null, array $columns = array('*'))
     {
-        return $this->newQuery()->where($this->getKeyName(), '=', $id)->first($columns);
-    }
-
-    public function first(array $columns = array('id'))
-    {
-        return $this->newQuery()->take(1)->get($columns)->first();
+        return $this->where($this->getKeyName(), '=', $id)->first($columns);
     }
 
     public function total()
@@ -259,6 +318,44 @@ class Entry extends Eloquent
     public function getStandardColumns()
     {
         return array_merge(array($this->getKeyName()), $this->getDates(), array(static::CREATED_BY));
+    }
+
+    public function getAllColumns()
+    {
+        return array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+    }
+
+    public function getAllColumnsExclude(array $columns = array())
+    {
+       return array_diff($this->getAllColumns(), $columns);
+    }
+
+    public function setViewOptions(array $columns = array())
+    {
+        $this->view_options = $columns;
+
+        return $this;
+    }
+
+    public function getViewOptions()
+    {
+        return $this->view_options;
+    }
+
+    public function getViewOptionsFieldNames()
+    {
+        $field_names = array();
+
+        $fields = $this->getFields()->getArrayIndexedBySlug();
+
+        foreach ($this->getViewOptions() as $column)
+        {
+            $field_name = isset($fields[$column]) ? lang_label($fields[$column]->field_name) : null; 
+
+            $field_names[] = $field_name ? $field_name : lang('streams:'.$column);
+        }
+
+        return $field_names;
     }
 
     /**
@@ -358,7 +455,7 @@ class Entry extends Eloquent
         return $query->get();
     }
 
-    public function user()
+    public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }
@@ -372,11 +469,11 @@ class Entry extends Eloquent
      * @param  string  $foreignKey
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToStream($slug, $namespace, $foreign_key = null)
+    public function belongsToStream($stream_slug, $stream_namespace, $foreign_key = null)
     {
         $stream_table = $this->getTable();
 
-        static::stream($slug, $namespace);
+        static::stream($stream_slug, $stream_namespace);
 
         if ( ! $foreign_key)
         {
@@ -403,6 +500,11 @@ class Entry extends Eloquent
     public function newCollection(array $entries = array(), array $unformatted_entries = array())
     {
         return new \Pyro\Module\Streams_core\Core\Collection\EntryCollection($entries, $unformatted_entries);
+    }
+
+    protected function newFieldCollection(array $fields = array())
+    {
+        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection($fields);
     }
 
     /**

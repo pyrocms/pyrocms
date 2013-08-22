@@ -40,11 +40,23 @@ class Stream extends Eloquent
     // This returns a consistent Eloquent model from either the cache or a new query
 	public static function findBySlugAndNamespace($stream_slug = '', $stream_namespace = '')
 	{
-		return static::where('stream_slug', $stream_slug)
+		if ( ! $stream = static::getCache(static::getStreamCacheName($stream_slug, $stream_namespace)))
+		{
+			$stream = static::where('stream_slug', $stream_slug)
 			->where('stream_namespace', $stream_namespace)
 			->take(1)
 			->first();
+
+			$stream = static::setCache(static::getStreamCacheName($stream_slug, $stream_namespace), $stream);
+		}
+
+		return $stream;
 	}
+
+    protected static function getStreamCacheName($stream_slug = '', $stream_namespace = '')
+    {
+        return 'stream['.$stream_slug.','.$stream_namespace.']';
+    }
 
 	public static function findBySlug($stream_slug = '')
 	{
