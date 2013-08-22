@@ -92,38 +92,16 @@ class Entry extends Eloquent
 
         if ($this->stream_slug and $this->stream_namespace)
         {
-            if ( ! $this->stream = Stream::findBySlugAndNamespace($this->stream_slug, $this->stream_namespace))
-            {
-                throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
-            }
-
-            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
-
-            $stream_relations = $this->stream->getModel()->getRelations();
-            
-            // Check if the assignments are already loaded
-            if ( ! isset($stream_relations['assignments']))
-            {
-                // Eager load assignments nested with fields 
-                $this->stream->load('assignments.field');    
-            }
-
-            $this->assignments = $this->stream->getModel()->getRelation('assignments');
-
-            $fields = array();
-
-            foreach ($this->assignments as $assignment)
-            {
-                $fields[] = $assignment->field;
-            }
-
-            $this->setFields($this->newFieldCollection($fields));
+            $this->stream($this->stream_slug, $this->stream_namespace, $this);
         }
     }
 
-    public static function stream($stream_slug, $stream_namespace)
-    {   
-        $instance = new static;
+    public static function stream($stream_slug, $stream_namespace, Entry $instance = null)
+    {
+        if ( ! $instance)
+        {
+            $instance = new static;
+        }
 
         if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
         {
