@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Streams_core\Core\Query;
+<?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
 use Illuminate\Database\Eloquent\Builder;
 

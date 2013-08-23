@@ -12,7 +12,7 @@ class Fields extends AbstractCp
 {
 	public static function table($stream_slug, $namespace = null)
 	{
-		$instance = static::instance(__function__);
+		$instance = static::instance(__FUNCTION__);
 
 		$instance->namespace = $namespace;
 
@@ -21,7 +21,7 @@ class Fields extends AbstractCp
 
 	public static function namespaceTable($namespace = null)
 	{
-		$instance = static::instance(__function__);
+		$instance = static::instance(__FUNCTION__);
 
 		$instance->namespace = $namespace;
 
@@ -30,7 +30,7 @@ class Fields extends AbstractCp
 
 	public static function form($stream_slug, $namespace, $id = null)
 	{
-		$instance = static::instance(__function__);
+		$instance = static::instance(__FUNCTION__);
 
 		$instance->stream = Data\Streams::getStream($stream_slug, $namespace);
 
@@ -43,7 +43,7 @@ class Fields extends AbstractCp
 
 	public static function namespaceForm($id)
 	{
-		return static::instance(__function__);
+		return static::instance(__FUNCTION__);
 	}
 
 	// --------------------------------------------------------------------------
