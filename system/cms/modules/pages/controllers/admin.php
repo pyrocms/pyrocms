@@ -68,13 +68,13 @@ class Admin extends Admin_Controller
         $parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
 
         // Who needs a menu when there is only one option?
-        if ($types->count() === 1) {
+        if (count($types) == 1) {
             redirect('admin/pages/create?page_type='.$types[0]->id.$parent);
         }
 
         // Directly output the menu if it's for the modal.
         // All we need is the <ul>.
-        if ($this->input->get('modal') === 'true') {
+        if ($this->input->is_ajax_request()) {
             $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
             $html .= '<ul class="modal_select">';
 
@@ -477,7 +477,7 @@ class Admin extends Admin_Controller
                 // Mission accomplished!
                 $input['btnAction'] == 'save_exit'
                     ? redirect('admin/pages')
-                    : redirect('admin/pages/edit/'.$page->id);
+                    : redirect('admin/pages/edit/'.$id);
             }
         }
 
@@ -588,8 +588,7 @@ class Admin extends Admin_Controller
                     $deleted_ids = $id;
 
                     // Delete any page comments for this entry
-                    $comments = Comment::findManyByModuleAndEntryId('pages',$id);
-                    $comments->delete();
+                    $comments = Comment::where('module','=','pages')->where('entry_id','=',$id)->delete();
 
                     // Wipe cache for this model, the content has changd
                     $this->cache->clear('page_m');

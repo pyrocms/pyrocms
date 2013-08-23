@@ -93,7 +93,7 @@ class Events_Search
 
     public function drop_page($ids)
     {
-    	foreach ($ids as $id) {
+    	foreach ((array) $ids as $id) {
 			ci()->search_index_m->drop_index('pages', 'pages:page', $id);
 		}
 	}

@@ -485,7 +485,7 @@ class Page extends Eloquent
 		$this->where('is_home', '=', 1)
 			->update(array('is_home' => 0));
 
-		//$this->update('is_home', 1);
+		$this->update(array('is_home' => 1));
 	}
 
 	/**
