@@ -92,42 +92,22 @@ class Entry extends Eloquent
 
         if ($this->stream_slug and $this->stream_namespace)
         {
-            if ( ! $this->stream = Stream::findBySlugAndNamespace($this->stream_slug, $this->stream_namespace))
-            {
-                throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
-            }
-
-            $this->setTable($this->stream->stream_prefix.$this->stream->stream_slug);
-
-            $stream_relations = $this->stream->getModel()->getRelations();
-            
-            // Check if the assignments are already loaded
-            if ( ! isset($stream_relations['assignments']))
-            {
-                // Eager load assignments nested with fields 
-                $this->stream->load('assignments.field');    
-            }
-
-            $this->assignments = $this->stream->getModel()->getRelation('assignments');
-
-            $fields = array();
-
-            foreach ($this->assignments as $assignment)
-            {
-                $fields[] = $assignment->field;
-            }
-
-            $this->setFields($this->newFieldCollection($fields));
+            $this->stream($this->stream_slug, $this->stream_namespace, $this);
         }
     }
 
-    public static function stream($stream_slug, $stream_namespace)
-    {   
-        $instance = new static;
+    public static function stream($stream_slug, $stream_namespace, Entry $instance = null)
+    {
+        if ( ! $instance)
+        {
+            $instance = new static;
+        }
 
         if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
         {
-            throw new StreamNotFoundException('['.__method__.'] The Stream model is required to initialize the Entry model');
+            $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+
+            throw new Exception\StreamNotFoundException($message);
         }
 
         $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
@@ -178,7 +158,7 @@ class Entry extends Eloquent
         return $this->stream;
     }
 
-    public function setFields(\Pyro\Module\Streams_core\Core\Collection\FieldCollection $fields = null)
+    public function setFields(Collection\FieldCollection $fields = null)
     {
         $this->fields = $fields;
 
@@ -187,12 +167,12 @@ class Entry extends Eloquent
 
     public function getFields()
     {
-        if ($this->fields instanceof \Pyro\Module\Streams_core\Core\Collection\FieldCollection)
+        if ($this->fields instanceof Collection\FieldCollection)
         {
             return $this->fields;
         }
 
-        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection;
+        return new Collection\FieldCollection;
     }
 
     public function getFieldSlugs()
@@ -480,7 +460,7 @@ class Entry extends Eloquent
             $foreign_key = $stream_table.'_id';
         }
 
-        return $this->belongsTo('Pyro\Module\Streams_core\Model\Entry', $foreign_key);
+        return $this->belongsTo(get_called_class(), $foreign_key);
     }
 
     public function belongsToTable($table, $foreign_key = null)
@@ -494,17 +474,17 @@ class Entry extends Eloquent
             $foreign_key = $table.'_id';
         }
 
-        return $this->belongsTo('Pyro\Module\Streams_core\Model\Entry', $foreign_key);
+        return $this->belongsTo(get_called_class(), $foreign_key);
     }
 
     public function newCollection(array $entries = array(), array $unformatted_entries = array())
     {
-        return new \Pyro\Module\Streams_core\Core\Collection\EntryCollection($entries, $unformatted_entries);
+        return new Collection\EntryCollection($entries, $unformatted_entries);
     }
 
     protected function newFieldCollection(array $fields = array())
     {
-        return new \Pyro\Module\Streams_core\Core\Collection\FieldCollection($fields);
+        return new Collection\FieldCollection($fields);
     }
 
     /**
@@ -515,7 +495,7 @@ class Entry extends Eloquent
      */
     public function newQuery($excludeDeleted = true)
     {
-        $builder = new \Pyro\Module\Streams_core\Core\Query\EntryBuilder($this->newBaseQueryBuilder());
+        $builder = new Query\EntryBuilder($this->newBaseQueryBuilder());
 
         // Once we have the query builders, we will set the model instances so the
         // builder can easily access any information it may need from the model

@@ -1,12 +1,15 @@
-<?php namespace Pyro\Module\Streams_core\Core\Collection;
+<?php namespace Pyro\Module\Streams_core\Core\Model\Collection;
 
 use Pyro\Collection\EloquentCollection;
 
-// Here we can grab Stream models from a StreamCollection without the need to query again
-
 class StreamCollection extends EloquentCollection
 {
-
+	/**
+	 * [findBySlugAndNamespace description]
+	 * @param  [type] $slug      [description]
+	 * @param  [type] $namespace [description]
+	 * @return [type]            [description]
+	 */
 	public function findBySlugAndNamespace($slug = null, $namespace = null)
 	{
 		return array_first($this->items, function($key, $stream) use ($slug, $namespace)
@@ -15,6 +18,11 @@ class StreamCollection extends EloquentCollection
 		}, false);
 	}
 
+	/**
+	 * [findManyByNamespace description]
+	 * @param  [type] $namespace [description]
+	 * @return [type]            [description]
+	 */
 	public function findManyByNamespace($namespace = null)
 	{		
 		return $this->filter(function($stream) use ($namespace)

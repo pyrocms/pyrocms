@@ -1,7 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Collection\StreamCollection;
 
 class Stream extends Eloquent
 {
@@ -28,7 +27,7 @@ class Stream extends Eloquent
 
 	public function newCollection(array $models = array())
 	{
-	    return new StreamCollection($models);
+	    return new Collection\StreamCollection($models);
 	}
 
 	// This returns a consistent Eloquent Collection from either the cache or a new query
