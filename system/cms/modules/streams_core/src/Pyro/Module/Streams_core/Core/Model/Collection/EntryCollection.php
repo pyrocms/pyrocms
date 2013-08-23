@@ -1,12 +1,20 @@
-<?php namespace Pyro\Module\Streams_core\Core\Collection;
+<?php namespace Pyro\Module\Streams_core\Core\Model\Collection;
 
 use Pyro\Collection\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {
-	
+	/**
+	 * [$unformatted_entries description]
+	 * @var array
+	 */
 	public $unformatted_entries = array();
 
+	/**
+	 * [__construct description]
+	 * @param array $entries             [description]
+	 * @param array $unformatted_entries [description]
+	 */
 	public function __construct(array $entries = array(), array $unformatted_entries = array())
 	{
 		// Put the formatted entries as the default collection
@@ -16,12 +24,10 @@ class EntryCollection extends EloquentCollection
 		$this->unformatted_entries = $unformatted_entries;
 	}
 
-	// We can add custom methods here that will be available in the collection returned by the Entry model
-	public function enhanced()
-	{
-		// add odd / even boolean and add extra stuff to the models
-	}
-
+	/**
+	 * [unformatted description]
+	 * @return [type] [description]
+	 */
 	public function unformatted()
 	{
 		return new static($this->unformatted_entries);

@@ -43,7 +43,7 @@ abstract class AbstractField
 		return $this;
 	}
 
-	public function setEntryBuilder(\Pyro\Module\Streams_core\Core\Query\EntryBuilder $builder = null)
+	public function setEntryBuilder(\Pyro\Module\Streams_core\Core\Model\Query\EntryBuilder $builder = null)
 	{
 		$this->builder = $builder;
 
@@ -83,7 +83,7 @@ abstract class AbstractField
 		return $this;
 	}
 
-	public function setEntries(\Pyro\Module\Streams_core\Core\Collection\EntryCollection $entries = null)
+	public function setEntries(\Pyro\Module\Streams_core\Core\Model\Collection\EntryCollection $entries = null)
 	{
 		$this->entries = $entries;
 

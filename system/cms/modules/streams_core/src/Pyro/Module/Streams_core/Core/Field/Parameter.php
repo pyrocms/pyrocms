@@ -2,11 +2,12 @@
 
 class Parameter
 {
+	/**
+	 * Parameter construct
+	 */
     public function __construct()
     {
-		$this->CI = get_instance();
-
-		$this->CI->load->helper('form');
+		ci()->load->helper('form');
 	}
 
 	// --------------------------------------------------------------------------
