@@ -175,14 +175,29 @@ class Entry extends Eloquent
         return new Collection\FieldCollection;
     }
 
-    public function getFieldSlugs()
+    public function getField($field_slug = '')
     {
-        if ($this->getFields())
+        if ( ! $field = $this->getFields()->findBySlug($field_slug))
         {
-            return $this->getFields()->getFieldSlugs();
+            return false;
         }
 
-        return false;
+        return $field;
+    }
+
+    public function getFieldType($field_slug = '')
+    {
+        if ( ! $field = $this->getField($field_slug))
+        {
+            return false;
+        }
+
+        return $field->getType($this);
+    }
+
+    public function getFieldSlugs()
+    {
+        return $this->getFields()->getFieldSlugs();
     }
 
     public function getDates()
@@ -197,20 +212,6 @@ class Entry extends Eloquent
         return $dates;
     }
 
-    public function getFieldType($field_slug = '')
-    {
-        if ( ! $this->getFields())
-        {
-            return false;
-        }
-
-        if ( ! $field = $this->getFields()->findBySlug($field_slug))
-        {
-            return false;
-        }
-
-        return Type::getFieldType($field, $this);
-    }
 
     public function setPlugin($plugin = true)
     {
@@ -264,11 +265,7 @@ class Entry extends Eloquent
 
     public function newFormBuilder()
     {
-        $entry = $this->getKey() ? $this : new static;
-
-        $entry->setFields($this->fields);
-
-        return new \Pyro\Module\Streams_core\Core\Field\Form($entry);
+        return new \Pyro\Module\Streams_core\Core\Field\Form($this);
     }
 
     public function getEntry($id = null, array $columns = array('*'))
