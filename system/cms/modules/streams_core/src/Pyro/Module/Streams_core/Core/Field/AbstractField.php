@@ -147,4 +147,73 @@ abstract class AbstractField
 		return false;
 	}
 
+	/**
+	 * Add a field type CSS file
+	 */
+	public function addCss($field_type, $file)
+	{
+		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
+
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Add a field type JS file
+	 */
+	public function addJs($field_type, $file)
+	{
+		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
+
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Add a field type JS file
+	 */
+	public function addMisc($html)
+	{
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Load a view from a field type
+	 *
+	 * @param	string
+	 * @param	string
+	 * @param	bool
+	 */
+	public function loadView($type, $view_name, $data = array())
+	{
+		$paths = ci()->load->get_view_paths();
+
+		ci()->load->set_view_path(static::$types->$type->ft_path.'views/');
+
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
+
+		ci()->load->set_view_path($paths);
+
+		return $view_data;
+	}
+
+	/**
+	 * Object to Array
+	 *
+	 * Takes an object as input and converts the class variables to array key/vals
+	 *
+	 * From CodeIgniter's Loader class - moved over here since it was protected.
+	 *
+	 * @param	object
+	 * @return	array
+	 */
+	protected function objectToArray($object)
+	{
+		return (is_object($object)) ? get_object_vars($object) : $object;
+	}
+
 }
