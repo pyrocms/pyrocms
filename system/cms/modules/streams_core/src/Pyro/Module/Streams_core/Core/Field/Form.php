@@ -47,7 +47,7 @@ class Form
     {
     	$this->entry = $entry;
 		
-		$this->fields = $entry->getModel()->getFields();
+		$this->fields = $entry->getFields();
 
     	$this->method = $entry->getKey() ? 'edit' : 'new';
 
@@ -217,7 +217,7 @@ class Form
 					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
 					if ( ! $result_id = $this->entry->save())
 					{
-						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($failure_message));
+						ci()->session->set_flashdata('notice', lang_label($failure_message));
 					}
 					else
 					{
@@ -235,7 +235,7 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', ci()->fields->translateLabel($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($extra['success_message']));
 					}
 				}
 				else

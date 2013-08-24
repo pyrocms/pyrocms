@@ -16,32 +16,27 @@ class Type
 	 *
 	 * @var		array
 	 */
-	protected static $assets = array();
+	protected $assets = array();
 
 	/**
 	 * Places where our field types may be
 	 *
 	 * @var		array
 	 */
-	protected static $addon_paths = array();
+	protected $addon_paths = array();
 
-	protected static $types = array();
+	protected $types = array();
+
+	protected static $instance = null;
 
 	/**
-	 * Constructor
+	 * Get instance (singleton)
+	 * @return [type] [description]
 	 */
-    public function __construct()
+    public static function getLoader()
     {
-
-/*		ci()->load->helper('directory');
+		ci()->load->helper('directory');
 		ci()->load->config('streams_core/streams');
-
-		// These constants are used throughout the models.
-		// They should be removed at some point in the future.
-		// if ( ! defined('STREAMS_TABLE')) define('STREAMS_TABLE', ci()->config->item('streams:streams_table'));
-		// if ( ! defined('FIELDS_TABLE')) define('FIELDS_TABLE', ci()->config->item('streams:fields_table'));
-		// if ( ! defined('ASSIGN_TABLE')) define('ASSIGN_TABLE', ci()->config->item('streams:assignments_table'));
-		// if ( ! defined('SEARCH_TABLE')) define('SEARCH_TABLE', ci()->config->item('streams:searches_table'));
 
 		// Get Lang (full name for language file)
 		// This defaults to english.
@@ -52,26 +47,18 @@ class Type
 			ci()->load->library('settings/Settings');
 		}
 
-		// We either need a prefix or not
-		// This is for legacy and if any 3rd party
-		// field types use this constant
-		define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
-
-		// Since this is PyroStreams core we know where
-		// PyroStreams is, but we set this for backwards
-		// compatability for anyone using this constant.
-		// Also, now that the Streams API is around, we need to
-		// check if we need to change this based on the
-		// install situation.
-		if (defined('PYROPATH')) {
-			define('PYROSTEAMS_DIR', PYROPATH.'modules/streams_core/');
-		} else {
-			define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
-		}
+		if( ! isset(self::$instance))
+		{
+	    	$instance = new static;
+	    }
+	    else
+	    {
+	    	$instance = self::$instance;
+	    }
 
 		// Set our addon paths
-		static::$addon_paths = array(
-			'core' 			=> PYROSTEAMS_DIR.'field_types/',
+	    $instance->addon_paths = array(
+			'core' 			=> APPPATH.'modules/streams_core/field_types/',
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
@@ -79,36 +66,38 @@ class Type
 		// Add addon paths event. This is an opportunity to
 		// add another place for addons.
 		if ( ! class_exists('Module_import')) {
-			Events::trigger('streams_core_add_addon_path', $this);
-		}*/
+			\Events::trigger('streams_core_add_addon_path', $instance);
+		}
+
+	    return $instance;
 	}
 
-	public static function addPath($key, $path)
+	public function setAddonPath($key, $path)
 	{
-		static::$addon_paths[$key] = $path;
+		$this->addon_paths[$key] = $path;
 	}
 
-	public static function getPaths()
+	public function getAddonPaths()
 	{
-		return static::$addon_paths;
+		return $this->addon_paths;
 	}
 
 	public function registerType()
 	{
-		
+		// @todo - starting an idea for a PSR field loader	
 	}
 
-	public static function addType($slug, $type)
+	public function getType($type)
 	{
-
+		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type);
 	}
 
-	public static function updateTypes()
+	public function updateTypes()
 	{
 		Events::trigger('streams_core_add_addon_path', $this);
 
 		// Go ahead and regather our types
-		return static::getTypes();
+		return static::gatherTypes();
 	}
 
 	/**
@@ -116,48 +105,15 @@ class Type
 	 *
 	 * @return	void
 	 */
-	public static function getTypes()
+	public function gatherTypes()
 	{
-		foreach (static::getAddonPaths() as $raw_mode => $path) {
+		foreach ($this->getAddonPaths() as $raw_mode => $path)
+		{
 			$mode = ($raw_mode == 'core') ? 'core' : 'addon';
 
-			static::loadTypesFromFolder($path, $mode);
+			$this->loadTypesFromFolder($path, $mode);
 		}
 	}
-
-	public static function getFieldType(\Pyro\Module\Streams_core\Core\Model\Field $field = null, \Pyro\Module\Streams_core\Core\Model\Entry $entry = null)
-    {
-    	ci()->load->library('streams_core/Type');
-
-        if ( ! $field)
-        {
-            return false;
-        }
-
-        // If no entry was passed at least instantiate an empty entry object
-        if ( ! $entry)
-        {
-        	$entry = new \Pyro\Module\Streams_core\Core\Model\Entry;
-        }
-
-        // @todo - replace the Type library with the PSR version
-        if ( ! $type = isset(ci()->type->types->{$field->field_type}) ? ci()->type->types->{$field->field_type} : null)
-        {
-            return false;
-        }
-
-        $type->setField($field);
-
-        $type->setEntry($entry);
-        
-        $type->setModel($entry->getModel());
-        
-        $type->setEntryBuilder($entry->getModel()->newQuery());
-        
-        $type->setValue($entry->{$field->field_slug});
-
-        return $type;
-    }
 
 	/**
 	 * Load field types from a certain folder.
@@ -170,7 +126,7 @@ class Type
 	 * @param	string
 	 * @return	void
 	 */
-	public static function loadTypesFromFolder($addon_path, $mode = 'core')
+	public function loadTypesFromFolder($addon_path, $mode = 'core')
 	{
 		if ( ! is_dir($addon_path)) {
 			return;
@@ -188,14 +144,14 @@ class Type
 
 			// Is this a directory w/ a field type?
 			if (is_dir($addon_path.$type) and is_file("{$addon_path}{$type}/field.{$type}.php")) {
-				$this->types->$type = static::loadType(
+				$this->$types[$type] = $this->loadType(
 					$addon_path,
 					$addon_path.$type.'/field.'.$type.'.php',
 					$type,
 					$mode
 				);
 			} elseif (is_file("{$addon_path}field.{$type}.php")) {
-				$this->types->$type = static::loadType(
+				$this->$types[$type] = $this->loadType(
 					$addon_path,
 					$addon_path.'field.'.$type.'.php',
 					$type,
@@ -211,31 +167,30 @@ class Type
 	 * @param	string - type name
 	 * @return	obj or null
 	 */
-	public function loadSingleType($type)
+	public function loadSingleType($type = null)
 	{
 		// Check if we've already loaded this field type
-		if ( ! property_exists($this->types, $type)) {
-			foreach ($this->addon_paths as $mode => $path) {
-				// Is this a directory w/ a field type?
-				if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
-					return static::loadType(
-						$path, 
-						$path.$type.'/field.'.$type.'.php',
-						$type,
-						$mode
-					);		
-				} elseif (is_file($path.'field.'.$type.'.php')) {
-					return static::loadType(
-						$path, 
-						$path.'field.'.$type.'.php',
-						$type,
-						$mode
-					);
-				}					
-			}
-		}
+		if (isset($this->types[$type])) return static::$types[$type];
 
-		return $this->types->$type;
+		foreach ($this->addon_paths as $mode => $path)
+		{
+			// Is this a directory w/ a field type?
+			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
+				return $this->loadType(
+					$path, 
+					$path.$type.'/field.'.$type.'.php',
+					$type,
+					$mode
+				);
+			} elseif (is_file($path.'field.'.$type.'.php')) {
+				return $this->loadType(
+					$path, 
+					$path.'field.'.$type.'.php',
+					$type,
+					$mode
+				);
+			}					
+		}
 	}
 
 	/**
@@ -277,97 +232,25 @@ class Type
 
 		require_once($file);
 
-		$tmp = new stdClass;
+		$instance = new \stdClass;
 
 		$class_name = 'Field_'.$type;
 
 		if (class_exists($class_name)) {
-			$tmp = new $class_name();
+			$instance = new $class_name();
 
 			// Set some ft class vars
-			$tmp->ft_mode 		= $mode;
-			$tmp->ft_root_path 	= $path;
-			$tmp->ft_path 		= $path.$type.'/';
-
-			// And give us a CI instance
-			$tmp->CI			= get_instance();
+			$instance->ft_mode 		= $mode;
+			$instance->ft_root_path 	= $path;
+			$instance->ft_path 		= $path.$type.'/';
 
 			// Field type name is languagized
-			if ( ! isset($tmp->field_type_name)) {
-				$tmp->field_type_name = lang('streams:'.$type.'.name');
+			if ( ! isset($instance->field_type_name)) {
+				$instance->field_type_name = lang('streams:'.$type.'.name');
 			}
 		}
 
-		return $tmp;
-	}
-
-	/**
-	 * Add a field type CSS file
-	 */
-	public function addCss($field_type, $file)
-	{
-		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
-
-		ci()->template->append_metadata($html);
-
-		$this->assets[] = $html;
-	}
-
-	/**
-	 * Add a field type JS file
-	 */
-	public function addJs($field_type, $file)
-	{
-		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
-
-		ci()->template->append_metadata($html);
-
-		$this->assets[] = $html;
-	}
-
-	/**
-	 * Add a field type JS file
-	 */
-	public function addMisc($html)
-	{
-		ci()->template->append_metadata($html);
-
-		$this->assets[] = $html;
-	}
-
-	/**
-	 * Load a view from a field type
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	bool
-	 */
-	public function loadView($type, $view_name, $data = array())
-	{
-		$paths = ci()->load->get_view_paths();
-
-		ci()->load->set_view_path($this->types->$type->ft_path.'views/');
-
-		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
-
-		ci()->load->set_view_path($paths);
-
-		return $view_data;
-	}
-
-	/**
-	 * Object to Array
-	 *
-	 * Takes an object as input and converts the class variables to array key/vals
-	 *
-	 * From CodeIgniter's Loader class - moved over here since it was protected.
-	 *
-	 * @param	object
-	 * @return	array
-	 */
-	protected function objectToArray($object)
-	{
-		return (is_object($object)) ? get_object_vars($object) : $object;
+		return $instance;
 	}
 
 	/**
@@ -378,7 +261,7 @@ class Type
 	public function loadFieldCrudAssets($types = null)
 	{
 		if (! $types) {
-			$types = $this->types;
+			$types = $instance->types;
 		}
 
 		foreach ($types as $type) {
@@ -399,7 +282,8 @@ class Type
 	 */
 	public function fieldTypesArray($types = null)
 	{
-		if (! $types) {
+		if ( ! $types)
+		{
 			$types = $this->types;
 		}
 
@@ -410,7 +294,8 @@ class Type
 
 		if ( ! $types) return array();
 
-		foreach ($types as $type) {
+		foreach ($types as $type)
+		{
 			$return[$type->field_type_slug] = $type->field_type_name;
 		}
 
