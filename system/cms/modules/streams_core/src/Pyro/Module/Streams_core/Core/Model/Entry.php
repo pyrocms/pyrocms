@@ -1,7 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Field\Type;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
