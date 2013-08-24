@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field;
 
 class FieldAssignment extends Eloquent
 {
@@ -115,24 +116,38 @@ class FieldAssignment extends Eloquent
      */
     public function cleanup()
     {
+        $attributes = $this->getAttributes();
+
+        $schema = ci()->pdb->getSchemaBuilder();
+
+        // @todo - remove this once the hasColumn bug is fixed in Illuminate\Database
+        $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+        $field = $this->getAttribute('field');
+
+        $stream = $this->getAttribute('stream');
+
         // Drop the column if it exists
-        if ($this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug)) {
-            if ( ! $this->dbforge->drop_column($assignment->stream_prefix.$assignment->stream_slug, $assignment->field_slug) ) {
-                $outcome = false;
-            }
+        if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug))
+        {
+            $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
+                
+                $table->dropColumn($field->field_slug);
+            
+            });            
         }
 
         // Run the destruct
-        if (method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')) {
-            $this->type->types->{$assignment->field_type}->field_assignment_destruct($this->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+        if ($type = Field\Type::getType($field->field_type) and method_exists($type, 'field_assignment_destruct')) {
+            $type->field_assignment_destruct($field, $stream);
         }
 
         // Update that stream's view options
-        $view_options = unserialize($assignment->stream_view_options);
+        $view_options = unserialize($field->stream->view_options);
 
         if (is_array($view_options)) {
             foreach ($view_options as $key => $option) {
-                if ($option == $assignment->field_slug) {
+                if ($option == $attributes->field_slug) {
                     unset($view_options[$key]);
                 }
             }
@@ -142,7 +157,7 @@ class FieldAssignment extends Eloquent
 
         $update_data['view_options'] = serialize($view_options);
 
-        $this->db->where('id', $assignment->stream_id)->update(STREAMS_TABLE, $update_data);
+        $this->db->where('id', $attributes->stream_id)->update(STREAMS_TABLE, $update_data);
 
         unset($update_data);
         unset($view_options);
