@@ -82,6 +82,17 @@ class Stream extends Eloquent
 		return static::all()->count();
 	}
 
+	public static function renameTitleColumnByStreamIds($stream_ids = array(), $from = null, $to = null)
+	{
+		if (! $to or $from == $to) return false;
+
+		return static::whereIn('id', $stream_ids)
+		->where('title_column', $from)
+		->update(array(
+			'title_column' => $to
+		));
+	}
+
 	public static function create(array $attributes = array())
 	{
 		// Slug and namespace are required attributes
@@ -135,7 +146,7 @@ class Stream extends Eloquent
 
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		$from = $this->attributes['stream_prefix'].$this->attributes['stream_slug'];
+		$from = $this->getAttribute('stream_prefix').$this->getAttribute('stream_slug');
 		$to = $attributes['stream_prefix'].$attributes['stream_slug'];
 
 		if ($schema->hasTable($from) and $from != $to)

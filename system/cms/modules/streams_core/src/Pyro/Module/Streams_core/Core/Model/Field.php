@@ -196,7 +196,7 @@ class Field extends Eloquent
             $from = $field_slug;
             $to = $attributes['field_slug'];
 
-            return Stream::renameAssignmentTitleColumn($from, $to);
+            return Stream::renameTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
         }
         else {
             // Boo.
