@@ -14,7 +14,7 @@
 			<tr>
 				<td><?php echo lang_label($field->field_name); ?></td>
 				<td><?php echo $field->field_slug; ?></td>
-				<td><?php echo ci()->type->types->{$field->field_type}->field_type_name; ?></td>
+				<td><?php echo $field->getType()->field_type_name; ?></td>
 				<td class="actions">
 
 					<?php
