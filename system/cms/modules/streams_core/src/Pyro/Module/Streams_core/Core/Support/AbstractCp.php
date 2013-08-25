@@ -17,6 +17,8 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $defaults = array();
 
+	protected $direction = 'asc';
+
 	protected $entry = null;
 
 	protected $exclude = false;
@@ -43,6 +45,8 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected static $instance;
 
+	protected $limit = 0;
+
 	protected $mode = null;
 
 	protected $model = null;
@@ -54,6 +58,8 @@ abstract class AbstractCp extends AbstractSupport
 	protected $offset = null;
 
 	protected $offset_uri = null;
+
+	protected $order_by = null;
 
 	protected $pagination = null;
 
@@ -124,6 +130,27 @@ abstract class AbstractCp extends AbstractSupport
 		return $instance;
 	}
 
+	public function limit($limit = 0)
+	{
+		$this->limit = $limit;
+
+		return $this;
+	}
+
+	public function orderDirection($direction = 'asc')
+	{
+		$this->direction = $direction;
+
+		return $this;
+	}
+
+	public function orderBy($column = null)
+	{
+		$this->order_by = $column;
+
+		return $this;
+	}
+
 	public function pagination($pagination = null, $pagination_uri = null)
 	{
 		$this->pagination = $pagination;
@@ -162,22 +189,6 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public function tabs(array $tabs = array())
-	{
-		$this->tabs = $tabs;
-
-		return $this;
-	}
-
-	public function title($title = null)
-	{
-		ci()->template->title(lang_label($title));
-
-		$this->title;
-
-		return $this;
-	}
-
 	public function redirect($return = null)
 	{
 		$this->return = $return;
@@ -195,6 +206,22 @@ abstract class AbstractCp extends AbstractSupport
 		}
 
 		return false;
+	}
+
+	public function tabs(array $tabs = array())
+	{
+		$this->tabs = $tabs;
+
+		return $this;
+	}
+
+	public function title($title = null)
+	{
+		ci()->template->title(lang_label($title));
+
+		$this->title;
+
+		return $this;
 	}
 
 }
