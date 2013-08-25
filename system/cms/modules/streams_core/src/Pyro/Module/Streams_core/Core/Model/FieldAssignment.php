@@ -25,6 +25,16 @@ class FieldAssignment extends Eloquent
      */
     public $timestamps = false;
 
+    public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
+    {
+        return static::with('field')
+            ->where('stream_id', $stream_id)
+            ->take($limit)
+            ->skip($offset)
+            ->orderBy('field_name', $order)
+            ->get();
+    }
+
     /**
      * Count assignments
      *
