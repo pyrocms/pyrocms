@@ -4,15 +4,21 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldAssignmentCollection extends EloquentCollection
 {
+	/**
+	 * Get stream ids
+	 * @return array The array of stream ids
+	 */
 	public function getStreamIds()
 	{
-		$stream_ids = array();
-		
-		foreach ($this->items as $key => $assignment)
-		{
-			$stream_ids[] = $assignment->stream_id;
-		}
+		return array_values($this->lists('stream_id'));
+	}
 
-		return $stream_ids;
+	/**
+	 * Get field ids
+	 * @return array The array of field ids
+	 */
+	public function getFieldIds()
+	{
+		return array_values($this->lists('field_id'));
 	}
 }
