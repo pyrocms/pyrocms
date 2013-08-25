@@ -73,6 +73,11 @@ abstract class Eloquent extends Model
         return static::$runtime_cache;
     }
 
+    public function getAttributeKeys()
+    {
+        return array_keys($this->getAttributes());
+    }
+
     /**
      * Caches the result of all() in the runtime cache
      *
@@ -87,6 +92,20 @@ abstract class Eloquent extends Model
         }
         
         return static::setCache('all', parent::all($columns));
+    }
+
+    public function update(array $attributes = array())
+    {
+        // Remove any post values that do not correspond to existing columns
+        foreach ($attributes as $key => $value)
+        {
+            if ( ! in_array($key, $this->getAttributeKeys()))
+            {
+                unset($attributes[$key]);
+            }
+        }
+
+        return parent::update($attributes);
     }
 
     // abstract public function validate();
