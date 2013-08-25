@@ -4,7 +4,17 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
+	/**
+	 * [$by_slug description]
+	 * @var [type]
+	 */
 	protected $by_slug = null;
+
+	/**
+	 * The array of Types 
+	 * @var array
+	 */
+	protected $types = array();
 
 	public function  __construct($fields = array())
 	{
@@ -15,24 +25,6 @@ class FieldCollection extends EloquentCollection
 			$this->by_slug[$field->field_slug] = $field;
 		}
 	}
-
-	/**
-	 * [$standard_columns description]
-	 * @var array
-	 */
-	protected $standard_columns = array();
-
-	/**
-	 * [$indexed_by_slug description]
-	 * @var array
-	 */
-	protected $indexed_by_slug = array();
-
-	/**
-	 * The array of Types 
-	 * @var array
-	 */
-	protected $types = array();
 
 	/**
 	 * [findBySlug description]

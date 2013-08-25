@@ -123,8 +123,8 @@ class Field extends Eloquent
         $field_slug = $this->getAttribute('field_slug');
 
         if(
-            $field_type != $attributes['field_type'] or 
-            $field_slug != $attributes['field_slug'] or
+            (isset($attributes['field_type']) and $field_type != $attributes['field_type']) or 
+            (isset($attributes['field_slug']) and $field_slug != $attributes['field_slug']) or
             (isset($field_data['max_length']) and $field_data['max_length'] != $attributes['max_length']) or
             (isset($field_data['default_value']) and $field_data['default_value'] != $attributes['default_value'])
         )
@@ -190,9 +190,11 @@ class Field extends Eloquent
         if (parent::update($attributes))
         {
             $from = $field_slug;
-            $to = $attributes['field_slug'];
+            $to = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
 
-            return Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
+            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
+
+            return true;
         }
         else {
             // Boo.
@@ -273,7 +275,7 @@ class Field extends Eloquent
 
     public function assignments()
     {
-        return $this->hasMany(__NAMESPACE_.'\FieldAssignment', 'field_id');
+        return $this->hasMany(__NAMESPACE__.'\FieldAssignment', 'field_id');
     }
 
     public function setFieldDataAttribute($field_data)

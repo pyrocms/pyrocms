@@ -271,13 +271,14 @@ class Fields extends AbstractCp
 
 		if ($this->id)
 		{
-			$assignment = Model\FieldAssignment::with('field')->find($this->id);
-
-			// If we have no assignment, we can't continue
-			if ( ! $assignment) show_error('Could not find assignment');
+			if ( ! $data['assignment'] = Model\FieldAssignment::with('field')->find($this->id))
+			{
+				// If we have no assignment, we can't continue
+				show_error('Could not find assignment');
+			}
 
 			// Find the field now
-			$data['current_field'] = $assignment->field;
+			$data['current_field'] = $data['assignment']->field;
 
 			// We also must have a field if we're editing
 			if ( ! $data['current_field']) show_error('Could not find field.');
@@ -442,10 +443,7 @@ class Fields extends AbstractCp
 			}
 			else
 			{
-				if ( ! ci()->fields_m->update_field(
-									$data['current_field'],
-									array_merge($post_data, array('field_namespace' => $namespace))
-					))
+				if ( ! $data['current_field']->update(array_merge($post_data,array('field_namespace' => $this->namespace))))
 				{
 				
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
@@ -453,12 +451,7 @@ class Fields extends AbstractCp
 				else
 				{
 					// Add the assignment
-					if( ! ci()->fields_m->edit_assignment(
-										$assign_id,
-										$this->stream,
-										$data['current_field'],
-										$post_data
-									))
+					if( ! $data['assignment']->update($post_data))
 					{
 						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
