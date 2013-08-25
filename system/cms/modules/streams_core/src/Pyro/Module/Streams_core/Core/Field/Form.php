@@ -45,13 +45,23 @@ class Form
 
     public function __construct($entry = null)
     {
-    	$this->entry = $entry;
-		
-		$this->fields = $entry->getFields();
+    	if ($entry)
+    	{
+			$this->entry = $entry;
 
-    	$this->method = $entry->getKey() ? 'edit' : 'new';
+			$this->fields = $entry->getFields();
+
+			$this->method = $entry->getKey() ? 'edit' : 'new';    		
+    	}
 
 		ci()->load->helper('form');
+	}
+
+	public function setFields($fields = null)
+	{
+		$this->fields = $fields;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -606,6 +616,13 @@ class Form
 		}
 	}
 
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -621,24 +638,17 @@ class Form
 	 * @return 	
 	 */
 	// $stream = null, $this->method = 'new', $field = null
-	public function runFieldSetupEvents()
+	public static function runFieldSetupEvents($stream, $method = 'new', $field = null)
 	{
-		$types = $this->fields->getTypes();
+		$types = $stream->assignments->getFields()->getTypes();
 
 		foreach ($types as $type)
 		{
 			if (method_exists($type, 'field_setup_event'))
 			{
-				$type->field_setup_event($stream, $this->method, $field);
+				$type->field_setup_event($stream, $method, $field);
 			}
 		}
-	}
-
-	public function redirect($return = null)
-	{
-		$this->return = $return;
-
-		return $this;
 	}
 
 	// --------------------------------------------------------------------------
