@@ -5,6 +5,17 @@ abstract class AbstractSupport
 
 	protected static $debug = true;
 
+	public function __construct()
+	{
+		ci()->load->language('streams_core/pyrostreams');
+		ci()->load->config('streams_core/streams');
+
+		// Load the language file
+		if (is_dir(APPPATH.'libraries/Streams')) {
+			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
+		}
+	}
+
 	public static function debug($debug = true)
 	{
 		static::$debug = $debug;

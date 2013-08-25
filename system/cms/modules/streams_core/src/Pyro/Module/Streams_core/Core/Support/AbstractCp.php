@@ -77,12 +77,6 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $view_override = true;
 
-	public function __construct()
-	{
-		// @todo - This is here to make sure the types are remove this when we finish the new Type class. language depends on this too
-		ci()->load->driver('Streams');
-	}
-
 	public function addUri($add_uri = null)
 	{
 		$this->add_uri = $add_uri;
