@@ -92,6 +92,13 @@ class Type
 		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, $gather_types);
 	}
 
+	public function getAllTypes()
+	{
+		$this->gatherTypes();
+
+		return new \Pyro\Module\Streams_core\Core\Model\Collection\FieldTypeCollection($this->types);
+	}
+
 	public function updateTypes()
 	{
 		Events::trigger('streams_core_add_addon_path', $this);
@@ -144,14 +151,14 @@ class Type
 
 			// Is this a directory w/ a field type?
 			if (is_dir($addon_path.$type) and is_file("{$addon_path}{$type}/field.{$type}.php")) {
-				$this->$types[$type] = $this->loadType(
+				$this->types[$type] = $this->loadType(
 					$addon_path,
 					$addon_path.$type.'/field.'.$type.'.php',
 					$type,
 					$mode
 				);
 			} elseif (is_file("{$addon_path}field.{$type}.php")) {
-				$this->$types[$type] = $this->loadType(
+				$this->types[$type] = $this->loadType(
 					$addon_path,
 					$addon_path.'field.'.$type.'.php',
 					$type,
