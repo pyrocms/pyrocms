@@ -140,7 +140,7 @@ class Form
 		//$stream_fields = ci()->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if (empty($this->fields))
+		if ($this->fields->isEmpty())
 		{
 			return null;
 		}
