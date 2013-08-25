@@ -176,12 +176,7 @@ class Entry extends Eloquent
 
     public function getField($field_slug = '')
     {
-        if ( ! $field = $this->getFields()->findBySlug($field_slug))
-        {
-            return false;
-        }
-
-        return $field;
+        return $this->getFields()->findBySlug($field_slug);
     }
 
     public function getFieldType($field_slug = '')
