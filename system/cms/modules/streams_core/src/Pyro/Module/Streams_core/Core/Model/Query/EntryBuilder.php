@@ -111,7 +111,7 @@ class EntryBuilder extends Builder
     public function requireKey(array $columns = array())
     {
     	// Always include the primary key if we are selecting specific columns, regardless
-        if ( ! $this->hasAsterisk($columns))
+        if ( ! $this->hasAsterisk($columns) and ! in_array($this->model->getKeyName(), $columns))
         {
             array_unshift($columns, $this->model->getKeyName());
         }
