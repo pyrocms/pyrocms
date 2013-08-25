@@ -64,14 +64,15 @@ class EntryBuilder extends Builder
 	{
 		// Replicate the model to keep the original intact
 		$clone = $entry->replicate();
-
-		$clone->setFields($this->model->getFields());
 		
-		// Restore the primary key to the replicated model, only if it is set
-		if (isset($entry->{$this->model->getKeyName()}))
-		{
-			$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
-		}
+		// We must set the fields for both the entry and the clone
+		// Setting them on the clone will have an effect on the resulting collection and 
+		// Setting them on the entry will have an effect when returning a single model
+		$entry->setFields($this->model->getFields());
+		$clone->setFields($this->model->getFields());
+
+		// Restore the primary key to the replicated model
+		$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
 
 		foreach (array_keys($clone->getAttributes()) as $field_slug)
 		{
@@ -79,12 +80,6 @@ class EntryBuilder extends Builder
 			{
 				$clone->setUnformattedValue('created_by', $entry->created_by);
 				$clone->created_by = $entry->created_by_user;
-			}
-			// Get the field type instance from the entry
-			elseif (in_array($field_slug, $this->model->getStandardColumns()))
-			{
-				// If not replicate the raw value
-				$clone->{$field_slug} = $entry->{$field_slug};
 			}
 			elseif ($type = $entry->getFieldType($field_slug))
 			{
@@ -116,7 +111,7 @@ class EntryBuilder extends Builder
     public function requireKey(array $columns = array())
     {
     	// Always include the primary key if we are selecting specific columns, regardless
-        if (count($columns) === 1 and $columns[0] !== '*')
+        if ( ! $this->hasAsterisk($columns))
         {
             array_unshift($columns, $this->model->getKeyName());
         }
