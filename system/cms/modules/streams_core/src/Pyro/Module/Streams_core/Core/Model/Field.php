@@ -38,18 +38,14 @@ class Field extends Eloquent
     // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
     public static function create(array $attributes = array())
     {
-        if (isset($attributes['field_type']))
+        // Load the type to see if there are other params
+        if ($type = $this->getType() and isset($type->custom_parameters))
         {
-            // @todo replace this with PSR version of Type class
-            // Load the type to see if there are other fields
-            if ($field_type = Type::getType($attributes['field_type']) and isset($field_type->custom_parameters))
+            foreach ($type->custom_parameters as $param)
             {
-                foreach ($field_type->custom_parameters as $param)
+                if (method_exists($type, 'param_'.$param.'_pre_save'))
                 {
-                    if (method_exists($field_type, 'param_'.$param.'_pre_save'))
-                    {
-                        $attributes['field_data'][$param] = $field_type->{'param_'.$param.'_pre_save'}( $attributes );
-                    }
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $attributes );
                 }
             }
         }
