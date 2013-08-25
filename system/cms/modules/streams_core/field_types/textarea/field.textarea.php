@@ -87,11 +87,11 @@ class Field_textarea extends AbstractField
 		// let it through. Otherwise we will escape them.
 		if ($parse_tags == 'y')
 		{
-			$content = $this->CI->parser->parse_string($this->value, array(), true);
+			$content = ci()->parser->parse_string($this->value, array(), true);
 		}
 		else
 		{
-			$this->CI->load->helper('text');
+			ci()->load->helper('text');
 			$content = escape_tags($this->value);
 		}
 
@@ -99,7 +99,7 @@ class Field_textarea extends AbstractField
 		switch ($content_type)
 		{
 			case 'md':
-				$this->CI->load->helper('markdown');
+				ci()->load->helper('markdown');
 				return parse_markdown($content);
 
 			case 'html':
