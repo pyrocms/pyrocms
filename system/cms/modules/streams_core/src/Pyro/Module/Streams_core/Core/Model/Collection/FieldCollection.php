@@ -69,16 +69,4 @@ class FieldCollection extends EloquentCollection
 	{
 		return $this->indexed_by_slug;
 	}
-
-	public function getTypes()
-	{
-		$types = array();
-
-		foreach($this->items as $field)
-		{
-			$types[$field->field_type] = $field->getType();
-		}
-
-		return $types;
-	}
 }
