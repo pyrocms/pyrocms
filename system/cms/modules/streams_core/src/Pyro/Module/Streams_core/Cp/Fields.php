@@ -10,7 +10,18 @@ use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 
 class Fields extends AbstractCp
 {
-	public static function table($stream_slug, $namespace = null)
+	public static function assignmentsTable($stream_slug, $namespace = null)
+	{
+		$instance = static::instance(__FUNCTION__);
+
+		$instance->stream = Data\Streams::getStream($stream_slug, $namespace);
+
+		$instance->namespace = $namespace;
+
+		return $instance;
+	}
+
+	public static function table($namespace = null)
 	{
 		$instance = static::instance(__FUNCTION__);
 
@@ -19,16 +30,7 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
-	public static function namespaceTable($namespace = null)
-	{
-		$instance = static::instance(__FUNCTION__);
-
-		$instance->namespace = $namespace;
-
-		return $instance;
-	}
-
-	public static function form($stream_slug, $namespace, $id = null)
+	public static function assignmentForm($stream_slug, $namespace, $id = null)
 	{
 		$instance = static::instance(__FUNCTION__);
 
@@ -60,17 +62,20 @@ class Fields extends AbstractCp
 	// 
 	// --------------------------------------------------------------------------
 
-	protected function renderTable()
+	protected function renderAssignmentsTable()
 	{
 		$this->data['buttons'] = $this->buttons;
+
 
 		// -------------------------------------
 		// Get fields and create pagination if necessary
 		// -------------------------------------
 
+		$this->data['assignments'] = Model\FieldAssignment::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
+
 		if (is_numeric($this->pagination))
 		{	
-			$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, $pagination, $offset, $this->skips);
+
 
 			$this->data['pagination'] = create_pagination(
 											$pagination_uri,
@@ -81,19 +86,19 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, false, 0, $this->skips);
+			//$this->data['assignments'] = Model\Field::findManyByNamespace($this->namespace, false, 0, $this->skips);
 
 			$this->data['pagination'] = null;
 		}
 
-		// Allow view to inherit custom 'Add Field' uri
+		// Allow to set custom 'Add Field' uri
 		$this->data['add_uri'] = $this->add_uri;
 		
 		// -------------------------------------
-		// Build Pages
+		// Build Fields
 		// -------------------------------------
 
-		$table = ci()->load->view('admin/partials/streams/fields', $this->data, true);
+		$table = ci()->load->view('admin/partials/streams/assignments', $this->data, true);
 		
 		if ($this->view_override)
 		{
@@ -128,7 +133,15 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, false, 0, $this->skips);
+			if ($this->namespace)
+			{
+				$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, false, 0, $this->skips);	
+			}
+			else
+			{
+				$this->data['fields'] = Model\Field::all();
+			}
+			
 
 			$this->data['pagination'] = null;
 		}
@@ -185,12 +198,14 @@ class Fields extends AbstractCp
 	 *
 	 * see docs for more.
 	 */
-	protected function renderForm()
+	protected function renderAssignmentForm()
 	{
 		$data = array();
-		$data['field'] = new \stdClass;
+		$data['current_field'] = new \stdClass;
 
 		$data['method'] = $this->id ? 'edit' : 'new';
+
+		$fields = $this->stream->assignments->getFields();
 
 		// -------------------------------------
 		// Include/Exclude Field Types
@@ -225,7 +240,7 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			$ft_types = ci()->type->types;
+			//$ft_types = ci()->type->types;
 		}
 
 		// -------------------------------------
@@ -235,7 +250,7 @@ class Fields extends AbstractCp
 		// need when adding/editing fields
 		// -------------------------------------
    		
-   		ci()->type->load_field_crud_assets($ft_types);
+   		//ci()->type->load_field_crud_assets($ft_types);
    		
    		// -------------------------------------
         
@@ -243,7 +258,7 @@ class Fields extends AbstractCp
 		//$data['method'] = $data['method'];
 
 		// Get our list of available fields
-		$data['field_types'] = ci()->type->field_types_array($ft_types);
+		$data['field_types'] = Field\Type::getLoader()->getAllTypes()->getOptions();
 
 		// -------------------------------------
 		// Get the field if we have the assignment
@@ -256,13 +271,13 @@ class Fields extends AbstractCp
 
 		if ($this->id)
 		{
-			$assignment = Model\FieldAssignment::with('field')->find(1);
+			$assignment = Model\FieldAssignment::with('field')->find($this->id);
 
 			// If we have no assignment, we can't continue
 			if ( ! $assignment) show_error('Could not find assignment');
 
 			// Find the field now
-			$data['current_field'] = ci()->fields_m->get_field($assignment->field_id);
+			$data['current_field'] = $assignment->field;
 
 			// We also must have a field if we're editing
 			if ( ! $data['current_field']) show_error('Could not find field.');
@@ -331,8 +346,9 @@ class Fields extends AbstractCp
 			)
 		);
 
+		// @todo - fix this
 		// Get all of our valiation into one super validation object
-		$validation = array_merge(ci()->fields_m->fields_validation, $assign_validation);
+		$validation = array(); //array_merge(ci()->fields_m->fields_validation, $assign_validation);
 
 		// Check if $skips is set to bypass validation for specified field slugs
 
@@ -559,7 +575,7 @@ class Fields extends AbstractCp
 		// Run field setup events
 		// -------------------------------------
 
-		ci()->fields->run_field_setup_events($this->stream, $data['method'], $data['current_field']);
+		Field\Form::runFieldSetupEvents($this->stream, $data['method'], $data['current_field']);
 
 		// -------------------------------------
 		// Build page
@@ -567,17 +583,11 @@ class Fields extends AbstractCp
 
 		ci()->template->append_js('streams/fields.js');
 
-		// Set title
-		if (isset($extra['title']))
-		{
-			ci()->template->title($extra['title']);
-		}
-
 		// Set the cancel URI. If there is no cancel URI, then we won't
 		// have a cancel button.
 		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
 
-		$table = ci()->load->view('admin/partials/streams/field_form', $data, true);
+		$table = ci()->load->view('admin/partials/streams/field_assignment_form', $data, true);
 		
 		if ($this->view_override)
 		{
