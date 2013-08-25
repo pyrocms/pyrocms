@@ -84,12 +84,12 @@ class Type
 
 	public function registerType()
 	{
-		// @todo - starting an idea for a PSR field loader	
+		// @todo - starting an idea for a PSR field loader for 3.0/develop
 	}
 
-	public function getType($type)
+	public function getType($type = null, $gather_types = false)
 	{
-		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type);
+		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, $gather_types);
 	}
 
 	public function updateTypes()
@@ -167,8 +167,13 @@ class Type
 	 * @param	string - type name
 	 * @return	obj or null
 	 */
-	public function loadSingleType($type = null)
+	public function loadSingleType($type = null, $gather_types = false)
 	{
+		if ($gather_types)
+		{
+			$this->gatherTypes();	
+		}
+		
 		// Check if we've already loaded this field type
 		if (isset($this->types[$type])) return static::$types[$type];
 

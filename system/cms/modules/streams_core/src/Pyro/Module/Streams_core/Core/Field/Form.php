@@ -321,7 +321,7 @@ class Form
 		foreach ($this->fields as $field)
 		{
 			// We need the slug to go on.
-			if ( ! isset(ci()->type->types->{$field->field_type}))
+			if ( ! $type = $field->getType())
 			{
 				continue;
 			}
@@ -335,9 +335,9 @@ class Form
 				// then call it already.
 				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if (method_exists(ci()->type->types->{$field->field_type}, 'event'))
+					if (method_exists($type, 'event'))
 					{
-						ci()->type->types->{$field->field_type}->event($field);
+						$type->event();
 					}
 					
 					$this->field_type_events_run[] = $field->field_type;
@@ -406,13 +406,6 @@ class Form
 		}
 
 		return $this->field_types;
-	}
-
-	public function getFieldType($field_slug)
-	{
-		$types = $this->getFieldTypes();
-
-		return isset($types[$field_slug]) ? $types[$field_slug] : false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -492,7 +485,7 @@ class Form
 	public function setRules()
 	{
 
-		if ( ! $this->fields or ! is_object($this->fields)) return array();
+		if ($this->fields->isEmpty()) return array();
 
 		$validation_rules = array();
 
@@ -507,12 +500,10 @@ class Form
 				$rules = array();
 
 				// If we don't have the type, then no need to go on.
-				if ( ! isset(ci()->type->types->{$field->field_type}))
+				if ( ! $type = $field->getType())
 				{
 					continue;
 				}
-
-				$type = ci()->type->types->{$field->field_type};
 
 				// -------------------------------------
 				// Pre Validation Event
@@ -632,11 +623,13 @@ class Form
 	// $stream = null, $this->method = 'new', $field = null
 	public function runFieldSetupEvents()
 	{
-		foreach (ci()->type->types as $ft)
+		$types = $this->fields->getTypes();
+
+		foreach ($types as $type)
 		{
-			if (method_exists($ft, 'field_setup_event'))
+			if (method_exists($type, 'field_setup_event'))
 			{
-				$ft->field_setup_event($stream, $this->method, $field);
+				$type->field_setup_event($stream, $this->method, $field);
 			}
 		}
 	}
@@ -646,38 +639,6 @@ class Form
 		$this->return = $return;
 
 		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Translate a label.
-	 *
-	 * If it has the label: before it, then we can
-	 * look for a language line.
-	 *
-	 * This is partially from the CodeIgniter Form Validation
-	 * library but it protected so we need to replicate the
-	 * functionality here.
-	 *
-	 * @access 	public
-	 * @param 	string - the field label
-	 * @return 	string - translated or original label
-	 */
-	public function translateLabel($label)
-	{
-		// Look for lang
-		if (substr($label, 0, 5) === 'lang:')
-		{
-			$line = substr($label, 5);
-
-			if (($label = ci()->lang->line($line)) === false)
-			{
-				return $line;
-			}
-		}
-
-		return $label;		
 	}
 
 	// --------------------------------------------------------------------------
