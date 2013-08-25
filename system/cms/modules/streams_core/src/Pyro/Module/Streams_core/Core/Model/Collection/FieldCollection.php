@@ -4,6 +4,18 @@ use Pyro\Collection\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
+	protected $by_slug = null;
+
+	public function  __construct($fields = array())
+	{
+		parent::__construct($fields);
+		
+		foreach ($fields as $field)
+		{
+			$this->by_slug[$field->field_slug] = $field;
+		}
+	}
+
 	/**
 	 * [$standard_columns description]
 	 * @var array
@@ -17,27 +29,19 @@ class FieldCollection extends EloquentCollection
 	protected $indexed_by_slug = array();
 
 	/**
-	 * [__construct description]
-	 * @param array $fields [description]
+	 * The array of Types 
+	 * @var array
 	 */
-	public function __construct(array $fields = array())
-	{
-		parent::__construct($fields);
-
-		foreach ($fields as $field)
-		{
-			$this->indexed_by_slug[$field->field_slug] = $field;
-		}
-	}
+	protected $types = array();
 
 	/**
 	 * [findBySlug description]
 	 * @param  [type] $field_slug [description]
-	 * @return [type]             [description]
+	 * @return [type      [description]
 	 */
 	public function findBySlug($field_slug = null)
 	{
-		return isset($this->indexed_by_slug[$field_slug]) ? $this->indexed_by_slug[$field_slug] : null;
+		return isset($this->by_slug[$field_slug]) ? $this->by_slug[$field_slug] : null;
 	}
 
 	/**
@@ -67,6 +71,30 @@ class FieldCollection extends EloquentCollection
 	 */
 	public function getArrayIndexedBySlug()
 	{
-		return $this->indexed_by_slug;
+		$fields = array();
+
+		foreach ($this->items as $field)
+		{
+			$fields[$field->field_slug] = $field;
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Get an array of field types
+	 * @param  Pyro\Module\Streams_core\Core\Model\Entry $entry An optional entry to instantiate the field types
+	 * @return array The array of field types
+	 */
+	public function getTypes($entry = null)
+	{
+		$types = array();
+
+		foreach ($this->items as $field)
+		{
+			$types[$field->field_type] = $field->getType($entry);
+		}
+
+		return new FieldTypeCollection($types);
 	}
 }
