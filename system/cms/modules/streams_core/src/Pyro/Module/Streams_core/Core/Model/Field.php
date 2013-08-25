@@ -196,7 +196,7 @@ class Field extends Eloquent
             $from = $field_slug;
             $to = $attributes['field_slug'];
 
-            return Stream::renameTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
+            return Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
         }
         else {
             // Boo.
@@ -224,53 +224,30 @@ class Field extends Eloquent
      */
     public function delete()
     {
-        if (parent::delete())
+        if ($success = parent::delete())
+        {
+            // Find assignments, and delete rows from table
+            $assignments = $this->getAttribute('assignments');
 
-        // Find assignments, and delete rows from table
-        $assignments = $this->getAttribute('assignments');
+            if ( ! $assignments->isEmpty())
+            {
+                // Delete assignments
+                foreach ($assignments as $assignment)
+                {
+                    $assignment->delete();
+                }
+            }
 
-        if ( ! $assignments->isEmpty()) {
+            // Reset instances where the title column
+            // is the field we are deleting. PyroStreams will
+            // always just use the ID in place of the field.
             
-            $schema = ci()->pdb->getSchemaBuilder();
+            $title_column = $this->getAttribute('field_slug');
 
-            $outcome = true;
-
-            // Cycle and delete columns
-            foreach ($assignments as $assignment) {
-                $this->cleanup_assignment($assignment);
-            }
-
-            if ( ! $outcome) return $outcome;
-        } else {
-            // If we have no assignments, let's call a special
-            // function (if it exists). This is for deleting
-            // fields that have no assignments.
-            if ($type = Type::getType($field->field_type) and method_exists($type, 'field_no_assign_destruct')) {
-                $type->field_no_assign_destruct($field);
-            }
+            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);      
         }
 
-        // Delete field assignments
-        $this->db->where('field_id', $field->id);
-
-        if ( ! $this->db->delete(ASSIGN_TABLE)) {
-            return false;
-        }
-
-        // Reset instances where the title column
-        // is the field we are deleting. PyroStreams will
-        // always just use the ID in place of the field.
-        $this->db->where('title_column', $field->field_slug);
-        $this->db->update(STREAMS_TABLE, array('title_column' => null));
-
-        // Delete from actual fields table
-        $this->db->where('id', $field->id);
-
-        if ( ! $this->db->delete(FIELDS_TABLE)) {
-            return false;
-        }
-
-        return true;
+        return $success;
     }
 
     /**

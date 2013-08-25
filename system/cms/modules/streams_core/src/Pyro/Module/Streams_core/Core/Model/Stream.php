@@ -82,9 +82,9 @@ class Stream extends Eloquent
 		return static::all()->count();
 	}
 
-	public static function renameTitleColumnByStreamIds($stream_ids = array(), $from = null, $to = null)
+	public static function updateTitleColumnByStreamIds($stream_ids = array(), $from = null, $to = null)
 	{
-		if (! $to or $from == $to) return false;
+		if ($from == $to) return false;
 
 		return static::whereIn('id', $stream_ids)
 		->where('title_column', $from)
@@ -163,7 +163,11 @@ class Stream extends Eloquent
 
 		$schema->dropIfExists($this->getAttribute('prefix').$this->getAttribute('stream_slug'));
 
-		return parent::delete();
+		$success = parent::delete();
+
+		Assignment::cleanup();
+
+		return $success;
 	}
 
 	public function getIsHiddenAttribute($is_hidden)
