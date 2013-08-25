@@ -57,7 +57,7 @@ class Field_text extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($this->value);
 	}
 }
