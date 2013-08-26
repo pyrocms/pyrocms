@@ -278,6 +278,11 @@ class Field extends Eloquent
         return $this->hasMany(__NAMESPACE__.'\FieldAssignment', 'field_id');
     }
 
+    public function getFieldNameAttribute($field_name)
+    {
+        return lang_label($field_name);
+    }
+
     public function setFieldDataAttribute($field_data)
     {
         $this->attributes['field_data'] = serialize($field_data);
