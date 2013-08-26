@@ -21,7 +21,7 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
-	public static function table($namespace = null)
+	public static function namespaceTable($namespace = null)
 	{
 		$instance = static::instance(__FUNCTION__);
 
@@ -122,7 +122,7 @@ class Fields extends AbstractCp
 
 		if (is_numeric($this->pagination))
 		{	
-			$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, $pagination, $offset, $this->skips);
+			$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, $pagination, $offset, $this->skips);
 
 			$this->data['pagination'] = create_pagination(
 											$pagination_uri,
@@ -135,7 +135,7 @@ class Fields extends AbstractCp
 		{
 			if ($this->namespace)
 			{
-				$this->data['fields'] = Model\Field::getManyByNamespace($this->namespace, false, 0, $this->skips);	
+				$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, false, 0, $this->skips);	
 			}
 			else
 			{
