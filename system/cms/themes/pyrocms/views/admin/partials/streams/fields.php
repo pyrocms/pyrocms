@@ -12,7 +12,7 @@
 		<tbody>
 		<?php foreach ($fields as $field):?>
 			<tr>
-				<td><?php echo lang_label($field->field_name); ?></td>
+				<td><?php echo $field->field_name; ?></td>
 				<td><?php echo $field->field_slug; ?></td>
 				<td><?php echo $field->getType()->field_type_name; ?></td>
 				<td class="actions">
