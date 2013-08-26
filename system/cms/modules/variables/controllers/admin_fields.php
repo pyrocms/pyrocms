@@ -39,7 +39,7 @@ class Admin_fields extends Admin_Controller
 		$buttons = array(
 			array(
 				'label' => lang('global:edit'),
-				'url' => 'admin/variables/fields/edit/-field_id-'
+				'url' => 'admin/variables/fields/form/-field_id-'
 			),
 			array(
 				'label' => lang('global:delete'),
@@ -56,18 +56,21 @@ class Admin_fields extends Admin_Controller
 
 	}
 
-	public function create()
-	{
-
-	}
-
 	/**
 	 * The field form that allows creating and configuring field instances
 	 */
-	public function edit()
+	public function form($id = null)
 	{
-		// @todo - We need a form to manage fields in a namespace without assigning them to the stream
-		// $this->streams->cp->field_form() assigns to the stream so it doesn't do what we need here
+		if ($id)
+		{
+			$title = lang('streams:edit_field');
+		}
+		else
+		{
+			$title = lang('streams:add_field');
+		}
+
+		Cp\Fields::namespaceForm('variables', $id)->title($title)->render();
 	}
 
 	public function delete()

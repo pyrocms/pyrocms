@@ -189,10 +189,13 @@ class Field extends Eloquent
 
         if (parent::update($attributes))
         {
-            $from = $field_slug;
-            $to = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
+            if ( ! $assignments->isEmpty())
+            {
+                $from = $field_slug;
+                $to = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
 
-            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
+                Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);                
+            }
 
             return true;
         }

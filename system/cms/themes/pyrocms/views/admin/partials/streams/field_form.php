@@ -1,14 +1,3 @@
-<section class="title">
-<?php if($method == 'new'): ?>
-	<h4><?php echo lang('streams:add_field'); ?></h4>
-<?php else: ?>
-	<h4><?php echo lang('streams:edit_field'); ?></h4>
-<?php endif; ?>
-</section>
-
-<section class="item">
-<div class="content">
-
 <?php echo form_open(uri_string()); ?>
 
 <input type="hidden" name="fields_current_namespace" id="fields_current_namespace" value="<?php echo $this->config->item('streams:core_namespace');?>" />
@@ -79,7 +68,7 @@
 						$data['instructions']	= null;
 					}
 
-					$data['input_name']			= $this->lang->line('streams:'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
+					$data['input_name']			= $this->lang->line('streams:'.$field->getType()->field_type_slug.'.'.$param);
 				}	
 				elseif (method_exists($parameters, $param))
 				{		
@@ -110,6 +99,3 @@
 	</div>
 	
 <?php echo form_close();?>
-
-</div>
-</section>

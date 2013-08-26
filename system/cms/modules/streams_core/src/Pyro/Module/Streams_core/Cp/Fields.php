@@ -30,7 +30,7 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
-	public static function assignmentForm($stream_slug, $namespace, $id = null)
+	public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
 	{
 		$instance = static::instance(__FUNCTION__);
 
@@ -38,14 +38,20 @@ class Fields extends AbstractCp
 
 		$instance->namespace = $namespace;
 
-		$instance->id = $id;
+		$instance->id = $assignment_id;
 
 		return $instance;
 	}
 
-	public static function namespaceForm($id)
+	public static function namespaceForm($namespace, $field_id = null)
 	{
-		return static::instance(__FUNCTION__);
+		$instance = static::instance(__FUNCTION__);
+
+		$instance->namespace = $namespace;
+
+		$instance->id = $field_id;
+
+		return $instance;
 	}
 
 	// --------------------------------------------------------------------------
@@ -585,6 +591,30 @@ class Fields extends AbstractCp
 
 	protected function renderNamespaceForm()
 	{
+		if ( ! $data['field'] = Model\Field::find($this->id))
+		{
+			$data['field'] = new Model\Field;
+		}
 
+		$data['method'] = $data['field']->getKey() ? 'edit' : 'new';
+
+		$data['field_types'] = Field\Type::getLoader()->getAllTypes()->getOptions();
+
+		// Set the cancel URI. If there is no cancel URI, then we won't
+		// have a cancel button.
+		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
+
+		$table = ci()->load->view('admin/partials/streams/field_form', $data, true);
+		
+		if ($this->view_override)
+		{
+			// Hooray, we are building the template ourself.
+			ci()->template->build('admin/partials/blank_section', array('content' => $table));
+		}
+		else
+		{
+			// Otherwise, we are returning the table
+			return $table;
+		}
 	}
 }

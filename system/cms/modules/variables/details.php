@@ -92,7 +92,7 @@ class Module_Variables extends AbstractModule
 					'shortcuts' => array(
 						array(
 							'name' => 'streams:add_field',
-							'uri' => 'admin/variables/fields/create',
+							'uri' => 'admin/variables/fields/form',
 							'class' => 'add',
 						),
 					),
@@ -134,7 +134,7 @@ class Module_Variables extends AbstractModule
 		$fields = array(
 			// Fields assigned to Variables
 			array(
-				'name'			=> 'lang:variables:name_label',
+				'name'			=> 'lang:streams:column_name',
 				'slug'			=> 'name',
 				'type'			=> 'slug',
 				'title_column'	=> true,
@@ -145,7 +145,7 @@ class Module_Variables extends AbstractModule
 				'extra'			=> array('max_length' => 100),
 			),
 			array(
-				'name'			=> 'lang:variables:data_label',
+				'name'			=> 'lang:streams:column_data',
 				'slug'			=> 'data',
 				'type'			=> 'field',
 				'required'		=> true,
@@ -154,7 +154,7 @@ class Module_Variables extends AbstractModule
 				'extra'			=> array('max_length' => 100, 'namespace' => 'variables', 'field_slug' => 'data'),
 			),
 			array(
-				'name'			=> 'lang:variables:syntax_label',
+				'name'			=> 'lang:streams:column_syntax',
 				'slug'			=> 'syntax',
 				'type'			=> 'merge_tags',
 				'namespace'		=> 'variables',
