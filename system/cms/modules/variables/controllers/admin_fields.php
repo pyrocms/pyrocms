@@ -1,4 +1,7 @@
 <?php
+
+use Pyro\Module\Streams_core\Cp;
+
 /**
  * Admin fields controller for the variables module
  *
@@ -33,12 +36,24 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function index()
 	{
-		// @todo - add buttons to manage fields
-		$extra['buttons'] = array();
+		$buttons = array(
+			array(
+				'label' => lang('global:edit'),
+				'url' => 'admin/variables/fields/edit/-field_id-'
+			),
+			array(
+				'label' => lang('global:delete'),
+				'url' => 'admin/variables/fields/delete/-field_id-',
+				'confirm' => true
+			)
+		);
 
-		$extra['title'] = lang('variables:fields_title');
+		Cp\Fields::namespaceTable('variables')
+			->skips(array('name', 'syntax', 'data'))
+			->title(lang('variables:fields_title'))
+			->buttons($buttons)
+			->render();
 
-		$this->streams->cp->fields_table('variables', null, null, true, $extra, array('name', 'syntax', 'data'));
 	}
 
 	public function create()

@@ -83,11 +83,23 @@ class Module_Variables extends AbstractModule
 							'name' => 'global:add',
 							'uri' => 'admin/variables/create',
 							'class' => 'add',
-							),
 						),
 					),
 				),
-			);
+				'fields' => array(
+					'name' => 'streams:fields',
+					'uri' => 'admin/variables/fields',
+					'shortcuts' => array(
+						array(
+							'name' => 'streams:add_field',
+							'uri' => 'admin/variables/fields/create',
+							'class' => 'add',
+						),
+					),
+				),
+			),
+
+		);
 	}
 
 	public function install($pdb, $schema)
