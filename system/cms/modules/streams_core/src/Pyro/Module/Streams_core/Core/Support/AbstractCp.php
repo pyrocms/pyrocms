@@ -71,7 +71,7 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $standard_columns = array();
 
-	protected $skips = null;
+	protected $skips = array();
 
 	protected $stream = null;
 
@@ -206,6 +206,13 @@ abstract class AbstractCp extends AbstractSupport
 		}
 
 		return false;
+	}
+
+	public function skips(array $skips = array())
+	{
+		$this->skips = $skips;
+
+		return $this;
 	}
 
 	public function tabs(array $tabs = array())

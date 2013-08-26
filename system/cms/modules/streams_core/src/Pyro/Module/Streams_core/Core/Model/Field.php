@@ -263,9 +263,9 @@ class Field extends Eloquent
             ->first();
     }
 
-    public static function findManyByNamespace($field_namespace = null, $pagination = false, $offset = 0, $skips = null)
+    public static function findManyByNamespace($field_namespace = null, $limit = 0, $offset = 0, $skips = array())
     {
-        return static::where('field_namespace', '=', $field_namespace)->get();
+        return static::where('field_namespace', '=', $field_namespace)->whereNotIn('field_slug', $skips)->take($limit)->skip($offset)->get();
     }
 
     public function newCollection(array $models = array())

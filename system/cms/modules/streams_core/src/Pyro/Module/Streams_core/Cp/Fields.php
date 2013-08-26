@@ -119,11 +119,10 @@ class Fields extends AbstractCp
 		// -------------------------------------
 		// Get fields and create pagination if necessary
 		// -------------------------------------
+		$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, $this->pagination, $this->offset, $this->skips);
 
 		if (is_numeric($this->pagination))
 		{	
-			$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, $pagination, $offset, $this->skips);
-
 			$this->data['pagination'] = create_pagination(
 											$pagination_uri,
 											ci()->fields_m->count_fields($namespace),
@@ -133,16 +132,6 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			if ($this->namespace)
-			{
-				$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, false, 0, $this->skips);	
-			}
-			else
-			{
-				$this->data['fields'] = Model\Field::all();
-			}
-			
-
 			$this->data['pagination'] = null;
 		}
 
