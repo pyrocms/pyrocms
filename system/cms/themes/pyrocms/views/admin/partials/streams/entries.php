@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($entries as $field => $entry) { ?>
+		<?php foreach ($entries as $entry) { ?>
 
 			<tr>
 
