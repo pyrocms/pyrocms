@@ -321,9 +321,7 @@ class Entry extends Eloquent
 
         foreach ($this->getViewOptions() as $column)
         {
-            $field_name = isset($fields[$column]) ? lang_label($fields[$column]->field_name) : null; 
-
-            $field_names[] = $field_name ? $field_name : lang('streams:'.$column);
+            $field_names[] = isset($fields[$column]) ? $fields[$column]->field_name : lang('streams:column_'.$column); 
         }
 
         return $field_names;

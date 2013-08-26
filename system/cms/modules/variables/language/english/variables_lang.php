@@ -14,9 +14,9 @@
 // labels
 $lang['variables:name']						= 'Variables';
 $lang['variables:description']				= 'The Variables module powered by Streams. Manage global variables that can be accessed from anywhere.';
-$lang['variables:name_label']				= 'Name';
-$lang['variables:syntax_label']				= 'Syntax';
-$lang['variables:data_label'] 			    = 'Value';
+$lang['streams:column_name']				= 'Name';
+$lang['streams:column_syntax']				= 'Syntax';
+$lang['streams:column_data'] 			    = 'Value';
 
 // titles
 $lang['variables:create_title'] 			= 'Add Variable';
