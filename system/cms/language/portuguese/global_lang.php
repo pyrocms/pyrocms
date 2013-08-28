@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Acção';
 $lang['global:slug'] 					= 'Apelido';
-$lang['global:slug_instructions']		= 'Apenas minusculas e o simbolo underscore (_).'; #translate
+$lang['global:slug_instructions']		= 'Apenas minusculas e underscore ( _ ).';
 $lang['global:user'] 					= 'Utilizador';
 
 $lang['global:dialog:delete_message'] 	= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
