@@ -415,8 +415,6 @@ class Field_choice extends AbstractField
 	 */
 	public function pre_output_plugin($value)
 	{
-
-		//echo $this->entries; exit;
 		$options = $this->_choices_to_array($this->field->field_data['choice_data'], $this->field->field_data['choice_type'], 'no', false);
 
 		// Checkboxes

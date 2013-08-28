@@ -56,8 +56,8 @@ class Field_datetime extends AbstractField
 		// We need the JS file for the front-end. 
 		if ( ! defined('ADMIN_THEME') and isset($this->field->field_data['input_type']) and $this->field->field_data['input_type'] == 'datepicker')
 		{
-			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
-			$this->CI->type->add_css('datetime', 'datepicker.css');
+			ci()->type->add_js('datetime', 'jquery.datepicker.js');
+			ci()->type->add_css('datetime', 'datepicker.css');
 		}
 	}
 
@@ -76,7 +76,7 @@ class Field_datetime extends AbstractField
 	{
 		// Up front, let's determine if this 
 		// a required field.
-		$field_data = $this->CI->form_validation->field_data($this->field->field_slug);
+		$field_data = ci()->form_validation->field_data($this->field->field_slug);
 	
 		// Determine required
 		$rules = $field_data['rules'];
@@ -121,11 +121,11 @@ class Field_datetime extends AbstractField
 					return lang('streams:invalid_input_for_date_range_check');
 				}
 
-				$this->value = $this->CI->input->post($this->field->field_slug.'_year').'-'.$this->CI->input->post($this->field->field_slug.'_month').'-'.$this->CI->input->post($this->field->field_slug.'_day');
+				$this->value = ci()->input->post($this->field->field_slug.'_year').'-'.ci()->input->post($this->field->field_slug.'_month').'-'.ci()->input->post($this->field->field_slug.'_day');
 			}
 
 
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 
 			// Make sure input is in unix time
 			if ( ! is_numeric($this->value))
@@ -361,7 +361,7 @@ class Field_datetime extends AbstractField
 			// -------------------------------------
 
 			// Months
-			$this->CI->lang->load('calendar');
+			ci()->lang->load('calendar');
 
 			$month_names = array(
 				lang('cal_january'),
@@ -479,9 +479,9 @@ class Field_datetime extends AbstractField
 			$am_pm = array('am' => 'am', 'pm' => 'pm');
 			
 			// Is this AM or PM?
-			if ($this->CI->input->post($this->field->field_slug.'_am_pm'))
+			if (ci()->input->post($this->field->field_slug.'_am_pm'))
 			{
-				$am_pm_current = $this->CI->input->post($this->field->field_slug.'_am_pm');
+				$am_pm_current = ci()->input->post($this->field->field_slug.'_am_pm');
 			}
 			else
 			{
@@ -557,20 +557,20 @@ class Field_datetime extends AbstractField
 	public function alt_rename_column($field, $stream, $assignment)
 	{
 		// What do we need to switch to?
-		if ($this->CI->input->post('storage') == 'unix')
+		if (ci()->input->post('storage') == 'unix')
 		{
 			$type = 'int';
 		}
 		else
 		{
-			$type = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
+			$type = (ci()->input->post('use_time') == 'yes') ? 'datetime' : 'date';
 		}
 
-		$col_data = $this->CI->fields_m->field_data_to_col_data($this->CI->type->types->{$this->field->field_type}, $this->CI->input->post(), 'edit');
+		$col_data = ci()->fields_m->field_data_to_col_data(ci()->type->types->{$this->field->field_type}, ci()->input->post(), 'edit');
 
 		$col_data['type'] = strtoupper($type);
 
-		$this->CI->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($this->field->field_slug => $col_data));
+		ci()->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($this->field->field_slug => $col_data));
 	}
 
 	// --------------------------------------------------------------------------
@@ -684,7 +684,7 @@ class Field_datetime extends AbstractField
 
 		if (isset($this->field->field_data['storage']) and $this->field->field_data['storage'] == 'unix')
 		{	
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 			return mysql_to_unix($date);
 		}
 		
@@ -856,7 +856,7 @@ class Field_datetime extends AbstractField
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -877,7 +877,7 @@ class Field_datetime extends AbstractField
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -973,7 +973,7 @@ class Field_datetime extends AbstractField
 		// we need this to be converted to UNIX.
 		if ( ! isset($this->field->field_data['storage']) or $this->field->field_data['storage'] == 'datetime')
 		{
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 			$this->value = mysql_to_unix($this->value);
 		}
 		
@@ -1005,7 +1005,7 @@ class Field_datetime extends AbstractField
 
 		if ( ! is_numeric($this->value))
 		{
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 			return mysql_to_unix($this->value);
 		}
 		else

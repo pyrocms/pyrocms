@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Field;
 use Pyro\Module\Streams_core\Core\Model;
+
 /**
  * Field Field Type
  *
@@ -228,7 +230,7 @@ class Field_field extends AbstractField
 	public function alt_pre_output()
 	{
 		$output = '';
-exit;
+
 		$selected_field_slug_column = $this->field->field_data['field_slug'].'_field_slug';
 
 		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->stream->stream_namespace;
@@ -435,7 +437,7 @@ exit;
 
 	public function getSelectedFieldType()
 	{
-		if ($selected_type = Type::getFieldType($selected_field, $this->entry))
+		if ($selected_type = Field\Type::getLoader()->getType($this->value))
 		{
 			return $selected_type;	
 		}

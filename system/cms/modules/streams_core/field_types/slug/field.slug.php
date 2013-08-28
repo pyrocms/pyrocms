@@ -35,7 +35,7 @@ class Field_slug extends AbstractField
 	public function event()
 	{
 		if ( ! defined('ADMIN_THEME')) {
-			$this->CI->type->add_js('slug', 'jquery.slugify.js');
+			ci()->type->add_js('slug', 'jquery.slugify.js');
 		}
 	}
 
@@ -50,7 +50,7 @@ class Field_slug extends AbstractField
 	 */
 	public function pre_save($input)
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($input);
 	}
 
@@ -65,7 +65,7 @@ class Field_slug extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($this->value);
 	}
 
@@ -101,8 +101,8 @@ class Field_slug extends AbstractField
 	public function param_space_type($value = null)
 	{
 		$options = array(
-			'-' => $this->CI->lang->line('streams:slug.dash'),
-			'_' => $this->CI->lang->line('streams:slug.underscore')
+			'-' => ci()->lang->line('streams:slug.dash'),
+			'_' => ci()->lang->line('streams:slug.underscore')
 		);
 
 		return form_dropdown('space_type', $options, $value);
@@ -115,17 +115,17 @@ class Field_slug extends AbstractField
 	 */
 	public function param_slug_field($value = null)
 	{
-		$this->CI->load->model('fields_m');
+		ci()->load->model('fields_m');
 
 		// Get all the fields
-		$fields = $this->CI->fields_m->get_all_fields();
+		$fields = ci()->fields_m->get_all_fields();
 
 		$drop = array();
 
 		foreach ($fields as $field) {
 			// We don't want no slugs.
 			if ($field['field_type'] != 'slug') {
-				$drop[$field['field_slug']] = $this->CI->fields->translate_label($field['field_name']);
+				$drop[$field['field_slug']] = ci()->fields->translate_label($field['field_name']);
 			}
 		}
 
