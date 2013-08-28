@@ -264,7 +264,7 @@ class Page extends Eloquent
 		// Get Stream Entry
 		// ---------------------------------
 
-		if ($page->entry_id and $page->type->stream_id) {
+/*		if ($page->id and $page->type->stream_id) {
 			ci()->load->driver('Streams');
 
 			// Get Streams
@@ -277,7 +277,7 @@ class Page extends Eloquent
 					}
 				}
 			}
-		}
+		}*/
 
 		return $page;
 	}

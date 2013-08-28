@@ -5,6 +5,7 @@ use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
+use Pyro\Module\Streams_core as Streams;
 
 /**
  * Pages controller
@@ -399,7 +400,7 @@ class Admin extends Admin_Controller
             show_error('No page type found.');
         }
 
-        $stream = $page->type->getStream();
+        $stream = $page->type->stream;
 
         $stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
@@ -486,7 +487,7 @@ class Admin extends Admin_Controller
         // for the form. Since we are creating a new form, this should
         // simply be the post data if it is available.
 
-        $assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
+        $assignments = $stream->assignments;
         $page_content_data = array();
 
         // Get straight raw from the db

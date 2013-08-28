@@ -46,12 +46,9 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @todo Turn me into a real relationship and rename to stream()
      * @return array
      */
-    public function getStream()
+    public function stream()
     {
-        return ci()->pdb->table('data_streams')
-            ->take(1)
-            ->where('id', $this->stream_id)
-            ->first();
+        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream');
     }
 
     /**
@@ -63,14 +60,12 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug - the page slug
      * @return bool
      */
-    public static function _check_pt_slug($slug = false)
+    public function _check_pt_slug($slug)
     {
-        if (empty($slug)) return false;
-
-        if (self::where('slug', $slug)->count() == 0) {
+        if (parent::count_by(array('slug' => $slug)) == 0) {
             return true;
         } else {
-            ci()->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
 
             return false;
         }
@@ -83,18 +78,18 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      *
      *
      */
-    public static function place_page_layout_files($input)
+    public function place_page_layout_files($input)
     {
         // Our folder path:
         $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$input['slug'];
 
         if (is_dir($folder)) {
-            self::remove_page_layout_files($input['slug']);
+            $this->remove_page_layout_files($input['slug']);
         } elseif ( ! mkdir($folder, 0777)) {
             return false;
         }
 
-        ci()->load->helper('file');
+        $this->load->helper('file');
 
         // Write our three files.
         write_file($folder.'/'.$input['slug'].'.html', $input['body']);
@@ -165,24 +160,24 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      *                                     with the page type?
      * @return bool
      */
-    public static function deleteType($id, $delete_stream = false)
-    {
-        $page_type = self::find($id);
+    // public function delete($id, $delete_stream = false)
+    // {
+    //     $page_type = $this->get($id);
 
-        // Are we going to delete the stream?
-        if ($delete_stream)
-        {
-            $stream = ci()->streams_m->get_stream($page_type->stream_id);
-            ci()->streams->streams->delete_stream($stream);
-        }
+    //         // Are we going to delete the stream?
+    //         if ($delete_stream)
+    //         {
+    //             $stream = $this->streams_m->get_stream($page_type->stream_id);
+    //             $this->streams->streams->delete_stream($stream);
+    //         }
 
-        // If we are saving as files, we need to remove the page
-        // layout files to keep things tidy.
-        self::remove_page_layout_files($page_type->slug, true);
+    //     // If we are saving as files, we need to remove the page
+    //     // layout files to keep things tidy.
+    //     $this->remove_page_layout_files($page_type->slug, true);
 
-        // Delete the actual page entry.
-        return ci()->pdb->table('page_types')->where('id', $id)->delete();
-    }
+    //     // Delete the actual page entry.
+    //     return $this->db->limit(1)->where('id', $id)->delete($this->_table);
+    // }
 
     // --------------------------------------------------------------------------
 
@@ -193,14 +188,14 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param bool [$remove_folder] Should we remove the folder as well as the files?
      * @return bool Was the operation successful?
      */
-    public static function remove_page_layout_files($slug, $remove_folder = false)
+    public function remove_page_layout_files($slug, $remove_folder = false)
     {
-        ci()->load->helper('file');
+        $this->load->helper('file');
 
         $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
 
         if ($remove_folder) {
-            $result = self::remove_page_layout_folder($slug);
+            $result = $this->remove_page_layout_folder($slug);
         }
 
         return $result;
@@ -214,7 +209,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug The slug of the folder to remove.
      * @return mixed  null or bool result of rmdir
      */
-    public static function remove_page_layout_folder($slug)
+    public function remove_page_layout_folder($slug)
     {
         if (is_dir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug)) {
             return rmdir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
