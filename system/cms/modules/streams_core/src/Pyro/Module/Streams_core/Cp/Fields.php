@@ -16,7 +16,7 @@ class Fields extends AbstractCp
 
 		$instance->stream = Data\Streams::getStream($stream_slug, $namespace);
 
-		$instance->namespace = $namespace;
+		$instance->data->namespace = $namespace;
 
 		return $instance;
 	}
@@ -25,39 +25,63 @@ class Fields extends AbstractCp
 	{
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->namespace = $namespace;
+		$instance->data->namespace = $namespace;
 
 		return $instance;
 	}
 
 	public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
 	{
-		$instance = static::instance(__FUNCTION__);
+		// The renderForm() method is shared with assignmentForm() and namespaceForm()
+		$instance = static::instance('form');
 
-		$instance->stream = Data\Streams::getStream($stream_slug, $namespace);
+		$instance->data->stream = Data\Streams::getStream($stream_slug, $namespace);
 
-		$instance->namespace = $namespace;
+		$instance->data->namespace = $namespace;
 
 		$instance->id = $assignment_id;
+
+		if (is_numeric($assignment_id))
+		{
+			// If we have no assignment, we can't continue
+			$instance->data->assignment = Model\FieldAssignment::findOrFail($assignment_id);
+
+			// Find the field now
+			$instance->data->current_field = Model\Field::findOrFail($instance->data->assignment->field_id);
+		}
+		else
+		{
+			$instance->data->current_field = new Model\Field;
+		}
 
 		return $instance;
 	}
 
 	public static function namespaceForm($namespace, $field_id = null)
 	{
-		$instance = static::instance(__FUNCTION__);
+		// The renderForm() method is shared with assignmentForm() and namespaceForm()
+		$instance = static::instance('form');
 
-		$instance->namespace = $namespace;
+		$instance->data->namespace = $namespace;
 
 		$instance->id = $field_id;
+
+		if (is_numeric($field_id))
+		{
+			// Find the field now
+			$instance->data->current_field = Model\Field::findOrFail($field_id);
+		}
+		else
+		{
+			$instance->data->current_field = new Model\Field;
+		}
 
 		return $instance;
 	}
 
 	// --------------------------------------------------------------------------
-
-	// --------------------------------------------------------------------------
 	// RENDER METHODS
+	// --------------------------------------------------------------------------
 	// Render methods cannot be used directly.
 	// The corresponding render method will run when you call the render() at the end of any chain of methods.
 	// 
@@ -70,20 +94,20 @@ class Fields extends AbstractCp
 
 	protected function renderAssignmentsTable()
 	{
-		$this->data['buttons'] = $this->buttons;
+		$this->data->buttons = $this->buttons;
 
 
 		// -------------------------------------
 		// Get fields and create pagination if necessary
 		// -------------------------------------
 
-		$this->data['assignments'] = Model\FieldAssignment::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
+		$this->data->assignments = Model\FieldAssignment::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
 
 		if (is_numeric($this->pagination))
 		{	
 
 
-			$this->data['pagination'] = create_pagination(
+			$this->data->pagination = create_pagination(
 											$pagination_uri,
 											ci()->fields_m->count_fields($namespace),
 											$pagination, // Limit per page
@@ -92,13 +116,13 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			//$this->data['assignments'] = Model\Field::findManyByNamespace($this->namespace, false, 0, $this->skips);
+			//$this->data->assignments = Model\Field::findManyByNamespace($this->data->namespace, false, 0, $this->skips);
 
-			$this->data['pagination'] = null;
+			$this->data->pagination = null;
 		}
 
 		// Allow to set custom 'Add Field' uri
-		$this->data['add_uri'] = $this->add_uri;
+		$this->data->add_uri = $this->add_uri;
 		
 		// -------------------------------------
 		// Build Fields
@@ -120,16 +144,16 @@ class Fields extends AbstractCp
 
 	protected function renderNamespaceTable()
 	{
-		$this->data['buttons'] = $this->buttons;
+		$this->data->buttons = $this->buttons;
 
 		// -------------------------------------
 		// Get fields and create pagination if necessary
 		// -------------------------------------
-		$this->data['fields'] = Model\Field::findManyByNamespace($this->namespace, $this->pagination, $this->offset, $this->skips);
+		$this->data->fields = Model\Field::findManyByNamespace($this->data->namespace, $this->pagination, $this->offset, $this->skips);
 
 		if (is_numeric($this->pagination))
 		{	
-			$this->data['pagination'] = create_pagination(
+			$this->data->pagination = create_pagination(
 											$pagination_uri,
 											ci()->fields_m->count_fields($namespace),
 											$pagination, // Limit per page
@@ -138,11 +162,11 @@ class Fields extends AbstractCp
 		}
 		else
 		{
-			$this->data['pagination'] = null;
+			$this->data->pagination = null;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$this->data['add_uri'] = $this->add_uri;
+		$this->data->add_uri = $this->add_uri;
 		
 		// -------------------------------------
 		// Build Pages
@@ -193,50 +217,21 @@ class Fields extends AbstractCp
 	 *
 	 * see docs for more.
 	 */
-	protected function renderAssignmentForm()
+	protected function renderForm()
 	{
-		$data = array();
-		$data['current_field'] = new \stdClass;
 
-		$data['method'] = $this->id ? 'edit' : 'new';
-
-		$fields = $this->stream->assignments->getFields();
-
-		// -------------------------------------
-		// Include/Exclude Field Types
-		// -------------------------------------
-		// Allows the inclusion or exclusion of
-		// field types.
-		// -------------------------------------
-
-		if ($this->include_types)
+		if ($_POST and ci()->input->post('field_type'))
 		{
-			$ft_types = new stdClass();
+			$this->data->current_field->field_type = ci()->input->post('field_type');
+		}
 
-			foreach (ci()->type->types as $type)
-			{
-				if (in_array($type->field_type_slug, $include_types))
-				{
-					$ft_types->{$type->field_type_slug} = $type;
-				}
-			}
-		}
-		elseif (count($this->exclude_types) > 0)
-		{
-			$ft_types = new \stdClass();
+		// Need this for the view
+		$this->data->method = $this->id ? 'edit' : 'new';
 
-			foreach (ci()->type->types as $type)
-			{
-				if ( ! in_array($type->field_type_slug, $this->include_types))
-				{
-					$ft_types->{$type->field_type_slug} = $type;
-				}
-			}
-		}
-		else
-		{
-			//$ft_types = ci()->type->types;
-		}
+		$types = $this->getSelectableFieldTypes();
+
+		// Get our list of available fields
+		$this->data->field_types = $types->getOptions();
 
 		// -------------------------------------
 		// Field Type Assets
@@ -244,16 +239,7 @@ class Fields extends AbstractCp
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		
-   		//ci()->type->load_field_crud_assets($ft_types);
-   		
-   		// -------------------------------------
-        
-		// Need this for the view
-		//$data['method'] = $data['method'];
-
-		// Get our list of available fields
-		$data['field_types'] = Field\Type::getLoader()->getAllTypes()->getOptions();
+   		Field\Type::loadFieldCrudAssets($types);
 
 		// -------------------------------------
 		// Get the field if we have the assignment
@@ -261,50 +247,18 @@ class Fields extends AbstractCp
 		// We'll always work off the assignment.
 		// -------------------------------------
 
-		//$this->stream->assignments
-
-
-		if ($this->id)
-		{
-			if ( ! $data['assignment'] = Model\FieldAssignment::with('field')->find($this->id))
-			{
-				// If we have no assignment, we can't continue
-				show_error('Could not find assignment');
-			}
-
-			// Find the field now
-			$data['current_field'] = $data['assignment']->field;
-
-			// We also must have a field if we're editing
-			if ( ! $data['current_field']) show_error('Could not find field.');
-		}
-		elseif ($_POST and ci()->input->post('field_type'))
-		{
-			$data['current_field'] = new \stdClass();
-			$data['current_field']->field_type = ci()->input->post('field_type');
-		}
-		else
-		{
-			$data['current_field'] = null;
-		}
-
 		// -------------------------------------
-		// Should we should the set as title
+		// Should we set as title
 		// column checkbox?
 		// -------------------------------------
-
-		if (isset($extra['allow_title_column_set']) and $extra['allow_title_column_set'] === true) {
-			$data['allow_title_column_set'] = true;
-		} else {
-			$data['allow_title_column_set'] = false;
-		}
+		$this->data->allow_title_column_set = $this->allow_set_title;
 
 		// -------------------------------------
 		// Cancel Button
 		// -------------------------------------
 
-		$data['show_cancel'] = (isset($extra['show_cancel']) and $extra['show_cancel']) ? true : false;
-		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
+		$this->data->show_cancel = $this->show_cancel;
+		$this->data->cancel_uri = $this->cancel_uri;
 
 		// -------------------------------------
 		// Validation & Setup
@@ -319,9 +273,9 @@ class Fields extends AbstractCp
 		else
 		{
 			// @todo edit version of this.
-			// ci()->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$data['current_field']->field_slug.':'.$namespace.']';
+			// ci()->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$this->data->current_field->field_slug.':'.$namespace.']';
 
-			// ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[edit:'.$this->stream->stream_prefix.$this->stream->stream_slug.':'.$data['current_field']->field_slug.']';
+			// ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[edit:'.$this->stream->stream_prefix.$this->stream->stream_slug.':'.$this->data->current_field->field_slug.']';
 		}
 
 		$assign_validation = array(
@@ -371,6 +325,15 @@ class Fields extends AbstractCp
 			}
 		}
 
+		if (ci()->input->post('field_type'))
+		{
+			$field_type = ci()->input->post('field_type');
+		}
+		else
+		{
+			$field_type = $this->data->current_field->field_type;
+		}
+
 		//ci()->form_validation->set_rules($validation);
 
 		// -------------------------------------
@@ -382,6 +345,12 @@ class Fields extends AbstractCp
 
 		if ($post_data)
 		{
+
+			// -------------------------------------
+			// See if we need our param fields
+			// -------------------------------------
+			
+
 
 			// Set custom data from $skips param
 			if (count($this->skips) > 0)
@@ -399,7 +368,7 @@ class Fields extends AbstractCp
 				}
 			}
 
-			if ($data['method'] == 'new')
+			if ($this->data->method == 'new')
 			{
 
 				/*if ( ! ci()->fields_m->insert_field(
@@ -416,7 +385,7 @@ class Fields extends AbstractCp
 									'field_name' => $post_data['field_name'],
 									'field_slug' => $post_data['field_slug'],
 									'field_type' => $post_data['field_type'],
-									'field_namespace' => $this->namespace,
+									'field_namespace' => $this->data->namespace,
 									
 					)))
 				{
@@ -438,15 +407,15 @@ class Fields extends AbstractCp
 			}
 			else
 			{
-				if ( ! $data['current_field']->update(array_merge($post_data,array('field_namespace' => $this->namespace))))
+				if ( ! $this->data->current_field->update(array_merge($post_data,array('field_namespace' => $this->data->namespace))))
 				{
 				
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
-				else
+				elseif (isset($this->data->assignment))
 				{
 					// Add the assignment
-					if( ! $data['assignment']->update($post_data))
+					if( ! $this->data->assignment->update($post_data))
 					{
 						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
@@ -458,61 +427,38 @@ class Fields extends AbstractCp
 
 			}
 	
-			redirect($this->return);
-		}
-
-	// -------------------------------------
-		// See if we need our param fields
-		// -------------------------------------
-		
-		if (ci()->input->post('field_type') or $this->id)
-		{
 			// Figure out where this is coming from - post or data
-			if (ci()->input->post('field_type'))
-			{
-				$field_type = ci()->input->post('field_type');
-			}
-			else
-			{
-				$field_type = $data['current_field']->field_type;
-			}
-		
-			if (isset(ci()->type->types->{$field_type}))
-			{
-				// Get the type so we can use the custom params
-				$data['current_type'] = ci()->type->types->{$field_type};
 
-				if ( ! is_object($data['current_field']))
-				{
-					$data['current_field'] = new stdClass();
-					$data['current_field']->field_data = array();
-				}
-				
-				// Get our standard params
-				//require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
-				
-				$data['parameters'] = new Field\Parameter;
-				
-				if (isset($data['current_type']->custom_parameters) and is_array($data['current_type']->custom_parameters))
+			if ($this->data->current_type = Field\Type::getLoader()->getType($field_type))
+			{				
+				$field_data = array();
+
+				if (isset($this->data->current_type->custom_parameters) and is_array($this->data->current_type->custom_parameters))
 				{
 					// Build items out of post data
-					foreach ($data['current_type']->custom_parameters as $param)
+					foreach ($this->data->current_type->custom_parameters as $param)
 					{
-						if ( ! isset($_POST[$param]) and $data['method'] == 'edit')
+						if ($value = ci()->input->post($param))
 						{
-							if (isset($data['current_field']->field_data[$param]))
-							{
-								$data['current_field']->field_data[$param] = $data['current_field']->field_data[$param];
-							}
+							$field_data[$param] = $value;
 						}
-						else
+						elseif (isset($this->data->current_field->field_data[$param]))
 						{
-							$data['current_field']->field_data[$param] = ci()->input->post($param);
+							$field_data[$param] = $this->data->current_field->field_data[$param];
 						}
 					}
 				}
 			}
+
+			$this->data->current_field->field_data = $field_data;
+
+			$this->data->current_field->save();
+			
+			redirect($this->return);
 		}
+
+		$this->data->parameter_output = Field\Type::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
+		
 
 		// -------------------------------------
 		// Set our data for the form	
@@ -523,47 +469,47 @@ class Fields extends AbstractCp
 			if ( ! isset($_POST[$field['field']]) and $this->id)
 			{
 				// We don't know where the value is. Hooray
-				if (isset($data['current_field']->{$field['field']}))
+				if (isset($this->data->current_field->{$field['field']}))
 				{
-					$data['field']->{$field['field']} = $data['current_field']->{$field['field']};
+					$this->data['field']->{$field['field']} = $this->data->current_field->{$field['field']};
 				}
 				else
 				{
-					$data['field']->{$field['field']} = $assignment->{$field['field']};
+					$this->data['field']->{$field['field']} = $assignment->{$field['field']};
 				}
 			}
 			else
 			{
-				$data['field']->{$field['field']} = ci()->input->post($field['field']);
+				$this->data['field']->{$field['field']} = ci()->input->post($field['field']);
 			}
 		}
 
 		// Repopulate title column set
-		$data['title_column_status'] = false;
+		$this->data->title_column_status = false;
 
-		if ($data['allow_title_column_set'] and $data['method'] == 'edit') {
+		if (isset($this->data->stream))
+		{
+			if ($this->data->allow_title_column_set and $this->data->method == 'edit') {
 
-			if ($this->stream->title_column and $this->stream->title_column == ci()->input->post('title_column')) {
-				$data['title_column_status'] = true;
-			}
-			elseif ($this->stream->title_column and $this->stream->title_column == $data['current_field']->field_slug) {
-				$data['title_column_status'] = true;
-			}
-			
-		} elseif ($data['allow_title_column_set'] and $data['method'] == 'new' and $_POST) {
+				if ($this->stream->title_column and $this->stream->title_column == ci()->input->post('title_column')) {
+					$this->data->title_column_status = true;
+				}
+				elseif ($this->stream->title_column and $this->stream->title_column == $this->data->current_field->field_slug) {
+					$this->data->title_column_status = true;
+				}
+				
+			} elseif ($this->data->allow_title_column_set and $this->data->method == 'new' and $_POST) {
 
-			if (ci()->input->post('title_column')) {
-				$data['title_column_status'] = true;
-			}
+				if (ci()->input->post('title_column')) {
+					$this->data->title_column_status = true;
+				}
+			}			
 		}
-
-
 
 		// -------------------------------------
 		// Run field setup events
 		// -------------------------------------
-
-		Field\Form::runFieldSetupEvents($this->stream, $data['method'], $data['current_field']);
+		Field\Form::runFieldSetupEvents($this->data->current_field);
 
 		// -------------------------------------
 		// Build page
@@ -573,9 +519,9 @@ class Fields extends AbstractCp
 
 		// Set the cancel URI. If there is no cancel URI, then we won't
 		// have a cancel button.
-		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
+		$this->data->cancel_uri = $this->cancel_uri;
 
-		$table = ci()->load->view('admin/partials/streams/field_assignment_form', $data, true);
+		$table = ci()->load->view('admin/partials/streams/field_assignment_form', $this->data, true);
 		
 		if ($this->view_override)
 		{
@@ -589,32 +535,27 @@ class Fields extends AbstractCp
 		}
 	}
 
-	protected function renderNamespaceForm()
+	public function getSelectableFieldTypes()
 	{
-		if ( ! $data['field'] = Model\Field::find($this->id))
+		$types = Field\Type::getLoader()->getAllTypes();
+
+		// -------------------------------------
+		// Include/Exclude Field Types
+		// -------------------------------------
+		// Allows the inclusion or exclusion of
+		// field types.
+		// -------------------------------------
+
+		if ($this->include_types)
 		{
-			$data['field'] = new Model\Field;
+			$types = $types->includes($this->include_types);
+		}
+		elseif (count($this->exclude_types) > 0)
+		{
+			$types = $types->excludes($this->exclude_types);
 		}
 
-		$data['method'] = $data['field']->getKey() ? 'edit' : 'new';
-
-		$data['field_types'] = Field\Type::getLoader()->getAllTypes()->getOptions();
-
-		// Set the cancel URI. If there is no cancel URI, then we won't
-		// have a cancel button.
-		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
-
-		$table = ci()->load->view('admin/partials/streams/field_form', $data, true);
-		
-		if ($this->view_override)
-		{
-			// Hooray, we are building the template ourself.
-			ci()->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+		return $types;
 	}
+
 }
