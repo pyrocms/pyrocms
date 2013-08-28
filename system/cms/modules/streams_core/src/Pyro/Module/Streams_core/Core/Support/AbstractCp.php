@@ -6,14 +6,19 @@ use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractCp extends AbstractSupport
 {
-
 	protected $add_uri = null;
+
+	protected $allow_set_title = false;
 
 	protected $buttons = array();
 
+	protected $cancel_uri = null;
+
 	protected $columns = array('*');
 
-	protected $data = array();
+	protected $current_field_type = null;
+
+	protected $data = null;
 
 	protected $defaults = array();
 
@@ -23,13 +28,15 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $exclude = false;
 
-	protected $exclude_types = null;
+	protected $exclude_types = array();
 
 	protected $fields = null;
 
 	protected $field_names = array();
 
 	protected $field_slugs = array();
+
+	protected $field_types = null;
 
 	protected $form = null;
 
@@ -39,7 +46,7 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $hidden = array();
 
-	protected $include_types = null;
+	protected $include_types = array();
 
 	protected $id = null;
 
@@ -69,9 +76,11 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $return = null;
 
-	protected $standard_columns = array();
+	protected $show_cancel = array();
 
 	protected $skips = array();
+
+	protected $standard_columns = array();
 
 	protected $stream = null;
 
@@ -83,9 +92,30 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $view_override = true;
 
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->data = new \stdClass;
+	}
+
 	public function addUri($add_uri = null)
 	{
 		$this->add_uri = $add_uri;
+
+		return $this;
+	}	
+
+	public function allowSetTitle($allow_set_title = false)
+	{
+		$this->allow_set_title = $allow_set_title;
+
+		return $this;
+	}	
+
+	public function cancelUri($cancel_uri = null)
+	{
+		$this->cancel_uri = $cancel_uri;
 
 		return $this;
 	}	
@@ -100,6 +130,20 @@ abstract class AbstractCp extends AbstractSupport
 	public function defaults(array $defaults = array())
 	{
 		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function excludeTypes(array $exclude_types = array())
+	{
+		$this->exclude_types = $exclude_types;
+
+		return $this;
+	}
+
+	public function includeTypes(array $include_types = array())
+	{
+		$this->include_types = $include_types;
 
 		return $this;
 	}

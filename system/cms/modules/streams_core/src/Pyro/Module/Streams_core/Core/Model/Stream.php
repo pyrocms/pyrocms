@@ -170,6 +170,20 @@ class Stream extends Eloquent
 		return $success;
 	}
 
+	/**
+	 * Find a model by its primary key or throw an exception.
+	 *
+	 * @param  mixed  $id
+	 * @param  array  $columns
+	 * @return \Pyro\Module\Streams_core\Core\Model\Stream|Collection|static
+	 */
+	public static function findOrFail($id, $columns = array('*'))
+	{
+		if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+		throw new Exception\StreamNotFoundException;
+	}
+
 	public function getIsHiddenAttribute($is_hidden)
 	{
 		return $is_hidden == 'yes' ? true : false;

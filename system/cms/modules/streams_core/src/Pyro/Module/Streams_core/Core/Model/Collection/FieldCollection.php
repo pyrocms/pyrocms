@@ -89,4 +89,5 @@ class FieldCollection extends EloquentCollection
 
 		return new FieldTypeCollection($types);
 	}
+	
 }

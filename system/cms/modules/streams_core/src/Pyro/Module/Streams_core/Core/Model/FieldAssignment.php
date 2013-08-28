@@ -166,6 +166,20 @@ class FieldAssignment extends Eloquent
         return parent::update($attributes);
     }
 
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\FieldAssignment|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+        throw new Exception\FieldAssignmentNotFoundException;
+    }
+
     public function newCollection(array $models = array())
     {
         return new Collection\FieldAssignmentCollection($models);

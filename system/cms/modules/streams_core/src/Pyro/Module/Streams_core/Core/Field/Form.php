@@ -638,15 +638,15 @@ class Form
 	 * @return 	
 	 */
 	// $stream = null, $this->method = 'new', $field = null
-	public static function runFieldSetupEvents($stream, $method = 'new', $field = null)
+	public static function runFieldSetupEvents($current_field = null)
 	{
-		$types = $stream->assignments->getFields()->getTypes();
+		$types = Type::getLoader()->getAllTypes();
 
 		foreach ($types as $type)
 		{
 			if (method_exists($type, 'field_setup_event'))
 			{
-				$type->field_setup_event($stream, $method, $field);
+				$type->field_setup_event($current_field);
 			}
 		}
 	}

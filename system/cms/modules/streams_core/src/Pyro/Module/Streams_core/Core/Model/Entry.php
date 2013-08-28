@@ -340,7 +340,7 @@ class Entry extends Eloquent
      */
     public function getEntries($limit = null, $offset = 0, $order = null, $filter_data = array())
     {
-        ci()->load->config('streams');
+        //ci()->load->config('streams');
 
         $query = static::getCache('instance')->newQuery();
 
@@ -429,6 +429,53 @@ class Entry extends Eloquent
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }
 
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\Entry|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+        throw new Exception\EntryNotFoundException;
+    }
+
+    public function newCollection(array $entries = array(), array $unformatted_entries = array())
+    {
+        return new Collection\EntryCollection($entries, $unformatted_entries);
+    }
+
+    protected function newFieldCollection(array $fields = array())
+    {
+        return new Collection\FieldCollection($fields);
+    }
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param  bool  $excludeDeleted
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $builder = new Query\EntryBuilder($this->newBaseQueryBuilder());
+
+        // Once we have the query builders, we will set the model instances so the
+        // builder can easily access any information it may need from the model
+        // while it is constructing and executing various queries against it.
+        $builder->setModel($this)->with($this->with);
+
+        if ($excludeDeleted and $this->softDelete)
+        {
+            $builder->whereNull($this->getQualifiedDeletedAtColumn());
+        }
+
+        return $builder;
+    }
+
     // Exploring some ideas for relationships
 
     /**
@@ -464,39 +511,6 @@ class Entry extends Eloquent
         }
 
         return $this->belongsTo(get_called_class(), $foreign_key);
-    }
-
-    public function newCollection(array $entries = array(), array $unformatted_entries = array())
-    {
-        return new Collection\EntryCollection($entries, $unformatted_entries);
-    }
-
-    protected function newFieldCollection(array $fields = array())
-    {
-        return new Collection\FieldCollection($fields);
-    }
-
-    /**
-     * Get a new query builder for the model's table.
-     *
-     * @param  bool  $excludeDeleted
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public function newQuery($excludeDeleted = true)
-    {
-        $builder = new Query\EntryBuilder($this->newBaseQueryBuilder());
-
-        // Once we have the query builders, we will set the model instances so the
-        // builder can easily access any information it may need from the model
-        // while it is constructing and executing various queries against it.
-        $builder->setModel($this)->with($this->with);
-
-        if ($excludeDeleted and $this->softDelete)
-        {
-            $builder->whereNull($this->getQualifiedDeletedAtColumn());
-        }
-
-        return $builder;
     }
 
 }

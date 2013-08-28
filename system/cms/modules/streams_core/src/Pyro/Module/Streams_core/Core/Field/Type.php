@@ -69,6 +69,9 @@ class Type
 			\Events::trigger('streams_core_add_addon_path', $instance);
 		}
 
+		// Preload types
+		$instance->gatherTypes();
+
 	    return $instance;
 	}
 
@@ -104,7 +107,7 @@ class Type
 		Events::trigger('streams_core_add_addon_path', $this);
 
 		// Go ahead and regather our types
-		return static::gatherTypes();
+		return $this->gatherTypes();
 	}
 
 	/**
@@ -120,6 +123,8 @@ class Type
 
 			$this->loadTypesFromFolder($path, $mode);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -270,13 +275,15 @@ class Type
 	 *
 	 * @return	void
 	 */
-	public function loadFieldCrudAssets($types = null)
+	public static function loadFieldCrudAssets($types = array())
 	{
-		if (! $types) {
-			$types = $instance->types;
+		if (empty($types))
+		{
+			$types = static::getLoader()->getAllTypes();
 		}
 
-		foreach ($types as $type) {
+		foreach ($types as $type)
+		{
 			if (method_exists($type, 'add_edit_field_assets')) {
 				$type->add_edit_field_assets();
 			}
@@ -285,34 +292,89 @@ class Type
 		unset($types);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
-	 * Field Types array
+	 * Get our build params
 	 *
-	 * Create a drop down of field types
+	 * Accessed via AJAX
 	 *
-	 * @return	array
+	 * @return	void
 	 */
-	public function fieldTypesArray($types = null)
+	public static function buildParameters($type = null, $namespace = null, $current_field = null)
 	{
-		if ( ! $types)
+		// Out for certain characters
+		if ($type == '-') return null;
+
+		$value = null;
+
+		$field_data = array();
+
+		// Load paramaters
+		$parameters = new Parameter;
+
+		// Load the proper class
+		$field_type = static::getLoader()->getType($type);
+
+		// I guess we don't have any to show.
+		if ( ! isset($field_type->custom_parameters)) return null;
+
+		// Otherwise, the beat goes on.
+		$data['count'] = 0;
+		$output = '';
+
+		//Echo them out
+		foreach ($field_type->custom_parameters as $param)
 		{
-			$types = $this->types;
+
+			$custom_param = 'param_'.$param;
+
+			if ( ! isset($_POST[$param]) and $current_field)
+			{
+				if (isset($current_field->field_data[$param]))
+				{
+					$value = $current_field->field_data[$param];
+				}
+				else
+				{
+					$value = null;
+				}
+			}
+
+			// Check to see if it is a standard one or a custom one
+			// from the field type
+			if (method_exists($parameters, $param))
+			{
+				$data['input'] = $parameters->$param($value);
+				$data['input_name']		= lang('streams:'.$param);
+			}
+			elseif (method_exists($field_type, $custom_param))
+			{
+				$input = $field_type->$custom_param($value, $namespace);
+
+				if (is_array($input)) {
+					$data['input'] 			= $input['input'];
+					$data['instructions']	= $input['instructions'];
+				} else {
+					$data['input'] 			= $input;
+					$data['instructions']	= null;
+				}
+
+				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
+
+
+
+			$data['input_slug'] = $param;
+
+			// @todo This is silly, find a way to load ajax views consistently
+			$path = ci()->input->is_ajax_request() ? 'extra_field' : 'admin/partials/streams/extra_field';
+
+			$output .= ci()->load->view($path, $data, true);
+			
+			$data['count']++;
 		}
 
-		$return = array();
-
-		// For the chozen data placeholder value
-		$return[null] = null;
-
-		if ( ! $types) return array();
-
-		foreach ($types as $type)
-		{
-			$return[$type->field_type_slug] = $type->field_type_name;
-		}
-
-		asort($return);
-
-		return $return;
+		return $output;
 	}
 }

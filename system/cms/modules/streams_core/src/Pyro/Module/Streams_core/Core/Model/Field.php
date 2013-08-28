@@ -80,7 +80,14 @@ class Field extends Eloquent
         
         $type->setEntryBuilder($entry->getModel()->newQuery());
         
-        $type->setValue($entry->{$this->getAttribute('field_slug')});
+        if ($field_slug = $this->getAttribute('field_slug'))
+        {
+            $type->setValue($entry->{$this->getAttribute('field_slug')});            
+        }
+        else
+        {
+            throw new Exception\FieldSlugEmptyException;
+        }
 
         return $type;
     }
@@ -122,6 +129,11 @@ class Field extends Eloquent
 
         $field_slug = $this->getAttribute('field_slug');
 
+        $attributes['field_slug'] = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
+
+        $from = $field_slug;
+        $to = $attributes['field_slug'];
+
         if(
             (isset($attributes['field_type']) and $field_type != $attributes['field_type']) or 
             (isset($attributes['field_slug']) and $field_slug != $attributes['field_slug']) or
@@ -137,15 +149,20 @@ class Field extends Eloquent
 
                 $schema = ci()->pdb->getSchemaBuilder();
 
+                $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
                 $streams = array();
 
                 foreach ($assignments as $assignment)
                 {
                     if ( ! method_exists($type, 'alt_rename_column'))
                     {
-                        $schema->table($assignment->stream_prefix.$assignment->stream_slug, function ($table) use ($attributes) {
-                            $table->renameColumn($field_slug, $attributes['field_slug']);
-                        });
+                        if ( $to and $from != $to)
+                        {
+                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($attributes, $field_slug) {
+                                $table->renameColumn($from, $to);
+                            });                            
+                        }
                     }
 
                     if ($assignment->stream and isset($assignment->stream->view_options[$field_slug]))
@@ -189,11 +206,8 @@ class Field extends Eloquent
 
         if (parent::update($attributes))
         {
-            if ( ! $assignments->isEmpty())
+            if ( ! $assignments->isEmpty() and $to and $from != $to)
             {
-                $from = $field_slug;
-                $to = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
-
                 Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);                
             }
 
@@ -271,6 +285,20 @@ class Field extends Eloquent
         return static::where('field_namespace', '=', $field_namespace)->whereNotIn('field_slug', $skips)->take($limit)->skip($offset)->get();
     }
 
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\Field|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+        throw new Exception\FieldNotFoundException;
+    }
+
     public function newCollection(array $models = array())
     {
         return new Collection\FieldCollection($models);
@@ -283,6 +311,9 @@ class Field extends Eloquent
 
     public function getFieldNameAttribute($field_name)
     {
+        // This guarantees that the language will be loaded
+       Type::getLoader()->getType($this->getAttribute('field_type'));
+
         return lang_label($field_name);
     }
 
@@ -314,5 +345,10 @@ class Field extends Eloquent
     public function setIsLockedAttribute($is_locked)
     {
         $this->attributes['is_locked'] = ! $is_locked ? 'no' : 'yes';
+    }
+
+    public function isFieldNameLang()
+    {
+        return substr($this->getOriginal('field_name'), 0, 5) === 'lang:';
     }
 }
