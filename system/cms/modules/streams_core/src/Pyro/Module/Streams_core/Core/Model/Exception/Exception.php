@@ -2,5 +2,5 @@
 
 class Exception extends \RuntimeException
 {
-
+	protected $message = 'Something went wrong in Streams.';
 }
