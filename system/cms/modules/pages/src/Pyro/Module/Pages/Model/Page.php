@@ -483,9 +483,9 @@ class Page extends Eloquent
 	public function setHomePage()
 	{
 		$this->where('is_home', '=', 1)
-			->update('is_home', 0);
+			->update(array('is_home' => 0));
 
-		$this->update('is_home', 1);
+		$this->update(array('is_home' => 1));
 	}
 
 	/**

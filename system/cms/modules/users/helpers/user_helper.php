@@ -73,18 +73,25 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 function whacky_old_password_hasher($identity, $password)
 {
     if ( ! isset($identity, $password)) {
-        return false;
+        return rand_string(100);
     }
 
-    $salt = ci()->pdb
-        ->table('users')
-        ->select('salt')
-        ->whereRaw('(username = ? OR email = ?)', array($identity, $identity))
-        ->take(1)
-        ->pluck('salt');
+    $schema = ci()->pdb->getSchemaBuilder();
 
-    if ( ! $salt) {
-        return false;
+    if ($schema->hasColumn('users', 'salt')) {
+
+        $salt = ci()->pdb
+            ->table('users')
+            ->select('salt')
+            ->whereRaw('(username = ? OR email = ?)', array($identity, $identity))
+            ->take(1)
+            ->pluck('salt');
+
+        if ( ! $salt) {
+            return rand_string(100);
+        }
+    } else {
+        return rand_string(100);
     }
 
     return sha1($password.$salt);
