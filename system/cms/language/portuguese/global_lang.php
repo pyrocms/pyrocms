@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Acção';
 $lang['global:slug'] 					= 'Apelido';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Apenas minusculas e o simbolo underscore (_).'; #translate
 $lang['global:user'] 					= 'Utilizador';
 
 $lang['global:dialog:delete_message'] 	= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
@@ -22,7 +22,7 @@ $lang['global:no'] 						= 'Não';
 $lang['global:select-none'] 			= '-- Nenhum --';
 $lang['global:select-all'] 				= '-- Todos --';
 $lang['global:select-any'] 				= '-- Qualquer --';
-$lang['global:select-pick']				= '-- Seleccione --';
+$lang['global:select-pick']				= '-- Selecione --';
 
 $lang['global:check-all']				= 'Todos';
 $lang['global:check-none'] 				= 'Nenhum';
@@ -32,12 +32,12 @@ $lang['global:operators:not-equal'] 	= 'Diferente de';
 $lang['global:operators:less-than'] 	= 'Menor que';
 $lang['global:operators:greater-than'] 	= 'Maior que';
 
-$lang['global:duration:1-day']			= 'One day';
-$lang['global:duration:1-week']			= 'One week';
-$lang['global:duration:2-weeks']		= 'Two weeks';
-$lang['global:duration:1-month']		= 'One month';
-$lang['global:duration:3-months']		= 'Three Months';
-$lang['global:duration:always']			= 'Always';
+$lang['global:duration:1-day']			= 'Um Dia';
+$lang['global:duration:1-week']			= 'Uma Semana';
+$lang['global:duration:2-weeks']		= 'Duas Semanas';
+$lang['global:duration:1-month']		= 'Um Mês';
+$lang['global:duration:3-months']		= 'Três Meses';
+$lang['global:duration:always']			= 'Sempre';
 
 $lang['navigation_headline'] 			= 'Navegação';
 $lang['breadcrumb_base_label'] 			= 'Início';
@@ -52,8 +52,8 @@ $lang['general_error_label'] 			= 'Erro';
 $lang['required_error_label'] 			= 'Campo obrigatório em falta';
 $lang['note_label'] 					= 'Nota';
 $lang['success_label'] 					= 'Sucesso';
-$lang['global:fields']					= 'Fields';
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields']					= 'Campos';
+$lang['global:custom_fields']			= 'Campos personalizados';
 
 $lang['login_title'] 					= 'Entrar';
 $lang['global:fatal_error'] 			= 'Erro fatal, o CMS está instalado?';
@@ -77,19 +77,19 @@ $lang['publish_label'] 					= 'Publicar';
 $lang['global:upload'] 					= 'Enviar';
 $lang['global:uninstall'] 				= 'Desinstalar';
 $lang['global:install'] 				= 'Instalar';
-$lang['global:upgrade'] 				= 'Upgrade'; #translate
+$lang['global:upgrade'] 				= 'Upgrade'; #better keep en translation
 $lang['global:enable']					= 'Ativar';
 $lang['global:disable'] 				= 'Desativar';
-$lang['global:enabled']					= 'Enabled'; #translate
-$lang['global:disabled'] 				= 'Disabled'; #translate
+$lang['global:enabled']					= 'Ativado';
+$lang['global:disabled'] 				= 'Desativado';
 
 $lang['all_right_reserved']				= 'Todos os direitos reservados.';
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['powered_by_pyrocms']				= 'Desenvolvido com PyroCMS';
 $lang['top_page']						= 'Topo';
 $lang['back_to_top']					= 'Voltar para o Topo';
 
 $lang['global:filters'] 				= 'Filtros';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Imagem';
 $lang['global:description']				= 'Descrição';
 $lang['global:actions']					= 'Acções';
 $lang['global:view']					= 'Ver';
@@ -102,17 +102,17 @@ $lang['global:remove']					= 'Remover';
 
 $lang['global:keywords']				= 'Palavras-chave';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'ou';
+$lang['global:and']						= 'e';
+$lang['global:at']						= 'em';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Widgets'; #better keep en translation
+$lang['global:themes']					= 'Temas';
+$lang['global:field_types']				= 'Tipos de Campos';
+$lang['global:plugins']					= 'Plugins'; #better keep en translation
+$lang['global:plugin']					= 'Plugin'; #better keep en translation
 
-$lang['global:options']					= 'Options'; #translate
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:options']					= 'Opções';
+$lang['global:plain-text']				= 'Texto sem formatação';
 
 /* End of file global_lang.php */
