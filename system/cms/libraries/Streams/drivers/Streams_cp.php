@@ -67,7 +67,18 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
-		return Cp\Entries::table($stream_slug, $namespace_slug)->render();
+		$legacy = array(
+			'buttons'
+		);
+
+		foreach ($legacy as $key)
+		{
+			$extra[$key] = isset($extra[$key]) ? $extra[$key] : null;
+		}
+
+		return Cp\Entries::table($stream_slug, $namespace_slug)
+			->buttons($extra['buttons'])
+			->render();
 
 		$CI = get_instance();
 		
@@ -331,6 +342,10 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
+		return Cp\Entries::form($stream_slug, $namespace_slug, $entry_id)
+			//->fields(array('name', 'data'))
+			->render();
+
 		$CI = get_instance();
 
 		$stream = $this->stream_obj($stream_slug, $namespace_slug);
