@@ -95,9 +95,9 @@ class Admin extends Admin_Controller
 		$extra['title'] = 'Edit '.$form;
 
 		// This is a bit redundant but we want a nice message.
-		$variable = $this->streams->entries->get_entry($id, 'variables', 'variables');
+		//$variable = $this->streams->entries->get_entry($id, 'variables', 'variables');
 
-		$extra['success_message'] = sprintf(lang('variables:edit_success'), $variable->name);
+//extra['success_message'] = sprintf(lang('variables:edit_success'), $variable->name);
 
 		$extra['return'] = 'admin/variables';
 		

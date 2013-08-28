@@ -41,6 +41,13 @@ class User extends EloquentUser
 		return $this->belongsToMany('Pyro\Module\Users\Model\Group', 'users_groups', 'user_id');
 	}
 
+	public function getHidden()
+	{
+		array_unshift($this->hidden, 'salt');
+
+		return $this->hidden;
+	}
+
     /**
      * Returns the relationship between comments and users
      *

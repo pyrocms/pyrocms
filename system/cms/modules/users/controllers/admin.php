@@ -449,7 +449,7 @@ class Admin extends Admin_Controller
             ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
             ->set('display_name', $user->display_name)
             ->set('current_group_ids', $user->groups->modelKeys())
-            ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
+            ->set('profile_fields', $user->profile->getFields())
             ->set('member', $user)
             ->build('admin/users/form');
     }
