@@ -27,8 +27,6 @@ class Admin_fields extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('variables/variables');
-		
-		$this->load->driver('Streams');
 	}
 
 	/**

@@ -9,8 +9,8 @@
 			<div class="input">
 				<?php
 
-				if (substr($current_field->field_name, 0, 5) === 'lang:') {
-					echo '<p><em>'.lang(substr($current_field->field_name, 5)).'</em></p>';
+				if ($current_field->isFieldNameLang()) {
+					echo '<p><em>'.$current_field->field_name.'</em></p>';
 					echo form_hidden('field_name', $current_field->field_name);
 				} else {
 					echo form_input('field_name', $current_field->field_name, 'maxlength="60" id="field_name" autocomplete="off"');
@@ -20,54 +20,38 @@
 
 		</li>
 
-		<?php if (property_exists($current_field, 'field_slug')): ?>
-
 		<li>
 			<label for="field_slug"><?php echo lang('streams:label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('field_slug', $current_field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
-		<?php endif; ?>
+		<?php if (isset($stream)): ?>
 
-		<?php
 
-		if (property_exists($current_field, 'is_required')) $is_required = ($current_field->is_required == 'yes') ? true : false;
-		if (property_exists($current_field, 'is_unique')) $is_unique = ($current_field->is_unique == 'yes') ? true : false;
 
-		?>
+			<li>
+				<label for="is_required"><?php echo lang('streams:label.field_required');?></label>
+				<div class="input"><?php echo form_checkbox('is_required', 'yes', $assignment->is_required, 'id="is_required"');?></div>
+			</li>
 
-		<?php if (property_exists($current_field, 'is_required')): ?>
 
-		<li>
-			<label for="is_required"><?php echo lang('streams:label.field_required');?></label>
-			<div class="input"><?php echo form_checkbox('is_required', 'yes', $is_required, 'id="is_required"');?></div>
-		</li>
+			<li>
+				<label for="is_unique"><?php echo lang('streams:label.field_unique');?></label>
+				<div class="input"><?php echo form_checkbox('is_unique', 'yes', $assignment->is_unique, 'id="is_unique"'); ?></div>
+			</li>
 
-		<?php endif; ?>
+			<li>
+				<label for="field_instructions"><?php echo lang('streams:label.field_instructions');?><br /><small><?php echo lang('streams:instr.field_instructions');?></small></label>
+				<div class="input"><?php echo form_textarea('instructions', $assignment->instructions, 'id="field_instructions"');?></div>
+			</li>
 
-		<?php if (property_exists($current_field, 'is_unique')): ?>
+			<?php if ($allow_title_column_set): ?>
+			<li>
+				<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
+				<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+			</li>
+			<?php endif; ?>
 
-		<li>
-			<label for="is_unique"><?php echo lang('streams:label.field_unique');?></label>
-			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $is_unique, 'id="is_unique"'); ?></div>
-		</li>
-
-		<?php endif; ?>
-
-		<?php if (property_exists($current_field, 'instructions')): ?>
-
-		<li>
-			<label for="field_instructions"><?php echo lang('streams:label.field_instructions');?><br /><small><?php echo lang('streams:instr.field_instructions');?></small></label>
-			<div class="input"><?php echo form_textarea('instructions', $current_field->instructions, 'id="field_instructions"');?></div>
-		</li>
-
-		<?php endif; ?>
-
-		<?php if ($allow_title_column_set): ?>
-		<li>
-			<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
-			<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
-		</li>
 		<?php endif; ?>
 
 		<?php
@@ -91,58 +75,9 @@
 		</li>
 
 		<div id="parameters">
-
-		<?php if( $method == "edit" or isset($current_type->custom_parameters) ): ?>
-
-		<?php
-
-		$data = array();
-
-		$data['count'] = 0;
-
-		if( isset($current_type->custom_parameters) ):
-
-			foreach( $current_type->custom_parameters as $param ):
-
-				// Sometimes these values may not be set. Let's set
-				// them to null if they are not.
-				$value = (isset($current_field->field_data[$param])) ? $current_field->field_data[$param] : null;
-
-				if (method_exists($current_type, 'param_'.$param)) {
-					$call = 'param_'.$param;
-
-					$input = $current_type->$call($value);
-
-					if (is_array($input)) {
-						$data['input'] 			= $input['input'];
-						$data['instructions']	= $input['instructions'];
-					} else {
-						$data['input'] 			= $input;
-						$data['instructions']	= null;
-					}
-
-					$data['input_name']		= lang('streams:'.$current_field->field_type.'.'.$param);
-				
-				} elseif (method_exists($parameters, $param)) {			
-					$data['input'] 			= $parameters->$param($value);
-					$data['input_name']		= $this->lang->line('streams:'.$param);
-				}
-
-				$data['input_slug']	= $param;
-
-				echo $this->load->view('streams_core/extra_field', $data, TRUE);
-
-				++$data['count'];
-				unset($value);
-
-			endforeach;
-
-		endif;
-
-		?>
-
-		<?php endif; ?>
-
+		
+			<?php echo $parameter_output; ?>
+		
 		</div>
 
 	</ul>
