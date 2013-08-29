@@ -577,4 +577,9 @@ class Page extends Eloquent
 
 		return true;
 	}
+
+	public function entry()
+	{
+		return $this->morphToEntry('Pyro\Module\Pages\Model\PageEntry');
+	}
 }

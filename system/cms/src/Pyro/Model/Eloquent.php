@@ -1,6 +1,7 @@
 <?php namespace Pyro\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
 
 /**
  * Eloquent Model
@@ -124,6 +125,64 @@ abstract class Eloquent extends Model
         }
         
         return parent::save($options);
+    }
+
+    /**
+     * Define an polymorphic, inverse one-to-one or many relationship.
+     *
+     * @param  string  $name
+     * @param  string  $type
+     * @param  string  $id
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function morphToEntry($entry_class = 'Pyro\Module\Streams_core\Core\Model\Entry', $entry = 'entry', $stream_column = 'stream', $id = 'id')
+    {
+        // Next we will guess the type and ID if necessary. The type and IDs may also
+        // be passed into the function so that the developers may manually specify
+        // them on the relations. Otherwise, we will just make a great estimate.
+        list($stream_column, $id) = $this->getMorphs($entry, $stream_column, $id);
+
+        $stream = $this->$stream_column;
+
+        return $this->belongsToEntry($entry_class, $id, $stream);
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @param  string  $related
+     * @param  string  $foreignKey
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null)
+    {
+        list(, $caller) = debug_backtrace(false);
+
+        // If no foreign key was supplied, we can use a backtrace to guess the proper
+        // foreign key name by using the name of the relationship function, which
+        // when combined with an "_id" should conventionally match the columns.
+        $relation = $caller['function'];
+
+        if (is_null($foreignKey))
+        {
+            $foreignKey = snake_case($relation).'_id';
+        }
+
+        list($stream_slug, $stream_namespace) = explode('.', $stream);
+
+        // Once we have the foreign key names, we'll just create a new Eloquent query
+        // for the related models and returns the relationship instance which will
+        // actually be responsible for retrieving and hydrating every relations.
+        $instance = call_user_func(array($related, 'stream'), $stream_slug, $stream_namespace);
+
+        if( ! $instance instanceof \Pyro\Module\Streams_core\Core\Model\Entry)
+        {
+            throw new \Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntry;
+        }
+
+        $query = $instance->newQuery();
+
+        return new Relations\BelongsTo($query, $this, $foreignKey, $relation);
     }
 }
 
