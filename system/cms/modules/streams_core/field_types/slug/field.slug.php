@@ -77,15 +77,15 @@ class Field_slug extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function form_output()
 	{
-		$options['name'] 	= $params['form_slug'];
-		$options['id']		= $params['form_slug'];
-		$options['value']	= $params['value'];
+		$options['name'] 	= $this->field->field_slug;
+		$options['id']		= $this->field->field_slug;
+		$options['value']	= $this->value;
 
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
+					pyro.generate_slug('#{$this->field->field_data['slug_field']}', '#{$this->field->field_slug}', '{$this->field->field_data['space_type']}');
 			});
 		})(jQuery);
 		</script>";

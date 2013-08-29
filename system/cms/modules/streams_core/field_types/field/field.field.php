@@ -86,6 +86,8 @@ class Field_field extends AbstractField
     {	
     	$form = '';
 
+    	$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->field_namespace;
+
     	if ($selected_field = $this->getSelectedField())
     	{
 			// This is a field instance not an assignment. Ensure this is a complete field object.
@@ -106,7 +108,7 @@ class Field_field extends AbstractField
 			$form .= form_hidden($field->field_slug, $selected_field->field_slug);
     		$form .= $selected_type->getForm();
     	}
-		elseif($options = $this->get_selectable_fields($field->stream_slug, $field->stream_namespace, $selectable_fields_namespace, $field->field_slug))
+		elseif($options = $this->get_selectable_fields($this->field->stream_slug, $this->field->stream_namespace, $selectable_fields_namespace, $this->field->field_slug))
 		{	
 			$form = form_dropdown($field->field_slug, $options, $selected_field->field_slug);
 		}
@@ -432,7 +434,7 @@ class Field_field extends AbstractField
 
 		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->stream_namespace;
 
-		$selected_field = Model\Field::getBySlugAndNamespace($selected_field_slug, $selectable_fields_namespace);
+		$selected_field = Model\Field::findBySlugAndNamespace($selected_field_slug, $selectable_fields_namespace);
 	}
 
 	public function getSelectedFieldType()
