@@ -1,7 +1,5 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
-use Pyro\Model\Eloquent;
-
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
 // Entry would work similar to the old row model
@@ -27,23 +25,8 @@ use Pyro\Model\Eloquent;
 // }
 // 
 
-class Entry extends Eloquent
+class Entry extends EntryOriginal
 {
-    /**
-     * The attributes that aren't mass assignable
-     *
-     * @var array
-     */
-    protected $guarded = array('id');
-
-    protected $stream_slug = null;
-
-    protected $stream_namespace = null;
-
-    protected $stream_prefix = null;
-
-    protected $stream = null;
-
     protected $assignments = null;
 
     protected $fields = null;
@@ -51,8 +34,6 @@ class Entry extends Eloquent
     protected $field_type_instances = null;
 
     protected $unformatted_values = array();
-
-    protected $instance = null;
 
     protected $format = true;
 
@@ -62,54 +43,10 @@ class Entry extends Eloquent
 
     protected $view_options = array();
 
-    protected $user_columns = array('id', 'username');
-
-    /**
-     * The name of the "created at" column.
-     *
-     * @var string
-     */
-    const CREATED_AT = 'created';
-
-    /**
-     * The name of the "updated at" column.
-     *
-     * @var string
-     */
-    const UPDATED_AT = 'updated';
-
-    /**
-     * The name of the "created at" column.
-     *
-     * @var string
-     */
-    const CREATED_BY = 'created_by';
-
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-
-        if ($this->stream_slug and $this->stream_namespace)
-        {
-            $this->stream($this->stream_slug, $this->stream_namespace, $this);
-        }
-    }
 
     public static function stream($stream_slug, $stream_namespace, Entry $instance = null)
     {
-        if ( ! $instance)
-        {
-            $instance = new static;
-        }
-
-        if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
-        {
-            $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
-
-            throw new Exception\StreamNotFoundException($message);
-        }
-
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
+        $instance = parent::stream($stream_slug, $stream_namespace, $instance);
 
         $stream_relations = $instance->stream->getModel()->getRelations();
         
@@ -194,19 +131,6 @@ class Entry extends Eloquent
         return $this->getFields()->getFieldSlugs();
     }
 
-    public function getDates()
-    {
-        $dates = array(static::CREATED_AT, static::UPDATED_AT);
-
-        if ($this->softDelete)
-        {
-            $dates = array_push($dates, static::DELETED_AT);
-        }
-
-        return $dates;
-    }
-
-
     public function setPlugin($plugin = true)
     {
         $this->plugin = $plugin;
@@ -270,16 +194,6 @@ class Entry extends Eloquent
     public function total()
     {
 
-    }
-
-    public static function all($columns = array('*'))
-    {
-        if ($all = static::getCache('table::all'))
-        {
-            return $all;
-        }
-
-        return static::setCache('table::all', static::getCache('instance')->newQuery()->get($columns));
     }
 
     /**
@@ -424,25 +338,6 @@ class Entry extends Eloquent
         return $query->get();
     }
 
-    public function createdByUser()
-    {
-        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
-    }
-
-    /**
-     * Find a model by its primary key or throw an exception.
-     *
-     * @param  mixed  $id
-     * @param  array  $columns
-     * @return \Pyro\Module\Streams_core\Core\Model\Entry|Collection|static
-     */
-    public static function findOrFail($id, $columns = array('*'))
-    {
-        if ( ! is_null($model = static::find($id, $columns))) return $model;
-
-        throw new Exception\EntryNotFoundException;
-    }
-
     public function newCollection(array $entries = array(), array $unformatted_entries = array())
     {
         return new Collection\EntryCollection($entries, $unformatted_entries);
@@ -474,43 +369,6 @@ class Entry extends Eloquent
         }
 
         return $builder;
-    }
-
-    // Exploring some ideas for relationships
-
-    /**
-     * Define an inverse one-to-one or many relationship.
-     *
-     * @param  string  $related
-     * @param  string  $foreignKey
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function belongsToStream($stream_slug, $stream_namespace, $foreign_key = null)
-    {
-        $stream_table = $this->getTable();
-
-        static::stream($stream_slug, $stream_namespace);
-
-        if ( ! $foreign_key)
-        {
-            $foreign_key = $stream_table.'_id';
-        }
-
-        return $this->belongsTo(get_called_class(), $foreign_key);
-    }
-
-    public function belongsToTable($table, $foreign_key = null)
-    {
-        $table = $this->getTable();
-
-        static::setTable($table);
-
-        if ( ! $foreign_key)
-        {
-            $foreign_key = $table.'_id';
-        }
-
-        return $this->belongsTo(get_called_class(), $foreign_key);
     }
 
 }
