@@ -1657,7 +1657,7 @@ class Row_m extends MY_Model {
 				{
 					$type = $this->type->types->{$field->field_type};
 					
-					if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
+					if (isset($data[$field->field_slug]) and $data[$field->field_slug] !== '')
 					{
 						// We don't process the alt process stuff.
 						// This is for field types that store data outside of the
