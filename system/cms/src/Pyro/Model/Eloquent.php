@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
+use Pyro\Query\Builder;
+use Pyro\Module\Streams_core\Core\Model\Entry;
+use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntry;
+use Pyro\Module\Streams_core\Core\Model\Relation\BelongsToEntry;
 
 /**
  * Eloquent Model
@@ -135,16 +139,14 @@ abstract class Eloquent extends Model
      * @param  string  $id
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function morphToEntry($entry_class = 'Pyro\Module\Streams_core\Core\Model\Entry', $entry = 'entry', $stream_column = 'stream', $id = 'id')
+    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
     {
         // Next we will guess the type and ID if necessary. The type and IDs may also
         // be passed into the function so that the developers may manually specify
         // them on the relations. Otherwise, we will just make a great estimate.
-        list($stream_column, $id) = $this->getMorphs($entry, $stream_column, $id);
+        list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
 
-        $stream = $this->$stream_column;
-
-        return $this->belongsToEntry($entry_class, $id, $stream);
+        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
     }
 
     /**
@@ -154,7 +156,7 @@ abstract class Eloquent extends Model
      * @param  string  $foreignKey
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null)
+    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null, $stream_column = null)
     {
         list(, $caller) = debug_backtrace(false);
 
@@ -168,21 +170,51 @@ abstract class Eloquent extends Model
             $foreignKey = snake_case($relation).'_id';
         }
 
-        list($stream_slug, $stream_namespace) = explode('.', $stream);
+        $instance = new $related;
+
+        if( ! ($instance instanceof Entry))
+        {
+            throw new ClassNotInstanceOfEntry;
+        }
 
         // Once we have the foreign key names, we'll just create a new Eloquent query
         // for the related models and returns the relationship instance which will
         // actually be responsible for retrieving and hydrating every relations.
-        $instance = call_user_func(array($related, 'stream'), $stream_slug, $stream_namespace);
-
-        if( ! $instance instanceof \Pyro\Module\Streams_core\Core\Model\Entry)
+        if ( ! empty($stream))
         {
-            throw new \Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntry;
+            $instance = call_user_func(array($related, 'stream'), $stream);
         }
 
         $query = $instance->newQuery();
 
-        return new Relations\BelongsTo($query, $this, $foreignKey, $relation);
+        $relation_instance = new BelongsToEntry($query, $this, $foreignKey, $relation);
+
+        $relation_instance->setStreamColumn($stream_column);
+
+        return $relation_instance;
+    }
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param  bool  $excludeDeleted
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $builder = new Builder($this->newBaseQueryBuilder());
+
+        // Once we have the query builders, we will set the model instances so the
+        // builder can easily access any information it may need from the model
+        // while it is constructing and executing various queries against it.
+        $builder->setModel($this)->with($this->with);
+
+        if ($excludeDeleted and $this->softDelete)
+        {
+            $builder->whereNull($this->getQualifiedDeletedAtColumn());
+        }
+
+        return $builder;
     }
 }
 
