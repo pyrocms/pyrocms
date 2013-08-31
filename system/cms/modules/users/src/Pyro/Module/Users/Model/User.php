@@ -64,11 +64,9 @@ class User extends EloquentUser
 	 * @param 	array $username Username of the user
 	 * @return  $this
 	 */
-	public function findByUsername($username)
+	public static function findByUsername($username)
 	{
-		return $this
-			->whereRaw('LOWER(username) = ?', array(strtolower($username)))
-			->first();
+		return self::whereRaw('LOWER(username) = ?', array(strtolower($username)))->first();
 	}
 
 	/**
@@ -77,11 +75,9 @@ class User extends EloquentUser
 	 * @param 	array $username Username of the user
 	 * @return  $this
 	 */
-	public function findByEmail($email)
+	public static function findByEmail($email)
 	{
-		return $this
-			->whereRaw('LOWER(email) = ?', array(strtolower($email)))
-			->first();
+		return self::whereRaw('LOWER(email) = ?', array(strtolower($email)))->first();
 	}
 
 	/**
