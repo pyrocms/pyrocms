@@ -1,4 +1,4 @@
-<?php namespace Pyro\Query;
+<?php namespace Pyro\Model\Query;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
