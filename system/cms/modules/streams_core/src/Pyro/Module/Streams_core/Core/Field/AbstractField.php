@@ -2,7 +2,9 @@
 
 abstract class AbstractField
 {
-	protected $alt_process = false;
+	public $alt_process = false;
+
+	protected $defaults = null;
 
 	protected $value = null;
 
@@ -88,6 +90,26 @@ abstract class AbstractField
 		$this->entries = $entries;
 
 		return $this;
+	}
+
+	public function setFormData(array $form_data = array())
+	{
+		$this->form_data = $form_data;
+	}
+
+	public function getFormData($key = null)
+	{
+		return isset($this->form_data[$key]) ? $this->form_data[$key] : null;
+	}
+
+	public function setDefaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+	}
+
+	public function getDefault($key = null)
+	{
+		return isset($this->defaults[$key]) ? $this->defaults[$key] : null;
 	}
 
 	public function getValue()
