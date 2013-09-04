@@ -170,7 +170,7 @@ class Stream extends Eloquent
 
 		$success = parent::delete();
 
-		Assignment::cleanup();
+		FieldAssignment::cleanup();
 
 		return $success;
 	}
