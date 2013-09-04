@@ -52,6 +52,7 @@ class EntryOriginal extends Eloquent
         {
             $this->stream($this->stream_slug, $this->stream_namespace, $this);
         }
+
     }
 
     /**
@@ -78,6 +79,16 @@ class EntryOriginal extends Eloquent
         $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
         return $instance;
+    }
+
+    public function getStream()
+    {
+        return $this->stream instanceof Stream ? $this->stream : new Stream;
+    }
+
+    public function setStream(Stream $stream = null)
+    {
+        return $this->stream = $stream;
     }
 
     /**

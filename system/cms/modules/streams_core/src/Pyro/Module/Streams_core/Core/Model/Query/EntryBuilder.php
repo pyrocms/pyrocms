@@ -78,7 +78,6 @@ class EntryBuilder extends Builder
 		{
 			if ($field_slug == 'created_by')
 			{
-				$clone->setUnformattedValue('created_by', $entry->created_by);
 				$clone->created_by = $entry->created_by_user;
 			}
 			elseif ($type = $entry->getFieldType($field_slug))
@@ -92,6 +91,9 @@ class EntryBuilder extends Builder
 				$clone->{$field_slug} = $type->getFormattedValue();
 			}
 		};
+
+		// Store the unformatted entry in case we need it later
+		$clone->setUnformattedEntry($entry);
 
 		return $clone;	
 	}

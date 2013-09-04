@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
+use Pyro\Model\Eloquent;
+
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
 // Entry would work similar to the old row model
@@ -35,6 +37,8 @@ class Entry extends EntryOriginal
 
     protected $unformatted_values = array();
 
+    protected $unformatted_entry = null;
+
     protected $format = true;
 
     protected $plugin = true;
@@ -43,8 +47,7 @@ class Entry extends EntryOriginal
 
     protected $view_options = array();
 
-
-    public static function stream($stream_slug, $stream_namespace, Entry $instance = null)
+    public static function stream($stream_slug, $stream_namespace = null, Entry $instance = null)
     {
         $instance = parent::stream($stream_slug, $stream_namespace, $instance);
 
@@ -69,29 +72,6 @@ class Entry extends EntryOriginal
         $instance->setFields($instance->newFieldCollection($fields));
 
         return $instance;
-    }
-
-    /**
-     * Return a new Entry model only if the stream is set
-     * @return Pyro\Module\Streams_core\Core\Model\Entry The new Entry model
-     */
-    public function newEntry()
-    {
-        if ( ! $this->stream)
-        {
-            return false;
-        }
-
-        $new = $this->newInstance();
-
-        $new->setFields($this->getFields());
-
-        return $new;
-    }
-
-    public function getStream()
-    {
-        return $this->stream;
     }
 
     public function setFields(Collection\FieldCollection $fields = null)
@@ -186,9 +166,228 @@ class Entry extends EntryOriginal
         return new \Pyro\Module\Streams_core\Core\Field\Form($this);
     }
 
-    public function getEntry($id = null, array $columns = array('*'))
+    public function setUnformattedEntry($unformatted_entry = null)
     {
-        return $this->where($this->getKeyName(), '=', $id)->first($columns);
+        $this->unformatted_entry = $unformatted_entry;
+    }
+
+    public function unformatted()
+    {
+        return $this->unformatted_entry;
+    }
+
+    public function findEntry($id = null, array $columns = array('*'))
+    {
+        $entry = $this->where($this->getKeyName(), '=', $id)->first($columns);
+
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = array(), $skips = array())
+    {
+        $fields = $this->getFields();
+
+        $insert_data = array();
+
+        $alt_process = array();
+        
+        $types = array();
+
+        if ( ! $fields->isEmpty())
+        {
+            foreach ($fields as $field)
+            {
+                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
+                if ( ! in_array($field->field_slug, $skips))
+                {
+                    $type = $field->getType($this);
+                    $types[] = $type;
+
+                    $type->setStream($this->stream);
+                    $type->setValue($this->getAttribute($field->field_slug));
+
+                    if ( $value = $this->getAttribute($field->field_slug) and ! empty($value))
+                    {
+                        // We don't process the alt process stuff.
+                        // This is for field types that store data outside of the
+                        // actual table
+                        if ($type->alt_process)
+                        {
+                            $alt_process[] = $type;
+                        }
+                        else
+                        {
+                            if (method_exists($type, 'pre_save'))
+                            {
+                                $this->setAttribute($field->field_slug, $type->pre_save());
+                            }
+
+                            if (is_null($value))
+                            {
+                                $this->setAttribute($field->field_slug, null);
+                            }
+                            elseif(is_string($value))
+                            {
+                                $this->setAttribute($field->field_slug, trim($value));
+                            }
+                        }
+                    }
+                    
+                    //unset($type);
+                }
+            }
+        }
+
+
+    // -------------------------------------
+        // Set incremental ordering
+        // -------------------------------------
+        
+/*        $db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
+        
+        if ($db_obj->num_rows() == 0 or !$db_obj)
+        {
+            $ordering = 0;
+        }
+        else
+        {
+            $order_row = $db_obj->row();
+            
+            if ( ! is_numeric($order_row->max_ordering))
+            {
+                $ordering = 0;
+            }
+            else
+            {
+                $ordering = $order_row->max_ordering;
+            }
+        }
+
+        $insert_data['ordering_count']  = $ordering+1;*/
+
+        // -------------------------------------
+        // Insert data
+        // -------------------------------------
+
+        // Is there any logic to complete before inserting?
+        //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
+
+         
+            // Process any alt process stuff
+            foreach ($alt_process as $type)
+            {
+
+                $type->pre_save();
+            }
+            
+            // -------------------------------------
+            // Event: Post Insert Entry
+            // -------------------------------------
+
+            $trigger_data = array(
+                'entry_id'      => $this->getKey(),
+                'stream'        => $this->stream,
+                'insert_data'   => $this->getAttributes()
+            );
+
+            \Events::trigger('streams_post_insert_entry', $trigger_data);
+
+            // -------------------------------------
+        
+
+        return parent::save();
+    }
+
+/**
+     * Run fields through their pre-process
+     *
+     * Just used for updating right now
+     *
+     * @access  public
+     * @param   obj
+     * @param   string
+     * @param   int
+     * @param   array - update data
+     * @param   skips - optional array of skips
+     * @param   bool - set_missing_to_null. Should we set missing pieces of data to null
+     *                  for the database?
+     * @return  bool
+     */
+    public static function runFieldPreProcesses($fields, $entry = null, $form_data = array(), $skips = array(), $set_missing_to_null = true)
+    {
+        $return_data = array();
+        
+        if ($fields)
+        {
+            foreach ($fields as $field)
+            {
+                // If we don't have a post item for this field, 
+                // then simply set the value to null. This is necessary
+                // for fields that want to run a pre_save but may have
+                // a situation where no post data is sent (like a single checkbox)
+                if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
+                {
+                    $form_data[$field->field_slug] = null;
+                }
+
+                // If this is not in our skips list, process it.
+                if ( ! in_array($field->field_slug, $skips))
+                {
+                    $type = $field->getType($entry);
+                    $type->setFormData($form_data);
+        
+                    if ( ! $type->alt_process)
+                    {
+                        // If a pre_save function exists, go ahead and run it
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $return_data[$field->field_slug] = $type->pre_save();
+
+                            // We are unsetting the null values to as to
+                            // not upset db can be null rules.
+                            if (is_null($return_data[$field->field_slug]))
+                            {
+                                unset($return_data[$field->field_slug]);
+                            }
+                            else
+                            {
+                                $return_data[$field->field_slug] = $return_data[$field->field_slug];
+                            }
+                        }
+                        else
+                        {
+                            $return_data[$field->field_slug] = $form_data[$field->field_slug];
+        
+                            // Make null - some fields don't like just blank values
+                            if ($return_data[$field->field_slug] == '')
+                            {
+                                $return_data[$field->field_slug] = null;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If this is an alt_process, there can still be a pre_save,
+                        // it just won't return anything so we don't have to
+                        // save the value
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $type->pre_save();
+                        }
+                    }
+                }
+            }   
+        }
+
+        return $return_data;
     }
 
     public function total()
@@ -369,6 +568,45 @@ class Entry extends EntryOriginal
         }
 
         return $builder;
+    }
+
+    /**
+     * Define a polymorphic one-to-one relationship.
+     *
+     * @param  string  $related
+     * @param  string  $name
+     * @param  string  $type
+     * @param  string  $id
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function morphOneEntry($related, $name, $type = null, $id = null)
+    {
+        $instance = new $related;
+
+        list($type, $id) = $this->getMorphs($name, $type, $id);
+
+        $table = $instance->getTable();
+
+        return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
+    }
+
+
+    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
+    {
+        // Next we will guess the type and ID if necessary. The type and IDs may also
+        // be passed into the function so that the developers may manually specify
+        // them on the relations. Otherwise, we will just make a great estimate.
+        list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
+
+        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
+    }
+
+    public function passProperties(Entry $instance = null)
+    {
+        $instance->setStream($this->stream);
+        $instance->setFields($this->fields);
+
+        return $instance;
     }
 
 }
