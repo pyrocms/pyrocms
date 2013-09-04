@@ -1,4 +1,9 @@
 <?php
+
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Core\Field;
+use Pyro\Module\Streams_core\Core\Model;
+
 /**
  * Admin controller for the variables module
  *
@@ -35,7 +40,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$extra['buttons'] = array(
+		$buttons = array(
 			array(
 				'label' => lang('global:edit'),
 				'url'	=>'admin/variables/edit/-entry_id-'
@@ -49,11 +54,17 @@ class Admin extends Admin_Controller
 
 		$form = $this->selectable_fields_form();
 
-		$extra['title'] = lang('variables:name').$form;
+/*		$extra['title'] = lang('variables:name').$form;
 
 		$extra['return'] = 'admin/variables';
+*/
+		Cp\Entries::table('variables', 'variables')
+			->title(lang('variables:name').$form)
+			->buttons($buttons)
+			->redirect('admin/variables')
+			->render();
 
-		$this->streams->cp->entries_table('variables', 'variables', 10, 'admin/variables/index', true, $extra);
+		//$this->streams->cp->entries_table('variables', 'variables', 10, 'admin/variables/index', true, $extra);
 	}
 
 	/**
@@ -62,10 +73,6 @@ class Admin extends Admin_Controller
 	public function create($field_slug = null)
 	{
 		$form = $this->selectable_fields_form($field_slug);
-
-		$extra['title'] = lang('variables:create_title').$form;
-
-		$extra['success_message'] = lang('variables:add_success');
 
 		$extra['return'] = $extra['cancel_uri'] = 'admin/variables/edit/-id-';
 
@@ -77,7 +84,14 @@ class Admin extends Admin_Controller
 			$defaults['data'] = $field_slug;
 		}
 		
-		$this->streams->cp->entry_form('variables', 'variables', 'new', null, true, $extra, array(), false, array('syntax'), $defaults);
+		Cp\Entries::form('variables', 'variables')
+			->title(lang('variables:create_title').$form)
+			->successMessage(lang('variables:add_success'))
+			->hidden(array('syntax'))
+			->defaults($defaults)
+			->redirect('admin/variables')
+			->render();
+		//$this->streams->cp->entry_form('variables', 'variables', 'new', null, true, $extra, array(), false, array('syntax'), $defaults);
 	}
 
 	/**
@@ -89,19 +103,21 @@ class Admin extends Admin_Controller
 	{
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
-		
-		$form = $this->selectable_fields_form('---', true);
 
-		$extra['title'] = 'Edit '.$form;
+		$variable = Model\Entry::stream('variables', 'variables')->findEntry($id);
+
+		$form = $this->selectable_fields_form($variable, '---', true);
 
 		// This is a bit redundant but we want a nice message.
 		//$variable = $this->streams->entries->get_entry($id, 'variables', 'variables');
 
-//extra['success_message'] = sprintf(lang('variables:edit_success'), $variable->name);
-
-		$extra['return'] = 'admin/variables';
-		
-		$this->streams->cp->entry_form('variables', 'variables', 'edit', $id, true, $extra, array(), false, array('syntax'));
+		Cp\Entries::form($variable)
+			->title('Edit '.$form)
+			->successMessage(sprintf(lang('variables:edit_success'), $variable->name))
+			->hidden(array('syntax'))
+			->redirect('admin/variables')
+			->render();
+		//$this->streams->cp->entry_form('variables', 'variables', 'edit', $id, true, $extra, array(), false, array('syntax'));
 	}
 
 	/**
@@ -126,7 +142,13 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$options = $this->type->types->field->get_selectable_fields('variables', 'variables', 'variables');
+		$stream = Model\Stream::findBySlugAndNamespace('variables', 'variables');
+
+		$field_type = Field\Type::getLoader()->getType('field');
+
+		$field_type->setStream($stream);
+
+		$options = $field_type->get_selectable_fields('variables', 'variables', 'variables');
 
 		if ( ! $field_slug)
 		{
