@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
-use Pyro\Query\Builder;
 use Pyro\Module\Streams_core\Core\Model\Entry;
-use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntry;
+use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntryException;
 use Pyro\Module\Streams_core\Core\Model\Relation\BelongsToEntry;
 
 /**
@@ -146,7 +145,12 @@ abstract class Eloquent extends Model
         // them on the relations. Otherwise, we will just make a great estimate.
         list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
 
-        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
+        if ( ! $stream = $this->$stream_column)
+        {
+            // @todo - do we want to throw an exception if the stream is not stored?
+        }
+
+        return $this->belongsToEntry($related, $id_column, $stream, $stream_column);
     }
 
     /**
@@ -174,7 +178,7 @@ abstract class Eloquent extends Model
 
         if( ! ($instance instanceof Entry))
         {
-            throw new ClassNotInstanceOfEntry;
+            throw new ClassNotInstanceOfEntryException;
         }
 
         // Once we have the foreign key names, we'll just create a new Eloquent query
@@ -202,7 +206,7 @@ abstract class Eloquent extends Model
      */
     public function newQuery($excludeDeleted = true)
     {
-        $builder = new Builder($this->newBaseQueryBuilder());
+        $builder = new Query\Builder($this->newBaseQueryBuilder());
 
         // Once we have the query builders, we will set the model instances so the
         // builder can easily access any information it may need from the model
