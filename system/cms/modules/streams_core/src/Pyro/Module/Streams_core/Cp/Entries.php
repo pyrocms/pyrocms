@@ -260,8 +260,14 @@ class Entries extends AbstractCp
 		}
 	}
 
-
-	public static function form($stream_slug, $stream_namespace, $id = null)
+	/**
+	 * [form description]
+	 * @param  string|Pyro\Module\Streams_core\Core\Model\Entry $mixed            [description]
+	 * @param  [type] $stream_namespace [description]
+	 * @param  [type] $id               [description]
+	 * @return [type]                   [description]
+	 */
+	public static function form($mixed, $stream_namespace = null, $id = null)
 	{	
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
@@ -269,35 +275,46 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
-
-		if ($id)
+		if ($mixed instanceof Model\Entry and $mixed->getKey())
 		{
-			$instance->entry = $instance->model->getEntry($id);
+			$instance->entry = $mixed;
+
+			$stream = $instance->entry->getStream();
+
+			$instance->entry->setTable($stream->stream_prefix.$stream->stream_slug);
 		}
 		else
 		{
-			$instance->entry = $instance->model->newEntry();
-		}
+			$instance->model = Model\Entry::stream($mixed, $stream_namespace);
 
-		$instance->form = $instance->entry->newFormBuilder();
+			if ($id)
+			{
+				$instance->entry = $instance->model->findEntry($id)->unformatted();
+			}
+			else
+			{
+				$instance->entry = $instance->model;
+			}
+		}
 
 		return $instance;	
 	}
 
 	public function renderForm()
 	{
+		$this->form = $this->entry->newFormBuilder();
+		$this->form->setDefaults($this->defaults);
+		$this->form->valid($this->valid);
+		$this->form->successMessage($this->success_message);
 		$this->form->redirect($this->return);
 
-		$this->form_fields		= $this->form->buildForm();
-
-		$this->data->fields 	= $this->form_fields;
+		$this->data->stream 	= $this->entry->getStream();
 		$this->data->tabs		= $this->tabs;
 		$this->data->hidden 	= $this->hidden;
 		$this->data->defaults	= $this->defaults;
 		$this->data->entry		= $this->entry;
-		$this->data->fields		= $this->form_fields;
 		$this->data->mode		= $this->mode;
+		$this->data->fields		= $this->form->buildForm();
 
 		// Set return uri
 		$this->data->return	= $this->return;
@@ -311,13 +328,44 @@ class Entries extends AbstractCp
 		}
 		else
 		{
+			$available_fields = $this->entry->getFieldSlugs(); 
+
+			$this->data->tabs = $this->distributeFields($this->data->tabs, $available_fields);
+
 			$form = ci()->load->view('admin/partials/streams/tabbed_form', $this->data, true);
 		}
 		
 		if ($this->view_override === false) return $form;
 		
 		$this->data->content = $form;
-		
+
 		ci()->template->build('admin/partials/blank_section', $this->data);
 	}
+
+	protected function distributeFields($tabs = array(), $available_fields = array())
+	{
+		foreach ($tabs as &$tab)
+		{
+			if ( ! empty($tab['fields']) and is_array($tab['fields']))
+			{
+				foreach ($tab['fields'] as $field)
+				{
+					if (isset($available_fields[$field])) unset($available_fields[$field]);
+				}
+			}
+		}
+
+		foreach ($tabs as &$tab)
+		{
+			if ( ! empty($tab['fields']) and $tab['fields'] === '*')
+			{
+				$tab['fields'] = $available_fields;
+
+				break;
+			}
+		}
+
+		return $tabs;
+	}
+
 }
