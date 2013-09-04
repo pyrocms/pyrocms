@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Streams_core\Cp;
 use Pyro\Module\Users;
 
 /**
@@ -16,6 +17,8 @@ class Admin extends Admin_Controller
      * @var string
      */
     protected $section = 'users';
+
+    protected $form_data = null;
 
     /**
      * Validation for basic profile
@@ -40,16 +43,16 @@ class Admin extends Admin_Controller
             'label' => 'lang:user_username',
             'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
         ),
-        array(
+/*        array(
             'field' => 'is_activated',
             'label' => 'lang:user_active_label',
             'rules' => ''
-        ),
-        array(
+        ),*/
+/*        array(
             'field' => 'display_name',
             'label' => 'lang:profile_display_name',
             'rules' => 'required'
-        )
+        )*/
     );
 
     /**
@@ -64,9 +67,11 @@ class Admin extends Admin_Controller
         $this->load->library('form_validation');
         $this->lang->load(array('user', 'group'));
 
+        $this->form_data['current_user'] = $this->current_user;
+
         if ($this->current_user->isSuperUser()) 
         {
-            $this->template->group_options = Users\Model\Group::getGeneralGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGroupOptions();
         }  
         else
         {
@@ -77,7 +82,7 @@ class Admin extends Admin_Controller
                 'rules' => 'required|callback__group_check'
             );
 
-            $this->template->group_options = Users\Model\Group::getGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGeneralGroupOptions();
         }
     }
 
@@ -166,11 +171,11 @@ class Admin extends Admin_Controller
         //$this->validation_rules['username']['rules'] .= '|callback__username_check';
 
         // Get the profile fields validation array from streams
-        $this->load->driver('Streams');
-        $profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+        //$this->load->driver('Streams');
+        //$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
 
         // Set the validation rules
-        $this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
+        $this->form_validation->set_rules($this->validation_rules);
 
         $email = strtolower($this->input->post('email'));
         $password = $this->input->post('password');
@@ -178,27 +183,7 @@ class Admin extends Admin_Controller
         $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
-        // keep non-admins from creating admin accounts. If they aren't an admin then force new one as a "user" account
-        $group_id = ($this->current_user->group !== 'admin' and $group_id == 1) ? 2 : $group_id;
-
-        // Get user profile data. This will be passed to our
-        // streams insert_entry data in the model.
-        $assignments = $this->streams->streams->get_assignments('profiles', 'users');
-        $profile_data = array();
-
-        if ( ! empty($assignments))
-        {
-        foreach ($assignments as $assign) {
-            $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-        }
-    }
-
-        // Some stream fields need $_POST as well.
-        $profile_data = array_merge($profile_data, $_POST);
-
-        $profile_data['display_name'] = $this->input->post('display_name');
-
-        if ($this->form_validation->run() !== false) {
+        if ($valid = ($this->form_validation->run() !== false)) {
             if ($activate === '2') {
                 // we're sending an activation email regardless of settings
                 Settings::temp('activation_email', true);
@@ -207,7 +192,7 @@ class Admin extends Admin_Controller
                 Settings::temp('activation_email', false);
             }
 
-            $group = Users\Model\Group::find($group_id);
+            //$group = Users\Model\Group::find($group_id);
 
             // Register the user (they are activated by default if an activation email isn't requested)
             //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
@@ -215,7 +200,8 @@ class Admin extends Admin_Controller
                     'username' => $username,
                     'password' => $password,
                     'email' => $email,
-                    'is_activated' => $activate
+                    'is_activated' => $activate,
+                    'created_on' => time()
                 ))) {
                 //if ($activate === '0') {
                     // admin selected Inactive
@@ -224,56 +210,56 @@ class Admin extends Admin_Controller
 
                 Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
-                // Create profile
-                $profile_id = $this->streams->entries->insert_entry($profile_data, 'profiles', 'users');
-
-                // Update the user_id
-                $this->pdb->table('profiles')->where('id', '=', $profile_id)->update(array('user_id' => $user->id));
-
                 // Fire an event. A new user has been created
                 Events::trigger('user_created', $user);
 
-                // Set the flashdata message and redirect
-               // $this->session->set_flashdata('success', $this->ion_auth->messages());
-
                 // Redirect back to the form or main page
-                $this->input->post('btnAction') === 'save_exit'
+ /*               $this->input->post('btnAction') === 'save_exit'
                     ? redirect('admin/users')
-                    : redirect('admin/users/edit/'.$user->id);
-
-            // Error
-            } else {
-                //$this->template->error_string = $this->ion_auth->errors();
+                    : redirect('admin/users/edit/'.$user->id);*/
             }
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
-
+            $user = new Users\Model\User;
+            $user->is_activated = false;
         }
 
-        $user = new Users\Model\User;
-        $user->is_active = false;
+
 
         // Loop through each validation rule
-        foreach ($this->validation_rules as $rule) {
+        foreach ($this->validation_rules as $rule)
+        {
             $user->{$rule['field']} = set_value($rule['field']);
         }
 
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+        $this->form_data['member'] = $user;
 
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, null, 'new');
+        $user_form = $this->load->view('admin/users/form', $this->form_data, true);
 
-        // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);
+        $tabs = array(
+            array(
+                'title'     => lang('profile_user_basic_data_label'),
+                'id'        => 'basic',
+                'content'    => $user_form
+            ),
+            array(
+                'title'     => lang('user:profile_fields_label'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            )
+        );
 
-        $this->template
-            ->title($this->module_details['name'], lang('user:add_title'))
-            ->set('member', $user)
-            ->set('current_group_ids', array())
-            ->set('display_name', set_value('display_name', $this->input->post('display_name')))
-            ->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
-            ->build('admin/users/form');
+        Cp\Entries::form('profiles', 'users')
+            ->tabs($tabs)
+            ->valid($valid) // This enables the profile submittion only if the user was created successfully
+            ->saving(function($profile) use ($user)
+            {
+                $profile->user_id = $user->id; // Set the profile user id before saving
+            })
+            ->successMessage('User saved.') // @todo - language
+            ->redirect('admin/users')
+            ->render();
     }
 
     /**
@@ -304,43 +290,11 @@ class Admin extends Admin_Controller
         }
 
         // Get the profile fields validation array from streams
-        $this->load->driver('Streams');
-        $profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $id);
+        //$this->load->driver('Streams');
+        //$profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $id);
 
         // Set the validation rules
-        $this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
-
-        // Get user profile data. This will be passed to our
-        // streams insert_entry data in the model.
-        $assignments = $this->streams->streams->get_assignments('profiles', 'users');
-        $profile_data = array();
-
-        if ( ! empty($assignments))
-        {
-            foreach ($assignments as $assign)
-            {
-                if (isset($_POST[$assign->field_slug]))
-                {
-                    $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-                }
-                elseif (isset($user->{$assign->field_slug}))
-                {
-                    $profile_data[$assign->field_slug] = $user->{$assign->field_slug};
-                }
-            }            
-        }
-
-
-        // We need the profile ID to pass to get_stream_fields.
-        // This theoretically could be different from the actual user id.
-        if ($id)
-        {
-            $profile_id = $this->pdb->table('profiles')->take(1)->where('user_id', '=', $id)->pluck('id');
-        }
-        else
-        {
-            $profile_id = null;
-        }
+        $this->form_validation->set_rules($this->validation_rules);
 
 
         if ($this->form_validation->run() === true)
@@ -375,31 +329,10 @@ class Admin extends Admin_Controller
             //     $user->is_activated = (bool) $update_data['active'];
             // }
 
-            $profile_data = array();
-
-            // Grab the profile data
-            foreach ($assignments as $assign)
-            {
-                $profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-            }
-
-            // Some stream fields need $_POST as well.
-            $profile_data = array_merge($profile_data, $_POST);
-
-            // We need to manually do display_name
-            $profile_data['display_name'] = $this->input->post('display_name');
-
             // Password provided, hash it for storage
             if ($this->input->post('password'))
             {
                 $update_data['password'] = $this->input->post('password');
-            }
-            
-            // Update / create profile
-            if (empty($profile_id)) {
-                $this->streams->entries->insert_entry(array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
-            } else {
-                $this->streams->entries->update_entry($profile_id, array_merge($profile_data, array('user_id' => $id)), 'profiles', 'users');
             }
 
             if ($user->save())
@@ -407,51 +340,46 @@ class Admin extends Admin_Controller
                 // Fire an event. A user has been updated. 
                 Events::trigger('user_updated', $user);
 
-                $this->session->set_flashdata('success', 'User saved.'); // @todo - language
+                //$this->session->set_flashdata('success', 'User saved.'); // @todo - language
             }
             else
             {
                 $this->session->set_flashdata('error', $this->ion_auth->errors());
             }
 
-            // Redirect back to the form or main page
-            $this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$id);
-        }
-        else
-        {
-            // Dirty hack that fixes the issue of having to re-add all data upon an error
-            if ($_POST)
-            {
-                //$user = (object) $_POST;
-            }
         }
 
-        // Loop through each validation rule
+/*        // Loop through each validation rule
         foreach ($this->validation_rules as $rule)
         {
             if ($this->input->post($rule['field']) !== null)
             {
                 $user->{$rule['field']} = set_value($rule['field']);
             }
-        }
+        }*/
 
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+        $this->form_data['member'] = $user;
 
-        $profile = $this->db->limit(1)->where('user_id', $id)->get('profiles')->row();
+        $user_form = $this->load->view('admin/users/form', $this->form_data, true);
 
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, $profile, 'edit');
+        $tabs = array(
+            array(
+                'title'     => lang('profile_user_basic_data_label'),
+                'id'        => 'basic-data',
+                'content'    => $user_form
+            ),
+            array(
+                'title'     => lang('user:profile_fields_label'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            )
+        );
 
-        // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);
-
-        $this->template
-            ->title($this->module_details['name'], sprintf(lang('user:edit_title'), $user->username))
-            ->set('display_name', $user->display_name)
-            ->set('current_group_ids', $user->groups->modelKeys())
-            ->set('profile_fields', $user->profile->getFields())
-            ->set('member', $user)
-            ->build('admin/users/form');
+        Cp\Entries::form($user->profile) // We can pass the profile model to generate the form
+            ->tabs($tabs)
+            ->successMessage('User saved.') // @todo - language
+            ->redirect('admin/users')
+            ->render();
     }
 
     /**
