@@ -76,6 +76,8 @@ class Field extends Eloquent
 
         $type->setEntry($entry);
         
+        $type->setStream($entry->getModel()->getStream());
+
         $type->setModel($entry->getModel());
         
         $type->setEntryBuilder($entry->getModel()->newQuery());
@@ -280,9 +282,16 @@ class Field extends Eloquent
             ->first();
     }
 
-    public static function findManyByNamespace($field_namespace = null, $limit = 0, $offset = 0, $skips = array())
+    public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)
     {
-        return static::where('field_namespace', '=', $field_namespace)->whereNotIn('field_slug', $skips)->take($limit)->skip($offset)->get();
+        $query = static::where('field_namespace', '=', $field_namespace);
+
+        if ( ! empty($skips))
+        {
+            $query = $query->whereNotIn('field_slug', $skips);
+        }
+
+        return $query->skip($offset)->take($limit)->get();
     }
 
     /**
