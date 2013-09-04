@@ -51,13 +51,13 @@ class Field_datetime extends AbstractField
 	 * @param 	obj
 	 * @return 	void
 	 */
-	public function event($field)
+	public function event()
 	{
 		// We need the JS file for the front-end. 
 		if ( ! defined('ADMIN_THEME') and isset($this->field->field_data['input_type']) and $this->field->field_data['input_type'] == 'datepicker')
 		{
-			ci()->type->add_js('datetime', 'jquery.datepicker.js');
-			ci()->type->add_css('datetime', 'datepicker.css');
+			$this->addJs('datetime', 'jquery.datepicker.js');
+			$this->addCss('datetime', 'datepicker.css');
 		}
 	}
 
@@ -575,7 +575,7 @@ class Field_datetime extends AbstractField
 
 	// --------------------------------------------------------------------------
 
-	public function form_data($key, $form_data)
+	public function form_data($key)
 	{
 		if (isset($form_data[$key]))
 		{
@@ -597,7 +597,7 @@ class Field_datetime extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $form_data)
+	public function pre_save()
 	{
 		// -------------------------------------
 		// Date
@@ -608,14 +608,14 @@ class Field_datetime extends AbstractField
 		if ($input_type == 'datepicker')
 		{
 			// No collecting data necessary
-			$date = $this->form_data($this->field->field_slug, $form_data);
+			$date = $this->getFormData($this->field->field_slug);
 		}
 		else
 		{
 			// Get from post data
-			$date = $this->form_data($this->field->field_slug.'_year', $form_data).
-				'-'.$this->two_digit_number($this->form_data($this->field->field_slug.'_month', $form_data)).
-				'-'.$this->two_digit_number($this->form_data($this->field->field_slug.'_day', $form_data));
+			$date = $this->getFormData($this->field->field_slug.'_year').
+				'-'.$this->two_digit_number($this->getFormData($this->field->field_slug.'_month')).
+				'-'.$this->two_digit_number($this->getFormData($this->field->field_slug.'_day'));
 		}
 
 		// -------------------------------------
@@ -625,7 +625,7 @@ class Field_datetime extends AbstractField
 		// a completely null value 
 		// -------------------------------------
 
-		if ( ! $input or $date == '-00-00' or $date == '0000-00-00')
+		if ( ! $this->value or $date == '-00-00' or $date == '0000-00-00')
 		{
 			if (isset($this->field->field_data['storage']) and $this->field->field_data['storage'] == 'unix')
 			{
@@ -648,11 +648,11 @@ class Field_datetime extends AbstractField
 		if ($this->field->field_data['use_time'] == 'yes')
 		{
 			// Hour
-			if ($this->form_data($this->field->field_slug.'_hour', $form_data))
+			if ($this->getFormData($this->field->field_slug.'_hour'))
 			{
-				$hour = $this->form_data($this->field->field_slug.'_hour', $form_data);
+				$hour = $this->getFormData($this->field->field_slug.'_hour');
 	
-				if ($this->form_data($this->field->field_slug.'_am_pm', $form_data) == 'pm' and $hour < 12)
+				if ($this->getFormData($this->field->field_slug.'_am_pm') == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -663,9 +663,9 @@ class Field_datetime extends AbstractField
 			}
 			
 			// Minute
-			if ($this->form_data($this->field->field_slug.'_minute', $form_data))
+			if ($this->getFormData($this->field->field_slug.'_minute'))
 			{
-				$minute = $this->form_data($this->field->field_slug.'_minute', $form_data);
+				$minute = $this->getFormData($this->field->field_slug.'_minute');
 			}				
 			else
 			{
@@ -966,6 +966,7 @@ class Field_datetime extends AbstractField
 	 */
 	public function pre_output()
 	{
+		$this->value = null;
 		// Don't show Dec 31st if empty silly
 		if ( $this->value == null ) return null;
 		
