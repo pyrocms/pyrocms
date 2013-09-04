@@ -30,6 +30,8 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $exclude_types = array();
 
+	protected $failure_message = null;
+
 	protected $fields = null;
 
 	protected $field_names = array();
@@ -86,11 +88,15 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $stream_fields = null;
 
+	protected $success_message = null;
+
 	protected $tabs = array();
 
 	protected $title = null;
 
 	protected $view_override = true;
+
+	protected $valid = true;
 
 	public function __construct()
 	{
@@ -158,7 +164,7 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public static function hidden(array $hidden = array())
+	public function hidden(array $hidden = array())
 	{
 		$this->hidden = $hidden;
 
@@ -252,9 +258,30 @@ abstract class AbstractCp extends AbstractSupport
 		return false;
 	}
 
+	public function saving(Closure $callback)
+	{
+		call_user_func($callback, $this->entry);
+
+		return $this;
+	}
+
 	public function skips(array $skips = array())
 	{
 		$this->skips = $skips;
+
+		return $this;
+	}
+
+	public function successMessage($success_message = null)
+	{
+		$this->success_message = $success_message;
+
+		return $this;
+	}
+
+	public function failureMessage($failure_message = null)
+	{
+		$this->failure_message = $failure_message;
 
 		return $this;
 	}
@@ -271,6 +298,20 @@ abstract class AbstractCp extends AbstractSupport
 		ci()->template->title(lang_label($title));
 
 		$this->title;
+
+		return $this;
+	}
+
+	public function valid($valid = false)
+	{
+		$this->valid = $valid;
+
+		return $this;
+	}
+
+	public function viewOverride($view_override = true)
+	{
+		$this->view_override = $view_override;
 
 		return $this;
 	}
