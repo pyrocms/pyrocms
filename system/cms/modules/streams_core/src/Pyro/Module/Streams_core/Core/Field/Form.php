@@ -23,6 +23,8 @@ class Form
 
 	protected $method = 'new';
 
+	protected $defaults = array();
+
 	protected $recaptcha = false;
 
 	protected $values = array();
@@ -35,11 +37,15 @@ class Form
 
 	protected $skips = array();
 
+	protected $success_message = null;
+
 	protected $return_validation_rules = false;
 
 	protected $field_types = array();
 
 	protected $return = null;
+
+	protected $valid = true;
 
 	// --------------------------------------------------------------------------
 
@@ -210,6 +216,9 @@ class Form
 
 		$this->runFieldEvents();
 
+
+		$fields = $this->buildFields();
+
 		// -------------------------------------
 		// Validation
 		// -------------------------------------
@@ -225,9 +234,9 @@ class Form
 				if ($this->method == 'new')
 				{
 					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
-					if ( ! $result_id = $this->entry->save())
+					if ($this->valid and ! $result_id = $this->entry->save())
 					{
-						ci()->session->set_flashdata('notice', lang_label($failure_message));
+						ci()->session->set_flashdata('notice', lang_label($this->failure_message));
 					}
 					else
 					{
@@ -245,7 +254,7 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', lang_label($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
 				}
 				else
@@ -258,12 +267,15 @@ class Form
 														ci()->input->post(),
 														$skips
 													)*/
+					//$stream = $this->entry->getStream();
+
+					//$this->entry->setTable($stream->stream_prefix, $stream->stream_slug);
 
 					$this->entry->exists = true;
 
-					if ( ! $result_id =  $this->entry->save() and isset($extra['failure_message']))
+					if ($this->valid and ! $this->result = $this->entry->save() and isset($this->failure_message))
 					{
-						ci()->session->set_flashdata('notice', lang_label($extra['failure_message']));	
+						ci()->session->set_flashdata('notice', lang_label($this->failure_message));	
 					}
 					else
 					{
@@ -281,22 +293,26 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', lang_label($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
 				}
 			
 				// If return url is set, redirect and replace -id- with the result ID
 				// Otherwise return id
-				if ($this->entry->isPlugin() === true)
+				if ($this->valid and $this->entry->isPlugin())
 				{
 					if ($this->return)
 					{
 						redirect(str_replace('-id-', $result_id, $this->return));
 					}
+					else
+					{
+						redirect(current_url());
+					}
 				}
 				else
 				{
-					return $result_id;
+					return $fields;
 				}
 			}
 		}
@@ -306,7 +322,7 @@ class Form
 		// -------------------------------------
 
 		// $stream_fields, $values, $row, $this->method, $skips, $extra['required']
-		return $this->buildFields();
+		return $fields;
 	}
 
 	// --------------------------------------------------------------------------
@@ -391,11 +407,11 @@ class Form
 					// post value, so we check for that as well.
 					if (isset($_POST[$field->field_slug]))
 					{
-						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug);
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($field->field_slug);
 					}
 					elseif (isset($_POST[$field->field_slug.'[]']))
 					{
-						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
 					}
 				}
 			}
@@ -439,6 +455,9 @@ class Form
 
 			if ($type = $this->entry->getFieldType($field->field_slug))
 			{
+				$type->setDefaults($this->defaults);
+				$type->setFormData($this->values);
+
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
 				$fields[$field->field_slug]['input_slug']		= $field->field_slug;
 				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
@@ -473,7 +492,7 @@ class Form
 				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
-		
+
 		return $fields;
 	}
 
@@ -616,9 +635,30 @@ class Form
 		}
 	}
 
+	public function setDefaults($defaults = null)
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
 	public function redirect($return = null)
 	{
 		$this->return = $return;
+
+		return $this;
+	}
+
+	public function successMessage($success_message = null)
+	{
+		$this->success_message = $success_message;
+
+		return $this;
+	}
+
+	public function valid($valid = false)
+	{
+		$this->valid = $valid;
 
 		return $this;
 	}
