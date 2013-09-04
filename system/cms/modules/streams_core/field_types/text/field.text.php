@@ -37,6 +37,7 @@ class Field_text extends AbstractField
 		$options['name'] 	= $this->field->field_slug;
 		$options['id']		= $this->field->field_slug;
 		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
 		if (isset($this->field->field_data['max_length']) and is_numeric($this->field->field_data['max_length']))
 		{

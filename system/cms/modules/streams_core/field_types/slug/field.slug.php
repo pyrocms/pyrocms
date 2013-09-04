@@ -48,10 +48,10 @@ class Field_slug extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_save($input)
+	public function pre_save()
 	{
 		ci()->load->helper('text');
-		return escape_tags($input);
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -82,6 +82,7 @@ class Field_slug extends AbstractField
 		$options['name'] 	= $this->field->field_slug;
 		$options['id']		= $this->field->field_slug;
 		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
 		$jquery = "<script>(function($) {
 			$(function(){
