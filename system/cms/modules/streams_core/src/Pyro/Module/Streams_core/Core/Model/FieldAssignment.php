@@ -119,6 +119,27 @@ class FieldAssignment extends Eloquent
 
         $field->stream->save();
 
+        // Find everything above it, and take each one
+        // down a peg.
+        if ($this->sort_order == '' or ! is_numeric($this->sort_order))
+        {
+            $this->sort_order = 0;
+        }
+
+        $other_assignments = static::where('stream_id', $stream->id)
+            ->whereNot($this->getKeyName(), $this->getKey())
+            ->where('sort_order', '>', $this->sort_order)
+            ->get('id, sort_order');
+
+        if ( ! $other_assignments->isEmpty())
+        {
+            foreach ($other_assignments as $assignment)
+            {
+                $assignment->sort_order = $assignment->sort_order - 1;
+                $assignment->save();
+            }
+        }
+
         return parent::delete();
     }
 
