@@ -31,25 +31,25 @@
 
 			<li>
 				<label for="is_required"><?php echo lang('streams:label.field_required');?></label>
-				<div class="input"><?php echo form_checkbox('is_required', 'yes', $assignment->is_required, 'id="is_required"');?></div>
+				<div class="input"><?php echo form_checkbox('is_required', 'yes', isset($assignment) ? $assignment->is_required : false, 'id="is_required"');?></div>
 			</li>
 
 
 			<li>
 				<label for="is_unique"><?php echo lang('streams:label.field_unique');?></label>
-				<div class="input"><?php echo form_checkbox('is_unique', 'yes', $assignment->is_unique, 'id="is_unique"'); ?></div>
+				<div class="input"><?php echo form_checkbox('is_unique', 'yes', isset($assignment) ? $assignment->is_unique : false, 'id="is_unique"'); ?></div>
 			</li>
 
 			<li>
 				<label for="field_instructions"><?php echo lang('streams:label.field_instructions');?><br /><small><?php echo lang('streams:instr.field_instructions');?></small></label>
-				<div class="input"><?php echo form_textarea('instructions', $assignment->instructions, 'id="field_instructions"');?></div>
+				<div class="input"><?php echo form_textarea('instructions', isset($assignment) ? $assignment->instructions : null, 'id="field_instructions"');?></div>
 			</li>
 
 			<?php if ($allow_title_column_set): ?>
-			<li>
-				<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
-				<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
-			</li>
+				<li>
+					<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
+					<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+				</li>
 			<?php endif; ?>
 
 		<?php endif; ?>
@@ -66,8 +66,6 @@
 			endif;
 
 		?>
-
-
 
 		<li>
 			<label for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>

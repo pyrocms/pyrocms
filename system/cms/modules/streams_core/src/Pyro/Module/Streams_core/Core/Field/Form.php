@@ -452,9 +452,9 @@ class Form
 
 		foreach($this->fields as $key => $field)
 		{
-
 			if ($type = $this->entry->getFieldType($field->field_slug))
-			{
+			{	
+				$type->setUnformattedValue($this->entry->getUnformattedValue($field->field_slug));
 				$type->setDefaults($this->defaults);
 				$type->setFormData($this->values);
 

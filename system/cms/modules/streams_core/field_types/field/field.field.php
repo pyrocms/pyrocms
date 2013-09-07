@@ -104,9 +104,11 @@ class Field_field extends AbstractField
 			$default_value = isset($selected_field->field_data['default_value']) ? $selected_field->field_data['default_value'] : null;
 
 			// Set the value if any
-			$value = isset($this->entry->{$this->field->field_slug}) ? $this->entry->{$this->field->field_slug} : $default_value;
+			$value = isset($this->value) ? $this->value : $default_value;
 
 			$selected_type = $selected_field->getType($this->entry);
+
+			$selected_type->setValue($this->unformatted_value);
 
 			// Build the selected field form
 			$form .= form_hidden($this->field->field_slug, $selected_field->field_slug);
@@ -181,6 +183,8 @@ class Field_field extends AbstractField
 	        	$this->field->field_slug.'_field_slug' => $this->value
 	        );
 
+			$post = ci()->input->post();
+
 			//$this->entry->update($update_data);
     		
 	    	if (isset($this->form_data))
@@ -191,8 +195,7 @@ class Field_field extends AbstractField
 				//$selected_field = $this->field_obj($selected_field);
 
 				// Build the stream_fields object we will need for validation and pre processes
-				$stream_fields = new stdClass;
-				$stream_fields->{$selected_field->field_slug} = $selected_field;
+				$stream_fields = array($selected_field);
 				
 				// Run selected field validation
 				//ci()->fields->set_rules($stream_fields, $method, array(), false, $row_id);
@@ -201,8 +204,10 @@ class Field_field extends AbstractField
 				//
 				if ($this->field->field_data['storage'] != 'custom' )
 				{
+					//print_r($this->form_data); exit;
+
 					// Run selected field pre processes
-					$pre_process_data = Model\Entry::runFieldPreProcesses($stream_fields, $this->entry, $this->form_data, array(), false);
+					$pre_process_data = Model\Entry::runFieldPreProcesses($stream_fields, $this->entry, $post, array(), false);
 
 					$this->entry->{$this->field->field_slug} = $pre_process_data[$selected_field->field_slug];
 			
@@ -270,6 +275,8 @@ class Field_field extends AbstractField
 			// Else we will expect this field to go through its pre process and return a string
 			elseif ($this->field->field_data['storage'] != 'custom')
 			{
+				//echo $this->value; exit;
+
 				$output = $selected_type->getFormattedValue();
 
 				//$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
@@ -419,7 +426,7 @@ class Field_field extends AbstractField
 	{
 		$field = $this->getSelectedField();
 
-		if ($selected_type = $field->getType($this->entry))
+		if ($selected_type = $field->getType($this->entry->unformatted()))
 		{
 			$selected_type->setValue($this->value);
 

@@ -8,7 +8,7 @@ abstract class AbstractCp extends AbstractSupport
 {
 	protected $add_uri = null;
 
-	protected $allow_set_title = false;
+	protected $allow_title_column_set = false;
 
 	protected $buttons = array();
 
@@ -112,9 +112,9 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}	
 
-	public function allowSetTitle($allow_set_title = false)
+	public function allowSetColumnTitle($allow_title_column_set = false)
 	{
-		$this->allow_set_title = $allow_set_title;
+		$this->allow_title_column_set = $allow_title_column_set;
 
 		return $this;
 	}	

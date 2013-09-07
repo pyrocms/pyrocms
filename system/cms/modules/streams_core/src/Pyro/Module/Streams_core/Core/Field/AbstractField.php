@@ -6,6 +6,8 @@ abstract class AbstractField
 
 	protected $defaults = null;
 
+	protected $unformatted_value = null;
+
 	protected $value = null;
 
 	protected $plugin = false;
@@ -29,6 +31,11 @@ abstract class AbstractField
 	public function setValue($value = null)
 	{
 		$this->value = $value;
+	}
+
+	public function setUnformattedValue($unformatted_value = null)
+	{
+		$this->unformatted_value = $unformatted_value;
 	}
 
 	public function setPlugin($plugin = null)
@@ -130,7 +137,7 @@ abstract class AbstractField
 		// Is this an alt process type?
 		if ($this->alt_process === true)
 		{
-			if ( ! $this->plugin and method_exists($this, 'alt_pre_output'))
+			if ( ! $plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
@@ -149,6 +156,13 @@ abstract class AbstractField
 			}
 		}
 
+		return $this->getValue();
+	}
+
+	// --------------------------------------------------------------------------	
+
+	public function getUnformattedValue($plugin = false)
+	{
 		return $this->getValue();
 	}
 

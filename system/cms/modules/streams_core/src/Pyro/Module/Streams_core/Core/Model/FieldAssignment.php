@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
+use Illuminate\Database\Query\Expression as DBExpression;
 use Pyro\Model\Eloquent;
 
 class FieldAssignment extends Eloquent
@@ -24,6 +25,14 @@ class FieldAssignment extends Eloquent
      * @var boolean
      */
     public $timestamps = false;
+
+    public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null)
+    {
+        return static::where('field_id', $field_id)
+            ->where('stream_id', $stream_id)
+            ->take(1)
+            ->first();
+    }
 
     public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
     {
@@ -158,12 +167,29 @@ class FieldAssignment extends Eloquent
             ($attributes['title_column'] == 'yes' or $attributes['title_column'] === true) and 
             $stream->title_column != $field->field_slug)
         {
+            if ($attributes['title_column'] == 'yes')
+            {
+                $attributes['title_column'] = $field->field_slug;
+            }
+
             // Scenario B: They have checked the title column
             // and this field it not the current field.
             Stream::updateTitleColumnByStreamIds($stream->id, $field->field_slug, $attributes['title_column']);    
         }
 
         return parent::update($attributes);
+    }
+
+    public static function getIncrementalSortNumber($stream_id = null)
+    {
+        $instance = new static;
+
+        $top_num = $instance->getQuery()
+            ->select(new DBExpression('MAX(sort_order) as top_num'))
+            ->where('stream_id', $stream_id)
+            ->pluck('top_num');
+
+        return $top_num ? $top_num + 1 : 1;
     }
 
     /**

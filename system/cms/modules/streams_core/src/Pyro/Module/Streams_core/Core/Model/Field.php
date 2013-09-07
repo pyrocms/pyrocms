@@ -38,8 +38,10 @@ class Field extends Eloquent
     // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
     public static function create(array $attributes = array())
     {
+        $instance = new static;
+
         // Load the type to see if there are other params
-        if ($type = $this->getType() and isset($type->custom_parameters))
+        if ($type = $instance->getType() and isset($type->custom_parameters))
         {
             foreach ($type->custom_parameters as $param)
             {
@@ -316,6 +318,11 @@ class Field extends Eloquent
     public function assignments()
     {
         return $this->hasMany(__NAMESPACE__.'\FieldAssignment', 'field_id');
+    }
+
+    public function streams()
+    {
+        return $this->belongsToMany('Pyro\Module\Streams_core\Core\Model\Stream');
     }
 
     public function getFieldNameAttribute($field_name)

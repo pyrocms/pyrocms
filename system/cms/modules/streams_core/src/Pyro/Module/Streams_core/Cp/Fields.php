@@ -247,11 +247,7 @@ class Fields extends AbstractCp
 		// We'll always work off the assignment.
 		// -------------------------------------
 
-		// -------------------------------------
-		// Should we set as title
-		// column checkbox?
-		// -------------------------------------
-		$this->data->allow_title_column_set = $this->allow_set_title;
+   		$this->data->allow_title_column_set = $this->allow_title_column_set;
 
 		// -------------------------------------
 		// Cancel Button
@@ -343,19 +339,48 @@ class Fields extends AbstractCp
 		// 
 		$post_data = ci()->input->post();
 
+		// Repopulate title column set
+		$this->data->title_column_status = false;
+
+		if (isset($this->data->stream))
+		{
+			if ($this->data->allow_title_column_set and $this->data->current_field->getKey())
+			{
+				if ($this->data->stream->title_column)
+				{
+					if ($this->data->stream->title_column == ci()->input->post('title_column'))
+					{
+						$post_data['title_column'] = $this->data->current_field->field_slug;
+						
+						$this->data->title_column_status = true;
+					}
+				}
+				elseif ($this->data->stream->title_column and $this->data->stream->title_column == $this->data->current_field->field_slug)
+				{
+					$this->data->title_column_status = true;
+				}
+			}
+			elseif ($this->data->allow_title_column_set and ! $this->data->current_field->getKey())
+			{
+				if (ci()->input->post('title_column'))
+				{
+					$post_data['title_column'] = $this->data->current_field->field_slug;
+
+					$this->data->title_column_status = true;	
+				}
+			}			
+		}
+
 		if ($post_data)
 		{
-
 			// -------------------------------------
 			// See if we need our param fields
 			// -------------------------------------
 			
-
-
 			// Set custom data from $skips param
 			if (count($this->skips) > 0)
 			{	
-				foreach ($skips as $skip)
+				foreach ($this->skips as $skip)
 				{
 					if ($skip['slug'] == 'field_slug' && ( ! isset($skip['value']) || empty($skip['value'])))	
 					{
@@ -370,32 +395,19 @@ class Fields extends AbstractCp
 
 			if ($this->data->method == 'new')
 			{
-
-				/*if ( ! ci()->fields_m->insert_field(
-									$post_data['field_name'],
-									$post_data['field_slug'],
-									$post_data['field_type'],
-									$namespace,
-									$post_data // @todo - implement this part below
-					))
-				{*/
-
-
-				if ( ! $field = Model\Field::create(array(
-									'field_name' => $post_data['field_name'],
-									'field_slug' => $post_data['field_slug'],
-									'field_type' => $post_data['field_type'],
-									'field_namespace' => $this->data->namespace,
-									
-					)))
+				if ( ! $field = Model\Field::create(array_merge($post_data, array(
+						'field_name' => $post_data['field_name'],
+						'field_slug' => $post_data['field_slug'],
+						'field_type' => $post_data['field_type'],
+						'field_namespace' => $this->data->namespace,			
+					))))
 				{
-				
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
-				else
+				elseif (isset($this->data->stream))
 				{
 					// Add the assignment
-					if( ! ci()->streams_m->add_field_to_stream($field->id, $this->stream->id, $post_data))
+					if( ! $this->data->stream->assignField($field, $post_data))
 					{
 						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
@@ -409,7 +421,6 @@ class Fields extends AbstractCp
 			{
 				if ( ! $this->data->current_field->update(array_merge($post_data,array('field_namespace' => $this->data->namespace))))
 				{
-				
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				elseif (isset($this->data->assignment))
@@ -482,28 +493,6 @@ class Fields extends AbstractCp
 			{
 				$this->data['field']->{$field['field']} = ci()->input->post($field['field']);
 			}
-		}
-
-		// Repopulate title column set
-		$this->data->title_column_status = false;
-
-		if (isset($this->data->stream))
-		{
-			if ($this->data->allow_title_column_set and $this->data->method == 'edit') {
-
-				if ($this->stream->title_column and $this->stream->title_column == ci()->input->post('title_column')) {
-					$this->data->title_column_status = true;
-				}
-				elseif ($this->stream->title_column and $this->stream->title_column == $this->data->current_field->field_slug) {
-					$this->data->title_column_status = true;
-				}
-				
-			} elseif ($this->data->allow_title_column_set and $this->data->method == 'new' and $_POST) {
-
-				if (ci()->input->post('title_column')) {
-					$this->data->title_column_status = true;
-				}
-			}			
 		}
 
 		// -------------------------------------
