@@ -510,7 +510,7 @@ class Fields extends AbstractCp
 		// have a cancel button.
 		$this->data->cancel_uri = $this->cancel_uri;
 
-		$table = ci()->load->view('admin/partials/streams/field_assignment_form', $this->data, true);
+		$table = ci()->load->view('admin/partials/streams/field_form', $this->data, true);
 		
 		if ($this->view_override)
 		{
