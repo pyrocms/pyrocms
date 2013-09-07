@@ -58,6 +58,20 @@ class Stream extends Eloquent
 		return $stream;
 	}
 
+	/**
+	 * Find a model by slug and namespace or throw an exception.
+	 *
+	 * @param  mixed  $id
+	 * @param  array  $columns
+	 * @return \Pyro\Module\Streams_core\Core\Model\Stream|Collection|static
+	 */
+	public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null)
+	{
+		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
+
+		throw new Exception\StreamNotFoundException;
+	}
+
     protected static function getStreamCacheName($stream_slug = '', $stream_namespace = '')
     {
         return 'stream['.$stream_slug.','.$stream_namespace.']';
@@ -316,6 +330,75 @@ class Stream extends Eloquent
 
 			$col->nullable();
 		});
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Remove a field assignment
+	 *
+	 * @param	object
+	 * @param	object
+	 * @param	object
+	 * @return	bool
+	 */
+	public function removeFieldAssignment($field)
+	{
+		$schema = ci()->pdb->getSchemaBuilder();
+		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+		// Do we have a destruct function
+		if ($type = $field->getType() ? method_exists($type, 'field_assignment_destruct'))
+		{
+			// @todo - also pass the schema builder
+			$type->setStream($this);
+			$type->field_assignment_destruct();
+		}
+
+		// -------------------------------------
+		// Remove from db structure
+		// -------------------------------------
+
+		// Alternate method fields will not have a column, so we just
+		// check for it first
+		if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug))
+		{
+			if ( ! $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field) {
+				$table->dropColumn($field->field_slug);
+			}))
+			{
+				return false;
+			}
+		}
+
+		$assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey());
+
+		// -------------------------------------
+		// Remove from field assignments table
+		// -------------------------------------
+
+		if ( ! $assignment->delete()) return false;
+
+		// -------------------------------------
+		// Remove from from field options
+		// -------------------------------------
+
+		if (in_array($field->field_slug, $this->view_options))
+		{
+			foreach ($this->view_options as $field_slug)
+			{
+				if ($field_slug == $field->field_slug)
+				{
+					unset($this->view_options[$field_slug]);
+				}
+			}
+
+			return $this->save();
+		}
+
+		// -------------------------------------
+
+		return true;
 	}
 
 	/**
