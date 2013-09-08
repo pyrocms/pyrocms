@@ -269,6 +269,11 @@ class Field extends Eloquent
         return $success;
     }
 
+    public function deleteByNamespace($namespace)
+    {
+        return static::where('field_namespace', $namespace)->delete();
+    }
+
     /**
      * Get a single field by the field slug
      *
@@ -282,6 +287,13 @@ class Field extends Eloquent
             ->where('field_namespace', $field_namespace)
             ->take(1)
             ->first();
+    }
+
+    public static function findBySlugAndNamespaceOrFail($field_slug = null, $field_namespace = null)
+    {
+        if ( ! is_null($model = static::findBySlugAndNamespace($field_slug, $field_namespace))) return $model;
+
+        throw new Exception\FieldNotFoundException;
     }
 
     public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)

@@ -3,6 +3,7 @@
 use Closure;
 use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Support\AbstractData;
+use Pyro\Module\Streams_core\Core\Support\Exception;
 
 class Streams extends AbstractData
 {
@@ -18,38 +19,34 @@ class Streams extends AbstractData
 	 * @param 	[array - extra data]
 	 * @return	false or new stream ID
 	 */
-	public static function addStream($stream_name, $stream_slug, $stream_namespace, $stream_prefix = null, $about = null, $extra = array())
+	public static function addStream($stream_slug, $stream_namespace, $stream_name, $stream_prefix = null, $about = null, $extra = array())
 	{
 		// -------------------------------------
 		// Validate Data
-		// -------------------------------------
-		
-		// Do we have a stream name?
-		if ( ! trim($stream_name))
-		{
-			static::logError('empty_stream_name', __METHOD__);
-			return false;
-		}				
+		// -------------------------------------		
 
-		// Do we have a stream slug?
-		if ( ! trim($stream_slug))
+		// Do we have a field slug?
+		if( ! isset($stream_slug) or ! trim($stream_slug))
 		{
-			static::logError('empty_stream_slug', __METHOD__);
-			return false;
-		}				
+			throw new Exception\EmptyFieldSlugException;
+		}
 
-		// Do we have a stream namespace?
-		if ( ! trim($stream_namespace))
+		// Do we have a namespace?
+		if( ! isset($stream_namespace) or ! trim($stream_namespace))
 		{
-			static::logError('empty_stream_namespace', __METHOD__);
-			return false;
+			throw new Exception\EmptyFieldNamespaceException;	
+		}
+
+		// Do we have a field name?
+		if ( ! isset($stream_name) or ! trim($stream_name))
+		{
+			throw new Exception\EmptyFieldNameException;
 		}
 
 		// Is this stream slug already available?
 		if(Model\Stream::findBySlug($stream_slug))
 		{
-			static::logError('stream_slug_in_use', __METHOD__, $stream_slug.' slug was attepted.');
-			return false;
+			throw new Exception\StreamSlugInUseException;
 		}
 	
 		// -------------------------------------
@@ -86,9 +83,9 @@ class Streams extends AbstractData
 	 */
 	public static function getStream($stream_slug, $stream_namespace = null)
 	{
-		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
+		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
 		{
-			static::logError('invalid_stream', __METHOD__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
+			throw new Exception\InvalidStreamException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
 		}
 
 		return $stream;
@@ -106,11 +103,8 @@ class Streams extends AbstractData
 	 */
 	public static function deleteStream($stream_slug, $stream_namespace = null)
 	{
-		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
-		{
-			static::logError('invalid_stream', __METHOD__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
-		}
-	
+		$stream = static::getStream($stream_slug, $stream_namespace);
+		
 		return $stream->delete();
 	}
 
@@ -127,10 +121,7 @@ class Streams extends AbstractData
 	 */
 	public static function updateStream($stream_slug, $stream_namespace = null, $data = array())
 	{	
-		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
-		{
-			static::logError('invalid_stream', __METHOD__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
-		}
+		$stream = static::getStream($stream_slug, $stream_namespace);
 
 		return $stream->update($data);
 	}
@@ -147,10 +138,7 @@ class Streams extends AbstractData
 	 */
 	public static function getFieldAssignments($stream_slug, $stream_namespace = null)
 	{
-		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace)) 
-		{
-			static::logError('invalid_stream', __METHOD__, $stream_slug.' (stream_slug) , '.$stream_namespace.' (stream_namespace) attepted.');
-		}
+		$stream = static::getStream($stream_slug, $stream_namespace);
 
 		return $stream->assignments;
 	}
@@ -168,7 +156,7 @@ class Streams extends AbstractData
 	 */
 	public static function getStreams($stream_namespace, $limit = null, $offset = 0)
 	{
-		return ci()->streams_m->get_streams($stream_namespace, $limit, $offset);
+		return Model\Stream::findManyByNamespace($stream_namespace, $limit, $offset);
 	}
 
 	// --------------------------------------------------------------------------
@@ -206,6 +194,8 @@ class Streams extends AbstractData
 		// Get DB table name
 		$data['db_table'] 	= $stream->stream_prefix.$stream->stream_slug;
 
+		// @todo - convert to Query Builder
+
 		// Get the table data
 		$info = ci()->db->query("SHOW TABLE STATUS LIKE '".ci()->db->dbprefix($data['db_table'])."'")->row();
 		
@@ -233,7 +223,7 @@ class Streams extends AbstractData
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Chekc is table exists
+	 * Chekc if table exists
 	 * 
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
@@ -243,9 +233,9 @@ class Streams extends AbstractData
 	 * @param 	string
 	 * @param 	string
 	 */
-	public static function check_table_exists($stream_slug, $prefix)
+	public static function tableExists($stream, $prefix = null)
 	{
-		return ci()->streams_m->check_table_exists($stream_slug, $prefix);
+		return Model\Stream::tableExists($stream, $prefix);
 	}
 
 	// --------------------------------------------------------------------------
@@ -261,14 +251,19 @@ class Streams extends AbstractData
 	 * 'label' => 'Email',
 	 * 'rules' => 'required|valid_email'
 	 */
-	public function validation_array($stream, $stream_namespace = null, $method = 'new', $skips = array(), $row_id = null)
+	public function validationArray($stream, $stream_namespace = null, $method = 'new', $skips = array(), $row_id = null)
 	{
-		$str_id = $this->stream_id($stream, $stream_namespace);
-		
-		if ( ! $str_id) $this->log_error('invalid_stream', 'validation_array');
+		if ( ! $stream instanceof Model\Stream)
+		{
+			if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream, $namespace))
+			{
+				throw new Exception\InvalidStreamException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
+			}			
+		}
 
-		$stream_fields = ci()->streams_m->get_stream_fields($str_id);
+		$stream_fields = $stream->assignments->getFields();
 
+		// @todo = This has to be redone as PSR
 		return ci()->fields->set_rules($stream_fields, $method, $skips, true, $row_id);
 	}	
 }

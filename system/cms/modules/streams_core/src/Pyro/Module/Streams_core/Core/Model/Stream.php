@@ -348,7 +348,7 @@ class Stream extends Eloquent
 		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
 		// Do we have a destruct function
-		if ($type = $field->getType() ? method_exists($type, 'field_assignment_destruct'))
+		if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
 		{
 			// @todo - also pass the schema builder
 			$type->setStream($this);
@@ -399,6 +399,22 @@ class Stream extends Eloquent
 		// -------------------------------------
 
 		return true;
+	}
+
+	public static function tableExists($stream, $prefix = null)
+	{
+		$schema = ci()->pdb->getSchemaBuilder();
+
+		if ($stream instanceof Model\Stream)
+		{
+			$table = $stream->stream_prefix.$stream->stream_slug;
+		}
+		else
+		{
+			$table = $prefix.$stream;
+		}
+
+		return $schema->hasTable($table);
 	}
 
 	/**

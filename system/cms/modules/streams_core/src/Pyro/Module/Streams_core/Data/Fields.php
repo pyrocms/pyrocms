@@ -71,7 +71,7 @@ class Fields extends AbstractData
 			'field_type' => $type,
 			'field_namespace' => $namespace,
 			'field_data' => $extra,
-			'locked' => $locked
+			'is_locked' => $locked
 		);
 
 		if ( ! $field = Model\Field::create($attributes)) return false;
@@ -198,6 +198,86 @@ class Fields extends AbstractData
 		// -------------------------------------
 		
 		return $stream->removeFieldAssignment($field);
+	}
+
+	/**
+	 * Delete field
+	 *
+	 * @param	string - field slug
+	 * @param	string - field namespace
+	 * @return	bool
+	 */
+	public function deleteField($field_slug, $namespace)
+	{
+		// Do we have a field slug?
+		if( ! isset($field_slug) or ! trim($field_slug))
+		{
+			throw new Exception\EmptyFieldSlugException;
+		}
+		
+		// Do we have a namespace?
+		if( ! isset($namespace) or ! trim($namespace))
+		{
+			throw new Exception\EmptyFieldNamespaceException;	
+		}
+
+		if ( ! $field = Model\Field::findBySlugAndNamespace($field_slug, $namespace)) return false;
+	
+		return $field->delete();
+	}
+
+	/**
+	 * Update field
+	 *
+	 * @param	string - slug
+	 * @param	array - new data
+	 * @return	bool
+	 */
+	public function updateField($field_slug, $field_namespace, $field_name = null, $field_type = null, $field_data = array())
+	{
+		// Do we have a field slug?
+		if( ! isset($field_slug) or ! trim($field_slug))
+		{
+			throw new Exception\EmptyFieldSlugException;
+		}
+
+		// Do we have a namespace?
+		if( ! isset($field_namespace) or ! trim($field_namespace))
+		{
+			throw new Exception\EmptyFieldNamespaceException;	
+		}
+	
+		// Find the field by slug and namespace or throw an exception
+		if ( ! $field = Model\Field::findBySlugAndNamespace($field_slug, $field_namespace)) return false;
+
+		// Is this a valid field type?
+		if (isset($field_type) and ! Field\Type::getLoader()->getType($field_type))
+		{
+			throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+		}
+
+		return $field->update($field_data);
+	}
+
+	/**
+	 * Get assigned fields for
+	 * a stream.
+	 *
+	 * @param	string - field slug
+	 * @param	string - namespace
+	 * @return	object
+	 */
+	public function getFieldAssignments($field_slug, $namespace)
+	{
+		// Do we have a field slug?
+		if( ! isset($field_slug) or ! trim($field_slug))
+		{
+			throw new Exception\EmptyFieldSlugException;
+		}
+	
+		if ( ! $field = Model\Field::findBySlugAndNamespace($field_slug, $namespace)) return false;
+	
+		return $field->assignments;
 	}
 
 }
