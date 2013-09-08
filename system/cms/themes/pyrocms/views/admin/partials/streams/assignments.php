@@ -37,7 +37,13 @@
 								// don't render button if field is locked and $button['locked'] is set to TRUE
 								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->id, $button['url']), $button['label'], 'class="'.$class.'"');
+
+								$url = ci()->parser->parse_string($button['url'], $assignment->toArray(), true);
+
+								// This is kept for backwards compat
+								$url = str_replace('-field_id-', $assignment->getKey(), $url);
+
+								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
 							}
 						}
 
