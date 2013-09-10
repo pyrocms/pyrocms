@@ -30,6 +30,11 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+    public function findBySlug($slug = null, array $columns = array('*'))
+    {
+        return static::where('slug', $slug)->take(1)->first($columns);
+    }
+
     /**
      * Relationship: Page
      *
