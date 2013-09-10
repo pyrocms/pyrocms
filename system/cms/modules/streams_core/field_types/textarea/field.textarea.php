@@ -34,7 +34,7 @@ class Field_textarea extends AbstractField
 	{
 		// Value
 		// We only use the default value if this is a new entry
-		if ( ! $this->entry->id)
+		if ( ! $this->entry->getKey())
 		{
 			$value = (isset($this->field->field_data['default_text']) and $this->field->field_data['default_text']) 
 				? $this->field->field_data['default_text']
@@ -51,17 +51,10 @@ class Field_textarea extends AbstractField
 		}
 
 		return form_textarea(array(
-			'name'		=> $this->field->field_slug,
-			'id'		=> $this->field->field_slug,
+			'name'		=> $this->name,
+			'id'		=> $this->name,
 			'value'		=> $value
 		));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function pre_save($value)
-	{
-		return $value;
 	}
 
 	// --------------------------------------------------------------------------

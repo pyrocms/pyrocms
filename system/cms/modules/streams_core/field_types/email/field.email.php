@@ -34,8 +34,8 @@ class Field_email extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->form_data['form_slug'];
-		$options['id']		= $this->form_data['form_slug'];
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
 		$options['value']	= $this->form_data['value'];
 
 		return form_input($options);
@@ -50,10 +50,10 @@ class Field_email extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -70,13 +70,13 @@ class Field_email extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin()
 	{
 		$choices = array();
 
-		$choices['email_address']		= $input;
-		$choices['mailto_link']			= mailto($input, $input);
-		$choices['safe_mailto_link']	= safe_mailto($input, $input);
+		$choices['email_address']		= $this->value;
+		$choices['mailto_link']			= mailto($this->value, $this->value);
+		$choices['safe_mailto_link']	= safe_mailto($this->value, $this->value);
 
 		return $choices;
 	}

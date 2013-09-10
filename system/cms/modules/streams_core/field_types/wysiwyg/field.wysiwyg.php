@@ -76,7 +76,7 @@ class Field_wysiwyg extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
 		// Set editor type
 		if (isset($this->field->field_data['editor_type'])) {
@@ -85,8 +85,8 @@ class Field_wysiwyg extends AbstractField
 			$options['class']	= 'wysiwyg-simple';
 		}
 
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
 		$options['value']	= $this->value;
 
 		return form_textarea($options);

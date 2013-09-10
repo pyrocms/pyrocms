@@ -41,7 +41,7 @@ class Field_country extends AbstractField
 			$value = $this->value;
 		}
 
-		return form_dropdown($this->field->field_slug, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
+		return form_dropdown($this->name, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------

@@ -34,8 +34,8 @@ class Field_text extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
 
