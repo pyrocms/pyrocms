@@ -96,7 +96,7 @@ abstract class AbstractCp extends AbstractSupport
 
 	protected $view_override = true;
 
-	protected $valid = true;
+	protected $enable_post = true;
 
 	public function __construct()
 	{
@@ -232,13 +232,6 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public function query(Closure $callback = null)
-	{
-		$this->model = call_user_func($callback, $this->model);
-
-		return $this;
-	}
-
 	public function redirect($return = null)
 	{
 		$this->return = $return;
@@ -258,9 +251,23 @@ abstract class AbstractCp extends AbstractSupport
 		return false;
 	}
 
-	public function saving(Closure $callback)
+	public function onQuery(Closure $callback = null)
 	{
-		call_user_func($callback, $this->entry);
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	public function onSaved(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	public function onSaving(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
 
 		return $this;
 	}
@@ -302,9 +309,9 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
-	public function valid($valid = false)
+	public function enablePost($enable_post = false)
 	{
-		$this->valid = $valid;
+		$this->enable_post = $enable_post;
 
 		return $this;
 	}
