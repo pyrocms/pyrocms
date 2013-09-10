@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Pyro\Module\Streams_core\Core\Model;
+
 abstract class AbstractField
 {
 	public $alt_process = false;
@@ -15,6 +17,8 @@ abstract class AbstractField
 	protected $query = null;
 
 	protected $field = null;
+
+	protected $name = null;
 
 	protected $stream = null;
 
@@ -69,6 +73,18 @@ abstract class AbstractField
 	public function getField()
 	{
 		return $this->field;
+	}
+
+	public function getInputName()
+	{
+		if ($this->stream instanceof Model\Stream)
+		{
+			return $this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->field->field_slug;
+		}
+		else
+		{
+			return $this->field->field_slug;
+		}
 	}
 
 	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
@@ -169,6 +185,8 @@ abstract class AbstractField
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
+		$this->name = $this->getInputName();
+
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
 		if ($this->plugin and method_exists($this, 'form_output_plugin'))
