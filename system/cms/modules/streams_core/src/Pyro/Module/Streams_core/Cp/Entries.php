@@ -233,11 +233,16 @@ class Entries extends AbstractCp
 
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 
+		// Allow to modify the query before we execute it
+		$this->fireOnQuery($this->model);
+
   		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
 
  		$this->data->view_options 	= $this->model->getViewOptions();
 
   		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+
+  		// @todo - fix pagination
 
 /*		$this->data['pagination'] = create_pagination(
 									$this->pagination_uri,
@@ -277,6 +282,8 @@ class Entries extends AbstractCp
 
 		if ($mixed instanceof Model\Entry and $mixed->getKey())
 		{
+			$instance->model = $mixed->getModel();
+
 			$instance->entry = $mixed;
 
 			$stream = $instance->entry->getStream();
@@ -296,15 +303,23 @@ class Entries extends AbstractCp
 				$instance->entry = $instance->model;
 			}
 		}
+		$stream = $instance->model->getStream();
+
+		$instance->entry
+			->setStream($stream);
+			$instance->entry->setFields($stream->assignments->getFields());
+
 
 		return $instance;	
 	}
 
 	public function renderForm()
 	{
+		$this->fireOnSaving($this->entry);
+
 		$this->form = $this->entry->newFormBuilder();
 		$this->form->setDefaults($this->defaults);
-		$this->form->valid($this->valid);
+		$this->form->enablePost($this->enable_post);
 		$this->form->successMessage($this->success_message);
 		$this->form->redirect($this->return);
 
@@ -316,8 +331,28 @@ class Entries extends AbstractCp
 		$this->data->mode		= $this->mode;
 		$this->data->fields		= $this->form->buildForm();
 
+		if ($saved = $this->form->result() and $this->enable_post)
+		{
+			$this->fireOnSaved($saved);
+		
+			if ($this->return)
+			{
+				$url = ci()->parser->parse_string($this->return, $saved->toArray(), true);
+
+				$url = str_replace('-id-', $saved->getKey(), $url);					
+			}
+			else
+			{
+				$url = current_url();
+			}
+
+			redirect($url);
+		}
+
 		// Set return uri
 		$this->data->return	= $this->return;
+    	
+    	$this->data->form_url  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
 
 		// Set the no fields mesage. This has a lang default.
 		$this->data->no_fields_message	= $this->no_fields_message;

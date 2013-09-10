@@ -1,6 +1,6 @@
 <?php if ($fields): ?>
 
-<?php echo form_open_multipart(uri_string(), 'class="streams_form"'); ?>
+<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
 <div class="form_inputs">
 

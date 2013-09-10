@@ -30,6 +30,8 @@ class Builder extends EloquentBuilder
 
 		$models = $relation->initRelation($models, $name);
 
+		$relation_model = $relation->getModel();
+
 		// Once we have the results, we just match those back up to their parent models
 		// using the relationship instance. Then we just return the finished arrays
 		// of models which have been eagerly hydrated and are readied for return.
@@ -37,11 +39,12 @@ class Builder extends EloquentBuilder
 		{
 			if ($stream = $this->getStream($models, $relation->getStreamColumn()))
 			{
-				$relation->getModel()->setTable($stream->stream_prefix.$stream->stream_slug);	
-			}				
+				//$relation_model->setStream($stream);
+				$relation_model->setTable($stream->stream_prefix.$stream->stream_slug);
+			}
 		}
-
-		$results = $relation->getModel()->newQuery()->get();
+				
+		$results = $relation_model->newQuery()->get();
 
 		return $relation->match($models, $results, $name);
 	}

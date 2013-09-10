@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
 use Pyro\Module\Streams_core\Core\Field\Type;
+use Pyro\Module\Streams_core\Core\Model;
 
 // This will be similar to the Fields driver
 
@@ -35,6 +36,8 @@ class Form
 
 	protected $key_check = null;
 
+	protected $stream = null;
+
 	protected $skips = array();
 
 	protected $success_message = null;
@@ -43,9 +46,11 @@ class Form
 
 	protected $field_types = array();
 
+	protected $result = false;
+
 	protected $return = null;
 
-	protected $valid = true;
+	protected $enable_post = true;
 
 	// --------------------------------------------------------------------------
 
@@ -54,6 +59,8 @@ class Form
     	if ($entry)
     	{
 			$this->entry = $entry;
+
+			$this->stream = $entry->getStream();
 
 			$this->fields = $entry->getFields();
 
@@ -160,7 +167,7 @@ class Form
 		{
 			return null;
 		}
-			
+
 		// -------------------------------------
 		// Set Validation Rules
 		// -------------------------------------
@@ -214,9 +221,6 @@ class Form
 
 		// $stream_fields, $skips, $values
 
-		$this->runFieldEvents();
-
-
 		$fields = $this->buildFields();
 
 		// -------------------------------------
@@ -225,21 +229,23 @@ class Form
 		
 		$result_id = '';
 
-		if ($_POST and $this->key_check)
+		if ($_POST and $this->enable_post)
 		{
 			// @todo - restore validation here
 			// ci()->form_validation->run() === true
 			if (true)
 			{
-				if ($this->method == 'new')
+				if ( ! $this->entry->getKey()) // new
 				{
 					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
-					if ($this->valid and ! $result_id = $this->entry->save())
+					if ( ! $this->entry->save())
 					{
 						ci()->session->set_flashdata('notice', lang_label($this->failure_message));
 					}
 					else
 					{
+						$this->result = $this->entry;
+
 						// -------------------------------------
 						// Send Emails
 						// -------------------------------------
@@ -257,28 +263,18 @@ class Form
 						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
 				}
-				else
+				else // edit
 				{
-
-/*					ci()->row_m->update_entry(
-														$stream_fields,
-														$stream,
-														$row->id,
-														ci()->input->post(),
-														$skips
-													)*/
-					//$stream = $this->entry->getStream();
-
-					//$this->entry->setTable($stream->stream_prefix, $stream->stream_slug);
-
 					$this->entry->exists = true;
 
-					if ($this->valid and ! $this->result = $this->entry->save() and isset($this->failure_message))
+					if ( ! $this->entry->save() and isset($this->failure_message))
 					{
 						ci()->session->set_flashdata('notice', lang_label($this->failure_message));	
 					}
 					else
 					{
+						$this->result = $this->entry;
+
 						// -------------------------------------
 						// Send Emails
 						// -------------------------------------
@@ -295,24 +291,6 @@ class Form
 					
 						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
-				}
-			
-				// If return url is set, redirect and replace -id- with the result ID
-				// Otherwise return id
-				if ($this->valid and $this->entry->isPlugin())
-				{
-					if ($this->return)
-					{
-						redirect(str_replace('-id-', $result_id, $this->return));
-					}
-					else
-					{
-						redirect(current_url());
-					}
-				}
-				else
-				{
-					return $fields;
 				}
 			}
 		}
@@ -389,15 +367,11 @@ class Form
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
 	public function setValues()
 	{
-		if ( ! $_POST)
-		{
-			return;
-		}
 		foreach ($this->fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
-				if ($this->key_check)
+				if ($this->key_check and $type = $field->getType($this->entry))
 				{
 					// Post Data - we always show
 					// post data above any other data that
@@ -405,13 +379,17 @@ class Form
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$field->field_slug]))
+					if (isset($_POST[$type->getInputName()]))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($field->field_slug);
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName());
 					}
-					elseif (isset($_POST[$field->field_slug.'[]']))
+					elseif (isset($_POST[$this->getInputName($field).'[]']))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName().'[]');
+					}
+					else
+					{
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug};
 					}
 				}
 			}
@@ -458,8 +436,10 @@ class Form
 				$type->setDefaults($this->defaults);
 				$type->setFormData($this->values);
 
+				$type->setStream($this->entry->getStream());
+
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
-				$fields[$field->field_slug]['input_slug']		= $field->field_slug;
+				$fields[$field->field_slug]['input_slug']		= $type->getInputName();
 				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
 				
 				// Set the value. In the odd case it isn't set,
@@ -656,11 +636,16 @@ class Form
 		return $this;
 	}
 
-	public function valid($valid = false)
+	public function enablePost($enable_post = false)
 	{
-		$this->valid = $valid;
+		$this->enable_post = $enable_post;
 
 		return $this;
+	}
+
+	public function result()
+	{
+		return $this->result;
 	}
 
 	// --------------------------------------------------------------------------
@@ -688,6 +673,20 @@ class Form
 			{
 				$type->field_setup_event($current_field);
 			}
+		}
+	}
+
+	public function getInputName($field = null)
+	{
+		if ( ! $field instanceof Model\Field) return null;
+
+		if ($this->stream instanceof Model\Stream)
+		{
+			return $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$field->field_slug;
+		}
+		else
+		{
+			return $field->field_slug;
 		}
 	}
 

@@ -68,6 +68,7 @@ class EntryBuilder extends Builder
 		// We must set the fields for both the entry and the clone
 		// Setting them on the clone will have an effect on the resulting collection and 
 		// Setting them on the entry will have an effect when returning a single model
+		$entry->setStream($this->model->getStream());
 		$entry->setFields($this->model->getFields());
 		$clone->setFields($this->model->getFields());
 
