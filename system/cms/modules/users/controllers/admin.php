@@ -183,7 +183,9 @@ class Admin extends Admin_Controller
         $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
-        if ($valid = ($this->form_validation->run() !== false)) {
+        $enable_entry_post = false;
+
+        if (($this->form_validation->run() !== false)) {
             if ($activate === '2') {
                 // we're sending an activation email regardless of settings
                 Settings::temp('activation_email', true);
@@ -196,7 +198,7 @@ class Admin extends Admin_Controller
 
             // Register the user (they are activated by default if an activation email isn't requested)
             //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($user = Users\Model\User::create(array(
+            if ($enable_entry_post = $user = Users\Model\User::create(array(
                     'username' => $username,
                     'password' => $password,
                     'email' => $email,
@@ -252,8 +254,8 @@ class Admin extends Admin_Controller
 
         Cp\Entries::form('profiles', 'users')
             ->tabs($tabs)
-            ->valid($valid) // This enables the profile submittion only if the user was created successfully
-            ->saving(function($profile) use ($user)
+            ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
+            ->onSaving(function($profile) use ($user)
             {
                 $profile->user_id = $user->id; // Set the profile user id before saving
             })
@@ -297,7 +299,7 @@ class Admin extends Admin_Controller
         $this->form_validation->set_rules($this->validation_rules);
 
 
-        if ($this->form_validation->run() === true)
+        if (true and ci()->input->post())
         {
             if (PYRO_DEMO)
             {
@@ -307,7 +309,6 @@ class Admin extends Admin_Controller
 
             // Get the POST data
             $user->email = $this->input->post('email');
-            $user->is_activated = $this->input->post('active');
             $user->username = $this->input->post('username');
 
             Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
@@ -329,10 +330,16 @@ class Admin extends Admin_Controller
             //     $user->is_activated = (bool) $update_data['active'];
             // }
 
+            // Only update is_active if it was posted
+            if ($this->input->post('active'))
+            {
+                $user->is_activated = $this->input->post('active');;
+            }
+
             // Password provided, hash it for storage
             if ($this->input->post('password'))
             {
-                $update_data['password'] = $this->input->post('password');
+                $user->password = $this->input->post('password');
             }
 
             if ($user->save())

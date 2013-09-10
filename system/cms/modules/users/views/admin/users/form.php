@@ -31,6 +31,7 @@
 				<?php echo form_dropdown('active', $options, $member->is_activated, 'id="active"') ?>
 			</div>
 		</li>
+		
 	<?php endif; ?>
 
 	<li class="even">
