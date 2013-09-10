@@ -5,6 +5,8 @@ abstract class AbstractSupport
 
 	protected static $debug = true;
 
+	private $callbacks = array();
+
 	public function __construct()
 	{
 		ci()->load->language('streams_core/pyrostreams');
@@ -15,6 +17,22 @@ abstract class AbstractSupport
 			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
 		}
 	}
+
+    protected function addCallback($method_name, $method_callable)
+    {
+        if (is_callable($method_callable))
+        {
+        	$this->callbacks[camel_case('fire_'.$method_name)] = \Closure::bind($method_callable, $this, get_class());
+        }
+    }
+ 
+	public function __call($method_name, array $args)
+    {
+        if (isset($this->callbacks[$method_name]))
+        {
+            return call_user_func_array($this->callbacks[$method_name], $args);
+        }
+    }
 
 	public static function debug($debug = true)
 	{
