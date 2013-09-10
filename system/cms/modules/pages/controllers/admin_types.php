@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 
 /**
@@ -33,7 +34,7 @@ class Admin_types extends Admin_Controller
 		array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[60]|callback__check_pt_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[60]'
 		),
         array(
              'field' => 'description',
@@ -134,12 +135,12 @@ class Admin_types extends Admin_Controller
 
 		// Set page_type_m so we can use the page_type_m
 		// validation callbacks
-		$this->form_validation->set_model('page_type_m');
+		$this->form_validation->set_model('pagetype');
 
 		$data = new stdClass;
 		$data->page_type = new stdClass;
 
-		if ($this->form_validation->run()) {
+		if ($this->form_validation->run() and PageType::_check_pt_slug($this->input->post('slug'))) {
 			$input = $this->input->post();
 
 			// they're using an existing stream or we autocreate a slug
@@ -173,7 +174,7 @@ class Admin_types extends Admin_Controller
 			}
 
 			// Insert the page type
-			$id = $this->page_type_m->insert(array(
+			$id = PageType::insert(array(
 				'title' 			=> $input['title'],
 				'slug'				=> $input['slug'],
 				'description'       => $input['description'],
@@ -194,7 +195,7 @@ class Admin_types extends Admin_Controller
 			if ($id > 0) {
 				// Should we create some files?
 				if ($this->input->post('save_as_files') == 'y') {
-					$this->page_type_m->place_page_layout_files($input);
+					PageType::place_page_layout_files($input);
 				}
 
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
@@ -218,7 +219,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule) {
+		foreach (static::$validate as $rule) {
 			$data->page_type->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -282,13 +283,14 @@ class Admin_types extends Admin_Controller
 		role_or_die('pages', 'edit_types');
 
 		// Unset validation rules of required fields that are not included in the edit form
-		unset($this->validation_rules[1]);
-		unset($this->validation_rules[3]);
+		unset(static::$validate[1]);
+		unset(static::$validate[3]);
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(static::$validate);
 
-		$data = new stdClass();
+		$data = new stdClass;
+		$data->page_type = PageType::find($id);
 		empty($id) AND redirect('admin/pages/types');
 
 		// We use this controller property for a validation callback later on
@@ -328,13 +330,13 @@ class Admin_types extends Admin_Controller
 			$input['slug'] = $page_type->slug;
 
 			if ($this->input->post('save_as_files') == 'y') {
-				$this->page_type_m->place_page_layout_files($input);
+				PageType::place_page_layout_files($input);
 
 			} else {
-				$this->page_type_m->remove_page_layout_files($input['slug']);
+				PageType::remove_page_layout_files($input['slug']);
 			}
 
-			$this->cache->clear_all('page_m');
+			$this->cache->clear('page_m');
 
 			Events::trigger('page_type_updated', $id);
 
@@ -344,7 +346,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule) {
+		foreach (static::$validate as $rule) {
 			if ($this->input->post($rule['field'])) {
 				$data->page_type->{$rule['field']} = set_value($rule['field']);
 			}
@@ -434,7 +436,7 @@ class Admin_types extends Admin_Controller
  		if (is_file($folder.'css')) $update_data['css'] = read_file($folder.'css');
 
  		if ($update_data) {
- 			$this->page_type_m->update_by('id', $page_type->id, $update_data);
+ 			PageType::update_by('id', $page_type->id, $update_data);
  		}
 
  		if (count($update_data) < 3) {
@@ -537,7 +539,7 @@ class Admin_types extends Admin_Controller
 
 		empty($id) and redirect('admin/pages/types');
 
-		$page_type = $this->page_type_m->get($id);
+		$page_type = PageType::find($id);
 
 		// if the page type doesn't exist or if they somehow bypassed
 		// our front-end checks and are deleting 'default' directly
@@ -555,7 +557,7 @@ class Admin_types extends Admin_Controller
 
 		if ($stream->stream_namespace == 'pages') {
 			// Are any other page types using this?
-			if ($this->page_type_m->count_by('stream_id', $page_type->stream_id) <= 1) {
+			if (PageType::where('stream_id', $page_type->stream_id)->count() <= 1) {
 				$delete_stream = true;
 			}
 		}
@@ -563,7 +565,7 @@ class Admin_types extends Admin_Controller
 		if ($this->input->post('do_delete') == 'y') {
 
 			// Delete page
-			$this->page_type_m->delete($id, $delete_stream);
+			PageType::deleteType($id, $delete_stream);
 
 			// Guess what, we have to delete ALL the pages using this
 			// page type. This is necessary since the data for that page
@@ -571,11 +573,11 @@ class Admin_types extends Admin_Controller
 			$pages = $this->db->where('type_id', $id)->get('pages')->result();
 
 			foreach ($pages as $page) {
-				$this->page_m->delete($page->id);
+				Page::delete($page->id);
 			}
 
 			// Wipe cache for this model, the content has changd
-			$this->cache->clear_all('page_type_m');
+			$this->cache->clear('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
 
@@ -585,7 +587,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Count number of pages that will be deleted.
-		$this->template->set('num_of_pages', $this->page_m->count_by('type_id', $page_type->id));
+		$this->template->set('num_of_pages', Page::where('type_id', $page_type->id)->count());
 
 		$this->template
 			->title($this->module_details['name'])

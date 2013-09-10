@@ -359,14 +359,16 @@ class Plugin_User extends Plugin
 		if ( ! isset($this->user_data[$user_id]))
 		{
 			$this->user_data[$user_id] = Users\Model\User::find($user_id);
-
-			if ( ! isset($this->user_profile_data[$user_id]))
-			{
-				$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
-			}
-
-			return $this->user_profile_data[$user_id]->getPluginValue($var);
 		}
+
+		if (in_array($var, $this->user_data[$user_id]->getHidden())) return null;
+
+		if ( ! isset($this->user_profile_data[$user_id]))
+		{
+			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
+		}
+
+		return $this->user_profile_data[$user_id]->getPluginValue($var);
 	}
 
 	/**
@@ -382,9 +384,9 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt'))) {
-			return;
-		}
+		$user = new Users\Model\User;
+
+		if (in_array($name, $user->getHidden())) return null;
 
 		$user_id = $this->attribute('user_id', null);
 

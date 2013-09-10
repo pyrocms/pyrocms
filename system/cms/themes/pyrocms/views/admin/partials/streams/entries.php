@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($entries as $field => $entry) { ?>
+		<?php foreach ($entries as $entry) { ?>
 
 			<tr>
 
@@ -52,7 +52,13 @@
 							foreach ($buttons as $button) {
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
-								$all_buttons[] = anchor(str_replace('-entry_id-', $entry->id, $button['url']), $button['label'], 'class="'.$class.'"');
+
+								$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+
+								// This is kept for backwards compatibility
+								$url = str_replace('-entry_id-', $entry->getKey(), $url);
+
+								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
 							}
 
 							echo implode('&nbsp;', $all_buttons);

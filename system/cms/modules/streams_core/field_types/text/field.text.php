@@ -34,9 +34,10 @@ class Field_text extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
 		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
 		if (isset($this->field->field_data['max_length']) and is_numeric($this->field->field_data['max_length']))
 		{
@@ -57,7 +58,7 @@ class Field_text extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($this->value);
 	}
 }

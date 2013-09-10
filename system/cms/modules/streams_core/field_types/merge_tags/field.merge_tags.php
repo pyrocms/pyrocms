@@ -32,12 +32,12 @@ class Field_merge_tags extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
-		return form_hidden($field->field_slug, '1').'This should be hidden.';
+		return 'This should be hidden.';
 	}
 
-	public function pre_save($input, $field)
+	public function pre_save()
 	{
 		return ci()->parser->parse_string($this->field->field_data['pattern'], $_POST, true);
 	}

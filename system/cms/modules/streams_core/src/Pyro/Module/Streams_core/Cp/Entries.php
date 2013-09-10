@@ -48,7 +48,7 @@ class Entries extends AbstractCp
 
 		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 
-		$instance->data['stream'] = $instance->model->getStream();
+		$instance->data->stream = $instance->model->getStream();
 
  		// -------------------------------------
 		// Get Header Fields
@@ -81,26 +81,26 @@ class Entries extends AbstractCp
 
   		$instance->stream_fields = new \stdClass;
 
-  		foreach ($instance->fields as $field)
+/*  		foreach ($instance->fields as $field)
   		{
   			$instance->stream_fields->{$field->field_slug} = $field;
-  		}
+  		}*/
 
   		// -------------------------------------
 		// Sorting
 		// @since 2.1.5
 		// -------------------------------------
 
-		if ($instance->data['stream']->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
+		if ($instance->data->stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
-			$instance->data['stream']->sorting = 'custom';
+			$instance->data->stream->sorting = 'custom';
 
 			// As an added measure of obsurity, we are going to encrypt the
 			// slug of the module so it isn't easily changed.
 			ci()->load->library('encrypt');
 
 			// We need some variables to use in the sort.
-			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$instance->data['stream']->id.'; var stream_offset='.$offset.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug']).'";
+			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$instance->data->stream->id.'; var stream_offset='.$offset.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug']).'";
 				</script>');
 			ci()->template->append_js('streams/entry_sorting.js');
 		}
@@ -110,7 +110,7 @@ class Entries extends AbstractCp
 		// Filter API
 		// -------------------------------------
 
-		if (ci()->input->get('filter-'.$instance->data['stream']->stream_slug))
+		if (ci()->input->get('filter-'.$instance->data->stream->stream_slug))
 		{
 			// Get all URL variables
 			$url_variables = ci()->input->get();
@@ -164,22 +164,22 @@ class Entries extends AbstractCp
 				{
 					if ($not)
 					{
-						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
+						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
 					}
 					else
 					{
-						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
+						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
 					}
 				}
 				else
 				{
 					if ($not)
 					{
-						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
+						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
 					}
 					else
 					{
-						$instance->where[] = $instance->data['stream']->stream_prefix.$instance->data['stream']->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
+						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
 					}
 				}
 			}
@@ -217,27 +217,32 @@ class Entries extends AbstractCp
 		// Set custom no data message
 		if (isset($extra['no_entries_message']))
 		{
-			$instance->data['no_entries_message'] = $extra['no_entries_message'];
+			$instance->data->no_entries_message = $extra['no_entries_message'];
 		}
 
 		return $instance;
 	}
 
 	protected function renderTable($return = false)
-	{
-  		$this->data = array(
-  			'stream'		=> $this->data['stream'],
-  			'stream_fields'	=> $this->model->getFields(),
-  			'buttons'		=> $this->buttons,
-  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
-  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
-  		);
+	{		
+		$this->data->stream_fields 	= $this->model->getFields();
 
-  		$this->data['entries'] = $this->model->get($this->columns, $this->exclude);
+		$this->data->buttons		= $this->buttons;
 
- 		$this->data['view_options'] = $this->model->getViewOptions();
+		$this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : null;
 
-  		$this->data['field_names'] = $this->model->getViewOptionsFieldNames();
+		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
+
+		// Allow to modify the query before we execute it
+		$this->fireOnQuery($this->model);
+
+  		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
+
+ 		$this->data->view_options 	= $this->model->getViewOptions();
+
+  		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+
+  		// @todo - fix pagination
 
 /*		$this->data['pagination'] = create_pagination(
 									$this->pagination_uri,
@@ -260,8 +265,14 @@ class Entries extends AbstractCp
 		}
 	}
 
-
-	public static function form($stream_slug, $stream_namespace, $id = null)
+	/**
+	 * [form description]
+	 * @param  string|Pyro\Module\Streams_core\Core\Model\Entry $mixed            [description]
+	 * @param  [type] $stream_namespace [description]
+	 * @param  [type] $id               [description]
+	 * @return [type]                   [description]
+	 */
+	public static function form($mixed, $stream_namespace = null, $id = null)
 	{	
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
@@ -269,55 +280,127 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
-
-		if ($id)
+		if ($mixed instanceof Model\Entry and $mixed->getKey())
 		{
-			$instance->entry = $instance->model->getEntry($id);
+			$instance->model = $mixed->getModel();
+
+			$instance->entry = $mixed;
+
+			$stream = $instance->entry->getStream();
+
+			$instance->entry->setTable($stream->stream_prefix.$stream->stream_slug);
 		}
 		else
 		{
-			$instance->entry = $instance->model->newEntry();
-		}
+			$instance->model = Model\Entry::stream($mixed, $stream_namespace);
 
-		$instance->form = $instance->entry->newFormBuilder();
+			if ($id)
+			{
+				$instance->entry = $instance->model->findEntry($id)->unformatted();
+			}
+			else
+			{
+				$instance->entry = $instance->model;
+			}
+		}
+		$stream = $instance->model->getStream();
+
+		$instance->entry
+			->setStream($stream);
+			$instance->entry->setFields($stream->assignments->getFields());
+
 
 		return $instance;	
 	}
 
 	public function renderForm()
 	{
+		$this->fireOnSaving($this->entry);
+
+		$this->form = $this->entry->newFormBuilder();
+		$this->form->setDefaults($this->defaults);
+		$this->form->enablePost($this->enable_post);
+		$this->form->successMessage($this->success_message);
 		$this->form->redirect($this->return);
 
-		$this->form_fields = $this->form->buildForm();
+		$this->data->stream 	= $this->entry->getStream();
+		$this->data->tabs		= $this->tabs;
+		$this->data->hidden 	= $this->hidden;
+		$this->data->defaults	= $this->defaults;
+		$this->data->entry		= $this->entry;
+		$this->data->mode		= $this->mode;
+		$this->data->fields		= $this->form->buildForm();
 
-		$this->data['fields']	= $this->form_fields;
-		$this->data['tabs']		= $this->tabs;
-		$this->data['hidden']	= $this->hidden;
-		$this->data['defaults']	= $this->defaults;
-		$this->data['entry']	= $this->entry;
-		$this->data['fields']	= $this->form_fields;
-		$this->data['mode']		= $this->mode;
+		if ($saved = $this->form->result() and $this->enable_post)
+		{
+			$this->fireOnSaved($saved);
+		
+			if ($this->return)
+			{
+				$url = ci()->parser->parse_string($this->return, $saved->toArray(), true);
+
+				$url = str_replace('-id-', $saved->getKey(), $url);					
+			}
+			else
+			{
+				$url = current_url();
+			}
+
+			redirect($url);
+		}
 
 		// Set return uri
-		$this->data['return']	= $this->return;
+		$this->data->return	= $this->return;
+    	
+    	$this->data->form_url  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
 
 		// Set the no fields mesage. This has a lang default.
-		$this->data['no_fields_message']	= $this->no_fields_message;
-		
-		if (empty($this->data['tabs']))
+		$this->data->no_fields_message	= $this->no_fields_message;
+
+		if (empty($this->data->tabs))
 		{
 			$form = ci()->load->view('admin/partials/streams/form', $this->data, true);
 		}
 		else
 		{
+			$available_fields = $this->entry->getFieldSlugs(); 
+
+			$this->data->tabs = $this->distributeFields($this->data->tabs, $available_fields);
+
 			$form = ci()->load->view('admin/partials/streams/tabbed_form', $this->data, true);
 		}
 		
 		if ($this->view_override === false) return $form;
 		
-		$this->data['content'] = $form;
-		
+		$this->data->content = $form;
+
 		ci()->template->build('admin/partials/blank_section', $this->data);
 	}
+
+	protected function distributeFields($tabs = array(), $available_fields = array())
+	{
+		foreach ($tabs as &$tab)
+		{
+			if ( ! empty($tab['fields']) and is_array($tab['fields']))
+			{
+				foreach ($tab['fields'] as $field)
+				{
+					if (isset($available_fields[$field])) unset($available_fields[$field]);
+				}
+			}
+		}
+
+		foreach ($tabs as &$tab)
+		{
+			if ( ! empty($tab['fields']) and $tab['fields'] === '*')
+			{
+				$tab['fields'] = $available_fields;
+
+				break;
+			}
+		}
+
+		return $tabs;
+	}
+
 }

@@ -1,8 +1,14 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Pyro\Module\Streams_core\Core\Model;
+
 abstract class AbstractField
 {
-	protected $alt_process = false;
+	public $alt_process = false;
+
+	protected $defaults = null;
+
+	protected $unformatted_value = null;
 
 	protected $value = null;
 
@@ -11,6 +17,8 @@ abstract class AbstractField
 	protected $query = null;
 
 	protected $field = null;
+
+	protected $name = null;
 
 	protected $stream = null;
 
@@ -27,6 +35,11 @@ abstract class AbstractField
 	public function setValue($value = null)
 	{
 		$this->value = $value;
+	}
+
+	public function setUnformattedValue($unformatted_value = null)
+	{
+		$this->unformatted_value = $unformatted_value;
 	}
 
 	public function setPlugin($plugin = null)
@@ -62,6 +75,18 @@ abstract class AbstractField
 		return $this->field;
 	}
 
+	public function getInputName()
+	{
+		if ($this->stream instanceof Model\Stream)
+		{
+			return $this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->field->field_slug;
+		}
+		else
+		{
+			return $this->field->field_slug;
+		}
+	}
+
 	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
 	{
 		$this->stream = $stream;
@@ -90,6 +115,26 @@ abstract class AbstractField
 		return $this;
 	}
 
+	public function setFormData(array $form_data = array())
+	{
+		$this->form_data = $form_data;
+	}
+
+	public function getFormData($key = null)
+	{
+		return isset($this->form_data[$key]) ? $this->form_data[$key] : null;
+	}
+
+	public function setDefaults(array $defaults = array())
+	{
+		$this->defaults = $defaults;
+	}
+
+	public function getDefault($key = null)
+	{
+		return isset($this->defaults[$key]) ? $this->defaults[$key] : null;
+	}
+
 	public function getValue()
 	{
 		return $this->value;
@@ -108,7 +153,7 @@ abstract class AbstractField
 		// Is this an alt process type?
 		if ($this->alt_process === true)
 		{
-			if ( ! $this->plugin and method_exists($this, 'alt_pre_output'))
+			if ( ! $plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
@@ -130,9 +175,18 @@ abstract class AbstractField
 		return $this->getValue();
 	}
 
+	// --------------------------------------------------------------------------	
+
+	public function getUnformattedValue($plugin = false)
+	{
+		return $this->getValue();
+	}
+
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
+		$this->name = $this->getInputName();
+
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
 		if ($this->plugin and method_exists($this, 'form_output_plugin'))
@@ -145,6 +199,75 @@ abstract class AbstractField
 		}
 
 		return false;
+	}
+
+	/**
+	 * Add a field type CSS file
+	 */
+	public function addCss($field_type, $file)
+	{
+		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
+
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Add a field type JS file
+	 */
+	public function addJs($field_type, $file)
+	{
+		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
+
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Add a field type JS file
+	 */
+	public function addMisc($html)
+	{
+		ci()->template->append_metadata($html);
+
+		$this->assets[] = $html;
+	}
+
+	/**
+	 * Load a view from a field type
+	 *
+	 * @param	string
+	 * @param	string
+	 * @param	bool
+	 */
+	public function loadView($type, $view_name, $data = array())
+	{
+		$paths = ci()->load->get_view_paths();
+
+		ci()->load->set_view_path(static::$types->$type->ft_path.'views/');
+
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
+
+		ci()->load->set_view_path($paths);
+
+		return $view_data;
+	}
+
+	/**
+	 * Object to Array
+	 *
+	 * Takes an object as input and converts the class variables to array key/vals
+	 *
+	 * From CodeIgniter's Loader class - moved over here since it was protected.
+	 *
+	 * @param	object
+	 * @return	array
+	 */
+	protected function objectToArray($object)
+	{
+		return (is_object($object)) ? get_object_vars($object) : $object;
 	}
 
 }

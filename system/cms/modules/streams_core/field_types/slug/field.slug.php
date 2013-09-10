@@ -35,7 +35,7 @@ class Field_slug extends AbstractField
 	public function event()
 	{
 		if ( ! defined('ADMIN_THEME')) {
-			$this->CI->type->add_js('slug', 'jquery.slugify.js');
+			ci()->type->add_js('slug', 'jquery.slugify.js');
 		}
 	}
 
@@ -48,10 +48,10 @@ class Field_slug extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_save($input)
+	public function pre_save()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -65,7 +65,7 @@ class Field_slug extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($this->value);
 	}
 
@@ -77,15 +77,16 @@ class Field_slug extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function form_output()
 	{
-		$options['name'] 	= $params['form_slug'];
-		$options['id']		= $params['form_slug'];
-		$options['value']	= $params['value'];
+		$options['name'] 	= $this->field->field_slug;
+		$options['id']		= $this->field->field_slug;
+		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
+					pyro.generate_slug('#{$this->field->field_data['slug_field']}', '#{$this->field->field_slug}', '{$this->field->field_data['space_type']}');
 			});
 		})(jQuery);
 		</script>";
@@ -101,8 +102,8 @@ class Field_slug extends AbstractField
 	public function param_space_type($value = null)
 	{
 		$options = array(
-			'-' => $this->CI->lang->line('streams:slug.dash'),
-			'_' => $this->CI->lang->line('streams:slug.underscore')
+			'-' => ci()->lang->line('streams:slug.dash'),
+			'_' => ci()->lang->line('streams:slug.underscore')
 		);
 
 		return form_dropdown('space_type', $options, $value);
@@ -115,17 +116,17 @@ class Field_slug extends AbstractField
 	 */
 	public function param_slug_field($value = null)
 	{
-		$this->CI->load->model('fields_m');
+		ci()->load->model('fields_m');
 
 		// Get all the fields
-		$fields = $this->CI->fields_m->get_all_fields();
+		$fields = ci()->fields_m->get_all_fields();
 
 		$drop = array();
 
 		foreach ($fields as $field) {
 			// We don't want no slugs.
 			if ($field['field_type'] != 'slug') {
-				$drop[$field['field_slug']] = $this->CI->fields->translate_label($field['field_name']);
+				$drop[$field['field_slug']] = ci()->fields->translate_label($field['field_name']);
 			}
 		}
 

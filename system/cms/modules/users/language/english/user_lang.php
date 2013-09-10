@@ -170,27 +170,27 @@ $lang['profile_edit']                 = 'Edit your profile';
 
 $lang['profile_personal_section']     = 'Personal';
 
-$lang['profile_display_name']         = 'Display Name';
-$lang['profile_dob']                  = 'Date of Birth';
-$lang['profile_dob_day']              = 'Day';
-$lang['profile_dob_month']            = 'Month';
-$lang['profile_dob_year']             = 'Year';
-$lang['profile_gender']               = 'Gender';
-$lang['profile_gender_nt']            = 'Not Telling';
-$lang['profile_gender_male']          = 'Male';
-$lang['profile_gender_female']        = 'Female';
-$lang['profile_bio']                  = 'About me';
+$lang['user:profile_display_name']         = 'Display Name';
+$lang['user:profile_dob']                  = 'Date of Birth';
+$lang['user:profile_dob_day']              = 'Day';
+$lang['user:profile_dob_month']            = 'Month';
+$lang['user:profile_dob_year']             = 'Year';
+$lang['user:profile_gender']               = 'Gender';
+$lang['user:profile_gender_nt']            = 'Not Telling';
+$lang['user:profile_gender_male']          = 'Male';
+$lang['user:profile_gender_female']        = 'Female';
+$lang['user:profile_bio']                  = 'About me';
 
 $lang['profile_contact_section']      = 'Contact';
 
-$lang['profile_phone']                = 'Phone';
-$lang['profile_mobile']               = 'Mobile';
-$lang['profile_address']              = 'Address';
-$lang['profile_address_line1']        = 'Line #1';
-$lang['profile_address_line2']        = 'Line #2';
-$lang['profile_address_line3']        = 'Town/City';
-$lang['profile_address_postcode']     = 'Post/Zip Code';
-$lang['profile_website']              = 'Website';
+$lang['user:profile_phone']                = 'Phone';
+$lang['user:profile_mobile']               = 'Mobile';
+$lang['user:profile_address']              = 'Address';
+$lang['user:profile_address_line1']        = 'Line #1';
+$lang['user:profile_address_line2']        = 'Line #2';
+$lang['user:profile_address_line3']        = 'Town/City';
+$lang['user:profile_address_postcode']     = 'Post/Zip Code';
+$lang['user:profile_website']              = 'Website';
 
 $lang['profile_api_section']     	  = 'API Access';
 
