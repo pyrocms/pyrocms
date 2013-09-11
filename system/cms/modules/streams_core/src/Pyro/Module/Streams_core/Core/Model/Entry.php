@@ -1,7 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Field\Type;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
@@ -28,23 +27,8 @@ use Pyro\Module\Streams_core\Core\Field\Type;
 // }
 // 
 
-class Entry extends Eloquent
+class Entry extends EntryOriginal
 {
-    /**
-     * The attributes that aren't mass assignable
-     *
-     * @var array
-     */
-    protected $guarded = array('id');
-
-    protected $stream_slug = null;
-
-    protected $stream_namespace = null;
-
-    protected $stream_prefix = null;
-
-    protected $stream = null;
-
     protected $assignments = null;
 
     protected $fields = null;
@@ -53,7 +37,7 @@ class Entry extends Eloquent
 
     protected $unformatted_values = array();
 
-    protected $instance = null;
+    protected $unformatted_entry = null;
 
     protected $format = true;
 
@@ -63,54 +47,9 @@ class Entry extends Eloquent
 
     protected $view_options = array();
 
-    protected $user_columns = array('id', 'username');
-
-    /**
-     * The name of the "created at" column.
-     *
-     * @var string
-     */
-    const CREATED_AT = 'created';
-
-    /**
-     * The name of the "updated at" column.
-     *
-     * @var string
-     */
-    const UPDATED_AT = 'updated';
-
-    /**
-     * The name of the "created at" column.
-     *
-     * @var string
-     */
-    const CREATED_BY = 'created_by';
-
-    public function __construct(array $attributes = array())
+    public static function stream($stream_slug, $stream_namespace = null, Entry $instance = null)
     {
-        parent::__construct($attributes);
-
-        if ($this->stream_slug and $this->stream_namespace)
-        {
-            $this->stream($this->stream_slug, $this->stream_namespace, $this);
-        }
-    }
-
-    public static function stream($stream_slug, $stream_namespace, Entry $instance = null)
-    {
-        if ( ! $instance)
-        {
-            $instance = new static;
-        }
-
-        if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
-        {
-            $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
-
-            throw new Exception\StreamNotFoundException($message);
-        }
-
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
+        $instance = parent::stream($stream_slug, $stream_namespace, $instance);
 
         $stream_relations = $instance->stream->getModel()->getRelations();
         
@@ -135,29 +74,6 @@ class Entry extends Eloquent
         return $instance;
     }
 
-    /**
-     * Return a new Entry model only if the stream is set
-     * @return Pyro\Module\Streams_core\Core\Model\Entry The new Entry model
-     */
-    public function newEntry()
-    {
-        if ( ! $this->stream)
-        {
-            return false;
-        }
-
-        $new = $this->newInstance();
-
-        $new->setFields($this->getFields());
-
-        return $new;
-    }
-
-    public function getStream()
-    {
-        return $this->stream;
-    }
-
     public function setFields(Collection\FieldCollection $fields = null)
     {
         $this->fields = $fields;
@@ -175,41 +91,24 @@ class Entry extends Eloquent
         return new Collection\FieldCollection;
     }
 
-    public function getFieldSlugs()
+    public function getField($field_slug = '')
     {
-        if ($this->getFields())
-        {
-            return $this->getFields()->getFieldSlugs();
-        }
-
-        return false;
-    }
-
-    public function getDates()
-    {
-        $dates = array(static::CREATED_AT, static::UPDATED_AT);
-
-        if ($this->softDelete)
-        {
-            $dates = array_push($dates, static::DELETED_AT);
-        }
-
-        return $dates;
+        return $this->getFields()->findBySlug($field_slug);
     }
 
     public function getFieldType($field_slug = '')
     {
-        if ( ! $this->getFields())
+        if ( ! $field = $this->getField($field_slug))
         {
             return false;
         }
 
-        if ( ! $field = $this->getFields()->findBySlug($field_slug))
-        {
-            return false;
-        }
+        return $field->getType($this);
+    }
 
-        return Type::getFieldType($field, $this);
+    public function getFieldSlugs()
+    {
+        return $this->getFields()->getFieldSlugs();
     }
 
     public function setPlugin($plugin = true)
@@ -264,31 +163,232 @@ class Entry extends Eloquent
 
     public function newFormBuilder()
     {
-        $entry = $this->getKey() ? $this : new static;
-
-        $entry->setFields($this->fields);
-
-        return new \Pyro\Module\Streams_core\Core\Field\Form($entry);
+        return new \Pyro\Module\Streams_core\Core\Field\Form($this);
     }
 
-    public function getEntry($id = null, array $columns = array('*'))
+    public function setUnformattedEntry($unformatted_entry = null)
     {
-        return $this->where($this->getKeyName(), '=', $id)->first($columns);
+        $this->unformatted_entry = $unformatted_entry;
+    }
+
+    public function unformatted()
+    {
+        return $this->unformatted_entry;
+    }
+
+    public function findEntry($id = null, array $columns = array('*'))
+    {
+        $entry = $this->where($this->getKeyName(), '=', $id)->first($columns);
+
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = array(), $skips = array())
+    {
+        $fields = $this->getFields();
+
+        $insert_data = array();
+
+        $alt_process = array();
+        
+        $types = array();
+
+        if ( ! $fields->isEmpty())
+        {
+            foreach ($fields as $field)
+            {
+                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
+                if ( ! in_array($field->field_slug, $skips))
+                {
+                    $type = $field->getType($this);
+                    $types[] = $type;
+
+                    $type->setStream($this->stream);
+                    $type->setValue($this->getAttribute($field->field_slug));
+
+                    if ( $value = $this->getAttribute($field->field_slug) and ! empty($value))
+                    {
+                        // We don't process the alt process stuff.
+                        // This is for field types that store data outside of the
+                        // actual table
+                        if ($type->alt_process)
+                        {
+                            $alt_process[] = $type;
+                        }
+                        else
+                        {
+                            if (method_exists($type, 'pre_save'))
+                            {
+                                $this->setAttribute($field->field_slug, $type->pre_save());
+                            }
+
+                            if (is_null($value))
+                            {
+                                $this->setAttribute($field->field_slug, null);
+                            }
+                            elseif(is_string($value))
+                            {
+                                $this->setAttribute($field->field_slug, trim($value));
+                            }
+                        }
+                    }
+                    
+                    //unset($type);
+                }
+            }
+        }
+
+
+    // -------------------------------------
+        // Set incremental ordering
+        // -------------------------------------
+        
+/*        $db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
+        
+        if ($db_obj->num_rows() == 0 or !$db_obj)
+        {
+            $ordering = 0;
+        }
+        else
+        {
+            $order_row = $db_obj->row();
+            
+            if ( ! is_numeric($order_row->max_ordering))
+            {
+                $ordering = 0;
+            }
+            else
+            {
+                $ordering = $order_row->max_ordering;
+            }
+        }
+
+        $insert_data['ordering_count']  = $ordering+1;*/
+
+        // -------------------------------------
+        // Insert data
+        // -------------------------------------
+
+        // Is there any logic to complete before inserting?
+        //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
+
+         
+            // Process any alt process stuff
+            foreach ($alt_process as $type)
+            {
+
+                $type->pre_save();
+            }
+            
+            // -------------------------------------
+            // Event: Post Insert Entry
+            // -------------------------------------
+
+            $trigger_data = array(
+                'entry_id'      => $this->getKey(),
+                'stream'        => $this->stream,
+                'insert_data'   => $this->getAttributes()
+            );
+
+            \Events::trigger('streams_post_insert_entry', $trigger_data);
+
+            // -------------------------------------
+        
+
+        return parent::save();
+    }
+
+/**
+     * Run fields through their pre-process
+     *
+     * Just used for updating right now
+     *
+     * @access  public
+     * @param   obj
+     * @param   string
+     * @param   int
+     * @param   array - update data
+     * @param   skips - optional array of skips
+     * @param   bool - set_missing_to_null. Should we set missing pieces of data to null
+     *                  for the database?
+     * @return  bool
+     */
+    public static function runFieldPreProcesses($fields, $entry = null, $form_data = array(), $skips = array(), $set_missing_to_null = true)
+    {
+        $return_data = array();
+        
+        if ($fields)
+        {
+            foreach ($fields as $field)
+            {
+                // If we don't have a post item for this field, 
+                // then simply set the value to null. This is necessary
+                // for fields that want to run a pre_save but may have
+                // a situation where no post data is sent (like a single checkbox)
+                if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
+                {
+                    $form_data[$field->field_slug] = null;
+                }
+
+                // If this is not in our skips list, process it.
+                if ( ! in_array($field->field_slug, $skips))
+                {
+                    $type = $field->getType($entry);
+                    $type->setFormData($form_data);
+        
+                    if ( ! $type->alt_process)
+                    {
+                        // If a pre_save function exists, go ahead and run it
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $return_data[$field->field_slug] = $type->pre_save();
+
+                            // We are unsetting the null values to as to
+                            // not upset db can be null rules.
+                            if (is_null($return_data[$field->field_slug]))
+                            {
+                                unset($return_data[$field->field_slug]);
+                            }
+                        }
+                        else
+                        {
+                            $return_data[$field->field_slug] = $form_data[$field->field_slug];
+
+                            // Make null - some fields don't like just blank values
+                            if ($return_data[$field->field_slug] == '')
+                            {
+                                $return_data[$field->field_slug] = null;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If this is an alt_process, there can still be a pre_save,
+                        // it just won't return anything so we don't have to
+                        // save the value
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $type->pre_save();
+                        }
+                    }
+                }
+            }   
+        }
+
+        return $return_data;
     }
 
     public function total()
     {
 
-    }
-
-    public static function all($columns = array('*'))
-    {
-        if ($all = static::getCache('table::all'))
-        {
-            return $all;
-        }
-
-        return static::setCache('table::all', static::getCache('instance')->newQuery()->get($columns));
     }
 
     /**
@@ -330,9 +430,7 @@ class Entry extends Eloquent
 
         foreach ($this->getViewOptions() as $column)
         {
-            $field_name = isset($fields[$column]) ? lang_label($fields[$column]->field_name) : null; 
-
-            $field_names[] = $field_name ? $field_name : lang('streams:'.$column);
+            $field_names[] = isset($fields[$column]) ? $fields[$column]->field_name : lang('streams:column_'.$column); 
         }
 
         return $field_names;
@@ -351,7 +449,7 @@ class Entry extends Eloquent
      */
     public function getEntries($limit = null, $offset = 0, $order = null, $filter_data = array())
     {
-        ci()->load->config('streams');
+        //ci()->load->config('streams');
 
         $query = static::getCache('instance')->newQuery();
 
@@ -435,48 +533,6 @@ class Entry extends Eloquent
         return $query->get();
     }
 
-    public function createdByUser()
-    {
-        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
-    }
-
-    // Exploring some ideas for relationships
-
-    /**
-     * Define an inverse one-to-one or many relationship.
-     *
-     * @param  string  $related
-     * @param  string  $foreignKey
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function belongsToStream($stream_slug, $stream_namespace, $foreign_key = null)
-    {
-        $stream_table = $this->getTable();
-
-        static::stream($stream_slug, $stream_namespace);
-
-        if ( ! $foreign_key)
-        {
-            $foreign_key = $stream_table.'_id';
-        }
-
-        return $this->belongsTo(get_called_class(), $foreign_key);
-    }
-
-    public function belongsToTable($table, $foreign_key = null)
-    {
-        $table = $this->getTable();
-
-        static::setTable($table);
-
-        if ( ! $foreign_key)
-        {
-            $foreign_key = $table.'_id';
-        }
-
-        return $this->belongsTo(get_called_class(), $foreign_key);
-    }
-
     public function newCollection(array $entries = array(), array $unformatted_entries = array())
     {
         return new Collection\EntryCollection($entries, $unformatted_entries);
@@ -508,6 +564,45 @@ class Entry extends Eloquent
         }
 
         return $builder;
+    }
+
+    /**
+     * Define a polymorphic one-to-one relationship.
+     *
+     * @param  string  $related
+     * @param  string  $name
+     * @param  string  $type
+     * @param  string  $id
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function morphOneEntry($related, $name, $type = null, $id = null)
+    {
+        $instance = new $related;
+
+        list($type, $id) = $this->getMorphs($name, $type, $id);
+
+        $table = $instance->getTable();
+
+        return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
+    }
+
+
+    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
+    {
+        // Next we will guess the type and ID if necessary. The type and IDs may also
+        // be passed into the function so that the developers may manually specify
+        // them on the relations. Otherwise, we will just make a great estimate.
+        list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
+
+        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
+    }
+
+    public function passProperties(Entry $instance = null)
+    {
+        $instance->setStream($this->stream);
+        $instance->setFields($this->fields);
+
+        return $instance;
     }
 
 }

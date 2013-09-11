@@ -41,7 +41,7 @@ class Field_country extends AbstractField
 			$value = $this->value;
 		}
 
-		return form_dropdown($this->field->field_slug, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
+		return form_dropdown($this->name, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -73,13 +73,15 @@ class Field_country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin()
 	{
 		$countries = $this->countries('yes');
 
-		if (trim($input) != '') {
-			$return['name'] = $countries[$input];
-			$return['code']	= $input;
+		$this->value = trim($this->value);
+
+		if ($this->value != '') {
+			$return['name'] = $countries[$this->value];
+			$return['code']	= $this->value;
 
 			return $return;
 		} else {

@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Data;
 
-use Pyro\Module\Streams_core\Core;
+use Pyro\Module\Streams_core\Core\Model;
 
 /**
  * Streams Utilities Driver
@@ -26,19 +26,15 @@ class Utility
 	{
 		// Some field destructs use stream data from the cache,
 		// so let's make sure that the slug cache has run.
-		ci()->streams_m->run_slug_cache();
 
-		// Get all the streams in this namespace and remove each one:
-		$streams = ci()->streams_m->get_streams($namespace);
+		$streams = Model\Stream::findManyByNamespace($namespace);
 
-		if ( ! $streams) return null;
-
-		foreach ($streams as $stream) {
-			ci()->streams_m->delete_stream($stream);
-		}
+		$streams->each(function ($stream) {
+			$stream->delete();
+		});
 
 		// Remove all fields in namespace
-		ci()->pdb->table(FIELDS_TABLE)->where('field_namespace', $namespace)->delete();
+		return Model\Field::deleteByNamespace($namespace);
 	}
 
 	// --------------------------------------------------------------------------

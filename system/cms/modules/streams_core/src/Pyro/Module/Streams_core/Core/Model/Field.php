@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Type;
 
 class Field extends Eloquent
 {
@@ -37,23 +38,62 @@ class Field extends Eloquent
     // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
     public static function create(array $attributes = array())
     {
-        if (isset($attributes['field_type']))
+        $instance = new static;
+
+        // Load the type to see if there are other params
+        if ($type = $instance->getType() and isset($type->custom_parameters))
         {
-            // @todo replace this with PSR version of Type class
-            // Load the type to see if there are other fields
-            if ($field_type = ci()->type->types->$attributes['field_type'] and isset($field_type->custom_parameters))
+            foreach ($type->custom_parameters as $param)
             {
-                foreach ($field_type->custom_parameters as $param)
+                if (method_exists($type, 'param_'.$param.'_pre_save'))
                 {
-                    if (method_exists($field_type, 'param_'.$param.'_pre_save'))
-                    {
-                        $attributes['field_data'][$param] = $field_type->{'param_'.$param.'_pre_save'}( $attributes );
-                    }
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $attributes );
                 }
             }
         }
 
         return parent::create($attributes);
+    }
+
+    /**
+     * Get the corresponding field type instance
+     * @param  [type] $entry [description]
+     * @return [type]        [description]
+     */
+    public function getType(Entry $entry = null)
+    {
+        // If no entry was passed at least instantiate an empty entry object
+        if ( ! $entry)
+        {
+            $entry = new Entry;
+        }
+
+        // @todo - replace the Type library with the PSR version
+        if ( ! $type = Type::getLoader()->getType($this->getAttribute('field_type')))
+        {
+            return false;
+        }
+
+        $type->setField($this);
+
+        $type->setEntry($entry);
+        
+        $type->setStream($entry->getModel()->getStream());
+
+        $type->setModel($entry->getModel());
+        
+        $type->setEntryBuilder($entry->getModel()->newQuery());
+        
+        if ($field_slug = $this->getAttribute('field_slug'))
+        {
+            $type->setValue($entry->{$this->getAttribute('field_slug')});            
+        }
+        else
+        {
+            throw new Exception\FieldSlugEmptyException;
+        }
+
+        return $type;
     }
 
     // --------------------------------------------------------------------------
@@ -65,9 +105,12 @@ class Field extends Eloquent
      * @param   array - data
      * @param   int
      */
-    public function updateField($field, $data)
+    public function update(array $attributes = array())
     {
-        $type = $this->type->types->{$data['field_type']};
+        
+        $field_type = $this->getAttribute('field_type');
+
+        $type = $this->getType();
 
         // -------------------------------------
         // Alter Columns
@@ -81,119 +124,100 @@ class Field extends Eloquent
         // * Default Value
         // -------------------------------------
 
-        $assignments = $this->get_assignments($field->id);
+        // Eager load assignments with their related stream
+        $this->load('assignments.stream');
+
+        $assignments = $this->getAttribute('assignments');
+
+        $field_data = $this->getAttribute('field_data');
+
+        $field_slug = $this->getAttribute('field_slug');
+
+        $attributes['field_slug'] = isset($attributes['field_slug']) ? $attributes['field_slug'] : null;
+
+        $from = $field_slug;
+        $to = $attributes['field_slug'];
 
         if(
-            $field->field_type != $data['field_type'] or
-            $field->field_slug != $data['field_slug'] or
-            ( isset( $field->field_data['max_length'] ) and  $field->field_data['max_length'] != $data['max_length'] ) or
-            ( isset( $field->field_data['default_value'] ) and  $field->field_data['default_value'] != $data['default_value'] )
+            (isset($attributes['field_type']) and $field_type != $attributes['field_type']) or 
+            (isset($attributes['field_slug']) and $field_slug != $attributes['field_slug']) or
+            (isset($field_data['max_length']) and $field_data['max_length'] != $attributes['max_length']) or
+            (isset($field_data['default_value']) and $field_data['default_value'] != $attributes['default_value'])
         )
         {
             // If so, we need to update some table columns
             // Get the field assignments and change the table names
 
             // Check first to see if there are any assignments
-            if ($assignments) {
-                // Alter the table names and types
-                $this->load->dbforge();
+            if ( ! $assignments->isEmpty()) {
 
-                foreach ($assignments as $assignment) {
-                    if ( ! method_exists($type, 'alt_rename_column')) {
-                        if ( ! $this->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $this->field_data_to_col_data($type, $data, 'edit')))) {
-                            return false;
+                $schema = ci()->pdb->getSchemaBuilder();
+
+                $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+                $streams = array();
+
+                foreach ($assignments as $assignment)
+                {
+                    if ( ! method_exists($type, 'alt_rename_column'))
+                    {
+                        if ( $to and $from != $to)
+                        {
+                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($attributes, $field_slug) {
+                                $table->renameColumn($from, $to);
+                            });                            
                         }
                     }
 
-                    // Update the view options
-                    $view_options = unserialize($assignment->stream_view_options);
-
-                    if (is_array($view_options)) {
-                        foreach ($view_options as $key => $option) {
-                            if ($option == $field->field_slug) {
-                                // Replace with the new field slug so nothing goes apeshit
-                                $view_options[$key] = $data['field_slug'];
-                            }
-                        }
-                    } else {
-                        $view_options = array();
+                    if ($assignment->stream and isset($assignment->stream->view_options[$field_slug]))
+                    {
+                        $assignment->stream->view_options[$field_slug] = $attributes['field_slug'];
+                        $assignment->stream->save();
                     }
-
-                    $vo_update_data['view_options'] = serialize($view_options);
-
-                    $this->db->where('id', $assignment->stream_id)->update(STREAMS_TABLE, $vo_update_data);
-
-                    $vo_update_data     = array();
-                    $view_options       = array();
                 }
-            }
-
-            // Run though alt rename column routines. Needs to be done
-            // after the above loop through assignments.
-            if ($assignments) {
-                foreach ($assignments as $assignment) {
-                    if (method_exists($type, 'alt_rename_column')) {
+                
+                // Run though alt rename column routines. Needs to be done
+                // after the above loop through assignments.
+                foreach ($assignments as $assignment)
+                {
+                    if (method_exists($type, 'alt_rename_column'))
+                    {
                         // We run a different function for alt_process
-                        $type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+                        $type->alt_rename_column($this, $assignment->stream, $assignment);
                     }
                 }
             }
         }
 
         // Run edit field update hook
-        if (method_exists($type, 'update_field')) {
-            $type->update_field($field, $assignments);
+        if (method_exists($type, 'update_field'))
+        {
+            $type->update_field($this, $assignments);
         }
-
-        // Update field information
-        if (isset($data['field_name']))         $update_data['field_name']      = $data['field_name'];
-        if (isset($data['field_slug']))         $update_data['field_slug']      = $data['field_slug'];
-        if (isset($data['field_namespace']))    $update_data['field_namespace'] = $data['field_namespace'];
-        if (isset($data['field_type']))         $update_data['field_type']      = $data['field_type'];
-
-        if (isset($data['is_locked'])) {
-            if (! $data['is_locked']) {
-                $data['is_locked'] = 'no';
-            }
-
-            if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no') {
-                $data['is_locked'] = 'no';
-            }
-        }
-
+    
         // Gather extra data
-        if ( ! isset($type->custom_parameters) or $type->custom_parameters == '') {
-            $update_data['field_data'] = null;
-        } else {
-            foreach ($type->custom_parameters as $param) {
-                if (isset($data[$param])) {
-                    $update_data['custom'][$param] = $data[$param];
-                } else {
-                    $update_data['custom'][$param] = null;
-                }
-            }
-
-            foreach ($type->custom_parameters as $param) {
+        if ( ! empty($type->custom_parameters))
+        {
+            foreach ($type->custom_parameters as $param)
+            {
                 if (method_exists($type, 'param_'.$param.'_pre_save')) {
-                    $update_data['custom'][$param] = $type->{'param_'.$param.'_pre_save'}( $update_data );
+                    $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
                 }
             }
-
-            if ( ! empty($update_data['custom'])) {
-                $update_data['field_data'] = serialize($update_data['custom']);
-            }
-            unset($update_data['custom']);
         }
 
-        $this->db->where('id', $field->id);
+        $attributes['field_data'] = $field_data;
 
-        if ($this->db->update('data_fields', $update_data)) {
-            $tc_update['title_column']  = $data['field_slug'];
+        if (parent::update($attributes))
+        {
+            if ( ! $assignments->isEmpty() and $to and $from != $to)
+            {
+                Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);                
+            }
 
-            // Success. Now let's update the title column.
-            $this->db->where('title_column', $field->field_slug);
-            return $this->db->update(STREAMS_TABLE, $tc_update);
-        } else {
+            return true;
+        }
+        else {
             // Boo.
             return false;
         }
@@ -217,57 +241,37 @@ class Field extends Eloquent
      * @param   int
      * @return  bool
      */
-    public function deleteField($field_id)
+    public function delete()
     {
-        // Make sure field exists
-        if ( ! $field = $this->get_field($field_id)) {
-            return false;
-        }
+        if ($success = parent::delete())
+        {
+            // Find assignments, and delete rows from table
+            $assignments = $this->getAttribute('assignments');
 
-        // Find assignments, and delete rows from table
-        $assignments = $this->get_assignments($field_id);
-
-        if ($this->assignments()) {
-            $this->load->dbforge();
-
-            $outcome = true;
-
-            // Cycle and delete columns
-            foreach ($assignments as $assignment) {
-                $this->cleanup_assignment($assignment);
+            if ( ! $assignments->isEmpty())
+            {
+                // Delete assignments
+                foreach ($assignments as $assignment)
+                {
+                    $assignment->delete();
+                }
             }
 
-            if ( ! $outcome) return $outcome;
-        } else {
-            // If we have no assignments, let's call a special
-            // function (if it exists). This is for deleting
-            // fields that have no assignments.
-            if (method_exists($this->type->types->{$field->field_type}, 'field_no_assign_destruct')) {
-                $this->type->types->{$field->field_type}->field_no_assign_destruct($field);
-            }
+            // Reset instances where the title column
+            // is the field we are deleting. PyroStreams will
+            // always just use the ID in place of the field.
+            
+            $title_column = $this->getAttribute('field_slug');
+
+            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);      
         }
 
-        // Delete field assignments
-        $this->db->where('field_id', $field->id);
+        return $success;
+    }
 
-        if ( ! $this->db->delete(ASSIGN_TABLE)) {
-            return false;
-        }
-
-        // Reset instances where the title column
-        // is the field we are deleting. PyroStreams will
-        // always just use the ID in place of the field.
-        $this->db->where('title_column', $field->field_slug);
-        $this->db->update(STREAMS_TABLE, array('title_column' => null));
-
-        // Delete from actual fields table
-        $this->db->where('id', $field->id);
-
-        if ( ! $this->db->delete(FIELDS_TABLE)) {
-            return false;
-        }
-
-        return true;
+    public function deleteByNamespace($namespace)
+    {
+        return static::where('field_namespace', $namespace)->delete();
     }
 
     /**
@@ -285,9 +289,37 @@ class Field extends Eloquent
             ->first();
     }
 
-    public static function findManyByNamespace($field_namespace = null, $pagination = false, $offset = 0, $skips = null)
+    public static function findBySlugAndNamespaceOrFail($field_slug = null, $field_namespace = null)
     {
-        return static::where('field_namespace', '=', $field_namespace)->get();
+        if ( ! is_null($model = static::findBySlugAndNamespace($field_slug, $field_namespace))) return $model;
+
+        throw new Exception\FieldNotFoundException;
+    }
+
+    public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)
+    {
+        $query = static::where('field_namespace', '=', $field_namespace);
+
+        if ( ! empty($skips))
+        {
+            $query = $query->whereNotIn('field_slug', $skips);
+        }
+
+        return $query->skip($offset)->take($limit)->get();
+    }
+
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\Field|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+        throw new Exception\FieldNotFoundException;
     }
 
     public function newCollection(array $models = array())
@@ -297,7 +329,25 @@ class Field extends Eloquent
 
     public function assignments()
     {
-        return $this->hasMany(__NAMESPACE_.'\FieldAssignment', 'field_id');
+        return $this->hasMany(__NAMESPACE__.'\FieldAssignment', 'field_id');
+    }
+
+    public function streams()
+    {
+        return $this->belongsToMany('Pyro\Module\Streams_core\Core\Model\Stream');
+    }
+
+    public function getFieldNameAttribute($field_name)
+    {
+        // This guarantees that the language will be loaded
+       Type::getLoader()->getType($this->getAttribute('field_type'));
+
+        return lang_label($field_name);
+    }
+
+    public function setFieldDataAttribute($field_data)
+    {
+        $this->attributes['field_data'] = serialize($field_data);
     }
 
     public function getFieldDataAttribute($field_data)
@@ -323,5 +373,10 @@ class Field extends Eloquent
     public function setIsLockedAttribute($is_locked)
     {
         $this->attributes['is_locked'] = ! $is_locked ? 'no' : 'yes';
+    }
+
+    public function isFieldNameLang()
+    {
+        return substr($this->getOriginal('field_name'), 0, 5) === 'lang:';
     }
 }

@@ -1,4 +1,4 @@
-<?php namespace Pyro\Collection;
+<?php namespace Pyro\Model\Collection;
 
 use Illuminate\Database\Eloquent\Collection;
 

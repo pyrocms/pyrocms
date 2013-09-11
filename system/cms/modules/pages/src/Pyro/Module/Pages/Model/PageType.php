@@ -30,6 +30,11 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+    public function findBySlug($slug = null, array $columns = array('*'))
+    {
+        return static::where('slug', $slug)->take(1)->first($columns);
+    }
+
     /**
      * Relationship: Page
      *
@@ -46,12 +51,9 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @todo Turn me into a real relationship and rename to stream()
      * @return array
      */
-    public function getStream()
+    public function stream()
     {
-        return ci()->pdb->table('data_streams')
-            ->take(1)
-            ->where('id', $this->stream_id)
-            ->first();
+        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream');
     }
 
     /**

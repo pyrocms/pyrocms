@@ -35,9 +35,9 @@ class Field_wysiwyg extends AbstractField
 	public function event()
 	{
 		if (defined('ADMIN_THEME')) {
-			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_admin', null));
+			ci()->type->add_misc(ci()->type->load_view('wysiwyg', 'wysiwyg_admin', null));
 		} else {
-			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
+			ci()->type->add_misc(ci()->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
 		}
 	}
 
@@ -47,11 +47,11 @@ class Field_wysiwyg extends AbstractField
 	 * @param 	string
 	 * @return 	string
 	 */
-	public function pre_output($input, $params)
+	public function pre_output()
 	{
 		// Legacy. This was a temp fix for a few things
 		// that I'm sure a few sites are utilizing.
-		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
+		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $this->value);
 
 		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
@@ -59,12 +59,12 @@ class Field_wysiwyg extends AbstractField
 		// let it through. Otherwise we will escape them.
 		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
 		{
-			return $this->CI->parser->parse_string($input, array(), true);
+			return ci()->parser->parse_string($this->value, array(), true);
 		}
 		else
 		{
-			$this->CI->load->helper('text');
-			return escape_tags($input);
+			ci()->load->helper('text');
+			return escape_tags($this->value);
 		}
 
 	}
@@ -76,18 +76,18 @@ class Field_wysiwyg extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
 		// Set editor type
-		if (isset($data['custom']['editor_type'])) {
-			$options['class']	= 'wysiwyg-'.$data['custom']['editor_type'];
+		if (isset($this->field->field_data['editor_type'])) {
+			$options['class']	= 'wysiwyg-'.$this->field->field_data['editor_type'];
 		} else {
 			$options['class']	= 'wysiwyg-simple';
 		}
 
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
+		$options['value']	= $this->value;
 
 		return form_textarea($options);
 	}

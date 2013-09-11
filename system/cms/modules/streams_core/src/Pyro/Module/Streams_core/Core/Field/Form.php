@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
 use Pyro\Module\Streams_core\Core\Field\Type;
+use Pyro\Module\Streams_core\Core\Model;
 
 // This will be similar to the Fields driver
 
@@ -23,6 +24,8 @@ class Form
 
 	protected $method = 'new';
 
+	protected $defaults = array();
+
 	protected $recaptcha = false;
 
 	protected $values = array();
@@ -33,25 +36,45 @@ class Form
 
 	protected $key_check = null;
 
+	protected $stream = null;
+
 	protected $skips = array();
+
+	protected $success_message = null;
 
 	protected $return_validation_rules = false;
 
 	protected $field_types = array();
 
+	protected $result = false;
+
 	protected $return = null;
+
+	protected $enable_post = true;
 
 	// --------------------------------------------------------------------------
 
     public function __construct($entry = null)
     {
-    	$this->entry = $entry;
-		
-		$this->fields = $entry->getModel()->getFields();
+    	if ($entry)
+    	{
+			$this->entry = $entry;
 
-    	$this->method = $entry->getKey() ? 'edit' : 'new';
+			$this->stream = $entry->getStream();
+
+			$this->fields = $entry->getFields();
+
+			$this->method = $entry->getKey() ? 'edit' : 'new';    		
+    	}
 
 		ci()->load->helper('form');
+	}
+
+	public function setFields($fields = null)
+	{
+		$this->fields = $fields;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -140,11 +163,11 @@ class Form
 		//$stream_fields = ci()->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if (empty($this->fields))
+		if ($this->fields->isEmpty())
 		{
 			return null;
 		}
-			
+
 		// -------------------------------------
 		// Set Validation Rules
 		// -------------------------------------
@@ -198,7 +221,7 @@ class Form
 
 		// $stream_fields, $skips, $values
 
-		$this->runFieldEvents();
+		$fields = $this->buildFields();
 
 		// -------------------------------------
 		// Validation
@@ -206,21 +229,23 @@ class Form
 		
 		$result_id = '';
 
-		if ($_POST and $this->key_check)
+		if ($_POST and $this->enable_post)
 		{
 			// @todo - restore validation here
 			// ci()->form_validation->run() === true
 			if (true)
 			{
-				if ($this->method == 'new')
+				if ( ! $this->entry->getKey()) // new
 				{
 					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
-					if ( ! $result_id = $this->entry->save())
+					if ( ! $this->entry->save())
 					{
-						ci()->session->set_flashdata('notice', ci()->fields->translateLabel($failure_message));
+						ci()->session->set_flashdata('notice', lang_label($this->failure_message));
 					}
 					else
 					{
+						$this->result = $this->entry;
+
 						// -------------------------------------
 						// Send Emails
 						// -------------------------------------
@@ -235,28 +260,21 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', ci()->fields->translateLabel($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
 				}
-				else
+				else // edit
 				{
-
-/*					ci()->row_m->update_entry(
-														$stream_fields,
-														$stream,
-														$row->id,
-														ci()->input->post(),
-														$skips
-													)*/
-
 					$this->entry->exists = true;
 
-					if ( ! $result_id =  $this->entry->save() and isset($extra['failure_message']))
+					if ( ! $this->entry->save() and isset($this->failure_message))
 					{
-						ci()->session->set_flashdata('notice', lang_label($extra['failure_message']));	
+						ci()->session->set_flashdata('notice', lang_label($this->failure_message));	
 					}
 					else
 					{
+						$this->result = $this->entry;
+
 						// -------------------------------------
 						// Send Emails
 						// -------------------------------------
@@ -271,22 +289,8 @@ class Form
 		
 						// -------------------------------------
 					
-						ci()->session->set_flashdata('success', lang_label($extra['success_message']));
+						ci()->session->set_flashdata('success', lang_label($this->success_message));
 					}
-				}
-			
-				// If return url is set, redirect and replace -id- with the result ID
-				// Otherwise return id
-				if ($this->entry->isPlugin() === true)
-				{
-					if ($this->return)
-					{
-						redirect(str_replace('-id-', $result_id, $this->return));
-					}
-				}
-				else
-				{
-					return $result_id;
 				}
 			}
 		}
@@ -296,7 +300,7 @@ class Form
 		// -------------------------------------
 
 		// $stream_fields, $values, $row, $this->method, $skips, $extra['required']
-		return $this->buildFields();
+		return $fields;
 	}
 
 	// --------------------------------------------------------------------------
@@ -321,7 +325,7 @@ class Form
 		foreach ($this->fields as $field)
 		{
 			// We need the slug to go on.
-			if ( ! isset(ci()->type->types->{$field->field_type}))
+			if ( ! $type = $field->getType())
 			{
 				continue;
 			}
@@ -335,9 +339,9 @@ class Form
 				// then call it already.
 				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if (method_exists(ci()->type->types->{$field->field_type}, 'event'))
+					if (method_exists($type, 'event'))
 					{
-						ci()->type->types->{$field->field_type}->event($field);
+						$type->event();
 					}
 					
 					$this->field_type_events_run[] = $field->field_type;
@@ -363,15 +367,11 @@ class Form
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
 	public function setValues()
 	{
-		if ( ! $_POST)
-		{
-			return;
-		}
 		foreach ($this->fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
-				if ($this->key_check)
+				if ($this->key_check and $type = $field->getType($this->entry))
 				{
 					// Post Data - we always show
 					// post data above any other data that
@@ -379,13 +379,17 @@ class Form
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$field->field_slug]))
+					if (isset($_POST[$type->getInputName()]))
 					{
-						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug);
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName());
 					}
-					elseif (isset($_POST[$field->field_slug.'[]']))
+					elseif (isset($_POST[$this->getInputName($field).'[]']))
 					{
-						$this->entry->{$field->field_slug} = ci()->input->post($field->field_slug.'[]');
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName().'[]');
+					}
+					else
+					{
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug};
 					}
 				}
 			}
@@ -408,13 +412,6 @@ class Form
 		return $this->field_types;
 	}
 
-	public function getFieldType($field_slug)
-	{
-		$types = $this->getFieldTypes();
-
-		return isset($types[$field_slug]) ? $types[$field_slug] : false;
-	}
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -433,11 +430,16 @@ class Form
 
 		foreach($this->fields as $key => $field)
 		{
-
 			if ($type = $this->entry->getFieldType($field->field_slug))
-			{
+			{	
+				$type->setUnformattedValue($this->entry->getUnformattedValue($field->field_slug));
+				$type->setDefaults($this->defaults);
+				$type->setFormData($this->values);
+
+				$type->setStream($this->entry->getStream());
+
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
-				$fields[$field->field_slug]['input_slug']		= $field->field_slug;
+				$fields[$field->field_slug]['input_slug']		= $type->getInputName();
 				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
 				
 				// Set the value. In the odd case it isn't set,
@@ -470,7 +472,7 @@ class Form
 				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
-		
+
 		return $fields;
 	}
 
@@ -492,7 +494,7 @@ class Form
 	public function setRules()
 	{
 
-		if ( ! $this->fields or ! is_object($this->fields)) return array();
+		if ($this->fields->isEmpty()) return array();
 
 		$validation_rules = array();
 
@@ -507,12 +509,10 @@ class Form
 				$rules = array();
 
 				// If we don't have the type, then no need to go on.
-				if ( ! isset(ci()->type->types->{$field->field_type}))
+				if ( ! $type = $field->getType())
 				{
 					continue;
 				}
-
-				$type = ci()->type->types->{$field->field_type};
 
 				// -------------------------------------
 				// Pre Validation Event
@@ -615,6 +615,39 @@ class Form
 		}
 	}
 
+	public function setDefaults($defaults = null)
+	{
+		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
+	}
+
+	public function successMessage($success_message = null)
+	{
+		$this->success_message = $success_message;
+
+		return $this;
+	}
+
+	public function enablePost($enable_post = false)
+	{
+		$this->enable_post = $enable_post;
+
+		return $this;
+	}
+
+	public function result()
+	{
+		return $this->result;
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -630,54 +663,31 @@ class Form
 	 * @return 	
 	 */
 	// $stream = null, $this->method = 'new', $field = null
-	public function runFieldSetupEvents()
+	public static function runFieldSetupEvents($current_field = null)
 	{
-		foreach (ci()->type->types as $ft)
+		$types = Type::getLoader()->getAllTypes();
+
+		foreach ($types as $type)
 		{
-			if (method_exists($ft, 'field_setup_event'))
+			if (method_exists($type, 'field_setup_event'))
 			{
-				$ft->field_setup_event($stream, $this->method, $field);
+				$type->field_setup_event($current_field);
 			}
 		}
 	}
 
-	public function redirect($return = null)
+	public function getInputName($field = null)
 	{
-		$this->return = $return;
+		if ( ! $field instanceof Model\Field) return null;
 
-		return $this;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Translate a label.
-	 *
-	 * If it has the label: before it, then we can
-	 * look for a language line.
-	 *
-	 * This is partially from the CodeIgniter Form Validation
-	 * library but it protected so we need to replicate the
-	 * functionality here.
-	 *
-	 * @access 	public
-	 * @param 	string - the field label
-	 * @return 	string - translated or original label
-	 */
-	public function translateLabel($label)
-	{
-		// Look for lang
-		if (substr($label, 0, 5) === 'lang:')
+		if ($this->stream instanceof Model\Stream)
 		{
-			$line = substr($label, 5);
-
-			if (($label = ci()->lang->line($line)) === false)
-			{
-				return $line;
-			}
+			return $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$field->field_slug;
 		}
-
-		return $label;		
+		else
+		{
+			return $field->field_slug;
+		}
 	}
 
 	// --------------------------------------------------------------------------

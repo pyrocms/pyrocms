@@ -264,7 +264,7 @@ class Page extends Eloquent
 		// Get Stream Entry
 		// ---------------------------------
 
-		if ($page->entry_id and $page->type->stream_id) {
+/*		if ($page->id and $page->type->stream_id) {
 			ci()->load->driver('Streams');
 
 			// Get Streams
@@ -277,7 +277,7 @@ class Page extends Eloquent
 					}
 				}
 			}
-		}
+		}*/
 
 		return $page;
 	}
@@ -483,9 +483,9 @@ class Page extends Eloquent
 	public function setHomePage()
 	{
 		$this->where('is_home', '=', 1)
-			->update('is_home', 0);
+			->update(array('is_home' => 0));
 
-		$this->update('is_home', 1);
+		$this->update(array('is_home' => 1));
 	}
 
 	/**
@@ -576,5 +576,10 @@ class Page extends Eloquent
 		}
 
 		return true;
+	}
+
+	public function entry()
+	{
+		return $this->morphToEntry('Pyro\Module\Pages\Model\PageEntry');
 	}
 }

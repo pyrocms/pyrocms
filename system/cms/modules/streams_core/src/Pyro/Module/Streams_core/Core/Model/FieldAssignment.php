@@ -1,6 +1,8 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
+use Illuminate\Database\Query\Expression as DBExpression;
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field;
 
 class FieldAssignment extends Eloquent
 {
@@ -25,24 +27,34 @@ class FieldAssignment extends Eloquent
      */
     public $timestamps = false;
 
-/*    public static function findManyByStreamId()
+    public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null)
     {
-        return static::where('stream_id', '')
-    }*/
+        return static::where('field_id', $field_id)
+            ->where('stream_id', $stream_id)
+            ->take(1)
+            ->first();
+    }
+
+    public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
+    {
+        return static::with('field')
+            ->where('stream_id', $stream_id)
+            ->take($limit)
+            ->skip($offset)
+            ->orderBy('field_name', $order)
+            ->get();
+    }
 
     /**
      * Count assignments
      *
      * @return int
      */
-    public function countFieldAssignments($field_id)
+    public function countFieldAssignments($field_id = null)
     {
         if ( ! $field_id) return 0;
 
-        return $this->db
-                ->where('field_id', $field_id)
-                ->from($this->db->dbprefix(ASSIGN_TABLE))
-                ->count_all_results();
+        return static::where('field_id', $stream_id)->count('field_id');
     }
 
     /**
@@ -50,61 +62,11 @@ class FieldAssignment extends Eloquent
      *
      * @return  int
      */
-    public function count_assignments_for_stream($stream_id)
+    public function countStreamAssignments($stream_id = null)
     {
         if ( ! $stream_id) return 0;
 
-        return $this->db
-                ->where('stream_id', $stream_id)
-                ->from($this->db->dbprefix(ASSIGN_TABLE))
-                ->count_all_results();
-    }
-
-    /**
-     * Get assignments for a field
-     *
-     * @param   int
-     * @return  mixed
-     */
-    public function get_assignments($field_id)
-    {
-        $this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
-        $this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-        $this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
-        $this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
-        $this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, false);
-
-        $obj = $this->db->get();
-
-        if ($obj->num_rows() == 0) {
-            return false;
-        }
-
-        return $obj->result();
-    }
-
-    /**
-     * Get assignments for a stream
-     *
-     * @param   int
-     * @return  mixed
-     */
-    public function get_assignments_for_stream($stream_id)
-    {
-        $this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
-        $this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-        $this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
-        $this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
-        $this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, false);
-        $this->db->order_by('sort_order', 'ASC');
-
-        $obj = $this->db->get();
-
-        if ($obj->num_rows() == 0) {
-            return false;
-        }
-
-        return $obj->result();
+        return static::where('stream_id', $stream_id)->count('stream_id');
     }
 
     /**
@@ -113,55 +75,94 @@ class FieldAssignment extends Eloquent
      * @param   obj - the assignment
      * @return  void
      */
-    public function cleanup()
+    public function delete()
     {
+        $attributes = $this->getAttributes();
+
+        $schema = ci()->pdb->getSchemaBuilder();
+
+        // @todo - remove this once the hasColumn bug is fixed in Illuminate\Database
+        $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+        $field = $this->getAttribute('field');
+
+        $stream = $this->getAttribute('stream');
+
         // Drop the column if it exists
-        if ($this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug)) {
-            if ( ! $this->dbforge->drop_column($assignment->stream_prefix.$assignment->stream_slug, $assignment->field_slug) ) {
-                $outcome = false;
-            }
+        if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug))
+        {
+            $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
+                
+                $table->dropColumn($field->field_slug);
+            
+            });            
         }
 
         // Run the destruct
-        if (method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')) {
-            $this->type->types->{$assignment->field_type}->field_assignment_destruct($this->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+        if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
+        {
+            $type->field_assignment_destruct($field, $stream);
         }
 
         // Update that stream's view options
-        $view_options = unserialize($assignment->stream_view_options);
+        ;
 
-        if (is_array($view_options)) {
-            foreach ($view_options as $key => $option) {
-                if ($option == $assignment->field_slug) {
-                    unset($view_options[$key]);
+        if ( ! empty($field->stream->view_options))
+        {
+            foreach ($field->stream->view_options as $key => $option)
+            {
+                if (isset($field->stream->view_options[$field->field_slug]))
+                {
+                    unset($field->stream->view_options[$field->field_slug]);
                 }
             }
-        } else {
-            $view_options = array();
         }
 
-        $update_data['view_options'] = serialize($view_options);
+        $field->stream->save();
 
-        $this->db->where('id', $assignment->stream_id)->update(STREAMS_TABLE, $update_data);
+        // Find everything above it, and take each one
+        // down a peg.
+        if ($this->sort_order == '' or ! is_numeric($this->sort_order))
+        {
+            $this->sort_order = 0;
+        }
 
-        unset($update_data);
-        unset($view_options);
+        $other_assignments = static::where('stream_id', $stream->id)
+            ->whereNot($this->getKeyName(), $this->getKey())
+            ->where('sort_order', '>', $this->sort_order)
+            ->get('id, sort_order');
+
+        if ( ! $other_assignments->isEmpty())
+        {
+            foreach ($other_assignments as $assignment)
+            {
+                $assignment->sort_order = $assignment->sort_order - 1;
+                $assignment->save();
+            }
+        }
+
+        return parent::delete();
+    }
+
+    public function getFieldNameAttribute($field_name)
+    {
+        // This guarantees that the language will be loaded
+       Field\Type::getLoader()->getType($this->field->field_type);
+
+        return lang_label($field_name);
     }
 
     /**
-     * Assignment Exists
-     *
-     * @param   int - stream ID
-     * @param   int - field ID
-     * @return  bool
+     * Cleanup stale assignments for fields and streams that don't exists
+     * @return [type] [description]
      */
-    public function assignment_exists($stream_id, $field_id)
+    public static function cleanup()
     {
-        return $this->pdb->select('id')
-            ->table(ASSIGN_TABLE)
-            ->where('stream_id', $stream_id)
-            ->where('field_id', $field_id)
-            ->count() > 0;
+        $field_ids = Field::all()->modelKeys();
+
+        $stream_ids = Stream::all()->modelKeys();
+
+        return static::whereNotIn('field_id', $field_ids)->orWhereNotIn('stream_id', $stream_ids)->delete();
     }
 
    /**
@@ -173,66 +174,66 @@ class FieldAssignment extends Eloquent
      * @param   [string - instructions]
      * return   bool
      */
-    public function edit_assignment($assignment_id, $stream, $field, $data)
+    public function update(array $attributes = array())
     {
+        $stream = $this->getAttribute('stream');
+
+        $field = $this->getAttribute('field');
+
         // -------------------------------------
         // Title Column
         // -------------------------------------
 
         // Scenario A: The title column is the field slug, and we
         // have it unchecked.
-        if (
-            $stream->title_column == $field->field_slug and
-            ( ! isset($data['title_column']) or $data['title_column'] == 'no' or ! $data['title_column'])
-        )
+        if ($stream->title_column == $field->field_slug and
+            (! isset($attributes['title_column']) or $attributes['title_column'] == 'no' or ! $attributes['title_column']))
         {
             // In this case, they don't want this to
             // be the title column anymore, so we wipe it out
-            $this->db
-                ->limit(1)
-                ->where('id', $stream->id)
-                ->update('data_streams', array('title_column' => null));
-        } elseif (
-            isset($data['title_column']) and
-            ($data['title_column'] == 'yes' or $data['title_column'] === true) and
-            $stream->title_column != $field->field_slug
-        )
+            Stream::updateTitleColumnByStreamIds($stream->id, $field->field_slug);
+        }
+        elseif (isset($attributes['title_column']) and
+            ($attributes['title_column'] == 'yes' or $attributes['title_column'] === true) and 
+            $stream->title_column != $field->field_slug)
         {
+            if ($attributes['title_column'] == 'yes')
+            {
+                $attributes['title_column'] = $field->field_slug;
+            }
+
             // Scenario B: They have checked the title column
             // and this field it not the current field.
-            $this->db
-                    ->limit(1)
-                    ->where('id', $stream->id)
-                    ->update('data_streams', array('title_column' => $field->field_slug));
+            Stream::updateTitleColumnByStreamIds($stream->id, $field->field_slug, $attributes['title_column']);    
         }
 
-        // Is required
-        if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
+        return parent::update($attributes);
+    }
 
-            $update_data['is_required'] = 'yes';
+    public static function getIncrementalSortNumber($stream_id = null)
+    {
+        $instance = new static;
 
-        else:
+        $top_num = $instance->getQuery()
+            ->select(new DBExpression('MAX(sort_order) as top_num'))
+            ->where('stream_id', $stream_id)
+            ->pluck('top_num');
 
-            $update_data['is_required'] = 'no';
+        return $top_num ? $top_num + 1 : 1;
+    }
 
-        endif;
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\FieldAssignment|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        // Is unique
-        if( isset($data['is_unique']) and $data['is_unique'] == 'yes' ):
-
-            $update_data['is_unique'] = 'yes';
-
-        else:
-
-            $update_data['is_unique'] = 'no';
-
-        endif;
-
-        // Add in instructions
-        $update_data['instructions'] = $data['instructions'];
-
-        $this->db->where('id', $assignment_id);
-        return $this->db->update(ASSIGN_TABLE, $update_data);
+        throw new Exception\FieldAssignmentNotFoundException;
     }
 
     public function newCollection(array $models = array())
