@@ -10,8 +10,6 @@ class Parameter
 		ci()->load->helper('form');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Maxlength field
 	 *
@@ -30,8 +28,6 @@ class Parameter
 		return form_input($data);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Upload location field
 	 *
@@ -49,8 +45,6 @@ class Parameter
 
 		return form_input($data);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Default default field

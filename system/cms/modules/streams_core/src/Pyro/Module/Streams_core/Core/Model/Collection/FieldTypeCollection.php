@@ -3,6 +3,11 @@
 class FieldTypeCollection extends \Illuminate\Support\Collection
 {
 
+	/**
+	 * Test if includes
+	 * @param  array  $include
+	 * @return boolean
+	 */
 	public function includes($include = array())
 	{
 		$this->filter(function($type) use ($include) {
@@ -10,6 +15,11 @@ class FieldTypeCollection extends \Illuminate\Support\Collection
 		});
 	}
 
+	/**
+	 * Test if excludes
+	 * @param  array  $exclude
+	 * @return boolean
+	 */
 	public function excludes($exclude = array())
 	{
 		$this->filter(function($type) use ($exclude) {
@@ -17,6 +27,10 @@ class FieldTypeCollection extends \Illuminate\Support\Collection
 		});
 	}
 
+	/**
+	 * Get options for field type
+	 * @return array
+	 */
 	public function getOptions()
 	{
 		$options = array();

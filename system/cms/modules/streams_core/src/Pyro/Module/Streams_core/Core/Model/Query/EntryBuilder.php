@@ -47,6 +47,11 @@ class EntryBuilder extends Builder
 		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
 	}
 
+	/**
+	 * Format entries
+	 * @param  array  $entries
+	 * @return array
+	 */
 	public function formatEntries(array $entries = array())
 	{	
 		// returns the models with the attributes formated by their corresponding field type
@@ -60,6 +65,11 @@ class EntryBuilder extends Builder
 		return $formatted;
 	}
 
+	/**
+	 * Format an entry
+	 * @param  object $entry
+	 * @return object
+	 */
 	public function formatEntry($entry = null)
 	{
 		// Replicate the model to keep the original intact
@@ -99,6 +109,11 @@ class EntryBuilder extends Builder
 		return $clone;	
 	}
 
+	/**
+	 * Prep columns
+	 * @param  array  $columns
+	 * @return array
+	 */
     protected function prepareColumns(array $columns = array('*'))
     {
     	// Remove any columns that don't exist
@@ -111,6 +126,11 @@ class EntryBuilder extends Builder
         return array_unique($columns);
     }
 
+    /**
+     * Require the primary key
+     * @param  array  $columns
+     * @return array
+     */
     public function requireKey(array $columns = array())
     {
     	// Always include the primary key if we are selecting specific columns, regardless
@@ -122,6 +142,11 @@ class EntryBuilder extends Builder
         return $columns;
     }
 
+    /**
+     * Test if ALL columns (*)
+     * @param  array   $columns
+     * @return boolean
+     */
     public function hasAsterisk(array $columns = array())
     {
     	if ( ! empty($columns))
@@ -135,6 +160,11 @@ class EntryBuilder extends Builder
     	return false;
     }
 
+    /**
+     * Prep view options
+     * @param  array  $columns
+     * @return array
+     */
     protected function prepareViewOptions(array $columns = array('*'))
     {	
     	// Use existing stored view options only if we have an asterisk 
@@ -153,5 +183,4 @@ class EntryBuilder extends Builder
 
 		return $columns;
     }
-
 }

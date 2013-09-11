@@ -29,24 +29,67 @@ use Pyro\Model\Eloquent;
 
 class Entry extends EntryOriginal
 {
+    /**
+     * Assignments
+     * @var array
+     */
     protected $assignments = null;
 
+    /**
+     * Fields
+     * @var array
+     */
     protected $fields = null;
 
+    /**
+     * Field type instances
+     * @var array
+     */
     protected $field_type_instances = null;
 
+    /**
+     * Unformatted values
+     * @var array
+     */
     protected $unformatted_values = array();
 
+    /**
+     * Unformatted entry
+     * @var object
+     */
     protected $unformatted_entry = null;
 
+    /**
+     * Format or no
+     * @var boolean
+     */
     protected $format = true;
 
+    /**
+     * Plugin or no
+     * @var boolean
+     */
     protected $plugin = true;
 
+    /**
+     * Plugin values
+     * @var array
+     */
     protected $plugin_values = array();
 
+    /**
+     * View options
+     * @var array
+     */
     protected $view_options = array();
 
+    /**
+     * Load a stream
+     * @param  string $stream_slug
+     * @param  string $stream_namespace
+     * @param  object $instance
+     * @return object
+     */
     public static function stream($stream_slug, $stream_namespace = null, Entry $instance = null)
     {
         $instance = parent::stream($stream_slug, $stream_namespace, $instance);
@@ -74,6 +117,10 @@ class Entry extends EntryOriginal
         return $instance;
     }
 
+    /**
+     * Set fields
+     * @param array $fields
+     */
     public function setFields(Collection\FieldCollection $fields = null)
     {
         $this->fields = $fields;
@@ -81,6 +128,10 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    /**
+     * Get fields
+     * @return array
+     */
     public function getFields()
     {
         if ($this->fields instanceof Collection\FieldCollection)
@@ -91,11 +142,21 @@ class Entry extends EntryOriginal
         return new Collection\FieldCollection;
     }
 
+    /**
+     * Get field
+     * @param  string $field_slug
+     * @return object
+     */
     public function getField($field_slug = '')
     {
         return $this->getFields()->findBySlug($field_slug);
     }
 
+    /**
+     * Get entry type
+     * @param  string $field_slug
+     * @return object
+     */
     public function getFieldType($field_slug = '')
     {
         if ( ! $field = $this->getField($field_slug))
@@ -106,11 +167,19 @@ class Entry extends EntryOriginal
         return $field->getType($this);
     }
 
+    /**
+     * Get field slugs
+     * @return array
+     */
     public function getFieldSlugs()
     {
         return $this->getFields()->getFieldSlugs();
     }
 
+    /**
+     * Set plugin
+     * @param boolean $plugin
+     */
     public function setPlugin($plugin = true)
     {
         $this->plugin = $plugin;
@@ -118,6 +187,10 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    /**
+     * Set format
+     * @param boolean $format
+     */
     public function setFormat($format = true)
     {
         $this->format = $format;
@@ -125,16 +198,29 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    /**
+     * Is formatted
+     * @return boolean
+     */
     public function isFormat()
     {
         return $this->format;
     }
 
+    /**
+     * Is plugin call
+     * @return boolean
+     */
     public function isPlugin()
     {
         return $this->plugin;
     }
 
+    /**
+     * Set plugin value
+     * @param string $key  
+     * @param mixed $value
+     */
     public function setPluginValue($key = null, $value = null)
     {
         if ($key)
@@ -143,11 +229,21 @@ class Entry extends EntryOriginal
         }
     }
 
+    /**
+     * Get plugin value
+     * @param  string $key
+     * @return mixed
+     */
     public function getPluginValue($key)
     {
         return isset($this->plugin_values[$key]) ? $this->plugin_values[$key] : $this->getAttribute($key);
     }
 
+    /**
+     * Set unformatted value
+     * @param string $key
+     * @param mixed $value
+     */
     public function setUnformattedValue($key = null, $value = null)
     {
         if ($key)
@@ -156,26 +252,49 @@ class Entry extends EntryOriginal
         }
     }
 
+    /**
+     * Get unformatted value
+     * @param  string $key
+     * @return mixed
+     */
     public function getUnformattedValue($key)
     {
         return isset($this->unformatted_values[$key]) ? $this->unformatted_values[$key] : null;
     }
 
+    /**
+     * Create a new form builder
+     * @return object
+     */
     public function newFormBuilder()
     {
         return new \Pyro\Module\Streams_core\Core\Field\Form($this);
     }
 
+    /**
+     * Set unformatted uentry
+     * @param object $unformatted_entry
+     */
     public function setUnformattedEntry($unformatted_entry = null)
     {
         $this->unformatted_entry = $unformatted_entry;
     }
 
+    /**
+     * Unformatted
+     * @return object
+     */
     public function unformatted()
     {
         return $this->unformatted_entry;
     }
 
+    /**
+     * Find entry
+     * @param  integer $id
+     * @param  array  $columns
+     * @return object
+     */
     public function findEntry($id = null, array $columns = array('*'))
     {
         $entry = $this->where($this->getKeyName(), '=', $id)->first($columns);
@@ -306,7 +425,7 @@ class Entry extends EntryOriginal
         return parent::save();
     }
 
-/**
+    /**
      * Run fields through their pre-process
      *
      * Just used for updating right now
@@ -386,6 +505,10 @@ class Entry extends EntryOriginal
         return $return_data;
     }
 
+    /**
+     * Return the total
+     * @return integer
+     */
     public function total()
     {
 
@@ -400,16 +523,29 @@ class Entry extends EntryOriginal
         return array_merge(array($this->getKeyName()), $this->getDates(), array(static::CREATED_BY));
     }
 
+    /**
+     * Get all columns
+     * @return array
+     */
     public function getAllColumns()
     {
         return array_merge($this->getStandardColumns(), $this->getFieldSlugs());
     }
 
+    /**
+     * Get columns exluding
+     * @param  array  $columns [description]
+     * @return array
+     */
     public function getAllColumnsExclude(array $columns = array())
     {
        return array_diff($this->getAllColumns(), $columns);
     }
 
+    /**
+     * Set view options
+     * @param $columns
+     */
     public function setViewOptions(array $columns = array())
     {
         $this->view_options = $columns;
@@ -417,11 +553,19 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    /**
+     * Get view options
+     * @return array
+     */
     public function getViewOptions()
     {
         return $this->view_options;
     }
 
+    /**
+     * Get view options field names
+     * @return array
+     */
     public function getViewOptionsFieldNames()
     {
         $field_names = array();
@@ -533,11 +677,22 @@ class Entry extends EntryOriginal
         return $query->get();
     }
 
+    /**
+     * New collection instance
+     * @param  array  $entries             
+     * @param  array  $unformatted_entries 
+     * @return object
+     */
     public function newCollection(array $entries = array(), array $unformatted_entries = array())
     {
         return new Collection\EntryCollection($entries, $unformatted_entries);
     }
 
+    /**
+     * New field collection instance
+     * @param  array  $fields
+     * @return object
+     */
     protected function newFieldCollection(array $fields = array())
     {
         return new Collection\FieldCollection($fields);
@@ -586,7 +741,14 @@ class Entry extends EntryOriginal
         return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
     }
 
-
+    /**
+     * Morph to an entry
+     * @param  string $related    
+     * @param  string $relation_name 
+     * @param  string $stream_column 
+     * @param  integer $id_column     
+     * @return object
+     */
     public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
     {
         // Next we will guess the type and ID if necessary. The type and IDs may also
@@ -597,6 +759,11 @@ class Entry extends EntryOriginal
         return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
     }
 
+    /**
+     * Pass properties
+     * @param  object $instance
+     * @return object
+     */
     public function passProperties(Entry $instance = null)
     {
         $instance->setStream($this->stream);
@@ -604,5 +771,4 @@ class Entry extends EntryOriginal
 
         return $instance;
     }
-
 }

@@ -5,15 +5,15 @@ use Pyro\Model\Collection\EloquentCollection;
 class EntryCollection extends EloquentCollection
 {
 	/**
-	 * [$unformatted_entries description]
+	 * Unformatted entries
 	 * @var array
 	 */
 	public $unformatted_entries = array();
 
 	/**
-	 * [__construct description]
-	 * @param array $entries             [description]
-	 * @param array $unformatted_entries [description]
+	 * Construct passing the entries and unformatted entries
+	 * @param array $entries
+	 * @param array $unformatted_entries
 	 */
 	public function __construct(array $entries = array(), array $unformatted_entries = array())
 	{
@@ -25,12 +25,11 @@ class EntryCollection extends EloquentCollection
 	}
 
 	/**
-	 * [unformatted description]
-	 * @return [type] [description]
+	 * Unformatted enties
+	 * @return array
 	 */
 	public function unformatted()
 	{
 		return new static($this->unformatted_entries);
 	}
-
 }

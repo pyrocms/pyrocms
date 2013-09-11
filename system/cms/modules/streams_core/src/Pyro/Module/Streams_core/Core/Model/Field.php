@@ -269,6 +269,11 @@ class Field extends Eloquent
         return $success;
     }
 
+    /**
+     * Delete fields by namespace
+     * @param  string $namespace
+     * @return object
+     */
     public function deleteByNamespace($namespace)
     {
         return static::where('field_namespace', $namespace)->delete();
@@ -289,6 +294,12 @@ class Field extends Eloquent
             ->first();
     }
 
+    /**
+     * Find by slug and namespace (or false)
+     * @param  string $field_slug      
+     * @param  string $field_namespace 
+     * @return mixed                  Object or false if none found
+     */
     public static function findBySlugAndNamespaceOrFail($field_slug = null, $field_namespace = null)
     {
         if ( ! is_null($model = static::findBySlugAndNamespace($field_slug, $field_namespace))) return $model;
@@ -296,6 +307,14 @@ class Field extends Eloquent
         throw new Exception\FieldNotFoundException;
     }
 
+    /**
+     * Find many by namespace
+     * @param  string $field_namespace 
+     * @param  integer $limit           
+     * @param  integer $offset          
+     * @param  array $skips           
+     * @return array                  
+     */
     public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)
     {
         $query = static::where('field_namespace', '=', $field_namespace);
@@ -322,21 +341,39 @@ class Field extends Eloquent
         throw new Exception\FieldNotFoundException;
     }
 
+    /**
+     * New collection instance
+     * @param  array  $models
+     * @return object         
+     */
     public function newCollection(array $models = array())
     {
         return new Collection\FieldCollection($models);
     }
 
+    /**
+     * assignments
+     * @return boolean
+     */
     public function assignments()
     {
         return $this->hasMany(__NAMESPACE__.'\FieldAssignment', 'field_id');
     }
 
+    /**
+     * Streams
+     * @return boolean
+     */
     public function streams()
     {
         return $this->belongsToMany('Pyro\Module\Streams_core\Core\Model\Stream');
     }
 
+    /**
+     * Get field name attr
+     * @param  strign $field_name
+     * @return string
+     */
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
@@ -345,36 +382,67 @@ class Field extends Eloquent
         return lang_label($field_name);
     }
 
+    /**
+     * Set field data attr
+     * @param array $field_data
+     */
     public function setFieldDataAttribute($field_data)
     {
         $this->attributes['field_data'] = serialize($field_data);
     }
 
+    /**
+     * Get field data attr
+     * @param  string $field_data
+     * @return array
+     */
     public function getFieldDataAttribute($field_data)
     {
         return unserialize($field_data);
     }
 
+    /**
+     * Get view options attr
+     * @param  string $view_options
+     * @return array               
+     */
     public function getViewOptionsAttribute($view_options)
     {
         return unserialize($view_options);
     }
 
+    /**
+     * Set view options attr
+     * @param array $view_options
+     */
     public function setViewOptionsAttribute($view_options)
     {   
         $this->attributes['view_options'] = serialize($view_options);
     }
 
+    /**
+     * Get is locked attr
+     * @param  string $is_locked
+     * @return boolean
+     */
     public function getIsLockedAttribute($is_locked)
     {
         return $is_locked == 'yes' ? true : false;
     }
 
+    /**
+     * Set is unlocked attr
+     * @param string $is_locked
+     */
     public function setIsLockedAttribute($is_locked)
     {
         $this->attributes['is_locked'] = ! $is_locked ? 'no' : 'yes';
     }
 
+    /**
+     * Is field name "lang:" prefixed?
+     * @return boolean
+     */
     public function isFieldNameLang()
     {
         return substr($this->getOriginal('field_name'), 0, 5) === 'lang:';

@@ -27,6 +27,12 @@ class FieldAssignment extends Eloquent
      */
     public $timestamps = false;
 
+    /**
+     * Find by field id and stream id
+     * @param  integer $field_id  
+     * @param  integer $stream_id 
+     * @return object            
+     */
     public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null)
     {
         return static::where('field_id', $field_id)
@@ -35,6 +41,14 @@ class FieldAssignment extends Eloquent
             ->first();
     }
 
+    /**
+     * Find many by stream ID
+     * @param  integer  $stream_id 
+     * @param  integer  $limit     
+     * @param  integer $offset    
+     * @param  string  $order     
+     * @return array
+     */
     public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
     {
         return static::with('field')
@@ -144,6 +158,11 @@ class FieldAssignment extends Eloquent
         return parent::delete();
     }
 
+    /**
+     * Get the field name attr
+     * @param  string $field_name 
+     * @return string             
+     */
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
@@ -210,6 +229,11 @@ class FieldAssignment extends Eloquent
         return parent::update($attributes);
     }
 
+    /**
+     * Get incremental sort order
+     * @param  integer $stream_id 
+     * @return integer            
+     */
     public static function getIncrementalSortNumber($stream_id = null)
     {
         $instance = new static;
@@ -236,39 +260,69 @@ class FieldAssignment extends Eloquent
         throw new Exception\FieldAssignmentNotFoundException;
     }
 
+    /**
+     * New collection instance
+     * @param  array  $models 
+     * @return object         
+     */
     public function newCollection(array $models = array())
     {
         return new Collection\FieldAssignmentCollection($models);
     }
 
+    /**
+     * Stream
+     * @return object
+     */
     public function stream()
     {
     	return $this->belongsTo(__NAMESPACE__.'\Stream', 'stream_id');
     }
 
+    /**
+     * Field
+     * @return object
+     */
     public function field()
     {
         return $this->belongsTo(__NAMESPACE__.'\Field');
     }
 
+    /**
+     * Get is required attr
+     * @param  string $is_required 
+     * @return boolean              
+     */
     public function getIsRequiredAttribute($is_required)
     {
         return $is_required == 'yes' ? true : false;
     }
 
+    /**
+     * Set is required attr
+     * @param boolean $is_required
+     */
     public function setIsRequiredAttribute($is_required)
     {
         $this->attributes['is_required'] = ! $is_required ? 'no' : 'yes';
     }
 
+    /**
+     * Get is unique attr
+     * @param  string $is_required 
+     * @return boolean              
+     */
     public function getIsUniqueAttribute($is_unique)
     {
         return $is_unique == 'yes' ? true : false;
     }
 
+    /**
+     * Set is unique attr
+     * @param boolean $is_required
+     */
     public function setIsUniqueAttribute($is_unique)
     {
         $this->attributes['is_unique'] = ! $is_unique ? 'no' : 'yes';
     }
-
 }

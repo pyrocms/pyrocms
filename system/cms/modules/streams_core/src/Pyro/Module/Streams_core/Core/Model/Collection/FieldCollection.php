@@ -5,8 +5,8 @@ use Pyro\Model\Collection\EloquentCollection;
 class FieldCollection extends EloquentCollection
 {
 	/**
-	 * [$by_slug description]
-	 * @var [type]
+	 * By slug
+	 * @var array
 	 */
 	protected $by_slug = null;
 
@@ -27,9 +27,9 @@ class FieldCollection extends EloquentCollection
 	}
 
 	/**
-	 * [findBySlug description]
-	 * @param  [type] $field_slug [description]
-	 * @return [type      [description]
+	 * Find a field by slug
+	 * @param  string $field_slug
+	 * @return object
 	 */
 	public function findBySlug($field_slug = null)
 	{
@@ -37,8 +37,8 @@ class FieldCollection extends EloquentCollection
 	}
 
 	/**
-	 * [getFieldSlugs description]
-	 * @return [type] [description]
+	 * Get field slugs
+	 * @return array
 	 */
 	public function getFieldSlugs()
 	{
@@ -46,9 +46,9 @@ class FieldCollection extends EloquentCollection
 	}
 
 	/**
-	 * [getFieldSlugsExclude description]
-	 * @param  array  $columns [description]
-	 * @return [type]          [description]
+	 * Get field slugs
+	 * @param  array  $columns
+	 * @return array
 	 */
 	public function getFieldSlugsExclude(array $columns = array())
 	{
@@ -58,8 +58,8 @@ class FieldCollection extends EloquentCollection
 	}
 
 	/**
-	 * [getArrayIndexedBySlug description]
-	 * @return [type] [description]
+	 * Get array indexed by slug
+	 * @return array
 	 */
 	public function getArrayIndexedBySlug()
 	{
@@ -88,6 +88,5 @@ class FieldCollection extends EloquentCollection
 		}
 
 		return new FieldTypeCollection($types);
-	}
-	
+	}	
 }

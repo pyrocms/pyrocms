@@ -25,8 +25,16 @@ class Type
 	 */
 	protected $addon_paths = array();
 
+	/**
+	 * Available field types
+	 * @var array
+	 */
 	protected $types = array();
 
+	/**
+	 * The current instance
+	 * @var object
+	 */
 	protected static $instance = null;
 
 	/**
@@ -75,26 +83,49 @@ class Type
 	    return $instance;
 	}
 
+	/**
+	 * Set addon path
+	 * @param string $key  
+	 * @param string $path 
+	 */
 	public function setAddonPath($key, $path)
 	{
 		$this->addon_paths[$key] = $path;
 	}
 
+	/**
+	 * Get addon paths
+	 * @return array
+	 */
 	public function getAddonPaths()
 	{
 		return $this->addon_paths;
 	}
 
+	/**
+	 * Register a field type
+	 * @return string
+	 */
 	public function registerType()
 	{
 		// @todo - starting an idea for a PSR field loader for 3.0/develop
 	}
 
+	/**
+	 * Get type
+	 * @param  string  $type         
+	 * @param  boolean $gather_types 
+	 * @return object
+	 */
 	public function getType($type = null, $gather_types = false)
 	{
 		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, $gather_types);
 	}
 
+	/**
+	 * Get all field types
+	 * @return array 
+	 */
 	public function getAllTypes()
 	{
 		$this->gatherTypes();
@@ -102,6 +133,10 @@ class Type
 		return new \Pyro\Module\Streams_core\Core\Model\Collection\FieldTypeCollection($this->types);
 	}
 
+	/**
+	 * Update types in db
+	 * @return object 
+	 */
 	public function updateTypes()
 	{
 		Events::trigger('streams_core_add_addon_path', $this);
@@ -291,8 +326,6 @@ class Type
 
 		unset($types);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Get our build params

@@ -18,43 +18,113 @@ use Pyro\Module\Streams_core\Core\Model;
  */
 class Form
 {
+	/**
+	 * The events that have run
+	 * @var array
+	 */
 	public $field_type_events_run = array();
 
+	/**
+	 * The entry object
+	 * @var object
+	 */
 	protected $entry;
 
+	/**
+	 * New or edit
+	 * @var string
+	 */
 	protected $method = 'new';
 
+	/**
+	 * Defaults
+	 * @var array
+	 */
 	protected $defaults = array();
 
+	/**
+	 * Recaptcha or not
+	 * @var boolean
+	 */
 	protected $recaptcha = false;
 
+	/**
+	 * The values
+	 * @var array
+	 */
 	protected $values = array();
 
+	/**
+	 * The form key
+	 * @var string
+	 */
 	protected $form_key = null;
 
+	/**
+	 * Fields in the form
+	 * @var array
+	 */
 	protected $fields = null;
 
+	/**
+	 * Key check
+	 * @var boolean
+	 */
 	protected $key_check = null;
 
+	/**
+	 * The stream object
+	 * @var object
+	 */
 	protected $stream = null;
 
+	/**
+	 * Skip processing
+	 * @var array
+	 */
 	protected $skips = array();
 
+	/**
+	 * Success message
+	 * @var string
+	 */
 	protected $success_message = null;
 
+	/**
+	 * Return validation rules
+	 * @var boolean
+	 */
 	protected $return_validation_rules = false;
 
+	/**
+	 * Fields types available
+	 * @var array
+	 */
 	protected $field_types = array();
 
+	/**
+	 * The result
+	 * @var boolean
+	 */
 	protected $result = false;
 
+	/**
+	 * Return
+	 * @var string
+	 */
 	protected $return = null;
 
+	/**
+	 * Enable post
+	 * @var boolean
+	 */
 	protected $enable_post = true;
 
-	// --------------------------------------------------------------------------
-
-    public function __construct($entry = null)
+	/**
+	 * Construct with the entry object optional
+	 * @param object $entry
+	 */
+	public function __construct($entry = null)
     {
     	if ($entry)
     	{
@@ -70,6 +140,10 @@ class Form
 		ci()->load->helper('form');
 	}
 
+	/**
+	 * Set fields
+	 * @param array $fields
+	 */
 	public function setFields($fields = null)
 	{
 		$this->fields = $fields;
@@ -77,9 +151,7 @@ class Form
 		return $this;
 	}
 
-	// --------------------------------------------------------------------------
-	
-    /**
+	/**
      * Build the form validation rules and the actual output.
      *
      * Based on the type of application we need it for, it will
@@ -303,8 +375,6 @@ class Form
 		return $fields;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Run Field Events
 	 *
@@ -350,8 +420,6 @@ class Form
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Gather values into an array
 	 * for a form
@@ -396,6 +464,10 @@ class Form
 		}
 	}
 
+	/**
+	 * Get field types available
+	 * @return array
+	 */
 	public function getFieldTypes()
 	{
 		if (empty($this->field_types))
@@ -411,8 +483,6 @@ class Form
 
 		return $this->field_types;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Build Fields
@@ -475,8 +545,6 @@ class Form
 
 		return $fields;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Set Rules
@@ -615,6 +683,10 @@ class Form
 		}
 	}
 
+	/**
+	 * Set defaults
+	 * @param string $defaults 
+	 */
 	public function setDefaults($defaults = null)
 	{
 		$this->defaults = $defaults;
@@ -622,6 +694,11 @@ class Form
 		return $this;
 	}
 
+	/**
+	 * Redirect
+	 * @param  string $return
+	 * @return object
+	 */
 	public function redirect($return = null)
 	{
 		$this->return = $return;
@@ -629,6 +706,11 @@ class Form
 		return $this;
 	}
 
+	/**
+	 * Success messages
+	 * @param  string $success_message
+	 * @return object                  
+	 */
 	public function successMessage($success_message = null)
 	{
 		$this->success_message = $success_message;
@@ -636,6 +718,11 @@ class Form
 		return $this;
 	}
 
+	/**
+	 * Enable post
+	 * @param  boolean $enable_post 
+	 * @return object
+	 */
 	public function enablePost($enable_post = false)
 	{
 		$this->enable_post = $enable_post;
@@ -643,12 +730,14 @@ class Form
 		return $this;
 	}
 
+	/**
+	 * The result
+	 * @return mixed
+	 */
 	public function result()
 	{
 		return $this->result;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Run Field Setup Event Functions
@@ -676,6 +765,11 @@ class Form
 		}
 	}
 
+	/**
+	 * Get the input name
+	 * @param  object $field 
+	 * @return string
+	 */
 	public function getInputName($field = null)
 	{
 		if ( ! $field instanceof Model\Field) return null;
@@ -689,8 +783,6 @@ class Form
 			return $field->field_slug;
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Send Email
@@ -830,8 +922,6 @@ class Form
 		return $return;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Process an email address - if it is not 
 	 * an email address, pull it from post data.
@@ -849,5 +939,4 @@ class Form
 
 		return $email;
 	}
-
 }

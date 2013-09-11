@@ -10,10 +10,22 @@ class EntryOriginal extends Eloquent
      */
     protected $guarded = array('id');
 
+    /**
+     * Stream slug
+     * @var string
+     */
     protected $stream_slug = null;
 
+    /**
+     * Stream namespace
+     * @var string
+     */
     protected $stream_namespace = null;
 
+    /**
+     * Stream
+     * @var object
+     */
     protected $stream = null;
 
     /**
@@ -81,11 +93,19 @@ class EntryOriginal extends Eloquent
         return $instance;
     }
 
+    /**
+     * Get stream
+     * @return object
+     */
     public function getStream()
     {
         return $this->stream instanceof Stream ? $this->stream : new Stream;
     }
 
+    /**
+     * Set stream
+     * @param object $stream
+     */
     public function setStream(Stream $stream = null)
     {
         return $this->stream = $stream;
@@ -121,6 +141,10 @@ class EntryOriginal extends Eloquent
         throw new Exception\EntryNotFoundException;
     }
 
+    /**
+     * Created by user format
+     * @return [type] [description]
+     */
     public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);

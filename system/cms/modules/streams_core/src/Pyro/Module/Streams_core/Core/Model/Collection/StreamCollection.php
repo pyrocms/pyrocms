@@ -5,10 +5,10 @@ use Pyro\Model\Collection\EloquentCollection;
 class StreamCollection extends EloquentCollection
 {
 	/**
-	 * [findBySlugAndNamespace description]
-	 * @param  [type] $slug      [description]
-	 * @param  [type] $namespace [description]
-	 * @return [type]            [description]
+	 * Find a field type by slug and namespace
+	 * @param  string $slug
+	 * @param  string $namespace
+	 * @return object
 	 */
 	public function findBySlugAndNamespace($slug = null, $namespace = null)
 	{
@@ -19,9 +19,9 @@ class StreamCollection extends EloquentCollection
 	}
 
 	/**
-	 * [findManyByNamespace description]
-	 * @param  [type] $namespace [description]
-	 * @return [type]            [description]
+	 * Find many by namespace
+	 * @param  string $namespace
+	 * @return array
 	 */
 	public function findManyByNamespace($namespace = null)
 	{		

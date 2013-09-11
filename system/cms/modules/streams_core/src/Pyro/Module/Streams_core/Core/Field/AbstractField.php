@@ -4,44 +4,113 @@ use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractField
 {
+	/**
+	 * Use alternative processing
+	 * @todo  Do we need this anymore?
+	 * @var boolean
+	 */
 	public $alt_process = false;
 
+	/**
+	 * Default values
+	 * @var array
+	 */
 	protected $defaults = null;
 
+	/**
+	 * Unformatted value
+	 * @var mixed
+	 */
 	protected $unformatted_value = null;
 
+	/**
+	 * Value
+	 * @var mixed
+	 */
 	protected $value = null;
 
+	/**
+	 * Plugin call?
+	 * @var boolean
+	 */
 	protected $plugin = false;
 
+	/**
+	 * Query injection
+	 * @var string
+	 */
 	protected $query = null;
 
+	/**
+	 * The field object
+	 * @var object
+	 */
 	protected $field = null;
 
+	/**
+	 * The unique name like namespace:stream.slug
+	 * @var string
+	 */
 	protected $name = null;
 
+	/**
+	 * The stream object
+	 * @var object
+	 */
 	protected $stream = null;
 
+	/**
+	 * The model
+	 * @var string
+	 */
 	protected $model = null;
 
+	/**
+	 * The entry object
+	 * @var object
+	 */
 	protected $entry = null;
 
+	/**
+	 * An array of entry objects
+	 * @var array
+	 */
 	protected $entries = null;
 
+	/**
+	 * New or edit
+	 * @var string
+	 */
 	protected $method = 'new';
 
+	/**
+	 * Form data
+	 * @var array
+	 */
 	protected $form_data = array();
 
+	/**
+	 * Set value
+	 * @param mixed $value
+	 */
 	public function setValue($value = null)
 	{
 		$this->value = $value;
 	}
 
+	/**
+	 * Set unformatted value
+	 * @param mixed $unformatted_value
+	 */
 	public function setUnformattedValue($unformatted_value = null)
 	{
 		$this->unformatted_value = $unformatted_value;
 	}
 
+	/**
+	 * Set plugin property
+	 * @param boolean $plugin
+	 */
 	public function setPlugin($plugin = null)
 	{
 		$this->plugin = $plugin;
@@ -49,6 +118,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set method
+	 * @param string $method
+	 */
 	public function setMethod($method = 'new')
 	{
 		$this->method = $method;
@@ -56,6 +129,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set entry builder
+	 * @param object $builder
+	 */
 	public function setEntryBuilder(\Pyro\Module\Streams_core\Core\Model\Query\EntryBuilder $builder = null)
 	{
 		$this->builder = $builder;
@@ -63,6 +140,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set field
+	 * @param object $field
+	 */
 	public function setField(\Pyro\Module\Streams_core\Core\Model\Field $field = null)
 	{
 		$this->field = $field;
@@ -70,11 +151,19 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Get the field
+	 * @return object 
+	 */
 	public function getField()
 	{
 		return $this->field;
 	}
 
+	/**
+	 * Get the input name
+	 * @return string 
+	 */
 	public function getInputName()
 	{
 		if ($this->stream instanceof Model\Stream)
@@ -87,6 +176,10 @@ abstract class AbstractField
 		}
 	}
 
+	/**
+	 * Set the stream
+	 * @param object $stream
+	 */
 	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
 	{
 		$this->stream = $stream;
@@ -94,6 +187,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set the model
+	 * @param object $model
+	 */
 	public function setModel(\Pyro\Module\Streams_core\Core\Model\Entry $model = null)
 	{
 		$this->model = $model;
@@ -101,6 +198,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set the entry
+	 * @param object $entry
+	 */
 	public function setEntry(\Pyro\Module\Streams_core\Core\Model\Entry $entry = null)
 	{
 		$this->entry = $entry;
@@ -108,6 +209,10 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set the entries
+	 * @param array $entries
+	 */
 	public function setEntries(\Pyro\Module\Streams_core\Core\Model\Collection\EntryCollection $entries = null)
 	{
 		$this->entries = $entries;
@@ -115,32 +220,52 @@ abstract class AbstractField
 		return $this;
 	}
 
+	/**
+	 * Set form data
+	 * @param array $form_data
+	 */
 	public function setFormData(array $form_data = array())
 	{
 		$this->form_data = $form_data;
 	}
 
+	/**
+	 * Set the form data
+	 * @param  string $key
+	 * @return string
+	 */
 	public function getFormData($key = null)
 	{
 		return isset($this->form_data[$key]) ? $this->form_data[$key] : null;
 	}
 
+	/**
+	 * Set the defaults
+	 * @param array $defaults
+	 */
 	public function setDefaults(array $defaults = array())
 	{
 		$this->defaults = $defaults;
 	}
 
+	/**
+	 * Get the default
+	 * @param  string $key
+	 * @return mixed
+	 */
 	public function getDefault($key = null)
 	{
 		return isset($this->defaults[$key]) ? $this->defaults[$key] : null;
 	}
 
+	/**
+	 * Get the value
+	 * @return mixed
+	 */
 	public function getValue()
 	{
 		return $this->value;
 	}
-
-	// --------------------------------------------------------------------------	
 
 	/**
 	 * Format a single column
@@ -175,12 +300,17 @@ abstract class AbstractField
 		return $this->getValue();
 	}
 
-	// --------------------------------------------------------------------------	
-
+	/**
+	 * Get the unformatted value
+	 * @param  boolean $plugin
+	 * @return mixed
+	 */
 	public function getUnformattedValue($plugin = false)
 	{
 		return $this->getValue();
 	}
+
+	// --------------------------------------------------------------------------
 
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
@@ -269,5 +399,4 @@ abstract class AbstractField
 	{
 		return (is_object($object)) ? get_object_vars($object) : $object;
 	}
-
 }

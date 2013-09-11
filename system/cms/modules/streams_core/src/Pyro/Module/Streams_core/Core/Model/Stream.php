@@ -31,13 +31,28 @@ class Stream extends Eloquent
 	    return new Collection\StreamCollection($models);
 	}
 
-	// This returns a consistent Eloquent Collection from either the cache or a new query
+	/**
+	 * This returns a consistent Eloquent
+	 * Collection from either the cache or a new query
+	 * 
+	 * @param  string  $stream_namespace 
+	 * @param  string $limit            
+	 * @param  integer $offset           
+	 * @return object                    
+	 */
 	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = 0)
 	{
 		return static::where('namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
 	}
 
-    // This returns a consistent Eloquent model from either the cache or a new query
+    /**
+     * This returns a consistent Eloquent
+     * model from either the cache or a new query
+     * 
+     * @param  string $stream_slug      
+     * @param  string $stream_namespace 
+     * @return object                   
+     */
 	public static function findBySlugAndNamespace($stream_slug = null, $stream_namespace = null)
 	{
 		if ( ! $stream_namespace)
@@ -72,16 +87,33 @@ class Stream extends Eloquent
 		throw new Exception\StreamNotFoundException;
 	}
 
+	/**
+	 * Get stream cache name
+	 * @param  string $stream_slug      
+	 * @param  string $stream_namespace 
+	 * @return object                   
+	 */
     protected static function getStreamCacheName($stream_slug = '', $stream_namespace = '')
     {
         return 'stream['.$stream_slug.','.$stream_namespace.']';
     }
 
+    /**
+     * Find by slug
+     * @param  string $stream_slug 
+     * @return object              
+     */
 	public static function findBySlug($stream_slug = '')
 	{
 		return static::where('stream_slug', $stream_slug)->take(1)->first();
 	}
 
+	/**
+	 * Get ID from slug and namespace
+	 * @param  string $stream_slug      
+	 * @param  string $stream_namespace 
+	 * @return mixed                   
+	 */
 	public static function getIdFromSlugAndNamespace($stream_slug = '', $stream_namespace = '')
 	{
 		if ($stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace))
@@ -92,6 +124,11 @@ class Stream extends Eloquent
 		return false;
 	}
 
+	/**
+	 * Total
+	 * @param  string $stream_namespace
+	 * @return integer                   
+	 */
 	public static function total($stream_namespace = null)
 	{
 		if ($stream_namespace)
@@ -102,6 +139,13 @@ class Stream extends Eloquent
 		return static::all()->count();
 	}
 
+	/**
+	 * Update title column by stream IDs
+	 * @param  array $stream_ids 
+	 * @param  integer $from       
+	 * @param  integer $to         
+	 * @return object             
+	 */
 	public static function updateTitleColumnByStreamIds($stream_ids = null, $from = null, $to = null)
 	{
 		if (empty($stream_ids) or $from == $to) return false;
@@ -118,6 +162,11 @@ class Stream extends Eloquent
 			));
 	}
 
+	/**
+	 * Create
+	 * @param  array  $attributes 
+	 * @return boolean             
+	 */
 	public static function create(array $attributes = array())
 	{
 		// Slug and namespace are required attributes
@@ -182,6 +231,10 @@ class Stream extends Eloquent
 		return parent::update($attributes);
 	}
 
+	/**
+	 * Delete
+	 * @return boolean 
+	 */
 	public function delete()
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
@@ -195,6 +248,12 @@ class Stream extends Eloquent
 		return $success;
 	}
 
+	/**
+	 * Assign field
+	 * @param  string $field 
+	 * @param  mixed  $data  
+	 * @return boolean        
+	 */
     public function assignField($field = null, $data = array())
     {
     	// TODO This whole method needs to be recoded to use Schema...
@@ -272,6 +331,13 @@ class Stream extends Eloquent
 		return $assignment->save();	
     }
 
+    /**
+     * Schema thing..
+     * @param  object $stream 
+     * @param  object $type   
+     * @param  object $field  
+     * @return void         
+     */
 	public function schema_thing($stream, $type, $field)
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
@@ -401,6 +467,12 @@ class Stream extends Eloquent
 		return true;
 	}
 
+	/**
+	 * Check if table exists
+	 * @param  string $stream 
+	 * @param  string $prefix 
+	 * @return boolean         
+	 */
 	public static function tableExists($stream, $prefix = null)
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
@@ -431,36 +503,67 @@ class Stream extends Eloquent
 		throw new Exception\StreamNotFoundException;
 	}
 
+	/**
+     * Get is hidden attr
+     * @param  string $is_hidden 
+     * @return boolean              
+     */
 	public function getIsHiddenAttribute($is_hidden)
 	{
 		return $is_hidden == 'yes' ? true : false;
 	}
 
+	/**
+     * Set is hidden attr
+     * @param boolean $is_hidden
+     */
 	public function setIsHiddenAttribute($is_hidden)
 	{
 		$this->attributes['is_hidden'] = ! $is_hidden ? 'no' : 'yes';
 	}
 
+	/**
+	 * Get view options
+	 * @param  string $view_options 
+	 * @return array               
+	 */
 	public function getViewOptionsAttribute($view_options)
 	{
 	    return unserialize($view_options);
 	}
 
+	/**
+	 * Set view options
+	 * @param array $view_options
+	 */
 	public function setViewOptionsAttribute($view_options)
 	{	
 		$this->attributes['view_options'] = serialize($view_options);
 	}
 
+	/**
+	 * Get permissions attribute
+	 * @param  string $permissions 
+	 * @return array
+	 */
 	public function getPermissionsAttribute($permissions)
     {
         return unserialize($permissions);
     }
 
+    /**
+     * Set permissions
+     * @param array $permissions
+     */
 	public function setPermissionsAttribute($permissions)
     {
         $this->attributes['permissions'] = serialize($permissions);
     }
 
+    /**
+     * Span new class
+     * @return object 
+     */
 	public function assignments()
 	{
 		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
