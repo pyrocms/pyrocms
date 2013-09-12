@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field';
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully';
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field';
-$lang['profile_user_basic_data_label']  		= 'Basic Data';
-$lang['profile_company']         	  			= 'Company';
-$lang['profile_updated_on']           			= 'Updated On';
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data';
+$lang['user:profile_company']         	  		= 'Company';
+$lang['user:profile_updated_on']           		= 'Updated On';
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields';
 
 $lang['user:register_header']                  = 'Registration';
@@ -154,50 +154,50 @@ $lang['user:reset_pass_email_subject']         = 'Password Reset';
 $lang['user:reset_pass_email_body']            = 'Your password at %s has been reset. If you did not request this change, please email us at %s and we will resolve the situation.';
 
 // Profile
-$lang['profile_of_title']             = '%s\'s Profile';
+$lang['user:profile_of_title']             = '%s\'s Profile';
 
-$lang['profile_user_details_label']   = 'User Details';
-$lang['profile_role_label']           = 'Role';
-$lang['profile_registred_on_label']   = 'Registered on';
-$lang['profile_last_login_label']     = 'Last login';
-$lang['profile_male_label']           = 'Male';
-$lang['profile_female_label']         = 'Female';
+$lang['user:profile_user_details_label']   = 'User Details';
+$lang['user:profile_role_label']           = 'Role';
+$lang['user:profile_registred_on_label']   = 'Registered on';
+$lang['user:profile_last_login_label']     = 'Last login';
+$lang['user:profile_male_label']           = 'Male';
+$lang['user:profile_female_label']         = 'Female';
 $lang['user:profile_fields_label']	  = 'Profile Fields';
 
-$lang['profile_not_set_up']           = 'This user does not have a profile set up.';
+$lang['user:profile_not_set_up']           = 'This user does not have a profile set up.';
 
-$lang['profile_edit']                 = 'Edit your profile';
+$lang['user:profile_edit']                 = 'Edit your profile';
 
-$lang['profile_personal_section']     = 'Personal';
+$lang['user:profile_personal_section']     = 'Personal';
 
-$lang['profile_display_name']         = 'Display Name';
-$lang['profile_dob']                  = 'Date of Birth';
-$lang['profile_dob_day']              = 'Day';
-$lang['profile_dob_month']            = 'Month';
-$lang['profile_dob_year']             = 'Year';
-$lang['profile_gender']               = 'Gender';
-$lang['profile_gender_nt']            = 'Not Telling';
-$lang['profile_gender_male']          = 'Male';
-$lang['profile_gender_female']        = 'Female';
-$lang['profile_bio']                  = 'About me';
+$lang['user:profile_display_name']         = 'Display Name';
+$lang['user:profile_dob']                  = 'Date of Birth';
+$lang['user:profile_dob_day']              = 'Day';
+$lang['user:profile_dob_month']            = 'Month';
+$lang['user:profile_dob_year']             = 'Year';
+$lang['user:profile_gender']               = 'Gender';
+$lang['user:profile_gender_nt']            = 'Not Telling';
+$lang['user:profile_gender_male']          = 'Male';
+$lang['user:profile_gender_female']        = 'Female';
+$lang['user:profile_bio']                  = 'About me';
 
-$lang['profile_contact_section']      = 'Contact';
+$lang['user:profile_contact_section']      = 'Contact';
 
-$lang['profile_phone']                = 'Phone';
-$lang['profile_mobile']               = 'Mobile';
-$lang['profile_address']              = 'Address';
-$lang['profile_address_line1']        = 'Line #1';
-$lang['profile_address_line2']        = 'Line #2';
-$lang['profile_address_line3']        = 'Town/City';
-$lang['profile_address_postcode']     = 'Post/Zip Code';
-$lang['profile_website']              = 'Website';
+$lang['user:profile_phone']                = 'Phone';
+$lang['user:profile_mobile']               = 'Mobile';
+$lang['user:profile_address']              = 'Address';
+$lang['user:profile_address_line1']        = 'Line #1';
+$lang['user:profile_address_line2']        = 'Line #2';
+$lang['user:profile_address_line3']        = 'Town/City';
+$lang['user:profile_address_postcode']     = 'Post/Zip Code';
+$lang['user:profile_website']              = 'Website';
 
-$lang['profile_api_section']     	  = 'API Access';
+$lang['user:profile_api_section']     	  = 'API Access';
 
-$lang['profile_edit_success']         = 'Your profile has been saved.';
-$lang['profile_edit_error']           = 'An error occurred.';
+$lang['user:profile_edit_success']         = 'Your profile has been saved.';
+$lang['user:profile_edit_error']           = 'An error occurred.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Save profile';
+$lang['user:profile_save_btn']             = 'Save profile';
 /* End of file user_lang.php */

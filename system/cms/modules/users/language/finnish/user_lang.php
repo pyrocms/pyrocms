@@ -8,9 +8,9 @@
 $lang['user:add_field']                        	= 'Lisää Käyttäjäprofiilikenttä';
 $lang['user:profile_delete_success']           	= 'Käyttäjäprofiilikenttä poistettiin onnistuneesti';
 $lang['user:profile_delete_failure']            = 'Ongelma käyttäjäprofiilikentän poistamisessa';
-$lang['profile_user_basic_data_label']  		= 'Perustiedot';
-$lang['profile_company']         	  			= 'Yritys';
-$lang['profile_updated_on']           			= 'Päivitetty';
+$lang['user:profile_user_basic_data_label']  	= 'Perustiedot';
+$lang['user:profile_company']         	  		= 'Yritys';
+$lang['user:profile_updated_on']           		= 'Päivitetty';
 $lang['user:profile_fields_label']	 		 	= 'Profiilikentät';
 
 $lang['user:register_header']                  = 'Rekisteröityminen';
@@ -159,61 +159,61 @@ $lang['user:reset_pass_email_subject']         = 'Salasanan nollaaminen';
 $lang['user:reset_pass_email_body']            = 'Salasanasi sivustolla %s on nollattu. Jos et ole nollannut salasanaa, pyydämme Teitä ottamaan yhteyttä %s.';
 
 // Profile
-$lang['profile_of_title']             = 'Käyttäjän %s profiili';
+$lang['user:profile_of_title']             = 'Käyttäjän %s profiili';
 
-$lang['profile_user_details_label']   = 'Käyttäjän tiedot';
-$lang['profile_role_label']           = 'Rooli';
-$lang['profile_registred_on_label']   = 'Rekisteröitynyt';
-$lang['profile_last_login_label']     = 'Viimeksi kijautunut sisään';
-$lang['profile_male_label']           = 'Mies';
-$lang['profile_female_label']         = 'Nainen';
+$lang['user:profile_user_details_label']   = 'Käyttäjän tiedot';
+$lang['user:profile_role_label']           = 'Rooli';
+$lang['user:profile_registred_on_label']   = 'Rekisteröitynyt';
+$lang['user:profile_last_login_label']     = 'Viimeksi kijautunut sisään';
+$lang['user:profile_male_label']           = 'Mies';
+$lang['user:profile_female_label']         = 'Nainen';
 
-$lang['profile_not_set_up']           = 'Tällä käyttäjällä ei ole profiilia.';
+$lang['user:profile_not_set_up']           = 'Tällä käyttäjällä ei ole profiilia.';
 
-$lang['profile_edit']                 = 'Muokkaa profiilia';
+$lang['user:profile_edit']                 = 'Muokkaa profiilia';
 
-$lang['profile_personal_section']     = 'Henkilökohtaiset tiedot';
+$lang['user:profile_personal_section']     = 'Henkilökohtaiset tiedot';
 
-$lang['profile_display_name']         = 'Näyttönimi';
-$lang['profile_dob']                  = 'Syntymäpäivä';
-$lang['profile_dob_day']              = 'Päivä';
-$lang['profile_dob_month']            = 'Kuukausi';
-$lang['profile_dob_year']             = 'Vuosi';
-$lang['profile_gender']               = 'Sukupuoli';
-$lang['profile_gender_nt']            = 'Ei kerrota';
-$lang['profile_gender_male']          = 'Mies';
-$lang['profile_gender_female']        = 'Nainen';
-$lang['profile_bio']                  = 'Minä';
+$lang['user:profile_display_name']         = 'Näyttönimi';
+$lang['user:profile_dob']                  = 'Syntymäpäivä';
+$lang['user:profile_dob_day']              = 'Päivä';
+$lang['user:profile_dob_month']            = 'Kuukausi';
+$lang['user:profile_dob_year']             = 'Vuosi';
+$lang['user:profile_gender']               = 'Sukupuoli';
+$lang['user:profile_gender_nt']            = 'Ei kerrota';
+$lang['user:profile_gender_male']          = 'Mies';
+$lang['user:profile_gender_female']        = 'Nainen';
+$lang['user:profile_bio']                  = 'Minä';
 
-$lang['profile_contact_section']      = 'Yhteydenotto';
+$lang['user:profile_contact_section']      = 'Yhteydenotto';
 
-$lang['profile_phone']                = 'Puhelin';
-$lang['profile_mobile']               = 'Matkapuhelin';
-$lang['profile_address']              = 'Osoite';
-$lang['profile_address_line1']        = 'Osoite rivi #1';
-$lang['profile_address_line2']        = 'Osoite rivi #2';
-$lang['profile_address_line3']        = 'Osoite rivi #3';
-$lang['profile_address_postcode']     = 'Postinumero';
-$lang['profile_website']              = 'Kotisivut';
+$lang['user:profile_phone']                = 'Puhelin';
+$lang['user:profile_mobile']               = 'Matkapuhelin';
+$lang['user:profile_address']              = 'Osoite';
+$lang['user:profile_address_line1']        = 'Osoite rivi #1';
+$lang['user:profile_address_line2']        = 'Osoite rivi #2';
+$lang['user:profile_address_line3']        = 'Osoite rivi #3';
+$lang['user:profile_address_postcode']     = 'Postinumero';
+$lang['user:profile_website']              = 'Kotisivut';
 
-$lang['profile_messenger_section']    = 'Pikaviestintä';
+$lang['user:profile_messenger_section']    = 'Pikaviestintä';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar'; // @todo Where we use these?
-$lang['profile_social_section']       = 'Social'; // ^
+$lang['user:profile_avatar_section']       = 'Avatar'; // @todo Where we use these?
+$lang['user:profile_social_section']       = 'Social'; // ^
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'Profiilisi on tallennettu.';
-$lang['profile_edit_error']           = 'Tapahtui virhe.';
+$lang['user:profile_edit_success']         = 'Profiilisi on tallennettu.';
+$lang['user:profile_edit_error']           = 'Tapahtui virhe.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Tallenna profiili';
+$lang['user:profile_save_btn']             = 'Tallenna profiili';
 
 /* End of file user_lang.php */

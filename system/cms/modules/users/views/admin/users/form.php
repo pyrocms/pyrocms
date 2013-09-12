@@ -16,7 +16,7 @@
 		<div class="tabs">
 
 			<ul class="tab-menu">
-				<li><a href="#user-basic-data-tab"><span><?php echo lang('profile_user_basic_data_label') ?></span></a></li>
+				<li><a href="#user-basic-data-tab"><span><?php echo lang('user:profile_user_basic_data_label') ?></span></a></li>
 				<li><a href="#user-profile-fields-tab"><span><?php echo lang('user:profile_fields_label') ?></span></a></li>
 			</ul>
 

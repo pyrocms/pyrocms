@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field'; #translate
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
+$lang['user:profile_company']         	  		= 'Company'; #translate
+$lang['user:profile_updated_on']           		= 'Updated On'; #translate
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user:register_header']                  = 'Registrering';
@@ -155,61 +155,61 @@ $lang['user:reset_pass_email_subject']         = 'Password nulstillet';
 $lang['user:reset_pass_email_body']            = 'Dit password for %s er nulstillet. Hvis du ikke har bedt om nulstilling, bedes du sende os en e-mail så vi kan løse problemet.';
 
 // Profile
-$lang['profile_of_title']             = '%s\'s profil';
+$lang['user:profile_of_title']             = '%s\'s profil';
 
-$lang['profile_user_details_label']   = 'Brugerdetaljer';
-$lang['profile_role_label']           = 'Rolle';
-$lang['profile_registred_on_label']   = 'Registreret på';
-$lang['profile_last_login_label']     = 'Sidste login';
-$lang['profile_male_label']           = 'Mand';
-$lang['profile_female_label']         = 'Kvinde';
+$lang['user:profile_user_details_label']   = 'Brugerdetaljer';
+$lang['user:profile_role_label']           = 'Rolle';
+$lang['user:profile_registred_on_label']   = 'Registreret på';
+$lang['user:profile_last_login_label']     = 'Sidste login';
+$lang['user:profile_male_label']           = 'Mand';
+$lang['user:profile_female_label']         = 'Kvinde';
 
-$lang['profile_not_set_up']           = 'Denne bruger har ingen profilindstillinger.';
+$lang['user:profile_not_set_up']           = 'Denne bruger har ingen profilindstillinger.';
 
-$lang['profile_edit']                 = 'Redigér din profil';
+$lang['user:profile_edit']                 = 'Redigér din profil';
 
-$lang['profile_personal_section']     = 'Personlig';
+$lang['user:profile_personal_section']     = 'Personlig';
 
-$lang['profile_display_name']         = 'Vist navn';
-$lang['profile_dob']                  = 'Fødselsdato';
-$lang['profile_dob_day']              = 'Dag';
-$lang['profile_dob_month']            = 'Måned';
-$lang['profile_dob_year']             = 'År';
-$lang['profile_gender']               = 'Køn';
-$lang['profile_gender_nt']            = 'Ikke oplyst';
-$lang['profile_gender_male']          = 'Mand';
-$lang['profile_gender_female']        = 'Kvinde';
-$lang['profile_bio']                  = 'Om mig';
+$lang['user:profile_display_name']         = 'Vist navn';
+$lang['user:profile_dob']                  = 'Fødselsdato';
+$lang['user:profile_dob_day']              = 'Dag';
+$lang['user:profile_dob_month']            = 'Måned';
+$lang['user:profile_dob_year']             = 'År';
+$lang['user:profile_gender']               = 'Køn';
+$lang['user:profile_gender_nt']            = 'Ikke oplyst';
+$lang['user:profile_gender_male']          = 'Mand';
+$lang['user:profile_gender_female']        = 'Kvinde';
+$lang['user:profile_bio']                  = 'Om mig';
 
-$lang['profile_contact_section']      = 'Kontakt';
+$lang['user:profile_contact_section']      = 'Kontakt';
 
-$lang['profile_phone']                = 'Telefon';
-$lang['profile_mobile']               = 'Mobil';
-$lang['profile_address']              = 'Adresse';
-$lang['profile_address_line1']        = 'Adresse 1';
-$lang['profile_address_line2']        = 'Adresse 2';
-$lang['profile_address_line3']        = 'Adresse 3';
-$lang['profile_address_postcode']     = 'Postnummer';
-$lang['profile_website']              = 'Website';
+$lang['user:profile_phone']                = 'Telefon';
+$lang['user:profile_mobile']               = 'Mobil';
+$lang['user:profile_address']              = 'Adresse';
+$lang['user:profile_address_line1']        = 'Adresse 1';
+$lang['user:profile_address_line2']        = 'Adresse 2';
+$lang['user:profile_address_line3']        = 'Adresse 3';
+$lang['user:profile_address_postcode']     = 'Postnummer';
+$lang['user:profile_website']              = 'Website';
 
-$lang['profile_messenger_section']    = 'Instant messengers';
+$lang['user:profile_messenger_section']    = 'Instant messengers';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
+$lang['user:profile_avatar_section']       = 'Avatar';
+$lang['user:profile_social_section']       = 'Social';
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'Din profil er gemt.';
-$lang['profile_edit_error']           = 'Der opstod et problem.';
+$lang['user:profile_edit_success']         = 'Din profil er gemt.';
+$lang['user:profile_edit_error']           = 'Der opstod et problem.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Gem profil';
+$lang['user:profile_save_btn']             = 'Gem profil';
 /* End of file user_lang.php */
 /* Location: ./system/cms/modules/users/language/english/user_lang.php */

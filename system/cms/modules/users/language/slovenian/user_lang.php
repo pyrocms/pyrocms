@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Dodaj Polje Uporabnikovemu Profilu';
 $lang['user:profile_delete_success']           	= 'Polje uporabnikovega profila uspešno izbrisan';
 $lang['user:profile_delete_failure']            = 'Pri odstranjevanju polja iz uporabnikovega profila je prišlo do napake';
-$lang['profile_user_basic_data_label']  		= 'Osnovni Podatki';
-$lang['profile_company']         	  			= 'Podjetje';
-$lang['profile_updated_on']           			= 'Posodobljeno';
+$lang['user:profile_user_basic_data_label']  	= 'Osnovni Podatki';
+$lang['user:profile_company']         	  		= 'Podjetje';
+$lang['user:profile_updated_on']           		= 'Posodobljeno';
 $lang['user:profile_fields_label']	 		 	= 'Polja profila';
 
 $lang['user:register_header']                  = 'Registracija';
@@ -16,7 +16,7 @@ $lang['user:login_header']                     = 'Prijava';
 
 // titles
 $lang['user:add_title']                        = 'Dodaj uporabnika';
-$lang['user:list_title'] 				= 'Seznam uporabnikov';
+$lang['user:list_title'] 					   = 'Seznam uporabnikov';
 $lang['user:inactive_title']                   = 'Neaktivni uporabniki';
 $lang['user:active_title']                     = 'Aktivni uporabniki';
 $lang['user:registred_title']                  = 'Registrirani uporabniki';
@@ -154,61 +154,61 @@ $lang['user:reset_pass_email_subject']         = 'Ponastavitev gesla';
 $lang['user:reset_pass_email_body']            = 'Vaše geslo pri %s has je bilo ponastavljeno. Če niste zahtevali vi te spremembe prosimo sporočite nam to na email %s da uredimo situacijo.';
 
 // Profile
-$lang['profile_of_title']             = '%s\'ov Profil';
+$lang['user:profile_of_title']             = '%s\'ov Profil';
 
-$lang['profile_user_details_label']   = 'Podrobnosti uporabnika';
-$lang['profile_role_label']           = 'Vloga';
-$lang['profile_registred_on_label']   = 'Registriran';
-$lang['profile_last_login_label']     = 'Zadnja prijava';
-$lang['profile_male_label']           = 'Ženska';
-$lang['profile_female_label']         = 'Moški';
+$lang['user:profile_user_details_label']   = 'Podrobnosti uporabnika';
+$lang['user:profile_role_label']           = 'Vloga';
+$lang['user:profile_registred_on_label']   = 'Registriran';
+$lang['user:profile_last_login_label']     = 'Zadnja prijava';
+$lang['user:profile_male_label']           = 'Ženska';
+$lang['user:profile_female_label']         = 'Moški';
 
-$lang['profile_not_set_up']           = 'Ta uporabnik nima nastavljenega profila.';
+$lang['user:profile_not_set_up']           = 'Ta uporabnik nima nastavljenega profila.';
 
-$lang['profile_edit']                 = 'Uredite svoj profil';
+$lang['user:profile_edit']                 = 'Uredite svoj profil';
 
-$lang['profile_personal_section']     = 'Osebno';
+$lang['user:profile_personal_section']     = 'Osebno';
 
-$lang['profile_display_name']         = 'Prikazno ime';
-$lang['profile_dob']                  = 'Datum rojstva';
-$lang['profile_dob_day']              = 'Dan';
-$lang['profile_dob_month']            = 'Mesec';
-$lang['profile_dob_year']             = 'Leto';
-$lang['profile_gender']               = 'Spol';
-$lang['profile_gender_nt']            = 'Ne povem';
-$lang['profile_gender_male']          = 'Moški';
-$lang['profile_gender_female']        = 'Ženska';
-$lang['profile_bio']                  = 'O meni';
+$lang['user:profile_display_name']         = 'Prikazno ime';
+$lang['user:profile_dob']                  = 'Datum rojstva';
+$lang['user:profile_dob_day']              = 'Dan';
+$lang['user:profile_dob_month']            = 'Mesec';
+$lang['user:profile_dob_year']             = 'Leto';
+$lang['user:profile_gender']               = 'Spol';
+$lang['user:profile_gender_nt']            = 'Ne povem';
+$lang['user:profile_gender_male']          = 'Moški';
+$lang['user:profile_gender_female']        = 'Ženska';
+$lang['user:profile_bio']                  = 'O meni';
 
-$lang['profile_contact_section']      = 'Kontakt';
+$lang['user:profile_contact_section']      = 'Kontakt';
 
-$lang['profile_phone']                = 'Telefon';
-$lang['profile_mobile']               = 'Mobitel';
-$lang['profile_address']              = 'Naslov';
-$lang['profile_address_line1']        = 'Vrstica #1';
-$lang['profile_address_line2']        = 'Vrstica #2';
-$lang['profile_address_line3']        = 'Vrstica #3';
-$lang['profile_address_postcode']     = 'Poštna št.';
-$lang['profile_website']              = 'Spletna stran';
+$lang['user:profile_phone']                = 'Telefon';
+$lang['user:profile_mobile']               = 'Mobitel';
+$lang['user:profile_address']              = 'Naslov';
+$lang['user:profile_address_line1']        = 'Vrstica #1';
+$lang['user:profile_address_line2']        = 'Vrstica #2';
+$lang['user:profile_address_line3']        = 'Vrstica #3';
+$lang['user:profile_address_postcode']     = 'Poštna št.';
+$lang['user:profile_website']              = 'Spletna stran';
 
-$lang['profile_messenger_section']    = 'Instant sporočilniki';
+$lang['user:profile_messenger_section']    = 'Instant sporočilniki';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
+$lang['user:profile_avatar_section']       = 'Avatar';
+$lang['user:profile_social_section']       = 'Social';
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'Vaš profil je bil shranjen.';
-$lang['profile_edit_error']           = 'Prišlo je do napake.';
+$lang['user:profile_edit_success']         = 'Vaš profil je bil shranjen.';
+$lang['user:profile_edit_error']           = 'Prišlo je do napake.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Shrani profil';
+$lang['user:profile_save_btn']             = 'Shrani profil';
 
 /* End of file user_lang.php */

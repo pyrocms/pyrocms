@@ -14,9 +14,9 @@
 $lang['user:add_field']                        	= '添加用户简介栏目'; #translate
 $lang['user:profile_delete_success']           	= '用户简介栏目删除成功'; #translate
 $lang['user:profile_delete_failure']            = '无法删除用户简介栏目'; #translate
-$lang['profile_user_basic_data_label']  		= '基本资料'; #translate
-$lang['profile_company']         	  			= '公司'; #translate
-$lang['profile_updated_on']           			= '最近更新'; #translate
+$lang['user:profile_user_basic_data_label']  	= '基本资料'; #translate
+$lang['user:profile_company']         	  		= '公司'; #translate
+$lang['user:profile_updated_on']           		= '最近更新'; #translate
 $lang['user:profile_fields_label']	 		 	= '简介栏目'; #translate`
 
 $lang['user:register_header'] 			= '註冊';
@@ -166,59 +166,59 @@ $lang['user:reset_pass_email_subject'] 			= '重新設定密碼';
 $lang['user:reset_pass_email_body'] 			= '您在 %s 的密碼已重新設定。如果您並沒有請求這項改變，請來信 %s，我們將會為您檢查這個問題。';
 
 // Profile
-$lang['profile_of_title'] 				= '%s\'s 個人簡介';
+$lang['user:profile_of_title'] 				= '%s\'s 個人簡介';
 
-$lang['profile_user_details_label'] 	= '用戶資訊';
-$lang['profile_role_label'] 			= '用戶身分';
-$lang['profile_registred_on_label'] 	= '用戶註冊於';
-$lang['profile_last_login_label'] 		= '最後登入於';
-$lang['profile_male_label'] 			= '男性';
-$lang['profile_female_label'] 			= '女性';
+$lang['user:profile_user_details_label'] 	= '用戶資訊';
+$lang['user:profile_role_label'] 			= '用戶身分';
+$lang['user:profile_registred_on_label'] 	= '用戶註冊於';
+$lang['user:profile_last_login_label'] 		= '最後登入於';
+$lang['user:profile_male_label'] 			= '男性';
+$lang['user:profile_female_label'] 			= '女性';
 
-$lang['profile_not_set_up'] 			= '此用戶尚未設定個人簡介。';
+$lang['user:profile_not_set_up'] 			= '此用戶尚未設定個人簡介。';
 
-$lang['profile_edit'] 					= '編輯個人簡介';
+$lang['user:profile_edit'] 					= '編輯個人簡介';
 
-$lang['profile_personal_section'] 		= '個人資訊';
+$lang['user:profile_personal_section'] 		= '個人資訊';
 
-$lang['profile_display_name']			= '顯示名稱';
-$lang['profile_dob']					= '出生日期';
-$lang['profile_dob_day']				= '日';
-$lang['profile_dob_month']				= '月';
-$lang['profile_dob_year']				= '年';
-$lang['profile_gender']					= '性別';
-$lang['profile_gender_nt']            = '不想透漏';
-$lang['profile_gender_male']          = '男性';
-$lang['profile_gender_female']        = '女性';
-$lang['profile_bio']					= '關於我';
+$lang['user:profile_display_name']			= '顯示名稱';
+$lang['user:profile_dob']					= '出生日期';
+$lang['user:profile_dob_day']				= '日';
+$lang['user:profile_dob_month']				= '月';
+$lang['user:profile_dob_year']				= '年';
+$lang['user:profile_gender']					= '性別';
+$lang['user:profile_gender_nt']            = '不想透漏';
+$lang['user:profile_gender_male']          = '男性';
+$lang['user:profile_gender_female']        = '女性';
+$lang['user:profile_bio']					= '關於我';
 
-$lang['profile_contact_section'] 		= '聯絡資訊';
+$lang['user:profile_contact_section'] 		= '聯絡資訊';
 
-$lang['profile_phone']					= '電話';
-$lang['profile_mobile']					= '手機';
-$lang['profile_address']				= '地址';
-$lang['profile_address_line1'] 			= '地址 #1';
-$lang['profile_address_line2'] 			= '地址 #2';
-$lang['profile_address_line3'] 			= '地址 #3';
-$lang['profile_address_postcode'] 		= '郵遞區號';
-$lang['profile_website']				= '網站';
+$lang['user:profile_phone']					= '電話';
+$lang['user:profile_mobile']					= '手機';
+$lang['user:profile_address']				= '地址';
+$lang['user:profile_address_line1'] 			= '地址 #1';
+$lang['user:profile_address_line2'] 			= '地址 #2';
+$lang['user:profile_address_line3'] 			= '地址 #3';
+$lang['user:profile_address_postcode'] 		= '郵遞區號';
+$lang['user:profile_website']				= '網站';
 
-$lang['profile_messenger_section'] 		= '即時通訊';
+$lang['user:profile_messenger_section'] 		= '即時通訊';
 
-$lang['profile_msn_handle'] 			= 'MSN';
-$lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'Yahoo! messenger';
-$lang['profile_gtalk_handle'] 			= 'GTalk';
+$lang['user:profile_msn_handle'] 			= 'MSN';
+$lang['user:profile_aim_handle'] 			= 'AIM';
+$lang['user:profile_yim_handle'] 			= 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle'] 			= 'GTalk';
 
-$lang['profile_avatar_section'] 		= '頭像工具';
-$lang['profile_social_section'] 		= '社交工具';
+$lang['user:profile_avatar_section'] 		= '頭像工具';
+$lang['user:profile_social_section'] 		= '社交工具';
 
-$lang['profile_gravatar'] 				= 'Gravatar';
-$lang['profile_twitter'] 				= 'Twitter';
+$lang['user:profile_gravatar'] 				= 'Gravatar';
+$lang['user:profile_twitter'] 				= 'Twitter';
 
-$lang['profile_edit_success'] 			= '您的個人簡介已經儲存。';
-$lang['profile_edit_error'] 			= '發生了問題';
+$lang['user:profile_edit_success'] 			= '您的個人簡介已經儲存。';
+$lang['user:profile_edit_error'] 			= '發生了問題';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= '儲存個人簡介';
+$lang['user:profile_save_btn'] 				= '儲存個人簡介';

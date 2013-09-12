@@ -11,9 +11,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field'; #translate
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
+$lang['user:profile_company']         	  		= 'Company'; #translate
+$lang['user:profile_updated_on']           		= 'Updated On'; #translate
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user:register_header']								= 'Регистрация';
@@ -162,60 +162,60 @@ $lang['user:reset_pass_email_subject']				= 'Сброс пароля';
 $lang['user:reset_pass_email_body']						= 'Ваш пароль на %s был сброшен. Если Вы не запрашивали сброс пароля - пожалуйста, отправьте нам письмо на %s и мы исправим возникшую проблему.';
 
 // Profile
-$lang['profile_of_title'] 						= 'Профиль: %s';
+$lang['user:profile_of_title'] 						= 'Профиль: %s';
 
-$lang['profile_user_details_label'] 	= 'Детали';
-$lang['profile_role_label'] 					= 'Роль';
-$lang['profile_registred_on_label'] 	= 'Дата регистрации';
-$lang['profile_last_login_label'] 		= 'Последний вход';
-$lang['profile_male_label'] 					= 'Мужчина';
-$lang['profile_female_label'] 				= 'Женщина';
+$lang['user:profile_user_details_label'] 	= 'Детали';
+$lang['user:profile_role_label'] 					= 'Роль';
+$lang['user:profile_registred_on_label'] 	= 'Дата регистрации';
+$lang['user:profile_last_login_label'] 		= 'Последний вход';
+$lang['user:profile_male_label'] 					= 'Мужчина';
+$lang['user:profile_female_label'] 				= 'Женщина';
 
-$lang['profile_not_set_up'] 					= 'Профиль отсутствует.';
+$lang['user:profile_not_set_up'] 					= 'Профиль отсутствует.';
 
-$lang['profile_edit'] 								= 'Редактирование профиль';
+$lang['user:profile_edit'] 								= 'Редактирование профиль';
 
-$lang['profile_personal_section'] 		= 'Личное';
+$lang['user:profile_personal_section'] 		= 'Личное';
 
-$lang['profile_display_name']					= 'Отображаемое имя';
-$lang['profile_dob']									= 'Дата рождения';
-$lang['profile_dob_day']							= 'День';
-$lang['profile_dob_month']						= 'Месяц';
-$lang['profile_dob_year']							= 'Год';
-$lang['profile_gender']								= 'Пол';
-$lang['profile_gender_nt']						= 'Не скажу';
-$lang['profile_gender_male']					= 'Мужской';
-$lang['profile_gender_female']				= 'Женский';
-$lang['profile_bio']									= 'О себе';
+$lang['user:profile_display_name']					= 'Отображаемое имя';
+$lang['user:profile_dob']									= 'Дата рождения';
+$lang['user:profile_dob_day']							= 'День';
+$lang['user:profile_dob_month']						= 'Месяц';
+$lang['user:profile_dob_year']							= 'Год';
+$lang['user:profile_gender']								= 'Пол';
+$lang['user:profile_gender_nt']						= 'Не скажу';
+$lang['user:profile_gender_male']					= 'Мужской';
+$lang['user:profile_gender_female']				= 'Женский';
+$lang['user:profile_bio']									= 'О себе';
 
-$lang['profile_contact_section'] 			= 'Связь';
+$lang['user:profile_contact_section'] 			= 'Связь';
 
-$lang['profile_phone']								= 'Телефон';
-$lang['profile_mobile']								= 'Моб. телефон';
-$lang['profile_address']							= 'Адрес';
-$lang['profile_address_line1'] 				= 'Строка #1';
-$lang['profile_address_line2'] 				= 'Строка #2';
-$lang['profile_address_line3'] 				= 'Строка #3';
-$lang['profile_address_postcode'] 		= 'Почтовый индекс';
-$lang['profile_website']							= 'Адрес сайта';
+$lang['user:profile_phone']								= 'Телефон';
+$lang['user:profile_mobile']								= 'Моб. телефон';
+$lang['user:profile_address']							= 'Адрес';
+$lang['user:profile_address_line1'] 				= 'Строка #1';
+$lang['user:profile_address_line2'] 				= 'Строка #2';
+$lang['user:profile_address_line3'] 				= 'Строка #3';
+$lang['user:profile_address_postcode'] 		= 'Почтовый индекс';
+$lang['user:profile_website']							= 'Адрес сайта';
 
-$lang['profile_messenger_section'] 		= 'Общение';
+$lang['user:profile_messenger_section'] 		= 'Общение';
 
-$lang['profile_msn_handle'] 					= 'MSN';
-$lang['profile_aim_handle'] 					= 'AIM';
-$lang['profile_yim_handle'] 					= 'Yahoo! messenger';
-$lang['profile_gtalk_handle'] 				= 'GTalk';
+$lang['user:profile_msn_handle'] 					= 'MSN';
+$lang['user:profile_aim_handle'] 					= 'AIM';
+$lang['user:profile_yim_handle'] 					= 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle'] 				= 'GTalk';
 
-$lang['profile_avatar_section'] 			= 'Аватар';
-$lang['profile_social_section'] 			= 'Социальное';
+$lang['user:profile_avatar_section'] 			= 'Аватар';
+$lang['user:profile_social_section'] 			= 'Социальное';
 
-$lang['profile_gravatar'] 						= 'Gravatar';
-$lang['profile_twitter'] 							= 'Twitter';
+$lang['user:profile_gravatar'] 						= 'Gravatar';
+$lang['user:profile_twitter'] 							= 'Twitter';
 
-$lang['profile_edit_success'] 				= 'Ваш профиль сохранён.';
-$lang['profile_edit_error'] 					= 'Во время сохранения профиля произошла ошибка.';
+$lang['user:profile_edit_success'] 				= 'Ваш профиль сохранён.';
+$lang['user:profile_edit_error'] 					= 'Во время сохранения профиля произошла ошибка.';
 
 // кнопки
-$lang['profile_save_btn'] 						= 'Сохранить профиль';
+$lang['user:profile_save_btn'] 						= 'Сохранить профиль';
 
 /* End of file user_lang.php */

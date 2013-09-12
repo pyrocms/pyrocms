@@ -314,7 +314,7 @@ class Module_Users extends AbstractModule
                 'extra' => array('filter_theme' => 'yes')
             ),
             array(
-                'name'          => 'lang:profile_dob',
+                'name'          => 'lang:user:profile_dob',
                 'slug'          => 'dob',
                 'type'          => 'datetime',
                 'namespace'     => 'users',
@@ -327,7 +327,7 @@ class Module_Users extends AbstractModule
                 )
             ),
             array(
-                'name'          => 'lang:profile_gender',
+                'name'          => 'lang:user:profile_gender',
                 'slug'          => 'choice',
                 'type'          => 'text',
                 'namespace'     => 'users',
@@ -338,7 +338,7 @@ class Module_Users extends AbstractModule
                 )
             ),
             array(
-                'name'          => 'lang:profile_phone',
+                'name'          => 'lang:user:profile_phone',
                 'slug'          => 'phone',
                 'type'          => 'text',
                 'namespace'     => 'users',
@@ -346,7 +346,7 @@ class Module_Users extends AbstractModule
                 'extra'      => array('max_length' => 20)
             ),
             array(
-                'name'          => 'lang:profile_mobile',
+                'name'          => 'lang:user:profile_mobile',
                 'slug'          => 'mobile',
                 'type'          => 'text',
                 'namespace'     => 'users',
@@ -354,28 +354,28 @@ class Module_Users extends AbstractModule
                 'extra'      => array('max_length' => 20)
             ),
             array(
-                'name'          => 'lang:profile_address_line1',
+                'name'          => 'lang:user:profile_address_line1',
                 'slug'          => 'address_line1',
                 'type'          => 'text',
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
             ),
             array(
-                'name'          => 'lang:profile_address_line2',
+                'name'          => 'lang:user:profile_address_line2',
                 'slug'          => 'address_line2',
                 'type'          => 'text',
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
             ),
             array(
-                'name'          => 'lang:profile_address_line3',
+                'name'          => 'lang:user:profile_address_line3',
                 'slug'          => 'address_line3',
                 'type'          => 'text',
                 'namespace'     => 'users',
                 'assign'        => 'profiles',
             ),
             array(
-                'name'          => 'lang:profile_address_postcode',
+                'name'          => 'lang:user:profile_address_postcode',
                 'slug'          => 'postcode',
                 'type'          => 'text',
                 'namespace'     => 'users',
@@ -383,7 +383,7 @@ class Module_Users extends AbstractModule
                 'extra'      => array('max_length' => 20)
             ),
             array(
-                'name'          => 'lang:profile_website',
+                'name'          => 'lang:user:profile_website',
                 'slug'          => 'website',
                 'type'          => 'url',
                 'namespace'     => 'users',

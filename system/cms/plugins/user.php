@@ -193,25 +193,25 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
-			'name'  => lang('profile_last_login_label'),
+			'name'  => lang('user:profile_last_login_label'),
 			'slug'  => 'last_login'
 		);
 
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['created_on']),
-			'name'  => lang('profile_registred_on_label'),
+			'name'  => lang('user:profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
 
 		// Display name and updated on
 		$plugin_data[] = array(
 			'value' => $profile_data['display_name'],
-			'name'  => lang('profile_display_name'),
+			'name'  => lang('user:profile_display_name'),
 			'slug'  => 'display_name'
 		);
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['updated_on']),
-			'name'  => lang('profile_updated_on'),
+			'name'  => lang('user:profile_updated_on'),
 			'slug'  => 'updated_on'
 		);
 

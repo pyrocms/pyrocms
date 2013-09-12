@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'إضافة حقل لملف المستخدم الشخصي';
 $lang['user:profile_delete_success']           	= 'تم حذف حقل ملف المستخدم الشخصي بنجاح';
 $lang['user:profile_delete_failure']            = 'حدث خطأ أثناء حذف حقل ملف المستخدم الشخصي بنجاح';
-$lang['profile_user_basic_data_label']  		= 'بيانات أساسية';
-$lang['profile_company']         	  			= 'الشركة';
-$lang['profile_updated_on']           			= 'آخر تحديث';
+$lang['user:profile_user_basic_data_label']  	= 'بيانات أساسية';
+$lang['user:profile_company']         	  		= 'الشركة';
+$lang['user:profile_updated_on']           		= 'آخر تحديث';
 $lang['user:profile_fields_label']	 		 	= 'حقول الملف الشخصي';
 
 $lang['user:register_header'] 			= 'الإشتراك';
@@ -154,59 +154,59 @@ $lang['user:reset_pass_email_subject'] 			= 'استعادة كلمة السرّ'
 $lang['user:reset_pass_email_body'] 			= 'تمت استعادة كلمة المرور على %s. إن لم تطلب هذا التغيير، رجاءً راسلنا على %s وسنقوم باللازم.';
 
 // Profile
-$lang['profile_of_title'] 				= 'ملف %s الشخصيّ';
+$lang['user:profile_of_title'] 				= 'ملف %s الشخصيّ';
 
-$lang['profile_user_details_label'] 	= 'بيانات المستخدم';
-$lang['profile_role_label'] 			= 'الدور';
-$lang['profile_registred_on_label'] 	= 'سجّل في';
-$lang['profile_last_login_label'] 		= 'آخر تسجيل دخول';
-$lang['profile_male_label'] 			= 'ذكر';
-$lang['profile_female_label'] 			= 'أنثى';
+$lang['user:profile_user_details_label'] 	= 'بيانات المستخدم';
+$lang['user:profile_role_label'] 			= 'الدور';
+$lang['user:profile_registred_on_label'] 	= 'سجّل في';
+$lang['user:profile_last_login_label'] 		= 'آخر تسجيل دخول';
+$lang['user:profile_male_label'] 			= 'ذكر';
+$lang['user:profile_female_label'] 			= 'أنثى';
 
-$lang['profile_not_set_up'] 			= 'هذا المستخدم ليس له ملف شخصي مُعدّ.';
+$lang['user:profile_not_set_up'] 			= 'هذا المستخدم ليس له ملف شخصي مُعدّ.';
 
-$lang['profile_edit'] 					= 'عدّل ملفّك الشخصيّ';
+$lang['user:profile_edit'] 					= 'عدّل ملفّك الشخصيّ';
 
-$lang['profile_personal_section'] 		= 'شخصيّ';
+$lang['user:profile_personal_section'] 		= 'شخصيّ';
 
-$lang['profile_display_name']			= 'اسم العرض';
-$lang['profile_dob']					= 'تاريخ الميلاد';
-$lang['profile_dob_day']				= 'اليوم';
-$lang['profile_dob_month']				= 'الشهر';
-$lang['profile_dob_year']				= 'السنة';
-$lang['profile_gender']					= 'الجنس';
-$lang['profile_gender_nt']            = 'غير محدد';
-$lang['profile_gender_male']          = 'ذكر';
-$lang['profile_gender_female']        = 'أنثى';
-$lang['profile_bio']					= 'عنّي';
+$lang['user:profile_display_name']			= 'اسم العرض';
+$lang['user:profile_dob']					= 'تاريخ الميلاد';
+$lang['user:profile_dob_day']				= 'اليوم';
+$lang['user:profile_dob_month']				= 'الشهر';
+$lang['user:profile_dob_year']				= 'السنة';
+$lang['user:profile_gender']					= 'الجنس';
+$lang['user:profile_gender_nt']            = 'غير محدد';
+$lang['user:profile_gender_male']          = 'ذكر';
+$lang['user:profile_gender_female']        = 'أنثى';
+$lang['user:profile_bio']					= 'عنّي';
 
-$lang['profile_contact_section'] 		= 'معلومات الاتصال';
+$lang['user:profile_contact_section'] 		= 'معلومات الاتصال';
 
-$lang['profile_phone']					= 'الهاتف';
-$lang['profile_mobile']					= 'الجوال';
-$lang['profile_address']				= 'العنوان';
-$lang['profile_address_line1'] 			= 'السطر الأول';
-$lang['profile_address_line2'] 			= 'السطر الثاني';
-$lang['profile_address_line3'] 			= 'السطر الثالث';
-$lang['profile_address_postcode'] 		= 'الرمز البريدي';
-$lang['profile_website']				= 'الموقع';
+$lang['user:profile_phone']					= 'الهاتف';
+$lang['user:profile_mobile']					= 'الجوال';
+$lang['user:profile_address']				= 'العنوان';
+$lang['user:profile_address_line1'] 			= 'السطر الأول';
+$lang['user:profile_address_line2'] 			= 'السطر الثاني';
+$lang['user:profile_address_line3'] 			= 'السطر الثالث';
+$lang['user:profile_address_postcode'] 		= 'الرمز البريدي';
+$lang['user:profile_website']				= 'الموقع';
 
-$lang['profile_messenger_section'] 		= 'المراسلات الفوريّة';
+$lang['user:profile_messenger_section'] 		= 'المراسلات الفوريّة';
 
-$lang['profile_msn_handle'] 			= 'MSN';
-$lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'ياهو مسنجر';
-$lang['profile_gtalk_handle'] 			= 'GTalk';
+$lang['user:profile_msn_handle'] 			= 'MSN';
+$lang['user:profile_aim_handle'] 			= 'AIM';
+$lang['user:profile_yim_handle'] 			= 'ياهو مسنجر';
+$lang['user:profile_gtalk_handle'] 			= 'GTalk';
 
-$lang['profile_avatar_section'] 		= 'أفاتار';
-$lang['profile_social_section'] 		= 'اجتماعي';
+$lang['user:profile_avatar_section'] 		= 'أفاتار';
+$lang['user:profile_social_section'] 		= 'اجتماعي';
 
-$lang['profile_gravatar'] 				= 'جرافاتار';
-$lang['profile_twitter'] 				= 'تويتر';
+$lang['user:profile_gravatar'] 				= 'جرافاتار';
+$lang['user:profile_twitter'] 				= 'تويتر';
 
-$lang['profile_edit_success'] 			= 'تم حفظ ملفك الشخصي.';
-$lang['profile_edit_error'] 			= 'حدث خطأ.';
+$lang['user:profile_edit_success'] 			= 'تم حفظ ملفك الشخصي.';
+$lang['user:profile_edit_error'] 			= 'حدث خطأ.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= 'حفظ الملف الشخصي';
+$lang['user:profile_save_btn'] 				= 'حفظ الملف الشخصي';
