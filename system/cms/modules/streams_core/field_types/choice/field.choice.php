@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Choice Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_choice
+class Field_choice extends AbstractField
 {	
 	public $field_type_slug			= 'choice';
 	
@@ -411,16 +413,16 @@ class Field_choice
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin($value)
 	{
-		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type'], 'no', false);
+		$options = $this->_choices_to_array($this->field->field_data['choice_data'], $this->field->field_data['choice_type'], 'no', false);
 
 		// Checkboxes
-		if ($params['choice_type'] == 'checkboxes' || $params['choice_type']== 'multiselect')
+		if ($this->field->field_data['choice_type'] == 'checkboxes' || $this->field->field_data['choice_type']== 'multiselect')
 		{
 			$this->plugin_return = 'array';
 			
-			$values = explode("\n", $input);
+			$values = explode("\n", $value);
 			
 			$return = array();
 			
@@ -444,11 +446,11 @@ class Field_choice
 
 		$this->plugin_return = 'merge';
 	
-		if (isset($options[$input]) and $input != '')
+		if (isset($options[$value]) and $value != '')
 		{
-			$choices['key']		= $input;
-			$choices['val']		= $options[$input]; // legacy
-			$choices['value']	= $options[$input];
+			$choices['key']		= $value;
+			$choices['val']		= $options[$value]; // legacy
+			$choices['value']	= $options[$value];
 			
 			return $choices;
 		}
@@ -456,6 +458,7 @@ class Field_choice
 		{
 			return null;
 		}
+
 	}
 
 	// --------------------------------------------------------------------------

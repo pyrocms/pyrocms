@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Country Field Type
  *
@@ -7,7 +9,7 @@
  * @author		Adam Fairholm
  * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
-class Field_country
+class Field_country extends AbstractField
 {
 	public $field_type_slug			= 'country';
 
@@ -28,18 +30,18 @@ class Field_country
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if (! $data['value'] and ! $entry_id) {
-			$value = (isset($field->field_data['default_country'])) ? $field->field_data['default_country'] : null;
+		if ( ! $this->value and ! $this->entry->getKey()) {
+			$value = (isset($this->field->field_data['default_country'])) ? $this->field->field_data['default_country'] : null;
 		} else {
-			$value = $data['value'];
+			$value = $this->value;
 		}
 
-		return form_dropdown($data['form_slug'], $this->countries($field->is_required), $value, 'id="'.$data['form_slug'].'"');
+		return form_dropdown($this->name, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -51,12 +53,12 @@ class Field_country
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
 		$countries = $this->countries('yes');
 
-		if (trim($input) != '') {
-			return $countries[$input];
+		if (trim($this->value) != '') {
+			return $countries[$this->value];
 		} else {
 			return null;
 		}
@@ -71,13 +73,15 @@ class Field_country
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin()
 	{
 		$countries = $this->countries('yes');
 
-		if (trim($input) != '') {
-			$return['name'] = $countries[$input];
-			$return['code']	= $input;
+		$this->value = trim($this->value);
+
+		if ($this->value != '') {
+			$return['name'] = $countries[$this->value];
+			$return['code']	= $this->value;
 
 			return $return;
 		} else {

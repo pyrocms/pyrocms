@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Cp;
+
 /**
  * Admin User Fields
  *
@@ -53,15 +55,20 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		$this->template->title(lang('user:profile_fields_label'));
+//		$this->template->title(lang('user:profile_fields_label'));
 
-		$this->streams->cp->assignments_table(
+/*		$this->streams->cp->assignments_table(
 								'profiles',
 								'users',
 								Settings::get('records_per_page'),
 								'admin/users/fields/index',
 								true,
-								array('buttons' => $buttons));
+								array('buttons' => $buttons));*/
+
+		Cp\Fields::assignmentsTable('profiles', 'users')
+			->title(lang('user:profile_fields_label'))
+			->buttons($buttons)
+			->render();		
 	}
 
 	// --------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Email Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_email
+class Field_email extends AbstractField
 {
 	public $field_type_slug				= 'email';
 
@@ -30,11 +32,11 @@ class Field_email
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
+		$options['value']	= $this->form_data['value'];
 
 		return form_input($options);
 	}
@@ -48,10 +50,10 @@ class Field_email
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -68,13 +70,13 @@ class Field_email
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin()
 	{
 		$choices = array();
 
-		$choices['email_address']		= $input;
-		$choices['mailto_link']			= mailto($input, $input);
-		$choices['safe_mailto_link']	= safe_mailto($input, $input);
+		$choices['email_address']		= $this->value;
+		$choices['mailto_link']			= mailto($this->value, $this->value);
+		$choices['safe_mailto_link']	= safe_mailto($this->value, $this->value);
 
 		return $choices;
 	}

@@ -1,12 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams US State Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Adam Fairholm
  */
-class Field_state
+class Field_state extends AbstractField
 {
 	public $field_type_slug			= 'state';
 

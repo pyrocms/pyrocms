@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
+use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
 
 /**
  * User model for the users module.
@@ -8,7 +8,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends EloqentUser
+class User extends EloquentUser
 {
     /**
      * Define the table name
@@ -31,6 +31,11 @@ class User extends EloqentUser
      */
     public $timestamps = false;
 
+    public function getDates()
+    {
+    	return array('created_on');
+    }
+
 	/**
 	 * Returns the relationship between users and groups.
 	 *
@@ -39,6 +44,20 @@ class User extends EloqentUser
 	public function groups()
 	{
 		return $this->belongsToMany('Pyro\Module\Users\Model\Group', 'users_groups', 'user_id');
+	}
+
+	public function getCurrentGroupIds()
+	{
+		$ids = $this->groups->modelKeys();
+
+		return ! empty($ids) ? $ids : array(2); // At least return the Users group
+	}
+
+	public function getHidden()
+	{
+		array_unshift($this->hidden, 'salt');
+
+		return $this->hidden;
 	}
 
     /**
@@ -114,21 +133,6 @@ class User extends EloqentUser
 			->with('profiles')
 			->groupBy('users.id')
 			->all();
-	}
-
-	/**
-	 * Get Stream Fields
-	 *
-	 * @TODO KILL ME! This should be a real join or something
-	 * @return array
-	 */
-	public function getStreamFields()
-	{
-		return array();
-		
-		$this->stream = ci()->streams_m->get_stream('profiles', true, 'users');
-
-		return ci()->streams_m->get_stream_fields($this->stream->id);
 	}
 
 	/**
@@ -209,4 +213,32 @@ class User extends EloqentUser
         }
     }
 
+    /**
+     * Delete a user, their profile and assigned groups
+     * @return boolean The delete success
+     */
+    public function delete()
+    {
+    	// Delete the profile
+    	if ($this->profile)
+    	{
+    		$this->profile->delete();
+    	}
+    	
+    	// Remove assigned groups
+    	if ( ! $this->groups->isEmpty())
+    	{
+    		foreach ($this->groups as $group)
+    		{
+    			$this->removeGroup($group);
+    		}
+    	}
+
+    	return parent::delete();
+    }
+
+    public function setCreatedOnAttribute()
+    {
+    	$this->attributes['created_on'] = time();
+    }
 }

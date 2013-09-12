@@ -52,7 +52,6 @@ class Pages extends Public_Controller
 					set_status_header(404);
 				}
 
-				exit;
 			}
 
 			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
@@ -222,8 +221,8 @@ class Pages extends Public_Controller
 		}
 
 		// Get our stream.
-		$this->load->driver('Streams');
-		$stream = $this->streams_m->get_stream($page->type->stream_id);
+		//$this->load->driver('Streams');
+		//$stream = $this->streams_m->get_stream($page->type->stream_id);
 
 		// We are going to pre-build this data so we have the data
 		// available to the template plugin (since we are pre-parsing our views).
@@ -235,8 +234,8 @@ class Pages extends Public_Controller
 		$html = $this->template->load_view('pages/page', array('page' => $page), false);
 
 		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $stream->stream_slug,
-			'namespace' => $stream->stream_namespace,
+			'stream' => $page->type->stream->stream_slug,
+			'namespace' => $page->type->stream->stream_namespace,
 			'id_name' => 'entry_id'
 		));
 
