@@ -3,10 +3,21 @@
 abstract class AbstractSupport
 {
 
+	/**
+	 * Enable debug mode
+	 * @var boolean
+	 */
 	protected static $debug = true;
 
+	/**
+	 * Registered callbacks
+	 * @var array
+	 */
 	private $callbacks = array();
 
+	/**
+	 * Construct and bring in assets
+	 */
 	public function __construct()
 	{
 		ci()->load->language('streams_core/pyrostreams');
@@ -18,6 +29,11 @@ abstract class AbstractSupport
 		}
 	}
 
+	/**
+	 * Add a callback
+	 * @param string $method_name     
+	 * @param boolean $method_callable
+	 */
     protected function addCallback($method_name, $method_callable)
     {
         if (is_callable($method_callable))
@@ -26,6 +42,12 @@ abstract class AbstractSupport
         }
     }
  
+ 	/**
+ 	 * Hook into PHP calls to look for callbacks
+ 	 * @param  strign $method_name 
+ 	 * @param  array  $args        
+ 	 * @return function              
+ 	 */
 	public function __call($method_name, array $args)
     {
         if (isset($this->callbacks[$method_name]))
@@ -34,6 +56,11 @@ abstract class AbstractSupport
         }
     }
 
+    /**
+     * Toggle debugging
+     * @param  boolean $debug 
+     * @return object         
+     */
 	public static function debug($debug = true)
 	{
 		static::$debug = $debug;

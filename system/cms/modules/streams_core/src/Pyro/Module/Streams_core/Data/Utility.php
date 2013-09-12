@@ -233,5 +233,4 @@ class Utility
 		// created, since we already did that.
 		return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
 	}
-
 }
