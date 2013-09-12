@@ -11,14 +11,15 @@
 	RewriteEngine on
 
 	# Automatically determine and set the PYRO_ENV variable
-  #RewriteCond %{HTTP_HOST} ^local.domain.com$
-  #RewriteRule (.*) $1 [E=PYRO_ENV:development]
+	#RewriteCond %{SERVER_NAME} ^local.domain.com
+  	#RewriteRule .* - [E=PYRO_ENV:development]  
 
-  #RewriteCond %{HTTP_HOST} ^stage.domain.com$
-  #RewriteRule (.*) $1 [E=PYRO_ENV:staging]
+	#RewriteCond %{SERVER_NAME} ^stage.domain.com
+  	#RewriteRule .* - [E=PYRO_ENV:staging]  
 
-  #RewriteCond %{HTTP_HOST} ^domain.com$
-  #RewriteRule (.*) $1 [E=PYRO_ENV:production]
+	#RewriteCond %{SERVER_NAME} ^domain.com$ [OR]
+	#RewriteCond %{SERVER_NAME} ^www.domain.com$
+  	#RewriteRule .* - [E=PYRO_ENV:production]  
 
 	# NOTICE: If you get a 404 play with combinations of the following commented out lines
 	#AllowOverride All
