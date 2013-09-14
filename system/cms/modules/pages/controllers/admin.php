@@ -43,7 +43,7 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
-        $pages = Page::with('children')->get();
+        $pages = Page::tree();
 
         $this->template
 
@@ -118,20 +118,27 @@ class Admin extends Admin_Controller
         if (is_array($order)) {
 
             //reset all parent > child relations
-            $this->page_m->update_all(array('parent_id' => 0));
+            Page::resetParentByIds($root_pages);
 
-            foreach ($order as $i => $page) {
+            foreach ($order as $i => $page)
+            {
                 $id = str_replace('page_', '', $page['id']);
 
-                //set the order of the root pages
-                $this->page_m->update($id, array('order' => $i), true);
+                if (is_integer($i))
+                {
+                    //set the order of the root pages
+                    $model = Page::find($id);
+                    $model->skip_validation = true;
+                    $model->order = $i;
+                    $model->save();                    
+                }
 
                 //iterate through children and set their order and parent
-                $this->page_m->_set_children($page);
+                Page::setChildren($page);
             }
 
             // rebuild page URIs
-            $this->page_m->update_lookup($root_pages);
+            Page::updateLookup($root_pages);
 
             //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
             $this->cache->clear('navigation_m');
