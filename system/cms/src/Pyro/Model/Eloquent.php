@@ -200,7 +200,7 @@ abstract class Eloquent extends Model
 
         $relation_instance = new BelongsToEntry($query, $this, $foreignKey, $relation);
 
-        $relation_instance->setStreamColumn($stream_column);
+        $relation_instance->setStreamColumn($stream_column)->setStream($instance->getStream());
 
         return $relation_instance;
     }

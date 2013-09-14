@@ -1,7 +1,8 @@
 <?php namespace Pyro\Module\Pages\Model;
 
 use Pyro\Model\Eloquent;
-
+use Pyro\Model\Collection;
+use Pyro\Module\Streams_core\Core\Model;
 /**
  * Pages model
  *
@@ -435,23 +436,27 @@ class Page extends Eloquent
 		// Either its THIS page, or one we said
 		$current_id = $id ?: $this->id;
 
-		$current_page = static::find($id);
-		$current_page->skip_validation = true;
+		if ($current_page = static::find($id))
+		{
+			$current_page->skip_validation = true;
 
-		$segments = array();
-		do {
-			// Only want a bit of this data
-			$page = static::select('slug', 'parent_id')
-				->find($current_id);
+			$segments = array();
+			do {
+				// Only want a bit of this data
+				$page = static::select('slug', 'parent_id')
+					->find($current_id);
 
-			$current_id = $page->parent_id;
-			array_unshift($segments, $page->slug);
-		} while ($page->parent_id > 0);
+				$current_id = $page->parent_id;
+				array_unshift($segments, $page->slug);
+			} while ($page->parent_id > 0);
 
-		// Save this new uri by joining the array
-		$current_page->uri = implode('/', $segments);
+			// Save this new uri by joining the array
+			$current_page->uri = implode('/', $segments);
 
-		return $current_page->save();
+			return $current_page->save();			
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -501,27 +506,27 @@ class Page extends Eloquent
 
 	public function delete()
 	{
-		$ids = $this->getDescendantIds($this->getKey());
+		$children_ids = $this->getDescendantIds($this->id);
 
-		$pages = $this
-			->whereIn('parent_id', $ids)
-			->get(array('id', 'entry_id'));
+		$children = $this->whereIn('parent_id', $children_ids)
+			->get(array('id', 'entry_type', 'entry_id'));
 
-		$entry_ids = array_map(function($page) { return $page->entry_id; }, $pages->toArray());
-
-		if ( ! empty($entry_ids))
+		if ( ! $children->isEmpty())
 		{
-			$entries = PageEntry::stream($this->entry_type)->find($entry_ids);			
-			
-			foreach ($entries as $entry)
+			foreach ($children as $page)
 			{
-				$entry->delete();
+				if ($page->entry instanceof Eloquent)
+				{
+					$page->entry->delete();
+				}
+
+				$page->delete();
 			}
 		}
 
-		foreach ($pages as $page)
+		if ($this->entry instanceof Eloquent)
 		{
-			$page->delete();
+			$this->entry->delete();
 		}
 
 		return parent::delete();
