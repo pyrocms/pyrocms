@@ -187,6 +187,27 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
+	public function onQuery(Closure $callback = null)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	public function onSaved(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	public function onSaving(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
 	public function orderDirection($direction = 'asc')
 	{
 		$this->direction = $direction;
@@ -249,27 +270,6 @@ abstract class AbstractCp extends AbstractSupport
 		}
 
 		return false;
-	}
-
-	public function onQuery(Closure $callback = null)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	public function onSaved(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	public function onSaving(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
 	}
 
 	public function skips(array $skips = array())
