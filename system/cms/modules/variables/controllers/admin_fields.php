@@ -1,4 +1,7 @@
 <?php
+
+use Pyro\Module\Streams_core\Cp;
+
 /**
  * Admin fields controller for the variables module
  *
@@ -24,8 +27,6 @@ class Admin_fields extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('variables/variables');
-		
-		$this->load->driver('Streams');
 	}
 
 	/**
@@ -33,26 +34,41 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function index()
 	{
-		// @todo - add buttons to manage fields
-		$extra['buttons'] = array();
+		$buttons = array(
+			array(
+				'label' => lang('global:edit'),
+				'url' => 'admin/variables/fields/form/-field_id-'
+			),
+			array(
+				'label' => lang('global:delete'),
+				'url' => 'admin/variables/fields/delete/-field_id-',
+				'confirm' => true
+			)
+		);
 
-		$extra['title'] = lang('variables:fields_title');
-
-		$this->streams->cp->fields_table('variables', null, null, true, $extra, array('name', 'syntax', 'data'));
-	}
-
-	public function create()
-	{
+		Cp\Fields::namespaceTable('variables')
+			->skips(array('name', 'syntax', 'data'))
+			->title(lang('variables:fields_title'))
+			->buttons($buttons)
+			->render();
 
 	}
 
 	/**
 	 * The field form that allows creating and configuring field instances
 	 */
-	public function edit()
+	public function form($id = null)
 	{
-		// @todo - We need a form to manage fields in a namespace without assigning them to the stream
-		// $this->streams->cp->field_form() assigns to the stream so it doesn't do what we need here
+		if ($id)
+		{
+			$title = lang('streams:edit_field');
+		}
+		else
+		{
+			$title = lang('streams:add_field');
+		}
+
+		Cp\Fields::namespaceForm('variables', $id)->title($title)->render();
 	}
 
 	public function delete()

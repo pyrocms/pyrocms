@@ -15,10 +15,18 @@
 			<tr>
 				<td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
 				<td>
-					<input type="hidden" name="action_to[]" value="<?php echo $assignment->assign_id;?>" />
-					<?php echo $this->fields->translate_label($assignment->field_name); ?></td>
-				<td><?php echo $assignment->field_slug; ?></td>
-				<td><?php echo $this->type->types->{$assignment->field_type}->field_type_name; ?></td>
+					<input type="hidden" name="action_to[]" value="<?php echo $assignment->id;?>" />
+					<?php
+						if (! $field_name = $assignment->field_name)
+						{
+							$field_name = $assignment->field->field_name;
+						}
+					 
+					 	echo lang_label($field_name);
+				 	?>
+				</td>
+				<td><?php echo $assignment->field->field_slug; ?></td>
+				<td><?php echo $assignment->field->getType()->field_type_name; ?></td>
 				<td class="actions">
 					<?php
 
@@ -29,7 +37,13 @@
 								// don't render button if field is locked and $button['locked'] is set to TRUE
 								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
+
+								$url = ci()->parser->parse_string($button['url'], $assignment->toArray(), true);
+
+								// This is kept for backwards compat
+								$url = str_replace('-field_id-', $assignment->getKey(), $url);
+
+								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
 							}
 						}
 

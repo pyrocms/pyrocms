@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Textarea Field Type
  *
@@ -7,7 +9,7 @@
  * @author		Adam Fairholm
  * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
-class Field_textarea
+class Field_textarea extends AbstractField
 {
 	public $field_type_slug			= 'textarea';
 
@@ -28,37 +30,31 @@ class Field_textarea
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
 		// Value
 		// We only use the default value if this is a new entry
-		if ( ! $entry_id)
+		if ( ! $this->entry->getKey())
 		{
-			$value = (isset($field->field_data['default_text']) and $field->field_data['default_text']) 
-				? $field->field_data['default_text']
-				: $data['value'];
+			$value = (isset($this->field->field_data['default_text']) and $this->field->field_data['default_text']) 
+				? $this->field->field_data['default_text']
+				: $this->value;
 
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			if ( ! $value and isset($field->field_data['default_value'])) {
-				$value = $field->field_data['default_value'];
+			if ( ! $value and isset($this->field->field_data['default_value']))
+			{
+				$value = $this->field->field_data['default_value'];
 			}
 		} else {
-			$value = $data['value'];
+			$value = $this->value;
 		}
 
 		return form_textarea(array(
-			'name'		=> $data['form_slug'],
-			'id'		=> $data['form_slug'],
+			'name'		=> $this->name,
+			'id'		=> $this->name,
 			'value'		=> $value
 		));
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function pre_save($input)
-	{
-		return $input;
 	}
 
 	// --------------------------------------------------------------------------
@@ -68,7 +64,7 @@ class Field_textarea
 	 *
 	 * @return 	string
 	 */
-	public function pre_output($input, $params)
+	public function pre_output()
 	{
 		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 		$content_type = ( ! isset($params['content_type'])) ? 'html' : $params['content_type'];
@@ -77,26 +73,26 @@ class Field_textarea
 		// @TODO This is hacky, there will be times when the admin wants to see a preview or something
 		if (defined('ADMIN_THEME'))
 		{
-			return $input;
+			return $this->value;
 		}
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
 		if ($parse_tags == 'y')
 		{
-			$content = $this->CI->parser->parse_string($input, array(), true);
+			$content = ci()->parser->parse_string($this->value, array(), true);
 		}
 		else
 		{
-			$this->CI->load->helper('text');
-			$content = escape_tags($input);
+			ci()->load->helper('text');
+			$content = escape_tags($this->value);
 		}
 
 		// Not that we know what content is there, what format should we treat is as?
 		switch ($content_type)
 		{
 			case 'md':
-				$this->CI->load->helper('markdown');
+				ci()->load->helper('markdown');
 				return parse_markdown($content);
 
 			case 'html':

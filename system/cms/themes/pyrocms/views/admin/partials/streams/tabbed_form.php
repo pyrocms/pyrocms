@@ -1,4 +1,4 @@
-<?php echo form_open_multipart(uri_string(), 'class="streams_form"'); ?>
+<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
 <div class="tabs">
 
@@ -18,20 +18,28 @@
 
 			<ul>
 
-			<?php foreach ($tab['fields'] as $field) { ?>
+			<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
-				<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
-					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+				<?php echo $tab['content']; ?>
 
-					<?php if( $fields[$field]['instructions'] != '' ): ?>
-						<br /><small><?php echo $this->fields->translate_label($fields[$field]['instructions']); ?></small>
-					<?php endif; ?>
-					</label>
+			<?php else: ?>
 
-					<div class="input"><?php echo $fields[$field]['input']; ?></div>
-				</li>
+				<?php foreach ($tab['fields'] as $field) { ?>
 
-			<?php } ?>
+					<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
+						<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+
+						<?php if( $fields[$field]['instructions'] != '' ): ?>
+							<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
+						<?php endif; ?>
+						</label>
+
+						<div class="input"><?php echo $fields[$field]['input']; ?></div>
+					</li>
+
+				<?php } ?>
+
+			<?php endif; ?>
 
 			</ul>
 
@@ -46,7 +54,7 @@
 
 	<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
+		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$entry->getStream()->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 
 <?php echo form_close();
