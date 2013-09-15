@@ -296,19 +296,18 @@ class Entries extends AbstractCp
 
 			if ($id)
 			{
-				$instance->entry = $instance->model->findEntry($id)->unformatted();
+				$instance->entry = $instance->model->setFormat(false)->find($id);
 			}
 			else
 			{
 				$instance->entry = $instance->model;
 			}
 		}
+		
 		$stream = $instance->model->getStream();
 
-		$instance->entry
-			->setStream($stream);
-			$instance->entry->setFields($stream->assignments->getFields());
-
+		$instance->entry->setStream($stream);
+		$instance->entry->setFields($stream->assignments->getFields());
 
 		return $instance;	
 	}

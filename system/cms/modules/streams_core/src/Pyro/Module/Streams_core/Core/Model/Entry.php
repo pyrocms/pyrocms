@@ -295,11 +295,11 @@ class Entry extends EntryOriginal
      * @param  array  $columns
      * @return object
      */
-    public function findEntry($id = null, array $columns = array('*'))
+    public static function find($id, $columns = array('*'))
     {
-        $entry = $this->where($this->getKeyName(), '=', $id)->first($columns);
+        $entry = static::$instance->where(static::$instance->getKeyName(), '=', $id)->first($columns);
 
-        $this->passProperties($entry);
+        static::$instance->passProperties($entry);
 
         return $entry;
     }

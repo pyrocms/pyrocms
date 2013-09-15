@@ -17,7 +17,7 @@ class Entries extends AbstractData
 	 */
 	public static function getEntry($stream_slug, $stream_namespace = null, $id = null, $format = true, $plugin = true)
 	{
-		return Model\Entry::stream($stream_slug, $stream_namespace)->setFormat($format)->setPlugin($plugin)->findEntry($id);
+		return Model\Entry::stream($stream_slug, $stream_namespace)->setFormat($format)->setPlugin($plugin)->find($id);
 	}
 
 	/**
@@ -59,15 +59,11 @@ class Entries extends AbstractData
 	 */
 	public static function getEntryFields($stream_slug, $stream_namespace = null, $id = null)
 	{
-			$model = Model\Entry::stream($mixed, $stream_namespace);
+			$entry = Model\Entry::stream($mixed, $stream_namespace);
 
 			if ($id)
 			{
-				$entry = $model->findEntry($id)->unformatted();
-			}
-			else
-			{
-				$entry = $model;
+				$entry = $model->setFormat(false)->find($id);
 			}
 
 			$form = $entry->newFormBuilder();
