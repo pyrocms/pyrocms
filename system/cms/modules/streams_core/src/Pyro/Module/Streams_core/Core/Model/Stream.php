@@ -284,6 +284,7 @@ class Stream extends Eloquent
 		if (method_exists($field_type, 'field_assignment_construct'))
 		{
 			$field_type->setStream($this);
+			$field_type->setField($field);
 			$field_type->field_assignment_construct();
 		}
 

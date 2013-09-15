@@ -165,6 +165,15 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Get the stream
+	 * @return object 
+	 */
+	public function getStream()
+	{
+		return $this->stream;
+	}
+
+	/**
 	 * Get the input name
 	 * @return string 
 	 */

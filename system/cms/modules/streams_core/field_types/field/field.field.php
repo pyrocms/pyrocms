@@ -305,7 +305,7 @@ class Field_field extends AbstractField
     * @param   object
     * @return  void
     */
-    public function field_assignment_construct($field, $stream)
+    public function field_assignment_construct()
     {
     	$max_length = isset($this->field->field_data['max_length']) ? $this->field->field_data['max_length'] : 100;
 

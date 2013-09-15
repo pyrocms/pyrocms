@@ -522,7 +522,7 @@ class Field_datetime extends AbstractField
 	 * @param	obj
 	 * @return	void
 	 */
-	public function field_assignment_construct($field, $stream)
+	public function field_assignment_construct()
 	{
 		// Is this in UNIX time?
 		if (isset($this->field->field_data['storage']) and $this->field->field_data['storage'] == 'unix')
