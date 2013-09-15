@@ -10,6 +10,12 @@ use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 
 class Fields extends AbstractCp
 {
+	/**
+	 * Set instance per stream and namespace
+	 * @param  strign $stream_slug 
+	 * @param  string $namespace   
+	 * @return object              
+	 */
 	public static function assignmentsTable($stream_slug, $namespace = null)
 	{
 		$instance = static::instance(__FUNCTION__);
@@ -21,6 +27,11 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
+	/**
+	 * Set table for namespace
+	 * @param  string $namespace 
+	 * @return object            
+	 */
 	public static function namespaceTable($namespace = null)
 	{
 		$instance = static::instance(__FUNCTION__);
@@ -30,6 +41,13 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
+	/**
+	 * Render assignment form
+	 * @param  string $stream_slug   
+	 * @param  string $namespace     
+	 * @param  integer $assignment_id 
+	 * @return object                
+	 */
 	public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
 	{
 		// The renderForm() method is shared with assignmentForm() and namespaceForm()
@@ -57,6 +75,12 @@ class Fields extends AbstractCp
 		return $instance;
 	}
 
+	/**
+	 * Render field form in namespace
+	 * @param  string $namespace 
+	 * @param  integer $field_id 
+	 * @return object
+	 */
 	public static function namespaceForm($namespace, $field_id = null)
 	{
 		// The renderForm() method is shared with assignmentForm() and namespaceForm()
@@ -92,6 +116,10 @@ class Fields extends AbstractCp
 	// 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Render assignments table
+	 * @return string
+	 */
 	protected function renderAssignmentsTable()
 	{
 		$this->data->buttons = $this->buttons;
@@ -142,6 +170,10 @@ class Fields extends AbstractCp
 		}
 	}
 
+	/**
+	 * Render namespace table
+	 * @return string 
+	 */
 	protected function renderNamespaceTable()
 	{
 		$this->data->buttons = $this->buttons;
@@ -524,6 +556,10 @@ class Fields extends AbstractCp
 		}
 	}
 
+	/**
+	 * Get selected field types
+	 * @return array
+	 */
 	public function getSelectableFieldTypes()
 	{
 		$types = Field\Type::getLoader()->getAllTypes();
@@ -546,5 +582,4 @@ class Fields extends AbstractCp
 
 		return $types;
 	}
-
 }

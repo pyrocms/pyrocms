@@ -313,6 +313,10 @@ class Entries extends AbstractCp
 		return $instance;	
 	}
 
+	/**
+	 * Render the form
+	 * @return string The rendered HTML
+	 */
 	public function renderForm()
 	{
 		$this->fireOnSaving($this->entry);
@@ -377,6 +381,12 @@ class Entries extends AbstractCp
 		ci()->template->build('admin/partials/blank_section', $this->data);
 	}
 
+	/**
+	 * Distribute fields across tabs
+	 * @param  array  $tabs             
+	 * @param  array  $available_fields 
+	 * @return array
+	 */
 	protected function distributeFields($tabs = array(), $available_fields = array())
 	{
 		foreach ($tabs as &$tab)
@@ -402,5 +412,4 @@ class Entries extends AbstractCp
 
 		return $tabs;
 	}
-
 }

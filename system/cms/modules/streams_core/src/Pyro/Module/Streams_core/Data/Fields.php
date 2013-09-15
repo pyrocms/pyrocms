@@ -8,9 +8,6 @@ use Pyro\Module\Streams_core\Core\Support\Exception;
 
 class Fields extends AbstractData
 {
-
-
-
 	/**
 	 * Add field
 	 *
@@ -136,7 +133,7 @@ class Fields extends AbstractData
 	    return $success;
 	}
 
-/**
+	/**
 	 * Assign field to stream
 	 *
 	 * @param	string - namespace
@@ -279,5 +276,4 @@ class Fields extends AbstractData
 	
 		return $field->assignments;
 	}
-
 }
