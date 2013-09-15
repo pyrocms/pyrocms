@@ -593,7 +593,7 @@ class Streams_m extends MY_Model {
 		// Check if there is one now
 		if ($this->input->get('order-'.$stream->stream_slug))
 		{
-			$this->db->order_by($this->input->get('order-'.$stream->stream_slug), $this->input->get('order-'.$stream->stream_slug) ? $this->input->get('order-'.$stream->stream_slug) : 'ASC');
+			$this->db->order_by($this->input->get('order-'.$stream->stream_slug), $this->input->get('sort-'.$stream->stream_slug) ? $this->input->get('sort-'.$stream->stream_slug) : 'ASC');
 		}
 		elseif ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
 		{
