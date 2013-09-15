@@ -1,18 +1,18 @@
 <section class="title">
-	<h4><?php echo lang('global:field_types');?></h4>
+	<h4>{{ helper:lang line="global:field_types" }}</h4>
 </section>
 
 <section class="item">
 <div class="content">
 
-<h2><?php echo lang('addons:plugins:core_field_types') ?></h2>
+<h2>{{ helper:lang line="addons:plugins:core_field_types" }}</h2>
 
 <?php if ($core): ?>
 <table class="table-list" cellspacing="0">
 	<thead>
 		<tr>
-			<th><?php echo lang('name_label');?></th>
-			<th><?php echo lang('version_label');?></th>
+			<th>{{ helper:lang line="name_label" }}</th>
+			<th>{{ helper:lang line="version_label" }}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,14 +26,14 @@
 </table>
 <?php endif ?>
 
-<h2><?php echo lang('addons:plugins:add_on_field_types') ?></h2>
+<h2>{{ helper:lang line="addons:plugins:add_on_field_types" }}</h2>
 
 <?php if ( ! empty($addon)): ?>
 <table class="table-list" cellspacing="0">
 	<thead>
 		<tr>
-			<th><?php echo lang('name_label');?></th>
-			<th><?php echo lang('version_label');?></th>
+            <th>{{ helper:lang line="name_label" }}</th>
+            <th>{{ helper:lang line="version_label" }}</th>
 		</tr>
 	</thead>
 	<tbody>

@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('addons:themes') ?></h4>
+	<h4>{{ helper:lang line="addons:themes" }}</h4>
 </section>
 
 <section class="item">
@@ -11,11 +11,11 @@
 		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
-					<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label') ?></th>
-					<th width="15%"><?php echo lang('addons:themes:theme_label') ?></th>
-					<th class="collapse"><?php echo lang('global:description') ?></th>
-					<th class="collapse" width="15%"><?php echo lang('global:author') ?></th>
-					<th width="50px" class="align-center"><?php echo lang('addons:themes:version_label') ?></th>
+					<th width="50px" class="align-center">{{ helper:lang line="addons:themes:default_theme_label" }}</th>
+					<th width="15%">{{ helper:lang line="addons:themes:theme_label" }}</th>
+					<th class="collapse">{{ helper:lang line="global:description" }}</th>
+					<th class="collapse" width="15%">{{ helper:lang line="global:author" }}</th>
+					<th width="50px" class="align-center">{{ helper:lang line="addons:themes:version_label" }}</th>
 					<th width="250px"></th>
 				</tr>
 			</thead>
@@ -44,7 +44,7 @@
 					<td class="align-center"><?php echo $theme->version ?></td>
 					<td class="actions">
 						<?php echo isset($theme_options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="button options"') : '' ?>
-						<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="button modal"><?php echo lang('buttons:preview') ?></a>
+						<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="button modal">{{ helper:lang line="buttons:preview" }}</a>
 						<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm button delete"'); } ?>
 					</td>
 				</tr>
@@ -62,7 +62,7 @@
 
 	<?php else: ?>
 		<div class="blank-slate">
-			<p><?php echo lang('addons:themes:no_themes_installed') ?></p>
+			<p>{{ helper:lang line="addons:themes:no_themes_installed" }}</p>
 		</div>
 	<?php endif ?>
 	</div>

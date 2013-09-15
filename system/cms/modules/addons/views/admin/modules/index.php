@@ -1,6 +1,6 @@
 <div class="one_full">
 <section class="title">
-	<h4><?php echo lang('addons:modules:addon_list');?></h4>
+	<h4>{{ helper:lang line="addons:modules:addon_list" }}</h4>
 </section>
 
 <section class="item">
@@ -9,9 +9,9 @@
 		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
-					<th><?php echo lang('name_label');?></th>
-					<th class="collapse"><span><?php echo lang('desc_label');?></span></th>
-					<th><?php echo lang('version_label');?></th>
+					<th>{{ helper:lang line="name_label" }}</th>
+					<th class="collapse"><span>{{ helper:lang line="desc_label" }}</span></th>
+					<th>{{ helper:lang line="version_label" }}</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -51,19 +51,19 @@
 
 <div class="one_full">
 <section class="title">
-	<h4><?php echo lang('addons:modules:core_list');?></h4>
+	<h4>{{ helper:lang line="addons:modules:core_list" }}</h4>
 </section>
 
 <section class="item">
 	<div class="content">
-		<p><?php echo lang('addons:modules:core_introduction') ?></p>
+		<p>{{ helper:lang line="addons:modules:core_introduction" }}</p>
 
 		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
-					<th><?php echo lang('name_label');?></th>
-					<th><span><?php echo lang('desc_label');?></span></th>
-					<th><?php echo lang('version_label');?></th>
+					<th>{{ helper:lang line="name_label" }}</th>
+					<th><span>{{ helper:lang line="desc_label" }}</span></th>
+					<th>{{ helper:lang line="version_label" }}</th>
 					<th></th>
 				</tr>
 			</thead>

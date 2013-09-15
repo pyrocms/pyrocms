@@ -1,6 +1,6 @@
 <div class="one_full">
 	<section class="title">
-		<h4><?php echo lang('addons:themes:theme_label').' '.lang('addons:themes:options') ?></h4>
+		<h4>{{ helper:lang line="addons:themes:theme_label" }} {{ helper:lang line="addons:themes:options" }}</h4>
 	</section>
 
 	<section class="item">
