@@ -28,6 +28,8 @@ abstract class Eloquent extends Model
      */
     protected static $runtime_cache = array();
 
+    public $skip_validation = false;
+
     /**
      * We can store data in the class at runtime so we don't have to keep hitting the database
      *
@@ -122,12 +124,17 @@ abstract class Eloquent extends Model
      */
     public function save(array $options = array())
     {
-        if (method_exists($this, 'validate') and ! $this->validate())
+        if (method_exists($this, 'validate') and ! $this->validate() and ! $this->skip_validation)
         {
             return false;
         }
         
         return parent::save($options);
+    }
+
+    public function newCollection(array $models = array())
+    {
+        return new Collection\EloquentCollection($models);
     }
 
     /**
@@ -193,7 +200,7 @@ abstract class Eloquent extends Model
 
         $relation_instance = new BelongsToEntry($query, $this, $foreignKey, $relation);
 
-        $relation_instance->setStreamColumn($stream_column);
+        $relation_instance->setStreamColumn($stream_column)->setStream($instance->getStream());
 
         return $relation_instance;
     }

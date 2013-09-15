@@ -239,7 +239,7 @@ class Stream extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->dropIfExists($this->getAttribute('prefix').$this->getAttribute('stream_slug'));
+		$schema->dropIfExists($this->getAttribute('stream_prefix').$this->getAttribute('stream_slug'));
 
 		$success = parent::delete();
 
