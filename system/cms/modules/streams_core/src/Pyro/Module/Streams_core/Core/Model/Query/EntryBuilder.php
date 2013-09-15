@@ -34,7 +34,7 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$relations = $this->entries[0]->getModel()->getRelations();
+			$relations = $this->model->getRelations();
 
 			if (in_array('created_by', $columns) and empty($relations['createdByUser']))
 			{
@@ -44,7 +44,14 @@ class EntryBuilder extends Builder
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
-		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
+		if ($this->model->isFormat())
+		{
+			return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
+		}
+		else
+		{
+			return $this->model->newCollection($this->entries);
+		}
 	}
 
 	/**
