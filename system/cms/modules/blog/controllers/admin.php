@@ -208,7 +208,7 @@ class Admin extends Admin_Controller
 
 			if ($id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)) {
 				$this->cache->clear('blog_m');
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
+				$this->session->set_flashdata('success', sprintf(lang('blog:post_add_success'), $this->input->post('title')));
 
 				// Blog article has been updated, may not be anything to do with publishing though
 				Events::trigger('post_created', $id);

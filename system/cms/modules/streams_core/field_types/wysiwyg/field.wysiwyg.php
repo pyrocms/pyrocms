@@ -57,12 +57,9 @@ class Field_wysiwyg extends AbstractField
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
-		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
-		{
+		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y') {
 			return ci()->parser->parse_string($this->value, array(), true);
-		}
-		else
-		{
+		} else {
 			ci()->load->helper('text');
 			return escape_tags($this->value);
 		}
