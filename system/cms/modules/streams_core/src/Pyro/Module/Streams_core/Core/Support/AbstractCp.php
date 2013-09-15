@@ -431,6 +431,42 @@ abstract class AbstractCp extends AbstractSupport
 	}
 
 	/**
+	 * On query callback
+	 * @param  function $callback 
+	 * @return object           
+	 */
+	public function onQuery(Closure $callback = null)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	/**
+	 * On saved callback
+	 * @param  function $callback 
+	 * @return object            
+	 */
+	public function onSaved(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	/**
+	 * On saving callback
+	 * @param  function $callback 
+	 * @return object            
+	 */
+	public function onSaving(Closure $callback)
+	{
+		$this->addCallback(__FUNCTION__, $callback);
+
+		return $this;
+	}
+
+	/**
 	 * Set order direction
 	 * @param  string $direction 
 	 * @return object            
@@ -518,42 +554,6 @@ abstract class AbstractCp extends AbstractSupport
 		}
 
 		return false;
-	}
-
-	/**
-	 * On query callback
-	 * @param  function $callback 
-	 * @return object           
-	 */
-	public function onQuery(Closure $callback = null)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	/**
-	 * On saved callback
-	 * @param  function $callback 
-	 * @return object            
-	 */
-	public function onSaved(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	/**
-	 * On saving callback
-	 * @param  function $callback 
-	 * @return object            
-	 */
-	public function onSaving(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
 	}
 
 	/**

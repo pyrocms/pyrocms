@@ -28,6 +28,8 @@ class EntryOriginal extends Eloquent
      */
     protected $stream = null;
 
+    protected static $instance = null;
+
     /**
      * The array of user columns that will be selected
      * @var array 
@@ -90,7 +92,7 @@ class EntryOriginal extends Eloquent
 
         $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
-        return $instance;
+        return static::$instance = $instance;
     }
 
     /**
