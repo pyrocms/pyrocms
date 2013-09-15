@@ -4,7 +4,7 @@
 			<tr>
 				<th with="30" class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th><?php echo lang('user:name_label');?></th>
-				<th class="collapse"><?php echo lang('user:email_label');?></th>
+				<th class="collapse"><?php echo lang('global:email');?></th>
 				<th><?php echo lang('user:group_label');?></th>
 				<th class="collapse"><?php echo lang('user:active') ?></th>
 				<th class="collapse"><?php echo lang('user:joined_label');?></th>
@@ -39,10 +39,12 @@
 					</td>
 					<td class="collapse"><?php echo $member->isActivated() ? lang('global:yes') : lang('global:no')  ?></td>
 					<td class="collapse"><?php echo format_date($member->created_on) ?></td>
-					<td class="collapse"><?php echo ($member->last_login > 0 ? format_date($member->last_login) : lang('user:never_label')) ?></td>
+					<td class="collapse"><?php echo ($member->last_login ? format_date($member->last_login) : lang('user:never_label')) ?></td>
 					<td class="actions">
 						<?php echo anchor('admin/users/edit/' . $member->id, lang('global:edit'), array('class'=>'button edit')) ?>
-						<?php echo anchor('admin/users/delete/' . $member->id, lang('global:delete'), array('class'=>'confirm button delete')) ?>
+						<?php if ($this->current_user->id != $member->id): ?>
+							<?php echo anchor('admin/users/delete/' . $member->id, lang('global:delete'), array('class'=>'confirm button delete')) ?>
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endforeach ?>

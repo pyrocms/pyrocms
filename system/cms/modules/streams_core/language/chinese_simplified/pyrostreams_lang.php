@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "添加该条目出错。";
 $lang['streams:new_entry_success']						= "成功添加该条目。";
 $lang['streams:edit_entry_error']						= "更新该条目出错。";
 $lang['streams:edit_entry_success']						= "成功更新该条目。";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "您确定要删除 <strong>%s</strong> 流? 这将会<strong>永久性地删除 %s %s</strong>.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "标记此字段的标题栏"
 $lang['streams:label.field_name']						= "字段名称";
 $lang['streams:label.field_slug']						= "字段标号";
 $lang['streams:label.field_type']						= "字段种类";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "创建于";
-$lang['streams:created_date']							= "创建时间";
-$lang['streams:updated_date']							= "更新时间";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "创建于";
+$lang['streams:column_created']							= "创建时间";
+$lang['streams:column_updated']							= "更新时间";
 $lang['streams:value']									= "数字";
 $lang['streams:manage']									= "管理";
 $lang['streams:search']									= "查询";

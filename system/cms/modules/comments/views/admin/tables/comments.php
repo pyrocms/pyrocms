@@ -40,11 +40,13 @@
 					</td>
 
 					<td>
-						<?php if ($comment->user_id > 0): ?>
-							<?php echo anchor('admin/users/edit/'.$comment->user_id, user_displayname($comment->user_id, false)) ?>
+
+						<?php if ($comment->user): ?>
+							<?php echo anchor('admin/users/edit/'.$comment->user_id, "{$comment->user->profile->first_name} {$comment->user->profile->last_name}") ?>
 						<?php else: ?>
-							<?php echo mailto($comment->user_email, $comment->user_name) ?>
+							<?php echo $comment->user_name ?>
 						<?php endif ?>
+
 					</td>
 
 					<td><?php echo format_date($comment->created_on) ?></td>
@@ -52,15 +54,16 @@
 					<td class="align-center buttons buttons-small">
 						<?php if (Settings::get('moderate_comments')): ?>
 							<?php if ($comment->is_active): ?>
-								<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), 'class="button deactivate"') ?>
+								<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), array('class' => 'button deactivate')) ?>
 							<?php else: ?>
-								<?php echo anchor('admin/comments/approve/'.$comment->id, lang('buttons:activate'), 'class="button activate"') ?>
+								<?php echo anchor('admin/comments/approve/'.$comment->id, lang('buttons:activate'), array('class' => 'button activate')) ?>
 							<?php endif ?>
 						<?php endif ?>
 
-						<?php echo anchor('admin/comments/edit/'.$comment->id, lang('global:edit'), 'class="button edit"') ?>
-						<?php echo anchor('admin/comments/delete/'.$comment->id, lang('global:delete'), array('class'=>'confirm button delete')) ?>
+						<?php echo mailto($comment->user_email, lang('global:email'), array('class' => 'button')) ?>
+						<?php echo anchor('admin/comments/edit/'.$comment->id, lang('global:edit'), array('class' => 'button edit')) ?>
 						<?php echo anchor('admin/comments/report/'.$comment->id, 'Report', array('class'=>'button edit')) ?>
+						<?php echo anchor('admin/comments/delete/'.$comment->id, lang('global:delete'), array('class'=>'confirm button delete')) ?>
 					</td>
 				</tr>
 			<?php endforeach ?>

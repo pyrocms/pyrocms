@@ -40,6 +40,17 @@ class Sitemap extends Public_Controller
 			) {
 				continue;
 			}
+			
+			if( $module['slug'] == "blog" )
+			{
+				$this->load->model('blog/blog_m');
+				$posts = $this->blog_m->get_many_by(array('status', 'live'));
+				
+				if( count($posts) == 0 )
+				{
+					continue;
+				}
+			}
 
 			$basic = new SitemapEntry;
 			$basic->setLocation(site_url($module['slug'].'/sitemap/xml'));

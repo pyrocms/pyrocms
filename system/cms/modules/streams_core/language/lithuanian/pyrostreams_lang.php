@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Kilo kliučių pridedant įrašą.";
 $lang['streams:new_entry_success']						= "Įrašas pridėtas sėkmingai.";
 $lang['streams:edit_entry_error']						= "Kilo kliučių naujinant įrašą.";
 $lang['streams:edit_entry_success']						= "Įrašas sėkmingai atnaujintas.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Ar jūs esate tikri, kad norite pašalinti <strong>%s</strong> srautą? Bus <strong>ištrinta %s %s</strong> negrįžtamai.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Padaryti lauką stulpelio pa
 $lang['streams:label.field_name']						= "Lauko pavadinimas";
 $lang['streams:label.field_slug']						= "Lauko šūkis";
 $lang['streams:label.field_type']						= "Lauko tipas";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Kūrėjas";
-$lang['streams:created_date']							= "Sukūrimo data";
-$lang['streams:updated_date']							= "Atnaujinimo data";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Kūrėjas";
+$lang['streams:column_created']							= "Sukūrimo data";
+$lang['streams:column_updated']							= "Atnaujinimo data";
 $lang['streams:value']									= "Reikšmė";
 $lang['streams:manage']									= "Administruoti";
 $lang['streams:search']									= "Paieška";

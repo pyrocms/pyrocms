@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Streams_core\Cp;
+
 /**
  * Control Panel Driver
  *
@@ -13,6 +16,8 @@
 class Streams_cp extends CI_Driver {
 
 	private $CI;
+
+	public $where = array();
 
 	// --------------------------------------------------------------------------
 
@@ -62,6 +67,19 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
+		$legacy = array(
+			'buttons'
+		);
+
+		foreach ($legacy as $key)
+		{
+			$extra[$key] = isset($extra[$key]) ? $extra[$key] : null;
+		}
+
+		return Cp\Entries::table($stream_slug, $namespace_slug)
+			->buttons($extra['buttons'])
+			->render();
+
 		$CI = get_instance();
 		
 		// Get stream
@@ -155,8 +173,6 @@ class Streams_cp extends CI_Driver {
 		// Filter API
 		// -------------------------------------
 
-		$where = array();
-
 		if ($CI->input->get('filter-'.$stream->stream_slug))
 		{
 			// Get all URL variables
@@ -211,28 +227,28 @@ class Streams_cp extends CI_Driver {
 				{
 					if ($not)
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
 					}
 					else
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
 					}
 				}
 				else
 				{
 					if ($not)
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
 					}
 					else
 					{
-						$where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
 					}
 				}
 			}
 		}
 
-		$filter_data = $where;
+		$filter_data = $this->where;
 
  		// -------------------------------------
 		// Get Entries
@@ -326,6 +342,10 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
+		return Cp\Entries::form($stream_slug, $namespace_slug, $entry_id)
+			//->fields(array('name', 'data'))
+			->render();
+
 		$CI = get_instance();
 
 		$stream = $this->stream_obj($stream_slug, $namespace_slug);
@@ -374,8 +394,6 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['no_fields_message'] = $extra['no_fields_message'];
 		}
-		
-		$CI->template->append_js('streams/entry_form.js');
 		
 		if ($data['tabs'] === false)
 		{

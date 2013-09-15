@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Nastal problém při přidávání záz
 $lang['streams:new_entry_success']						= "Záznam byl přidán.";
 $lang['streams:edit_entry_error']						= "Nastal problém při úpravě záznamu.";
 $lang['streams:edit_entry_success']					= "Záznam byl upraven.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Jste si jistý/á, že chcete odstranit stream <strong>%s</strong>?";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Označit jako titulek";
 $lang['streams:label.field_name']						= "Jméno pole";
 $lang['streams:label.field_slug']						= "Klíč pole";
 $lang['streams:label.field_type']						= "Typ pole";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Autor";
-$lang['streams:created_date']							= "Vytvořeno";
-$lang['streams:updated_date']							= "Upraveno";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Autor";
+$lang['streams:column_created']							= "Vytvořeno";
+$lang['streams:column_updated']							= "Upraveno";
 $lang['streams:value']									= "Hodnota";
 $lang['streams:manage']									= "Spravovat stream";
 $lang['streams:search']									= "Hledat";

@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']                 = 'Hiba történt a bejegyzés 
 $lang['streams:new_entry_success']               = 'Bejegyzés sikeresen hozzáadva.';
 $lang['streams:edit_entry_error']                = 'Hiba történt a bejegyzés frissítése közben.';
 $lang['streams:edit_entry_success']              = 'Bejegyzés sikeresen frissítve.';
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']                  = 'Biztos vagy benne hogy törölni akarod a <strong>%s</strong> adatfolyamot? Ez <strong>törölni fogja %s %s-t</strong> véglegesen.';
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']   = 'Mező oszlopcímmé tétele'
 $lang['streams:label.field_name']                = 'Mezőnév';
 $lang['streams:label.field_slug']                = 'Mező keresőbarát URL-je';
 $lang['streams:label.field_type']                = 'Mező típus';
-$lang['streams:id']                              = 'Azonosító (ID)';
-$lang['streams:created_by']                      = 'Létrehozta';
-$lang['streams:created_date']                    = 'Létrehozás dátuma';
-$lang['streams:updated_date']                    = 'Frissítés dátuma';
+$lang['streams:column_id']                              = 'Azonosító (ID)';
+$lang['streams:column_created_by']                      = 'Létrehozta';
+$lang['streams:column_created']                    = 'Létrehozás dátuma';
+$lang['streams:column_updated']                    = 'Frissítés dátuma';
 $lang['streams:value']                           = 'Érték';
 $lang['streams:manage']                          = 'Kezelés';
 $lang['streams:search']                          = 'Keresés';

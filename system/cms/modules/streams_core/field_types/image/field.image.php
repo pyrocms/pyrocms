@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Image Field Type
  *
@@ -9,12 +11,13 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_image
+class Field_image extends AbstractField
 {
 	public $field_type_slug			= 'image';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
+
 	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
@@ -163,7 +166,7 @@ class Field_image
 
 		$this->CI->load->library('files/files');
 
-		$file = Files::get_file($input);
+		$file = Files::getFile($input);
 
 		if ($file['status'])
 		{

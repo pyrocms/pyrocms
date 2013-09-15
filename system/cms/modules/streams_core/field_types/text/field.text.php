@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Text Field Type
  *
@@ -9,11 +11,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_text
+class Field_text extends AbstractField
 {
 	public $field_type_slug			= 'text';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.0.0';
 
@@ -30,14 +32,16 @@ class Field_text
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['name'] 	= $this->name;
+		$options['id']		= $this->name;
+		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
-		if (isset($data['max_length']) and is_numeric($data['max_length'])) {
-			$options['maxlength'] = $data['max_length'];
+		if (isset($this->field->field_data['max_length']) and is_numeric($this->field->field_data['max_length']))
+		{
+			$options['maxlength'] = $this->field->field_data['max_length'];
 		}
 
 		return form_input($options);
@@ -52,9 +56,9 @@ class Field_text
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 }

@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						  = "Er was een probleem met het toevoegen
 $lang['streams:new_entry_success']						= "Uw ingave is succesvol toegevoegd.";
 $lang['streams:edit_entry_error']						  = "Er was een probleem met het bijwerken van uw ingave.";
 $lang['streams:edit_entry_success']						= "Uw ingave is succesvol bijgewerkt.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']						  	= "Weet u zeker dat u de stream <strong>%s</strong> wilt verwijderen? Dit verwijderd <strong>delete %s %s</strong> permanent.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']	= "Maak veld de titel column";
 $lang['streams:label.field_name']						    = "Veld naam";
 $lang['streams:label.field_slug']					    	= "Veld slug";
 $lang['streams:label.field_type']					    	= "Field type";
-$lang['streams:id']								          		= "ID";
-$lang['streams:created_by']					      			= "Gemaakt door";
-$lang['streams:created_date']				      			= "Gemaakt op";
-$lang['streams:updated_date']			      				= "Bewerkt op";
+$lang['streams:column_id']								          		= "ID";
+$lang['streams:column_created_by']					      			= "Gemaakt door";
+$lang['streams:column_created']				      			= "Gemaakt op";
+$lang['streams:column_updated']			      				= "Bewerkt op";
 $lang['streams:value']						        			= "Waarde";
 $lang['streams:manage']						        			= "Beheer";
 $lang['streams:search']						        			= "Zoek";

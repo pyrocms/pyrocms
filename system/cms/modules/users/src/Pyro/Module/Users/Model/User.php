@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
+use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
 
 /**
  * User model for the users module.
@@ -8,7 +8,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as EloqentUser;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends EloqentUser
+class User extends EloquentUser
 {
     /**
      * Define the table name
@@ -31,6 +31,11 @@ class User extends EloqentUser
      */
     public $timestamps = false;
 
+    public function getDates()
+    {
+    	return array('created_on');
+    }
+
 	/**
 	 * Returns the relationship between users and groups.
 	 *
@@ -39,6 +44,20 @@ class User extends EloqentUser
 	public function groups()
 	{
 		return $this->belongsToMany('Pyro\Module\Users\Model\Group', 'users_groups', 'user_id');
+	}
+
+	public function getCurrentGroupIds()
+	{
+		$ids = $this->groups->modelKeys();
+
+		return ! empty($ids) ? $ids : array(2); // At least return the Users group
+	}
+
+	public function getHidden()
+	{
+		array_unshift($this->hidden, 'salt');
+
+		return $this->hidden;
 	}
 
     /**
@@ -57,11 +76,9 @@ class User extends EloqentUser
 	 * @param 	array $username Username of the user
 	 * @return  $this
 	 */
-	public function findByUsername($username)
+	public static function findByUsername($username)
 	{
-		return $this
-			->whereRaw('LOWER(username) = ?', array(strtolower($username)))
-			->first();
+		return self::whereRaw('LOWER(username) = ?', array(strtolower($username)))->first();
 	}
 
 	/**
@@ -70,11 +87,9 @@ class User extends EloqentUser
 	 * @param 	array $username Username of the user
 	 * @return  $this
 	 */
-	public function findByEmail($email)
+	public static function findByEmail($email)
 	{
-		return $this
-			->whereRaw('LOWER(email) = ?', array(strtolower($email)))
-			->first();
+		return self::whereRaw('LOWER(email) = ?', array(strtolower($email)))->first();
 	}
 
 	/**
@@ -88,8 +103,7 @@ class User extends EloqentUser
 	{
 		$user = $this->findByUsername($login) ?: $this->findByEmail($login);
 
-		if ( ! $user)
-		{
+		if (! $user) {
 			throw new UserNotFoundException("A user could not be found with a login value of [$login].");
 		}
 
@@ -119,21 +133,6 @@ class User extends EloqentUser
 			->with('profiles')
 			->groupBy('users.id')
 			->all();
-	}
-
-	/**
-	 * Get Stream Fields
-	 *
-	 * @TODO KILL ME! This should be a real join or something
-	 * @return array
-	 */
-	public function getStreamFields()
-	{
-		return array();
-		
-		$this->stream = ci()->streams_m->get_stream('profiles', true, 'users');
-
-		return ci()->streams_m->get_stream_fields($this->stream->id);
 	}
 
 	/**
@@ -192,4 +191,54 @@ class User extends EloqentUser
 		$this->save();
 	}
 
+	public static function assignGroupIdsToUser(User $user = null, $group_ids = array())
+    {
+        if ( ! $user->isSuperUser() and ! empty($group_ids) and $groups = Group::findManyInId($group_ids))
+        {
+            foreach ($groups as $group)
+            {
+                // Add the groups to the user
+                // We must pass a Group model to addGroup()
+                $user->addGroup($group);
+            }
+
+            // Remove any groups that are not selected
+            foreach ($user->groups as $group)
+            {
+                if ( ! in_array($group->id, $groups->modelKeys()))
+                {
+                    $user->removeGroup($group);
+                }
+            }
+        }
+    }
+
+    /**
+     * Delete a user, their profile and assigned groups
+     * @return boolean The delete success
+     */
+    public function delete()
+    {
+    	// Delete the profile
+    	if ($this->profile)
+    	{
+    		$this->profile->delete();
+    	}
+    	
+    	// Remove assigned groups
+    	if ( ! $this->groups->isEmpty())
+    	{
+    		foreach ($this->groups as $group)
+    		{
+    			$this->removeGroup($group);
+    		}
+    	}
+
+    	return parent::delete();
+    }
+
+    public function setCreatedOnAttribute()
+    {
+    	$this->attributes['created_on'] = time();
+    }
 }

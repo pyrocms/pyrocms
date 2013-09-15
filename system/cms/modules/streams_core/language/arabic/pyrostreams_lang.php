@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "حدث خطأ بإضافة هذا ال�
 $lang['streams:new_entry_success']						= "تم إضافة المُدخل بنجاح.";
 $lang['streams:edit_entry_error']						= "حدث خطأ بتحديث هذا المُدخل.";
 $lang['streams:edit_entry_success']						= "تم تحديث المُدخل بنجاح";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "متأكد أنك تريد حذف الجدول <strong>%s</strong>؟ سيتم <strong>حذف %s %s</strong> نهائياً.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "تعيين الحقل كعن
 $lang['streams:label.field_name']						= "اسم الحقل";
 $lang['streams:label.field_slug']						= "اسم الحقل المختصر";
 $lang['streams:label.field_type']						= "نوع الحقل";
-$lang['streams:id']										= "مُعرّف ID";
-$lang['streams:created_by']								= "أنشأه";
-$lang['streams:created_date']							= "تاريخ الإنشاء";
-$lang['streams:updated_date']							= "آخر تعديل";
+$lang['streams:column_id']										= "مُعرّف ID";
+$lang['streams:column_created_by']								= "أنشأه";
+$lang['streams:column_created']							= "تاريخ الإنشاء";
+$lang['streams:column_updated']							= "آخر تعديل";
 $lang['streams:value']									= "القيمة";
 $lang['streams:manage']									= "إدارة";
 $lang['streams:search']									= "بحث";

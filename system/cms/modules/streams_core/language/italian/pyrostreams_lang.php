@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Si è verificato un errore nell'aggiung
 $lang['streams:new_entry_success']						= "Voce aggiunta correttamente.";
 $lang['streams:edit_entry_error']						= "Si è verificato un problema nell'aggiornare questa voce.";
 $lang['streams:edit_entry_success']						= "Voce aggiornata correttamente.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Sicuro di voler cancellare lo stream <strong>%s</strong>? Questa azione rimuoverà <strong>%s %s</strong> definitivamente.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Rendi il nome del campo il t
 $lang['streams:label.field_name']						= "Nome del campo";
 $lang['streams:label.field_slug']						= "Slug del campo";
 $lang['streams:label.field_type']						= "Tipo del campo";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Creato da";
-$lang['streams:created_date']							= "Data di creazione";
-$lang['streams:updated_date']							= "Data aggiornata";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Creato da";
+$lang['streams:column_created']							= "Data di creazione";
+$lang['streams:column_updated']							= "Data aggiornata";
 $lang['streams:value']									= "Valore";
 $lang['streams:manage']									= "Gestisci";
 $lang['streams:search']									= "Cerca";

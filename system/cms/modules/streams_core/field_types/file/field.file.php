@@ -2,6 +2,7 @@
 
 use Pyro\Module\Files\Model\Folder;
 use Pyro\Module\Files\Model\File;
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
 
 /**
  * PyroStreams File Field Type
@@ -12,12 +13,13 @@ use Pyro\Module\Files\Model\File;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_file
+class Field_file extends AbstractField
 {
 	public $field_type_slug			= 'file';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
+	
 	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'allowed_types');

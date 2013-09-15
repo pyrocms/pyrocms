@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Relationship Field Type
  *
@@ -9,11 +11,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_relationship
+class Field_relationship extends AbstractField
 {
 	public $field_type_slug			= 'relationship';
 
-	public $db_col_type				= 'int';
+	public $db_col_type				= 'integer';
 
 	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
