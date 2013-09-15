@@ -829,24 +829,31 @@ class Page_m extends MY_Model
 	 */
 	 public function _check_slug($slug)
 	 {
+	 	// This is only going to be set on Edit
 	 	$page_id = $this->uri->segment(4);
 
-		if ($this->_unique_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+	 	// This might be set if there is a page
+	 	$parent_id = $this->input->post('parent_id');
+
+	 	// See if this slug exists already
+		if ($this->_unique_slug($slug, $parent_id, (int) $page_id))
 		{
-			if ($this->input->post('parent_id') == 0)
+			// Root Level, No Page
+			if (empty($parent_id))
 			{
 				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;
 			}
+
+			// Child of a Page (find by parent)
 			else
 			{
-				$page_obj = $this->get($page_id);
-				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-				$page_obj = $this->get($this->input->post('parent_id'));
-				$parent_folder = $page_obj->title;
+				$parent = $this->get($parent_id);
+				$url = $slug;
+				$parent_folder = '/'.$parent->uri;
 			}
 
-			$this->form_validation->set_message('_check_slug',sprintf(lang('pages:page_already_exist_error'),$url, $parent_folder));
+			$this->form_validation->set_message('_check_slug', sprintf(lang('pages:page_already_exist_error'), $url, $parent_folder));
 			return false;
 		}
 
