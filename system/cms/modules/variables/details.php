@@ -52,7 +52,7 @@ class Module_Variables extends AbstractModule
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'es' => 'Manage global variables to access from everywhere.',
-                            'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
+                'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
 				'fr' => 'Gérer des variables globales pour pouvoir y accéder depuis n\'importe quel endroit du site.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
@@ -105,15 +105,17 @@ class Module_Variables extends AbstractModule
 	public function install($pdb, $schema)
 	{
 		ci()->load->driver('Streams');
-
+		
+		// Remove variables from streams
 		ci()->streams->utilities->remove_namespace('variables');
+		
+		// Now kill the actual table too
+		$schema->dropIfExists('variables');
 
 		ci()->lang->load('variables/variables');
 
-		if ( ! ci()->type->load_single_type('field'))
-		{
+		if (! ci()->type->load_single_type('field')) {
 			ci()->session->set_flashdata('notice', lang('variables:field_field_type_required'));
-			
 			return false;
 		}
 
@@ -121,14 +123,13 @@ class Module_Variables extends AbstractModule
 
         // Create the Variables folder. For the image field
         $folder_id = $pdb->table('file_folders')->insertGetId(array(
-            'parent_id' => 0,
             'slug' => 'variables',
             'name' => 'lang:variables:variables',
             'location' => 'local',
             'remote_container' => '',
             'date_added' => time(),
             'sort' => time(),
-            'hidden' => 1,
+            'hidden' => true,
         ));
 
 		$fields = array(
@@ -142,7 +143,9 @@ class Module_Variables extends AbstractModule
 				'unique'		=> true,
 				'namespace'		=> 'variables',
 				'assign'		=> 'variables',
-				'extra'			=> array('max_length' => 100),
+				'extra'			=> array(
+					'max_length' => 100
+				),
 			),
 			array(
 				'name'			=> 'lang:streams:column_data',
@@ -151,7 +154,11 @@ class Module_Variables extends AbstractModule
 				'required'		=> true,
 				'namespace'		=> 'variables',
 				'assign'		=> 'variables',
-				'extra'			=> array('max_length' => 100, 'namespace' => 'variables', 'field_slug' => 'data'),
+				'extra'			=> array(
+					'max_length' => 100,
+					'namespace' => 'variables',
+					'field_slug' => 'data'
+				),
 			),
 			array(
 				'name'			=> 'lang:streams:column_syntax',
@@ -159,8 +166,9 @@ class Module_Variables extends AbstractModule
 				'type'			=> 'merge_tags',
 				'namespace'		=> 'variables',
 				'assign'		=> 'variables',
-				'extra'			=> 
-					array('pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'),
+				'extra'			=> array(
+					'pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'
+				),
 			),
 		    // A default set of selectable fields
 			array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
@@ -181,11 +189,9 @@ class Module_Variables extends AbstractModule
 
 		ci()->streams->fields->add_fields($fields);
 		
-		$update_data = array(
-		    'view_options'  => array('name', 'data', 'syntax')
-		);
-
-		ci()->streams->streams->update_stream('variables', 'variables', $update_data);
+		ci()->streams->streams->update_stream('variables', 'variables', array(
+		    'view_options' => array('name', 'data', 'syntax'),
+		));
 
 		return true;
 	}

@@ -518,7 +518,6 @@ class Field_datetime extends AbstractField
 	 *
 	 * Before we add the field to a stream 
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @return	void
@@ -531,14 +530,12 @@ class Field_datetime extends AbstractField
 			$this->db_col_type = 'int';
 			return true;
 		}
-		else
+
+		// If not unix, let's see if we can need the
+		// time part in our MySQL date/time
+		if ($this->field->field_data['use_time'] == 'no')
 		{
-			// If not unix, let's see if we can need the
-			// time part in our MySQL date/time
-			if ($this->field->field_data['use_time'] == 'no')
-			{
-				$this->db_col_type = 'date';
-			}
+			$this->db_col_type = 'date';
 		}
 	}
 

@@ -133,7 +133,7 @@ abstract class AbstractField
 	 * Set entry builder
 	 * @param object $builder
 	 */
-	public function setEntryBuilder(\Pyro\Module\Streams_core\Core\Model\Query\EntryBuilder $builder = null)
+	public function setEntryBuilder(Model\Query\EntryBuilder $builder = null)
 	{
 		$this->builder = $builder;
 
@@ -144,8 +144,12 @@ abstract class AbstractField
 	 * Set field
 	 * @param object $field
 	 */
-	public function setField(\Pyro\Module\Streams_core\Core\Model\Field $field = null)
+	public function setField(Model\Field $field = null)
 	{
+		if (! $field) {
+			throw new Exception('Why you not set field?');
+		}
+
 		$this->field = $field;
 
 		return $this;
@@ -180,7 +184,7 @@ abstract class AbstractField
 	 * Set the stream
 	 * @param object $stream
 	 */
-	public function setStream(\Pyro\Module\Streams_core\Core\Model\Stream $stream = null)
+	public function setStream(Model\Stream $stream = null)
 	{
 		$this->stream = $stream;
 
@@ -191,7 +195,7 @@ abstract class AbstractField
 	 * Set the model
 	 * @param object $model
 	 */
-	public function setModel(\Pyro\Module\Streams_core\Core\Model\Entry $model = null)
+	public function setModel(Model\Entry $model = null)
 	{
 		$this->model = $model;
 
@@ -202,7 +206,7 @@ abstract class AbstractField
 	 * Set the entry
 	 * @param object $entry
 	 */
-	public function setEntry(\Pyro\Module\Streams_core\Core\Model\Entry $entry = null)
+	public function setEntry(Model\Entry $entry = null)
 	{
 		$this->entry = $entry;
 
@@ -213,7 +217,7 @@ abstract class AbstractField
 	 * Set the entries
 	 * @param array $entries
 	 */
-	public function setEntries(\Pyro\Module\Streams_core\Core\Model\Collection\EntryCollection $entries = null)
+	public function setEntries(Model\Collection\EntryCollection $entries = null)
 	{
 		$this->entries = $entries;
 

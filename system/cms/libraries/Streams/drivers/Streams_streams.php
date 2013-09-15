@@ -27,29 +27,25 @@ class Streams_streams extends CI_Driver {
 		// -------------------------------------
 		
 		// Do we have a stream name?
-		if ( ! trim($stream_name))
-		{
+		if (! trim($stream_name)) {
 			$this->log_error('empty_stream_name', 'add_stream');
 			return false;
 		}				
 
 		// Do we have a stream slug?
-		if ( ! trim($stream_slug))
-		{
+		if (! trim($stream_slug)) {
 			$this->log_error('empty_stream_slug', 'add_stream');
 			return false;
 		}				
 
 		// Do we have a stream namespace?
-		if ( ! trim($namespace))
-		{
+		if (! trim($namespace)) {
 			$this->log_error('empty_stream_namespace', 'add_stream');
 			return false;
 		}				
 		
 		// Is this stream slug already available?
-		if( is_object(ci()->streams_m->get_stream($stream_slug, true)) )
-		{
+		if (is_object(ci()->streams_m->get_stream($stream_slug, true))) {
 			$this->log_error('stream_slug_in_use', 'add_stream');
 			return false;
 		}
@@ -59,13 +55,13 @@ class Streams_streams extends CI_Driver {
 		// -------------------------------------
 		
 		return ci()->streams_m->create_new_stream(
-												$stream_name,
-												$stream_slug,
-												$prefix,
-												$namespace,
-												$about, 
-												$extra
-											);
+			$stream_name,
+			$stream_slug,
+			$prefix,
+			$namespace,
+			$about, 
+			$extra
+		);
 	}
 
 	// --------------------------------------------------------------------------
