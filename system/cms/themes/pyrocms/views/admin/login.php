@@ -15,33 +15,42 @@
 	<?php echo Asset::render() ?>
 </head>
 
-<body id="white-topo">
+<body id="login">
+
+
+	<header class="navbar background-color-white border-none border-bottom border-color-gray-lighter animated slideInDown">
+		<div class="navbar-header">
+			<span class="navbar-brand no-padding">
+				<?php echo Asset::img('logo.png', 'PyroCMS', array('height' => '48px')); ?>
+				&nbsp;
+				<span class="font-weight-normal">PyroCMS</span>
+			</span>
+		</div>
+	</header>
+
 
 	<?php $this->load->view('admin/partials/notices') ?>
 
-	<section class="container">
-	<div class="row">
-	<div class="col-md-3 col-md-offset-4">
 
-		<section class="background-color-white">
+	<main class="container animated slideInUp">
+	<div class="row-fluid">
+	<div class="col-md-3 col-md-offset-4 padding">
 
-			<center class="background-color-red">
-				<?php echo Asset::img('logo.png', 'PyroCMS', array('height' => '48px')); ?>
-				&nbsp;
-				<span class="color-white font-weight-normal">PyroCMS</span>
-			</center>
-			
+		<section class="">
+
 			<?php echo form_open('admin/login', array('class' => 'form margin-top')); ?>
 
-			<div class="form-group color-white">
+			<div class="form-group">
+				<label for="remember-check">Email</label>
 				<input type="text" name="email" class="form-control" placeholder="<?php echo lang('global:email'); ?>"/>
 			</div>
 
-			<div class="form-group color-white">
+			<div class="form-group">
+				<label for="remember-check">Email</label>
 				<input type="password" name="password" class="form-control" placeholder="<?php echo lang('global:password'); ?>"/>
 			</div>
 
-			<div class="form-group color-white">
+			<div class="form-group">
 				<label for="remember-check">
 					<input type="checkbox" name="remember" id="remember-check" checked />
 					<?php echo lang('user:remember'); ?>
@@ -58,16 +67,22 @@
 
 		</section>
 
+	</div>
+	</div>
+	</main>
 
-		<center class="animated fadeIn">
+	
+
+	<footer class="navbar navbar-fixed-bottom">
+	<center class="container">
+		<div class="row-fluid">
+		<div class="col-md-3 col-md-offset-4 padding animated slideInUp">
 			Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
 			<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
-		</center>
-
-
-	</div>
-	</div>
-	</section>
+		</div>
+		</div>
+	</center>
+	</footer>
 
 </body>
 </html>
