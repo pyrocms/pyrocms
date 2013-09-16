@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Variables Module
@@ -104,10 +105,10 @@ class Module_Variables extends AbstractModule
 
 	public function install($pdb, $schema)
 	{
-		ci()->load->driver('Streams');
+		
 		
 		// Remove variables from streams
-		ci()->streams->utilities->remove_namespace('variables');
+		Data\Utilities::destroyNamespace('variables');
 		
 		// Now kill the actual table too
 		$schema->dropIfExists('variables');
