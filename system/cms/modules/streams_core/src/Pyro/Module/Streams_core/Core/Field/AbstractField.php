@@ -221,7 +221,7 @@ abstract class AbstractField
 		}
 		elseif ($this->stream instanceof Model\Stream)
 		{
-			$this->form_slug = $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$this->field->field_slug;
+			$this->form_slug = $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-'.$this->field->field_slug;
 		}
 	}
 
