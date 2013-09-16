@@ -90,6 +90,12 @@ abstract class AbstractField
 	protected $form_data = array();
 
 	/**
+	 * The array of pre save parameter values
+	 * @var array
+	 */
+	protected $pre_save_parameters = array();
+
+	/**
 	 * Set value
 	 * @param mixed $value
 	 */
@@ -162,6 +168,26 @@ abstract class AbstractField
 	public function getField()
 	{
 		return $this->field;
+	}
+
+	/**
+	 * Set the pre save parameter values that will be available to param_[name]_pre_save() callbacks
+	 * @param array $pre_save_parameters The array of pre save parameter values
+	 */
+	public function setPreSaveParameters($pre_save_parameters = array())
+	{
+		$this->pre_save_parameters = $pre_save_parameters;
+	}
+
+	/**
+	 * Get a pre save parameter value or return a default value if it is not set
+	 * @param  [type] $name    [description]
+	 * @param  [type] $default [description]
+	 * @return [type]          [description]
+	 */
+	public function getPreSaveParameter($name = null, $default = null)
+	{
+		return isset($this->pre_save_parameters[$name]) ? $this->pre_save_parameters[$name] : $default;
 	}
 
 	/**
@@ -290,9 +316,9 @@ abstract class AbstractField
 	 * Get the value
 	 * @return mixed
 	 */
-	public function getValue()
+	public function getValue($default = null)
 	{
-		return $this->value;
+		return $this->value ? $this->value : $default;
 	}
 
 	/**
