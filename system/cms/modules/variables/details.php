@@ -108,7 +108,7 @@ class Module_Variables extends AbstractModule
 		
 		
 		// Remove variables from streams
-		Data\Utilities::destroyNamespace('variables');
+		Data\Utility::destroyNamespace('variables');
 		
 		// Now kill the actual table too
 		$schema->dropIfExists('variables');

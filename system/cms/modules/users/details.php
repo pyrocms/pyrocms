@@ -247,7 +247,7 @@ class Module_Users extends AbstractModule
             ),
         ));
 
-        Data\Utilities::destroyNamespace('users');
+        Data\Utility::destroyNamespace('users');
 
         // Create the profiles stream
         if (Data\Streams::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
