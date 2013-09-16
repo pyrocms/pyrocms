@@ -441,19 +441,20 @@ class Form
 			{
 				if ($this->key_check and $type = $field->getType($this->entry))
 				{
+					$type->setFormSlug();
 					// Post Data - we always show
 					// post data above any other data that
 					// might be sitting around.
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$type->getFormSlug()]))
+					if ($value = ci()->input->post($type->getFormSlug()))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getFormSlug());
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = $value;
 					}
-					elseif (isset($_POST[$type->getFormSlug().'[]']))
+					elseif ($value = ci()->input->post($type->getFormSlug().'[]'))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getFormSlug().'[]');
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = $value;
 					}
 					else
 					{
