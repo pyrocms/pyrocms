@@ -128,7 +128,7 @@ abstract class Eloquent extends Model
         {
             return false;
         }
-        
+
         return parent::save($options);
     }
 

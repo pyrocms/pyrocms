@@ -48,10 +48,10 @@ abstract class AbstractField
 	protected $field = null;
 
 	/**
-	 * The unique name like namespace:stream.slug
+	 * The unique input name like namespace:stream.slug
 	 * @var string
 	 */
-	protected $name = null;
+	protected $form_slug = null;
 
 	/**
 	 * The stream object
@@ -88,6 +88,12 @@ abstract class AbstractField
 	 * @var array
 	 */
 	protected $form_data = array();
+
+	/**
+	 * The array of pre save parameter values
+	 * @var array
+	 */
+	protected $pre_save_parameters = array();
 
 	/**
 	 * Set value
@@ -165,6 +171,36 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Set the pre save parameter values that will be available to param_[name]_pre_save() callbacks
+	 * @param array $pre_save_parameters The array of pre save parameter values
+	 */
+	public function setPreSaveParameters($pre_save_parameters = array())
+	{
+		$this->pre_save_parameters = $pre_save_parameters;
+	}
+
+	/**
+	 * Get a pre save parameter value or return a default value if it is not set
+	 * @param  [type] $name    [description]
+	 * @param  [type] $default [description]
+	 * @return [type]          [description]
+	 */
+	public function getPreSaveParameter($name = null, $default = null)
+	{
+		return isset($this->pre_save_parameters[$name]) ? $this->pre_save_parameters[$name] : $default;
+	}
+
+	/**
+	 * Get the field
+	 * @return object 
+	 */
+	public function getParameter($key, $default = null)
+	{
+		return isset($this->field->field_data[$key]) ? $this->field->field_data[$key] : $default;
+	}
+
+
+	/**
 	 * Get the stream
 	 * @return object 
 	 */
@@ -177,16 +213,21 @@ abstract class AbstractField
 	 * Get the input name
 	 * @return string 
 	 */
-	public function getInputName()
+	public function setFormSlug($form_slug = null)
 	{
-		if ($this->stream instanceof Model\Stream)
+		if ($form_slug)
 		{
-			return $this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->field->field_slug;
+			$this->form_slug = $form_slug;
 		}
-		else
+		elseif ($this->stream instanceof Model\Stream)
 		{
-			return $this->field->field_slug;
+			$this->form_slug = $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$this->field->field_slug;
 		}
+	}
+
+	public function getFormSlug()
+	{
+		return $this->form_slug;
 	}
 
 	/**
@@ -275,9 +316,9 @@ abstract class AbstractField
 	 * Get the value
 	 * @return mixed
 	 */
-	public function getValue()
+	public function getValue($default = null)
 	{
-		return $this->value;
+		return $this->value ? $this->value : $default;
 	}
 
 	/**
@@ -328,7 +369,7 @@ abstract class AbstractField
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
-		$this->name = $this->getInputName();
+		$this->setFormSlug();
 
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
@@ -347,8 +388,10 @@ abstract class AbstractField
 	/**
 	 * Add a field type CSS file
 	 */
-	public function addCss($field_type, $file)
+	public function css($file, $field_type = null)
 	{
+		$field_type = $field_type ? $field_type : $this->field_type_slug;
+		
 		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
 
 		ci()->template->append_metadata($html);
@@ -359,8 +402,10 @@ abstract class AbstractField
 	/**
 	 * Add a field type JS file
 	 */
-	public function addJs($field_type, $file)
+	public function js($file, $field_type = null)
 	{
+		$field_type = $field_type ? $field_type : $this->field_type_slug;
+
 		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
 
 		ci()->template->append_metadata($html);

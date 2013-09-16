@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Query\Expression as DBExpression;
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Field;
+use Pyro\Module\Streams_core\Core;
 
 class FieldAssignment extends Eloquent
 {
@@ -115,7 +115,8 @@ class FieldAssignment extends Eloquent
         // Run the destruct
         if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
         {
-            $type->field_assignment_destruct($field, $stream);
+            $type->setStream($stream);
+            $type->field_assignment_destruct();
         }
 
         // Update that stream's view options
@@ -166,7 +167,7 @@ class FieldAssignment extends Eloquent
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
-       Field\Type::getLoader()->getType($this->field->field_type);
+        Core\Field\Type::getLoader()->getType($this->field->field_type);
 
         return lang_label($field_name);
     }

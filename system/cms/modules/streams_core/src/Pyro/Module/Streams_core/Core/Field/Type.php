@@ -64,9 +64,21 @@ class Type
 	    	$instance = self::$instance;
 	    }
 
+		// Since this is PyroStreams core we know where
+		// PyroStreams is, but we set this for backwards
+		// compatability for anyone using this constant.
+		// Also, now that the Streams API is around, we need to
+		// check if we need to change this based on the
+		// install situation.
+		if (defined('PYROPATH')) {
+			$core_addon_path = PYROPATH.'modules/streams_core/';
+		} else {
+			$core_addon_path = APPPATH.'modules/streams_core/';
+		}
+
 		// Set our addon paths
 	    $instance->addon_paths = array(
-			'core' 			=> APPPATH.'modules/streams_core/field_types/',
+			'core' 			=> $core_addon_path.'field_types/',
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
@@ -348,6 +360,7 @@ class Type
 
 		// Load the proper class
 		$field_type = static::getLoader()->getType($type);
+		$field_type->setField($current_field);
 
 		// I guess we don't have any to show.
 		if ( ! isset($field_type->custom_parameters)) return null;

@@ -34,14 +34,14 @@ class Field_text extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->name;
-		$options['id']		= $this->name;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
 
-		if (isset($this->field->field_data['max_length']) and is_numeric($this->field->field_data['max_length']))
+		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
 		{
-			$options['maxlength'] = $this->field->field_data['max_length'];
+			$options['maxlength'] = $max_length;
 		}
 
 		return form_input($options);

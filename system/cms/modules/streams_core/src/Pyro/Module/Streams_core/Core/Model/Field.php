@@ -43,11 +43,13 @@ class Field extends Eloquent
         // Load the type to see if there are other params
         if ($type = $instance->getType() and isset($type->custom_parameters))
         {
+            $type->setPreSaveParameters($attributes);
+
             foreach ($type->custom_parameters as $param)
             {
                 if (method_exists($type, 'param_'.$param.'_pre_save'))
                 {
-                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $attributes );
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $type->getPreSaveParameter($param) );
                 }
             }
         }
@@ -76,17 +78,20 @@ class Field extends Eloquent
 
         $type->setField($this);
 
-        $type->setEntry($entry);
-        
-        $type->setStream($entry->getModel()->getStream());
+        if ($entry)
+        {
+            $type->setEntry($entry);
+            
+            $type->setStream($entry->getModel()->getStream());
 
-        $type->setModel($entry->getModel());
-        
-        $type->setEntryBuilder($entry->getModel()->newQuery());
-        
+            $type->setModel($entry->getModel());
+            
+            $type->setEntryBuilder($entry->getModel()->newQuery());            
+        }
+
         if ($field_slug = $this->getAttribute('field_slug'))
         {
-            $type->setValue($entry->{$this->getAttribute('field_slug')});            
+            $type->setValue($entry->getAttributeValue($field_slug));            
         }
         else
         {
@@ -269,12 +274,17 @@ class Field extends Eloquent
         return $success;
     }
 
+    public static function cleanup()
+    {
+        
+    }
+
     /**
      * Delete fields by namespace
      * @param  string $namespace
      * @return object
      */
-    public function deleteByNamespace($namespace)
+    public static function deleteByNamespace($namespace)
     {
         return static::where('field_namespace', $namespace)->delete();
     }

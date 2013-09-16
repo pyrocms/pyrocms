@@ -300,7 +300,7 @@ class Entries extends AbstractCp
 			}
 			else
 			{
-				$instance->entry = $instance->model;
+				$instance->entry = $instance->model->setFormat(false);
 			}
 		}
 		

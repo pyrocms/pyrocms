@@ -44,6 +44,7 @@ class EntryBuilder extends Builder
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
+		// Shall we return formatted entries or not?
 		if ($this->model->isFormat())
 		{
 			return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
