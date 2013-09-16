@@ -22,7 +22,7 @@ class Utility
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	public function destroyNamespace($namespace)
+	public static function destroyNamespace($namespace)
 	{
 		// Some field destructs use stream data from the cache,
 		// so let's make sure that the slug cache has run.
@@ -166,7 +166,7 @@ class Utility
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	public function convertColumnToField($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
+	public static function convertColumnToField($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 

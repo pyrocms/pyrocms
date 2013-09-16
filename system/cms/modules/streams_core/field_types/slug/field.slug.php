@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Model\Field;
 
 /**
  * PyroStreams Slug Field Type
@@ -99,14 +100,14 @@ class Field_slug extends AbstractField
 	/**
 	 * Dash or Underscore?
 	 */
-	public function param_space_type($value = null)
+	public function param_space_type()
 	{
 		$options = array(
 			'-' => ci()->lang->line('streams:slug.dash'),
 			'_' => ci()->lang->line('streams:slug.underscore')
 		);
 
-		return form_dropdown('space_type', $options, $value);
+		return form_dropdown('space_type', $options, $this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -114,23 +115,22 @@ class Field_slug extends AbstractField
 	/**
 	 * What field to slugify?
 	 */
-	public function param_slug_field($value = null)
+	public function param_slug_field()
 	{
-		ci()->load->model('fields_m');
-
 		// Get all the fields
-		$fields = ci()->fields_m->get_all_fields();
+		$fields = Field::all();
 
 		$drop = array();
 
 		foreach ($fields as $field) {
 			// We don't want no slugs.
-			if ($field['field_type'] != 'slug') {
-				$drop[$field['field_slug']] = ci()->fields->translate_label($field['field_name']);
+			if ($field->field_type != 'slug')
+			{
+				$drop[$field->field_slug] = lang_label($field->field_name);
 			}
 		}
 
-		return form_dropdown('slug_field', $drop, $value);
+		return form_dropdown('slug_field', $drop, $this->value);
 	}
 
 }

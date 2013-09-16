@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Users Module
@@ -246,14 +247,10 @@ class Module_Users extends AbstractModule
             ),
         ));
 
-        $schema->dropIfExists('profiles');
-
-        // Load up the streams driver and convert the profiles table
-        // into a stream.
-        ci()->load->driver('Streams');
+        Data\Utility::destroyNamespace('users');
 
         // Create the profiles stream
-        if ( ! ci()->streams->streams->add_stream('lang:user_profile_fields_label', 'profiles', 'users', null, 'Profiles for users module', array(
+        if ( ! Data\Streams::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
                 'title_column' => 'display_name',
                 'view_options' => array('display_name')
             )))
@@ -261,14 +258,18 @@ class Module_Users extends AbstractModule
             return false;
         }
 
+         // Index user_id
+        $schema->table('profiles', function($table) {
+            $table->integer('user_id');
+            $table->index('user_id');
+        });
+
         // Go ahead and add the profile fields
         $fields = array(
             array(
                 'name'          => 'lang:user:display_name',
                 'slug'          => 'display_name',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
                 'required' => true,
             ),
@@ -276,8 +277,6 @@ class Module_Users extends AbstractModule
                 'name'          => 'lang:user:first_name_label',
                 'slug'          => 'first_name',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
                 'required' => true,
             ),
@@ -285,8 +284,6 @@ class Module_Users extends AbstractModule
                 'name'          => 'lang:user:last_name_label',
                 'slug'          => 'last_name',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 50),
                 'required' => true,
             ),
@@ -294,31 +291,23 @@ class Module_Users extends AbstractModule
                 'name'          => 'lang:user:profile_company',
                 'slug'          => 'company',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 100)
             ),
             array(
                 'name'          => 'lang:user:profile_bio',
                 'slug'          => 'bio',
                 'type'          => 'textarea',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
             ),
             array(
                 'name'          => 'lang:user:lang',
                 'slug'          => 'lang',
                 'type'          => 'pyro_lang',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra' => array('filter_theme' => 'yes')
             ),
             array(
                 'name'          => 'lang:user:profile_dob',
                 'slug'          => 'dob',
                 'type'          => 'datetime',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array(
                     'use_time'      => 'no',
                     'storage'       => 'unix',
@@ -330,8 +319,6 @@ class Module_Users extends AbstractModule
                 'name'          => 'lang:user:profile_gender',
                 'slug'          => 'choice',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array(
                     'choice_type' => 'dropdown',
                     'choice_data' => " : Not Telling\nm : Male\nf : Female"
@@ -341,63 +328,43 @@ class Module_Users extends AbstractModule
                 'name'          => 'lang:user:profile_phone',
                 'slug'          => 'phone',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 20)
             ),
             array(
                 'name'          => 'lang:user:profile_mobile',
                 'slug'          => 'mobile',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 20)
             ),
             array(
                 'name'          => 'lang:user:profile_address_line1',
                 'slug'          => 'address_line1',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
             ),
             array(
                 'name'          => 'lang:user:profile_address_line2',
                 'slug'          => 'address_line2',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
             ),
             array(
                 'name'          => 'lang:user:profile_address_line3',
                 'slug'          => 'address_line3',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
             ),
             array(
                 'name'          => 'lang:user:profile_address_postcode',
                 'slug'          => 'postcode',
                 'type'          => 'text',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
                 'extra'      => array('max_length' => 20)
             ),
             array(
                 'name'          => 'lang:user:profile_website',
                 'slug'          => 'website',
                 'type'          => 'url',
-                'namespace'     => 'users',
-                'assign'        => 'profiles',
             )
         );
 
-         // Index user_id
-        $schema->table('profiles', function($table) {
-            $table->integer('user_id');
-            $table->index('user_id');
-        });
-
-        ci()->streams->fields->add_fields($fields);
+        Data\Fields::addFields($fields, 'profiles', 'users');
 
         return true;
     }
