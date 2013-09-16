@@ -63,7 +63,7 @@ class Type
 	    {
 	    	$instance = self::$instance;
 	    }
-	    
+
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
 		// compatability for anyone using this constant.
@@ -71,14 +71,14 @@ class Type
 		// check if we need to change this based on the
 		// install situation.
 		if (defined('PYROPATH')) {
-			define('PYROSTEAMS_DIR', PYROPATH.'modules/streams_core/');
+			$core_addon_path = PYROPATH.'modules/streams_core/';
 		} else {
-			define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
+			$core_addon_path = APPPATH.'modules/streams_core/';
 		}
 
 		// Set our addon paths
 	    $instance->addon_paths = array(
-			'core' 			=> PYROSTEAMS_DIR.'field_types/',
+			'core' 			=> $core_addon_path.'field_types/',
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
