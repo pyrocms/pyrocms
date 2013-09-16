@@ -258,7 +258,7 @@ class Field_field extends AbstractField
 			elseif ($selected_type 
 				and isset($selected_type->return_unprocessed_field_field_type)
 				and ! $selected_type->return_unprocessed_field_field_type
-				and $unformatted_value = $this->entry->{$this->getParameter('field_slug')}))
+				and $unformatted_value = $this->entry->{$this->getParameter('field_slug')})
 			{
 				$output = $unformatted_value;					
 			}

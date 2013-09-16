@@ -560,11 +560,11 @@ class Field_choice extends AbstractField
 		
 			if (count($bits) == 1)
 			{
-				$choices[$key_bit] = lang_label(($key_bit);
+				$choices[$key_bit] = lang_label($key_bit);
 			}
 			else
 			{
-				$choices[$key_bit] = lang_label((trim($bits[1]));
+				$choices[$key_bit] = lang_label(trim($bits[1]));
 			}
 		}
 

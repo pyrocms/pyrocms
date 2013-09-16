@@ -388,8 +388,10 @@ abstract class AbstractField
 	/**
 	 * Add a field type CSS file
 	 */
-	public function addCss($field_type, $file)
+	public function css($file, $field_type = null)
 	{
+		$field_type = $field_type ? $field_type : $this->field_type_slug;
+		
 		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
 
 		ci()->template->append_metadata($html);
@@ -400,8 +402,10 @@ abstract class AbstractField
 	/**
 	 * Add a field type JS file
 	 */
-	public function addJs($field_type, $file)
+	public function js($file, $field_type = null)
 	{
+		$field_type = $field_type ? $field_type : $this->field_type_slug;
+
 		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
 
 		ci()->template->append_metadata($html);

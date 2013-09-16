@@ -103,7 +103,7 @@ class Field_state extends AbstractField
 
 		return form_dropdown(
 			$this->form_slug, 
-			$this->states($field->is_required, 
+			$this->states($field->is_required), 
 			$this->getParameter('state_display', 'abbr'), 
 			$value, 
 			'id="'.$this->form_slug.'"'
