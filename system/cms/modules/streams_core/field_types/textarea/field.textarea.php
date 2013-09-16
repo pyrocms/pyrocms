@@ -36,23 +36,18 @@ class Field_textarea extends AbstractField
 		// We only use the default value if this is a new entry
 		if ( ! $this->entry->getKey())
 		{
-			$value = (isset($this->field->field_data['default_text']) and $this->field->field_data['default_text']) 
-				? $this->field->field_data['default_text']
-				: $this->value;
-
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			if ( ! $value and isset($this->field->field_data['default_value']))
-			{
-				$value = $this->field->field_data['default_value'];
-			}
-		} else {
+			$value = $this->getParameter('default_text', $this->getParameter('default_value'));
+		}
+		else
+		{
 			$value = $this->value;
 		}
 
 		return form_textarea(array(
-			'name'		=> $this->name,
-			'id'		=> $this->name,
+			'name'		=> $this->form_slug,
+			'id'		=> $this->form_slug,
 			'value'		=> $value
 		));
 	}
@@ -66,8 +61,8 @@ class Field_textarea extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
-		$content_type = ( ! isset($params['content_type'])) ? 'html' : $params['content_type'];
+		$parse_tags		= $this->getParameter('allow_tags', 'n');
+		$content_type 	= $this->getParameter('content_type', 'html');
 
 		// If this is the admin, show only the source
 		// @TODO This is hacky, there will be times when the admin wants to see a preview or something

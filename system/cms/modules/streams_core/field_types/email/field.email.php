@@ -34,9 +34,9 @@ class Field_email extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->name;
-		$options['id']		= $this->name;
-		$options['value']	= $this->form_data['value'];
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
+		$options['value']	= $this->value;
 
 		return form_input($options);
 	}

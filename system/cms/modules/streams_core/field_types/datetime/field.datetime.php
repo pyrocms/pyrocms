@@ -54,10 +54,10 @@ class Field_datetime extends AbstractField
 	public function event()
 	{
 		// We need the JS file for the front-end. 
-		if ( ! defined('ADMIN_THEME') and isset($this->field->field_data['input_type']) and $this->field->field_data['input_type'] == 'datepicker')
+		if ( ! defined('ADMIN_THEME') and $this->getParameter('input_type') == 'datepicker')
 		{
-			$this->addJs('datetime', 'jquery.datepicker.js');
-			$this->addCss('datetime', 'datepicker.css');
+			$this->css('datepicker.css');
+			$this->js('jquery.datepicker.js');
 		}
 	}
 
@@ -525,13 +525,13 @@ class Field_datetime extends AbstractField
 	public function field_assignment_construct()
 	{
 		// Is this in UNIX time?
-		if ($this->getFieldDataValue('storage') == 'unix')
+		if ($this->getParameter('storage') == 'unix')
 		{	
 			$this->db_col_type = 'int';
 		}
 		// If not unix, let's see if we can need the
 		// time part in our MySQL date/time
-		elseif ($this->getFieldDataValue('use_time') == 'no')
+		elseif ($this->getParameter('use_time') == 'no')
 		{
 			$this->db_col_type = 'date';
 		}
@@ -845,11 +845,11 @@ class Field_datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_start_date()
+	public function param_start_date($value = null)
 	{
 		$options['name'] 	= 'start_date';
 		$options['id']		= 'start_date';
-		$options['value']	= $this->value;
+		$options['value']	= $value;
 		
 		return array(
 			'input' 		=> form_input($options),
@@ -866,11 +866,11 @@ class Field_datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_end_date()
+	public function param_end_date($value = null)
 	{
 		$options['name'] 	= 'end_date';
 		$options['id']		= 'end_date';
-		$options['value']	= $this->value;
+		$options['value']	= $value;
 		
 		return array(
 			'input' 		=> form_input($options),
@@ -887,9 +887,9 @@ class Field_datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_use_time()
+	public function param_use_time($value = null)
 	{
-		if ($this->value == 'no')
+		if ($value == 'no')
 		{
 			$no_select 		= true;
 			$yes_select 	= false;
@@ -916,20 +916,20 @@ class Field_datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_storage()
+	public function param_storage($value = null)
 	{
 		$options = array(
 					'datetime'	=> 'MySQL Datetime',
 					'unix'		=> 'Unix Time'			
 		);
 
-		if ($this->value)
+		if ($value)
 		{
-			return form_hidden('storage', $this->value).'<p>'.$options[$this->value].'</p>';
+			return form_hidden('storage', $value).'<p>'.$options[$value].'</p>';
 		}
 		else
 		{
-			return form_dropdown('storage', $options, $this->value);
+			return form_dropdown('storage', $options, $value);
 		}
 	}
 
@@ -942,14 +942,14 @@ class Field_datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_input_type()
+	public function param_input_type($value = null)
 	{
 		$options = array(
 					'datepicker'	=> 'Datepicker',
 					'dropdown'		=> 'Dropdown'
 		);
 			
-		return form_dropdown('input_type', $options, $this->value);
+		return form_dropdown('input_type', $options, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -963,20 +963,19 @@ class Field_datetime extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->value = null;
 		// Don't show Dec 31st if empty silly
 		if ( $this->value == null ) return null;
 		
 		// If this is a date-time stored value,
 		// we need this to be converted to UNIX.
-		if ( ! isset($this->field->field_data['storage']) or $this->field->field_data['storage'] == 'datetime')
+		if ($this->getParameter('storage') == 'datetime')
 		{
 			ci()->load->helper('date');
 			$this->value = mysql_to_unix($this->value);
 		}
 		
 		// Format for admin
-		if ($this->field->field_data['use_time'] == 'no')
+		if ($this->getParameter('use_time') == 'no')
 		{
 			return(date(Settings::get('date_format'), $this->value));
 		}	

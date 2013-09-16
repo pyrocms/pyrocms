@@ -32,13 +32,13 @@ class Field_image extends AbstractField
 
 	public function __construct()
 	{
-		get_instance()->load->library('image_lib');
+		ci()->load->library('image_lib');
 	}
 
 	public function event()
 	{
-		$this->CI->type->add_js('image', 'imagefield.js');
-		$this->CI->type->add_css('image', 'imagefield.css');		
+		$this->js('imagefield.js');
+		$this->css('imagefield.css');		
 	}
 
 	// --------------------------------------------------------------------------
@@ -52,7 +52,7 @@ class Field_image extends AbstractField
 	 */
 	public function form_output($params)
 	{
-		$this->CI->load->config('files/files');
+		ci()->load->config('files/files');
 
 		$out = '';
 		// if there is content and it is not dummy or cleared
@@ -99,7 +99,7 @@ class Field_image extends AbstractField
 			}
 		}
 
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
 		// Resize options
 		$resize_width 	= (isset($field->field_data['resize_width'])) ? $field->field_data['resize_width'] : null;
@@ -113,7 +113,7 @@ class Field_image extends AbstractField
 
 		if ( ! $return['status'])
 		{
-			$this->CI->session->set_flashdata('notice', $return['message']);
+			ci()->session->set_flashdata('notice', $return['message']);
 			return null;
 		}
 		else
@@ -137,7 +137,7 @@ class Field_image extends AbstractField
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
-		$image = $this->CI->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
+		$image = ci()->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
 
 		if ( ! $image) return null;
 
@@ -164,7 +164,7 @@ class Field_image extends AbstractField
 	{
 		if ( ! $input or $input == 'dummy' ) return null;
 
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
 		$file = Files::getFile($input);
 
@@ -176,7 +176,7 @@ class Field_image extends AbstractField
 			// older style image, so let's create a local file path.
 			if ( ! $image->path)
 			{
-				$image_data['image'] = base_url($this->CI->config->item('files:path').$image->filename);
+				$image_data['image'] = base_url(ci()->config->item('files:path').$image->filename);
 			}
 			else
 			{
@@ -221,9 +221,9 @@ class Field_image extends AbstractField
 	public function param_folder($value = null)
 	{
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		ci()->load->model('files/file_folders_m');
 
-		$tree = $this->CI->file_folders_m->get_folders();
+		$tree = ci()->file_folders_m->get_folders();
 
 		$tree = (array)$tree;
 
