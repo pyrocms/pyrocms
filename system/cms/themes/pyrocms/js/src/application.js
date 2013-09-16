@@ -21,6 +21,7 @@
  */
 
 //@codekit-append "ace/ace.js"
+//@codekit-append "components/cookie.js"
 //@codekit-append "components/easy-pie-chart.js"
 //@codekit-append "components/fullscreen.js"
 //@codekit-append "components/morris.js"
