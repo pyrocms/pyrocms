@@ -96,6 +96,12 @@ abstract class AbstractField
 	protected $pre_save_parameters = array();
 
 	/**
+	 * The relation model
+	 * @var [type]
+	 */
+	protected $relation = null;
+
+	/**
 	 * Set value
 	 * @param mixed $value
 	 */
@@ -339,6 +345,20 @@ abstract class AbstractField
 		}	
 		else
 		{
+			// Get relations from the model
+			$relations = $this->model->getRelations();
+
+			// Return relations if they are eager loaded
+			if (isset($relations[$this->field->field_slug]))
+			{
+				return $this->relation = $this->relations[$this->field->field_slug];
+			}
+			// If the field type has a relationship, get the results
+			elseif (method_exists($this, 'relation'))
+			{
+			    return $this->relation = $this->relation()->getResults();          
+			}
+
 			// If not, check and see if there is a method
 			// for pre output or pre_output_plugin
 			if ($plugin and method_exists($this, 'pre_output_plugin'))
