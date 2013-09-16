@@ -313,7 +313,7 @@ class Field_field extends AbstractField
 	
 		try {		
 				
-			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($max_length) {
+			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($this, $max_length) {
 
 				// Add a column to store the field slug
 				$table
@@ -339,11 +339,11 @@ class Field_field extends AbstractField
     * @param   object
     * @return  void
     */
-    public function field_assignment_destruct($field, $stream)
+    public function field_assignment_destruct()
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($field) {
+		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($this) {
 			// Drop the field slug column
 			$table->dropColumn($this->field->field_slug.'_field_slug');
 
