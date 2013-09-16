@@ -10,7 +10,7 @@ class Theme_Pyrocms extends AbstractTheme
     public $author_website	= 'http://pyrocms.com/';
     public $website			= 'http://pyrocms.com/';
     public $description		= 'PyroCMS admin theme. HTML5 and CSS3 styling.';
-    public $version			= '1.0.0';
+    public $version			= '2.0.0';
 	public $type			= 'admin';
 	public $options 		= array(
 		'pyrocms_recent_comments' => array(

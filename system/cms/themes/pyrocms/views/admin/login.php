@@ -9,60 +9,65 @@
 	<base href="<?php echo base_url(); ?>"/>
 	<meta name="robots" content="noindex, nofollow"/>
 
-	<?php Asset::css('workless/workless.css'); ?>
-	<?php Asset::css('workless/application.css'); ?>
-	<?php Asset::css('workless/responsive.css'); ?>
-	<?php Asset::css('animate/animate.css'); ?>
-
-	<?php Asset::js('jquery/jquery.js'); ?>
-	<?php Asset::js('admin/login.js'); ?>
+	<?php Asset::css(array('application.css')); ?>
+	<?php //Asset::js('jquery/jquery.js'); ?>
 
 	<?php echo Asset::render() ?>
 </head>
 
-<body id="login-body">
+<body id="white-topo">
 
-<div id="container" class="login-screen">
-	<section id="content">
-		<div id="content-body">
+	<?php $this->load->view('admin/partials/notices') ?>
 
-			<div class="animated bounceIn" id="login-logo"></div>
-			<?php $this->load->view('admin/partials/notices') ?>
-				<?php echo form_open('admin/login'); ?>
-				<div class="form_inputs">
-					<ul>
-						<li>
-							<div class="input animated fadeIn" id="login-un"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
-						</li>
+	<section class="container">
+	<div class="row">
+	<div class="col-md-3 col-md-offset-4">
 
-						<li>
-							<div class="input animated fadeIn" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
-						</li>
-						<li class="animated fadeIn" id="login-save">
-							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check" checked />
-								<?php echo lang('user:remember'); ?>
-							</label>
-						</li>
-					</ul>
-					<div class="animated fadeIn" id="login-action">
-						<div class="buttons padding-top" id="login-buttons">
-							<button id="login-submit" class="btn" ontouchstart="" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
-								<span><?php echo lang('login_label'); ?></span>
-							</button>
-						</div>
-					</div>
-					<!-- </div> -->
-				<?php echo form_close(); ?>
+		<section class="background-color-white">
+
+			<center class="background-color-red">
+				<?php echo Asset::img('logo.png', 'PyroCMS', array('height' => '48px')); ?>
+				&nbsp;
+				<span class="color-white font-weight-normal">PyroCMS</span>
+			</center>
+			
+			<?php echo form_open('admin/login', array('class' => 'form margin-top')); ?>
+
+			<div class="form-group color-white">
+				<input type="text" name="email" class="form-control" placeholder="<?php echo lang('global:email'); ?>"/>
 			</div>
-		</div>
-	</section>
-</div>
-<footer id="login-footer">
-	<div class="wrapper animated fadeIn" id="login-credits">
-		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
-		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
+
+			<div class="form-group color-white">
+				<input type="password" name="password" class="form-control" placeholder="<?php echo lang('global:password'); ?>"/>
+			</div>
+
+			<div class="form-group color-white">
+				<label for="remember-check">
+					<input type="checkbox" name="remember" id="remember-check" checked />
+					<?php echo lang('user:remember'); ?>
+				</label>
+
+				<br/>
+			
+				<button class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
+					<span><?php echo lang('login_label'); ?></span>
+				</button>
+			</div>
+
+			<?php echo form_close(); ?>
+
+		</section>
+
+
+		<center class="animated fadeIn">
+			Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
+			<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
+		</center>
+
+
 	</div>
-</footer>
+	</div>
+	</section>
+
 </body>
 </html>
