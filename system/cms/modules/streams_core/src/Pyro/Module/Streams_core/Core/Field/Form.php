@@ -617,7 +617,7 @@ class Form
 
 				if (method_exists($type, 'validate'))
 				{
-					$rules[] = "streams_field_validation[{$field->field_id}:{$this->method}]";
+					$rules[] = "streams_field_validation[{$field->getKey()}:{$this->method}]";
 				}
 
 				// -------------------------------------

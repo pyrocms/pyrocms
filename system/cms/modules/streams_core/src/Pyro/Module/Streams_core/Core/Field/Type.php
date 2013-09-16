@@ -360,6 +360,7 @@ class Type
 
 		// Load the proper class
 		$field_type = static::getLoader()->getType($type);
+		$field_type->setField($current_field);
 
 		// I guess we don't have any to show.
 		if ( ! isset($field_type->custom_parameters)) return null;
