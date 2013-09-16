@@ -447,13 +447,13 @@ class Form
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$type->getInputName()]))
+					if (isset($_POST[$type->getFormSlug()]))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName());
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getFormSlug());
 					}
-					elseif (isset($_POST[$this->getInputName($field).'[]']))
+					elseif (isset($_POST[$type->getFormSlug().'[]']))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getInputName().'[]');
+						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = ci()->input->post($type->getFormSlug().'[]');
 					}
 					else
 					{
@@ -509,7 +509,7 @@ class Form
 				$type->setStream($this->entry->getStream());
 
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
-				$fields[$field->field_slug]['input_slug']		= $type->getInputName();
+				$fields[$field->field_slug]['input_slug']		= $type->getFormSlug();
 				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
 				
 				// Set the value. In the odd case it isn't set,
@@ -762,25 +762,6 @@ class Form
 			{
 				$type->field_setup_event($current_field);
 			}
-		}
-	}
-
-	/**
-	 * Get the input name
-	 * @param  object $field 
-	 * @return string
-	 */
-	public function getInputName($field = null)
-	{
-		if ( ! $field instanceof Model\Field) return null;
-
-		if ($this->stream instanceof Model\Stream)
-		{
-			return $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$field->field_slug;
-		}
-		else
-		{
-			return $field->field_slug;
 		}
 	}
 

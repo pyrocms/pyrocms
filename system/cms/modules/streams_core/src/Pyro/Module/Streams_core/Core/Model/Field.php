@@ -86,7 +86,7 @@ class Field extends Eloquent
         
         if ($field_slug = $this->getAttribute('field_slug'))
         {
-            $type->setValue($entry->{$this->getAttribute('field_slug')});            
+            $type->setValue($entry->getAttributeValue($this->getAttribute('field_slug')));            
         }
         else
         {

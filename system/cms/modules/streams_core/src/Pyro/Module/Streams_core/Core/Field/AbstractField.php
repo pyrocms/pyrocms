@@ -48,10 +48,10 @@ abstract class AbstractField
 	protected $field = null;
 
 	/**
-	 * The unique name like namespace:stream.slug
+	 * The unique input name like namespace:stream.slug
 	 * @var string
 	 */
-	protected $name = null;
+	protected $form_slug = null;
 
 	/**
 	 * The stream object
@@ -168,7 +168,7 @@ abstract class AbstractField
 	 * Get the field
 	 * @return object 
 	 */
-	public function getFieldDataValue($key, $default = null)
+	public function getParameter($key, $default = null)
 	{
 		return isset($this->field->field_data[$key]) ? $this->field->field_data[$key] : $default;
 	}
@@ -187,16 +187,21 @@ abstract class AbstractField
 	 * Get the input name
 	 * @return string 
 	 */
-	public function getInputName()
+	public function setFormSlug($form_slug = null)
 	{
-		if ($this->stream instanceof Model\Stream)
+		if ($form_slug)
 		{
-			return $this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->field->field_slug;
+			$this->form_slug = $form_slug;
 		}
-		else
+		elseif ($this->stream instanceof Model\Stream)
 		{
-			return $this->field->field_slug;
+			$this->form_slug = $this->stream->stream_namespace.':'.$this->stream->stream_slug.'.'.$this->field->field_slug;
 		}
+	}
+
+	public function getFormSlug()
+	{
+		return $this->form_slug;
 	}
 
 	/**
@@ -338,7 +343,7 @@ abstract class AbstractField
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
-		$this->name = $this->getInputName();
+		$this->setFormSlug();
 
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
