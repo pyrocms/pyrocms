@@ -383,10 +383,8 @@ abstract class AbstractCp extends AbstractSupport
 	 * @return object           
 	 */
 	public function fields($columns = '*', $exclude = false)
-	{
-		$columns = is_string($columns) ? array($columns) : $columns;
-		
-		$this->columns = $columns;
+	{		
+		$this->columns = is_string($columns) ? array($columns) : $columns;
 		$this->exclude = $exclude;
 
 		return $this;
