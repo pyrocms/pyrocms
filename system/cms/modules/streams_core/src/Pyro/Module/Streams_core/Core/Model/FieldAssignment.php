@@ -115,7 +115,8 @@ class FieldAssignment extends Eloquent
         // Run the destruct
         if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
         {
-            $type->field_assignment_destruct($field, $stream);
+            $type->setStream($stream);
+            $type->field_assignment_destruct();
         }
 
         // Update that stream's view options
