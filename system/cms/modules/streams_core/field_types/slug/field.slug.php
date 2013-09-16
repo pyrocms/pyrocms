@@ -36,7 +36,7 @@ class Field_slug extends AbstractField
 	public function event()
 	{
 		if ( ! defined('ADMIN_THEME')) {
-			ci()->type->add_js('slug', 'jquery.slugify.js');
+			$this->js('jquery.slugify.js');
 		}
 	}
 
@@ -80,14 +80,14 @@ class Field_slug extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
 
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$this->field->field_data['slug_field']}', '#{$this->field->field_slug}', '{$this->field->field_data['space_type']}');
+					pyro.generate_slug('#{$this->getParameter('slug_field')}', '#{$this->field->field_slug}', '{$this->getParameter('space_type')}');
 			});
 		})(jQuery);
 		</script>";
@@ -100,14 +100,14 @@ class Field_slug extends AbstractField
 	/**
 	 * Dash or Underscore?
 	 */
-	public function param_space_type()
+	public function param_space_type($value = null)
 	{
 		$options = array(
 			'-' => ci()->lang->line('streams:slug.dash'),
 			'_' => ci()->lang->line('streams:slug.underscore')
 		);
 
-		return form_dropdown('space_type', $options, $this->value);
+		return form_dropdown('space_type', $options, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -115,7 +115,7 @@ class Field_slug extends AbstractField
 	/**
 	 * What field to slugify?
 	 */
-	public function param_slug_field()
+	public function param_slug_field($value = null)
 	{
 		// Get all the fields
 		$fields = Field::all();
@@ -126,11 +126,11 @@ class Field_slug extends AbstractField
 			// We don't want no slugs.
 			if ($field->field_type != 'slug')
 			{
-				$drop[$field->field_slug] = lang_label($field->field_name);
+				$drop[$field->field_slug] = $this->field->field_name;
 			}
 		}
 
-		return form_dropdown('slug_field', $drop, $this->value);
+		return form_dropdown('slug_field', $drop, $value);
 	}
 
 }

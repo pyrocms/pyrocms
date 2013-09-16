@@ -82,8 +82,8 @@ class Field_wysiwyg extends AbstractField
 			$options['class']	= 'wysiwyg-simple';
 		}
 
-		$options['name'] 	= $this->name;
-		$options['id']		= $this->name;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 
 		return form_textarea($options);

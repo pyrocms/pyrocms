@@ -68,15 +68,15 @@ class Field_encrypt extends AbstractField
 	{
 		ci()->load->library('encrypt');
 
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 
 		// If we have post data and are returning form
 		// values (because of most likely a form validation error),
 		// we will just have the posted plain text value
 		$options['value'] = ($_POST) ? $this->value : ci()->encrypt->decode($this->value);
 
-		if ($this->field->field_data['hide_typing'] == 'yes') {
+		if ($this->getParameter('hide_typing') == 'yes') {
 			return form_password($options);
 		} else {
 			return form_input($options);
@@ -91,9 +91,9 @@ class Field_encrypt extends AbstractField
 	 * @param	[array - param]
 	 * @return	string
 	 */
-	public function param_hide_typing($params = false)
+	public function param_hide_typing($value = null)
 	{
-		$selected 		= ($params == 'no') ? 'no' : 'yes';
+		$selected 		= ($value == 'no') ? 'no' : 'yes';
 
 		$yes_select 	= ($selected == 'yes') ? true : false;
 		$no_select 		= ($selected == 'no') ? true : false;

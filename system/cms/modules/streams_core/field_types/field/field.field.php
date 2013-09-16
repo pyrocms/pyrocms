@@ -88,30 +88,25 @@ class Field_field extends AbstractField
     {	
     	$form = '';
 
-    	$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->field_namespace;
+    	$selectable_fields_namespace = $this->getParameter('namespace', $this->field->field_namespace);
 
     	if ($selected_field = $this->getSelectedField())
     	{
-
-
 			// This is a field instance not an assignment. Ensure this is a complete field object.
 			//$selected_field = $this->field_obj($selected_field);
 			
 			// This will load the selected field CSS and JS
 			ci()->fields->run_field_events(array($selected_field));
 
-			// Apply a default value if it exists in the selected field params
-			$default_value = isset($selected_field->field_data['default_value']) ? $selected_field->field_data['default_value'] : null;
-
 			// Set the value if any
-			$value = isset($this->value) ? $this->value : $default_value;
+			$value = isset($this->value) ? $this->value : $selected_field->getParameter('default_value');
 
 			$selected_type = $selected_field->getType($this->entry);
 
 			$selected_type->setValue($this->unformatted_value);
 
 			// Build the selected field form
-			$form .= form_hidden($this->field->field_slug, $selected_field->field_slug);
+			$form .= form_hidden($this->form_slug, $selected_field->field_slug);
     		$form .= $selected_type->getForm();
     	}
 		elseif($options = $this->get_selectable_fields($this->field->stream_slug, $this->field->stream_namespace, $selectable_fields_namespace, $this->field->field_slug))
@@ -167,14 +162,10 @@ class Field_field extends AbstractField
     // $input, $field, $stream, $row_id, $this->form_data
     public function pre_save()
     {
-
-    	// First, determine if we have saved the selected field, if not, consider this a new entry
-    	//$row = ci()->db->where('id', $row_id)->get($this->stream->stream_prefix.$this->stream->stream_slug)->row();
-
     	// @todo - find a less hacky way of checking if it has been updated
     	$method = strtotime($this->entry->getOriginal('updated')) > 0 ? 'edit' : 'new';
 
-		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->field_namespace;
+		$selectable_fields_namespace = $this->getParameter('namespace', $this->field->stream_namespace);
 
     	if ($selected_field = Model\Field::findBySlugAndNamespace($this->value, $selectable_fields_namespace))
 		{
@@ -246,7 +237,7 @@ class Field_field extends AbstractField
 
 		$selected_field_slug_column = $this->field->field_data['field_slug'].'_field_slug';
 
-		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->stream->stream_namespace;
+		$selectable_fields_namespace = $this->getParameter('namespace', $this->field->stream_namespace);;
 
 		// Get the only the entry columns we need
 		$select[] = $selected_field_slug_column; 
@@ -257,7 +248,6 @@ class Field_field extends AbstractField
 
 		if ($selected_type = $this->getSelectedFieldType())
 		{
-
 			// This is an option for field types that primarily return an array
 			// First check if the field wants to alternatively return a string
 			if (method_exists($selected_type, 'alt_pre_output_field_field_type'))
@@ -268,9 +258,9 @@ class Field_field extends AbstractField
 			elseif ($selected_type 
 				and isset($selected_type->return_unprocessed_field_field_type)
 				and ! $selected_type->return_unprocessed_field_field_type
-				and isset($this->entry->{$this->field->field_data['field_slug']}))
+				and $unformatted_value = $this->entry->{$this->getParameter('field_slug')})
 			{
-				$output = $this->entry->{$this->field->field_data['field_slug']};					
+				$output = $unformatted_value;					
 			}
 			// Else we will expect this field to go through its pre process and return a string
 			elseif ($this->field->field_data['storage'] != 'custom')
@@ -283,7 +273,7 @@ class Field_field extends AbstractField
 
 				// Double check if this is a string, decode any html entities. Else, return the unprocessed value
 				// This ensures that Lex tags get decoded before getting parsed
-				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $this->entry->{$this->field->field_data['field_slug']};
+				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $this->entry->{$this->getParameter('field_slug')};
 				// Wrap this in some nice html, only for the Admin pages
 			}
 
@@ -307,13 +297,15 @@ class Field_field extends AbstractField
     */
     public function field_assignment_construct()
     {
-    	$max_length = isset($this->field->field_data['max_length']) ? $this->field->field_data['max_length'] : 100;
+    	$max_length = $this->getParameter('max_length', 100);
 
     	$schema = ci()->pdb->getSchemaBuilder();
 	
-		try {		
-			
-			$self = $this;
+		// We have to do this trick for PHP 5.3.7+
+		// Its no longer needed in PHP 5.4 as $this is available in closures
+		$self = $this;
+
+		try {
 
 			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $max_length) {
 
@@ -323,7 +315,7 @@ class Field_field extends AbstractField
 					->default('text');
 
 				// Add a column to store the value if it doesn't use custom storage
-				if ($self->getFieldDataValue('storage') != 'custom')
+				if ($self->getParameter('storage') != 'custom')
 				{
 					$table->text($self->getField()->field_slug);
 				}
@@ -345,18 +337,26 @@ class Field_field extends AbstractField
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 
-    	$self = $this;
+		// We have to do this trick for PHP 5.3.7+
+		// Its no longer needed in PHP 5.4 as $this is available in closures
+    	$self = $this; 
 
-		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self) {
-			// Drop the field slug column
-			$table->dropColumn($self->getField()->field_slug.'_field_slug');
+    	try {
 
-			// Drop the value column if it doesn't use custom storage
-			if ($self->getFieldDataValue('storage') != 'custom')
-			{
-				$table->drop($self->getField()->field_slug);
-			}
-		});
+			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self) {
+				// Drop the field slug column
+				$table->dropColumn($self->getField()->field_slug.'_field_slug');
+
+				// Drop the value column if it doesn't use custom storage
+				if ($self->getParameter('storage') != 'custom')
+				{
+					$table->drop($self->getField()->field_slug);
+				}
+			});
+
+    	} catch (Exception $e) {
+    		
+    	}
     }
 
     /**
@@ -404,30 +404,13 @@ class Field_field extends AbstractField
 		);
     }
 
-    /**
-    * Field Object
-    *
-    * We have to set some properties here because this is a field instance rather than a assignment
-    *
-    * @param   object
-    * @return  object
-    */
-	private function field_obj($field)
-	{
-		$this->field->field_id = $this->field->id;
-		$this->field->is_required = isset($this->field->is_required) ? $this->field->is_required : 'no';
-		$this->field->is_unique = isset($this->field->is_required) ? $this->field->is_required : 'no';
-
-		return $field;
-	}
-
 	public function getSelectedField()
 	{
 		$selected_field_slug_column = $this->field->field_slug.'_field_slug'; 
 
 		$selected_field_slug = isset($this->entry->{$selected_field_slug_column}) ? $this->entry->{$selected_field_slug_column} : $this->getDefault($this->field->field_slug);
 
-		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->stream_namespace;
+		$selectable_fields_namespace = $this->getParameter('namespace', $this->field->stream_namespace);
 
 		return Model\Field::findBySlugAndNamespace($selected_field_slug, $selectable_fields_namespace);
 	}

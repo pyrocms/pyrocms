@@ -50,17 +50,16 @@ class Field_choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params, $entry_id, $field)
+	public function form_output()
 	{		
-		$choices = $this->_choices_to_array($params['custom']['choice_data'], $params['custom']['choice_type'], $field->is_required);
+		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $field->is_required);
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 
-		$params['custom']['choice_type'] 
-			= $this->validate_input_type($params['custom']['choice_type']);
+		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 		
-		if ($params['custom']['choice_type'] == 'dropdown')
+		if ($choice_type == 'dropdown')
 		{
 			// -------------------------------
 			// Dropdown
@@ -74,9 +73,9 @@ class Field_choice extends AbstractField
 			$default_value = (isset($params['custom']['default_value'])) ? $params['custom']['default_value'] : null;
 
 			// If this is a new input, we need to use the default value or go null
-			$value = ( ! $entry_id) ? $default_value : $params['value']; 
+			$value = ( ! $entry_id) ? $default_value : $this->value; 
 
-			return form_dropdown($params['form_slug'], $choices, $value, 'id="'.$params['form_slug'].'"');
+			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'"');
 		}	
 		else
 		{
@@ -87,18 +86,18 @@ class Field_choice extends AbstractField
 			// Parse the value coming in.
 			// If these are checkboxes, we need to put
 			// the incoming data through some special processes
-			if($params['custom']['choice_type'] == 'checkboxes' or $params['custom']['choice_type'] == 'multiselect')
+			if($choice_type == 'checkboxes' or $choice_type == 'multiselect')
 			{
 				// We may have an array from $_POST or a string
 				// from the saved form data in the case
 				// or checkboxes
-				if (is_string($params['value']))
+				if (is_string($this->value))
 				{
-					$vals = explode("\n", $params['value']);
+					$vals = explode("\n", $this->value);
 				}
-				elseif (is_array($params['value']))
+				elseif (is_array($this->value))
 				{
-					$vals = $params['value'];
+					$vals = $this->value;
 				}
 				else
 				{
@@ -114,7 +113,7 @@ class Field_choice extends AbstractField
 					}
 				}
 				//If It's a multiselect, then we can go out now.
-				if ( $params['custom']['choice_type'] == 'multiselect' )
+				if ( $choice_type == 'multiselect' )
 				{
 					return form_multiselect($params['form_slug'].'[]', $choices, $vals, 'id="'.$params['form_slug'].'"');
 				}
@@ -128,7 +127,7 @@ class Field_choice extends AbstractField
 			{
 				if ($params['custom']['choice_type'] == 'radio')
 				{
-					$selected = ($params['value'] == $choice_key) ? true : false;
+					$selected = ($this->value == $choice_key) ? true : false;
 			
 					$return .= '<label class="radio">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
@@ -215,7 +214,7 @@ class Field_choice extends AbstractField
 		{
 			$vals = explode("\n", $input);
 
-			$this->CI->load->helper('html');
+			ci()->load->helper('html');
 
 			$selected = array();
 			
@@ -474,7 +473,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
-				'instructions'	=> $this->CI->lang->line('streams:choice.instructions')
+				'instructions'	=> ci()->lang->line('streams:choice.instructions')
 			);
 	}
 
@@ -490,10 +489,10 @@ class Field_choice extends AbstractField
 	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' 	=> $this->CI->lang->line('streams:choice.dropdown'),
-			'multiselect' 	=> $this->CI->lang->line('streams:choice.multiselect'),
-			'radio' 	=> $this->CI->lang->line('streams:choice.radio_buttons'),
-			'checkboxes'=> $this->CI->lang->line('streams:choice.checkboxes')
+			'dropdown' 	=> ci()->lang->line('streams:choice.dropdown'),
+			'multiselect' 	=> ci()->lang->line('streams:choice.multiselect'),
+			'radio' 	=> ci()->lang->line('streams:choice.radio_buttons'),
+			'checkboxes'=> ci()->lang->line('streams:choice.checkboxes')
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
@@ -512,7 +511,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -529,7 +528,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -550,7 +549,7 @@ class Field_choice extends AbstractField
 		
 		if ($type == 'dropdown' and $is_required == 'no')
 		{
-			$choices[null] = get_instance()->config->item('dropdown_choose_null');
+			$choices[null] = ci()->config->item('dropdown_choose_null');
 		}
 		
 		foreach ($lines as $line)
@@ -561,11 +560,11 @@ class Field_choice extends AbstractField
 		
 			if (count($bits) == 1)
 			{
-				$choices[$key_bit] = $this->CI->fields->translate_label($key_bit);
+				$choices[$key_bit] = lang_label($key_bit);
 			}
 			else
 			{
-				$choices[$key_bit] = $this->CI->fields->translate_label(trim($bits[1]));
+				$choices[$key_bit] = lang_label(trim($bits[1]));
 			}
 		}
 
