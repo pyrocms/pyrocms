@@ -10,7 +10,7 @@
 	<meta name="robots" content="noindex, nofollow"/>
 
 	<?php Asset::css(array('application.css')); ?>
-	<?php //Asset::js('jquery/jquery.js'); ?>
+	<?php Asset::js('src/core/modernizr.js'); ?>
 
 	<?php echo Asset::render() ?>
 </head>
@@ -38,7 +38,7 @@
 
 		<section class="">
 
-			<?php echo form_open('admin/login', array('class' => 'form margin-top')); ?>
+			<?php echo form_open('admin/login', array('id' => 'login', 'class' => 'form margin-top')); ?>
 
 			<div class="form-group">
 				<label for="remember-check">Email</label>
@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="remember-check">Email</label>
+				<label for="remember-check">Password</label>
 				<input type="password" name="password" class="form-control" placeholder="<?php echo lang('global:password'); ?>"/>
 			</div>
 
@@ -83,6 +83,20 @@
 		</div>
 	</center>
 	</footer>
+
+
+	<?php Asset::js(array('src/core/jquery.js', 'application.min.js'), null, 'deferred'); ?>
+
+	<?php echo Asset::render_js('deferred') ?>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			NProgress.start();
+    		
+    		setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 1000);			
+		});
+	</script>
 
 </body>
 </html>

@@ -1,5 +1,9 @@
 <?php //Asset::js(array()) ?>
 
+<?php Asset::css(array('application.css')); ?>
+<?php Asset::js('src/core/modernizr.js'); ?>
+
+
 <?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
 	<?php //Asset::js('jquery/jquery.excanvas.min.js') ?>
 	<?php //Asset::js('jquery/jquery.flot.js') ?>
@@ -20,8 +24,6 @@
 	pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
 </script>
-
-<?php Asset::css(array('bootstrap.css')); ?>
 
 <?php echo Asset::render() ?>
 
