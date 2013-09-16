@@ -310,20 +310,26 @@ class Field_field extends AbstractField
     	$max_length = isset($this->field->field_data['max_length']) ? $this->field->field_data['max_length'] : 100;
 
     	$schema = ci()->pdb->getSchemaBuilder();
-		
-		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($field, $max_length) {
+	
+		try {		
+				
+			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($max_length) {
 
-			// Add a column to store the field slug
-			$table
-				->string($this->field->field_slug.'_field_slug', $max_length)
-				->default('text');
+				// Add a column to store the field slug
+				$table
+					->string($this->field->field_slug.'_field_slug', $max_length)
+					->default('text');
 
-			// Add a column to store the value if it doesn't use custom storage
-			if ($this->field->field_data['storage'] != 'custom')
-			{
-				$table->text($this->field->field_slug);
-			}
-		});
+				// Add a column to store the value if it doesn't use custom storage
+				if ($this->getFieldDataValue('storage') != 'custom')
+				{
+					$table->text($this->field->field_slug);
+				}
+			});
+
+		} catch (Exception $e) {
+				
+		}
     }
 
     /**
@@ -342,7 +348,7 @@ class Field_field extends AbstractField
 			$table->dropColumn($this->field->field_slug.'_field_slug');
 
 			// Drop the value column if it doesn't use custom storage
-			if ($this->field->field_data['storage'] != 'custom')
+			if ($this->getFieldDataValue('storage') != 'custom')
 			{
 				$table->drop($this->field->field_slug);
 			}

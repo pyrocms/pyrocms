@@ -40,9 +40,9 @@ class Stream extends Eloquent
 	 * @param  integer $offset           
 	 * @return object                    
 	 */
-	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = 0)
+	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null)
 	{
-		return static::where('namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
+		return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
 	}
 
     /**
@@ -188,19 +188,17 @@ class Stream extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 
 		// See if table exists. You never know if it sneaked past validation
-		if ($schema->hasTable($attributes['stream_prefix'].$attributes['stream_slug']))
+		if ( ! $schema->hasTable($attributes['stream_prefix'].$attributes['stream_slug']))
 		{
-			return false;
+			// Create the table for our new stream
+			$schema->create($attributes['stream_prefix'].$attributes['stream_slug'], function($table) {
+	            $table->increments('id');
+	            $table->datetime('created');
+	            $table->datetime('updated');
+	            $table->integer('created_by')->nullable();
+	            $table->integer('ordering_count')->nullable();
+	        });
 		}
-
-		// Create the table for our new stream
-		$schema->create($attributes['stream_prefix'].$attributes['stream_slug'], function($table) {
-            $table->increments('id');
-            $table->datetime('created');
-            $table->datetime('updated');
-            $table->integer('created_by')->nullable();
-            $table->integer('ordering_count')->nullable();
-        });
 
 		// Create the stream in the data_streams table
 		return parent::create($attributes);
@@ -215,15 +213,15 @@ class Stream extends Eloquent
 	 */
 	public function update(array $attributes = array())
 	{
-		$attributes['stream_prefix'] = isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : $this->attribute['stream_prefix'];
-		$attributes['stream_slug'] = isset($attributes['stream_slug']) ? $attributes['stream_slug'] : $this->attribute['stream_slug'];
+		$attributes['stream_prefix'] = isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : $this->getAttribute('stream_prefix');
+		$attributes['stream_slug'] = isset($attributes['stream_slug']) ? $attributes['stream_slug'] : $this->getAttribute('stream_slug');
 
 		$schema = ci()->pdb->getSchemaBuilder();
 
 		$from = $this->getAttribute('stream_prefix').$this->getAttribute('stream_slug');
 		$to = $attributes['stream_prefix'].$attributes['stream_slug'];
 
-		if ($schema->hasTable($from) and $from != $to)
+		if ( ! empty($to) and $schema->hasTable($from) and $from != $to)
 		{
 			$schema->rename($from, $to);
 		}
@@ -269,7 +267,7 @@ class Stream extends Eloquent
 
 		if ( ! $field instanceof Field) return false;
 
-		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->id, $this->data->stream->id))
+		if ( ! $assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
 		{
 			$assignment = new FieldAssignment;
 		}
@@ -284,7 +282,6 @@ class Stream extends Eloquent
 		if (method_exists($field_type, 'field_assignment_construct'))
 		{
 			$field_type->setStream($this);
-			$field_type->setField($field);
 			$field_type->field_assignment_construct();
 		}
 

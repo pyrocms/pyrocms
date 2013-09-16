@@ -269,12 +269,17 @@ class Field extends Eloquent
         return $success;
     }
 
+    public static function cleanup()
+    {
+        
+    }
+
     /**
      * Delete fields by namespace
      * @param  string $namespace
      * @return object
      */
-    public function deleteByNamespace($namespace)
+    public static function deleteByNamespace($namespace)
     {
         return static::where('field_namespace', $namespace)->delete();
     }

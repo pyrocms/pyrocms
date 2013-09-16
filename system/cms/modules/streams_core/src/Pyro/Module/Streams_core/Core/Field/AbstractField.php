@@ -165,6 +165,16 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Get the field
+	 * @return object 
+	 */
+	public function getFieldDataValue($key, $default = null)
+	{
+		return isset($this->field->field_data[$key]) ? $this->field->field_data[$key] : $default;
+	}
+
+
+	/**
 	 * Get the stream
 	 * @return object 
 	 */
