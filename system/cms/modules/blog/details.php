@@ -152,7 +152,7 @@ class Module_Blog extends AbstractModule
 
 		// Add the intro field.
 		// This can be later removed by an admin.
-		$intro_field = array(
+		ci()->streams->fields->add_field(array(
 			'name'		=> 'lang:blog:intro_label',
 			'slug'		=> 'intro',
 			'namespace' => 'blogs',
@@ -160,8 +160,7 @@ class Module_Blog extends AbstractModule
 			'assign'	=> 'blog',
 			'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
 			'required'	=> true
-		);
-		ci()->streams->fields->add_field($intro_field);
+		));
 
 		// Add fields to streamsy table
 		$schema->table('blog', function($table) {

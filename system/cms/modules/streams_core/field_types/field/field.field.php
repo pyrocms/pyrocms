@@ -1,11 +1,16 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Field;
+use Pyro\Module\Streams_core\Core\Model;
+
 /**
  * Field Field Type
  *
  * @author  Osvaldo Brignoni
  * @package PyroCMS\Addon\FieldType
  */
-class Field_field
+class Field_field extends AbstractField
 {
 	/**
 	 * Field Type Name
@@ -49,7 +54,7 @@ class Field_field
 	 *
 	 * @var 	array
 	 */
-    public $custom_parameters   = array('namespace', 'storage', 'max_length', 'field_slug');
+    public $custom_parameters   = array('namespace', 'storage', 'max_length');
 
 	/**
 	 * Version Number
@@ -65,6 +70,11 @@ class Field_field
 	 */
 	public $author					= array('name' => 'Osvaldo Brignoni', 'url' => 'http://obrignoni.com');
 
+	protected $selected_field = null;
+
+	protected $selected_type = null;
+
+	protected $selected_stream = null;
 
     /**
     * Output the form
@@ -74,20 +84,18 @@ class Field_field
     * @param   object
     * @return  string
     */
-    public function form_output($data, $row_id, $field)
+    public function form_output()
     {	
     	$form = '';
 
-    	$row = $row_id ? ci()->db->where('id', $row_id)->get($field->stream_prefix.$field->stream_slug)->row() : null;
-    	
-    	$selectable_fields_namespace	= ! empty($field->field_data['namespace']) ? $field->field_data['namespace'] : $field->stream_namespace;	
-    	$selected_field_slug_column		= $field->field_slug.'_field_slug'; 
-    	$selected_field_slug			= isset($row->{$selected_field_slug_column}) ? $row->{$selected_field_slug_column} : $data['value'];
-    	
-    	if ($selected_field = ci()->fields_m->get_field_by_slug($selected_field_slug, $selectable_fields_namespace))
+    	$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->field_namespace;
+
+    	if ($selected_field = $this->getSelectedField())
     	{
+
+
 			// This is a field instance not an assignment. Ensure this is a complete field object.
-			$selected_field = $this->field_obj($selected_field);
+			//$selected_field = $this->field_obj($selected_field);
 			
 			// This will load the selected field CSS and JS
 			ci()->fields->run_field_events(array($selected_field));
@@ -96,15 +104,19 @@ class Field_field
 			$default_value = isset($selected_field->field_data['default_value']) ? $selected_field->field_data['default_value'] : null;
 
 			// Set the value if any
-			$value = isset($row->{$field->field_slug}) ? $row->{$field->field_slug} : $default_value;
+			$value = isset($this->value) ? $this->value : $default_value;
+
+			$selected_type = $selected_field->getType($this->entry);
+
+			$selected_type->setValue($this->unformatted_value);
 
 			// Build the selected field form
-			$form .= form_hidden($field->field_slug, $selected_field_slug);
-    		$form .= ci()->fields->build_form_input($selected_field, $value, $row_id);
+			$form .= form_hidden($this->field->field_slug, $selected_field->field_slug);
+    		$form .= $selected_type->getForm();
     	}
-		elseif($options = $this->get_selectable_fields($field->stream_slug, $field->stream_namespace, $selectable_fields_namespace, $field->field_slug))
+		elseif($options = $this->get_selectable_fields($this->field->stream_slug, $this->field->stream_namespace, $selectable_fields_namespace, $this->field->field_slug))
 		{	
-			$form = form_dropdown($field->field_slug, $options, $selected_field_slug);
+			$form = form_dropdown($this->field->field_slug, $options, $this->defaults['data']);
 		}
     	else
     	{
@@ -121,16 +133,13 @@ class Field_field
 
 		$options = false;
 
-		if ($selectable_fields_namespace and ($assignments = ci()->streams->streams->get_assignments($stream_slug, $stream_namespace)))
+		if ($selectable_fields_namespace and ! $this->stream->assignments->isEmpty())
 		{
-			foreach ($assignments as $assignment)
-			{
-				$skip_fields[] = $assignment->field_slug;
-			}
+			$skip_fields = $this->stream->assignments->getFields()->getFieldSlugs();
 		}
 
 		// Get the fields and display the dropdown
-		if ($fields = ci()->fields_m->get_fields($selectable_fields_namespace, false, 0, array_unique($skip_fields)))
+		if ($fields = Model\Field::findManyByNamespace($selectable_fields_namespace, null, null, $skip_fields))
 		{
 			foreach ($fields as $selectable)
 			{
@@ -155,54 +164,62 @@ class Field_field
     * @param   object
     * @return  string
     */
-    public function pre_save($input, $field, $stream, $row_id, $form_data)
+    // $input, $field, $stream, $row_id, $this->form_data
+    public function pre_save()
     {
+
     	// First, determine if we have saved the selected field, if not, consider this a new entry
-    	$row = ci()->db->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
+    	//$row = ci()->db->where('id', $row_id)->get($this->stream->stream_prefix.$this->stream->stream_slug)->row();
 
     	// @todo - find a less hacky way of checking if it has been updated
-    	$method = strtotime($row->updated) > 0 ? 'edit' : 'new';
+    	$method = strtotime($this->entry->getOriginal('updated')) > 0 ? 'edit' : 'new';
 
-		$selectable_fields_namespace = ! empty($field->field_data['namespace']) ? $field->field_data['namespace'] : $field->field_namespace;
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->field_namespace;
 
-    	if ($selected_field = ci()->fields_m->get_field_by_slug($input, $selectable_fields_namespace))
+    	if ($selected_field = Model\Field::findBySlugAndNamespace($this->value, $selectable_fields_namespace))
 		{
 			// First update the the selected field slug
 			$update_data = array(
-	        	$field->field_slug.'_field_slug' => $input
+	        	$this->field->field_slug.'_field_slug' => $this->value
 	        );
 
-			ci()->db->where('id', $row_id)->update($stream->stream_prefix.$stream->stream_slug, $update_data);
-    	
-	    	if (isset($form_data[$selected_field->field_slug]))
+			$post = ci()->input->post();
+
+			//$this->entry->update($update_data);
+    		
+	    	if (isset($this->form_data))
 	    	{
+	    		//print_r($this->form_data); exit;
+
 				// This is a field instance not an assignment. Ensure this is a complete field object.
-				$selected_field = $this->field_obj($selected_field);
+				//$selected_field = $this->field_obj($selected_field);
 
 				// Build the stream_fields object we will need for validation and pre processes
-				$stream_fields = new stdClass;
-				$stream_fields->{$selected_field->field_slug} = $selected_field;
+				$stream_fields = array($selected_field);
 				
 				// Run selected field validation
-				ci()->fields->set_rules($stream_fields, $method, array(), false, $row_id);
-
-				if ($field->field_data['storage'] != 'custom' and ($method == 'new' or ci()->form_validation->run() === true))
+				//ci()->fields->set_rules($stream_fields, $method, array(), false, $row_id);
+				//
+				//and ($method == 'new' or ci()->form_validation->run() === true)
+				//
+				if ($this->field->field_data['storage'] != 'custom' )
 				{
-					// Run selected field pre processes
-					$pre_process_data = ci()->row_m->run_field_pre_processes($stream_fields, $stream, $row_id, $form_data, array(), false);
+					//print_r($this->form_data); exit;
 
-					$update_data = array(
-						$field->field_slug => $pre_process_data[$selected_field->field_slug]
-					);
+					// Run selected field pre processes
+					$pre_process_data = Model\Entry::runFieldPreProcesses($stream_fields, $this->entry, $post, array(), false);
+
+					$this->entry->{$this->field->field_slug} = $pre_process_data[$selected_field->field_slug];
+			
 					// Save it
-					if (ci()->db->where('id', $row_id)->update($stream->stream_prefix.$stream->stream_slug, $update_data))
+					if ($this->entry->save())
 					{
 						// Fire an event to after updating this entry
 						Events::trigger('field_field_type_updated', array(
-							'field' => $field,
-							'stream' => $stream,
-							'row' => $row,
-							'form_data' => $form_data
+							'field' => $this->field,
+							'stream' => $this->stream,
+							'row' => $this->entry,
+							'form_data' => $this->form_data
 						));
 					}
 	    		}
@@ -223,59 +240,58 @@ class Field_field
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_pre_output($row_id, $extra, $type, $stream)
+	public function alt_pre_output()
 	{
 		$output = '';
 
-		$selected_field_slug_column = $extra['field_slug'].'_field_slug';
+		$selected_field_slug_column = $this->field->field_data['field_slug'].'_field_slug';
 
-		$selectable_fields_namespace = ! empty($extra['namespace']) ? $extra['namespace'] : $stream->stream_namespace;
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->stream->stream_namespace;
 
 		// Get the only the entry columns we need
 		$select[] = $selected_field_slug_column; 
-		if ($extra['storage'] != 'custom')
+		if ($this->field->field_data['storage'] != 'custom')
 		{
-			$select[] = $extra['field_slug'];
+			$select[] = $this->field->field_data['field_slug'];
 		}
 
-		if (($row = $row_id ? ci()->db->select(implode(',', $select))
-			->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug)->row() : null) 
-			and ($selected_field = ci()->fields_m->get_field_by_slug($row->{$selected_field_slug_column}, $selectable_fields_namespace)))
+		if ($selected_type = $this->getSelectedFieldType())
 		{
 
 			// This is an option for field types that primarily return an array
 			// First check if the field wants to alternatively return a string
-			if ($selected_type = ci()->type->load_single_type($selected_field->field_type)
-				and method_exists($selected_type, 'alt_pre_output_field_field_type'))
+			if (method_exists($selected_type, 'alt_pre_output_field_field_type'))
 			{
-				$output = $selected_type->alt_pre_output_field_field_type($row, $extra, $type, $stream, $selected_field);
+				$output = $selected_type->alt_pre_output_field_field_type();
 			}
 			// Check if the field has $return_unprocessed_field_field_type property and return the unprocessed column value
 			elseif ($selected_type 
 				and isset($selected_type->return_unprocessed_field_field_type)
 				and ! $selected_type->return_unprocessed_field_field_type
-				and isset($row->{$extra['field_slug']}))
+				and isset($this->entry->{$this->field->field_data['field_slug']}))
 			{
-				$output = $row->{$extra['field_slug']};					
+				$output = $this->entry->{$this->field->field_data['field_slug']};					
 			}
 			// Else we will expect this field to go through its pre process and return a string
-			elseif ($extra['storage'] != 'custom')
+			elseif ($this->field->field_data['storage'] != 'custom')
 			{
-				$output = ci()->row_m->format_column(
-					$selected_field->field_slug, $row->{$extra['field_slug']}, $row_id, 
-					$selected_field->field_type, $selected_field->field_data, $stream, false);
+				//echo $this->value; exit;
+
+				$output = $selected_type->getFormattedValue();
+
+				//$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
 
 				// Double check if this is a string, decode any html entities. Else, return the unprocessed value
 				// This ensures that Lex tags get decoded before getting parsed
-				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $row->{$extra['field_slug']};
+				$output = is_string($output) ? html_entity_decode($output,ENT_COMPAT,"utf-8") : $this->entry->{$this->field->field_data['field_slug']};
 				// Wrap this in some nice html, only for the Admin pages
 			}
 
 					if (defined('ADMIN_THEME'))
 		{
 			$output = is_string($output) ? ci()->parser->parse_string($output, array(), true) : $output;
-			$output = '<div class="streams-field-field-output '.$selected_field->field_slug.'">'. 
-			$output .' <span class="muted">('.lang_label($selected_field->field_name).')</span></div>';
+			$output = '<div class="streams-field-field-output '.$selected_type->field->field_slug.'">'. 
+			$output .' <span class="muted">('.lang_label($selected_type->field->field_name).')</span></div>';
 		}
 		}
 
@@ -289,25 +305,33 @@ class Field_field
     * @param   object
     * @return  void
     */
-    public function field_assignment_construct($field, $stream)
+    public function field_assignment_construct()
     {
-    	$max_length = isset($field->field_data['max_length']) ? $field->field_data['max_length'] : 100;
+    	$max_length = isset($this->field->field_data['max_length']) ? $this->field->field_data['max_length'] : 100;
 
     	$schema = ci()->pdb->getSchemaBuilder();
-		
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field, $max_length) {
+	
+		try {		
+			
+			$self = $this;
 
-			// Add a column to store the field slug
-			$table
-				->string($field->field_slug.'_field_slug', $max_length)
-				->default('text');
+			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $max_length) {
 
-			// Add a column to store the value if it doesn't use custom storage
-			if ($field->field_data['storage'] != 'custom')
-			{
-				$table->text($field->field_slug);
-			}
-		});
+				// Add a column to store the field slug
+				$table
+					->string($self->getField()->field_slug.'_field_slug', $max_length)
+					->default('text');
+
+				// Add a column to store the value if it doesn't use custom storage
+				if ($self->getFieldDataValue('storage') != 'custom')
+				{
+					$table->text($self->getField()->field_slug);
+				}
+			});
+
+		} catch (Exception $e) {
+				
+		}
     }
 
     /**
@@ -317,18 +341,20 @@ class Field_field
     * @param   object
     * @return  void
     */
-    public function field_assignment_destruct($field, $stream)
+    public function field_assignment_destruct()
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($field) {
+    	$self = $this;
+
+		$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self) {
 			// Drop the field slug column
-			$table->dropColumn($field->field_slug.'_field_slug');
+			$table->dropColumn($self->getField()->field_slug.'_field_slug');
 
 			// Drop the value column if it doesn't use custom storage
-			if ($field->field_data['storage'] != 'custom')
+			if ($self->getFieldDataValue('storage') != 'custom')
 			{
-				$table->drop($field->field_slug);
+				$table->drop($self->getField()->field_slug);
 			}
 		});
     }
@@ -349,7 +375,7 @@ class Field_field
 		{
 			foreach ($fields as $field)
 			{
-				$options[$field->field_namespace] = humanize($field->field_namespace);
+				$options[$this->field->field_namespace] = humanize($this->field->field_namespace);
 			}
 		}
 
@@ -379,32 +405,6 @@ class Field_field
     }
 
     /**
-    * Field Slug Parameter
-    *
-    * Don't display the form.
-    * 
-    * @param   string
-    * @return  bool
-    */
-    public function param_field_slug()
-    {
-    	return false;
-    }
-
-    /**
-    * Pre Save Field Slug Parameter
-    *
-    * The field slug automatically saved as a parameter. We will need it for alt_pre_output()
-    * 
-    * @param   array
-    * @return  string
-    */
-    public function param_field_slug_pre_save($field)
-    {
-    	return $field['field_slug'];
-    } 
-
-    /**
     * Field Object
     *
     * We have to set some properties here because this is a field instance rather than a assignment
@@ -414,11 +414,36 @@ class Field_field
     */
 	private function field_obj($field)
 	{
-		$field->field_id = $field->id;
-		$field->is_required = isset($field->is_required) ? $field->is_required : 'no';
-		$field->is_unique = isset($field->is_required) ? $field->is_required : 'no';
+		$this->field->field_id = $this->field->id;
+		$this->field->is_required = isset($this->field->is_required) ? $this->field->is_required : 'no';
+		$this->field->is_unique = isset($this->field->is_required) ? $this->field->is_required : 'no';
 
 		return $field;
+	}
+
+	public function getSelectedField()
+	{
+		$selected_field_slug_column = $this->field->field_slug.'_field_slug'; 
+
+		$selected_field_slug = isset($this->entry->{$selected_field_slug_column}) ? $this->entry->{$selected_field_slug_column} : $this->getDefault($this->field->field_slug);
+
+		$selectable_fields_namespace = ! empty($this->field->field_data['namespace']) ? $this->field->field_data['namespace'] : $this->field->stream_namespace;
+
+		return Model\Field::findBySlugAndNamespace($selected_field_slug, $selectable_fields_namespace);
+	}
+
+	public function getSelectedFieldType()
+	{
+		$field = $this->getSelectedField();
+
+		if ($selected_type = $field->getType($this->entry->unformatted()))
+		{
+			$selected_type->setValue($this->value);
+
+			return $selected_type;	
+		}
+
+		return false;
 	}
 
 }

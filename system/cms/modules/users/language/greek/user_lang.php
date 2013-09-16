@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Προσθήκη Πεδίων Προφίλ Χρηστών';
 $lang['user:profile_delete_success']           	= 'Το πεδίο προφίλ διαγράφηκε με επιτυχία';
 $lang['user:profile_delete_failure']            = 'Υπήρξε κάποιο σφάλμα κατά την διαγραφή του πεδίου προφίλ';
-$lang['profile_user_basic_data_label']  		= 'Βασικά Δεδομένα';
-$lang['profile_company']         	  			= 'Εταιρία';
-$lang['profile_updated_on']           			= 'Ενημερώθηκε Στις';
+$lang['user:profile_user_basic_data_label']  	= 'Βασικά Δεδομένα';
+$lang['user:profile_company']         	  		= 'Εταιρία';
+$lang['user:profile_updated_on']           		= 'Ενημερώθηκε Στις';
 $lang['user:profile_fields_label']	 		 	= 'Πεδία Προφίλ';
 
 $lang['user:register_header']   = 'Εγγραφή';
@@ -153,50 +153,50 @@ $lang['user:reset_pass_email_subject']      = 'Επανακαθορισμός Σ
 $lang['user:reset_pass_email_body']         = 'Το συνθηματικό του λογαριασμού σας στο %s έχει επανακαθοριστεί. Αν δεν ζητήσατε εσείς αυτή την αλλαγή, παρακαλούμε επικοινωνήστε μαζί μας στο %s και θα διελευκάνουμε την κατάσταση.';
 
 // Profile
-$lang['profile_of_title']             = 'Το προφίλ του %s';
+$lang['user:profile_of_title']             = 'Το προφίλ του %s';
 
-$lang['profile_user_details_label']   = 'Πληροφορίες Χρήστη';
-$lang['profile_role_label']           = 'Ρόλος';
-$lang['profile_registred_on_label']   = 'Ημερομηνία εγγραφής';
-$lang['profile_last_login_label']     = 'Πρόσφατη σύνδεση';
-$lang['profile_male_label']           = 'Άνδρας';
-$lang['profile_female_label']         = 'Γυναίκα';
+$lang['user:profile_user_details_label']   = 'Πληροφορίες Χρήστη';
+$lang['user:profile_role_label']           = 'Ρόλος';
+$lang['user:profile_registred_on_label']   = 'Ημερομηνία εγγραφής';
+$lang['user:profile_last_login_label']     = 'Πρόσφατη σύνδεση';
+$lang['user:profile_male_label']           = 'Άνδρας';
+$lang['user:profile_female_label']         = 'Γυναίκα';
 $lang['user:profile_fields_label']	  = 'Πεδία Προφίλ';
 
-$lang['profile_not_set_up']           = 'Αυτός ο χρήστης δεν έχει φτιάξει το προφίλ του.';
+$lang['user:profile_not_set_up']           = 'Αυτός ο χρήστης δεν έχει φτιάξει το προφίλ του.';
 
-$lang['profile_edit']                 = 'Επεξεργαστείτε το προφίλ σας';
+$lang['user:profile_edit']                 = 'Επεξεργαστείτε το προφίλ σας';
 
-$lang['profile_personal_section']     = 'Προσωπικά';
+$lang['user:profile_personal_section']     = 'Προσωπικά';
 
-$lang['profile_display_name']         = 'Όνομα Εμφάνισης';
-$lang['profile_dob']                  = 'Ημερομηνία Γέννησης';
-$lang['profile_dob_day']              = 'Ημέρα';
-$lang['profile_dob_month']            = 'Μήνα';
-$lang['profile_dob_year']             = 'Χρόνος';
-$lang['profile_gender']               = 'Γένος';
-$lang['profile_gender_nt']            = 'Δεν λέμε';
-$lang['profile_gender_male']          = 'Άνδρας';
-$lang['profile_gender_female']        = 'Γυναίκα';
-$lang['profile_bio']                  = 'Για εμένα';
+$lang['user:profile_display_name']         = 'Όνομα Εμφάνισης';
+$lang['user:profile_dob']                  = 'Ημερομηνία Γέννησης';
+$lang['user:profile_dob_day']              = 'Ημέρα';
+$lang['user:profile_dob_month']            = 'Μήνα';
+$lang['user:profile_dob_year']             = 'Χρόνος';
+$lang['user:profile_gender']               = 'Γένος';
+$lang['user:profile_gender_nt']            = 'Δεν λέμε';
+$lang['user:profile_gender_male']          = 'Άνδρας';
+$lang['user:profile_gender_female']        = 'Γυναίκα';
+$lang['user:profile_bio']                  = 'Για εμένα';
 
-$lang['profile_contact_section']      = 'Επικοινωνία';
+$lang['user:profile_contact_section']      = 'Επικοινωνία';
 
-$lang['profile_phone']                = 'Τηλέφωνο';
-$lang['profile_mobile']               = 'Κινητό';
-$lang['profile_address']              = 'Διεύθυνση';
-$lang['profile_address_line1']        = 'Γραμμή #1';
-$lang['profile_address_line2']        = 'Γραμμή #2';
-$lang['profile_address_line3']        = 'Γραμμή #3';
-$lang['profile_address_postcode']     = 'Ταχ. Κώδικας';
-$lang['profile_website']              = 'Ιστότοπος';
+$lang['user:profile_phone']                = 'Τηλέφωνο';
+$lang['user:profile_mobile']               = 'Κινητό';
+$lang['user:profile_address']              = 'Διεύθυνση';
+$lang['user:profile_address_line1']        = 'Γραμμή #1';
+$lang['user:profile_address_line2']        = 'Γραμμή #2';
+$lang['user:profile_address_line3']        = 'Γραμμή #3';
+$lang['user:profile_address_postcode']     = 'Ταχ. Κώδικας';
+$lang['user:profile_website']              = 'Ιστότοπος';
 
-$lang['profile_api_section']     	  = 'Πρόσβαση API';
+$lang['user:profile_api_section']     	  = 'Πρόσβαση API';
 
-$lang['profile_edit_success']         = 'Το προφίλ σας αποθηκεύτηκε.';
-$lang['profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.';
+$lang['user:profile_edit_success']         = 'Το προφίλ σας αποθηκεύτηκε.';
+$lang['user:profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Αποθήκευση προφίλ';
+$lang['user:profile_save_btn']             = 'Αποθήκευση προφίλ';
 /* End of file user_lang.php */

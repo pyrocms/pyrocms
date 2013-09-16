@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp:admin_title'] 				= 'Painel de Controlo';
-$lang['global:dashboard'] 			    = 'Dashboard';
+$lang['global:dashboard'] 			    = 'Quadro Resumo';
 $lang['cp:admin_quick_links']			= 'Atalhos rápidos';
 
 $lang['cp:welcome_title'] 				= 'Bem vindo(a)';
@@ -32,21 +32,21 @@ $lang['cp:nav_settings']				= 'Configurações';
 $lang['cp:nav_addons']					= 'Complementos';
 $lang['cp:nav_modules']					= 'Módulos';
 $lang['cp:nav_users']					= 'Utilizadores';
-$lang['cp:nav_data']					= 'Data'; #translate
-$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_data']					= 'Dados do Sistema';
+$lang['cp:nav_structure']				= 'Estrutura';
 $lang['cp:nav_content']					= 'Conteúdo';
-$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_misc']					= 'Diversos';
 
-$lang['cp:search']                      = 'Search'; #translate
+$lang['cp:search']                      = 'Pesquisa';
 
 $lang['cp:must_login']	 				= 'Deve estar conectado para ver esta página.';
 $lang['cp:access_denied'] 				= 'Não possui privilégios suficientes para ver esta página.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'A pasta <em>installer</em> ainda existe! Por favor apague-a! Ao deixar acessível <em>online</em> permite que este site seja controlado por qualquer pessoa.';
+$lang['cp:delete_installer']					 = 'Apagar pasta';
+$lang['cp:delete_installer_successfully_message'] = 'A pasta <em>installer</em> foi apagada com sucesso.';
+$lang['cp:delete_installer_manually_message']     = 'A pasta <em>installer</em> não pôde ser apagada. <strong>Por favor apague manualmente!</strong>';
 $lang['cp:upgrade_message']				= 'Está a utilizar a versão %s, mas a sua base de dados é versão %s. Por favor, <a href="%s" title="Upgrade">clique aqui</a> para actualizar a sua base de dados.';
-$lang['cp:google_analytics_missing']	= 'Faltam as configurações para o Google Analytics. Adicione-as em %s ou entre em conctato com seu administrador.';
+$lang['cp:google_analytics_missing']	= 'Faltam as configurações para o Google Analytics. Adicione-as em %s ou entre em contacto com seu administrador.';
 $lang['cp:google_analytics_no_connect']	= 'Não foi possível conectar-se ao Google Analytics. Verifique suas %s.';
 
 $lang['required_label'] 				= 'Obrigatório';

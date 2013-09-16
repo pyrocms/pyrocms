@@ -282,6 +282,20 @@ class MY_Controller extends MX_Controller
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 
+        /* Fixes - “unknown database type enum requested”
+         * Should probably be addressed in Doctrine, if not in Illuminate\Capsule
+         * 
+         * Doctrine 2: Resolving “unknown database type enum requested” - http://wildlyinaccurate.com/doctrine-2-resolving-unknown-database-type-enum-requested
+         * Unknown enum database type in migration file / Doctrine issue - https://github.com/laravel/framework/issues/1346
+         * Error when mapping database enum field type - https://github.com/symfony/symfony/issues/866
+         */ 
+        $platform = $conn->getDoctrineSchemaManager()->getDatabasePlatform();
+
+        if (get_class($platform) == 'Doctrine\DBAL\Platforms\MySqlPlatform')
+        {
+            $platform->registerDoctrineTypeMapping('enum', 'string');
+        }
+
         return $conn;
     }
 

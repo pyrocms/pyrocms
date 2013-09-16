@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroCMS Language Field Type
  *
@@ -11,11 +13,11 @@
  * @author		PyroCMS
  * @copyright	Copyright (c) 2011 - 2012, PyroCMS
  */
-class Field_pyro_lang
+class Field_pyro_lang extends AbstractField
 {
 	public $field_type_slug			= 'pyro_lang';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.0.0';
 
@@ -32,15 +34,16 @@ class Field_pyro_lang
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
 	    $languages = array();
 
-	    if ($data['custom']['filter_theme'] = 'yes') {
+	    if ($this->field->field_data['filter_theme'] == 'yes') {
 	  		// get the languages offered on the front-end
 		    $site_public_lang = explode(',', Settings::get('site_public_lang'));
 
-		    foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
+		    foreach (ci()->config->item('supported_languages') as $lang_code => $lang)
+		    {
 		       // if the supported language is offered on the front-end
 		       if (in_array($lang_code, $site_public_lang)) {
 	          		// add it to the dropdown list
@@ -48,13 +51,14 @@ class Field_pyro_lang
 		       }
 		    }
 	    } else {
-	    	foreach ($this->CI->config->item('supported_languages') as $lang_code => $lang) {
+	    	foreach (ci()->config->item('supported_languages') as $lang_code => $lang)
+	    	{
 				// add it to the dropdown list
 				$languages[$lang_code] = $lang['name'];
 			}
 		}
 
-		return form_dropdown($data['form_slug'], $languages, $data['value']);
+		return form_dropdown($this->field->field_slug, $languages, $this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -92,12 +96,12 @@ class Field_pyro_lang
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$langs = $this->CI->config->item('supported_languages');
+		$langs = ci()->config->item('supported_languages');
 
-		if (isset($langs[$input])) {
-			return $langs[$input]['name'];
+		if ( ! empty($langs) and isset($langs[$this->value])) {
+			return $langs[$this->value]['name'];
 		}
 	}
 
