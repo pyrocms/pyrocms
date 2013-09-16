@@ -105,13 +105,8 @@ class Module_Variables extends AbstractModule
 
 	public function install($pdb, $schema)
 	{
-		
-		
 		// Remove variables from streams
 		Data\Utility::destroyNamespace('variables');
-		
-		// Now kill the actual table too
-		$schema->dropIfExists('variables');
 
 		ci()->lang->load('variables/variables');
 
@@ -120,11 +115,10 @@ class Module_Variables extends AbstractModule
 			return false;
 		}
 
-		$stream_data = array(
+		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
+			'title_column' => 'name',
 		    'view_options' => array('name', 'data', 'syntax'),
-		);
-
-		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', $stream_data))
+		)))
 		{
 	        // Create the Variables folder. For the image field
 	        $folder_id = $pdb->table('file_folders')->insertGetId(array(
