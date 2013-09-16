@@ -525,18 +525,18 @@ class Field_datetime extends AbstractField
 	public function field_assignment_construct()
 	{
 		// Is this in UNIX time?
-		if (isset($this->field->field_data['storage']) and $this->field->field_data['storage'] == 'unix')
+		if ($this->getFieldDataValue('storage') == 'unix')
 		{	
 			$this->db_col_type = 'int';
-			return true;
 		}
-
 		// If not unix, let's see if we can need the
 		// time part in our MySQL date/time
-		if ($this->field->field_data['use_time'] == 'no')
+		elseif ($this->getFieldDataValue('use_time') == 'no')
 		{
 			$this->db_col_type = 'date';
 		}
+
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
