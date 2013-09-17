@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class EntryBuilder extends Builder
 {
@@ -40,6 +41,8 @@ class EntryBuilder extends Builder
 			{
 				$this->with('createdByUser');
 			}
+
+			$this->eagerLoadFieldRelations($columns);
 
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
@@ -97,7 +100,7 @@ class EntryBuilder extends Builder
 		{
 			if ($field_slug == 'created_by')
 			{
-				$clone->created_by = $entry->created_by_user;
+				$clone->setAttribute('created_by', $clone->createdByUser);
 			}
 			elseif ($type = $entry->getFieldType($field_slug))
 			{
@@ -116,6 +119,45 @@ class EntryBuilder extends Builder
 
 		return $clone;	
 	}
+
+	/**
+	 * Get the relation instance for the given relation name.
+	 *
+	 * @param  string  $relation
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function getRelation($relation)
+	{
+		$me = $this;
+
+		// We want to run a relationship query without any constrains so that we will
+		// not have to remove these where clauses manually which gets really hacky
+		// and is error prone while we remove the developer's own where clauses.
+		$query = Relation::noConstraints(function() use ($me, $relation)
+		{	
+			if ($me->getModel()->isEnableFieldRelations() and $type = $me->getModel()->getFieldType($relation))
+			{
+				return $type->relation();	
+			}
+			else
+			{
+				return $me->getModel()->$relation();
+			}
+		});
+
+		$nested = $this->nestedRelations($relation);
+
+		// If there are nested relationships set on the query, we will put those onto
+		// the query instances so that they can be handled after this relationship
+		// is loaded. In this way they will all trickle down as they are loaded.
+		if (count($nested) > 0)
+		{
+			$query->getQuery()->with($nested);
+		}
+
+		return $query;
+	}
+
 
 	/**
 	 * Prep columns
@@ -144,7 +186,7 @@ class EntryBuilder extends Builder
     	// Always include the primary key if we are selecting specific columns, regardless
         if ( ! $this->hasAsterisk($columns) and ! in_array($this->model->getKeyName(), $columns))
         {
-            array_unshift($columns, $this->model->getKeyName());
+            array_unshift($columns, $this->model->getTable().'.'.$this->model->getKeyName());
         }
 
         return $columns;
@@ -190,5 +232,15 @@ class EntryBuilder extends Builder
 		$this->model->setViewOptions($columns);
 
 		return $columns;
+    }
+
+    protected function eagerLoadFieldRelations($columns = array())
+    {
+    	$this->getModel()->setEagerFieldRelations($columns);
+
+		if ($field_relations = $this->model->getEagerFieldRelations())
+		{
+			$this->with($field_relations);
+		}
     }
 }

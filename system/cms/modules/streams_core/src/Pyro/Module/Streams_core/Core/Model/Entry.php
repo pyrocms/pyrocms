@@ -72,10 +72,22 @@ class Entry extends EntryOriginal
     protected $plugin = true;
 
     /**
+     * An array of field slugs that will eager load relations
+     * @var array
+     */
+    protected $eager_field_relations = array();
+
+    /**
+     * Enable or disable eager loading field type relations
+     * @var boolean
+     */
+    protected $enable_eager_field_relations = false;
+
+    /**
      * Enable or disable field relations for a query
      * @var boolean
      */
-    protected $field_relations = false;
+    protected $enable_field_relations = false;
 
     /**
      * Plugin values
@@ -204,13 +216,31 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    public function getEagerFieldRelations()
+    {
+        return $this->eager_field_relations;
+    }
+
     /**
      * Set format
      * @param boolean $format
      */
-    public function setFieldRelations($field_relations = false)
+    public function enableFieldRelations($enable_field_relations = false)
     {
-        $this->field_relations = $field_relations;
+        $this->enable_field_relations = $enable_field_relations;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable eager loading of field relations
+     * @param boolean $format
+     */
+    public function enableEagerFieldRelations($enable_eager_field_relations = false)
+    {
+        $this->enableFieldRelations($enable_eager_field_relations);
+
+        $this->enable_eager_field_relations = $enable_eager_field_relations;
 
         return $this;
     }
@@ -237,9 +267,36 @@ class Entry extends EntryOriginal
      * Is field relations enabled
      * @return boolean
      */
-    public function isFieldRelations()
+    public function isEnableFieldRelations()
     {
-        return $this->field_relations;
+        return $this->enable_field_relations;
+    }
+
+    /**
+     * Is eager loading field relations enabled
+     * @return boolean
+     */
+    public function isEnableEagerFieldRelations()
+    {
+        return $this->enable_eager_field_relations;
+    }
+
+    public function setEagerFieldRelations($field_slugs = array())
+    {
+        if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
+        {
+            $eager_field_relations = array();
+
+            foreach ($field_slugs as $field_slug)
+            {
+                if ($type = $this->getFieldType($field_slug) and $type->hasRelation())
+                {
+                    $eager_field_relations[] = $field_slug;
+                }
+            }
+
+            $this->eager_field_relations = $eager_field_relations;
+        }
     }
 
     /**
@@ -342,7 +399,6 @@ class Entry extends EntryOriginal
 
         return static::$instance->newQuery()->with($relations);
     }
-
 
     /**
      * Save the model to the database.

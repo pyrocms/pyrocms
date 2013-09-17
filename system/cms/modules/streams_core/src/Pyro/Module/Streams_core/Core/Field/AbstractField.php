@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Illuminate\Database\Eloquent\Relations;
 use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractField
@@ -345,7 +346,7 @@ abstract class AbstractField
 		}	
 		else
 		{
-			if ($this->model->isFieldRelations())
+			if ($this->model->isEnableFieldRelations())
 			{
 				// Get relations from the model
 				$relations = $this->model->getRelations();
@@ -443,7 +444,7 @@ abstract class AbstractField
 	{
 		ci()->template->append_metadata($html);
 
-		$this->assets[] = $html;
+		ci()->assets[] = $html;
 	}
 
 	/**
@@ -459,11 +460,40 @@ abstract class AbstractField
 
 		ci()->load->set_view_path(static::$types->$type->ft_path.'views/');
 
-		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArraydeto($data), '_ci_return' => true));
 
 		ci()->load->set_view_path($paths);
 
 		return $view_data;
+	}
+
+	/**
+	 * Get the results for the field type relation
+	 * @return [type] [description]
+	 */
+	public function getRelation($field_slug = null)
+	{
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		// If not, if there is a relation defined, query it
+		if ($this->hasRelation())
+		{
+			$relations = $this->entry->getRelations();
+
+			// Return the related model if it was eager loaded
+			if (isset($relations[$field_slug]))
+			{
+				return $relations[$field_slug];
+			}
+			else
+			{
+				return $this->relation()->getResults();
+			}
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -492,5 +522,10 @@ abstract class AbstractField
 	protected function objectToArray($object)
 	{
 		return (is_object($object)) ? get_object_vars($object) : $object;
+	}
+
+	public function hasRelation()
+	{
+		return method_exists($this, 'relation') and ($this->relation() instanceof Relations\Relation);
 	}
 }
