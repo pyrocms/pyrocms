@@ -39,10 +39,14 @@ class Field_user extends AbstractField
 	 */
 	public function pre_output()
 	{
-		// @todo - update this to use eager loading
-		$user = $this->relation()->getResults();
-
-		return anchor('admin/users/edit/'.$user->id, $user->username);
+		if ($user = $this->getRelation())
+		{
+			return anchor('admin/users/edit/'.$user->id, $user->username);	
+		}
+		else
+		{
+			return $this->value;
+		}
 	}
 
 	/**
