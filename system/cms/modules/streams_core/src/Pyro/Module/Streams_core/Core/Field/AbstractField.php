@@ -464,6 +464,19 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Wrapper method for the Eloquent belongsTo() method
+	 * @param  [type] $related     [description]
+	 * @param  [type] $foreing_key [description]
+	 * @return [type]              [description]
+	 */
+	public function belongsTo($related, $foreing_key = null)
+	{
+		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+
+		return $this->model->belongsTo($related, $foreing_key);
+	}
+
+	/**
 	 * Object to Array
 	 *
 	 * Takes an object as input and converts the class variables to array key/vals
