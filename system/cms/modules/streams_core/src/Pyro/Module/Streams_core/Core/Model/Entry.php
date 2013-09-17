@@ -72,6 +72,12 @@ class Entry extends EntryOriginal
     protected $plugin = true;
 
     /**
+     * Enable or disable field relations for a query
+     * @var boolean
+     */
+    protected $field_relations = false;
+
+    /**
      * Plugin values
      * @var array
      */
@@ -199,6 +205,17 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Set format
+     * @param boolean $format
+     */
+    public function setFieldRelations($field_relations = false)
+    {
+        $this->field_relations = $field_relations;
+
+        return $this;
+    }
+
+    /**
      * Is formatted
      * @return boolean
      */
@@ -214,6 +231,15 @@ class Entry extends EntryOriginal
     public function isPlugin()
     {
         return $this->plugin;
+    }
+
+    /**
+     * Is field relations enabled
+     * @return boolean
+     */
+    public function isFieldRelations()
+    {
+        return $this->field_relations;
     }
 
     /**
@@ -303,6 +329,20 @@ class Entry extends EntryOriginal
 
         return $entry;
     }
+
+    /**
+     * Being querying a model with eager loading.
+     *
+     * @param  array|string  $relations
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public static function with($relations)
+    {
+        if (is_string($relations)) $relations = func_get_args();
+
+        return static::$instance->newQuery()->with($relations);
+    }
+
 
     /**
      * Save the model to the database.

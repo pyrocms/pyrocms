@@ -345,18 +345,21 @@ abstract class AbstractField
 		}	
 		else
 		{
-			// Get relations from the model
-			$relations = $this->model->getRelations();
+			if ($this->model->isFieldRelations())
+			{
+				// Get relations from the model
+				$relations = $this->model->getRelations();
 
-			// Return relations if they are eager loaded
-			if (isset($relations[$this->field->field_slug]))
-			{
-				return $this->relation = $this->relations[$this->field->field_slug];
-			}
-			// If the field type has a relationship, get the results
-			elseif (method_exists($this, 'relation'))
-			{
-			    return $this->relation = $this->relation()->getResults();          
+				// Return relations if they are eager loaded
+				if (isset($relations[$this->field->field_slug]))
+				{
+					return $this->relation = $this->relations[$this->field->field_slug];
+				}
+				// If the field type has a relationship, get the results
+				elseif (method_exists($this, 'relation'))
+				{
+				    return $this->relation = $this->relation()->getResults();          
+				}				
 			}
 
 			// If not, check and see if there is a method
