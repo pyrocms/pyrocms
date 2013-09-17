@@ -24,12 +24,26 @@ class Field_user extends AbstractField
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	// --------------------------------------------------------------------------
+	/**
+	 * The field type relation
+	 * @return [type] [description]
+	 */
+	public function relation()
+	{
+		return $this->belongsTo('Pyro\Module\Users\Model\User');
+	}
 
-	// Run-time cache of users.
-	private $cache 					= array();
+	/**
+	 * Format the Admin output
+	 * @return [type] [description]
+	 */
+	public function pre_output()
+	{
+		// @todo - update this to use eager loading
+		$user = $this->relation()->getResults();
 
-	// --------------------------------------------------------------------------
+		return anchor('admin/users/edit/'.$user->id, $user->username);
+	}
 
 	/**
 	 * Output form input
@@ -40,14 +54,7 @@ class Field_user extends AbstractField
 	 */
 	public function form_output()
 	{
-		ci()->db->select('username, id');
-
-		if ($restrict_group = $this->getParameter('restrict_group'))
-		{
-			ci()->db->where('group_id', $restrict_group);
-		}
-
-		$users = Model\User::lists('username', 'id');
+		$users = Model\User::getUserOptions($this->getParameter('restrict_group'));
 
 		// If this is not required, then
 		// let's allow a null option
@@ -58,50 +65,20 @@ class Field_user extends AbstractField
 		return form_dropdown($this->form_slug, $users, $this->value, 'id="'.$this->form_slug.'"');
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * User Field Type Query Build Hook
-	 *
-	 * This joins our user fields.
-	 *
-	 * @param 	array 	&$sql 	The sql array to add to.
-	 * @param 	obj 	$field 	The field obj
-	 * @param 	obj 	$stream The stream object
-	 * @return 	void
-	 */
-/*	public function query_build_hook(&$sql, $field, $stream)
-	{
-		// Create a special alias for the users table.
-		$alias = 'users_'.$field->field_slug;
-
-		$sql['select'][] = '`'.$alias.'`.`id` as `'.$field->field_slug.'||user_id`';
-		$sql['select'][] = '`'.$alias.'`.`email` as `'.$field->field_slug.'||email`';
-		$sql['select'][] = '`'.$alias.'`.`username` as `'.$field->field_slug.'||username`';
-
-		$sql['join'][] = 'LEFT JOIN '.ci()->db->protect_identifiers('users', true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.ci()->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
-	}*/
-
-	public function relation()
-	{
-		return $this->model->belongsTo('Pyro\Module\Users\Model\User', $this->field->field_slug);
-	}
-
 	/**
 	 * Restrict to Group
 	 */
 	public function param_restrict_group($value = null)
 	{
-		ci()->db->order_by('name', 'asc');
-
-		$db_obj = ci()->db->get('groups');
-
 		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 
-		$groups_raw = $db_obj->result();
-
-		foreach ($groups_raw as $group) {
-			$groups[$group->id] = $group->name;
+		if (ci()->current_user->isSuperUser())
+		{
+			$groups = array_merge($groups, Model\Group::getGroupOptions());
+		}
+		else
+		{
+			$groups = array_merge($groups, Model\Group::getGeneralGroupOptions());
 		}
 
 		return form_dropdown('restrict_group', $groups, $value);
