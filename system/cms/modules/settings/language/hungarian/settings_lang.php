@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']             = 'Hány bejegyzés jelenjen
 $lang['settings:rss_feed_items']                    = 'RSS csatorna bejegyzéseinek száma';
 $lang['settings:rss_feed_items_desc']               = 'Hány bejegyzés jelenjen meg az RSS csatornában, illetve a blogban?';
 
-$lang['settings:require_lastname']                  = 'Vezetéknév szükséges?';
-$lang['settings:require_lastname_desc']             = 'Néhány esetben a vezetéknév kitöltése nem kötelező. A beállítás aktiválásával rákényszerülnek a felhasználók';
 
 $lang['settings:enable_profiles']                   = 'Profilok bekapcsolása';
 $lang['settings:enable_profiles_desc']              = 'Saját profil engedélyezése a felhasználók számára.';
@@ -84,15 +82,6 @@ $lang['settings:ga_profile_desc']                   = 'Profil azonosító a webo
 
 $lang['settings:ga_tracking']                       = 'Google Követési kód';
 $lang['settings:ga_tracking_desc']                  = 'Itt lehet megadni a Google Analytics követési kódját, aminek segítségével aktiválható az adatok rögzítése. pl: UA-19483569-6';
-
-$lang['settings:twitter_username']                  = 'Felhasználónév';
-$lang['settings:twitter_username_desc']             = 'Twitter felhasználónév.';
-
-$lang['settings:twitter_feed_count']                = 'Üzenetek száma';
-$lang['settings:twitter_feed_count_desc']           = 'Hány twitter üzenet jelenjen meg a twitter blokkban?';
-
-$lang['settings:twitter_cache']                     = 'Cache időtartam';
-$lang['settings:twitter_cache_desc']                = 'Mennyi ideig legyenek rögzítve a gyorsítótárazott üzenetek?';
 
 $lang['settings:akismet_api_key']                   = 'Akismet API kulcs';
 $lang['settings:akismet_api_key_desc']              = 'Akismet, a WordPress csapat spam-szűrő alkalmazása. Automatikusan felügyelet alatt tartja a kéretlen üzeneteket, anélkül hogy a felhasználókat emberi ellenőrzéseken küldenék végig.';
@@ -145,7 +134,6 @@ $lang['settings:section_integration']               = 'Integriáció';
 $lang['settings:section_comments']                  = 'Hozzászólások';
 $lang['settings:section_users']                     = 'Felhasználók';
 $lang['settings:section_statistics']                = 'Statisztiák';
-$lang['settings:section_twitter']                   = 'Twitter';
 $lang['settings:section_files']                     = 'Fájlok';
 
 # checkbox and radio options

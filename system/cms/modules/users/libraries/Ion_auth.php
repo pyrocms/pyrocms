@@ -292,7 +292,7 @@ class Ion_auth
 		{
 			$this->set_message('account_creation_successful');
 
-			if (Settings::get('activation_email'))
+			if ((int)Settings::get('activation_email') === 1)
 			{
 				return $this->activation_email($id);
 			}

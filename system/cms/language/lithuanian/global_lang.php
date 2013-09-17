@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Versija';
 $lang['global:author'] 					= 'Autorius';
 $lang['global:action'] 					= 'Veiksmas';
 $lang['global:slug'] 					= 'Nuoroda';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Rašykite mažosiomis raidėmis ir be jokių lietuvybių, skirybos ženklų.';
 $lang['global:user'] 					= 'Vartotojas';
 
 $lang['global:dialog:delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
@@ -32,12 +32,12 @@ $lang['global:operators:not-equal'] 			= 'Nelygu';
 $lang['global:operators:less-than'] 			= 'Mažiau negu';
 $lang['global:operators:greater-than'] 		= 'Daugiau negu';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'Viena diena';
+$lang['global:duration:1-week']			= 'Viena savaitė';
+$lang['global:duration:2-weeks']		= 'Dvi savaitės';
+$lang['global:duration:1-month']		= 'Vienas mėnuo';
+$lang['global:duration:3-months']		= 'Trys mėnesiai';
+$lang['global:duration:always']			= 'Visada';
 
 $lang['navigation_headline'] 			= 'Navigacija';
 $lang['breadcrumb_base_label'] 			= 'Pradžia';
@@ -52,8 +52,8 @@ $lang['general_error_label'] 			= 'Klaida';
 $lang['required_error_label'] 			= 'Reikalingas laukas yra tuščias.';
 $lang['note_label'] 					= 'Užrašai';
 $lang['success_label'] 					= 'Sėkmingai';
-$lang['global:fields']					= 'Fields'; #translate
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields']					= 'Laukeliai';
+$lang['global:custom_fields']			= 'Vartotojo sukurti laukeliai';
 
 $lang['login_title'] 					= 'Prisijungti';
 $lang['global:fatal_error'] 				= 'Klaida. Ar TVS yra įdiegtas?';
@@ -80,16 +80,16 @@ $lang['global:install'] 				= 'Įdiegti';
 $lang['global:upgrade'] 				= 'Atnaujinti';
 $lang['global:enable']					= 'Įjungti';
 $lang['global:disable'] 				= 'Atjungti';
-$lang['global:enabled']					= 'Enabled'; #translate
-$lang['global:disabled'] 				= 'Disabled'; #translate
+$lang['global:enabled']					= 'Įjungtas';
+$lang['global:disabled'] 				= 'Išjungtas';
 
 $lang['all_right_reserved']				= 'Visos teisės saugomos.';
 $lang['powered_by_pyrocms']				= 'Veikia ant PyroCMS';
 $lang['top_page']						= 'Viršus';
 $lang['back_to_top']					= 'Grižti į viršų';
 
-$lang['global:filters'] 				= 'Filters'; #translate
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:filters'] 				= 'Filtrai';
+$lang['global:image'] 					= 'Paveikslėlis';
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
 $lang['global:view']					= 'Žiūrėti';
@@ -102,17 +102,17 @@ $lang['global:remove']					= 'Išimti';
 
 $lang['global:keywords']				= 'Raktažodžiai';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'arba';
+$lang['global:and']						= 'ir';
+$lang['global:at']						= 'nuo';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Papildiniai';
+$lang['global:themes']					= 'Temos';
+$lang['global:field_types']				= 'Laukelių tipai';
+$lang['global:plugins']					= 'Įskiepiai';
+$lang['global:plugin']					= 'Įskiepis';
 
-$lang['global:options']					= 'Options'; #translate
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:options']					= 'Nustatymai';
+$lang['global:plain-text']				= 'Paprastas tekstas';
 
 /* End of file global_lang.php */

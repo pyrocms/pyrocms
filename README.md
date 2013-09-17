@@ -1,19 +1,18 @@
 # PyroCMS Community Edition
 
-[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.2/develop)](https://travis-ci.org/pyrocms/pyrocms)
+[![Build Status](https://travis-ci.org/pyrocms/pyrocms.png?branch=2.2/master)](https://travis-ci.org/pyrocms/pyrocms)
 
 * [Website](https://www.pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://forum.pyrocms.com)
-* Version: 2.2.0
+* Version: 2.2.2
 
 ## Team
 
 * [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Joshua Pekera](http://joshuapekera.com/)
 
 ## Description
 
@@ -32,8 +31,8 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Bugs & Feature Requests
 
-[Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://forum.pyrocms.com)
+* [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
+* [Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
@@ -85,3 +84,5 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
+* [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)
+* [huglester](http://webas.lt/) Lithuanian

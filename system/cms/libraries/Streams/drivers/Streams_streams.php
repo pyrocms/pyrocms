@@ -3,8 +3,9 @@
 /**
  * Entries Driver
  * 
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Streams_streams extends CI_Driver {
 
@@ -24,7 +25,7 @@ class Streams_streams extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get entries for a stream.
+	 * Add a Stream.
 	 *
 	 * @access	public
 	 * @param	string - stream name
@@ -33,7 +34,7 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - stream prefix]
 	 * @param	[string - about notes for stream]
 	 * @param 	[array - extra data]
-	 * @return	bool
+	 * @return	false or new stream ID
 	 */
 	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null, $extra = array())
 	{

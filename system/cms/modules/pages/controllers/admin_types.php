@@ -174,7 +174,7 @@ class Admin_types extends Admin_Controller
 				// worry about auto-generating a slug as long as it doesn't conflict.
 				// We'll just append incrementing numbers to it until we get closer.
 				// Plus, we are using the pages_ prefix, so conflict probability is low.
-				$stream_slug = url_title($input['title'], '_', true);
+				$stream_slug = ($input['slug'] ? $input['slug'] : url_title($input['title'], '_', true));
 				$original_stream_slug = $stream_slug;
 				$count = 2;
 				while ($this->streams->streams->check_table_exists($stream_slug, 'pages_'))
@@ -216,7 +216,10 @@ class Admin_types extends Admin_Controller
 
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
 
+				// Empty the correct caches.
 				$this->pyrocache->delete_all('page_m');
+				$this->pyrocache->delete_all('page_type_m');
+				$this->pyrocache->delete_all('streams_m');
 
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
@@ -347,8 +350,10 @@ class Admin_types extends Admin_Controller
 				'save_as_files'		=> (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n'
 			));
 
-			// Wipe cache for this model as the data has changed
+			// Wipe cache for the correct models as the data has changed
 			$this->pyrocache->delete_all('page_type_m');
+			$this->pyrocache->delete_all('page_m');
+			$this->pyrocache->delete_all('streams_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 

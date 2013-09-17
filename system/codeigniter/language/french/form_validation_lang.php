@@ -15,10 +15,16 @@ $lang['alpha_dash']			= "Le champ %s ne peut contenir que des caract&egrave;res 
 $lang['numeric']			= "Le champ %s doit contenir un nombre (caract&egrave;res num&eacute;riques).";
 $lang['is_numeric']			= "Le champ %s ne peut contenir que de signes du type nombre.";
 $lang['integer']			= "Le champ %s doit contenir un integer.";
-$lang['regex_match']		= "The %s field is not in the correct format."; #translate
+$lang['regex_match']  	= "Le champ %s n'est pas au format attendu.";
 $lang['matches']			= "Le champ %s doit correspondre au champ %s.";
+$lang['is_unique']   			= "Le champ %s doit contenir une valeur unique.";
 $lang['is_natural']			= "Le champ %s ne peut contenir que des nombres positifs.";
-$lang['is_natural_no_zero']	= "Le champ %s ne peut contenir que des nombres plus grand que z&eacute;.";
+$lang['is_natural_no_zero']	= "Le champ %s ne peut contenir que des nombres plus grand que z&eacute;ro.";
+$lang['decimal']  			= "Le champ %s doit contenir un nombre d&eacute;cimal.";
+$lang['less_than']				= "Le champ %s doit contenir un nombre inf&eacute;rieur &agrave; %s.";
+$lang['less_than_equal_to']		= "Le champ %s doit contenir un nombre inf&eacute;rieur ou &eacute;gal &agrave; %s.";
+$lang['greater_than']			= "Le champ %s doit contenir un nombre sup&eacute;rieur &agrave; %s.";
+$lang['greater_than_equal_to']	= "Le champ %s doit contenir un nombre sup&eacute;rieur ou &eacute;gal &agrave; %s.";
 
 
 /* End of file form_validation_lang.php */

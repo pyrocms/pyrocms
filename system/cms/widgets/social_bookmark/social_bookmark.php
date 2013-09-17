@@ -26,6 +26,7 @@ class Widget_Social_bookmark extends Widgets
 		'id' => 'Social Bookmark',
 		'fi' => 'Sosiaalinen kirjanmerkki',
 		'fr' => 'Liens sociaux',
+            'fa' => 'بوکمارک های شبکه های اجتماعی',
 	);
 
 	/**
@@ -43,6 +44,7 @@ class Widget_Social_bookmark extends Widgets
 		'id' => 'Tautan social bookmark yang dapat dikonfigurasi dari AddThis',
 		'fi' => 'Konfiguroitava sosiaalinen kirjanmerkki linkit AddThis:stä',
 		'fr' => 'Liens sociaux personnalisables avec AddThis',
+            'fa' => 'تنظیم و نمایش لینک های شبکه های اجتماعی',
 	);
 
 	/**

@@ -6,8 +6,9 @@
  * constructing PyrCMS stream control
  * panel elements.
  *
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
  
 class Streams_cp extends CI_Driver {
@@ -1019,7 +1020,7 @@ class Streams_cp extends CI_Driver {
 		{	
 			$data['pagination'] = create_pagination(
 											$pagination_uri,
-											$CI->fields_m->count_fields($namespace),
+											$CI->fields_m->count_assignments_for_stream($stream->id),
 											$pagination,
 											$offset_uri
 										);

@@ -67,9 +67,6 @@ $lang['settings:records_per_page_desc'] 		= 'Combien d\'entrées devons nous mon
 $lang['settings:rss_feed_items'] 				= 'Nombre de flux RSS';
 $lang['settings:rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS ?';
 
-$lang['settings:require_lastname'] 				= 'Nom requis ?';
-$lang['settings:require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom ?';
-
 $lang['settings:enable_profiles'] 				= 'Activer les profils';
 $lang['settings:enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';
 
@@ -84,15 +81,6 @@ $lang['settings:ga_profile_desc']				= 'ID du profil pour ce site dans Google An
 
 $lang['settings:ga_tracking'] 					= 'Code Google Tracking';
 $lang['settings:ga_tracking_desc']				= 'Code de tracking Google Analytics pour activer la capture de données de visites. Ex. : UA-19483569-6';
-
-$lang['settings:twitter_username'] 				= 'Nom d\'utilisateur';
-$lang['settings:twitter_username_desc'] 		= 'Nom d\'utilisateur Twitter.';
-
-$lang['settings:twitter_feed_count'] 			= 'Nombre de tweets';
-$lang['settings:twitter_feed_count_desc'] 		= 'Combien de tweet doivent être affiché dans le block Twitter&nbsp;?';
-
-$lang['settings:twitter_cache'] 				= 'Durée de vie du cache';
-$lang['settings:twitter_cache_desc'] 			= 'Combien de temps conserver les tweets dans le cache&nbsp;?';
 
 $lang['settings:akismet_api_key'] 				= 'Clé d\'API Akismet';
 $lang['settings:akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par l\'équipe de Wordpress. Il limite les spam sans obliger les utilisateurs à valider une CAPTCHA';
@@ -137,7 +125,7 @@ $lang['settings:profile_visibility']            = 'Visibilité du Profil';
 $lang['settings:profile_visibility_desc']       = 'Permet de spécifier qui peut voir les profils utilisateurs sur le site public';
 
 $lang['settings:cdn_domain']                    = 'Domaine CDN';
-$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';  // todo : check translation
+$lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';
 
 #section titles
 $lang['settings:section_general']				= 'Général';
@@ -145,7 +133,6 @@ $lang['settings:section_integration']			= 'Intégration';
 $lang['settings:section_comments']				= 'Commentaires';
 $lang['settings:section_users']					= 'Utilisateurs';
 $lang['settings:section_statistics']			= 'Statistiques';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Fichiers';
 
 #checkbox and radio options

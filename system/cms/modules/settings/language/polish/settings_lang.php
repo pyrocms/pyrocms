@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']				= 'Jak wiele rekordów na stronę pow
 $lang['settings:rss_feed_items']				= 'Ilość blogów RSS';
 $lang['settings:rss_feed_items_desc']				= 'Ile elementów należy pokazać w kanale RSS/nowości?';
 
-$lang['settings:require_lastname']				= 'Wymagane nazwisko?';
-$lang['settings:require_lastname_desc']				= 'W niektórych sytuacjach nazwisko nie musi być wymagane. Czy chcesz wymusić na użytkownikach jego podawanie?';
 
 $lang['settings:enable_profiles']				= 'Włącz profile';
 $lang['settings:enable_profiles_desc']				= 'Pozwól użytkownikom na dodawanie i edycję profili.';
@@ -84,15 +82,6 @@ $lang['settings:ga_profile_desc']				= 'Podaj ID profilu Google Analytics aby ak
 
 $lang['settings:ga_tracking'] 					= 'Kod śledzenia Google';
 $lang['settings:ga_tracking_desc']				= 'Podaj swój kod śledzenia Google Analytics aby aktywować śledzenie odsłon serwisu. Przykład: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Użytkownik';
-$lang['settings:twitter_username_desc']				= 'Twoja nazwa użytkownika w serwisie Twitter.';
-
-$lang['settings:twitter_feed_count']				= 'Ilość wpisów z Twittera';
-$lang['settings:twitter_feed_count_desc']			= 'Ile twittów powinno zostać przekazanych do bloku Twittera?';
-
-$lang['settings:twitter_cache']					= 'Cache wpisów z Twittera';
-$lang['settings:twitter_cache_desc']				= 'Przez ile minut Twoje twitty powinny być przechowywane?';
 
 $lang['settings:akismet_api_key']				= 'Klucz API Akismet';
 $lang['settings:akismet_api_key_desc']				= 'Akismet umożliwia blokowanie spamu - jest to narzędzie twórców systemu blogowego WordPress. Akismet pozwala utrzymać spam pod kontrolą bez zmuszania użytkowników do wypełniania formularzy z kodem CAPTCHA.';
@@ -145,7 +134,6 @@ $lang['settings:section_integration']				= 'Integracja';
 $lang['settings:section_comments']				= 'Komentarze';
 $lang['settings:section_users']					= 'Użytkownicy';
 $lang['settings:section_statistics']				= 'Statystyki';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Pliki';
 
 #checkbox and radio options

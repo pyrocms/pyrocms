@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'Koliko zapisov želite da se prika�
 $lang['settings:rss_feed_items']				= 'Štetje RSS podajalnika';
 $lang['settings:rss_feed_items_desc']			= 'Koliko prispevkov želite da se prikaže v RSS/blog podajalniku?';
 
-$lang['settings:require_lastname']				= 'Zahtevaj priimek?';
-$lang['settings:require_lastname_desc']			= 'V določenih primerih, priimek ne bo zahtevan. Ali želite da je priimek zahtevan ali ne?';
 
 $lang['settings:enable_profiles']				= 'Omogoči profile';
 $lang['settings:enable_profiles_desc']			= 'Dovoli uporabnikom dodajanje n urejanje profila.';
@@ -84,15 +82,6 @@ $lang['settings:ga_profile_desc']				= 'ID prifila za to stran v Google Analytic
 
 $lang['settings:ga_tracking']					= 'Google Tracking Code (koda sledenja)';
 $lang['settings:ga_tracking_desc']				= 'Vnesite Google Analytic kodo sledenja za ogled obiska strani na namizju Npr: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Uporabnik';
-$lang['settings:twitter_username_desc']			= 'Twitter Uporabniško ime.';
-
-$lang['settings:twitter_feed_count']			= 'Feed števec';
-$lang['settings:twitter_feed_count_desc']		= 'Koliko tweet-ov se naj prikaže v Twitter okvirju?';
-
-$lang['settings:twitter_cache']					= 'Cache čas';
-$lang['settings:twitter_cache_desc']			= 'Koliko časa naj bodo vaši Twitti začasno shranjeni?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Askimet je preprečevalnik SPAM-a pri komentarjih. In se ga uporablja namesto nadležne CAPTCH-e.';
@@ -124,7 +113,6 @@ $lang['settings:section_integration']			= 'Integracija';
 $lang['settings:section_comments']				= 'Komentarji';
 $lang['settings:section_users']					= 'Uporabniki';
 $lang['settings:section_statistics']			= 'Statistika';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Odpri';

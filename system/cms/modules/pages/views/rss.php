@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="<?php echo $this->config->item('charset') ?>"?>
+<?php echo '<?xml version="1.0" encoding="'.$this->config->item('charset').'"?>'; ?>
+
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 	<channel>
 		<title><?php echo $rss['title'] ?></title>

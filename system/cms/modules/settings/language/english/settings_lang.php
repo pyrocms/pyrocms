@@ -67,8 +67,6 @@ $lang['settings:records_per_page_desc']			= 'How many records should we show per
 $lang['settings:rss_feed_items']				= 'Feed item count';
 $lang['settings:rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Require last names?';
-$lang['settings:require_lastname_desc']			= 'For some situations, a last name may not be required. Do you want to force users to enter one or not?';
 
 $lang['settings:enable_profiles']				= 'Enable profiles';
 $lang['settings:enable_profiles_desc']			= 'Allow users to add and edit profiles.';
@@ -84,15 +82,6 @@ $lang['settings:ga_profile_desc']				= 'Profile ID for this website in Google An
 
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Username';
-$lang['settings:twitter_username_desc']			= 'Twitter username.';
-
-$lang['settings:twitter_feed_count']			= 'Feed Count';
-$lang['settings:twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';
-
-$lang['settings:twitter_cache']					= 'Cache time';
-$lang['settings:twitter_cache_desc']			= 'How many seconds should your Tweets be stored?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';
@@ -145,7 +134,6 @@ $lang['settings:section_integration']			= 'Integration';
 $lang['settings:section_comments']				= 'Comments';
 $lang['settings:section_users']					= 'Users';
 $lang['settings:section_statistics']			= 'Statistics';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Files';
 
 # checkbox and radio options
@@ -167,7 +155,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible';
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user';
 $lang['settings:form_option_activate_by_email']				= 'Activate by email';
 $lang['settings:form_option_activate_by_admin']				= 'Activate by admin';
-$lang['settings:form_option_no_activation']				= 'No activation';
+$lang['settings:form_option_no_activation']				= 'Instant activation';
 
 // messages
 $lang['settings:no_settings']					= 'There are currently no settings.';

@@ -22,6 +22,8 @@ $lang['pages:navigation_label']         = 'Ajouter à la navigation';
 $lang['pages:body_label']               = 'Corps de la page';
 $lang['pages:meta_title_label']         = 'Meta title';
 $lang['pages:meta_keywords_label']      = 'Meta keywords';
+$lang['pages:meta_robots_no_index_label']	= 'Robots: Ne pas indexer cette page&nbsp;:';
+$lang['pages:meta_robots_no_follow_label']	= 'Robots: Ne pas suivre les liens sur cette page&nbsp;:';
 $lang['pages:meta_desc_label']          = 'Meta description';
 $lang['pages:type_id_label']            = 'Modèle';
 $lang['pages:css_label']                = 'CSS';
@@ -47,6 +49,7 @@ $lang['pages:duplicate_label']          = 'Dupliquer';
 $lang['pages:create_title']             = 'Créer une page';
 $lang['pages:edit_title']               = 'Modifier la page "%s"';
 $lang['pages:list_title']               = 'Lister les pages';
+$lang['pages:choose_type_title']        = 'Quel type de page souhaitez vous créer&nbsp;?';
 $lang['pages:types_create_title']       = 'Ajouter un modèle';
 $lang['pages:types_list_title']         = 'Lister les modèles';
 

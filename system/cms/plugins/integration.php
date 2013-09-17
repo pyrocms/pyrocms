@@ -17,7 +17,9 @@ class Plugin_Integration extends Plugin
 	);
 	public $description = array(
 		'en' => 'Google analytics tracking code and data.',
+		'br' => 'Dados e código de rastreamento do Google Analytics.',
 		'el' => 'Συνεργασία με Google Analytics;',
+            'fa' => 'گوگل آنالیتیکز کد و اطلاعات',
 		'fr' => 'Intégration du code de suivi Google Analytics.',
 		'it' => 'Codice di tracciamento Google Analytics'
 	);
@@ -38,7 +40,8 @@ class Plugin_Integration extends Plugin
 		$info = array(
 			'analytics' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Output the Google Analytics tracking code to your theme.'
+					'en' => 'Output the Google Analytics tracking code to your theme.',
+					'br' => 'Exibe o código de rastreamento do Google Analytics no seu tema.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?

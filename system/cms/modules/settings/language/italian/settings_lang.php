@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc'] 		= 'Quanti records per pagina dobbiamo 
 $lang['settings:rss_feed_items'] 				= 'Numero post Feed';
 $lang['settings:rss_feed_items_desc'] 			= 'Quanti post dobbiamo mostrare nei feed RSS/Notizie?';
 
-$lang['settings:require_lastname'] 				= 'Cognome richiesto?';
-$lang['settings:require_lastname_desc'] 		= 'In alcune situazioni il cognome potrebbe non servire. Vuoi forzare gli utenti ad inserirlo o no?';
 
 $lang['settings:enable_profiles'] 				= 'Abilita profili';
 $lang['settings:enable_profiles_desc'] 			= 'Permetti agli utenti di aggiungere e modificare profili.';
@@ -86,15 +84,6 @@ $lang['settings:ga_profile_desc']				= 'ID del profilo di questo sito in Google 
 
 $lang['settings:ga_tracking'] 					= 'Google Tracking Code'; 
 $lang['settings:ga_tracking_desc']				= 'Inserisci il codice di tracciamento (Google Analytic Tracking Code) per attivare la possibilità di salvare i dati per Google Analytic. Es: UA-19483569-6';
-
-$lang['settings:twitter_username'] 				= 'Username';
-$lang['settings:twitter_username_desc'] 		= 'Twitter username.';
-
-$lang['settings:twitter_feed_count'] 			= 'Numero dei Feed';
-$lang['settings:twitter_feed_count_desc'] 		= 'Quanti tweets devono essere restituiti blocco dei feed di Twitter?';
-
-$lang['settings:twitter_cache'] 				= 'Tempo di caching';
-$lang['settings:twitter_cache_desc'] 			= 'Per quanti minuti devono essere conservati temporaneamente i tuoi Tweets?';
 
 $lang['settings:akismet_api_key'] 				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc'] 			= 'Akismet è uno spam-blocker prodotto dal team di WordPress. Tiene sotto controllo lo spam senza obbligare gli utenti a superare i moduli CAPTCHA.';
@@ -144,7 +133,6 @@ $lang['settings:section_integration']			= 'Integrazione';
 $lang['settings:section_comments']				= 'Commenti';
 $lang['settings:section_users']					= 'Utenti';
 $lang['settings:section_statistics']			= 'Statistiche';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Files';
 
 #checkbox and radio options

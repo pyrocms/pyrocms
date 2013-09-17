@@ -70,8 +70,6 @@ $lang['settings:records_per_page_desc']            = 'Wie viele Eintr&auml;ge so
 $lang['settings:rss_feed_items']                = 'RSS-Feed Anzahl';
 $lang['settings:rss_feed_items_desc']            = 'Wie viele Eintr&auml;ge sollen im RSS/News-Bereich der Seite angezeigt werden?';
 
-$lang['settings:require_lastname']                = 'Nachnamen sind Pflicht?';
-$lang['settings:require_lastname_desc']            = 'In manchen Sitationen werden Nachnamen der Benutzer nicht ben&ouml;tigt. M&ouml;chtest du die Angabe der Nachnamen der Benutzer erzwingen?';
 
 $lang['settings:enable_profiles']                = 'Profile aktivieren';
 $lang['settings:enable_profiles_desc']            = 'Erlaubt das Erstellen und Bearbeiten von Benutzer-Profilen.';
@@ -87,15 +85,6 @@ $lang['settings:ga_profile_desc']                = 'Profil ID f&uuml;r diese Web
 
 $lang['settings:ga_tracking']                    = 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']                = 'Gib deinen Google Analytic Tracking Code ein um Google Analytics\' view data capturing zu aktivieren. z.B: UA-19483569-6';#translate; no idea what view data capturing is...
-
-$lang['settings:twitter_username']                = 'Twitter-Benutzername';
-$lang['settings:twitter_username_desc']            = 'Dein Twitter-Benutzername.';
-
-$lang['settings:twitter_feed_count']            = 'Anzahl der Feeds';
-$lang['settings:twitter_feed_count_desc']        = 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';
-
-$lang['settings:twitter_cache']                    = 'Dauer im Cache';
-$lang['settings:twitter_cache_desc']            = 'Wie lange sollen deine Tweets tempor&auml;r im Cache gesichert werden?';
 
 $lang['settings:akismet_api_key']                = 'Akismet API Schl&uuml;ssel';
 $lang['settings:akismet_api_key_desc']            = 'Akismet ist ein Spam-Blocker der Wordpress-Entwickler. Es h&auml;lt Spam unter Kontrolle ohne das Benutzer Captchas nutzen m&uuml;ssen.';
@@ -127,7 +116,6 @@ $lang['settings:section_integration']            = 'Integrierung';
 $lang['settings:section_comments']                = 'Kommentare';
 $lang['settings:section_users']                    = 'Benutzer';
 $lang['settings:section_statistics']            = 'Statistiken';
-$lang['settings:section_twitter']                = 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']                = 'Ge&ouml;ffnet';
@@ -144,7 +132,7 @@ $lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
 $lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
 $lang['settings:form_option_activate_by_email']            = 'Activate by email'; #translate
 $lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_no_activation']         	= 'Instant activation'; #translate
 
 // titles
 $lang['settings:edit_title']                    = 'Einstellungen bearbeiten';

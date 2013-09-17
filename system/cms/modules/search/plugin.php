@@ -13,10 +13,14 @@ class Plugin_Search extends Plugin
 
 	public $name = array(
 		'en' => 'Search',
+		'br' => 'Procura',
+            'fa' => 'جستجو',
 	);
 
 	public $description = array(
 		'en' => 'Create a search form and display search results.',
+		'br' => 'Cria um formulário de procura e exibe resultados de pesquisa.',
+            'fa' => 'ایجاد فرم جستجو و نمایش نتایج',
 	);
 
 	/**
@@ -35,7 +39,8 @@ class Plugin_Search extends Plugin
 		$info = array(
 			'form' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays the search form. Extra attributes will be used as form attributes. Example: class="search-form".'
+					'en' => 'Displays the search form. Extra attributes will be used as form attributes. Example: class="search-form".',
+					'br' => 'Exibe um formulário de procura. Atributos extra serão usados como atributos do formulário. Exemplo: class="search-form".'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?
@@ -51,7 +56,8 @@ class Plugin_Search extends Plugin
 			),// end form method
 			'results' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display search results.'
+					'en' => 'Display search results.',
+					'br' => 'Exibe os resultados da busca.'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?

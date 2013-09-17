@@ -14,9 +14,13 @@ class Plugin_Files extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Files',
+		'br' => 'Arquivos',
+            'fa' => 'فایل ها',
 	);
 	public $description = array(
 		'en' => 'List files in specified folders and output images with cropping.',
+		'br' => 'Lista arquivos em pastas específicas e exibe imagens com recortes',
+             'fa' => 'لیست فایل های موجود در پوشه ی مشخص شده و خروجی تصاویر',
 	);
 
 	/**
@@ -35,7 +39,8 @@ class Plugin_Files extends Plugin
 		$info = array(
 			'listing' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.'
+					'en' => 'Iterate through files contained in the specified folder or which have the specified tags.',
+					'br' => 'Itera através dos arquivos contidos em uma pasta específica ou que possuem tags específicas.'
 				),
 				'single' => false,// will it work as a single tag?
 				'double' => true,// how about as a double tag?
@@ -56,7 +61,7 @@ class Plugin_Files extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 					),
 					'offset' => array(
@@ -85,9 +90,27 @@ class Plugin_Files extends Plugin
 					),
 				),
 			),// end listing method
+			'folders' => array(
+				'description' => array(
+					'en' => 'List folders and files (optional) from a specified folder.',
+					'br' => 'Lista pastas e arquivos (opcional) de uam pasta específica.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'folders|files|parent_id',
+				'attributes' => array(
+					'folder' => array(// this is the order-dir="asc" attribute
+						'type' => 'number|slug',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '0',// attribute defaults to this if no value is given
+						'required' => false, // is this attribute required?
+					),
+				),
+			),// end folders method
 			'folder_exists' => array(
 				'description' => array(
-					'en' => 'Check if a folder exists in the database.'
+					'en' => 'Check if a folder exists in the database.',
+					'br' => 'Checa se uma pasta existe no banco de dados.'
 				),
 				'single' => true,
 				'double' => false,
@@ -103,7 +126,8 @@ class Plugin_Files extends Plugin
 			),// end folder_exists method
 			'exists' => array(
 				'description' => array(
-					'en' => 'Check if a file exists in the database.'
+					'en' => 'Check if a file exists in the database.',
+					'br' => 'Checa se um arquivo existe no banco de dados.'
 				),
 				'single' => true,
 				'double' => false,
@@ -119,7 +143,8 @@ class Plugin_Files extends Plugin
 			),// end exists method
 			'image' => array(
 				'description' => array(
-					'en' => 'Output an image tag while resizing the image.'
+					'en' => 'Output an image tag while resizing the image.',
+					'br' => 'Exibe uma tag <img /> ao mesmo tempo que recorta a imagem.'
 				),
 				'single' => true,
 				'double' => false,
@@ -159,7 +184,8 @@ class Plugin_Files extends Plugin
 			),// end image method
 			'image' => array(
 				'description' => array(
-					'en' => 'Output an image tag while resizing the image.'
+					'en' => 'Output an image tag while resizing the image.',
+					'br' => 'Exibe uma tag <img /> ao mesmo tempo que recorta a imagem.'
 				),
 				'single' => true,
 				'double' => false,
@@ -199,7 +225,8 @@ class Plugin_Files extends Plugin
 			),// end image method
 			'image_url' => array(
 				'description' => array(
-					'en' => 'Output a url to the specified image.'
+					'en' => 'Output a url to the specified image.',
+					'br' => 'Exibe uma URL para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -215,7 +242,8 @@ class Plugin_Files extends Plugin
 			),// end image url method
 			'image_path' => array(
 				'description' => array(
-					'en' => 'Output a filesystem path to the specified image.'
+					'en' => 'Output a filesystem path to the specified image.',
+					'br' => 'Exibe um caminho do sistema de arquivos para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -231,7 +259,8 @@ class Plugin_Files extends Plugin
 			),// end image path method
 			'url' => array(
 				'description' => array(
-					'en' => 'Output a url to the specified file.'
+					'en' => 'Output a url to the specified file.',
+					'br' => 'Exibe uma URL para a imagem especificada.'
 				),
 				'single' => true,
 				'double' => false,
@@ -247,7 +276,8 @@ class Plugin_Files extends Plugin
 			),// end file url method
 			'path' => array(
 				'description' => array(
-					'en' => 'Output a filesystem path to the specified file.'
+					'en' => 'Output a filesystem path to the specified file.',
+					'br' => 'Exibe um caminho do sistema de arquivos para o arquivo especificado.'
 				),
 				'single' => true,
 				'double' => false,
@@ -322,7 +352,7 @@ class Plugin_Files extends Plugin
 
 		$folder_id = $this->attribute('folder', ''); // Id or Path
 		$tags      = $this->attribute('tagged', false);
-		$limit     = $this->attribute('limit', '10');
+		$limit     = $this->attribute('limit', null);
 		$offset    = $this->attribute('offset', '');
 		$type      = $this->attribute('type', '');
 		$fetch     = $this->attribute('fetch');
@@ -394,6 +424,85 @@ class Plugin_Files extends Plugin
 		$files and array_merge($this->_files, (array) $files);
 
 		return $files;
+	}
+
+	/**
+	 * Folder contents
+	 *
+	 * Creates a list of folders
+	 *
+	 * Usage:
+	 * 
+	 * {{ files:folders folder="home-slider" include_files="no|yes" }}
+	 * 	{{ folders }}
+	 * 		// Your html logic
+	 * 	{{ /folders }}
+	 *
+	 * 	{{ files }}
+	 * 		// your html logic
+	 * 	{{ /files }}
+	 * {{ /files:folders }}
+	 *
+	 * The tags that are available to use from this method are listed below
+	 *
+	 * {{ folders }}
+	 * {{ files }}
+	 * {{ parent_id }}
+	 *
+	 * @return	array
+	 */
+	public function folders()
+	{
+		$parent = $this->attribute('folder', 0); // Id or Path
+		$include_files = $this->attribute('include_files', 'no');
+		
+		$data = array();
+
+		if ( ! is_numeric($parent))
+		{
+			$segment = explode('/', trim($parent, '/#'));
+			$result = $this->file_folders_m->get_by('slug', array_pop($segment));
+
+			$parent = ($result ? $result->id : 0);
+		}
+
+		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->where('hidden', 0)
+			->order_by('sort')
+			->get_all();
+
+		$files = ($include_files == 'yes')
+			? ci()->file_m->where('folder_id', $parent)->order_by('sort')->get_all()
+			: false;
+
+		// let's be nice and add a date in that's formatted like the rest of the CMS
+		if ($folders)
+		{
+			foreach ($folders as &$folder) 
+			{
+				$folder->formatted_date = format_date($folder->date_added);
+
+				$folder->file_count = ci()->file_m->count_by('folder_id', $folder->id);
+			}
+			$data['folders'] = $folders;
+		}
+
+		if ($files)
+		{
+			ci()->load->library('keywords/keywords');
+
+			foreach ($files as &$file) 
+			{
+				$file->keywords_hash = $file->keywords;
+				$file->keywords = ci()->keywords->get_string($file->keywords);
+				$file->formatted_date = format_date($file->date_added);
+			}
+			$data['files'] = $files;
+		}
+		
+		$data['parent_id'] = $parent;
+
+		return array($data);
 	}
 
 	public function file($return = '', $type = '')

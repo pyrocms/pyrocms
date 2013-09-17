@@ -11,10 +11,10 @@ $lang['settings:site_lang']						= 'Idioma do site';
 $lang['settings:site_lang_desc']				= 'O idioma nativo do website, usado para escolher modelos de e-mail para notificações internas e recebimento de contato dos visitantes além de outras funcionalidades que não devem se flexionar ao idioma de um usuário.';
 
 $lang['settings:contact_email'] 				= 'E-mail de contato';
-$lang['settings:contact_email_desc'] 			= 'Todos os e-mails de usuários, visitantes e do site devem ir para este endereço.';
+$lang['settings:contact_email_desc'] 			= 'Todos os e-mails de usuários, visitantes e do site irão para este endereço.';
 
-$lang['settings:server_email'] 					= 'Servidor de e-mail';
-$lang['settings:server_email_desc'] 			= 'Todos e-mails para usuários devem ir para este endereço de e-mail.';
+$lang['settings:server_email'] 					= 'E-mail do servidor';
+$lang['settings:server_email_desc'] 			= 'Todos e-mails para usuários virão deste endereço de e-mail.';
 
 $lang['settings:meta_topic']					= 'Meta tema';
 $lang['settings:meta_topic_desc']				= 'Duas ou três palavras descrevendo o tipo de empresa/website.';
@@ -61,7 +61,7 @@ $lang['settings:default_theme'] 				= 'Tema padrão';
 $lang['settings:default_theme_desc'] 			= 'Selecione o tema que você quer que os usuários vejam por padrão.';
 
 $lang['settings:activation_email'] 				= 'E-mail de ativação';
-$lang['settings:activation_email_desc'] 		= 'Enviar um e-mail com link de ativação quando o usuário cadastrar. Desative isto para que apenas administradores ativem as contas.';
+$lang['settings:activation_email_desc'] 		= 'Envia um e-mail com link de ativação quando o usuário cadastrar. Desative isto para que apenas administradores ativem as contas.';
 
 $lang['settings:records_per_page'] 				= 'Registros por página';
 $lang['settings:records_per_page_desc'] 		= 'Quantos registros nos devemos mostrar por página na secão administrativa?';
@@ -69,8 +69,6 @@ $lang['settings:records_per_page_desc'] 		= 'Quantos registros nos devemos mostr
 $lang['settings:rss_feed_items'] 				= 'Quantidade de itens do Feed';
 $lang['settings:rss_feed_items_desc'] 			= 'Quantos itens nos devemos mostrar nos feeds de RSS/novidades?';
 
-$lang['settings:require_lastname'] 				= 'Sobrenomes obrigatórios?';
-$lang['settings:require_lastname_desc'] 		= 'Em algumas situações, um sobrenome pode não ser necessário. Você deseja forçar os usuários a digita-lo ou não?';
 
 $lang['settings:enable_profiles'] 				= 'Ativar perfis';
 $lang['settings:enable_profiles_desc'] 			= 'Permitir que usuários adicionem e editem perfis.';
@@ -103,25 +101,67 @@ $lang['settings:comment_order'] 				= 'Ordenar comentários';
 $lang['settings:comment_order_desc']			= 'A ordem de classificação no qual exibir comentários.';
 
 $lang['settings:enable_comments'] 				= 'Permitir comentários';
-$lang['settings:enable_comments_desc']			= 'Permite a escrita de comentários';
+$lang['settings:enable_comments_desc']			= 'Permitir que usuários publiquem comentários?';
 
 $lang['settings:moderate_comments'] 			= 'Moderar comentários';
 $lang['settings:moderate_comments_desc']		= 'Forçar comentários a serem aprovados antes que apareçan no site.';
 
+$lang['settings:comment_markdown']				= 'Permitir Markdown';
+$lang['settings:comment_markdown_desc']			= 'Você permite que usuários publiquem comentários utilizando Markdown?';
+
 $lang['settings:version'] 						= 'Versão';
 $lang['settings:version_desc'] 					= '';
 
-$lang['settings:ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings:ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings:site_public_lang']				= 'Idiomas públicos';
+$lang['settings:site_public_lang_desc']			= 'Quais são os idiomas realmente suportados e oferecidos no front-end do seu website?';
 
-$lang['settings:enable_registration']           = 'Enable user registration'; #translate
-$lang['settings:enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings:admin_force_https']				= 'Forçar HTTPS para o Painel de Controle?';
+$lang['settings:admin_force_https_desc']		= 'Permitir apenas o protocolo HTTPS ao acessar o Painel de Controle?';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:files_cache']					= 'Cache de Arquivos';
+$lang['settings:files_cache_desc']				= 'Ao exibir imagens via site.com/files, qual deve ser o tempo de expiração do cache?';
 
-$lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings:auto_username']					= 'Nome de Usuário Automático';
+$lang['settings:auto_username_desc']			= 'Cria automaticamente um nome de usuário, assim usuários não precisam criar um durante o registro.';
+
+$lang['settings:registered_email']				= 'E-mail de registro de usuário';
+$lang['settings:registered_email_desc']			= 'Envia um e-mail de notificação para o e-mal de contato quando alguém se registra.';
+
+$lang['settings:ckeditor_config']               = 'Configuração do CKEditor';
+$lang['settings:ckeditor_config_desc']          = 'Você pode encontrar uma lista de itens válidos de configuração na <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">documentação do CKEditor.</a>';
+
+$lang['settings:enable_registration']           = 'Habilitar registro de usuários';
+$lang['settings:enable_registration_desc']      = 'Permite que usuários se registrem no seu site.';
+
+$lang['settings:profile_visibility']            = 'Visibilidade de Perfis';
+$lang['settings:profile_visibility_desc']       = 'Especifique quem pode ver os perfis de usuário no site público.';
+
+$lang['settings:cdn_domain']                    = 'Domínio CDN';
+$lang['settings:cdn_domain_desc']               = 'Domínios CDN permitem descarregar o conteúdo estático para vários servidores de ponta, como a Amazon CloudFront ou MaxCDN.';
+
+$lang['settings:files_enabled_providers']       = 'Provedores de hospedagem de arquivos habilitados';
+$lang['settings:files_enabled_providers_desc']  = 'Quais provedores de hospedagem de arquivos você quer habilitar? (Se você habilitar um provedor de nuvem você deve fornecer as chaves de autenticação válidas abaixo.)';
+
+$lang['settings:files_s3_access_key']           = 'Chave de Acesso do Amazon S3';
+$lang['settings:files_s3_access_key_desc']      = 'Para habilitar armazenamento de arquivos na nuvem na sua conta Amazon S3, forneça sua Chave de Acesso. <a href="https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials">Descubra suas credenciais.</a>';
+
+$lang['settings:files_s3_secret_key']           = 'Chave Secreta do Amazon S3';
+$lang['settings:files_s3_secret_key_desc']      = 'Você também deve fornecer sua Chave Secreta Amazon S3. Você a encontra no mesmo local da sua Chave de Acesso na sua conta Amazon.';
+
+$lang['settings:files_s3_url']                  = 'URL do Amazon S3';
+$lang['settings:files_s3_url_desc']             = 'Mude esta URL se estiver usando um dos locais da Amazon na Europa ou um domínio personalizado.';
+
+$lang['settings:files_s3_geographic_location']     = 'Localização Geográfica da Amazon S3';
+$lang['settings:files-s3_geographic_location_url'] = 'Estados Unidos (US) ou Europa (EU). Se você mudar esta opção, também deverá mudar a URL do S3.';
+
+$lang['settings:files_cf_username']             = 'Nome de Usuário do Rackspace Cloud Files';
+$lang['settings:files_cf_username_desc']        = 'Para habilitar armazenamento de arquivos na nuvem na sua conta Rackspace Cloud Files, por favor, insira seu Nome de Usuário do Cloud Files. <a href="https://manage.rackspacecloud.com/APIAccess.do">Descubra suas credenciais.</a>';
+
+$lang['settings:files_cf_api_key']              = 'Chave da API do Rackspace Cloud Files';
+$lang['settings:files_cf_api_key_desc']         = 'Você precisa fornecer também sua Chave da API do Cloud Files. Você a encontra no mesmo local de seu Nome de Usuário na sua conta do Rackspace.';
+
+$lang['settings:files_upload_limit']            = 'Limite de Tamanho de Arquivo';
+$lang['settings:files_upload_limit_desc']       = 'Tamanho máximo de arquivo permitido ao fazer upload. Especifique o valor em MB. Exemplo: 5';
 
 #section titles
 $lang['settings:section_general']				= 'Geral';
@@ -130,6 +170,7 @@ $lang['settings:section_comments']				= 'Comentários';
 $lang['settings:section_users']					= 'Usuários';
 $lang['settings:section_statistics']			= 'Estatísticas';
 $lang['settings:section_twitter']				= 'Twitter';
+$lang['settings:section_files']					= 'Arquivos';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Aberto';
@@ -140,19 +181,32 @@ $lang['settings:form_option_Required']			= 'Obrigatório';
 $lang['settings:form_option_Optional']			= 'Opcional';
 $lang['settings:form_option_Oldest First']		= 'Antigos primeiro';
 $lang['settings:form_option_Newest First']		= 'Novos primeiro';
-$lang['settings:form_option_profile_public']	= 'Visible to everybody'; #translate
-$lang['settings:form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
-$lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
-$lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
-$lang['settings:form_option_activate_by_email']        	= 'Activate by email'; #translate
-$lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_Text Only']			= 'Apenas Texto';
+$lang['settings:form_option_Allow Markdown']	= 'Permitir Markdown';
+$lang['settings:form_option_Yes']				= 'Sim';
+$lang['settings:form_option_No']				= 'Não';
+$lang['settings:form_option_profile_public']	= 'Visível para todos';
+$lang['settings:form_option_profile_owner']		= 'Visível apenas para o dono do perfil';
+$lang['settings:form_option_profile_hidden']	= 'Nunca visível';
+$lang['settings:form_option_profile_member']	= 'Visível para qualquer usuário logado';
+$lang['settings:form_option_activate_by_email'] = 'Ativação por e-mail';
+$lang['settings:form_option_activate_by_admin'] = 'Ativação por um Admin';
+$lang['settings:form_option_no_activation']     = 'Ativação instantânea';
+$lang['settings:form_option_no-cache']          = 'Sem cache';
+$lang['settings:form_option_1-minute']          = '1 minuto';
+$lang['settings:form_option_1-hour']            = '1 hora';
+$lang['settings:form_option_3-hour']            = '3 horas';
+$lang['settings:form_option_8-hour']            = '8 horas';
+$lang['settings:form_option_1-day']             = '1 dia';
+$lang['settings:form_option_30-days']           = '30 dias';
+$lang['settings:form_option_United States']     = 'Estados Unidos';
+$lang['settings:form_option_Europe']            = 'Europa';
 
 // titles
 $lang['settings:edit_title']					= 'Editar configurações';
 
 // messages
-$lang['settings:no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings:no_settings']					= 'Atualmente não há configurações.';
 $lang['settings:save_success']					= 'Suas configurações foram salvas!';
 
 /* End of file settings_lang.php */

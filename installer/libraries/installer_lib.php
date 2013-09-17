@@ -88,7 +88,7 @@ class Installer_lib
 			// Connect to MySQL
 			if ($db = @mysql_connect($server, $username, $password))
 			{
-				$this->mysql_server_version = @mysql_get_server_info($db);
+				$this->mysql_server_version = preg_replace('/^.*?([4-8]\.[0-9]).*?$/', '$1', @mysql_get_server_info($db));
 
 				// Close the connection
 				@mysql_close($db);
@@ -104,7 +104,7 @@ class Installer_lib
 		// Client version
 
 		// Get the version
-		$this->mysql_client_version = preg_replace('/[^0-9\.]/', '', mysql_get_client_info());
+		$this->mysql_client_version = preg_replace('/^.*?([4-8]\.[0-9]).*?$/', '$1', mysql_get_client_info());
 
 		// MySQL client version should be at least version 5
 		return ($this->mysql_client_version >= 5);
@@ -158,13 +158,13 @@ class Installer_lib
 			return false;
 		}
 
-		if ($data->http_server->supported === false)
+		if ($data->http_server_supported === false)
 		{
 			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
+		if ($data->http_server_supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
 		{
 			return 'partial';
 		}
@@ -243,6 +243,11 @@ class Installer_lib
 			return array('status' => false,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 
+		if ($this->mysql_server_version >= '5.0.7')
+		{
+			@mysql_set_charset('utf8', $this->db);
+		}
+
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
 		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
@@ -255,11 +260,6 @@ class Installer_lib
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
 		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
-
-		if ($this->mysql_server_version >= '5.0.7')
-		{
-			@mysql_set_charset('utf8', $this->db);
-		}
 
 		// Select the database we created before
 		if ( ! mysql_select_db($database, $this->db) )

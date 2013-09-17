@@ -48,6 +48,16 @@ class Page_m extends MY_Model
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
+			'field'    => 'meta_robots_no_index',
+			'label'    => 'lang:pages:meta_robots_no_index_label',
+			'rules'    => 'trim'
+		),
+		array(
+			'field'    => 'meta_robots_no_follow',
+			'label'    => 'lang:pages:meta_robots_no_follow_label',
+			'rules'    => 'trim'
+		),
+		array(
 			'field'	=> 'meta_description',
 			'label'	=> 'lang:pages:meta_description_label',
 			'rules'	=> 'trim'
@@ -96,6 +106,11 @@ class Page_m extends MY_Model
 
     // --------------------------------------------------------------------------
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('pages/page_type_m');
+	}
+
 	/**
 	 * Get a page by its URI
 	 *
@@ -109,10 +124,7 @@ class Page_m extends MY_Model
 		// it's the home page
 		if ($uri === null)
 		{
-			$page = $this->db
-				->where('is_home', true)
-				->get('pages')
-				->row();
+			$page = $this->pyrocache->model('page_m', 'get_home', array());
 		}
 		else
 		{
@@ -126,11 +138,7 @@ class Page_m extends MY_Model
 
 			while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 			{
-				$page = $this->db
-					->where('uri', $uri)
-					->limit(1)
-					->get('pages')
-					->row();
+				$page = $this->pyrocache->model('page_m', 'get_page_simple', array($uri));
 
 				// if it's not a normal page load (plugin or etc. that is not cached)
 				// then we won't do our recursive search
@@ -203,13 +211,21 @@ class Page_m extends MY_Model
 		// End Legacy Logic
 		// ---------------------------------
 
-
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
+		if ( ! $page->layout = $this->pyrocache->model('page_type_m', 'get', array($page->type_id)))
 		{
 			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_type_m->get(1);
+			$page->layout = $this->pyrocache->model('page_type_m', 'get', array(1));
 		}
+
+		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page, 'current_user' => $this->current_user));
 
 		// ---------------------------------
 		// Get Stream Entry
@@ -220,13 +236,26 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 
 			// Get Streams
-			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+			$stream = $this->pyrocache->model('streams_m', 'get_stream', array($page->layout->stream_id));
 
 			if ($stream)
 			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				$params = array(
+					'limit' => 1,
+					'stream' => $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'id' => $page->entry_id,
+					'cache_query' => true,
+					'cache_folder' => 'page_m',
+					'cache_expires'=> 9000
+				);
+
+				if ($entry = $this->streams->entries->get_entries($params))
 				{
-					$page = (object) array_merge((array)$entry, (array)$page);
+					if (isset($entry['entries'][0]))
+					{
+						$page = (object) array_merge((array)$entry['entries'][0], (array)$page);
+					}
 				}
 			}
 		}
@@ -262,6 +291,19 @@ class Page_m extends MY_Model
         }
         
 		$page->stream_entry_found = false;
+
+		// ---------------------------------
+		// Load Page Vars
+		// We need to get these in before we
+		// call the stream entry so fields
+		// can access vars like {{ page:id }}
+		// ---------------------------------
+
+		$this->load->vars(array('page' => $page));
+
+		// ---------------------------------
+		// Get Page Stream Entry
+		// ---------------------------------
 
 		if ($page and $page->type_id and $get_data)
 		{
@@ -306,8 +348,6 @@ class Page_m extends MY_Model
 	/**
 	 * Get the home page
 	 *
-	 * @DEPRECATED
-	 * 
 	 * @return object
 	 */
 	public function get_home()
@@ -328,7 +368,7 @@ class Page_m extends MY_Model
 	public function get_page_tree()
 	{
 		$all_pages = $this->db
-			->select('id, parent_id, title')
+			->select('id, parent_id, title, status')
 			->order_by('`order`')
 			->get('pages')
 			->result_array();
@@ -397,6 +437,23 @@ class Page_m extends MY_Model
 				}
 			}
 		}
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Get Page Simple
+	 *
+	 * @param 	string $uri
+	 * @return 	obj
+	 */
+	public function get_page_simple($uri)
+	{
+		return $this->db
+			->where('uri', $uri)
+			->limit(1)
+			->get('pages')
+			->row();		
 	}
 
     // --------------------------------------------------------------------------
@@ -563,6 +620,8 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
+			'meta_robots_no_index'	=> ! empty($input['meta_robots_no_index']),
+			'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
@@ -660,6 +719,8 @@ class Page_m extends MY_Model
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
+			'meta_robots_no_index'    => ! empty($input['meta_robots_no_index']),
+			'meta_robots_no_follow'    => ! empty($input['meta_robots_no_follow']),	
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
@@ -768,24 +829,31 @@ class Page_m extends MY_Model
 	 */
 	 public function _check_slug($slug)
 	 {
+	 	// This is only going to be set on Edit
 	 	$page_id = $this->uri->segment(4);
 
-		if ($this->_unique_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+	 	// This might be set if there is a page
+	 	$parent_id = $this->input->post('parent_id');
+
+	 	// See if this slug exists already
+		if ($this->_unique_slug($slug, $parent_id, (int) $page_id))
 		{
-			if ($this->input->post('parent_id') == 0)
+			// Root Level, No Page
+			if (empty($parent_id))
 			{
 				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;
 			}
+
+			// Child of a Page (find by parent)
 			else
 			{
-				$page_obj = $this->get($page_id);
-				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-				$page_obj = $this->get($this->input->post('parent_id'));
-				$parent_folder = $page_obj->title;
+				$parent = $this->get($parent_id);
+				$url = $slug;
+				$parent_folder = '/'.$parent->uri;
 			}
 
-			$this->form_validation->set_message('_check_slug',sprintf(lang('pages:page_already_exist_error'),$url, $parent_folder));
+			$this->form_validation->set_message('_check_slug', sprintf(lang('pages:page_already_exist_error'), $url, $parent_folder));
 			return false;
 		}
 

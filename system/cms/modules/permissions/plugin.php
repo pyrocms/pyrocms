@@ -13,11 +13,15 @@ class Plugin_Permissions extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Permissions',
-		'it' => 'Permessi'
+		'br' => 'Permissões',
+		'it' => 'Permessi',
+            'fa' => 'اجازه ها',
 	);
 	public $description = array(
 		'en' => 'Access the current user\'s permission level.',
-		'it' => 'Accedi al livello di permessi dell\'utente corrente.'
+		'br' => 'Acessa o nível de permissão do usuário atual.',
+		'it' => 'Accedi al livello di permessi dell\'utente corrente.',
+            'fa' => 'دسترسی به سطح دسترسی کاربر حاضر'
 	);
 
 	/**
@@ -41,7 +45,10 @@ class Plugin_Permissions extends Plugin
 
 		foreach ($modules as $module)
 		{
-			$info[$module['slug']]['description'] = array('en' => 'Check if the user has permissions for the '.$module['name'].' module. A single tag returns true or false while a double tag protects its content');
+			$info[$module['slug']]['description'] = array(
+				'en' => 'Check if the user has permissions for the '.$module['name'].' module. A single tag returns true or false while a double tag protects its content.',
+				'br' => 'Checa se o usuário tem permissões para o módulo '.$module['name'].'. Uma tag simples retorna true ou false, enquanto uma tag dupla protege seu conteúdo.'
+			);
 			$info[$module['slug']]['single'] = true;
 			$info[$module['slug']]['double'] = true;
 			$info[$module['slug']]['variables'] = '';

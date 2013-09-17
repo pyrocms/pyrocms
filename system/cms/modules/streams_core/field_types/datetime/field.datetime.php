@@ -3,11 +3,9 @@
 /**
  * PyroStreams Date/Time Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_datetime
 {	
@@ -93,7 +91,7 @@ class Field_datetime
 
 		if ( ! isset($field->field_data['input_type']))
 		{
-			$field->field_data['input_type'] = 'dropdown';
+			$field->field_data['input_type'] = 'datepicker';
 		}
 
 		if ($field->field_data['input_type'] == 'dropdown' and $required)
@@ -119,7 +117,11 @@ class Field_datetime
 					return lang('streams:invalid_input_for_date_range_check');
 				}
 
-				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
+				$year = $this->CI->input->post($field->field_slug.'_year');
+				$month = $this->two_digit_number($_POST[$field->field_slug.'_month']);
+				$day = $this->two_digit_number($_POST[$field->field_slug.'_day']);
+
+				$value = $year.'-'.$month.'-'.$day;
 			}
 
 
@@ -136,7 +138,7 @@ class Field_datetime
 			if ( ! $restrict['start_stamp'] and $restrict['end_stamp'])
 			{
 				// Is now after the future point
-				if ($value > $pieces[1])
+				if ($value > $restrict['end_stamp'])
 				{
 					return lang('streams:date_out_or_range');
 				}
@@ -697,7 +699,6 @@ class Field_datetime
 	 * Turns a single digit number into a
 	 * two digit number
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */

@@ -3,11 +3,9 @@
 /**
  * PyroStreams Core Field Type Library
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Libraries
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Type
 {
@@ -239,8 +237,14 @@ class Type
 		{
 			$lang = $this->CI->config->item('language');
 
-			// Fallback on English
-			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
+			// Fallback on English.
+			if ( ! $lang) {
+				$lang = 'english';
+			}
+
+			if ( ! is_dir($path.$type.'/language/'.$lang)) {
+				$lang = 'english';
+			}
 
 			$this->CI->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
 			

@@ -6,11 +6,9 @@
  * This plugin houses common Streams functions that need to be
  * globally accessible by streams tags, not just PyroStreams.
  *
- * @package   PyroStreams
- * @author    Parse19
- * @copyright Copyright (c) 2011 - 2012, Parse19
- * @license   http://parse19.com/pyrostreams/docs/license
- * @link      http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Plugin_Streams_core extends Plugin
 {
@@ -18,9 +16,13 @@ class Plugin_Streams_core extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Streams Core',
+		'br' => 'Streams Núcleo',
+            'fa' => 'استریم ها',
 	);
 	public $description = array(
 		'en' => 'A basic plugin for working with stream data.',
+		'br' => 'Um plugin básico para trabalhar com dados de streams.',
+            'fa' => 'یک پلاگین ساده برای کارکردن با اطلاعات استریم',
 	);
 
 	/**

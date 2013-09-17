@@ -7,7 +7,7 @@
 					<?php foreach ($plugin['self_doc'] as $method => $doc): ?>
 						<div class="method">
 							<h1><?php echo $plugin['slug'].':'.$method ?></h1>
-							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
+							<p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : (isset($doc['description']['en']) ? $doc['description']['en'] : ''), ENT_COMPAT, 'UTF-8') ?></p>
 <pre>
 <code>
 <?php if (isset($doc['single']) and $doc['single']): ?>
@@ -37,7 +37,7 @@
 												<td><?php echo $attribute ?></td>
 												<td><?php echo (isset($details['type']) ? str_replace('|', ' | ', $details['type']) : '') ?></td>
 												<td><?php echo (isset($details['flags']) ? str_replace('|', ' | ', $details['flags']) : '') ?></td>
-												<td><?php echo (isset($details['default']) and $details['default']) ? $details['default'] : lang('global:check-none') ?></td>
+												<td><?php echo (isset($details['default']) and is_scalar($details['default']) and $details['default'] !== '') ? $details['default'] : lang('global:check-none') ?></td>
 												<td><?php echo (isset($details['required']) and $details['required']) ? lang('global:yes') : lang('global:no') ?></td>
 											</tr>
 										<?php endforeach ?>

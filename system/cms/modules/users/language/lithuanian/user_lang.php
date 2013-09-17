@@ -44,8 +44,8 @@ $lang['indicates_required']                    = 'Rodomi privalomi laukai';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user:send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:send_activation_email']            = 'Išsiųsti aktyvavimo e.laišką';
+$lang['user:do_not_activate']                  = 'Neaktyvuotas';
 $lang['user:register_title']                   = 'Registruotis';
 $lang['user:activate_account_title']           = 'Aktyvios paskyros';
 $lang['user:activate_label']                   = 'Aktyvinti';

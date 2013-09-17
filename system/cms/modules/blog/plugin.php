@@ -13,9 +13,14 @@ class Plugin_Blog extends Plugin
 	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Blog',
+		'br' => 'Blog',
+            'fa' => 'بلاگ',
 	);
 	public $description = array(
 		'en' => 'A plugin to display information such as blog categories and posts.',
+		'br' => 'Um plugin para exibir informações como categorias e postagens do blog.',
+            'fa' => 'یک پلاگین برای نمایش اطلاعاتی مانند مجموعه های بلاگ و پست ها',
+        'fr' => 'Un plugin permettant d\'afficher des informations comme les catégories et articles du blog.'
 	);
 
 	/**
@@ -29,7 +34,9 @@ class Plugin_Blog extends Plugin
 		$info = array(
 			'posts' => array(
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Display blog posts optionally filtering them by category.'
+					'en' => 'Display blog posts optionally filtering them by category.',
+					'br' => 'Mostra postagens do blog opcionalmente filtrados por categoria.',
+                    'fr' => 'Permet d\'afficher des articles de blog en les filtrants par catégorie.'
 				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
@@ -44,7 +51,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'offset' => array(
@@ -69,7 +76,9 @@ class Plugin_Blog extends Plugin
 				),
 			'categories' => array(
 				'description' => array(
-					'en' => 'List blog categories.'
+					'en' => 'List blog categories.',
+					'br' => 'Lista categorias do blog.',
+                    'fr' => 'Lister les catégories du blog'
 				),
 				'single' => false,
 				'double' => true,
@@ -78,7 +87,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					'order-by' => array(
@@ -97,7 +106,9 @@ class Plugin_Blog extends Plugin
 				),
 			'count_posts' => array(
 				'description' => array(
-					'en' => 'Count blog posts that meet the conditions specified.'
+					'en' => 'Count blog posts that meet the conditions specified.',
+					'br' => 'Conta as postagens do blog que satisfazem as condições especificadas.',
+                    'fr' => 'Permet de compter les articles de blog qui remplissent certaines conditions spécifiées.'
 				),
 				'single' => true,
 				'double' => false,
@@ -126,7 +137,9 @@ class Plugin_Blog extends Plugin
 			// method name
 			'tags' => array(
 				'description' => array(
-					'en' => 'Retrieve all tags that have been applied to blog posts.'
+					'en' => 'Retrieve all tags that have been applied to blog posts.',
+					'br' => 'Recupera todas as tags que foram aplicadas à postagens do blog.',
+                    'fr' => 'Récupère la liste de tout les tags qui ont été utilisés dans les articles.'
 				),
 				'single' => false,
 				'double' => true,
@@ -135,7 +148,7 @@ class Plugin_Blog extends Plugin
 					'limit' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '10',
+						'default' => '',
 						'required' => false,
 						),
 					),
@@ -176,7 +189,7 @@ class Plugin_Blog extends Plugin
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
 			'date_by'		=> 'created_on',
-			'limit'			=> $this->attribute('limit', 10),
+			'limit'			=> $this->attribute('limit', null),
 			'offset'		=> $this->attribute('offset')
 		);
 		foreach ($overrides as $k => $v)
@@ -204,7 +217,7 @@ class Plugin_Blog extends Plugin
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries->entries_params as $key => $default_value)
+		foreach ($params as $key => $default_value)
 		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
@@ -300,7 +313,7 @@ class Plugin_Blog extends Plugin
 	 */
 	public function categories()
 	{
-		$limit     = $this->attribute('limit', 10);
+		$limit     = $this->attribute('limit', null);
 		$order_by  = $this->attribute('order-by', 'title');
 		$order_dir = $this->attribute('order-dir', 'ASC');
 
@@ -360,7 +373,7 @@ class Plugin_Blog extends Plugin
 	 */	
 	public function tags()
 	{
-		$limit = $this->attribute('limit', 10);
+		$limit = $this->attribute('limit', null);
 		
 		$this->load->library(array('keywords/keywords'));
 

@@ -3,11 +3,9 @@
 /**
  * PyroStreams Row Model
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Models
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Row_m extends MY_Model {
 
@@ -349,6 +347,7 @@ class Row_m extends MY_Model {
 			foreach ($stream_fields as $field_slug => $stream_field)
 			{
 				if ( ! in_array($field_slug, $disable)
+						and isset($stream_field->field_type)
 						and isset($this->type->types->{$stream_field->field_type})
 						and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
 				{
@@ -622,10 +621,19 @@ class Row_m extends MY_Model {
 		}
 		
 		// -------------------------------------
-		// Run Our Select
+		// Build Our Query
 		// -------------------------------------
 
 		$sql = $this->build_query($this->sql);
+
+		// -------------------------------------
+		// Caching Vars
+		// -------------------------------------
+
+		$cache_query = (isset($cache_query) and $cache_query == true) ? true : false;
+		$cache_folder = (isset($cache_folder) and $cache_folder) ? $cache_folder : 'streams_query';
+
+		$cache_expires = (isset($cache_expires)) ? $cache_expires : 9000;
 
 		// -------------------------------------
 		// Pagination
@@ -633,24 +641,78 @@ class Row_m extends MY_Model {
 		
 		if (isset($paginate) and $paginate == 'yes')
 		{
-			// Run the query as is. It does not
-			// have limit/offset, so we can get the
-			// total num rows with the current
-			// parameters we have applie.
-			$return['pag_count'] = $this->db->query($sql)->num_rows();
+			$count_sql = $this->build_count_query($this->sql);
+
+			// Run the query as is. It simply counts the
+			// results.
+			if ($cache_query)
+			{
+				$cache_hash = md5($count_sql);
+
+				$pag_count = $this->pyrocache->get($cache_folder.DIRECTORY_SEPARATOR.$cache_hash.'-count');
+
+				if ($pag_count == false) {
+	
+					$pag_count = $this->db->query($count_sql)->row()->count;
+					$this->pyrocache->write($pag_count, $cache_folder.DIRECTORY_SEPARATOR.$cache_hash.'-count', $cache_expires);
+				}
+			}
+			else
+			{
+				$pag_count = $this->db->query($count_sql)->row()->count;
+			}
+
+			$return['pag_count'] = $pag_count;
+
+			// Get the number.
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string') 
+			{
+				// Get the query string var
+				if ( ! isset($pag_query_var) or $pag_query_var) {
+					$pag_query_var = 'page';
+				}
+
+				$pag_id = $this->input->get($pag_query_var);
+
+				// We, at the very least, need to be on page 1.
+				if ( ! $pag_id or ! is_numeric($pag_id) or $pag_id < 1)
+				{
+					$pag_id = 1;
+				}
+			}
+			else
+			{
+				$pag_id = $this->uri->segment($pag_segment, 0);
+			}
 			
-			// Set the offset. Blank segment
-			// is a 0 offset.
-			$offset = $this->uri->segment($pag_segment, 0);
+			if (isset($pag_method))
+			{
+				if ($pag_method == 'page') 
+				{	
+					$offset = $limit*($pag_id-1);
+				}
+				else
+				{
+					// Default is 'offset',
+					// our segment holds the offset
+					$offset = $pag_id;
+				}
+			}
+			else
+			{
+				// If there is no pag_method set, we will
+				// just use $pag_id as the offset.
+				$offset = $pag_id;
+			}
 		}
 
 		// -------------------------------------
 		// Offset 
 		// -------------------------------------
-		// Just in case.
+		// Normalize offset to 0 just in case.
 		// -------------------------------------
 
-		if ( ! isset($offset))
+		if ( ! isset($offset) or ! is_numeric($offset) or ! $offset or $offset < 0)
 		{
 			$offset = 0;
 		}
@@ -673,7 +735,34 @@ class Row_m extends MY_Model {
 		// Run the Get
 		// -------------------------------------
 
-		$rows = $this->db->query($sql)->result_array();
+		if ($cache_query)
+		{
+			// Now we need to cache it with the
+			// limit/offset.
+			$cache_hash = md5($sql);
+
+			$rows = $this->pyrocache->get($cache_folder.DIRECTORY_SEPARATOR.$cache_hash);
+
+			if ($rows == false)
+			{
+				$rows = $this->db->query($sql)->result_array();
+				$this->pyrocache->write($rows, $cache_folder.DIRECTORY_SEPARATOR.$cache_hash, $cache_expires);
+			}
+		}
+		else
+		{
+			$rows = $this->db->query($sql)->result_array();
+		}
+
+		// -------------------------------------
+		// Reset SQL
+		// We no longer need any of the SQL data.
+		// If anything goes wrong with the items
+		// below, we want to make sure we cleared
+		// the SQL.
+		// -------------------------------------
+
+		$this->reset_sql();
 
 		// -------------------------------------
 		// Partials
@@ -697,7 +786,7 @@ class Row_m extends MY_Model {
 				}
 			}
 		}
-		
+
 		// -------------------------------------
 		// Run formatting
 		// -------------------------------------
@@ -706,7 +795,6 @@ class Row_m extends MY_Model {
 	
 		// Reset
 		$this->get_rows_hook = array();
-		$this->reset_sql();
 		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
@@ -751,12 +839,11 @@ class Row_m extends MY_Model {
 	 * be taken care of after pagination is 
 	 * calculated.
 	 *
-	 * @access 	public
 	 * @param 	array 	[$sql] 	an array of sql elements to parse
 	 * 							into a sql string.
 	 * @return 	string 	the compiled query
 	 */
-	public function build_query($sql = array())
+	public function build_query(array $sql = array())
 	{
 		// -------------------------------------
 		// Select
@@ -859,6 +946,88 @@ class Row_m extends MY_Model {
 		{$where}
 		{$misc}
 		{$order_by} ";
+	}
+
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Build Count Query
+	 *
+	 * Run a count with the same critera as the main query
+	 *
+	 * @param 	array 	[$sql] 	an array of sql elements to parse
+	 * 							into a sql string.
+	 * @return 	string 	the compiled query
+	 */
+	public function build_count_query(array $sql = array())
+	{
+		// -------------------------------------
+		// From
+		// -------------------------------------
+
+		if (isset($this->sql['from']) and is_string($sql['from']))
+		{
+			$from = $this->sql['from'];
+		}
+		else
+		{
+			$from = implode(', ', $sql['from']);
+		}
+
+		// -------------------------------------
+		// Join
+		// -------------------------------------
+
+		if (isset($sql['join']) and is_string($sql['join']))
+		{
+			$join = $sql['join'];
+		}
+		else
+		{
+			(isset($sql['join'])) ? $join = implode(' ', $sql['join']) : $join = null;
+		}
+
+		// -------------------------------------
+		// Where
+		// -------------------------------------
+
+		if (isset($sql['where']) and is_string($sql['where']))
+		{
+			$where = $sql['where'];
+		}
+		else
+		{
+			$where = (isset($sql['where'])) ? implode(' AND ', $sql['where']) : null;
+		}
+
+		if ($where != '')
+		{
+			$where = 'WHERE '.$where;
+		}
+
+		// -------------------------------------
+		// Misc
+		// -------------------------------------
+
+		if (isset($sql['misc']) && is_string($sql['misc']))
+		{
+			$misc = $sql['misc'];
+		}
+		else
+		{
+			(isset($sql['misc'])) ? $misc = implode(' ', $sql['misc']) : $misc = null;
+		}
+
+		// -------------------------------------
+		// Return Built Query
+		// -------------------------------------
+
+		return "SELECT count(*) as `count`
+		FROM {$from}
+		{$join}
+		{$where}
+		{$misc}";
 	}
 
 	// --------------------------------------------------------------------------
@@ -1283,7 +1452,7 @@ class Row_m extends MY_Model {
 	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$this->load->helper('text');
 
@@ -1508,7 +1677,7 @@ class Row_m extends MY_Model {
 				{
 					$type = $this->type->types->{$field->field_type};
 					
-					if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
+					if (isset($data[$field->field_slug]) and $data[$field->field_slug] !== '')
 					{
 						// We don't process the alt process stuff.
 						// This is for field types that store data outside of the
@@ -1656,20 +1825,66 @@ class Row_m extends MY_Model {
 	 * @param 	string [$pag_base] optional manual pagination base
 	 * @return	string
 	 */
-	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars, $pag_base = null)
+	public function build_pagination($config, $limit, $total_rows, $pagination_vars, $pag_base = null)
 	{
 		$this->load->library('pagination');
+		$pagination_config = array();
 
 		// -------------------------------------
-		// Validate pag_segment
+		// Page Config.
 		// -------------------------------------
-		// Needs to be a number. Let's
-		// default to 2.
+		// For backwards compatability, you can
+		// pass the first variable as the $pag_segment,
+		// but you can also pass an array of
+		// config values.
 		// -------------------------------------
-	
+
+		if ( ! is_array($config))
+		{
+			$pag_segment = $config;
+		}
+		else
+		{
+			$pag_segment = (isset($config['pag_segment'])) ? $config['pag_segment'] : 2;
+			$pag_method = (isset($config['pag_method'])) ? $config['pag_method'] : 'offset';
+			$pag_uri_method = (isset($config['pag_uri_method'])) ? $config['pag_uri_method'] : 'segment;';
+			$pag_query_var = (isset($config['pag_query_var'])) ? $config['pag_query_var'] : 'page';
+		}
+
+		// Validate pag_segment	
 		if ( ! is_numeric($pag_segment))
 		{
 			$pag_segment = 2;
+		}
+
+		// -------------------------------------
+		// Config Set
+		// -------------------------------------
+
+		// Set use_page_numbers
+		if (isset($pag_method) and $pag_method == 'page')
+		{
+			$pagination_config['use_page_numbers'] = true;
+		} else {
+			$pagination_config['uri_segment'] 		= $pag_segment;
+		}
+
+		// We want to preserve the query string
+		// if we are using the query_string method.
+		if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
+		{
+			$pagination_config['page_query_string'] = true;
+		}
+
+		// Override $pag_base with config if we need to.
+		if (isset($config['pag_base_url']) and $config['pag_base_url'])
+		{
+			$pag_base = $config['pag_base_url'];
+		}
+
+		if (isset($pag_query_var) and $pag_query_var)
+		{
+			$pagination_config['query_string_segment'] = $pag_query_var;
 		}
 
 		// -------------------------------------
@@ -1682,20 +1897,37 @@ class Row_m extends MY_Model {
 
 		if ( ! $pag_base)
 		{
-			$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
-			$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+			// Are we using a query string? If so, we just need to take
+			// The entire current URL. Otherwise, we take the URL up to the
+			// pagination segment.
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
+			{
+				$pagination_config['base_url'] = current_url().'?';
+			}
+			else
+			{ 
+				$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
+				$pagination_config['base_url'] = site_url(implode('/', $segments).'/');
+			}
 		}
 		else
 		{
+			// We always set a manual base if it is provided.
 			$pagination_config['base_url'] = $pag_base;
 		}
 
 		// -------------------------------------
-		// Figure Limit and Offset
+		// Determine Limit
 		// -------------------------------------
 		
-		if ( ! is_numeric($limit)) $limit = 0;
-		if ($limit < 0) $limit = 0;
+		if ( ! is_numeric($limit)) {
+			$limit = 0;
+		}
+		
+		// We cannot have a negative limit
+		if ($limit < 0) {
+			$limit = 0;
+		}
 
 		// -------------------------------------
 		// Set basic pagination data
@@ -1703,8 +1935,7 @@ class Row_m extends MY_Model {
 
 		$pagination_config['total_rows'] 		= $total_rows;
 		$pagination_config['per_page'] 			= $limit;
-		$pagination_config['uri_segment'] 		= $pag_segment;
-		
+
 		// Add in our pagination vars
 		$pagination_config = array_merge($pagination_config, $pagination_vars);
 

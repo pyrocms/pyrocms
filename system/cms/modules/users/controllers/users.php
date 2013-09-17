@@ -831,6 +831,9 @@ class Users extends Public_Controller
 			return true;
 		}
 
+		Events::trigger('login_failed', $email);
+		error_log('Login failed for user '.$email);
+
 		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
 		return false;
 	}

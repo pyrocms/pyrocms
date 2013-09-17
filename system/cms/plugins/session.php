@@ -17,7 +17,9 @@ class Plugin_Session extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access and set session variables.',
+		'br' => 'Acessa e define variáveis de sessão.',
 		'el' => 'Ανάκτηση και απόθεση τιμών και μεταβλητών του session.',
+            'fa' => 'دسترسی و ست کردن متغییر های سشن',
 		'fr' => 'Accéder aux variables de session. ',
 		'it' => 'Accedi e imposta le variabili di sessione'
 	);
@@ -33,7 +35,8 @@ class Plugin_Session extends Plugin
 		$info = array(
 			'data' => array(
 				'description' => array(
-					'en' => 'Get and set session variables which will be available on future page requests. Omitting the value attribute results in a Get operation.'
+					'en' => 'Get and set session variables which will be available on future page requests. Omitting the value attribute results in a Get operation.',
+					'br' => 'Pega e define variáveis de sessão que estarão disponíveis em requisições de página futuras. Omitir o atributo value exibirá o valor definido anteriormente.'
 				),
 				'single' => true,
 				'double' => false,
@@ -55,7 +58,8 @@ class Plugin_Session extends Plugin
 			),// end first method
 			'flash' => array(
 				'description' => array(
-					'en' => 'Get and set flash variables which will be available on only the next page load. Omitting the value attribute results in a Get operation.'
+					'en' => 'Get and set flash variables which will be available on only the next page load. Omitting the value attribute results in a Get operation.',
+					'br' => 'Pega e define variáveis flash, que estarão disponíveis apenas na próxima exibição de página. Omitir o atributo value exibirá o valor definido anteriormente.'
 				),
 				'single' => true,
 				'double' => false,
@@ -77,7 +81,8 @@ class Plugin_Session extends Plugin
 			),// end second method
 			'messages' => array(
 				'description' => array(
-					'en' => 'Displays messages set with {{ session:flash }}. The attributes allow you to set the CSS class of the message.'
+					'en' => 'Displays messages set with {{ session:flash }}. The attributes allow you to set the CSS class of the message.',
+					'br' => 'Exibe mensagens definidas com {{ session:flash }}. Os atributos permitem que você defina a classe CSS da mensagem.'
 				),
 				'single' => true,
 				'double' => false,

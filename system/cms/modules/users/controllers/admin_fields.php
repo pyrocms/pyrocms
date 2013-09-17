@@ -55,7 +55,8 @@ class Admin_fields extends Admin_Controller {
 								Settings::get('records_per_page'),
 								'admin/users/fields/index',
 								true,
-								array('buttons' => $buttons));
+								array('buttons' => $buttons),
+								array('first_name', 'last_name'));
 	}
 
 	// --------------------------------------------------------------------------

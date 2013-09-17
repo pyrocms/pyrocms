@@ -111,8 +111,8 @@ class Ajax extends CI_Controller
 			'dbserver' => $this->installer_lib->mysql_server_version,
 			'dbclient' => $this->installer_lib->mysql_client_version,
 			'gd_version' => $this->installer_lib->gd_version,
-			'zlib_version' => $this->installer_lib->zlib_enabled(),
-			'curl' => $this->installer_lib->curl_enabled(),
+			'zlib_version' => $this->installer_lib->zlib_available(),
+			'curl' => $this->installer_lib->curl_available(),
 		);
 
 		include '../system/sparks/curl/1.2.1/libraries/Curl.php';

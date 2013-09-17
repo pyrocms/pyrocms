@@ -3,11 +3,9 @@
 /**
  * PyroStreams Choice Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_choice
 {	
@@ -28,6 +26,16 @@ class Field_choice
 									);
 
 	public $plugin_return			= 'merge';
+
+	/**
+	 * Input Types
+	 * 
+	 * Valid input types for the choices field
+	 * type. The default is "dropdown".
+	 *
+	 * @var 	array
+	 */
+	public $input_types = array('dropdown', 'multiselect', 'radio', 'checkboxes');
 		
 	// --------------------------------------------------------------------------
 
@@ -44,6 +52,9 @@ class Field_choice
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
+
+		$params['custom']['choice_type'] 
+			= $this->validate_input_type($params['custom']['choice_type']);
 		
 		if ($params['custom']['choice_type'] == 'dropdown')
 		{
@@ -58,8 +69,8 @@ class Field_choice
 			// Extra check for default var.
 			$default_value = (isset($params['custom']['default_value'])) ? $params['custom']['default_value'] : null;
 
-			// If this is a new input, we need to use the default value or go null
-			$value = ( ! $entry_id) ? $default_value : $params['value']; 
+			// If this is empty, we need to use the default value or go null
+			$value = ( empty($params['value']) and $params['value'] != '0') ? $default_value : $params['value'];
 
 			return form_dropdown($params['form_slug'], $choices, $value, 'id="'.$params['form_slug'].'"');
 		}	
@@ -192,9 +203,11 @@ class Field_choice
 	public function pre_output($input, $data)
 	{
 		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], 'no', false);
-		
+
+		$data['choice_type'] = $this->validate_input_type($data['choice_type']);
+
 		// Checkboxes?
-		if ($data['choice_type'] == 'checkboxes' ||$data['choice_type']== 'multiselect')
+		if ($data['choice_type'] == 'checkboxes' or $data['choice_type']== 'multiselect')
 		{
 			$vals = explode("\n", $input);
 
@@ -230,6 +243,9 @@ class Field_choice
 	 */	
 	public function pre_save($input, $field)
 	{
+		$field->field_data['choice_type'] 
+			= $this->validate_input_type($field->field_data['choice_type']);
+
 		// We only need to do this for checkboxes
 		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type']== 'multiselect') and is_array($input))
 		{
@@ -263,12 +279,24 @@ class Field_choice
 		}
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Do we have a correct choice type? If not, we will
+     * default to dropdown to save ourselves errors.
+	 *
+	 * @return 	string The input type
+	 */
+	private function validate_input_type($var)
+	{
+		if ( ! in_array($var, $this->input_types)) {
+			$var = 'dropdown';
+		}
+
+		return $var;
+	}
 
 	/**
 	 * Validate input
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string - mode: edit or new
 	 * @param	object

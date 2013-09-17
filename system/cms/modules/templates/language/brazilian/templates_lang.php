@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates:language_label']			= 'Idimoa';
-$lang['templates:choose_lang_label']		= 'Altere o Idimoa';
+$lang['templates:language_label']			= 'Idioma';
+$lang['templates:choose_lang_label']		= 'Altere o Idioma';
 $lang['templates:subject_label']			= 'Assunto';
 $lang['templates:body_label']				= 'Corpo da mensagem';
 $lang['templates:slug_label']				= 'URI';
