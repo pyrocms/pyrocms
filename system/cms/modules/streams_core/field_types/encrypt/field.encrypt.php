@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Encrypt Field Type
  *
@@ -9,11 +11,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_encrypt
+class Field_encrypt extends AbstractField
 {
 	public $field_type_slug			= 'encrypt';
 
-	public $db_col_type				= 'blob';
+	public $db_col_type				= 'text';
 
 	public $custom_parameters		= array('hide_typing');
 
@@ -29,11 +31,11 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save($input)
+	public function pre_save()
 	{
-		$this->CI->load->library('encrypt');
+		ci()->load->library('encrypt');
 
-		return $this->CI->encrypt->encode($input);
+		return ci()->encrypt->encode($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -44,11 +46,11 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$this->CI->load->library('encrypt');
+		ci()->load->library('encrypt');
 
-		$out = $this->CI->encrypt->decode($input);
+		$out = ci()->encrypt->decode($this->value);
 
 		// No PyroCMS tags in your ouput!
 		return escape_tags($out);
@@ -62,19 +64,19 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function form_output()
 	{
-		$this->CI->load->library('encrypt');
+		ci()->load->library('encrypt');
 
-		$options['name'] 	= $params['form_slug'];
-		$options['id']		= $params['form_slug'];
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 
 		// If we have post data and are returning form
 		// values (because of most likely a form validation error),
 		// we will just have the posted plain text value
-		$options['value'] = ($_POST) ? $params['value'] : $this->CI->encrypt->decode($params['value']);
+		$options['value'] = ($_POST) ? $this->value : ci()->encrypt->decode($this->value);
 
-		if ($params['custom']['hide_typing'] == 'yes') {
+		if ($this->getParameter('hide_typing') == 'yes') {
 			return form_password($options);
 		} else {
 			return form_input($options);
@@ -89,9 +91,9 @@ class Field_encrypt
 	 * @param	[array - param]
 	 * @return	string
 	 */
-	public function param_hide_typing($params = false)
+	public function param_hide_typing($value = null)
 	{
-		$selected 		= ($params == 'no') ? 'no' : 'yes';
+		$selected 		= ($value == 'no') ? 'no' : 'yes';
 
 		$yes_select 	= ($selected == 'yes') ? true : false;
 		$no_select 		= ($selected == 'no') ? true : false;

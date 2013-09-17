@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Users Module
@@ -116,11 +117,6 @@ class Module_Users extends AbstractModule
         }
 
         return $info;
-    }
-
-    public function admin_menu(&$menu)
-    {
-        $menu['lang:cp_nav_users']['lang:cp:nav_users'] = 'admin/users';
     }
 
     /**
@@ -251,47 +247,67 @@ class Module_Users extends AbstractModule
             ),
         ));
 
-        // Load up the streams driver and convert the profiles table
-        // into a stream.
-        ci()->load->driver('Streams');
+        Data\Utility::destroyNamespace('users');
 
-        if ( ! ci()->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'))) {
-            // throw new Exception('Could not convert users:profiles table to stream.');
+        // Create the profiles stream
+        if ( ! Data\Streams::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
+                'title_column' => 'display_name',
+                'view_options' => array('display_name')
+            )))
+        {
             return false;
         }
 
-        // Go ahead and convert our standard user fields:
-        $columns = array(
-            'first_name' => array(
-                'field_name' => 'lang:user:first_name_label',
-                'field_type' => 'text',
+         // Index user_id
+        $schema->table('profiles', function($table) {
+            $table->integer('user_id');
+            $table->index('user_id');
+        });
+
+        // Go ahead and add the profile fields
+        $fields = array(
+            array(
+                'name'          => 'lang:user:display_name',
+                'slug'          => 'display_name',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 50),
-                'assign'     => array('required' => true)
+                'required' => true,
             ),
-            'last_name' => array(
-                'field_name' => 'lang:user:last_name_label',
-                'field_type' => 'text',
+            array(
+                'name'          => 'lang:user:first_name_label',
+                'slug'          => 'first_name',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 50),
-                'assign'     => array('required' => true)
+                'required' => true,
             ),
-            'company' => array(
-                'field_name' => 'lang:profile_company',
-                'field_slug' => 'company',
-                'field_type' => 'text',
+            array(
+                'name'          => 'lang:user:last_name_label',
+                'slug'          => 'last_name',
+                'type'          => 'text',
+                'extra'      => array('max_length' => 50),
+                'required' => true,
+            ),
+            array(
+                'name'          => 'lang:user:profile_company',
+                'slug'          => 'company',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 100)
             ),
-            'bio' => array(
-                'field_name' => 'lang:profile_bio',
-                'field_type' => 'textarea'
+            array(
+                'name'          => 'lang:user:profile_bio',
+                'slug'          => 'bio',
+                'type'          => 'textarea',
             ),
-            'lang' => array(
-                'field_name' => 'lang:user:lang',
-                'field_type' => 'pyro_lang',
+            array(
+                'name'          => 'lang:user:lang',
+                'slug'          => 'lang',
+                'type'          => 'pyro_lang',
                 'extra' => array('filter_theme' => 'yes')
             ),
-            'dob' => array(
-                'field_name' => 'lang:profile_dob',
-                'field_type' => 'datetime',
+            array(
+                'name'          => 'lang:user:profile_dob',
+                'slug'          => 'dob',
+                'type'          => 'datetime',
                 'extra'      => array(
                     'use_time'      => 'no',
                     'storage'       => 'unix',
@@ -299,70 +315,56 @@ class Module_Users extends AbstractModule
                     'start_date'    => '-100Y'
                 )
             ),
-            'gender' => array(
-                'field_name' => 'lang:profile_gender',
-                'field_type' => 'choice',
+            array(
+                'name'          => 'lang:user:profile_gender',
+                'slug'          => 'choice',
+                'type'          => 'text',
                 'extra'      => array(
                     'choice_type' => 'dropdown',
                     'choice_data' => " : Not Telling\nm : Male\nf : Female"
                 )
             ),
-            'phone' => array(
-                'field_name' => 'lang:profile_phone',
-                'field_type' => 'text',
+            array(
+                'name'          => 'lang:user:profile_phone',
+                'slug'          => 'phone',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 20)
             ),
-            'mobile' => array(
-                'field_name' => 'lang:profile_mobile',
-                'field_type' => 'text',
+            array(
+                'name'          => 'lang:user:profile_mobile',
+                'slug'          => 'mobile',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 20)
             ),
-            'address_line1' => array(
-                'field_name' => 'lang:profile_address_line1',
-                'field_type' => 'text'
+            array(
+                'name'          => 'lang:user:profile_address_line1',
+                'slug'          => 'address_line1',
+                'type'          => 'text',
             ),
-            'address_line2' => array(
-                'field_name' => 'lang:profile_address_line2',
-                'field_type' => 'text'
+            array(
+                'name'          => 'lang:user:profile_address_line2',
+                'slug'          => 'address_line2',
+                'type'          => 'text',
             ),
-            'address_line3' => array(
-                'field_name' => 'lang:profile_address_line3',
-                'field_type' => 'text'
+            array(
+                'name'          => 'lang:user:profile_address_line3',
+                'slug'          => 'address_line3',
+                'type'          => 'text',
             ),
-            'postcode' => array(
-                'field_name' => 'lang:profile_address_postcode',
-                'field_type' => 'text',
+            array(
+                'name'          => 'lang:user:profile_address_postcode',
+                'slug'          => 'postcode',
+                'type'          => 'text',
                 'extra'      => array('max_length' => 20)
             ),
-            'website' => array(
-                'field_name' => 'lang:profile_website',
-                'field_type' => 'url'
-            ),
+            array(
+                'name'          => 'lang:user:profile_website',
+                'slug'          => 'website',
+                'type'          => 'url',
+            )
         );
 
-        // Run through each column and add the field
-        // metadata to it.
-        foreach ($columns as $field_slug => $column) {
-            // We only want fields that actually exist in the
-            // DB. The user could have deleted some of them.
-            if (ci()->db->field_exists($field_slug, 'profiles')) {
-                $extra = array();
-                $assign = array();
-
-                if (isset($column['extra'])) {
-                    $extra = $column['extra'];
-                }
-
-                if (isset($column['assign'])) {
-                    $assign = $column['assign'];
-                }
-
-                ci()->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
-
-                unset($extra);
-                unset($assign);
-            }
-        }
+        Data\Fields::addFields($fields, 'profiles', 'users');
 
         return true;
     }

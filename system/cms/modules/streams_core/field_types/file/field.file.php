@@ -2,6 +2,7 @@
 
 use Pyro\Module\Files\Model\Folder;
 use Pyro\Module\Files\Model\File;
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
 
 /**
  * PyroStreams File Field Type
@@ -12,12 +13,13 @@ use Pyro\Module\Files\Model\File;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_file
+class Field_file extends AbstractField
 {
 	public $field_type_slug			= 'file';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
+	
 	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'allowed_types');
@@ -39,11 +41,11 @@ class Field_file
 	 */
 	public function form_output($params)
 	{
-		$this->CI->load->config('files/files');
+		ci()->load->config('files/files');
 
 		// Get the file
-		if ($params['value']) {
-			$current_file = File::find($params['value']);
+		if ($this->value) {
+			$current_file = File::find($this->value);
 		} else {
 			$current_file = null;
 		}
@@ -55,17 +57,13 @@ class Field_file
 		}
 
 		// Output the actual used value
-		if ($params['value']) {
-			$out .= form_hidden($params['form_slug'], $params['value']);
-		} else {
-			$out .= form_hidden($params['form_slug'], 'dummy');
-		}
+		$out .= form_hidden($this->form_slug, $this->getValue('dummy'));
 
-		$options['name'] 	= $params['form_slug'];
-		$options['name'] 	= $params['form_slug'].'_file';
+		$options['name'] 	= $this->form_slug;
+		$options['name'] 	= $this->form_slug.'_file';
 
-		$this->CI->type->add_js('file', 'filefield.js');
-		$this->CI->type->add_css('file', 'filefield.css');
+		$this->js('filefield.js');
+		$this->css('filefield.css');
 
 		return $out .= form_upload($options);
 	}
@@ -85,14 +83,14 @@ class Field_file
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name']) {
-			if ($this->CI->input->post($field->field_slug)) {
-				return $this->CI->input->post($field->field_slug);
+			if (ci()->input->post($field->field_slug)) {
+				return ci()->input->post($field->field_slug);
 			} else {
 				return null;
 			}
 		}
 
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
 		// If you don't set allowed types, we'll set it to allow all.
 		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
@@ -100,7 +98,7 @@ class Field_file
 		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
 
 		if (! $return['status']) {
-			$this->CI->session->set_flashdata('notice', $return['message']);
+			ci()->session->set_flashdata('notice', $return['message']);
 
 			return null;
 		} else {
@@ -121,7 +119,7 @@ class Field_file
 	{
 		if ( ! $input) return null;
 
-		$this->CI->load->config('files/files');
+		ci()->load->config('files/files');
 
 		$file = File::find($input);
 
@@ -150,8 +148,8 @@ class Field_file
 
 		$image_data = array();
 
-		$this->CI->load->config('files/files');
-		$this->CI->load->helper('html');
+		ci()->load->config('files/files');
+		ci()->load->helper('html');
 
 		$file = File::find($input);
 
@@ -168,7 +166,7 @@ class Field_file
 	 */
 	public function param_folder($value = null)
 	{
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
 		// Get the folders
 		$tree = (array) Files::folderTreeRecursive();

@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Users\Model;
+
 /**
  * PyroStreams User Field Type
  *
@@ -9,11 +12,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_user
+class Field_user extends AbstractField
 {
 	public $field_type_slug			= 'user';
 
-	public $db_col_type				= 'int';
+	public $db_col_type				= 'integer';
 
 	public $custom_parameters		= array('restrict_group');
 
@@ -35,30 +38,24 @@ class Field_user
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params, $entry_id, $field)
+	public function form_output()
 	{
-		$this->CI->db->select('username, id');
+		ci()->db->select('username, id');
 
-		if (isset($params['custom']['restrict_group']) and is_numeric($params['custom']['restrict_group'])) {
-			$this->CI->db->where('group_id', $params['custom']['restrict_group']);
+		if ($restrict_group = $this->getParameter('restrict_group'))
+		{
+			ci()->db->where('group_id', $restrict_group);
 		}
 
-		$users_raw = $this->CI->db->order_by('username', 'asc')->get('users')->result();
-
-		$users = array();
+		$users = Model\User::lists('username', 'id');
 
 		// If this is not required, then
 		// let's allow a null option
-		if ($field->is_required == 'no') {
-			$users[null] = $this->CI->config->item('dropdown_choose_null');
+		if ($this->field->is_required == 'no') {
+			$users[null] = ci()->config->item('dropdown_choose_null');
 		}
 
-		// Get user choices
-		foreach ($users_raw as $user) {
-			$users[$user->id] = $user->username;
-		}
-
-		return form_dropdown($params['form_slug'], $users, $params['value'], 'id="'.$params['form_slug'].'"');
+		return form_dropdown($this->form_slug, $users, $this->value, 'id="'.$this->form_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -73,7 +70,7 @@ class Field_user
 	 * @param 	obj 	$stream The stream object
 	 * @return 	void
 	 */
-	public function query_build_hook(&$sql, $field, $stream)
+/*	public function query_build_hook(&$sql, $field, $stream)
 	{
 		// Create a special alias for the users table.
 		$alias = 'users_'.$field->field_slug;
@@ -82,19 +79,22 @@ class Field_user
 		$sql['select'][] = '`'.$alias.'`.`email` as `'.$field->field_slug.'||email`';
 		$sql['select'][] = '`'.$alias.'`.`username` as `'.$field->field_slug.'||username`';
 
-		$sql['join'][] = 'LEFT JOIN '.$this->CI->db->protect_identifiers('users', true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.$this->CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
-	}
+		$sql['join'][] = 'LEFT JOIN '.ci()->db->protect_identifiers('users', true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.ci()->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
+	}*/
 
-	// --------------------------------------------------------------------------
+	public function relation()
+	{
+		$this->model->belongsTo('Pyro\Module\Users\Model\User', $this->field->field_slug);
+	}
 
 	/**
 	 * Restrict to Group
 	 */
 	public function param_restrict_group($value = null)
 	{
-		$this->CI->db->order_by('name', 'asc');
+		ci()->db->order_by('name', 'asc');
 
-		$db_obj = $this->CI->db->get('groups');
+		$db_obj = ci()->db->get('groups');
 
 		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 

@@ -9,7 +9,7 @@
 <?php endif ?>
 
 <?php echo form_open() ?>
-
+<div class="one_full">
 <section class="item">
 	<div class="content">
 
@@ -30,7 +30,8 @@
 					<?php echo form_input('name', $group->name) ?>
 
 					<?php else: ?>
-					<p><?php echo $group->name ?></p>
+						<p><?php echo $group->name; ?></p>
+						<?php echo form_hidden('name', $group->name); ?>
 					<?php endif ?>
 
 					</div>
@@ -47,12 +48,15 @@
 		pyro.generate_slug('input[name="description"]', 'input[name="name"]');
 	});
 </script>
+</div>
 
+<div class="one_full">
 <section class="title">
-	<h4><?php echo $group->description ?></h4>
+	<h4><?php echo $group->description ?> </h4>
 </section>
 <section class="item">
 	<div class="content js-permissions">
+		<?php if ($group->name != 'admin'): ?>
 		<?php echo form_open() ?>
 		<table border="0" class="table-list" cellspacing="0">
 			<thead>
@@ -63,6 +67,27 @@
 				</tr>
 			</thead>
 			<tbody>
+
+				<tr>
+					<td style="width: 30px">
+						<?php echo form_checkbox(array(
+							'value' => 'admin',
+							'name'=>'modules[]',
+							'checked'=> $group->hasAccess('admin.general'),
+							'title' => lang('global:dashboard'),
+							'class' => 'js-perm-module',
+						)) ?>
+					</td>
+					<td>
+						<label class="inline" for="dashboard">
+							<?php echo lang('global:dashboard') ?>
+						</label>
+					</td>
+					<td>
+						<!-- None -->
+					</td>
+				</tr>
+
 				<?php foreach ($modules as $module): ?>
 
 				<tr>
@@ -102,8 +127,13 @@
 		</table>
 		
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
+		<?php else: ?>
 
+			<!-- @todo - language string -->
+			Administrators can do anything. 
+
+		<?php endif; ?>
 	</div>
 </section>
-
+</div>
 <?php echo form_close() ?>

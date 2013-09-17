@@ -25,23 +25,32 @@ if ( ! function_exists('tree_builder')) {
 
 		$output = '';
 
-		foreach ($items as $item) {
+		foreach ($items as $item)
+		{
+			if ($item instanceof Model)
+			{
+				$item_array = $item->toArray();
+			}
+			elseif (is_array($item))
+			{
+				$item_array = $item;
+			}
+			else
+			{
+				continue;
+			}
 
-			if ($item->children) {
+			if ( ! $item->children->isEmpty()) {
 
 				// if there are children we build their html and set it up to be parsed as {{ children }}
-				$item->children = '<ul>'.tree_builder($item->children, $html).'</ul>';
+				$item_array['children'] = '<ul>'.tree_builder($item->children, $html).'</ul>';
 
 			} else {
-				$item->children = null;
+				$item_array['children'] = null; // Lex will bitch if we don't do this..
 			}
 
 			// now that the children html is sorted we parse the html that they passed
-			if ($item instanceof Model) {
-				$output .= ci()->parser->parse_string($html, $item->toArray(), true);
-			} else {
-				$output .= ci()->parser->parse_string($html, $item, true);
-			}
+			$output .= ci()->parser->parse_string($html, $item_array, true);
 		}
 
 		return $output;

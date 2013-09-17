@@ -1,7 +1,7 @@
 <h2 id="page_title" class="page-title">
 	<?php echo ($this->current_user->id !== $_user->id) ?
 					sprintf(lang('user:edit_title'), $_user->display_name) :
-					lang('profile_edit') ?>
+					lang('user:profile_edit') ?>
 </h2>
 <div>
 	<?php if (validation_errors()):?>
@@ -16,7 +16,7 @@
 		<legend><?php echo lang('user:details_section') ?></legend>
 		<ul>
 			<li>
-				<label for="display_name"><?php echo lang('profile_display_name') ?></label>
+				<label for="display_name"><?php echo lang('user:profile_display_name') ?></label>
 				<div class="input">
 				<?php echo form_input(array('name' => 'display_name', 'id' => 'display_name', 'value' => set_value('display_name', $display_name))) ?>
 				</div>
@@ -84,7 +84,7 @@
 	</script>
 
 	<fieldset>
-		<legend><?php echo lang('profile_api_section') ?></legend>
+		<legend><?php echo lang('user:profile_api_section') ?></legend>
 
 		<ul>
 			<li <?php $api_key or print('style="display:none"') ?>><?php echo sprintf(lang('api:key_message'), '<span id="api_key">'.$api_key.'</span>') ?></li>
@@ -96,6 +96,6 @@
 	</fieldset>
 	<?php endif ?>
 
-	<?php echo form_submit('', lang('profile_save_btn')) ?>
+	<?php echo form_submit('', lang('user:profile_save_btn')) ?>
 	<?php echo form_close() ?>
 </div>

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Files Permissions
-$lang['files:role_wysiwyg']			= 'Gerir ficheiro aparir do WYSIWYG';
+$lang['files:role_wysiwyg']			= 'Gerir ficheiro apartir do WYSIWYG';
 $lang['files:role_upload']			= 'Enviar Ficheiro';
 $lang['files:role_download_file']	= 'Transferir Ficheiro';
 $lang['files:role_edit_file']		= 'Editar Ficheiro';

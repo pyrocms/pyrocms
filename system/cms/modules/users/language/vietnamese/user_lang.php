@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Author: Thanh Nguyen
-* 		  nguyenhuuthanh@gmail.com
+*         nguyenhuuthanh@gmail.com
 *
 * Location: http://techmix.net
 *
@@ -11,13 +11,13 @@
 *
 */
 
-$lang['user:add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
+$lang['user:add_field']                         = 'Add User Profile Field'; #translate
+$lang['user:profile_delete_success']            = 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user:profile_user_basic_data_label']     = 'Basic Data'; #translate
+$lang['user:profile_company']                   = 'Company'; #translate
+$lang['user:profile_updated_on']                = 'Updated On'; #translate
+$lang['user:profile_fields_label']              = 'Profile Fields'; #translate`
 
 $lang['user:register_header']                  = 'Đăng ký';
 $lang['user:register_step1']                   = '<strong>Bước 1:</strong> Đăng ký';
@@ -27,7 +27,7 @@ $lang['user:login_header']                     = 'Đăng nhập';
 
 // titles
 $lang['user:add_title']                        = 'Thêm tài khoản';
-$lang['user:list_title'] 					   = 'Tài khoản';
+$lang['user:list_title']                       = 'Tài khoản';
 $lang['user:inactive_title']                   = 'Tài khoản không hoạt động';
 $lang['user:active_title']                     = 'Tài khoản đang hoạt động';
 $lang['user:registred_title']                  = 'Tài khoản đã đăng ký';
@@ -72,7 +72,7 @@ $lang['user:first_name']                       = 'Tên';
 $lang['user:last_name']                        = 'Họ';
 $lang['user:username']                         = 'Username';
 $lang['user:display_name']                     = 'Tên hiển thị';
-$lang['user:email_use'] 					   = 'được sử dụng để đăng nhập';
+$lang['user:email_use']                        = 'được sử dụng để đăng nhập';
 $lang['user:remember']                         = 'Ghi nhớ đăng nhập';
 $lang['user:group_id_label']                   = 'ID Nhóm';
 
@@ -82,7 +82,7 @@ $lang['user:lang']                             = 'Ngôn ngữ';
 
 $lang['user:activation_code']                  = 'Mã kích hoạt';
 
-$lang['user:reset_instructions']			   = 'Điền địa chỉ email và username';
+$lang['user:reset_instructions']               = 'Điền địa chỉ email và username';
 $lang['user:reset_password_link']              = 'Quên mật khẩu?';
 
 $lang['user:activation_code_sent_notice']      = 'Mã kích hoạt đã được gửi tới email của bạn.';
@@ -129,7 +129,7 @@ $lang['user:mass_delete_error']                = 'Bạn cần chọn tài khoả
 // Register
 $lang['user:email_pass_missing']               = 'Email hoặc mật khẩu chưa được nhập.';
 $lang['user:email_exists']                     = 'Email trùng với email của tài khoản khác.';
-$lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user:register_error']                   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user:register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
 // Activation
@@ -165,60 +165,60 @@ $lang['user:reset_pass_email_subject']         = 'Khởi tạo lại mật khẩ
 $lang['user:reset_pass_email_body']            = 'Mật khẩu của bạn đã được khởi tạo lại. Nếu yêu cầu này không phải là của bạn, hãy liên hệ với chúng tôi tại %s chúng tôi sẽ hỗ trợ xử lý.';
 
 // Profile
-$lang['profile_of_title']             = 'Hồ sơ %s';
+$lang['user:profile_of_title']             = 'Hồ sơ %s';
 
-$lang['profile_user_details_label']   = 'Thông tin chi tiết người dùng';
-$lang['profile_role_label']           = 'Vai trò';
-$lang['profile_registred_on_label']   = 'Đăng ký vào';
-$lang['profile_last_login_label']     = 'Lần đăng nhập cuối';
-$lang['profile_male_label']           = 'Nam';
-$lang['profile_female_label']         = 'Nữ';
+$lang['user:profile_user_details_label']   = 'Thông tin chi tiết người dùng';
+$lang['user:profile_role_label']           = 'Vai trò';
+$lang['user:profile_registred_on_label']   = 'Đăng ký vào';
+$lang['user:profile_last_login_label']     = 'Lần đăng nhập cuối';
+$lang['user:profile_male_label']           = 'Nam';
+$lang['user:profile_female_label']         = 'Nữ';
 
-$lang['profile_not_set_up']           = 'Tài khoản này chưa được thiết lập hồ sơ.';
+$lang['user:profile_not_set_up']           = 'Tài khoản này chưa được thiết lập hồ sơ.';
 
-$lang['profile_edit']                 = 'Sửa hồ sơ của bạn';
+$lang['user:profile_edit']                 = 'Sửa hồ sơ của bạn';
 
-$lang['profile_personal_section']     = 'Cá nhân';
+$lang['user:profile_personal_section']     = 'Cá nhân';
 
-$lang['profile_display_name']         = 'Tên hiển thị';
-$lang['profile_dob']                  = 'Ngày sinh';
-$lang['profile_dob_day']              = 'Ngày';
-$lang['profile_dob_month']            = 'Tháng';
-$lang['profile_dob_year']             = 'Năm';
-$lang['profile_gender']               = 'Giới tính';
-$lang['profile_gender_nt']            = 'Không nói';
-$lang['profile_gender_male']          = 'Nam';
-$lang['profile_gender_female']        = 'Nữ';
-$lang['profile_bio']                  = 'Về bản thân';
+$lang['user:profile_display_name']         = 'Tên hiển thị';
+$lang['user:profile_dob']                  = 'Ngày sinh';
+$lang['user:profile_dob_day']              = 'Ngày';
+$lang['user:profile_dob_month']            = 'Tháng';
+$lang['user:profile_dob_year']             = 'Năm';
+$lang['user:profile_gender']               = 'Giới tính';
+$lang['user:profile_gender_nt']            = 'Không nói';
+$lang['user:profile_gender_male']          = 'Nam';
+$lang['user:profile_gender_female']        = 'Nữ';
+$lang['user:profile_bio']                  = 'Về bản thân';
 
-$lang['profile_contact_section']      = 'Liên hệ';
+$lang['user:profile_contact_section']      = 'Liên hệ';
 
-$lang['profile_phone']                = 'Điện thoại';
-$lang['profile_mobile']               = 'Di động';
-$lang['profile_address']              = 'Địa chỉ';
-$lang['profile_address_line1']        = 'Dòng #1';
-$lang['profile_address_line2']        = 'Dòng #2';
-$lang['profile_address_line3']        = 'Dòng #3';
-$lang['profile_address_postcode']     = 'Mã bưu điện';
-$lang['profile_website']              = 'Website';
+$lang['user:profile_phone']                = 'Điện thoại';
+$lang['user:profile_mobile']               = 'Di động';
+$lang['user:profile_address']              = 'Địa chỉ';
+$lang['user:profile_address_line1']        = 'Dòng #1';
+$lang['user:profile_address_line2']        = 'Dòng #2';
+$lang['user:profile_address_line3']        = 'Dòng #3';
+$lang['user:profile_address_postcode']     = 'Mã bưu điện';
+$lang['user:profile_website']              = 'Website';
 
-$lang['profile_messenger_section']    = 'Hệ thống tin nhắn';
+$lang['user:profile_messenger_section']    = 'Hệ thống tin nhắn';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
+$lang['user:profile_avatar_section']       = 'Avatar';
+$lang['user:profile_social_section']       = 'Social';
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'Hồ sơ của bạn đã được lưu.';
-$lang['profile_edit_error']           = 'Có lỗi xảy ra.';
+$lang['user:profile_edit_success']         = 'Hồ sơ của bạn đã được lưu.';
+$lang['user:profile_edit_error']           = 'Có lỗi xảy ra.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Lưu hồ sơ';
+$lang['user:profile_save_btn']             = 'Lưu hồ sơ';
 /* End of file user_lang.php */

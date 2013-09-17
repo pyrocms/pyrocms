@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Model\Field;
+
 /**
  * PyroStreams Slug Field Type
  *
@@ -9,11 +12,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_slug
+class Field_slug extends AbstractField
 {
 	public $field_type_slug			= 'slug';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $custom_parameters		= array( 'space_type', 'slug_field' );
 
@@ -33,7 +36,7 @@ class Field_slug
 	public function event()
 	{
 		if ( ! defined('ADMIN_THEME')) {
-			$this->CI->type->add_js('slug', 'jquery.slugify.js');
+			$this->js('jquery.slugify.js');
 		}
 	}
 
@@ -46,10 +49,10 @@ class Field_slug
 	 *
 	 * @return string
 	 */
-	public function pre_save($input)
+	public function pre_save()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -61,10 +64,10 @@ class Field_slug
 	 *
 	 * @return string
 	 */
-	public function pre_output($input)
+	public function pre_output()
 	{
-		$this->CI->load->helper('text');
-		return escape_tags($input);
+		ci()->load->helper('text');
+		return escape_tags($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -75,15 +78,16 @@ class Field_slug
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function form_output()
 	{
-		$options['name'] 	= $params['form_slug'];
-		$options['id']		= $params['form_slug'];
-		$options['value']	= $params['value'];
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
+		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
 
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
+					pyro.generate_slug('#{$this->getParameter('slug_field')}', '#{$this->field->field_slug}', '{$this->getParameter('space_type')}');
 			});
 		})(jQuery);
 		</script>";
@@ -99,8 +103,8 @@ class Field_slug
 	public function param_space_type($value = null)
 	{
 		$options = array(
-			'-' => $this->CI->lang->line('streams:slug.dash'),
-			'_' => $this->CI->lang->line('streams:slug.underscore')
+			'-' => ci()->lang->line('streams:slug.dash'),
+			'_' => ci()->lang->line('streams:slug.underscore')
 		);
 
 		return form_dropdown('space_type', $options, $value);
@@ -113,17 +117,16 @@ class Field_slug
 	 */
 	public function param_slug_field($value = null)
 	{
-		$this->CI->load->model('fields_m');
-
 		// Get all the fields
-		$fields = $this->CI->fields_m->get_all_fields();
+		$fields = Field::all();
 
 		$drop = array();
 
 		foreach ($fields as $field) {
 			// We don't want no slugs.
-			if ($field['field_type'] != 'slug') {
-				$drop[$field['field_slug']] = $this->CI->fields->translate_label($field['field_name']);
+			if ($field->field_type != 'slug')
+			{
+				$drop[$field->field_slug] = $this->field->field_name;
 			}
 		}
 

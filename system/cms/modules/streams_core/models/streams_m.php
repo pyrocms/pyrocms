@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Query\Expression as DBExpression;
 
 /**
  * PyroStreams Streams Model
@@ -230,16 +233,16 @@ class Streams_m extends CI_Model
 		// Permissions can be handled differently by each module, so unless they are
 		// passed, we are just going to forget about them
 		if (isset($extra['permissions']) and is_array($extra['permissions'])) {
-			$insert_data['permissions']		= serialize($extra['permissions']);
+			$insert_data['permissions']	= serialize($extra['permissions']);
 		}
 
 		// View options.
 		if (isset($extra['view_options']) and is_array($extra['view_options'])) {
-			$insert_data['view_options']		= serialize($extra['view_options']);
+			$insert_data['view_options'] = serialize($extra['view_options']);
 		} else {
 			// Since this is a new stream, we are going to add a basic view profile
 			// with data we know will be there.
-			$insert_data['view_options']		= serialize(array('id', 'created'));
+			$insert_data['view_options'] = serialize(array('id', 'created'));
 		}
 
 		return $this->pdb->table($this->table)->insertGetId($insert_data);
@@ -464,6 +467,15 @@ class Streams_m extends CI_Model
 
 		$stream = $query->take(1)->first();
 
+		if (is_null($stream)) {
+			throw new Exception('This stream is null for why?');
+		}
+
+		if (is_resource($stream->view_options)) {
+			var_dump($stream->view_options);
+			throw new Exception('Why the hell is this a resource?');
+		}
+
 		if ( ! isset($stream->view_options) or trim($stream->view_options) == '') {
 			$stream->view_options = array();
 		} else {
@@ -600,7 +612,7 @@ class Streams_m extends CI_Model
 		if (is_numeric($limit)) {
 			$query->take($limit);
 		}
-		if (is_numeric($offset) and ! empty($offset)) {
+		if (is_numeric($offset)) {
 			$query->skip($offset);
 		}
 
@@ -701,29 +713,8 @@ class Streams_m extends CI_Model
 		// Create database column
 		// -------------------------------------
 
-		$this->load->dbforge();
-
-		$field_data = array();
-
-		$field_data['field_slug']				= $field->field_slug;
-
-		if (isset($field->field_data['max_length'])) {
-			$field_data['max_length']			= $field->field_data['max_length'];
-		}
-
-		if (isset($field->field_data['default_value'])) {
-			$field_data['default_value']		= $field->field_data['default_value'];
-		}
-
-		// Grab table prefix from installer
-		// We set the prefix for the cms installer but not the module intall
-		// until we can figure out how to replace dbforge with the Schema builder here
-		$prefix = ! defined('ADMIN_THEME') ? $this->pdb->getQueryGrammar()->getTablePrefix() : null;
-
-		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
-
 		if ($field_type->db_col_type !== false and $create_column === true) {
-			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			$this->schema_thing($stream, $field_type, $field);
 		}
 
 		// -------------------------------------
@@ -735,8 +726,10 @@ class Streams_m extends CI_Model
 		if (isset($data['title_column']) and $data['title_column'] == 'yes') {
 			$update_data['title_column'] = $field->field_slug;
 
-			$this->db->where('id', $stream->id );
-			$this->db->update($prefix.STREAMS_TABLE, $update_data);
+			ci()->pdb
+				->table(STREAMS_TABLE)
+				->where('id', '=', $stream->id)
+				->update($update_data);
 		}
 
 		// -------------------------------------
@@ -749,16 +742,14 @@ class Streams_m extends CI_Model
 		$insert_data['instructions']	= isset($data['instructions']) ? $data['instructions'] : null;
 
 		// +1 for ordering.
-		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
-		$query = $this->db->get($prefix.ASSIGN_TABLE);
+		$top_num = ci()->pdb
+			->table(ASSIGN_TABLE)
+			->select(new DBExpression('MAX(sort_order) as top_num'))
+			->where('stream_id', $stream->id)
+			->pluck('top_num');
 
-		if ($query->num_rows() == 0) {
-			// First one! Make it 1
-			$insert_data['sort_order'] = 1;
-		} else {
-			$row = $query->row();
-			$insert_data['sort_order'] = $row->top_num + 1;
-		}
+		// First one! Make it 1
+		$insert_data['sort_order'] = $top_num ? $top_num + 1 : 1;
 
 		// Is Required
 		if (isset($data['is_required']) and $data['is_required'] == 'yes') {
@@ -770,11 +761,68 @@ class Streams_m extends CI_Model
 			$insert_data['is_unique'] = 'yes';
 		}
 
-		if ( ! $this->db->insert($prefix.ASSIGN_TABLE, $insert_data)) {
-			return false;
-		}
+		// Return the new ID or false
+		return ci()->pdb->table(ASSIGN_TABLE)->insertGetId($insert_data) ?: false;
+	}
 
-		return $this->db->insert_id();
+	public function schema_thing($stream, $type, $field)
+	{
+		$schema = ci()->pdb->getSchemaBuilder();
+
+		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
+		// Check if the table exists
+		if ( ! $schema->hasTable($stream->stream_prefix.$stream->stream_slug)) return false;
+
+		// Check if the column does not exist already to avoid errors, specially on migrations
+		// @todo - hasColunm() has a bug in illuminate/database where it does not apply the table prefix, we have to pass it ourselves
+		// Remove the prefix as soon as the pull request / fix gets merged https://github.com/laravel/framework/pull/2070
+		if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug)) return false;
+
+		$schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
+
+			$db_type_method = camel_case($type->db_col_type);
+
+			// This seems like a sane default, and allows for 2.2 style widgets
+			if (! method_exists($type, $db_type_method)) {
+				$db_type_method = 'text';
+			}
+
+			// -------------------------------------
+			// Constraint
+			// -------------------------------------
+
+			$constraint = null;
+
+			// First we check and see if a constraint has been added
+			if (isset($type->col_constraint) and $type->col_constraint) {
+				$constraint = $type->col_constraint;
+
+			// Otherwise, we'll check for a max_length field
+			} elseif (isset($field->field_data['max_length']) and is_numeric($field->field_data['max_length'])) {
+				$constraint = $field->field_data['max_length'];
+			}
+
+			// Only the string method cares about a constraint
+			if ($db_type_method === 'string') {
+				$col = $table->{$db_type_method}($field->field_slug, $constraint);
+			} else {
+				$col = $table->{$db_type_method}($field->field_slug);
+			}
+
+			// -------------------------------------
+			// Default
+			// -------------------------------------
+			if (! empty($field->field_data['default_value']) and ! in_array($db_type_method, array('text', 'longText'))) {
+				$col->default($field->field_data['default_value']);
+			}
+
+			// -------------------------------------
+			// Default to allow null
+			// -------------------------------------
+
+			$col->nullable();
+		});
 	}
 
     // --------------------------------------------------------------------------

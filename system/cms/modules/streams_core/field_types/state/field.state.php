@@ -1,16 +1,18 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams US State Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Adam Fairholm
  */
-class Field_state
+class Field_state extends AbstractField
 {
 	public $field_type_slug			= 'state';
 
-	public $db_col_type				= 'varchar';
+	public $db_col_type				= 'string';
 
 	public $version					= '1.3.0';
 
@@ -88,23 +90,24 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
-		// Default is abbr for backwards compat.
-		if ( ! isset($data['custom']['state_display'])) {
-			$data['custom']['state_display'] = 'abbr';
-		}
-
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if (! $data['value'] and ! $entry_id) {
-			$value = (isset($field->field_data['default_state'])) ? $field->field_data['default_state'] : null;
+		if ($this->value and $this->entry->getKey()) {
+			$value = $this->value;
 		} else {
-			$value = $data['value'];
+			$value = $this->getParameter('default_state');
 		}
 
-		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $value, 'id="'.$data['form_slug'].'"');
+		return form_dropdown(
+			$this->form_slug, 
+			$this->states($field->is_required), 
+			$this->getParameter('state_display', 'abbr'), 
+			$value, 
+			'id="'.$this->form_slug.'"'
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -121,13 +124,13 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin($input, $data)
+	public function pre_output_plugin()
 	{
-		if ( ! $input) return null;
+		if ( ! $this->value) return null;
 
 		return array(
-			'abbr'	=> $input,
-			'full' 	=> $this->raw_states[$input]
+			'abbr'	=> $this->value,
+			'full' 	=> $this->raw_states[$this->value]
 		);
 	}
 
@@ -140,18 +143,12 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input, $data)
+	public function pre_output()
 	{
 		// Default is abbr for backwards compat.
-		if( ! isset($data['state_display']) ):
+		$states = $this->states('yes', $this->getParameter('state_display', 'abbr'));
 
-			$data['state_display'] = 'abbr';
-
-		endif;
-
-		$states = $this->states('yes', $data['state_display']);
-
-		return ( isset($states[$input]) ) ? $states[$input] : null;
+		return $this->getState($this->value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -161,31 +158,32 @@ class Field_state
 	 *
 	 * @return	string
 	 */
-	public function param_state_display($value = null)
+	public function param_state_display()
 	{
 		$options = array(
-			'full' => $this->CI->lang->line('streams:state.full'),
-			'abbr' => $this->CI->lang->line('streams:state.abbr')
+			'full' => ci()->lang->line('streams:state.full'),
+			'abbr' => ci()->lang->line('streams:state.abbr')
 		);
 
-		return form_dropdown('state_display', $options, $value);
+		return form_dropdown('state_display', $options, $this->value);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Default Country Parameter
 	 *
 	 * @return 	string
 	 */
-	public function param_default_state($input)
+	public function param_default_state()
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.
-		return form_dropdown('default_state', $this->states('no', 'full'), $input);
+		return form_dropdown('default_state', $this->states('no', 'full'), $this->value);
 	}
 
-	// --------------------------------------------------------------------------
+	public function getState($name = null)
+	{
+		return isset($states[$this->value]) ? $states[$this->value] : null;
+	}
 
 	/**
 	 * State
@@ -200,7 +198,7 @@ class Field_state
 
 		$choices = array();
 
-		if($is_required == 'no') $choices[null] = get_instance()->config->item('dropdown_choose_null');
+		if($is_required == 'no') $choices[null] = ci()->config->item('dropdown_choose_null');
 
 		$states = array();
 

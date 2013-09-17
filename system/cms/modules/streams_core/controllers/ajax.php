@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core;
+
 /**
  * PyroStreams AJAX Controller
  *
@@ -43,61 +45,10 @@ class Ajax extends MY_Controller
 	 */
 	public function build_parameters()
 	{
-		// Out for certain characters
-		if ($this->input->post('data') == '-') return null;
-
-		$this->load->language('streams_core/pyrostreams');
-
 		$type = $this->input->post('data');
 		$namespace = $this->input->post('namespace');
 
-		// Load paramaters
-		require_once(APPPATH.'modules/streams_core/libraries/Parameter_fields.php');
-
-		$parameters = new Parameter_fields();
-
-		// Load the proper class
-		$field_type = $this->type->load_single_type($type);
-
-		// I guess we don't have any to show.
-		if ( ! isset($field_type->custom_parameters)) return null;
-
-		// Otherwise, the beat goes on.
-		$extra_fields = $field_type->custom_parameters;
-
-		$data['count'] = 0;
-
-		//Echo them out
-		foreach ($extra_fields as $field) {
-			// Check to see if it is a standard one or a custom one
-			// from the field type
-			if (method_exists($parameters, $field)) {
-				$data['input'] 			= $parameters->$field();
-				$data['input_name']		= $this->lang->line('streams:'.$field);
-			} elseif (method_exists($field_type, 'param_'.$field)) {
-				$call = 'param_'.$field;
-
-				$input = $field_type->$call(null, $namespace);
-
-				if (is_array($input)) {
-					$data['input'] 			= $input['input'];
-					$data['instructions']	= $input['instructions'];
-				} else {
-					$data['input'] 			= $input;
-					$data['instructions']	= null;
-				}
-
-				$data['input_name']		= $this->lang->line('streams:'.$field_type->field_type_slug.'.'.$field);
-			} else {
-				return false;
-			}
-
-			$data['input_slug'] = $field;
-
-			echo $this->load->view('extra_field', $data, true);
-
-			$data['count']++;
-		}
+		echo Core\Field\Type::buildParameters($type, $namespace);
 	}
 
 	// --------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Date/Time Field Type
  *
@@ -9,7 +11,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_datetime
+class Field_datetime extends AbstractField
 {	
 	public $field_type_slug			= 'datetime';
 	
@@ -49,13 +51,13 @@ class Field_datetime
 	 * @param 	obj
 	 * @return 	void
 	 */
-	public function event($field)
+	public function event()
 	{
 		// We need the JS file for the front-end. 
-		if ( ! defined('ADMIN_THEME') and isset($field->field_data['input_type']) and $field->field_data['input_type'] == 'datepicker')
+		if ( ! defined('ADMIN_THEME') and $this->getParameter('input_type') == 'datepicker')
 		{
-			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
-			$this->CI->type->add_css('datetime', 'datepicker.css');
+			$this->css('datepicker.css');
+			$this->js('jquery.datepicker.js');
 		}
 	}
 
@@ -70,11 +72,11 @@ class Field_datetime
 	 * @param	object
 	 * @return	mixed - true or error string
 	 */
-	public function validate($value, $mode, $field)
+	public function validate()
 	{
 		// Up front, let's determine if this 
 		// a required field.
-		$field_data = $this->CI->form_validation->field_data($field->field_slug);
+		$field_data = ci()->form_validation->field_data($this->field->field_slug);
 	
 		// Determine required
 		$rules = $field_data['rules'];
@@ -91,15 +93,10 @@ class Field_datetime
 		// required validation.
 		// -------------------------------
 
-		if ( ! isset($field->field_data['input_type']))
-		{
-			$field->field_data['input_type'] = 'datepicker';
-		}
-
-		if ($field->field_data['input_type'] == 'dropdown' and $required)
+		if ($this->getParameter('input_type', 'datepicker') == 'dropdown' and $required)
 		{
 			// Are all three fields available?
-			if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
+			if ( ! $_POST[$this->form_slug.'_month'] or ! $_POST[$this->form_slug.'_day'] or ! $_POST[$this->form_slug.'_year'])
 			{
 				return lang('required');
 			}
@@ -109,26 +106,26 @@ class Field_datetime
 		// Date Range Validation
 		// -------------------------------
 
-		if (is_array($restrict = $this->parse_restrict($field->field_data)))
+		if (is_array($restrict = $this->parse_restrict($this->field->field_data)))
 		{
 			// Man we gotta convert this now if it's the dropdown format
-			if ($field->field_data['input_type'] == 'dropdown')
+			if ($this->getParameter('input_type') == 'dropdown')
 			{
-				if (( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year']) and $required)
+				if (( ! $_POST[$this->form_slug.'_month'] or ! $_POST[$this->form_slug.'_day'] or ! $_POST[$this->form_slug.'_year']) and $required)
 				{
 					return lang('streams:invalid_input_for_date_range_check');
 				}
 
-				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
+				$this->value = ci()->input->post($this->form_slug.'_year').'-'.ci()->input->post($this->form_slug.'_month').'-'.ci()->input->post($this->form_slug.'_day');
 			}
 
 
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 
 			// Make sure input is in unix time
-			if ( ! is_numeric($value))
+			if ( ! is_numeric($this->value))
 			{
-				$value = mysql_to_unix($value);
+				$this->value = mysql_to_unix($this->value);
 			}
 
 			// Is either one blank? If so, we handle these
@@ -136,7 +133,7 @@ class Field_datetime
 			if ( ! $restrict['start_stamp'] and $restrict['end_stamp'])
 			{
 				// Is now after the future point
-				if ($value > $restrict['end_stamp'])
+				if ($this->value > $restrict['end_stamp'])
 				{
 					return lang('streams:date_out_or_range');
 				}
@@ -144,7 +141,7 @@ class Field_datetime
 			elseif ( ! $restrict['end_stamp'] and $restrict['start_stamp'])
 			{
 				// Is now before the past point
-				if ($value < $restrict['start_stamp'])
+				if ($this->value < $restrict['start_stamp'])
 				{
 					return lang('streams:date_out_or_range');
 				}
@@ -159,7 +156,7 @@ class Field_datetime
 			{
 				// Is the point before the start or
 				// after the end?
-				if ($value < $restrict['start_stamp'] or $value > $restrict['end_stamp'])
+				if ($this->value < $restrict['start_stamp'] or $this->value > $restrict['end_stamp'])
 				{ 
 					return lang('streams:date_out_or_range');
 				}
@@ -177,21 +174,17 @@ class Field_datetime
 	 * @param 	array
 	 * @return 	array or false
 	 */
-	private function parse_restrict($field_data)
+	private function parse_restrict()
 	{
 		if (
-			(isset($field_data['start_date']) and is_null($field_data['start_date'])) and 
-			(isset($field_data['end_date']) and is_null($field_data['end_date']))
+			( ! ($start_date = $this->getParameter('start_date')) and ! ($end_date = $this->getParameter('end_date')))
 		)
 		{
 			return false;
 		}
 
-		if ( ! isset($field_data['start_date'])) $field_data['start_date'] = null;
-		if ( ! isset($field_data['end_date'])) $field_data['end_date'] = null;
-
-		$start_restrict = $this->parse_single_restrict($field_data['start_date'], 'start');
-		$end_restrict 	= $this->parse_single_restrict($field_data['end_date'], 'end');
+		$start_restrict = $this->parse_single_restrict($start_date, 'start');
+		$end_restrict 	= $this->parse_single_restrict($end_date, 'end');
 
 		return array_merge($start_restrict, $end_restrict);
 	}
@@ -270,8 +263,9 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
+		//echo $this->field; exit;
 		// -------------------------------------
 		// Parse Date Range
 		// -------------------------------------
@@ -280,11 +274,8 @@ class Field_datetime
 		// of the date range.
 		// -------------------------------------
 
-		if ( ! isset($data['custom']['start_date'])) $data['custom']['start_date'] = null;
-		if ( ! isset($data['custom']['end_date'])) $data['custom']['end_date'] = null;
-
-		$start_restrict 	= $this->parse_single_restrict($data['custom']['start_date'], 'start', false);
-		$end_restrict 		= $this->parse_single_restrict($data['custom']['end_date'], 'end', false);
+		$start_restrict 	= $this->parse_single_restrict($this->getParameter('start_date'), 'start', false);
+		$end_restrict 		= $this->parse_single_restrict($this->getParameter('end_date'), 'end', false);
 
 		// -------------------------------------
 		// Get/Parse Current Date
@@ -292,18 +283,18 @@ class Field_datetime
 
 		// Update the value to datetime format if it is UNIX.
 		// The rest of the function expects datetime.
-		if (isset($data['custom']['storage']) and $data['custom']['storage'] == 'unix')
+		if ($this->getParameter('storage') == 'unix')
 		{
-			if (is_numeric($data['value']))
+			if (is_numeric($this->value))
 			{
-				$data['value'] = date('Y-m-d H:i:s', $data['value']);
+				$this->value = date('Y-m-d H:i:s', $this->value);
 			}
 		}
 		
-		$date = $this->get_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
+		$date = $this->get_date(trim($this->value), $this->field->field_slug, $this->getParameter('use_time'));
 
 		// Form input type. Defaults to datepicker
-		$input_type = ( ! isset($data['custom']['input_type'])) ? 'datepicker' : $data['custom']['input_type'];
+		$input_type = $this->getParameter('input_type', 'datepicker');
 
 		// This is our form output type
 		$date_input = null;
@@ -316,9 +307,9 @@ class Field_datetime
 		// of drop down menus.
 		// -------------------------------------
 		
-		$current_month = (isset($_POST[$data['form_slug'].'_month'])) ? $_POST[$data['form_slug'].'_month'] : $date['month'];
-		$current_day = (isset($_POST[$data['form_slug'].'_day'])) ? $_POST[$data['form_slug'].'_day'] : $date['day'];
-		$current_year = (isset($_POST[$data['form_slug'].'_year'])) ? $_POST[$data['form_slug'].'_year'] : $date['year'];
+		$current_month = (isset($_POST[$this->form_slug.'_month'])) ? $_POST[$this->form_slug.'_month'] : $date['month'];
+		$current_day = (isset($_POST[$this->form_slug.'_day'])) ? $_POST[$this->form_slug.'_day'] : $date['day'];
+		$current_year = (isset($_POST[$this->form_slug.'_year'])) ? $_POST[$this->form_slug.'_year'] : $date['year'];
 	
 		if ($input_type == 'datepicker')
 		{
@@ -342,10 +333,10 @@ class Field_datetime
 				$dp_mods[] = 'maxDate: "'.$end_restrict['jquery'].'"';	
 			}	
 				
-			$date_input = '<script>$(function() {$("#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).'});});</script>';
+			$date_input = '<script>$(function() {$("#datepicker_'.$this->form_slug.'" ).datepicker({ '.implode(', ', $dp_mods).'});});</script>';
 
-			$options['name'] 	= $data['form_slug'];
-			$options['id']		= 'datepicker_'.$data['form_slug'];
+			$options['name'] 	= $this->form_slug;
+			$options['id']		= 'datepicker_'.$this->form_slug;
 			
 			if ($date['year'] and $date['month'] and $date['day'])
 			{
@@ -361,7 +352,7 @@ class Field_datetime
 			// -------------------------------------
 
 			// Months
-			$this->CI->lang->load('calendar');
+			ci()->lang->load('calendar');
 
 			$month_names = array(
 				lang('cal_january'),
@@ -380,22 +371,22 @@ class Field_datetime
 
 			$months = array_combine($months = range(1, 12), $month_names);
 
-			if ($field->is_required == 'no')
+			if ($this->field->is_required == 'no')
 			{
 				$months = array('' => '---')+$months;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_month', $months, $current_month);
+			$date_input .= form_dropdown($this->field->field_slug.'_month', $months, $current_month);
 
 			// Days
 			$days = array_combine($days = range(1, 31), $days);
 
-			if ($field->is_required == 'no')
+			if ($this->field->is_required == 'no')
 			{
 				$days = array('' => '---')+$days;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_day', $days, $current_day);
+			$date_input .= form_dropdown($this->field->field_slug.'_day', $days, $current_day);
 
 			// Years. The defauly is 100 years
 			// ago to now.
@@ -419,19 +410,19 @@ class Field_datetime
 			$years = array_combine($years = range($start_year, $end_year), $years);
 	    	arsort($years, SORT_NUMERIC);
 
-			if ($field->is_required == 'no')
+			if ($this->field->is_required == 'no')
 			{
 				$years = array('' => '---')+$years;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_year', $years, $current_year);
+			$date_input .= form_dropdown($this->field->field_slug.'_year', $years, $current_year);
 		}
 					
 		// -------------------------------------
 		// Time
 		// -------------------------------------
 		
-		if ($data['custom']['use_time'] == 'yes')
+		if ($this->getParameter('use_time') == 'yes')
 		{
 			// Hour	
 			$hour_count = 0;
@@ -452,7 +443,7 @@ class Field_datetime
 				$hour_count++;
 			}
 
-			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($data['form_slug'].'_hour', $hours, $date['hour'], 'style="min-width: 100px; width:100px;"');
+			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($this->field->field_slug.'_hour', $hours, $date['hour'], 'style="min-width: 100px; width:100px;"');
 			
 			// Minute
 			$minute_count = 0;
@@ -473,15 +464,15 @@ class Field_datetime
 				$minute_count++;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_minute', $minutes, $date['minute'], 'style="min-width: 100px; width:100px;"');
+			$date_input .= form_dropdown($this->field->field_slug.'_minute', $minutes, $date['minute'], 'style="min-width: 100px; width:100px;"');
 		
 			// AM/PM
 			$am_pm = array('am' => 'am', 'pm' => 'pm');
 			
 			// Is this AM or PM?
-			if ($this->CI->input->post($data['form_slug'].'_am_pm'))
+			if (ci()->input->post($this->form_slug.'_am_pm'))
 			{
-				$am_pm_current = $this->CI->input->post($data['form_slug'].'_am_pm');
+				$am_pm_current = ci()->input->post($this->form_slug.'_am_pm');
 			}
 			else
 			{
@@ -496,7 +487,7 @@ class Field_datetime
 				}
 			}
 			
-			$date_input .= form_dropdown($data['form_slug'].'_am_pm', $am_pm, $am_pm_current, 'style="min-width: 100px; width:100px;"');
+			$date_input .= form_dropdown($this->field->field_slug.'_am_pm', $am_pm, $am_pm_current, 'style="min-width: 100px; width:100px;"');
 		
 		}
 
@@ -505,7 +496,7 @@ class Field_datetime
 		{
 			// We always set this to 1 because we are performing
 			// the required check in the validate function.
-			$date_input .= form_hidden($data['form_slug'], '1');
+			$date_input .= form_hidden($this->field->field_slug, '1');
 		}
 
 		return $date_input;
@@ -518,28 +509,25 @@ class Field_datetime
 	 *
 	 * Before we add the field to a stream 
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @return	void
 	 */
-	public function field_assignment_construct($field, $stream)
+	public function field_assignment_construct()
 	{
 		// Is this in UNIX time?
-		if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+		if ($this->getParameter('storage') == 'unix')
 		{	
 			$this->db_col_type = 'int';
-			return true;
 		}
-		else
+		// If not unix, let's see if we can need the
+		// time part in our MySQL date/time
+		elseif ($this->getParameter('use_time') == 'no')
 		{
-			// If not unix, let's see if we can need the
-			// time part in our MySQL date/time
-			if ($field->field_data['use_time'] == 'no')
-			{
-				$this->db_col_type = 'date';
-			}
+			$this->db_col_type = 'date';
 		}
+
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -557,25 +545,25 @@ class Field_datetime
 	public function alt_rename_column($field, $stream, $assignment)
 	{
 		// What do we need to switch to?
-		if ($this->CI->input->post('storage') == 'unix')
+		if (ci()->input->post('storage') == 'unix')
 		{
 			$type = 'int';
 		}
 		else
 		{
-			$type = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
+			$type = (ci()->input->post('use_time') == 'yes') ? 'datetime' : 'date';
 		}
 
-		$col_data = $this->CI->fields_m->field_data_to_col_data($this->CI->type->types->{$field->field_type}, $this->CI->input->post(), 'edit');
+		$col_data = ci()->fields_m->field_data_to_col_data(ci()->type->types->{$this->field->field_type}, ci()->input->post(), 'edit');
 
 		$col_data['type'] = strtoupper($type);
 
-		$this->CI->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $col_data));
+		ci()->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($this->field->field_slug => $col_data));
 	}
 
 	// --------------------------------------------------------------------------
 
-	public function form_data($key, $form_data)
+	public function form_data($key)
 	{
 		if (isset($form_data[$key]))
 		{
@@ -597,25 +585,25 @@ class Field_datetime
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $form_data)
+	public function pre_save()
 	{
 		// -------------------------------------
 		// Date
 		// -------------------------------------
 
-		$input_type = ( ! isset($field->field_data['input_type'])) ? 'datepicker' : $field->field_data['input_type'];
+		$input_type = $this->getParameter('input_type', 'datepicker');
 
 		if ($input_type == 'datepicker')
 		{
 			// No collecting data necessary
-			$date = $this->form_data($field->field_slug, $form_data);
+			$date = $this->getFormData($this->form_slug);
 		}
 		else
 		{
 			// Get from post data
-			$date = $this->form_data($field->field_slug.'_year', $form_data).
-				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_month', $form_data)).
-				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_day', $form_data));
+			$date = $this->getFormData($this->form_slug.'_year').
+				'-'.$this->two_digit_number($this->getFormData($this->form_slug.'_month')).
+				'-'.$this->two_digit_number($this->getFormData($this->form_slug.'_day'));
 		}
 
 		// -------------------------------------
@@ -625,13 +613,13 @@ class Field_datetime
 		// a completely null value 
 		// -------------------------------------
 
-		if ( ! $input or $date == '-00-00' or $date == '0000-00-00')
+		if ( ! $this->value or $date == '-00-00' or $date == '0000-00-00')
 		{
-			if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+			if ($this->getParameter('storage') == 'unix')
 			{
 				return '0';
 			}
-			elseif (isset($field->field_data['storage']) and $field->field_data['storage'] == 'date')
+			elseif ($this->getParameter('storage') == 'date')
 			{
 				return '0000-00-00';
 			}
@@ -645,14 +633,14 @@ class Field_datetime
 		// Time
 		// -------------------------------------
 
-		if ($field->field_data['use_time'] == 'yes')
+		if ($this->getParameter('use_time') == 'yes')
 		{
 			// Hour
-			if ($this->form_data($field->field_slug.'_hour', $form_data))
+			if ($this->getFormData($this->form_slug.'_hour'))
 			{
-				$hour = $this->form_data($field->field_slug.'_hour', $form_data);
+				$hour = $this->getFormData($this->form_slug.'_hour');
 	
-				if ($this->form_data($field->field_slug.'_am_pm', $form_data) == 'pm' and $hour < 12)
+				if ($this->getFormData($this->form_slug.'_am_pm') == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -663,9 +651,9 @@ class Field_datetime
 			}
 			
 			// Minute
-			if ($this->form_data($field->field_slug.'_minute', $form_data))
+			if ($this->getFormData($this->form_slug.'_minute'))
 			{
-				$minute = $this->form_data($field->field_slug.'_minute', $form_data);
+				$minute = $this->getFormData($this->form_slug.'_minute');
 			}				
 			else
 			{
@@ -673,7 +661,7 @@ class Field_datetime
 			}
 		}
 		
-		if ($field->field_data['use_time'] == 'yes')
+		if ($this->getParameter('use_time') == 'yes')
 		{
 			$date .= ' '.$hour.':'.$minute.':00';
 		}
@@ -682,9 +670,9 @@ class Field_datetime
 		// Return based on storage format
 		// -------------------------------------
 
-		if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+		if ($this->getParameter('storage') == 'unix')
 		{	
-			$this->CI->load->helper('date');
+			ci()->load->helper('date');
 			return mysql_to_unix($date);
 		}
 		
@@ -856,7 +844,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -869,7 +857,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_end_date($value = '')
+	public function param_end_date($value = null)
 	{
 		$options['name'] 	= 'end_date';
 		$options['id']		= 'end_date';
@@ -877,7 +865,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -890,7 +878,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_use_time($value = '')
+	public function param_use_time($value = null)
 	{
 		if ($value == 'no')
 		{
@@ -964,27 +952,27 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input, $params)
+	public function pre_output()
 	{
 		// Don't show Dec 31st if empty silly
-		if ( $input == null ) return null;
+		if ( $this->value == null ) return null;
 		
 		// If this is a date-time stored value,
 		// we need this to be converted to UNIX.
-		if ( ! isset($params['storage']) or $params['storage'] == 'datetime')
+		if ($this->getParameter('storage') == 'datetime')
 		{
-			$this->CI->load->helper('date');
-			$input = mysql_to_unix($input);
+			ci()->load->helper('date');
+			$this->value = mysql_to_unix($this->value);
 		}
 		
 		// Format for admin
-		if ($params['use_time'] == 'no')
+		if ($this->getParameter('use_time') == 'no')
 		{
-			return(date(Settings::get('date_format'), $input));
+			return(date(Settings::get('date_format'), $this->value));
 		}	
 		else
 		{
-			return(date(Settings::get('date_format').' g:i a', $input));
+			return(date(Settings::get('date_format').' g:i a', $this->value));
 		}
 	}
 
@@ -999,18 +987,18 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin($input, $params, $row_slug)
+	public function pre_output_plugin()
 	{
-		if ( ! $input) return null;
+		if ( ! $this->value) return null;
 
-		if ( ! is_numeric($input))
+		if ( ! is_numeric($this->value))
 		{
-			$this->CI->load->helper('date');
-			return mysql_to_unix($input);
+			ci()->load->helper('date');
+			return mysql_to_unix($this->value);
 		}
 		else
 		{
-			return $input;
+			return $this->value;
 		}
 	}
 	

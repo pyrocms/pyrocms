@@ -3,6 +3,7 @@
 use Pyro\Module\Users;
 use Pyro\Module\Navigation;
 use Pyro\Module\Pages;
+use Pyro\Module\Addons;
 
 /**
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
@@ -93,8 +94,7 @@ class Admin extends Admin_Controller
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->lang->load('navigation');
-		$this->load->model('module_m');
-
+		
 		$this->template
 			->append_js('module::navigation.js')
 			->append_css('module::navigation.css');
@@ -102,7 +102,7 @@ class Admin extends Admin_Controller
 		// Get Navigation Groups
 		$this->template->groups 		= Navigation\Model\Group::all();
 		$this->template->groups_select 	= Navigation\Model\Group::getGroupOptions();
-		$all_modules = $this->module_m->get_all(array('is_frontend'=>true));
+		$all_modules = $this->moduleManager->getAll(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module) {
@@ -182,7 +182,7 @@ class Admin extends Admin_Controller
 
 		$ids = explode(',', $link->restricted_to);
 
-		$group_options = Users\Model\Group::findManyInId($ids);
+		$group_options = Users\Model\Group::findManyGroupOptionsInId($ids);
 
 		$link->restricted_to = implode(', ', $group_options);
 

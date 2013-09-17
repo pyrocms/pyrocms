@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Relationship Field Type
  *
@@ -9,11 +11,11 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_relationship
+class Field_relationship extends AbstractField
 {
 	public $field_type_slug			= 'relationship';
 
-	public $db_col_type				= 'int';
+	public $db_col_type				= 'integer';
 
 	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
@@ -40,28 +42,28 @@ class Field_relationship
 	public function form_output($data, $entry_id, $field)
 	{
 		// Get slug stream
-		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
+		$stream = ci()->streams_m->get_stream($data['custom']['choose_stream']);
 
 		if (! $stream) {
-			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
+			return '<em>'.ci()->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
 
 		// Default to ID for title column
-		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug)) {
+		if ( ! trim($title_column) or !ci()->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug)) {
 			$title_column = 'id';
 		}
 
 		// Get the entries
-		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
+		$obj = ci()->db->get($stream->stream_prefix.$stream->stream_slug);
 
 		$choices = array();
 
 		// If this is not required, then
 		// let's allow a null option
 		if ($field->is_required == 'no') {
-			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+			$choices[null] = ci()->config->item('dropdown_choose_null');
 		}
 
 		foreach ($obj->result() as $row) {
@@ -86,7 +88,7 @@ class Field_relationship
 
 		// Now get our streams and add them
 		// under their namespace
-		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
+		$streams = ci()->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
 
 		foreach ($streams as $stream) {
 			if ($stream->stream_namespace) {
@@ -114,7 +116,7 @@ class Field_relationship
 	{
 		if ( ! $input) return null;
 
-		$stream = $this->CI->streams_m->get_stream($data['choose_stream']);
+		$stream = ci()->streams_m->get_stream($data['choose_stream']);
 
 		$title_column = $stream->title_column;
 
@@ -124,7 +126,7 @@ class Field_relationship
 
 		// Make sure the table exists still. If it was deleted we don't want to
 		// have everything go to hell.
-		if ( ! $this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug)) {
+		if ( ! ci()->db->table_exists($stream->stream_prefix.$stream->stream_slug)) {
 			return null;
 		}
 
@@ -138,13 +140,13 @@ class Field_relationship
 		// Get the entry
 		// -------------------------------------
 
-		$row = $this->CI->db
+		$row = ci()->db
 						->select()
 						->where('id', $input)
 						->get($stream->stream_prefix.$stream->stream_slug)
 						->row_array();
 		
-		if ($this->CI->uri->segment(1) == 'admin')
+		if (ci()->uri->segment(1) == 'admin')
 		{
 			if (isset($data['link_uri']) and ! empty($data['link_uri']))
 			{
@@ -186,7 +188,7 @@ class Field_relationship
 		}
 
 		// Get our related stream.
-		$rel_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
+		$rel_stream = ci()->streams_m->get_stream($field->field_data['choose_stream']);
 
 		if (! $rel_stream) {
 			return null;
@@ -200,16 +202,16 @@ class Field_relationship
 		$sql['select'][] = '`'.$alias.'`.`ordering_count` as `'.$field->field_slug.'||ordering_count`';
 
 		// Get stream fields.
-		$stream_fields = $this->CI->streams_m->get_stream_fields($rel_stream->id);
+		$stream_fields = ci()->streams_m->get_stream_fields($rel_stream->id);
 
 		foreach ($stream_fields as $field_slug => $stream_field)
 		{
-			if (! $this->CI->db->field_exists($field_slug, $rel_stream->stream_prefix.$rel_stream->stream_slug)) continue;
+			if (! ci()->db->field_exists($field_slug, $rel_stream->stream_prefix.$rel_stream->stream_slug)) continue;
 			
 			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
 		}
 
-		$sql['join'][] = 'LEFT JOIN '.$this->CI->db->protect_identifiers($rel_stream->stream_prefix.$rel_stream->stream_slug, true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.$this->CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
+		$sql['join'][] = 'LEFT JOIN '.ci()->db->protect_identifiers($rel_stream->stream_prefix.$rel_stream->stream_slug, true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.ci()->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
 	}
 
 	// --------------------------------------------------------------------------
@@ -234,14 +236,14 @@ class Field_relationship
 		}
 
 		// Okay good to go
-		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
+		$stream = ci()->streams_m->get_stream($custom['choose_stream']);
 
 		// Do this gracefully
 		if (! $stream) {
 			return null;
 		}
 
-		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
+		$stream_fields = ci()->streams_m->get_stream_fields($stream->id);
 
 		// We should do something with this in the future.
 		$disable = array();
@@ -249,10 +251,10 @@ class Field_relationship
 		// Load our row data if needed
 		if (! is_array($row) and ! is_object($row))
 		{
-			$row = (array) $this->CI->db->select()->where('id', $row)->limit(1)->get($stream->stream_prefix.$stream->stream_slug)->row(0);
+			$row = (array) ci()->db->select()->where('id', $row)->limit(1)->get($stream->stream_prefix.$stream->stream_slug)->row(0);
 		}
 
-		return $this->CI->row_m->format_row($row, $stream_fields, $stream, false, true, $disable);
+		return ci()->row_m->format_row($row, $stream_fields, $stream, false, true, $disable);
 	}
 
 }

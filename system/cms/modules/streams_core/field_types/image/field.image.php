@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Image Field Type
  *
@@ -9,12 +11,13 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_image
+class Field_image extends AbstractField
 {
 	public $field_type_slug			= 'image';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'char';
+	public $db_col_type				= 'string';
+
 	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
@@ -29,13 +32,13 @@ class Field_image
 
 	public function __construct()
 	{
-		get_instance()->load->library('image_lib');
+		ci()->load->library('image_lib');
 	}
 
 	public function event()
 	{
-		$this->CI->type->add_js('image', 'imagefield.js');
-		$this->CI->type->add_css('image', 'imagefield.css');		
+		$this->js('imagefield.js');
+		$this->css('imagefield.css');		
 	}
 
 	// --------------------------------------------------------------------------
@@ -49,7 +52,7 @@ class Field_image
 	 */
 	public function form_output($params)
 	{
-		$this->CI->load->config('files/files');
+		ci()->load->config('files/files');
 
 		$out = '';
 		// if there is content and it is not dummy or cleared
@@ -96,7 +99,7 @@ class Field_image
 			}
 		}
 
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
 		// Resize options
 		$resize_width 	= (isset($field->field_data['resize_width'])) ? $field->field_data['resize_width'] : null;
@@ -110,7 +113,7 @@ class Field_image
 
 		if ( ! $return['status'])
 		{
-			$this->CI->session->set_flashdata('notice', $return['message']);
+			ci()->session->set_flashdata('notice', $return['message']);
 			return null;
 		}
 		else
@@ -134,7 +137,7 @@ class Field_image
 		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
-		$image = $this->CI->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
+		$image = ci()->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
 
 		if ( ! $image) return null;
 
@@ -161,9 +164,9 @@ class Field_image
 	{
 		if ( ! $input or $input == 'dummy' ) return null;
 
-		$this->CI->load->library('files/files');
+		ci()->load->library('files/files');
 
-		$file = Files::get_file($input);
+		$file = Files::getFile($input);
 
 		if ($file['status'])
 		{
@@ -173,7 +176,7 @@ class Field_image
 			// older style image, so let's create a local file path.
 			if ( ! $image->path)
 			{
-				$image_data['image'] = base_url($this->CI->config->item('files:path').$image->filename);
+				$image_data['image'] = base_url(ci()->config->item('files:path').$image->filename);
 			}
 			else
 			{
@@ -218,9 +221,9 @@ class Field_image
 	public function param_folder($value = null)
 	{
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		ci()->load->model('files/file_folders_m');
 
-		$tree = $this->CI->file_folders_m->get_folders();
+		$tree = ci()->file_folders_m->get_folders();
 
 		$tree = (array)$tree;
 

@@ -122,12 +122,12 @@ class Module_Navigation extends AbstractModule
         ));
 
         $pdb->table('navigation_links')->insert(array(
-            array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
-            array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 2, 'navigation_group_id' => 1, 'position' => 3,),
+            array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1, 'parent' => 0,),
+            array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 2, 'navigation_group_id' => 1, 'position' => 3, 'parent' => 0,),
         ));
         
         $pdb->table('navigation_links')->insert(array(
-            array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
+            array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog', 'parent' => 0,),
         ));
 	}
 

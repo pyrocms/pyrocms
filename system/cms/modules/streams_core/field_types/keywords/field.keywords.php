@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
+
 /**
  * PyroStreams Keywords Field Type
  *
@@ -9,10 +11,10 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Field_keywords
+class Field_keywords extends AbstractField
 {
 	public $field_type_slug    = 'keywords';
-	public $db_col_type        = 'varchar';
+	public $db_col_type        = 'string';
 	public $version            = '1.1.0';
 	public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
 	public $custom_parameters  = array('return_type');
@@ -22,7 +24,7 @@ class Field_keywords
 	public function __construct()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->library('keywords/keywords');
+		ci()->load->library('keywords/keywords');
 	}
 
 	// --------------------------------------------------------------------------
@@ -46,9 +48,9 @@ class Field_keywords
 
 	public function event($field)
 	{
-		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
-		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
-		$this->CI->type->add_js('keywords', 'keywords.js');
+		ci()->template->append_css('jquery/jquery.tagsinput.css');
+		ci()->template->append_js('jquery/jquery.tagsinput.js');
+		$this->js('keywords.js');
 	}
 
 	public function pre_save($input)
@@ -84,7 +86,7 @@ class Field_keywords
 	public function param_return_type($value = 'array')
 	{
 		return array(
-			'instructions' => $this->CI->lang->line('streams:keywords.return_type.instructions'),
+			'instructions' => ci()->lang->line('streams:keywords.return_type.instructions'),
 			'input' =>
 				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
 				// String gets set as default for backwards compat

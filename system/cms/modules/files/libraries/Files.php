@@ -1,9 +1,10 @@
 <?php
 
+use Cartalyst\Sentry\Users\Eloquent\User;
+
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
 use Pyro\Module\Keywords\Model\Applied;
-use Pyro\Module\Users\Model\User;
 
 /**
  * PyroCMS File library.
@@ -56,7 +57,7 @@ class Files
 		set_exception_handler(array($this, 'exceptionHandler'));
 		set_error_handler(array($this, 'errorHandler'));
 
-		ci()->load->spark('cloudmanic-storage/1.0.4');
+		//ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
 
 	// ------------------------------------------------------------------------
@@ -935,12 +936,18 @@ class Files
 	**/
 	public static function allowedActions(User $user)
 	{
+		if (is_null($user)) {
+			throw new InvalidArgumentException('Argument #1 $user cannot be null.');
+		}
+
 		return array_map(function($role) use ($user) {
+
 			// build a simplified permission list for use in this module
 			if ($user->hasAccess("files.{$value}")) {
 				return $value;
 			}
-		}, ci()->module_m->roles('files'));
+			
+		}, ci()->moduleManager->roles('files'));
 	}
 
 	// ------------------------------------------------------------------------

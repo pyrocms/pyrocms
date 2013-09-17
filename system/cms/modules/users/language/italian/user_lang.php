@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Aggiungi un campo per il profilo Utente';
 $lang['user:profile_delete_success']           	= 'Campo per il profilo utente eliminato con successo';
 $lang['user:profile_delete_failure']            = 'Si è verificato un problema nel cancellare il campo per il profilo utente';
-$lang['profile_user_basic_data_label']  		= 'Dati di base';
-$lang['profile_company']         	  			= 'Società';
-$lang['profile_updated_on']           			= 'Aggiornato il';
+$lang['user:profile_user_basic_data_label']  	= 'Dati di base';
+$lang['user:profile_company']         	  		= 'Società';
+$lang['user:profile_updated_on']           		= 'Aggiornato il';
 $lang['user:profile_fields_label']	 		 	= 'Campo del profilo';
 
 $lang['user:register_header'] 			= 'Registrazione';
@@ -154,59 +154,59 @@ $lang['user:reset_pass_email_subject'] 			= 'Password Reset';
 $lang['user:reset_pass_email_body'] 			= 'La tua password di %s è stata resettata. Se non hai richiesto questa modifica inviaci per favore una email a %s e risolveremo il problema.';
 
 // Profile
-$lang['profile_of_title'] 				= 'Profilo di %s';
+$lang['user:profile_of_title'] 				= 'Profilo di %s';
 
-$lang['profile_user_details_label'] 	= 'Dettagli utente';
-$lang['profile_role_label'] 			= 'Ruolo';
-$lang['profile_registred_on_label'] 	= 'Registrato il';
-$lang['profile_last_login_label'] 		= 'Ultimo accesso';
-$lang['profile_male_label'] 			= 'Uomo';
-$lang['profile_female_label'] 			= 'Donna';
+$lang['user:profile_user_details_label'] 	= 'Dettagli utente';
+$lang['user:profile_role_label'] 			= 'Ruolo';
+$lang['user:profile_registred_on_label'] 	= 'Registrato il';
+$lang['user:profile_last_login_label'] 		= 'Ultimo accesso';
+$lang['user:profile_male_label'] 			= 'Uomo';
+$lang['user:profile_female_label'] 			= 'Donna';
 
-$lang['profile_not_set_up'] 			= 'Questo utente non ha impostao un profilo.';
+$lang['user:profile_not_set_up'] 			= 'Questo utente non ha impostao un profilo.';
 
-$lang['profile_edit'] 					= 'Modifica il tuo profilo';
+$lang['user:profile_edit'] 					= 'Modifica il tuo profilo';
 
-$lang['profile_personal_section'] 		= 'Personale';
+$lang['user:profile_personal_section'] 		= 'Personale';
 
-$lang['profile_display_name']			= 'Nome visualizzato';
-$lang['profile_dob']					= 'Data di nascita';
-$lang['profile_dob_day']				= 'Giorno';
-$lang['profile_dob_month']				= 'Mese';
-$lang['profile_dob_year']				= 'Anno';
-$lang['profile_gender']					= 'Sesso';
-$lang['profile_gender_nt']            = 'Non specificato';
-$lang['profile_gender_male']          = 'Maschio';
-$lang['profile_gender_female']        = 'Femmina';
-$lang['profile_bio']					= 'Biografia';
+$lang['user:profile_display_name']			= 'Nome visualizzato';
+$lang['user:profile_dob']					= 'Data di nascita';
+$lang['user:profile_dob_day']				= 'Giorno';
+$lang['user:profile_dob_month']				= 'Mese';
+$lang['user:profile_dob_year']				= 'Anno';
+$lang['user:profile_gender']					= 'Sesso';
+$lang['user:profile_gender_nt']            = 'Non specificato';
+$lang['user:profile_gender_male']          = 'Maschio';
+$lang['user:profile_gender_female']        = 'Femmina';
+$lang['user:profile_bio']					= 'Biografia';
 
-$lang['profile_contact_section'] 		= 'Contatti';
+$lang['user:profile_contact_section'] 		= 'Contatti';
 
-$lang['profile_phone']					= 'Telefono';
-$lang['profile_mobile']					= 'Cellulare';
-$lang['profile_address']				= 'Indirizzo';
-$lang['profile_address_line1'] 			= 'Linea #1';
-$lang['profile_address_line2'] 			= 'Linea #2';
-$lang['profile_address_line3'] 			= 'Linea #3';
-$lang['profile_address_postcode'] 		= 'CAP';
-$lang['profile_website']				= 'Sito';
+$lang['user:profile_phone']					= 'Telefono';
+$lang['user:profile_mobile']					= 'Cellulare';
+$lang['user:profile_address']				= 'Indirizzo';
+$lang['user:profile_address_line1'] 			= 'Linea #1';
+$lang['user:profile_address_line2'] 			= 'Linea #2';
+$lang['user:profile_address_line3'] 			= 'Linea #3';
+$lang['user:profile_address_postcode'] 		= 'CAP';
+$lang['user:profile_website']				= 'Sito';
 
-$lang['profile_messenger_section'] 		= 'Messagistica istantanea';
+$lang['user:profile_messenger_section'] 		= 'Messagistica istantanea';
 
-$lang['profile_msn_handle'] 			= 'MSN';
-$lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'Yahoo! messenger';
-$lang['profile_gtalk_handle'] 			= 'GTalk';
+$lang['user:profile_msn_handle'] 			= 'MSN';
+$lang['user:profile_aim_handle'] 			= 'AIM';
+$lang['user:profile_yim_handle'] 			= 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle'] 			= 'GTalk';
 
-$lang['profile_avatar_section'] 		= 'Avatar';
-$lang['profile_social_section'] 		= 'Social';
+$lang['user:profile_avatar_section'] 		= 'Avatar';
+$lang['user:profile_social_section'] 		= 'Social';
 
-$lang['profile_gravatar'] 				= 'Gravatar';
-$lang['profile_twitter'] 				= 'Twitter';
+$lang['user:profile_gravatar'] 				= 'Gravatar';
+$lang['user:profile_twitter'] 				= 'Twitter';
 
-$lang['profile_edit_success'] 			= 'Il tuo profilo è stato salvato.';
-$lang['profile_edit_error'] 			= 'Si è verificato un errore.';
+$lang['user:profile_edit_success'] 			= 'Il tuo profilo è stato salvato.';
+$lang['user:profile_edit_error'] 			= 'Si è verificato un errore.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= 'Salva profilo';
+$lang['user:profile_save_btn'] 				= 'Salva profilo';
