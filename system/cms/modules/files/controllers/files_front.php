@@ -232,7 +232,7 @@ class Files_front extends Public_Controller
 			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
 		{
 			// Send 304 back to browser if file has not beeb changed
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $time).' GMT', true, 304);
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $thumb_modified).' GMT', true, 304);
 			exit;
 		}
 
