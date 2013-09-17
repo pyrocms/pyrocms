@@ -46,7 +46,7 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace)->enableEagerFieldRelations(true);
 
 		$instance->data->stream = $instance->model->getStream();
 
@@ -234,13 +234,16 @@ class Entries extends AbstractCp
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 
 		// Allow to modify the query before we execute it
-		$this->fireOnQuery($this->model);
+		if ($model = $this->fireOnQuery($this->model))
+		{
+			$this->model = $model;
+		}
 
   		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
 
- 		$this->data->view_options 	= $this->model->getViewOptions();
+ 		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 
-  		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+  		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
 
   		// @todo - fix pagination
 

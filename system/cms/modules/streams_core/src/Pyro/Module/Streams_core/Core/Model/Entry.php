@@ -72,6 +72,24 @@ class Entry extends EntryOriginal
     protected $plugin = true;
 
     /**
+     * An array of field slugs that will eager load relations
+     * @var array
+     */
+    protected $eager_field_relations = array();
+
+    /**
+     * Enable or disable eager loading field type relations
+     * @var boolean
+     */
+    protected $enable_eager_field_relations = false;
+
+    /**
+     * Enable or disable field relations for a query
+     * @var boolean
+     */
+    protected $enable_field_relations = false;
+
+    /**
      * Plugin values
      * @var array
      */
@@ -198,6 +216,35 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    public function getEagerFieldRelations()
+    {
+        return $this->eager_field_relations;
+    }
+
+    /**
+     * Set format
+     * @param boolean $format
+     */
+    public function enableFieldRelations($enable_field_relations = false)
+    {
+        $this->enable_field_relations = $enable_field_relations;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable eager loading of field relations
+     * @param boolean $format
+     */
+    public function enableEagerFieldRelations($enable_eager_field_relations = false)
+    {
+        $this->enableFieldRelations($enable_eager_field_relations);
+
+        $this->enable_eager_field_relations = $enable_eager_field_relations;
+
+        return $this;
+    }
+
     /**
      * Is formatted
      * @return boolean
@@ -214,6 +261,42 @@ class Entry extends EntryOriginal
     public function isPlugin()
     {
         return $this->plugin;
+    }
+
+    /**
+     * Is field relations enabled
+     * @return boolean
+     */
+    public function isEnableFieldRelations()
+    {
+        return $this->enable_field_relations;
+    }
+
+    /**
+     * Is eager loading field relations enabled
+     * @return boolean
+     */
+    public function isEnableEagerFieldRelations()
+    {
+        return $this->enable_eager_field_relations;
+    }
+
+    public function setEagerFieldRelations($field_slugs = array())
+    {
+        if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
+        {
+            $eager_field_relations = array();
+
+            foreach ($field_slugs as $field_slug)
+            {
+                if ($type = $this->getFieldType($field_slug) and $type->hasRelation())
+                {
+                    $eager_field_relations[] = $field_slug;
+                }
+            }
+
+            $this->eager_field_relations = $eager_field_relations;
+        }
     }
 
     /**
@@ -305,6 +388,19 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Being querying a model with eager loading.
+     *
+     * @param  array|string  $relations
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public static function with($relations)
+    {
+        if (is_string($relations)) $relations = func_get_args();
+
+        return static::$instance->newQuery()->with($relations);
+    }
+
+    /**
      * Save the model to the database.
      *
      * @param  array  $options
@@ -320,6 +416,12 @@ class Entry extends EntryOriginal
         
         $types = array();
 
+        // Set created_by only when the entry is new
+        if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
+        {
+            $this->setAttribute('created_by', ci()->current_user->id);
+        }
+        
         if ( ! $fields->isEmpty())
         {
             foreach ($fields as $field)
@@ -675,53 +777,6 @@ class Entry extends EntryOriginal
         }
 */
         return $query->get();
-    }
-
-    /**
-     * Get an attribute from the model.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function getAttribute($key)
-    {
-        $inAttributes = array_key_exists($key, $this->attributes);
-
-        // If the key references an attribute, we can just go ahead and return the
-        // plain attribute value from the model. This allows every attribute to
-        // be dynamically accessed through the _get method without accessors.
-        if ($inAttributes or $this->hasGetMutator($key))
-        {
-            return $this->getAttributeValue($key);
-        }
-
-        // If the key already exists in the relationships array, it just means the
-        // relationship has already been loaded, so we'll just return it out of
-        // here because there is no need to query within the relations twice.
-        if (array_key_exists($key, $this->relations))
-        {
-            return $this->relations[$key];
-        }
-
-        // If the field type has a relationship, get the results
-        if ($this->isFormat() and $type = $this->getFieldType($key) and method_exists($type, 'relation'))
-        {
-            $relations = $type->relation()->getResults();
-
-            return $this->relations[$key] = $relations;          
-        }
-
-        // If the "attribute" exists as a method on the model, we will just assume
-        // it is a relationship and will load and return results from the query
-        // and hydrate the relationship's value on the "relationships" array.
-        $camelKey = camel_case($key);
-
-        if (method_exists($this, $camelKey))
-        {
-            $relations = $this->$camelKey()->getResults();
-
-            return $this->relations[$key] = $relations;
-        }
     }
 
     /**
