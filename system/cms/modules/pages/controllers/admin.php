@@ -251,7 +251,7 @@ class Admin extends Admin_Controller
 
         //$stream_validation = $this->_setup_stream_fields($stream);
 
-        $enable_profile_post = false;
+        $enable_post = false;
 
         if ($input = ci()->input->post()) {
 
@@ -280,17 +280,24 @@ class Admin extends Admin_Controller
             $page->is_home          = ! empty($input['is_home']);
             $page->order            = time();
 
-            // Insert the page data, along with
-            if ($enable_profile_post = $page->save()) {
+            // Always set the uri for root pages
+            if ( ! ($page->parent_id > 0) and isset($input['slug']))
+            {   
+                $page->uri = $input['slug'];
+            }
 
-                if ( ! empty($input['is_home'])) {
+            // Insert the page data, along with
+            if ($enable_post = $page->save())
+            {
+                $page->buildLookup();
+                
+                if ( ! empty($input['is_home']))
+                {
                     $page->setHomePage();
                 }
 
                 // We define this for the field type
                 define('PAGE_ID', $page->id);
-
-                $page->buildLookup();
 
                 // Add a Navigation Link
                 if ( ! empty($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
@@ -313,74 +320,25 @@ class Admin extends Admin_Controller
                     }
                 }
 
-                // Add the stream data.
-/*                if ($stream) {
-                    $this->load->driver('Streams');
-
-                    // Insert the stream using the streams driver.
-                    if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace)) {
-                        // Update with our new entry id
-                        if ( ! $this->db->limit(1)->where('id', $page->id)->update('pages', array('entry_id' => $entry_id))) {
-                            return false;
-                        }
-                    } else {
-                        // Something went wrong. Abort!
-                        return false;
-                    }
-                }*/
-
                 //$this->cache->clear('page_m');
 
                 Events::trigger('page_created', $page);
-
-/*                $this->session->set_flashdata('success', lang('pages:create_success'));
-
-                // Redirect back to the form or main page
-                $input['btnAction'] === 'save_exit'
-                    ? redirect('admin/pages')
-                    : redirect('admin/pages/edit/'.$page->id);*/
-
             }
         }
-
-        // Go through our stream fields and set the current value
-        // for the form. Since we are creating a new form, this should
-        // simply be the post data if it is available.
-/*        $assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
-        $page_content_data = array();
-
-        if ($assignments) {
-            foreach ($assignments as $assign) {
-                $page_content_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-            }
-        }
-
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
-
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, null, 'new');
 
         // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);*/
+        //$this->fields->run_field_events($stream_fields, array(), $values);*/
 
         // Set some data that both create and edit forms will need
         $this->_form_data();
 
-        // Load WYSIWYG editor
-/*        $this->template
-            ->title($this->module_details['name'], lang('pages:create_title'))
-            ->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
-            ->set('page', $page)
-            ->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
-            ->build('admin/form');*/
-
         $this->form_data['page'] = $page;
 
         Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
-            ->enablePost($enable_profile_post) // This will interrupt submittion for the entry if the page was not created
+            ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
             ->onSaved(function($entry) use ($page)
             {
-                $page->entry_id = $entry->getKey();
+                $page->entry()->associate($entry); // Save the relation Eloquent style
                 $page->save();
             })
             ->tabs($this->_tabs())
@@ -425,7 +383,7 @@ class Admin extends Admin_Controller
         }
 
         $stream = $page->type->stream;
-
+        $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
         //$stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
         // If there's a keywords hash
@@ -457,7 +415,7 @@ class Admin extends Admin_Controller
             }
 
             // Translate the data of restricted_to to something we can use in the form.
-            if ($input['restricted_to'][0] == '') {
+            if (isset($input['restricted_to']) and $input['restricted_to'][0] == '') {
                 $input['restricted_to'][0] = '0';
             }
 
@@ -477,78 +435,63 @@ class Admin extends Admin_Controller
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
 
+            // Always set the uri for root pages
+            if ( ! ($page->parent_id > 0) and isset($input['slug']))
+            {   
+                $page->uri = $input['slug'];
+            }
+
             // validate and insert
-            if ($page->save()) {
-
+            if ($page->save())
+            {    
                 $page->buildLookup();
-
-                // Add the stream data.
-/*                if ($stream and $page->entry_id) {
-                    $this->load->driver('Streams');
-
-                    // Insert the stream using the streams driver. Our only extra field is the page_id
-                    // which links this particular entry to our page.
-                    $this->streams->entries->update_entry($page->entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
-                }*/
-
-               // $this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $page->title));
-
+                
+                // @todo - The logic that corresponds to this event needs to be fixed 
                 Events::trigger('page_updated', $page);
 
                 //$this->cache->clear('page_m');
                 //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-//                $this->cache->clear('navigation_m');
-
-                // Mission accomplished!
-/*                $input['btnAction'] == 'save_exit'
-                    ? redirect('admin/pages')
-                    : redirect('admin/pages/edit/'.$id);*/
+                // $this->cache->clear('navigation_m');
             }
         }
-
+        else
+        {
+            // Save the entry type if it was not set
+            $page->setEntryType()->save();
+        }
 
         // Go through our stream fields and set the current value
         // for the form. Since we are creating a new form, this should
         // simply be the post data if it is available.
 
-/*        $assignments = $stream->assignments;*/
         $page_content_data = array();
 
-/*        // Get straight raw from the db
-        $page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
-
-        if ($assignments) {
-            foreach ($assignments as $assign) {
-                $from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
-
-                $page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-            }
-        }
-
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
-
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, $page_stream_entry_raw, 'edit');
-
         // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);*/
+        //$this->fields->run_field_events($stream_fields, array(), $values);*/
 
         $this->_form_data();
 
-/*        $this->template
-            ->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
-            ->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
-            ->append_css('module::page-edit.css')
-            ->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $page->entry_id))
-            ->set('page', $page)
-            ->build('admin/form');*/
         $this->form_data['page'] = $page;
 
-        $page->entry->setStream($stream);
-        $page->entry->setFields($stream->assignments->getFields());
+        if ($page->entry)
+        {
+            $page->entry->setStream($stream);
+            $page->entry->setFields($stream->assignments->getFields());  
+            // We can pass the page model to generate the form
+            $cp = Streams\Cp\Entries::form($page->entry);          
+        }
+        // If for some reason the page does not have an entry, lets give it a chance to get a new one
+        else
+        {
+            $cp = Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
+                ->onSaved(function($entry) use ($page)
+                {
+                    $page->entry()->associate($entry); // Save the relation Eloquent style
+                    $page->save();
+                });
+        }
 
-        Streams\Cp\Entries::form($page->entry) // We can pass the profile model to generate the form
-            ->tabs($this->_tabs())
+        $cp->tabs($this->_tabs())
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
             ->render();

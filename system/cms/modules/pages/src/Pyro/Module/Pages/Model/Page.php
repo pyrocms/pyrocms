@@ -292,6 +292,21 @@ class Page extends Eloquent
 		return $page;
 	}
 
+	public function updateAllEntryTypes()
+	{
+		$page_types = ci()->pdb->table('page_types')
+			->join('data_streams', 'page_types.stream_id', '=', 'data_streams.id')
+			->select('page_types.id', 'data_streams.stream_slug', 'data_streams.stream_namespace')
+			->get();
+
+		// Update the pages entry types
+		foreach ($page_types as $type)
+		{
+			static::where('type_id', $type->id)
+				->update(array('entry_type' => $type->stream_slug.'.'.$type->stream_namespace));
+		}
+	}
+
  //    // --------------------------------------------------------------------------
 
 	// /**
@@ -420,6 +435,18 @@ class Page extends Eloquent
 		}
 
 		return $id_array;
+	}
+
+	public function setEntryType($always = false)
+	{
+		if (( ! $this->entry_type and $this->type_id) or $always)
+		{
+			$page_type = PageType::find($this->type_id);
+
+			$this->entry_type = $page_type->stream->stream_slug.'.'.$page_type->stream->stream_namespace;			
+		}
+
+		return $this;
 	}
 
     // --------------------------------------------------------------------------
