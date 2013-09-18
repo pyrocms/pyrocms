@@ -25,7 +25,7 @@ class Module_Search extends AbstractModule
 				'tw' => '搜尋',
 				'cn' => '搜寻',
 				'it' => 'Ricerca',
-                            'fa' => 'جستجو',
+				'fa' => 'جستجو',
 				'fi' => 'Etsi',
 			),
 			'description' => array(
@@ -36,7 +36,7 @@ class Module_Search extends AbstractModule
 				'tw' => '此模組可用以搜尋網站中不同類型的資料內容。',
 				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。',
 				'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
-                            'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
+				'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
 				'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
 			),
 		);
@@ -56,6 +56,7 @@ class Module_Search extends AbstractModule
             $table->string('entry_key', 100);
             $table->string('entry_plural', 100);
             $table->string('entry_id', 255);
+            $table->string('entry_type', 122);
             $table->string('uri', 255);
             $table->string('cp_edit_uri', 255);
             $table->string('cp_delete_uri', 255);
