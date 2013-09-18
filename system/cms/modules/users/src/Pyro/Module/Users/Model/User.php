@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
+use Cartalyst\Sentry\Sentry;
 use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
 
 /**
@@ -34,6 +35,25 @@ class User extends EloquentUser
     public function getDates()
     {
     	return array('created_on');
+    }
+
+    /**
+     * Get an array of user options
+     * @param  string $group Optional group name to filter users
+     * @return array         The array of user options
+     */
+    public static function getUserOptions($group = null)
+    {
+    	$users = static::all();
+    	
+    	if ($group = Group::findByName($group))
+    	{
+	    	$users = $users->filter(function($user) use ($group) {
+	    		return $user->inGroup($group);
+	    	});
+    	}
+
+    	return $users->lists('username', 'id');
     }
 
 	/**
