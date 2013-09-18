@@ -56,7 +56,6 @@ class Module_Search extends AbstractModule
             $table->string('entry_key', 100);
             $table->string('entry_plural', 100);
             $table->string('entry_id', 255);
-            $table->string('entry_type', 122);
             $table->string('uri', 255);
             $table->string('cp_edit_uri', 255);
             $table->string('cp_delete_uri', 255);

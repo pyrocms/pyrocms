@@ -180,6 +180,7 @@ class Module_Pages extends AbstractModule
             $table->integer('parent_id');
             $table->string('type_id', 255);
             $table->string('entry_id', 255)->nullable();
+            $table->string('entry_type', 122);
             $table->text('css')->nullable();
             $table->text('js')->nullable();
             $table->string('meta_title', 255)->nullable();
