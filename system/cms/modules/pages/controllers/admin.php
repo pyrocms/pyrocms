@@ -446,7 +446,6 @@ class Admin extends Admin_Controller
             {    
                 $page->buildLookup();
                 
-                // @todo - The logic that corresponds to this event needs to be fixed 
                 Events::trigger('page_updated', $page);
 
                 //$this->cache->clear('page_m');
