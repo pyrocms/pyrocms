@@ -14,36 +14,37 @@
 
 	<?php foreach($tabs as $tab): ?>
 	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
-		<fieldset>
+		
+		<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
-			<ul>
+			<?php echo $tab['content']; ?>
 
-			<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
+		<?php else: ?>
+		
+			<fieldset>
 
-				<?php echo $tab['content']; ?>
+				<ul>
 
-			<?php else: ?>
+					<?php foreach ($tab['fields'] as $field) { ?>
 
-				<?php foreach ($tab['fields'] as $field) { ?>
+						<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
+							<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 
-					<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
-						<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+							<?php if( $fields[$field]['instructions'] != '' ): ?>
+								<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
+							<?php endif; ?>
+							</label>
 
-						<?php if( $fields[$field]['instructions'] != '' ): ?>
-							<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
-						<?php endif; ?>
-						</label>
+							<div class="input"><?php echo $fields[$field]['input']; ?></div>
+						</li>
 
-						<div class="input"><?php echo $fields[$field]['input']; ?></div>
-					</li>
+					<?php } ?>
 
-				<?php } ?>
+				</ul>
 
-			<?php endif; ?>
-
-			</ul>
-
-		</fieldset>
+			</fieldset>
+			
+		<?php endif; ?>
 
 	</div>
 	<?php endforeach; ?>

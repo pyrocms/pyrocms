@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Comments\Model\Comment;
+use Pyro\Module\Streams_core\Cp;
 
 /**
  *
@@ -103,6 +104,11 @@ class Admin extends Admin_Controller
 			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
 			->set('categories', $_categories)
 			->append_css('module::blog.css');
+
+		// we need this for our manual view below
+		$this->_categories = $_categories;
+		$this->_hours = $hours;
+		$this->_minutes = $minutes;
 	}
 
 	/**
@@ -231,6 +237,7 @@ class Admin extends Admin_Controller
 				$post->$field['field'] = set_value($field['field']);
 			}
 			$post->created_on = $created_on;
+			$post->created = date('Y-m-d H:i:s');
 
 			// if it's a fresh new article lets show them the advanced editor
 			$post->type or $post->type = 'wysiwyg-advanced';
@@ -242,7 +249,34 @@ class Admin extends Admin_Controller
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
 
-		$this->template
+		// Build out our form structure
+		$tabs = array(
+            array(
+                'title'     => lang('blog:content_label'),
+                'id'        => 'blog-content-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/content', array('post' => $post), true),
+            ),
+            array(
+                'title'     => lang('global:custom_fields'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            ),
+            array(
+                'title'     => lang('blog:options_label'),
+                'id'        => 'blog-options-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
+            ),
+        );
+
+
+		Cp\Entries::form('blog', 'blogs')
+            ->tabs($tabs)
+            ->enablePost($enable_entry_post = true) // This enables the profile submittion only if the user was created successfully
+            ->successMessage('Post saved.') // @todo - language
+            ->redirect('admin/blog')
+            ->render();
+
+		/*$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
@@ -251,7 +285,7 @@ class Admin extends Admin_Controller
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->set('post', $post)
-			->build('admin/form');
+			->build('admin/form');*/
 	}
 
 	/**
@@ -304,6 +338,8 @@ class Admin extends Admin_Controller
 			$hash = '';
 		}
 
+		$enable_entry_post = false;
+
 		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
@@ -325,7 +361,7 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash,
 			);
 
-			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra)) {
+			if ($enable_entry_post = $this->blog_m->update($id, $extra)) {
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
 				// Blog article has been updated, may not be anything to do with publishing though
@@ -359,7 +395,34 @@ class Admin extends Admin_Controller
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
 
-		$this->template
+
+		// Build out our form structure
+		$tabs = array(
+            array(
+                'title'     => lang('blog:content_label'),
+                'id'        => 'blog-content-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/content', array('post' => $post), true),
+            ),
+            array(
+                'title'     => lang('global:custom_fields'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            ),
+            array(
+                'title'     => lang('blog:options_label'),
+                'id'        => 'blog-options-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
+            ),
+        );
+
+		Cp\Entries::form('blog', 'blogs', $id)
+            ->tabs($tabs)
+            ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
+            ->successMessage('Post saved.') // @todo - language
+            ->redirect('admin/blog')
+            ->render();
+
+		/*$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
@@ -367,7 +430,7 @@ class Admin extends Admin_Controller
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $post->id))
 			->set('post', $post)
-			->build('admin/form');
+			->build('admin/form');*/
 	}
 
 	/**
