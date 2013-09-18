@@ -417,7 +417,7 @@ class Files
 				}
 				else
 				{
-					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
+					$data['id'] = substr(md5(microtime() . $data['filename']), 0, 15);
 					$file_id = $data['id'];
 					ci()->file_m->insert($data);
 				}
@@ -845,7 +845,7 @@ class Files
 				if ( ! array_key_exists($file['filename'], $known))
 				{
 					$insert = array(
-						'id' 			=> substr(md5(microtime()+$data['filename']), 0, 15),
+						'id' 			=> substr(md5(microtime() . $data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
 						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],
