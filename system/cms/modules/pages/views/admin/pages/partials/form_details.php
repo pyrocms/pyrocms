@@ -1,4 +1,4 @@
-<ul>
+<ul id="page-form" data-mode="<?php echo $page->id?:'create'; ?>">
 	<li>
 		<label for="title"><?php if (isset($page->type->title_label)): echo lang_label($page->type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
 		<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
@@ -8,7 +8,7 @@
 		<label for="slug"><?php echo lang('global:slug') ?>  <span>*</span></label>
 
 		<div class="input">
-		<?php if ( ! empty($page->parent_id)): ?>
+		<?php if ($page->parent): ?>
 			<?php echo site_url($page->parent->uri) ?>/
 		<?php else: ?>
 			<?php echo site_url() . (config_item('index_page') ? '/' : '') ?>
