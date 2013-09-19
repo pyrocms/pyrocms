@@ -9,7 +9,7 @@
 
 		<div class="input">
 		<?php if ( ! empty($page->parent_id)): ?>
-			<?php echo site_url($parent_page->uri) ?>/
+			<?php echo site_url($page->parent->uri) ?>/
 		<?php else: ?>
 			<?php echo site_url() . (config_item('index_page') ? '/' : '') ?>
 		<?php endif ?>

@@ -18,12 +18,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]'
 		),
 		array(
 			'field' => 'category_id',
@@ -323,19 +323,6 @@ class Admin extends Admin_Controller
 
 		// Get the validation for our custom blog fields.
 		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
-
-		$blog_validation = array_merge($this->validation_rules, array(
-			'title' => array(
-				'field' => 'title',
-				'label' => 'lang:global:title',
-				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
-			),
-			'slug' => array(
-				'field' => 'slug',
-				'label' => 'lang:global:slug',
-				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
-			),
-		));
 
 		// Merge and set our validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
