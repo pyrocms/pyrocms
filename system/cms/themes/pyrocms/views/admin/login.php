@@ -9,8 +9,8 @@
 	<base href="<?php echo base_url(); ?>"/>
 	<meta name="robots" content="noindex, nofollow"/>
 
-	<?php Asset::css(array('application.css')); ?>
-	<?php Asset::js('src/core/modernizr.js'); ?>
+	<?php Asset::css(array('build.css')); ?>
+	<?php Asset::js('modernizr.min.js'); ?>
 
 	<?php echo Asset::render() ?>
 </head>
@@ -18,13 +18,13 @@
 <body id="login">
 
 
-	<header class="navbar background-color-white border-none border-bottom border-color-gray-lighter animated slideInDown">
+	<header class="navbar animated-fast fadeInDown">
 		<div class="navbar-header">
-			<span class="navbar-brand no-padding">
+			<a class="navbar-brand no-padding" href="<?php echo site_url(); ?>">
 				<?php echo Asset::img('logo.png', 'PyroCMS', array('height' => '48px')); ?>
 				&nbsp;
 				<span class="font-weight-normal">PyroCMS</span>
-			</span>
+			</a>
 		</div>
 	</header>
 
@@ -32,7 +32,7 @@
 	<?php $this->load->view('admin/partials/notices') ?>
 
 
-	<main class="container animated slideInUp">
+	<main class="container animated-fast fadeInUp">
 	<div class="row-fluid">
 	<div class="col-md-3 col-md-offset-4 padding">
 
@@ -76,7 +76,7 @@
 	<footer class="navbar navbar-fixed-bottom">
 	<center class="container">
 		<div class="row-fluid">
-		<div class="col-md-3 col-md-offset-4 padding animated slideInUp">
+		<div class="col-md-3 col-md-offset-4 padding animated-fast fadeInUp">
 			Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
 			<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 		</div>
@@ -85,7 +85,7 @@
 	</footer>
 
 
-	<?php Asset::js(array('src/core/jquery.js', 'application.min.js'), null, 'deferred'); ?>
+	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
 	<?php echo Asset::render_js('deferred') ?>
 

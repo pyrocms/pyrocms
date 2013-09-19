@@ -1,0 +1,98 @@
+@-webkit-keyframes scaleOut {
+	0% {
+		opacity:1;
+	}
+	
+	20% {
+		-webkit-transform:scale(.75);
+	}
+	
+	30% {
+		opacity:1;
+	}
+	
+	100% {
+		opacity:0;
+		-webkit-transform:scale(1.10);
+	}
+}
+
+@-moz-keyframes scaleOut {
+	0% {
+		opacity:1;
+	}
+	
+	30% {
+		-moz-transform:scale(.75);
+	}
+	
+	70% {
+		opacity:1;
+	}
+	
+	100% {
+		opacity:0;
+		-moz-transform:scale(1.10);
+	}
+}
+
+@-ms-keyframes scaleOut {
+	0% {
+		opacity:1;
+	}
+	
+	30% {
+		-ms-transform:scale(.75);
+	}
+	
+	70% {
+		opacity:1;
+	}
+	
+	100% {
+		opacity:0;
+		-ms-transform:scale(1.10);
+	}
+}
+
+@-o-keyframes scaleOut {
+	0% {
+		opacity:1;
+	}
+	
+	30% {
+		-o-transform:scale(.75);
+	}
+	
+	70% {
+		opacity:1;
+	}
+	
+	100% {
+		opacity:0;
+		-o-transform:scale(1.10);
+	}
+}
+
+@keyframes scaleOut {
+	0% {
+		opacity:1;
+	}
+	
+	30% {
+		transform:scale(.75);
+	}
+	
+	70% {
+		opacity:1;
+	}
+	
+	100% {
+		opacity:0;
+		transform:scale(1.10);
+	}
+}
+
+.scaleOut {
+	.animation-name(scaleOut);
+}

@@ -1,0 +1,220 @@
+/**
+ * Login Page
+ *
+ * Login page only
+ */
+
+body {
+  background: @gray-lightest;
+}
+
+
+
+/**
+ * Primary Layout Components
+ */
+
+@media (min-width: 768px) {
+
+	html, body{
+		width:100%;
+		height:100%;
+		overflow-x: hidden;
+	}
+
+	.hbox{	
+		display: table;
+		border-collapse: collapse;
+		border-spacing:0;
+		width: 100%;
+		> aside,
+		> section{
+			display: table-cell;
+			vertical-align: top;
+			height: 100%;
+			padding: 0;
+			float: none;
+			&.show, 
+			&.hidden-sm	{
+				display: table-cell !important;
+			}
+		}
+		&.stretch{
+			height:100%;
+		}
+	}
+
+	.vbox{
+		display: table;
+		border-collapse: collapse;
+		border-spacing:0;
+		position: relative;
+		height: 100%;
+		width: 100%;
+		> section, 
+		> footer {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;			
+		}
+		> footer {
+			top: auto;
+			z-index: 1000;
+			+ section {
+				bottom: 50px;
+			}
+		}
+		> header{
+			~ section {
+				top: 50px;
+			}
+		}
+		&.flex{
+			> header,
+			> section,
+			> footer {
+				position: static;
+			}
+			> section{
+				display: table-row;
+				height: 100%;
+				overflow:hidden;
+				top: auto !important; 
+				bottom: auto !important;
+				> section {
+					position: relative;
+					height: 100%;
+					min-height:200px;
+					&.ie{
+						height: auto;
+						display: table-cell;
+					}
+					> section {
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						left: 0;
+						right: 0;
+						height: 100%;
+						overflow: auto;
+					}
+				}
+			}
+		}
+
+	}
+	
+	.aside-xs{
+		width: 48px;
+	}
+	.aside{
+		width: 180px;
+	}
+	.aside-sm{
+		width: 150px;
+	}
+	.aside-md{
+		width: 200px;
+	}
+	.aside-lg{
+		width: 250px;
+	}
+	.aside-xl{
+		width: 300px;
+	}
+}
+.hbox > aside, 
+.hbox > section{
+	padding: 0 !important;
+}
+.header, 
+.footer{
+	min-height: 50px;
+	padding: 0 15px;
+	> p{
+		margin-top: 15px;
+		display: inline-block;
+	}
+	> .btn,
+	> .btn-group,
+	> .btn-toolbar,
+	{
+		margin-top: 10px;
+	}
+	> .btn-lg{
+		margin-top: 0;
+	}
+	.nav-tabs {
+		border: none;
+		margin-left: -15px;
+		margin-right: -15px;	
+		> li {
+			a{
+				border: none !important;
+				border-radius: 0;
+				padding-top: 15px;
+				padding-bottom: 15px;
+				line-height: 20px;
+				&:hover, 
+				&:focus
+				{
+					background-color: transparent;
+				}
+			}
+			&.active a{
+				color: @text-color;
+				&,
+				&:hover{
+					background-color: @body-bg;
+				}
+			}
+		}
+		&.nav-white{
+			> li.active a{
+				&,
+				&:hover{
+					background-color: #fff;
+				}
+			}
+		}
+	}
+	&.navbar{
+		min-height: 0;
+		border-radius: 0;
+		border: none;
+		margin-bottom: 0;
+		.navbar-nav{
+			margin: 0 -15px !important;
+		}
+	}
+}
+
+.scrollable{
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling:touch;
+}
+
+.no-touch {
+	.scrollable.hover {
+		overflow-y: hidden;
+		&:hover
+		{
+			overflow: visible;
+			overflow-y: auto;
+		}
+	}
+}
+
+::-webkit-scrollbar {
+	width:.5em;
+}
+::-webkit-scrollbar-thumb {
+	background-color:rgba(0,0,0,0.3);
+	border-radius: 1em;
+}
+::-webkit-scrollbar-track {
+	background-color:none;
+}
+textarea::-webkit-scrollbar {width:.8em;}

@@ -33,22 +33,14 @@
 
 <body>
 
-	<div id="container">
+	<main class="horizontal-box stretch">
 
-		<section id="content">
+		<div id="content-body">
+			<?php file_partial('notices'); ?>
+			<?php echo $template['body']; ?>
+		</div>
 
-			<header class="hide-on-ckeditor-maximize">
-			<?php file_partial('header'); ?>
-			</header>
-
-			<div id="content-body">
-				<?php file_partial('notices'); ?>
-				<?php echo $template['body']; ?>
-			</div>
-
-		</section>
-
-	</div>
+	</main>
 
 	<footer class="clearfix">
 		<div class="wrapper">
@@ -68,7 +60,7 @@
 		</div>
 	</footer>
 
-	<?php Asset::js(array('src/core/jquery.js', 'application.min.js'), null, 'deferred'); ?>
+	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
 	<?php echo Asset::render_js('deferred') ?>
 	

@@ -1,7 +1,7 @@
 <?php //Asset::js(array()) ?>
 
-<?php Asset::css(array('application.css')); ?>
-<?php Asset::js('src/core/modernizr.js'); ?>
+<?php Asset::css(array('build.css')); ?>
+<?php Asset::js('modernizr.min.js'); ?>
 
 
 <?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
