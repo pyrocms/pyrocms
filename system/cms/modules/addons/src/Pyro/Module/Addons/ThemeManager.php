@@ -206,6 +206,7 @@ class ThemeManager
             'website'           => $theme->website,
             'description'       => $theme->description,
             'version'           => $theme->version,
+            'type'		=> (isset($theme->type)) ? $theme->type : null,
         ));
 
         foreach ($theme->options as $key => $option) {
