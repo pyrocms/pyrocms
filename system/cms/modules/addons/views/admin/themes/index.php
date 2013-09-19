@@ -21,6 +21,7 @@
 			</thead>
 			<tbody>
 				<?php foreach ($themes as $theme): ?>
+				<?php if($theme->type != 'admin'): ?>
 				<tr>
 					<td class="align-center"><input type="radio" name="theme" value="<?php echo $theme->slug ?>"
 						<?php echo isset($theme->is_default) ? 'checked' : '' ?> />
@@ -48,6 +49,7 @@
 						<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm button delete"'); } ?>
 					</td>
 				</tr>
+				<?php endif; ?>
 				<?php endforeach ?>
 			</tbody>
 		</table>
