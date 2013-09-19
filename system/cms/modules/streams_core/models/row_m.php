@@ -1614,7 +1614,7 @@ class Row_m extends MY_Model {
 							$return_data[$field->field_slug] = $form_data[$field->field_slug];
 		
 							// Make null - some fields don't like just blank values
-							if ($return_data[$field->field_slug] == '')
+							if ($return_data[$field->field_slug] === '')
 							{
 								$return_data[$field->field_slug] = null;
 							}
