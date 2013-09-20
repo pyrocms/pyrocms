@@ -38,7 +38,6 @@
 
 //@codekit-append "plugins/ace/ace.js"
 //@codekit-append "plugins/cookie.js"
-//@codekit-append "plugins/easing.js"
 //@codekit-append "plugins/easy-pie-chart.js"
 //@codekit-append "plugins/fullscreen.js"
 //@codekit-append "plugins/morris.js"
@@ -47,16 +46,3 @@
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
 //@codekit-append "plugins/zen-form.js"
-
-
-/**
- * Application
- *
- * All of our cool stuff is loaded next
- * Anything related to Pyro directly
- * - Layout, special classes, craeted by us for Pyro
- * - Overrides for the above files
- * - Always include these last
- */
-
-//@codekit-append "application/admin.js"

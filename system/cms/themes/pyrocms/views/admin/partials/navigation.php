@@ -1,34 +1,76 @@
-<ul class="primary-nav">
+<aside class="background-color-red aside-md" id="nav">
 
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="top-link '.( ! $this->module ? 'current ' : '').'"') ?></li>
+	<section class="vertical-box">
 
-		<?php
+		<header class="dker nav-bar">
+			<a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="body">
+			<i class="icon-reorder"></i>
+			</a>
+			<a href="#" class="nav-brand" data-toggle="fullscreen">todo</a>
+			<a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
+			<i class="icon-comment-alt"></i>
+			</a>
+		</header>
 
-		// Display the menu items.
-		// We have already vetted them for permissions
-		// in the Admin_Controller, so we can just
-		// display them now.
-		foreach ($menu_items as $key => $menu_item) {
-			if (is_array($menu_item)) {
-				echo '<li><a href="'.current_url().'#" class="top-link">'.lang_label($key).'</a><ul>';
+		<footer class="footer bg-gradient hidden-xs">
+			<a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-sm btn-link m-r-n-xs pull-right">
+			<i class="icon-off"></i>
+			</a>
+			<a href="#nav" data-toggle="class:nav-vertical" class="btn btn-sm btn-link m-l-n-sm">
+			<i class="icon-reorder"></i>
+			</a>
+		</footer>
 
-				foreach ($menu_item as $lang_key => $uri) {
-					echo '<li><a href="'.site_url($uri).'" class="">'.lang_label($lang_key).'</a></li>';
 
-				}
+		<section>
 
-				echo '</ul></li>';
 
-			} elseif (is_array($menu_item) and count($menu_item) == 1) {
-				foreach ($menu_item as $lang_key => $uri) {
-					echo '<li><a href="'.site_url($menu_item).'" class="top-link no-submenu">'.lang_label($lang_key).'</a></li>';
-				}
-			} elseif (is_string($menu_item)) {
-				echo '<li><a href="'.site_url($menu_item).'" class="top-link no-submenu">'.lang_label($key).'</a></li>';
-			}
+			<nav class="nav-primary hidden-xs">
 
-		}
+				<ul class="nav">
 
-		?>
+					<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="top-link '.( ! $this->module ? 'current ' : '').'"') ?></li>
 
-</ul>
+					<?php foreach ($menu_items as $key => $menu_item): ?>
+
+						<?php if (is_array($menu_item)): ?>
+
+							<li class="dropdown-submenu"><a href="<?php echo current_url(); ?>#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang_label($key); ?></a>
+
+								<ul class="dropdown-menu">
+
+								<?php foreach ($menu_item as $lang_key => $uri): ?>
+
+									<li><a href="<?php echo site_url($uri); ?>"><?php echo lang_label($lang_key); ?></a></li>
+
+								<?php endforeach; ?>
+
+								</ul>
+
+							</li>
+
+						<?php elseif (is_array($menu_item) and count($menu_item) == 1): ?>
+
+							<?php foreach ($menu_item as $lang_key => $uri): ?>
+
+								<li><a href="<?php echo site_url($menu_item); ?>"><?php echo lang_label($lang_key); ?></a></li>
+							
+							<?php endforeach; ?>
+
+						<?php elseif (is_string($menu_item)): ?>
+
+							<li><a href="<?php echo site_url($menu_item); ?>"><?php echo lang_label($key); ?></a></li>
+
+						<?php endif; ?>
+
+					<?php endforeach; ?>
+
+				</ul>
+
+			</nav>
+
+		</section>
+
+	</section>
+
+</aside>

@@ -35,31 +35,19 @@
 
 	<main class="horizontal-box stretch">
 
-		<div id="content-body">
-			<?php file_partial('notices'); ?>
-			<?php echo $template['body']; ?>
-		</div>
+		<?php file_partial('navigation'); ?>
+
+		<section id="content">
+		<section class="vertical-box">
+		<header class="header background-color-gray-dark">
+			Hi!
+		</header>
+		</section>
+		</section>
 
 	</main>
 
-	<footer class="clearfix">
-		<div class="wrapper">
-			<p class="credits">Copyright &copy;<?php echo date('Y'); ?> PyroCMS LLC &nbsp; <span>Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</span></p>
-
-			<ul id="lang">
-				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
-					<select class="chzn" name="lang" onchange="this.form.submit();">
-						<?php foreach(config_item('supported_languages') as $key => $lang): ?>
-							<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? ' selected="selected" ' : ''; ?>>
-								 <?php echo $lang['name']; ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				</form>
-			</ul>
-		</div>
-	</footer>
-
+	
 	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
 	<?php echo Asset::render_js('deferred') ?>

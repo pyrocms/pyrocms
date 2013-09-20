@@ -89,14 +89,5 @@
 
 	<?php echo Asset::render_js('deferred') ?>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			NProgress.start();
-    		
-    		setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 1000);			
-		});
-	</script>
-
 </body>
 </html>
