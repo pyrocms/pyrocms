@@ -182,49 +182,63 @@ class Admin extends Admin_Controller
      * @param int $id The ID of the page
      * @param null $parent_id The ID of the parent page, if this is a recursive nested duplication
      */
-    public function duplicate($id, $parent_id = null)
+    public function duplicate($id, $parent = null)
     {
         $page  = Page::with('children')->find($id);
 
-        $new_slug = $page->slug;
+        $duplicate_page = $page->replicate();
 
-        // No parent around? Do what you like
-        if (is_null($parent_id)) {
-            do {
-                // Turn "Foo" into "Foo 2"
-                $page->title = increment_string($page->title, ' ', 2);
+        do {
+            // Turn "Foo" into "Foo 2"
+            $duplicate_page->title = increment_string($duplicate_page->title, ' ', 2);
 
-                // Turn "foo" into "foo-2"
-                $page->slug = increment_string($page->slug, '-', 2);
+            if ($parent)
+            {
+                $duplicate_page->uri = $parent->uri.'/'.$duplicate_page->slug;
+            }
+            else
+            {
+                $duplicate_page->uri = increment_string($duplicate_page->uri, '-', 2);
+            }
 
-                // Find if this already exists in this level
-                $has_dupes = Page::where('slug', $page->slug)
-                    ->where('parent_id', $page->parent_id)
-                    ->count() > 0;
-            } while ($has_dupes === true);
+            // Turn "foo" into "foo-2"
+            $duplicate_page->slug = increment_string($duplicate_page->slug, '-', 2);
 
-        // Oop, a parent turned up, work with that
-        } else {
-            $page->parent_id = $parent_id;
+            // Find if this already exists in this level
+            $has_dupes = Page::where('slug', $duplicate_page->slug)
+                ->where('parent_id', $duplicate_page->parent_id)
+                ->count() > 0;
+        } while ($has_dupes === true);
+
+        if ($parent)
+        {
+            $duplicate_page->parent()->associate($parent);
         }
 
-        $page->restricted_to = null;
-        $page->navigation_group_id = 0;
+        // $duplicate_page->restricted_to = null;
+        //$duplicate_page->navigation_group_id = 0;
 
-        throw new Exception('FAIL BECAUSE STREAMS ARENT ELOQUENT YET');
+        if ($page->entry)
+        {
+            $duplicate_entry = $page->entry->replicate();
+            $duplicate_entry->save();
 
-        // TODO Streams need to be converted to Eloquent so we can make a "stream" or "entry" relationship
-        $new_page = Page::create($page->toArray());
+            $duplicate_page->entry()->associate($duplicate_entry);
+        }
+        
+        $duplicate_page->skip_validation = true;
+        $duplicate_page->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
-        // $this->streams_m->get_stream($page['stream_id']);
+        // $this->streams_m->get_stream($duplicate_page['stream_id']);
 
-        foreach ($page->children as $child) {
-            $this->duplicate($child->id, $new_page);
+        foreach ($duplicate_page->children as $child)
+        {
+            $this->duplicate($child->id, $duplicate_page);
         }
 
         // only allow a redirect when everything is finished (only the top level page has a null parent_id)
-        if (is_null($parent_id)) {
+        if (is_null($parent)) {
             redirect('admin/pages');
         }
     }
@@ -240,6 +254,13 @@ class Admin extends Admin_Controller
 
         // What type of page are we creating?
         $page_type = PageType::find($this->input->get('page_type'));
+        
+        $parent = null;
+
+        if ($parent_id = $this->input->get('parent'))
+        {
+            $parent_page = Page::find($parent_id);
+        }
 
         // Redirect to the page type selection menu if no page type was specified
         if ( ! $page_type) {
@@ -263,7 +284,8 @@ class Admin extends Admin_Controller
             // 
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
-            $page->parent_id        = isset($input['parent_id']) ? (int) $input['parent_id'] : 0;
+            $page->uri              = isset($input['slug']) ? $input['slug'] : null;
+            $page->parent_id        = isset($parent_id) ? (int) $parent_id : 0;
             $page->type_id          = (int) $page_type->id;
             $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
             $page->css              = isset($input['css']) ? $input['css'] : null;
@@ -279,12 +301,6 @@ class Admin extends Admin_Controller
             $page->strict_uri       = ! empty($input['strict_uri']);
             $page->is_home          = ! empty($input['is_home']);
             $page->order            = time();
-
-            // Always set the uri for root pages
-            if ( ! ($page->parent_id > 0) and isset($input['slug']))
-            {   
-                $page->uri = $input['slug'];
-            }
 
             // Insert the page data, along with
             if ($enable_post = $page->save())
@@ -333,6 +349,8 @@ class Admin extends Admin_Controller
         $this->_form_data();
 
         $this->form_data['page'] = $page;
+
+        $this->form_data['parent_page'] = $parent_page;
 
         Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
             ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
@@ -422,7 +440,8 @@ class Admin extends Admin_Controller
             // Assign post data to the page
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
-            //$page->parent_id        = (int) $input['parent_id'];
+            $page->uri              = isset($input['slug']) ? $input['slug'] : null;
+            $page->parent_id        = isset($input['parent_id']) ? $input['parent_id'] : 0;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : '';
@@ -434,12 +453,6 @@ class Admin extends Admin_Controller
             $page->updated_on       = time();
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
-
-            // Always set the uri for root pages
-            if ( ! ($page->parent_id > 0) and isset($input['slug']))
-            {   
-                $page->uri = $input['slug'];
-            }
 
             // validate and insert
             if ($page->save())
@@ -471,6 +484,8 @@ class Admin extends Admin_Controller
         $this->_form_data();
 
         $this->form_data['page'] = $page;
+
+        $this->form_data['parent_page'] = $page->parent;
 
         if ($page->entry)
         {

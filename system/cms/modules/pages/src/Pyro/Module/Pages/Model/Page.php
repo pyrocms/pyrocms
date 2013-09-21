@@ -463,7 +463,7 @@ class Page extends Eloquent
 		// Either its THIS page, or one we said
 		$current_id = $id ?: $this->id;
 
-		if ($current_page = static::find($id))
+		if ($current_page = static::find($current_id))
 		{
 			$current_page->skip_validation = true;
 
@@ -542,19 +542,13 @@ class Page extends Eloquent
 		{
 			foreach ($children as $page)
 			{
-				if ($page->entry instanceof Eloquent)
-				{
-					$page->entry->delete();
-				}
+				$page->entry()->delete();
 
 				$page->delete();
 			}
 		}
 
-		if ($this->entry instanceof Eloquent)
-		{
-			$this->entry->delete();
-		}
+		$this->entry()->delete();
 
 		return parent::delete();
 	}

@@ -8,8 +8,8 @@
 		<label for="slug"><?php echo lang('global:slug') ?>  <span>*</span></label>
 
 		<div class="input">
-		<?php if ($page->parent): ?>
-			<?php echo site_url($page->parent->uri) ?>/
+		<?php if (isset($parent_page)): ?>
+			<?php echo site_url($parent_page->uri) ?>/
 		<?php else: ?>
 			<?php echo site_url() . (config_item('index_page') ? '/' : '') ?>
 		<?php endif ?>
