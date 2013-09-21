@@ -170,7 +170,7 @@ abstract class Eloquent extends Model
      * @param  string  $foreignKey
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null, $stream_column = null)
+    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null)
     {
         list(, $caller) = debug_backtrace(false);
 
