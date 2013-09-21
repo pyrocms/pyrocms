@@ -188,7 +188,8 @@ $lang['recaptcha_html_error'] 							= "加载错误的安全图片。请稍后�
 $lang['streams:max_length'] 							= "最大长度";
 $lang['streams:upload_location'] 						= "上传地址";
 $lang['streams:default_value'] 							= "默认值";
-
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
 $lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
 $lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
