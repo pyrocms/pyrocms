@@ -330,6 +330,24 @@ class Stream extends Eloquent
     }
 
     /**
+     * Get Stream options
+     * @return array The array of Stream options indexed by id
+     */
+    public static function getStreamOptions()
+    {
+    	return static::all(array('id', 'stream_name', 'stream_namespace'))->getStreamOptions();
+    }
+
+    /**
+     * Get Stream associative options
+     * @return array The array of Stream options indexed by "stream_slug.stream_namespace"
+     */
+    public static function getStreamAssociativeOptions()
+    {
+    	return static::all(array('stream_name', 'stream_slug', 'stream_namespace'))->getStreamAssociativeOptions();
+    }
+
+    /**
      * Schema thing..
      * @param  object $stream 
      * @param  object $type   
