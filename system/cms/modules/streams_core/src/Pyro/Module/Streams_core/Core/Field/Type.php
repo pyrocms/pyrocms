@@ -44,6 +44,7 @@ class Type
     public static function getLoader()
     {
 		ci()->load->helper('directory');
+		ci()->load->language('streams_core/pyrostreams');
 		ci()->load->config('streams_core/streams');
 
 		// Get Lang (full name for language file)
@@ -234,7 +235,7 @@ class Type
 		}
 		
 		// Check if we've already loaded this field type
-		if (isset($this->types[$type])) return static::$types[$type];
+		if (isset($this->types[$type])) return $this->types[$type];
 
 		foreach ($this->addon_paths as $mode => $path)
 		{
@@ -359,12 +360,14 @@ class Type
 		$parameters = new Parameter;
 
 		// Load the proper class
-		$field_type = static::getLoader()->getType($type);
-		$field_type->setField($current_field);
-
+		if ( ! $field_type = static::getLoader()->getType($type)) return null;
+		
 		// I guess we don't have any to show.
-		if ( ! isset($field_type->custom_parameters)) return null;
-
+		
+		$field_type->custom_parameters = array_unique(array_merge($field_type->custom_parameters, array('default_value')));
+		
+		$field_type->setField($current_field);
+		
 		// Otherwise, the beat goes on.
 		$data['count'] = 0;
 		$output = '';
@@ -372,7 +375,6 @@ class Type
 		//Echo them out
 		foreach ($field_type->custom_parameters as $param)
 		{
-
 			$custom_param = 'param_'.$param;
 
 			if ( ! isset($_POST[$param]) and $current_field)

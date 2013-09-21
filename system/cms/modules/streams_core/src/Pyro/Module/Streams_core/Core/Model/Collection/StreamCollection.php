@@ -30,4 +30,36 @@ class StreamCollection extends EloquentCollection
 			return $stream->stream_namespace == $namespace;
 		});
 	}
+
+	/**
+	 * Get stream options
+	 * @return array The array of options
+	 */
+	public function getStreamOptions()
+	{
+		$options = array();
+
+		foreach ($this->items as $stream)
+		{
+			$options[humanize($stream->stream_namespace)][$stream->id] = lang_label($stream->stream_name);
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Get associative Options
+	 * @return [type] [description]
+	 */
+	public function getStreamAssociativeOptions()
+	{
+		$options = array();
+
+		foreach ($this->items as $stream)
+		{
+			$options[humanize($stream->stream_namespace)][$stream->stream_slug.'.'.$stream->stream_namespace] = lang_label($stream->stream_name);
+		}
+
+		return $options;
+	}
 }

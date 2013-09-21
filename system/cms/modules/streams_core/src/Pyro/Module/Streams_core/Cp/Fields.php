@@ -427,19 +427,24 @@ class Fields extends AbstractCp
 
 			if ($this->data->method == 'new')
 			{
-				if ( ! $field = Model\Field::create(array_merge($post_data, array(
+				if ( ! $field = Model\Field::create(array(
 						'field_name' => $post_data['field_name'],
 						'field_slug' => $post_data['field_slug'],
 						'field_type' => $post_data['field_type'],
 						'field_namespace' => $this->data->namespace,			
-					))))
+					)))
 				{
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				elseif (isset($this->data->stream))
 				{
 					// Add the assignment
-					if( ! $this->data->stream->assignField($field, $post_data))
+					if( ! $this->data->stream->assignField($field, array(
+							'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
+							'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
+							'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : false,
+							'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
+						)))
 					{
 						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}

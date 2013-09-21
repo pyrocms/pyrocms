@@ -5,10 +5,8 @@ $config['pages:default_fields']	= array(
 	array(
 		'name'          => 'lang:pages:body_label',
 		'slug'          => 'body',
-		'namespace'     => 'pages',
 		'type'          => 'wysiwyg',
 		'extra'			=> array('editor_type' => 'advanced', 'allow_tags' => 'y'),
-		'assign'        => 'def_page_fields'
 	)
 );
 
