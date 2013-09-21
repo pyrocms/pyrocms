@@ -30,7 +30,7 @@ class Field_user extends AbstractField
 	 */
 	public function relation()
 	{
-		return $this->belongsTo('Pyro\Module\Users\Model\User');
+		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Users\Model\User'));
 	}
 
 	/**
