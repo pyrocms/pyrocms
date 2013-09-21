@@ -371,13 +371,7 @@ class Field_field extends AbstractField
 			0 => lang('streams:field.param_default')
 		);
 
-		if ($fields = ci()->db->select('field_namespace')->distinct()->order_by('field_namespace')->get(FIELDS_TABLE)->result())
-		{
-			foreach ($fields as $field)
-			{
-				$options[$this->field->field_namespace] = humanize($this->field->field_namespace);
-			}
-		}
+		$options = array_merge($options, Model\Field::getFieldNamespaceOptions());
 
 		return array(
 			'input' 		=> form_dropdown('namespace', $options, $value),
