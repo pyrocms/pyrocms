@@ -419,7 +419,14 @@ class Entry extends EntryOriginal
         // Set created_by only when the entry is new
         if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
         {
+            $this->setAttribute('created', time());
+
             $this->setAttribute('created_by', ci()->current_user->id);
+        }
+
+        if ($this->getKey())
+        {
+            $this->setAttribute('updated', time());
         }
         
         if ( ! $fields->isEmpty())
@@ -502,27 +509,23 @@ class Entry extends EntryOriginal
         //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
 
          
-            // Process any alt process stuff
-            foreach ($alt_process as $type)
-            {
-
-                $type->pre_save();
-            }
-            
-            // -------------------------------------
-            // Event: Post Insert Entry
-            // -------------------------------------
-
-            $trigger_data = array(
-                'entry_id'      => $this->getKey(),
-                'stream'        => $this->stream,
-                'insert_data'   => $this->getAttributes()
-            );
-
-            \Events::trigger('streams_post_insert_entry', $trigger_data);
-
-            // -------------------------------------
+        // Process any alt process stuff
+        foreach ($alt_process as $type)
+        {
+            $type->pre_save();
+        }
         
+        // -------------------------------------
+        // Event: Post Insert Entry
+        // -------------------------------------
+
+        $trigger_data = array(
+            'entry_id'      => $this->getKey(),
+            'stream'        => $this->stream,
+            'insert_data'   => $this->getAttributes()
+        );
+
+        \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return parent::save();
     }
@@ -850,6 +853,19 @@ class Entry extends EntryOriginal
         $this->passProperties($entry);
 
         return $entry;
+    }
+
+    public function getTitleColumn()
+    {
+        $title_column = $this->getStream()->title_column;
+
+                // Default to ID for title column
+        if ( ! trim($title_column) or ! in_array($title_column, $this->getAttributeKeys()))
+        {
+            $title_column = $this->getKeyName();
+        }
+
+        return $title_column;
     }
 
     /**
