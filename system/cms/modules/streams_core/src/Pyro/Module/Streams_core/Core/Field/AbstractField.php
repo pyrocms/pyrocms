@@ -159,10 +159,6 @@ abstract class AbstractField
 	 */
 	public function setField(Model\Field $field = null)
 	{
-		if (! $field) {
-			throw new Exception('Why you not set field?');
-		}
-
 		$this->field = $field;
 
 		return $this;
@@ -507,6 +503,19 @@ abstract class AbstractField
 		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
 
 		return $this->model->belongsTo($related, $foreing_key);
+	}
+
+	/**
+	 * Wrapper method for the Eloquent belongsToEntry() method
+	 * @param  [type] $related     [description]
+	 * @param  [type] $foreing_key [description]
+	 * @return [type]              [description]
+	 */
+	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreing_key = null, $stream = null)
+	{
+		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+
+		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('choose_stream', $stream));
 	}
 
 	/**
