@@ -15,6 +15,10 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'), $exclude = false)
 	{
+		$this->stream = $this->model->getStream();
+		$this->fields = $this->model->getFields();
+		$this->table = $this->model->getTable();
+
 		if ($exclude)
 		{
 			$columns = $this->model->getAllColumnsExclude($columns);
@@ -29,6 +33,12 @@ class EntryBuilder extends Builder
 		$columns = $this->requireKey($columns);
 
 		$this->entries = $this->getModels($columns);
+
+		foreach ($this->entries as $entry)
+		{
+			// Pass our custom properties to the queried models
+			$this->model->passProperties($entry);
+		}
 
 		// If we actually found models we will also eager load any relationships that
 		// have been specified as needing to be eager loaded, which will solve the
@@ -89,9 +99,6 @@ class EntryBuilder extends Builder
 		// We must set the fields for both the entry and the clone
 		// Setting them on the clone will have an effect on the resulting collection and 
 		// Setting them on the entry will have an effect when returning a single model
-		$entry->setStream($this->model->getStream());
-		$entry->setFields($this->model->getFields());
-		$clone->setFields($this->model->getFields());
 
 		// Restore the primary key to the replicated model
 		$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
@@ -234,6 +241,11 @@ class EntryBuilder extends Builder
 		return $columns;
     }
 
+    /**
+     * Eager load field type relations
+     * @param  array  $columns The model columns
+     * @return [type]          [description]
+     */
     protected function eagerLoadFieldRelations($columns = array())
     {
     	$this->getModel()->setEagerFieldRelations($columns);

@@ -89,4 +89,20 @@ class FieldCollection extends EloquentCollection
 
 		return new FieldTypeCollection($types);
 	}	
+
+	/**
+	 * Field namespace options
+	 * @return array The array of field namespaces
+	 */
+	public function getFieldNamespaceOptions()
+	{
+		$options = array();
+
+		foreach ($this->items as $field)
+		{
+			$options[$field->field_namespace] = humanize($field->field_namespace);
+		}
+
+		return $options;
+	}
 }

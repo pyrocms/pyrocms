@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Pages Module
@@ -202,32 +203,24 @@ class Module_Pages extends AbstractModule
             $table->index('parent_id');
         });
 
-        ci()->load->driver('Streams');
-
         // Remove pages namespace, just in case its a 2nd install
-        ci()->streams->utilities->remove_namespace('pages');
-
-        // Remove existing page streams
-        $pdb
-            ->table('data_streams')
-            ->where('stream_namespace', '=', 'pages')
-            ->delete();
+        Data\Utilities::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
         $schema->dropIfExists('def_page_fields');
 
-        $stream_id = ci()->streams->streams->add_stream(
-            'Default',
+        $stream_id = Data\Streams::addStream(
             'def_page_fields',
             'pages',
+            'Default', // @todo - language
             null,
-            'A basic page type to get you started adding content.'
+            'A basic page type to get you started adding content.' // @todo - language
         );
 
         // add the fields to the streams
-        ci()->streams->fields->add_fields(config_item('pages:default_fields'));
+        Data\Fields::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
 
         // Insert the page type structures
         $def_page_type_id = $pdb->table('page_types')->insert(array(
@@ -249,6 +242,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'home',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -261,6 +255,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'contact',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -273,6 +268,7 @@ class Module_Pages extends AbstractModule
                 'uri' => '404',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),

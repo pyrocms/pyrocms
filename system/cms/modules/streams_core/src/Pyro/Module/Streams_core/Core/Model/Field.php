@@ -41,15 +41,15 @@ class Field extends Eloquent
         $instance = new static;
 
         // Load the type to see if there are other params
-        if ($type = $instance->getType() and isset($type->custom_parameters))
+        if ($type = Type::getLoader()->getType($attributes['field_type']) and isset($type->custom_parameters))
         {
             $type->setPreSaveParameters($attributes);
 
             foreach ($type->custom_parameters as $param)
             {
-                if (method_exists($type, 'param_'.$param.'_pre_save'))
+                if (method_exists($type, 'param_'.$param.'_pre_save') and $value = $type->getPreSaveParameter($param))
                 {
-                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $type->getPreSaveParameter($param) );
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $value );
                 }
             }
         }
@@ -168,7 +168,7 @@ class Field extends Eloquent
                     {
                         if ( $to and $from != $to)
                         {
-                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($attributes, $field_slug) {
+                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($from, $to) {
                                 $table->renameColumn($from, $to);
                             });                            
                         }
@@ -349,6 +349,15 @@ class Field extends Eloquent
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
         throw new Exception\FieldNotFoundException;
+    }
+
+    /**
+     * Get field namespace options
+     * @return array
+     */
+    public static function getFieldNamespaceOptions()
+    {
+        return static::all()->getFieldNamespaceOptions();
     }
 
     /**

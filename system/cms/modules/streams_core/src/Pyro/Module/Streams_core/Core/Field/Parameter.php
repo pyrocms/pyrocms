@@ -47,6 +47,42 @@ class Parameter
 	}
 
 	/**
+	 * Link URI field
+	 *
+	 * @param	string
+	 * @return 	string
+	 */
+	public function link_uri($value = '')
+	{
+		$data = array(
+        	'name'        => 'link_uri',
+            'id'          => 'link_uri',
+        	'value'       => $value,
+        	'maxlength'   => '300'
+ 		);
+
+		return form_input($data);
+	}
+
+	/**
+	 * Related class field
+	 *
+	 * @param	string
+	 * @return 	string
+	 */
+	public function relation_class($value = '')
+	{
+		$data = array(
+        	'name'        => 'relation_class',
+            'id'          => 'relation_class',
+        	'value'       => $value,
+        	'maxlength'   => '300'
+ 		);
+
+		return form_input($data);
+	}
+
+	/**
 	 * Default default field
 	 *
 	 * @param	string
