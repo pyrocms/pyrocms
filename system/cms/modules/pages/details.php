@@ -279,9 +279,9 @@ class Module_Pages extends AbstractModule
 
         foreach ($page_entries as $key => $d) {
             // Contact Page
-            $page_id = $pdb->table('pages')->insert($d);
+            $page_id = $pdb->table('pages')->insertGetId($d);
 
-            $entry_id = $pdb->table('def_page_fields')->insert($page_content[$key]);
+            $entry_id = $pdb->table('def_page_fields')->insertGetId($page_content[$key]);
 
             // Update the page with this entry_id
             $pdb->table('pages')
