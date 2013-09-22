@@ -204,7 +204,7 @@ class Module_Pages extends AbstractModule
         });
 
         // Remove pages namespace, just in case its a 2nd install
-        Data\Utilities::destroyNamespace('pages');
+        Data\Utility::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
