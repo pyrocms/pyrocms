@@ -35,13 +35,18 @@
 
 	<main class="horizontal-box stretch">
 
-		<?php file_partial('navigation'); ?>
+		<?php file_partial('sidebar'); ?>
 
 		<section id="content">
 		<section class="vertical-box">
-		<header class="header background-color-gray-dark">
-			Hi!
-		</header>
+			<header class="header bg-white border-bottom border-gray-lighter animated-zing fadeInDown">
+				Hi!
+			</header>
+
+			<div class="padding">
+				<?php $this->load->view('admin/partials/notices') ?>
+			</div>
+
 		</section>
 		</section>
 

@@ -1,10 +1,11 @@
 /**
- * jQuery
+ * Libraries
  *
- * jQuery needs to be loaded first
+ * Sweet ones..
  */
 
 //@codekit-append "libraries/jquery.js"
+//@codekit-append "libraries/ember.js"
 
 
 /**
@@ -46,6 +47,7 @@
 //@codekit-append "plugins/nprogress.js"
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
+//@codekit-append "plugins/screenfull.js"
 //@codekit-append "plugins/zen-form.js"
 
 

@@ -18,23 +18,31 @@
 <body id="login">
 
 
+	<!-- Header Bay -->
 	<header class="navbar animated-fast fadeInDown">
+
 		<div class="navbar-header">
-			<a class="navbar-brand no-padding" href="<?php echo site_url(); ?>">
-				<?php echo Asset::img('logo.png', 'PyroCMS', array('height' => '48px')); ?>
-				&nbsp;
-				<span class="font-weight-normal">PyroCMS</span>
+		
+			<a class="navbar-brand no-padding" href="<?php echo site_url('/'); ?>" target="_blank">
+
+				<!-- Icon -->
+				<span class="icon bg-brand-base">
+					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px')); ?>
+				</span>
+
+				<span>PyroCMS</span>
 			</a>
+
 		</div>
+
 	</header>
-
-
-	<?php $this->load->view('admin/partials/notices') ?>
 
 
 	<main class="container animated-fast fadeInUp">
 	<div class="row-fluid">
 	<div class="col-md-3 col-md-offset-4 padding">
+
+		<?php $this->load->view('admin/partials/notices') ?>
 
 		<section class="">
 

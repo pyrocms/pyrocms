@@ -1,18 +1,9 @@
-/**
- * Login Page
- *
- * Login page only
- */
-
 body {
-  background: @gray-lightest;
+	background: url('../img/overlay-topo-dark.png') repeat @body-bg;
+  	background-size: 450px 450px;
 }
 
-
-/**
- * Primary Layout Components
- */
-
+/*layout*/
 @media (min-width: 768px) {
 
 	html, body{
@@ -188,32 +179,3 @@ body {
 		}
 	}
 }
-
-.scrollable{
-	overflow-x: hidden;
-	overflow-y: auto;
-	-webkit-overflow-scrolling:touch;
-}
-
-.no-touch {
-	.scrollable.hover {
-		overflow-y: hidden;
-		&:hover
-		{
-			overflow: visible;
-			overflow-y: auto;
-		}
-	}
-}
-
-::-webkit-scrollbar {
-	width:.5em;
-}
-::-webkit-scrollbar-thumb {
-	background-color:rgba(0,0,0,0.3);
-	border-radius: 1em;
-}
-::-webkit-scrollbar-track {
-	background-color:none;
-}
-textarea::-webkit-scrollbar {width:.8em;}
