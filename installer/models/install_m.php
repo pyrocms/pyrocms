@@ -197,6 +197,7 @@ class Install_m extends CI_Model
             $table->string('author_website')->nullable();
             $table->string('website')->nullable();
             $table->string('version')->default('1.0.0');
+            $table->string('type')->nullable();
             $table->boolean('enabled')->default(true);
             $table->integer('order')->default(0);
             $table->integer('created_on');

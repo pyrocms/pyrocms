@@ -204,14 +204,14 @@ class Module_Pages extends AbstractModule
         });
 
         // Remove pages namespace, just in case its a 2nd install
-        Data\Utilities::destroyNamespace('pages');
+        Data\Utility::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
         $schema->dropIfExists('def_page_fields');
 
-        $stream_id = Data\Streams::addStream(
+        $stream = Data\Streams::addStream(
             'def_page_fields',
             'pages',
             'Default', // @todo - language
@@ -223,11 +223,11 @@ class Module_Pages extends AbstractModule
         Data\Fields::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
 
         // Insert the page type structures
-        $def_page_type_id = $pdb->table('page_types')->insert(array(
+        $def_page_type_id = $pdb->table('page_types')->insertGetId(array(
             'id' => 1,
             'title' => 'Default',
             'slug' => 'default',
-            'stream_id' => $stream_id,
+            'stream_id' => $stream->id,
             'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
             'css' => '',
             'js' => '',
@@ -279,9 +279,9 @@ class Module_Pages extends AbstractModule
 
         foreach ($page_entries as $key => $d) {
             // Contact Page
-            $page_id = $pdb->table('pages')->insert($d);
+            $page_id = $pdb->table('pages')->insertGetId($d);
 
-            $entry_id = $pdb->table('def_page_fields')->insert($page_content[$key]);
+            $entry_id = $pdb->table('def_page_fields')->insertGetId($page_content[$key]);
 
             // Update the page with this entry_id
             $pdb->table('pages')
