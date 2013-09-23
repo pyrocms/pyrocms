@@ -419,7 +419,14 @@ class Entry extends EntryOriginal
         // Set created_by only when the entry is new
         if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
         {
+            $this->setAttribute('created', time());
+
             $this->setAttribute('created_by', ci()->current_user->id);
+        }
+
+        if ($this->getKey())
+        {
+            $this->setAttribute('updated', time());
         }
         
         if ( ! $fields->isEmpty())
@@ -502,27 +509,23 @@ class Entry extends EntryOriginal
         //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
 
          
-            // Process any alt process stuff
-            foreach ($alt_process as $type)
-            {
-
-                $type->pre_save();
-            }
-            
-            // -------------------------------------
-            // Event: Post Insert Entry
-            // -------------------------------------
-
-            $trigger_data = array(
-                'entry_id'      => $this->getKey(),
-                'stream'        => $this->stream,
-                'insert_data'   => $this->getAttributes()
-            );
-
-            \Events::trigger('streams_post_insert_entry', $trigger_data);
-
-            // -------------------------------------
+        // Process any alt process stuff
+        foreach ($alt_process as $type)
+        {
+            $type->pre_save();
+        }
         
+        // -------------------------------------
+        // Event: Post Insert Entry
+        // -------------------------------------
+
+        $trigger_data = array(
+            'entry_id'      => $this->getKey(),
+            'stream'        => $this->stream,
+            'insert_data'   => $this->getAttributes()
+        );
+
+        \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return parent::save();
     }
@@ -843,22 +846,26 @@ class Entry extends EntryOriginal
         return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
     }
 
-    /**
-     * Morph to an entry
-     * @param  string $related    
-     * @param  string $relation_name 
-     * @param  string $stream_column 
-     * @param  integer $id_column     
-     * @return object
-     */
-    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
+    public function replicate()
     {
-        // Next we will guess the type and ID if necessary. The type and IDs may also
-        // be passed into the function so that the developers may manually specify
-        // them on the relations. Otherwise, we will just make a great estimate.
-        list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
+        $entry = parent::replicate();
 
-        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    public function getTitleColumn()
+    {
+        $title_column = $this->getStream()->title_column;
+
+                // Default to ID for title column
+        if ( ! trim($title_column) or ! in_array($title_column, $this->getAttributeKeys()))
+        {
+            $title_column = $this->getKeyName();
+        }
+
+        return $title_column;
     }
 
     /**
@@ -866,11 +873,12 @@ class Entry extends EntryOriginal
      * @param  object $instance
      * @return object
      */
-    public function passProperties(Entry $instance = null)
+    public function passProperties(Entry $model = null)
     {
-        $instance->setStream($this->stream);
-        $instance->setFields($this->fields);
+        $model->setStream($this->stream);
+        $model->setFields($this->fields);
+        $model->setTable($this->table);
 
-        return $instance;
+        return $model;
     }
 }

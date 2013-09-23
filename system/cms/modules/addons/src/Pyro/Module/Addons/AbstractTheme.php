@@ -45,7 +45,7 @@ abstract class AbstractTheme
 	/**
 	 * @var Front-end or back-end.
 	 */
-	public $type;
+	public $type = null;
 
 	/**
 	 * @var Designer defined options.

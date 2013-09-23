@@ -188,7 +188,8 @@ $lang['recaptcha_html_error'] = "Un problème à eu lieu lors du chargement de l
 $lang['streams:max_length'] = "Longueur Max";
 $lang['streams:upload_location'] = "Dossier d'Upload";
 $lang['streams:default_value'] = "Valeur par défaut";
-
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path'] = 'Chemin du Menu';
 $lang['streams:about_instructions'] = 'Une courte description de votre flux Stream.';
 $lang['streams:slug_instructions'] = 'Sera utilisé comme nom de table en base de données pour votre flux.';
