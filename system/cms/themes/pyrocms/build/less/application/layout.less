@@ -1,46 +1,53 @@
-body {
-	background: url('../img/overlay-topo-dark.png') repeat @body-bg;
-  	background-size: 450px 450px;
-}
-
 /*layout*/
 @media (min-width: 768px) {
 
-	html, body{
+	html,
+	body {
 		width:100%;
 		height:100%;
 		overflow-x: hidden;
 	}
 
-	.horizontal-box{	
+
+	/**
+	 * Horizontal and vertical boxes
+	 * for creating our nice fullscreen
+	 * app-like layout
+	 */
+
+	.horizontal-box {
 		display: table;
 		border-collapse: collapse;
 		border-spacing:0;
 		width: 100%;
+
 		> aside,
-		> section{
+		> section {
 			display: table-cell;
 			vertical-align: top;
 			height: 100%;
 			padding: 0;
 			float: none;
+
 			&.show, 
 			&.hidden-sm	{
 				display: table-cell !important;
 			}
 		}
-		&.stretch{
+
+		&.stretch {
 			height:100%;
 		}
 	}
 
-	.vertical-box{
+	.vertical-box {
 		display: table;
 		border-collapse: collapse;
 		border-spacing:0;
 		position: relative;
 		height: 100%;
 		width: 100%;
+
 		> section, 
 		> footer {
 			position: absolute;
@@ -48,38 +55,48 @@ body {
 			bottom: 0;
 			width: 100%;			
 		}
+
 		> footer {
 			top: auto;
 			z-index: 1000;
+
 			+ section {
 				bottom: 50px;
 			}
 		}
-		> header{
+
+		> header {
+
 			~ section {
 				top: 50px;
 			}
 		}
-		&.flex{
+
+		&.flex {
+		
 			> header,
 			> section,
 			> footer {
 				position: static;
 			}
+
 			> section{
 				display: table-row;
 				height: 100%;
 				overflow:hidden;
 				top: auto !important; 
 				bottom: auto !important;
+
 				> section {
 					position: relative;
 					height: 100%;
 					min-height:200px;
-					&.ie{
+
+					&.ie {
 						height: auto;
 						display: table-cell;
 					}
+
 					> section {
 						position: absolute;
 						top: 0;
@@ -92,7 +109,6 @@ body {
 				}
 			}
 		}
-
 	}
 	
 	.aside-xs{
@@ -114,62 +130,79 @@ body {
 		width: 300px;
 	}
 }
+
 .horizontal-box > aside, 
-.horizontal-box > section{
+.horizontal-box > section {
 	padding: 0 !important;
 }
+
+
+
+/**
+ * These are for inside h/v boxes typically
+ */
+
 .header, 
-.footer{
+.footer {
 	min-height: 50px;
-	padding: 0 15px;
-	> p{
+	padding: 0 @padding-base-horizontal;
+
+	> p {
 		margin-top: 15px;
 		display: inline-block;
 	}
+
 	> .btn,
 	> .btn-group,
-	> .btn-toolbar,
-	{
+	> .btn-toolbar {
 		margin-top: 10px;
 	}
-	> .btn-lg{
+
+	> .btn-lg {
 		margin-top: 0;
 	}
+
 	.nav-tabs {
 		border: none;
-		margin-left: -15px;
-		margin-right: -15px;	
+		margin-left: -@padding-base-horizontal;
+		margin-right: -@padding-base-horizontal;	
+	
 		> li {
-			a{
+	
+			a {
 				border: none !important;
 				border-radius: 0;
-				padding-top: 15px;
-				padding-bottom: 15px;
-				line-height: 20px;
+				padding-top: @padding-base-vertical;
+				padding-bottom: @padding-base-vertical;
+				line-height: @line-height-base;
 				&:hover, 
-				&:focus
-				{
+				&:focus {
 					background-color: transparent;
 				}
 			}
-			&.active a{
+
+			&.active a {
 				color: @text-color;
+
 				&,
-				&:hover{
+				&:hover {
 					background-color: @body-bg;
 				}
 			}
 		}
-		&.nav-white{
-			> li.active a{
+
+		&.nav-white {
+
+			> li.active a {
 				&,
-				&:hover{
+				&:hover {
 					background-color: #fff;
 				}
 			}
 		}
 	}
-	&.navbar{
+
+	&.navbar {
 		min-height: 0;
 		border-radius: 0;
 		border: none;
@@ -178,4 +211,42 @@ body {
 			margin: 0 -15px !important;
 		}
 	}
+}
+
+
+
+/**
+ * Control scrollable content
+ */
+
+.scrollable{
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling:touch;
+}
+
+.no-touch {
+	.scrollable.hover {
+		overflow-y: hidden;
+		&:hover
+		{
+			overflow: visible;
+			overflow-y: auto;
+		}
+	}
+}
+
+/* Scrollbae */
+::-webkit-scrollbar {
+	width:.5em;
+}
+::-webkit-scrollbar-thumb {
+	background-color:rgba(0,0,0,0.3);
+	border-radius: 1em;
+}
+::-webkit-scrollbar-track {
+	background-color:none;
+}
+textarea::-webkit-scrollbar {
+	width:.8em;
 }

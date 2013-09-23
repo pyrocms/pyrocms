@@ -26,7 +26,7 @@
 			<a class="navbar-brand no-padding" href="<?php echo site_url('/'); ?>" target="_blank">
 
 				<!-- Icon -->
-				<span class="icon bg-brand-base">
+				<span class="icon bg-brand-primary">
 					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px')); ?>
 				</span>
 

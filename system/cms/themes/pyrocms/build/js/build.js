@@ -5,6 +5,7 @@
  */
 
 //@codekit-append "libraries/jquery.js"
+//@codekit-append "libraries/handlebars.js"
 //@codekit-append "libraries/ember.js"
 
 
@@ -39,7 +40,6 @@
 
 //@codekit-append "plugins/ace/ace.js"
 //@codekit-append "plugins/cookie.js"
-//@codekit-append "plugins/easing.js"
 //@codekit-append "plugins/easy-pie-chart.js"
 //@codekit-append "plugins/fullscreen.js"
 //@codekit-append "plugins/morris.js"

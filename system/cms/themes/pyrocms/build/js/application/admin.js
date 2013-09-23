@@ -25,21 +25,21 @@ $(document).ready(function() {
 
 
 /**
- * Toggle Sidebar Mode
- */
-
-$(document).on('click', '[data-toggle="sidebar"]', function(e) {
-	e.preventDefault();
-	$(e.target).closest('aside').toggleClass('nav-vertical').toggleClass('only-icon');
-});
-
-
-
-/**
  * Full Screen Toggle
  */
 
 $(document).on('click', '[data-toggle="fullscreen"]', function(e) {
 	e.preventDefault();
 	screenfull.request();
+});
+
+
+
+/**
+ * Toggle Classes
+ */
+
+$(document).on('click', '[data-toggle^="class:"]', function(e) {
+	e.preventDefault();
+	$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
 });

@@ -33,8 +33,4 @@
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<?php if (isset($module_details['sections'])): ?>
-<style>section#content { margin-top: 170px !important; }</style>
-<?php endif ?>
-
 <?php echo $template['metadata'] ?>

@@ -1,0 +1,44 @@
+.badge {
+
+	/**
+	 * Extra badge colors
+	 *
+	 * - You can also use bg-COLOR color-COLOR
+	 * 	 Like:; bg-red color-white
+	 */
+	
+	&.badge-primary {
+		background-color: @brand-primary;
+	}
+	&.badge-success {
+		background-color: @brand-success;
+	}
+	&.badge-warning {
+		background-color: @brand-warning;
+	}
+	&.badge-danger {
+		background-color: @brand-danger;
+		border-color: @brand-danger;
+	}
+	&.badge-info {
+		background-color: @brand-info;
+		border-color: @brand-info;
+	}
+
+	
+	/**
+	 * Outline style badges
+	 */
+	
+	&.badge-white {
+		background-color: transparent;
+		border: 1px solid rgba(255,255,255,0.35);
+		padding: 2px 6px;
+	}
+
+	&.badge-hollow {
+		background-color: transparent;
+		border: 1px solid rgba(0,0,0,0.25);
+		color: inherit;
+	}
+}

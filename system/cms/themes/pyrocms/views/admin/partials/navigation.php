@@ -5,6 +5,7 @@
 		<!-- Start off with the dashboard link - Always -->
 		<li id="dashboard-link">
 			<a href="<?php echo site_url('admin'); ?>">
+				<b class="badge badge-danger pull-right">3</b>
 				<i class="icon-dashboard"></i>
 
 				<span>

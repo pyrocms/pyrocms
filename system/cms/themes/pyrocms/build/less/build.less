@@ -50,10 +50,19 @@
  * - Always include these last
  */
 
+/* Override / Extend Bootstrap variables */
 @import "application/variables.less";
-@import "application/helpers.less";
+@import "application/variables.app.less";
 
-@import "application/login.less";
+/* Framework */
+@import "application/normalize.less";
+@import "application/alerts.less";
+@import "application/badges.less";
+@import "application/helpers.less";
 @import "application/layout.less";
-@import "application/navigation.less";
 @import "application/paper.less";
+@import "application/navigation.less";
+
+/* Application Spcific */
+@import "application/login.less";
+@import "application/admin.less";
