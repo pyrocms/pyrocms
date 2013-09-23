@@ -37,8 +37,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
 
     /**
      * Relationship: Page
-     *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pages()
     {
@@ -46,10 +45,8 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * Relationship: Page
-     *
-     * @todo Turn me into a real relationship and rename to stream()
-     * @return array
+     * Relationship: Stream
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stream()
     {
