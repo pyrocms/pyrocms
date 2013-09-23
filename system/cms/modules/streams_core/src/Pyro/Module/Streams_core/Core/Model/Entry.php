@@ -783,6 +783,54 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Get entry options
+     * @return array The array of entry options
+     */
+    public function getEntryOptions()
+    {
+        return $this->lists($this->getTitleColumn(), $this->getKeyName());
+    }
+
+    /**
+     * Get title column value
+     * @return mixed The title column value or model key
+     */
+    public function getTitleColumnValue()
+    {
+        return $this->getAttribute($this->getTitleColumn());
+    }
+
+    /**
+     * Get title column
+     * @return string The title column or model key name
+     */
+    public function getTitleColumn()
+    {
+        $title_column = $this->getStream()->title_column;
+
+        // Default to ID for title column
+        if ( ! trim($title_column) or ! $this->getAttribute($title_column))
+        {
+            $title_column = $this->getKeyName();
+        }
+
+        return $title_column;
+    }
+
+    /**
+     * Replicate
+     * @return object The clone entry
+     */
+    public function replicate()
+    {
+        $entry = parent::replicate();
+
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    /**
      * New collection instance
      * @param  array  $entries             
      * @param  array  $unformatted_entries 
@@ -844,28 +892,6 @@ class Entry extends EntryOriginal
         $table = $instance->getTable();
 
         return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
-    }
-
-    public function replicate()
-    {
-        $entry = parent::replicate();
-
-        $this->passProperties($entry);
-
-        return $entry;
-    }
-
-    public function getTitleColumn()
-    {
-        $title_column = $this->getStream()->title_column;
-
-                // Default to ID for title column
-        if ( ! trim($title_column) or ! in_array($title_column, $this->getAttributeKeys()))
-        {
-            $title_column = $this->getKeyName();
-        }
-
-        return $title_column;
     }
 
     /**
