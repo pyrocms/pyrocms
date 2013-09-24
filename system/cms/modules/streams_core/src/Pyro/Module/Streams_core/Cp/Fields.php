@@ -128,19 +128,16 @@ class Fields extends AbstractCp
 		// -------------------------------------
 		// Get fields and create pagination if necessary
 		// -------------------------------------
-
 		$this->data->assignments = Model\FieldAssignment::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
 
-		if (is_numeric($this->pagination))
-		{	
-
-
+		if ($this->limit > 0)
+		{
 			$this->data->pagination = create_pagination(
-											$pagination_uri,
-											ci()->fields_m->count_fields($namespace),
-											$pagination, // Limit per page
-											$page_uri // URI segment
-										);
+				$this->pagination_uri,
+				Model\FieldAssignment::countByStreamId($this->stream->id),
+				$this->limit, // Limit per page
+				$this->offset_uri // URI segment
+			);
 		}
 		else
 		{
@@ -331,7 +328,7 @@ class Fields extends AbstractCp
 		// Check if $skips is set to bypass validation for specified field slugs
 
 		// No point skipping field_name & field_type
-		$disallowed_skips = array('field_name', 'field_type');
+/*		$disallowed_skips = array('field_name', 'field_type');
 
 		if (count($this->skips) > 0)
 		{
@@ -351,7 +348,7 @@ class Fields extends AbstractCp
 					}
 				}
 			}
-		}
+		}*/
 
 		if (ci()->input->post('field_type'))
 		{
@@ -410,7 +407,8 @@ class Fields extends AbstractCp
 			// -------------------------------------
 			
 			// Set custom data from $skips param
-			if (count($this->skips) > 0)
+			// @todo - fix this
+/*			if (count($this->skips) > 0)
 			{	
 				foreach ($this->skips as $skip)
 				{
@@ -423,7 +421,7 @@ class Fields extends AbstractCp
 						$post_data[$skip['slug']] = $skip['value'];
 					}
 				}
-			}
+			}*/
 
 			if ($this->data->method == 'new')
 			{
@@ -502,7 +500,10 @@ class Fields extends AbstractCp
 
 			$this->data->current_field->save();
 			
-			redirect($this->return);
+			if ($this->return)
+			{
+				redirect($this->return);
+			}
 		}
 
 		$this->data->parameter_output = Field\Type::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
