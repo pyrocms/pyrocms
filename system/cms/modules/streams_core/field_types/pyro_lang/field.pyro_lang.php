@@ -58,7 +58,7 @@ class Field_pyro_lang extends AbstractField
 			}
 		}
 
-		return form_dropdown($this->field->field_slug, $languages, $this->value);
+		return form_dropdown($this->form_slug, $languages, $this->value);
 	}
 
 	// --------------------------------------------------------------------------

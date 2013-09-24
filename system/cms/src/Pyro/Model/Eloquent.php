@@ -133,6 +133,17 @@ abstract class Eloquent extends Model
     }
 
     /**
+     * Replicate 
+     * @return object The model clone
+     */
+    public function replicate()
+    {
+        $clone = parent::replicate();
+        $clone->skip_validation = true;
+        return $clone;
+    }
+
+    /**
      * New collection
      * @param  array  $models The array of models
      * @return object         The Collection object

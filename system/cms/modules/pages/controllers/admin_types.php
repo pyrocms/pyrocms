@@ -2,6 +2,8 @@
 
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Admin controller for the Page Types of the Pages module.
@@ -140,7 +142,7 @@ class Admin_types extends Admin_Controller
 		$data = new stdClass;
 		$data->page_type = new stdClass;
 
-		if ($this->form_validation->run() and PageType::_check_pt_slug($this->input->post('slug'))) {
+		if ($this->form_validation->run() and ! PageType::slugExists($this->input->post('slug'))) {
 			$input = $this->input->post();
 
 			// they're using an existing stream or we autocreate a slug
@@ -165,12 +167,15 @@ class Admin_types extends Admin_Controller
 				$stream_slug = slugify($input['title'], '_', true);
 				$original_stream_slug = $stream_slug;
 				$count = 2;
-				while ($this->streams->streams->check_table_exists($stream_slug, 'pages_')) {
+				while (Data\Streams::tableExists($stream_slug, 'pages_')) {
 					$stream_slug = $original_stream_slug.'_'.$count;
 					$count++;
 				}
 
-				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
+				$stream = Data\Streams::addStream($stream_slug, 'pages', lang('page_types:list_title_sing').' '.$input['title'], 'pages_');
+
+				//$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
+				$input['stream_id'] = $stream->id;
 			}
 
 			// Insert the page type
@@ -227,7 +232,7 @@ class Admin_types extends Admin_Controller
 		$data->page_type->save_as_files = ($this->input->post('save_as_files') == 'y') ? 'y' : false;
 
 		// Streams dropdown data.
-		$data->streams_dropdown = $this->get_stream_dropdown_list();
+		$data->streams_dropdown = Data\Streams::getStreamOptions();
 
 		// Theme layouts dropdown data.
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
@@ -242,36 +247,6 @@ class Admin_types extends Admin_Controller
 			->append_js('module::page_type_form.js')
 			->build('admin/types/form', $data);
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Create a dropdown array that can be used
-	 * to choose an appropriate stream. These are
-	 * separated by namespace.
-	 *
-	 * @return 	array
-	 */
-	private function get_stream_dropdown_list()
-	{
-		$choices = array();
-
-		// Now get our streams and add them
-		// under their namespace
-		$streams = $this->db
-							->where('stream_namespace !=', 'users')
-							->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
-
-		foreach ($streams as $stream) {
-			if ($stream->stream_namespace) {
-				$choices[ucfirst($stream->stream_namespace)][$stream->id] = $stream->stream_name;
-			}
-		}
-
-		return $choices;
-	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Edit method, edits an existing page type
@@ -379,39 +354,40 @@ class Admin_types extends Admin_Controller
 		$page_type = $this->_check_page_type();
 
 		// Get the stream that we are using for this page type.
-		$stream = $this->db->limit(1)->where('id', $page_type->stream_id)->get('data_streams')->row();
+		$stream = $page_type->stream;
 
-		$this->load->driver('Streams');
+		$page_type_uri = 'admin/pages/types/fields/'.$page_type->id;
 
 		// If we are adding a field, show the field form.
 		if ($this->uri->segment(6) == 'new_field') {
-			return $this->_new_field($stream, $page_type);
+			return $this->_new_field($stream, $page_type, $page_type_uri);
 		} elseif ($this->uri->segment(6) == 'edit_field') {
-			return $this->_edit_field($stream, $page_type);
+			return $this->_edit_field($stream, $page_type, $page_type_uri);
 		} elseif ($this->uri->segment(6) == 'delete_field') {
-			return $this->_delete_field($stream);
+			return $this->_delete_field($stream, $page_type_uri);
 		}
 
-		$extra = array(
-			'add_uri'		=> 'admin/pages/types/fields/'.$page_type->id.'/new_field',
-			'title'			=> $stream->stream_name.' '.lang('global:fields')
-		);
-
 		// Our buttons.
-		$extra['buttons'] = array(
+		$buttons = array(
 			array(
 				'label'     => lang('global:edit'),
-				'url'       => 'admin/pages/types/fields/'.$this->uri->segment(5).'/edit_field/-assign_id-'
+				'url'       => $page_type_uri.'/edit_field/{{id}}'
 			),
 			array(
 				'label'     => lang('global:delete'),
-				'url'       => 'admin/pages/types/fields/'.$this->uri->segment(5).'/delete_field/-assign_id-',
+				'url'       => $page_type_uri.'/delete_field/{{id}}',
 				'confirm'   => true,
 			)
 		);
 
 		// Show our fields list.
-		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
+		//$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
+		Cp\Fields::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
+			->title($stream->stream_name.' '.lang('global:fields'))
+			->addUri($page_type_uri.'/new_field')
+			->pagination(3, $page_type_uri)
+			->buttons($buttons)
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -467,12 +443,12 @@ class Admin_types extends Admin_Controller
 	 */
 	private function _check_page_type($segment = 5)
 	{
-		if ( ! $page_type_id = $this->uri->segment($segment)) show_404();
+		if ( ! $page_type_id = $this->uri->segment($segment) and empty($_POST)) redirect('admin/pages/types');
 
 		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+		$page_type = PageType::find($page_type_id);
 
-		if ( ! $page_type) show_404();
+		if ( ! $page_type and empty($_POST)) redirect('admin/pages/types');
 
 		return $page_type;
 	}
@@ -483,16 +459,16 @@ class Admin_types extends Admin_Controller
 	 * Edit Fields for a certain page type.
 	 *
 	 */
-	private function _new_field($stream, $page_type)
+	private function _new_field($stream, $page_type, $page_type_uri = null)
 	{
-		$extra = array(
-			'title'					 => $stream->stream_name.' : '.lang('streams:new_field'),
-			'success_message' 		 => lang('page_types:success_add_tag'),
-			'cancel_uri'			 => 'admin/pages/types/fields/'.$page_type->id,
-			'allow_title_column_set' => true
-		);
-
-		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
+		//$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
+		Cp\Fields::assignmentForm($stream->stream_slug, $stream->stream_namespace)
+			->title($stream->stream_name.' : '.lang('streams:new_field'))
+			->skips(array('chunks'))
+			->redirect($page_type_uri)
+			->cancelUri($page_type_uri)
+			->allowSetColumnTitle(true)
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -503,14 +479,14 @@ class Admin_types extends Admin_Controller
 	 */
 	private function _edit_field($stream, $page_type)
 	{
-		$extra = array(
-			'title'						=> $stream->stream_name.' : '.lang('streams:edit_field'),
-			'success_message' 			=> lang('page_types:success_add_tag'),
-			'cancel_uri'				=> 'admin/pages/types/fields/'.$page_type->id,
-			'allow_title_column_set' 	=> true
-		);
-
-		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
+		//$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
+		Cp\Fields::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
+			->title($stream->stream_name.' : '.lang('streams:edit_field'))
+			->skips(array('chunks'))
+			->redirect($page_type_uri)
+			->cancelUri($page_type_uri)
+			->allowSetColumnTitle(true)
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -519,11 +495,11 @@ class Admin_types extends Admin_Controller
 	 * Edit Fields for a certain page type.
 	 *
 	 */
-	private function _delete_field($stream)
+	private function _delete_field($stream, $page_type_uri = null)
 	{
-		$this->streams->cp->teardown_assignment_field($this->uri->segment(7));
+		Data\Fields::teardownFieldAssignment($this->uri->segment(7));
 
-		redirect('admin/pages/types/fields/'.$this->uri->segment(5));
+		redirect($page_type_uri);
 	}
 
 	// --------------------------------------------------------------------------
