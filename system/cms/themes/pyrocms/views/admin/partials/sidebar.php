@@ -26,14 +26,16 @@
 		</header>
 
 
-		<footer class="footer bg-gradient hidden-xs">
-			<a href="<?php echo site_url('admin/logout'); ?>" class="btn btn-sm btn-link m-r-n-xs pull-right">
-				<i class="icon-off"></i>
-			</a>
-
-			<a href="#nav" data-toggle="class:only-icon" data-target="#sidebar" class="btn btn-sm btn-link">
-				<i class="icon-reorder"></i>
-			</a>
+		<footer class="hidden-xs">
+			<nav class="nav-primary hidden-xs">
+				<ul class="nav">
+					<li>
+						<a href="#" data-toggle="class:only-icon" data-target="#sidebar" class="btn btn-sm btn-link">
+							<i class="icon-reorder"></i>
+						</a>
+					</li>
+				</ul>
+			</nav>
 		</footer>
 
 

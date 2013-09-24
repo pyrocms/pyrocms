@@ -79,6 +79,17 @@
 
 		<?php endforeach; ?>
 
+
+		<!-- Log off -->
+		<li>
+			<a href="<?php echo site_url('admin/logout'); ?>">
+				<i class="icon-off"></i>
+				<span>
+					<?php echo lang_label('lang:cp:logout_label'); ?>
+				</span>
+			</a>
+		</li>
+
 	</ul>
 
 </nav>
