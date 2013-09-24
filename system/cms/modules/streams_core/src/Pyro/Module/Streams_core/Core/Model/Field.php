@@ -251,24 +251,18 @@ class Field extends Eloquent
         if ($success = parent::delete())
         {
             // Find assignments, and delete rows from table
-            $assignments = $this->getAttribute('assignments');
-
-            if ( ! $assignments->isEmpty())
+            if ($assignments = $this->getAttribute('assignments') and ! $assignments->isEmpty())
             {
                 // Delete assignments
-                foreach ($assignments as $assignment)
-                {
-                    $assignment->delete();
-                }
+                FieldAssignment::cleanup();
+                // Reset instances where the title column
+                // is the field we are deleting. PyroStreams will
+                // always just use the ID in place of the field.
+                
+                $title_column = $this->getAttribute('field_slug');
+
+                Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);
             }
-
-            // Reset instances where the title column
-            // is the field we are deleting. PyroStreams will
-            // always just use the ID in place of the field.
-            
-            $title_column = $this->getAttribute('field_slug');
-
-            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);      
         }
 
         return $success;
