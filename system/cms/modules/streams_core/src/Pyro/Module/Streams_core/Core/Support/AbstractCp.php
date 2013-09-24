@@ -494,26 +494,26 @@ abstract class AbstractCp extends AbstractSupport
 	 * @param  [type] $pagination_uri [description]
 	 * @return [type]                 [description]
 	 */
-	public function pagination($pagination = null, $pagination_uri = null)
+	public function pagination($limit = null, $pagination_uri = null)
 	{
-		$this->pagination = $pagination;
+		$this->limit = $limit > 0 ? $limit : null;
 		$this->pagination_uri = $pagination_uri;
 		
 		// -------------------------------------
 		// Find offset URI from array
 		// -------------------------------------
 
-		if (is_numeric($this->pagination))
+		if (is_numeric($this->limit))
 		{
 			$segs = explode('/', $this->pagination_uri);
 			$this->offset_uri = count($segs)+1;
 
-				$this->offset = ci()->uri->segment($this->offset_uri, 0);
+			$this->offset = ci()->uri->segment($this->offset_uri, 0);
 
 			// Calculate actual offset if not first page
-			if ( $offset > 0 )
+			if ( $this->offset > 0 )
 			{
-				$this->offset = ($offset - 1) * $this->pagination;
+				$this->offset = ($this->offset - 1) * $this->limit;
 			}
 		}
 		else
