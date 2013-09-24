@@ -6,7 +6,7 @@
 	background-color: @sidebar-bg;
 
 	.nav-bar.header.bg-brand-primary {
-		border-bottom: 1px solid rgba(0,0,0,0.15);
+		border-bottom: 1px solid rgba(0,0,0,0.05);
 	}
 }
 
@@ -75,6 +75,7 @@
 	> ul {
 		> li {
 			> a {
+				color: @white;
 				padding:15px 15px;
 				position: relative;
 				font-weight: bold;
@@ -107,7 +108,8 @@
 			> a:hover,
 			> a:focus,
 			> a:active,
-			&.active > a {
+			&.active > a ,
+			&.has-active > a {
 				color: #fff;
 				background-color: inherit;
 				background-color: rgba(0,0,0,0.075) !important;
@@ -126,10 +128,20 @@
 				}
 			}
 			> .dropdown-menu {
+				position: absolute;
+				margin: 0;
+				left: 100%;
+				margin-left: -1px;
+				margin-top: -1px;
+				top: 0;
 				border-radius: 0;
 			}
 		}
-	}	
+		li:hover > .dropdown-menu,
+		li > .dropdown-menu:hover {
+			display: block;
+		}
+	}
 }
 
 @media (min-width: 768px) {

@@ -1,4 +1,4 @@
-<aside class="aside-sm animated-zing fadeInLeft only-icon" id="sidebar">
+<aside class="aside-sm animated-zing fadeInLeft nav-vertical" id="sidebar">
 
 	<section class="vertical-box">
 
@@ -13,10 +13,9 @@
 
 				<!-- Icon -->
 				<span class="icon">
-					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px')); ?>
+					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px', 'id' => 'brand-icon')); ?>
 				</span>
 
-				<span class="color-white">PyroCMS</span>
 			</a>
 
 
@@ -32,7 +31,7 @@
 				<i class="icon-off"></i>
 			</a>
 
-			<a href="#nav" data-toggle="class:nav-vertical" data-target="#sidebar" class="btn btn-sm btn-link">
+			<a href="#nav" data-toggle="class:only-icon" data-target="#sidebar" class="btn btn-sm btn-link">
 				<i class="icon-reorder"></i>
 			</a>
 		</footer>
@@ -49,7 +48,7 @@
 				Users			icon-group
 				Settings		icon-cog
 				Addons			icon-truck | icon-puzzle-piece
-				User 			icon-user
+				Profile			icon-user
 				Misc			icon-folder-open
 
 			-->
