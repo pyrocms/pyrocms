@@ -54,6 +54,19 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
+     * Slug exists
+     */
+    public static function slugExists($slug)
+    {
+        if ($exists = static::where('slug', $slug)->first())
+        {
+            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+        }
+
+        return $exists;
+    }
+
+    /**
      * Validation callback to check the
      * page type slug. We want page type slugs
      * to be unique so we can use them as folder
@@ -62,7 +75,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug - the page slug
      * @return bool
      */
-    public function _check_pt_slug($slug)
+    public static function _check_pt_slug($slug)
     {
         if (parent::count_by(array('slug' => $slug)) == 0) {
             return true;
