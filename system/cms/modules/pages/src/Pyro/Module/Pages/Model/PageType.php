@@ -37,8 +37,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
 
     /**
      * Relationship: Page
-     *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pages()
     {
@@ -46,14 +45,25 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * Relationship: Page
-     *
-     * @todo Turn me into a real relationship and rename to stream()
-     * @return array
+     * Relationship: Stream
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stream()
     {
         return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream');
+    }
+
+    /**
+     * Slug exists
+     */
+    public static function slugExists($slug)
+    {
+        if ($exists = static::where('slug', $slug)->first())
+        {
+            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+        }
+
+        return $exists;
     }
 
     /**
@@ -65,7 +75,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug - the page slug
      * @return bool
      */
-    public function _check_pt_slug($slug)
+    public static function _check_pt_slug($slug)
     {
         if (parent::count_by(array('slug' => $slug)) == 0) {
             return true;

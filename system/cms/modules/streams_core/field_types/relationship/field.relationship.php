@@ -45,10 +45,6 @@ class Field_relationship extends AbstractField
 	{
 		$model = Model\Entry::stream($this->getParameter('choose_stream'));
 
-		$stream = $model->getStream();
-
-		$title_column = $title_column = $model->getTitleColumn();
-
 		$entry_options = array();
 
 		// If this is not required, then
@@ -59,11 +55,8 @@ class Field_relationship extends AbstractField
 		}
 
 		// Get the entries
-		$entry_options += $model->lists($title_column, $model->getKeyName());
+		$entry_options += $model->getEntryOptions();
 		
-
-		
-
 		// Output the form input
 		return form_dropdown($this->form_slug, $entry_options, $this->value, 'id="'.rand_string(10).'"');
 	}
@@ -100,8 +93,6 @@ class Field_relationship extends AbstractField
 		if($entry = $this->getRelation())
 		{
 			$stream = $entry->getStream();
-
-			$title_column = $entry->getTitleColumn();
 		
 			if (ci()->uri->segment(1) == 'admin')
 			{
@@ -117,11 +108,11 @@ class Field_relationship extends AbstractField
 					// This is kept for backwards compatibility
 					$url = str_replace(array('-id-', '-stream-'), array($entry->getKey(), $stream->stream_slug), $url);
 
-					return '<a href="'.site_url($url).'">'.$entry->$title_column.'</a>';
+					return '<a href="'.site_url($url).'">'.$entry->getTitleColumnValue().'</a>';
 				}
 				else
 				{
-					return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->$title_column.'</a>';
+					return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->getTitleColumnValue().'</a>';
 				}
 			}
 			else
