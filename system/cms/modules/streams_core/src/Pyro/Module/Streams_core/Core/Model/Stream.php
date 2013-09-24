@@ -429,6 +429,8 @@ class Stream extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
+		if ( ! $field instanceof Field) return false;
+
 		// Do we have a destruct function
 		if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
 		{
@@ -441,25 +443,25 @@ class Stream extends Eloquent
 		// Remove from db structure
 		// -------------------------------------
 
-		// Alternate method fields will not have a column, so we just
-		// check for it first
-		if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug))
-		{
-			if ( ! $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field) {
+		try {
+			// Alternate method fields will not have a column, so we just
+			// check for it first
+			$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
 				$table->dropColumn($field->field_slug);
-			}))
-			{
-				return false;
-			}
+			});
+		} catch (Exception $e) {
+			// @todo - log error
 		}
 
-		$assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey());
+		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
+		{
+			// -------------------------------------
+			// Remove from field assignments table
+			// -------------------------------------
 
-		// -------------------------------------
-		// Remove from field assignments table
-		// -------------------------------------
+			if ( ! $assignment->delete()) return false;			
+		}
 
-		if ( ! $assignment->delete()) return false;
 
 		// -------------------------------------
 		// Remove from from field options
