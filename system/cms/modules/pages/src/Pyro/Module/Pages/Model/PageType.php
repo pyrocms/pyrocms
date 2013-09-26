@@ -175,24 +175,26 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      *                                     with the page type?
      * @return bool
      */
-    // public function delete($id, $delete_stream = false)
-    // {
-    //     $page_type = $this->get($id);
+    public function delete($delete_stream = false)
+    {
+        // Are we going to delete the stream?
+        if ($delete_stream and $this->stream)
+        {
+            $this->stream->delete();
+        }
 
-    //         // Are we going to delete the stream?
-    //         if ($delete_stream)
-    //         {
-    //             $stream = $this->streams_m->get_stream($page_type->stream_id);
-    //             $this->streams->streams->delete_stream($stream);
-    //         }
+        // If we are saving as files, we need to remove the page
+        // layout files to keep things tidy.
+        $this->remove_page_layout_files($this->slug, true);
 
-    //     // If we are saving as files, we need to remove the page
-    //     // layout files to keep things tidy.
-    //     $this->remove_page_layout_files($page_type->slug, true);
+        // Delete the actual page entry.
+        return parent::delete();
+    }
 
-    //     // Delete the actual page entry.
-    //     return $this->db->limit(1)->where('id', $id)->delete($this->_table);
-    // }
+    public static function streamInUseByMultipleTypes($stream_id = null)
+    {
+        return static::where('stream_id', $stream_id)->count() > 1;
+    }
 
     // --------------------------------------------------------------------------
 
@@ -205,7 +207,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public function remove_page_layout_files($slug, $remove_folder = false)
     {
-        $this->load->helper('file');
+        ci()->load->helper('file');
 
         $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
 
