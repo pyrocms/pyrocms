@@ -68,4 +68,14 @@ class EloquentCollection extends Collection
 		return $this->items;
 	}
 	
+	/**
+	 * Delete
+	 * @return [type] [description]
+	 */
+	public function delete()
+	{
+		$this->each(function($model) {
+			$model->delete();
+		});
+	}
 }
