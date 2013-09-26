@@ -385,7 +385,7 @@ class Admin_types extends Admin_Controller
 		Cp\Fields::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' '.lang('global:fields'))
 			->addUri($page_type_uri.'/new_field')
-			->pagination(3, $page_type_uri)
+			->pagination(Settings::get('records_per_page'), $page_type_uri)
 			->buttons($buttons)
 			->render();
 	}
