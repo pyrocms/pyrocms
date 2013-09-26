@@ -14,7 +14,8 @@ $lang['streams:file.name'] = 'Fil';
 $lang['streams:file.folder'] = 'Mapp för uppladdning';
 $lang['streams:file.allowed_types'] = 'Tillåtna filttyper';
 $lang['streams:file.folder_notice'] = 'Du måste ange en uppladdningsmapp innan du kan ladda upp filer.';
-$lang['streams:file.allowed_types_instrcutions'] = 'Separera varje filtyp med pipe-tecken. Ex: pdf|png';
+$lang['streams:file.allowed_types_instructions'] = 'Separera varje filtyp med pipe-tecken. Ex: pdf|png';
+$lang['streams:file.allowed_types_error']        = 'The field %s contains an invalid file type.'; #translate
 
 
 /* End of file file_lang.php */  

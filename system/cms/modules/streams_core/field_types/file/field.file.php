@@ -255,4 +255,27 @@ class Field_file
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Input validation
+	 * 
+	 * @param type $value
+	 * @param type $mode
+	 * @param type $field
+	 * @return boolean
+	 */
+	public function validate($value, $mode, $field)
+	{
+		$allowed_types = explode('|', $field->field_data['allowed_types']);
+		$filename      = $_FILES[$field->field_slug . '_file']['name'];
+		$extension     = substr($filename, strripos($filename, '.')+1);
+		
+		if ( ! in_array($extension, $allowed_types))
+		{
+			return sprintf(lang('streams:file.allowed_types_error'), $field->field_name);
+		}
+
+		return true;
+	}
 }
