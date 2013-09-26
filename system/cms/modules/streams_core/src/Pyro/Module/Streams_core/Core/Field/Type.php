@@ -364,8 +364,6 @@ class Type
 		
 		// I guess we don't have any to show.
 		
-		$field_type->custom_parameters = array_unique(array_merge($field_type->custom_parameters, array('default_value')));
-		
 		$field_type->setField($current_field);
 		
 		// Otherwise, the beat goes on.
@@ -373,7 +371,7 @@ class Type
 		$output = '';
 
 		//Echo them out
-		foreach ($field_type->custom_parameters as $param)
+		foreach ($field_type->getCustomParameters() as $param)
 		{
 			$custom_param = 'param_'.$param;
 

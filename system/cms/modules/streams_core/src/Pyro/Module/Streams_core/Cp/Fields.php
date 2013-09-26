@@ -423,13 +423,34 @@ class Fields extends AbstractCp
 				}
 			}*/
 
+			// Figure out where this is coming from - post or data
+
+			if ($this->data->current_type = Field\Type::getLoader()->getType($field_type))
+			{				
+				$field_data = array();
+
+				// Build items out of post data
+				foreach ($this->data->current_type->getCustomParameters() as $param)
+				{
+					if ($value = ci()->input->post($param))
+					{
+						$field_data[$param] = $value;
+					}
+					elseif (isset($this->data->current_field->field_data[$param]))
+					{
+						$field_data[$param] = $this->data->current_field->field_data[$param];
+					}
+				}
+			}
+
 			if ($this->data->method == 'new')
 			{
 				if ( ! $field = Model\Field::create(array(
 						'field_name' => $post_data['field_name'],
 						'field_slug' => $post_data['field_slug'],
 						'field_type' => $post_data['field_type'],
-						'field_namespace' => $this->data->namespace,			
+						'field_namespace' => $this->data->namespace,
+						'field_data' => $field_data		
 					)))
 				{
 					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
@@ -471,29 +492,6 @@ class Fields extends AbstractCp
 					}
 				}
 
-			}
-	
-			// Figure out where this is coming from - post or data
-
-			if ($this->data->current_type = Field\Type::getLoader()->getType($field_type))
-			{				
-				$field_data = array();
-
-				if (isset($this->data->current_type->custom_parameters) and is_array($this->data->current_type->custom_parameters))
-				{
-					// Build items out of post data
-					foreach ($this->data->current_type->custom_parameters as $param)
-					{
-						if ($value = ci()->input->post($param))
-						{
-							$field_data[$param] = $value;
-						}
-						elseif (isset($this->data->current_field->field_data[$param]))
-						{
-							$field_data[$param] = $this->data->current_field->field_data[$param];
-						}
-					}
-				}
 			}
 
 			$this->data->current_field->field_data = $field_data;

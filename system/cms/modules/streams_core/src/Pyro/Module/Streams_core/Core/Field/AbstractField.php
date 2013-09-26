@@ -13,6 +13,18 @@ abstract class AbstractField
 	public $alt_process = false;
 
 	/**
+	 * Custom parameters
+	 * @var array
+	 */
+	protected $custom_parameters = array();
+
+	/**
+	 * Default parameters
+	 * @var array
+	 */
+	protected $default_parameters = array('default_value');
+
+	/**
 	 * Default values
 	 * @var array
 	 */
@@ -162,6 +174,11 @@ abstract class AbstractField
 		$this->field = $field;
 
 		return $this;
+	}
+
+	public function getCustomParameters()
+	{
+		return array_merge($this->custom_parameters, $this->default_parameters);
 	}
 
 	/**
