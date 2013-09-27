@@ -178,7 +178,7 @@ abstract class AbstractField
 
 	public function getCustomParameters()
 	{
-		return array_merge($this->custom_parameters, $this->default_parameters);
+		return array_unique(array_merge($this->custom_parameters, $this->default_parameters));
 	}
 
 	/**
