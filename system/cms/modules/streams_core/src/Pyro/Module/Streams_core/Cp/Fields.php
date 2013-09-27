@@ -69,6 +69,8 @@ class Fields extends AbstractCp
 		}
 		else
 		{
+			$instance->data->assignment = new Model\FieldAssignment;
+
 			$instance->data->current_field = new Model\Field;
 		}
 
@@ -443,60 +445,50 @@ class Fields extends AbstractCp
 				}
 			}
 
-			if ($this->data->method == 'new')
-			{
-				if ( ! $field = Model\Field::create(array(
-						'field_name' => $post_data['field_name'],
-						'field_slug' => $post_data['field_slug'],
-						'field_type' => $post_data['field_type'],
-						'field_namespace' => $this->data->namespace,
-						'field_data' => $field_data		
-					)))
-				{
-					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
-				}
-				elseif (isset($this->data->stream))
-				{
-					// Add the assignment
-					if( ! $this->data->stream->assignField($field, array(
-							'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
-							'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
-							'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : false,
-							'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
-						)))
-					{
-						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
-					}
-					else
-					{
-						ci()->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_add_success')));	
-					}
-				}
-			}
-			else
-			{
-				if ( ! $this->data->current_field->update(array_merge($post_data,array('field_namespace' => $this->data->namespace))))
-				{
-					ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
-				}
-				elseif (isset($this->data->assignment))
-				{
-					// Add the assignment
-					if( ! $this->data->assignment->update($post_data))
-					{
-						ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
-					}
-					else
-					{
-						ci()->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_update_success')));
-					}
-				}
+			$this->data->current_field->fill(array(
+				'field_name' => $post_data['field_name'],
+				'field_slug' => $post_data['field_slug'],
+				'field_type' => $post_data['field_type'],
+				'field_namespace' => $this->data->namespace,
+				'field_data' => $field_data		
+			));
 
+			if ( ! $this->data->current_field->save())
+			{
+				ci()->session->set_flashdata('notice', lang('streams:save_field_error'));	
 			}
 
-			$this->data->current_field->field_data = $field_data;
+			if (isset($this->data->stream) and isset($this->data->assignment))
+			{
+				$post_data = array(
+					'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
+					'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
+					'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : false,
+					'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
+				);
 
-			$this->data->current_field->save();
+				if ( ! ($edit = $this->data->assignment->getKey()))
+				{
+					// Add the assignment
+					$success = $this->data->stream->assignField($this->data->current_field, $post_data);
+				}
+				else
+				{
+					// Update the assignment
+					$success = $this->data->assignment->update($post_data);			
+				}
+
+				if( ! $success)
+				{
+					ci()->session->set_flashdata('notice', $this->failure_message ? lang_label($this->failure_message) : lang('streams:save_field_error'));
+				}
+				else
+				{
+					$default_success_message = $edit ? lang('streams:field_update_success') : lang('streams:field_add_success');
+
+					ci()->session->set_flashdata('success', $this->success_message ? lang_label($this->success_message) : $default_success_message);
+				}	
+			}
 			
 			if ($this->return)
 			{
@@ -504,7 +496,7 @@ class Fields extends AbstractCp
 			}
 		}
 
-		$this->data->parameter_output = Field\Type::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
+		$this->data->parameters = Field\Type::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
 		
 
 		// -------------------------------------
