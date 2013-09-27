@@ -385,7 +385,7 @@ class Admin_types extends Admin_Controller
 		Cp\Fields::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' '.lang('global:fields'))
 			->addUri($page_type_uri.'/new_field')
-			->pagination(3, $page_type_uri)
+			->pagination(Settings::get('records_per_page'), $page_type_uri)
 			->buttons($buttons)
 			->render();
 	}
@@ -477,7 +477,7 @@ class Admin_types extends Admin_Controller
 	 * Edit Fields for a certain page type.
 	 *
 	 */
-	private function _edit_field($stream, $page_type)
+	private function _edit_field($stream, $page_type, $page_type_uri)
 	{
 		//$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
 		Cp\Fields::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
@@ -528,12 +528,13 @@ class Admin_types extends Admin_Controller
 		// Even then, we will have warned them.
 		$delete_stream = false;
 
-		$this->load->driver('Streams');
-		$stream = $this->streams_m->get_stream($page_type->stream_id);
+		$stream = $page_type->stream;
 
-		if ($stream->stream_namespace == 'pages') {
+		if ($stream and $stream->stream_namespace == 'pages')
+		{
 			// Are any other page types using this?
-			if (PageType::where('stream_id', $page_type->stream_id)->count() <= 1) {
+			if ( ! PageType::streamInUseByMultipleTypes($page_type->stream_id))
+			{
 				$delete_stream = true;
 			}
 		}
@@ -541,23 +542,21 @@ class Admin_types extends Admin_Controller
 		if ($this->input->post('do_delete') == 'y') {
 
 			// Delete page
-			PageType::deleteType($id, $delete_stream);
+			$page_type->delete($delete_stream);
 
 			// Guess what, we have to delete ALL the pages using this
 			// page type. This is necessary since the data for that page
 			// type in streams and elsewhere is essentially useless.
-			$pages = $this->db->where('type_id', $id)->get('pages')->result();
+			$pages = Page::findManyByTypeId($page_type->id);
 
-			foreach ($pages as $page) {
-				Page::delete($page->id);
-			}
+			$pages->delete();
 
 			// Wipe cache for this model, the content has changd
 			$this->cache->clear('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
 
-			Events::trigger('page_type_deleted', $id);
+			Events::trigger('page_type_deleted', $page_type);
 
 			redirect('admin/pages/types');
 		}

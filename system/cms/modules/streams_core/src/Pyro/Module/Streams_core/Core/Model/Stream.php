@@ -221,9 +221,13 @@ class Stream extends Eloquent
 		$from = $this->getAttribute('stream_prefix').$this->getAttribute('stream_slug');
 		$to = $attributes['stream_prefix'].$attributes['stream_slug'];
 
-		if ( ! empty($to) and $schema->hasTable($from) and $from != $to)
-		{
-			$schema->rename($from, $to);
+		try {
+			if ( ! empty($to) and $schema->hasTable($from) and $from != $to)
+			{
+				$schema->rename($from, $to);
+			}			
+		} catch (Exception $e) {
+			// @todo - throw exception			
 		}
 
 		return parent::update($attributes);
@@ -237,12 +241,19 @@ class Stream extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->dropIfExists($this->getAttribute('stream_prefix').$this->getAttribute('stream_slug'));
+		try {
+			$schema->dropIfExists($this->getAttribute('stream_prefix').$this->getAttribute('stream_slug'));	
+		} catch (Exception $e) {
+			// @todo - log error
+		}
 
-		$success = parent::delete();
+		if ($success = parent::delete())
+		{
+			FieldAssignment::cleanup();
 
-		FieldAssignment::cleanup();
-
+			Field::cleanup();			
+		}
+		
 		return $success;
 	}
 
