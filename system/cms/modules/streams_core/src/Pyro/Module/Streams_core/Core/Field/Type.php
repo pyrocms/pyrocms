@@ -389,12 +389,8 @@ class Type
 
 			// Check to see if it is a standard one or a custom one
 			// from the field type
-			if (method_exists($parameters, $param))
-			{
-				$data['input'] = $parameters->$param($value);
-				$data['input_name']		= lang('streams:'.$param);
-			}
-			elseif (method_exists($field_type, $custom_param))
+			// custom ones go first to allow overriding defauts
+			if (method_exists($field_type, $custom_param))
 			{
 				$input = $field_type->$custom_param($value, $namespace);
 
@@ -405,11 +401,20 @@ class Type
 					$data['input'] 			= $input;
 					$data['instructions']	= null;
 				}
-
-				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
+			elseif (method_exists($parameters, $param))
+			{
+				$data['input'] = $parameters->$param($value);
 			}
 
-
+			if (method_exists($parameters, $param))
+			{
+				$data['input_name']		= lang('streams:'.$param);
+			}
+			else
+			{
+				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
 
 			$data['input_slug'] = $param;
 
