@@ -364,8 +364,6 @@ class Type
 		
 		// I guess we don't have any to show.
 		
-		$field_type->custom_parameters = array_unique(array_merge($field_type->custom_parameters, array('default_value')));
-		
 		$field_type->setField($current_field);
 		
 		// Otherwise, the beat goes on.
@@ -373,7 +371,7 @@ class Type
 		$output = '';
 
 		//Echo them out
-		foreach ($field_type->custom_parameters as $param)
+		foreach ($field_type->getCustomParameters() as $param)
 		{
 			$custom_param = 'param_'.$param;
 
@@ -391,12 +389,8 @@ class Type
 
 			// Check to see if it is a standard one or a custom one
 			// from the field type
-			if (method_exists($parameters, $param))
-			{
-				$data['input'] = $parameters->$param($value);
-				$data['input_name']		= lang('streams:'.$param);
-			}
-			elseif (method_exists($field_type, $custom_param))
+			// custom ones go first to allow overriding defauts
+			if (method_exists($field_type, $custom_param))
 			{
 				$input = $field_type->$custom_param($value, $namespace);
 
@@ -407,11 +401,20 @@ class Type
 					$data['input'] 			= $input;
 					$data['instructions']	= null;
 				}
-
-				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
+			elseif (method_exists($parameters, $param))
+			{
+				$data['input'] = $parameters->$param($value);
 			}
 
-
+			if (method_exists($parameters, $param))
+			{
+				$data['input_name']		= lang('streams:'.$param);
+			}
+			else
+			{
+				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
 
 			$data['input_slug'] = $param;
 

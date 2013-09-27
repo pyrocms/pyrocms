@@ -41,11 +41,11 @@ class Field extends Eloquent
         $instance = new static;
 
         // Load the type to see if there are other params
-        if ($type = Type::getLoader()->getType($attributes['field_type']) and isset($type->custom_parameters))
+        if ($type = Type::getLoader()->getType($attributes['field_type']))
         {
             $type->setPreSaveParameters($attributes);
 
-            foreach ($type->custom_parameters as $param)
+            foreach ($type->getCustomParameters() as $param)
             {
                 if (method_exists($type, 'param_'.$param.'_pre_save') and $value = $type->getPreSaveParameter($param))
                 {
@@ -201,13 +201,10 @@ class Field extends Eloquent
         }
     
         // Gather extra data
-        if ( ! empty($type->custom_parameters))
+        foreach ($type->getCustomParameters() as $param)
         {
-            foreach ($type->custom_parameters as $param)
-            {
-                if (method_exists($type, 'param_'.$param.'_pre_save')) {
-                    $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
-                }
+            if (method_exists($type, 'param_'.$param.'_pre_save')) {
+                $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
             }
         }
 
@@ -268,11 +265,17 @@ class Field extends Eloquent
         return $success;
     }
 
+    /**
+     * Cleanup stale fields that have no assignments
+     * @return [type] [description]
+     */
     public static function cleanup()
     {
-        
-    }
+        $field_ids = FieldAssignment::all()->getFieldIds();
 
+        return static::whereNotIn('id', $field_ids)->delete();
+    }
+    
     /**
      * Delete fields by namespace
      * @param  string $namespace

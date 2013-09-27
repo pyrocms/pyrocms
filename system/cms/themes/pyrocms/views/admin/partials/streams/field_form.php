@@ -74,7 +74,7 @@
 
 		<div id="parameters">
 		
-			<?php echo $parameter_output; ?>
+			<?php echo $parameters; ?>
 		
 		</div>
 

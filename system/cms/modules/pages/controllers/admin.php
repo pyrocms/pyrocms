@@ -255,7 +255,7 @@ class Admin extends Admin_Controller
         // What type of page are we creating?
         $page_type = PageType::find($this->input->get('page_type'));
         
-        $parent = null;
+        $parent_page = null;
 
         if ($parent_id = $this->input->get('parent'))
         {
@@ -489,8 +489,6 @@ class Admin extends Admin_Controller
 
         if ($page->entry)
         {
-            $page->entry->setStream($stream);
-            $page->entry->setFields($stream->assignments->getFields());  
             // We can pass the page model to generate the form
             $cp = Streams\Cp\Entries::form($page->entry);          
         }
