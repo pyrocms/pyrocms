@@ -21,7 +21,7 @@ class Field_textarea extends AbstractField
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
-	public $custom_parameters		= array('default_text', 'allow_tags', 'content_type');
+	public $custom_parameters		= array('allow_tags', 'content_type');
 	
 	/**
 	 * Output form input
@@ -38,7 +38,7 @@ class Field_textarea extends AbstractField
 		{
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			$value = $this->getParameter('default_text', $this->getParameter('default_value'));
+			$value = $this->getParameter('default_value');
 		}
 		else
 		{
@@ -107,11 +107,11 @@ class Field_textarea extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_default_text($value = null)
+	public function param_default_value($value = null)
 	{
 		return form_textarea(array(
-			'name'		=> 'default_text',
-			'id'		=> 'default_text',
+			'name'		=> 'default_value',
+			'id'		=> 'default_value',
 			'value'		=> $value,
 		));
 	}

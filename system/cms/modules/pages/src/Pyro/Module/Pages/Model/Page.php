@@ -202,6 +202,11 @@ class Page extends Eloquent
 			->get();
 	}
 
+	public static function findManyByTypeId($type_id = null)
+	{
+		return static::where('type_id', $type_id)->get();
+	}
+
 	/**
 	 * Find a page by its URI
 	 *
