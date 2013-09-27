@@ -265,11 +265,17 @@ class Field extends Eloquent
         return $success;
     }
 
+    /**
+     * Cleanup stale fields that have no assignments
+     * @return [type] [description]
+     */
     public static function cleanup()
     {
-        
-    }
+        $field_ids = FieldAssignment::all()->getFieldIds();
 
+        return static::whereNotIn('id', $field_ids)->delete();
+    }
+    
     /**
      * Delete fields by namespace
      * @param  string $namespace
