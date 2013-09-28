@@ -460,7 +460,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.instructions')
+				'instructions'	=> lang('streams:choice.instructions')
 			);
 	}
 
@@ -476,10 +476,10 @@ class Field_choice extends AbstractField
 	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' 		=> ci()->lang->line('streams:choice.dropdown'),
-			'multiselect' 	=> ci()->lang->line('streams:choice.multiselect'),
-			'radio' 		=> ci()->lang->line('streams:choice.radio_buttons'),
-			'checkboxes'	=> ci()->lang->line('streams:choice.checkboxes')
+			'dropdown' 		=> lang('streams:choice.dropdown'),
+			'multiselect' 	=> lang('streams:choice.multiselect'),
+			'radio' 		=> lang('streams:choice.radio_buttons'),
+			'checkboxes'	=> lang('streams:choice.checkboxes')
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
@@ -498,7 +498,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> lang('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -515,7 +515,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> lang('streams:choice.checkboxes_only')
 			);
 	}
 

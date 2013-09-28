@@ -103,8 +103,8 @@ class Field_slug extends AbstractField
 	public function param_space_type($value = null)
 	{
 		$options = array(
-			'-' => ci()->lang->line('streams:slug.dash'),
-			'_' => ci()->lang->line('streams:slug.underscore')
+			'-' => lang('streams:slug.dash'),
+			'_' => lang('streams:slug.underscore')
 		);
 
 		return form_dropdown('space_type', $options, $value);
