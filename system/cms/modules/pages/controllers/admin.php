@@ -231,7 +231,6 @@ class Admin extends Admin_Controller
             $duplicate_page->entry()->associate($duplicate_entry);
         }
         
-        $duplicate_page->skip_validation = true;
         $duplicate_page->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
