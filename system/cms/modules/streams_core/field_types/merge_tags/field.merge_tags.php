@@ -46,6 +46,11 @@ class Field_merge_tags extends AbstractField
 		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_data, true);
 	}
 
+	/**
+	 * Pattern parameter
+	 * @param  mixed $value The saved value or null
+	 * @return array        The form array
+	 */
 	public function param_pattern($value = null)
 	{
 		return array(
