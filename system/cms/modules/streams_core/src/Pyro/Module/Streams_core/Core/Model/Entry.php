@@ -281,6 +281,10 @@ class Entry extends EntryOriginal
         return $this->enable_eager_field_relations;
     }
 
+    /**
+     * Set eager field relations
+     * @param array $field_slugs The array of field slugs
+     */
     public function setEagerFieldRelations($field_slugs = array())
     {
         if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
@@ -297,6 +301,8 @@ class Entry extends EntryOriginal
 
             $this->eager_field_relations = $eager_field_relations;
         }
+
+        return $this;
     }
 
     /**
@@ -361,6 +367,8 @@ class Entry extends EntryOriginal
     public function setUnformattedEntry($unformatted_entry = null)
     {
         $this->unformatted_entry = $unformatted_entry;
+
+        return $this;
     }
 
     /**
@@ -415,6 +423,21 @@ class Entry extends EntryOriginal
         $alt_process = array();
         
         $types = array();
+        
+        // Reset values if the unformatted entry is available
+        if (($unformatted = $this->unformatted()) instanceof Entry)
+        {
+            if ($this->replicated)
+            {
+                $attributes = array_except($unformatted->getAttributes(), array($this->getKeyName()));
+            }
+            else
+            {
+                $attributes = $unformatted->getAttributes();
+            }
+
+            $this->setRawAttributes($attributes);
+        }
 
         // Set created_by only when the entry is new
         if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
@@ -436,6 +459,7 @@ class Entry extends EntryOriginal
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
                 if ( ! in_array($field->field_slug, $skips))
                 {
+
                     $type = $field->getType($this);
                     $types[] = $type;
 
@@ -904,6 +928,7 @@ class Entry extends EntryOriginal
         $model->setStream($this->stream);
         $model->setFields($this->fields);
         $model->setTable($this->table);
+        $model->setUnformattedEntry($this->unformatted_entry);
 
         return $model;
     }

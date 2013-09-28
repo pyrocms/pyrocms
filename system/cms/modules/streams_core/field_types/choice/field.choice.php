@@ -88,8 +88,6 @@ class Field_choice extends AbstractField
 				// or checkboxes
 				if (is_string($value))
 				{
-					$value = strip_tags($value);
-
 					$vals = explode("\n", trim($value));
 				}
 				elseif (is_array($value))

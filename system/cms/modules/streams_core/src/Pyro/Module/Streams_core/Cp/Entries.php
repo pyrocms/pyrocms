@@ -287,11 +287,7 @@ class Entries extends AbstractCp
 		{
 			$instance->model = $mixed->getModel();
 
-			$instance->entry = $mixed;
-
-			$stream = $instance->entry->getStream();
-
-			$instance->entry->setTable($stream->stream_prefix.$stream->stream_slug);
+			$instance->entry = $mixed->unformatted();
 		}
 		else
 		{
@@ -306,11 +302,6 @@ class Entries extends AbstractCp
 				$instance->entry = $instance->model->setFormat(false);
 			}
 		}
-		
-		$stream = $instance->model->getStream();
-
-		$instance->entry->setStream($stream);
-		$instance->entry->setFields($stream->assignments->getFields());
 
 		return $instance;	
 	}
