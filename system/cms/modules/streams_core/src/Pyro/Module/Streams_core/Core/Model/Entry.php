@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
@@ -424,6 +425,19 @@ class Entry extends EntryOriginal
         
         $types = array();
         
+        // Set created_by only when the entry is new
+        if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
+        {
+            $this->setAttribute('created', time());
+
+            $this->setAttribute('created_by', ci()->current_user->id);
+        }
+
+        if ($this->getKey())
+        {
+            $this->setAttribute('updated', time());
+        }
+
         // Reset values if the unformatted entry is available
         if (($unformatted = $this->unformatted()) instanceof Entry)
         {
@@ -439,21 +453,10 @@ class Entry extends EntryOriginal
             $this->setRawAttributes($attributes);
         }
 
-        // Set created_by only when the entry is new
-        if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
-        {
-            $this->setAttribute('created', time());
-
-            $this->setAttribute('created_by', ci()->current_user->id);
-        }
-
-        if ($this->getKey())
-        {
-            $this->setAttribute('updated', time());
-        }
-        
         if ( ! $fields->isEmpty())
         {
+            $form_data = Form::getFormData($fields, $this, array(), true);
+
             foreach ($fields as $field)
             {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
@@ -463,37 +466,35 @@ class Entry extends EntryOriginal
                     $type = $field->getType($this);
                     $types[] = $type;
 
+                    $value = $this->getAttribute($field->field_slug);
+
                     $type->setStream($this->stream);
-                    $type->setValue($this->getAttribute($field->field_slug));
+                    $type->setValue($value);
+                    $type->setFormData($form_data);
 
-                    if ( $value = $this->getAttribute($field->field_slug) and ! empty($value))
+                    // We don't process the alt process stuff.
+                    // This is for field types that store data outside of the
+                    // actual table
+                    if ($type->alt_process)
                     {
-                        // We don't process the alt process stuff.
-                        // This is for field types that store data outside of the
-                        // actual table
-                        if ($type->alt_process)
+                        $alt_process[] = $type;
+                    }
+                    else
+                    {
+                        if (is_null($value))
                         {
-                            $alt_process[] = $type;
+                            $this->setAttribute($field->field_slug, null);
                         }
-                        else
-                        {
-                            if (method_exists($type, 'pre_save'))
-                            {
-                                $this->setAttribute($field->field_slug, $type->pre_save());
-                            }
 
-                            if (is_null($value))
-                            {
-                                $this->setAttribute($field->field_slug, null);
-                            }
-                            elseif(is_string($value))
-                            {
-                                $this->setAttribute($field->field_slug, trim($value));
-                            }
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $this->setAttribute($field->field_slug, $type->pre_save());
+                        }
+                        elseif(is_string($value))
+                        {
+                            $this->setAttribute($field->field_slug, trim($value));
                         }
                     }
-                    
-                    //unset($type);
                 }
             }
         }
