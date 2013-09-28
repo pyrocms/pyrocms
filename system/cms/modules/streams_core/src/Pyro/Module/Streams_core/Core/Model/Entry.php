@@ -425,15 +425,16 @@ class Entry extends EntryOriginal
         
         $types = array();
         
-        // Set created_by only when the entry is new
-        if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
+        // Set some values for a new entry
+        if ( ! $this->exists)
         {
-            $this->setAttribute('created', time());
+            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
 
-            $this->setAttribute('created_by', ci()->current_user->id);
+            $this->setAttribute('created_by', $created_by);
+            $this->setAttribute('updated', '0000-00-00 00:00:00');
+            $this->setAttribute('ordering_count', $this->count('id')+1);
         }
-
-        if ($this->getKey())
+        else
         {
             $this->setAttribute('updated', time());
         }
@@ -500,32 +501,6 @@ class Entry extends EntryOriginal
         }
 
 
-    // -------------------------------------
-        // Set incremental ordering
-        // -------------------------------------
-        
-/*        $db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
-        
-        if ($db_obj->num_rows() == 0 or !$db_obj)
-        {
-            $ordering = 0;
-        }
-        else
-        {
-            $order_row = $db_obj->row();
-            
-            if ( ! is_numeric($order_row->max_ordering))
-            {
-                $ordering = 0;
-            }
-            else
-            {
-                $ordering = $order_row->max_ordering;
-            }
-        }
-
-        $insert_data['ordering_count']  = $ordering+1;*/
-
         // -------------------------------------
         // Insert data
         // -------------------------------------
@@ -553,6 +528,11 @@ class Entry extends EntryOriginal
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return parent::save();
+    }
+
+    public function updateOrderingCount($ordering_count = null)
+    {
+        return $this->where($this->getKeyName(), $this->getKey())->update(array('ordering_count' => $ordering_count));
     }
 
     /**
@@ -633,15 +613,6 @@ class Entry extends EntryOriginal
         }
 
         return $return_data;
-    }
-
-    /**
-     * Return the total
-     * @return integer
-     */
-    public function total()
-    {
-
     }
 
     /**

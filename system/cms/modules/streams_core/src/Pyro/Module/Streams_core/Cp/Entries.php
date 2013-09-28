@@ -50,29 +50,6 @@ class Entries extends AbstractCp
 
 		$instance->data->stream = $instance->model->getStream();
 
- 		// -------------------------------------
-		// Get Header Fields
-		// -------------------------------------
-		
- 		// $stream_fields = ci()->streams_m->get_stream_fields(static::$stream->id);
-
- 		// We need to make sure that stream_fields is 
- 		// at least an empty object.
-/* 		if ( ! is_object($stream_fields))
- 		{
- 			$stream_fields = new stdClass;
- 		}
-
- 		$stream_fields->id = new stdClass;
-  		$stream_fields->created = new stdClass;
- 		$stream_fields->updated = new stdClass;
- 		$stream_fields->created_by = new stdClass;
-
-  		$stream_fields->id->field_name 				= lang('streams:id');
-		$stream_fields->created->field_name 		= lang('streams:created_date');
- 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams:created_by');*/
-
   		$instance->fields = $instance->model->getFields();
 
   		$instance->field_slugs = $instance->fields->getFieldSlugs();
