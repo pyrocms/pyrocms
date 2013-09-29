@@ -45,28 +45,19 @@ class Admin_fields extends Admin_Controller
 	{
 		$buttons = array(
 			array(
-				'url'		=> 'admin/users/fields/edit/-assign_id-',
-				'label'		=> $this->lang->line('global:edit')
+				'url'		=> 'admin/users/fields/edit/{{id}}',
+				'label'		=> lang('global:edit')
 			),
 			array(
-				'url'		=> 'admin/users/fields/delete/-assign_id-',
-				'label'		=> $this->lang->line('global:delete'),
+				'url'		=> 'admin/users/fields/delete/{{id}}',
+				'label'		=> lang('global:delete'),
 				'confirm'	=> true
 			)
 		);
 
-//		$this->template->title(lang('user:profile_fields_label'));
-
-/*		$this->streams->cp->assignments_table(
-								'profiles',
-								'users',
-								Settings::get('records_per_page'),
-								'admin/users/fields/index',
-								true,
-								array('buttons' => $buttons));*/
-
 		Cp\Fields::assignmentsTable('profiles', 'users')
 			->title(lang('user:profile_fields_label'))
+			->pagination(Settings::get('records_per_page'), 'admin/users/fields/index')
 			->buttons($buttons)
 			->render();		
 	}
@@ -80,11 +71,12 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function create()
 	{
-		$extra['title'] 		= lang('streams:new_field');
-		$extra['show_cancel'] 	= true;
-		$extra['cancel_uri'] 	= 'admin/users/fields';
+		// $extra['show_cancel'] 	= true;
 
-		$this->streams->cp->field_form('profiles', 'users', 'new', 'admin/users/fields', null, array(), true, $extra);
+		Cp\Fields::assignmentForm('profiles', 'users')
+			->title(lang('streams:new_field'))
+			->redirect('admin/users/fields')
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -101,7 +93,7 @@ class Admin_fields extends Admin_Controller
 		}
 
 		// Tear down the assignment
-		if ( ! $this->streams->cp->teardown_assignment_field($assign_id)) {
+		if ( ! Data\Fields::teardownFieldAssignment($assign_id)) {
 		    $this->session->set_flashdata('notice', lang('user:profile_delete_failure'));
 		} else {
 		    $this->session->set_flashdata('success', lang('user:profile_delete_success'));
@@ -123,10 +115,11 @@ class Admin_fields extends Admin_Controller
 			show_error(lang('streams:cannot_find_assign'));
 		}
 
-		$extra['title'] 		= lang('streams:edit_field');
-		$extra['show_cancel'] 	= true;
-		$extra['cancel_uri'] 	= 'admin/users/fields';
+		//$extra['show_cancel'] 	= true;
 
-		$this->streams->cp->field_form('profiles', 'users', 'edit', 'admin/users/fields', $assign_id, array(), true, $extra);
+		Cp\Fields::assignmentForm('profiles', 'users', $assign_id)
+			->title(lang('streams:edit_field'))
+			->redirect('admin/users/fields')
+			->render();
 	}
 }
