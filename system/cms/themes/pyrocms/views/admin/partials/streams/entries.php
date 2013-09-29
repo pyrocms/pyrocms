@@ -72,7 +72,7 @@
 		</tbody>
     </table>
 
-<?php // echo $pagination['links']; ?>
+<?php if ($pagination): echo $pagination['links']; endif; ?>
 
 <?php } else { ?>
 

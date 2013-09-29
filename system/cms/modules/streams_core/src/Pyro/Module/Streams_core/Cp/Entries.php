@@ -216,6 +216,8 @@ class Entries extends AbstractCp
 			$this->model = $model;
 		}
 
+		$this->model = $this->model->take($this->limit)->skip($this->offset);
+
   		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
 
  		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
@@ -224,12 +226,14 @@ class Entries extends AbstractCp
 
   		// @todo - fix pagination
 
-/*		$this->data['pagination'] = create_pagination(
-									$this->pagination_uri,
-									ci()->db->select('id')->count_all_results($this->stream->stream_prefix.$this->stream->stream_slug),
-									$this->pagination,
-									$this->offset_uri
-								);*/
+		if ($this->limit > 0)
+		{
+			$this->data->pagination = $this->getPagination($this->model->count());
+		}
+		else
+		{
+			$this->data->pagination = null;
+		}
 
 		$table = ci()->load->view('admin/partials/streams/entries', $this->data, true);
 
