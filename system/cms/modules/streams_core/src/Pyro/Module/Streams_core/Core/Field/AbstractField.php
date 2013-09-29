@@ -489,7 +489,7 @@ abstract class AbstractField
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
 		// If not, if there is a relation defined, query it
-		if ($this->hasRelation())
+		if ($this->hasRelation() and $this->value)
 		{
 			$relations = $this->entry->getRelations();
 
