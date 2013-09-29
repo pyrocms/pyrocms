@@ -595,6 +595,6 @@ class Stream extends Eloquent
      */
 	public function assignments()
 	{
-		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
+		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment')->orderBy('sort_order');
 	}
 }

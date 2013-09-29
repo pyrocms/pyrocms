@@ -144,6 +144,9 @@ class Fields extends AbstractCp
 		// Allow to set custom 'Add Field' uri
 		$this->data->add_uri = $this->add_uri;
 		
+		ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
+		ci()->template->append_js('streams/assignments.js');
+
 		// -------------------------------------
 		// Build Fields
 		// -------------------------------------
