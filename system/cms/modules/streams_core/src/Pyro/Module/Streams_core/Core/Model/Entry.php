@@ -784,16 +784,30 @@ class Entry extends EntryOriginal
      */
     public function getEntryOptions()
     {
-        return $this->lists($this->getTitleColumn(), $this->getKeyName());
+        $columns = array();
+
+        $columns[] = $this->getKeyName();
+
+        if ($title_column = $this->getStream()->title_column)
+        {
+            $columns[] = $title_column;
+        }
+
+        return $this->get($columns)->getEntryOptions();
     }
 
     /**
      * Get title column value
      * @return mixed The title column value or model key
      */
-    public function getTitleColumnValue()
+    public function getTitleColumnValue($default = null)
     {
-        return $this->getAttribute($this->getTitleColumn());
+        if ( ! $column = $default)
+        {
+            $column = $this->getTitleColumn();
+        }
+
+        return $this->getAttribute($column);
     }
 
     /**

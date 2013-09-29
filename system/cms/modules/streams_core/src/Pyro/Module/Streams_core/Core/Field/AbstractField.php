@@ -327,9 +327,9 @@ abstract class AbstractField
 	 * @param  string $key
 	 * @return mixed
 	 */
-	public function getDefault($key = null)
+	public function getDefault($key, $default = null)
 	{
-		return isset($this->defaults[$key]) ? $this->defaults[$key] : null;
+		return isset($this->defaults[$key]) ? $this->defaults[$key] : $default;
 	}
 
 	/**
