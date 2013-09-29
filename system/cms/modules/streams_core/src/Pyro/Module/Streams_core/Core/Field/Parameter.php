@@ -16,7 +16,7 @@ class Parameter
 	 * @param	string
 	 * @return 	string
 	 */
-	public function max_length($value = '')
+	public function max_length($value = null)
 	{
 		$data = array(
         	'name'        => 'max_length',
@@ -34,7 +34,7 @@ class Parameter
 	 * @param	string
 	 * @return 	string
 	 */
-	public function upload_location($value = '')
+	public function upload_location($value = null)
 	{
 		$data = array(
         	'name'        => 'upload_location',
@@ -47,12 +47,30 @@ class Parameter
 	}
 
 	/**
+	 * Allow tags parameter.
+	 *
+	 * Should tags go through or be converted to output?
+	 */
+	public function allow_tags($value = null)
+	{
+		$options = array(
+			'n'	=> lang('global:no'),
+			'y'	=> lang('global:yes')
+		);
+
+		// Defaults to No
+		$value or $value = 'n';
+
+		return form_dropdown('allow_tags', $options, $value);
+	}
+
+	/**
 	 * Link URI field
 	 *
 	 * @param	string
 	 * @return 	string
 	 */
-	public function link_uri($value = '')
+	public function link_uri($value = null)
 	{
 		$data = array(
         	'name'        => 'link_uri',
@@ -70,7 +88,7 @@ class Parameter
 	 * @param	string
 	 * @return 	string
 	 */
-	public function relation_class($value = '')
+	public function relation_class($value = null)
 	{
 		$data = array(
         	'name'        => 'relation_class',
@@ -88,7 +106,7 @@ class Parameter
 	 * @param	string
 	 * @return 	string
 	 */
-	public function default_value($value = '')
+	public function default_value($value = null)
 	{
 		$data = array(
         	'name'        => 'default_value',
