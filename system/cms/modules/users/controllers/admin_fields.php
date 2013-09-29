@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Admin User Fields
