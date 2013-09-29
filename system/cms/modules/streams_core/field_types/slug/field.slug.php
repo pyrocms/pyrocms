@@ -85,9 +85,13 @@ class Field_slug extends AbstractField
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
 
+		$slug_field = Field::find($this->getParameter('slug_field'));
+
+		$field_type = $slug_field->getType($this->entry);
+
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$this->getParameter('slug_field')}', '#{$this->field->field_slug}', '{$this->getParameter('space_type')}');
+					pyro.generate_slug('#{$field_type->getFormSlug()}', '#{$this->form_slug}', '{$this->getParameter('space_type')}');
 			});
 		})(jQuery);
 		</script>";
@@ -117,20 +121,17 @@ class Field_slug extends AbstractField
 	 */
 	public function param_slug_field($value = null)
 	{
-		// Get all the fields
-		$fields = Field::all();
+		$field_slug = null;
 
-		$drop = array();
-
-		foreach ($fields as $field) {
-			// We don't want no slugs.
-			if ($field->field_type != 'slug')
-			{
-				$drop[$field->field_slug] = $this->field->field_name;
-			}
+		if ($this->field)
+		{
+			$field_slug = $this->field->field_slug;
 		}
 
-		return form_dropdown('slug_field', $drop, $value);
+		// Get all the fields
+		$options = Field::getFieldOptions($field_slug);
+
+		return form_dropdown('slug_field', $options, $value);
 	}
 
 }
