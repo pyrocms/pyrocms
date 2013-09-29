@@ -124,14 +124,7 @@ class Entry extends EntryOriginal
 
         $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
 
-        $fields = array();
-
-        foreach ($instance->assignments as $assignment)
-        {
-            $fields[] = $assignment->field;
-        }
-
-        $instance->setFields($instance->newFieldCollection($fields));
+        $instance->setFields($instance->assignments->getFields());
 
         return $instance;
     }
