@@ -188,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "Si è verificato un errore nel caricare 
 $lang['streams:max_length'] 							= "Lunghezza massimo";
 $lang['streams:upload_location'] 						= "Cartella di Upload";
 $lang['streams:default_value'] 							= "Valore di default";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path';
 $lang['streams:about_instructions']						= 'Una piccola descrizione dello stream.';
 $lang['streams:slug_instructions']						= 'Questo sarà anche il nome della tabella nel tuo database.';
