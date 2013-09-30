@@ -55,7 +55,7 @@ class FieldAssignment extends Eloquent
             ->where('stream_id', $stream_id)
             ->take($limit)
             ->skip($offset)
-            ->orderBy('field_name', $order)
+            ->orderBy('sort_order', $order)
             ->get();
     }
 
@@ -236,6 +236,17 @@ class FieldAssignment extends Eloquent
         }
 
         return parent::update($attributes);
+    }
+
+    /**
+     * Update sort order
+     * @param  integer  $id        The assignment id
+     * @param  integer $sort_order The sort order
+     * @return boolean
+     */
+    public static function updateSortOrder($id, $sort_order = 0)
+    {
+        return static::where('id', $id)->update(array('sort_order' => $sort_order));
     }
 
     /**

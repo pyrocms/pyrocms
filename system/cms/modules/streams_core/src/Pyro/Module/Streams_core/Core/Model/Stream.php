@@ -328,7 +328,7 @@ class Stream extends Eloquent
 		$assignment->instructions	= isset($data['instructions']) ? $data['instructions'] : null;
 
 		// First one! Make it 1
-		$insert_data['sort_order'] = FieldAssignment::getIncrementalSortNumber($this->getKey());
+		$assignment->sort_order = FieldAssignment::getIncrementalSortNumber($this->getKey());
 
 		// Is Required
 		$assignment->is_required = $data['is_required'];
@@ -595,6 +595,6 @@ class Stream extends Eloquent
      */
 	public function assignments()
 	{
-		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
+		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment')->orderBy('sort_order');
 	}
 }

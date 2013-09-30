@@ -281,7 +281,7 @@ class Form
 
 		//$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
 
-		$this->setValues();
+		$this->setValues($this->getFormData($this->fields, $this->entry, $this->skips, $this->key_check));
 
 		// -------------------------------------
 		// Run Type Events
@@ -433,13 +433,23 @@ class Form
 	 * @return 	array
 	 */
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
-	public function setValues()
+	public function setValues($values = array())
 	{
-		foreach ($this->fields as $field)
+		foreach ($values as $field_slug => $value)
 		{
-			if ( ! in_array($field->field_slug, $this->skips))
+			$this->entry->{$field_slug} = $value;
+		}
+	}
+
+	public static function getFormData($fields = array(), Model\Entry $entry = null, $skips = array(), $key_check = false)
+	{
+		if ( ! empty($fields) and ! $entry) return array();
+
+		foreach ($fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips))
 			{
-				if ($this->key_check and $type = $field->getType($this->entry))
+				if ($key_check and $type = $field->getType($entry))
 				{
 					$type->setFormSlug();
 					// Post Data - we always show
@@ -450,19 +460,21 @@ class Form
 					// post value, so we check for that as well.
 					if ($value = ci()->input->post($type->getFormSlug()))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = $value;
+						$values[$field->field_slug] = $value;
 					}
 					elseif ($value = ci()->input->post($type->getFormSlug().'[]'))
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug} = $value;
+						$values[$field->field_slug] = $value;
 					}
 					else
 					{
-						$this->values[$field->field_slug] = $this->entry->{$field->field_slug};
+						$values[$field->field_slug] = $entry->{$field->field_slug};
 					}
 				}
 			}
 		}
+
+		return $values;
 	}
 
 	/**

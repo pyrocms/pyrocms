@@ -34,11 +34,28 @@ class Field_merge_tags extends AbstractField
 	 */
 	public function form_output()
 	{
-		return 'This should be hidden.';
+		return $this->value;
 	}
 
+	/**
+	 * Pre save
+	 * @return string The parsed string
+	 */
 	public function pre_save()
 	{
-		return ci()->parser->parse_string($this->field->field_data['pattern'], $_POST, true);
+		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_data, true);
+	}
+
+	/**
+	 * Pattern parameter
+	 * @param  mixed $value The saved value or null
+	 * @return array        The form array
+	 */
+	public function param_pattern($value = null)
+	{
+		return array(
+			'input' 		=> form_textarea('pattern', $value),
+			'instructions'	=> lang('streams:merge_tags.pattern.instructions')
+		);;
 	}
 }

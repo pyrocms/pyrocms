@@ -391,6 +391,25 @@ abstract class AbstractCp extends AbstractSupport
 	}
 
 	/**
+	 * Get pagination
+	 * @param  integer $total_records The total records
+	 * @return array                The pagination array
+	 */
+	protected function getPagination($total_records = null)
+	{
+		$pagination = create_pagination(
+			$this->pagination_uri,
+			$total_records,
+			$this->limit, // Limit per page
+			$this->offset_uri // URI segment
+		);
+
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
+
+		return $pagination;
+	}
+
+	/**
 	 * Set hidden fields
 	 * @param  array  $hidden 
 	 * @return object         
@@ -496,7 +515,7 @@ abstract class AbstractCp extends AbstractSupport
 	 */
 	public function pagination($limit = null, $pagination_uri = null)
 	{
-		$this->limit = $limit > 0 ? $limit : null;
+		$this->limit = $limit;
 		$this->pagination_uri = $pagination_uri;
 		
 		// -------------------------------------
@@ -521,7 +540,7 @@ abstract class AbstractCp extends AbstractSupport
 			$this->offset_uri = null;
 			$this->offset = 0;
 		}
-	
+
 		return $this;
 	}
 

@@ -166,6 +166,7 @@ $lang['recaptcha_html_error'] = 'Ett fel inträffade när säkerhetsbilden skull
 $lang['streams:max_length'] = 'Maxlängd';
 $lang['streams:upload_location'] = 'Plats för uppladning';
 $lang['streams:default_value'] = 'Standardvärde';
+$lang['streams:allow_tags'] 							= "Allow Tags";
 $lang['streams:link_uri'] 								= "Link URI";
 $lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate

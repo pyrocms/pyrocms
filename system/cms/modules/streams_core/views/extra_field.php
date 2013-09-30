@@ -4,5 +4,7 @@
 		<br /><small><?php echo $instructions ?></small>
 	<?php endif ?>
 	</label>
-	<div class="input"><?php echo $input ?></div>
+	<?php if (! empty($input)): ?>
+		<div class="input"><?php echo $input ?></div>
+	<?php endif; ?>
 </li>

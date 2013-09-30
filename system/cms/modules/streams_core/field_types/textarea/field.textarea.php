@@ -52,8 +52,6 @@ class Field_textarea extends AbstractField
 		));
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre-Ouput content
 	 *
@@ -98,45 +96,6 @@ class Field_textarea extends AbstractField
 		}
 
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Default Textarea Value
-	 *
-	 * @param	[string - value]
-	 * @return	string
-	 */
-	public function param_default_value($value = null)
-	{
-		return form_textarea(array(
-			'name'		=> 'default_value',
-			'id'		=> 'default_value',
-			'value'		=> $value,
-		));
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Allow tags param.
-	 *
-	 * Should tags go through or be converted to output?
-	 */
-	public function param_allow_tags($value = null)
-	{
-		$options = array(
-			'n'	=> lang('global:no'),
-			'y'	=> lang('global:yes')
-		);
-
-		// Defaults to No
-		$value or $value = 'n';
-	
-		return form_dropdown('allow_tags', $options, $value);
-	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Content Type
@@ -156,5 +115,21 @@ class Field_textarea extends AbstractField
 	
 		return form_dropdown('content_type', $options, $value);
 	}
+
+	/**
+	 * Default Textarea Value
+	 *
+	 * @param	[string - value]
+	 * @return	string
+	 */
+	public function param_default_value($value = null)
+	{
+		return form_textarea(array(
+			'name'		=> 'default_value',
+			'id'		=> 'default_value',
+			'value'		=> $value,
+		));
+	}
+
 
 }
