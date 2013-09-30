@@ -86,7 +86,7 @@ class Field_keywords extends AbstractField
 	public function param_return_type($value = 'array')
 	{
 		return array(
-			'instructions' => ci()->lang->line('streams:keywords.return_type.instructions'),
+			'instructions' => lang('streams:keywords.return_type.instructions'),
 			'input' =>
 				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
 				// String gets set as default for backwards compat

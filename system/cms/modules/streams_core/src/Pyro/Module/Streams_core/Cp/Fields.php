@@ -134,23 +134,19 @@ class Fields extends AbstractCp
 
 		if ($this->limit > 0)
 		{
-			$this->data->pagination = create_pagination(
-				$this->pagination_uri,
-				Model\FieldAssignment::countByStreamId($this->stream->id),
-				$this->limit, // Limit per page
-				$this->offset_uri // URI segment
-			);
+			$this->data->pagination = $this->getPagination(Model\FieldAssignment::countByStreamId($this->stream->id));
 		}
 		else
 		{
-			//$this->data->assignments = Model\Field::findManyByNamespace($this->data->namespace, false, 0, $this->skips);
-
 			$this->data->pagination = null;
 		}
 
 		// Allow to set custom 'Add Field' uri
 		$this->data->add_uri = $this->add_uri;
 		
+		ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
+		ci()->template->append_js('streams/assignments.js');
+
 		// -------------------------------------
 		// Build Fields
 		// -------------------------------------

@@ -86,7 +86,9 @@ class Field extends Eloquent
 
             $type->setModel($entry->getModel());
             
-            $type->setEntryBuilder($entry->getModel()->newQuery());            
+            $type->setEntryBuilder($entry->getModel()->newQuery());
+            
+            $type->setFormSlug();          
         }
 
         if ($field_slug = $this->getAttribute('field_slug'))
@@ -346,6 +348,23 @@ class Field extends Eloquent
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
         throw new Exception\FieldNotFoundException;
+    }
+
+    public static function getFieldOptions($skips = array())
+    {
+        if (is_string($skips))
+        {
+            $skips = array($skips);
+        }
+
+        if ( ! empty($skips))
+        {
+            return static::whereNotIn('field_slug', $skips)->lists('field_name', 'id');    
+        }
+        else
+        {
+            return static::lists('field_name', 'id'); 
+        }
     }
 
     /**

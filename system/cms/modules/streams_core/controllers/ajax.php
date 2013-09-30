@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Core;
+use Pyro\Module\Streams_core\Core\Field;
+use Pyro\Module\Streams_core\Core\Model;
 
 /**
  * PyroStreams AJAX Controller
@@ -48,7 +49,7 @@ class Ajax extends MY_Controller
 		$type = $this->input->post('data');
 		$namespace = $this->input->post('namespace');
 
-		echo Core\Field\Type::buildParameters($type, $namespace);
+		echo Field\Type::buildParameters($type, $namespace);
 	}
 
 	// --------------------------------------------------------------------------
@@ -71,10 +72,8 @@ class Ajax extends MY_Controller
 		$order_count = $this->input->post('offset') + 1;
 		
 		foreach ($ids as $id) {
-			$this->pdb
-				->table('data_field_assignments')
-				->where('id', '=', $id)
-				->update(array('sort_order' => $order_count));
+			
+			Model\FieldAssignment::updateSortOrder($id, $order_count);
 		
 			++$order_count;
 		}
@@ -130,24 +129,26 @@ class Ajax extends MY_Controller
 	private function _check_module_accessibility()
 	{
 		// We always let the admins in
-		if ($this->current_user->inSuperUser()) {
-			return;
+		if (ci()->current_user->isSuperUser())
+		{
+			return true;
 		}
 
 		// Get module slug
-		$module = $this->input->post('streams_module');
+		$module = ci()->input->post('streams_module');
 
-		if ( ! $module) die($this->error_message);
+		if ( ! $module) die(ci()->error_message);
 
-		$this->load->library('encrypt');
+		ci()->load->library('encrypt');
 
-		$module = $this->encrypt->decode($module);
+		$module = ci()->encrypt->decode($module);
 
-		if ( ! $module) die($this->error_message);
+		if ( ! $module) die(ci()->error_message);
 
 		// Do we have permission for this module?
-		if ( ! $this->db->limit(1)->where('group_id', $this->current_user->group_id)->where('module', $module)->get('permissions')->row()) {
-			die($this->error_message);
+		if ( ! ci()->current_user->hasAccess($module))
+		{
+			die(ci()->error_message);
 		}
 	}
 

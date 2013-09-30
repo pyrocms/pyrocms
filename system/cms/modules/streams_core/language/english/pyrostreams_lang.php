@@ -188,6 +188,7 @@ $lang['recaptcha_html_error'] 							= "Error loading security image.  Please tr
 $lang['streams:max_length'] 							= "Max Length";
 $lang['streams:upload_location'] 						= "Upload Location";
 $lang['streams:default_value'] 							= "Default Value";
+$lang['streams:allow_tags'] 							= "Allow Tags";
 $lang['streams:link_uri'] 								= "Link URI";
 $lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path';

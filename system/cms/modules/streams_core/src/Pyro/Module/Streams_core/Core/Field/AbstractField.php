@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
 use Illuminate\Database\Eloquent\Relations;
+use Pyro\Module\Streams_core\Core\Field\Type;
 use Pyro\Module\Streams_core\Core\Model;
 
 abstract class AbstractField
@@ -327,9 +328,9 @@ abstract class AbstractField
 	 * @param  string $key
 	 * @return mixed
 	 */
-	public function getDefault($key = null)
+	public function getDefault($key, $default = null)
 	{
-		return isset($this->defaults[$key]) ? $this->defaults[$key] : null;
+		return isset($this->defaults[$key]) ? $this->defaults[$key] : $default;
 	}
 
 	/**
@@ -451,9 +452,9 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Add a field type JS file
+	 * Append etadata
 	 */
-	public function addMisc($html)
+	public function appendMetadata($html)
 	{
 		ci()->template->append_metadata($html);
 
@@ -467,13 +468,24 @@ abstract class AbstractField
 	 * @param	string
 	 * @param	bool
 	 */
-	public function loadView($type, $view_name, $data = array())
+	public function view($view_name, $data = array(), $field_type = null)
 	{
+		$field_type = $field_type ? $field_type : $this->field_type_slug;
+
+		if ($field_type != $this->field_type_slug)
+		{
+			$type = Type::getLoader()->getType($field_type);
+		}
+		else
+		{
+			$type = $this;
+		}
+
 		$paths = ci()->load->get_view_paths();
 
-		ci()->load->set_view_path(static::$types->$type->ft_path.'views/');
+		ci()->load->set_view_path($type->ft_path.'views/');
 
-		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArraydeto($data), '_ci_return' => true));
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
 
 		ci()->load->set_view_path($paths);
 
@@ -489,7 +501,7 @@ abstract class AbstractField
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
 		// If not, if there is a relation defined, query it
-		if ($this->hasRelation())
+		if ($this->hasRelation() and $this->value)
 		{
 			$relations = $this->entry->getRelations();
 
@@ -536,6 +548,15 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Has relation
+	 * @return boolean [description]
+	 */
+	public function hasRelation()
+	{
+		return method_exists($this, 'relation') and ($this->relation() instanceof Relations\Relation);
+	}
+
+	/**
 	 * Object to Array
 	 *
 	 * Takes an object as input and converts the class variables to array key/vals
@@ -548,10 +569,5 @@ abstract class AbstractField
 	protected function objectToArray($object)
 	{
 		return (is_object($object)) ? get_object_vars($object) : $object;
-	}
-
-	public function hasRelation()
-	{
-		return method_exists($this, 'relation') and ($this->relation() instanceof Relations\Relation);
 	}
 }

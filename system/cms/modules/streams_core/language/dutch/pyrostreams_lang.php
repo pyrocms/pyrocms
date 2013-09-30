@@ -188,6 +188,7 @@ $lang['recaptcha_html_error'] 							= "Fout tijdens het laden van de beveiligin
 $lang['streams:max_length'] 							= "Maximale lengte";
 $lang['streams:upload_location'] 					= "Upload locatie";
 $lang['streams:default_value'] 						= "Standaard waarde";
+$lang['streams:allow_tags'] 							= "Allow Tags";
 $lang['streams:link_uri'] 								= "Link URI";
 $lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate

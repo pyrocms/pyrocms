@@ -844,7 +844,7 @@ class Field_datetime extends AbstractField
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> lang('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -865,7 +865,7 @@ class Field_datetime extends AbstractField
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> ci()->lang->line('streams:datetime.rest_instructions')
+			'instructions'	=> lang('streams:datetime.rest_instructions')
 		);
 	}
 
