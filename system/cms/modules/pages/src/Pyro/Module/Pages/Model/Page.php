@@ -576,11 +576,11 @@ class Page extends Eloquent
 	 *
 	 * @return bool
 	*/
-	public function _unique_slug($slug, $parent_id, $id = 0)
+	public static function isUniqueSlug($slug, $parent_id, $id = 0)
 	{
-		return (bool) static::where('id', '!=', $id)
-			->where('slug', '=', $slug)
-			->where('parent_id', '=', $parent_id)
+		return (bool) static::whereNotIn('id', array($id))
+			->where('slug', $slug)
+			->where('parent_id', $parent_id)
 			->count() > 0;
 	}
 
@@ -597,7 +597,9 @@ class Page extends Eloquent
 	 {
 	 	$page_id = ci()->uri->segment(4);
 
-		if ($this->_unique_slug($slug, ci()->input->post('parent_id'), (int) $page_id)) {
+	 	$instance = new static;
+
+		if ($instance->isUniqueSlug($slug, ci()->input->post('parent_id'), (int) $page_id)) {
 			if (ci()->input->post('parent_id') == 0) {
 				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;

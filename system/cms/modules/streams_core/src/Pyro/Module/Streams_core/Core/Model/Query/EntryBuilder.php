@@ -45,12 +45,7 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$relations = $this->model->getRelations();
-
-			if (in_array('created_by', $columns) and empty($relations['createdByUser']))
-			{
-				$this->with('createdByUser');
-			}
+			$this->with('createdByUser');
 
 			$this->eagerLoadFieldRelations($columns);
 
