@@ -239,6 +239,7 @@ class Admin extends Admin_Controller {
 
 		$page['restricted_to'] = null;
 		$page['navigation_group_id'] = 0;
+		$page['is_home'] = 0;
 
 		$new_page = $this->page_m->create($page, $stream);
 
