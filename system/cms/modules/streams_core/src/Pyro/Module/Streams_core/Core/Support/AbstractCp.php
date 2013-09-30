@@ -534,16 +534,11 @@ abstract class AbstractCp extends AbstractSupport
 			{
 				$this->offset = ($this->offset - 1) * $this->limit;
 			}
-			else
-			{
-				$this->offset_uri = null;
-				$this->offset = 1;
-			}
 		}
 		else
 		{
 			$this->offset_uri = null;
-			$this->offset = 1;
+			$this->offset = 0;
 		}
 
 		return $this;
