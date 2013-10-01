@@ -199,6 +199,13 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run())
 		{
+			// If this group has permission to choose the author then we'll pull the author_id from the post array
+			$author_id = $this->current_user->id;
+			if(group_has_role('blog', 'choose_author'))
+			{
+				$author_id = $this->input->post('author_id');
+			}
+
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
 			$extra = array(
@@ -211,7 +218,7 @@ class Admin extends Admin_Controller
 				'created_on'       => $created_on,
 				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
-				'author_id'        => $this->current_user->id,
+				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash
@@ -259,6 +266,18 @@ class Admin extends Admin_Controller
 
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
+
+		// If user can change author we will load in the list of users for the user to choose from
+		if(group_has_role('blog', 'choose_author'))
+		{
+			$this->load->model('users/user_m');
+			$user_array = array();
+			foreach($this->user_m->get_all() as $user)
+			{
+				$user_array[$user->id] = $user->display_name;
+			}
+			$this->template->set('users', $user_array);
+		}
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
@@ -343,6 +362,11 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 		{
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
+			// If this group has permission to choose the author then we'll pull the author_id from the post array
+			if(group_has_role('blog', 'choose_author'))
+			{
+				$author_id = $this->input->post('author_id');
+			}
 
 			$extra = array(
 				'title'            => $this->input->post('title'),
@@ -401,6 +425,18 @@ class Admin extends Admin_Controller
 
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
+
+		// If user can change author we will load in the list of users for the user to choose from
+		if(group_has_role('blog', 'choose_author'))
+		{
+			$this->load->model('users/user_m');
+			$user_array = array();
+			foreach($this->user_m->get_all() as $user)
+			{
+				$user_array[$user->id] = $user->display_name;
+			}
+			$this->template->set('users', $user_array);
+		}
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
