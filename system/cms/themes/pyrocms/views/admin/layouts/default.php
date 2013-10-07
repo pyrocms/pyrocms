@@ -38,16 +38,19 @@
 		<?php file_partial('sidebar'); ?>
 
 		<section id="content">
-		<section class="vertical-box">
-			<header class="header bg-white border-bottom border-gray-lighter animated-zing fadeInDown">
-				Hi!
-			</header>
+			
+			<section class="vertical-box">
 
-			<div class="padding">
-				<?php $this->load->view('admin/partials/notices') ?>
-			</div>
+				<header class="header" id="actions">
+					Test
+				</header>
 
-		</section>
+				<section class="scrollable padding">
+					<?php echo $template['body']; ?>
+				</section>
+
+			</section>
+
 		</section>
 
 	</main>

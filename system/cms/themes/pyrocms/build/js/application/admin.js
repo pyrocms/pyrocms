@@ -42,4 +42,21 @@ $(document).on('click', '[data-toggle="fullscreen"]', function(e) {
 $(document).on('click', '[data-toggle^="class:"]', function(e) {
 	e.preventDefault();
 	$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
+
+	// Save persistent state
+	if ($(this).attr('data-persistent') !== undefined)
+		$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')));
+});
+
+
+/**
+ * Selectize!
+ */
+
+$(document).ready(function() {
+
+	$('select:not(.skip)').selectize({
+		create: true,
+		sortField: 'text'
+	});
 });

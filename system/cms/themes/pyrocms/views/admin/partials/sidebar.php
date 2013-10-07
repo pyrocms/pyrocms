@@ -1,4 +1,4 @@
-<aside class="aside-sm animated-zing fadeInLeft nav-vertical" id="sidebar">
+<aside class="aside-sm nav-vertical <?php if (isset($_COOKIE['persistent_sidebar']) and $_COOKIE['persistent_sidebar'] == 'true') echo 'only-icon'; ?>" id="sidebar">
 
 	<section class="vertical-box">
 
@@ -13,7 +13,7 @@
 
 				<!-- Icon -->
 				<span class="icon">
-					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px', 'id' => 'brand-icon')); ?>
+					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '24px', 'id' => 'brand-icon')); ?>
 				</span>
 
 			</a>
@@ -26,11 +26,18 @@
 		</header>
 
 
+		<section>
+
+			<?php file_partial('navigation'); ?>
+
+		</section>
+
+
 		<footer class="hidden-xs">
 			<nav class="nav-primary hidden-xs">
 				<ul class="nav">
 					<li>
-						<a href="#" data-toggle="class:only-icon" data-target="#sidebar" class="btn btn-sm btn-link">
+						<a href="#" data-toggle="class:only-icon" data-target="#sidebar" data-persistent="sidebar" class="btn btn-sm btn-link">
 							<i class="icon-reorder"></i>
 						</a>
 					</li>
@@ -38,27 +45,6 @@
 			</nav>
 		</footer>
 
-
-		<section>
-
-			<!--
-
-				Dashboard 		icon-dashboard
-				Content 		icon-book
-				Structure 		icon-sitemap
-				Data 			icon-hdd
-				Users			icon-group
-				Settings		icon-cog
-				Addons			icon-truck | icon-puzzle-piece
-				Profile			icon-user
-				Misc			icon-folder-open
-
-			-->
-
-
-			<?php file_partial('navigation'); ?>
-
-		</section>
 
 	</section>
 
