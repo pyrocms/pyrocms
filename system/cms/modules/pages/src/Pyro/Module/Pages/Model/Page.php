@@ -1,7 +1,8 @@
 <?php namespace Pyro\Module\Pages\Model;
 
 use Pyro\Model\Eloquent;
-
+use Pyro\Model\Collection;
+use Pyro\Module\Streams_core\Core\Model;
 /**
  * Pages model
  *
@@ -121,6 +122,15 @@ class Page extends Eloquent
 	}
 
 	/**
+	 * Get all pages their children
+	 * @return [type] [description]
+	 */
+	public static function tree(array $columns = array('*'))
+	{
+		return static::with('children')->orderBy('order')->get($columns)->tree();
+	}
+
+	/**
 	 * Relationship: Type
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -190,6 +200,11 @@ class Page extends Eloquent
 		return static::where('parent_id', '=', $parent_id)
 			->where('status', '=', $status)
 			->get();
+	}
+
+	public static function findManyByTypeId($type_id = null)
+	{
+		return static::where('type_id', $type_id)->get();
 	}
 
 	/**
@@ -282,6 +297,21 @@ class Page extends Eloquent
 		return $page;
 	}
 
+	public function updateAllEntryTypes()
+	{
+		$page_types = ci()->pdb->table('page_types')
+			->join('data_streams', 'page_types.stream_id', '=', 'data_streams.id')
+			->select('page_types.id', 'data_streams.stream_slug', 'data_streams.stream_namespace')
+			->get();
+
+		// Update the pages entry types
+		foreach ($page_types as $type)
+		{
+			static::where('type_id', $type->id)
+				->update(array('entry_type' => $type->stream_slug.'.'.$type->stream_namespace));
+		}
+	}
+
  //    // --------------------------------------------------------------------------
 
 	// /**
@@ -341,35 +371,34 @@ class Page extends Eloquent
 	// 	return $page;
 	// }
 
-	// /**
-	//  * Return page data
-	//  *
-	//  * @return array An array containing data fields for a page
-	//  */
-	// public function get_data($stream_entry_id, $stream_slug)
-	// {
-	// 	return $this->streams->entries->get_entry($stream_entry_id, $stream_slug, 'pages');
-	// }
-
 	/**
 	 * Set the parent > child relations and child order
 	 *
 	 * @param array $page
 	 */
-	public function _set_children($page)
+	public static function setChildren($page)
 	{
-		if ($page->children) {
-			foreach ($page->children as $i => $child) {
-				$child_id = (int) str_replace('page_', '', $child->id);
-				$page_id = (int) str_replace('page_', '', $page->id);
+		if (isset($page['children']))
+		{
+			foreach ($page['children'] as $i => $child)
+			{
+				$child_id = (int) str_replace('page_', '', $child['id']);
+				$page_id = (int) str_replace('page_', '', $page['id']);
 
-				$child->parent_id = $page_id;
-				$child->order = $i;
-				$child->save();
+				// Since we are skipping validation on the model we are doing a little validation of our own
+				if (is_numeric($child_id) and is_numeric($page_id))
+				{
+					$model = static::find($child_id);
+					$model->skip_validation = true;
+					$model->parent_id = $page_id;
+					$model->order = $i;
+					$model->save();					
+				}
 
 				//repeat as long as there are children
-				if ($child->children) {
-					$this->_set_children($child);
+				if ( ! empty($child['children']))
+				{
+					static::setChildren($child);
 				}
 			}
 		}
@@ -395,23 +424,34 @@ class Page extends Eloquent
 	 *
 	 * @return array
 	 */
-	public function getDescendantIds($id, $id_array = array())
+	public static function getDescendantIds($id, $id_array = array(), array $columns = array('id'))
 	{
 		$id_array[] = $id;
 
-		$children = $this
-			->select('id, title')
-			->where('parent_id', '=', $id)
-			->get();
+		$children = static::where('parent_id', '=', $id)
+			->get($columns);
 
-		if ($children) {
+		if ( ! $children->isEmpty()) {
 			// Loop through all of the children and run this function again
-			foreach ($children as $child) {
-				$id_array = $this->getDescendantIds($child->id, $id_array);
+			foreach ($children as $child)
+			{
+				$id_array = static::getDescendantIds($child->id, $id_array);
 			}
 		}
 
 		return $id_array;
+	}
+
+	public function setEntryType($always = false)
+	{
+		if (( ! $this->entry_type and $this->type_id) or $always)
+		{
+			$page_type = PageType::find($this->type_id);
+
+			$this->entry_type = $page_type->stream->stream_slug.'.'.$page_type->stream->stream_namespace;			
+		}
+
+		return $this;
 	}
 
     // --------------------------------------------------------------------------
@@ -428,20 +468,27 @@ class Page extends Eloquent
 		// Either its THIS page, or one we said
 		$current_id = $id ?: $this->id;
 
-		$segments = array();
-		do {
-			// Only want a bit of this data
-			$page = static::select('slug', 'parent_id')
-				->find($current_id);
+		if ($current_page = static::find($current_id))
+		{
+			$current_page->skip_validation = true;
 
-			$current_id = $page->parent_id;
-			array_unshift($segments, $page->slug);
-		} while ($page->parent_id > 0);
+			$segments = array();
+			do {
+				// Only want a bit of this data
+				$page = static::select('slug', 'parent_id')
+					->find($current_id);
 
-		// Save this new uri by joining the array
-		$this->uri = implode('/', $segments);
+				$current_id = $page->parent_id;
+				array_unshift($segments, $page->slug);
+			} while ($page->parent_id > 0);
 
-		return $this->save();
+			// Save this new uri by joining the array
+			$current_page->uri = implode('/', $segments);
+
+			return $current_page->save();			
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -449,11 +496,13 @@ class Page extends Eloquent
 	 *
 	 * @param int $id The ID of the parent item
 	 */
-	public function reindex_descendants($id)
+	public static function reindexDescendants($id)
 	{
-		$descendants = $this->getDescendantIds($id);
+		$ids = static::getDescendantIds($id);
 
-		array_walk($descendants, array($this, 'buildLookup'));
+		$instance = new static;
+
+		array_walk($ids, array($instance, 'buildLookup'));
 	}
 
 	/**
@@ -464,16 +513,15 @@ class Page extends Eloquent
 	 *
 	 * @param array $root_pages An array of top level pages
 	 */
-	public function update_lookup($root_pages)
+	public static function updateLookup($root_pages)
 	{
 		// first reset the URI of all root pages
-		$this->db
-			->where('parent_id', 0)
-			->set('uri', 'slug', false)
-			->update('pages');
+		static::where('parent_id', 0)
+			->raw('UPDATE `table` SET uri=slug');
 
-		foreach ($root_pages as $page) {
-			$this->reindex_descendants($page);
+		foreach ($root_pages as $page)
+		{
+			static::reindexDescendants($page);
 		}
 	}
 
@@ -488,42 +536,31 @@ class Page extends Eloquent
 		$this->update(array('is_home' => 1));
 	}
 
-	/**
-	 * Delete a Page
-	 *
-	 * @param int $id The ID of the page to delete
-	 *
-	 * @return array|bool
-	 */
-	public function deleteOld($id = 0)
+	public function delete()
 	{
-		$this->db->trans_start();
+		$children_ids = $this->getDescendantIds($this->id);
 
-		$ids = $this->getDescendantIds($id);
+		$children = $this->whereIn('parent_id', $children_ids)
+			->get(array('id', 'entry_type', 'entry_id'));
 
-		foreach ($ids as $id) {
-			$page = $this->get($id);
+		if ( ! $children->isEmpty())
+		{
+			foreach ($children as $page)
+			{
+				$page->entry()->delete();
 
-			// Get the stream and delete the entry. Yeah this is a lot of queries
-			// but hey we're deleting stuff. Get off my back!
-			if ($page->stream_id) {
-				if ($stream = $this->streams_m->get_stream($page->stream_id)) {
-					$this->streams->entries->delete_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace);
-				}
+				$page->delete();
 			}
 		}
 
-		// Delete the page.
-		$this->db->where_in('id', $ids);
-		$this->db->delete('pages');
+		$this->entry()->delete();
 
-		// Our navigation links should go as well.
-		$this->db->where_in('page_id', $ids);
-		$this->db->delete('navigation_links');
+		return parent::delete();
+	}
 
-		$this->db->trans_complete();
-
-		return ($this->db->trans_status() !== false) ? $ids : false;
+	public static function resetParentByIds($ids = array())
+	{
+		return static::whereIn('id', $ids)->update(array('parent_id' => 0));
 	}
 
     // --------------------------------------------------------------------------
@@ -539,11 +576,11 @@ class Page extends Eloquent
 	 *
 	 * @return bool
 	*/
-	public function _unique_slug($slug, $parent_id, $id = 0)
+	public static function isUniqueSlug($slug, $parent_id, $id = 0)
 	{
-		return (bool) static::where('id', '!=', $id)
-			->where('slug', '=', $slug)
-			->where('parent_id', '=', $parent_id)
+		return (bool) static::whereNotIn('id', array($id))
+			->where('slug', $slug)
+			->where('parent_id', $parent_id)
 			->count() > 0;
 	}
 
@@ -560,7 +597,9 @@ class Page extends Eloquent
 	 {
 	 	$page_id = ci()->uri->segment(4);
 
-		if ($this->_unique_slug($slug, ci()->input->post('parent_id'), (int) $page_id)) {
+	 	$instance = new static;
+
+		if ($instance->isUniqueSlug($slug, ci()->input->post('parent_id'), (int) $page_id)) {
 			if (ci()->input->post('parent_id') == 0) {
 				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;

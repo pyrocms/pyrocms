@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
@@ -72,6 +73,24 @@ class Entry extends EntryOriginal
     protected $plugin = true;
 
     /**
+     * An array of field slugs that will eager load relations
+     * @var array
+     */
+    protected $eager_field_relations = array();
+
+    /**
+     * Enable or disable eager loading field type relations
+     * @var boolean
+     */
+    protected $enable_eager_field_relations = false;
+
+    /**
+     * Enable or disable field relations for a query
+     * @var boolean
+     */
+    protected $enable_field_relations = false;
+
+    /**
      * Plugin values
      * @var array
      */
@@ -105,14 +124,7 @@ class Entry extends EntryOriginal
 
         $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
 
-        $fields = array();
-
-        foreach ($instance->assignments as $assignment)
-        {
-            $fields[] = $assignment->field;
-        }
-
-        $instance->setFields($instance->newFieldCollection($fields));
+        $instance->setFields($instance->assignments->getFields());
 
         return $instance;
     }
@@ -198,6 +210,35 @@ class Entry extends EntryOriginal
         return $this;
     }
 
+    public function getEagerFieldRelations()
+    {
+        return $this->eager_field_relations;
+    }
+
+    /**
+     * Set format
+     * @param boolean $format
+     */
+    public function enableFieldRelations($enable_field_relations = false)
+    {
+        $this->enable_field_relations = $enable_field_relations;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable eager loading of field relations
+     * @param boolean $format
+     */
+    public function enableEagerFieldRelations($enable_eager_field_relations = false)
+    {
+        $this->enableFieldRelations($enable_eager_field_relations);
+
+        $this->enable_eager_field_relations = $enable_eager_field_relations;
+
+        return $this;
+    }
+
     /**
      * Is formatted
      * @return boolean
@@ -214,6 +255,48 @@ class Entry extends EntryOriginal
     public function isPlugin()
     {
         return $this->plugin;
+    }
+
+    /**
+     * Is field relations enabled
+     * @return boolean
+     */
+    public function isEnableFieldRelations()
+    {
+        return $this->enable_field_relations;
+    }
+
+    /**
+     * Is eager loading field relations enabled
+     * @return boolean
+     */
+    public function isEnableEagerFieldRelations()
+    {
+        return $this->enable_eager_field_relations;
+    }
+
+    /**
+     * Set eager field relations
+     * @param array $field_slugs The array of field slugs
+     */
+    public function setEagerFieldRelations($field_slugs = array())
+    {
+        if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
+        {
+            $eager_field_relations = array();
+
+            foreach ($field_slugs as $field_slug)
+            {
+                if ($type = $this->getFieldType($field_slug) and $type->hasRelation())
+                {
+                    $eager_field_relations[] = $field_slug;
+                }
+            }
+
+            $this->eager_field_relations = $eager_field_relations;
+        }
+
+        return $this;
     }
 
     /**
@@ -278,6 +361,8 @@ class Entry extends EntryOriginal
     public function setUnformattedEntry($unformatted_entry = null)
     {
         $this->unformatted_entry = $unformatted_entry;
+
+        return $this;
     }
 
     /**
@@ -295,13 +380,26 @@ class Entry extends EntryOriginal
      * @param  array  $columns
      * @return object
      */
-    public function findEntry($id = null, array $columns = array('*'))
+    public static function find($id, $columns = array('*'))
     {
-        $entry = $this->where($this->getKeyName(), '=', $id)->first($columns);
+        $entry = static::$instance->where(static::$instance->getKeyName(), '=', $id)->first($columns);
 
-        $this->passProperties($entry);
+        static::$instance->passProperties($entry);
 
         return $entry;
+    }
+
+    /**
+     * Being querying a model with eager loading.
+     *
+     * @param  array|string  $relations
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public static function with($relations)
+    {
+        if (is_string($relations)) $relations = func_get_args();
+
+        return static::$instance->newQuery()->with($relations);
     }
 
     /**
@@ -319,78 +417,82 @@ class Entry extends EntryOriginal
         $alt_process = array();
         
         $types = array();
+        
+        // Set some values for a new entry
+        if ( ! $this->exists)
+        {
+            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
+
+            $this->setAttribute('created_by', $created_by);
+            $this->setAttribute('updated', '0000-00-00 00:00:00');
+            $this->setAttribute('ordering_count', $this->count('id')+1);
+        }
+        else
+        {
+            $this->setAttribute('updated', time());
+        }
+
+        // Reset values if the unformatted entry is available
+        if (($unformatted = $this->unformatted()) instanceof Entry)
+        {
+            if ($this->replicated)
+            {
+                $attributes = array_except($unformatted->getAttributes(), array($this->getKeyName()));
+            }
+            else
+            {
+                $attributes = $unformatted->getAttributes();
+            }
+
+            $this->setRawAttributes($attributes);
+        }
 
         if ( ! $fields->isEmpty())
         {
+            $form_data = Form::getFormData($fields, $this, array(), true);
+
             foreach ($fields as $field)
             {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
                 if ( ! in_array($field->field_slug, $skips))
                 {
+
                     $type = $field->getType($this);
                     $types[] = $type;
 
+                    $value = $this->getAttribute($field->field_slug);
+
                     $type->setStream($this->stream);
-                    $type->setValue($this->getAttribute($field->field_slug));
+                    $type->setValue($value);
+                    $type->setFormData($form_data);
 
-                    if ( $value = $this->getAttribute($field->field_slug) and ! empty($value))
+                    // We don't process the alt process stuff.
+                    // This is for field types that store data outside of the
+                    // actual table
+                    if ($type->alt_process)
                     {
-                        // We don't process the alt process stuff.
-                        // This is for field types that store data outside of the
-                        // actual table
-                        if ($type->alt_process)
+                        $alt_process[] = $type;
+                    }
+                    else
+                    {
+                        if (is_null($value))
                         {
-                            $alt_process[] = $type;
+                            $this->setAttribute($field->field_slug, null);
                         }
-                        else
-                        {
-                            if (method_exists($type, 'pre_save'))
-                            {
-                                $this->setAttribute($field->field_slug, $type->pre_save());
-                            }
 
-                            if (is_null($value))
-                            {
-                                $this->setAttribute($field->field_slug, null);
-                            }
-                            elseif(is_string($value))
-                            {
-                                $this->setAttribute($field->field_slug, trim($value));
-                            }
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $this->setAttribute($field->field_slug, $type->pre_save());
+                        }
+                        elseif(is_string($value))
+                        {
+                            $this->setAttribute($field->field_slug, trim($value));
                         }
                     }
-                    
-                    //unset($type);
                 }
             }
         }
 
-
-    // -------------------------------------
-        // Set incremental ordering
-        // -------------------------------------
-        
-/*        $db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
-        
-        if ($db_obj->num_rows() == 0 or !$db_obj)
-        {
-            $ordering = 0;
-        }
-        else
-        {
-            $order_row = $db_obj->row();
-            
-            if ( ! is_numeric($order_row->max_ordering))
-            {
-                $ordering = 0;
-            }
-            else
-            {
-                $ordering = $order_row->max_ordering;
-            }
-        }
-
-        $insert_data['ordering_count']  = $ordering+1;*/
 
         // -------------------------------------
         // Insert data
@@ -400,29 +502,30 @@ class Entry extends EntryOriginal
         //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
 
          
-            // Process any alt process stuff
-            foreach ($alt_process as $type)
-            {
-
-                $type->pre_save();
-            }
-            
-            // -------------------------------------
-            // Event: Post Insert Entry
-            // -------------------------------------
-
-            $trigger_data = array(
-                'entry_id'      => $this->getKey(),
-                'stream'        => $this->stream,
-                'insert_data'   => $this->getAttributes()
-            );
-
-            \Events::trigger('streams_post_insert_entry', $trigger_data);
-
-            // -------------------------------------
+        // Process any alt process stuff
+        foreach ($alt_process as $type)
+        {
+            $type->pre_save();
+        }
         
+        // -------------------------------------
+        // Event: Post Insert Entry
+        // -------------------------------------
+
+        $trigger_data = array(
+            'entry_id'      => $this->getKey(),
+            'stream'        => $this->stream,
+            'insert_data'   => $this->getAttributes()
+        );
+
+        \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return parent::save();
+    }
+
+    public function updateOrderingCount($ordering_count = null)
+    {
+        return $this->where($this->getKeyName(), $this->getKey())->update(array('ordering_count' => $ordering_count));
     }
 
     /**
@@ -503,15 +606,6 @@ class Entry extends EntryOriginal
         }
 
         return $return_data;
-    }
-
-    /**
-     * Return the total
-     * @return integer
-     */
-    public function total()
-    {
-
     }
 
     /**
@@ -678,6 +772,68 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Get entry options
+     * @return array The array of entry options
+     */
+    public function getEntryOptions()
+    {
+        $columns = array();
+
+        $columns[] = $this->getKeyName();
+
+        if ($title_column = $this->getStream()->title_column)
+        {
+            $columns[] = $title_column;
+        }
+
+        return $this->get($columns)->getEntryOptions();
+    }
+
+    /**
+     * Get title column value
+     * @return mixed The title column value or model key
+     */
+    public function getTitleColumnValue($default = null)
+    {
+        if ( ! $column = $default)
+        {
+            $column = $this->getTitleColumn();
+        }
+
+        return $this->getAttribute($column);
+    }
+
+    /**
+     * Get title column
+     * @return string The title column or model key name
+     */
+    public function getTitleColumn()
+    {
+        $title_column = $this->getStream()->title_column;
+
+        // Default to ID for title column
+        if ( ! trim($title_column) or ! $this->getAttribute($title_column))
+        {
+            $title_column = $this->getKeyName();
+        }
+
+        return $title_column;
+    }
+
+    /**
+     * Replicate
+     * @return object The clone entry
+     */
+    public function replicate()
+    {
+        $entry = parent::replicate();
+
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    /**
      * New collection instance
      * @param  array  $entries             
      * @param  array  $unformatted_entries 
@@ -742,33 +898,17 @@ class Entry extends EntryOriginal
     }
 
     /**
-     * Morph to an entry
-     * @param  string $related    
-     * @param  string $relation_name 
-     * @param  string $stream_column 
-     * @param  integer $id_column     
-     * @return object
-     */
-    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
-    {
-        // Next we will guess the type and ID if necessary. The type and IDs may also
-        // be passed into the function so that the developers may manually specify
-        // them on the relations. Otherwise, we will just make a great estimate.
-        list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
-
-        return $this->belongsToEntry($related, $id_column, $this->$stream_column, $stream_column);
-    }
-
-    /**
      * Pass properties
      * @param  object $instance
      * @return object
      */
-    public function passProperties(Entry $instance = null)
+    public function passProperties(Entry $model = null)
     {
-        $instance->setStream($this->stream);
-        $instance->setFields($this->fields);
+        $model->setStream($this->stream);
+        $model->setFields($this->fields);
+        $model->setTable($this->table);
+        $model->setUnformattedEntry($this->unformatted_entry);
 
-        return $instance;
+        return $model;
     }
 }

@@ -18,12 +18,10 @@ class Blog_categories_m extends MY_Model
 	 */
 	public function insert($input = array(), $skip_validation = false)
 	{
-		parent::insert(array(
+		return parent::insert(array(
 			'title' => $input['title'],
 			'slug' => $input['slug'],
 		));
-
-		return $input['title'];
 	}
 
 	/**

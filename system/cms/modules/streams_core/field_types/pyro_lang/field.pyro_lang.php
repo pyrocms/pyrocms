@@ -38,7 +38,7 @@ class Field_pyro_lang extends AbstractField
 	{
 	    $languages = array();
 
-	    if ($this->field->field_data['filter_theme'] == 'yes') {
+	    if ($this->getParameter('filter_theme') == 'yes') {
 	  		// get the languages offered on the front-end
 		    $site_public_lang = explode(',', Settings::get('site_public_lang'));
 
@@ -58,7 +58,7 @@ class Field_pyro_lang extends AbstractField
 			}
 		}
 
-		return form_dropdown($this->field->field_slug, $languages, $this->value);
+		return form_dropdown($this->form_slug, $languages, $this->value);
 	}
 
 	// --------------------------------------------------------------------------

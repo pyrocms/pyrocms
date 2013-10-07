@@ -42,21 +42,15 @@ class Streams extends AbstractData
 		{
 			throw new Exception\EmptyFieldNameException;
 		}
-
-		// Is this stream slug already available?
-		if(Model\Stream::findBySlug($stream_slug))
-		{
-			throw new Exception\StreamSlugInUseException;
-		}
 	
 		// -------------------------------------
 		// Create Stream
 		// -------------------------------------
 		
 		$stream = array(
-			'stream_name' 		=> $stream_name,
 			'stream_slug' 		=> $stream_slug,
 			'stream_namespace'	=> $stream_namespace,
+			'stream_name' 		=> $stream_name,
 			'stream_prefix'		=> $stream_prefix,
 			'about'				=> $about,
 		);
@@ -85,7 +79,7 @@ class Streams extends AbstractData
 	{
 		if ( ! $stream = Model\Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
 		{
-			throw new Exception\InvalidStreamException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
+			throw new Exception\InvalidStreamException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
 		}
 
 		return $stream;
@@ -159,7 +153,14 @@ class Streams extends AbstractData
 		return Model\Stream::findManyByNamespace($stream_namespace, $limit, $offset);
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Get stream options
+	 * @return array The array of stream options
+	 */
+	public static function getStreamOptions()
+	{
+		return Model\Stream::getStreamOptions();
+	}
 
 	/**
 	 * Get Stream Metadata

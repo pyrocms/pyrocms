@@ -44,6 +44,7 @@ class Type
     public static function getLoader()
     {
 		ci()->load->helper('directory');
+		ci()->load->language('streams_core/pyrostreams');
 		ci()->load->config('streams_core/streams');
 
 		// Get Lang (full name for language file)
@@ -64,9 +65,21 @@ class Type
 	    	$instance = self::$instance;
 	    }
 
+		// Since this is PyroStreams core we know where
+		// PyroStreams is, but we set this for backwards
+		// compatability for anyone using this constant.
+		// Also, now that the Streams API is around, we need to
+		// check if we need to change this based on the
+		// install situation.
+		if (defined('PYROPATH')) {
+			$core_addon_path = PYROPATH.'modules/streams_core/';
+		} else {
+			$core_addon_path = APPPATH.'modules/streams_core/';
+		}
+
 		// Set our addon paths
 	    $instance->addon_paths = array(
-			'core' 			=> APPPATH.'modules/streams_core/field_types/',
+			'core' 			=> $core_addon_path.'field_types/',
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
@@ -222,7 +235,7 @@ class Type
 		}
 		
 		// Check if we've already loaded this field type
-		if (isset($this->types[$type])) return static::$types[$type];
+		if (isset($this->types[$type])) return $this->types[$type];
 
 		foreach ($this->addon_paths as $mode => $path)
 		{
@@ -347,19 +360,19 @@ class Type
 		$parameters = new Parameter;
 
 		// Load the proper class
-		$field_type = static::getLoader()->getType($type);
-
+		if ( ! $field_type = static::getLoader()->getType($type)) return null;
+		
 		// I guess we don't have any to show.
-		if ( ! isset($field_type->custom_parameters)) return null;
-
+		
+		$field_type->setField($current_field);
+		
 		// Otherwise, the beat goes on.
 		$data['count'] = 0;
 		$output = '';
 
 		//Echo them out
-		foreach ($field_type->custom_parameters as $param)
+		foreach ($field_type->getCustomParameters() as $param)
 		{
-
 			$custom_param = 'param_'.$param;
 
 			if ( ! isset($_POST[$param]) and $current_field)
@@ -376,12 +389,8 @@ class Type
 
 			// Check to see if it is a standard one or a custom one
 			// from the field type
-			if (method_exists($parameters, $param))
-			{
-				$data['input'] = $parameters->$param($value);
-				$data['input_name']		= lang('streams:'.$param);
-			}
-			elseif (method_exists($field_type, $custom_param))
+			// custom ones go first to allow overriding defauts
+			if (method_exists($field_type, $custom_param))
 			{
 				$input = $field_type->$custom_param($value, $namespace);
 
@@ -392,11 +401,20 @@ class Type
 					$data['input'] 			= $input;
 					$data['instructions']	= null;
 				}
-
-				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
+			elseif (method_exists($parameters, $param))
+			{
+				$data['input'] = $parameters->$param($value);
 			}
 
-
+			if (method_exists($parameters, $param))
+			{
+				$data['input_name']		= lang('streams:'.$param);
+			}
+			else
+			{
+				$data['input_name']		= lang('streams:'.$field_type->field_type_slug.'.'.$param);
+			}
 
 			$data['input_slug'] = $param;
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Installer_lib
 {
 	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
-	const MIN_PHP_VERSION = '5.3.6';
+	const MIN_PHP_VERSION = '5.3.7';
 
 	/** @var string The GD extension version */
 	public $gd_version;

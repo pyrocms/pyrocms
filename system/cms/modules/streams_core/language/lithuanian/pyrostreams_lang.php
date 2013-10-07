@@ -188,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "Klaida, atidarant saugumo paveiksliuką.
 $lang['streams:max_length'] 							= "Maksimalus dydis";
 $lang['streams:upload_location'] 						= "Failo įkėlimo vieta";
 $lang['streams:default_value'] 							= "Numatyta reikšmė";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Meniu kelias';
 $lang['streams:about_instructions']						= 'Trumpas kuriamo srauto aprašymas.';
 $lang['streams:slug_instructions']						= 'Tai taip pat bus srauto duomenų bazės vardas.';

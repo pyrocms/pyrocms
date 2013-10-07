@@ -233,16 +233,16 @@ class Streams_m extends CI_Model
 		// Permissions can be handled differently by each module, so unless they are
 		// passed, we are just going to forget about them
 		if (isset($extra['permissions']) and is_array($extra['permissions'])) {
-			$insert_data['permissions']		= serialize($extra['permissions']);
+			$insert_data['permissions']	= serialize($extra['permissions']);
 		}
 
 		// View options.
 		if (isset($extra['view_options']) and is_array($extra['view_options'])) {
-			$insert_data['view_options']		= serialize($extra['view_options']);
+			$insert_data['view_options'] = serialize($extra['view_options']);
 		} else {
 			// Since this is a new stream, we are going to add a basic view profile
 			// with data we know will be there.
-			$insert_data['view_options']		= serialize(array('id', 'created'));
+			$insert_data['view_options'] = serialize(array('id', 'created'));
 		}
 
 		return $this->pdb->table($this->table)->insertGetId($insert_data);
@@ -468,7 +468,7 @@ class Streams_m extends CI_Model
 		$stream = $query->take(1)->first();
 
 		if (is_null($stream)) {
-			throw new Exception();
+			throw new Exception('This stream is null for why?');
 		}
 
 		if (is_resource($stream->view_options)) {
@@ -713,9 +713,6 @@ class Streams_m extends CI_Model
 		// Create database column
 		// -------------------------------------
 
-		// Grab table prefix from installer
-		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
-
 		if ($field_type->db_col_type !== false and $create_column === true) {
 			$this->schema_thing($stream, $field_type, $field);
 		}
@@ -729,8 +726,10 @@ class Streams_m extends CI_Model
 		if (isset($data['title_column']) and $data['title_column'] == 'yes') {
 			$update_data['title_column'] = $field->field_slug;
 
-			$this->db->where('id', $stream->id );
-			$this->db->update($prefix.STREAMS_TABLE, $update_data);
+			ci()->pdb
+				->table(STREAMS_TABLE)
+				->where('id', '=', $stream->id)
+				->update($update_data);
 		}
 
 		// -------------------------------------

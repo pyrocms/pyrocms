@@ -383,13 +383,30 @@ abstract class AbstractCp extends AbstractSupport
 	 * @return object           
 	 */
 	public function fields($columns = '*', $exclude = false)
-	{
-		$columns = is_string($columns) ? array($columns) : $columns;
-		
-		$this->columns = $columns;
+	{		
+		$this->columns = is_string($columns) ? array($columns) : $columns;
 		$this->exclude = $exclude;
 
 		return $this;
+	}
+
+	/**
+	 * Get pagination
+	 * @param  integer $total_records The total records
+	 * @return array                The pagination array
+	 */
+	protected function getPagination($total_records = null)
+	{
+		$pagination = create_pagination(
+			$this->pagination_uri,
+			$total_records,
+			$this->limit, // Limit per page
+			$this->offset_uri // URI segment
+		);
+
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
+
+		return $pagination;
 	}
 
 	/**
@@ -431,96 +448,6 @@ abstract class AbstractCp extends AbstractSupport
 	}
 
 	/**
-	 * Set order direction
-	 * @param  string $direction 
-	 * @return object            
-	 */
-	public function orderDirection($direction = 'asc')
-	{
-		$this->direction = $direction;
-
-		return $this;
-	}
-
-	/**
-	 * Set order by
-	 * @param  string $column 
-	 * @return object         
-	 */
-	public function orderBy($column = null)
-	{
-		$this->order_by = $column;
-
-		return $this;
-	}
-
-	/**
-	 * Set pagination config
-	 * @param  [type] $pagination     [description]
-	 * @param  [type] $pagination_uri [description]
-	 * @return [type]                 [description]
-	 */
-	public function pagination($pagination = null, $pagination_uri = null)
-	{
-		$this->pagination = $pagination;
-		$this->pagination_uri = $pagination_uri;
-		
-		// -------------------------------------
-		// Find offset URI from array
-		// -------------------------------------
-
-		if (is_numeric($this->pagination))
-		{
-			$segs = explode('/', $this->pagination_uri);
-			$this->offset_uri = count($segs)+1;
-
-				$this->offset = ci()->uri->segment($this->offset_uri, 0);
-
-			// Calculate actual offset if not first page
-			if ( $offset > 0 )
-			{
-				$this->offset = ($offset - 1) * $this->pagination;
-			}
-		}
-		else
-		{
-			$this->offset_uri = null;
-			$this->offset = 0;
-		}
-	
-		return $this;
-	}
-
-	/**
-	 * Set return URI
-	 * @param  string $return 
-	 * @return object         
-	 */
-	public function redirect($return = null)
-	{
-		$this->return = $return;
-
-		return $this;
-	}
-
-	/**
-	 * Set render
-	 * @param  boolean $return 
-	 * @return object          
-	 */
-	public function render($return = false)
-	{
-		$method = camel_case('render'.$this->render);
-
-		if (method_exists($this, $method))
-		{
-			return $this->{$method}($return);
-		}
-
-		return false;
-	}
-
-	/**
 	 * On query callback
 	 * @param  function $callback 
 	 * @return object           
@@ -554,6 +481,96 @@ abstract class AbstractCp extends AbstractSupport
 		$this->addCallback(__FUNCTION__, $callback);
 
 		return $this;
+	}
+
+	/**
+	 * Set order direction
+	 * @param  string $direction 
+	 * @return object            
+	 */
+	public function orderDirection($direction = 'asc')
+	{
+		$this->direction = $direction;
+
+		return $this;
+	}
+
+	/**
+	 * Set order by
+	 * @param  string $column 
+	 * @return object         
+	 */
+	public function orderBy($column = null)
+	{
+		$this->order_by = $column;
+
+		return $this;
+	}
+
+	/**
+	 * Set pagination config
+	 * @param  [type] $pagination     [description]
+	 * @param  [type] $pagination_uri [description]
+	 * @return [type]                 [description]
+	 */
+	public function pagination($limit = null, $pagination_uri = null)
+	{
+		$this->limit = $limit;
+		$this->pagination_uri = $pagination_uri;
+		
+		// -------------------------------------
+		// Find offset URI from array
+		// -------------------------------------
+
+		if (is_numeric($this->limit))
+		{
+			$segs = explode('/', $this->pagination_uri);
+			$this->offset_uri = count($segs)+1;
+
+			$this->offset = ci()->uri->segment($this->offset_uri, 0);
+
+			// Calculate actual offset if not first page
+			if ( $this->offset > 0 )
+			{
+				$this->offset = ($this->offset - 1) * $this->limit;
+			}
+		}
+		else
+		{
+			$this->offset_uri = null;
+			$this->offset = 0;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Set return URI
+	 * @param  string $return 
+	 * @return object         
+	 */
+	public function redirect($return = null)
+	{
+		$this->return = $return;
+
+		return $this;
+	}
+
+	/**
+	 * Set render
+	 * @param  boolean $return 
+	 * @return object          
+	 */
+	public function render($return = false)
+	{
+		$method = camel_case('render'.$this->render);
+
+		if (method_exists($this, $method))
+		{
+			return $this->{$method}($return);
+		}
+
+		return false;
 	}
 
 	/**

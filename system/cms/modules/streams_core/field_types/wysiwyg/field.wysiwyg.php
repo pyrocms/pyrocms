@@ -35,9 +35,9 @@ class Field_wysiwyg extends AbstractField
 	public function event()
 	{
 		if (defined('ADMIN_THEME')) {
-			ci()->type->add_misc(ci()->type->load_view('wysiwyg', 'wysiwyg_admin', null));
+			$this->appendMetadata($this->view('wysiwyg_admin'));
 		} else {
-			ci()->type->add_misc(ci()->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
+			$this->appendMetadata($this->view('wysiwyg_entry_form'));
 		}
 	}
 
@@ -53,16 +53,13 @@ class Field_wysiwyg extends AbstractField
 		// that I'm sure a few sites are utilizing.
 		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $this->value);
 
-		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
+		$parse_tags = $this->getParameter('allow_tags', 'n');
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
-		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
-		{
+		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y') {
 			return ci()->parser->parse_string($this->value, array(), true);
-		}
-		else
-		{
+		} else {
 			ci()->load->helper('text');
 			return escape_tags($this->value);
 		}
@@ -79,14 +76,14 @@ class Field_wysiwyg extends AbstractField
 	public function form_output()
 	{
 		// Set editor type
-		if (isset($this->field->field_data['editor_type'])) {
-			$options['class']	= 'wysiwyg-'.$this->field->field_data['editor_type'];
+		if ($editor_type = $this->getParameter('editor_type')) {
+			$options['class']	= 'wysiwyg-'.$editor_type;
 		} else {
 			$options['class']	= 'wysiwyg-simple';
 		}
 
-		$options['name'] 	= $this->name;
-		$options['id']		= $this->name;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 
 		return form_textarea($options);
@@ -108,21 +105,18 @@ class Field_wysiwyg extends AbstractField
 	}
 
 	/**
-	 * Allow tags param.
+	 * Default Textarea Value
 	 *
-	 * Should tags go through or be converted to output?
+	 * @param	[string - value]
+	 * @return	string
 	 */
-	public function param_allow_tags($value = null)
+	public function param_default_value($value = null)
 	{
-		$options = array(
-			'n'	=> lang('global:no'),
-			'y'	=> lang('global:yes')
-		);
-
-		// Defaults to No
-		$value or $value = 'n';
-
-		return form_dropdown('allow_tags', $options, $value);
+		return form_textarea(array(
+			'name'		=> 'default_value',
+			'id'		=> 'default_value',
+			'value'		=> $value,
+		));
 	}
 
 }

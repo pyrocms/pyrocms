@@ -46,32 +46,9 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace)->enableEagerFieldRelations(true);
 
 		$instance->data->stream = $instance->model->getStream();
-
- 		// -------------------------------------
-		// Get Header Fields
-		// -------------------------------------
-		
- 		// $stream_fields = ci()->streams_m->get_stream_fields(static::$stream->id);
-
- 		// We need to make sure that stream_fields is 
- 		// at least an empty object.
-/* 		if ( ! is_object($stream_fields))
- 		{
- 			$stream_fields = new stdClass;
- 		}
-
- 		$stream_fields->id = new stdClass;
-  		$stream_fields->created = new stdClass;
- 		$stream_fields->updated = new stdClass;
- 		$stream_fields->created_by = new stdClass;
-
-  		$stream_fields->id->field_name 				= lang('streams:id');
-		$stream_fields->created->field_name 		= lang('streams:created_date');
- 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams:created_by');*/
 
   		$instance->fields = $instance->model->getFields();
 
@@ -234,22 +211,29 @@ class Entries extends AbstractCp
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 
 		// Allow to modify the query before we execute it
-		$this->fireOnQuery($this->model);
+		if ($model = $this->fireOnQuery($this->model))
+		{
+			$this->model = $model;
+		}
+
+		$this->model = $this->model->take($this->limit)->skip($this->offset);
 
   		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
 
- 		$this->data->view_options 	= $this->model->getViewOptions();
+ 		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 
-  		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+  		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
 
   		// @todo - fix pagination
 
-/*		$this->data['pagination'] = create_pagination(
-									$this->pagination_uri,
-									ci()->db->select('id')->count_all_results($this->stream->stream_prefix.$this->stream->stream_slug),
-									$this->pagination,
-									$this->offset_uri
-								);*/
+		if ($this->limit > 0)
+		{
+			$this->data->pagination = $this->getPagination($this->model->count());
+		}
+		else
+		{
+			$this->data->pagination = null;
+		}
 
 		$table = ci()->load->view('admin/partials/streams/entries', $this->data, true);
 
@@ -284,11 +268,7 @@ class Entries extends AbstractCp
 		{
 			$instance->model = $mixed->getModel();
 
-			$instance->entry = $mixed;
-
-			$stream = $instance->entry->getStream();
-
-			$instance->entry->setTable($stream->stream_prefix.$stream->stream_slug);
+			$instance->entry = $mixed->unformatted();
 		}
 		else
 		{
@@ -296,19 +276,13 @@ class Entries extends AbstractCp
 
 			if ($id)
 			{
-				$instance->entry = $instance->model->findEntry($id)->unformatted();
+				$instance->entry = $instance->model->setFormat(false)->find($id);
 			}
 			else
 			{
-				$instance->entry = $instance->model;
+				$instance->entry = $instance->model->setFormat(false);
 			}
 		}
-		$stream = $instance->model->getStream();
-
-		$instance->entry
-			->setStream($stream);
-			$instance->entry->setFields($stream->assignments->getFields());
-
 
 		return $instance;	
 	}

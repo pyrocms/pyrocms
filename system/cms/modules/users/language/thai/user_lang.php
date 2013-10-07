@@ -3,20 +3,20 @@
 /**
 * Thai translation.
 *
-* @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS
-* @link		http://pyrocms.com
-* @date		2012-04-19
-* @version	1.0.0
+* @author   Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
+* @package  PyroCMS
+* @link     http://pyrocms.com
+* @date     2012-04-19
+* @version  1.0.0
 **/
 
-$lang['user:add_field']                        	= 'เพิ่มฟิลด์ของโปรไฟล์ผู้ใช้งานแล้ว';
-$lang['user:profile_delete_success']           	= 'ลบฟิลด์ของโปรไฟล์ผู้ใช้งานแล้ว';
+$lang['user:add_field']                         = 'เพิ่มฟิลด์ของโปรไฟล์ผู้ใช้งานแล้ว';
+$lang['user:profile_delete_success']            = 'ลบฟิลด์ของโปรไฟล์ผู้ใช้งานแล้ว';
 $lang['user:profile_delete_failure']            = 'มีปัญหาในลบฟิลด์ของโปรไฟล์ผู้ใช้งาน';
-$lang['profile_user_basic_data_label']  		= 'ข้อมูลพื้นฐาน';
-$lang['profile_company']         	  			= 'บริษัท';
-$lang['profile_updated_on']           			= 'ปรับปรุงเมื่อ';
-$lang['user:profile_fields_label']	 		 	= 'โปรไฟล์ฟิลด์';
+$lang['user:profile_user_basic_data_label']     = 'ข้อมูลพื้นฐาน';
+$lang['user:profile_company']                   = 'บริษัท';
+$lang['user:profile_updated_on']                = 'ปรับปรุงเมื่อ';
+$lang['user:profile_fields_label']              = 'โปรไฟล์ฟิลด์';
 
 $lang['user:register_header']                  = 'ลงทะเบียน';
 $lang['user:register_step1']                   = '<strong>ขั้นตอนที่ 1:</strong> ลงทะเบียน';
@@ -26,7 +26,7 @@ $lang['user:login_header']                     = 'เข้าสู่ระบ
 
 // titles
 $lang['user:add_title']                        = 'เพิ่มผู้ใช้งาน';
-$lang['user:list_title'] 					   = 'ผู้ใช้งาน';
+$lang['user:list_title']                       = 'ผู้ใช้งาน';
 $lang['user:inactive_title']                   = 'ผู้ใช้ที่ไม่ใช้งาน';
 $lang['user:active_title']                     = 'ผู้ใช้งานที่ใช้งานอยู่';
 $lang['user:registred_title']                  = 'ผู้ใช้งานที่ลงทะเบียน';
@@ -71,7 +71,7 @@ $lang['user:first_name']                       = 'ชื่อ';
 $lang['user:last_name']                        = 'นามสกุล';
 $lang['user:username']                         = 'ชื่อผู้ใช้งาน';
 $lang['user:display_name']                     = 'ชื่อที่ปรากฏ';
-$lang['user:email_use'] 					   = 'ที่ใช้ในการเข้าสู่ระบบ';
+$lang['user:email_use']                        = 'ที่ใช้ในการเข้าสู่ระบบ';
 $lang['user:remember']                         = 'จดจำ';
 $lang['user:group_id_label']                   = 'รหัสของกลุ่ม';
 
@@ -81,7 +81,7 @@ $lang['user:lang']                             = 'ภาษา';
 
 $lang['user:activation_code']                  = 'รหัสการเปิดใช้งาน';
 
-$lang['user:reset_instructions']			   = 'ป้อนที่อยู่อีเมลหรือชื่อผู้ใช้ของคุณ';
+$lang['user:reset_instructions']               = 'ป้อนที่อยู่อีเมลหรือชื่อผู้ใช้ของคุณ';
 $lang['user:reset_password_link']              = 'ลืมรหัสผ่าน?';
 
 $lang['user:activation_code_sent_notice']      = 'อีเมลที่ถูกส่งไปให้ท่านมีรหัสยืนยันการใช้งานอยู่ด้วย';
@@ -128,7 +128,7 @@ $lang['user:mass_delete_error']                = 'คุณต้องเลื
 // Register
 $lang['user:email_pass_missing']               = 'อีเมลหรือรหัสผ่านไม่สมบรูณ์';
 $lang['user:email_exists']                     = 'ที่อยู่อีเมลของคุณได้เลือก มีอยู่แล้วในบัญชีผู้ใช้งานอื่น';
-$lang['user:register_error']				   = 'เราคิดว่าคุณเป็นบอท ถ้าไม่ใช้ใช่โปรดให้อถัยในความผิดพลาดนี้';
+$lang['user:register_error']                   = 'เราคิดว่าคุณเป็นบอท ถ้าไม่ใช้ใช่โปรดให้อถัยในความผิดพลาดนี้';
 $lang['user:register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
 // Activation
@@ -164,50 +164,50 @@ $lang['user:reset_pass_email_subject']         = 'ตั้งค่ารหั
 $lang['user:reset_pass_email_body']            = 'รหัสผ่านของคุณที่ %s ถูกตั้งค่าใหม่. ถ้าคุณไม่ได้เป็นคนร้องขอนี้, โปรดส่งอีเมลถึงเราได้ที่ %s และเราจะแก้ไขสถานการณ์ให้';
 
 // Profile
-$lang['profile_of_title']             = 'รายละเอียดของ %s';
+$lang['user:profile_of_title']             = 'รายละเอียดของ %s';
 
-$lang['profile_user_details_label']   = 'รายละเอียดของผู้ใช้';
-$lang['profile_role_label']           = 'สิทธิ์';
-$lang['profile_registred_on_label']   = 'สมัครสมาชิกเมื่อ';
-$lang['profile_last_login_label']     = 'เข้าสู่ระบบครั้งสุดท้าย';
-$lang['profile_male_label']           = 'ชาย';
-$lang['profile_female_label']         = 'หญิง';
-$lang['user:profile_fields_label']	  = 'ฟิลด์ของโปรไฟล์';
+$lang['user:profile_user_details_label']   = 'รายละเอียดของผู้ใช้';
+$lang['user:profile_role_label']           = 'สิทธิ์';
+$lang['user:profile_registred_on_label']   = 'สมัครสมาชิกเมื่อ';
+$lang['user:profile_last_login_label']     = 'เข้าสู่ระบบครั้งสุดท้าย';
+$lang['user:profile_male_label']           = 'ชาย';
+$lang['user:profile_female_label']         = 'หญิง';
+$lang['user:profile_fields_label']    = 'ฟิลด์ของโปรไฟล์';
 
-$lang['profile_not_set_up']           = 'ผู้ใช้งานนี้ยังไม่ได้ตั้งค่โปรไฟล์';
+$lang['user:profile_not_set_up']           = 'ผู้ใช้งานนี้ยังไม่ได้ตั้งค่โปรไฟล์';
 
-$lang['profile_edit']                 = 'แก้ไขโปรไฟล์ของคุณ';
+$lang['user:profile_edit']                 = 'แก้ไขโปรไฟล์ของคุณ';
 
-$lang['profile_personal_section']     = 'ส่วนบุคคล';
+$lang['user:profile_personal_section']     = 'ส่วนบุคคล';
 
-$lang['profile_display_name']         = 'ชื่อที่แสดง';
-$lang['profile_dob']                  = 'วันเกิด';
-$lang['profile_dob_day']              = 'วัน';
-$lang['profile_dob_month']            = 'เดือน';
-$lang['profile_dob_year']             = 'ปี';
-$lang['profile_gender']               = 'เพศ';
-$lang['profile_gender_nt']            = 'ไม่ระบุ';
-$lang['profile_gender_male']          = 'ชาย';
-$lang['profile_gender_female']        = 'หญิง';
-$lang['profile_bio']                  = 'เกี่ยวกับฉัน';
+$lang['user:profile_display_name']         = 'ชื่อที่แสดง';
+$lang['user:profile_dob']                  = 'วันเกิด';
+$lang['user:profile_dob_day']              = 'วัน';
+$lang['user:profile_dob_month']            = 'เดือน';
+$lang['user:profile_dob_year']             = 'ปี';
+$lang['user:profile_gender']               = 'เพศ';
+$lang['user:profile_gender_nt']            = 'ไม่ระบุ';
+$lang['user:profile_gender_male']          = 'ชาย';
+$lang['user:profile_gender_female']        = 'หญิง';
+$lang['user:profile_bio']                  = 'เกี่ยวกับฉัน';
 
-$lang['profile_contact_section']      = 'ติดต่อ';
+$lang['user:profile_contact_section']      = 'ติดต่อ';
 
-$lang['profile_phone']                = 'โทรศัพท์';
-$lang['profile_mobile']               = 'มือถือ';
-$lang['profile_address']              = 'ที่อยู่';
-$lang['profile_address_line1']        = 'บรรทัดที่ #1';
-$lang['profile_address_line2']        = 'บรรทัดที่ #2';
-$lang['profile_address_line3']        = 'เมือง';
-$lang['profile_address_postcode']     = 'รหัสไปรษณีย์';
-$lang['profile_website']              = 'เว็บไซต์';
+$lang['user:profile_phone']                = 'โทรศัพท์';
+$lang['user:profile_mobile']               = 'มือถือ';
+$lang['user:profile_address']              = 'ที่อยู่';
+$lang['user:profile_address_line1']        = 'บรรทัดที่ #1';
+$lang['user:profile_address_line2']        = 'บรรทัดที่ #2';
+$lang['user:profile_address_line3']        = 'เมือง';
+$lang['user:profile_address_postcode']     = 'รหัสไปรษณีย์';
+$lang['user:profile_website']              = 'เว็บไซต์';
 
-$lang['profile_api_section']     	  = 'การเข้าถึง API';
+$lang['user:profile_api_section']          = 'การเข้าถึง API';
 
-$lang['profile_edit_success']         = 'โปรไฟล์ของคุณได้รับการบันทึกแล้ว';
-$lang['profile_edit_error']           = 'เกิดข้อผิดพลาด';
+$lang['user:profile_edit_success']         = 'โปรไฟล์ของคุณได้รับการบันทึกแล้ว';
+$lang['user:profile_edit_error']           = 'เกิดข้อผิดพลาด';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'บันทึกโปรไฟล์';
+$lang['user:profile_save_btn']             = 'บันทึกโปรไฟล์';
 /* End of file user_lang.php */

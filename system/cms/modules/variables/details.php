@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\Data;
 
 /**
  * Variables Module
@@ -52,7 +53,7 @@ class Module_Variables extends AbstractModule
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'es' => 'Manage global variables to access from everywhere.',
-                            'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
+                'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
 				'fr' => 'Gérer des variables globales pour pouvoir y accéder depuis n\'importe quel endroit du site.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
@@ -104,88 +105,86 @@ class Module_Variables extends AbstractModule
 
 	public function install($pdb, $schema)
 	{
-		ci()->load->driver('Streams');
-
-		ci()->streams->utilities->remove_namespace('variables');
+		// Remove variables from streams
+		Data\Utility::destroyNamespace('variables');
 
 		ci()->lang->load('variables/variables');
 
-		if ( ! ci()->type->load_single_type('field'))
-		{
+		if (! ci()->type->load_single_type('field')) {
 			ci()->session->set_flashdata('notice', lang('variables:field_field_type_required'));
-			
 			return false;
 		}
 
-		ci()->streams->streams->add_stream('lang:variables:name', 'variables', 'variables');
+		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
+			'title_column' => 'name',
+		    'view_options' => array('name', 'data', 'syntax'),
+		)))
+		{
+	        // Create the Variables folder. For the image field
+	        $folder_id = $pdb->table('file_folders')->insertGetId(array(
+	            'slug' => 'variables',
+	            'name' => 'lang:variables:variables',
+	            'location' => 'local',
+	            'remote_container' => '',
+	            'date_added' => time(),
+	            'sort' => time(),
+	            'hidden' => true,
+	        ));
 
-        // Create the Variables folder. For the image field
-        $folder_id = $pdb->table('file_folders')->insertGetId(array(
-            'parent_id' => 0,
-            'slug' => 'variables',
-            'name' => 'lang:variables:variables',
-            'location' => 'local',
-            'remote_container' => '',
-            'date_added' => time(),
-            'sort' => time(),
-            'hidden' => 1,
-        ));
+			$fields = array(
+				// Fields assigned to Variables
+				array(
+					'name'			=> 'lang:streams:column_name',
+					'slug'			=> 'name',
+					'type'			=> 'slug',
+					'title_column'	=> true,
+					'required'		=> true,
+					'unique'		=> true,
+					'assign'		=> 'variables',
+					'extra'			=> array(
+						'max_length' => 100
+					),
+				),
+				array(
+					'name'			=> 'lang:streams:column_data',
+					'slug'			=> 'data',
+					'type'			=> 'field',
+					'required'		=> true,
+					'assign'		=> 'variables',
+					'extra'			=> array(
+						'max_length' => 100,
+						'namespace' => 'variables',
+						'field_slug' => 'data'
+					),
+				),
+				array(
+					'name'			=> 'lang:streams:column_syntax',
+					'slug'			=> 'syntax',
+					'type'			=> 'merge_tags',
+					'assign'		=> 'variables',
+					'extra'			=> array(
+						'pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'
+					),
+				),
+			    // A default set of selectable fields
+				array('name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
+				array('name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
+				array('name' => 'lang:streams:email.name','slug' => 'email','type' => 'email'),
+				array('name' => 'lang:streams:encrypt.name','slug' => 'encrypt','type' => 'encrypt', 'extra' => array('hide_typing' => 'yes')),
+				array('name' => 'lang:streams:image.name','slug' => 'image','type' => 'image', 'extra' => array('folder' => $folder_id)),
+				array('name' => 'lang:streams:integer.name','slug' => 'number','type' => 'integer'),
+				array('name' => 'lang:streams:keywords.name','slug' => 'keywords','type' => 'keywords'),
+				array('name' => 'lang:streams:pyro_lang.name','slug' => 'pyro_lang','type' => 'pyro_lang'),
+				array('name' => 'lang:streams:state.name','slug' => 'state','type' => 'state'),
+				array('name' => 'lang:streams:text.name','slug' => 'text','type' => 'text'),
+				array('name' => 'lang:streams:textarea.name','slug' => 'textarea','type' => 'textarea', 'extra' => array('allow_tags' => 'yes', 'content_type' => 'md')),
+				array('name' => 'lang:streams:url.name','slug' => 'url','type' => 'url'),
+				array('name' => 'lang:streams:user.name','slug' => 'user','type' => 'user'),
+				array('name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
+			);
 
-		$fields = array(
-			// Fields assigned to Variables
-			array(
-				'name'			=> 'lang:streams:column_name',
-				'slug'			=> 'name',
-				'type'			=> 'slug',
-				'title_column'	=> true,
-				'required'		=> true,
-				'unique'		=> true,
-				'namespace'		=> 'variables',
-				'assign'		=> 'variables',
-				'extra'			=> array('max_length' => 100),
-			),
-			array(
-				'name'			=> 'lang:streams:column_data',
-				'slug'			=> 'data',
-				'type'			=> 'field',
-				'required'		=> true,
-				'namespace'		=> 'variables',
-				'assign'		=> 'variables',
-				'extra'			=> array('max_length' => 100, 'namespace' => 'variables', 'field_slug' => 'data'),
-			),
-			array(
-				'name'			=> 'lang:streams:column_syntax',
-				'slug'			=> 'syntax',
-				'type'			=> 'merge_tags',
-				'namespace'		=> 'variables',
-				'assign'		=> 'variables',
-				'extra'			=> 
-					array('pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'),
-			),
-		    // A default set of selectable fields
-			array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
-			array('namespace' => 'variables','name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
-			array('namespace' => 'variables','name' => 'lang:streams:email.name','slug' => 'email','type' => 'email'),
-			array('namespace' => 'variables','name' => 'lang:streams:encrypt.name','slug' => 'encrypt','type' => 'encrypt', 'extra' => array('hide_typing' => 'yes')),
-			array('namespace' => 'variables','name' => 'lang:streams:image.name','slug' => 'image','type' => 'image', 'extra' => array('folder' => $folder_id)),
-			array('namespace' => 'variables','name' => 'lang:streams:integer.name','slug' => 'number','type' => 'integer'),
-			array('namespace' => 'variables','name' => 'lang:streams:keywords.name','slug' => 'keywords','type' => 'keywords'),
-			array('namespace' => 'variables','name' => 'lang:streams:pyro_lang.name','slug' => 'pyro_lang','type' => 'pyro_lang'),
-			array('namespace' => 'variables','name' => 'lang:streams:state.name','slug' => 'state','type' => 'state'),
-			array('namespace' => 'variables','name' => 'lang:streams:text.name','slug' => 'text','type' => 'text'),
-			array('namespace' => 'variables','name' => 'lang:streams:textarea.name','slug' => 'textarea','type' => 'textarea', 'extra' => array('allow_tags' => 'yes', 'content_type' => 'md')),
-			array('namespace' => 'variables','name' => 'lang:streams:url.name','slug' => 'url','type' => 'url'),
-			array('namespace' => 'variables','name' => 'lang:streams:user.name','slug' => 'user','type' => 'user'),
-			array('namespace' => 'variables','name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
-		);
-
-		ci()->streams->fields->add_fields($fields);
-		
-		$update_data = array(
-		    'view_options'  => array('name', 'data', 'syntax')
-		);
-
-		ci()->streams->streams->update_stream('variables', 'variables', $update_data);
+			Data\Fields::addFields($fields, null, 'variables');			
+		}
 
 		return true;
 	}

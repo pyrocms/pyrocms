@@ -187,7 +187,9 @@ $lang['recaptcha_html_error'] 							= "Error cargando imagen de seguridad.  Por
 $lang['streams:max_length'] 							= "Longitud Máxima";
 $lang['streams:upload_location'] 						= "Localización de Cargas (Subidas)";
 $lang['streams:default_value'] 							= "Valor Predeterminado";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
 $lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
 $lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate

@@ -24,7 +24,7 @@ class Field_keywords extends AbstractField
 	public function __construct()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->library('keywords/keywords');
+		ci()->load->library('keywords/keywords');
 	}
 
 	// --------------------------------------------------------------------------
@@ -48,9 +48,9 @@ class Field_keywords extends AbstractField
 
 	public function event($field)
 	{
-		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
-		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
-		$this->CI->type->add_js('keywords', 'keywords.js');
+		ci()->template->append_css('jquery/jquery.tagsinput.css');
+		ci()->template->append_js('jquery/jquery.tagsinput.js');
+		$this->js('keywords.js');
 	}
 
 	public function pre_save($input)
@@ -86,7 +86,7 @@ class Field_keywords extends AbstractField
 	public function param_return_type($value = 'array')
 	{
 		return array(
-			'instructions' => $this->CI->lang->line('streams:keywords.return_type.instructions'),
+			'instructions' => lang('streams:keywords.return_type.instructions'),
 			'input' =>
 				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
 				// String gets set as default for backwards compat

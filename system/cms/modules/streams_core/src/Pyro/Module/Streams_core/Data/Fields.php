@@ -14,7 +14,7 @@ class Fields extends AbstractData
 	 * @param	array - field_data
 	 * @return	bool
 	 */
-	public function addField($field)
+	public static function addField($field)
 	{
 		extract($field);
 	
@@ -77,7 +77,7 @@ class Fields extends AbstractData
 		// Assignment (Optional)
 		// -------------------------------------
 
-		if (isset($assign) and $assign != '' and $stream = Model\Stream::findBySlugAndNamespace($assign, $namespace)))
+		if (isset($assign) and $assign != '' and $stream = Model\Stream::findBySlugAndNamespace($assign, $namespace))
 		{
 			$data = array();
 		
@@ -106,7 +106,7 @@ class Fields extends AbstractData
 	 * @param [type] $assign_stream_slug The optional stream slug to assign all fields. Avoids the need to add it individually.
 	 * @param [type] $namespace          The optional namespace for all fields. Avoids the need to add it individually.
 	 */
-	public function addFields($fields = array(), $assign_stream_slug = null, $namespace = null)
+	public static function addFields($fields = array(), $assign_stream_slug = null, $namespace = null)
 	{
 		if (empty($fields)) return false;
 
@@ -124,7 +124,7 @@ class Fields extends AbstractData
 				$field['namespace'] = $namespace;
 			}
 
-			if( ! $this->addField($field))
+			if( ! static::addField($field))
 			{
 	            $success = false;
 	        }
@@ -142,7 +142,7 @@ class Fields extends AbstractData
 	 * @param	array - assign data
 	 * @return	mixed - false or assignment ID
 	 */
-	public function assignField($stream_slug, $namespace, $field_slug, $assign_data = array())
+	public static function assignField($stream_slug, $namespace, $field_slug, $assign_data = array())
 	{
 		// -------------------------------------
 		// Validate Data
@@ -174,7 +174,7 @@ class Fields extends AbstractData
 	 * @param	string - field slug
 	 * @return	bool
 	 */
-	public function deassignField($namespace, $stream_slug, $field_slug)
+	public static function deassignField($namespace, $stream_slug, $field_slug)
 	{
 		// -------------------------------------
 		// Validate Data
@@ -204,7 +204,7 @@ class Fields extends AbstractData
 	 * @param	string - field namespace
 	 * @return	bool
 	 */
-	public function deleteField($field_slug, $namespace)
+	public static function deleteField($field_slug, $namespace)
 	{
 		// Do we have a field slug?
 		if( ! isset($field_slug) or ! trim($field_slug))
@@ -230,7 +230,7 @@ class Fields extends AbstractData
 	 * @param	array - new data
 	 * @return	bool
 	 */
-	public function updateField($field_slug, $field_namespace, $field_name = null, $field_type = null, $field_data = array())
+	public static function updateField($field_slug, $field_namespace, $field_name = null, $field_type = null, $field_data = array())
 	{
 		// Do we have a field slug?
 		if( ! isset($field_slug) or ! trim($field_slug))
@@ -264,7 +264,7 @@ class Fields extends AbstractData
 	 * @param	string - namespace
 	 * @return	object
 	 */
-	public function getFieldAssignments($field_slug, $namespace)
+	public static function getFieldAssignments($field_slug, $namespace)
 	{
 		// Do we have a field slug?
 		if( ! isset($field_slug) or ! trim($field_slug))
@@ -275,5 +275,45 @@ class Fields extends AbstractData
 		if ( ! $field = Model\Field::findBySlugAndNamespace($field_slug, $namespace)) return false;
 	
 		return $field->assignments;
+	}
+
+	/**
+	 * Tear down assignment + field combo
+	 *
+	 * Usually we'd just delete the assignment,
+	 * but we need to delete the field as well since
+	 * there is a 1-1 relationship here.
+	 *
+	 * @param 	int - assignment id
+	 * @param 	bool - force delete field, even if it is shared with multiple streams
+	 * @return 	bool - success/fail
+	 */
+	public static function teardownFieldAssignment($assign_id, $force_delete = false)
+	{
+		// Get the assignment
+		if ($assignment = Model\FieldAssignment::find($assign_id))
+		{
+			// Get stream
+			if ( ! $stream = $assignment->stream)
+			{
+				return false;
+			}
+
+			// Get field
+			if ( ! $field = $assignment->field)
+			{
+				return false;
+			}
+
+			// Delete the assignment
+			$stream->removeFieldAssignment($field);
+			
+			// Remove the field only if unlocked and has no assingments
+			if ( ! $field->is_locked or $field->assignments->isEmpty() or $force_delete)
+			{
+				// Remove the field
+				return $field->delete();
+			}			
+		}
 	}
 }

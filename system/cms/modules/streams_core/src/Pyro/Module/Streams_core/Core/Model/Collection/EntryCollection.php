@@ -32,4 +32,16 @@ class EntryCollection extends EloquentCollection
 	{
 		return new static($this->unformatted_entries);
 	}
+
+	public function getEntryOptions()
+	{
+		$options = array();
+
+		foreach($this->items as $entry)
+		{
+			$options[$entry->getKey()] = $entry->getTitleColumnValue();
+		}
+
+		return $options;
+	}
 }

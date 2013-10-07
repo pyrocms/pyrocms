@@ -188,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "تعذر تحميل صورة الأما�
 $lang['streams:max_length'] 							= "أقصى طول";
 $lang['streams:upload_location'] 						= "موضع الرفع";
 $lang['streams:default_value'] 							= "القيمة الافتراضية";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'مسار القائمة';
 $lang['streams:about_instructions']						= 'وصف مختصر للجدول.';
 $lang['streams:slug_instructions']						= 'سيكون هذا أيضاً أسم الجدول في قاعدة البيانات.';

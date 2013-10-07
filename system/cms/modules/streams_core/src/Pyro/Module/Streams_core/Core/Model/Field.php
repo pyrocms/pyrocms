@@ -41,13 +41,15 @@ class Field extends Eloquent
         $instance = new static;
 
         // Load the type to see if there are other params
-        if ($type = $instance->getType() and isset($type->custom_parameters))
+        if ($type = Type::getLoader()->getType($attributes['field_type']))
         {
-            foreach ($type->custom_parameters as $param)
+            $type->setPreSaveParameters($attributes);
+
+            foreach ($type->getCustomParameters() as $param)
             {
-                if (method_exists($type, 'param_'.$param.'_pre_save'))
+                if (method_exists($type, 'param_'.$param.'_pre_save') and $value = $type->getPreSaveParameter($param))
                 {
-                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $attributes );
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $value );
                 }
             }
         }
@@ -76,17 +78,22 @@ class Field extends Eloquent
 
         $type->setField($this);
 
-        $type->setEntry($entry);
-        
-        $type->setStream($entry->getModel()->getStream());
+        if ($entry)
+        {
+            $type->setEntry($entry);
+            
+            $type->setStream($entry->getModel()->getStream());
 
-        $type->setModel($entry->getModel());
-        
-        $type->setEntryBuilder($entry->getModel()->newQuery());
-        
+            $type->setModel($entry->getModel());
+            
+            $type->setEntryBuilder($entry->getModel()->newQuery());
+            
+            $type->setFormSlug();          
+        }
+
         if ($field_slug = $this->getAttribute('field_slug'))
         {
-            $type->setValue($entry->{$this->getAttribute('field_slug')});            
+            $type->setValue($entry->getAttributeValue($field_slug));            
         }
         else
         {
@@ -163,7 +170,7 @@ class Field extends Eloquent
                     {
                         if ( $to and $from != $to)
                         {
-                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($attributes, $field_slug) {
+                            $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($from, $to) {
                                 $table->renameColumn($from, $to);
                             });                            
                         }
@@ -196,13 +203,10 @@ class Field extends Eloquent
         }
     
         // Gather extra data
-        if ( ! empty($type->custom_parameters))
+        foreach ($type->getCustomParameters() as $param)
         {
-            foreach ($type->custom_parameters as $param)
-            {
-                if (method_exists($type, 'param_'.$param.'_pre_save')) {
-                    $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
-                }
+            if (method_exists($type, 'param_'.$param.'_pre_save')) {
+                $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
             }
         }
 
@@ -246,35 +250,40 @@ class Field extends Eloquent
         if ($success = parent::delete())
         {
             // Find assignments, and delete rows from table
-            $assignments = $this->getAttribute('assignments');
-
-            if ( ! $assignments->isEmpty())
+            if ($assignments = $this->getAttribute('assignments') and ! $assignments->isEmpty())
             {
                 // Delete assignments
-                foreach ($assignments as $assignment)
-                {
-                    $assignment->delete();
-                }
+                FieldAssignment::cleanup();
+                // Reset instances where the title column
+                // is the field we are deleting. PyroStreams will
+                // always just use the ID in place of the field.
+                
+                $title_column = $this->getAttribute('field_slug');
+
+                Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);
             }
-
-            // Reset instances where the title column
-            // is the field we are deleting. PyroStreams will
-            // always just use the ID in place of the field.
-            
-            $title_column = $this->getAttribute('field_slug');
-
-            Stream::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);      
         }
 
         return $success;
     }
 
     /**
+     * Cleanup stale fields that have no assignments
+     * @return [type] [description]
+     */
+    public static function cleanup()
+    {
+        $field_ids = FieldAssignment::all()->getFieldIds();
+
+        return static::whereNotIn('id', $field_ids)->delete();
+    }
+    
+    /**
      * Delete fields by namespace
      * @param  string $namespace
      * @return object
      */
-    public function deleteByNamespace($namespace)
+    public static function deleteByNamespace($namespace)
     {
         return static::where('field_namespace', $namespace)->delete();
     }
@@ -339,6 +348,32 @@ class Field extends Eloquent
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
         throw new Exception\FieldNotFoundException;
+    }
+
+    public static function getFieldOptions($skips = array())
+    {
+        if (is_string($skips))
+        {
+            $skips = array($skips);
+        }
+
+        if ( ! empty($skips))
+        {
+            return static::whereNotIn('field_slug', $skips)->lists('field_name', 'id');    
+        }
+        else
+        {
+            return static::lists('field_name', 'id'); 
+        }
+    }
+
+    /**
+     * Get field namespace options
+     * @return array
+     */
+    public static function getFieldNamespaceOptions()
+    {
+        return static::all()->getFieldNamespaceOptions();
     }
 
     /**

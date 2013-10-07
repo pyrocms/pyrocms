@@ -46,10 +46,20 @@ class Module_import
 	 *
 	 * @return Composer\Autoload\ClassLoader
 	 */
-	public function registerAutoloader($loader, $app_path)
+	public function registerAutoloader(ClassLoader $loader, $app_path)
 	{
-        $loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
-        
+		// Go through EVERY module and register its src folder
+        foreach (glob("{$app_path}/modules/*/src/", GLOB_ONLYDIR) as $dir) {
+
+        	// Turn 'modules/blog/src/' into 'blog'
+        	$slug = basename(dirname($dir));
+
+        	// That 'blog' should now be 'Pyro\Module\Blog'
+        	$namespace = 'Pyro\\Module\\'.ucfirst($slug);
+
+	        $loader->add($namespace, $dir);
+    	}
+
         // activate the autoloader
         $loader->register();
 

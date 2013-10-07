@@ -40,9 +40,9 @@ class Stream extends Eloquent
 	 * @param  integer $offset           
 	 * @return object                    
 	 */
-	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = 0)
+	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null)
 	{
-		return static::where('namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
+		return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
 	}
 
     /**
@@ -188,19 +188,17 @@ class Stream extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 
 		// See if table exists. You never know if it sneaked past validation
-		if ($schema->hasTable($attributes['stream_prefix'].$attributes['stream_slug']))
+		if ( ! $schema->hasTable($attributes['stream_prefix'].$attributes['stream_slug']))
 		{
-			return false;
+			// Create the table for our new stream
+			$schema->create($attributes['stream_prefix'].$attributes['stream_slug'], function($table) {
+	            $table->increments('id');
+	            $table->datetime('created');
+	            $table->datetime('updated');
+	            $table->integer('created_by')->nullable();
+	            $table->integer('ordering_count')->nullable();
+	        });
 		}
-
-		// Create the table for our new stream
-		$schema->create($attributes['stream_prefix'].$attributes['stream_slug'], function($table) {
-            $table->increments('id');
-            $table->datetime('created');
-            $table->datetime('updated');
-            $table->integer('created_by')->nullable();
-            $table->integer('ordering_count')->nullable();
-        });
 
 		// Create the stream in the data_streams table
 		return parent::create($attributes);
@@ -215,17 +213,21 @@ class Stream extends Eloquent
 	 */
 	public function update(array $attributes = array())
 	{
-		$attributes['stream_prefix'] = isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : $this->attribute['stream_prefix'];
-		$attributes['stream_slug'] = isset($attributes['stream_slug']) ? $attributes['stream_slug'] : $this->attribute['stream_slug'];
+		$attributes['stream_prefix'] = isset($attributes['stream_prefix']) ? $attributes['stream_prefix'] : $this->getAttribute('stream_prefix');
+		$attributes['stream_slug'] = isset($attributes['stream_slug']) ? $attributes['stream_slug'] : $this->getAttribute('stream_slug');
 
 		$schema = ci()->pdb->getSchemaBuilder();
 
 		$from = $this->getAttribute('stream_prefix').$this->getAttribute('stream_slug');
 		$to = $attributes['stream_prefix'].$attributes['stream_slug'];
 
-		if ($schema->hasTable($from) and $from != $to)
-		{
-			$schema->rename($from, $to);
+		try {
+			if ( ! empty($to) and $schema->hasTable($from) and $from != $to)
+			{
+				$schema->rename($from, $to);
+			}			
+		} catch (Exception $e) {
+			// @todo - throw exception			
 		}
 
 		return parent::update($attributes);
@@ -239,12 +241,19 @@ class Stream extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->dropIfExists($this->getAttribute('prefix').$this->getAttribute('stream_slug'));
+		try {
+			$schema->dropIfExists($this->getAttribute('stream_prefix').$this->getAttribute('stream_slug'));	
+		} catch (Exception $e) {
+			// @todo - log error
+		}
 
-		$success = parent::delete();
+		if ($success = parent::delete())
+		{
+			FieldAssignment::cleanup();
 
-		FieldAssignment::cleanup();
-
+			Field::cleanup();			
+		}
+		
 		return $success;
 	}
 
@@ -269,7 +278,7 @@ class Stream extends Eloquent
 
 		if ( ! $field instanceof Field) return false;
 
-		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->id, $this->data->stream->id))
+		if ( ! $assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
 		{
 			$assignment = new FieldAssignment;
 		}
@@ -319,7 +328,7 @@ class Stream extends Eloquent
 		$assignment->instructions	= isset($data['instructions']) ? $data['instructions'] : null;
 
 		// First one! Make it 1
-		$insert_data['sort_order'] = FieldAssignment::getIncrementalSortNumber($this->getKey());
+		$assignment->sort_order = FieldAssignment::getIncrementalSortNumber($this->getKey());
 
 		// Is Required
 		$assignment->is_required = $data['is_required'];
@@ -329,6 +338,24 @@ class Stream extends Eloquent
 
 		// Return the field assignment or false
 		return $assignment->save();	
+    }
+
+    /**
+     * Get Stream options
+     * @return array The array of Stream options indexed by id
+     */
+    public static function getStreamOptions()
+    {
+    	return static::all(array('id', 'stream_name', 'stream_namespace'))->getStreamOptions();
+    }
+
+    /**
+     * Get Stream associative options
+     * @return array The array of Stream options indexed by "stream_slug.stream_namespace"
+     */
+    public static function getStreamAssociativeOptions()
+    {
+    	return static::all(array('stream_name', 'stream_slug', 'stream_namespace'))->getStreamAssociativeOptions();
     }
 
     /**
@@ -413,6 +440,8 @@ class Stream extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
+		if ( ! $field instanceof Field) return false;
+
 		// Do we have a destruct function
 		if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
 		{
@@ -425,25 +454,25 @@ class Stream extends Eloquent
 		// Remove from db structure
 		// -------------------------------------
 
-		// Alternate method fields will not have a column, so we just
-		// check for it first
-		if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug))
-		{
-			if ( ! $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field) {
+		try {
+			// Alternate method fields will not have a column, so we just
+			// check for it first
+			$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
 				$table->dropColumn($field->field_slug);
-			}))
-			{
-				return false;
-			}
+			});
+		} catch (Exception $e) {
+			// @todo - log error
 		}
 
-		$assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey());
+		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
+		{
+			// -------------------------------------
+			// Remove from field assignments table
+			// -------------------------------------
 
-		// -------------------------------------
-		// Remove from field assignments table
-		// -------------------------------------
+			if ( ! $assignment->delete()) return false;			
+		}
 
-		if ( ! $assignment->delete()) return false;
 
 		// -------------------------------------
 		// Remove from from field options
@@ -566,6 +595,6 @@ class Stream extends Eloquent
      */
 	public function assignments()
 	{
-		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment');
+		return $this->hasMany('Pyro\Module\Streams_core\Core\Model\FieldAssignment')->orderBy('sort_order');
 	}
 }

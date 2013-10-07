@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Query\Expression as DBExpression;
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\Core\Field;
+use Pyro\Module\Streams_core\Core;
 
 class FieldAssignment extends Eloquent
 {
@@ -55,7 +55,7 @@ class FieldAssignment extends Eloquent
             ->where('stream_id', $stream_id)
             ->take($limit)
             ->skip($offset)
-            ->orderBy('field_name', $order)
+            ->orderBy('sort_order', $order)
             ->get();
     }
 
@@ -64,7 +64,7 @@ class FieldAssignment extends Eloquent
      *
      * @return int
      */
-    public function countFieldAssignments($field_id = null)
+    public static function countByFieldId($field_id = null)
     {
         if ( ! $field_id) return 0;
 
@@ -76,7 +76,7 @@ class FieldAssignment extends Eloquent
      *
      * @return  int
      */
-    public function countStreamAssignments($stream_id = null)
+    public static function countByStreamId($stream_id = null)
     {
         if ( ! $stream_id) return 0;
 
@@ -98,41 +98,45 @@ class FieldAssignment extends Eloquent
         // @todo - remove this once the hasColumn bug is fixed in Illuminate\Database
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
-        $field = $this->getAttribute('field');
-
         $stream = $this->getAttribute('stream');
 
-        // Drop the column if it exists
-        if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug))
+        if ($field = $this->getAttribute('field'))
         {
-            $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
-                
-                $table->dropColumn($field->field_slug);
-            
-            });            
-        }
-
-        // Run the destruct
-        if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
-        {
-            $type->field_assignment_destruct($field, $stream);
-        }
-
-        // Update that stream's view options
-        ;
-
-        if ( ! empty($field->stream->view_options))
-        {
-            foreach ($field->stream->view_options as $key => $option)
+            // Drop the column if it exists
+            if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug))
             {
-                if (isset($field->stream->view_options[$field->field_slug]))
-                {
-                    unset($field->stream->view_options[$field->field_slug]);
-                }
+                $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
+                    
+                    $table->dropColumn($field->field_slug);
+                
+                });            
             }
-        }
 
-        $field->stream->save();
+            // Run the destruct
+            if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
+            {
+                $type->setStream($stream);
+                $type->field_assignment_destruct();
+            }
+
+            // Update that stream's view options
+            if ($field->stream)
+            {
+                if ( ! empty($field->stream->view_options))
+                {
+                    foreach ($field->stream->view_options as $key => $option)
+                    {
+                        if (isset($field->stream->view_options[$field->field_slug]))
+                        {
+                            unset($field->stream->view_options[$field->field_slug]);
+                        }
+                    }
+                }
+
+                $field->stream->save();    
+            }
+            
+        }
 
         // Find everything above it, and take each one
         // down a peg.
@@ -141,10 +145,10 @@ class FieldAssignment extends Eloquent
             $this->sort_order = 0;
         }
 
-        $other_assignments = static::where('stream_id', $stream->id)
-            ->whereNot($this->getKeyName(), $this->getKey())
+        $other_assignments = static::where('stream_id', '=', $stream->id)
+            ->where($this->getKeyName(), '!=', $this->getKey())
             ->where('sort_order', '>', $this->sort_order)
-            ->get('id, sort_order');
+            ->get(array($this->getKeyName(), 'sort_order'));
 
         if ( ! $other_assignments->isEmpty())
         {
@@ -166,9 +170,14 @@ class FieldAssignment extends Eloquent
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
-       Field\Type::getLoader()->getType($this->field->field_type);
+        if ($this->field)
+        {
+            Core\Field\Type::getLoader()->getType($this->field->field_type);
 
-        return lang_label($field_name);
+            $field_name = lang_label($field_name);
+        }
+        
+        return $field_name;
     }
 
     /**
@@ -227,6 +236,17 @@ class FieldAssignment extends Eloquent
         }
 
         return parent::update($attributes);
+    }
+
+    /**
+     * Update sort order
+     * @param  integer  $id        The assignment id
+     * @param  integer $sort_order The sort order
+     * @return boolean
+     */
+    public static function updateSortOrder($id, $sort_order = 0)
+    {
+        return static::where('id', $id)->update(array('sort_order' => $sort_order));
     }
 
     /**

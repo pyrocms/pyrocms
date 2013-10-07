@@ -34,8 +34,8 @@ class Field_url extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 
 		return form_input($options);
@@ -52,7 +52,7 @@ class Field_url extends AbstractField
 	 */
 	public function pre_output()
 	{
-		$this->CI->load->helper('text');
+		ci()->load->helper('text');
 		return escape_tags($this->value);
 	}
 

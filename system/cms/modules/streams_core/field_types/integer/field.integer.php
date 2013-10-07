@@ -34,15 +34,16 @@ class Field_integer extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
+		$options['value']	= $this->value;
 		
 		// Max length
-		if ( ! empty($data['max_length'])) {
-			$options['maxlength'] = $data['max_length'];
+		if ($max_length = $this->getParameter('max_length'))
+		{
+			$options['maxlength'] = $max_length;
 		}
 
 		return form_input($options);

@@ -1,4 +1,4 @@
-<?php if ($assignments): ?>
+<?php if ( ! $assignments->isEmpty()): ?>
 
     <table class="table-list" border="0" cellspacing="0">
 		<thead>
@@ -17,16 +17,18 @@
 				<td>
 					<input type="hidden" name="action_to[]" value="<?php echo $assignment->id;?>" />
 					<?php
-						if (! $field_name = $assignment->field_name)
+						if ( ! $field_name = $assignment->field_name and $field = $assignment->field)
 						{
-							$field_name = $assignment->field->field_name;
+							$field_name = $field->field_name;
 						}
 					 
 					 	echo lang_label($field_name);
 				 	?>
 				</td>
-				<td><?php echo $assignment->field->field_slug; ?></td>
-				<td><?php echo $assignment->field->getType()->field_type_name; ?></td>
+				<?php if ($field = $assignment->field): ?>
+					<td><?php echo $field->field_slug; ?></td>
+					<td><?php echo $field->getType()->field_type_name; ?></td>
+				<?php endif; ?>
 				<td class="actions">
 					<?php
 

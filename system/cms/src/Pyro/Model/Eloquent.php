@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntryException;
-use Pyro\Module\Streams_core\Core\Model\Relation\BelongsToEntry;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Eloquent Model
@@ -27,6 +27,18 @@ abstract class Eloquent extends Model
      * The static runtime cache variables used to store results on each request
      */
     protected static $runtime_cache = array();
+
+    /**
+     * Skio validation
+     * @var boolean
+     */
+    public $skip_validation = false;
+
+    /**
+     * Replicated
+     * @var boolean
+     */
+    protected $replicated = false;
 
     /**
      * We can store data in the class at runtime so we don't have to keep hitting the database
@@ -122,12 +134,34 @@ abstract class Eloquent extends Model
      */
     public function save(array $options = array())
     {
-        if (method_exists($this, 'validate') and ! $this->validate())
+        if (method_exists($this, 'validate') and ! $this->validate() and ! $this->skip_validation)
         {
             return false;
         }
-        
+
         return parent::save($options);
+    }
+
+    /**
+     * Replicate 
+     * @return object The model clone
+     */
+    public function replicate()
+    {
+        $clone = parent::replicate();
+        $clone->skip_validation = true;
+        $clone->replicated = true;
+        return $clone;
+    }
+
+    /**
+     * New collection
+     * @param  array  $models The array of models
+     * @return object         The Collection object
+     */
+    public function newCollection(array $models = array())
+    {
+        return new Collection\EloquentCollection($models);
     }
 
     /**
@@ -145,10 +179,8 @@ abstract class Eloquent extends Model
         // them on the relations. Otherwise, we will just make a great estimate.
         list($stream_column, $id_column) = $this->getMorphs($relation_name, $stream_column, $id_column);
 
-        if ( ! $stream = $this->$stream_column)
-        {
-            // @todo - do we want to throw an exception if the stream is not stored?
-        }
+        // This value looks like "stream_slug.stream_namespace"
+        $stream = $this->$stream_column;
 
         return $this->belongsToEntry($related, $id_column, $stream, $stream_column);
     }
@@ -160,7 +192,7 @@ abstract class Eloquent extends Model
      * @param  string  $foreignKey
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null, $stream_column = null)
+    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null)
     {
         list(, $caller) = debug_backtrace(false);
 
@@ -191,35 +223,9 @@ abstract class Eloquent extends Model
 
         $query = $instance->newQuery();
 
-        $relation_instance = new BelongsToEntry($query, $this, $foreignKey, $relation);
-
-        $relation_instance->setStreamColumn($stream_column);
-
-        return $relation_instance;
+        return new BelongsTo($query, $this, $foreignKey, $relation);
     }
 
-    /**
-     * Get a new query builder for the model's table.
-     *
-     * @param  bool  $excludeDeleted
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public function newQuery($excludeDeleted = true)
-    {
-        $builder = new Query\Builder($this->newBaseQueryBuilder());
-
-        // Once we have the query builders, we will set the model instances so the
-        // builder can easily access any information it may need from the model
-        // while it is constructing and executing various queries against it.
-        $builder->setModel($this)->with($this->with);
-
-        if ($excludeDeleted and $this->softDelete)
-        {
-            $builder->whereNull($this->getQualifiedDeletedAtColumn());
-        }
-
-        return $builder;
-    }
 }
 
 /* End of file Eloquent.php */

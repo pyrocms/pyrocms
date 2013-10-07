@@ -611,7 +611,7 @@ class Users extends Public_Controller
 			),
 			array(
 				'field' => 'display_name',
-				'label' => lang('profile_display_name'),
+				'label' => lang('user:profile_display_name'),
 				'rules' => 'required|xss_clean'
 			)
 		);

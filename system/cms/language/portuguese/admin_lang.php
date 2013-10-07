@@ -46,7 +46,7 @@ $lang['cp:delete_installer']					 = 'Apagar pasta';
 $lang['cp:delete_installer_successfully_message'] = 'A pasta <em>installer</em> foi apagada com sucesso.';
 $lang['cp:delete_installer_manually_message']     = 'A pasta <em>installer</em> não pôde ser apagada. <strong>Por favor apague manualmente!</strong>';
 $lang['cp:upgrade_message']				= 'Está a utilizar a versão %s, mas a sua base de dados é versão %s. Por favor, <a href="%s" title="Upgrade">clique aqui</a> para actualizar a sua base de dados.';
-$lang['cp:google_analytics_missing']	= 'Faltam as configurações para o Google Analytics. Adicione-as em %s ou entre em conctato com seu administrador.';
+$lang['cp:google_analytics_missing']	= 'Faltam as configurações para o Google Analytics. Adicione-as em %s ou entre em contacto com seu administrador.';
 $lang['cp:google_analytics_no_connect']	= 'Não foi possível conectar-se ao Google Analytics. Verifique suas %s.';
 
 $lang['required_label'] 				= 'Obrigatório';

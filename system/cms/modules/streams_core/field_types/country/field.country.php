@@ -35,13 +35,16 @@ class Field_country extends AbstractField
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if ( ! $this->value and ! $this->entry->getKey()) {
-			$value = (isset($this->field->field_data['default_country'])) ? $this->field->field_data['default_country'] : null;
-		} else {
+		if ( ! $this->value and ! $this->entry->getKey())
+		{
+			$value = $this->getParameter('default_country');
+		} 
+		else
+		{
 			$value = $this->value;
 		}
 
-		return form_dropdown($this->name, $this->countries($this->field->is_required), $value, 'id="'.$this->field->field_slug.'"');
+		return form_dropdown($this->form_slug, $this->countries($this->field->is_required), $this->value, 'id="'.$this->form_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -96,11 +99,11 @@ class Field_country extends AbstractField
 	 *
 	 * @return 	string
 	 */
-	public function param_default_country($input)
+	public function param_default_country($value = null)
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.
-		return form_dropdown('default_country', $this->countries('no'), $input);
+		return form_dropdown('default_country', $this->countries('no'), $value);
 	}
 
 	// --------------------------------------------------------------------------

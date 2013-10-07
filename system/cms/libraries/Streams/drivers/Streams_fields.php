@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Data;
+
 /**
  * Fields Driver
  *
@@ -181,7 +183,8 @@ class Streams_fields extends CI_Driver {
 		}
 	
 		// Add actual assignment
-		return ci()->streams_m->add_field_to_stream($field->id, $stream->id, $data);
+		Data\Fields::assignField($stream_slug, $namespace, $field_slug, $assign_data = array());
+		//return ci()->streams_m->add_field_to_stream($field->id, $stream->id, $data);
 	}
 
 	/**

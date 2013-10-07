@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class EntryBuilder extends Builder
 {
@@ -14,6 +15,10 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'), $exclude = false)
 	{
+		$this->stream = $this->model->getStream();
+		$this->fields = $this->model->getFields();
+		$this->table = $this->model->getTable();
+
 		if ($exclude)
 		{
 			$columns = $this->model->getAllColumnsExclude($columns);
@@ -29,22 +34,33 @@ class EntryBuilder extends Builder
 
 		$this->entries = $this->getModels($columns);
 
+		foreach ($this->entries as $entry)
+		{
+			// Pass our custom properties to the queried models
+			$this->model->passProperties($entry);
+		}
+
 		// If we actually found models we will also eager load any relationships that
 		// have been specified as needing to be eager loaded, which will solve the
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$relations = $this->entries[0]->getModel()->getRelations();
+			$this->with('createdByUser');
 
-			if (in_array('created_by', $columns) and empty($relations['createdByUser']))
-			{
-				$this->with('createdByUser');
-			}
+			$this->eagerLoadFieldRelations($columns);
 
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
-		return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
+		// Shall we return formatted entries or not?
+		if ($this->model->isFormat())
+		{
+			return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
+		}
+		else
+		{
+			return $this->model->newCollection($this->entries);
+		}
 	}
 
 	/**
@@ -78,9 +94,6 @@ class EntryBuilder extends Builder
 		// We must set the fields for both the entry and the clone
 		// Setting them on the clone will have an effect on the resulting collection and 
 		// Setting them on the entry will have an effect when returning a single model
-		$entry->setStream($this->model->getStream());
-		$entry->setFields($this->model->getFields());
-		$clone->setFields($this->model->getFields());
 
 		// Restore the primary key to the replicated model
 		$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
@@ -89,7 +102,7 @@ class EntryBuilder extends Builder
 		{
 			if ($field_slug == 'created_by')
 			{
-				$clone->created_by = $entry->created_by_user;
+				$clone->setAttribute('created_by', $clone->createdByUser);
 			}
 			elseif ($type = $entry->getFieldType($field_slug))
 			{
@@ -108,6 +121,45 @@ class EntryBuilder extends Builder
 
 		return $clone;	
 	}
+
+	/**
+	 * Get the relation instance for the given relation name.
+	 *
+	 * @param  string  $relation
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function getRelation($relation)
+	{
+		$me = $this;
+
+		// We want to run a relationship query without any constrains so that we will
+		// not have to remove these where clauses manually which gets really hacky
+		// and is error prone while we remove the developer's own where clauses.
+		$query = Relation::noConstraints(function() use ($me, $relation)
+		{	
+			if ($me->getModel()->isEnableFieldRelations() and $type = $me->getModel()->getFieldType($relation))
+			{
+				return $type->relation();	
+			}
+			else
+			{
+				return $me->getModel()->$relation();
+			}
+		});
+
+		$nested = $this->nestedRelations($relation);
+
+		// If there are nested relationships set on the query, we will put those onto
+		// the query instances so that they can be handled after this relationship
+		// is loaded. In this way they will all trickle down as they are loaded.
+		if (count($nested) > 0)
+		{
+			$query->getQuery()->with($nested);
+		}
+
+		return $query;
+	}
+
 
 	/**
 	 * Prep columns
@@ -136,7 +188,7 @@ class EntryBuilder extends Builder
     	// Always include the primary key if we are selecting specific columns, regardless
         if ( ! $this->hasAsterisk($columns) and ! in_array($this->model->getKeyName(), $columns))
         {
-            array_unshift($columns, $this->model->getKeyName());
+            array_unshift($columns, $this->model->getTable().'.'.$this->model->getKeyName());
         }
 
         return $columns;
@@ -182,5 +234,20 @@ class EntryBuilder extends Builder
 		$this->model->setViewOptions($columns);
 
 		return $columns;
+    }
+
+    /**
+     * Eager load field type relations
+     * @param  array  $columns The model columns
+     * @return [type]          [description]
+     */
+    protected function eagerLoadFieldRelations($columns = array())
+    {
+    	$this->getModel()->setEagerFieldRelations($columns);
+
+		if ($field_relations = $this->model->getEagerFieldRelations())
+		{
+			$this->with($field_relations);
+		}
     }
 }

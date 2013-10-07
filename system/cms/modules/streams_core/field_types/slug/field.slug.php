@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Model\Field;
 
 /**
  * PyroStreams Slug Field Type
@@ -35,7 +36,7 @@ class Field_slug extends AbstractField
 	public function event()
 	{
 		if ( ! defined('ADMIN_THEME')) {
-			ci()->type->add_js('slug', 'jquery.slugify.js');
+			$this->js('jquery.slugify.js');
 		}
 	}
 
@@ -79,14 +80,18 @@ class Field_slug extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->field->field_slug;
-		$options['id']		= $this->field->field_slug;
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
 
+		$slug_field = Field::find($this->getParameter('slug_field'));
+
+		$field_type = $slug_field->getType($this->entry);
+
 		$jquery = "<script>(function($) {
 			$(function(){
-					pyro.generate_slug('#{$this->field->field_data['slug_field']}', '#{$this->field->field_slug}', '{$this->field->field_data['space_type']}');
+					pyro.generate_slug('#{$field_type->getFormSlug()}', '#{$this->form_slug}', '{$this->getParameter('space_type')}');
 			});
 		})(jQuery);
 		</script>";
@@ -102,8 +107,8 @@ class Field_slug extends AbstractField
 	public function param_space_type($value = null)
 	{
 		$options = array(
-			'-' => ci()->lang->line('streams:slug.dash'),
-			'_' => ci()->lang->line('streams:slug.underscore')
+			'-' => lang('streams:slug.dash'),
+			'_' => lang('streams:slug.underscore')
 		);
 
 		return form_dropdown('space_type', $options, $value);
@@ -116,21 +121,17 @@ class Field_slug extends AbstractField
 	 */
 	public function param_slug_field($value = null)
 	{
-		ci()->load->model('fields_m');
+		$field_slug = null;
 
-		// Get all the fields
-		$fields = ci()->fields_m->get_all_fields();
-
-		$drop = array();
-
-		foreach ($fields as $field) {
-			// We don't want no slugs.
-			if ($field['field_type'] != 'slug') {
-				$drop[$field['field_slug']] = ci()->fields->translate_label($field['field_name']);
-			}
+		if ($this->field)
+		{
+			$field_slug = $this->field->field_slug;
 		}
 
-		return form_dropdown('slug_field', $drop, $value);
+		// Get all the fields
+		$options = Field::getFieldOptions($field_slug);
+
+		return form_dropdown('slug_field', $options, $value);
 	}
 
 }
