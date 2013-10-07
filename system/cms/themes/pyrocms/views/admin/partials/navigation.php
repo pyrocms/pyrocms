@@ -26,7 +26,7 @@
 						</span>
 					</a>
 
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu animated-zing fadeInUp">
 
 						<li class="dropdown-header">
 							<?php echo lang_label($menu_item['title']); ?>
@@ -77,17 +77,6 @@
 			<?php endif; ?>
 
 		<?php endforeach; ?>
-
-
-		<!-- Log off -->
-		<li>
-			<a href="<?php echo site_url('admin/logout'); ?>">
-				<i class="icon-off"></i>
-				<span>
-					<?php echo lang_label('lang:cp:logout_label'); ?>
-				</span>
-			</a>
-		</li>
 
 	</ul>
 

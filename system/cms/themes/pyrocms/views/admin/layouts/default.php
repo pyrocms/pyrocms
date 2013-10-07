@@ -41,11 +41,33 @@
 			
 			<section class="vertical-box">
 
-				<header class="header" id="actions">
-					Test
-				</header>
+				<section id="actions" class="nav-bar padding-right">
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="https://gravatar.com/avatar/sldkfslkjflsdkfjlskdfj" class="avatar avatar-success"/> Ryan Thompson <b class="caret"></b>
+							</a>
 
-				<section class="scrollable padding">
+							<ul class="dropdown-menu animated fadeInTop">
+								<li><a href="<?php echo site_url('admin/settings'); ?>"><?php echo lang('cp:nav_settings'); ?></a></li>
+								<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
+								<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
+							</ul>
+						</li>
+					</ul>
+
+				</section>
+
+				<section class="scrollable" id="body">
+
+					<?php if (isset($module_details)): ?>
+					<div class="padding">
+						<h1 class="no-margin-top" style="text-shadow: -1px 1px #fff;"><?php echo $module_details['name']; ?></h1>
+						<p style="text-shadow: -1px 1px #fff;"><?php echo $module_details['description'] ?></p>
+					</div>
+					<?php endif; ?>
+
 					<?php echo $template['body']; ?>
 				</section>
 

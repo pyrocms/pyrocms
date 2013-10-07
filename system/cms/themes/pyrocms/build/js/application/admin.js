@@ -45,7 +45,7 @@ $(document).on('click', '[data-toggle^="class:"]', function(e) {
 
 	// Save persistent state
 	if ($(this).attr('data-persistent') !== undefined)
-		$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')));
+		$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
 });
 
 
@@ -54,9 +54,33 @@ $(document).on('click', '[data-toggle^="class:"]', function(e) {
  */
 
 $(document).ready(function() {
-
-	$('select:not(.skip)').selectize({
-		create: true,
-		sortField: 'text'
+	$('select:not(.skip)').selectize();
+	$('input[type="text"].tags').selectize({
+		delimiter: ',',
+		create: function(input) {
+			return {
+				value: input,
+				text: input
+			}
+		}
 	});
+});
+
+
+/**
+ * Tooltips
+ */
+
+$(document).ready(function() {
+	$('[data-toggle="tooltip"]').tooltip();
+});
+
+
+/**
+ * Popovers
+ */
+
+$(document).ready(function() {
+	$(document).on('click', '[data-toggle="popover"]', function(e){e.preventDefault();});
+	$('[data-toggle="popover"]').popover();
 });

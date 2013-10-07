@@ -28,7 +28,6 @@ class Admin extends Admin_Controller
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
-		$this->template->append_js('module::settings.js');
 		$this->template->append_css('module::settings.css');
 	}
 

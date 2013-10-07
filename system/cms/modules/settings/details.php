@@ -72,15 +72,6 @@ class Module_Settings extends AbstractModule
         );
     }
 
-	public function admin_menu(&$menu)
-	{
-		unset($menu['lang:cp:nav_settings']);
-
-		$menu['lang:cp:nav_settings'] = 'admin/settings';
-
-		add_admin_menu_place('lang:cp:nav_settings', 7);
-	}
-
     /**
      * Install
      *

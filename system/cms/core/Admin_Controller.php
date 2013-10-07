@@ -101,16 +101,6 @@ class Admin_Controller extends MY_Controller
 					'title' => 'lang:cp:nav_users',
 					'items' => array(),
 					),
-				array(
-					'before' => '<i class="icon-cog"></i>',
-					'title' => 'lang:cp:nav_settings',
-					'items' => array(),
-					),
-				array(
-					'before' => '<i class="icon-user"></i>',
-					'title' => 'lang:global:profile',
-					'items' => array(),
-					),
 				);
 
 			$modules = $this->moduleManager->getAllEnabled(array(
@@ -139,13 +129,6 @@ class Admin_Controller extends MY_Controller
 					$module['module']->admin_menu($menu_items);
 				}
 			}
-
-			// We always have our 
-			// edit profile links and such.
-			$menu_items['lang:global:profile'] = array(
-				'lang:cp:edit_profile_label' => 'edit-profile',
-				'lang:cp:logout_label'		 => 'admin/logout'
-			);
 
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 

@@ -1,3 +1,64 @@
 /**
- * Main Admin Theme
+ * Actions Bar
  */
+
+#actions {
+	z-index: 100;
+	min-height: 50px;
+	border-bottom: 1px solid #aaaaaa;
+	box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05), inset 0 3px 0px #ecf5ff;
+	background: rgba(255, 255, 255, 0.9);
+	margin-top: -2px;
+	padding: 0 @padding-base-horizontal;
+
+	.nav.navbar-nav.navbar-right {
+		padding: 5px 30px 0 5px;
+		margin: 0;
+
+		> li
+			> a {
+				padding: 0;
+
+				&:hover,
+				&:focus {
+					background: none;
+				}
+			}
+	}
+}
+
+@media (min-width: 768px) {
+	#actions {
+		height: 50px;
+	}
+}
+
+
+/**
+ * Avatars
+ */
+
+img.avatar,
+img.avatar-sm,
+img.avatar-xs {
+	.border-radius(@border-radius-base);
+	.box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.3));
+
+	// Status
+	&.avatar-success {
+		.box-shadow(-3px 0 0 0 @brand-success);
+	}
+}
+img.avatar {
+	width: 40px;
+	height: 40px;
+	
+}
+img.avatar-sm {
+	width: 24px;
+	height: 24px;
+}
+img.avatar-xs {
+	width: 18px;
+	height: 18px;
+}
