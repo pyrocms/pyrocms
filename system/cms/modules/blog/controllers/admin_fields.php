@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
+
 /**
  * Admin Blog Fields
  *
@@ -38,25 +41,22 @@ class Admin_fields extends Admin_Controller
 	{
 		$buttons = array(
 			array(
-				'url'		=> 'admin/blog/fields/edit/-assign_id-',
+				'url'		=> 'admin/blog/fields/edit/{{ id }}',
 				'label'		=> $this->lang->line('global:edit')
 			),
 			array(
-				'url'		=> 'admin/blog/fields/delete/-assign_id-',
+				'url'		=> 'admin/blog/fields/delete/{{ id }}',
 				'label'		=> $this->lang->line('global:delete'),
 				'confirm'	=> true
 			)
 		);
 
-		$this->template->title(lang('global:custom_fields'));
-
-		$this->streams->cp->assignments_table(
-								'blog',
-								'blogs',
-								Settings::get('records_per_page'),
-								'admin/blog/fields/index',
-								true,
-								array('buttons' => $buttons));
+		Cp\Fields::assignmentsTable('blog', 'blogs')
+			->title(lang('global:custom_fields'))
+			->addUri('admin/blog/fields/create')
+			->pagination(Settings::get('records_per_page'), 'admin/blog/fields/index')
+			->buttons($buttons)
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -70,11 +70,12 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function create()
 	{
-		$extra['title'] 		= lang('streams:add_field');
-		$extra['show_cancel'] 	= true;
-		$extra['cancel_uri'] 	= 'admin/blog/fields';
-
-		$this->streams->cp->field_form('blog', 'blogs', 'new', 'admin/blog/fields', null, array(), true, $extra);
+		Cp\Fields::assignmentForm('blog', 'blogs')
+			->title(lang('streams:add_field'))
+			->redirect('admin/blog/fields')
+			->cancelUri('admin/blog/fields')
+			->allowSetColumnTitle(false)
+			->render();
 	}
 
 	// --------------------------------------------------------------------------
@@ -121,6 +122,11 @@ class Admin_fields extends Admin_Controller
 			'cancel_uri'	=> 'admin/blog/fields'
 		);
 
-		$this->streams->cp->field_form('blog', 'blogs', 'edit', 'admin/blog/fields', $assign_id, array(), true, $extra);
+		Cp\Fields::assignmentForm('blog', 'blogs', $this->uri->segment(5))
+			->title(lang('streams:edit_field'))
+			->redirect('admin/blog/fields')
+			->cancelUri('admin/blog/fields')
+			->allowSetColumnTitle(false)
+			->render();
 	}
 }

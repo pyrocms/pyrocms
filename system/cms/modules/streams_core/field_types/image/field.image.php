@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Files\Model\Folder as Folder;
 
 /**
  * PyroStreams Image Field Type
@@ -220,10 +221,11 @@ class Field_image extends AbstractField
 	 */
 	public function param_folder($value = null)
 	{
-		// Get the folders
-		ci()->load->model('files/file_folders_m');
+		// Load the library
+		ci()->load->library('files/files');
 
-		$tree = ci()->file_folders_m->get_folders();
+		// Get the folders
+		$tree = ci()->files->folderTree();
 
 		$tree = (array)$tree;
 

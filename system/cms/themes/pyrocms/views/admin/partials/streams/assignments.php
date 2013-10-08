@@ -1,4 +1,4 @@
-<?php if ( ! $assignments->isEmpty()): ?>
+<?php if (! $assignments->isEmpty()): ?>
 
     <table class="table-list" border="0" cellspacing="0">
 		<thead>
