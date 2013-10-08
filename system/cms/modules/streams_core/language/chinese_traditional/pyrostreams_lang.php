@@ -188,6 +188,7 @@ $lang['recaptcha_html_error'] 							= "加載錯誤的安全圖片。請稍後�
 $lang['streams:max_length'] 							= "最大長度";
 $lang['streams:upload_location'] 						= "上傳地址";
 $lang['streams:default_value'] 							= "默認值";
+$lang['streams:allow_tags'] 							= "Allow Tags";
 $lang['streams:link_uri'] 								= "Link URI";
 $lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate

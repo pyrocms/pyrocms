@@ -391,6 +391,25 @@ abstract class AbstractCp extends AbstractSupport
 	}
 
 	/**
+	 * Get pagination
+	 * @param  integer $total_records The total records
+	 * @return array                The pagination array
+	 */
+	protected function getPagination($total_records = null)
+	{
+		$pagination = create_pagination(
+			$this->pagination_uri,
+			$total_records,
+			$this->limit, // Limit per page
+			$this->offset_uri // URI segment
+		);
+
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
+
+		return $pagination;
+	}
+
+	/**
 	 * Set hidden fields
 	 * @param  array  $hidden 
 	 * @return object         
@@ -494,26 +513,26 @@ abstract class AbstractCp extends AbstractSupport
 	 * @param  [type] $pagination_uri [description]
 	 * @return [type]                 [description]
 	 */
-	public function pagination($pagination = null, $pagination_uri = null)
+	public function pagination($limit = null, $pagination_uri = null)
 	{
-		$this->pagination = $pagination;
+		$this->limit = $limit;
 		$this->pagination_uri = $pagination_uri;
 		
 		// -------------------------------------
 		// Find offset URI from array
 		// -------------------------------------
 
-		if (is_numeric($this->pagination))
+		if (is_numeric($this->limit))
 		{
 			$segs = explode('/', $this->pagination_uri);
 			$this->offset_uri = count($segs)+1;
 
-				$this->offset = ci()->uri->segment($this->offset_uri, 0);
+			$this->offset = ci()->uri->segment($this->offset_uri, 0);
 
 			// Calculate actual offset if not first page
-			if ( $offset > 0 )
+			if ( $this->offset > 0 )
 			{
-				$this->offset = ($offset - 1) * $this->pagination;
+				$this->offset = ($this->offset - 1) * $this->limit;
 			}
 		}
 		else
@@ -521,7 +540,7 @@ abstract class AbstractCp extends AbstractSupport
 			$this->offset_uri = null;
 			$this->offset = 0;
 		}
-	
+
 		return $this;
 	}
 

@@ -153,7 +153,14 @@ class Streams extends AbstractData
 		return Model\Stream::findManyByNamespace($stream_namespace, $limit, $offset);
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Get stream options
+	 * @return array The array of stream options
+	 */
+	public static function getStreamOptions()
+	{
+		return Model\Stream::getStreamOptions();
+	}
 
 	/**
 	 * Get Stream Metadata

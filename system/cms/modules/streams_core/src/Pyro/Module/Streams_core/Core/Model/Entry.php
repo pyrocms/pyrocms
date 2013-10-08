@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
 // I am tring to bend the rules a little, I think it will be worth it
@@ -123,14 +124,7 @@ class Entry extends EntryOriginal
 
         $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
 
-        $fields = array();
-
-        foreach ($instance->assignments as $assignment)
-        {
-            $fields[] = $assignment->field;
-        }
-
-        $instance->setFields($instance->newFieldCollection($fields));
+        $instance->setFields($instance->assignments->getFields());
 
         return $instance;
     }
@@ -281,6 +275,10 @@ class Entry extends EntryOriginal
         return $this->enable_eager_field_relations;
     }
 
+    /**
+     * Set eager field relations
+     * @param array $field_slugs The array of field slugs
+     */
     public function setEagerFieldRelations($field_slugs = array())
     {
         if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
@@ -297,6 +295,8 @@ class Entry extends EntryOriginal
 
             $this->eager_field_relations = $eager_field_relations;
         }
+
+        return $this;
     }
 
     /**
@@ -361,6 +361,8 @@ class Entry extends EntryOriginal
     public function setUnformattedEntry($unformatted_entry = null)
     {
         $this->unformatted_entry = $unformatted_entry;
+
+        return $this;
     }
 
     /**
@@ -415,91 +417,82 @@ class Entry extends EntryOriginal
         $alt_process = array();
         
         $types = array();
-
-        // Set created_by only when the entry is new
-        if ( ! $this->getKey() and isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
+        
+        // Set some values for a new entry
+        if ( ! $this->exists)
         {
-            $this->setAttribute('created', time());
+            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
 
-            $this->setAttribute('created_by', ci()->current_user->id);
+            $this->setAttribute('created_by', $created_by);
+            $this->setAttribute('updated', '0000-00-00 00:00:00');
+            $this->setAttribute('ordering_count', $this->count('id')+1);
         }
-
-        if ($this->getKey())
+        else
         {
             $this->setAttribute('updated', time());
         }
-        
+
+        // Reset values if the unformatted entry is available
+        if (($unformatted = $this->unformatted()) instanceof Entry)
+        {
+            if ($this->replicated)
+            {
+                $attributes = array_except($unformatted->getAttributes(), array($this->getKeyName()));
+            }
+            else
+            {
+                $attributes = $unformatted->getAttributes();
+            }
+
+            $this->setRawAttributes($attributes);
+        }
+
         if ( ! $fields->isEmpty())
         {
+            $form_data = Form::getFormData($fields, $this, array(), true);
+
             foreach ($fields as $field)
             {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
                 if ( ! in_array($field->field_slug, $skips))
                 {
+
                     $type = $field->getType($this);
                     $types[] = $type;
 
+                    $value = $this->getAttribute($field->field_slug);
+
                     $type->setStream($this->stream);
-                    $type->setValue($this->getAttribute($field->field_slug));
+                    $type->setValue($value);
+                    $type->setFormData($form_data);
 
-                    if ( $value = $this->getAttribute($field->field_slug) and ! empty($value))
+                    // We don't process the alt process stuff.
+                    // This is for field types that store data outside of the
+                    // actual table
+                    if ($type->alt_process)
                     {
-                        // We don't process the alt process stuff.
-                        // This is for field types that store data outside of the
-                        // actual table
-                        if ($type->alt_process)
+                        $alt_process[] = $type;
+                    }
+                    else
+                    {
+                        if (is_null($value))
                         {
-                            $alt_process[] = $type;
+                            $this->setAttribute($field->field_slug, null);
                         }
-                        else
-                        {
-                            if (method_exists($type, 'pre_save'))
-                            {
-                                $this->setAttribute($field->field_slug, $type->pre_save());
-                            }
 
-                            if (is_null($value))
-                            {
-                                $this->setAttribute($field->field_slug, null);
-                            }
-                            elseif(is_string($value))
-                            {
-                                $this->setAttribute($field->field_slug, trim($value));
-                            }
+                        if (method_exists($type, 'pre_save'))
+                        {
+                            $this->setAttribute($field->field_slug, $type->pre_save());
+                        }
+                        elseif(is_string($value))
+                        {
+                            $this->setAttribute($field->field_slug, trim($value));
                         }
                     }
-                    
-                    //unset($type);
                 }
             }
         }
 
-
-    // -------------------------------------
-        // Set incremental ordering
-        // -------------------------------------
-        
-/*        $db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
-        
-        if ($db_obj->num_rows() == 0 or !$db_obj)
-        {
-            $ordering = 0;
-        }
-        else
-        {
-            $order_row = $db_obj->row();
-            
-            if ( ! is_numeric($order_row->max_ordering))
-            {
-                $ordering = 0;
-            }
-            else
-            {
-                $ordering = $order_row->max_ordering;
-            }
-        }
-
-        $insert_data['ordering_count']  = $ordering+1;*/
 
         // -------------------------------------
         // Insert data
@@ -528,6 +521,11 @@ class Entry extends EntryOriginal
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return parent::save();
+    }
+
+    public function updateOrderingCount($ordering_count = null)
+    {
+        return $this->where($this->getKeyName(), $this->getKey())->update(array('ordering_count' => $ordering_count));
     }
 
     /**
@@ -608,15 +606,6 @@ class Entry extends EntryOriginal
         }
 
         return $return_data;
-    }
-
-    /**
-     * Return the total
-     * @return integer
-     */
-    public function total()
-    {
-
     }
 
     /**
@@ -783,6 +772,68 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Get entry options
+     * @return array The array of entry options
+     */
+    public function getEntryOptions()
+    {
+        $columns = array();
+
+        $columns[] = $this->getKeyName();
+
+        if ($title_column = $this->getStream()->title_column)
+        {
+            $columns[] = $title_column;
+        }
+
+        return $this->get($columns)->getEntryOptions();
+    }
+
+    /**
+     * Get title column value
+     * @return mixed The title column value or model key
+     */
+    public function getTitleColumnValue($default = null)
+    {
+        if ( ! $column = $default)
+        {
+            $column = $this->getTitleColumn();
+        }
+
+        return $this->getAttribute($column);
+    }
+
+    /**
+     * Get title column
+     * @return string The title column or model key name
+     */
+    public function getTitleColumn()
+    {
+        $title_column = $this->getStream()->title_column;
+
+        // Default to ID for title column
+        if ( ! trim($title_column) or ! $this->getAttribute($title_column))
+        {
+            $title_column = $this->getKeyName();
+        }
+
+        return $title_column;
+    }
+
+    /**
+     * Replicate
+     * @return object The clone entry
+     */
+    public function replicate()
+    {
+        $entry = parent::replicate();
+
+        $this->passProperties($entry);
+
+        return $entry;
+    }
+
+    /**
      * New collection instance
      * @param  array  $entries             
      * @param  array  $unformatted_entries 
@@ -846,28 +897,6 @@ class Entry extends EntryOriginal
         return new Relation\MorphOneEntry($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
     }
 
-    public function replicate()
-    {
-        $entry = parent::replicate();
-
-        $this->passProperties($entry);
-
-        return $entry;
-    }
-
-    public function getTitleColumn()
-    {
-        $title_column = $this->getStream()->title_column;
-
-                // Default to ID for title column
-        if ( ! trim($title_column) or ! in_array($title_column, $this->getAttributeKeys()))
-        {
-            $title_column = $this->getKeyName();
-        }
-
-        return $title_column;
-    }
-
     /**
      * Pass properties
      * @param  object $instance
@@ -878,6 +907,7 @@ class Entry extends EntryOriginal
         $model->setStream($this->stream);
         $model->setFields($this->fields);
         $model->setTable($this->table);
+        $model->setUnformattedEntry($this->unformatted_entry);
 
         return $model;
     }

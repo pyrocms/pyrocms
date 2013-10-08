@@ -28,7 +28,17 @@ abstract class Eloquent extends Model
      */
     protected static $runtime_cache = array();
 
+    /**
+     * Skio validation
+     * @var boolean
+     */
     public $skip_validation = false;
+
+    /**
+     * Replicated
+     * @var boolean
+     */
+    protected $replicated = false;
 
     /**
      * We can store data in the class at runtime so we don't have to keep hitting the database
@@ -130,6 +140,18 @@ abstract class Eloquent extends Model
         }
 
         return parent::save($options);
+    }
+
+    /**
+     * Replicate 
+     * @return object The model clone
+     */
+    public function replicate()
+    {
+        $clone = parent::replicate();
+        $clone->skip_validation = true;
+        $clone->replicated = true;
+        return $clone;
     }
 
     /**

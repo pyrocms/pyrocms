@@ -276,4 +276,44 @@ class Fields extends AbstractData
 	
 		return $field->assignments;
 	}
+
+	/**
+	 * Tear down assignment + field combo
+	 *
+	 * Usually we'd just delete the assignment,
+	 * but we need to delete the field as well since
+	 * there is a 1-1 relationship here.
+	 *
+	 * @param 	int - assignment id
+	 * @param 	bool - force delete field, even if it is shared with multiple streams
+	 * @return 	bool - success/fail
+	 */
+	public static function teardownFieldAssignment($assign_id, $force_delete = false)
+	{
+		// Get the assignment
+		if ($assignment = Model\FieldAssignment::find($assign_id))
+		{
+			// Get stream
+			if ( ! $stream = $assignment->stream)
+			{
+				return false;
+			}
+
+			// Get field
+			if ( ! $field = $assignment->field)
+			{
+				return false;
+			}
+
+			// Delete the assignment
+			$stream->removeFieldAssignment($field);
+			
+			// Remove the field only if unlocked and has no assingments
+			if ( ! $field->is_locked or $field->assignments->isEmpty() or $force_delete)
+			{
+				// Remove the field
+				return $field->delete();
+			}			
+		}
+	}
 }

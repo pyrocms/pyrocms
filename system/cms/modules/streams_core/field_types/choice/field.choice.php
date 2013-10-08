@@ -24,7 +24,6 @@ class Field_choice extends AbstractField
 	public $custom_parameters		= array(
 										'choice_data',
 										'choice_type',
-										'default_value',
 										'min_choices',
 										'max_choices'
 									);
@@ -52,13 +51,16 @@ class Field_choice extends AbstractField
 	 */
 	public function form_output()
 	{		
-		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $field->is_required);
+		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 
 		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 		
+		// If this is a new input, we need to use the default value or go null
+		$value = ( ! $this->entry->getKey()) ? $this->getParameter('default_value') : $this->value; 
+
 		if ($choice_type == 'dropdown')
 		{
 			// -------------------------------
@@ -68,13 +70,6 @@ class Field_choice extends AbstractField
 			// always a string, and the choices
 			// are just in an array from the field.
 			// -------------------------------
-
-			// Extra check for default var.
-			$default_value = (isset($params['custom']['default_value'])) ? $params['custom']['default_value'] : null;
-
-			// If this is a new input, we need to use the default value or go null
-			$value = ( ! $entry_id) ? $default_value : $this->value; 
-
 			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'"');
 		}	
 		else
@@ -91,13 +86,13 @@ class Field_choice extends AbstractField
 				// We may have an array from $_POST or a string
 				// from the saved form data in the case
 				// or checkboxes
-				if (is_string($this->value))
+				if (is_string($value))
 				{
-					$vals = explode("\n", $this->value);
+					$vals = explode("\n", trim($value));
 				}
-				elseif (is_array($this->value))
+				elseif (is_array($value))
 				{
-					$vals = $this->value;
+					$vals = $value;
 				}
 				else
 				{
@@ -115,7 +110,7 @@ class Field_choice extends AbstractField
 				//If It's a multiselect, then we can go out now.
 				if ( $choice_type == 'multiselect' )
 				{
-					return form_multiselect($params['form_slug'].'[]', $choices, $vals, 'id="'.$params['form_slug'].'"');
+					return form_multiselect($this->form_slug.'[]', $choices, $vals, 'id="'.$this->form_slug.'"');
 				}
 			}
 
@@ -125,17 +120,17 @@ class Field_choice extends AbstractField
 
 			foreach ($choices as $choice_key => $choice)
 			{
-				if ($params['custom']['choice_type'] == 'radio')
+				if ($this->getParameter('choice_type') == 'radio')
 				{
-					$selected = ($this->value == $choice_key) ? true : false;
+					$selected = ($value == $choice_key) ? true : false;
 			
-					$return .= '<label class="radio">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					$return .= '<label class="radio">'.form_radio($this->form_slug, $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
 				else
 				{
 					$selected = (in_array($choice_key, $vals)) ? true : false;
 				
-					$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					$return .= '<label class="checkbox">'.form_checkbox($this->form_slug.'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
 			}
 		}
@@ -203,16 +198,16 @@ class Field_choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input, $data)
+	public function pre_output()
 	{
-		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], 'no', false);
+		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 
-		$data['choice_type'] = $this->validate_input_type($data['choice_type']);
+		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 
 		// Checkboxes?
-		if ($data['choice_type'] == 'checkboxes' or $data['choice_type']== 'multiselect')
+		if ($choice_type == 'checkboxes' or $choice_type == 'multiselect')
 		{
-			$vals = explode("\n", $input);
+			$vals = explode("\n", $this->value);
 
 			ci()->load->helper('html');
 
@@ -229,9 +224,9 @@ class Field_choice extends AbstractField
 			return ul($selected);
 		}
 		
-		if (isset($choices[$input]) and $input != '')
+		if (isset($choices[$this->value]) and $this->value != '')
 		{
-			return $choices[$input];
+			return $choices[$this->value];
 		}	
 		else
 		{
@@ -244,18 +239,17 @@ class Field_choice extends AbstractField
 	/**
 	 * Pre-save
 	 */	
-	public function pre_save($input, $field)
+	public function pre_save()
 	{
-		$field->field_data['choice_type'] 
-			= $this->validate_input_type($field->field_data['choice_type']);
+		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 
 		// We only need to do this for checkboxes
-		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type']== 'multiselect') and is_array($input))
+		if (($choice_type == 'checkboxes' or $choice_type== 'multiselect') and is_array($this->value))
 		{
 			// If we have any disabled checkboxes that have been diabled by
 			// a ^ before it, then we need to go and find those and make sure
 			// they are added in, because they will not be present in the post data
-			$choices = explode("\n", $field->field_data['choice_data']);
+			$choices = explode("\n", $this->getParameter('choice_data'));
 
 			foreach($choices as $choice_line)
 			{
@@ -263,14 +257,14 @@ class Field_choice extends AbstractField
 
 				if ($choice_line{0} == '^')
 				{
-					$input[] = substr($choice_line, 1);
+					$this->value[] = substr($choice_line, 1);
 				}
 			}
 
 			// One per line
-			return implode("\n", array_unique($input));		
+			return implode("\n", array_unique($this->value));		
 		}
-		elseif (($field->field_data['choice_type'] == 'checkboxes'  or $field->field_data['choice_type']== 'multiselect') and ! $input)
+		elseif (($choice_type == 'checkboxes'  or $choice_type == 'multiselect') and ! $this->value)
 		{
 			return '';
 		}
@@ -278,7 +272,7 @@ class Field_choice extends AbstractField
 		{
 			// If this is not a checkbox field, we are
 			// just returning the value.
-			return $input;
+			return $this->value;
 		}
 	}
 
@@ -307,10 +301,10 @@ class Field_choice extends AbstractField
 	 */
 	public function validate($value, $mode, $field)
 	{
-		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type'] == 'multiselect') and is_array($value))
+		if (($this->getParameter('choice_type') == 'checkboxes' or $this->getParameter('choice_type') == 'multiselect') and is_array($value))
 		{
 			// Go through and count the number that are disabled
-			$choices = explode("\n", $field->field_data['choice_data']);
+			$choices = explode("\n", $this->getParameter('choice_data'));
 
 			foreach($choices as $choice_line)
 			{
@@ -333,15 +327,8 @@ class Field_choice extends AbstractField
 			// Checks the total selected
 			// -------------------------------
 
-			$min = (
-				isset($field->field_data['min_choices'])
-				and is_numeric($field->field_data['min_choices']))
-				? $field->field_data['min_choices'] : false;
-
-			$max = (
-				isset($field->field_data['max_choices'])
-				and is_numeric($field->field_data['max_choices']))
-				? $field->field_data['max_choices'] : false;
+			$min = is_numeric($this->getParameter('min_choices')) ? $this->getParameter('min_choices') : false;
+			$max = is_numeric($this->getParameter('max_choices')) ? $this->getParameter('max_choices') : false;
 
 			// Special case: are min/max the same? If so, let's just
 			// match the number.
@@ -391,10 +378,10 @@ class Field_choice extends AbstractField
 	 * @param	obj
 	 * @return	void
 	 */
-	public function field_assignment_construct($field, $stream)
+	public function field_assignment_construct()
 	{
 		// We need more room for checkboxes
-		if ($field->field_data['choice_type'] == 'checkboxes' || $field->field_data['choice_type'] == 'multiselect')
+		if ($this->getParameter('choice_type') == 'checkboxes' || $this->getParameter('choice_type') == 'multiselect')
 		{
 			$this->db_col_type = 'text';
 		}
@@ -412,16 +399,16 @@ class Field_choice extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($value)
+	public function pre_output_plugin()
 	{
-		$options = $this->_choices_to_array($this->field->field_data['choice_data'], $this->field->field_data['choice_type'], 'no', false);
+		$options = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 
 		// Checkboxes
-		if ($this->field->field_data['choice_type'] == 'checkboxes' || $this->field->field_data['choice_type']== 'multiselect')
+		if ($this->getParameter('choice_type') == 'checkboxes' || $this->getParameter('choice_type') == 'multiselect')
 		{
 			$this->plugin_return = 'array';
 			
-			$values = explode("\n", $value);
+			$values = explode("\n", $this->value);
 			
 			$return = array();
 			
@@ -445,11 +432,11 @@ class Field_choice extends AbstractField
 
 		$this->plugin_return = 'merge';
 	
-		if (isset($options[$value]) and $value != '')
+		if (isset($options[$this->value]) and $this->value != '')
 		{
-			$choices['key']		= $value;
-			$choices['val']		= $options[$value]; // legacy
-			$choices['value']	= $options[$value];
+			$choices['key']		= $this->value;
+			$choices['val']		= $options[$this->value]; // legacy
+			$choices['value']	= $options[$this->value];
 			
 			return $choices;
 		}
@@ -473,7 +460,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.instructions')
+				'instructions'	=> lang('streams:choice.instructions')
 			);
 	}
 
@@ -489,10 +476,10 @@ class Field_choice extends AbstractField
 	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' 	=> ci()->lang->line('streams:choice.dropdown'),
-			'multiselect' 	=> ci()->lang->line('streams:choice.multiselect'),
-			'radio' 	=> ci()->lang->line('streams:choice.radio_buttons'),
-			'checkboxes'=> ci()->lang->line('streams:choice.checkboxes')
+			'dropdown' 		=> lang('streams:choice.dropdown'),
+			'multiselect' 	=> lang('streams:choice.multiselect'),
+			'radio' 		=> lang('streams:choice.radio_buttons'),
+			'checkboxes'	=> lang('streams:choice.checkboxes')
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
@@ -511,7 +498,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> lang('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -528,7 +515,7 @@ class Field_choice extends AbstractField
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),
-				'instructions'	=> ci()->lang->line('streams:choice.checkboxes_only')
+				'instructions'	=> lang('streams:choice.checkboxes_only')
 			);
 	}
 

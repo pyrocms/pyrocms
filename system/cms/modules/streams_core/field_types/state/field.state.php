@@ -161,8 +161,8 @@ class Field_state extends AbstractField
 	public function param_state_display()
 	{
 		$options = array(
-			'full' => ci()->lang->line('streams:state.full'),
-			'abbr' => ci()->lang->line('streams:state.abbr')
+			'full' => lang('streams:state.full'),
+			'abbr' => lang('streams:state.abbr')
 		);
 
 		return form_dropdown('state_display', $options, $this->value);

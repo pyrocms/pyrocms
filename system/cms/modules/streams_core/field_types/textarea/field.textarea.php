@@ -21,7 +21,7 @@ class Field_textarea extends AbstractField
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
-	public $custom_parameters		= array('default_text', 'allow_tags', 'content_type');
+	public $custom_parameters		= array('allow_tags', 'content_type');
 	
 	/**
 	 * Output form input
@@ -38,7 +38,7 @@ class Field_textarea extends AbstractField
 		{
 			// If we still don't have a default value, maybe we have it in
 			// the old default value string. So backwards compat.
-			$value = $this->getParameter('default_text', $this->getParameter('default_value'));
+			$value = $this->getParameter('default_value');
 		}
 		else
 		{
@@ -51,8 +51,6 @@ class Field_textarea extends AbstractField
 			'value'		=> $value
 		));
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Pre-Ouput content
@@ -98,45 +96,6 @@ class Field_textarea extends AbstractField
 		}
 
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Default Textarea Value
-	 *
-	 * @param	[string - value]
-	 * @return	string
-	 */
-	public function param_default_text($value = null)
-	{
-		return form_textarea(array(
-			'name'		=> 'default_text',
-			'id'		=> 'default_text',
-			'value'		=> $value,
-		));
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Allow tags param.
-	 *
-	 * Should tags go through or be converted to output?
-	 */
-	public function param_allow_tags($value = null)
-	{
-		$options = array(
-			'n'	=> lang('global:no'),
-			'y'	=> lang('global:yes')
-		);
-
-		// Defaults to No
-		$value or $value = 'n';
-	
-		return form_dropdown('allow_tags', $options, $value);
-	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Content Type
@@ -156,5 +115,21 @@ class Field_textarea extends AbstractField
 	
 		return form_dropdown('content_type', $options, $value);
 	}
+
+	/**
+	 * Default Textarea Value
+	 *
+	 * @param	[string - value]
+	 * @return	string
+	 */
+	public function param_default_value($value = null)
+	{
+		return form_textarea(array(
+			'name'		=> 'default_value',
+			'id'		=> 'default_value',
+			'value'		=> $value,
+		));
+	}
+
 
 }

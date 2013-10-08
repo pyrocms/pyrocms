@@ -130,7 +130,13 @@ class Admin extends Admin_Controller
                     $model = Page::find($id);
                     $model->skip_validation = true;
                     $model->order = $i;
-                    $model->save();                    
+                    
+                    $model->save();
+
+                    if ($model->entry)
+                    {
+                        $model->entry->updateOrderingCount($i);
+                    }
                 }
 
                 //iterate through children and set their order and parent
@@ -144,7 +150,7 @@ class Admin extends Admin_Controller
             $this->cache->clear('navigation_m');
             $this->cache->clear('page_m');
 
-            Events::trigger('page_ordered', array($order, $root_pages));
+            Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $root_pages));
         }
     }
 
@@ -205,9 +211,8 @@ class Admin extends Admin_Controller
             $duplicate_page->slug = increment_string($duplicate_page->slug, '-', 2);
 
             // Find if this already exists in this level
-            $has_dupes = Page::where('slug', $duplicate_page->slug)
-                ->where('parent_id', $duplicate_page->parent_id)
-                ->count() > 0;
+            $has_dupes = Page::isUniqueSlug($duplicate_page->slug, $duplicate_page->parent_id, $duplicate_page->id);
+
         } while ($has_dupes === true);
 
         if ($parent)
@@ -226,7 +231,6 @@ class Admin extends Admin_Controller
             $duplicate_page->entry()->associate($duplicate_entry);
         }
         
-        $duplicate_page->skip_validation = true;
         $duplicate_page->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
@@ -255,7 +259,7 @@ class Admin extends Admin_Controller
         // What type of page are we creating?
         $page_type = PageType::find($this->input->get('page_type'));
         
-        $parent = null;
+        $parent_page = null;
 
         if ($parent_id = $this->input->get('parent'))
         {
@@ -489,8 +493,6 @@ class Admin extends Admin_Controller
 
         if ($page->entry)
         {
-            $page->entry->setStream($stream);
-            $page->entry->setFields($stream->assignments->getFields());  
             // We can pass the page model to generate the form
             $cp = Streams\Cp\Entries::form($page->entry);          
         }

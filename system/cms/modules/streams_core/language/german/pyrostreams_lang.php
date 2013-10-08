@@ -188,6 +188,7 @@ $lang['recaptcha_html_error'] 							= "Fehler beim Laden des Sicherheitsbildes.
 $lang['streams:max_length'] 							= "Maximallänge";
 $lang['streams:upload_location'] 					= "Uploadverzeichnis";
 $lang['streams:default_value'] 						= "Standardwert";
+$lang['streams:allow_tags'] 							= "Allow Tags";
 $lang['streams:link_uri'] 								= "Link URI";
 $lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
