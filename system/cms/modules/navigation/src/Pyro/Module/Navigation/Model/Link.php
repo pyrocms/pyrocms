@@ -346,6 +346,9 @@ class Link extends \Illuminate\Database\Eloquent\Model
                     }
                     break;
             }
+            
+            // Process all the little children
+            $row->children = self::makeUrlArray($row->children, $user_group, $front_end);
         }
 
         return $links;
