@@ -222,6 +222,7 @@ class Page extends Eloquent
 
 			$page = static::where('is_home', '=', true)
 				->with('type')
+
 				->take(1)
 				->first();
 
@@ -279,20 +280,14 @@ class Page extends Eloquent
 		// Get Stream Entry
 		// ---------------------------------
 
-/*		if ($page->id and $page->type->stream_id) {
-			ci()->load->driver('Streams');
+		if ($page->id and $page->entry) {
 
-			// Get Streams
-			$stream = ci()->streams_m->get_stream($page->type->stream_id);
+			$fields = $page->entry->getAttributes();
 
-			if ($stream) {
-				if ($entry = ci()->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
-					foreach ($entry as $key => $value) {
-						$page->{$key} = $value;
-					}
-				}
+			foreach ($fields as $key => $value) {
+				$page->{$key} = $value;
 			}
-		}*/
+		}
 
 		return $page;
 	}

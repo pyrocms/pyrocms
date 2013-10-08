@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Files\Model\Folder as Folder;
 
 /**
  * PyroStreams Image Field Type
@@ -50,24 +51,24 @@ class Field_image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function form_output()
 	{
 		ci()->load->config('files/files');
 
 		$out = '';
 		// if there is content and it is not dummy or cleared
-		if ($params['value'] and $params['value'] != 'dummy')
+		if ($this->value and $this->value != 'dummy')
 		{
-			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
-			$out .= form_hidden($params['form_slug'], $params['value']);
+			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$this->value).'" target="_break"><img src="'.site_url('files/thumb/'.$this->value).'" /></a><br />';
+			$out .= form_hidden($this->getParameter('form_slug'), $this->value);
 		}
 		else
 		{
-			$out .= form_hidden($params['form_slug'], 'dummy');
+			$out .= form_hidden($this->form_slug, 'dummy');
 		}
 
-		$options['name'] 	= $params['form_slug'];
-		$options['name'] 	= $params['form_slug'].'_file';
+		$options['name'] 	= $this->form_slug;
+		$options['name'] 	= $this->form_slug.'_file';
 		return $out .= form_upload($options);
 	}
 
@@ -132,17 +133,17 @@ class Field_image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input, $params)
+	public function pre_output()
 	{
-		if ( ! $input or $input == 'dummy' ) return null;
+		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
 		// Get image data
-		$image = ci()->db->select('filename, alt_attribute, description, name')->where('id', $input)->get('files')->row();
+		$image = ci()->db->select('filename, alt_attribute, description, name')->where('id', $this->value)->get('files')->row();
 
-		if ( ! $image) return null;
+		if ( ! $this->value) return null;
 
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$this->obvious_alt($image).'" />';
+		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obvious_alt($image).'" />';
 	}
 
 	// --------------------------------------------------------------------------
@@ -160,13 +161,13 @@ class Field_image extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($input, $params)
+	public function pre_output_plugin()
 	{
-		if ( ! $input or $input == 'dummy' ) return null;
+		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
 		ci()->load->library('files/files');
 
-		$file = Files::getFile($input);
+		$file = Files::getFile($this->value);
 
 		if ($file['status'])
 		{
@@ -220,10 +221,11 @@ class Field_image extends AbstractField
 	 */
 	public function param_folder($value = null)
 	{
-		// Get the folders
-		ci()->load->model('files/file_folders_m');
+		// Load the library
+		ci()->load->library('files/files');
 
-		$tree = ci()->file_folders_m->get_folders();
+		// Get the folders
+		$tree = ci()->files->folderTree();
 
 		$tree = (array)$tree;
 
