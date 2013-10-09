@@ -1,9 +1,12 @@
-<section class="title">
-	<?php if(isset($template['page_title'])) { echo '<h4>'.lang_label($template['page_title']).'</h4>'; } ?>
-</section>
+<div class="padding">
 
-<section class="item">
-	<div class="content">
-		<?php echo $content; ?>
-	</div>
-</section>
+
+	<section id="page-title">
+		<h1><?php if(isset($template['page_title'])) { echo lang_label($template['page_title']); } ?></h1>
+	</section>
+
+
+	<?php echo $content; ?>
+
+
+</div>

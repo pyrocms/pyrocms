@@ -1,10 +1,18 @@
-<div class="one_full">
-	<section class="title">
-		<h4><?php echo lang('blog:posts_title') ?></h4>
+<div class="padding">
+
+
+	<section id="page-title">
+		<h1><?php echo lang('blog:posts_title') ?></h1>
 	</section>
 
-	<section class="item">
-		<div class="content">
+
+	<!-- .panel -->
+	<section class="panel">
+	
+		<!-- .panel-content -->
+		<div class="panel-content">
+
+
 			<?php if ($blog) : ?>
 				<?php echo $this->load->view('admin/partials/filters') ?>
 
@@ -14,8 +22,15 @@
 					</div>
 				<?php echo form_close() ?>
 			<?php else : ?>
-				<div class="no_data"><?php echo lang('blog:currently_no_posts') ?></div>
+				<div class="no_data padding"><?php echo lang('blog:currently_no_posts') ?></div>
 			<?php endif ?>
+
+
 		</div>
+		<!-- /.panel-content -->
+
 	</section>
+	<!-- /.panel -->
+
+
 </div>

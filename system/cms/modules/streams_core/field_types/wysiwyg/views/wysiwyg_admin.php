@@ -1,5 +1,5 @@
-<script src="<?php echo Asset::get_filepath_js('ckeditor/ckeditor.js') ?>"></script>
-<script src="<?php echo Asset::get_filepath_js('ckeditor/adapters/jquery.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('../build/js/plugins/ckeditor/ckeditor.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('../build/js/plugins/ckeditor/adapters/jquery.js') ?>"></script>
 
 <script type="text/javascript">
 

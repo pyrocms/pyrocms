@@ -1,61 +1,74 @@
-<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+<!-- .panel -->
+<section class="panel">
 
-<div class="tabs">
+	<!-- .panel-content -->
+	<div class="panel-content">
 
-	<ul class="tab-menu">
-	<?php foreach($tabs as $tab): ?>
-		<li>
-			<a href="#<?php echo $tab['id']; ?>" title="<?php echo $tab['title']; ?>">
-				<span><?php echo $tab['title']; ?></span>
-			</a>
-		</li>
-	<?php endforeach; ?>
-	</ul>
 
-	<?php foreach($tabs as $tab): ?>
-	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
-		
-		<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
+		<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
-			<?php echo $tab['content']; ?>
+		<div class="tabs">
 
-		<?php else: ?>
-		
-			<fieldset>
+			<ul class="tab-menu">
+			<?php foreach($tabs as $tab): ?>
+				<li>
+					<a href="#<?php echo $tab['id']; ?>" title="<?php echo $tab['title']; ?>">
+						<span><?php echo $tab['title']; ?></span>
+					</a>
+				</li>
+			<?php endforeach; ?>
+			</ul>
 
-				<ul>
+			<?php foreach($tabs as $tab): ?>
+			<div class="form_inputs" id="<?php echo $tab['id']; ?>">
+				
+				<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
-					<?php foreach ($tab['fields'] as $field) { ?>
+					<?php echo $tab['content']; ?>
 
-						<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
-							<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+				<?php else: ?>
+				
+					<fieldset>
 
-							<?php if( $fields[$field]['instructions'] != '' ): ?>
-								<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
-							<?php endif; ?>
-							</label>
+						<ul>
 
-							<div class="input"><?php echo $fields[$field]['input']; ?></div>
-						</li>
+							<?php foreach ($tab['fields'] as $field) { ?>
 
-					<?php } ?>
+								<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
+									<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 
-				</ul>
+									<?php if( $fields[$field]['instructions'] != '' ): ?>
+										<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
+									<?php endif; ?>
+									</label>
 
-			</fieldset>
-			
-		<?php endif; ?>
+									<div class="input"><?php echo $fields[$field]['input']; ?></div>
+								</li>
+
+							<?php } ?>
+
+						</ul>
+
+					</fieldset>
+					
+				<?php endif; ?>
+
+			</div>
+			<?php endforeach; ?>
+
+		</div>
+
+		<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
+
+		<div class="panel-footer">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
+		</div>
+
+		<?php echo form_close(); ?>
+
 
 	</div>
-	<?php endforeach; ?>
+	<!-- /.panel-content -->
 
-</div>
-
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
-
-	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$entry->getStream()->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
-	</div>
-
-<?php echo form_close();
+</section>
+<!-- /.panel -->

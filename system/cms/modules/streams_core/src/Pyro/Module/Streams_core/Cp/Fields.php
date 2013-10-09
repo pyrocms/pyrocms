@@ -145,7 +145,7 @@ class Fields extends AbstractCp
 		$this->data->add_uri = $this->add_uri;
 		
 		ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
-		ci()->template->append_js('streams/assignments.js');
+		//ci()->template->append_js('streams/assignments.js');
 
 		// -------------------------------------
 		// Build Fields
@@ -528,7 +528,7 @@ class Fields extends AbstractCp
 		// Build page
 		// -------------------------------------
 
-		ci()->template->append_js('streams/fields.js');
+		//ci()->template->append_js('streams/fields.js');
 
 		// Set the cancel URI. If there is no cancel URI, then we won't
 		// have a cancel button.
