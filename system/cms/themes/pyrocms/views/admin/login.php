@@ -18,33 +18,18 @@
 <body id="login">
 
 
-	<!-- Header Bay -->
-	<header class="navbar animated-fast fadeInDown">
-
-		<div class="navbar-header">
-		
-			<a class="navbar-brand no-padding" href="<?php echo site_url('/'); ?>" target="_blank">
-
-				<!-- Icon -->
-				<span class="icon bg-brand-primary">
-					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '32px')); ?>
-				</span>
-
-				<span>PyroCMS</span>
-			</a>
-
-		</div>
-
-	</header>
-
-
 	<main class="container animated-fast fadeInUp">
 	<div class="row-fluid">
 	<div class="col-md-3 col-md-offset-4 padding">
 
+		
+		<center id="page-title" class="brand">
+			<h2><?php echo Asset::img('icon-logo-darker.png', 'PyroCMS', array('height' => '40px')); ?> PyroCMS</h2>
+		</center>
+
 		<?php $this->load->view('admin/partials/notices') ?>
 
-		<section class="">
+		<section>
 
 			<?php echo form_open('admin/login', array('id' => 'login', 'class' => 'form margin-top')); ?>
 

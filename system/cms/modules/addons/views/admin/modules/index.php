@@ -1,6 +1,11 @@
 <div class="padding">
 
 
+	<section id="page-title">
+		<h1><?php echo lang('addons:modules');?></h1>
+	</section>
+
+
 	<!-- .panel -->
 	<section class="panel">
 
@@ -8,7 +13,10 @@
 			<h3 class="panel-title"><?php echo lang('addons:modules:addon_list');?></h3>
 		</div>
 
+
+		<!-- .panel-content -->
 		<div class="panel-content">
+			
 			<?php if ($addon_modules): ?>
 			<table class="table no-margin">
 				<thead>
@@ -26,7 +34,7 @@
 
 						<td><?php echo $module['description'] ?></td>
 						<td class="text-center"><?php echo $module['version'] ?></td>
-						<td>
+						<td class="text-right">
 							<?php if ($module['installed']): ?>
 								<?php if ($module['enabled']): ?>
 									<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm btn btn-sm btn-warning', 'title'=>lang('addons:modules:confirm_disable'))) ?>
@@ -47,9 +55,10 @@
 				<?php endforeach ?>
 				</tbody>
 			</table>
-
 			<?php endif ?>
+
 		</div>
+		<!-- /.panel-content -->
 
 	</section>
 	<!-- /.panel -->
@@ -61,10 +70,11 @@
 
 		<div class="panel-heading">
 			<p><h3 class="panel-title"><?php echo lang('addons:modules:core_list');?></h3></p>
-
 			<p><?php echo lang('addons:modules:core_introduction') ?></p>
 		</div>
 
+
+		<!-- .panel-content -->
 		<div class="panel-content">
 
 			<table class="table no-margin">
@@ -96,6 +106,7 @@
 			</table>
 
 		</div>
+		<!-- /.panel-content -->
 
 	</section>
 	<!-- /.panel -->

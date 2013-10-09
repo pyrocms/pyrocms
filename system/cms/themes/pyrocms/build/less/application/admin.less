@@ -14,7 +14,8 @@
 		
 		> .title {
 			display: inline-block;
-			margin: 14px 0 3px 0;
+			margin: 0;
+			padding: 13px 0 3px 0;
 			font-family: 'Open Sans', sans-serif;
 			font-weight: 200;
 			font-size: 18px;
@@ -30,6 +31,16 @@
 		}
 	}
 
+	.page-title {
+		display: inline-block;
+		margin: 13px 0 3px 0;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 200;
+		font-size: 18px;
+		float: left;
+		text-decoration: none !important;
+	}
+
 	#shortcuts {
 		float: right;
 		margin: 14px @padding-base-horizontal 0 0;
@@ -39,6 +50,20 @@
 @media (min-width: 768px) {
 	#actions {
 		height: 50px;
+	}
+}
+
+
+#page-title {
+	margin: @padding-base-vertical 0;
+	padding: @padding-base-vertical 0;
+
+	h1,
+	h2 {
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 200;
+		text-shadow: -1px 1px 0 @white;
+		margin: 0 0 @padding-base-vertical 0;
 	}
 }
 

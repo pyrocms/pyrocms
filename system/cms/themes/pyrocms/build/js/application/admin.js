@@ -6,7 +6,7 @@
 
 
 // Get ready to rumble
-App = Ember.Application.create();
+Pyro = Ember.Application.create();
 
 
 /**
@@ -14,7 +14,7 @@ App = Ember.Application.create();
  * - Set up listeners, etc
  */
 
-App.Initialize = function() {
+Pyro.Initialize = function() {
 
 	/**
 	 * Toggle Classes
@@ -65,5 +65,5 @@ App.Initialize = function() {
 
 // Go.
 $(document).ready(function() {
-	App.Initialize();
+	Pyro.Initialize();
 });

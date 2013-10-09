@@ -49,7 +49,6 @@
 						<div class="col-md-6">
 							<?php file_partial('sections'); ?>
 						</div>
-
 						<div class="col-md-6">
 							<?php file_partial('shortcuts'); ?>
 						</div>
@@ -63,7 +62,7 @@
 				<!-- Body Content -->
 				<section class="scrollable" id="body">
 					
-					<div class="padding">
+					<div class="padding-left padding-right">
 						<?php file_partial('notices'); ?>
 					</div>
 					
