@@ -84,17 +84,19 @@ class Field_slug extends AbstractField
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
+		$jquery = null;
 
-		$slug_field = Field::find($this->getParameter('slug_field'));
+		if ($slug_field = Field::find($this->getParameter('slug_field')))
+		{
+			$field_type = $slug_field->getType($this->entry);
 
-		$field_type = $slug_field->getType($this->entry);
-
-		$jquery = "<script>(function($) {
-			$(function(){
-					pyro.generate_slug('#{$field_type->getFormSlug()}', '#{$this->form_slug}', '{$this->getParameter('space_type')}');
-			});
-		})(jQuery);
-		</script>";
+			$jquery = "<script>(function($) {
+				$(function(){
+						pyro.generate_slug('#{$field_type->getFormSlug()}', '#{$this->form_slug}', '{$this->getParameter('space_type')}');
+				});
+			})(jQuery);
+			</script>";
+		}
 
 		return form_input($options)."\n".$jquery;
 	}
