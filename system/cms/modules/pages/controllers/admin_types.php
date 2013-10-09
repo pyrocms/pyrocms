@@ -305,10 +305,10 @@ class Admin_types extends Admin_Controller
 			$input['slug'] = $page_type->slug;
 
 			if ($this->input->post('save_as_files') == 'y') {
-				PageType::place_page_layout_files($input);
+				PageType::placePageLayoutFiles($input);
 
 			} else {
-				PageType::remove_page_layout_files($input['slug']);
+				PageType::removePageLayoutFiles($input['slug']);
 			}
 
 			$this->cache->clear('page_m');

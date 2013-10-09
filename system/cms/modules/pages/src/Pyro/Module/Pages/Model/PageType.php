@@ -99,7 +99,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
         $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$input['slug'];
 
         if (is_dir($folder)) {
-            $this->remove_page_layout_files($input['slug']);
+            $this->removePageLayoutFiles($input['slug']);
         } elseif ( ! mkdir($folder, 0777)) {
             return false;
         }
@@ -183,9 +183,11 @@ class PageType extends \Illuminate\Database\Eloquent\Model
             $this->stream->delete();
         }
 
+        $instance = new static;
+
         // If we are saving as files, we need to remove the page
         // layout files to keep things tidy.
-        $this->remove_page_layout_files($this->slug, true);
+        $instance->removePageLayoutFiles($this->slug, true);
 
         // Delete the actual page entry.
         return parent::delete();
@@ -205,14 +207,16 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param bool [$remove_folder] Should we remove the folder as well as the files?
      * @return bool Was the operation successful?
      */
-    public function remove_page_layout_files($slug, $remove_folder = false)
+    public static function removePageLayoutFiles($slug, $remove_folder = false)
     {
         ci()->load->helper('file');
 
         $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
 
+        $instance = new static;
+
         if ($remove_folder) {
-            $result = $this->remove_page_layout_folder($slug);
+            $result = $instance->removePageLayoutFolder($slug);
         }
 
         return $result;
@@ -226,7 +230,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug The slug of the folder to remove.
      * @return mixed  null or bool result of rmdir
      */
-    public function remove_page_layout_folder($slug)
+    public static function removePageLayoutFolder($slug)
     {
         if (is_dir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug)) {
             return rmdir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
