@@ -281,7 +281,9 @@ class Form
 
 		//$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
 
-		$this->setValues($this->getFormData($this->fields, $this->entry, $this->skips, $this->key_check));
+		$values = $this->getFormValues($this->fields, $this->entry, $this->skips, $this->key_check);
+
+		$this->setEntryValues($values);
 
 		// -------------------------------------
 		// Run Type Events
@@ -337,8 +339,6 @@ class Form
 				}
 				else // edit
 				{
-					$this->entry->exists = true;
-
 					if ( ! $this->entry->save() and isset($this->failure_message))
 					{
 						ci()->session->set_flashdata('notice', lang_label($this->failure_message));	
@@ -395,7 +395,7 @@ class Form
 		foreach ($this->fields as $field)
 		{
 			// We need the slug to go on.
-			if ( ! $type = $field->getType())
+			if ( ! $type = $field->getType($this->entry))
 			{
 				continue;
 			}
@@ -433,7 +433,7 @@ class Form
 	 * @return 	array
 	 */
 	// $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
-	public function setValues($values = array())
+	public function setEntryValues($values = array())
 	{
 		foreach ($values as $field_slug => $value)
 		{
@@ -441,7 +441,7 @@ class Form
 		}
 	}
 
-	public static function getFormData($fields = array(), Model\Entry $entry = null, $skips = array(), $key_check = false)
+	public static function getFormValues($fields = array(), Model\Entry $entry = null, $skips = array(), $key_check = false)
 	{
 		if ( ! empty($fields) and ! $entry) return array();
 
@@ -451,25 +451,7 @@ class Form
 			{
 				if ($key_check and $type = $field->getType($entry))
 				{
-					$type->setFormSlug();
-					// Post Data - we always show
-					// post data above any other data that
-					// might be sitting around.
-
-					// There is the possibility that this could be an array
-					// post value, so we check for that as well.
-					if ($value = ci()->input->post($type->getFormSlug()))
-					{
-						$values[$field->field_slug] = $value;
-					}
-					elseif ($value = ci()->input->post($type->getFormSlug().'[]'))
-					{
-						$values[$field->field_slug] = $value;
-					}
-					else
-					{
-						$values[$field->field_slug] = $entry->{$field->field_slug};
-					}
+					$values[$field->field_slug] = $type->value;
 				}
 			}
 		}
@@ -517,8 +499,6 @@ class Form
 			{	
 				$type->setUnformattedValue($this->entry->getUnformattedValue($field->field_slug));
 				$type->setDefaults($this->defaults);
-				$type->setFormData($this->values);
-
 				$type->setStream($this->entry->getStream());
 
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
