@@ -5,24 +5,34 @@
 #actions {
 	z-index: 100;
 	min-height: 50px;
-	border-bottom: 1px solid #aaaaaa;
-	box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05), inset 0 3px 0px #ecf5ff;
+	border-bottom: 1px solid #dedede;
+	box-shadow: 0 3px 1px rgba(0, 0, 0, 0.03), inset 0 3px 0px #ecf5ff;
 	background: rgba(255, 255, 255, 0.9);
 	margin-top: -2px;
 
-	.nav.navbar-nav.navbar-right {
-		padding: 5px 30px 0 5px;
-		margin: 0;
+	#sections {
+		
+		> .title {
+			display: inline-block;
+			margin: 14px 0 3px 0;
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 200;
+			font-size: 18px;
+			float: left;
+			text-decoration: none !important;
+		}
+		span {
+			padding: 0;
+			margin: 19px 0 0 10px;
+			font-size: 12px;
+			float: left;
+			color: rgba(0,0,0,0.5);
+		}
+	}
 
-		> li
-			> a {
-				padding: 0;
-
-				&:hover,
-				&:focus {
-					background: none;
-				}
-			}
+	#shortcuts {
+		float: right;
+		margin: 14px @padding-base-horizontal 0 0;
 	}
 }
 

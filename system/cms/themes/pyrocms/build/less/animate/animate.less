@@ -11,21 +11,22 @@
 // Animation Mixins
 @import "variables.less";
 @import "mixins.less";
+@import "../application/variables.app.less";
 
 // !Animated Timer Class
 //body {-webkit-backface-visibility: hidden;} //fixes antialising issues with text during an animation
 .animated {
-	.animation-duration(1s);
+	.animation-duration(@animation-speed);
 	.animation-fill-mode(both);
 }
 
 .animated-fast {
-	.animation-duration(.5s);
+	.animation-duration(@animation-speed-fast);
 	.animation-fill-mode(both);
 }
 
 .animated-zing {
-	.animation-duration(.3s);
+	.animation-duration(@animation-speed-zing);
 	.animation-fill-mode(both);
 }
 

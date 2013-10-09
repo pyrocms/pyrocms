@@ -41,13 +41,10 @@
 //@codekit-append "plugins/ace/ace.js"
 //@codekit-append "plugins/cookie.js"
 //@codekit-append "plugins/easy-pie-chart.js"
-//@codekit-append "plugins/fullscreen.js"
 //@codekit-append "plugins/morris.js"
 //@codekit-append "plugins/nestable.js"
-//@codekit-append "plugins/nprogress.js"
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
-//@codekit-append "plugins/screenfull.js"
 //@codekit-append "plugins/zen-form.js"
 
 

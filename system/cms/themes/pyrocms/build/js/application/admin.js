@@ -5,55 +5,36 @@
  */
 
 
-/**
- * Show sexy loading progress
- */
-
-NProgress.set(0.4).inc({
-	ease: 'ease',
-	trickleRate: 0.03,
-	trickleSpeed: 100,
-	speed: 200,		
-});
-
-$(document).ready(function() {
-
-	// Some nice feedback
-	NProgress.done();
-});
-
+// Get ready to rumble
+App = Ember.Application.create();
 
 
 /**
- * Full Screen Toggle
+ * Initialize our application
+ * - Set up listeners, etc
  */
 
-$(document).on('click', '[data-toggle="fullscreen"]', function(e) {
-	e.preventDefault();
-	screenfull.request();
-});
+App.Initialize = function() {
 
+	/**
+	 * Toggle Classes
+	 */
 
+	$(document).on('click', '[data-toggle^="class:"]', function(e) {
 
-/**
- * Toggle Classes
- */
-
-$(document).on('click', '[data-toggle^="class:"]', function(e) {
-	e.preventDefault();
-	$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
+		e.preventDefault();
+		$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
+	});
 
 	// Save persistent state
 	if ($(this).attr('data-persistent') !== undefined)
 		$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
-});
 
 
-/**
- * Selectize!
- */
-
-$(document).ready(function() {
+	/**
+	 * Selectize
+	 */
+	
 	$('select:not(.skip)').selectize();
 	$('input[type="text"].tags').selectize({
 		delimiter: ',',
@@ -64,23 +45,25 @@ $(document).ready(function() {
 			}
 		}
 	});
-});
 
 
-/**
- * Tooltips
- */
-
-$(document).ready(function() {
+	/**
+	 * Tooltips
+	 */
+	
 	$('[data-toggle="tooltip"]').tooltip();
-});
 
 
-/**
- * Popovers
- */
-
-$(document).ready(function() {
+	/**
+	 * Popovers
+	 */
+	
 	$(document).on('click', '[data-toggle="popover"]', function(e){e.preventDefault();});
 	$('[data-toggle="popover"]').popover();
+}
+
+
+// Go.
+$(document).ready(function() {
+	App.Initialize();
 });

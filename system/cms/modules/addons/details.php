@@ -100,7 +100,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/modules/upload',
-					'class' => 'add',
+					'class' => 'btn-sm btn-success',
 				),
 			);
 
@@ -108,7 +108,8 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
-					'class' => 'add modal',
+					'class' => 'btn-sm btn-success',
+					'data-toggle' => 'modal',
 				),
 			);
 		}

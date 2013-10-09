@@ -2,7 +2,35 @@
 
 	<ul class="nav">
 
-		<!-- Start off with the dashboard link - Always -->
+
+		<!--
+		/**
+		 * Start off with the profile menu item when on mobiles
+		 * - This helps the collapsed menu look nicer...
+		 */
+		-->
+		<li class="dropdown-submenu visible-xs">
+			<a href="#" class="dropdown-submenu" data-toggle="dropdown">
+				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-xs"/>
+				<span>Ryan Thompson</span>
+			</a>
+
+			<ul class="dropdown-menu animated fadeInTop">
+				<li class="dropdown-header">Ryan Thompson</li>
+				<li><a href="<?php echo site_url('admin/settings'); ?>"><?php echo lang('cp:nav_settings'); ?></a></li>
+				<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
+				<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
+			</ul>
+		</li>
+
+		
+
+		<!--
+		/**
+		 * The dashboard link is first. Period.
+		 * - Don't ask question.
+		 */
+		-->
 		<li id="dashboard-link">
 			<a href="<?php echo site_url('admin'); ?>">
 				<i class="icon-dashboard"></i>
@@ -13,6 +41,14 @@
 			</a>
 		</li>
 
+
+
+		<!--
+		/**
+		 * Normal module links
+		 * - Be sure to define a sick icon!
+		 */
+		-->
 		<?php foreach ($menu_items as $key => $menu_item): ?>
 
 			<?php if (isset($menu_item['items']) and is_array($menu_item['items'])): ?>
@@ -77,6 +113,28 @@
 			<?php endif; ?>
 
 		<?php endforeach; ?>
+
+
+
+		<!--
+		/**
+		 * When not in mobile - profile links are last
+		 * - Chances are their avatar isn't meshing with the theme
+		 * - So send them to the bottom, because we like beautiful things ^_^
+		 */
+		-->
+		<li class="dropdown-submenu hidden-xs">
+			<a href="#" class="dropdown-submenu" data-toggle="dropdown">
+				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
+			</a>
+
+			<ul class="dropdown-menu animated fadeInTop">
+				<li class="dropdown-header">Ryan Thompson</li>
+				<li><a href="<?php echo site_url('admin/settings'); ?>"><?php echo lang('cp:nav_settings'); ?></a></li>
+				<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
+				<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
+			</ul>
+		</li>
 
 	</ul>
 
