@@ -439,6 +439,10 @@ abstract class AbstractField
 		return false;
 	}
 
+	/**
+	 * Get is new property
+	 * @return bool
+	 */
 	public function getIsNewProperty()
 	{
 		return ( ! $this->entry or ! $this->entry->getKey());
