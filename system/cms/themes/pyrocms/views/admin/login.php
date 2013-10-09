@@ -24,7 +24,7 @@
 
 		
 		<center id="page-title" class="brand">
-			<h2><?php echo Asset::img('icon-logo-darker.png', 'PyroCMS', array('height' => '40px')); ?> PyroCMS</h2>
+			<h2><?php echo Asset::img('icon-logo-darker.png', 'PyroCMS', array('height' => '40px')); ?> <strong>Pyro</strong>CMS</h2>
 		</center>
 
 		<?php $this->load->view('admin/partials/notices') ?>
