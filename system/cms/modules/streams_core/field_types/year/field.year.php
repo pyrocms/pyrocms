@@ -19,7 +19,7 @@ class Field_year extends AbstractField
 
 	public $col_constraint			= 4;
 
-	public $custom_parameters		= array('start_year', 'end_year', 'default_year');
+	public $custom_parameters		= array('start_year', 'end_year');
 
 	public $extra_validation		= 'integer';
 
@@ -36,17 +36,17 @@ class Field_year extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data, $entry_id, $field)
+	public function form_output()
 	{
-		$start_year 	= $this->_process_year_input( $data['custom']['start_year'] );
-		$end_year 		= $this->_process_year_input( $data['custom']['end_year'] );
+		$end_year 		= $this->_process_year_input($this->getParameter('end_year'));
+		$start_year 	= $this->_process_year_input($this->getParameter('start_year', $end_year - 80));
 
 		$years 			= array();
 
 		// If this is not required, then
 		// let's allow a null option
-		if ($field->is_required == 'no') {
-			$years[null] = get_instance()->config->item('dropdown_choose_null');
+		if ($this->getParameter('is_required') == 'no') {
+			$years[null] = ci()->config->item('dropdown_choose_null');
 		}
 
 		while ($end_year >= $start_year) {
@@ -58,13 +58,13 @@ class Field_year extends AbstractField
 		// Value
 		// We only use the default value if this is a new
 		// entry.
-		if (! $data['value'] and ! $entry_id) {
-			$value = (isset($field->field_data['default_year'])) ? $field->field_data['default_year'] : null;
+		if ($this->is_new) {
+			$value = $this->getParameter('default_value');
 		} else {
-			$value = $data['value'];
+			$value = $this->value;
 		}
 
-		return form_dropdown($data['form_slug'], $years, $value);
+		return form_dropdown($this->form_slug, $years, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -146,26 +146,6 @@ class Field_year extends AbstractField
 		$options['name'] 	= 'end_year';
 		$options['id']		= 'end_year';
 		$options['value']	= $value;
-
-		return form_input($options);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Start Year
-	 *
-	 * @param	[string - value]
-	 * @return	string
-	 */
-	public function param_default_year($value = null)
-	{
-		$options = array(
-			'name'		=> 'default_year',
-			'id'		=> 'default_year',
-			'value'		=> $value,
-			'maxlength' => 4
-		);
 
 		return form_input($options);
 	}

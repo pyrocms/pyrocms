@@ -43,7 +43,7 @@ class Field_merge_tags extends AbstractField
 	 */
 	public function pre_save()
 	{
-		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_data, true);
+		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_values, true);
 	}
 
 	/**
