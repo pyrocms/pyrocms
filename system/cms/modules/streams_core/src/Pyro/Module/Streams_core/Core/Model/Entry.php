@@ -384,8 +384,6 @@ class Entry extends EntryOriginal
     {
         $entry = static::$instance->where(static::$instance->getKeyName(), '=', $id)->first($columns);
 
-        static::$instance->passProperties($entry);
-
         return $entry;
     }
 
@@ -449,8 +447,6 @@ class Entry extends EntryOriginal
 
         if ( ! $fields->isEmpty())
         {
-            $form_data = Form::getFormData($fields, $this, array(), true);
-
             foreach ($fields as $field)
             {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
@@ -460,11 +456,9 @@ class Entry extends EntryOriginal
                     $type = $field->getType($this);
                     $types[] = $type;
 
-                    $value = $this->getAttribute($field->field_slug);
-
                     $type->setStream($this->stream);
-                    $type->setValue($value);
-                    $type->setFormData($form_data);
+
+                    $value = $this->getAttribute($field->field_slug);
 
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
@@ -582,7 +576,7 @@ class Entry extends EntryOriginal
                         }
                         else
                         {
-                            $return_data[$field->field_slug] = $form_data[$field->field_slug];
+                            $return_data[$field->field_slug] = isset($form_data[$type->getFormSlug()]) ? $form_data[$type->getFormSlug()] : null;
 
                             // Make null - some fields don't like just blank values
                             if ($return_data[$field->field_slug] == '')
@@ -908,6 +902,11 @@ class Entry extends EntryOriginal
         $model->setFields($this->fields);
         $model->setTable($this->table);
         $model->setUnformattedEntry($this->unformatted_entry);
+
+        if ($model->getKey())
+        {
+            $model->exists = true;
+        }
 
         return $model;
     }

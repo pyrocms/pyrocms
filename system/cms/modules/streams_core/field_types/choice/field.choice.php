@@ -207,7 +207,14 @@ class Field_choice extends AbstractField
 		// Checkboxes?
 		if ($choice_type == 'checkboxes' or $choice_type == 'multiselect')
 		{
-			$vals = explode("\n", $this->value);
+			if (is_string($this->value))
+			{
+				$vals = explode("\n", $this->value);
+			}
+			else
+			{
+				$vals = $this->value;
+			}
 
 			ci()->load->helper('html');
 
@@ -407,8 +414,15 @@ class Field_choice extends AbstractField
 		if ($this->getParameter('choice_type') == 'checkboxes' || $this->getParameter('choice_type') == 'multiselect')
 		{
 			$this->plugin_return = 'array';
-			
-			$values = explode("\n", $this->value);
+
+			if (is_string($this->value))
+			{
+				$values = explode("\n", $this->value);
+			}
+			else
+			{
+				$values = $this->value;
+			}
 			
 			$return = array();
 			

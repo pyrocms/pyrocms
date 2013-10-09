@@ -87,17 +87,6 @@ class Field extends Eloquent
             $type->setModel($entry->getModel());
             
             $type->setEntryBuilder($entry->getModel()->newQuery());
-            
-            $type->setFormSlug();          
-        }
-
-        if ($field_slug = $this->getAttribute('field_slug'))
-        {
-            $type->setValue($entry->getAttributeValue($field_slug));            
-        }
-        else
-        {
-            throw new Exception\FieldSlugEmptyException;
         }
 
         return $type;

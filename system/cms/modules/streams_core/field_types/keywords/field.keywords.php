@@ -13,17 +13,40 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Field_keywords extends AbstractField
 {
+	/**
+	 * Field type slug
+	 * @var string
+	 */
 	public $field_type_slug    = 'keywords';
+
+	/**
+	 * DB column type
+	 * @var string
+	 */
 	public $db_col_type        = 'string';
+
+	/**
+	 * Version
+	 * @var string
+	 */
 	public $version            = '1.1.0';
+
+	/**
+	 * Author
+	 */
 	public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
+
+	/**
+	 * Custom parameters
+	 * @var array
+	 */
 	public $custom_parameters  = array('return_type');
 
-	// --------------------------------------------------------------------------
-
+	/**
+	 * Construct
+	 */
 	public function __construct()
 	{
-		$this->CI =& get_instance();
 		ci()->load->library('keywords/keywords');
 	}
 
@@ -36,33 +59,46 @@ class Field_keywords extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output()
 	{
-		$options['name'] 	= $data['form_slug'];
+		$options['name'] 	= $this->form_slug;
 		$options['id']		= 'id_'.rand(100, 10000);
 		$options['class']	= 'keywords_input';
-		$options['value']	= Keywords::get_string($data['value']);
+		$options['value']	= Keywords::get_string($this->value);
 
 		return form_input($options);
 	}
 
-	public function event($field)
+	/**
+	 * Event
+	 * @return void
+	 */
+	public function event()
 	{
 		ci()->template->append_css('jquery/jquery.tagsinput.css');
 		ci()->template->append_js('jquery/jquery.tagsinput.js');
 		$this->js('keywords.js');
 	}
 
-	public function pre_save($input)
+	/**
+	 * Pre save
+	 * @return string
+	 */
+	public function pre_save()
 	{
-		return Keywords::process($input);
+		return Keywords::process($this->value);
 	}
 
-	public function pre_output($input, $data)
+	/**
+	 * Pre output
+	 * @return array|string
+	 */
+	public function pre_output()
 	{
 		// if we want an array, format it correctly
-		if (isset($data['return_type']) and $data['return_type'] === 'array') {
-			$keyword_array = Keywords::get_array($input);
+		if ($this->getParameter('return_type') === 'array')
+		{
+			$keyword_array = Keywords::get_array($this->value);
 			$keywords = array();
 			$total = count($keyword_array);
 
@@ -80,9 +116,14 @@ class Field_keywords extends AbstractField
 		}
 
 		// otherwise return it as a string
-		return Keywords::get_string($input);
+		return Keywords::get_string($this->value);
 	}
 
+	/**
+	 * Return type parameter
+	 * @param  string $value
+	 * @return array
+	 */
 	public function param_return_type($value = 'array')
 	{
 		return array(

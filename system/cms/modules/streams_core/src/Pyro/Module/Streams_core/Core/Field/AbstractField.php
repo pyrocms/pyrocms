@@ -14,6 +14,12 @@ abstract class AbstractField
 	public $alt_process = false;
 
 	/**
+	 * Assets
+	 * @var array
+	 */
+	protected $assets = array();
+
+	/**
 	 * Custom parameters
 	 * @var array
 	 */
@@ -38,12 +44,6 @@ abstract class AbstractField
 	protected $unformatted_value = null;
 
 	/**
-	 * Value
-	 * @var mixed
-	 */
-	protected $value = null;
-
-	/**
 	 * Plugin call?
 	 * @var boolean
 	 */
@@ -60,12 +60,6 @@ abstract class AbstractField
 	 * @var object
 	 */
 	protected $field = null;
-
-	/**
-	 * The unique input name like namespace:stream.slug
-	 * @var string
-	 */
-	protected $form_slug = null;
 
 	/**
 	 * The stream object
@@ -86,24 +80,6 @@ abstract class AbstractField
 	protected $entry = null;
 
 	/**
-	 * An array of entry objects
-	 * @var array
-	 */
-	protected $entries = null;
-
-	/**
-	 * New or edit
-	 * @var string
-	 */
-	protected $method = 'new';
-
-	/**
-	 * Form data
-	 * @var array
-	 */
-	protected $form_data = array();
-
-	/**
 	 * The array of pre save parameter values
 	 * @var array
 	 */
@@ -114,6 +90,12 @@ abstract class AbstractField
 	 * @var [type]
 	 */
 	protected $relation = null;
+
+	/**
+	 * Version
+	 * @var string
+	 */
+	public $version = '1.0';
 
 	/**
 	 * Set value
@@ -220,7 +202,6 @@ abstract class AbstractField
 		return isset($this->field->field_data[$key]) ? $this->field->field_data[$key] : $default;
 	}
 
-
 	/**
 	 * Get the stream
 	 * @return object 
@@ -231,24 +212,28 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Get the input name
-	 * @return string 
+	 * Get form slug
+	 * @return [type] [description]
 	 */
-	public function setFormSlug($form_slug = null)
+	public function getFormSlug($field_slug = null)
 	{
-		if ($form_slug)
-		{
-			$this->form_slug = $form_slug;
-		}
-		elseif ($this->stream instanceof Model\Stream)
-		{
-			$this->form_slug = $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-'.$this->field->field_slug;
-		}
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		return $this->getFormSlugPrefix().$field_slug;
 	}
 
-	public function getFormSlug()
+	public function getFormSlugProperty()
 	{
-		return $this->form_slug;
+		return $this->getFormSlug();
+	}
+
+	/**
+	 * Get form slug prefix
+	 * @return [type] [description]
+	 */
+	public function getFormSlugPrefix()
+	{
+		return $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
 	}
 
 	/**
@@ -297,21 +282,18 @@ abstract class AbstractField
 
 	/**
 	 * Set form data
-	 * @param array $form_data
+	 * @param array $form_values
 	 */
-	public function setFormData(array $form_data = array())
+	public function setFormValues(array $form_values = array())
 	{
-		$this->form_data = $form_data;
+		$this->form_values = $form_values;
+
+		return $this;
 	}
 
-	/**
-	 * Set the form data
-	 * @param  string $key
-	 * @return string
-	 */
-	public function getFormData($key = null)
+	public function setFormValue($key, $value = null)
 	{
-		return isset($this->form_data[$key]) ? $this->form_data[$key] : null;
+		$this->form_values[$key] = $value;
 	}
 
 	/**
@@ -328,18 +310,54 @@ abstract class AbstractField
 	 * @param  string $key
 	 * @return mixed
 	 */
-	public function getDefault($key, $default = null)
+	public function getDefault($field_slug = null, $default = null)
 	{
-		return isset($this->defaults[$key]) ? $this->defaults[$key] : $default;
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		return isset($this->defaults[$field_slug]) ? $this->defaults[$field_slug] : $default;
 	}
 
 	/**
 	 * Get the value
 	 * @return mixed
 	 */
-	public function getValue($default = null)
+	public function getFormValue($field_slug = null, $default = null)
 	{
-		return $this->value ? $this->value : $default;
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		if ($value = ci()->input->post($this->getFormSlug($field_slug)))
+		{
+			return $value;
+		}
+		elseif ($value = ci()->input->post($this->getFormSlug($field_slug).'[]'))
+		{
+			return $value;
+		}
+		elseif ($this->entry)
+		{
+			return $this->entry->{$field_slug};
+		}
+		else
+		{
+			return $default;
+		}
+	}
+
+	public function getFormValuesProperty()
+	{
+		$form_values = array();
+
+		foreach($this->entry->getFieldSlugs() as $field_slug)
+		{
+			$form_values[$field_slug] = $this->getFormValue($field_slug);
+		}
+
+		return $form_values;
+	}
+
+	public function getValueProperty()
+	{
+		return $this->getFormValue(null, $this->getDefault(null, $this->getParameter('default_value')));
 	}
 
 	/**
@@ -389,7 +407,7 @@ abstract class AbstractField
 			}
 		}
 
-		return $this->getValue();
+		return $this->getValueProperty();
 	}
 
 	/**
@@ -399,7 +417,7 @@ abstract class AbstractField
 	 */
 	public function getUnformattedValue($plugin = false)
 	{
-		return $this->getValue();
+		return $this->getValueProperty();
 	}
 
 	// --------------------------------------------------------------------------
@@ -407,8 +425,6 @@ abstract class AbstractField
 	// $field, $value = null, $row_id = null, $plugin = false
 	public function getForm()
 	{
-		$this->setFormSlug();
-
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
 		if ($this->plugin and method_exists($this, 'form_output_plugin'))
@@ -421,6 +437,15 @@ abstract class AbstractField
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get is new property
+	 * @return bool
+	 */
+	public function getIsNewProperty()
+	{
+		return ( ! $this->entry or ! $this->entry->getKey());
 	}
 
 	/**
@@ -569,5 +594,27 @@ abstract class AbstractField
 	protected function objectToArray($object)
 	{
 		return (is_object($object)) ? get_object_vars($object) : $object;
+	}
+
+	public function getProperty($key)
+	{
+		$method = 'get'.\Illuminate\Support\Str::studly($key).'Property';
+
+		if (method_exists($this, $method))
+		{
+			return $this->$method($key);
+		}
+
+		if ($parameter = $this->getParameter($key))
+		{
+			return $parameter;
+		}
+
+		return null;
+	}
+
+	public function __get($key)
+	{
+		return $this->getProperty($key);
 	}
 }
