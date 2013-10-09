@@ -16,6 +16,8 @@ Pyro = Ember.Application.create();
 
 Pyro.Initialize = function() {
 
+	Pyro.Loading();
+
 	/**
 	 * Toggle Classes
 	 */
@@ -63,7 +65,27 @@ Pyro.Initialize = function() {
 }
 
 
+/**
+ * Loading
+ * - Pass boolean
+ * - Prevents clicking
+ */
+
+Pyro.Loading = function(loading) {
+
+	// Catch default
+	if (loading == undefined) loading = true;
+
+	if (loading)
+		$('#loading').addClass('animated-fast pulse').fadeIn();
+	else
+		$('#loading').removeClass().fadeOut();
+}
+
+
 // Go.
+Pyro.Initialize();
+
 $(document).ready(function() {
-	Pyro.Initialize();
+	Pyro.Loading(false);
 });

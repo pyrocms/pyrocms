@@ -1,4 +1,33 @@
 /**
+ * Loading
+ */
+
+#loading {
+
+	position: absolute;
+	z-index: 99999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+
+	> span {
+		background: url('../img/loading.gif') no-repeat center center rgba(0,0,0,0.9);
+		.border-radius(@border-radius-large);
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		z-index: 99999;
+		top: 50%;
+		left: 50%;
+		margin-left: -25px;
+		margin-top: -25px;
+	}
+}
+
+
+/**
  * Actions Bar
  */
 

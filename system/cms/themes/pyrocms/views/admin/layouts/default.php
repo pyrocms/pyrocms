@@ -33,6 +33,9 @@
 
 <body>
 
+	<section id="loading"><span></span></section>
+
+
 	<main class="horizontal-box stretch">
 
 		<?php file_partial('sidebar'); ?>

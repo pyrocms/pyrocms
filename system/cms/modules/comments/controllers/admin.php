@@ -101,7 +101,6 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('admin/filter.js')
 			->set('module_list', Comment::getModuleSlugs())
 			->set('content_title', $content_title)
 			->set('comments', $this->comments->process($comments))

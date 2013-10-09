@@ -1,6 +1,6 @@
 <?php if ( ! $comments->isEmpty()): ?>
 
-	<table border="0" class="table-list" cellspacing="0">
+	<table class="table no-margin">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
@@ -51,7 +51,7 @@
 
 					<td><?php echo format_date($comment->created_on) ?></td>
 
-					<td class="align-center buttons buttons-small">
+					<td class="text-right">
 						<?php if (Settings::get('moderate_comments')): ?>
 							<?php if ($comment->is_active): ?>
 								<?php echo anchor('admin/comments/unapprove/'.$comment->id, lang('buttons:deactivate'), array('class' => 'button deactivate')) ?>
