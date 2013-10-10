@@ -69,7 +69,9 @@ class Module_Templates extends AbstractModule
 				array(
 				    'name' => 'templates:create_title',
 				    'uri' => 'admin/templates/create',
-				    'class' => 'add',
+					'class' => 'btn-sm btn-success',
+					'data-hotkey' => 'n',
+					'data-follow' => 'yes',
 				),
 		    ),
 		);

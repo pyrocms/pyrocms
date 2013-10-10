@@ -4,7 +4,6 @@
  * Sweet ones..
  */
 
-//@codekit-append "libraries/jquery.js"
 //@codekit-append "libraries/handlebars.js"
 //@codekit-append "libraries/ember.js"
 
@@ -45,6 +44,7 @@
 //@codekit-append "plugins/nestable.js"
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
+//@codekit-append "plugins/typeahead.js"
 //@codekit-append "plugins/zen-form.js"
 
 

@@ -32,13 +32,33 @@
 		 */
 		-->
 		<li id="dashboard-link">
-			<a href="<?php echo site_url('admin'); ?>">
+			<a href="<?php echo site_url('admin'); ?>" data-hotkey="d" data-follow="yes">
 				<i class="icon-dashboard"></i>
 
 				<span>
 					<?php echo lang('global:dashboard'); ?>
 				</span>
 			</a>
+		</li>
+
+
+
+		<!--
+		/**
+		 * Search everything
+		 * - Also tied to hot keys
+		 */
+		-->
+		<li>
+			<a href="#" data-hotkey="s" data-toggle="global-search">
+				<i class="icon-search"></i>
+
+				<span>
+					<?php echo lang('cp:search'); ?>
+				</span>
+			</a>
+
+			<a href="#" class="hidden" data-hotkey="/" data-toggle="module-search"></a>
 		</li>
 
 

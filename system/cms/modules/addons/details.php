@@ -101,6 +101,8 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/modules/upload',
 					'class' => 'btn-sm btn-success',
+					'data-hotkey' => 'u',
+				    'data-follow' => 'yes',
 				),
 			);
 
@@ -110,6 +112,8 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 					'uri' => 'admin/addons/themes/upload',
 					'class' => 'btn-sm btn-success',
 					'data-toggle' => 'modal',
+					'data-hotkey' => 'u',
+				    'data-follow' => 'yes',
 				),
 			);
 		}

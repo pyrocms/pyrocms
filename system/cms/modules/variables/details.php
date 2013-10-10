@@ -83,7 +83,9 @@ class Module_Variables extends AbstractModule
 						array(
 							'name' => 'global:add',
 							'uri' => 'admin/variables/create',
-							'class' => 'add',
+							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+							'data-follow' => 'yes',
 						),
 					),
 				),
@@ -94,7 +96,9 @@ class Module_Variables extends AbstractModule
 						array(
 							'name' => 'streams:add_field',
 							'uri' => 'admin/variables/fields/form',
-							'class' => 'add',
+							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+							'data-follow' => 'yes',
 						),
 					),
 				),

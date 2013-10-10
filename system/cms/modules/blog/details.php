@@ -79,6 +79,8 @@ class Module_Blog extends AbstractModule
 							'name' => 'blog:create_title',
 							'uri' => 'admin/blog/create',
 							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+				    		'data-follow' => 'yes',
 						),
 					),
 				),
@@ -90,6 +92,8 @@ class Module_Blog extends AbstractModule
 							'name' => 'cat:create_title',
 							'uri' => 'admin/blog/categories/create',
 							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+				    		'data-follow' => 'yes',
 						),
 					),
 				),
@@ -106,6 +110,8 @@ class Module_Blog extends AbstractModule
 								'name' 	=> 'streams:add_field',
 								'uri' 	=> 'admin/blog/fields/create',
 								'class' => 'btn-sm btn-success',
+								'data-hotkey' => 'n',
+				    			'data-follow' => 'yes',
 								)
 							)
 					);

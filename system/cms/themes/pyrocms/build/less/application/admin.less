@@ -125,3 +125,39 @@ img.avatar-xs {
 	width: 18px;
 	height: 18px;
 }
+
+
+
+body {
+	#search {
+		display: none;
+		padding: 20px;
+
+		.search-wrapper {
+			font-size: 28px;
+			color: #e9e9e9;
+
+			input.search-terms {
+				border: none;
+				outline: none;
+				background: transparent;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 200;
+				margin-bottom: 10px;
+			}
+		}
+	}
+	&.search-off-screen {
+		#actions {
+			height: auto !important;
+			z-index: 999999;
+			background: rgba(255,255,255,1);
+		}
+		#search {
+			display: block;
+		}
+		.hidden-searching {
+			display: none;
+		}
+	}
+}

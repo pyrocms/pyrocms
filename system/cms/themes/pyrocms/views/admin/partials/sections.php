@@ -7,9 +7,9 @@
 	
 	<!-- Dropdown -->
 	<?php if (empty($module_details['sections'])): ?>
-		<a href="#" class="title">
+		<a href="<?php echo site_url('admin/'.(isset($module_details['slug']) ? $module_details['slug'] : null)); ?>" class="title">
 	<?php else: ?>
-		<a href="#" class="title dropdown-submenu" data-toggle="dropdown">
+		<a href="#" class="title dropdown-submenu" data-toggle="dropdown" data-hotkey="0">
 	<?php endif; ?>
 
 		<?php if (isset($module_details['name'])): ?>
@@ -28,7 +28,7 @@
 	<?php foreach ($module_details['sections'] as $name => $section): ?>
 	<?php if(isset($section['name']) && isset($section['uri'])): ?>
 		<li class="<?php if ($name === $active_section) echo 'active' ?>">
-			<?php echo anchor($section['uri'], (lang($section['name']) ? lang($section['name']) : $section['name'])); ?>
+			<?php echo anchor($section['uri'], (lang($section['name']) ? lang($section['name']) : $section['name']), 'data-hotkey="'.(array_search($section, array_values($module_details['sections']))+1).'" data-follow="yes"'); ?>
 		</li>
 	<?php endif; ?>
 	<?php endforeach; ?>

@@ -47,7 +47,7 @@
 				<!-- Actions Bar -->
 				<section id="actions" class="nav-bar">
 					
-					<div class="row-fluid">
+					<div class="row-fluid hidden-searching">
 
 						<div class="col-md-6">
 							<?php file_partial('sections'); ?>
@@ -56,6 +56,24 @@
 							<?php file_partial('shortcuts'); ?>
 						</div>
 
+					</div>
+
+					<div id="search">
+						<div class="search-wrapper">
+							<input type="text" class="search-terms" placeholder="Type to search..."/>
+						</div>
+
+						Testing...
+						<br/>
+						Testing...
+						<br/>
+						Testing...
+						<br/>
+						Testing...
+						<br/>
+						Testing...
+						<br/>
+						Testing...
 					</div>
 					
 				</section>
@@ -80,10 +98,35 @@
 
 	</main>
 
+
+	<!-- Modal used for Ajax -->
+	<div class="modal fade" id="modal"></div>
+
 	
 	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
 	<?php echo Asset::render_js('deferred') ?>
+
+	<script type="text/javascript">
+		params = { 'lang' : {} };
+
+		var APPPATH_URI					= "<?php echo APPPATH_URI;?>";
+		var SITE_URL					= "<?php echo rtrim(site_url(), '/').'/';?>";
+		var BASE_URL					= "<?php echo BASE_URL;?>";
+		var BASE_URI					= "<?php echo BASE_URI;?>";
+		var UPLOAD_PATH					= "<?php echo UPLOAD_PATH;?>";
+		var DEFAULT_TITLE				= "<?php echo addslashes(Settings::get('site_name')); ?>";
+		params.current_module			= "<?php echo isset($module_details['slug']) ? $module_details['slug'] : null; ?>";
+		params.admin_theme_url			= "<?php echo BASE_URL . ci()->theme->path; ?>";
+		params.apppath_uri				= "<?php echo APPPATH_URI; ?>";
+		params.base_uri					= "<?php echo BASE_URI; ?>";
+		params.lang.remove				= "<?php echo lang('global:remove'); ?>";
+		params.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
+		params.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
+		
+		// Go.
+		Pyro.Initialize(params);
+	</script>
 	
 	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
 	<!--[if lt IE 7 ]>

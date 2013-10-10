@@ -3,7 +3,7 @@
  * ================================== */
 
 .zen-forms {
-	font: normal 18px/1.2 "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	font: normal 21px "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	position: absolute;
 	z-index: 99999;
 	top: 0;
@@ -27,9 +27,12 @@ body {
 }
 
 .zen-forms-input-wrap {
-	max-width: 640px;
-	position: relative;
-	margin: 0 auto;
+	width: 80%;
+	position: absolute;
+	top: 25px;
+	bottom: 0;
+	left: 50%;
+	margin-left: -40%;
 }
 
 /**
@@ -38,8 +41,8 @@ body {
 
 .zen-forms-header {
 	max-width: 640px;
-	text-align: right;
-	margin: 0 auto 1em auto;
+	//text-align: right;
+	//margin: 0 auto 1em auto;
 }
 
 .zen-forms-close-button,
@@ -53,7 +56,7 @@ body {
 }
 
 .zen-icon {
-	background-image: url(zen-form-sprites.png);
+	background-image: url('../img/zen-mode/zen-form-sprites.png');
 	display: inline-block;
 	line-height: 1;
 	position: relative;
@@ -106,6 +109,7 @@ body {
 }
 
 .zen-forms .input {
+	height: 100%;
 	box-shadow: none;
 	background: none;
 	text-shadow: none;
@@ -207,7 +211,7 @@ body {
 @media (min-width: 1024px) {
 
 	.zen-forms .input:focus + label {
-		display: block;
+		display: none;
 		background: #000;
 		font-size: .8em;
 		padding: 0 .5em;
@@ -255,7 +259,7 @@ body {
 
 .zen-forms .zen-forms-close-button:hover,
 .zen-forms .zen-forms-theme-switch:hover {
-	color: #707071;
+	color: #333;
 }
 
 .zen-forms label {
@@ -292,7 +296,7 @@ body {
 
 .zen-forms.light-theme .zen-forms-close-button,
 .zen-forms.light-theme .zen-forms-theme-switch {
-	color: #707071;
+	color: #333;
 }
 
 .zen-forms.light-theme .zen-forms-close-button:hover,
@@ -305,7 +309,7 @@ body {
 }
 
 .zen-forms.light-theme .input {
-	color: #707071;
+	color: #333;
 }
 
 .zen-forms.light-theme .custom-select {
@@ -314,7 +318,7 @@ body {
 }
 
 .zen-forms.light-theme .custom-select a {
-	color: #707071;
+	color: #333;
 }
 
 .zen-forms.light-theme .custom-select.is-open a:hover {

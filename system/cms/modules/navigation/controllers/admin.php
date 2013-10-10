@@ -143,8 +143,6 @@ class Admin extends Admin_Controller
 
 		// Create the layout
 		$this->template
-			->append_js('jquery/jquery.ui.nestedSortable.js')
-			->append_js('jquery/jquery.cooki.js')
 			->title($this->module_details['name'])
 			->set('navigation', $navigation)
 			->build('admin/index');
