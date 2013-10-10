@@ -27,6 +27,15 @@ Pyro.Initialize = function(params) {
 
 
 	/**
+	 * Just in case there's a form - focus on the fist input
+	 */
+	
+	$(document).ready(function() {
+		$('.input :input:visible:first').focus();
+	});
+
+
+	/**
 	 * Toggle Classes
 	 */
 
@@ -130,6 +139,12 @@ Pyro.Initialize = function(params) {
 		// Get the character key
 		var key = String.fromCharCode(e.which).toLowerCase();
 
+		//alert(e.which);
+
+		// Catch some funky ones
+		if (e.which == 186) key = ':';
+		if (e.which == 191) key = '/';
+
 		// Detect special keys
 		if (e.which == 13) key = 'enter';
 
@@ -158,13 +173,23 @@ Pyro.Initialize = function(params) {
 	$(document).on('click', '[data-toggle^="global-search"]', function(e) {
 		e.preventDefault();
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
-		$('#search .search-terms').focus().val('');
+		$('#search .search-terms').val('');
+		$('#search .selectize-input input').focus();
 	});
 
 	$(document).on('click', '[data-toggle^="module-search"]', function(e) {
 		e.preventDefault();
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
-		$('#search .search-terms').focus().val('');
+		$('#search .selectize-input input').val(params.current_module + ':').focus();
+
+		// Spoof a keypress
+		var e = $.event('keydown');
+
+		// (enter)
+		e.which = 13;
+
+		// Trigger it
+		$('#search .selectize-input input').trigger(e);
 	});
 
 	/*$('#search .search-terms').typeahead({

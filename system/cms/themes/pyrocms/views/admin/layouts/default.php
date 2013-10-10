@@ -60,7 +60,7 @@
 
 					<div id="search">
 						<div class="search-wrapper">
-							<input type="text" class="search-terms" placeholder="Type to search..."/>
+							<input type="text" class="search-terms tags" placeholder="e.g. blog:, ^hello*, enabled"/>
 						</div>
 
 						Testing...
