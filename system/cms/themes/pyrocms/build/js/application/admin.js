@@ -23,7 +23,7 @@ Pyro.Initialize = function(params) {
 	
 	Pyro.Loading();
 
-	$(document).on('click', 'a[href]:not([href^="#"])', function() { Pyro.Loading(); });
+	$(document).on('click', 'a[href^="http"][target!="_blank"]', function() { Pyro.Loading(); });
 
 
 	/**
@@ -67,9 +67,9 @@ Pyro.Initialize = function(params) {
 
 
 	/**
-	 * Zen Form Bitches
+	 * Zen Inputs
 	 */
-	$('textarea').each(function(){
+	$('textarea[class="zen"]').each(function(){
 		var random = Math.floor(Math.random()*111) + '_zen';
 		$(this).zenForm().addClass(random).before('<a href="#" data-toggle="zen-mode" data-target=".' + random + '">Test</a>');
 	});
@@ -151,7 +151,8 @@ Pyro.Initialize = function(params) {
 		// Shift?
 		if (e.shiftKey) key = 'shift+' + key;
 
-		//alert(key);
+		// Shift?
+		if (e.ctrlKey) key = 'ctrl+' + key;
 
 		// Gotta exist
 		if ($('[data-hotkey^="' + key + '"]').length == 0) return true;
@@ -247,7 +248,7 @@ Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_
 		disallow_dashes = disallow_dashes || false;
 		var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 			value = value.toLowerCase(),
-			chars = pyro.foreign_characters,
+			chars = Pyro.foreign_characters,
 			space_regex = new RegExp('[' + space_character + ']+','g'),
 			space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
 			search, replace;

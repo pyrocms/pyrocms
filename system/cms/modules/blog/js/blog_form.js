@@ -2,7 +2,7 @@
 	$(function () {
 
 		// generate a slug when the user types a title in
-		pyro.generate_slug('#blog-content-tab input[name="title"]', '#blog-content-tab input[name="slug"]');
+		Pyro.generate_slug('#blog-content-tab input[name="title"]', '#blog-content-tab input[name="slug"]');
 
 		// needed so that Keywords can return empty JSON
 		$.ajaxSetup({
@@ -28,7 +28,7 @@
 			}
 			// Set up the new instance
 			textarea.addClass(this.value);
-			pyro.init_ckeditor();
+			//pyro.init_ckeditor();
 		});
 
 		$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({

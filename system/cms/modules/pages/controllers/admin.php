@@ -49,9 +49,6 @@ class Admin extends Admin_Controller
 
             ->title($this->module_details['name'])
 
-            //->append_js('jquery/jquery.ui.nestedSortable.js')
-            //->append_js('jquery/jquery.cooki.js')
-            //->append_js('jquery/jquery.stickyscroll.js')
             ->append_js('module::index.js')
 
             ->append_css('module::index.css')
@@ -548,10 +545,7 @@ class Admin extends Admin_Controller
         $this->form_data['group_options'] = $this->template->group_options = Users\Model\Group::getGroupOptions();
 
         $this->template
-            ->append_js('jquery/jquery.tagsinput.js')
-            ->append_js('jquery/jquery.cooki.js')
-            ->append_js('module::form.js')
-            ->append_css('jquery/jquery.tagsinput.css');
+            ->append_js('module::form.js');
     }
 
     private function _tabs()

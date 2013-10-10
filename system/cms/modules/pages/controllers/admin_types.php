@@ -371,12 +371,14 @@ class Admin_types extends Admin_Controller
 		$buttons = array(
 			array(
 				'label'     => lang('global:edit'),
-				'url'       => $page_type_uri.'/edit_field/{{id}}'
+				'url'       => $page_type_uri.'/edit_field/{{id}}',
+				'class'		=> 'btn-sm btn-warning',
 			),
 			array(
 				'label'     => lang('global:delete'),
 				'url'       => $page_type_uri.'/delete_field/{{id}}',
 				'confirm'   => true,
+				'class'		=> 'btn-sm btn-danger',
 			)
 		);
 

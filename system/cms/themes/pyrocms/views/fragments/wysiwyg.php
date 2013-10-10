@@ -12,11 +12,11 @@
 	(function($) {
 		$(function(){
 
-			pyro.init_ckeditor = function(){
+			Pyro.init_ckeditor = function(){
 				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, TRUE); ?>
-				pyro.init_ckeditor_maximize();
+				//Pyro.init_ckeditor_maximize();
 			};
-			pyro.init_ckeditor();
+			Pyro.init_ckeditor();
 
 		});
 	})(jQuery);
