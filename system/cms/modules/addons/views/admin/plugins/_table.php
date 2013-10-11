@@ -16,12 +16,9 @@
 		<td width="30%"><?php echo $plugin['name'] ?></td>
 		<td width="60%"><?php echo $plugin['description'] ?></td>
 		<td><?php echo $plugin['version'] ?></td>
-		<td><?php if ($plugin['self_doc']): ?>
-			<a data-inline-modal="#<?php echo $plugin['slug'] ?>"
-				href="<?php echo site_url('#') ?>"
-				title="<?php echo lang('global:preview')?>"
-				class="icon-search btn btn-sm btn-default"
-				style="margin-right:8px;"></a>
+		<td class="text-right">
+			<?php if ($plugin['self_doc']): ?>
+				<a data-inline-modal="#<?php echo $plugin['slug'] ?>" href="<?php echo site_url('#') ?>" title="<?php echo lang('global:preview')?>" class="icon-search btn btn-sm btn-default"></a>
 			<?php endif ?>
 		</td>
 	</tr>
