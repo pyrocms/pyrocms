@@ -75,7 +75,7 @@
 
 				<li class="dropdown-submenu <?php echo in_array(uri_string(), $menu_item['items']) ? 'has-active' : null; ?>">
 					
-					<a href="<?php echo current_url(); ?>#" class="dropdown-toggle" data-toggle="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<?php echo isset($menu_item['before']) ? $menu_item['before'] : null; ?>
 						<span>
 							<?php echo lang_label($menu_item['title']); ?>

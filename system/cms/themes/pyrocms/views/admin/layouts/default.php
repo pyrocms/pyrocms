@@ -33,7 +33,7 @@
 
 <body>
 
-	<section id="loading"><span></span></section>
+	<section id="loading"><span><?php echo Asset::img('loading.png', null, array('class' => 'animated spin')); ?></span></section>
 
 
 	<main class="horizontal-box stretch">

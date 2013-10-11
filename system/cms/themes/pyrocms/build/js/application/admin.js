@@ -226,9 +226,9 @@ Pyro.Loading = function(loading) {
 	if (loading == undefined) loading = true;
 
 	if (loading)
-		$('#loading').addClass('animated-fast pulse').fadeIn();
+		$('#loading').addClass('animated-fast pulse').fadeIn(200);
 	else
-		$('#loading').removeClass().fadeOut();
+		$('#loading').removeClass().fadeOut(200);
 }
 
 
