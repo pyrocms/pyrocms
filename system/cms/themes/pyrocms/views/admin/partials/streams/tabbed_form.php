@@ -18,8 +18,8 @@
 	<!-- /.nav.nav-tabs -->
 
 
-	<!-- .panel-body -->
-	<section class="panel-body">
+	<!-- .tab-content.panel-body -->
+	<section class="tab-content panel-body">
 
 		<?php foreach($tabs as $tab): ?>
 
@@ -39,7 +39,7 @@
 								<?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 							</label>
 
-							<div class="input"><?php echo $fields[$field]['input']; ?></div>
+							<?php echo $fields[$field]['input']; ?>
 
 							<?php if( $fields[$field]['instructions'] != '' ): ?>
 								<p class="help-block"><?php echo lang_label($fields[$field]['instructions']); ?></p>
@@ -56,7 +56,7 @@
 		<?php endforeach; ?>
 
 	</section>
-	<!-- .panel-body -->
+	<!-- /.tab-content.panel-body -->
 
 
 	<?php if ($mode == 'edit'): ?>
@@ -66,5 +66,6 @@
 	<div class="panel-footer">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 	</div>
+
 
 <?php echo form_close(); ?>
