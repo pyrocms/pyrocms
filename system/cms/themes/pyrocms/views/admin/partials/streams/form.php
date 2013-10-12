@@ -1,64 +1,52 @@
-<!-- .panel -->
-<section class="panel">
+<?php if ($fields): ?>
 
-	<!-- .panel-content -->
-	<div class="panel-content">
+<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
+<!-- .panel-body -->
+<div class="panel-body">
 
-		<?php if ($fields): ?>
+	<?php foreach ($fields as $field): ?>
 
-		<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+		<div class="form-group <?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
+			<label for="<?php echo $field['input_slug'];?>">
+				<?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
+			</label>
 
-		<div class="form_inputs">
+			<?php echo $field['input']; ?>
 
-			<ul>
-
-			<?php foreach ($fields as $field) { ?>
-
-				<li class="<?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
-					<label for="<?php echo $field['input_slug'];?>"><?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
-
-					<?php if( $field['instructions'] != '' ): ?>
-						<br /><small><?php echo lang_label($field['instructions']); ?></small>
-					<?php endif; ?>
-					</label>
-
-					<div class="input"><?php echo $field['input']; ?></div>
-				</li>
-
-			<?php } ?>
-
-			</ul>
-
+			<?php if( $field['instructions'] != '' ): ?>
+				<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
+			<?php endif; ?>
 		</div>
 
-			<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
+	<?php endforeach; ?>
 
-			<div class="float-right buttons">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
-			</div>
-
-		<?php echo form_close();?>
-
-		<?php else: ?>
-
-		<div class="no_data">
-			<?php
-
-				if (isset($no_fields_message) and $no_fields_message) {
-					echo lang_label($no_fields_message);
-				} else {
-					echo lang('streams:no_fields_msg_first');
-				}
-
-			?>
-		</div><!--.no_data-->
-
-		<?php endif; ?>
+</div>
+<!-- /.panel-body -->
 
 
-	</div>
-	<!-- /.panel-content -->
+<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-</section>
-<!-- /.panel -->
+<div class="panel-footer">
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
+</div>
+
+<?php echo form_close();?>
+
+
+<?php else: ?>
+
+
+<div class="no_data">
+<?php
+
+	if (isset($no_fields_message) and $no_fields_message) {
+		echo lang_label($no_fields_message);
+	} else {
+		echo lang('streams:no_fields_msg_first');
+	}
+
+?>
+</div>
+
+<?php endif; ?>

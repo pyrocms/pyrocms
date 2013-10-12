@@ -1,91 +1,97 @@
-<?php $this->load->view('admin/partials/streams/filters'); ?>
+<!-- .panel-body -->
+<!--<div class="panel-body">-->
 
-<?php if ($entries->count() > 0) { ?>
+	<?php $this->load->view('admin/partials/streams/filters'); ?>
 
-    <table class="table-list" cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
-				<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
-				<?php foreach ($field_names as $field_name): ?>
-					<th><?php echo $field_name; ?></th>
-				<?php endforeach; ?>
-			    <th></th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php foreach ($entries as $entry) { ?>
+	<?php if ($entries->count() > 0): ?>
 
-			<tr>
+		<table class="table no-margin">
+			<thead>
+				<tr>
+					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
+					<?php foreach ($field_names as $field_name): ?>
+						<th><?php echo $field_name; ?></th>
+					<?php endforeach; ?>
+				    <th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($entries as $entry) { ?>
 
-				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
+				<tr>
 
-				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
-				<td>
+					<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
+					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
+					<td>
 
-				<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
+					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
+
+					<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
+							
+						if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
+
+					} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
+
+						<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
+							<?php echo $entry->created_by->username; ?>
+						</a>
+				
+					<?php } else {
+							
+							echo $entry->$view_option;
 						
-					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
+					} ?>
 
-				} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
+					</td>
+					<?php endforeach; endif; ?>
+					<td class="text-right">
 
-					<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
-						<?php echo $entry->created_by->username; ?>
-					</a>
-			
-				<?php } else {
-						
-						echo $entry->$view_option;
-					
-				} ?>
+						<?php
 
-				</td>
-				<?php endforeach; endif; ?>
-				<td class="actions">
+							if (isset($buttons)) {
+								$all_buttons = array();
 
-					<?php
+								foreach ($buttons as $button) {
+									$class = (isset($button['confirm']) and $button['confirm']) ? 'confirm' : 'button';
+									$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
 
-						if (isset($buttons)) {
-							$all_buttons = array();
+									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
 
-							foreach ($buttons as $button) {
-								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
+									// This is kept for backwards compatibility
+									$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
-								$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+									$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
+								}
 
-								// This is kept for backwards compatibility
-								$url = str_replace('-entry_id-', $entry->getKey(), $url);
-
-								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
+								echo implode('&nbsp;', $all_buttons);
+								unset($all_buttons);
 							}
 
-							echo implode('&nbsp;', $all_buttons);
-							unset($all_buttons);
-						}
+						?>
+					</td>
+				</tr>
+			<?php } ?>
+			</tbody>
+	    </table>
 
-					?>
-				</td>
-			</tr>
-		<?php } ?>
-		</tbody>
-    </table>
+		<?php if ($pagination): echo '<div class="panel-footer">'.$pagination['links'].'</div>'; endif; ?>
 
-<?php if ($pagination): echo $pagination['links']; endif; ?>
+	<?php else: ?>
 
-<?php } else { ?>
+		<div class="padding">
+			<?php
 
-<div class="no_data">
-	<?php
+				if (isset($no_entries_message) and $no_entries_message) {
+					echo lang_label($no_entries_message);
+				} else {
+					echo lang('streams:no_entries');
+				}
 
-		if (isset($no_entries_message) and $no_entries_message) {
-			echo lang_label($no_entries_message);
-		} else {
-			echo lang('streams:no_entries');
-		}
+			?>
+		</div><!--.no_data-->
 
-	?>
-</div><!--.no_data-->
+	<?php endif; ?>
 
-<?php } ?>
+<!--</div>-->
+<!-- /.panel-body -->

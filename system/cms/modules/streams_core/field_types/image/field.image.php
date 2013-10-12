@@ -82,17 +82,17 @@ class Field_image extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $form_data)
+	public function pre_save()
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
+		if ( ! isset($_FILES[$this->field->field_slug.'_file']['name']) or ! $_FILES[$this->field->field_slug.'_file']['name'])
 		{
 			// allow dummy as a reset
-			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug])
+			if (isset($this->field->field_slug) and $this->field->field_slug)
 			{
-				return $form_data[$field->field_slug];
+				return $this->field->field_slug;
 			}
 			else
 			{

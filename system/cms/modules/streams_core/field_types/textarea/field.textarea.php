@@ -48,7 +48,8 @@ class Field_textarea extends AbstractField
 		return form_textarea(array(
 			'name'		=> $this->form_slug,
 			'id'		=> $this->form_slug,
-			'value'		=> $value
+			'value'		=> $value,
+			'class'		=> 'form-control',
 		));
 	}
 
