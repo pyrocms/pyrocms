@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Search\Model;
 
 use Pyro\Model\Eloquent;
-use Pyro\Model\Collection;
+use Pyro\Module\Streams_core\Core\Model\Entry;
 
 /**
  * Search Index model
@@ -71,7 +71,7 @@ class Search extends Eloquent
 		ci()->load->library('keywords/keywords');
 
 		// Drop it so we can create a new index
-		static::drop_index($module, $singular, $entry_id);
+		static::dropIndex($module, $singular, $entry_id);
 
 
 		// Get started
@@ -107,6 +107,59 @@ class Search extends Eloquent
 		return static::insertGetId($insert_data);
 	}
 
+	public static function indexEntry(Entry $entry = null, $index_template = array())
+	{
+		if ($entry and ! empty($index_template))
+		{
+			$keys = array(
+				'module', 
+				'singular', 
+				'plural',
+				'title',
+				'description',
+				'keywords',
+				'uri',
+				'cp_entry_uri',
+				'cp_delete_uri',
+			);
+
+			// Set null values for undefined keys
+			foreach ($keys as $key)
+			{
+				$index_template[$key] = isset($index_template[$key])? $index_template[$key] : null;
+			}
+
+			if ( ! $index_template['singular'])
+			{
+				// cannot be null
+				// throw exception
+				return;
+			}
+
+			if ( ! $index_template['plural'])
+			{
+				// cannot be null
+				// throw exception
+				return;
+			}
+
+			return static::index(
+				$index_template['module'],
+				$index_template['singular'],
+				$index_template['plural'],
+				$entry->getKey(),
+				ci()->parser->parse_string($index_template['title'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['description'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['keywords'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['uri'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['cp_edit_uri'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['cp_delete_uri'], $entry->toArray(), true)
+			);
+		}
+
+		return false;
+	}
+
 	/**
 	 * Drop index
 	 *
@@ -121,7 +174,7 @@ class Search extends Eloquent
 	 * @param	int 	$entry_id	The id for this entry
 	 * @return	array
 	 */
-	public static function drop_index($module, $singular, $entry_id){
+	public static function dropIndex($module, $singular, $entry_id){
 		return static::where('module', '=', $module)
 			->where('entry_key', '=', $singular)
 			->where('entry_id', '=', $entry_id)
