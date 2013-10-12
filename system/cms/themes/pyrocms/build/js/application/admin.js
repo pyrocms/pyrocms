@@ -18,7 +18,36 @@ Pyro.Initialize = function() {
 	
 	Pyro.Loading();
 
-	$(document).on('click', 'a[href^="http"][target!="_blank"]', function() { Pyro.Loading(); });
+	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"])', function() { Pyro.Loading(); });
+
+
+	/**
+	 * Mobile Detection
+	 */
+	
+	Pyro.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+	// For development
+	//Pyro.isMobile = true;
+
+
+	/**
+	 * Collapse Tabs
+	 * - For mobiles, collapse tabs to accordian
+	 */
+	
+	if (Pyro.isMobile) {
+		$('.nav.nav-tabs').tabCollapse();
+		$('.nav.nav-tabs').remove(); // This prevents WYSIWYG errors
+		$('.tab-content').remove(); // This prevents WYSIWYG errors
+	}
+
+
+	/**
+	 * Sortable Lists
+	 */
+	
+	$('.sortable').nestable();
 
 
 	/**
@@ -204,6 +233,33 @@ Pyro.Initialize = function() {
 		if ($(e.target).val().length != 0) {
 			Pyro.Search();
 		}
+	});
+
+
+	/**
+	 * Code Editors
+	 */
+	
+	$('[data-editor]').each(function() {
+
+		// Spawn an ID
+		var id = Math.floor(Math.random()*111) + '_' + $(this).attr('data-editor') + '_editor';
+
+		// Get the language
+		var language = $(this).attr('data-editor');
+
+		// Add the ID
+		$(this).attr('data-editor', id).hide().after('<div id="' + id + '" class="editor" style="height: 500px;"></div>');
+
+		// Span an editor
+		var editor = ace.edit(id);
+
+		ace.config.set('basePath', 'system/cms/themes/pyrocms/build/js/plugins/ace/');
+		editor.setTheme('ace/theme/xcode');
+		editor.getSession().setMode('ace/mode/' + language);
+
+		// Set the current value
+		editor.setValue($(this).val());
 	});
 }
 

@@ -2,7 +2,7 @@
 	$(function() {
 
 		// set values for pyro.sort_tree (we'll use them below also)
-		$item_list	= $('ul.sortable');
+		$item_list	= $('ul.dd-list');
 		$url		= 'admin/pages/order';
 		$cookie		= 'open_pages';
 
@@ -23,7 +23,7 @@
 
 			// Load the details box in
 			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id, function(){
-				refresh_sticky_page_details(true);
+				//refresh_sticky_page_details(true);
 			});
 
 			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );

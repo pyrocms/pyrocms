@@ -32,7 +32,7 @@
 		 */
 		-->
 		<li id="dashboard-link">
-			<a href="<?php echo site_url('admin'); ?>" data-hotkey="d" data-follow="yes">
+			<a href="<?php echo site_url('admin'); ?>" data-hotkey="g+d" data-follow="yes">
 				<i class="icon-dashboard"></i>
 
 				<span>

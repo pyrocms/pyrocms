@@ -1,12 +1,25 @@
 <div class="padding">
 
 
-	<section id="page-title">
-		<h1><?php if(isset($template['page_title'])) { echo lang_label($template['page_title']); } ?></h1>
+	<!-- .panel -->
+	<section class="panel panel-default">
+	
+		<!-- .panel-content -->
+		<div class="panel-content">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<?php if(isset($template['page_title'])) { echo lang_label($template['page_title']); } ?>
+				</h3>
+			</div>
+
+			<?php echo $content; ?>
+
+		</div>
+		<!-- /.panel-content -->
+
 	</section>
-
-
-	<?php echo $content; ?>
+	<!-- /.panel -->
 
 
 </div>

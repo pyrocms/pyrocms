@@ -1,33 +1,66 @@
-<div class="one_full">
-	<div class="one_half">
-		<section class="title">
-			<h4><?php echo lang('pages:list_title') ?></h4>
-		</section>
-		
-		<section class="item">
-			<div class="content">
-				<div id="page-list">
-				<ul class="sortable">
-					<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" class="{{ status }}" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
-				</ul>
+<div class="padding">
+
+
+	<!-- .row -->
+	<div class="row">
+	<div class="col-md-6">
+
+			<!-- .panel -->
+			<section class="panel panel-default">
+			
+				<!-- .panel-content -->
+				<div class="panel-content">
+
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<?php echo lang('pages:list_title') ?>
+						</h3>
+					</div>
+					
+					<div id="page-list" class="dd padding">
+						<ul class="dd-list sortable">
+							<?php echo tree_builder($pages, '<li id="page_{{ id }}" class="dd-item dd3-item"><div class="dd-handle dd3-handle">Drag</div><div class="dd3-content"><a href="#" class="{{ status }}" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
+						</ul>
+					</div>
+
 				</div>
-			</div>
-		</section>
-	</div>
-	
-	<div class="one_half last">	
-		<section class="title">
-			<h4><?php echo lang('pages:tree_explanation_title') ?></h4>
-		</section>
-		
-		<section class="item">
-			<div class="content">
-				<div id="page-details">
-					<p>
-						<?php echo lang('pages:tree_explanation') ?>
-					</p>
+				<!-- /.panel-content -->
+
+			</section>
+			<!-- /.panel -->
+
+		</div>
+		<div class="col-md-6">
+
+			<!-- .panel -->
+			<section class="panel panel-default">
+			
+				<!-- .panel-content -->
+				<div class="panel-content">
+
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<?php echo lang('pages:tree_explanation_title') ?>
+						</h3>
+					</div>
+
+					<div id="page-details" class="padding">
+						<p>
+							<?php echo lang('pages:tree_explanation') ?>
+						</p>
+					</div>
+
 				</div>
-			</div>
-		</section>
+				<!-- /.panel-content -->
+
+			</section>
+			<!-- /.panel -->
+
+		</div>
+
 	</div>
+	</div>
+	<!-- /.row -->
+
+
 </div>

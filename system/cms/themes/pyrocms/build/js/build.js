@@ -44,6 +44,7 @@
 //@codekit-append "plugins/nestable.js"
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
+//@codekit-append "plugins/tabcollapse.js"
 //@codekit-append "plugins/typeahead.js"
 //@codekit-append "plugins/zen-form.js"
 

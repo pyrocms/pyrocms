@@ -51,8 +51,6 @@ class Admin extends Admin_Controller
 
             ->append_js('module::index.js')
 
-            ->append_css('module::index.css')
-
             ->set('pages', $pages)
             ->build('admin/index');
     }
@@ -72,30 +70,9 @@ class Admin extends Admin_Controller
             redirect('admin/pages/create?page_type='.$types[0]->id.$parent);
         }
 
-        // Directly output the menu if it's for the modal.
-        // All we need is the <ul>.
-        if ($this->input->is_ajax_request()) {
-            $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
-            $html .= '<ul class="modal_select">';
-
-            foreach ($types as $pt) {
-                $html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
-
-                if (trim($pt->description)) {
-                    $html .= ' | '.$pt->description;
-                }
-
-                $html .= '</a></li>';
-            }
-
-            echo $html .= '</ul>';
-
-            return;
-        }
-
-        // If this is not being displayed in the modal, we can
-        // display an entire page.
+        // Display in a modal
         $this->template
+            ->set_layout('modal')
             ->set('parent', $parent)
             ->set('page_types', $types)
             ->build('admin/choose_type');

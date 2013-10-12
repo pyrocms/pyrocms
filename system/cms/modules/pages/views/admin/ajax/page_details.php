@@ -43,18 +43,18 @@
 </fieldset>
 <?php endif ?>
 
-<div class="buttons">
+<div>
 	<?php
 
 		if ($this->db->count_all('page_types') > 1) {
-			echo anchor('admin/pages/choose_type?modal=true&parent='.$page->id, lang('pages:create_label'), 'class="button modal"');
+			echo anchor('admin/pages/choose_type?modal=true&parent='.$page->id, lang('pages:create_label'), 'class="btn-sm btn-success" data-toggle="modal" data-target="#modal"');
 		} else {
 			$type_id = $this->db->select('id')->limit(1)->get('page_types')->row()->id;
-			echo anchor('admin/pages/create?parent='.$page->id.'&page_type='.$type_id, lang('pages:create_label'), 'class="button"');
+			echo anchor('admin/pages/create?parent='.$page->id.'&page_type='.$type_id, lang('pages:create_label'), 'class="btn-sm btn-success"');
 		}
 
 	?>
-	<?php echo anchor('admin/pages/duplicate/'.$page->id, lang('pages:duplicate_label'), 'class="button"') ?>
-	<?php echo anchor('admin/pages/edit/'.$page->id, lang('global:edit'), 'class="button"') ?>
-	<?php echo anchor('admin/pages/delete/'.$page->id, lang('global:delete'), 'class="confirm button"') ?>
+	<?php echo anchor('admin/pages/duplicate/'.$page->id, lang('pages:duplicate_label'), 'class="btn-sm btn-default"') ?>
+	<?php echo anchor('admin/pages/edit/'.$page->id, lang('global:edit'), 'class="btn-sm btn-warning"') ?>
+	<?php echo anchor('admin/pages/delete/'.$page->id, lang('global:delete'), 'class="confirm btn-sm btn-danger"') ?>
 </div>
