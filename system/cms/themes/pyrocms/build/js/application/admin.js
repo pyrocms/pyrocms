@@ -18,7 +18,15 @@ Pyro.Initialize = function() {
 	
 	Pyro.Loading();
 
-	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"])', function() { Pyro.Loading(); });
+	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"])', function(e) {
+		
+		// Could be opening in a new window
+		if (e.ctrlKey) return true;
+		if (e.altKey) return true;
+		if (e.metaKey) return true;
+
+		Pyro.Loading();
+	});
 
 
 	/**
