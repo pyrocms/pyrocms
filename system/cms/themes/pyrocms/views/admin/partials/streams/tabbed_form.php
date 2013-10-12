@@ -21,9 +21,6 @@
 	<!-- .panel-body -->
 	<section class="panel-body">
 
-
-		<!-- .tab-content -->
-		<div class="tab-content">
 		<?php foreach($tabs as $tab): ?>
 
 			<div class="tab-pane <?php echo array_search($tab, $tabs) == 0 ? 'active' : null; ?>" id="<?php echo $tab['id']; ?>">
@@ -57,9 +54,6 @@
 			</div>
 
 		<?php endforeach; ?>
-		</div>
-		<!-- /.tab-content -->
-
 
 	</section>
 	<!-- .panel-body -->

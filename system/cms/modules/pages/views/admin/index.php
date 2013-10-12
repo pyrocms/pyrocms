@@ -7,15 +7,15 @@
 
 			<!-- .panel -->
 			<section class="panel panel-default">
-			
-				<!-- .panel-content -->
-				<div class="panel-content">
 
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<?php echo lang('pages:list_title') ?>
-						</h3>
-					</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<?php echo lang('pages:list_title') ?>
+					</h3>
+				</div>
+
+				<!-- .panel-body -->
+				<div class="panel-body">
 					
 					<div id="page-list" class="dd padding">
 						<ul class="dd-list sortable">
@@ -24,7 +24,7 @@
 					</div>
 
 				</div>
-				<!-- /.panel-content -->
+				<!-- /.panel-body -->
 
 			</section>
 			<!-- /.panel -->
@@ -35,14 +35,14 @@
 			<!-- .panel -->
 			<section class="panel panel-default">
 			
-				<!-- .panel-content -->
-				<div class="panel-content">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<?php echo lang('pages:tree_explanation_title') ?>
+					</h3>
+				</div>
 
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<?php echo lang('pages:tree_explanation_title') ?>
-						</h3>
-					</div>
+				<!-- .panel-body -->
+				<div class="panel-body">
 
 					<div id="page-details" class="padding">
 						<p>
@@ -51,7 +51,7 @@
 					</div>
 
 				</div>
-				<!-- /.panel-content -->
+				<!-- /.panel-body -->
 
 			</section>
 			<!-- /.panel -->
