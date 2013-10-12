@@ -3,10 +3,10 @@
 // The CP driver is broken down into more logical classes
 
 use Closure;
+use Pyro\Module\Search\Model\Search;
 use Pyro\Module\Streams_core\Data;
 use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Support\AbstractCp;
-use Pyro\Module\Search\Model\Search;
 
 class Entries extends AbstractCp
 {
@@ -333,19 +333,9 @@ class Entries extends AbstractCp
 			$this->fireOnSaved($saved);
 
 			// Automatically index in search?
-			if ($this->index) {
-				Search::index(
-					$this->index['module'],
-					$this->index['singular'],
-					$this->index['plural'],
-					$saved->id,
-					ci()->parser->parse_string($this->index['title'], $saved->toArray(), true),
-					ci()->parser->parse_string($this->index['description'], $saved->toArray(), true),
-					ci()->parser->parse_string($this->index['keywords'], $saved->toArray(), true),
-					ci()->parser->parse_string($this->index['uri'], $saved->toArray(), true),
-					ci()->parser->parse_string($this->index['cp_edit_uri'], $saved->toArray(), true),
-					ci()->parser->parse_string($this->index['cp_delete_uri'], $saved->toArray(), true)
-					);
+			if ($this->index)
+			{
+				Search::indexEntry($saved, $this->index);
 			}
 		
 			if ($this->return)
