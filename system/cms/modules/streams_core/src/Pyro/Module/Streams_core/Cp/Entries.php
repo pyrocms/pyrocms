@@ -10,6 +10,24 @@ use Pyro\Module\Streams_core\Core\Support\AbstractCp;
 class Entries extends AbstractCp
 {
 	/**
+	 * Search index params or false
+	 * @var mixed
+	 */
+	protected $index = false;
+
+	/**
+	 * Set the auto index params or false
+	 * @param  mixed $params $params array or false
+	 * @return object          [description]
+	 */
+	public function index($params = false)
+	{
+		$this->index = $params;
+
+		return $this;
+	}
+
+	/**
 	 * Entries Table
 	 *
 	 * Creates a table of entries.

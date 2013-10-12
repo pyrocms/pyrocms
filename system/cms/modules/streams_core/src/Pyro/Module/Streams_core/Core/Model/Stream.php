@@ -331,10 +331,10 @@ class Stream extends Eloquent
 		$assignment->sort_order = FieldAssignment::getIncrementalSortNumber($this->getKey());
 
 		// Is Required
-		$assignment->is_required = $data['is_required'];
+		$assignment->is_required = isset($data['is_required']) ? $data['is_required'] : false;
 
 		// Unique
-		$assignment->is_unique = $data['is_unique'];
+		$assignment->is_unique = isset($data['is_unique']) ? $data['is_unique'] : false;
 
 		// Return the field assignment or false
 		return $assignment->save();	
