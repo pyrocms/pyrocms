@@ -39,4 +39,8 @@
 		<span class="hidden-xs pull-left"><?php echo $module_details['description'] ?></span>
 	<?php endif; ?>
 
+	<span>
+		<!--<a href="#hotkey-definitions" data-toggle="modal" class="icon-keyboard"></a>-->
+	</span>
+
 </div>

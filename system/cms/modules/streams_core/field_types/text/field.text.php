@@ -38,6 +38,7 @@ class Field_text extends AbstractField
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
+		$options['class'] = 'form-control';
 
 		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
 		{

@@ -45,12 +45,12 @@ class Search extends Eloquent
      *     'blog:post',
      *     'blog:posts',
      *     $id,
-     *     'blog/'.date('Y/m/', $post->created_on).$post->slug,
      *     $post->title,
      *     $post->intro,
+     *     'keywords'       => $post->keywords,
+          *     'blog/'.date('Y/m/', $post->created_on).$post->slug,
      *     'cp_edit_uri'    => 'admin/blog/edit/'.$id,
      *     'cp_delete_uri'  => 'admin/blog/delete/'.$id,
-     *     'keywords'       => $post->keywords,
      *     'group_access'	=> json_encode($ids),
      *     'user_access'	=> json_encode($ids),
      *     );
@@ -66,43 +66,43 @@ class Search extends Eloquent
 	 * @param	array 	$options	Options such as keywords (array or string - hash of keywords) and cp_edit_uri/cp_delete_uri
 	 * @return	array
 	 */
-	public static function index($module, $singular, $plural, $entry_id, $title, $description = null, $keywords = null, $uri, $cp_edit_uri = null, $cp_delete_uri = null, $group_access = null, $user_access = null){
+	public static function index($module, $singular, $plural, $entry_id, $title, $description = null, $keywords = null, $uri = null, $cp_edit_uri = null, $cp_delete_uri = null, $group_access = null, $user_access = null){
 		
 		ci()->load->library('keywords/keywords');
 
 		// Drop it so we can create a new index
 		static::drop_index($module, $singular, $entry_id);
 
+
+		// Get started
 		$insert_data = array();
+
 
 		// Hand over keywords without needing to look them up
 		if ( ! empty($keywords)) {
 			if (is_array($keywords)) {
 				$insert_data['keywords'] = impode(',', $keywords);
-
 			} elseif (is_string($keywords)) {
 				$insert_data['keywords'] = ci()->keywords->get_string($keywords);
 				$insert_data['keywords_hash'] = $keywords;
 			}
 		}
 
-		// Store a link to edit this entry
-		if ( ! empty($cp_edit_uri)) {
-			$insert_data['cp_edit_uri'] = $cp_edit_uri;
-		}
-
-		// Store a link to delete this entry
-		if ( ! empty($cp_delete_uri)) {
-			$insert_data['cp_delete_uri'] = $cp_delete_uri;
-		}
 
 		$insert_data['title'] 			= $title;
 		$insert_data['description'] 	= strip_tags($description);
+
 		$insert_data['module'] 			= $module;
 		$insert_data['entry_key'] 		= $singular;
 		$insert_data['entry_plural'] 	= $plural;
 		$insert_data['entry_id'] 		= $entry_id;
 		$insert_data['uri'] 			= $uri;
+
+		$insert_data['cp_edit_uri'] 	= $cp_edit_uri;
+		$insert_data['cp_delete_uri'] 	= $cp_delete_uri;
+
+		$insert_data['group_access']	= $uri;
+		$insert_data['user_access']		= $uri;
 
 		return static::insertGetId($insert_data);
 	}
@@ -137,6 +137,7 @@ class Search extends Eloquent
 	 * @return	array
 	 */
 	public static function filter($filter){
+		
 		// Filter Logic
 		if (! $filter){
 			return $this;
