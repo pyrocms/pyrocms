@@ -1,5 +1,8 @@
 <div id="search">
-	<div class="search-wrapper">
-		<input type="text" class="search-terms tags" placeholder="e.g. blog:, ^hello*, enabled"/>
-	</div>
+	<section class="search-wrapper">
+		<input type="text" class="search-terms" placeholder="<?php echo lang('cp:search.instructions'); ?>"/>
+		<?php echo lang('cp:search.example'); ?>
+	</section>
+
+	<section id="search-results"></section>
 </div>

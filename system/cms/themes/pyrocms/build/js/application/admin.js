@@ -5,17 +5,12 @@
  */
 
 
-// Get ready to rumble
-Pyro = Ember.Application.create();
-
-
-
 /**
  * Initialize our application
  * - Set up listeners, etc
  */
 
-Pyro.Initialize = function(params) {
+Pyro.Initialize = function() {
 
 	/**
 	 * We're loading
@@ -113,7 +108,7 @@ Pyro.Initialize = function(params) {
 		var href = $(this).attr('href');
 		var removemsg = $(this).attr('title');
 
-		if (confirm(removemsg || params.lang.dialog_message)) {
+		if (confirm(removemsg || Pyro.lang.dialog_message)) {
 			$(this).trigger('click-confirmed');
 
 			if ($.data(this, 'stop-click')){
@@ -133,8 +128,9 @@ Pyro.Initialize = function(params) {
 	
 	$(document).on('keyup', function(e) {
 		
-		// Ignore if we're typing
-		if ($('input, textarea, select').is(':focus')){ return true; }
+		// Ignore if we're typing or selecting something
+		if ($('input, textarea, select').is(':focus')) { return true; }
+		if (window.getSelection() != '') { return true; }
 
 		// Get the character key
 		var key = String.fromCharCode(e.which).toLowerCase();
@@ -171,6 +167,16 @@ Pyro.Initialize = function(params) {
 	 * Search stuff
 	 */
 	
+	$('#search .search-terms').selectize({
+		delimiter: '|',
+		create: function(input) {
+			return {
+				value: input,
+				text: input
+			}
+		}
+	});
+	
 	$(document).on('click', '[data-toggle^="global-search"]', function(e) {
 		e.preventDefault();
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
@@ -181,7 +187,7 @@ Pyro.Initialize = function(params) {
 	$(document).on('click', '[data-toggle^="module-search"]', function(e) {
 		e.preventDefault();
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
-		$('#search .selectize-input input').val(params.current_module + ':').focus();
+		$('#search .selectize-input input').val(Pyro.current_module + ':').focus();
 
 		// Spoof a keypress
 		var e = $.event('keydown');
@@ -193,24 +199,12 @@ Pyro.Initialize = function(params) {
 		$('#search .selectize-input input').trigger(e);
 	});
 
-	/*$('#search .search-terms').typeahead({
-		name: 'twitter-oss',
-		prefetch: 'http://twitter.github.io/typeahead.js/data/repos.json',
-		template: [
-			'<p class="repo-language">{{language}}</p>',
-			'<p class="repo-name">{{name}}</p>',
-			'<p class="repo-description">{{description}}</p>'
-		].join(''),
-		engine: {
-			compile: function(template) {
-				return {
-					render: function(context) {
-						return template.replace(/\{\{(\w+)\}\}/g, function (match,p1) { return context[p1]; });
-					}
-				}
-			}
+	$('#search .search-terms').on('change', function(e) {
+
+		if ($(e.target).val().length != 0) {
+			Pyro.Search();
 		}
-	});*/
+	});
 }
 
 
@@ -287,6 +281,56 @@ Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_
 		$(output_form).val(slug);
 	});
 }
+
+
+/**
+ * Search
+ */
+
+Pyro.Search = function() {
+
+	Pyro.Loading(true);
+
+	$.ajax({
+		type: 'POST',
+		url: BASE_URL + 'admin/search/results',
+		data: {
+			'terms': $('#search input.search-terms').val(),
+			'csrf_hash_name': $.cookie(Pyro.csrf_cookie_name),
+		},
+		dataType: 'JSON',
+		success: function(json) {
+			
+			var results = $('#search-results');
+				
+			results.html('');
+
+			if (json.length != 0) {
+				$.each(json.results, function(i, result) {
+					results.append(
+						'<ul>' +
+							'<li>' +
+								'<a href="' + BASE_URL + result.cp_edit_uri + '"><strong>' + result.title + '</strong></a>' +
+								'<p>' + result.description + '</p>' +
+								'<a href="' + BASE_URL + result.cp_edit_uri + '"><small>' + BASE_URL + result.cp_edit_uri + '</small></a>' +
+							'</li>' +
+						'</ul>'
+						);
+				});
+			}
+
+			Pyro.Loading(false);
+		},
+		error: function function_name () {
+			Pyro.Loading(false);
+		}
+
+	});
+}
+
+
+// Go.
+Pyro.Initialize();
 
 
 $(document).ready(function() {

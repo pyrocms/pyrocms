@@ -52,4 +52,6 @@ $lang['cp:google_analytics_no_connect']	= 'Negalime prisijungti prie Google Anal
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';
 
+$lang['cp:search.instructions']			= 'Type and hit enter to add terms to your search.';
+$lang['cp:search.example']				= 'e.g. module: <i class="icon-level-down"></i> term <i class="icon-level-down"></i> -exlude <i class="icon-level-down"></i> #keyword';
 /* End of file admin_lang.php */

@@ -59,6 +59,8 @@ class Module_Search extends AbstractModule
             $table->string('uri', 255);
             $table->string('cp_edit_uri', 255);
             $table->string('cp_delete_uri', 255);
+            $table->text('group_access')->nullable();
+            $table->text('user_access')->nullable();
 
 			//   FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 

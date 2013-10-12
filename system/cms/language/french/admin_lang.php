@@ -54,4 +54,6 @@ $lang['cp:google_analytics_no_connect'] = 'Impossible de se connecter à Google 
 $lang['required_label'] = 'Requis';
 $lang['sb_recent_users'] = 'Utilisateurs récents';
 
+$lang['cp:search.instructions']			= 'Type and hit enter to add terms to your search.';
+$lang['cp:search.example']				= 'e.g. module: <i class="icon-level-down"></i> term <i class="icon-level-down"></i> -exlude <i class="icon-level-down"></i> #keyword';
 /* End of file admin_lang.php */

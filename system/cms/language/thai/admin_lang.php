@@ -62,4 +62,6 @@ $lang['cp:google_analytics_no_connect']	= 'ไม่สามารถเชื�
 $lang['required_label'] 				= 'ต้องการ';
 $lang['sb_recent_users'] 				= 'ผู้ใช้เมื่อเร็ว ๆ นี้';
 
+$lang['cp:search.instructions']			= 'Type and hit enter to add terms to your search.';
+$lang['cp:search.example']				= 'e.g. module: <i class="icon-level-down"></i> term <i class="icon-level-down"></i> -exlude <i class="icon-level-down"></i> #keyword';
 /* End of file admin_lang.php */

@@ -551,6 +551,7 @@ class Admin extends Admin_Controller
     private function _tabs()
     {
         $form_details       = ci()->load->view('admin/pages/partials/form_details', $this->form_data, true);
+        $form_meta          = ci()->load->view('admin/pages/partials/form_meta', $this->form_data, true);
         $form_css           = ci()->load->view('admin/pages/partials/form_css', $this->form_data, true);
         $form_javascript    = ci()->load->view('admin/pages/partials/form_javascript', $this->form_data, true);
         $form_options       = ci()->load->view('admin/pages/partials/form_options', $this->form_data, true);
@@ -560,6 +561,11 @@ class Admin extends Admin_Controller
                 'title'     => 'Details',
                 'id'        => 'page-details',
                 'content'    => $form_details
+            ),
+            array(
+                'title'     => 'Metadata',
+                'id'        => 'page-meta',
+                'content'    => $form_meta
             ),
             array(
                 'title'     => 'Content',

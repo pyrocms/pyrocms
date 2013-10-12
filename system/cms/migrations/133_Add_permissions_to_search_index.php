@@ -8,7 +8,10 @@ class Migration_Add_permissions_to_search_index extends CI_Migration
 
         // Add the new fields for Sentry
         $schema->table('search_index', function($table) {
-            $table->text('permissions')->nullable();
+            $table->text('group_access')->nullable();
+            $table->text('user_access')->nullable();
+
+            //$table->index(array('group_access', 'user_access'));
         });
     }
 

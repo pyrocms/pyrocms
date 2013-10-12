@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Search\Model\Search;
+
 /**
  * Admin controller for the search module
  *
@@ -20,24 +23,21 @@ class Admin extends Admin_Controller
 	/**
 	 * List all redirects
 	 */
-	public function ajax_autocomplete()
+	public function results()
 	{
-		$query = $this->input->get('term');
-
-		$results = $this->search_index_m
-			->limit(8)
-			->search($query);
+		$terms = $this->input->post('terms');
+		$terms = explode('|', $terms);
+		$results = Search::getResults($terms);
 
 		// Remember which modules have been loaded
 		static $modules = array();
 
-		$output = array();
-
 		// Loop through found results to find extra information
-		foreach ($results as $row) {
+		foreach ($results as &$row) {
+
 			// We only want to load a lang file once
 			if ( ! isset($modules[$row->module])) {
-				if ($this->module_m->exists($row->module)) {
+				if ($this->moduleManager->moduleExists($row->module)) {
 					$this->lang->load("{$row->module}/{$row->module}");
 
 					$modules[$row->module] = true;
@@ -48,15 +48,12 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			$output[] = array(
-				'title' => $row->title,
-				'keywords' => (string) $row->keywords,
-				'url' => site_url($row->cp_edit_uri),
-				'singular' => lang($row->entry_key) ? lang($row->entry_key) : $row->entry_key,
-			);
+			$row->keywords = explode(',', $row->keywords);
+			$row->singular = lang($row->singular) ? lang($row->singular) : $row->singular;
+			$row->plural = lang($row->plural) ? lang($row->plural) : $row->plural;
 		}
 
 		header('Content-Type: application/json');
-		exit(json_encode(array('results' => $output)));
+		exit(json_encode(array('results' => $results->toArray())));
     }
 }

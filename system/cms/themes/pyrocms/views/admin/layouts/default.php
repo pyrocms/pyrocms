@@ -86,13 +86,8 @@
 	<!-- Modal used for Ajax -->
 	<div class="modal fade" id="modal"></div>
 
-	
-	<?php Asset::js('build.min.js', null, 'deferred'); ?>
-
-	<?php echo Asset::render_js('deferred') ?>
-
 	<script type="text/javascript">
-		params = { 'lang' : {} };
+		Pyro = { 'lang': {} };
 
 		var APPPATH_URI					= "<?php echo APPPATH_URI;?>";
 		var SITE_URL					= "<?php echo rtrim(site_url(), '/').'/';?>";
@@ -100,17 +95,18 @@
 		var BASE_URI					= "<?php echo BASE_URI;?>";
 		var UPLOAD_PATH					= "<?php echo UPLOAD_PATH;?>";
 		var DEFAULT_TITLE				= "<?php echo addslashes(Settings::get('site_name')); ?>";
-		params.current_module			= "<?php echo isset($module_details['slug']) ? $module_details['slug'] : null; ?>";
-		params.admin_theme_url			= "<?php echo BASE_URL . ci()->theme->path; ?>";
-		params.apppath_uri				= "<?php echo APPPATH_URI; ?>";
-		params.base_uri					= "<?php echo BASE_URI; ?>";
-		params.lang.remove				= "<?php echo lang('global:remove'); ?>";
-		params.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
-		params.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
-		
-		// Go.
-		Pyro.Initialize(params);
+		Pyro.current_module				= "<?php echo isset($module_details['slug']) ? $module_details['slug'] : null; ?>";
+		Pyro.admin_theme_url			= "<?php echo BASE_URL . ci()->theme->path; ?>";
+		Pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
+		Pyro.base_uri					= "<?php echo BASE_URI; ?>";
+		Pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
+		Pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
+		Pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
 	</script>
+	
+	<?php Asset::js('build.min.js', null, 'deferred'); ?>
+
+	<?php echo Asset::render_js('deferred') ?>
 	
 	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
 	<!--[if lt IE 7 ]>

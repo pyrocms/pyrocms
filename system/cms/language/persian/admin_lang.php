@@ -54,4 +54,6 @@ $lang['cp:google_analytics_no_connect']           = 'اتصال به Google Anal
 $lang['required_label'] 				= 'اجباری';
 $lang['sb_recent_users'] 				= 'کاربران اخیر';
 
+$lang['cp:search.instructions']			= 'Type and hit enter to add terms to your search.';
+$lang['cp:search.example']				= 'e.g. module: <i class="icon-level-down"></i> term <i class="icon-level-down"></i> -exlude <i class="icon-level-down"></i> #keyword';
 /* End of file admin_lang.php */
