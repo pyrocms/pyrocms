@@ -157,11 +157,11 @@ class Search extends Eloquent
 				$index_template['singular'],
 				$index_template['plural'],
 				$entry->getKey(),
-				ci()->parser->parse_string($index_template['title'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['description'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['keywords'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['uri'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['cp_uri'], $entry->toArray(), true),
+				ci()->parser->parse_string($index_template['title'], array('entry' => $entry->toArray(), 'post' => $_POST), true),
+				ci()->parser->parse_string($index_template['description'], array('entry' => $entry->toArray(), 'post' => $_POST), true),
+				ci()->parser->parse_string($index_template['keywords'], array('entry' => $entry->toArray(), 'post' => $_POST), true),
+				ci()->parser->parse_string($index_template['uri'], array('entry' => $entry->toArray(), 'post' => $_POST), true),
+				ci()->parser->parse_string($index_template['cp_uri'], array('entry' => $entry->toArray(), 'post' => $_POST), true),
 				$index_template['group_access'],
 				$index_template['user_access']
 			);
