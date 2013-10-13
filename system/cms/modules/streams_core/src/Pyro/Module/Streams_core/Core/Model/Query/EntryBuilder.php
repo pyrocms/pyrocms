@@ -22,7 +22,7 @@ class EntryBuilder extends Builder
 
 		
 		// -------------------------------------
-		// Filter API
+		// Filters (QueryString API)
 		// -------------------------------------
 
 		if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
@@ -64,6 +64,21 @@ class EntryBuilder extends Builder
 				}
 			}
 		}
+
+
+		// -------------------------------------
+		// Ordering / Sorting (QueryString API)
+		// -------------------------------------
+
+		if (ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+			if (ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+				$this->orderBy(ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug), ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug));
+			} else {
+				$this->orderBy(ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug), 'ASC');
+			}
+		}
+
+
 
 		/* Now check for advanced filters
 		if (ci()->input->get('f-'.$instance->data->stream->stream_slug.'-filter'))

@@ -761,7 +761,7 @@ class Entry extends EntryOriginal
 
         foreach ($this->getViewOptions() as $column)
         {
-            $field_names[] = isset($fields[$column]) ? $fields[$column]->field_name : lang('streams:column_'.$column); 
+            $field_names[$fields[$column]->field_slug] = isset($fields[$column]) ? $fields[$column]->field_name : lang('streams:column_'.$column); 
         }
 
         return $field_names;
