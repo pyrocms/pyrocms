@@ -374,9 +374,9 @@ Pyro.Search = function() {
 					results.append(
 						'<ul>' +
 							'<li>' +
-								'<a href="' + BASE_URL + result.cp_edit_uri + '"><strong>' + result.title + '</strong></a>' +
+								'<a href="' + BASE_URL + result.cp_uri + '"><strong>' + result.title + '</strong></a>' +
 								'<p>' + result.description + '</p>' +
-								'<a href="' + BASE_URL + result.cp_edit_uri + '"><small>' + BASE_URL + result.cp_edit_uri + '</small></a>' +
+								'<a href="' + BASE_URL + result.cp_uri + '"><small>' + BASE_URL + result.cp_uri + '</small></a>' +
 							'</li>' +
 						'</ul>'
 						);
