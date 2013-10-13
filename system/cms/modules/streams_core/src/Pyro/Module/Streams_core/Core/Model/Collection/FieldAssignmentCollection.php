@@ -26,12 +26,14 @@ class FieldAssignmentCollection extends EloquentCollection
 	 * Get a field collection from the assignment collection
 	 * @return array
 	 */
-	public function getFields()
+	public function getFields($stream = null)
 	{
 		$fields = array();
 
 		foreach ($this->items as $assignment)
 		{
+			$assignment->field->setStream($stream);
+
 			$fields[] = $assignment->field;
 		}
 
