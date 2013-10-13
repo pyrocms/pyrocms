@@ -43,11 +43,11 @@ class Admin extends Admin_Controller
         $this->_index_template = array(
             'singular' => 'pages:page',
             'plural' => 'pages:pages',
-            'title' => '{{ title }}',
-            'description' => '{{ meta_description }}',
-            'keywords' => '{{ meta_keywords }}',
-            'uri' => '{{ uri }}',
-            'cp_uri' => 'admin/pages/edit/{{ id }}',
+            'title' => '{{ post:title }}',
+            'description' => '{{ post:meta_description }}',
+            'keywords' => '{{ post:meta_keywords }}',
+            'uri' => '{{ post:uri }}',
+            'cp_uri' => 'admin/pages/edit/{{ entry:id }}',
             'group_access' => null,
             'user_access' => null
             );
@@ -347,6 +347,10 @@ class Admin extends Admin_Controller
 
         Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
             ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
+            ->onSaving(function($entry) use ($page)
+            {
+                if ($_POST) $_POST['uri'] = $page->uri;
+            })
             ->onSaved(function($entry) use ($page)
             {
                 $page->entry()->associate($entry); // Save the relation Eloquent style
@@ -498,6 +502,10 @@ class Admin extends Admin_Controller
         }
 
         $cp->tabs($this->_tabs())
+            ->onSaving(function($entry) use ($page)
+            {
+                if ($_POST) $_POST['uri'] = $page->uri;
+            })
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
             ->index($this->_index_template)

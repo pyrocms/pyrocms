@@ -114,11 +114,11 @@ class Admin extends Admin_Controller
         $this->_index_template = array(
             'singular' => 'blog:post',
             'plural' => 'blog:posts',
-            'title' => '{{ title }}',
-            'description' => '{{ body }}',
-            'keywords' => '{{ meta_keywords }}',
-            'uri' => 'blog/{{ helper:date format="Y/m/" timestamp=created_on }}{{ slug }}',
-            'cp_uri' => 'admin/blog/edit/{{ id }}',
+            'title' => '{{ post:title }}',
+            'description' => '{{ entry:body }}',
+            'keywords' => '{{ post:meta_keywords }}',
+            'uri' => '{{ post:uri }}',
+            'cp_uri' => 'admin/blog/edit/{{ entry:id }}',
             'group_access' => null,
             'user_access' => null
             );
@@ -288,6 +288,9 @@ class Admin extends Admin_Controller
 
 		Cp\Entries::form('blog', 'blogs')
             ->tabs($tabs)
+            ->onSaving(function($entry) {
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
+            })
             ->enablePost($enable_entry_post = true) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
             ->redirect('admin/blog')
@@ -435,6 +438,9 @@ class Admin extends Admin_Controller
 
 		Cp\Entries::form('blog', 'blogs', $id)
             ->tabs($tabs)
+            ->onSaving(function($entry) {
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
+            })
             ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
             ->redirect('admin/blog')
