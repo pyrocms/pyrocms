@@ -35,7 +35,22 @@ class Admin extends Admin_Controller
         $this->lang->load('pages');
         $this->lang->load('page_types');
 
-        $this->load->driver('Streams');
+        /**
+         * Search Index Template
+         * - Autoindex this shit
+         */
+        
+        $this->_index_template = array(
+            'singular' => 'pages:page',
+            'plural' => 'pages:pages',
+            'title' => '{{ title }}',
+            'description' => '{{ meta_description }}',
+            'keywords' => '{{ meta_keywords }}',
+            'uri' => '{{ uri }}',
+            'cp_uri' => 'admin/pages/edit/{{ id }}',
+            'group_access' => null,
+            'user_access' => null
+            );
     }
 
     /**
@@ -231,7 +246,7 @@ class Admin extends Admin_Controller
             $duplicate_page->entry()->associate($duplicate_entry);
         }
         
-        $duplicate_page->save();
+        $duplicate_page->index($this->_index_template)->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
         // $this->streams_m->get_stream($duplicate_page['stream_id']);
@@ -366,6 +381,7 @@ class Admin extends Admin_Controller
             ->tabs($this->_tabs())
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
+            ->index($this->_index_template)
             ->render();
     }
 
@@ -510,6 +526,7 @@ class Admin extends Admin_Controller
         $cp->tabs($this->_tabs())
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
+            ->index($this->_index_template)
             ->render();
     }
 

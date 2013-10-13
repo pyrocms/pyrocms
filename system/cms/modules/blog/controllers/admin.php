@@ -105,6 +105,25 @@ class Admin extends Admin_Controller
 			->set('categories', $_categories)
 			->append_css('module::blog.css');
 
+
+		/**
+         * Search Index Template
+         * - Autoindex this shit
+         */
+        
+        $this->_index_template = array(
+            'singular' => 'blog:post',
+            'plural' => 'blog:posts',
+            'title' => '{{ title }}',
+            'description' => '{{ body }}',
+            'keywords' => '{{ meta_keywords }}',
+            'uri' => 'blog/{{ helper:date format="Y/m/" timestamp=created_on }}{{ slug }}',
+            'cp_uri' => 'admin/blog/edit/{{ id }}',
+            'group_access' => null,
+            'user_access' => null
+            );
+
+
 		// we need this for our manual view below
 		$this->_categories = $_categories;
 		$this->_hours = $hours;
@@ -274,6 +293,7 @@ class Admin extends Admin_Controller
             ->enablePost($enable_entry_post = true) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
             ->redirect('admin/blog')
+            ->index($this->_index_template)
             ->render();
 
 		/*$this->template
@@ -420,6 +440,7 @@ class Admin extends Admin_Controller
             ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
             ->redirect('admin/blog')
+            ->index($this->_index_template)
             ->render();
 
 		/*$this->template
