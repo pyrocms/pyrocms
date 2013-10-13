@@ -6,7 +6,7 @@
 
 			<div class="form-group">
 				<!--<label for="exampleInputEmail2">Email address</label>-->
-				<input type="text" name="f-<?php echo $stream->stream_namespace; ?>-<?php echo $stream->stream_slug; ?>-contains-<?php echo $stream_fields->findBySlug($filter)->field_slug; ?>" value="<?php echo $this->input->get('f-'.$stream->stream_namespace.'-'.$stream->stream_slug.'-contains-'.$stream_fields->findBySlug($filter)->field_slug); ?>" class="form-control" placeholder="<?php echo $stream_fields->findBySlug($filter)->field_name; ?>">
+				<?php echo $stream_fields->findBySlug($filter)->getFilterOutput(); ?>
 			</div>
 
 		<?php endforeach; ?>

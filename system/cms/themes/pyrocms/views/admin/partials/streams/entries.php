@@ -12,8 +12,48 @@
 			<thead>
 				<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
-					<?php foreach ($field_names as $field_name): ?>
-						<th><?php echo $field_name; ?></th>
+					<?php foreach ($field_names as $field_slug=>$field_name): ?>
+					<?php
+
+						// Get our query string
+						$query_string = array();
+
+						// Parse it into above array
+						parse_str($_SERVER['QUERY_STRING'], $query_string);
+
+						$original_query_string = $query_string;
+
+						// Set the order slug
+						$query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] = $field_slug;
+
+						// Set the sort string
+						$query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] = 
+							isset($query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug])
+								? ($query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC'
+									? 'DESC'
+									: 'ASC')
+								: 'ASC';
+
+						// Determine our caret for this item
+						$caret = false;
+
+						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $field_slug)
+							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
+								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
+									$caret = 'icon-caret-up';
+								else
+									$caret = 'icon-caret-down';
+							else
+								$caret = 'icon-caret-up';
+
+						?>
+						<th>
+							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
+								<?php echo $field_name; ?>
+								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
+							</a>
+						</th>
+
 					<?php endforeach; ?>
 				    <th></th>
 				</tr>

@@ -439,6 +439,22 @@ abstract class AbstractField
 		return false;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get filter output for a field type
+	 * @return string The input HTML
+	 */
+	public function getFilterOutput()
+	{
+		if (method_exists($this, 'filterOutput'))
+		{
+			return $this->filterOutput();
+		}
+
+		return '<input type="text" name="f-'.$this->getFormSlugPrefix.'contains-'.$this->field_slug.'" value="'.ci()->input->get('f-'.$this->getFormSlugPrefix.'contains-'.$this->field_slug).'" class="form-control" placeholder="'.$this->field_name.'">';
+	}
+
 	/**
 	 * Get is new property
 	 * @return bool
