@@ -4,8 +4,7 @@ class Migration_Improve_search_index extends CI_Migration
 {
     public function up()
     {
-        $schema = ci()->pdb->getSchemaBuilder();
-        $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+        $schema = $this->pdb->getSchemaBuilder();
 
         // Add the new fields for Sentry
         $schema->table('search_index', function($table) {
@@ -17,12 +16,13 @@ class Migration_Improve_search_index extends CI_Migration
             // Add the scope
             $table->string('scope')->after('module');
 
-            // Rename cp_edit_uri to just cp_uri
-            $table->renameColumn('cp_edit_uri', 'cp_uri');
-
             // Drop cp_delete_uri - aint nobody got time for that
             $table->dropColumn('cp_delete_uri');
         });
+
+        // Rename cp_edit_uri to just cp_uri
+        //$table->renameColumn('cp_edit_uri', 'cp_uri');
+        ci()->pdb->raw('ALTER TABLE `'.SITE_REF.'_search_index` CHANGE `cp_edit_uri` `cp_uri`');
     }
 
     public function down()
