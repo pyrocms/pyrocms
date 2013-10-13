@@ -313,6 +313,12 @@ class Entries extends AbstractCp
 	public function renderForm()
 	{
 		$this->fireOnSaving($this->entry);
+		
+		// Automatically index in search?
+		if ($this->index)
+		{
+			$this->entry->setSearchIndexTemplate($this->index);
+		}
 
 		$this->form = $this->entry->newFormBuilder();
 		$this->form->setDefaults($this->defaults);
@@ -331,12 +337,6 @@ class Entries extends AbstractCp
 		if ($saved = $this->form->result() and $this->enable_post)
 		{
 			$this->fireOnSaved($saved);
-
-			// Automatically index in search?
-			if ($this->index)
-			{
-				Search::indexEntry($saved, $this->index);
-			}
 		
 			if ($this->return)
 			{
