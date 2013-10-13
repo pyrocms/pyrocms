@@ -56,6 +56,7 @@ class Field_image extends AbstractField
 		ci()->load->config('files/files');
 
 		$out = '';
+		
 		// if there is content and it is not dummy or cleared
 		if ($this->value and $this->value != 'dummy')
 		{
@@ -82,17 +83,17 @@ class Field_image extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $form_data)
+	public function pre_save()
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
+		if ( ! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name'])
 		{
 			// allow dummy as a reset
-			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug])
+			if (isset($this->form_slug) and $this->form_slug)
 			{
-				return $form_data[$field->field_slug];
+				return $this->form_slug;
 			}
 			else
 			{
@@ -103,9 +104,9 @@ class Field_image extends AbstractField
 		ci()->load->library('files/files');
 
 		// Resize options
-		$resize_width 	= (isset($field->field_data['resize_width'])) ? $field->field_data['resize_width'] : null;
-		$resize_height 	= (isset($field->field_data['resize_height'])) ? $field->field_data['resize_height'] : null;
-		$keep_ratio 	= (isset($field->field_data['keep_ratio']) and $field->field_data['keep_ratio'] == 'yes') ? true : false;
+		$resize_width 	= $this->getParameter('resize_width', null);
+		$resize_height 	= $this->getParameter('resize_height', null);
+		$keep_ratio 	= $this->getParameter('keep_ratio', false);
 
 		// If you don't set allowed types, we'll set it to allow all.
 		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
