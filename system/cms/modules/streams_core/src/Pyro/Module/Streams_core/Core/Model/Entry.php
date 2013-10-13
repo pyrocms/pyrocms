@@ -546,12 +546,12 @@ class Entry extends EntryOriginal
 
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
-        if ($this->search_index_template)
+        if ($saved = parent::save($options) and $this->search_index_template)
         {
             Search::indexEntry($this, $this->search_index_template);
         }
 
-        return parent::save($options);
+        return $saved;
     }
 
     /**
@@ -560,7 +560,7 @@ class Entry extends EntryOriginal
      */
     public function delete()
     {
-        $stream->$this->getStream();
+        $stream = $this->getStream();
 
         if ( ! $search_index_module = $this->getModuleSlug())
         {
