@@ -1,6 +1,8 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Pyro\Model\Eloquent;
+use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Addons\Model\ModuleModel;
 use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
@@ -89,6 +91,12 @@ class Entry extends EntryOriginal
      * @var boolean
      */
     protected $enable_field_relations = false;
+
+    /**
+     * Search index template
+     * @var mixed The configuration array or false
+     */
+    protected $search_index_template = false;
 
     /**
      * Plugin values
@@ -401,6 +409,17 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Set search index template
+     * @param mixed $search_index_template
+     */
+    public function setSearchIndexTemplate($search_index_template = false)
+    {
+        $this->search_index_template = $search_index_template;
+
+        return $this;
+    }
+
+    /**
      * Save a new model and return the instance.
      *
      * @param  array  $attributes
@@ -527,9 +546,77 @@ class Entry extends EntryOriginal
 
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
-        return parent::save();
+        if ($this->search_index_template)
+        {
+            Search::indexEntry($this, $this->search_index_template);
+        }
+
+        return parent::save($options);
     }
 
+    /**
+     * Delete de model
+     * @return boolean
+     */
+    public function delete()
+    {
+        $stream->$this->getStream();
+
+        if ( ! $search_index_module = $this->getModuleSlug())
+        {
+            $search_index_module = $this->getStream()->stream_namespace;
+        }
+
+        $search_index_scope = $this->getStreamTypeSlug();
+
+        Search::dropIndex($search_index_module, $search_index_scope, $this->getKey());
+
+        return parent::delete();
+    }
+
+    /**
+     * Get model slug
+     * @return string
+     */
+    public function getModuleSlug()
+    {
+        $module = false;
+
+        $entry_class = get_called_class();
+
+        // Try to figure out if the module from an extended entry model
+        if ($entry_class != 'Pyro\Module\Streams_core\Core\Model\Entry')
+        {
+            $folders = explode($entry_class, '\\');
+
+            $module = isset($folders[2]) ? strtolower($folders[2]) : null;
+
+            // Check if this module exists, set to null if it doesn't
+            if ( ! ModuleModel::moduleExists($module))
+            {
+                $module = false;
+            }
+        }
+
+        return $module;
+    }
+
+    /**
+     * Get stream type slug
+     * @return string
+     */
+    public function getStreamTypeSlug()
+    {
+        $stream = $this->getStream();
+
+        return $stream->stream_slug.'.'.$stream->stream_namespace;
+    }
+
+    /**
+     * Update ordering count
+     * @param  int $ordering_count
+     * @return boolean
+     */
     public function updateOrderingCount($ordering_count = null)
     {
         return $this->where($this->getKeyName(), $this->getKey())->update(array('ordering_count' => $ordering_count));
