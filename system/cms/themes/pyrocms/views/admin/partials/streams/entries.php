@@ -1,13 +1,12 @@
 <!-- .panel-body -->
 <!--<div class="panel-body">-->
 
+	<?php if (! empty($filters)): ?>
+		<?php $this->load->view('admin/partials/streams/filters'); ?>
+	<?php endif; ?>
+
+
 	<?php if ($entries->count() > 0): ?>
-
-		
-		<?php if (! empty($filters)): ?>
-			<?php $this->load->view('admin/partials/streams/filters'); ?>
-		<?php endif; ?>
-
 
 		<table class="table no-margin">
 			<thead>

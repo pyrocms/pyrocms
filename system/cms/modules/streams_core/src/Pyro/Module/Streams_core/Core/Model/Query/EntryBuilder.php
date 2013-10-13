@@ -15,9 +15,137 @@ class EntryBuilder extends Builder
 	 */
 	public function get($columns = array('*'), $exclude = false)
 	{
+		// Get set up with our environment
 		$this->stream = $this->model->getStream();
 		$this->fields = $this->model->getFields();
 		$this->table = $this->model->getTable();
+
+		
+		// -------------------------------------
+		// Filter API
+		// -------------------------------------
+
+		if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+
+			// Get all URL variables
+			$query_string_variables = ci()->input->get();
+
+			// Loop and process!
+			foreach ($query_string_variables as $filter => $value) {
+				
+				// Split into components
+				$commands = explode('-', $filter);
+
+				// Filter?
+				if ($commands[0] != 'f') continue;
+
+				// Only filter our current namespace / stream
+				if ($commands[1] != $this->stream->stream_namespace) continue;
+				if ($commands[2] != $this->stream->stream_slug) continue;
+
+				// Switch on the restriction
+				switch ($commands[3]) {
+					
+					/**
+					 * CONTAINS
+					 * - Using LIKE '%value%'
+					 */
+					case 'contains':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[4], 'LIKE', '%'.$value.'%');
+						break;
+					
+
+					default: break;
+				}
+			}
+		}
+
+		/* Now check for advanced filters
+		if (ci()->input->get('f-'.$instance->data->stream->stream_slug.'-filter'))
+		{
+			// Get all URL variables
+			$query_string_variables = ci()->input->get();
+
+			// Loop and process
+			foreach ($query_string_variables['f-'.$instance->data->stream->stream_slug.'-filter'] as $k => $filter)
+			{
+				// -------------------------------------
+				// NICE! Now figure out the condition
+				// -------------------------------------
+				// is
+				// isnot
+				// contains
+				// doesnotcontain
+				// startswith
+				// endswith
+				// isempty
+				// isnotempty
+				// ........ To be continued
+				// -------------------------------------
+
+				$value = urldecode($query_string_variables['f-'.$stream->stream_slug.'-value'][$k]);
+
+				// We really need a value unless it's a couple of specific cases
+				if (empty($value) and ! in_array($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k], array('isempty', 'isnotempty'))) continue;
+
+
+				// What are we doing?
+				switch ($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k])
+				{
+
+					case 'is':
+
+						// Referencing another field?
+						if (substr($value, 0, 2) == '${')
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.trim(substr($value, 2, -1)));
+						}
+						else
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
+						}
+						break;
+
+					case 'isnot':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.$value.'"';
+						break;
+
+					case 'contains':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'%"';
+						break;
+
+					case 'doesnotcontain':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.$value.'%"';
+						break;
+
+					case 'startswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "'.$value.'%"';
+						break;
+
+					case 'endswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'"';
+						break;
+
+					case 'isempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NULL OR '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "") ';
+						break;
+
+					case 'isnotempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NOT NULL AND '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "") ';
+						break;
+					
+					default:
+						// is
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.$value.'"';
+						break;
+				}
+			}
+		}*/
 
 		if ($exclude)
 		{
