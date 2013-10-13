@@ -1,58 +1,24 @@
-<?php if ( $filters != null ): ?>
-<fieldset id="filters">
+<section class="filters padding margin-top margin-bottom">
 
-	<legend><?php echo lang('global:filters'); ?></legend>
+	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
 
-	<?php echo form_open('', array('method' => 'get')); ?>
+		<?php foreach ($filters as $filter): ?>
 
-	<ul>  
-		<?php foreach ( $filters as $params ): ?>
-			<li>
-				<?php
-
-					$name = 'f-';
-
-					// Build the name
-					if (isset($params['not']) and $params['not']) $name .= 'not-';
-					if (isset($params['exact']) and $params['exact']) $name .= 'exact-';
-
-					$name .= $params['field'];
-
-
-					// Get the value
-					$value = end(explode('-', $this->input->get($name)));
-
-
-					// Dropdown type
-					echo '<label>'.lang_label(isset($params['label']) ? $params['label'] : humanize($params['field'])).':&nbsp;</label>';
-
-					if ( isset($params['options']) )
-					{
-						echo form_dropdown(
-							$name,
-							$params['options'],
-							$value
-							);
-					}
-					else
-					{
-						echo form_input(
-							$name,
-							$value
-							);
-					}
-
-				?>
-			</li>
-		<?php endforeach; ?>
-
-		<li>
-			<div class="buttons">
-				<?php echo form_submit('filter-'.$stream->stream_slug, lang('buttons:filter'), 'class="button"'); ?>
-				<?php echo anchor(current_url(), lang('buttons:clear'), 'class="button"'); ?>
+			<div class="form-group">
+				<!--<label for="exampleInputEmail2">Email address</label>-->
+				<input type="text" name="f-<?php echo $stream->stream_namespace; ?>-<?php echo $stream->stream_slug; ?>-contains-<?php echo $stream_fields->findBySlug($filter)->field_slug; ?>" value="<?php echo $this->input->get('f-'.$stream->stream_namespace.'-'.$stream->stream_slug.'-contains-'.$stream_fields->findBySlug($filter)->field_slug); ?>" class="form-control" placeholder="<?php echo $stream_fields->findBySlug($filter)->field_name; ?>">
 			</div>
-		</li>
-	</ul>
+
+		<?php endforeach; ?>
+		
+		<div class="form-group">
+			<!--<label>&nbsp;</label>-->
+			<div>
+				<button class="btn btn-success"><?php echo lang('buttons:filter'); ?></button>
+				<a class="btn btn-default" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
+			</div>
+		</div>
+
 	<?php echo form_close(); ?>
-</fieldset>
-<?php endif; ?>
+
+</section>

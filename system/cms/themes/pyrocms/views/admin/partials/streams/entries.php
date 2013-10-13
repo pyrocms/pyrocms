@@ -1,9 +1,13 @@
 <!-- .panel-body -->
 <!--<div class="panel-body">-->
 
-	<?php $this->load->view('admin/partials/streams/filters'); ?>
-
 	<?php if ($entries->count() > 0): ?>
+
+		
+		<?php if (! empty($filters)): ?>
+			<?php $this->load->view('admin/partials/streams/filters'); ?>
+		<?php endif; ?>
+
 
 		<table class="table no-margin">
 			<thead>
@@ -75,7 +79,11 @@
 			</tbody>
 	    </table>
 
-		<?php if ($pagination): echo '<div class="panel-footer">'.$pagination['links'].'</div>'; endif; ?>
+	    <div class="panel-footer">
+			
+			<?php if ($pagination) echo $pagination['links']; ?>
+
+		</div>
 
 	<?php else: ?>
 
