@@ -53,16 +53,16 @@ class Module_Search extends AbstractModule
             $table->text('keywords')->fulltext();
             $table->text('keywords_hash');
             $table->string('module', 40);
-            $table->string('entry_key', 100);
+            $table->string('scope', 100);
+            $table->string('entry_single', 100);
             $table->string('entry_plural', 100);
             $table->string('entry_id', 255);
             $table->string('uri', 255);
-            $table->string('cp_edit_uri', 255);
-            $table->string('cp_delete_uri', 255);
+            $table->string('cp_uri', 255);
 
 			//   FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 
-            $table->unique(array('module', 'entry_key', 'entry_id'));
+            $table->unique(array('module', 'scope', 'entry_id'));
         });
 
 		ci()->load->model('search/search_index_m');
