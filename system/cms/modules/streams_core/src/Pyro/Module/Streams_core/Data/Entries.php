@@ -45,7 +45,7 @@ class Entries extends AbstractData
 	 */
 	public static function delete($stream_slug, $stream_namespace = null, $id = null)
 	{
-		$entry = static::getEntry($id, $stream_slug, $stream_namespace, $id);
+		$entry = static::getEntry($stream_slug, $stream_namespace, $id);
 
 		return $entry->delete();
 	}
