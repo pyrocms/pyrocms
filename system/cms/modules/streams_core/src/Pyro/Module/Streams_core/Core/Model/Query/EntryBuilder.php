@@ -47,8 +47,50 @@ class EntryBuilder extends Builder
 				switch ($commands[4]) {
 					
 					/**
+					 * IS
+					 * results in: filter = value
+					 */
+					case 'is':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], '=', $value);
+						break;
+
+
+					/**
+					 * ISNOT
+					 * results in: filter != value
+					 */
+					case 'isnot':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], '!=', $value);
+						break;
+
+
+					/**
+					 * ISNOT
+					 * results in: filter != value
+					 */
+					case 'isnot':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], '!=', $value);
+						break;
+					
+
+					/**
 					 * CONTAINS
-					 * - Using LIKE '%value%'
+					 * results in: filter LIKE '%value%'
 					 */
 					case 'contains':
 						
@@ -61,18 +103,69 @@ class EntryBuilder extends Builder
 
 
 					/**
-					 * EXACT
-					 * - Using = value
+					 * DOESNOTCONTAIN
+					 * results in: filter NOT LIKE '%value%'
 					 */
-					case 'exact':
+					case 'doesnotcontain':
 						
 						// Gotta have a value for this one
 						if (empty($value)) continue;
 
 						// Do it
-						$this->where($commands[3], '=', $value);
+						$this->where($commands[3], 'NOT LIKE', '%'.$value.'%');
 						break;
-					
+
+
+					/**
+					 * STARTSWITH
+					 * results in: filter LIKE 'value%'
+					 */
+					case 'startswith':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], 'LIKE', $value.'%');
+						break;
+
+
+					/**
+					 * ENDSWITH
+					 * results in: filter LIKE '%value'
+					 */
+					case 'endswith':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], 'LIKE', '%'.$value);
+						break;
+
+
+					/**
+					 * ISEMPTY
+					 * results in: (filter IS NULL OR filter = '')
+					 */
+					case 'isempty':
+						
+						$this->where(function($query) use ($commands, $value) {
+							$query->where($commands[3], 'IS', 'NULL');
+							$query->orWhere($commands[3], '=', '');
+						});
+						break;
+
+
+					/**
+					 * ISNOTEMPTY
+					 * results in: filter > '')
+					 */
+					case 'isnotempty':
+						
+						$this->where($commands[3], '>', '');
+						break;
+
 
 					default: break;
 				}
@@ -93,88 +186,6 @@ class EntryBuilder extends Builder
 		}
 
 
-
-		/* Now check for advanced filters
-		if (ci()->input->get('f-'.$instance->data->stream->stream_slug.'-filter'))
-		{
-			// Get all URL variables
-			$query_string_variables = ci()->input->get();
-
-			// Loop and process
-			foreach ($query_string_variables['f-'.$instance->data->stream->stream_slug.'-filter'] as $k => $filter)
-			{
-				// -------------------------------------
-				// NICE! Now figure out the condition
-				// -------------------------------------
-				// is
-				// isnot
-				// contains
-				// doesnotcontain
-				// startswith
-				// endswith
-				// isempty
-				// isnotempty
-				// ........ To be continued
-				// -------------------------------------
-
-				$value = urldecode($query_string_variables['f-'.$stream->stream_slug.'-value'][$k]);
-
-				// We really need a value unless it's a couple of specific cases
-				if (empty($value) and ! in_array($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k], array('isempty', 'isnotempty'))) continue;
-
-
-				// What are we doing?
-				switch ($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k])
-				{
-
-					case 'is':
-
-						// Referencing another field?
-						if (substr($value, 0, 2) == '${')
-						{
-							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.trim(substr($value, 2, -1)));
-						}
-						else
-						{
-							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
-						}
-						break;
-
-					case 'isnot':
-						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.$value.'"';
-						break;
-
-					case 'contains':
-						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'%"';
-						break;
-
-					case 'doesnotcontain':
-						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.$value.'%"';
-						break;
-
-					case 'startswith':
-						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "'.$value.'%"';
-						break;
-
-					case 'endswith':
-						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'"';
-						break;
-
-					case 'isempty':
-						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NULL OR '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "") ';
-						break;
-
-					case 'isnotempty':
-						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NOT NULL AND '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "") ';
-						break;
-					
-					default:
-						// is
-						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.$value.'"';
-						break;
-				}
-			}
-		}*/
 
 		if ($exclude)
 		{
