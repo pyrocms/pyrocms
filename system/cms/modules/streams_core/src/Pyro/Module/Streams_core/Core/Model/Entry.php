@@ -401,6 +401,19 @@ class Entry extends EntryOriginal
     }
 
     /**
+     * Save a new model and return the instance.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public static function create(array $attributes = null)
+    {
+        static::$instance->fill($attributes)->save();
+
+        return static::$instance;
+    }
+
+    /**
      * Save the model to the database.
      *
      * @param  array  $options
