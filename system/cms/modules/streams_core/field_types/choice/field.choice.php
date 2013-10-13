@@ -155,7 +155,7 @@ class Field_choice extends AbstractField
 		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 		
 		// If this is a new input, we need to use the default value or go null
-		$value = ci()->input->get($this->getFilterSlug('exact'));
+		$value = ci()->input->get($this->getFilterSlug('is'));
 
 		if ($choice_type == 'dropdown')
 		{
@@ -166,7 +166,7 @@ class Field_choice extends AbstractField
 			// always a string, and the choices
 			// are just in an array from the field.
 			// -------------------------------
-			return form_dropdown($this->getFilterSlug('exact'), $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
+			return form_dropdown($this->getFilterSlug('is'), $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
 		}	
 		else
 		{
