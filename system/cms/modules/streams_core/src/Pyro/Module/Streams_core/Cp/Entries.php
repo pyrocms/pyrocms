@@ -69,13 +69,11 @@ class Entries extends AbstractCp
 
 		$instance->data->stream = $instance->model->getStream();
 
-  		$instance->fields = $instance->model->getFields();
+  		$instance->data->stream_fields = $instance->model->getFields();
 
-  		$instance->field_slugs = $instance->fields->getFieldSlugs();
+  		$instance->field_slugs = $instance->data->stream_fields->getFieldSlugs();
 
   		//$instance->columns = $instance->standard_columns = $instance->model->getStandardColumns();
-
-  		$instance->stream_fields = new \stdClass;
 
 /*  		foreach ($instance->fields as $field)
   		{
@@ -140,10 +138,6 @@ class Entries extends AbstractCp
 
 	protected function renderTable($return = false)
 	{
-		$this->data->stream_fields 	= $this->model->getFields();
-
-		$this->data->stream 		= $this->model->getStream();
-
 		$this->data->buttons		= $this->buttons;
 
 		$this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : $this->filters;

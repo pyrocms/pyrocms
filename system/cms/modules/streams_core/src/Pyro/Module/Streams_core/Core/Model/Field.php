@@ -27,6 +27,12 @@ class Field extends Eloquent
     public $timestamps = false;
 
     /**
+     * Stream
+     * @var object
+     */
+    public $stream = null;
+
+    /**
      * Insert a field
      *
      * @param   string - the field name
@@ -57,12 +63,19 @@ class Field extends Eloquent
         return parent::create($attributes);
     }
 
+    public function setStream(Stream $stream = null)
+    {
+        $this->stream = $stream;
+
+        return $this;
+    }
+
     /**
      * Get the corresponding field type instance
      * @param  [type] $entry [description]
      * @return [type]        [description]
      */
-    public function getType(Entry $entry = null)
+    public function getType(Entry $entry = null, Stream $stream = null)
     {
         // If no entry was passed at least instantiate an empty entry object
         if ( ! $entry)
@@ -77,12 +90,23 @@ class Field extends Eloquent
         }
 
         $type->setField($this);
+        $type->setEntry($entry);
+
+        if ( ! $stream and $this->stream)
+        {
+            $type->setStream($this->stream);
+        }
+        else
+        {
+            $type->setStream($stream);
+        }
 
         if ($entry)
-        {
-            $type->setEntry($entry);
-            
-            $type->setStream($entry->getModel()->getStream());
+        {   
+            if ( ! $stream and ! $this->stream)
+            {
+                $type->setStream($entry->getModel()->getStream());
+            }
 
             $type->setModel($entry->getModel());
             
