@@ -392,6 +392,8 @@ class Entry extends EntryOriginal
     {
         $entry = static::$instance->where(static::$instance->getKeyName(), '=', $id)->first($columns);
 
+        $entry->exists = true;
+
         return $entry;
     }
 
@@ -560,8 +562,6 @@ class Entry extends EntryOriginal
      */
     public function delete()
     {
-        $stream = $this->getStream();
-
         if ( ! $search_index_module = $this->getModuleSlug())
         {
             $search_index_module = $this->getStream()->stream_namespace;
