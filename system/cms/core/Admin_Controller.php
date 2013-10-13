@@ -109,6 +109,9 @@ class Admin_Controller extends MY_Controller
 
 			foreach ($modules as $module) {
 
+				// Only enabled ones
+				if (! module_enabled($module['slug'])) continue;
+
 				// If we do not have an admin_menu function, we use the
 				// regular way of checking out the details.php data.
 				if ($module['menu'] and ($this->current_user->hasAccess($module['slug']))) {
