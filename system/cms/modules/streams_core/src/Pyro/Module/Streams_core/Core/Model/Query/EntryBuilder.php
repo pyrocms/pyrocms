@@ -44,7 +44,7 @@ class EntryBuilder extends Builder
 				if ($commands[2] != $this->stream->stream_slug) continue;
 
 				// Switch on the restriction
-				switch ($commands[3]) {
+				switch ($commands[4]) {
 					
 					/**
 					 * CONTAINS
@@ -56,7 +56,7 @@ class EntryBuilder extends Builder
 						if (empty($value)) continue;
 
 						// Do it
-						$this->where($commands[4], 'LIKE', '%'.$value.'%');
+						$this->where($commands[3], 'LIKE', '%'.$value.'%');
 						break;
 					
 
