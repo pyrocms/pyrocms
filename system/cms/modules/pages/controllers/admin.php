@@ -46,7 +46,7 @@ class Admin extends Admin_Controller
             'title' => '{{ post:title }}',
             'description' => '{{ post:meta_description }}',
             'keywords' => '{{ post:meta_keywords }}',
-            'uri' => '{{ post:uri }}',
+            'uri' => '{{ post:full_uri }}',
             'cp_uri' => 'admin/pages/edit/{{ entry:id }}',
             'group_access' => null,
             'user_access' => null
@@ -373,9 +373,8 @@ class Admin extends Admin_Controller
 
         Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
             ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
-            ->onSaving(function($entry) use ($page)
-            {
-                if ($_POST) $_POST['uri'] = $page->uri;
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
             })
             ->onSaved(function($entry) use ($page)
             {
@@ -528,9 +527,8 @@ class Admin extends Admin_Controller
         }
 
         $cp->tabs($this->_tabs())
-            ->onSaving(function($entry) use ($page)
-            {
-                if ($_POST) $_POST['uri'] = $page->uri;
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
             })
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
