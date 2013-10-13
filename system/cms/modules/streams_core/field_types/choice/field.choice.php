@@ -141,6 +141,102 @@ class Field_choice extends AbstractField
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Output filter input
+	 *
+	 * @return	string
+	 */
+	public function filterOutput()
+	{		
+		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
+
+		// Only put in our brs for the admin
+		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
+
+		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
+		
+		// If this is a new input, we need to use the default value or go null
+		$value = ( ! $this->entry->getKey()) ? $this->getParameter('default_value') : $this->value; 
+
+		if ($choice_type == 'dropdown')
+		{
+			// -------------------------------
+			// Dropdown
+			// -------------------------------
+			// Drop downs are easy - the value is
+			// always a string, and the choices
+			// are just in an array from the field.
+			// -------------------------------
+			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
+		}	
+		else
+		{
+			// -------------------------------
+			// Checkboxes and Radio buttons
+			// -------------------------------
+
+			// Parse the value coming in.
+			// If these are checkboxes, we need to put
+			// the incoming data through some special processes
+			if($choice_type == 'checkboxes' or $choice_type == 'multiselect')
+			{
+				// We may have an array from $_POST or a string
+				// from the saved form data in the case
+				// or checkboxes
+				if (is_string($value))
+				{
+					$vals = explode("\n", trim($value));
+				}
+				elseif (is_array($value))
+				{
+					$vals = $value;
+				}
+				else
+				{
+					$vals = array();
+				}
+				
+				// If we have an array of values, trim each one
+				if (is_array($vals))
+				{
+					foreach($vals as $k => $v)
+					{
+						$vals[$k] = trim($v);
+					}
+				}
+				//If It's a multiselect, then we can go out now.
+				if ( $choice_type == 'multiselect' )
+				{
+					return form_multiselect($this->form_slug.'[]', $choices, $vals, 'id="'.$this->form_slug.'"');
+				}
+			}
+
+			// Go through each choice and create
+			// a input element.
+			$return = null;
+
+			foreach ($choices as $choice_key => $choice)
+			{
+				if ($this->getParameter('choice_type') == 'radio')
+				{
+					$selected = ($value == $choice_key) ? true : false;
+			
+					$return .= '<label class="radio">'.form_radio($this->form_slug, $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+				}
+				else
+				{
+					$selected = (in_array($choice_key, $vals)) ? true : false;
+				
+					$return .= '<label class="checkbox">'.form_checkbox($this->form_slug.'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+				}
+			}
+		}
+		
+		return $return;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Active state
 	 *
 	 * Putting a ^ in front of a line makes it checked and disabled.
