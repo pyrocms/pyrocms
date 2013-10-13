@@ -166,7 +166,7 @@ class Field_choice extends AbstractField
 			// always a string, and the choices
 			// are just in an array from the field.
 			// -------------------------------
-			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
+			return form_dropdown($this->getFilterSlug('exact'), $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
 		}	
 		else
 		{

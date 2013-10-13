@@ -236,13 +236,20 @@ abstract class AbstractField
 		return $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
 	}
 
+	public function getFilterSlug($condition = 'contains', $field_slug = null)
+	{
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		return $this->getFilterSlugPrefix().$field_slug.'-'.$condition;
+	}
+
 	/**
 	 * Get filter slug segment
 	 * @return string
 	 */
-	public function getFilterSlugSegment()
+	public function getFilterSlugPrefix()
 	{
-		return $this->stream->stream_namespace.'-'.$this->stream->stream_slug;
+		return 'f-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
 	}
 
 	/**
@@ -461,7 +468,7 @@ abstract class AbstractField
 			return $this->filterOutput();
 		}
 
-		return '<input type="text" name="f-'.$this->getFilterSlugSegment().'-contains-'.$this->field->field_slug.'" value="'.ci()->input->get('f-'.$this->getFilterSlugSegment().'-contains-'.$this->field->field_slug).'" class="form-control" placeholder="'.$this->field->field_name.'">';
+		return '<input type="text" name="'.$this->getFilterSlug('contains').'" value="'.ci()->input->get($this->getFilterSlug('contains')).'" class="form-control" placeholder="'.$this->field->field_name.'">';
 	}
 
 	/**
