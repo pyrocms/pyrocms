@@ -147,7 +147,7 @@ class Field_choice extends AbstractField
 	 */
 	public function filterOutput()
 	{		
-		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
+		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no');
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
@@ -155,7 +155,7 @@ class Field_choice extends AbstractField
 		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 		
 		// If this is a new input, we need to use the default value or go null
-		$value = ( ! $this->entry->getKey()) ? $this->getParameter('default_value') : $this->value; 
+		$value = ci()->input->get($this->getFilterSlug('exact'));
 
 		if ($choice_type == 'dropdown')
 		{

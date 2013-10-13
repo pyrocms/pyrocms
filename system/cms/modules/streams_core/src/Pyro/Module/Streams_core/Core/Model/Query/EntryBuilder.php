@@ -58,6 +58,20 @@ class EntryBuilder extends Builder
 						// Do it
 						$this->where($commands[3], 'LIKE', '%'.$value.'%');
 						break;
+
+
+					/**
+					 * EXACT
+					 * - Using = value
+					 */
+					case 'exact':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
+
+						// Do it
+						$this->where($commands[3], '=', $value);
+						break;
 					
 
 					default: break;
