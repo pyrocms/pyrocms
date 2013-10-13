@@ -2,7 +2,7 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
-use Pyro\Module\Addons\Model\ModuleModel;
+use Pyro\Module\Addons\ModuleModel;
 use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
