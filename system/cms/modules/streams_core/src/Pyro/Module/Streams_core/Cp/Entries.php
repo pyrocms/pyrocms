@@ -106,80 +106,127 @@ class Entries extends AbstractCp
 		// Filter API
 		// -------------------------------------
 
-		if (ci()->input->get('filter-'.$instance->data->stream->stream_slug))
-		{
+		if (ci()->input->get('filter-'.$instance->data->stream->stream_namespace.'-'.$instance->data->stream->stream_slug)) {
+
 			// Get all URL variables
-			$url_variables = ci()->input->get();
+			$query_string_variables = ci()->input->get();
 
-			$processed = array();
+			// Loop and process!
+			foreach ($query_string_variables as $filter => $value) {
+				
+				// Split into components
+				$commands = explode('-', $filter);
 
-			// Loop and process
-			foreach ($url_variables as $filter => $value)
-			{
-				// -------------------------------------
-				// Filter API Params
-				// -------------------------------------
-				// They all start with f-
-				// No value? No soup for you!
-				// -------------------------------------
+				// Filter?
+				if ($commands[0] != 'f') continue;
 
-				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+				// Only filter our current namespace / stream
+				if ($commands[1] != $instance->data->stream->stream_namespace) continue;
+				if ($commands[2] != $instance->data->stream->stream_slug) continue;
 
-				if (strlen($value) == 0) continue;				// No value.. boo
+				// Switch on the restriction
+				switch ($commands[3]) {
+					
+					/**
+					 * CONTAINS
+					 * - Using LIKE '%value%'
+					 */
+					case 'contains':
+						
+						// Gotta have a value for this one
+						if (empty($value)) continue;
 
-				$filter = substr($filter, 2);					// Remove identifier
+						// Do it
+						$instance->model->where($commands[4], 'LIKE', '%'.$value.'%');
+						break;
+					
 
-
-				// -------------------------------------
-				// Not
-				// -------------------------------------
-				// Default: false
-				// -------------------------------------
-
-				$not = substr($filter, 0, 4) == 'not-';
-
-				if ($not) $filter = substr($filter, 4);			// Remove identifier
-
-
-				// -------------------------------------
-				// Exact
-				// -------------------------------------
-				// Default: false
-				// -------------------------------------
-
-				$exact = substr($filter, 0, 6) == 'exact-';
-
-				if ($exact) $filter = substr($filter, 6);		// Remove identifier
-
-
-				// -------------------------------------
-				// Construct the where segment
-				// -------------------------------------
-
-				if ($exact)
-				{
-					if ($not)
-					{
-						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
-					}
-					else
-					{
-						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
-					}
-				}
-				else
-				{
-					if ($not)
-					{
-						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
-					}
-					else
-					{
-						$instance->where[] = $instance->data->stream->stream_prefix.$instance->data->stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
-					}
+					default: break;
 				}
 			}
 		}
+
+		/* Now check for advanced filters
+		if (ci()->input->get('f-'.$instance->data->stream->stream_slug.'-filter'))
+		{
+			// Get all URL variables
+			$query_string_variables = ci()->input->get();
+
+			// Loop and process
+			foreach ($query_string_variables['f-'.$instance->data->stream->stream_slug.'-filter'] as $k => $filter)
+			{
+				// -------------------------------------
+				// NICE! Now figure out the condition
+				// -------------------------------------
+				// is
+				// isnot
+				// contains
+				// doesnotcontain
+				// startswith
+				// endswith
+				// isempty
+				// isnotempty
+				// ........ To be continued
+				// -------------------------------------
+
+				$value = urldecode($query_string_variables['f-'.$stream->stream_slug.'-value'][$k]);
+
+				// We really need a value unless it's a couple of specific cases
+				if (empty($value) and ! in_array($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k], array('isempty', 'isnotempty'))) continue;
+
+
+				// What are we doing?
+				switch ($query_string_variables['f-'.$stream->stream_slug.'-condition'][$k])
+				{
+
+					case 'is':
+
+						// Referencing another field?
+						if (substr($value, 0, 2) == '${')
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.trim(substr($value, 2, -1)));
+						}
+						else
+						{
+							$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.$value.'"';
+						}
+						break;
+
+					case 'isnot':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.$value.'"';
+						break;
+
+					case 'contains':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'%"';
+						break;
+
+					case 'doesnotcontain':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.$value.'%"';
+						break;
+
+					case 'startswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "'.$value.'%"';
+						break;
+
+					case 'endswith':
+						$this->where[] = $CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.$value.'"';
+						break;
+
+					case 'isempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NULL OR '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "") ';
+						break;
+
+					case 'isnotempty':
+						$this->where[] = ' ('.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' IS NOT NULL AND '.$CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "") ';
+						break;
+					
+					default:
+						// is
+						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.$value.'"';
+						break;
+				}
+			}
+		}*/
 
 		$filter_data = array();
 
@@ -220,12 +267,14 @@ class Entries extends AbstractCp
 	}
 
 	protected function renderTable($return = false)
-	{		
+	{
 		$this->data->stream_fields 	= $this->model->getFields();
+
+		$this->data->stream 		= $this->model->getStream();
 
 		$this->data->buttons		= $this->buttons;
 
-		$this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : null;
+		$this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : $this->filters;
 
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 

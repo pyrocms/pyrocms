@@ -19,6 +19,12 @@ abstract class AbstractCp extends AbstractSupport
 	protected $allow_title_column_set = false;
 
 	/**
+	 * Simple filter configuration
+	 * @var array
+	 */
+	protected $filters = array();
+
+	/**
 	 * Button configuration
 	 * @var array
 	 */
@@ -327,6 +333,18 @@ abstract class AbstractCp extends AbstractSupport
 
 		return $this;
 	}	
+
+	/**
+	 * Filters
+	 * @param  array  $filters
+	 * @return object
+	 */
+	public function filters(array $filters = array())
+	{
+		$this->filters = $filters;
+
+		return $this;
+	}
 
 	/**
 	 * Buttons
