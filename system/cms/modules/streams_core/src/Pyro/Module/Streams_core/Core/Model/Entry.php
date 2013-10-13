@@ -2,7 +2,6 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
-use Pyro\Module\Addons\ModuleModel;
 use Pyro\Module\Streams_core\Core\Field\Form;
 
 // Eloquent was not designed to talk to different tables from a single model but
@@ -592,7 +591,7 @@ class Entry extends EntryOriginal
             $module = isset($folders[2]) ? strtolower($folders[2]) : null;
 
             // Check if this module exists, set to null if it doesn't
-            if ( ! ModuleModel::moduleExists($module))
+            if ( ! module_exists($module))
             {
                 $module = false;
             }
