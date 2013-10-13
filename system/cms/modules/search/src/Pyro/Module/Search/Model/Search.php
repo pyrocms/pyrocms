@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Search\Model;
 
+use Pyro\Module\Addons\ModuleModel;
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 
@@ -24,7 +25,7 @@ class Search extends Eloquent
      *
      * @var array
      */
-    protected $guarded = array();
+    protected $guarded = array('id');
 
     /**
      * Disable updated_at and created_at on table
@@ -66,17 +67,16 @@ class Search extends Eloquent
 	 * @param	array 	$options	Options such as keywords (array or string - hash of keywords) and cp_edit_uri/cp_delete_uri
 	 * @return	array
 	 */
-	public static function index($module, $singular, $plural, $entry_id, $title, $description = null, $keywords = null, $uri = null, $cp_edit_uri = null, $cp_delete_uri = null, $group_access = null, $user_access = null){
-		
+	public static function index($module, $scope, $singular, $plural, $entry_id, $title, $description = null, $keywords = null, $uri = null, $cp_uri = null, $group_access = null, $user_access = null)
+	{	
 		ci()->load->library('keywords/keywords');
 
 		// Drop it so we can create a new index
-		static::dropIndex($module, $singular, $entry_id);
+		static::dropIndex($module, $scope, $entry_id);
 
 
 		// Get started
 		$insert_data = array();
-
 
 		// Hand over keywords without needing to look them up
 		if ( ! empty($keywords)) {
@@ -88,63 +88,72 @@ class Search extends Eloquent
 			}
 		}
 
-
-		$insert_data['title'] 			= $title;
-		$insert_data['description'] 	= strip_tags($description);
-
 		$insert_data['module'] 			= $module;
-		$insert_data['entry_key'] 		= $singular;
+		$insert_data['scope'] 			= $scope;
+		$insert_data['entry_singular'] 	= $singular;
 		$insert_data['entry_plural'] 	= $plural;
 		$insert_data['entry_id'] 		= $entry_id;
+		$insert_data['title'] 			= $title;
+		$insert_data['description'] 	= strip_tags($description);
 		$insert_data['uri'] 			= $uri;
-
-		$insert_data['cp_edit_uri'] 	= $cp_edit_uri;
-		$insert_data['cp_delete_uri'] 	= $cp_delete_uri;
-
-		$insert_data['group_access']	= $uri;
-		$insert_data['user_access']		= $uri;
+		$insert_data['cp_uri'] 			= $cp_uri;
+		$insert_data['group_access']	= $group_access;
+		$insert_data['user_access']		= $user_access;
 
 		return static::insertGetId($insert_data);
 	}
 
-	public static function indexEntry(Entry $entry = null, $index_template = array())
+	public static function indexEntry(Entry $entry, $index_template = array())
 	{
-		if ($entry and ! empty($index_template))
+		if ( ! empty($index_template))
 		{
-			$keys = array(
-				'module', 
-				'singular', 
+			$attributes = array(
+				'module',
+				'scope',
+				'singular',
 				'plural',
 				'title',
 				'description',
 				'keywords',
 				'uri',
-				'cp_entry_uri',
-				'cp_delete_uri',
+				'cp_uri',
+				'group_access',
+				'user_access'
 			);
 
 			// Set null values for undefined keys
-			foreach ($keys as $key)
+			foreach ($attributes as $key)
 			{
 				$index_template[$key] = isset($index_template[$key])? $index_template[$key] : null;
 			}
 
+			// Try to guess the module slug or set the namespace as the module sl
+			$default_module = ($slug = $entry->getModuleSlug()) ? $slug : $entry->getStream()->stream_namespace;
+
+			// Set the stream_namespace as the module if it was not passed
+			$index_template['module'] = isset($index_template['module']) ? $index_template['module'] : $default_module;
+
+			// If a scope was not passed, autogenerate one from the stream
+			$index_template['scope'] = isset($index_template['scope']) ? $index_template['scope'] : $entry->getStreamTypeSlug();
+
+			if ( ! $index_template['title'])
+			{
+				throw new SearchTitleAttributeNotSetException;
+			}
+			
 			if ( ! $index_template['singular'])
 			{
-				// cannot be null
-				// throw exception
-				return;
+				throw new SearchEntrySingularAttributeNotSetException;
 			}
 
 			if ( ! $index_template['plural'])
 			{
-				// cannot be null
-				// throw exception
-				return;
+				throw new SearchEntryPluralAttributeNotSetException;
 			}
 
 			return static::index(
 				$index_template['module'],
+				$index_template['scope'],
 				$index_template['singular'],
 				$index_template['plural'],
 				$entry->getKey(),
@@ -152,11 +161,11 @@ class Search extends Eloquent
 				ci()->parser->parse_string($index_template['description'], $entry->toArray(), true),
 				ci()->parser->parse_string($index_template['keywords'], $entry->toArray(), true),
 				ci()->parser->parse_string($index_template['uri'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['cp_edit_uri'], $entry->toArray(), true),
-				ci()->parser->parse_string($index_template['cp_delete_uri'], $entry->toArray(), true)
+				ci()->parser->parse_string($index_template['cp_uri'], $entry->toArray(), true),
+				$index_template['group_access'],
+				$index_template['user_access']
 			);
 		}
-
 		return false;
 	}
 
@@ -174,9 +183,9 @@ class Search extends Eloquent
 	 * @param	int 	$entry_id	The id for this entry
 	 * @return	array
 	 */
-	public static function dropIndex($module, $singular, $entry_id){
+	public static function dropIndex($module, $scope, $entry_id){
 		return static::where('module', '=', $module)
-			->where('entry_key', '=', $singular)
+			->where('scope', '=', $scope)
 			->where('entry_id', '=', $entry_id)
 			->delete();
 	}
@@ -219,7 +228,7 @@ class Search extends Eloquent
 	public static function getResults($terms)
 	{
 		// Go!
-		$results = static::select('title', 'description', 'keywords', 'module', 'entry_key', 'entry_plural', 'uri', 'cp_edit_uri');
+		$results = static::select('title', 'description', 'keywords', 'module', 'scope', 'entry_plural', 'uri', 'cp_uri');
 
 
 		/**
