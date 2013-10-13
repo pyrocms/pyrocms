@@ -6,7 +6,7 @@
 
 			<div class="form-group">
 				<!--<label for="exampleInputEmail2">Email address</label>-->
-				<?php echo $stream_fields->findBySlug($filter)->getFilterOutput(); ?>
+				<?php echo $stream_fields->findBySlug($filter)->getType()->getFilterOutput(); ?>
 			</div>
 
 		<?php endforeach; ?>
