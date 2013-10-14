@@ -956,10 +956,10 @@ class Field_datetime extends AbstractField
 	{
 		// Don't show Dec 31st if empty silly
 		if ( $this->value == null ) return null;
-		
+
 		// If this is a date-time stored value,
 		// we need this to be converted to UNIX.
-		if ($this->getParameter('storage') == 'datetime')
+		if ($this->getParameter('storage', 'datetime') == 'datetime')
 		{
 			ci()->load->helper('date');
 			$this->value = mysql_to_unix($this->value);
