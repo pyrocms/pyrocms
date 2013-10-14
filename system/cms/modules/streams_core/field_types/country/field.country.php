@@ -50,6 +50,24 @@ class Field_country extends AbstractField
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Output filter input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function filterOutput()
+	{
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+
+		return form_dropdown($this->getFilterSlug('is'), $this->countries(false), $this->getFilterSlug('is'), 'class="skip form-control"');
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Output form input
 	 *
 	 * @param	array
