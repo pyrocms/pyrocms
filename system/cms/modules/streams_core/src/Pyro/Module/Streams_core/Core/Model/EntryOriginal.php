@@ -83,11 +83,20 @@ class EntryOriginal extends Eloquent
             $instance = new static;
         }
 
-        if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
-        {
-            $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+        if (is_numeric($stream_slug)) {
+            if ( ! $instance->stream = Stream::find($stream_slug))
+            {
+                $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
 
-            throw new Exception\StreamNotFoundException($message);
+                throw new Exception\StreamNotFoundException($message);
+            }
+        } else {
+            if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+            {
+                $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+
+                throw new Exception\StreamNotFoundException($message);
+            }
         }
 
         $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
