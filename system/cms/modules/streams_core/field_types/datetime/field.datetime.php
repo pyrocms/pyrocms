@@ -596,14 +596,14 @@ class Field_datetime extends AbstractField
 		if ($input_type == 'datepicker')
 		{
 			// No collecting data necessary
-			$date = $this->getFormData($this->form_slug);
+			$date = ci()->input->post($this->form_slug);
 		}
 		else
 		{
 			// Get from post data
-			$date = $this->getFormData($this->form_slug.'_year').
-				'-'.$this->two_digit_number($this->getFormData($this->form_slug.'_month')).
-				'-'.$this->two_digit_number($this->getFormData($this->form_slug.'_day'));
+			$date = ci()->input->post($this->form_slug.'_year').
+				'-'.$this->two_digit_number(ci()->input->post($this->form_slug.'_month')).
+				'-'.$this->two_digit_number(ci()->input->post($this->form_slug.'_day'));
 		}
 
 		// -------------------------------------
@@ -636,11 +636,11 @@ class Field_datetime extends AbstractField
 		if ($this->getParameter('use_time') == 'yes')
 		{
 			// Hour
-			if ($this->getFormData($this->form_slug.'_hour'))
+			if (ci()->input->post($this->form_slug.'_hour'))
 			{
-				$hour = $this->getFormData($this->form_slug.'_hour');
+				$hour = ci()->input->post($this->form_slug.'_hour');
 	
-				if ($this->getFormData($this->form_slug.'_am_pm') == 'pm' and $hour < 12)
+				if (ci()->input->post($this->form_slug.'_am_pm') == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -651,9 +651,9 @@ class Field_datetime extends AbstractField
 			}
 			
 			// Minute
-			if ($this->getFormData($this->form_slug.'_minute'))
+			if (ci()->input->post($this->form_slug.'_minute'))
 			{
-				$minute = $this->getFormData($this->form_slug.'_minute');
+				$minute = ci()->input->post($this->form_slug.'_minute');
 			}				
 			else
 			{
