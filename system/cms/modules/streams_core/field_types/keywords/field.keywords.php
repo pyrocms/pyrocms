@@ -116,7 +116,7 @@ class Field_keywords extends AbstractField
 		}
 
 		// otherwise return it as a string
-		return Keywords::get_string($this->value);
+		//return Keywords::get_string($this->value);
 	}
 
 	/**
