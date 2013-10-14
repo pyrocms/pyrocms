@@ -61,15 +61,15 @@ class Field_image extends AbstractField
 		if ($this->value and $this->value != 'dummy')
 		{
 			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$this->value).'" target="_break"><img src="'.site_url('files/thumb/'.$this->value).'" /></a><br />';
-			$out .= form_hidden($this->getParameter('form_slug'), $this->value);
+			$out .= form_hidden($this->getParameter('field_slug'), $this->value);
 		}
 		else
 		{
-			$out .= form_hidden($this->form_slug, 'dummy');
+			$out .= form_hidden($this->field_slug, 'dummy');
 		}
 
-		$options['name'] 	= $this->form_slug;
-		$options['name'] 	= $this->form_slug.'_file';
+		$options['name'] 	= $this->field_slug;
+		$options['name'] 	= $this->field_slug.'_file';
 		return $out .= form_upload($options);
 	}
 
@@ -88,7 +88,7 @@ class Field_image extends AbstractField
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name'])
+		if ( ! isset($_FILES[$this->fiel_slug.'_file']['name']) or ! $_FILES[$this->field_slug.'_file']['name'])
 		{
 			// return what we got
 			return $this->value;
@@ -107,7 +107,7 @@ class Field_image extends AbstractField
 			$this->getParameter('allowed_types', '*')
 			);
 
-		if (!$return['status'])
+		if (!$return['message'])
 		{
 			// Shit..
 			ci()->session->set_flashdata('notice', $return['message']);
