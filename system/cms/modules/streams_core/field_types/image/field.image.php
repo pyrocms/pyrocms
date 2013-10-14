@@ -107,10 +107,11 @@ class Field_image extends AbstractField
 			$this->getParameter('allowed_types', '*')
 			);
 
-		if ( ! $return['status'])
+		if (!$return['status'])
 		{
+			// Shit..
 			ci()->session->set_flashdata('notice', $return['message']);
-			return $this->value;
+			redirect(site_url(uri_string()));
 		}
 		else
 		{

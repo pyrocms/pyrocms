@@ -20,14 +20,14 @@
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('notice')): ?>
-<div class="alert alert-dismissable alert-warning animated-zing bounceIn margin-top margin-bottom">
+<div class="alert alert-dismissable alert-info animated-zing bounceIn margin-top margin-bottom">
 	<button type="button" class="close" data-dismiss="alert">×</button>
 	<p><?php echo $this->session->flashdata('notice');?></p>
 </div>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['notice'])): ?>
-<div class="alert alert-dismissable alert-warning animated-zing bounceIn margin-top margin-bottom">
+<div class="alert alert-dismissable alert-info animated-zing bounceIn margin-top margin-bottom">
 	<button type="button" class="close" data-dismiss="alert">×</button>
 	<p><?php echo $messages['notice']; ?></p>
 </div>
