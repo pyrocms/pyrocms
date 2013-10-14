@@ -73,13 +73,6 @@ class Entries extends AbstractCp
 
   		$instance->field_slugs = $instance->data->stream_fields->getFieldSlugs();
 
-  		//$instance->columns = $instance->standard_columns = $instance->model->getStandardColumns();
-
-/*  		foreach ($instance->fields as $field)
-  		{
-  			$instance->stream_fields->{$field->field_slug} = $field;
-  		}*/
-
   		// -------------------------------------
 		// Sorting
 		// @since 2.1.5
