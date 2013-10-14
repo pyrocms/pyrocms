@@ -90,33 +90,27 @@ class Field_image extends AbstractField
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name'])
 		{
-			// allow dummy as a reset
-			if (isset($this->form_slug) and $this->form_slug)
-			{
-				return $this->form_slug;
-			}
-			else
-			{
-				return null;
-			}
+			// return what we got
+			return $this->value;
 		}
 
 		ci()->load->library('files/files');
 
 		// Resize options
-		$resize_width 	= $this->getParameter('resize_width', null);
-		$resize_height 	= $this->getParameter('resize_height', null);
-		$keep_ratio 	= $this->getParameter('keep_ratio', false);
-
-		// If you don't set allowed types, we'll set it to allow all.
-		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
-
-		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', $resize_width, $resize_height, $keep_ratio, $allowed_types);
+		$return = Files::upload(
+			$this->getParameter('folder'),
+			null,
+			$this->field_slug.'_file',
+			$this->getParameter('resize_width', null),
+			$this->getParameter('resize_height', null),
+			$this->getParameter('keep_ratio', false),
+			$this->getParameter('allowed_types', '*')
+			);
 
 		if ( ! $return['status'])
 		{
 			ci()->session->set_flashdata('notice', $return['message']);
-			return null;
+			return $this->value;
 		}
 		else
 		{
