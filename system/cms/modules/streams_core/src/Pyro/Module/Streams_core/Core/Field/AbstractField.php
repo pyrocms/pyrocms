@@ -95,7 +95,7 @@ abstract class AbstractField
 	 * Version
 	 * @var string
 	 */
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	/**
 	 * Set value
@@ -341,6 +341,22 @@ abstract class AbstractField
 	{
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
+		if ($value = $this->getPostValue($field_slug))
+		{
+			return $value;
+		}
+		elseif ($this->entry)
+		{
+			return $this->entry->{$field_slug};
+		}
+
+		return $default;
+	}
+
+	public function getPostValue($field_slug = null, $default = null)
+	{
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
 		if ($value = ci()->input->post($this->getFormSlug($field_slug)))
 		{
 			return $value;
@@ -349,14 +365,8 @@ abstract class AbstractField
 		{
 			return $value;
 		}
-		elseif ($this->entry)
-		{
-			return $this->entry->{$field_slug};
-		}
-		else
-		{
-			return $default;
-		}
+
+		return $default;
 	}
 
 	public function getFormValuesProperty()
