@@ -126,7 +126,7 @@
 
 	<?php else: ?>
 
-		<div class="padding">
+		<div class="margin alert alert-info">
 			<?php
 
 				if (isset($no_entries_message) and $no_entries_message) {
