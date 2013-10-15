@@ -16,8 +16,6 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->load->model('search_index_m');
 	}
 
 	/**
