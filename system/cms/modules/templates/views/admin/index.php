@@ -7,7 +7,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('templates:default_title') ?></h3>
@@ -54,7 +54,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('templates:user_defined_title') ?></h3>

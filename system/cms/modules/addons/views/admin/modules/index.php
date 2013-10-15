@@ -7,7 +7,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('addons:modules:addon_list');?></h3>
@@ -66,7 +66,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<p><h3 class="panel-title"><?php echo lang('addons:modules:core_list');?></h3></p>

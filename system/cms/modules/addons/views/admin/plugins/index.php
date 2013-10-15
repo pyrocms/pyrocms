@@ -6,7 +6,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('addons:plugins:add_on_plugins');?></h3>
@@ -27,7 +27,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('addons:plugins:core_plugins');?></h3>

@@ -1,7 +1,7 @@
 <div class="padding">
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 		<div class="panel-heading">
 			<h3 class="panel-title">

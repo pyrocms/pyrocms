@@ -7,7 +7,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 	
 		<div class="panel-heading">
 			<h3 class="panel-title"><?php echo lang('addons:plugins:core_field_types') ?></h3>

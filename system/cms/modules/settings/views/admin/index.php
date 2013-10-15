@@ -1,5 +1,5 @@
 <!-- .panel -->
-<section class="panel">
+<section class="panel panel-default">
 
 	<div class="panel-heading">
 		<h3 class="panel-title"><?php echo $module_details['name'] ?></h3>

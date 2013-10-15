@@ -1,13 +1,20 @@
-<div class="one_full">
-	<section class="title">
-		<h4><?php echo lang('maintenance:export_data') ?></h4>
-	</section>
+<div class="padding">
 
-	<section class="item">
-		<div class="content">
 
+	<!-- .panel -->
+	<section class="panel panel-default">
+
+		<div class="panel-heading">
+			<h3 class="panel-title"><?php echo lang('maintenance:export_data') ?></h3>
+		</div>
+
+
+		<!-- .panel-content -->
+		<div class="panel-content">
+
+		
 			<?php if ( ! empty($tables)): ?>
-				<table border="0" class="table-list" cellspacing="0">
+				<table class="table no-margin">
 					<thead>
 						<tr>
 							<th><?php echo lang('maintenance:table_label') ?></th>
@@ -20,11 +27,11 @@
 						<tr>
 							<td><?php echo $table['name'] ?></td>
 							<td class="align-center"><?php echo $table['count'] ?></td>
-							<td class="buttons buttons-small align-center actions">
+							<td class="text-right">
 								<?php if ($table['count'] > 0):
-									echo anchor('admin/maintenance/export/'.$table['name'].'/xml', lang('maintenance:export_xml'), array('class'=>'button')).' ';
-									echo anchor('admin/maintenance/export/'.$table['name'].'/csv', lang('maintenance:export_csv'), array('class'=>'button')).' ';
-									echo anchor('admin/maintenance/export/'.$table['name'].'/json', lang('maintenance:export_json'), array('class'=>'button')).' ';
+									echo anchor('admin/maintenance/export/'.$table['name'].'/xml', lang('maintenance:export_xml'), array('class'=>'btn-sm btn-success')).' ';
+									echo anchor('admin/maintenance/export/'.$table['name'].'/csv', lang('maintenance:export_csv'), array('class'=>'btn-sm btn-success')).' ';
+									echo anchor('admin/maintenance/export/'.$table['name'].'/json', lang('maintenance:export_json'), array('class'=>'btn-sm btn-success')).' ';
 								endif ?>
 							</td>
 						</tr>
@@ -33,20 +40,29 @@
 				</table>
 			<?php endif;?>
 
+
 		</div>
+		<!-- /.panel-content -->
+
 	</section>
-</div>
+	<!-- /.panel -->
 
-<div class="one_full">
-	<section class="title">
-		<h4><?php echo lang('maintenance:list_label') ?></h4>
-	</section>
 
-	<section class="item">
-		<div class="content">
 
+	<!-- .panel -->
+	<section class="panel panel-default">
+
+		<div class="panel-heading">
+			<h3 class="panel-title"><?php echo lang('maintenance:list_label') ?></h3>
+		</div>
+
+
+		<!-- .panel-content -->
+		<div class="panel-content">
+
+		
 			<?php if ( ! empty($folders)): ?>
-				<table border="0" class="table-list" cellspacing="0">
+				<table class="table no-margin">
 					<thead>
 						<tr>
 							<th><?php echo lang('name_label') ?></th>
@@ -59,20 +75,26 @@
 						<tr>
 							<td><?php echo $folder['name'] ?></td>
 							<td class="align-center"><?php echo $folder['count'] ?></td>
-							<td class="buttons buttons-small align-center actions">
-								<?php if ($folder['count'] > 0) echo anchor('admin/maintenance/cleanup/'.$folder['name'], lang('global:empty'), array('class'=>'button empty')) ?>
-								<?php if ( ! $folder['cannot_remove']) echo anchor('admin/maintenance/cleanup/'.$folder['name'].'/1', lang('global:remove'), array('class'=>'button remove')) ?>
+							<td class="text-right">
+								<?php if ($folder['count'] > 0) echo anchor('admin/maintenance/cleanup/'.$folder['name'], lang('global:empty'), array('class'=>'btn-sm btn-warning')) ?>
+								<?php if ( ! $folder['cannot_remove']) echo anchor('admin/maintenance/cleanup/'.$folder['name'].'/1', lang('global:remove'), array('class'=>'btn-sm btn-warning')) ?>
 							</td>
 						</tr>
 						<?php endforeach ?>
 					</tbody>
 				</table>
 			<?php else: ?>
-				<div class="blank-slate">
+				<div class="margin padding alert alert-info">
 					<h2><?php echo lang('maintenance:no_items') ?></h2>
 				</div>
 			<?php endif;?>
 
+		
 		</div>
+		<!-- /.panel-content -->
+
 	</section>
+	<!-- /.panel -->
+
+
 </div>

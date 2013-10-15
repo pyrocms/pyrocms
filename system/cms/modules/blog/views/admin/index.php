@@ -7,7 +7,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 	
 		<!-- .panel-content -->
 		<div class="panel-content">

@@ -7,7 +7,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel">
+	<section class="panel panel-default">
 
 
 		<?php echo form_open('admin/pages/types/delete');?>
