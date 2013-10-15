@@ -101,47 +101,40 @@ class Admin extends Admin_Controller
      */
     public function order()
     {
-        $order  = $this->input->post('order');
-        $data   = $this->input->post('data');
-        $root_pages = isset($data['root_pages']) ? $data['root_pages'] : array();
+        $ids = $this->input->post('ids');
 
-        if (is_array($order)) {
+        //reset all parent > child relations
+        Page::resetParentByIds($ids);
 
-            //reset all parent > child relations
-            Page::resetParentByIds($root_pages);
-
-            foreach ($order as $i => $page)
+        foreach ($ids as $order => $page)
+        {
+            if (is_integer($order))
             {
-                $id = str_replace('page_', '', $page['id']);
+                //set the order of the root pages
+                $model = Page::find($page['id']);
+                $model->skip_validation = true;
+                $model->order = $order;
+                
+                $model->save();
 
-                if (is_integer($i))
+                if ($model->entry)
                 {
-                    //set the order of the root pages
-                    $model = Page::find($id);
-                    $model->skip_validation = true;
-                    $model->order = $i;
-                    
-                    $model->save();
-
-                    if ($model->entry)
-                    {
-                        $model->entry->updateOrderingCount($i);
-                    }
+                    $model->entry->updateOrderingCount($order);
                 }
-
-                //iterate through children and set their order and parent
-                Page::setChildren($page);
             }
-
-            // rebuild page URIs
-            Page::updateLookup($root_pages);
-
-            //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-            $this->cache->clear('navigation_m');
-            $this->cache->clear('page_m');
-
-            Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $root_pages));
         }
+
+        //iterate through children and set their order and parent
+        Page::setChildren($page);
+
+        // rebuild page URIs
+        Page::updateLookup($ids);
+
+        //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+        $this->cache->clear('navigation_m');
+        $this->cache->clear('page_m');
+
+        Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $ids));
     }
 
     /**

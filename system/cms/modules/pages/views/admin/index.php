@@ -17,9 +17,9 @@
 				<!-- .panel-body -->
 				<div class="panel-body">
 					
-					<div id="page-list" class="dd">
-						<ul class="dd-list sortable">
-							<?php echo tree_builder($pages, '<li id="page_{{ id }}" class="dd-item dd3-item"><div class="dd-handle dd3-handle">Drag</div><div class="dd3-content"><a href="#" class="{{ status }}" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
+					<div id="page-list" class="dd sortable" data-order-url="<?php echo site_url('admin/pages/order'); ?>">
+						<ul class="dd-list">
+							<?php echo tree_builder($pages, '<li data-id="{{ id }}" class="dd-item dd3-item"><div class="dd-handle dd3-handle">Drag</div><div class="dd3-content"><a href="#" class="{{ status }}" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
 						</ul>
 					</div>
 

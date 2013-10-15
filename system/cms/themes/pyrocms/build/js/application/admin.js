@@ -6,6 +6,27 @@
 
 
 /**
+ * Overload the json converter to avoid error when json is null or empty.
+ */
+$.ajaxSetup({
+	//allowEmpty: true,
+	converters: {
+		'text json': function(text) {
+			var json = jQuery.parseJSON(text);
+			if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
+			{
+				jQuery.error('The server is not responding correctly, please try again later.');
+			}
+			return json;
+		}
+	},
+	data: {
+		csrf_hash_name: $.cookie(Pyro.csrf_cookie_name)
+	}
+});
+
+
+/**
  * Initialize our application
  * - Set up listeners, etc
  */
@@ -55,7 +76,25 @@ Pyro.Initialize = function() {
 	 * Sortable Lists
 	 */
 	
-	$('.sortable').nestable();
+	$('.sortable').nestable({
+		group: $(this).attr('id'),
+		maxDepth: $(this).attr('data-max-depth') == undefined ? 5 : $(this).attr('data-max-depth'),
+		listNodeName:'ul',
+	});
+
+	$(document).on('change', '.sortable', function(e) {
+		$.ajax({
+			type: 'POST',
+			url: $(e.target).attr('data-order-url'),
+			dataType: 'json',
+			data: {
+				'ids': $(e.target).nestable('serialize')
+			},
+			success: function(data) {
+				alert(data);
+			}
+		});
+	});
 
 
 	/**
