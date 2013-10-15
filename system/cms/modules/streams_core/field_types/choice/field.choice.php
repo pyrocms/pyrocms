@@ -59,7 +59,7 @@ class Field_choice extends AbstractField
 		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
 		
 		// If this is a new input, we need to use the default value or go null
-		$value = ( ! $this->entry->getKey()) ? $this->getParameter('default_value') : $this->value; 
+		$value = $this->value; 
 
 		if ($choice_type == 'dropdown')
 		{
@@ -88,29 +88,29 @@ class Field_choice extends AbstractField
 				// or checkboxes
 				if (is_string($value))
 				{
-					$vals = explode("\n", trim($value));
+					$values = explode("\n", trim($value));
 				}
 				elseif (is_array($value))
 				{
-					$vals = $value;
+					$values = $value;
 				}
 				else
 				{
-					$vals = array();
+					$values = array();
 				}
 				
 				// If we have an array of values, trim each one
-				if (is_array($vals))
+				if (is_array($values))
 				{
-					foreach($vals as $k => $v)
+					foreach($values as $k => $v)
 					{
-						$vals[$k] = trim($v);
+						$values[$k] = trim($v);
 					}
 				}
 				//If It's a multiselect, then we can go out now.
 				if ( $choice_type == 'multiselect' )
 				{
-					return form_multiselect($this->form_slug.'[]', $choices, $vals, 'id="'.$this->form_slug.'"');
+					return form_multiselect($this->form_slug.'[]', $choices, $values, 'id="'.$this->form_slug.'"');
 				}
 			}
 
@@ -128,7 +128,7 @@ class Field_choice extends AbstractField
 				}
 				else
 				{
-					$selected = (in_array($choice_key, $vals)) ? true : false;
+					$selected = (in_array($choice_key, $values)) ? true : false;
 				
 					$return .= '<label class="checkbox">'.form_checkbox($this->form_slug.'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
@@ -231,29 +231,32 @@ class Field_choice extends AbstractField
 		{
 			if (is_string($this->value))
 			{
-				$vals = explode("\n", $this->value);
+				$values = explode("\n", $this->value);
 			}
 			else
 			{
-				$vals = $this->value;
+				$values = $this->value;
 			}
 
 			ci()->load->helper('html');
 
 			$selected = array();
 			
-			foreach ($vals as $v)
+			if ( ! empty($values))
 			{
-				if (isset($choices[$v]))
+				foreach ($values as $v)
 				{
-					$selected[] = $choices[$v];
-				}			
+					if (isset($choices[$v]))
+					{
+						$selected[] = $choices[$v];
+					}			
+				}
 			}
 
 			return ul($selected);
 		}
 		
-		if (isset($choices[$this->value]) and $this->value != '')
+		if (isset($choices[$this->value_or_null]) and $this->value != '')
 		{
 			return $choices[$this->value];
 		}	
@@ -293,7 +296,7 @@ class Field_choice extends AbstractField
 			// One per line
 			return implode("\n", array_unique($this->value));		
 		}
-		elseif (($choice_type == 'checkboxes'  or $choice_type == 'multiselect') and ! $this->value)
+		elseif (($choice_type == 'checkboxes'  or $choice_type == 'multiselect') and ! $this->value_or_null)
 		{
 			return '';
 		}
@@ -447,20 +450,23 @@ class Field_choice extends AbstractField
 			}
 			
 			$return = array();
-			
-			foreach ($values as $k => $v)
+
+			if ( ! empty($values))
 			{
-				if (isset($options[$v]))
+				foreach ($values as $k => $v)
 				{
-					$return[$k]['value'] 		= $options[$v];
-					$return[$k]['value.key'] 	= $v; // legacy
-					$return[$k]['key'] 			= $v;
-				}
-				else
-				{
-					// We don't want undefined values
-					unset($values[$k]);
-				}
+					if (isset($options[$v]))
+					{
+						$return[$k]['value'] 		= $options[$v];
+						$return[$k]['value.key'] 	= $v; // legacy
+						$return[$k]['key'] 			= $v;
+					}
+					else
+					{
+						// We don't want undefined values
+						unset($values[$k]);
+					}
+				}				
 			}
 			
 			return $return;
