@@ -75,11 +75,11 @@ Pyro.Initialize = function() {
 
 		e.preventDefault();
 		$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
-	});
 
-	// Save persistent state
-	if ($(this).attr('data-persistent') !== undefined)
-		$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
+		// Save persistent state
+		if ($(this).attr('data-persistent') !== undefined)
+			$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
+	});
 
 
 	/**
