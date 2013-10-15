@@ -34,7 +34,8 @@ class Admin extends Admin_Controller
         // Load the required classes
         $this->lang->load('pages');
         $this->lang->load('page_types');
-
+        $this->load->library('keywords/keywords');
+        
         /**
          * Search Index Template
          * - Autoindex this shit
