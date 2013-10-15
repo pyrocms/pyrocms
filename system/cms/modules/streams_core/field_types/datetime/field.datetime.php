@@ -271,7 +271,7 @@ class Field_datetime extends AbstractField
 				$days = array('' => '---')+$days;
 			}
 
-			$date_input .= form_dropdown($this->form_slug.'_day', $days, $day);
+			$date_input .= form_dropdown($this->form_slug.'_day', $days, $day, 'style="min-width: 100px; width:100px;"');
 
 			// Find the end year
 			$years = array_combine($years = range($start_datetime->year, $end_datetime->year), $years);
@@ -283,7 +283,7 @@ class Field_datetime extends AbstractField
 				$years = array('' => '---')+$years;
 			}
 
-			$date_input .= form_dropdown($this->form_slug.'_year', $years, $year);
+			$date_input .= form_dropdown($this->form_slug.'_year', $years, $year, 'style="min-width: 100px; width:100px;"');
 		}
 					
 		// -------------------------------------
@@ -311,7 +311,7 @@ class Field_datetime extends AbstractField
 				$hour_count++;
 			}
 
-			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($this->form_slug.'_hour', $hours, $this->to12Hour($datetime->hour), 'style="min-width: 100px; width:100px;" id="'.$this->form_slug.'_hour"');
+			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($this->form_slug.'_hour', $hours, $datetime->format('h'), 'style="min-width: 100px; width:100px;" id="'.$this->form_slug.'_hour"');
 			
 			// Minute
 			$minute_count = 0;
@@ -337,16 +337,7 @@ class Field_datetime extends AbstractField
 			// AM/PM
 			$am_pm = array('am' => 'am', 'pm' => 'pm');
 			
-			// Is this AM or PM?
-
-			$am_pm_current = 'am';
-		
-			if ($datetime->hour >= static::HALF_HOURS_PER_DAY)
-			{
-				$am_pm_current = 'pm';
-			}
-			
-			$date_input .= form_dropdown($this->form_slug.'_am_pm', $am_pm, $am_pm_current, 'style="min-width: 100px; width:100px;"');
+			$date_input .= form_dropdown($this->form_slug.'_am_pm', $am_pm, $datetime->format('a'), 'style="min-width: 100px; width:100px;"');
 		
 		}
 
@@ -372,8 +363,17 @@ class Field_datetime extends AbstractField
 	public function pre_save()
 	{
 		if ($this->getParameter('input_type') == 'datepicker')
-		{
-			return $this->value.' '.$this->to24Hour($this->getHourValue(static::ZERO_2_DIGIT)).':'.$this->getMinuteValue(static::ZERO_2_DIGIT).':'.static::ZERO_2_DIGIT;
+		{			
+			$hour = (int) $this->getHourValue(static::ZERO_2_DIGIT);
+			$minute = (int) $this->getMinuteValue(static::ZERO_2_DIGIT);
+
+			$date = explode('-', $this->value);
+
+			$datetime = Carbon::create($date[0], $date[1], $date[2], $hour, $minute,0);
+
+			$datetime = $this->to24Hour($datetime, $hour);
+
+			return $datetime->format(static::STORAGE_DATE_FORMAT);
 		}
 
 		if ((bool) $this->getYearValue() and 
@@ -410,7 +410,7 @@ class Field_datetime extends AbstractField
 			$datetime->day = $this->getDayValue($datetime->day);
 		}
 
-		$datetime->hour = $this->to24Hour($this->getHourValue($datetime->hour));
+		$datetime = $this->to24Hour($datetime, $this->getHourValue($datetime->hour));
 
 		$datetime->minute = $this->getMinuteValue($datetime->minute);
 
@@ -509,7 +509,7 @@ class Field_datetime extends AbstractField
 	 * @param  string
 	 * @return string
 	 */
-	public function date_format($value = null)
+	public function param_date_format($value = null)
 	{
 		$data = array(
         	'name'        => 'date_format',
@@ -591,7 +591,7 @@ class Field_datetime extends AbstractField
 				return Carbon::createFromFormat(static::STORAGE_DATE_FORMAT, $date_string);
 			}
 			
-			return Carbon::instance($date_string);
+			Carbon::instance($date_string);
 		
 		} catch (Exception $e) {
 			// @todo - log error
@@ -599,14 +599,14 @@ class Field_datetime extends AbstractField
 		}
 	}
 
-	protected function to24Hour($hour = 0)
+	protected function to24Hour($datetime, $hour = 0)
 	{
 		if ($this->getAmPmValue() == 'pm' and $hour <= static::HALF_HOURS_PER_DAY)
 		{
-			return (int) $hour + static::HALF_HOURS_PER_DAY;
+			$datetime->addHours(static::HALF_HOURS_PER_DAY);
 		}
 
-		return ($hour <= static::HALF_HOURS_PER_DAY) ? $hour : (int) $hour + static::HALF_HOURS_PER_DAY;
+		return $datetime;
 	}
 
 	protected function to12Hour($hour = 0)
