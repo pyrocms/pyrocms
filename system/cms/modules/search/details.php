@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Search\Model\Search;
 
 /**
  * Search module
@@ -54,7 +55,7 @@ class Module_Search extends AbstractModule
             $table->text('keywords_hash');
             $table->string('module', 40);
             $table->string('scope', 100);
-            $table->string('entry_single', 100);
+            $table->string('entry_singular', 100);
             $table->string('entry_plural', 100);
             $table->string('entry_id', 255);
             $table->string('uri', 255);
@@ -67,7 +68,6 @@ class Module_Search extends AbstractModule
             $table->unique(array('module', 'scope', 'entry_id'));
         });
 
-		ci()->load->model('search/search_index_m');
 		ci()->load->library('keywords/keywords');
 
 		foreach (ci()->pdb->table('pages')->get() as $page) {
@@ -80,20 +80,20 @@ class Module_Search extends AbstractModule
 	    			->where('id', $page->id)
 	    			->update(array('meta_keywords' => $hash));
 
-	    		ci()->search_index_m->index(
-	    			'pages',
-	    			'pages:page',
-	    			'pages:pages',
-	    			$page->id,
-	    			$page->uri,
-	    			$page->title,
-	    			$page->meta_description ?: null,
-	    			array(
-	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
-	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
-	    				'keywords' 		=> $hash,
-	    			)
-	    		);
+	    		Search::index(
+	    			$module = 'pages',
+	    			$scope = 'def_page_fields.pages',
+	    			$singular = 'pages:page',
+	    			$plural = 'pages:pages',
+	    			$entry_id = $page->id,
+	    			$title = $page->title,
+	    			$description = $page->meta_description,
+	    			$keywords = $page->meta_keywords,
+	    			$uri = $page->uri,
+	    			$cp_uri = 'admin/pages/edit/'.$page->id,
+	    			$group_access = null,
+	    			$user_access = null
+	    			);
 	    	}
 		}
 
