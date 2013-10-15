@@ -122,10 +122,10 @@ class Admin extends Admin_Controller
                     $model->entry->updateOrderingCount($order);
                 }
             }
-        }
 
-        //iterate through children and set their order and parent
-        Page::setChildren($page);
+            //iterate through children and set their order and parent
+            Page::setChildren($page);
+        }
 
         // rebuild page URIs
         Page::updateLookup($ids);
