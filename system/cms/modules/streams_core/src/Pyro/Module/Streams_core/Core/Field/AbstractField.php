@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
 use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Str;
 use Pyro\Module\Streams_core\Core\Field\Type;
 use Pyro\Module\Streams_core\Core\Model;
 
@@ -345,7 +346,7 @@ abstract class AbstractField
 		{
 			return $value;
 		}
-		elseif ($this->entry)
+		elseif ($this->entry and $this->entry->{$field_slug})
 		{
 			return $this->entry->{$field_slug};
 		}
@@ -640,23 +641,50 @@ abstract class AbstractField
 
 	public function getProperty($key)
 	{
-		$method = 'get'.\Illuminate\Support\Str::studly($key).'Property';
+		$method = 'get'.Str::studly($key).'Property';
 
 		if (method_exists($this, $method))
 		{
 			return $this->$method($key);
 		}
 
-		if ($parameter = $this->getParameter($key))
+		return null;
+	}
+
+	/**
+	 * Dynamic method call
+	 * @param  array $method
+	 * @param  string $arguments
+	 * @return mixed
+	 */
+	public function __call($method, $arguments)
+	{
+		if (preg_match('/^get(.+)Value$/', $method, $matches))
 		{
-			return $parameter;
+			$default = isset($arguments[0]) ? $arguments[0] : null;
+
+			return $this->getPostValue($this->field->field_slug.'_'.Str::snake($matches[1]), $default);
 		}
 
 		return null;
 	}
 
+	/**
+	 * Get dynamic property
+	 * @param  string
+	 * @return mixed
+	 */
 	public function __get($key)
 	{
 		return $this->getProperty($key);
+	}
+
+	/**
+	 * Convert the object to string when treated as such
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->getFormattedValue($this->value);
 	}
 }
