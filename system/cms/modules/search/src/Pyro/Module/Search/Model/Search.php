@@ -228,7 +228,7 @@ class Search extends Eloquent
 	public static function getResults($terms)
 	{
 		// Go!
-		$results = static::select('title', 'description', 'keywords', 'module', 'scope', 'entry_plural', 'uri', 'cp_uri');
+		$results = static::select('title', 'description', 'keywords', 'module', 'scope', 'entry_singular', 'entry_plural', 'uri', 'cp_uri');
 
 
 		/**
