@@ -40,6 +40,7 @@
 //@codekit-append "plugins/ace/ace.js"
 //@codekit-append "plugins/cookie.js"
 //@codekit-append "plugins/easy-pie-chart.js"
+//@codekit-append "plugins/datepicker.js"
 //@codekit-append "plugins/morris.js"
 //@codekit-append "plugins/nestable.js"
 //@codekit-append "plugins/selectize.js"
