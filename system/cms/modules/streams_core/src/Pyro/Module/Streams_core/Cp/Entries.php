@@ -60,12 +60,21 @@ class Entries extends AbstractCp
 	 *
 	 * see docs for more explanation
 	 */
-	public static function table($stream_slug, $stream_namespace, $pagination = null, $pagination_uri = null, $extra = array())
+	public static function table($stream_slug, $stream_namespace = null, $pagination = null, $pagination_uri = null, $extra = array())
 	{	
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace)->enableEagerFieldRelations(true);
+		if ($instance->isSubclassOfEntry($stream_slug))
+		{
+			$instance->model = new $stream_slug;
+		}
+		else
+		{
+			$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
+		}
+
+		$instance->model->enableEagerFieldRelations(true);
 
 		$instance->data->stream = $instance->model->getStream();
 
