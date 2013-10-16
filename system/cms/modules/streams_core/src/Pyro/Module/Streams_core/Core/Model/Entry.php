@@ -654,7 +654,7 @@ class Entry extends Eloquent
 
         $search_index_scope = $this->getStreamTypeSlug();
 
-        Search::dropIndex($search_index_module, $search_index_scope, $this->getKey());
+        Search::dropIndex($search_index_module, $search_index_scope, $this->id);
 
         return parent::delete();
     }
