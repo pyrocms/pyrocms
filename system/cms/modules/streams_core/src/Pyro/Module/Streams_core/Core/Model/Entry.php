@@ -4,33 +4,63 @@ use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
 use Pyro\Module\Streams_core\Core\Field\Form;
 
-// Eloquent was not designed to talk to different tables from a single model but
-// I am tring to bend the rules a little, I think it will be worth it
-// Entry would work similar to the old row model
-// it will extend eloquent and return collections most of the time
-// The idea is for Entry to be used by the Streams core
-// but to be extensible by devs so the their modules can act or be a mirror of the corresponding stream
-// allowing to set the stream slug, namespace and prefix in the extending model
-// and add custom funtionality to it.
-// 
-// They could override with their own collection or on builder
-// 
-// while keeping streams working the way they should
-// 
-// i.e. class Profile extends Entry
-// {
-// 
-//      protected $stream_slug = 'profiles';
-//      
-//      protected $stream_namespace = 'users';
-//      
-//      protected $prefix = ''
-//      
-// }
-// 
-
-class Entry extends EntryOriginal
+/**
+ * Entry model
+ *
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Streams_core\Models
+ */
+class Entry extends Eloquent
 {
+    /**
+     * The attributes that aren't mass assignable
+     * @var array
+     */
+    protected $guarded = array('id');
+
+    /**
+     * Stream slug
+     * @var string
+     */
+    protected $stream_slug = null;
+
+    /**
+     * Stream namespace
+     * @var string
+     */
+    protected $stream_namespace = null;
+
+    /**
+     * Stream
+     * @var object
+     */
+    protected $stream = null;
+
+    protected static $instance = null;
+
+    /**
+     * The array of user columns that will be selected
+     * @var array 
+     */
+    protected $user_columns = array('id', 'username');
+
+    /**
+     * The name of the "created at" column.
+     * @var string
+     */
+    const CREATED_AT = 'created';
+
+    /**
+     * The name of the "updated at" column.
+     * @var string
+     */
+    const UPDATED_AT = 'updated';
+
+    /**
+     * The name of the "created at" column.
+     * @var string
+     */
+    const CREATED_BY = 'created_by';
     /**
      * Assignments
      * @var array
@@ -110,7 +140,21 @@ class Entry extends EntryOriginal
     protected $view_options = array();
 
     /**
-     * Load a stream
+     * The class construct
+     * @param array $attributes The attributes to instantiate the model with
+     */
+    public function __construct(array $attributes = array())
+    {
+        parent::__construct($attributes);
+
+        if ($this->stream_slug and $this->stream_namespace)
+        {
+            $this->stream($this->stream_slug, $this->stream_namespace, $this);
+        }
+    }
+
+    /**
+     * Return an instance of the Entry model with the gathered stream and field assignments
      * @param  string $stream_slug
      * @param  string $stream_namespace
      * @param  object $instance
@@ -118,7 +162,35 @@ class Entry extends EntryOriginal
      */
     public static function stream($stream_slug, $stream_namespace = null, Entry $instance = null)
     {
-        $instance = parent::stream($stream_slug, $stream_namespace, $instance);
+        if ( ! $instance)
+        {
+            $instance = new static;
+        }
+
+        if ($stream_slug instanceof Stream)
+        {
+            $instance->stream = $stream_slug;
+        }
+        elseif (is_numeric($stream_slug))
+        {
+            if ( ! $instance->stream = Stream::find($stream_slug))
+            {
+                $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
+
+                throw new Exception\StreamNotFoundException($message);
+            }
+        } 
+        else 
+        {
+            if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+            {
+                $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+
+                throw new Exception\StreamNotFoundException($message);
+            }
+        }
+
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
         $stream_relations = $instance->stream->getModel()->getRelations();
         
@@ -133,7 +205,7 @@ class Entry extends EntryOriginal
 
         $instance->setFields($instance->assignments->getFields($instance->stream));
 
-        return $instance;
+        return static::$instance = $instance;
     }
 
     /**
@@ -394,6 +466,20 @@ class Entry extends EntryOriginal
         $entry->exists = true;
 
         return $entry;
+    }
+
+    /**
+     * Find a model by its primary key or throw an exception.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Pyro\Module\Streams_core\Core\Model\Entry|Collection|static
+     */
+    public static function findOrFail($id, $columns = array('*'))
+    {
+        if ( ! is_null($model = static::find($id, $columns))) return $model;
+
+        throw new Exception\EntryNotFoundException;
     }
 
     /**
@@ -918,6 +1004,49 @@ class Entry extends EntryOriginal
         }
 
         return $title_column;
+    }
+
+    /**
+     * Get stream
+     * @return object
+     */
+    public function getStream()
+    {
+        return $this->stream instanceof Stream ? $this->stream : new Stream;
+    }
+
+    /**
+     * Set stream
+     * @param object $stream
+     */
+    public function setStream(Stream $stream = null)
+    {
+        return $this->stream = $stream;
+    }
+
+    /**
+     * Get the dates the should use Carbon
+     * @return array The array of date columns
+     */
+    public function getDates()
+    {
+        $dates = array(static::CREATED_AT, static::UPDATED_AT);
+
+        if ($this->softDelete)
+        {
+            $dates = array_push($dates, static::DELETED_AT);
+        }
+
+        return $dates;
+    }
+
+    /**
+     * Created by user format
+     * @return [type] [description]
+     */
+    public function createdByUser()
+    {
+        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }
 
     /**
