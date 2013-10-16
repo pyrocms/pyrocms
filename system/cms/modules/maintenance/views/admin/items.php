@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<!-- .panel -->
@@ -14,7 +14,7 @@
 
 		
 			<?php if ( ! empty($tables)): ?>
-				<table class="table no-margin">
+				<table class="table n-m">
 					<thead>
 						<tr>
 							<th><?php echo lang('maintenance:table_label') ?></th>
@@ -62,7 +62,7 @@
 
 		
 			<?php if ( ! empty($folders)): ?>
-				<table class="table no-margin">
+				<table class="table n-m">
 					<thead>
 						<tr>
 							<th><?php echo lang('name_label') ?></th>

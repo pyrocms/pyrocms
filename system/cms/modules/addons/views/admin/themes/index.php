@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<section id="page-title">
@@ -21,7 +21,7 @@
 
 				<?php echo form_open('admin/addons/themes/set_default') ?>
 				<?php echo form_hidden('method', $this->method) ?>
-				<table class="table no-margin">
+				<table class="table n-m">
 					<thead>
 						<tr>
 							<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label') ?></th>

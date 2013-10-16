@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<!-- .panel -->

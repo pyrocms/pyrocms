@@ -20,7 +20,7 @@
 
 	<main class="container animated-fast fadeInUp">
 	<div class="row-fluid">
-	<div class="col-md-3 col-md-offset-4 padding">
+	<div class="col-md-3 col-md-offset-4 p">
 
 		
 		<center id="page-title" class="brand">
@@ -69,7 +69,7 @@
 	<footer class="navbar navbar-fixed-bottom">
 	<center class="container">
 		<div class="row-fluid">
-		<div class="col-md-3 col-md-offset-4 padding animated-fast fadeInUp">
+		<div class="col-md-3 col-md-offset-4 p animated-fast fadeInUp">
 			Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
 			<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 		</div>

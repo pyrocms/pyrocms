@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<section id="page-title">
@@ -13,7 +13,7 @@
 		<?php echo form_open('admin/pages/types/delete');?>
 
 			<?php if ( ! empty($page_types)): ?>
-				<table class="table no-margin">
+				<table class="table n-m">
 					<thead>
 						<tr>
                             <th width="20%"><?php echo lang('global:title');?></th>

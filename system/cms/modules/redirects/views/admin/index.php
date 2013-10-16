@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<section id="page-title">
@@ -16,7 +16,7 @@
 			<?php if ( ! $redirects->isEmpty()): ?>
 				
 				    <?php echo form_open('admin/redirects/delete') ?>
-					<table class="table no-margin">
+					<table class="table n-m">
 					    <thead>
 							<tr>
 								<th width="15"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
@@ -55,7 +55,7 @@
 				    <?php echo form_close() ?>
 
 			<?php else: ?>
-				<div class="padding"><?php echo lang('redirects:no_redirects');?></div>
+				<div class="p"><?php echo lang('redirects:no_redirects');?></div>
 			<?php endif ?>
 
 

@@ -7,7 +7,7 @@
 
 		<?php if (! $assignments->isEmpty()): ?>
 
-			<table class="table no-margin">
+			<table class="table n-m">
 				<thead>
 					<tr>
 						<th></th>

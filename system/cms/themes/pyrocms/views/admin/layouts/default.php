@@ -67,7 +67,7 @@
 				<!-- Body Content -->
 				<section class="scrollable" id="body">
 					
-					<div class="padding-left padding-right">
+					<div class="p-l p-r">
 						<?php file_partial('notices'); ?>
 					</div>
 					

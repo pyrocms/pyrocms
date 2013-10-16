@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<section id="page-title">
@@ -17,7 +17,7 @@
 		<div class="panel-content">
 
 			<?php if ($core): ?>
-			<table class="table no-margin">
+			<table class="table n-m">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>
@@ -54,7 +54,7 @@
 		<div class="panel-content">
 
 			<?php if ( ! empty($addon)): ?>
-			<table class="table no-margin">
+			<table class="table n-m">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>

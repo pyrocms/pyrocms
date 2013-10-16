@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 
 	<section id="page-title">
@@ -21,7 +21,7 @@
 				<?php echo form_open(uri_string(), 'class="crud"') ?>
 				<!-- Available Widget List -->
 
-				<table class="table no-margin">
+				<table class="table n-m">
 					<thead>
 					<tr>
 						<th width="30"></th>

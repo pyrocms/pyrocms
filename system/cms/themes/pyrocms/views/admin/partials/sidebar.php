@@ -9,7 +9,7 @@
 			</a>
 		
 
-			<a class="nav-brand no-padding" href="<?php echo site_url('/'); ?>" target="_blank">
+			<a class="nav-brand n-p" href="<?php echo site_url('/'); ?>" target="_blank">
 
 				<!-- Icon -->
 				<span class="icon">

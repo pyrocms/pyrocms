@@ -1,4 +1,4 @@
-<section class="filters padding margin-top margin-bottom">
+<section class="filters p m-t margin-bottom">
 
 	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
 

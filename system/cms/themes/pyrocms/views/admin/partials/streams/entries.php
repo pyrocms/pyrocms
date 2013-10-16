@@ -8,7 +8,7 @@
 
 	<?php if ($entries->count() > 0): ?>
 
-		<table class="table no-margin">
+		<table class="table n-m">
 			<thead>
 				<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>

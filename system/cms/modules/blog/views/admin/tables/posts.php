@@ -1,4 +1,4 @@
-	<table class="table no-margin">
+	<table class="table n-m">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>

@@ -1,4 +1,4 @@
-<div class="padding">
+<div class="p">
 
 	<section id="page-title">
 		<h1><?php echo lang('global:plugins');?></h1>

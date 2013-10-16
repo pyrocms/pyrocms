@@ -1,0 +1,118 @@
+@variant-percentage-1:    4%;
+@variant-percentage-2:    7%;
+@variant-percentage-3:    12%;
+
+.color-variant(@color: #555) {
+  
+  color: @color !important;
+  
+  &.c-lt,
+  .c-lt {
+  	color: lighten(@color, @variant-percentage-1) !important;
+  }
+
+  &.c-ltr,
+  .c-ltr {
+    color: lighten(@color, @variant-percentage-2) !important;
+  }
+
+  &.c-ltst,
+  .c-ltst {
+    color: lighten(@color, @variant-percentage-3) !important;
+  }
+
+  // Darker
+
+  &.c-dk,
+  .c-dk {
+    color: darken(@color, @variant-percentage-1) !important;
+  }
+
+  &.c-dkr,
+  .c-dkr {
+    color: darken(@color, @variant-percentage-2) !important;
+  }
+
+  &.c-dkst,
+  .c-dkst {
+    color: darken(@color, @variant-percentage-3) !important;
+  }
+}
+
+// -------------------------------------------------
+
+.background-color-variant(@color: #555) {
+  
+  background-color: @color !important;  
+  
+  &.bg-c-lt,
+  .bg-c-lt {
+    background-color: lighten(@color, @variant-percentage-1) !important;
+  }
+
+  &.bg-c-ltr,
+  .bg-c-ltr {
+    background-color: lighten(@color, @variant-percentage-2) !important;
+  }
+
+  &.bg-c-ltst,
+  .bg-c-ltst {
+    background-color: lighten(@color, @variant-percentage-3) !important;
+  }
+
+  // Darker
+
+  &.bg-c-dk,
+  .bg-c-dk {
+    background-color: darken(@color, @variant-percentage-1) !important;
+  }
+
+  &.bg-c-dkr,
+  .bg-c-dkr {
+    background-color: darken(@color, @variant-percentage-2) !important;
+  }
+
+  &.bg-c-dkst,
+  .bg-c-dkst {
+    background-color: darken(@color, @variant-percentage-3) !important;
+  }
+}
+
+// -------------------------------------------------
+
+.border-color-variant(@color: #555) {
+  
+  border-color: @color !important;  
+  
+  &.b-c-lt,
+  .b-c-lt {
+    border-color: lighten(@color, @variant-percentage-1) !important;
+  }
+
+  &.b-c-ltr,
+  .b-c-ltr {
+    border-color: lighten(@color, @variant-percentage-2) !important;
+  }
+
+  &.b-c-ltst,
+  .b-c-ltst {
+    border-color: lighten(@color, @variant-percentage-3) !important;
+  }
+
+  // Darker
+
+  &.b-c-dk,
+  .b-c-dk {
+    border-color: darken(@color, @variant-percentage-1) !important;
+  }
+
+  &.b-c-dkr,
+  .b-c-dkr {
+    border-color: darken(@color, @variant-percentage-2) !important;
+  }
+
+  &.b-c-dkst,
+  .b-c-dkst {
+    border-color: darken(@color, @variant-percentage-3) !important;
+  }
+}
