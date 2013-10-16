@@ -347,6 +347,19 @@ abstract class AbstractCp extends AbstractSupport
 	}
 
 	/**
+	 * Is subclass of Entry
+	 * @param  string|object  $subclass 
+	 * @param  string  $class
+	 * @return boolean
+	 */
+	public function isSubclassOfEntry($subclass, $class = 'Pyro\Module\Streams_core\Core\Model\Entry')
+	{
+		$reflection = new \ReflectionClass($subclass);
+
+		return $reflection->isSubclassOf($class);
+	}
+
+	/**
 	 * Buttons
 	 * @param  array  $buttons
 	 * @return object
