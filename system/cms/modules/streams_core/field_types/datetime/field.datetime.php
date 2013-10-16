@@ -60,8 +60,8 @@ class Field_datetime extends AbstractField
 		// We need the JS file for the front-end. 
 		if ( ! defined('ADMIN_THEME') and $this->getParameter('input_type') == 'datepicker')
 		{
-			$this->css('datepicker.css');
-			$this->js('jquery.datepicker.js');
+			//$this->css('datepicker.css');
+			//$this->js('jquery.datepicker.js');
 		}
 	}
 
@@ -221,7 +221,7 @@ class Field_datetime extends AbstractField
 			// End Date
 			$dp_mods[] = 'maxDate: new Date('.$end_datetime->format(static::JS_DATE_RANGE_FORMAT).')';
 				
-			$date_input = '<script>$(function() {$("#'.$this->form_slug.'" ).datepicker({ '.implode(', ', $dp_mods).'});});</script>';
+			$date_input = '';// '<script>$(function() {$("#'.$this->form_slug.'" ).datepicker({ '.implode(', ', $dp_mods).'});});</script>';
 
 			$options['name'] 	= $this->form_slug;
 
