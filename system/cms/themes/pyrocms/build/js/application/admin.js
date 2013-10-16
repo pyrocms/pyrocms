@@ -256,6 +256,7 @@ Pyro.Initialize = function() {
 	$(document).on('click', '[data-toggle^="global-search"]', function(e) {
 		e.preventDefault();
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
+		$('#actions').toggleClass('scrollable');
 		$('#search .search-terms').val('');
 		$('#search .selectize-input input').focus();
 	});
