@@ -488,6 +488,13 @@ abstract class AbstractCp extends AbstractCallable
 		return $pagination;
 	}
 
+	public function headers($headers = array())
+	{
+		$this->headers = $headers;
+
+		return $this;
+	}
+
 	/**
 	 * Set hidden fields
 	 * @param  array  $hidden 

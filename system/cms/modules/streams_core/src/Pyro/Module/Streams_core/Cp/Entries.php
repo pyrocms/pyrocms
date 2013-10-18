@@ -150,6 +150,11 @@ class Entries extends AbstractCp
 
   		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
 
+  		if ( ! empty($this->headers))
+  		{
+  			$this->data->field_names = array_merge($this->data->field_names, $this->headers);
+  		}
+
   		// @todo - fix pagination
 		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
 		
