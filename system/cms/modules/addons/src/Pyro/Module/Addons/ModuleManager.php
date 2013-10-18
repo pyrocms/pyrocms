@@ -174,10 +174,14 @@ class ModuleManager
      */
     public function getAll($params = null, $return_disabled = true)
     {
+        // This is FUCKING BROKEN and I don't know why.. it returns em all
         $result = $this->modules->findWithFilter($params, $return_disabled);
 
         $modules = array();
         foreach ($result as $record) {
+
+            // TMP FIX - @todo - Phil fix me..
+            if (!$record->isEnabled()) continue;
 
             // Let's get REAL
             if ( ! $module = $this->spawnClass($record->slug, $record->isCore())) {
