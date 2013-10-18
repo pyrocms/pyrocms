@@ -135,7 +135,16 @@ class Entries extends AbstractCp
 
 		$this->data->field_maps 	= $parsed_columns['field_maps'];
 
-  		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
+		if ( ! empty($this->select))
+		{
+			$select = $this->select;
+		}
+		else
+		{
+			$select = $this->columns;
+		}
+
+  		$this->data->entries 		= $this->model->get($select, $this->exclude);
 
  		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 

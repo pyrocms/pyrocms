@@ -305,7 +305,7 @@ abstract class AbstractCp extends AbstractCallable
 	 * Select
 	 * @var array
 	 */
-	protected $select = array('*');
+	protected $select = null;
 
 	/**
 	 * Construct and bring in assets
@@ -698,6 +698,13 @@ abstract class AbstractCp extends AbstractCallable
 	public function noFieldsMessage($no_fields_message = null)
 	{
 		$this->data->no_fields_message = $no_fields_message;
+	}
+
+	public function select($select = null)
+	{
+		$this->select = $select;
+
+		return $this;
 	}
 
 	/**
