@@ -82,9 +82,9 @@
 
 		<div class="float-right buttons">
 
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		<button type="submit" name="btnAction" value="save" class="btn btn-success"><span><?php echo lang('buttons:save'); ?></span></button>	
 		<?php if ($cancel_uri): ?>
-		<a href="<?php echo site_url($cancel_uri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		<a href="<?php echo site_url($cancel_uri); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>
 		<?php endif; ?>
 
 	</div>

@@ -1,51 +1,52 @@
 <?php if ($fields): ?>
 
-<?php echo form_open_multipart('', 'class="streams_form"'); ?>
+<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
-<div class="form_inputs">
+<!-- .panel-body -->
+<div class="panel-body">
 
-	<ul>
+	<?php foreach ($fields as $field): ?>
 
-	<?php foreach ($fields as $field) { ?>
-
-		<li class="<?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
-			<label for="<?php echo $field['input_slug'];?>"><?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
-
-			<?php if( $field['instructions'] != '' ): ?>
-				<br /><small><?php echo lang_label($field['instructions']); ?></small>
-			<?php endif; ?>
+		<div class="form-group <?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
+			<label for="<?php echo $field['input_slug'];?>">
+				<?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
 			</label>
 
-			<div class="input"><?php echo $field['input']; ?></div>
-		</li>
+			<?php echo $field['input']; ?>
 
-	<?php } ?>
+			<?php if( $field['instructions'] != '' ): ?>
+				<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
+			<?php endif; ?>
+		</div>
 
-	</ul>
+	<?php endforeach; ?>
 
 </div>
+<!-- /.panel-body -->
 
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
-	</div>
+<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-<?php if (isset($disable_form_open) and ! $disable_form_open): echo form_close(); endif; ?>
+<div class="panel-footer">
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
+</div>
+
+<?php echo form_close();?>
+
 
 <?php else: ?>
 
+
 <div class="no_data">
-	<?php
+<?php
 
-		if (isset($no_fields_message) and $no_fields_message) {
-			echo lang_label($no_fields_message);
-		} else {
-			echo lang('streams:no_fields_msg_first');
-		}
+	if (isset($no_fields_message) and $no_fields_message) {
+		echo lang_label($no_fields_message);
+	} else {
+		echo lang('streams:no_fields_msg_first');
+	}
 
-	?>
-</div><!--.no_data-->
+?>
+</div>
 
-<?php endif;
+<?php endif; ?>
