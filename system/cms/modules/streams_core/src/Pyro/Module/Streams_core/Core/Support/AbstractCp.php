@@ -3,8 +3,9 @@ namespace Pyro\Module\Streams_core\Core\Support;
 
 use Closure;
 use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Support\AbstractCallable;
 
-abstract class AbstractCp extends AbstractSupport
+abstract class AbstractCp extends AbstractCallable
 {
 	/**
 	 * Add URI
@@ -133,6 +134,12 @@ abstract class AbstractCp extends AbstractSupport
 	protected $form_wrapper = true;
 
 	/**
+	 * Headers
+	 * @var array
+	 */
+	protected $headers = null;
+
+	/**
 	 * Hidden fields by slug
 	 * @var array
 	 */
@@ -181,12 +188,6 @@ abstract class AbstractCp extends AbstractSupport
 	protected $namespace = null;
 
 	/**
-	 * Message shown when no fields found
-	 * @var string
-	 */
-	protected $no_fields_message = null;
-
-	/**
 	 * Offset
 	 * @var integer
 	 */
@@ -223,10 +224,10 @@ abstract class AbstractCp extends AbstractSupport
 	protected $render = null;
 
 	/**
-	 * Return
-	 * @var boolean
+	 * Redirect url
+	 * @var string
 	 */
-	protected $return = null;
+	protected $redirect = null;
 
 	/**
 	 * Show cancel button
@@ -277,24 +278,48 @@ abstract class AbstractCp extends AbstractSupport
 	protected $title = null;
 
 	/**
+	 * View
+	 * @var string
+	 */
+	protected $view = null;
+
+	/**
+	 * View wrapper
+	 * @var string
+	 */
+	protected $view_wrapper = null;
+
+	/**
 	 * Override view
 	 * @var boolean
 	 */
-	protected $view_override = true;
+	protected $view_override = false;
 
 	/**
-	 * Enable posting
+	 * Enable saving
 	 * @var boolean
 	 */
-	protected $enable_post = true;
+	protected $enable_save = true;
 
 	/**
-	 * Construct and initialize data with instance
+	 * Select
+	 * @var array
+	 */
+	protected $select = array('*');
+
+	/**
+	 * Construct and bring in assets
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-		
+		ci()->load->language('streams_core/pyrostreams');
+		ci()->load->config('streams_core/streams');
+
+		// Load the language file
+		if (is_dir(APPPATH.'libraries/Streams')) {
+			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
+		}
+
 		$this->data = new \stdClass;
 	}
 
@@ -348,12 +373,16 @@ abstract class AbstractCp extends AbstractSupport
 
 	/**
 	 * Is subclass of Entry
-	 * @param  string|object  $subclass 
+	 * @param  string  $subclass 
 	 * @param  string  $class
 	 * @return boolean
 	 */
 	public function isSubclassOfEntry($subclass, $class = 'Pyro\Module\Streams_core\Core\Model\Entry')
 	{
+		if ( ! is_string($subclass)) return false;
+
+		if ( ! class_exists($subclass)) return false;
+
 		$reflection = new \ReflectionClass($subclass);
 
 		return $reflection->isSubclassOf($class);
@@ -379,6 +408,25 @@ abstract class AbstractCp extends AbstractSupport
 	public function defaults(array $defaults = array())
 	{
 		$this->defaults = $defaults;
+
+		return $this;
+	}
+
+	public function disableFormOpen($disable_form_open = true)
+	{
+		$this->data->disable_form_open = $disable_form_open;
+
+		return $this;
+	}
+
+	/**
+	 * Set enable saving
+	 * @param  boolean $enable_saving 
+	 * @return object               
+	 */
+	public function enableSave($enable_save = false)
+	{
+		$this->enable_save = $enable_save;
 
 		return $this;
 	}
@@ -580,9 +628,9 @@ abstract class AbstractCp extends AbstractSupport
 	 * @param  string $return 
 	 * @return object         
 	 */
-	public function redirect($return = null)
+	public function redirect($redirect = null)
 	{
-		$this->return = $return;
+		$this->data->redirect = $redirect;
 
 		return $this;
 	}
@@ -598,10 +646,12 @@ abstract class AbstractCp extends AbstractSupport
 
 		if (method_exists($this, $method))
 		{
-			return $this->{$method}($return);
+			$this->{$method}();
 		}
 
-		return false;
+		if ($return) return $this->data->content;
+		
+		ci()->template->build($this->view_wrapper ?: 'admin/partials/blank_section', $this->data);
 	}
 
 	/**
@@ -640,6 +690,16 @@ abstract class AbstractCp extends AbstractSupport
 		return $this;
 	}
 
+	public function noEntriesMessage($no_entries_message = null)
+	{
+		$instance->data->no_entries_message = $no_entries_message;
+	}
+
+	public function noFieldsMessage($no_fields_message = null)
+	{
+		$this->data->no_fields_message = $no_fields_message;
+	}
+
 	/**
 	 * Set tab configuration
 	 * @param  array  $tabs 
@@ -661,19 +721,34 @@ abstract class AbstractCp extends AbstractSupport
 	{
 		ci()->template->title(lang_label($title));
 
-		$this->title;
+		$this->title = $title;
 
 		return $this;
 	}
 
 	/**
-	 * Set enable posting
-	 * @param  boolean $enable_post 
-	 * @return object               
+	 * View
+	 * @param  string $view [description]
+	 * @return [type]       [description]
 	 */
-	public function enablePost($enable_post = false)
+	public function view($view = null, $data = array())
 	{
-		$this->enable_post = $enable_post;
+		$this->view = $view;
+		$this->mergeData($data);
+
+		return $this;
+	}
+
+	/**
+	 * View wrapper
+	 * @param  string $view_wrapper
+	 * @param  array  $data
+	 * @return object
+	 */
+	public function viewWrapper($view_wrapper = null, $data = array())
+	{
+		$this->view_wrapper = $view_wrapper;
+		$this->mergeData($data);
 
 		return $this;
 	}
@@ -683,10 +758,39 @@ abstract class AbstractCp extends AbstractSupport
 	 * @param  boolean $view_override 
 	 * @return object                 
 	 */
-	public function viewOverride($view_override = true)
+	public function viewOverride($view_override = false)
 	{
 		$this->view_override = $view_override;
 
 		return $this;
+	}
+
+	protected function mergeData($data = array())
+	{
+		$this->data = (object) array_merge((array) $this->data, (array) $data);
+	}
+
+	/**
+	 * Dynamically get variables from the data object
+	 * @param  string $name
+	 * @return mixed
+	 */
+	public function __get($name)
+	{
+		if (isset($this->data->{$name}))
+		{
+			return $this->data->{$name};
+		}
+
+		return null;
+	}
+
+	/**
+	 * Render the object when treated as a string
+	 * @return string [description]
+	 */
+	public function __toString()
+	{
+		return $this->render(true);
 	}
 }
