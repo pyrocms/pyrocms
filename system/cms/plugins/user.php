@@ -200,7 +200,7 @@ class Plugin_User extends Plugin
 		);
 
 		$plugin_data[] = array(
-			'value' => date(Settings::get('date_format'), $profile_data['created_on']),
+			'value' => $profile_data['created_on']->format(Settings::get('date_format')),
 			'name'  => lang('user:profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
@@ -217,20 +217,16 @@ class Plugin_User extends Plugin
 			'slug'  => 'updated_on'
 		);
 
-		foreach ($this->current_user->getStreamFields() as $key => $field) {
-			if (!isset($profile_data[$key])) {
-				continue;
+		foreach ($profile = $this->current_user->profile->getAttributes() as $field_slug => $field)
+		{
+			if ($field = $this->current_user->profile->getField($field_slug))
+			{
+				$plugin_data[] = array(
+					'value' => $profile[$field_slug],
+					'name'  => $field->field_name,
+					'slug'  => $field_slug
+				);
 			}
-
-			$name = lang($field->field_name) ?: $field->field_name;
-
-			$plugin_data[] = array(
-				'value' => $profile_data[$key],
-				'name'  => $this->fields->translate_label($name),
-				'slug'  => $field->field_slug
-			);
-
-			unset($name);
 		}
 
 		return $plugin_data;
@@ -308,15 +304,7 @@ class Plugin_User extends Plugin
 		foreach ($user->profile->getModel()->getAllColumns() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
-					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
-						$field_key, 
-						$user->$field_key,
-						$user->profile_id,
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->user_stream,
-						true
-					);
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->getPluginValue($var);
 				}
 
 				if ($user->$field_key) {
@@ -326,15 +314,7 @@ class Plugin_User extends Plugin
 			// Not a plugin call
 			} else {
 				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key])) {
-					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
-						$field_key,
-						$user->{$field_key},
-						$user->profile_id,
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->user_stream,
-						false
-					);
+					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $user->{$field_key};
 				}
 
 				if ($user->{$field_key}) {
