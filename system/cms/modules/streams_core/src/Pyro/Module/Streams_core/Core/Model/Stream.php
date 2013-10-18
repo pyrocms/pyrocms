@@ -518,6 +518,16 @@ class Stream extends Eloquent
 		return $schema->hasTable($table);
 	}
 
+    public static function find($id, $columns = array('*'))
+    {
+    	if ($stream = static::getCache($id))
+    	{
+    		return $stream;
+    	}
+
+    	return static::setCache($id, parent::find($id, $columns));
+	}
+
 	/**
 	 * Find a model by its primary key or throw an exception.
 	 *
