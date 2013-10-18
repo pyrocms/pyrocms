@@ -2,6 +2,7 @@
 
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
+use Pyro\Module\Streams_core\Cp;
 
 /**
  * User controller for the users module (frontend)
@@ -579,8 +580,9 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user and $this->current_user->group === 'admin' and $id > 0) {
-			$user = $this->user_m->get(array('id' => $id));
+		if ($this->current_user->isSuperUser() and $id > 0)
+		{
+			$user = Model\User::find($id);
 
 			// invalide user? Show them their own profile
 			$user or redirect('edit-profile');
@@ -592,8 +594,6 @@ class Users extends Public_Controller
 		$profile_data = array(); // For our form
 
 		// Get the profile data
-		$profile_row = $this->db->limit(1)
-			->where('user_id', $user->id)->get('profiles')->row();
 
 		// If we have API's enabled, load stuff
 		if (Settings::get('api_enabled') and Settings::get('api_user_keys')) {
@@ -620,16 +620,12 @@ class Users extends Public_Controller
 		// Merge streams and users validation
 		// --------------------------------
 
+		// @todo - fix validation
 		// Get the profile fields validation array from streams
-		$this->load->driver('Streams');
-		$profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $profile_row->id);
+		//$profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $profile_row->id);
 
 		// Set the validation rules
-		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
-
-		// Get user profile data. This will be passed to our
-		// streams insert_entry data in the model.
-		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+		//$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
 
 		// --------------------------------
 
@@ -698,35 +694,12 @@ class Users extends Public_Controller
 			}
 		}
 
-		// --------------------------------
-		// Grab user profile data
-		// --------------------------------
-
-		foreach ($assignments as $assign) {
-			if (isset($_POST[$assign->field_slug])) {
-				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-			
-			} else {
-				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
-			}
-		}
-
-		// --------------------------------
-		// Run Stream Events
-		// --------------------------------
-
-		$profile_stream_id = $this->streams_m->get_stream_id_from_slug('profiles', 'users');
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($profile_stream_id), array());
-
-		// --------------------------------
-
-		// Render the view
-		$this->template->build('profile/edit', array(
-			'_user' => $user,
-			'display_name' => $profile_row->display_name,
-			'profile_fields' => $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
-			'api_key' => isset($api_key) ? $api_key : null,
-		));
+        Cp\Entries::form($user->profile) // We can pass the profile model to generate the form
+        	->title('Edit Profile')
+            ->viewWrapper('users/profile/edit', array('_user' => $user))
+            ->successMessage('Profile updated.') // @todo - language
+            ->redirect('admin/users')
+            ->render();
 	}
 
 	/**

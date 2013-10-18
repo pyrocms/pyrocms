@@ -96,49 +96,24 @@ class Entries extends AbstractCp
 			ci()->load->library('encrypt');
 
 			// We need some variables to use in the sort.
-			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$instance->data->stream->id.'; var stream_offset='.$offset.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug']).'";
-				</script>');
+			ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='
+				.$instance->data->stream->id.'; var stream_offset='.$offset
+				.'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug'])
+				.'";</script>');
+
 			ci()->template->append_js('streams/entry_sorting.js');
 		}
  
- 
- 		// -------------------------------------
-		// Get Entries
-		// -------------------------------------
-		
 		$limit = ($instance->pagination) ? $pagination : null;
-
-
-
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
-
-		/*foreach ($filter_data as $filter)
-		{
-			ci()->db->where($filter, null, false);
-		}*/
-		
-		// -------------------------------------
-		// Build Pages
-		// -------------------------------------
-		
-		// Set title
-/*		if (isset($extra['title']))
-		{
-			ci()->template->title(lang_label($extra['title']));
-		}*/
-
-		// Set custom no data message
-		if (isset($extra['no_entries_message']))
-		{
-			$instance->data->no_entries_message = $extra['no_entries_message'];
-		}
 
 		return $instance;
 	}
 
-	protected function renderTable($return = false)
+	/**
+	 * Render table
+	 * @return void
+	 */
+	protected function renderTable()
 	{
 		$this->data->buttons		= $this->buttons;
 
@@ -154,35 +129,58 @@ class Entries extends AbstractCp
 
 		$this->model = $this->model->take($this->limit)->skip($this->offset);
 
-  		$this->data->entries 		= $this->model->get($this->columns, $this->exclude);
+		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
+
+		$this->columns = $parsed_columns['columns'];
+
+		$this->data->field_maps 	= $parsed_columns['field_maps'];
+
+		if ( ! empty($this->select))
+		{
+			$select = $this->select;
+		}
+		else
+		{
+			$select = $this->columns;
+		}
+
+  		$this->data->entries 		= $this->model->get($select, $this->exclude);
 
  		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 
   		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
 
+  		if ( ! empty($this->headers))
+  		{
+  			$this->data->field_names = array_merge($this->data->field_names, $this->headers);
+  		}
+
   		// @todo - fix pagination
+		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
+		
+		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
+	}
 
-		if ($this->limit > 0)
+	protected function parseColumnsAndFieldMaps($columns = array())
+	{
+		$field_maps = array();
+
+		$parsed_columns = array();
+
+		foreach ($columns as $key => $value)
 		{
-			$this->data->pagination = $this->getPagination($this->model->count());
-		}
-		else
-		{
-			$this->data->pagination = null;
+			if (is_numeric($key))
+			{
+				$parsed_columns[] = $value;
+			}
+			else
+			{
+				$parsed_columns[] = $key;
+				$field_maps[$key] = $value;
+			}
 		}
 
-		$table = ci()->load->view('admin/partials/streams/entries', $this->data, true);
-
-		if ( ! $return)
-		{
-			// Hooray, we are building the template ourself.
-			ci()->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+		return array('columns' => $parsed_columns, 'field_maps' => $field_maps);
 	}
 
 	/**
@@ -200,23 +198,28 @@ class Entries extends AbstractCp
 		// Prepare the stream, model and render method
 		$instance = static::instance(__FUNCTION__);
 
-		if ($mixed instanceof Model\Entry and $mixed->getKey())
+		if ($instance->isSubclassOfEntry($mixed))
 		{
-			$instance->model = $mixed->getModel();
+			$instance->entry = new $mixed;
 
+			if (is_numeric($stream_namespace))
+			{
+				$id = $stream_namespace;
+
+				$instance->entry = $instance->entry->setFormat(false)->find($id);
+			}
+		}
+		elseif ($mixed instanceof Model\Entry and $mixed->getKey())
+		{
 			$instance->entry = $mixed->unformatted();
 		}
 		else
 		{
-			$instance->model = Model\Entry::stream($mixed, $stream_namespace);
+			$instance->entry = Model\Entry::stream($mixed, $stream_namespace)->setFormat(false);
 
 			if ($id)
 			{
-				$instance->entry = $instance->model->setFormat(false)->find($id);
-			}
-			else
-			{
-				$instance->entry = $instance->model->setFormat(false);
+				$instance->entry = $instance->entry->find($id);
 			}
 		}
 
@@ -237,11 +240,11 @@ class Entries extends AbstractCp
 			$this->entry->setSearchIndexTemplate($this->index);
 		}
 
-		$this->form = $this->entry->newFormBuilder();
-		$this->form->setDefaults($this->defaults);
-		$this->form->enablePost($this->enable_post);
-		$this->form->successMessage($this->success_message);
-		$this->form->redirect($this->return);
+		$this->form = $this->entry->newFormBuilder()
+			->setDefaults($this->defaults)
+			->enableSave($this->enable_save)
+			->successMessage($this->success_message)
+			->redirect($this->return);
 
 		$this->data->stream 	= $this->entry->getStream();
 		$this->data->tabs		= $this->tabs;
@@ -251,13 +254,13 @@ class Entries extends AbstractCp
 		$this->data->mode		= $this->mode;
 		$this->data->fields		= $this->form->buildForm();
 
-		if ($saved = $this->form->result() and $this->enable_post)
+		if ($saved = $this->form->result() and $this->enable_save)
 		{
 			$this->fireOnSaved($saved);
 		
-			if ($this->return)
+			if ($this->redirect)
 			{
-				$url = ci()->parser->parse_string($this->return, $saved->toArray(), true);
+				$url = ci()->parser->parse_string($this->redirect, $saved->toArray(), true);
 
 				$url = str_replace('-id-', $saved->getKey(), $url);					
 			}
@@ -269,32 +272,18 @@ class Entries extends AbstractCp
 			redirect($url);
 		}
 
-		// Set return uri
-		$this->data->return	= $this->return;
-    	
     	$this->data->form_url  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
-
-		// Set the no fields mesage. This has a lang default.
-		$this->data->no_fields_message	= $this->no_fields_message;
 
 		if (empty($this->data->tabs))
 		{
-			$form = ci()->load->view('admin/partials/streams/form', $this->data, true);
+			$this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/form', $this->data, true);
 		}
 		else
 		{
-			$available_fields = $this->entry->getFieldSlugs(); 
+			$this->data->tabs = $this->distributeFields($this->data->tabs, $this->entry->getFieldSlugs());
 
-			$this->data->tabs = $this->distributeFields($this->data->tabs, $available_fields);
-
-			$form = ci()->load->view('admin/partials/streams/tabbed_form', $this->data, true);
+			$this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->data, true);
 		}
-		
-		if ($this->view_override === false) return $form;
-		
-		$this->data->content = $form;
-
-		ci()->template->build('admin/partials/blank_section', $this->data);
 	}
 
 	/**

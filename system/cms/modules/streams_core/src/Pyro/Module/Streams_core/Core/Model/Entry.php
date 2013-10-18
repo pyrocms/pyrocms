@@ -36,6 +36,10 @@ class Entry extends Eloquent
      */
     protected $stream = null;
 
+    /**
+     * Static instance
+     * @var [type]
+     */
     protected static $instance = null;
 
     /**
@@ -201,7 +205,7 @@ class Entry extends Eloquent
             $instance->stream->load('assignments.field');    
         }
 
-        $instance->assignments = $instance->stream->getModel()->getRelation('assignments');
+        $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
 
         $instance->setFields($instance->assignments->getFields($instance->stream));
 
@@ -217,6 +221,26 @@ class Entry extends Eloquent
         $this->fields = $fields;
 
         return $this;
+    }
+
+    /**
+     * Set assignments
+     * @param array $assignments
+     */
+    public function setAssignments(Collection\FieldAssignmentCollection $assignments = null)
+    {
+        $this->assignments = $assignments;
+
+        return $this;
+    }
+
+    /**
+     * Get assignments
+     * @return [type] [description]
+     */
+    public function getAssignments()
+    {
+        return $this->assignments;
     }
 
     /**

@@ -13,32 +13,7 @@
 	<?php echo form_open_multipart('', array('id'=>'user_edit'));?>
 
 	<fieldset id="profile_fields">
-		<legend><?php echo lang('user:details_section') ?></legend>
-		<ul>
-			<li>
-				<label for="display_name"><?php echo lang('user:profile_display_name') ?></label>
-				<div class="input">
-				<?php echo form_input(array('name' => 'display_name', 'id' => 'display_name', 'value' => set_value('display_name', $display_name))) ?>
-				</div>
-			</li>
-
-			<?php foreach($profile_fields as $field): ?>
-				<?php if($field['input']): ?>
-					<li>
-						<label for="<?php echo $field['field_slug'] ?>">
-							<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
-							<?php if ($field['required']) echo '<span>*</span>' ?>
-						</label>
-
-						<?php if($field['instructions']) echo '<p class="instructions">'.$field['instructions'].'</p>' ?>
-
-						<div class="input">
-							<?php echo $field['input'] ?>
-						</div>
-					</li>
-				<?php endif ?>
-			<?php endforeach ?>
-		</ul>
+		<?php echo $content; ?>
 	</fieldset>
 
 	<fieldset id="user_names">

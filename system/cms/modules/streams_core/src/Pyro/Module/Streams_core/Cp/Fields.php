@@ -147,22 +147,9 @@ class Fields extends AbstractCp
 		ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
 		//ci()->template->append_js('streams/assignments.js');
 
-		// -------------------------------------
-		// Build Fields
-		// -------------------------------------
-
-		$table = ci()->load->view('admin/partials/streams/assignments', $this->data, true);
+		$this->data->content = ci()->load->view('streams_core/fields/table_assignments', $this->data, true);
 		
-		if ($this->view_override)
-		{
-			// Hooray, we are building the template ourself.
-			ci()->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+		return $this;
 	}
 
 	/**
@@ -195,22 +182,9 @@ class Fields extends AbstractCp
 		// Allow view to inherit custom 'Add Field' uri
 		$this->data->add_uri = $this->add_uri;
 		
-		// -------------------------------------
-		// Build Pages
-		// -------------------------------------
-
-		$table = ci()->load->view('admin/partials/streams/fields', $this->data, true);
+		$this->data->content = ci()->load->view('streams_core/fields/table_namespace', $this->data, true);
 		
-		if ($this->view_override)
-		{
-			// Hooray, we are building the template ourself.
-			ci()->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+		return $this;
 	}
 
 	// --------------------------------------------------------------------------
@@ -534,18 +508,9 @@ class Fields extends AbstractCp
 		// have a cancel button.
 		$this->data->cancel_uri = $this->cancel_uri;
 
-		$table = ci()->load->view('admin/partials/streams/field_form', $this->data, true);
-		
-		if ($this->view_override)
-		{
-			// Hooray, we are building the template ourself.
-			ci()->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+		$this->data->content = ci()->load->view('streams_core/fields/form', $this->data, true);
+
+		return $this;
 	}
 
 	/**
