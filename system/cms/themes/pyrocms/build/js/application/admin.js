@@ -309,6 +309,15 @@ Pyro.Initialize = function() {
 		// Set the current value
 		editor.setValue($(this).val());
 	});
+
+
+	/**
+	 * Input Masks
+	 */
+	
+	$('input[data-mask]').each(function() {
+		$(this).mask($(this).attr('data-mask'));
+	});
 }
 
 
