@@ -520,12 +520,12 @@ class Stream extends Eloquent
 
     public static function find($id, $columns = array('*'))
     {
-    	if ( ! $stream = static::getCache($id))
+    	if ($stream = static::getCache($id))
     	{
     		return $stream;
     	}
 
-    	return setCache($id, parent::find($id, $columns));
+    	return static::setCache($id, parent::find($id, $columns));
 	}
 
 	/**

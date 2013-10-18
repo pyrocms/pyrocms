@@ -54,7 +54,7 @@ class AbstractCallable
     {
         if (is_callable($method_callable))
         {
-        	$this->callbacks[camel_case($callback_trigger_prefix.$method_name)] = \Closure::bind($method_callable, $this, get_class());
+        	$this->callbacks[camel_case($this->callback_trigger_prefix.$method_name)] = \Closure::bind($method_callable, $this, get_class());
         }
     }
  
