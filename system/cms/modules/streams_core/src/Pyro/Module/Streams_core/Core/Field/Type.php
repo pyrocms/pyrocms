@@ -116,15 +116,6 @@ class Type
 	}
 
 	/**
-	 * Register a field type
-	 * @return string
-	 */
-	public function registerType()
-	{
-		// @todo - starting an idea for a PSR field loader for 3.0/develop
-	}
-
-	/**
 	 * Get type
 	 * @param  string  $type         
 	 * @param  boolean $gather_types 
@@ -418,10 +409,7 @@ class Type
 
 			$data['input_slug'] = $param;
 
-			// @todo This is silly, find a way to load ajax views consistently
-			$path = ci()->input->is_ajax_request() ? 'extra_field' : 'admin/partials/streams/extra_field';
-
-			$output .= ci()->load->view($path, $data, true);
+			$output .= ci()->load->view('streams_core/fields/parameter', $data, true);
 			
 			$data['count']++;
 		}
