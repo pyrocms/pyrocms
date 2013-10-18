@@ -62,7 +62,7 @@
 		}
 		&.active,
 		&.active:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+			background-color: @btn-primary-bg;
 			color: #fff;
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
@@ -79,7 +79,7 @@
 				background: @gray-lighter;
 			}
 			&.active {
-				.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+				background-color: @btn-primary-bg;
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
@@ -95,7 +95,7 @@
 		}
 		&.next,
 		&.prev {
-			font-size: @baseFontSize * 1.5;
+			font-size: @font-size-base * 1.5;
 		}
 	}
 	
