@@ -215,7 +215,10 @@ class EntryBuilder extends Builder
 		{
 			$this->with('createdByUser');
 
-			$this->eagerLoadFieldRelations($columns);
+			if ($columns === array('*'))
+				$this->eagerLoadFieldRelations($this->model->getFieldSlugs());
+			else
+				$this->eagerLoadFieldRelations($columns);
 
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
