@@ -219,6 +219,7 @@ class Admin extends Admin_Controller
 				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
+				'created_by'	   => $author_id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash
@@ -381,6 +382,7 @@ class Admin extends Admin_Controller
 				'updated'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
+				'created_by'	   => $author_id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash,
