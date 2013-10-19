@@ -16,20 +16,20 @@ class Type
 	 *
 	 * @var		array
 	 */
-	protected $assets = array();
+	protected static $assets = array();
 
 	/**
 	 * Places where our field types may be
 	 *
 	 * @var		array
 	 */
-	protected $addon_paths = array();
+	protected static $addon_paths = array();
 
 	/**
 	 * Available field types
 	 * @var array
 	 */
-	protected $types = array();
+	protected static $types = array();
 
 	/**
 	 * The current instance
@@ -41,7 +41,7 @@ class Type
 	 * Get instance (singleton)
 	 * @return [type] [description]
 	 */
-    public static function getLoader()
+    public static function init()
     {
 		ci()->load->helper('directory');
 		ci()->load->language('streams_core/pyrostreams');
@@ -56,14 +56,14 @@ class Type
 			ci()->load->library('settings/Settings');
 		}
 
-		if( ! isset(self::$instance))
+/*		if( ! isset(self::$instance))
 		{
 	    	$instance = new static;
 	    }
 	    else
 	    {
 	    	$instance = self::$instance;
-	    }
+	    }*/
 
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
@@ -78,7 +78,7 @@ class Type
 		}
 
 		// Set our addon paths
-	    $instance->addon_paths = array(
+	    static::$addon_paths = array(
 			'core' 			=> $core_addon_path.'field_types/',
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
@@ -87,13 +87,11 @@ class Type
 		// Add addon paths event. This is an opportunity to
 		// add another place for addons.
 		if ( ! class_exists('Module_import')) {
-			\Events::trigger('streams_core_add_addon_path', $instance);
+			\Events::trigger('streams_core_add_addon_path', new static);
 		}
 
 		// Preload types
-		$instance->gatherTypes();
-
-	    return $instance;
+//		static::gatherTypes();
 	}
 
 	/**
@@ -101,18 +99,18 @@ class Type
 	 * @param string $key  
 	 * @param string $path 
 	 */
-	public function setAddonPath($key, $path)
+	public static function setAddonPath($key, $path)
 	{
-		$this->addon_paths[$key] = $path;
+		static::$addon_paths[$key] = $path;
 	}
 
 	/**
 	 * Get addon paths
 	 * @return array
 	 */
-	public function getAddonPaths()
+	public static function getAddonPaths()
 	{
-		return $this->addon_paths;
+		return static::$addon_paths;
 	}
 
 	/**
@@ -121,32 +119,32 @@ class Type
 	 * @param  boolean $gather_types 
 	 * @return object
 	 */
-	public function getType($type = null)
+	public static function getType($type = null)
 	{
-		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, true);
+		return isset(static::$types[$type]) ? static::$types[$type] : static::loadSingleType($type, true);
 	}
 
 	/**
 	 * Get all field types
 	 * @return array 
 	 */
-	public function getAllTypes()
+	public static function getAllTypes()
 	{
-		$this->gatherTypes();
+		static::gatherTypes();
 
-		return new \Pyro\Module\Streams_core\Core\Model\Collection\FieldTypeCollection($this->types);
+		return new \Pyro\Module\Streams_core\Core\Model\Collection\FieldTypeCollection(static::$types);
 	}
 
 	/**
 	 * Update types in db
 	 * @return object 
 	 */
-	public function updateTypes()
+	public static function updateTypes()
 	{
 		Events::trigger('streams_core_add_addon_path', $this);
 
 		// Go ahead and regather our types
-		return $this->gatherTypes();
+		return static::gatherTypes();
 	}
 
 	/**
@@ -154,16 +152,16 @@ class Type
 	 *
 	 * @return	void
 	 */
-	public function gatherTypes()
+	public static function gatherTypes()
 	{
-		foreach ($this->getAddonPaths() as $raw_mode => $path)
+		static::init();
+
+		foreach (static::getAddonPaths() as $raw_mode => $path)
 		{
 			$mode = ($raw_mode == 'core') ? 'core' : 'addon';
 
-			$this->loadTypesFromFolder($path, $mode);
+			static::loadTypesFromFolder($path, $mode);
 		}
-
-		return $this;
 	}
 
 	/**
@@ -177,7 +175,7 @@ class Type
 	 * @param	string
 	 * @return	void
 	 */
-	public function loadTypesFromFolder($addon_path, $mode = 'core')
+	public static function loadTypesFromFolder($addon_path, $mode = 'core')
 	{
 		if ( ! is_dir($addon_path)) {
 			return;
@@ -195,14 +193,14 @@ class Type
 
 			// Is this a directory w/ a field type?
 			if (is_dir($addon_path.$type) and is_file("{$addon_path}{$type}/field.{$type}.php")) {
-				$this->types[$type] = $this->loadType(
+				static::$types[$type] = static::loadType(
 					$addon_path,
 					$addon_path.$type.'/field.'.$type.'.php',
 					$type,
 					$mode
 				);
 			} elseif (is_file("{$addon_path}field.{$type}.php")) {
-				$this->types[$type] = $this->loadType(
+				static::$types[$type] = static::loadType(
 					$addon_path,
 					$addon_path.'field.'.$type.'.php',
 					$type,
@@ -218,28 +216,28 @@ class Type
 	 * @param	string - type name
 	 * @return	obj or null
 	 */
-	public function loadSingleType($type = null, $gather_types = false)
+	public static function loadSingleType($type = null, $gather_types = false)
 	{
 		if ($gather_types)
 		{
-			$this->gatherTypes();	
+			static::gatherTypes();	
 		}
 		
 		// Check if we've already loaded this field type
-		if (isset($this->types[$type])) return $this->types[$type];
+		if (isset(static::$types[$type])) return static::$types[$type];
 
-		foreach ($this->addon_paths as $mode => $path)
+		foreach (static::$addon_paths as $mode => $path)
 		{
 			// Is this a directory w/ a field type?
 			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
-				return $this->loadType(
+				return static::loadType(
 					$path, 
 					$path.$type.'/field.'.$type.'.php',
 					$type,
 					$mode
 				);
 			} elseif (is_file($path.'field.'.$type.'.php')) {
-				return $this->loadType(
+				return static::loadType(
 					$path, 
 					$path.'field.'.$type.'.php',
 					$type,
@@ -259,8 +257,12 @@ class Type
 	 * @param	string - mode
 	 * @return	obj - the type obj
 	 */
-	private function loadType($path, $file, $type, $mode)
+	private static function loadType($path, $file, $type, $mode)
 	{
+		if (isset(static::$types[$type])) return static::$types[$type];
+		
+		ci()->profiler->log->info($type);
+		
 		// -------------------------
 		// Load the language file
 		// -------------------------
@@ -306,7 +308,7 @@ class Type
 			}
 		}
 
-		return $instance;
+		return static::$types[$type] = $instance;
 	}
 
 	/**
@@ -318,7 +320,7 @@ class Type
 	{
 		if (empty($types))
 		{
-			$types = static::getLoader()->getAllTypes();
+			$types = static::getAllTypes();
 		}
 
 		foreach ($types as $type)
@@ -351,7 +353,7 @@ class Type
 		$parameters = new Parameter;
 
 		// Load the proper class
-		if ( ! $field_type = static::getLoader()->getType($type)) return null;
+		if ( ! $field_type = Type::getType($field_type)) return null;
 		
 		// I guess we don't have any to show.
 		
