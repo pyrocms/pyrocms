@@ -181,7 +181,7 @@ class ModuleManager
         foreach ($result as $record) {
 
             // TMP FIX - @todo - Phil fix me..
-            if (!$record->isEnabled()) continue;
+            if (!$return_disabled and !$record->isEnabled()) continue;
 
             // Let's get REAL
             if ( ! $module = $this->spawnClass($record->slug, $record->isCore())) {
