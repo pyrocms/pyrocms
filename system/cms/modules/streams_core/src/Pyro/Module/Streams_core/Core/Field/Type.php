@@ -121,9 +121,9 @@ class Type
 	 * @param  boolean $gather_types 
 	 * @return object
 	 */
-	public function getType($type = null, $gather_types = false)
+	public function getType($type = null)
 	{
-		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, $gather_types);
+		return isset($this->types[$type]) ? $this->types[$type] : $this->loadSingleType($type, true);
 	}
 
 	/**
