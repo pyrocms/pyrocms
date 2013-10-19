@@ -47,7 +47,7 @@ class Field extends Eloquent
         $instance = new static;
 
         // Load the type to see if there are other params
-        if ($type = Type::getLoader()->getType($attributes['field_type']))
+        if ($type = Type::getType($attributes['field_type']))
         {
             $type->setPreSaveParameters($attributes);
 
@@ -84,7 +84,7 @@ class Field extends Eloquent
         }
 
         // @todo - replace the Type library with the PSR version
-        if ( ! $type = Type::getLoader()->getType($this->getAttribute('field_type')))
+        if ( ! $type = Type::getType($this->getAttribute('field_type')))
         {
             return false;
         }
@@ -425,7 +425,7 @@ class Field extends Eloquent
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
-       Type::getLoader()->getType($this->getAttribute('field_type'));
+       Type::getType($this->getAttribute('field_type'));
 
         return lang_label($field_name);
     }

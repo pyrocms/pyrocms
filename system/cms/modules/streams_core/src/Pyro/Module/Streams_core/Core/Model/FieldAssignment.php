@@ -172,7 +172,7 @@ class FieldAssignment extends Eloquent
         // This guarantees that the language will be loaded
         if ($this->field)
         {
-            Core\Field\Type::getLoader()->getType($this->field->field_type);
+            Core\Field\Type::getType($this->field->field_type);
 
             $field_name = lang_label($field_name);
         }

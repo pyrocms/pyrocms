@@ -397,7 +397,7 @@ class Fields extends AbstractCp
 
 			// Figure out where this is coming from - post or data
 
-			if ($this->data->current_type = Field\Type::getLoader()->getType($field_type))
+			if ($this->data->current_type = Field\Type::getType($field_type))
 			{				
 				$field_data = array();
 
@@ -519,7 +519,7 @@ class Fields extends AbstractCp
 	 */
 	public function getSelectableFieldTypes()
 	{
-		$types = Field\Type::getLoader()->getAllTypes();
+		$types = Field\Type::getAllTypes();
 
 		// -------------------------------------
 		// Include/Exclude Field Types
