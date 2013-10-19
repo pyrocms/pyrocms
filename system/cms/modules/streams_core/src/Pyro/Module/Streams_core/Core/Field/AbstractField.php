@@ -542,7 +542,7 @@ abstract class AbstractField
 
 		if ($field_type != $this->field_type_slug)
 		{
-			$type = Type::getLoader()->getType($field_type);
+			$type = Type::getType($field_type);
 		}
 		else
 		{

@@ -732,7 +732,7 @@ class Form
 	// $stream = null, $this->method = 'new', $field = null
 	public static function runFieldSetupEvents($current_field = null)
 	{
-		$types = Type::getLoader()->getAllTypes();
+		$types = Type::getAllTypes();
 
 		foreach ($types as $type)
 		{

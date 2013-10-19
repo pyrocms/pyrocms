@@ -47,7 +47,7 @@ class Fields extends AbstractData
 		}
 
 		// Is this a valid field type?
-		if ( ! isset($type) or ! Field\Type::getLoader()->getType($type))
+		if ( ! isset($type) or ! Field\Type::getType($type))
 		{
 			throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
 		}
@@ -248,7 +248,7 @@ class Fields extends AbstractData
 		if ( ! $field = Model\Field::findBySlugAndNamespace($field_slug, $field_namespace)) return false;
 
 		// Is this a valid field type?
-		if (isset($field_type) and ! Field\Type::getLoader()->getType($field_type))
+		if (isset($field_type) and ! Field\Type::getType($field_type))
 		{
 			throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
 		}
