@@ -261,7 +261,9 @@ class Type
 	{
 		if (isset(static::$types[$type])) return static::$types[$type];
 		
-		ci()->profiler->log->info($type);
+		if (isset(ci()->profiler)) {
+			ci()->profiler->log->info($type);
+		}
 		
 		// -------------------------
 		// Load the language file
