@@ -96,15 +96,22 @@
 								$all_buttons = array();
 
 								foreach ($buttons as $button) {
-									$class = (isset($button['confirm']) and $button['confirm']) ? 'confirm' : 'button';
-									$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
 
+									// The second is kept for backwards compatibility
 									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
-
-									// This is kept for backwards compatibility
 									$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
-									$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
+									// Label
+									$label = $button['label'];
+
+									// Remove URL
+									unset($button['url'], $button['label']);
+
+									// Parse variables in attributes
+									foreach ($button as $key => &$value)
+										$value = ci()->parser->parse_string($value, $entry->toArray(), true);
+
+									$all_buttons[] = anchor($url, $label, $button);
 								}
 
 								echo implode('&nbsp;', $all_buttons);
