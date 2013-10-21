@@ -1,4 +1,4 @@
-<?php $this->load->view('admin/partials/streams/filters'); ?>
+<?php $this->load->view('entries/filters'); ?>
 
 <?php if ($entries->count() > 0) { ?>
 
