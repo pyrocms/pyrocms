@@ -73,6 +73,21 @@ Pyro.Initialize = function() {
 
 
 	/**
+	 * Clean modals after hiding because we recycle it
+	 */
+	
+	$(document).on('click', 'a[data-toggle="modal"][data-target="#modal"]', function(e) {
+
+		// Empty it!
+		$('#modal').html('');
+
+		// Fixes a bootstrap bug that prevents
+		// a modal from being reused
+		$('#modal').load($(e.target).attr('href'));
+	});​
+
+
+	/**
 	 * Sortable Lists
 	 */
 	

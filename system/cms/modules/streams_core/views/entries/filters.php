@@ -5,18 +5,18 @@
 		<?php foreach ($filters as $filter): ?>
 
 			<div class="form-group">
-				<!--<label for="exampleInputEmail2">Email address</label>-->
 				<?php echo $stream_fields->findBySlug($filter)->getType()->getFilterOutput(); ?>
 			</div>
 
 		<?php endforeach; ?>
 		
 		<div class="form-group">
-			<!--<label>&nbsp;</label>-->
+
 			<div>
 				<button class="btn btn-success"><?php echo lang('buttons:filter'); ?></button>
-				<a class="btn btn-default" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
+				<a class="btn btn-default clear-filters" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
 			</div>
+			
 		</div>
 
 	<?php echo form_close(); ?>

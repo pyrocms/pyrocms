@@ -2,7 +2,7 @@
 <!--<div class="panel-body">-->
 
 	<?php if (! empty($filters)): ?>
-		<?php $this->load->view('admin/partials/streams/filters'); ?>
+		<?php $this->load->view('entries/filters'); ?>
 	<?php endif; ?>
 
 
