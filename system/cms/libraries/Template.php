@@ -374,7 +374,11 @@ class Template
 				// Log all queries using the profiler
 				foreach ($query_log as $query)
 				{
-				    ci()->profiler->log->query($query['query'], $query['time']);
+					// Insert bindings into query
+					$query['query'] = str_replace(array('%', '?'), array('%%', '%s'), $query['query']);
+					$query['query'] = vsprintf($query['query'], $query['bindings']);
+					
+					ci()->profiler->log->query($query['query'], $query['time']);
 				}
 
 				// Append the profiler to the body
