@@ -80,6 +80,29 @@ class Field_relationship extends AbstractField
 		return form_dropdown($this->form_slug, $entry_options, $this->value, 'id="'.rand_string(10).'"');
 	}
 
+	/**
+	 * Output filter input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function filterOutput()
+	{
+		$model = Model\Entry::stream($this->getParameter('choose_stream'));
+
+		$entry_options = array();
+
+		// Let's allow a null option
+		$entry_options[null] = ci()->config->item('dropdown_choose_null');
+
+		// Get the entries
+		$entry_options += $model->getEntryOptions();
+		
+		// Output the form input
+		return form_dropdown($this->filter_slug, $entry_options, null);
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**

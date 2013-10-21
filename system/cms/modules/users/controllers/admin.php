@@ -91,47 +91,6 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
-        // ---------------------------
-        // User Filters
-        // ---------------------------
-
-        // Determine active param
-        $by_active = ((bool) $this->input->post('f_active')) ?: false;
-
-        // Determine group param
-        $by_group = $this->input->post('f_group');
-
-        // Keyphrase param
-        $keywords = $this->input->post('f_keywords');
-
-        // Create pagination links
-        // @TODO Create user pagination and reimplement filter
-        // $pagination = create_pagination('admin/users/index', User_m::($base_where));
-
-        // Using this data, get the relevant results
-        if ($this->current_user->isSuperUser()) {
-            $users = Users\Model\User::all();
-        } else {
-            $users = Users\Model\User::all();
-        }
-
-        // Unset the layout if we have an ajax request
-        if ($this->input->is_ajax_request()) {
-            $this->template->set_layout(false);
-        }
-
-        // Render the view
-        $this->template
-            ->title($this->module_details['name'])
-            // ->set('pagination', $pagination)
-            ->append_js('admin/filter.js')
-            ->set('users', $users);
-
-        /*$this->input->is_ajax_request()
-            ? $this->template->build('admin/users/tables/users') 
-            : $this->template->build('admin/users/index');*/
-
-
         // Filters
         $filters = array(
             'first_name',
@@ -142,24 +101,36 @@ class Admin extends Admin_Controller
         $buttons = array(
             array(
                 'label' => lang('global:edit'),
-                'url' => 'admin/users/edit/{{ user_id }}',
+                'url' => 'admin/users/edit/{{ user:id }}',
                 'class' => 'btn-sm btn-warning',
                 ),
             array(
                 'label' => lang('global:delete'),
-                'url' => 'admin/users/delete/{{ user_id }}',
+                'url' => 'admin/users/delete/{{ user:id }}',
                 'class' => 'btn-sm btn-danger confirm',
                 ),
             );
 
 
         // Build out the UI with core
-        $table = Cp\Entries::table('profiles', 'users')
+        $table = Cp\Entries::table('Pyro\Module\Users\Model\Profile')
             ->title($this->module_details['name'])
             ->filters($filters)
             ->buttons($buttons)
-            ->fields(array('first_name', 'last_name'))
-            ->pagination(Settings::get('records_per_page'), 'admin/users/index')
+            ->fields(
+                array(
+                    'first_name',
+                    'last_name',
+                    'user',
+                    )
+                )
+            ->onQuery(function($query) {
+                return $query->load('user');
+            })
+            ->pagination(
+                Settings::get('records_per_page'),
+                'admin/users/index'
+                )
             ->redirect('admin/users')
             ->render();
     }

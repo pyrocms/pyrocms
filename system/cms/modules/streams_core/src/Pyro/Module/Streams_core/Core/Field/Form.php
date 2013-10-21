@@ -187,7 +187,6 @@ class Form
  		// -------------------------------------
 		// Set default extras
 		// -------------------------------------
-		
 		$default_extras = array(
 			'email_notifications'		=> null,
 			'return'					=> current_url(),
@@ -209,6 +208,14 @@ class Form
 			// be set to null. 
 			if ( ! isset($extra[$key])) $extra[$key] = $value;
 		}
+
+		// If we don't have any messages set
+		// DO IT
+		if (empty($this->success_message))
+			$this->successMessage($extra['success_message']);
+
+		if (empty($this->failure_message))
+			$this->failureMessage($extra['failure_message']);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -692,6 +699,18 @@ class Form
 	public function successMessage($success_message = null)
 	{
 		$this->success_message = $success_message;
+
+		return $this;
+	}
+
+	/**
+	 * Failure messages
+	 * @param  string $failure_message
+	 * @return object                  
+	 */
+	public function failureMessage($failure_message = null)
+	{
+		$this->failure_message = $failure_message;
 
 		return $this;
 	}
