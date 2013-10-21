@@ -58,7 +58,7 @@ class Field_user extends AbstractField
 	 */
 	public function form_output()
 	{
-		$users = Model\User::getUserOptions($this->getParameter('restrict_group'));
+		$users = array();//Model\User::getUserOptions($this->getParameter('restrict_group'));
 
 		// If this is not required, then
 		// let's allow a null option

@@ -127,9 +127,41 @@ class Admin extends Admin_Controller
             ->append_js('admin/filter.js')
             ->set('users', $users);
 
-        $this->input->is_ajax_request()
+        /*$this->input->is_ajax_request()
             ? $this->template->build('admin/users/tables/users') 
-            : $this->template->build('admin/users/index');
+            : $this->template->build('admin/users/index');*/
+
+
+        // Filters
+        $filters = array(
+            'first_name',
+            'last_name',
+            );
+
+        // Buttons
+        $buttons = array(
+            array(
+                'label' => lang('global:edit'),
+                'url' => 'admin/users/edit/{{ user_id }}',
+                'class' => 'btn-sm btn-warning',
+                ),
+            array(
+                'label' => lang('global:delete'),
+                'url' => 'admin/users/delete/{{ user_id }}',
+                'class' => 'btn-sm btn-danger confirm',
+                ),
+            );
+
+
+        // Build out the UI with core
+        $table = Cp\Entries::table('profiles', 'users')
+            ->title($this->module_details['name'])
+            ->filters($filters)
+            ->buttons($buttons)
+            ->fields(array('first_name', 'last_name'))
+            ->pagination(Settings::get('records_per_page'), 'admin/users/index')
+            ->redirect('admin/users')
+            ->render();
     }
 
     /**
