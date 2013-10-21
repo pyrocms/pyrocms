@@ -185,7 +185,7 @@ class Admin extends Admin_Controller
         $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
-        $enable_entry_post = false;
+        $enable_entry_save = false;
 
         if (($this->form_validation->run() !== false)) {
             if ($activate === '2') {
@@ -200,7 +200,7 @@ class Admin extends Admin_Controller
 
             // Register the user (they are activated by default if an activation email isn't requested)
             //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($enable_entry_post = $user = Users\Model\User::create(array(
+            if ($enable_entry_save = $user = Users\Model\User::create(array(
                     'username' => $username,
                     'password' => $password,
                     'email' => $email,
@@ -243,7 +243,7 @@ class Admin extends Admin_Controller
 
         $tabs = array(
             array(
-                'title'     => lang('profile_user_basic_data_label'),
+                'title'     => lang('user:profile_user_basic_data_label'),
                 'id'        => 'basic',
                 'content'    => $user_form
             ),
@@ -256,7 +256,7 @@ class Admin extends Admin_Controller
 
         Cp\Entries::form('profiles', 'users')
             ->tabs($tabs)
-            ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
             ->onSaving(function($profile) use ($user)
             {
                 $profile->user_id = $user->id; // Set the profile user id before saving
