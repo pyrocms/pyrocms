@@ -1,4 +1,4 @@
-<?php $this->load->view('entries/filters'); ?>
+<?php $this->load->view('streams_core/entries/filters'); ?>
 
 <?php if ($entries->count() > 0) { ?>
 
