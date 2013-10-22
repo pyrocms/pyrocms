@@ -137,14 +137,7 @@ class Field_relationship extends AbstractField
 		{
 			$stream = $entry->getStream();
 		
-			if (ci()->uri->segment(1) == 'admin')
-			{
-				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->getTitleColumnValue().'</a>';
-			}
-			else
-			{
-				return $entry->toArray();
-			}			
+			return $entry->toArray();
 		}
 
 		return null;
