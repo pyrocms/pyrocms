@@ -57,7 +57,7 @@ class Module_Search extends AbstractModule
             $table->string('scope', 100);
             $table->string('entry_singular', 100);
             $table->string('entry_plural', 100);
-            $table->string('entry_id', 255);
+            $table->string('entry_id', 193);
             $table->string('uri', 255);
             $table->string('cp_uri', 255);
             $table->text('group_access')->nullable();
