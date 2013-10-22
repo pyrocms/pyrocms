@@ -551,7 +551,7 @@ abstract class AbstractField
 
 		$paths = ci()->load->get_view_paths();
 
-		ci()->load->set_view_path($type->ft_path.'views/');
+		ci()->load->set_view_path($type->path_views);
 
 		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
 

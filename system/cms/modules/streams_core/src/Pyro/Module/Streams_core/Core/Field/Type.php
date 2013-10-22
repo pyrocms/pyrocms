@@ -1,5 +1,8 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Composer\Autoload\ClassLoader;
+use Illuminate\Support\Str;
+
 /**
  * PyroStreams Core Field Type Library
  *
@@ -26,16 +29,28 @@ class Type
 	protected static $addon_paths = array();
 
 	/**
+	 * Core addon path
+	 * @var [type]
+	 */
+	protected static $core_addon_path;
+
+	/**
 	 * Available field types
 	 * @var array
 	 */
 	protected static $types = array();
 
 	/**
-	 * The current instance
+	 * The registry of field types - field_slug => class
+	 * @var array
+	 */
+	protected static $slug_classes = array();
+
+	/**
+	 * Has the class being initiated
 	 * @var object
 	 */
-	protected static $instance = null;
+	protected static $initiated = false;
 
 	/**
 	 * Get instance (singleton)
@@ -43,55 +58,48 @@ class Type
 	 */
     public static function init()
     {
-		ci()->load->helper('directory');
-		ci()->load->language('streams_core/pyrostreams');
-		ci()->load->config('streams_core/streams');
+    	if ( ! static::$initiated)
+    	{
+			ci()->load->helper('directory');
+			ci()->load->language('streams_core/pyrostreams');
+			ci()->load->config('streams_core/streams');
 
-		// Get Lang (full name for language file)
-		// This defaults to english.
-		$langs = ci()->config->item('supported_languages');
+			// Get Lang (full name for language file)
+			// This defaults to english.
+			$langs = ci()->config->item('supported_languages');
 
-		// Needed for installer
-		if ( ! class_exists('Settings')) {
-			ci()->load->library('settings/Settings');
-		}
+			// Needed for installer
+			if ( ! class_exists('Settings'))
+			{
+				ci()->load->library('settings/Settings');
+			}
 
-/*		if( ! isset(self::$instance))
-		{
-	    	$instance = new static;
-	    }
-	    else
-	    {
-	    	$instance = self::$instance;
-	    }*/
+			// Since this is PyroStreams core we know where
+			// PyroStreams is, but we set this for backwards
+			// compatability for anyone using this constant.
+			// Also, now that the Streams API is around, we need to
+			// check if we need to change this based on the
+			// install situation.
+			if (defined('PYROPATH')) {
+				static::$core_addon_path = PYROPATH.'modules/streams_core/';
+			} else {
+				static::$core_addon_path = APPPATH.'modules/streams_core/';
+			}
 
-		// Since this is PyroStreams core we know where
-		// PyroStreams is, but we set this for backwards
-		// compatability for anyone using this constant.
-		// Also, now that the Streams API is around, we need to
-		// check if we need to change this based on the
-		// install situation.
-		if (defined('PYROPATH')) {
-			$core_addon_path = PYROPATH.'modules/streams_core/';
-		} else {
-			$core_addon_path = APPPATH.'modules/streams_core/';
-		}
+			// Set our addon paths
+		    static::$addon_paths = array(
+				'addon' 		=> ADDONPATH.'field_types/',
+				'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
+			);
 
-		// Set our addon paths
-	    static::$addon_paths = array(
-			'core' 			=> $core_addon_path.'field_types/',
-			'addon' 		=> ADDONPATH.'field_types/',
-			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
-		);
+			// Add addon paths event. This is an opportunity to
+			// add another place for addons.
+			if ( ! class_exists('Module_import')) {
+				\Events::trigger('streams_core_add_addon_path');
+			}    		
+    	}
 
-		// Add addon paths event. This is an opportunity to
-		// add another place for addons.
-		if ( ! class_exists('Module_import')) {
-			\Events::trigger('streams_core_add_addon_path', new static);
-		}
-
-		// Preload types
-//		static::gatherTypes();
+    	static::$initiated = true;
 	}
 
 	/**
@@ -121,7 +129,113 @@ class Type
 	 */
 	public static function getType($type = null)
 	{
-		return isset(static::$types[$type]) ? static::$types[$type] : static::loadSingleType($type, true);
+		return ( ! empty(static::$types[$type]) and is_object(static::$types[$type])) ? static::$types[$type] : static::loadType($type);
+	}
+
+	/**
+	 * Register slug class
+	 * @param  array
+	 * @return void
+	 */
+	public static function registerSlugClass($types = array())
+	{
+		if (is_string($types))
+		{
+			$types = array($types);
+		}
+
+		if (is_array($types))
+		{
+			foreach ($types as $type)
+			{
+				static::$slug_classes[$type] = static::getClass($type);
+			}
+		}
+	}
+
+	/**
+	 * Register folder field types
+	 * @param  string  $folder
+	 * @param  array   $types
+	 * @param  boolean $preload
+	 * @return void
+	 */
+	public static function registerFolderFieldTypes($folder, $types = array(), $preload = false)
+	{
+		static::init();
+
+		if (is_string($types))
+		{
+			$types = array($types);
+		}
+
+		if ($types === true)
+		{
+			$types = directory_map($folder, 1);
+		}
+
+		if (is_array($types) and ! empty($types))
+		{
+			$loader = new ClassLoader;
+
+			foreach ($types as $key => &$type)
+			{
+				$type = basename($type);
+
+				if ($type == 'index.html')
+				{
+					unset($types[$key]);
+
+					continue;
+				}
+
+				static::registerSlugClass($type);
+
+				$loader->add(static::getClass($type), $folder.$type.'/src/');
+			}
+
+			$loader->register();
+
+			if ($preload)
+			{
+				foreach ($types as $type)
+				{
+					static::getType($type);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Register addon field types
+	 * @param  boolean $preload
+	 * @return void
+	 */
+	public static function registerAddonFieldTypes($preload = false)
+	{
+		foreach (static::getAddonPaths() as $key => $path)
+		{
+			static::registerFolderFieldTypes($path, true, $preload);
+		}
+	}
+
+	/**
+	 * Get class
+	 * @param  string $type
+	 * @return string
+	 */
+	public static function getClass($type)
+	{
+		return 'Pyro\\FieldType\\'.Str::studly($type);
+	}
+
+	/**
+	 * Get classes
+	 * @return array
+	 */
+	public static function getClasses()
+	{
+		return static::$slug_classes;
 	}
 
 	/**
@@ -130,21 +244,9 @@ class Type
 	 */
 	public static function getAllTypes()
 	{
-		static::gatherTypes();
+		static::preload();
 
 		return new \Pyro\Module\Streams_core\Core\Model\Collection\FieldTypeCollection(static::$types);
-	}
-
-	/**
-	 * Update types in db
-	 * @return object 
-	 */
-	public static function updateTypes()
-	{
-		Events::trigger('streams_core_add_addon_path', $this);
-
-		// Go ahead and regather our types
-		return static::gatherTypes();
 	}
 
 	/**
@@ -152,99 +254,11 @@ class Type
 	 *
 	 * @return	void
 	 */
-	public static function gatherTypes()
+	public static function preload()
 	{
-		static::init();
+		static::registerFolderFieldTypes(static::$core_addon_path.'field_types/', true, true);
 
-		foreach (static::getAddonPaths() as $raw_mode => $path)
-		{
-			$mode = ($raw_mode == 'core') ? 'core' : 'addon';
-
-			static::loadTypesFromFolder($path, $mode);
-		}
-	}
-
-	/**
-	 * Load field types from a certain folder.
-	 *
-	 * Mostly used by this library, but can be used in
-	 * a pinch if you need to bring in some field types
-	 * from a custom location.
-	 *
-	 * @param	array
-	 * @param	string
-	 * @return	void
-	 */
-	public static function loadTypesFromFolder($addon_path, $mode = 'core')
-	{
-		if ( ! is_dir($addon_path)) {
-			return;
-		}
-
-		$types_files = directory_map($addon_path, 1);
-
-		foreach ($types_files as $type) {
-
-			$type = basename($type);
-
-			if ($type == 'index.html') {
-				continue;
-			}
-
-			// Is this a directory w/ a field type?
-			if (is_dir($addon_path.$type) and is_file("{$addon_path}{$type}/field.{$type}.php")) {
-				static::$types[$type] = static::loadType(
-					$addon_path,
-					$addon_path.$type.'/field.'.$type.'.php',
-					$type,
-					$mode
-				);
-			} elseif (is_file("{$addon_path}field.{$type}.php")) {
-				static::$types[$type] = static::loadType(
-					$addon_path,
-					$addon_path.'field.'.$type.'.php',
-					$type,
-					$mode
-				);
-			}
-		}
-	}
-
-	/**
-	 * Load single type
-	 *
-	 * @param	string - type name
-	 * @return	obj or null
-	 */
-	public static function loadSingleType($type = null, $gather_types = false)
-	{
-		if ($gather_types)
-		{
-			static::gatherTypes();	
-		}
-		
-		// Check if we've already loaded this field type
-		if (isset(static::$types[$type])) return static::$types[$type];
-
-		foreach (static::$addon_paths as $mode => $path)
-		{
-			// Is this a directory w/ a field type?
-			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
-				return static::loadType(
-					$path, 
-					$path.$type.'/field.'.$type.'.php',
-					$type,
-					$mode
-				);
-			} elseif (is_file($path.'field.'.$type.'.php')) {
-				return static::loadType(
-					$path, 
-					$path.'field.'.$type.'.php',
-					$type,
-					$mode
-				);
-			}					
-		}
+		static::registerAddonFieldTypes(true);
 	}
 
 	/**
@@ -257,19 +271,34 @@ class Type
 	 * @param	string - mode
 	 * @return	obj - the type obj
 	 */
-	private static function loadType($path, $file, $type, $mode)
+	// $path, $file, $type, $mode
+	private static function loadType($type)
 	{
-		if (isset(static::$types[$type])) return static::$types[$type];
-		
-		if (isset(ci()->profiler)) {
-			ci()->profiler->log->info($type);
-		}
-		
+		if (empty($type) or empty(static::$slug_classes[$type])) return null;
+
+		$class = static::getClass($type);
+
+		$instance = new $class;
+
+		$reflection = new \ReflectionClass($instance);
+
+		// Field Type class folder location
+		$class_path = dirname($reflection->getFileName());
+
+		// The root path of the field type
+		$path = dirname(dirname(dirname($class_path)));
+
+		// Set asset paths
+		$instance->path = $path;
+		$instance->path_views = $path.'/views/';
+		$instance->path_css = $path.'/css/';
+		$instance->path_js = $path.'/js/';
+
 		// -------------------------
 		// Load the language file
 		// -------------------------
-
-		if (is_dir($path.$type.'/language')) {
+		if (is_dir($path))
+		{
 			$lang = ci()->config->item('language');
 
 			// Fallback on English.
@@ -277,37 +306,23 @@ class Type
 				$lang = 'english';
 			}
 
-			if ( ! is_dir($path.$type.'/language/'.$lang)) {
+			if ( ! is_dir($path.$lang)) {
 				$lang = 'english';
 			}
 
-			ci()->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
+			ci()->lang->load($type.'_lang', $lang, false, false, $path.'/');
 
 			unset($lang);
 		}
 
-		// -------------------------
-		// Load file
-		// -------------------------
+		// Field type name is languagized
+		if ( ! isset($instance->field_type_name)) {
+			$instance->field_type_name = lang('streams:'.$type.'.name');
+		}
 
-		require_once($file);
-
-		$instance = new \stdClass;
-
-		$class_name = 'Field_'.$type;
-
-		if (class_exists($class_name)) {
-			$instance = new $class_name();
-
-			// Set some ft class vars
-			$instance->ft_mode 		= $mode;
-			$instance->ft_root_path 	= $path;
-			$instance->ft_path 		= $path.$type.'/';
-
-			// Field type name is languagized
-			if ( ! isset($instance->field_type_name)) {
-				$instance->field_type_name = lang('streams:'.$type.'.name');
-			}
+		if (isset(ci()->profiler))
+		{
+			ci()->profiler->log->info($class.' loaded');
 		}
 
 		return static::$types[$type] = $instance;
@@ -355,7 +370,7 @@ class Type
 		$parameters = new Parameter;
 
 		// Load the proper class
-		if ( ! $field_type = Type::getType($field_type)) return null;
+		if ( ! $field_type = Type::getType($type)) return null;
 		
 		// I guess we don't have any to show.
 		
