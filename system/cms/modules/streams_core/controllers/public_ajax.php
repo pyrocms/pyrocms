@@ -23,7 +23,7 @@ class Public_ajax extends Public_Controller
 
         // Only AJAX gets through!
        	if ( ! $this->input->is_ajax_request()) {
-       		die('Must be an ajax request.');
+       		//die('Must be an ajax request.');
        	}
     }
 

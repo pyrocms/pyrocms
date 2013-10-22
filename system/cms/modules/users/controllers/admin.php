@@ -373,7 +373,7 @@ class Admin extends Admin_Controller
 
         $tabs = array(
             array(
-                'title'     => lang('profile_user_basic_data_label'),
+                'title'     => lang('user:profile_user_basic_data_label'),
                 'id'        => 'basic-data',
                 'content'    => $user_form
             ),

@@ -1,6 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Core\Model\Stream;
+use Pyro\Module\Streams_core\Core\Model\Field;
 use Pyro\Module\Users\Model;
 
 /**
@@ -14,15 +16,18 @@ use Pyro\Module\Users\Model;
  */
 class Field_user extends AbstractField
 {
-	public $field_type_slug			= 'user';
+	public $field_type_slug = 'user';
 
-	public $db_col_type				= 'integer';
+	public $db_col_type = 'integer';
 
-	public $custom_parameters		= array('restrict_group');
+	public $custom_parameters = array('restrict_group');
 
-	public $version					= '1.0.0';
+	public $version = '1.0.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name'=>'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com/'
+		);
 
 	/**
 	 * The field type relation
@@ -58,16 +63,31 @@ class Field_user extends AbstractField
 	 */
 	public function form_output()
 	{
-		$users = Model\User::getUserOptions($this->getParameter('restrict_group'));
+		// Start the HTML
+		$html = form_dropdown(
+			$this->form_slug,
+			array(),
+			null,
+			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang('streams:selector.placeholder').'"'
+			);
 
-		// If this is not required, then
-		// let's allow a null option
-		if ($this->field->is_required == 'no') {
-			$users[null] = ci()->config->item('dropdown_choose_null');
-		}
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/user.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream_namespace' => $this->stream->stream_namespace,
+				),
+			false
+			);
 
-		return form_dropdown($this->form_slug, $users, $this->value, 'id="'.$this->form_slug.'"');
+		return $html;
 	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	PARAMETERS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Restrict to Group
@@ -88,4 +108,42 @@ class Field_user extends AbstractField
 		return form_dropdown('restrict_group', $groups, $value);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	AJAX 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	public function ajax_search()
+	{
+		/**
+		 * Grab the stream namespace
+		 */
+		$stream_namespace = ci()->uri->segment(6);
+
+
+		/**
+		 * Determine our field / type
+		 */
+		$field = Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
+		$field_type = $field->getType(null);
+
+
+		/**
+		 * Get users
+		 */
+		$users = Model\User::getUserOptions($this->getParameter('restrict_group'), ci()->input->get('query'));
+
+		// Prep return
+		$results = array();
+
+		foreach ($users as $k => $username) {
+			$results[] = array(
+				'id' => $k,
+				'username' => $username,
+				);
+		}
+
+
+		header('Content-type: application/json');
+		echo json_encode(array('users' => $results));
+	}
 }
