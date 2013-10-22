@@ -52,7 +52,9 @@ class Module_Streams_core extends AbstractModule
 			'frontend' => false,
 			'backend' => false,
 			'skip_xss' => true,
-			'author' => 'Parse19',
+			'author' => 'PyroCMS Dev Team',
+			// Register field types with the autoloader
+			'field_types' => true
 		);
 	}
 

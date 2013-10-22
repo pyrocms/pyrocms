@@ -8,6 +8,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
+use Pyro\Module\Streams_core\Core\Field\Type as FieldType;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -71,6 +72,7 @@ class MY_Controller extends MX_Controller
 
         // Register module manager for usage everywhere, its handy
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
+        $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
         
         // activate the autoloader
@@ -163,7 +165,9 @@ class MY_Controller extends MX_Controller
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
 
-        foreach ($enabled_modules as $module) {
+        foreach ($enabled_modules as $module)
+        {
+            FieldType::registerFolderFieldTypes($module['path'].'/field_types/', $module['field_types']);
 
             // register classes with namespaces
             $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
@@ -176,6 +180,8 @@ class MY_Controller extends MX_Controller
                 continue;
             }
         }
+
+        FieldType::registerAddonFieldTypes();
 
         // activate the autoloader
         $loader->register();
@@ -281,20 +287,6 @@ class MY_Controller extends MX_Controller
         }
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
-
-        /* Fixes - “unknown database type enum requested”
-         * Should probably be addressed in Doctrine, if not in Illuminate\Capsule
-         * 
-         * Doctrine 2: Resolving “unknown database type enum requested” - http://wildlyinaccurate.com/doctrine-2-resolving-unknown-database-type-enum-requested
-         * Unknown enum database type in migration file / Doctrine issue - https://github.com/laravel/framework/issues/1346
-         * Error when mapping database enum field type - https://github.com/symfony/symfony/issues/866
-         */ 
-        $platform = $conn->getDoctrineSchemaManager()->getDatabasePlatform();
-
-        if (get_class($platform) == 'Doctrine\DBAL\Platforms\MySqlPlatform')
-        {
-            $platform->registerDoctrineTypeMapping('enum', 'string');
-        }
 
         return $conn;
     }

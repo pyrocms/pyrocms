@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\Type;
+
 /**
  * PyroStreams Field Asset Controller
  *
@@ -28,8 +30,6 @@ class Field_asset extends Public_Controller
 		// Turn off the OP for these assets.
 		$this->output->enable_profiler(false);
 
-		$this->load->library('streams_core/Type');
-
 		$this->load->helper('file');
 	}
 
@@ -43,7 +43,7 @@ class Field_asset extends Public_Controller
 		// Check the type
 		$type = $this->uri->segment(4);
 
-		$this->field_type = $this->type->load_single_type($type);
+		$this->field_type = Type::getType($type);
 
 		// Check the file
 		$file = $this->uri->segment(5);
@@ -72,7 +72,7 @@ class Field_asset extends Public_Controller
     {
     	header("Content-Type: text/css");
 
-    	$file = FCPATH.$this->field_type->ft_path.'css/'.$file;
+    	$file = FCPATH.$this->field_type->path_css.$file;
 
    	 	if ( ! is_file($file)) return null;
 
@@ -91,7 +91,7 @@ class Field_asset extends Public_Controller
     {
     	header("Content-Type: text/javascript");
 
-    	$file = $this->field_type->ft_path.'js/'.$file;
+    	$file = $this->field_type->path_js.$file;
 
    	 	if ( ! is_file($file)) return null;
 
