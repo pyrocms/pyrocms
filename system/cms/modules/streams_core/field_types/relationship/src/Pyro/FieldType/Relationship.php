@@ -18,31 +18,31 @@ class Relationship extends AbstractField
 	 * Field type slug
 	 * @var string
 	 */
-	public $field_type_slug			= 'relationship';
+	public $field_type_slug = 'relationship';
 
 	/**
 	 * DB column type
 	 * @var string
 	 */
-	public $db_col_type				= 'integer';
+	public $db_col_type = 'integer';
 
 	/**
 	 * Custom parameters
 	 * @var array
 	 */
-	public $custom_parameters		= array( 'choose_stream', 'link_uri');
+	public $custom_parameters = array( 'choose_stream');
 
 	/**
 	 * Version
 	 * @var string
 	 */
-	public $version					= '1.1.0';
+	public $version = '1.1.0';
 
 	/**
 	 * Author
 	 * @var  array
 	 */
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
 	/**
 	 * Relation
@@ -116,24 +116,7 @@ class Relationship extends AbstractField
 		
 			if (ci()->uri->segment(1) == 'admin')
 			{
-				if ($url = $this->getParameter('link_uri'))
-				{
-					$entry_array = $entry->toArray();
-
-					$entry_array['entry_stream_slug'] = $stream->stream_slug;
-
-					// Support Lex tags
-					$url = ci()->parser->parse_string($url, $entry_array, true);
-
-					// This is kept for backwards compatibility
-					$url = str_replace(array('-id-', '-stream-'), array($entry->getKey(), $stream->stream_slug), $url);
-
-					return '<a href="'.site_url($url).'">'.$entry->getTitleColumnValue().'</a>';
-				}
-				else
-				{
-					return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->getTitleColumnValue().'</a>';
-				}
+				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->getTitleColumnValue().'</a>';
 			}
 			else
 			{
