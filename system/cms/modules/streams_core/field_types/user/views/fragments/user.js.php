@@ -5,7 +5,7 @@
 		var selectize = $('#<?php echo $form_slug; ?>');
 
 		selectize.selectize({
-			maxItems: <?php echo $max_selections; ?>,
+			maxItems: 1,
 			valueField: 'id',
 			labelField: 'username',
 			searchField: 'username',
