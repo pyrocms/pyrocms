@@ -49,7 +49,7 @@
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
-								<?php echo $field_name; ?>
+								<?php echo empty($field_name) ? humanize($field_slug) : $field_name; ?>
 								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
 							</a>
 						</th>

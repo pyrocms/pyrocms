@@ -270,6 +270,7 @@ Pyro.Initialize = function() {
 	
 	$(document).on('click', '[data-toggle^="global-search"]', function(e) {
 		e.preventDefault();
+		if ($('body').hasClass('search-off-screen')) return false;
 		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
 		$('#actions').toggleClass('scrollable');
 		$('#search .search-terms').val('');
@@ -292,10 +293,20 @@ Pyro.Initialize = function() {
 	});
 
 	$('#search .search-terms').on('change', function(e) {
-
 		if ($(e.target).val().length != 0) {
 			Pyro.Search();
 		}
+	});
+
+	$(document).on('click', '[data-dismiss^="global-search"]', function(e) {
+		e.preventDefault();
+		if ($('body').hasClass('search-off-screen'))
+			$('body').removeClass('search-off-screen');
+	});
+
+	$(document).on('keydown', function(e) {
+		if ($('body').hasClass('search-off-screen') && e.which == 27)
+			$('body').removeClass('search-off-screen');
 	});
 
 
@@ -435,15 +446,15 @@ Pyro.Search = function() {
 
 			if (json.length != 0) {
 				$.each(json.results, function(i, result) {
-					results.append(
-						'<ul>' +
+					var template =  '<ul>' +
 							'<li>' +
-								'<a href="' + BASE_URL + result.cp_uri + '"><strong>' + result.title + '</strong></a>' +
+								'<h3><a href="' + BASE_URL + result.cp_uri + '">' + result.module + ' > ' + result.entry_singular + ' > ' + result.title + '</a></h3>' +
 								'<p>' + result.description + '</p>' +
-								'<a href="' + BASE_URL + result.cp_uri + '"><small>' + BASE_URL + result.cp_uri + '</small></a>' +
+								'<a href="' + BASE_URL + result.cp_uri + '" class="btn btn-xs btn-warning">Admin URL</a> ' +
+								'<a href="' + BASE_URL + result.uri + '" class="btn btn-xs btn-success" target="_blank">Public URL</a>' +
 							'</li>' +
-						'</ul>'
-						);
+						'</ul>';
+					results.append(template);
 				});
 			}
 

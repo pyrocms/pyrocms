@@ -5,28 +5,6 @@
 
 		<!--
 		/**
-		 * Start off with the profile menu item when on mobiles
-		 * - This helps the collapsed menu look nicer...
-		 */
-		-->
-		<li class="dropdown-submenu visible-xs">
-			<a href="#" class="dropdown-submenu" data-toggle="dropdown">
-				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-xs"/>
-				<span>Ryan Thompson</span>
-			</a>
-
-			<ul class="dropdown-menu animated fadeInTop">
-				<li class="dropdown-header">Ryan Thompson</li>
-				<li><a href="<?php echo site_url('admin/settings'); ?>"><?php echo lang('cp:nav_settings'); ?></a></li>
-				<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
-				<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
-			</ul>
-		</li>
-
-		
-
-		<!--
-		/**
 		 * The dashboard link is first. Period.
 		 * - Don't ask question.
 		 */
@@ -39,26 +17,6 @@
 					<?php echo lang('global:dashboard'); ?>
 				</span>
 			</a>
-		</li>
-
-
-
-		<!--
-		/**
-		 * Search everything
-		 * - Also tied to hot keys
-		 */
-		-->
-		<li>
-			<a href="#" data-hotkey="s" data-toggle="global-search">
-				<i class="icon-search"></i>
-
-				<span>
-					<?php echo lang('cp:search'); ?>
-				</span>
-			</a>
-
-			<a href="#" class="hidden" data-hotkey="/" data-toggle="module-search"></a>
 		</li>
 
 
@@ -138,23 +96,20 @@
 
 		<!--
 		/**
-		 * When not in mobile - profile links are last
-		 * - Chances are their avatar isn't meshing with the theme
-		 * - So send them to the bottom, because we like beautiful things ^_^
+		 * Force settings to the bottom
+		 * - Because I said so.
 		 */
 		-->
-		<li class="dropdown-submenu hidden-xs">
-			<a href="#" class="dropdown-submenu" data-toggle="dropdown">
-				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
-			</a>
+		<li>
+			<a href="<?php echo site_url('admin/settings'); ?>" data-hotkey="g+s">
+				<i class="icon-cogs"></i>
 
-			<ul class="dropdown-menu animated fadeInTop">
-				<li class="dropdown-header">Ryan Thompson</li>
-				<li><a href="<?php echo site_url('admin/settings'); ?>"><?php echo lang('cp:nav_settings'); ?></a></li>
-				<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
-				<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
-			</ul>
+				<span>
+					<?php echo lang('cp:nav_settings'); ?>
+				</span>
+			</a>
 		</li>
+
 
 	</ul>
 

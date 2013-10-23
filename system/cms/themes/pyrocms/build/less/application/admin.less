@@ -64,14 +64,36 @@
 			li.active {
 				a {
 					color: @gray-dark;
+					font-weight: bold;
 				}
 			}
 		}
 	}
 
 	#shortcuts {
-		float: right;
 		margin: 14px @padding-base-horizontal 0 0;
+	}
+
+	#information {
+		> ul {
+			> li {
+				> a {
+					font-size: 22px;
+					padding-top: 12px;
+					padding-bottom: 13px;
+					color: @gray;
+
+					&.icon {
+						padding-top: 16px;
+						padding-bottom: 13px;
+
+						&:hover {
+							color: @gray-dark;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -117,10 +139,17 @@ body {
 	#search {
 		display: none;
 		padding: 20px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 999999;
+		background: rgba(0,0,0,0.9);
 
 		.search-wrapper {
-			font-size: 28px;
-			color: #d5d5d5;
+			font-size: 24px;
+			color: @gray-light;
 
 			input.search-terms {
 				border: none;
@@ -141,6 +170,9 @@ body {
 		}
 		#search {
 			display: block;
+			a {
+				color: @white;
+			}
 		}
 		#search-results {
 			margin-top: 10px;
@@ -148,6 +180,16 @@ body {
 			> ul {
 				list-style: none;
 				padding: 0;
+				
+				li {
+					background: @black;
+					padding: 20px;
+					color: @white;
+					
+					h3 {
+						margin-top: 0;
+					}
+				}
 			}
 		}
 		.hidden-searching {

@@ -1,0 +1,28 @@
+<!--
+/**
+ * Information
+ */
+-->	
+<nav class="navbar-right" id="information">
+
+	<ul class="nav navbar-nav">
+
+		<li>
+			<a href="#" class="icon icon-search" data-hotkey="s" data-toggle="global-search"></a>
+			<a href="#" class="hidden" data-hotkey="/" data-toggle="module-search"></a>
+		</li>
+	
+		<li class="dropdown-submenu">
+			<a href="#" class="dropdown-submenu user" data-toggle="dropdown">
+				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
+			</a>
+
+			<ul class="dropdown-menu animated fadeInTop">
+				<li><a href="<?php echo site_url('edit-profile'); ?>"><?php echo lang('cp:edit_profile_label'); ?></a></li>
+				<li><a href="<?php echo site_url('admin/logout'); ?>"><?php echo lang('cp:logout_label'); ?></a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+</nav>

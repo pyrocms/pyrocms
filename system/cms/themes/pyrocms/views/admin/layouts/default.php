@@ -33,6 +33,8 @@
 
 <body>
 
+	<?php file_partial('search'); ?>
+
 	<section id="loading"><span><?php echo Asset::img('loading.png', null, array('class' => 'animated spin')); ?></span></section>
 
 
@@ -47,16 +49,15 @@
 				<!-- Actions Bar -->
 				<section id="actions" class="nav-bar">
 					
-					<div class="row-fluid hidden-searching">
+					<div class="row-fluid">
 
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<?php file_partial('sections'); ?>
 							<?php file_partial('shortcuts'); ?>
+							<?php file_partial('information'); ?>
 						</div>
 
 					</div>
-
-					<?php file_partial('search'); ?>
 					
 				</section>
 				<!-- /Actions Bar -->
