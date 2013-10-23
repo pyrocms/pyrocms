@@ -47,23 +47,25 @@
 	background: @white;
 	
 	#sections {
+		margin-right: 20px;
 		
-		> .title {
-			display: inline-block;
-			margin: 0;
-			padding: 13px 0 3px 0;
-			font-family: 'Open Sans', sans-serif;
-			font-weight: 200;
-			font-size: 18px;
-			float: left;
-			text-decoration: none !important;
-		}
-		span {
-			padding: 0;
-			margin: 19px 0 0 10px;
-			font-size: 12px;
-			float: left;
-			color: rgba(0,0,0,0.5);
+		ul {
+			li {
+				a {
+					color: @gray-light;
+					font-size: 14px;
+
+					&:hover {
+						background: none;
+						color: darken(@gray-light, 10%);
+					}
+				}
+			}
+			li.active {
+				a {
+					color: @gray-dark;
+				}
+			}
 		}
 	}
 

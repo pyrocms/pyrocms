@@ -51,8 +51,7 @@
 
 						<div class="col-md-6">
 							<?php file_partial('sections'); ?>
-						</div>
-						<div class="col-md-6">
+						
 							<?php file_partial('shortcuts'); ?>
 						</div>
 

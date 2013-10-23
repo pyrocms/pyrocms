@@ -1,5 +1,5 @@
 <?php if ( ! empty($module_details['sections'][$active_section]['shortcuts']) ||  ! empty($module_details['shortcuts'])): ?>
-<div id="shortcuts">
+<div class="pull-left" id="shortcuts">
 	<?php if ( ! empty($module_details['sections'][$active_section]['shortcuts'])): ?>
 		<?php foreach ($module_details['sections'][$active_section]['shortcuts'] as $shortcut):
 			$name 	= $shortcut['name'];
