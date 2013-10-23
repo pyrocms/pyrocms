@@ -19,10 +19,22 @@
 
 // Optional heading
 .panel-heading {
-  padding: @padding-base-horizontal 10px;
+  padding: @symmetric-padding-base;
 }
 
 // Optional footer (stays gray in every modifier class)
 .panel-footer {
-  padding: @padding-base-horizontal 10px;
+  padding: @symmetric-padding-base;
+}
+
+// Within heading, strip any `h*` tag of it's default margins for spacing.
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: ceil((@font-size-base * 1.125));
+  font-weight: 200;
+  //color: @gray;
+  > a {
+    color: inherit;
+  }
 }

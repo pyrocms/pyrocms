@@ -13,7 +13,7 @@
 	display: block;
 
 	> span {
-		background: rgba(0,0,0,0.9);
+		background: #404040;
 		.border-radius(@border-radius-large);
 		width: 50px;
 		height: 50px;
@@ -43,20 +43,9 @@
 	z-index: 100;
 	min-height: 50px;
 	border-bottom: 1px solid #dedede;
-	//box-shadow: 0 3px 1px rgba(0, 0, 0, 0.03), inset 0 3px 0px #ecf5ff;
-	//background: rgba(255, 255, 255, 0.9);
-	//margin-top: -2px;
-
-	background-color: #f8f8f8;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f4f4f4), color-stop(100%, #eee));
-	background-image: -webkit-linear-gradient(top, #f4f4f4, #eee);
-	background-image: -moz-linear-gradient(top, #f4f4f4, #eee);
-	background-image: -o-linear-gradient(top, #f4f4f4, #eee);
-	background-image: linear-gradient(top, #f4f4f4,#eeeeee);
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-
+	box-shadow: 0 3px 1px rgba(0, 0, 0, 0.03);
+	background: @white;
+	
 	#sections {
 		
 		> .title {

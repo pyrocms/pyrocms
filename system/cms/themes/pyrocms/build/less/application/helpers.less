@@ -3,13 +3,13 @@
 
 
 /* Background Colors */
-.bg-c-black { background-color: @black; }
-.bg-c-white { background-color: @white; }
-.bg-c-gray-darker { background-color: @gray-darker; }
-.bg-c-gray-dark { background-color: @gray-dark; }
-.bg-c-gray { background-color: @gray; }
-.bg-c-gray-light { background-color: @gray-light; }
-.bg-c-gray-lighter { background-color: @gray-lighter; }
+.bg-c-black { .background-color-variant(@black); }
+.bg-c-white { .background-color-variant(@white); }
+.bg-c-gray-darker { .background-color-variant(@gray-darker); }
+.bg-c-gray-dark { .background-color-variant(@gray-dark); }
+.bg-c-gray { .background-color-variant(@gray); }
+.bg-c-gray-light { .background-color-variant(@gray-light); }
+.bg-c-gray-lighter { .background-color-variant(@gray-lighter); }
 
 .bg-c-red { .background-color-variant(@red); }
 .bg-c-orange { .background-color-variant(@orange); }
@@ -55,13 +55,13 @@
 
 
 /* Border Colors */
-.b-c-black { border-color: @black; }
-.b-c-white { border-color: @white; }
-.b-c-gray-darker { border-color: @gray-darker; }
-.b-c-gray-dark { border-color: @gray-dark; }
-.b-c-gray { border-color: @gray; }
-.b-c-gray-light { border-color: @gray-light; }
-.b-c-gray-lighter { border-color: @gray-lighter; }
+.b-c-black { .border-color-variant(@black); }
+.b-c-white { .border-color-variant(@white); }
+.b-c-gray-darker { .border-color-variant(@gray-darker); }
+.b-c-gray-dark { .border-color-variant(@gray-dark); }
+.b-c-gray { .border-color-variant(@gray); }
+.b-c-gray-light { .border-color-variant(@gray-light); }
+.b-c-gray-lighter { .border-color-variant(@gray-lighter); }
 
 .b-c-red { .border-color-variant(@red); }
 .b-c-orange { .border-color-variant(@orange); }
@@ -74,7 +74,7 @@
 
 
 /* Common Padding */
-.p { padding: @padding-base-vertical @padding-base-horizontal; }
+.p { padding: @symmetric-padding-base; }
 
 .p-t { padding-top: @padding-base-vertical; }
 .p-r { padding-right: @padding-base-horizontal; }
@@ -89,7 +89,7 @@
 
 
 /* Common Margin */
-.m { margin: @padding-base-vertical @padding-base-horizontal; }
+.m { margin: @symmetric-padding-base; }
 
 .m-t { margin-top: @padding-base-vertical; }
 .m-r { margin-right: @padding-base-horizontal; }

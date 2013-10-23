@@ -10,10 +10,10 @@
 // -------------------------
 
 @gray-darker:            lighten(#000, 13.5%);	// #222
-@gray-dark:              lighten(#000, 20%);	// #333
-@gray:                   lighten(#000, 33.5%);	// #555
-@gray-light:             lighten(#000, 60%);	// #999
-@gray-lighter:           lighten(#000, 87%);	// #ecf0f1
+@gray-dark:              lighten(#000, 25%);	// #404040
+@gray:                   lighten(#000, 50%);	// #999
+@gray-light:             lighten(#000, 75%);	// #999
+@gray-lighter:           lighten(#000, 90%);	// #E5E5E5
 
 // Brand colors
 // -------------------------
@@ -27,7 +27,7 @@
 // Scaffolding
 // -------------------------
 
-@body-bg:               @white;
+@body-bg:               @gray-lighter;
 @text-color:            @gray-darker;
 
 // Links
@@ -66,8 +66,8 @@
 // -------------------------
 // Based on 14px font-size and 1.428 line-height (~20px to start)
 
-@padding-base-vertical:          5px;
-@padding-base-horizontal:        10px;
+@padding-base-vertical:          8px;
+@padding-base-horizontal:        12px;
 
 @padding-large-vertical:         10px;
 @padding-large-horizontal:       16px;
@@ -312,16 +312,16 @@
 @nav-open-caret-border-color:               #fff;
 
 // Tabs
-@nav-tabs-border-color:                     #ddd;
+@nav-tabs-border-color:                     #eee;
 
 @nav-tabs-link-hover-border-color:          @gray-lighter;
 
-@nav-tabs-active-link-hover-bg:             @body-bg;
-@nav-tabs-active-link-hover-color:          @gray;
-@nav-tabs-active-link-hover-border-color:   #ddd;
+@nav-tabs-active-link-hover-bg:             @white;
+@nav-tabs-active-link-hover-color:          @gray-darker;
+@nav-tabs-active-link-hover-border-color:   #eee;
 
-@nav-tabs-justified-link-border-color:            #ddd;
-@nav-tabs-justified-active-link-border-color:     @body-bg;
+@nav-tabs-justified-link-border-color:            #eee;
+@nav-tabs-justified-active-link-border-color:     @white;
 
 // Pills
 @nav-pills-active-link-hover-bg:            @component-active-bg;
@@ -491,11 +491,11 @@
 @panel-bg:                    #fff;
 @panel-inner-border:          #ddd;
 @panel-border-radius:         @border-radius-base;
-@panel-footer-bg:             #f5f5f5;
+@panel-footer-bg:             #F8F8F8;
 
 @panel-default-text:          @gray-dark;
-@panel-default-border:        #ddd;
-@panel-default-heading-bg:    #f5f5f5;
+@panel-default-border:        #eee;
+@panel-default-heading-bg:    #FFF;
 
 @panel-primary-text:          #fff;
 @panel-primary-border:        @brand-primary;

@@ -34,17 +34,21 @@
 					<?php foreach ($tab['fields'] as $field): ?>
 
 						<div class="form-group <?php echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
+						<div class="row">
 							
-							<label for="<?php echo $fields[$field]['input_slug'];?>">
+							<label class="col-lg-2 control-label" for="<?php echo $fields[$field]['input_slug'];?>">
 								<?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+
+								<?php if( $fields[$field]['instructions'] != '' ): ?>
+									<p class="help-block c-gray-light">This is an example<?php echo lang_label($fields[$field]['instructions']); ?></p>
+								<?php endif; ?>
 							</label>
 
-							<?php echo $fields[$field]['input']; ?>
+							<div  class="col-lg-10">
+								<?php echo $fields[$field]['input']; ?>
+							</div>
 
-							<?php if( $fields[$field]['instructions'] != '' ): ?>
-								<p class="help-block"><?php echo lang_label($fields[$field]['instructions']); ?></p>
-							<?php endif; ?>
-
+						</div>
 						</div>
 
 					<?php endforeach; ?>

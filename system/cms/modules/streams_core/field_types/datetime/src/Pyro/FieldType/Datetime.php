@@ -574,7 +574,7 @@ class Datetime extends AbstractField
 	 * @return \Carbon\Carbon
 	 */
 	public function getDateTime($date_string = null)
-	{		
+	{echo $date_string;
 		if ($date_string === static::ZERO_DATETIME or $date_string === null) return Carbon::createFromTime(0,0,0);
 
 		// Wrap in a try catch because Carbon will complain if the value does not match the format
