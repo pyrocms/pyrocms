@@ -13,17 +13,24 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Integer extends AbstractField
 {
-	public $field_type_slug			= 'integer';
+	public $field_type_slug = 'integer';
 
-	public $db_col_type				= 'integer';
+	public $db_col_type = 'integer';
 
-	public $custom_parameters		= array('max_length', 'default_value');
+	public $custom_parameters = array(
+		'max_length',
+		'default_value',
+		'placeholder',
+		);
 
-	public $extra_validation		= 'integer';
+	public $extra_validation = 'integer';
 
-	public $version					= '1.0.0';
+	public $version = '1.0.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name'=>'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com/'
+		);
 
 	// --------------------------------------------------------------------------
 
@@ -39,6 +46,7 @@ class Integer extends AbstractField
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
+		$options['placeholder']	= $this->getParameter('placeholder');
 		
 		// Max length
 		if ($max_length = $this->getParameter('max_length'))

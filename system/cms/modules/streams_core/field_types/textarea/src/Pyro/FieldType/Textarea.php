@@ -11,17 +11,24 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Textarea extends AbstractField
 {
-	public $field_type_slug			= 'textarea';
+	public $field_type_slug = 'textarea';
 
-	public $db_col_type				= 'text';
+	public $db_col_type = 'text';
 
-	public $admin_display			= 'full';
+	public $admin_display = 'full';
 
-	public $version					= '1.1.0';
+	public $version = '1.1.0';
 
-	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/'
+		);
 
-	public $custom_parameters		= array('allow_tags', 'content_type');
+	public $custom_parameters = array(
+		'allow_tags',
+		'content_type',
+		'placeholder',
+		);
 	
 	/**
 	 * Output form input
@@ -46,10 +53,11 @@ class Textarea extends AbstractField
 		}
 
 		return form_textarea(array(
-			'name'		=> $this->form_slug,
-			'id'		=> $this->form_slug,
-			'value'		=> $value,
-			'class'		=> 'form-control',
+			'name' => $this->form_slug,
+			'id' => $this->form_slug,
+			'value' => $value,
+			'class' => 'form-control',
+			'placeholder' => $this->getParameter('placeholder'),
 		));
 	}
 

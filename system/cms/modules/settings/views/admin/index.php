@@ -1,14 +1,13 @@
-<!-- .panel -->
-<section class="panel panel-default">
+<div class="p">
 
-	<div class="panel-heading">
-		<h3 class="panel-title"><?php echo $module_details['name'] ?></h3>
-	</div>
+	<!-- .panel -->
+	<section class="panel panel-default">
 
-	<!-- .panel-content -->
-	<div class="panel-content">
+		<div class="panel-heading">
+			<h3 class="panel-title"><?php echo $module_details['name'] ?></h3>
+		</div>
 
-	
+		
 		<?php if ($setting_sections): ?>
 			<?php echo form_open('admin/settings/edit', 'class="crud"');?>
 
@@ -24,30 +23,34 @@
 						<?php endforeach ?>
 					</ul>
 
-					<div class="tab-content panel">
+
+					<!-- .tab-content.panel-body -->
+					<div class="tab-content panel-body">
 					<?php foreach ($setting_sections as $section_slug => $section_name): ?>
-					<div class="tab-pane <?php echo array_search($section_name, array_values($setting_sections)) == 0 ? 'active' : null; ?>" id="<?php echo $section_slug;?>">
-						<div class="panel-heading">Panel heading for <?php echo $section_slug;?></div>
-						<fieldset>
-							<ul>
+						<div class="tab-pane <?php echo array_search($section_name, array_values($setting_sections)) == 0 ? 'active' : null; ?>" id="<?php echo $section_slug;?>">
 							<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
-								<li id="<?php echo $setting->slug ?>" class="<?php echo $section_count++ % 2 == 0 ? 'even' : '' ?>">
-									<label for="<?php echo $setting->slug ?>">
+								<div class="form-group">
+								<div class="row">
+									
+									<label class="col-lg-2" for="<?php echo $setting->slug ?>">
 										<?php echo $setting->title ?>
-										<?php if($setting->description): echo '<small>'.$setting->description.'</small>'; endif ?>
+										
+										<?php if($setting->description): ?>
+											<small class="help-block"><?php echo $setting->description; ?></small>
+										<?php endif; ?>
 									</label>
 
-									<div class="input <?php echo 'type-'.$setting->type ?>">
+									<div class="col-lg-10">
 										<?php echo $setting->form_control ?>
 									</div>
-									<span class="move-handle"></span>
-								</li>
+								</div>
+								</div>
 							<?php endforeach ?>
-							</ul>
-						</fieldset>
-					</div>
+						</div>
 					<?php endforeach ?>
 					</div>
+					<!-- /.tab-content.panel-body -->
+
 
 				</div>
 
@@ -63,8 +66,7 @@
 		<?php endif ?>
 
 
-	</div>
-	<!-- /.panel-content -->
+	</section>
+	<!-- /.panel -->
 
-</section>
-<!-- /.panel -->
+</div>

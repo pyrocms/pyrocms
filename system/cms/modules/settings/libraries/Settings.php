@@ -227,17 +227,27 @@ class Settings
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
 					'value'	=> $setting->value,
-					'class'	=> 'text width-20'
+					'class'	=> 'form-control text width-20'
 				));
 				break;
 
 			case 'textarea':
-				$form_control = form_textarea(array(
-					'id'	=> $setting->slug,
-					'name'	=> $setting->slug,
-					'value'	=> $setting->value,
-					'class'	=> 'width-20'
-				));
+				if ($setting->slug == 'ckeditor_config') {
+					$form_control = form_textarea(array(
+						'id'	=> $setting->slug,
+						'name'	=> $setting->slug,
+						'value'	=> $setting->value,
+						'class'	=> 'form-control width-20',
+						'data-editor' => 'js'
+					));
+				} else {
+					$form_control = form_textarea(array(
+						'id'	=> $setting->slug,
+						'name'	=> $setting->slug,
+						'value'	=> $setting->value,
+						'class'	=> 'form-control width-20'
+					));
+				}
 				break;
 
 			case 'password':
@@ -245,7 +255,7 @@ class Settings
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
 					'value'	=> 'XXXXXXXXXXXX',
-					'class'	=> 'text width-20',
+					'class'	=> 'form-control text width-20',
 					'autocomplete' => 'off',
 				));
 				break;

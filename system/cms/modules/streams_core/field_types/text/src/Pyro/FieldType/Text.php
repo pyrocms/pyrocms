@@ -13,15 +13,22 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Text extends AbstractField
 {
-	public $field_type_slug			= 'text';
+	public $field_type_slug = 'text';
 
-	public $db_col_type				= 'string';
+	public $db_col_type = 'string';
 
-	public $version					= '1.0.0';
+	public $version = '1.0.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name'=>'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com'
+		);
 
-	public $custom_parameters		= array('max_length', 'default_value');
+	public $custom_parameters = array(
+		'max_length',
+		'default_value',
+		'placeholder',
+		);
 
 	// --------------------------------------------------------------------------
 
@@ -34,11 +41,12 @@ class Text extends AbstractField
 	 */
 	public function form_output()
 	{
-		$options['name'] 	= $this->form_slug;
-		$options['id']		= $this->form_slug;
-		$options['value']	= $this->value;
+		$options['name'] = $this->form_slug;
+		$options['id'] = $this->form_slug;
+		$options['value'] = $this->value;
 		$options['autocomplete'] = 'off';
 		$options['class'] = 'form-control';
+		$options['placeholder'] = $this->getParameter('placeholder');
 
 		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
 		{
