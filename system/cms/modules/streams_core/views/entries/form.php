@@ -8,15 +8,22 @@
 	<?php foreach ($fields as $field): ?>
 
 		<div class="form-group <?php  echo in_array($field['input_slug'], $hidden) ? 'hidden' : null;  ?>">
-			<label for="<?php echo $field['input_slug'];?>">
+		<div class="row">
+			
+			<label class="col-lg-2" for="<?php echo $field['input_slug'];?>">
 				<?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
+
+				<?php if( $field['instructions'] != '' ): ?>
+					<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
+				<?php endif; ?>
+
 			</label>
 
-			<?php echo $field['input']; ?>
+			<div class="col-lg-10">
+				<?php echo $field['input']; ?>
+			</div>
 
-			<?php if( $field['instructions'] != '' ): ?>
-				<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
-			<?php endif; ?>
+		</div>
 		</div>
 
 	<?php endforeach; ?>
@@ -39,7 +46,7 @@
 <?php else: ?>
 
 
-<div class="no_data">
+<div class="alert alert-info m">
 <?php
 
 	if (isset($no_fields_message) and $no_fields_message) {

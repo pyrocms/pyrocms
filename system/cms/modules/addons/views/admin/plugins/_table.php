@@ -1,4 +1,4 @@
-<table class="table n-m">
+<table class="table table-hover n-m">
 
 	<thead>
 		<tr>
@@ -18,7 +18,7 @@
 		<td><?php echo $plugin['version'] ?></td>
 		<td class="text-right">
 			<?php if ($plugin['self_doc']): ?>
-				<a data-inline-modal="#<?php echo $plugin['slug'] ?>" href="<?php echo site_url('#') ?>" title="<?php echo lang('global:preview')?>" class="icon-search btn btn-sm btn-default"></a>
+				<a data-inline-modal="#<?php echo $plugin['slug'] ?>" href="<?php echo site_url('#') ?>" title="<?php echo lang('global:preview')?>" class="icon-search btn-sm btn-default"></a>
 			<?php endif ?>
 		</td>
 	</tr>

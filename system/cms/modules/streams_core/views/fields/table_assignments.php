@@ -1,6 +1,6 @@
 <?php if (! $assignments->isEmpty()): ?>
 
-	<table class="table n-m">
+	<table class="table table-hover n-m">
 		<thead>
 			<tr>
 				<th></th>
@@ -65,7 +65,7 @@
 
 <?php else: ?>
 
-<div class="no_data">
+<div class="alert alert-info m">
 	<?php
 
 		if (isset($no_assignments_message) and $no_assignments_message) {

@@ -1,11 +1,6 @@
 <div class="p">
 
 
-	<section id="page-title">
-		<h1><?php echo lang('global:field_types');?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
 	
@@ -17,7 +12,7 @@
 		<div class="panel-content">
 
 			<?php if ($core): ?>
-			<table class="table n-m">
+			<table class="table table-hover n-m">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>
@@ -54,7 +49,7 @@
 		<div class="panel-content">
 
 			<?php if ( ! empty($addon)): ?>
-			<table class="table n-m">
+			<table class="table table-hover n-m">
 				<thead>
 					<tr>
 						<th><?php echo lang('name_label');?></th>

@@ -1,11 +1,6 @@
 <div class="p">
 
 
-	<section id="page-title">
-		<h1><?php echo lang('addons:themes') ?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
 	
@@ -21,7 +16,7 @@
 
 				<?php echo form_open('admin/addons/themes/set_default') ?>
 				<?php echo form_hidden('method', $this->method) ?>
-				<table class="table n-m">
+				<table class="table table-hover n-m">
 					<thead>
 						<tr>
 							<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label') ?></th>
@@ -57,9 +52,9 @@
 
 							<td class="align-center"><?php echo $theme->version ?></td>
 							<td class="text-right">
-								<?php echo isset($theme_options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="btn btn-default"') : '' ?>
-								<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="btn btn-default modal"><?php echo lang('buttons:preview') ?></a>
-								<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm btn btn-danger"'); } ?>
+								<?php echo isset($theme_options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="btn-sm btn-default"') : '' ?>
+								<a href="<?php echo $theme->screenshot ?>" rel="screenshots" title="<?php echo $theme->name ?>" class="btn-sm btn-default modal"><?php echo lang('buttons:preview') ?></a>
+								<?php if ($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons:delete'), 'class="confirm btn-sm btn-danger"'); } ?>
 							</td>
 						</tr>
 						<?php endif; ?>
@@ -69,7 +64,7 @@
 
 	
 				<div class="panel-footer">
-					<button type="submit" name="btnAction" value="save" class="btn btn-success">
+					<button type="submit" name="btnAction" value="save" class="btn-sm btn-success">
 						<span><?php echo lang('buttons:save'); ?></span>
 					</button>
 				</div>

@@ -1,16 +1,16 @@
 <div class="p">
 
-
-	<section id="page-title">
-		<h1><?php echo lang('blog:posts_title') ?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
-	
-		<!-- .panel-content -->
-		<div class="panel-content">
+
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<?php echo lang('blog:posts_title') ?>
+			</h3>
+		</div>
+
+		<!-- .panel-body -->
+		<div class="panel-body">
 
 
 			<?php if ($blog) : ?>
@@ -22,15 +22,14 @@
 					</div>
 				<?php echo form_close() ?>
 			<?php else : ?>
-				<div class="no_data padding"><?php echo lang('blog:currently_no_posts') ?></div>
+				<div class="alert alert-info"><?php echo lang('blog:currently_no_posts') ?></div>
 			<?php endif ?>
 
 
 		</div>
-		<!-- /.panel-content -->
+		<!-- /.panel-body -->
 
 	</section>
 	<!-- /.panel -->
-
 
 </div>

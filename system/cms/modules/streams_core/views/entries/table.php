@@ -133,7 +133,7 @@
 
 	<?php else: ?>
 
-		<div class="margin alert alert-info">
+		<div class="alert alert-info m">
 			<?php
 
 				if (isset($no_entries_message) and $no_entries_message) {

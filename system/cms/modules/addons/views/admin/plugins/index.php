@@ -1,10 +1,5 @@
 <div class="p">
 
-	<section id="page-title">
-		<h1><?php echo lang('global:plugins');?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
 

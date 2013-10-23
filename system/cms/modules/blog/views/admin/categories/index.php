@@ -1,23 +1,23 @@
 <div class="p">
 
-
-	<section id="page-title">
-		<h1><?php echo lang('cat:list_title') ?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
-	
-		<!-- .panel-content -->
-		<div class="panel-content">
+
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<?php echo lang('cat:list_title') ?>
+			</h3>
+		</div>
+
+		<!-- .panel-body -->
+		<div class="panel-body">
 
 
 			<?php if ($categories): ?>
 
 				<?php echo form_open('admin/blog/categories/delete') ?>
 
-				<table class="table n-m">
+				<table class="table table-hover n-m">
 					<thead>
 					<tr>
 						<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
@@ -41,30 +41,29 @@
 					</tbody>
 				</table>
 
-					
-				<?php if(!empty($pagination['links'])): ?>
-					<div class="paginate">
-						<?php echo $pagination['links'];?>
-					</div>
-				<?php endif; ?>
-
 
 				<div class="panel-footer">
 					<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
+
+					<?php if(!empty($pagination['links'])): ?>
+						<div class="paginate">
+							<?php echo $pagination['links'];?>
+						</div>
+					<?php endif; ?>
 				</div>
+
 
 				<?php echo form_close() ?>
 
 			<?php else: ?>
-				<div class="no_data padding"><?php echo lang('cat:no_categories') ?></div>
+				<div class="alert alert-info"><?php echo lang('cat:no_categories') ?></div>
 			<?php endif ?>
 
 
 		</div>
-		<!-- /.panel-content -->
+		<!-- /.panel-body -->
 
 	</section>
 	<!-- /.panel -->
-
 
 </div>
