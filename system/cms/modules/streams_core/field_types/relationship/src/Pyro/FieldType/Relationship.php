@@ -42,7 +42,10 @@ class Relationship extends AbstractField
 	 * Author
 	 * @var  array
 	 */
-	public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/'
+		);
 
 	/**
 	 * Relation
@@ -100,7 +103,7 @@ class Relationship extends AbstractField
 		$entry_options += $model->getEntryOptions();
 		
 		// Output the form input
-		return form_dropdown($this->filter_slug, $entry_options, null);
+		return form_dropdown($this->getFilterSlug('contains'), $entry_options, null);
 	}
 
 	// --------------------------------------------------------------------------

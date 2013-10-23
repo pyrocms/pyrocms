@@ -44,6 +44,7 @@
 //@codekit-append "plugins/inputmask.js"
 //@codekit-append "plugins/morris.js"
 //@codekit-append "plugins/nestable.js"
+//@codekit-append "plugins/rowlink.js"
 //@codekit-append "plugins/selectize.js"
 //@codekit-append "plugins/sparkline.js"
 //@codekit-append "plugins/tabcollapse.js"
