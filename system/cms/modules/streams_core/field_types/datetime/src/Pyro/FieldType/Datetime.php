@@ -28,7 +28,9 @@ class Datetime extends AbstractField
 	const  ZERO_2_DIGIT 			= '00';
 	const  ZERO_DATE 				= '0000-00-00';
 	const  ZERO_DATETIME			= '0000-00-00 00:00:00';
-	const  DISPLAY_DATETIME_FORMAT 	= 'Y-m-d g:i:s';
+	const  ZERO_TIME 				= '00:00:00';
+	const  DISPLAY_DATETIME_FORMAT 	= 'M j Y g:i a';
+	const  DISPLAY_DATE_FORMAT 		= 'M j Y';
 	const  DATEPICKER_DATE_FORMAT	= 'yy-mm-dd';
 	const  JS_DATE_RANGE_FORMAT		= 'Y,m,d,G,i,s';
 	const  HALF_HOURS_PER_DAY 		= 12;
@@ -362,26 +364,33 @@ class Datetime extends AbstractField
 	 */
 	public function pre_save()
 	{
-		if ($this->getParameter('input_type') == 'datepicker')
-		{			
-			$hour = (int) $this->getHourValue(static::ZERO_2_DIGIT);
-			$minute = (int) $this->getMinuteValue(static::ZERO_2_DIGIT);
+		if ($this->getParameter('input_type') == 'datepicker') {
+
+			$hour = (int) $this->getHourValue(0);
+			$minute = (int) $this->getMinuteValue(0);
 
 			$date = explode('-', $this->value);
 
-			$datetime = Carbon::create($date[0], $date[1], $date[2], $hour, $minute,0);
-
-			$datetime = $this->to24Hour($datetime, $hour);
-
-			return $datetime->format(static::STORAGE_DATE_FORMAT);
+			if ($hour and $minute) {
+			
+				$datetime = Carbon::create($date[0], $date[1], $date[2], $hour, $minute, 0);
+				$datetime = $this->to24Hour($datetime, $hour);
+				
+				return $datetime->format(static::STORAGE_DATE_FORMAT);
+			
+			} else {
+			
+				return $this->value.' '.static::ZERO_TIME;
+			
+			}
 		}
 
 		if ((bool) $this->getYearValue() and 
 			(bool) $this->getMonthValue() and 
 			(bool) $this->getDayValue() and
 			(bool) $this->getHourValue() and
-			(bool) $this->getMinuteValue())
-		{
+			(bool) $this->getMinuteValue()) {
+
 			return (string) $this->getValueAsDatetime();
 		}
 
@@ -546,7 +555,13 @@ class Datetime extends AbstractField
 
 		$date_string = $date_string ? $date_string : $this->value;
 
-		$format = $format ? $format : $this->getParameter('date_format', static::DISPLAY_DATETIME_FORMAT);
+		if ($this->getParameter('use_time') == 'yes') {
+			$default_format = static::DISPLAY_DATETIME_FORMAT;
+		} else {
+			$default_format = static::DISPLAY_DATE_FORMAT;
+		}
+
+		$format = $format ? $format : $this->getParameter('date_format', $default_format);
 		
 		return $this->getDateTime($date_string)->format($format);
 	}
@@ -577,26 +592,39 @@ class Datetime extends AbstractField
 	{
 		if ($date_string === static::ZERO_DATETIME or $date_string === null) return Carbon::createFromTime(0,0,0);
 
-		// Wrap in a try catch because Carbon will complain if the value does not match the format
-		try {
-			// If this value is an integer, we will assume it is a UNIX timestamp's value
-			// and format a Carbon object from this timestamp. This allows flexibility
-			// when defining your date fields as they might be UNIX timestamps here.
-			if (is_numeric($date_string))
-			{
-				return Carbon::createFromTimestamp($date_string);
+		if (is_string($date_string)) {
+			$date_time = explode(' ', $date_string);
+
+			$date = $date_time[0];
+			$time = ! empty($date_time[1]) ? $date_time[1] : '';
+
+			$date = explode('-', $date);
+			$time = explode(':', $time);
+
+			if (count($date) == 3) {
+				$year = $date[0];
+				$month = $date[1];
+				$day = $date[2];
+				$hour = ! empty($time[0]) ? $time[0] : 0;
+				$minute = ! empty($time[1]) ? $time[1] : 0;
+
+				return Carbon::create($year, $month, $day, $hour, $minute, 0);	
 			}
-			elseif ( ! $date_string instanceof DateTime)
-			{
-				return Carbon::createFromFormat(static::STORAGE_DATE_FORMAT, $date_string);
-			}
-			
-			Carbon::instance($date_string);
-		
-		} catch (Exception $e) {
-			// @todo - log error
-			return Carbon::now();	
 		}
+
+		// If this value is an integer, we will assume it is a UNIX timestamp's value
+		// and format a Carbon object from this timestamp. This allows flexibility
+		// when defining your date fields as they might be UNIX timestamps here.
+		if (is_numeric($date_string))
+		{
+			return Carbon::createFromTimestamp($date_string);
+		}
+		elseif ( ! $date_string instanceof DateTime)
+		{
+			return Carbon::createFromFormat(static::STORAGE_DATE_FORMAT, $date_string);
+		}
+		
+		return Carbon::instance($date_string);
 	}
 
 	protected function to24Hour($datetime, $hour = 0)
