@@ -404,7 +404,7 @@ abstract class AbstractField
 			}
 		
 		} else {
-			
+
 			// Get relations from the model
 			$relations = $this->model->getRelations();
 
@@ -589,27 +589,27 @@ abstract class AbstractField
 	/**
 	 * Wrapper method for the Eloquent belongsTo() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsTo($related, $foreing_key = null)
+	public function belongsTo($related, $foreign_key = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsTo($related, $foreing_key);
+		return $this->model->belongsTo($related, $foreign_key);
 	}
 
 	/**
 	 * Wrapper method for the Eloquent belongsToEntry() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreing_key = null, $stream = null)
+	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreign_key = null, $stream = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('choose_stream', $stream));
 	}
 
 	/**

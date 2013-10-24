@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Pyro\Module\Streams_core\Core\Model\Entry;
 
 class EntryBuilder extends Builder
 {
@@ -20,7 +21,6 @@ class EntryBuilder extends Builder
 		$this->fields = $this->model->getFields();
 		$this->table = $this->model->getTable();
 
-		
 		// -------------------------------------
 		// Filters (QueryString API)
 		// -------------------------------------
@@ -177,15 +177,19 @@ class EntryBuilder extends Builder
 		// Ordering / Sorting (QueryString API)
 		// -------------------------------------
 
-		if (ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-			if (ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-				$this->orderBy(ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug), ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug));
+		if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+			if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+				
+				if ($order_by_relation = $this->getRelationAttribute($order_by))
+				{
+					$order_by = $order_by_relation->getForeignKey();
+				}
+
+				$this->orderBy($order_by, $sort_by);
 			} else {
-				$this->orderBy(ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug), 'ASC');
+				$this->orderBy($order_by, 'ASC');
 			}
 		}
-
-
 
 		if ($exclude)
 		{
@@ -194,11 +198,16 @@ class EntryBuilder extends Builder
 
 		$columns = $this->prepareColumns($columns);
 
+	
 		// We prepare the view options after preparing the columns and before the key is required
 		$this->prepareViewOptions($columns);
 
 		// We need to return the models with their keys
 		$columns = $this->requireKey($columns);
+
+		$columns = $this->requireForeingKeys($columns);
+
+
 
 		$this->entries = $this->getModels($columns);
 
@@ -213,13 +222,20 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			$this->with('createdByUser');
+			if ($eager_loads = $this->getViewOptionRelations() and is_array($this->model->eagerLoads) and is_array($eager_loadss))
+			{
+				$eager_loads = array_merge($this->model->eagerLoads, $eager_loads);
+			}
 
-			if ($columns === array('*'))
-				$this->eagerLoadFieldRelations($this->model->getFieldSlugs());
-			else
-				$this->eagerLoadFieldRelations($columns);
+			if ( ! empty($eager_loads)) { 
+				$this->with($eager_loads);
+			}
 
+			if (in_array('created_by', $columns))
+			{
+				$this->with('createdByUser');
+			}
+			
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
@@ -308,14 +324,7 @@ class EntryBuilder extends Builder
 		// and is error prone while we remove the developer's own where clauses.
 		$query = Relation::noConstraints(function() use ($me, $relation)
 		{	
-			if ($me->getModel()->isEnableFieldRelations() and $type = $me->getModel()->getFieldType($relation))
-			{
-				return $type->relation();	
-			}
-			else
-			{
-				return $me->getModel()->$relation();
-			}
+			return $me->getRelationAttribute($relation);
 		});
 
 		$nested = $this->nestedRelations($relation);
@@ -331,6 +340,28 @@ class EntryBuilder extends Builder
 		return $query;
 	}
 
+	public function getRelationAttribute($relation = null)
+	{
+		if ( ! $relation) return null;
+
+		if ($type = $this->getModel()->getFieldType($relation) and $type->hasRelation())
+		{
+			return $type->relation();	
+		}
+		elseif (method_exists($this->getModel(), $relation) and $instance = $this->getModel()->$relation())
+		{
+			 if ($instance instanceof Relation) {
+			 	return $instance;
+			 }
+		}
+
+		return $this;
+	}
+
+	public function hasRelation($attribute = null)
+	{
+		return $this->getRelationAttribute($attribute) instanceof Relation;
+	}
 
 	/**
 	 * Prep columns
@@ -340,7 +371,7 @@ class EntryBuilder extends Builder
     protected function prepareColumns(array $columns = array('*'))
     {
     	// Remove any columns that don't exist
-        $columns = array_intersect($columns, $this->model->getAllColumns());
+        $columns = array_intersect($this->model->getAllColumns(), $columns);
 
     	// If for some reason we passed an empty array, put the asterisk back
     	$columns = empty($columns) ? array('*') : $columns;
@@ -363,6 +394,30 @@ class EntryBuilder extends Builder
         }
 
         return $columns;
+    }
+
+    public function requireForeingKeys($columns)
+    {
+    	$columns = array_merge($columns, get_class_methods($this->model));
+
+    	$entry = new Entry;
+
+    	$entry_methods = get_class_methods($entry);
+
+    	$columns = array_diff($columns, array('stream'), $entry_methods);
+
+    	foreach ($columns as $column) {
+    		if ($relation = $this->getRelation($column) and method_exists($relation, 'getForeignKey')) {
+    			$foreign_key = $relation->getForeignKey();
+    			$columns[] = $foreign_key;
+    			if ($column != $foreign_key)
+    			{
+    				$columns = array_diff($columns, array($column));	
+    			}
+    		}
+    	}
+
+    	return array_unique($columns);
     }
 
     /**
@@ -401,24 +456,20 @@ class EntryBuilder extends Builder
 			$columns = $this->model->getAllColumns();
 		}
 
-		// or we just set the columns that were passed to the method
-		$this->model->setViewOptions($columns);
-
 		return $columns;
     }
 
-    /**
-     * Eager load field type relations
-     * @param  array  $columns The model columns
-     * @return [type]          [description]
-     */
-    protected function eagerLoadFieldRelations($columns = array())
+    public function getViewOptionRelations()
     {
-    	$this->getModel()->setEagerFieldRelations($columns);
+    	$relations = array();
 
-		if ($field_relations = $this->model->getEagerFieldRelations())
-		{
-			$this->with($field_relations);
-		}
+    	foreach ($this->model->getViewOptions() as $column) {
+    		if ($this->hasRelation($column)) {
+    			$relations[] = $column;
+    		}
+    	}
+
+    	return $relations;
     }
+
 }

@@ -64,29 +64,7 @@
 
 					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php
-
-					if ( ! empty($field_maps[$view_option]))
-					{
-						echo ci()->parser->parse_string($field_maps[$view_option], array('entry' => $entry->toArray()), true);
-					}
-					elseif ($entry->$view_option instanceof \Carbon\Carbon) {
-							
-						if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
-
-					} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { 
-
-					?>
-
-					<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
-						<?php echo $entry->created_by->username; ?>
-					</a>
-				
-					<?php } else {
-							
-							echo $entry->$view_option;
-						
-					} ?>
+					<?php echo $entry->stringOutput($view_option); ?>
 
 				</td>
 				<?php endforeach; endif; ?>
