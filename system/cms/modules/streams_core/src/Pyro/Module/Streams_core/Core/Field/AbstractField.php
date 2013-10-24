@@ -396,30 +396,27 @@ abstract class AbstractField
 	public function getFormattedValue($plugin = false)
 	{
 		// Is this an alt process type?
-		if ($this->alt_process === true)
-		{
+		if ($this->alt_process === true) {
+
 			if ( ! $plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
-		}	
-		else
-		{
-			if ($this->model->isEnableFieldRelations())
-			{
-				// Get relations from the model
-				$relations = $this->model->getRelations();
+		
+		} else {
+			
+			// Get relations from the model
+			$relations = $this->model->getRelations();
 
-				// Return relations if they are eager loaded
-				if (isset($relations[$this->field->field_slug]))
-				{
-					return $this->relation = $this->relations[$this->field->field_slug];
-				}
-				// If the field type has a relationship, get the results
-				elseif (method_exists($this, 'relation'))
-				{
-				    return $this->relation = $this->relation()->getResults();          
-				}				
+			// Return relations if they are eager loaded
+			if (isset($relations[$this->field->field_slug]))
+			{
+				return $this->relation = $this->relations[$this->field->field_slug];
+			}
+			// If the field type has a relationship, get the results
+			elseif ($this->hasRelation())
+			{
+			    return $this->relation = $this->relation()->getResults();          
 			}
 
 			// If not, check and see if there is a method
