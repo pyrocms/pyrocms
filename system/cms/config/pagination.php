@@ -18,8 +18,8 @@ $config['num_links'] = 8;
 | Control the HTML that gets wrapped around pagination.
 |
 */
-$config['full_tag_open'] = '<div class="pagination"><ul>';
-$config['full_tag_close'] = '</ul></div>';
+$config['full_tag_open'] = '<ul class="pagination n-m">';
+$config['full_tag_close'] = '</ul>';
 
 $config['first_link'] = '&lt;&lt;';
 $config['first_tag_open'] = '<li class="first">';
