@@ -100,7 +100,7 @@ class User extends AbstractField
 			$this->getFilterSlug('contains'),
 			array(),
 			null,
-			'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
+			'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"'
 			);
 
 		// Append our JS to the HTML since it's special
