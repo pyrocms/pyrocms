@@ -42,7 +42,7 @@
 	<?php endif; ?>
 
 	<?php if (! empty($create_redirect)): ?>
-	<button type="submit" name="btnAction" value="save_create" class="btn btn-success"><?php echo lang('buttons:save_create'); ?></button>
+	<button type="submit" name="btnAction" value="save_create" class="btn btn-info"><?php echo lang('buttons:save_create'); ?></button>
 	<?php endif; ?>
 
 	<?php if (! empty($continue_redirect)): ?>

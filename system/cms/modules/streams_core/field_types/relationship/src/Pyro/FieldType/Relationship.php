@@ -173,7 +173,7 @@ class Relationship extends AbstractField
 	 * @param  mixed $value
 	 * @return string
 	 */
-	public function param_stream($value = null)
+	public function param_stream($value = '')
 	{
 		$options = Model\Stream::getStreamAssociativeOptions();
 
@@ -185,7 +185,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_placeholder($value = null)
+	public function param_placeholder($value = '')
 	{
 		return form_input('placeholder', $value);
 	}
@@ -195,7 +195,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_value_field($value = null)
+	public function param_value_field($value = '')
 	{
 		return form_input('value_field', $value);
 	}
@@ -205,7 +205,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_label_field($value = null)
+	public function param_label_field($value = '')
 	{
 		return form_input('label_field', $value);
 	}
@@ -215,7 +215,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_search_field($value = null)
+	public function param_search_field($value = '')
 	{
 		return form_input('search_field', $value);
 	}
@@ -228,7 +228,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_template($value = null)
+	public function param_template($value = '')
 	{
 		return form_input('template', $value);
 	}
@@ -239,7 +239,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_module_slug($value = null)
+	public function param_module_slug($value = '')
 	{
 		return form_input('module_slug', $value);
 	}
@@ -250,7 +250,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_relation_class($value = null)
+	public function param_relation_class($value = '')
 	{
 		return form_input('relation_class', $value);
 	}
