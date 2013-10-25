@@ -638,10 +638,18 @@ class Entry extends Eloquent
         // Is there any logic to complete before inserting?
         //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
 
-         
-        // Process any alt process stuff
+        if ($saved = parent::save($options) and $this->search_index_template)
+        {
+            Search::indexEntry($this, $this->search_index_template);
+        }
+
+
+        // -------------------------------------
+        // Alt Processing
+        // -------------------------------------
         foreach ($alt_process as $type)
         {
+            $type->setEntry($this);
             $type->pre_save();
         }
         
@@ -657,11 +665,6 @@ class Entry extends Eloquent
 
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
-        if ($saved = parent::save($options) and $this->search_index_template)
-        {
-            Search::indexEntry($this, $this->search_index_template);
-        }
-
         return $saved;
     }
 
@@ -671,6 +674,7 @@ class Entry extends Eloquent
      */
     public function delete()
     {
+        // Delete index automatically per SAPI conventions
         if ( ! $search_index_module = $this->getModuleSlug())
         {
             $search_index_module = $this->getStream()->stream_namespace;
@@ -679,6 +683,23 @@ class Entry extends Eloquent
         $search_index_scope = $this->getStreamTypeSlug();
 
         Search::dropIndex($search_index_module, $search_index_scope, $this->id);
+
+
+        // Run through destructs
+        foreach ($this->getFields() as $field) {
+
+            // Get the type
+            $type = $field->getType();
+
+            if (method_exists($type, 'entryDestruct')) {
+
+                // Set the entry
+                $type->setEntry($this);
+
+                // DESTRUCT
+                $type->entryDestruct();
+            }
+        }
 
         return parent::delete();
     }
