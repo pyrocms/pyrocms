@@ -46,7 +46,16 @@ Pyro.Initialize = function() {
 		if (e.altKey) return true;
 		if (e.metaKey) return true;
 
+		// Ya.. we're loading..
 		Pyro.Loading();
+
+		// Neato
+		$('.fadeInUp').removeClass('fadeInUp').addClass('fadeOutDown');
+		$('.fadeInDown').removeClass('fadeInDown').addClass('fadeOutUp');
+		$('.fadeInLeft').removeClass('fadeInLeft').addClass('fadeOutRight');
+		$('.fadeInRight').removeClass('fadeInRight').addClass('fadeOutLeft');
+
+		$('aside, table').addClass('animated-fast.fadeOut');
 	});
 
 

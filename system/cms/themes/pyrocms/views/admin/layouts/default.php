@@ -47,7 +47,7 @@
 			<section class="vertical-box">
 
 				<!-- Actions Bar -->
-				<section id="actions" class="nav-bar">
+				<section id="actions" class="nav-bar animated-zing fadeInDown">
 					
 					<div class="row-fluid">
 
