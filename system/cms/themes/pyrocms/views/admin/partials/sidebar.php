@@ -1,4 +1,4 @@
-<aside class="aside-sm nav-vertical <?php if (isset($_COOKIE['persistent_sidebar']) and $_COOKIE['persistent_sidebar'] == 'true') echo 'only-icon'; ?> animated-zing fadeInLeft" id="sidebar">
+<aside class="aside-sm nav-vertical <?php if (isset($_COOKIE['persistent_sidebar']) and $_COOKIE['persistent_sidebar'] == 'true') echo 'only-icon'; ?> animated-zing fadeInLeft" data-exit-animation="fadeOut" id="sidebar">
 
 	<section class="vertical-box">
 

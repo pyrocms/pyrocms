@@ -2,7 +2,7 @@
 
 
 	<!-- .panel -->
-	<section class="panel panel-default">
+	<section class="panel panel-default animated-zing fadeIn">
 	
 		<div class="panel-heading">
 			<h3 class="panel-title">

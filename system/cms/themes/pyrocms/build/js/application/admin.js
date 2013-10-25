@@ -49,13 +49,10 @@ Pyro.Initialize = function() {
 		// Ya.. we're loading..
 		Pyro.Loading();
 
-		// Neato
-		$('.fadeInUp').removeClass('fadeInUp').addClass('fadeOutDown');
-		$('.fadeInDown').removeClass('fadeInDown').addClass('fadeOutUp');
-		$('.fadeInLeft').removeClass('fadeInLeft').addClass('fadeOutRight');
-		$('.fadeInRight').removeClass('fadeInRight').addClass('fadeOutLeft');
-
-		$('aside, table').addClass('animated-fast.fadeOut');
+		// Automate exist
+		$('[data-exit-animation]').each(function() {
+			$(this).addClass('animated-zing').addClass($(this).attr('data-exit-animation'));
+		});
 	});
 
 

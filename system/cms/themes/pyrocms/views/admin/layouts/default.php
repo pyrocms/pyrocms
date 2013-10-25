@@ -47,7 +47,7 @@
 			<section class="vertical-box">
 
 				<!-- Actions Bar -->
-				<section id="actions" class="nav-bar animated-zing fadeInDown">
+				<section id="actions" class="nav-bar animated-zing fadeInDown" data-exit-animation="fadeOutUp">
 					
 					<div class="row-fluid">
 
@@ -64,7 +64,7 @@
 
 
 				<!-- Body Content -->
-				<section class="scrollable" id="body">
+				<section class="scrollable" id="body" data-exit-animation="fadeOut">
 					
 					<div class="p-l p-r">
 						<?php file_partial('notices'); ?>
