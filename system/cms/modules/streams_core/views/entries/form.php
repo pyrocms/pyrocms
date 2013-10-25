@@ -27,10 +27,26 @@
 
 	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
-	</div>
+	
+
+<div class="float-right buttons">
+	<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
+	
+	<?php if (! empty($exit_redirect)): ?>
+	<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
+	<?php endif; ?>
+
+	<?php if (! empty($create_redirect)): ?>
+	<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
+	<?php endif; ?>
+
+	<?php if (! empty($continue_redirect)): ?>
+	<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
+	<?php endif; ?>
+
+	<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+</div>
+
 
 <?php if (isset($disable_form_open) and ! $disable_form_open): echo form_close(); endif; ?>
 
