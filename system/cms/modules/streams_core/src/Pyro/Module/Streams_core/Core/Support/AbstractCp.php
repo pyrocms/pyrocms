@@ -224,10 +224,28 @@ abstract class AbstractCp extends AbstractCallable
 	protected $render = null;
 
 	/**
-	 * Redirect url
+	 * Save redirect URI
 	 * @var string
 	 */
 	protected $redirect = null;
+
+	/**
+	 * Save and exit redirect URI
+	 * @var string
+	 */
+	protected $exit_redirect = null;
+
+	/**
+	 * Save and continue redirect URI
+	 * @var string
+	 */
+	protected $continue_redirect = null;
+
+	/**
+	 * Save and create redirect URI
+	 * @var string
+	 */
+	protected $create_redirect = null;
 
 	/**
 	 * Show cancel button
@@ -345,19 +363,7 @@ abstract class AbstractCp extends AbstractCallable
 		$this->allow_title_column_set = $allow_title_column_set;
 
 		return $this;
-	}	
-
-	/**
-	 * Set the cancel URI
-	 * @param  string $cancel_uri
-	 * @return object
-	 */
-	public function cancelUri($cancel_uri = null)
-	{
-		$this->cancel_uri = $cancel_uri;
-
-		return $this;
-	}	
+	}
 
 	/**
 	 * Filters
@@ -631,13 +637,61 @@ abstract class AbstractCp extends AbstractCallable
 	}
 
 	/**
-	 * Set return URI
-	 * @param  string $return 
-	 * @return object         
+	 * Set the redirect
+	 * @param  string $return
+	 * @return object
 	 */
 	public function redirect($redirect = null)
 	{
 		$this->data->redirect = $redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/exit redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function exitRedirect($exit_redirect = null)
+	{
+		$this->data->exit_redirect = $exit_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/continue redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function continueRedirect($continue_redirect = null)
+	{
+		$this->data->continue_redirect = $continue_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/exit redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function createRedirect($create_redirect = null)
+	{
+		$this->data->create_redirect = $create_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the cancel URI
+	 * @param  string $return
+	 * @return object
+	 */
+	public function cancelUri($cancel_uri = null)
+	{
+		$this->data->cancel_uri = $cancel_uri;
 
 		return $this;
 	}
