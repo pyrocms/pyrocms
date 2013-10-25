@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\Core\Field\Type;
+
 /**
  * Streams Parse Driver
  *
@@ -97,7 +99,7 @@ class Streams_parse extends CI_Driver {
 		{
 			foreach ($fields as $field)
 			{
-				if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
+				if (method_exists(Type::getType($field->field_type), 'plugin_override'))
 				{
 					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id="{{ '.
 						$id_name.' }}" stream_slug="'.
