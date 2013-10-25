@@ -498,7 +498,7 @@ class Choice extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */	
-	public function param_choice_data($value = null)
+	public function paramChoiceData($value = null)
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
@@ -515,7 +515,7 @@ class Choice extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */	
-	public function param_choice_type($value = null)
+	public function paramChoiceType($value = null)
 	{
 		$choices = array(
 			'dropdown' 		=> lang('streams:choice.dropdown'),
@@ -536,7 +536,7 @@ class Choice extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */	
-	public function param_min_choices($value = null)
+	public function paramMinChoices($value = null)
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
@@ -553,7 +553,7 @@ class Choice extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */	
-	public function param_max_choices($value = null)
+	public function paramMaxChoices($value = null)
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),

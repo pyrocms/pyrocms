@@ -91,7 +91,7 @@ class Encrypt extends AbstractField
 	 * @param	[array - param]
 	 * @return	string
 	 */
-	public function param_hide_typing($value = null)
+	public function paramHideTyping($value = null)
 	{
 		$selected 		= ($value == 'no') ? 'no' : 'yes';
 

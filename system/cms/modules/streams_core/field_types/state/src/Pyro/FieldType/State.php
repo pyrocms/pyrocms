@@ -158,7 +158,7 @@ class State extends AbstractField
 	 *
 	 * @return	string
 	 */
-	public function param_state_display()
+	public function paramStateDisplay()
 	{
 		$options = array(
 			'full' => lang('streams:state.full'),
@@ -173,7 +173,7 @@ class State extends AbstractField
 	 *
 	 * @return 	string
 	 */
-	public function param_default_state()
+	public function paramDefaultState()
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.

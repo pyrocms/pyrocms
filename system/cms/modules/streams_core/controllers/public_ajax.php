@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\Type;
+use Illuminate\Support\Str;
 
 /**
  * PyroStreams Public AJAX Controller
@@ -55,7 +56,7 @@ class Public_ajax extends Public_Controller
 		}
 
 		// We prefix all ajax functions with ajax_
-		$method = 'ajax_'.$method;
+		$method = Str::studly('ajax_'.$method);
 
 		// Does the method exist?
 		if (method_exists($type, $method)) {

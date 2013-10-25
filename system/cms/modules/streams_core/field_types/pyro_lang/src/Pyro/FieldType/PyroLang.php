@@ -70,7 +70,7 @@ class PyroLang extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_filter_theme($value = null)
+	public function paramFilterTheme($value = null)
 	{
 		if ($value == 'no') {
 			$no_select 		= true;

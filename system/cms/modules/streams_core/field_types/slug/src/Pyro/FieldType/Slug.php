@@ -106,7 +106,7 @@ class Slug extends AbstractField
 	/**
 	 * Dash or Underscore?
 	 */
-	public function param_space_type($value = null)
+	public function paramSpaceType($value = null)
 	{
 		$options = array(
 			'-' => lang('streams:slug.dash'),
@@ -121,7 +121,7 @@ class Slug extends AbstractField
 	/**
 	 * What field to slugify?
 	 */
-	public function param_slug_field($value = null)
+	public function paramSlugField($value = null)
 	{
 		$field_slug = null;
 
@@ -135,5 +135,4 @@ class Slug extends AbstractField
 
 		return form_dropdown('slug_field', $options, $value);
 	}
-
 }

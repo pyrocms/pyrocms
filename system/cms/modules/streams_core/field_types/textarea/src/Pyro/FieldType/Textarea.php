@@ -111,7 +111,7 @@ class Textarea extends AbstractField
 	 *
 	 * Is this plain text, HTML or Markdown?
 	 */
-	public function param_content_type($value = null)
+	public function paramContentType($value = null)
 	{
 		$options = array(
 			'text' => lang('global:plain-text'),
@@ -131,7 +131,7 @@ class Textarea extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_default_value($value = null)
+	public function paramDefaultValue($value = null)
 	{
 		return form_textarea(array(
 			'name'		=> 'default_value',
@@ -139,6 +139,4 @@ class Textarea extends AbstractField
 			'value'		=> $value,
 		));
 	}
-
-
 }

@@ -164,7 +164,7 @@ class File extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_folder($value = null)
+	public function paramFolder($value = null)
 	{
 		ci()->load->library('files/files');
 
@@ -197,7 +197,7 @@ class File extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_allowed_types($value = null)
+	public function paramAllowedTypes($value = null)
 	{
 		$instructions = '<p class="note">'.lang('streams:file.allowed_types_instructions').'</p>';
 

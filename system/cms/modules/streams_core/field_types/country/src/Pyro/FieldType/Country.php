@@ -117,7 +117,7 @@ class Country extends AbstractField
 	 *
 	 * @return 	string
 	 */
-	public function param_default_country($value = null)
+	public function paramDefaultCountry($value = null)
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.

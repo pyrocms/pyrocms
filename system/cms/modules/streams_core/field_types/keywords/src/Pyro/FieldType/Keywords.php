@@ -124,7 +124,7 @@ class Keywords extends AbstractField
 	 * @param  string $value
 	 * @return array
 	 */
-	public function param_return_type($value = 'array')
+	public function paramReturnType($value = 'array')
 	{
 		return array(
 			'instructions' => lang('streams:keywords.return_type.instructions'),

@@ -173,7 +173,7 @@ class Relationship extends AbstractField
 	 * @param  mixed $value
 	 * @return string
 	 */
-	public function param_stream($value = '')
+	public function paramStream($value = '')
 	{
 		$options = Model\Stream::getStreamAssociativeOptions();
 
@@ -185,7 +185,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_placeholder($value = '')
+	public function paramPlaceholder($value = '')
 	{
 		return form_input('placeholder', $value);
 	}
@@ -195,7 +195,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_value_field($value = '')
+	public function paramValueField($value = '')
 	{
 		return form_input('value_field', $value);
 	}
@@ -205,7 +205,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_label_field($value = '')
+	public function paramLabelField($value = '')
 	{
 		return form_input('label_field', $value);
 	}
@@ -215,7 +215,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_search_field($value = '')
+	public function paramSearchField($value = '')
 	{
 		return form_input('search_field', $value);
 	}
@@ -228,7 +228,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_template($value = '')
+	public function paramTemplate($value = '')
 	{
 		return form_input('template', $value);
 	}
@@ -239,7 +239,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_module_slug($value = '')
+	public function paramModuleSlug($value = '')
 	{
 		return form_input('module_slug', $value);
 	}
@@ -250,7 +250,7 @@ class Relationship extends AbstractField
 	 * @param  string $value
 	 * @return html
 	 */
-	public function param_relation_class($value = '')
+	public function paramRelationClass($value = '')
 	{
 		return form_input('relation_class', $value);
 	}
@@ -259,7 +259,7 @@ class Relationship extends AbstractField
 	// -------------------------	AJAX 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////
 
-	public function ajax_search()
+	public function ajaxSearch()
 	{
 		/**
 		 * Determine the stream

@@ -364,7 +364,7 @@ class Field extends AbstractField
     * @param   string
     * @return  array
     */
-    public function param_namespace($value = null)
+    public function paramNamespace($value = null)
     {
 		$options = array(
 			0 => lang('streams:field.param_default')
@@ -384,7 +384,7 @@ class Field extends AbstractField
     * @param   string
     * @return  array
     */
-    public function param_storage($value = null)
+    public function paramStorage($value = null)
     {
 		$options = array(
 			'default' => lang('streams:field.param_default'),

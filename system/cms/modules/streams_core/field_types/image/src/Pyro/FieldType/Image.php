@@ -139,7 +139,7 @@ class Image extends AbstractField
 		if ( ! $this->value) return null;
 
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obvious_alt($image).'" />';
+		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obviousAlt($image).'" />';
 	}
 
 	// --------------------------------------------------------------------------
@@ -181,7 +181,7 @@ class Image extends AbstractField
 			}
 
 			// For <img> tags only
-			$alt = $this->obvious_alt($image);
+			$alt = $this->obviousAlt($image);
 
 			$image_data['filename']			= $image->filename;
 			$image_data['name']				= $image->name;
@@ -215,7 +215,7 @@ class Image extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_folder($value = null)
+	public function paramFolder($value = null)
 	{
 		// Load the library
 		ci()->load->library('files/files');
@@ -254,7 +254,7 @@ class Image extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_resize_width($value = null)
+	public function paramResizeWidth($value = null)
 	{
 		return form_input('resize_width', $value);
 	}
@@ -268,7 +268,7 @@ class Image extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_resize_height($value = null)
+	public function paramResizeHeight($value = null)
 	{
 		return form_input('resize_height', $value);
 	}
@@ -282,7 +282,7 @@ class Image extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_keep_ratio($value = null)
+	public function paramKeepRatio($value = null)
 	{
 		$choices = array('yes' => lang('global:yes'), 'no' => lang('global:no'));
 
@@ -300,7 +300,7 @@ class Image extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_allowed_types($value = null)
+	public function paramAllowedTypes($value = null)
 	{
 		return array(
 				'input'			=> form_input('allowed_types', $value),
@@ -316,7 +316,7 @@ class Image extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	private function obvious_alt($image)
+	private function obviousAlt($image)
 	{
 		if ($image->alt_attribute) {
 			return $image->alt_attribute;
@@ -326,5 +326,4 @@ class Image extends AbstractField
 		}
 		return $image->name;
 	}
-
 }

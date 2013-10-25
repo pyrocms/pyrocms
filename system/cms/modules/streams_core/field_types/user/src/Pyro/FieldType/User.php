@@ -124,7 +124,7 @@ class User extends AbstractField
 	/**
 	 * Restrict to Group
 	 */
-	public function param_restrict_group($value = null)
+	public function paramRestrictGroup($value = null)
 	{
 		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 
@@ -144,7 +144,7 @@ class User extends AbstractField
 	// -------------------------	AJAX 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////
 
-	public function ajax_search()
+	public function ajaxSearch()
 	{
 		/**
 		 * Grab the stream namespace

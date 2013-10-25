@@ -51,7 +51,7 @@ class MergeTags extends AbstractField
 	 * @param  mixed $value The saved value or null
 	 * @return array        The form array
 	 */
-	public function param_pattern($value = null)
+	public function paramPattern($value = null)
 	{
 		return array(
 			'input' 		=> form_textarea('pattern', $value),
