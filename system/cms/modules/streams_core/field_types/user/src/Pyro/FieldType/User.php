@@ -69,7 +69,38 @@ class User extends AbstractField
 			$this->form_slug,
 			array(),
 			null,
-			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang('streams:selector.placeholder').'"'
+			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
+			);
+
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/user.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream_namespace' => $this->stream->stream_namespace,
+				),
+			false
+			);
+
+		return $html;
+	}
+
+	/**
+	 * Output filter input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function filterOutput()
+	{
+		// Start the HTML
+		$html = form_dropdown(
+			$this->getFilterSlug('contains'),
+			array(),
+			null,
+			'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
 			);
 
 		// Append our JS to the HTML since it's special
