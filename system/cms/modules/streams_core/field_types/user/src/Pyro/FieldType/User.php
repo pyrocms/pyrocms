@@ -1,9 +1,10 @@
 <?php namespace Pyro\FieldType;
 
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
-use Pyro\Module\Streams_core\Core\Model\Stream;
-use Pyro\Module\Streams_core\Core\Model\Field;
-use Pyro\Module\Users\Model;
+use Pyro\Module\Users\Model\User as UserModel;
 
 /**
  * PyroStreams User Field Type
@@ -123,14 +124,14 @@ class User extends AbstractField
 		/**
 		 * Determine our field / type
 		 */
-		$field = Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
+		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
 		$field_type = $field->getType(null);
 
 
 		/**
 		 * Get users
 		 */
-		$users = Model\User::getUserOptions($this->getParameter('restrict_group'), ci()->input->get('query'));
+		$users = UserModel::getUserOptions($this->getParameter('restrict_group'), ci()->input->get('query'));
 
 		// Prep return
 		$results = array();

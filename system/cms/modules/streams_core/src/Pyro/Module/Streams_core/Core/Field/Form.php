@@ -109,10 +109,34 @@ class Form
 	protected $result = false;
 
 	/**
-	 * Return
+	 * Save redirect URI
 	 * @var string
 	 */
-	protected $return = null;
+	protected $redirect = null;
+
+	/**
+	 * Save and exit redirect URI
+	 * @var string
+	 */
+	protected $exit_redirect = null;
+
+	/**
+	 * Save and continue redirect URI
+	 * @var string
+	 */
+	protected $continue_redirect = null;
+
+	/**
+	 * Cancel URI
+	 * @var string
+	 */
+	protected $cancel_uri = null;
+
+	/**
+	 * Save and create redirect URI
+	 * @var string
+	 */
+	protected $create_redirect = null;
 
 	/**
 	 * Enable post
@@ -680,13 +704,61 @@ class Form
 	}
 
 	/**
-	 * Redirect
+	 * Set the redirect
 	 * @param  string $return
 	 * @return object
 	 */
-	public function redirect($return = null)
+	public function redirect($redirect = null)
 	{
-		$this->return = $return;
+		$this->redirect = $redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/exit redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function exitRedirect($exit_redirect = null)
+	{
+		$this->exit_redirect = $exit_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/continue redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function continueRedirect($continue_redirect = null)
+	{
+		$this->continue_redirect = $continue_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the save/exit redirect
+	 * @param  string $return
+	 * @return object
+	 */
+	public function createRedirect($create_redirect = null)
+	{
+		$this->create_redirect = $create_redirect;
+
+		return $this;
+	}
+
+	/**
+	 * Set the cancel URI
+	 * @param  string $cancel_uri
+	 * @return object
+	 */
+	public function cancelUri($cancel_uri = null)
+	{
+		$this->cancel_uri = $cancel_uri;
 
 		return $this;
 	}

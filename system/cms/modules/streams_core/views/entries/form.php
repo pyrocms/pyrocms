@@ -36,8 +36,20 @@
 
 <div class="panel-footer">
 	<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
+	
+	<?php if (! empty($exit_redirect)): ?>
 	<button type="submit" name="btnAction" value="save_exit" class="btn btn-success"><?php echo lang('buttons:save_exit'); ?></button>
-	<a href="<?php echo site_url(isset($redirect) ? $redirect : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
+	<?php endif; ?>
+
+	<?php if (! empty($create_redirect)): ?>
+	<button type="submit" name="btnAction" value="save_create" class="btn btn-success"><?php echo lang('buttons:save_create'); ?></button>
+	<?php endif; ?>
+
+	<?php if (! empty($continue_redirect)): ?>
+	<button type="submit" name="btnAction" value="save_continue" class="btn btn-success"><?php echo lang('buttons:save_continue'); ?></button>
+	<?php endif; ?>
+
+	<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
 </div>
 
 <?php echo form_close();?>

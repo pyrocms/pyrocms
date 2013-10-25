@@ -244,7 +244,11 @@ class Entries extends AbstractCp
 			->setDefaults($this->defaults)
 			->enableSave($this->enable_save)
 			->successMessage($this->success_message)
-			->redirect($this->return);
+			->redirect($this->redirect)
+			->exitRedirect($this->exit_redirect)
+			->continueRedirect($this->continue_redirect)
+			->createRedirect($this->create_redirect)
+			->cancelUri($this->cancel_uri);
 
 		$this->data->stream 	= $this->entry->getStream();
 		$this->data->tabs		= $this->tabs;
@@ -257,16 +261,34 @@ class Entries extends AbstractCp
 		if ($saved = $this->form->result() and $this->enable_save)
 		{
 			$this->fireOnSaved($saved);
-		
-			if ($this->redirect)
-			{
-				$url = ci()->parser->parse_string($this->redirect, $saved->toArray(), true);
+			
+			// Ooohh where to go..
+			switch (ci()->input->post('btnAction')) {
 
-				$url = str_replace('-id-', $saved->getKey(), $url);					
-			}
-			else
-			{
-				$url = current_url();
+				// Boring.
+				case 'save':
+					$url = site_url(ci()->parser->parse_string($this->data->redirect, $saved->toArray(), true));
+					break;
+
+				// Exit
+				case 'save_exit':
+					$url = site_url(ci()->parser->parse_string($this->data->exit_redirect, $saved->toArray(), true));
+					break;
+
+				// Create
+				case 'save_create':
+					$url = site_url(ci()->parser->parse_string($this->data->create_redirect, $saved->toArray(), true));
+					break;
+
+				// Continue
+				case 'save_continue':
+					$url = site_url(ci()->parser->parse_string($this->data->continue_redirect, $saved->toArray(), true));
+					break;
+				
+				// Donknow
+				default:
+					$url = site_url(uri_string());
+					break;
 			}
 
 			redirect($url);
