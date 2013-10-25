@@ -3,3 +3,6 @@
 $lang['streams:relationship.name'] 				= 'Συσχετισμός';
 $lang['streams:relationship.choose_stream'] 	= 'Συσχετισμένη Ροή';
 $lang['streams:relationship.doesnt_exist']		= 'Η συσχετισμένη ροή δεν υπάρχει.';
+
+// Placeholders
+$lang['streams:relationship.placeholder']		= 'Type to search...';

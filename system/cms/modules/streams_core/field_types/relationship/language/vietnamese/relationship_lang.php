@@ -3,3 +3,6 @@
 $lang['streams:relationship.name'] 		= 'Sąryšiai (1)';
 $lang['streams:relationship.choose_stream'] 	= 'Srautas sąryšiui';
 $lang['streams:relationship.doesnt_exist']	= 'Susietas srautas neegzistuoja.';
+
+// Placeholders
+$lang['streams:relationship.placeholder']		= 'Type to search...';

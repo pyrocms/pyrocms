@@ -612,7 +612,7 @@ abstract class AbstractField
 	{
 		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('stream', $stream));
 	}
 
 	/**
