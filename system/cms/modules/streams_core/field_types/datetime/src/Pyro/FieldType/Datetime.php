@@ -577,8 +577,6 @@ class Datetime extends AbstractField
 	 */
 	public function pre_output_plugin()
 	{
-		if ( ! $this->value) return null;
-
 		return $this->getDateTime($this->value);
 	}
 

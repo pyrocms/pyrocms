@@ -396,30 +396,27 @@ abstract class AbstractField
 	public function getFormattedValue($plugin = false)
 	{
 		// Is this an alt process type?
-		if ($this->alt_process === true)
-		{
+		if ($this->alt_process === true) {
+
 			if ( ! $plugin and method_exists($this, 'alt_pre_output'))
 			{
 				return $this->alt_pre_output();
 			}
-		}	
-		else
-		{
-			if ($this->model->isEnableFieldRelations())
-			{
-				// Get relations from the model
-				$relations = $this->model->getRelations();
+		
+		} else {
 
-				// Return relations if they are eager loaded
-				if (isset($relations[$this->field->field_slug]))
-				{
-					return $this->relation = $this->relations[$this->field->field_slug];
-				}
-				// If the field type has a relationship, get the results
-				elseif (method_exists($this, 'relation'))
-				{
-				    return $this->relation = $this->relation()->getResults();          
-				}				
+			// Get relations from the model
+			$relations = $this->model->getRelations();
+
+			// Return relations if they are eager loaded
+			if (isset($relations[$this->field->field_slug]))
+			{
+				return $this->relation = $this->relations[$this->field->field_slug];
+			}
+			// If the field type has a relationship, get the results
+			elseif ($this->hasRelation())
+			{
+			    return $this->relation = $this->relation()->getResults();          
 			}
 
 			// If not, check and see if there is a method
@@ -592,27 +589,27 @@ abstract class AbstractField
 	/**
 	 * Wrapper method for the Eloquent belongsTo() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsTo($related, $foreing_key = null)
+	public function belongsTo($related, $foreign_key = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsTo($related, $foreing_key);
+		return $this->model->belongsTo($related, $foreign_key);
 	}
 
 	/**
 	 * Wrapper method for the Eloquent belongsToEntry() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreing_key = null, $stream = null)
+	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreign_key = null, $stream = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('choose_stream', $stream));
 	}
 
 	/**
