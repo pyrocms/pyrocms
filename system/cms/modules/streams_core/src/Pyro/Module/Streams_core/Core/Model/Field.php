@@ -53,9 +53,9 @@ class Field extends Eloquent
 
             foreach ($type->getCustomParameters() as $param)
             {
-                if (method_exists($type, 'param_'.$param.'_pre_save') and $value = $type->getPreSaveParameter($param))
+                if (method_exists($type, 'param_'.$param.'_preSave') and $value = $type->getPreSaveParameter($param))
                 {
-                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $value );
+                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_preSave'}( $value );
                 }
             }
         }
@@ -218,8 +218,8 @@ class Field extends Eloquent
         // Gather extra data
         foreach ($type->getCustomParameters() as $param)
         {
-            if (method_exists($type, 'param_'.$param.'_pre_save')) {
-                $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
+            if (method_exists($type, 'param_'.$param.'_preSave')) {
+                $field_data[$param] = $type->{'param_'.$param.'_preSave'}( $this );
             }
         }
 

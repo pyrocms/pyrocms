@@ -32,7 +32,7 @@ class MergeTags extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		return $this->value;
 	}
@@ -41,7 +41,7 @@ class MergeTags extends AbstractField
 	 * Pre save
 	 * @return string The parsed string
 	 */
-	public function pre_save()
+	public function preSave()
 	{
 		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_values, true);
 	}

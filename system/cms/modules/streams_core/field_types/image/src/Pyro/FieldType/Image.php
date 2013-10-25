@@ -51,7 +51,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		ci()->load->config('files/files');
 
@@ -83,7 +83,7 @@ class Image extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save()
+	public function preSave()
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
@@ -129,7 +129,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
@@ -157,7 +157,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 

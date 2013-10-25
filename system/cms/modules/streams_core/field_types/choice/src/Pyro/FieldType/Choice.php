@@ -49,14 +49,14 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{		
-		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
+		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 
-		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
+		$choice_type = $this->validateInputType($this->getParameter('choice_type'));
 		
 		// If this is a new input, we need to use the default value or go null
 		$value = $this->value; 
@@ -124,13 +124,13 @@ class Choice extends AbstractField
 				{
 					$selected = ($value == $choice_key) ? true : false;
 			
-					$return .= '<label class="radio">'.form_radio($this->form_slug, $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					$return .= '<label class="radio">'.form_radio($this->form_slug, $this->formatChoice($choice_key), $selected, $this->activeState($choice)).'&nbsp;'.$this->formatChoice($choice).'</label>'.$line_end ;
 				}
 				else
 				{
 					$selected = (in_array($choice_key, $values)) ? true : false;
 				
-					$return .= '<label class="checkbox">'.form_checkbox($this->form_slug.'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					$return .= '<label class="checkbox">'.form_checkbox($this->form_slug.'[]', $this->formatChoice($choice_key), $selected, 'id="'.$this->formatChoice($choice_key).'" '.$this->activeState($choice)).'&nbsp;'.$this->formatChoice($choice).'</label>'.$line_end ;
 				}
 			}
 		}
@@ -147,12 +147,12 @@ class Choice extends AbstractField
 	 */
 	public function filterOutput()
 	{		
-		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no');
+		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no');
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 
-		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
+		$choice_type = $this->validateInputType($this->getParameter('choice_type'));
 		
 		// If this is a new input, we need to use the default value or go null
 		$value = ci()->input->get($this->getFilterSlug('is'));
@@ -172,7 +172,7 @@ class Choice extends AbstractField
 	 * @param 	string
 	 * @return 	string
 	 */
-	private function active_state($line)
+	private function activeState($line)
 	{
 		$line = trim($line);
 
@@ -199,7 +199,7 @@ class Choice extends AbstractField
 	 * @param 	string
 	 * @return 	string
 	 */
-	private function format_choice($line)
+	private function formatChoice($line)
 	{
 		if ($line{0} == '^')
 		{
@@ -220,11 +220,11 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
-		$choices = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
+		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 
-		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
+		$choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
 		// Checkboxes?
 		if ($choice_type == 'checkboxes' or $choice_type == 'multiselect')
@@ -271,9 +271,9 @@ class Choice extends AbstractField
 	/**
 	 * Pre-save
 	 */	
-	public function pre_save()
+	public function preSave()
 	{
-		$choice_type = $this->validate_input_type($this->getParameter('choice_type'));
+		$choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
 		// We only need to do this for checkboxes
 		if (($choice_type == 'checkboxes' or $choice_type== 'multiselect') and is_array($this->value))
@@ -314,7 +314,7 @@ class Choice extends AbstractField
 	 *
 	 * @return 	string The input type
 	 */
-	private function validate_input_type($var)
+	private function validateInputType($var)
 	{
 		if ( ! in_array($var, $this->input_types)) {
 			$var = 'dropdown';
@@ -410,7 +410,7 @@ class Choice extends AbstractField
 	 * @param	obj
 	 * @return	void
 	 */
-	public function field_assignment_construct()
+	public function fieldAssignmentConstruct()
 	{
 		// We need more room for checkboxes
 		if ($this->getParameter('choice_type') == 'checkboxes' || $this->getParameter('choice_type') == 'multiselect')
@@ -431,9 +431,9 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
-		$options = $this->_choices_to_array($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
+		$options = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 
 		// Checkboxes
 		if ($this->getParameter('choice_type') == 'checkboxes' || $this->getParameter('choice_type') == 'multiselect')
@@ -572,7 +572,7 @@ class Choice extends AbstractField
 	 * @param	string - fied is required - yes or no
 	 * @return	array
 	 */
-	public function _choices_to_array($choices_raw, $type = 'dropdown', $is_required = 'no', $optgroups = true)
+	public function _choicesToArray($choices_raw, $type = 'dropdown', $is_required = 'no', $optgroups = true)
 	{
 		$lines = explode("\n", $choices_raw);
 		

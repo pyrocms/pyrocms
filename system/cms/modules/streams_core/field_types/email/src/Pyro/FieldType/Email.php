@@ -32,7 +32,7 @@ class Email extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		$options['name'] = $this->form_slug;
 		$options['id'] = $this->form_slug;
@@ -52,7 +52,7 @@ class Email extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		ci()->load->helper('text');
 		return escape_tags($this->value);
@@ -72,7 +72,7 @@ class Email extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		$choices = array();
 

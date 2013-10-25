@@ -30,7 +30,7 @@ class Country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Value
 		// We only use the default value if this is a new
@@ -74,7 +74,7 @@ class Country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		$countries = $this->countries('yes');
 
@@ -94,7 +94,7 @@ class Country extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		$countries = $this->countries('yes');
 

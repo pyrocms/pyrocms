@@ -34,7 +34,7 @@ class PyroLang extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 	    $languages = array();
 
@@ -96,7 +96,7 @@ class PyroLang extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		$langs = ci()->config->item('supported_languages');
 

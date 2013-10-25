@@ -179,7 +179,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Form input type. Defaults to datepicker
 		$input_type = $this->getParameter('input_type', 'datepicker');
@@ -362,7 +362,7 @@ class Datetime extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save()
+	public function preSave()
 	{
 		if ($this->getParameter('input_type') == 'datepicker') {
 
@@ -537,7 +537,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		return $this->format();
 	}
@@ -575,7 +575,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ( ! $this->value) return null;
 

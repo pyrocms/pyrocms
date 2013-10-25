@@ -47,7 +47,7 @@ class Wysiwyg extends AbstractField
 	 * @param 	string
 	 * @return 	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		// Legacy. This was a temp fix for a few things
 		// that I'm sure a few sites are utilizing.
@@ -73,7 +73,7 @@ class Wysiwyg extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Set editor type
 		if ($editor_type = $this->getParameter('editor_type')) {

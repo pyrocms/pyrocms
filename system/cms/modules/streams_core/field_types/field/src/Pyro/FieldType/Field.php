@@ -83,7 +83,7 @@ class Field extends AbstractField
     * @param   object
     * @return  string
     */
-    public function form_output()
+    public function formOutput()
     {	
     	$form = '';
 
@@ -108,7 +108,7 @@ class Field extends AbstractField
 			$form .= form_hidden($this->form_slug, $selected_field->field_slug);
     		$form .= $selected_type->getForm();
     	}
-		elseif($options = $this->get_selectable_fields($this->field->stream_slug, $this->field->stream_namespace, $selectable_fields_namespace, $this->field->field_slug))
+		elseif($options = $this->getSelectableFields($this->field->stream_slug, $this->field->stream_namespace, $selectable_fields_namespace, $this->field->field_slug))
 		{	
 			$form = form_dropdown($this->field->field_slug, $options, $this->defaults['data']);
 		}
@@ -120,7 +120,7 @@ class Field extends AbstractField
 		return $form;
     }
 
-    public function get_selectable_fields($stream_slug, $stream_namespace, $selectable_fields_namespace)
+    public function getSelectableFields($stream_slug, $stream_namespace, $selectable_fields_namespace)
     {
 	    // This will prevent fields assigned to this stream from being selectable for entry.
 		$skip_fields = array();
@@ -159,7 +159,7 @@ class Field extends AbstractField
     * @return  string
     */
     // $input, $field, $stream, $row_id, $this->form_data
-    public function pre_save()
+    public function preSave()
     {
     	// @todo - find a less hacky way of checking if it has been updated
     	$method = strtotime($this->entry->getOriginal('updated')) > 0 ? 'edit' : 'new';
@@ -230,7 +230,7 @@ class Field extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_pre_output()
+	public function altPreOutput()
 	{
 		$output = '';
 
@@ -249,9 +249,9 @@ class Field extends AbstractField
 		{
 			// This is an option for field types that primarily return an array
 			// First check if the field wants to alternatively return a string
-			if (method_exists($selected_type, 'alt_pre_output_field_field_type'))
+			if (method_exists($selected_type, 'altPreOutput_field_field_type'))
 			{
-				$output = $selected_type->alt_pre_output_field_field_type();
+				$output = $selected_type->altPreOutput_field_field_type();
 			}
 			// Check if the field has $return_unprocessed_field_field_type property and return the unprocessed column value
 			elseif ($selected_type 
@@ -294,7 +294,7 @@ class Field extends AbstractField
     * @param   object
     * @return  void
     */
-    public function field_assignment_construct()
+    public function fieldAssignmentConstruct()
     {
     	$max_length = $this->getParameter('max_length', 100);
 
@@ -332,7 +332,7 @@ class Field extends AbstractField
     * @param   object
     * @return  void
     */
-    public function field_assignment_destruct()
+    public function fieldAssignmentDestruct()
     {
     	$schema = ci()->pdb->getSchemaBuilder();
 

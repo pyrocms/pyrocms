@@ -290,10 +290,10 @@ class Stream extends Eloquent
 		if ( ! $field_type = $field->getType()) return false;
 
 		// Do we have a pre-add function?
-		if (method_exists($field_type, 'field_assignment_construct'))
+		if (method_exists($field_type, 'fieldAssignmentConstruct'))
 		{
 			$field_type->setStream($this);
-			$field_type->field_assignment_construct();
+			$field_type->fieldAssignmentConstruct();
 		}
 
 		// -------------------------------------
@@ -443,11 +443,11 @@ class Stream extends Eloquent
 		if ( ! $field instanceof Field) return false;
 
 		// Do we have a destruct function
-		if ($type = $field->getType() and method_exists($type, 'field_assignment_destruct'))
+		if ($type = $field->getType() and method_exists($type, 'fieldAssignmentDestruct'))
 		{
 			// @todo - also pass the schema builder
 			$type->setStream($this);
-			$type->field_assignment_destruct();
+			$type->fieldAssignmentDestruct();
 		}
 
 		// -------------------------------------

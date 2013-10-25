@@ -74,7 +74,7 @@ class Relationship extends AbstractField
 	 * @access 	public
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Start the HTML
 		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
@@ -134,7 +134,7 @@ class Relationship extends AbstractField
 	 *
 	 * @return	mixed 	null or string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		if($entry = $this->getRelation())
 		{
@@ -154,7 +154,7 @@ class Relationship extends AbstractField
 	 * 
 	 * @return array
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ($entry = $this->getRelation())
 		{
