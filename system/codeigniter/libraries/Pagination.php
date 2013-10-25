@@ -247,14 +247,14 @@ class CI_Pagination {
 	 *
 	 * @var	bool
 	 */
-	protected $page_query_string	= FALSE;
+	protected $page_query_string	= TRUE;
 
 	/**
 	 * Query string segment
 	 *
 	 * @var	string
 	 */
-	protected $query_string_segment = 'per_page';
+	protected $query_string_segment = 'page';
 
 	/**
 	 * Display pages flag
