@@ -157,7 +157,7 @@ class Choice extends AbstractField
 		// If this is a new input, we need to use the default value or go null
 		$value = ci()->input->get($this->getFilterSlug('is'));
 
-		return form_dropdown($this->getFilterSlug('is'), array_merge(array(null => '- '.$this->field->field_name.' -'), $choices), $value, 'id="'.$this->form_slug.'" class="skip form-control"');
+		return form_dropdown($this->getFilterSlug('is'), array(null => '- '.$this->field->field_name.' -') + $choices, $value, 'id="'.$this->form_slug.'" class="skip form-control"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -640,7 +640,7 @@ class Choice extends AbstractField
 						{
 
 							// Dang, this won't be in an <optgroup>
-							$optgroups[$key] = $value;
+							$optgroups[(string) $key] = $value;
 						}
 						else
 						{
@@ -654,7 +654,7 @@ class Choice extends AbstractField
 				$choices = $optgroups;
 			}
 		}
-		
+
 		return $choices;
 	}
 
