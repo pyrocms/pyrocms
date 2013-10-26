@@ -127,9 +127,9 @@ class Entries extends AbstractCp
 			$this->model = $model;
 		}
 
-		$this->model = $this->model->take($this->limit)->skip($this->offset);
-
 		$total_count = $this->model->count();
+
+		$this->model = $this->model->take($this->limit)->skip($this->offset);
 
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
 
