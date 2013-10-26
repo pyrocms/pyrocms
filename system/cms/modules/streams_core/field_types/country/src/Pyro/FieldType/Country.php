@@ -21,8 +21,6 @@ class Country extends AbstractField
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Output form input
 	 *
@@ -47,8 +45,6 @@ class Country extends AbstractField
 		return form_dropdown($this->form_slug, $this->countries($this->field->is_required), $this->value, 'id="'.$this->form_slug.'"');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Output filter input
 	 *
@@ -64,8 +60,6 @@ class Country extends AbstractField
 
 		return form_dropdown($this->getFilterSlug('is'), $this->countries(false), $this->getFilterSlug('is'), 'class="skip form-control"');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -84,8 +78,6 @@ class Country extends AbstractField
 			return null;
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -110,8 +102,6 @@ class Country extends AbstractField
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Default Country Parameter
 	 *
@@ -123,8 +113,6 @@ class Country extends AbstractField
 		// but we don't require them to give one.
 		return form_dropdown('default_country', $this->countries('no'), $value);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Countries
@@ -394,5 +382,4 @@ class Country extends AbstractField
 
 		return array_merge($choices, $countries);
 	}
-
 }
