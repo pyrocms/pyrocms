@@ -127,6 +127,8 @@ class Entries extends AbstractCp
 			$this->model = $model;
 		}
 
+		$total_count = $this->model->count();
+
 		$this->model = $this->model->take($this->limit)->skip($this->offset);
 
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
@@ -156,7 +158,7 @@ class Entries extends AbstractCp
   		}
 
   		// @todo - fix pagination
-		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
+  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($total_count);
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}
