@@ -48,27 +48,6 @@ class Datetime extends AbstractField
 	const  NOVEMBER 				= 10;
 	const  DECEMBER 				= 11;
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Event
-	 *
-	 * @access 	public
-	 * @param 	obj
-	 * @return 	void
-	 */
-	public function event()
-	{
-		// We need the JS file for the front-end. 
-		if ( ! defined('ADMIN_THEME') and $this->getParameter('input_type') == 'datepicker')
-		{
-			//$this->css('datepicker.css');
-			//$this->js('jquery.datepicker.js');
-		}
-	}
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Validate input
 	 *
@@ -115,7 +94,7 @@ class Datetime extends AbstractField
 		if (is_array($restrict = $this->parse_restrict()))
 		{
 			// Man we gotta convert this now if it's the dropdown format
-			if ($this->getParameter('input_type') == 'dropdown')
+			if ($this->getParameter('input_type', 'datepicker') == 'dropdown')
 			{
 				if (( ! $month = $this->getMonthValue() or ! $day = $this->getDayValue() or ! $day = $this->getYearValue()) and $required)
 				{
@@ -230,11 +209,17 @@ class Datetime extends AbstractField
 			$options['id']		= $this->form_slug;
 
 			$options['value']	= $datetime->year.'-'.$datetime->month.'-'.$datetime->day;
+
+			$options['class']	= 'form-control';
+
+			$options['data-date-format'] = static::DATEPICKER_DATE_FORMAT;
+			
+			$options['data-toggle'] = 'datepicker';
 				
 			$date_input .= form_input($options)."&nbsp;&nbsp;";
-		}
-		else
-		{
+		
+		} else {
+
 			$start_datetime 	= Carbon::parse($this->getParameter('start_date', 'now'));
 			$end_datetime 		= Carbon::parse($this->getParameter('end_date', '-100 years'));
 
@@ -364,7 +349,7 @@ class Datetime extends AbstractField
 	 */
 	public function preSave()
 	{
-		if ($this->getParameter('input_type') == 'datepicker') {
+		if ($this->getParameter('input_type', 'datepicker') == 'datepicker') {
 
 			$hour = (int) $this->getHourValue(0);
 			$minute = (int) $this->getMinuteValue(0);
@@ -396,8 +381,6 @@ class Datetime extends AbstractField
 
 		return static::ZERO_DATETIME;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Gets the posted date as a datetime object
@@ -410,7 +393,7 @@ class Datetime extends AbstractField
 	{
 		$datetime = $this->getDateTime($this->value);
 
-		if ($this->getParameter('input_type') == 'dropdown' and $this->value == '1')
+		if ($this->getParameter('input_type', 'datepicker') == 'dropdown' and $this->value == '1')
 		{
 			$datetime->year = $this->getYearValue($datetime->year);
 
@@ -425,8 +408,6 @@ class Datetime extends AbstractField
 
 		return $datetime;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Start Date
@@ -447,8 +428,6 @@ class Datetime extends AbstractField
 		);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * End Date
 	 *
@@ -467,8 +446,6 @@ class Datetime extends AbstractField
 			'instructions'	=> lang('streams:datetime.rest_instructions')
 		);
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Should we use time? Extra parameter

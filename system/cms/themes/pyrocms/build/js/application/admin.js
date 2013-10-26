@@ -350,6 +350,13 @@ Pyro.Initialize = function() {
 	$('input[data-mask]').each(function() {
 		$(this).mask($(this).attr('data-mask'));
 	});
+
+
+	/**
+	 * Datepicker
+	 */
+	
+	$('[data-toggle^="datepicker"]').datepicker();
 }
 
 
