@@ -50,6 +50,8 @@ abstract class AbstractField
 	 */
 	protected $plugin = false;
 
+	public $plugin_override = false;
+
 	/**
 	 * Query injection
 	 * @var string

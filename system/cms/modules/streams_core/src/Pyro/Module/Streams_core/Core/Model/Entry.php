@@ -1060,7 +1060,10 @@ class Entry extends Eloquent
     {
         if ( ! empty($this->field_maps[$view_option])) {
 
-            return ci()->parser->parse_string($this->field_maps[$view_option], array('entry' => $this->toArray()), true);
+            return ci()->parser->parse_string($this->field_maps[$view_option], array('entry' => $this->toArray()), true, false, array(
+                'stream' => $this->stream_slug,
+                'namespace' => $this->stream_namespace
+            ));
         
         }
         elseif ($datetime = $this->getAttribute($view_option) and $datetime instanceof Carbon) {
