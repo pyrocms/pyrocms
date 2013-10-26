@@ -272,7 +272,6 @@ class Relationship extends AbstractField
 		 * Determine our field / type
 		 */
 		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
-		$field_type = $field->getType(null);
 
 
 		/**
