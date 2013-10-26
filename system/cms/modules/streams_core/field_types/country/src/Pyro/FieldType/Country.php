@@ -11,15 +11,18 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Country extends AbstractField
 {
-	public $field_type_slug			= 'country';
+	public $field_type_slug = 'country';
 
-	public $db_col_type				= 'string';
+	public $db_col_type = 'string';
 
-	public $version					= '1.1.0';
+	public $version = '1.1.0';
 
-	public $custom_parameters   	= array('default_country');
+	public $custom_parameters = array('default_country');
 
-	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - AI Web Systems, Inc.',
+		'url' => 'http://aiwebsystems.com/'
+		);
 
 	/**
 	 * Output form input
@@ -58,7 +61,7 @@ class Country extends AbstractField
 		// We only use the default value if this is a new
 		// entry.
 
-		return form_dropdown($this->getFilterSlug('is'), $this->countries('no'), $this->getFilterSlug('is'), 'class="skip form-control"');
+		return form_dropdown($this->getFilterSlug('is'), array_merge(array(null => '- '.$this->field->field_name.' -'), $this->countries('yes')), $this->getFilterSlug('is'), 'class="skip form-control"');
 	}
 
 	/**
