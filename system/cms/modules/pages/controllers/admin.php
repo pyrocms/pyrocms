@@ -292,7 +292,7 @@ class Admin extends Admin_Controller
 
         //$stream_validation = $this->_setup_stream_fields($stream);
 
-        $enable_post = false;
+        $enable_save = false;
 
         if ($input = ci()->input->post()) {
 
@@ -323,7 +323,7 @@ class Admin extends Admin_Controller
             $page->order            = time();
 
             // Insert the page data, along with
-            if ($enable_post = $page->save())
+            if ($enable_save = $page->save())
             {
                 $page->buildLookup();
                 
@@ -373,7 +373,7 @@ class Admin extends Admin_Controller
         $this->form_data['parent_page'] = $parent_page;
 
         Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
-            ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
+            ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
