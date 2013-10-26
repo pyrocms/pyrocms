@@ -140,7 +140,7 @@ class Relationship extends AbstractField
 		{
 			$stream = $entry->getStream();
 		
-			return $entry->toArray();
+			return $entry->{$this->stream->title_column};//$entry->toArray();
 		}
 
 		return null;
