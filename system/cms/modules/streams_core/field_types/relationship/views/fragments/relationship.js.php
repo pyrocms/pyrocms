@@ -24,6 +24,9 @@
 			},
 			load: function(query, callback) {
 				if (!query.length) return callback();
+				
+				$('#<?php echo $form_slug; ?>').parent('div').find('.selectize-control').addClass('loading');
+
 				$.ajax({
 					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $stream; ?>/<?php echo $field_slug; ?>?query=' + encodeURIComponent(query),
 					type: 'GET',
@@ -36,5 +39,8 @@
 				});
 			}
 		});
+
+		// Add our loader
+		$('#<?php echo $form_slug; ?>').parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
 	});
 </script>

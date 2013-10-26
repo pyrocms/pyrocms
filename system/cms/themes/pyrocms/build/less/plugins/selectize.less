@@ -88,6 +88,29 @@
 
 .selectize-control {
 	position: relative;
+
+	img.spinner {
+		display: none;
+		position: absolute;
+		top: 10px;
+		right: 13px;
+		z-index: 10;
+		height: 16px;
+		width: 16px;
+	}
+
+	&.loading {
+		
+		img.spinner {
+			display: block;
+		}
+
+		.selectize-input {
+			&:after {
+				display: none !important;
+			}
+		}
+	}
 }
 
 .selectize-dropdown, .selectize-input, .selectize-input input {
