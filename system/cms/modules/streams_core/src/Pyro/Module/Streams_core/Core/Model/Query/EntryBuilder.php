@@ -180,7 +180,7 @@ class EntryBuilder extends Builder
 		if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 			if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 				
-				if ($order_by_relation = $this->getRelationAttribute($order_by))
+				if ($order_by_relation = $this->getRelationAttribute($order_by) and $order_by_relation instanceof Relation)
 				{
 					$order_by = $order_by_relation->getForeignKey();
 				}
