@@ -58,7 +58,7 @@ class Country extends AbstractField
 		// We only use the default value if this is a new
 		// entry.
 
-		return form_dropdown($this->getFilterSlug('is'), $this->countries(false), $this->getFilterSlug('is'), 'class="skip form-control"');
+		return form_dropdown($this->getFilterSlug('is'), $this->countries('no'), $this->getFilterSlug('is'), 'class="skip form-control"');
 	}
 
 	/**
