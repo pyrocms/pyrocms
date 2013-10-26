@@ -129,6 +129,8 @@ class Entries extends AbstractCp
 
 		$this->model = $this->model->take($this->limit)->skip($this->offset);
 
+		$total_count = $this->model->count();
+
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
 
 		$this->columns = $parsed_columns['columns'];
@@ -145,8 +147,6 @@ class Entries extends AbstractCp
 		}
 
   		$this->data->entries 		= $this->model->get($select, $this->exclude);
-
-  		$total_count = $this->model->count();
 
  		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 
