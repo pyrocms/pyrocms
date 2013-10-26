@@ -121,7 +121,7 @@ class Admin extends Admin_Controller
                 array(
                     'first_name',
                     'last_name',
-                    'user',
+                    'user' => '{{ user:username }}',
                     )
                 )
             ->onQuery(function($query) {
