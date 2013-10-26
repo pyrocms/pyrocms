@@ -179,7 +179,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Form input type. Defaults to datepicker
 		$input_type = $this->getParameter('input_type', 'datepicker');
@@ -362,7 +362,7 @@ class Datetime extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save()
+	public function preSave()
 	{
 		if ($this->getParameter('input_type') == 'datepicker') {
 
@@ -435,7 +435,7 @@ class Datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_start_date($value = null)
+	public function paramStartDate($value = null)
 	{
 		$options['name'] 	= 'start_date';
 		$options['id']		= 'start_date';
@@ -456,7 +456,7 @@ class Datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_end_date($value = null)
+	public function paramEndDate($value = null)
 	{
 		$options['name'] 	= 'end_date';
 		$options['id']		= 'end_date';
@@ -477,7 +477,7 @@ class Datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_use_time($value = null)
+	public function paramUseTime($value = null)
 	{
 		if ($value == 'no')
 		{
@@ -504,7 +504,7 @@ class Datetime extends AbstractField
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_input_type($value = null)
+	public function paramInputType($value = null)
 	{
 		$options = array(
 			'datepicker'	=> 'Datepicker',
@@ -518,7 +518,7 @@ class Datetime extends AbstractField
 	 * @param  string
 	 * @return string
 	 */
-	public function param_date_format($value = null)
+	public function paramDateFormat($value = null)
 	{
 		$data = array(
         	'name'        => 'date_format',
@@ -537,7 +537,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		return $this->format();
 	}
@@ -575,7 +575,7 @@ class Datetime extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ( ! $this->value) return null;
 

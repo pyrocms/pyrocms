@@ -36,7 +36,7 @@ class Year extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		$end_year 		= $this->_process_year_input($this->getParameter('end_year'));
 		$start_year 	= $this->_process_year_input($this->getParameter('start_year', $end_year - 80));
@@ -124,7 +124,7 @@ class Year extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_start_year($value = null)
+	public function paramStartYear($value = null)
 	{
 		$options['name'] 	= 'start_year';
 		$options['id']		= 'start_year';
@@ -141,7 +141,7 @@ class Year extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_end_year($value = null)
+	public function paramEndYear($value = null)
 	{
 		$options['name'] 	= 'end_year';
 		$options['id']		= 'end_year';

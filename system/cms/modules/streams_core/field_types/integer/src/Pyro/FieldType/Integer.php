@@ -34,7 +34,7 @@ class Integer extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= $this->form_slug;

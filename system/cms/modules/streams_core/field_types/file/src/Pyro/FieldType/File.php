@@ -39,7 +39,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($params)
+	public function formOutput($params)
 	{
 		ci()->load->config('files/files');
 
@@ -77,7 +77,7 @@ class File extends AbstractField
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field)
+	public function preSave($input, $field)
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
@@ -115,7 +115,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	mixed - null or string
 	 */
-	public function pre_output($input, $params)
+	public function preOutput($input, $params)
 	{
 		if ( ! $input) return null;
 
@@ -142,7 +142,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	mixed - null or array
 	 */
-	public function pre_output_plugin($input, $params)
+	public function preOutputPlugin($input, $params)
 	{
 		if ( ! $input) return null;
 
@@ -164,7 +164,7 @@ class File extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_folder($value = null)
+	public function paramFolder($value = null)
 	{
 		ci()->load->library('files/files');
 
@@ -197,7 +197,7 @@ class File extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_allowed_types($value = null)
+	public function paramAllowedTypes($value = null)
 	{
 		$instructions = '<p class="note">'.lang('streams:file.allowed_types_instructions').'</p>';
 

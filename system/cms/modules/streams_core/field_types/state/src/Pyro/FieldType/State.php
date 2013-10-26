@@ -90,7 +90,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Value
 		// We only use the default value if this is a new
@@ -124,7 +124,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ( ! $this->value) return null;
 
@@ -143,7 +143,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		// Default is abbr for backwards compat.
 		$states = $this->states('yes', $this->getParameter('state_display', 'abbr'));
@@ -158,7 +158,7 @@ class State extends AbstractField
 	 *
 	 * @return	string
 	 */
-	public function param_state_display()
+	public function paramStateDisplay()
 	{
 		$options = array(
 			'full' => lang('streams:state.full'),
@@ -173,7 +173,7 @@ class State extends AbstractField
 	 *
 	 * @return 	string
 	 */
-	public function param_default_state()
+	public function paramDefaultState()
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.

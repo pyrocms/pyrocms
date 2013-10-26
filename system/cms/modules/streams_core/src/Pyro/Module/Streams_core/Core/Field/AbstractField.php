@@ -84,7 +84,7 @@ abstract class AbstractField
 	 * The array of pre save parameter values
 	 * @var array
 	 */
-	protected $pre_save_parameters = array();
+	protected $preSave_parameters = array();
 
 	/**
 	 * The relation model
@@ -175,12 +175,12 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Set the pre save parameter values that will be available to param_[name]_pre_save() callbacks
-	 * @param array $pre_save_parameters The array of pre save parameter values
+	 * Set the pre save parameter values that will be available to param_[name]_preSave() callbacks
+	 * @param array $preSave_parameters The array of pre save parameter values
 	 */
-	public function setPreSaveParameters($pre_save_parameters = array())
+	public function setPreSaveParameters($preSave_parameters = array())
 	{
-		$this->pre_save_parameters = $pre_save_parameters;
+		$this->preSave_parameters = $preSave_parameters;
 	}
 
 	/**
@@ -191,7 +191,7 @@ abstract class AbstractField
 	 */
 	public function getPreSaveParameter($name = null, $default = null)
 	{
-		return isset($this->pre_save_parameters[$name]) ? $this->pre_save_parameters[$name] : $default;
+		return isset($this->preSave_parameters[$name]) ? $this->preSave_parameters[$name] : $default;
 	}
 
 	/**
@@ -398,9 +398,9 @@ abstract class AbstractField
 		// Is this an alt process type?
 		if ($this->alt_process === true)
 		{
-			if ( ! $plugin and method_exists($this, 'alt_pre_output'))
+			if ( ! $plugin and method_exists($this, 'altPreOutput'))
 			{
-				return $this->alt_pre_output();
+				return $this->altPreOutput();
 			}
 		}	
 		else
@@ -423,14 +423,14 @@ abstract class AbstractField
 			}
 
 			// If not, check and see if there is a method
-			// for pre output or pre_output_plugin
-			if ($plugin and method_exists($this, 'pre_output_plugin'))
+			// for pre output or preOutputPlugin
+			if ($plugin and method_exists($this, 'preOutputPlugin'))
 			{
-				return $this->pre_output_plugin();
+				return $this->preOutputPlugin();
 			}
-			elseif (method_exists($this, 'pre_output'))
+			elseif (method_exists($this, 'preOutput'))
 			{
-				return $this->pre_output();
+				return $this->preOutput();
 			}
 		}
 
@@ -454,13 +454,13 @@ abstract class AbstractField
 	{
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->plugin and method_exists($this, 'form_output_plugin'))
+		if ($this->plugin and method_exists($this, 'formOutput_plugin'))
 		{
-			return $this->form_output_plugin();
+			return $this->formOutput_plugin();
 		}
-		elseif (method_exists($this, 'form_output'))
+		elseif (method_exists($this, 'formOutput'))
 		{
-			return $this->form_output();
+			return $this->formOutput();
 		}
 
 		return false;

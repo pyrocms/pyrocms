@@ -617,9 +617,9 @@ class Entry extends Eloquent
                             $this->setAttribute($field->field_slug, null);
                         }
 
-                        if (method_exists($type, 'pre_save'))
+                        if (method_exists($type, 'preSave'))
                         {
-                            $this->setAttribute($field->field_slug, $type->pre_save());
+                            $this->setAttribute($field->field_slug, $type->preSave());
                         }
                         elseif(is_string($value))
                         {
@@ -650,7 +650,7 @@ class Entry extends Eloquent
         foreach ($alt_process as $type)
         {
             $type->setEntry($this);
-            $type->pre_save();
+            $type->preSave();
         }
         
         // -------------------------------------
@@ -777,7 +777,7 @@ class Entry extends Eloquent
             {
                 // If we don't have a post item for this field, 
                 // then simply set the value to null. This is necessary
-                // for fields that want to run a pre_save but may have
+                // for fields that want to run a preSave but may have
                 // a situation where no post data is sent (like a single checkbox)
                 if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
                 {
@@ -792,10 +792,10 @@ class Entry extends Eloquent
         
                     if ( ! $type->alt_process)
                     {
-                        // If a pre_save function exists, go ahead and run it
-                        if (method_exists($type, 'pre_save'))
+                        // If a preSave function exists, go ahead and run it
+                        if (method_exists($type, 'preSave'))
                         {
-                            $return_data[$field->field_slug] = $type->pre_save();
+                            $return_data[$field->field_slug] = $type->preSave();
 
                             // We are unsetting the null values to as to
                             // not upset db can be null rules.
@@ -817,12 +817,12 @@ class Entry extends Eloquent
                     }
                     else
                     {
-                        // If this is an alt_process, there can still be a pre_save,
+                        // If this is an alt_process, there can still be a preSave,
                         // it just won't return anything so we don't have to
                         // save the value
-                        if (method_exists($type, 'pre_save'))
+                        if (method_exists($type, 'preSave'))
                         {
-                            $type->pre_save();
+                            $type->preSave();
                         }
                     }
                 }

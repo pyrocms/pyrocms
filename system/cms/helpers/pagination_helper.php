@@ -25,7 +25,7 @@ if ( ! function_exists('create_pagination')) {
 		$ci = & get_instance();
 		$ci->load->library('pagination');
 
-		$current_page = $ci->uri->segment($uri_segment, 0);
+		$current_page = $ci->input->get('page');
 		$suffix = $ci->config->item('url_suffix');
 
 		$limit = $limit === null ? Settings::get('records_per_page') : $limit;

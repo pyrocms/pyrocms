@@ -32,7 +32,7 @@ class Text extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= $this->form_slug;
@@ -56,7 +56,7 @@ class Text extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		ci()->load->helper('text');
 		return escape_tags($this->value);
