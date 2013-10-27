@@ -581,7 +581,7 @@ abstract class AbstractField
 	{
 		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
 	}
 
 	/**
