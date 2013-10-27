@@ -369,8 +369,17 @@ class EntryBuilder extends Builder
 	 */
     protected function prepareColumns(array $columns = array('*'))
     {
+    	// Stash relation: columns
+    	$relation_columns = array();
+
+    	foreach ($columns as $column) {
+    		if (substr($column, 0, 9) == 'relation:') $relation_columns[] = str_replace('relation:', '', $column);
+    	}
+
     	// Remove any columns that don't exist
         $columns = array_intersect($this->model->getAllColumns(), $columns);
+
+        $columns = array_merge($columns, $relation_columns);
 
     	// If for some reason we passed an empty array, put the asterisk back
     	$columns = empty($columns) ? array('*') : $columns;
@@ -401,7 +410,7 @@ class EntryBuilder extends Builder
 
     	foreach ($columns as $key => $column) {
 
-    		$relation_method = 'relation'.ucfirst(Str::studly($column));
+    		$relation_method = Str::studly($column);
 
     		if (method_exists($this->model, $relation_method)) {
 

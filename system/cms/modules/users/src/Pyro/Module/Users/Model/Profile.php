@@ -19,7 +19,7 @@ class Profile extends StreamEntry
 
     protected $stream_namespace = 'users';
 
-    public function relationUser()
+    public function user()
     {
     	return $this->belongsTo('Pyro\Module\Users\Model\User');
     }
