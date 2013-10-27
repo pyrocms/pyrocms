@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Illuminate\Support\Str;
+use Pyro\Module\streams_core\Core\Field\Type;
+use Pyro\Module\streams_core\Core\Model\Entry;
+use Pyro\Module\streams_core\Core\Model\Field;
+use Pyro\Module\streams_core\Core\Model\Stream;
+
 /**
  * Streams Core Plugin
  *
@@ -74,25 +80,41 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function field()
 	{
-		$attr = $this->attributes();
+		$attributes = $this->attributes();
 
-		// Setting this in a separate var so we can unset it
-		// from the array later that is passed to the parse_override function.
-		$field_type = $attr['field_type'];
+		if ($attributes)
+		{
+			$attributes_keys = array_keys($attributes);
 
-		// Call the field method
-		if (method_exists($this->type->types->{$field_type}, 'plugin_override')) {
-			// Get the actual field.
-			$field = $this->fields_m->get_field_by_slug($attr['field_slug'], $attr['namespace']);
+			Entry::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
 
-			if ( ! $field) return null;
+			// Setting this in a separate var so we can unset it
+			// from the array later that is passed to the parse_override function.
+			$field_type = $attributes['field_type'];
 
-			// We don't need these anymore
-			unset($attr['field_type']);
-			unset($attr['field_slug']);
-			unset($attr['namespace']);
+			// Call the field method
+			if ($type = Type::getType($field_type) and $type->plugin_override) {
+				// Get the actual field.
+				$field = Field::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
+				
+				if ( ! $field) return null;
 
-			return $this->type->types->{$field_type}->plugin_override($field, $attr);
+				// We don't need these anymore
+				unset($attributes['field_type']);
+				unset($attributes['field_slug']);
+				unset($attributes['namespace']);
+				unset($attributes['stream_slug']);
+
+				foreach ($attributes_keys as $attribute)
+				{
+					$method = 'plugin'.Str::studly($attribute.'Override');
+					if (method_exists($type, $method)) {
+						$arguments = explode('|', $attributes[$attribute]);
+
+						return call_user_func_array(array($type, $method), $arguments);
+					}
+				}
+			}			
 		}
 	}
 

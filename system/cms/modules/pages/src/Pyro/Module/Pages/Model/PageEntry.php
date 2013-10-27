@@ -12,9 +12,9 @@ use Pyro\Module\Streams_core\Core\Model\Entry as StreamsEntry;
 class PageEntry extends StreamsEntry
 {
 
-	public function page()
+/*	public function page()
 	{
-		$this->morphsOneEntry();
-	}
+		return $this->morphOneEntry('Pyro\Module\Pages\Model\Page', 'entry');
+	}*/
 
 }

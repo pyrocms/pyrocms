@@ -74,8 +74,6 @@ class Entries extends AbstractCp
 			$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 		}
 
-		$instance->model->enableEagerFieldRelations(true);
-
 		$instance->data->stream = $instance->model->getStream();
 
   		$instance->data->stream_fields = $instance->model->getFields();
@@ -127,13 +125,15 @@ class Entries extends AbstractCp
 			$this->model = $model;
 		}
 
-		$this->model = $this->model->take($this->limit)->skip($this->offset);
+		$this->model->setQuery($this->model->take($this->limit)->skip($this->offset));
 
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
 
-		$this->columns = $parsed_columns['columns'];
+		$this->data->view_options = $this->columns = $parsed_columns['columns'];
 
-		$this->data->field_maps 	= $parsed_columns['field_maps'];
+		$this->model
+			->setFieldMaps($parsed_columns['field_maps'])
+			->setViewOptions($this->columns);
 
 		if ( ! empty($this->select))
 		{
@@ -144,7 +144,7 @@ class Entries extends AbstractCp
 			$select = $this->columns;
 		}
 
-  		$this->data->entries 		= $this->model->get($select, $this->exclude);
+  		$this->data->entries 		= $this->model->enableAutoEagerLoading(true)->get($select, $this->exclude);
 
   		$total_count = $this->model->count();
 

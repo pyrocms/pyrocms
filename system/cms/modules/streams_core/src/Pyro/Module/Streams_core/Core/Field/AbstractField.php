@@ -50,6 +50,8 @@ abstract class AbstractField
 	 */
 	protected $plugin = false;
 
+	public $plugin_override = false;
+
 	/**
 	 * Query injection
 	 * @var string
@@ -84,7 +86,7 @@ abstract class AbstractField
 	 * The array of pre save parameter values
 	 * @var array
 	 */
-	protected $preSave_parameters = array();
+	protected $pre_save_parameters = array();
 
 	/**
 	 * The relation model
@@ -176,11 +178,11 @@ abstract class AbstractField
 
 	/**
 	 * Set the pre save parameter values that will be available to param_[name]_preSave() callbacks
-	 * @param array $preSave_parameters The array of pre save parameter values
+	 * @param array $pre_save_parameters The array of pre save parameter values
 	 */
-	public function setPreSaveParameters($preSave_parameters = array())
+	public function setPreSaveParameters($pre_save_parameters = array())
 	{
-		$this->preSave_parameters = $preSave_parameters;
+		$this->pre_save_parameters = $pre_save_parameters;
 	}
 
 	/**
@@ -191,7 +193,7 @@ abstract class AbstractField
 	 */
 	public function getPreSaveParameter($name = null, $default = null)
 	{
-		return isset($this->preSave_parameters[$name]) ? $this->preSave_parameters[$name] : $default;
+		return isset($this->pre_save_parameters[$name]) ? $this->pre_save_parameters[$name] : $default;
 	}
 
 	/**
@@ -388,56 +390,6 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Format a single column
-	 *
-	 * @access 	public
-	 * @params	
-	 */
-	public function getFormattedValue($plugin = false)
-	{
-		// Is this an alt process type?
-		if ($this->alt_process === true)
-		{
-			if ( ! $plugin and method_exists($this, 'altPreOutput'))
-			{
-				return $this->altPreOutput();
-			}
-		}	
-		else
-		{
-			if ($this->model->isEnableFieldRelations())
-			{
-				// Get relations from the model
-				$relations = $this->model->getRelations();
-
-				// Return relations if they are eager loaded
-				if (isset($relations[$this->field->field_slug]))
-				{
-					return $this->relation = $this->relations[$this->field->field_slug];
-				}
-				// If the field type has a relationship, get the results
-				elseif (method_exists($this, 'relation'))
-				{
-				    return $this->relation = $this->relation()->getResults();          
-				}				
-			}
-
-			// If not, check and see if there is a method
-			// for pre output or preOutputPlugin
-			if ($plugin and method_exists($this, 'preOutputPlugin'))
-			{
-				return $this->preOutputPlugin();
-			}
-			elseif (method_exists($this, 'preOutput'))
-			{
-				return $this->preOutput();
-			}
-		}
-
-		return $this->getValueProperty();
-	}
-
-	/**
 	 * Get the unformatted value
 	 * @param  boolean $plugin
 	 * @return mixed
@@ -447,38 +399,55 @@ abstract class AbstractField
 		return $this->getValueProperty();
 	}
 
-	// --------------------------------------------------------------------------
-
-	// $field, $value = null, $row_id = null, $plugin = false
-	public function getForm()
+	/**
+	 * Get form
+	 * @param  boolean
+	 * @return string|boolean
+	 */
+	public function getForm($plugin = false)
 	{
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->plugin and method_exists($this, 'formOutput_plugin'))
+		if ($this->plugin and method_exists($this, 'formInputPlugin'))
 		{
-			return $this->formOutput_plugin();
+			return $this->formInputPlugin();
 		}
-		elseif (method_exists($this, 'formOutput'))
+		else
 		{
-			return $this->formOutput();
+			return $this->formInput();
 		}
 
 		return false;
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Output form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function formInput()
+	{
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
+		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
+
+		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
+		{
+			$options['max_length'] = $max_length;
+		}
+
+		return form_input($options);
+	}
 
 	/**
 	 * Get filter output for a field type
 	 * @return string The input HTML
 	 */
-	public function getFilterOutput()
+	public function filterInput()
 	{
-		if (method_exists($this, 'filterOutput'))
-		{
-			return $this->filterOutput();
-		}
-
 		return '<input type="text" name="'.$this->getFilterSlug('contains').'" value="'.ci()->input->get($this->getFilterSlug('contains')).'" class="form-control" placeholder="'.$this->field->field_name.'">';
 	}
 
@@ -592,27 +561,27 @@ abstract class AbstractField
 	/**
 	 * Wrapper method for the Eloquent belongsTo() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsTo($related, $foreing_key = null)
+	public function belongsTo($related, $foreign_key = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsTo($related, $foreing_key);
+		return $this->model->belongsTo($related, $foreign_key);
 	}
 
 	/**
 	 * Wrapper method for the Eloquent belongsToEntry() method
 	 * @param  [type] $related     [description]
-	 * @param  [type] $foreing_key [description]
+	 * @param  [type] $foreign_key [description]
 	 * @return [type]              [description]
 	 */
-	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreing_key = null, $stream = null)
+	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreign_key = null, $stream = null)
 	{
-		$foreing_key = $foreing_key ? $foreing_key : $this->field->field_slug;
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreing_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('choose_stream', $stream));
 	}
 
 	/**
@@ -685,6 +654,6 @@ abstract class AbstractField
 	 */
 	public function __toString()
 	{
-		return $this->getFormattedValue($this->value);
+		return $this->stringOutput($this->value);
 	}
 }

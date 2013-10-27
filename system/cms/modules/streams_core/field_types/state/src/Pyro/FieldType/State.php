@@ -90,7 +90,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		// Value
 		// We only use the default value if this is a new
@@ -124,7 +124,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function preOutputPlugin()
+	public function pluginOutput()
 	{
 		if ( ! $this->value) return null;
 
@@ -143,7 +143,7 @@ class State extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		// Default is abbr for backwards compat.
 		$states = $this->states('yes', $this->getParameter('state_display', 'abbr'));

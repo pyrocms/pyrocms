@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Streams_core\Core\Field\Type;
+use Pyro\Module\Streams_core\Core\Model\Entry;
+use Pyro\Module\Streams_core\Core\Model\Field;
+use Pyro\Module\Streams_core\Core\Model\Stream;
 
 /**
  * Streams Parse Driver
@@ -15,27 +18,6 @@ use Pyro\Module\Streams_core\Core\Field\Type;
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */ 
 class Streams_parse extends CI_Driver {
-
-	/**
-	 * The CodeIgniter instance
-	 *
-	 * @access 	private
-	 * @var 	object 
-	 */
-	private $CI;
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * @access	public
-	 * @return	void
-	 */
-	public function __construct()
-	{
-		$this->CI = get_instance();
-	}
 
 	// --------------------------------------------------------------------------
 
@@ -70,20 +52,19 @@ class Streams_parse extends CI_Driver {
 		// remove this after PyroCMS 2.2
 		// -------------------------------------
 
-		$rep = array('{{ streams_core:related', '{{streams_core:related');
+		$rep = array('{{ streams_core:related', '{{ streams_core:related');
 		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" base_namespace="'.$stream_namespace.'" entry=id ', $content);
 
-		$rep = array('{{ streams_core:multiple', '{{streams_core:multiple');
+		$rep = array('{{ streams_core:multiple', '{{ streams_core:multiple');
 		$content = str_replace($rep, '{{ streams_core:multiple stream="'.$stream_slug.'" base_namespace="'.$stream_namespace.'" entry=id ', $content);
-
 		// -------------------------------------
 		// Make sure we have our stream fields
 		// -------------------------------------
 
 		if (is_null($fields))
 		{
-			$stream = $this->stream_obj($stream_slug, $stream_namespace);
-			$fields = $this->CI->streams_m->get_stream_fields($stream->id);
+			$stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace);
+			$fields = $stream->assignments->getFields();
 		}
 
 		// -------------------------------------
@@ -95,19 +76,25 @@ class Streams_parse extends CI_Driver {
 		// from within the field type itself.
 		// -------------------------------------
 
-		if ($fields)
+		$original_content = $content;
+
+		if ($fields and preg_match('/="/', $content))
 		{
 			foreach ($fields as $field)
 			{
-				if (method_exists(Type::getType($field->field_type), 'plugin_override'))
+				if ($type = $field->getType() and $type->plugin_override)
 				{
-					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id="{{ '.
+					$content = preg_replace('/\{\{\s?entry:'.$field->field_slug.'\s?/', '{{ streams_core:field entry_id="{{ '.
 						$id_name.' }}" stream_slug="'.
 						$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.
 						$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
 
-					$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
+					$content = preg_replace('/\{\{\s?\/entry:'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
 				}
+			}
+			if ($original_content != $content)
+			{
+				$data = $data['entry'];
 			}
 		}
 
@@ -121,14 +108,14 @@ class Streams_parse extends CI_Driver {
 
 		if ( ! $loop)
 		{
-			return $parser->parse($content, $data, array($this->CI->parser, 'parser_callback'));
+			return $parser->parse($content, $data, array(ci()->parser, 'parser_callback'));
 		}
 
 		$out = '';
 
 		foreach ($data as $item)
 		{
-			$out .= $parser->parse($content, $item, array($this->CI->parser, 'parser_callback'));
+			$out .= $parser->parse($content, $item, array(ci()->parser, 'parser_callback'));
 		}
 
 		return $out;

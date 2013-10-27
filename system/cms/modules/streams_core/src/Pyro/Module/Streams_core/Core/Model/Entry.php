@@ -1,7 +1,9 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
+use Carbon\Carbon;
 use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Users\Model\User;
 use Pyro\Module\Streams_core\Core\Field\Form;
 
 /**
@@ -84,6 +86,12 @@ class Entry extends Eloquent
     protected $field_type_instances = null;
 
     /**
+     * Field maps
+     * @var array
+     */
+    protected $field_maps = array();
+
+    /**
      * Unformatted values
      * @var array
      */
@@ -108,22 +116,10 @@ class Entry extends Eloquent
     protected $plugin = true;
 
     /**
-     * An array of field slugs that will eager load relations
-     * @var array
-     */
-    protected $eager_field_relations = array();
-
-    /**
      * Enable or disable eager loading field type relations
      * @var boolean
      */
-    protected $enable_eager_field_relations = false;
-
-    /**
-     * Enable or disable field relations for a query
-     * @var boolean
-     */
-    protected $enable_field_relations = false;
+    protected $enable_auto_eager_loading = false;
 
     /**
      * Search index template
@@ -141,7 +137,7 @@ class Entry extends Eloquent
      * View options
      * @var array
      */
-    protected $view_options = array();
+    protected $view_options = array('id', 'created');
 
     /**
      * The class construct
@@ -291,6 +287,13 @@ class Entry extends Eloquent
         return $this->getFields()->getFieldSlugs();
     }
 
+    public function setFieldMaps($field_maps = array())
+    {
+        $this->field_maps = $field_maps;
+
+        return $this;
+    }
+
     /**
      * Set plugin
      * @param boolean $plugin
@@ -313,31 +316,14 @@ class Entry extends Eloquent
         return $this;
     }
 
-    public function getEagerFieldRelations()
-    {
-        return $this->eager_field_relations;
-    }
-
     /**
-     * Set format
+     * Enable or disable automatic eager loading
      * @param boolean $format
+     * @return  object
      */
-    public function enableFieldRelations($enable_field_relations = false)
+    public function enableAutoEagerLoading($enable_auto_eager_loading = true)
     {
-        $this->enable_field_relations = $enable_field_relations;
-
-        return $this;
-    }
-
-    /**
-     * Enable or disable eager loading of field relations
-     * @param boolean $format
-     */
-    public function enableEagerFieldRelations($enable_eager_field_relations = false)
-    {
-        $this->enableFieldRelations($enable_eager_field_relations);
-
-        $this->enable_eager_field_relations = $enable_eager_field_relations;
+        $this->enable_auto_eager_loading = $enable_auto_eager_loading;
 
         return $this;
     }
@@ -361,45 +347,12 @@ class Entry extends Eloquent
     }
 
     /**
-     * Is field relations enabled
-     * @return boolean
-     */
-    public function isEnableFieldRelations()
-    {
-        return $this->enable_field_relations;
-    }
-
-    /**
      * Is eager loading field relations enabled
      * @return boolean
      */
-    public function isEnableEagerFieldRelations()
+    public function isEnableAutoEagerLoading()
     {
-        return $this->enable_eager_field_relations;
-    }
-
-    /**
-     * Set eager field relations
-     * @param array $field_slugs The array of field slugs
-     */
-    public function setEagerFieldRelations($field_slugs = array())
-    {
-        if ($this->isEnableEagerFieldRelations() and empty($this->eager_field_relations))
-        {
-            $eager_field_relations = array();
-
-            foreach ($field_slugs as $field_slug)
-            {
-                if ($type = $this->getFieldType($field_slug) and $type->hasRelation())
-                {
-                    $eager_field_relations[] = $field_slug;
-                }
-            }
-
-            $this->eager_field_relations = $eager_field_relations;
-        }
-
-        return $this;
+        return $this->enable_auto_eager_loading;
     }
 
     /**
@@ -436,6 +389,8 @@ class Entry extends Eloquent
         {
             $this->unformatted_values[$key] = $value;   
         }
+
+        return $this;
     }
 
     /**
@@ -847,7 +802,7 @@ class Entry extends Eloquent
      */
     public function getAllColumns()
     {
-        return array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+        return array_merge($this->getStandardColumns(), $this->getFieldSlugs(), $this->getAttributeKeys());
     }
 
     /**
@@ -1066,7 +1021,9 @@ class Entry extends Eloquent
      */
     public function setStream(Stream $stream = null)
     {
-        return $this->stream = $stream;
+        $this->stream = $stream;
+
+        return $this;
     }
 
     /**
@@ -1092,6 +1049,40 @@ class Entry extends Eloquent
     public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
+    }
+
+    /**
+     * String output
+     * @param  string
+     * @return string
+     */
+    public function stringOutput($view_option)
+    {
+        if ( ! empty($this->field_maps[$view_option])) {
+
+            return ci()->parser->parse_string($this->field_maps[$view_option], array('entry' => $this->toArray()), true, false, array(
+                'stream' => $this->stream_slug,
+                'namespace' => $this->stream_namespace
+            ));
+        
+        }
+        elseif ($datetime = $this->getAttribute($view_option) and $datetime instanceof Carbon) {
+                
+            if ( ! ($date_format = Settings::get('date_format')) or empty($date_format)) {
+                $date_format = \Pyro\FieldType\Datetime::DISPLAY_DATETIME_FORMAT;
+            }
+
+            return $datetime->format($date_format);
+
+        } elseif ($user = $this->getAttribute($view_option) and $user instanceof User) { 
+
+            return anchor('admin/users/edit/'.$user->id, $user->username);
+
+        } else {
+                
+            return $this->getAttribute($view_option);
+            
+        }
     }
 
     /**
@@ -1178,10 +1169,14 @@ class Entry extends Eloquent
      */
     public function passProperties(Entry $model = null)
     {
-        $model->setStream($this->stream);
-        $model->setFields($this->fields);
-        $model->setTable($this->table);
-        $model->setUnformattedEntry($this->unformatted_entry);
+        $model
+            ->setStream($this->stream)
+            ->setFields($this->fields)
+            ->setFieldMaps($this->field_maps)
+            ->setViewOptions($this->view_options)
+            ->setUnformattedEntry($this->unformatted_entry)
+            ->setTable($this->table);
+            
 
         if ($model->getKey())
         {

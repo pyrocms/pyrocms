@@ -39,7 +39,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput($params)
+	public function formInput($params)
 	{
 		ci()->load->config('files/files');
 
@@ -115,7 +115,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	mixed - null or string
 	 */
-	public function preOutput($input, $params)
+	public function stringOutput($input, $params)
 	{
 		if ( ! $input) return null;
 
@@ -142,7 +142,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	mixed - null or array
 	 */
-	public function preOutputPlugin($input, $params)
+	public function pluginOutput($input, $params)
 	{
 		if ( ! $input) return null;
 

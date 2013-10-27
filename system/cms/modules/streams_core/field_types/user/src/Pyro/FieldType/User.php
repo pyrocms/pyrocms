@@ -43,7 +43,7 @@ class User extends AbstractField
 	 * Format the Admin output
 	 * @return [type] [description]
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		if ($user = $this->getRelation())
 		{
@@ -62,7 +62,7 @@ class User extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		// Start the HTML
 		$html = form_dropdown(
@@ -93,7 +93,7 @@ class User extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function filterOutput()
+	public function filterInput()
 	{
 		// Start the HTML
 		$html = form_dropdown(
