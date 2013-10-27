@@ -23,16 +23,26 @@ class MergeTags extends AbstractField
 
 	public $author					= array('name' => 'Ryan Thompson', 'url' => 'http://www.aiwebsystems.com/');
 	
-	// --------------------------------------------------------------------------
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	Methods 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Output form input
+	 * Input for form
 	 *
 	 * @access 	public
-	 * @param	array
 	 * @return	string
 	 */
 	public function formInput()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * Output for string use
+	 * @return string
+	 */
+	public function stringOutput()
 	{
 		return $this->value;
 	}
@@ -48,7 +58,7 @@ class MergeTags extends AbstractField
 
 	/**
 	 * Pattern parameter
-	 * @param  mixed $value The saved value or null
+	 * @param  string $value The saved value or null
 	 * @return array        The form array
 	 */
 	public function paramPattern($value = null)
@@ -56,6 +66,6 @@ class MergeTags extends AbstractField
 		return array(
 			'input' 		=> form_textarea('pattern', $value),
 			'instructions'	=> lang('streams:merge_tags.pattern.instructions')
-		);;
+		);
 	}
 }
