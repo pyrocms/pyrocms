@@ -47,7 +47,7 @@ class Wysiwyg extends AbstractField
 	 * @param 	string
 	 * @return 	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		// Legacy. This was a temp fix for a few things
 		// that I'm sure a few sites are utilizing.
@@ -73,7 +73,7 @@ class Wysiwyg extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		// Set editor type
 		if ($editor_type = $this->getParameter('editor_type')) {
@@ -94,7 +94,7 @@ class Wysiwyg extends AbstractField
 	 *
 	 * Choose the type of editor.
 	 */
-	public function param_editor_type($value = null)
+	public function paramEditorType($value = null)
 	{
 		$types = array(
 			'simple'	=> lang('streams:wysiwyg.simple'),
@@ -110,7 +110,7 @@ class Wysiwyg extends AbstractField
 	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_default_value($value = null)
+	public function paramDefaultValue($value = null)
 	{
 		return form_textarea(array(
 			'name'		=> 'default_value',

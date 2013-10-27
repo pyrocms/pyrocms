@@ -1,7 +1,10 @@
 <?php namespace Pyro\FieldType;
 
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
-use Pyro\Module\Users\Model;
+use Pyro\Module\Users\Model\User as UserModel;
 
 /**
  * PyroStreams User Field Type
@@ -14,15 +17,18 @@ use Pyro\Module\Users\Model;
  */
 class User extends AbstractField
 {
-	public $field_type_slug			= 'user';
+	public $field_type_slug = 'user';
 
-	public $db_col_type				= 'integer';
+	public $db_col_type = 'integer';
 
-	public $custom_parameters		= array('restrict_group');
+	public $custom_parameters = array('restrict_group');
 
-	public $version					= '1.0.0';
+	public $version = '1.0.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name'=>'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com/'
+		);
 
 	/**
 	 * The field type relation
@@ -37,7 +43,7 @@ class User extends AbstractField
 	 * Format the Admin output
 	 * @return [type] [description]
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		if ($user = $this->getRelation())
 		{
@@ -56,23 +62,69 @@ class User extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
-		$users = Model\User::getUserOptions($this->getParameter('restrict_group'));
+		// Start the HTML
+		$html = form_dropdown(
+			$this->form_slug,
+			array(),
+			null,
+			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
+			);
 
-		// If this is not required, then
-		// let's allow a null option
-		if ($this->field->is_required == 'no') {
-			$users[null] = ci()->config->item('dropdown_choose_null');
-		}
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/user.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream_namespace' => $this->stream->stream_namespace,
+				),
+			false
+			);
 
-		return form_dropdown($this->form_slug, $users, $this->value, 'id="'.$this->form_slug.'"');
+		return $html;
 	}
+
+	/**
+	 * Output filter input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function filterOutput()
+	{
+		// Start the HTML
+		$html = form_dropdown(
+			$this->getFilterSlug('contains'),
+			array(),
+			null,
+			'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"'
+			);
+
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/user.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream_namespace' => $this->stream->stream_namespace,
+				),
+			false
+			);
+
+		return $html;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	PARAMETERS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Restrict to Group
 	 */
-	public function param_restrict_group($value = null)
+	public function paramRestrictGroup($value = null)
 	{
 		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 
@@ -88,4 +140,42 @@ class User extends AbstractField
 		return form_dropdown('restrict_group', $groups, $value);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	AJAX 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	public function ajaxSearch()
+	{
+		/**
+		 * Grab the stream namespace
+		 */
+		$stream_namespace = ci()->uri->segment(6);
+
+
+		/**
+		 * Determine our field / type
+		 */
+		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
+		$field_type = $field->getType(null);
+
+
+		/**
+		 * Get users
+		 */
+		$users = UserModel::getUserOptions($this->getParameter('restrict_group'), ci()->input->get('query'));
+
+		// Prep return
+		$results = array();
+
+		foreach ($users as $k => $username) {
+			$results[] = array(
+				'id' => $k,
+				'username' => $username,
+				);
+		}
+
+
+		header('Content-type: application/json');
+		echo json_encode(array('users' => $results));
+	}
 }

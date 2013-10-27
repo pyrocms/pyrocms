@@ -2,6 +2,7 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\Core\Field\Type;
+use Illuminate\Support\Str;
 
 class Field extends Eloquent
 {
@@ -53,9 +54,9 @@ class Field extends Eloquent
 
             foreach ($type->getCustomParameters() as $param)
             {
-                if (method_exists($type, 'param_'.$param.'_pre_save') and $value = $type->getPreSaveParameter($param))
+                if (method_exists($type, Str::studly('param_'.$param.'_pre_save')) and $value = $type->getPreSaveParameter($param))
                 {
-                    $attributes['field_data'][$param] = $type->{'param_'.$param.'_pre_save'}( $value );
+                    $attributes['field_data'][$param] = $type->{Str::studly('param_'.$param.'_pre_save')}( $value );
                 }
             }
         }
@@ -218,8 +219,8 @@ class Field extends Eloquent
         // Gather extra data
         foreach ($type->getCustomParameters() as $param)
         {
-            if (method_exists($type, 'param_'.$param.'_pre_save')) {
-                $field_data[$param] = $type->{'param_'.$param.'_pre_save'}( $this );
+            if (method_exists($type, Str::studly('param_'.$param.'_pre_save'))) {
+                $field_data[$param] = $type->{Str::studly('param_'.$param.'_pre_save')}( $this );
             }
         }
 

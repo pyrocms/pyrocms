@@ -383,7 +383,7 @@ class Type
 		//Echo them out
 		foreach ($field_type->getCustomParameters() as $param)
 		{
-			$custom_param = 'param_'.$param;
+			$custom_param = Str::studly('param_'.$param);
 
 			if ( ! isset($_POST[$param]) and $current_field)
 			{

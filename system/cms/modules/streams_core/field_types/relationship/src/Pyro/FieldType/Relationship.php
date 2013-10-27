@@ -1,7 +1,9 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\Data;
 use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\Core\Field\AbstractField;
 
 /**
  * PyroStreams Relationship Field Type
@@ -30,19 +32,32 @@ class Relationship extends AbstractField
 	 * Custom parameters
 	 * @var array
 	 */
-	public $custom_parameters = array( 'choose_stream');
+	public $custom_parameters = array(
+		'stream',
+		'placeholder',
+		'value_field',
+		'label_field',
+		'search_field',
+		'template',
+		'module_slug',
+		'relation_class',
+		);
 
 	/**
 	 * Version
 	 * @var string
 	 */
-	public $version = '1.1.0';
+	public $version = '2.0';
 
 	/**
 	 * Author
 	 * @var  array
 	 */
-	public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/'
+		);
+
 
 	/**
 	 * Relation
@@ -56,47 +71,58 @@ class Relationship extends AbstractField
 	/**
 	 * Output form input
 	 *
-	 * @param	array
-	 * @param	array
+	 * @access 	public
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
-		$model = Model\Entry::stream($this->getParameter('choose_stream'));
+		// Start the HTML
+		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
 
-		$entry_options = array();
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/relationship.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream' => $this->getParameter('stream'),
+				'value_field' => $this->getParameter('value_field', 'id'),
+				'label_field' => $this->getParameter('label_field', '_title_column'),
+				'search_field' => $this->getParameter('search_field', '_title_column'),
+				),
+			false
+			);
 
-		// If this is not required, then
-		// let's allow a null option
-		if ( ! $this->field->is_required)
-		{
-			$entry_options[null] = ci()->config->item('dropdown_choose_null');
-		}
-
-		// Get the entries
-		$entry_options += $model->getEntryOptions();
-		
-		// Output the form input
-		return form_dropdown($this->form_slug, $entry_options, $this->value, 'id="'.rand_string(10).'"');
+		return $html;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
-	 * Choose stream parameter
-	 * 
-	 * Get a list of streams to choose from
+	 * Output filter input
 	 *
+	 * @access 	public
 	 * @return	string
 	 */
-	public function param_choose_stream($stream_id = false)
+	public function filterOutput()
 	{
-		$options = Model\Stream::getStreamAssociativeOptions();
+		// Start the HTML
+		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
 
-		return form_dropdown('choose_stream', $options, $stream_id);
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/relationship.js.php',
+			array(
+				'form_slug' => $this->getFilterSlug('contains'),
+				'field_slug' => $this->field->field_slug,
+				'stream' => $this->getParameter('stream'),
+				'value_field' => $this->getParameter('value_field', 'id'),
+				'label_field' => $this->getParameter('label_field', 'id'),
+				'search_field' => $this->getParameter('search_field', 'id'),
+				),
+			false
+			);
+
+		return $html;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Pre Ouput
@@ -108,20 +134,13 @@ class Relationship extends AbstractField
 	 *
 	 * @return	mixed 	null or string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		if($entry = $this->getRelation())
 		{
 			$stream = $entry->getStream();
 		
-			if (ci()->uri->segment(1) == 'admin')
-			{
-				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$entry->getKey()).'">'.$entry->getTitleColumnValue().'</a>';
-			}
-			else
-			{
-				return $entry->toArray();
-			}			
+			return $entry->toArray();
 		}
 
 		return null;
@@ -135,7 +154,7 @@ class Relationship extends AbstractField
 	 * 
 	 * @return array
 	 */
-	public function pre_output_plugin()
+	public function preOutputPlugin()
 	{
 		if ($entry = $this->getRelation())
 		{
@@ -145,4 +164,129 @@ class Relationship extends AbstractField
 		return null;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	PARAMETERS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Choose a stream to relate to.. or remote source
+	 * @param  mixed $value
+	 * @return string
+	 */
+	public function paramStream($value = '')
+	{
+		$options = Model\Stream::getStreamAssociativeOptions();
+
+		return form_dropdown('stream', $options, $value);
+	}
+
+	/**
+	 * Define the placeholder of the input
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramPlaceholder($value = '')
+	{
+		return form_input('placeholder', $value);
+	}
+
+	/**
+	 * Define the field to use for values
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramValueField($value = '')
+	{
+		return form_input('value_field', $value);
+	}
+
+	/**
+	 * Define the field to use for labels (options)
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramLabelField($value = '')
+	{
+		return form_input('label_field', $value);
+	}
+
+	/**
+	 * Define the field to use for search
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramSearchField($value = '')
+	{
+		return form_input('search_field', $value);
+	}
+
+	/**
+	 * Define any special template slug for this stream
+	 * Loads like:
+	 *  - views/field_types/TEMPLATE/option.php
+	 *  - views/field_types/TEMPLATE/item.php
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramTemplate($value = '')
+	{
+		return form_input('template', $value);
+	}
+
+	/**
+	 * Define an override of the module slug
+	 * in case it is not the same as the namespace
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramModuleSlug($value = '')
+	{
+		return form_input('module_slug', $value);
+	}
+
+	/**
+	 * Define an override of the module slug
+	 * in case it is not the same as the namespace
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramRelationClass($value = '')
+	{
+		return form_input('relation_class', $value);
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	AJAX 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	public function ajaxSearch()
+	{
+		/**
+		 * Determine the stream
+		 */
+		$stream = explode('.', ci()->uri->segment(6));
+		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
+
+
+		/**
+		 * Determine our field / type
+		 */
+		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
+		$field_type = $field->getType(null);
+
+
+		/**
+		 * Get our entries
+		 */
+		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+
+
+		/**
+		 * Stash the title_column just in case nothing is defined later
+		 */
+		$entries = $entries->unformatted()->toArray();
+
+		header('Content-type: application/json');
+		echo json_encode(array('entries' => $entries));
+	}
 }

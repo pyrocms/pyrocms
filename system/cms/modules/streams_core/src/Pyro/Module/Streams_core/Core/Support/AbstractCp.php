@@ -619,7 +619,7 @@ abstract class AbstractCp extends AbstractCallable
 			$segs = explode('/', $this->pagination_uri);
 			$this->offset_uri = count($segs)+1;
 
-			$this->offset = ci()->uri->segment($this->offset_uri, 0);
+			$this->offset = ci()->input->get('page');
 
 			// Calculate actual offset if not first page
 			if ( $this->offset > 0 )

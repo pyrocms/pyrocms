@@ -31,7 +31,7 @@ class Encrypt extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save()
+	public function preSave()
 	{
 		ci()->load->library('encrypt');
 
@@ -46,7 +46,7 @@ class Encrypt extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output()
+	public function preOutput()
 	{
 		ci()->load->library('encrypt');
 
@@ -64,7 +64,7 @@ class Encrypt extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output()
+	public function formOutput()
 	{
 		ci()->load->library('encrypt');
 
@@ -91,7 +91,7 @@ class Encrypt extends AbstractField
 	 * @param	[array - param]
 	 * @return	string
 	 */
-	public function param_hide_typing($value = null)
+	public function paramHideTyping($value = null)
 	{
 		$selected 		= ($value == 'no') ? 'no' : 'yes';
 
