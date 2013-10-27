@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Pyro\Module\Streams_core\Core\Model;
+
 class Parameter
 {
 	/**
@@ -8,6 +10,18 @@ class Parameter
     public function __construct()
     {
 		ci()->load->helper('form');
+	}
+
+	/**
+	 * Choose a stream to relate to.. or remote source
+	 * @param  mixed $value
+	 * @return string
+	 */
+	public function stream($value = null)
+	{
+		$options = Model\Stream::getStreamAssociativeOptions();
+
+		return form_dropdown('stream', $options, $value);
 	}
 
 	/**

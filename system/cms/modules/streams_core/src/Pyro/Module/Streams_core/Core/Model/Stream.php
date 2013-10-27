@@ -457,9 +457,11 @@ class Stream extends Eloquent
 		try {
 			// Alternate method fields will not have a column, so we just
 			// check for it first
-			$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
-				$table->dropColumn($field->field_slug);
-			});
+			if ( ! $type->alt_process) {
+				$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
+					$table->dropColumn($field->field_slug);
+				});				
+			}
 		} catch (Exception $e) {
 			// @todo - log error
 		}

@@ -466,7 +466,7 @@ class Form
 		{
 			if ( ! in_array($field->field_slug, $skips))
 			{
-				if ($type = $field->getType($entry))
+				if ($type = $field->getType($entry) and ! $type->alt_process)
 				{
 					$values[$field->field_slug] = $type->value;
 				}
