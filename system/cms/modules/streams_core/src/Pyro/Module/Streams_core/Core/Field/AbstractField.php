@@ -390,54 +390,6 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Format a single column
-	 *
-	 * @access 	public
-	 * @params	
-	 */
-	public function getFormattedValue($plugin = false)
-	{
-		// Is this an alt process type?
-
-		if ($this->alt_process === true)
-		{
-			if ( ! $plugin and method_exists($this, 'altPreOutput'))
-			{
-				return $this->altPreOutput();
-			}
-		
-		} else {
-
-			// Get relations from the model
-			$relations = $this->model->getRelations();
-
-			// Return relations if they are eager loaded
-			if (isset($relations[$this->field->field_slug]))
-			{
-				return $this->relation = $this->relations[$this->field->field_slug];
-			}
-			// If the field type has a relationship, get the results
-			elseif ($this->hasRelation())
-			{
-			    return $this->relation = $this->relation()->getResults();          
-			}
-
-			// If not, check and see if there is a method
-			// for pre output or preOutputPlugin
-			if ($plugin and method_exists($this, 'preOutputPlugin'))
-			{
-				return $this->preOutputPlugin();
-			}
-			elseif (method_exists($this, 'preOutput'))
-			{
-				return $this->preOutput();
-			}
-		}
-
-		return $this->getValueProperty();
-	}
-
-	/**
 	 * Get the unformatted value
 	 * @param  boolean $plugin
 	 * @return mixed
@@ -447,38 +399,55 @@ abstract class AbstractField
 		return $this->getValueProperty();
 	}
 
-	// --------------------------------------------------------------------------
-
-	// $field, $value = null, $row_id = null, $plugin = false
-	public function getForm()
+	/**
+	 * Get form
+	 * @param  boolean
+	 * @return string|boolean
+	 */
+	public function getForm($plugin = false)
 	{
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
-		if ($this->plugin and method_exists($this, 'formOutput_plugin'))
+		if ($this->plugin and method_exists($this, 'formInputPlugin'))
 		{
-			return $this->formOutput_plugin();
+			return $this->formInputPlugin();
 		}
-		elseif (method_exists($this, 'formOutput'))
+		else
 		{
-			return $this->formOutput();
+			return $this->formInput();
 		}
 
 		return false;
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Output form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function formInput()
+	{
+		$options['name'] 	= $this->form_slug;
+		$options['id']		= $this->form_slug;
+		$options['value']	= $this->value;
+		$options['autocomplete'] = 'off';
+
+		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
+		{
+			$options['max_length'] = $max_length;
+		}
+
+		return form_input($options);
+	}
 
 	/**
 	 * Get filter output for a field type
 	 * @return string The input HTML
 	 */
-	public function getFilterOutput()
+	public function filterInput()
 	{
-		if (method_exists($this, 'filterOutput'))
-		{
-			return $this->filterOutput();
-		}
-
 		return '<input type="text" name="'.$this->getFilterSlug('contains').'" value="'.ci()->input->get($this->getFilterSlug('contains')).'" class="form-control" placeholder="'.$this->field->field_name.'">';
 	}
 
@@ -685,6 +654,6 @@ abstract class AbstractField
 	 */
 	public function __toString()
 	{
-		return $this->getFormattedValue($this->value);
+		return $this->stringOutput($this->value);
 	}
 }
