@@ -50,7 +50,7 @@
 	
 		<div  class="col-lg-10">
 			<?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
-			<?php echo form_dropdown('active', $options, $member->is_activated, 'id="active" class="form-control"') ?>
+			<?php echo form_dropdown('active', $options, $member->is_activated, 'id="active"') ?>
 		</div>
 
 	</div>

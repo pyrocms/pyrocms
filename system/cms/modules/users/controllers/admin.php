@@ -121,6 +121,7 @@ class Admin extends Admin_Controller
                 array(
                     'first_name',
                     'last_name',
+                    'lang:user:activated_account_title' => '{{ if entry:user:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
                     'relation:user' => '{{ entry:user:username }}',
                     'lang:global:email' => '{{ entry:user:email }}',
                     )
@@ -261,6 +262,7 @@ class Admin extends Admin_Controller
             })
             ->successMessage('User saved.') // @todo - language
             ->redirect('admin/users')
+            ->cancelUri('admin/users')
             ->render();
     }
 
@@ -386,6 +388,7 @@ class Admin extends Admin_Controller
             ->tabs($tabs)
             ->successMessage('User saved.') // @todo - language
             ->redirect('admin/users')
+            ->cancelUri('admin/users')
             ->render();
     }
 
