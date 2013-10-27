@@ -86,7 +86,7 @@ abstract class AbstractField
 	 * The array of pre save parameter values
 	 * @var array
 	 */
-	protected $preSave_parameters = array();
+	protected $pre_save_parameters = array();
 
 	/**
 	 * The relation model
@@ -178,11 +178,11 @@ abstract class AbstractField
 
 	/**
 	 * Set the pre save parameter values that will be available to param_[name]_preSave() callbacks
-	 * @param array $preSave_parameters The array of pre save parameter values
+	 * @param array $pre_save_parameters The array of pre save parameter values
 	 */
-	public function setPreSaveParameters($preSave_parameters = array())
+	public function setPreSaveParameters($pre_save_parameters = array())
 	{
-		$this->preSave_parameters = $preSave_parameters;
+		$this->pre_save_parameters = $pre_save_parameters;
 	}
 
 	/**
@@ -193,7 +193,7 @@ abstract class AbstractField
 	 */
 	public function getPreSaveParameter($name = null, $default = null)
 	{
-		return isset($this->preSave_parameters[$name]) ? $this->preSave_parameters[$name] : $default;
+		return isset($this->pre_save_parameters[$name]) ? $this->pre_save_parameters[$name] : $default;
 	}
 
 	/**
