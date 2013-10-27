@@ -4,7 +4,7 @@
 
 		<?php foreach ($filters as $filter): ?>
 
-			<?php echo $stream_fields->findBySlug($filter)->getType()->getFilterOutput(); ?>
+			<?php echo $stream_fields->findBySlug($filter)->getType()->filterInput(); ?>
 
 		<?php endforeach; ?>
 		
