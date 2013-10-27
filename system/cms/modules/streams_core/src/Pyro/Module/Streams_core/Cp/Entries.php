@@ -144,7 +144,7 @@ class Entries extends AbstractCp
 			$select = $this->columns;
 		}
 
-  		$this->data->entries 		= $this->model->get($select, $this->exclude);
+  		$this->data->entries 		= $this->model->enableAutoEagerLoading(true)->get($select, $this->exclude);
 
   		$total_count = $this->model->count();
 
