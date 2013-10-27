@@ -137,7 +137,13 @@ class Entry extends Eloquent
      * View options
      * @var array
      */
-    protected $view_options = array('id', 'created');
+    protected $view_options = array('*');
+
+    /**
+     * Default view options
+     * @var array
+     */
+    protected $default_view_options = array('id', 'created_by');
 
     /**
      * The class construct
@@ -822,7 +828,7 @@ class Entry extends Eloquent
     public function setViewOptions(array $columns = array())
     {
         $this->view_options = $columns;
-
+        
         return $this;
     }
 
@@ -832,6 +838,14 @@ class Entry extends Eloquent
      */
     public function getViewOptions()
     {
+        if ($this->hasAsterisk($this->view_options)) {
+            if ($stream_view_options = $this->getStream()->view_options and ! empty($stream_view_options)) {
+                return $stream_view_options;
+            } else {
+                return $this->default_view_options;
+            }
+        }
+
         return $this->view_options;
     }
 
@@ -1066,21 +1080,21 @@ class Entry extends Eloquent
             ));
         
         }
-        elseif ($datetime = $this->getAttribute($view_option) and $datetime instanceof Carbon) {
+        elseif ($datetime = $this->getAttributeValue($view_option) and $datetime instanceof Carbon) {
                 
-            if ( ! ($date_format = Settings::get('date_format')) or empty($date_format)) {
+            if ( ! ($date_format = \Settings::get('date_format')) or empty($date_format)) {
                 $date_format = \Pyro\FieldType\Datetime::DISPLAY_DATETIME_FORMAT;
             }
 
             return $datetime->format($date_format);
 
-        } elseif ($user = $this->getAttribute($view_option) and $user instanceof User) { 
+        } elseif ($user = $this->getAttributeValue($view_option) and $user instanceof User) { 
 
             return anchor('admin/users/edit/'.$user->id, $user->username);
 
         } else {
-                
-            return $this->getAttribute($view_option);
+  
+            return $this->getAttributeValue($view_option);
             
         }
     }
