@@ -277,7 +277,7 @@ class Relationship extends AbstractField
 		/**
 		 * Get our entries
 		 */
-		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**
