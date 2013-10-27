@@ -1072,6 +1072,9 @@ class Entry extends Eloquent
      */
     public function stringOutput($view_option)
     {
+        // Remove this from all of our prior entryBuilder voodoo
+        $view_option = str_replace('relation:', '', $view_option);
+
         if ( ! empty($this->field_maps[$view_option])) {
 
             return ci()->parser->parse_string($this->field_maps[$view_option], array('entry' => $this->toArray()), true, false, array(

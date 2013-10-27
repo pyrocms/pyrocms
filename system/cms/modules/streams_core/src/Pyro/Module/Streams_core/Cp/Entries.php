@@ -172,7 +172,7 @@ class Entries extends AbstractCp
 		foreach ($columns as $key => $value)
 		{
 			// Remove relation: prefix
-			$key = str_replace('relation:', '', $key);
+			//$key = str_replace('relation:', '', $key);
 
 			if (is_numeric($key))
 			{
@@ -181,7 +181,7 @@ class Entries extends AbstractCp
 			else
 			{
 				$parsed_columns[] = $key;
-				$field_maps[$key] = $value;
+				$field_maps[str_replace('relation:', '', $key)] = $value;
 			}
 		}
 
