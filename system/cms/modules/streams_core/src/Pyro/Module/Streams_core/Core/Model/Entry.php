@@ -119,7 +119,7 @@ class Entry extends Eloquent
      * Enable or disable eager loading field type relations
      * @var boolean
      */
-    protected $enable_auto_eager_loading = true;
+    protected $enable_auto_eager_loading = false;
 
     /**
      * Search index template
@@ -137,7 +137,7 @@ class Entry extends Eloquent
      * View options
      * @var array
      */
-    protected $view_options = array();
+    protected $view_options = array('id', 'created');
 
     /**
      * The class construct
