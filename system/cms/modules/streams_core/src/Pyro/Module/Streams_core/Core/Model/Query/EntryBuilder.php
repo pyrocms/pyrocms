@@ -224,9 +224,9 @@ class EntryBuilder extends Builder
 		{
 			if ($eager_loads = $this->getViewOptionRelations() and is_array($eager_loads))
 			{
-				if (is_array($this->eagerLoads))
+				if (is_array($this->eagerLoad))
 				{
-					$eager_loads = array_merge($eager_loads, $this->eagerLoads);	
+					$eager_loads = array_merge($eager_loads, $this->eagerLoad);	
 				}
 			}
 
@@ -349,9 +349,9 @@ class EntryBuilder extends Builder
 		}
 		elseif (method_exists($this->getModel(), $relation) and $instance = $this->getModel()->$relation())
 		{
-			 if ($instance instanceof Relation) {
-			 	return $instance;
-			 }
+			if ($instance instanceof Relation) {
+				return $instance;
+			}
 		}
 
 		return $this;
@@ -466,6 +466,10 @@ class EntryBuilder extends Builder
     {
     	$relations = array();
     	
+    	$entry = new Entry;
+
+    	$entry_methods = get_class_methods($entry);
+
     	if ($this->model->isEnableAutoEagerLoading() and $view_options = $this->model->getViewOptions())
     	{
     		if (in_array('created_by', $view_options))
@@ -474,7 +478,7 @@ class EntryBuilder extends Builder
     		}
 
 	    	foreach ($view_options as $column) {
-	    		if ($this->hasRelation($column)) {
+	    		if ( ! in_array($column, $entry_methods) and $this->hasRelation($column)) {
 	    			$relations[] = $column;
 	    		}
 	    	} 		
