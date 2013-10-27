@@ -222,20 +222,19 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			if ($eager_loads = $this->getViewOptionRelations() and is_array($this->model->eagerLoads) and is_array($eager_loadss))
+			if ($eager_loads = $this->getViewOptionRelations() and is_array($eager_loads))
 			{
-				$eager_loads = array_merge($this->model->eagerLoads, $eager_loads);
+				if (is_array($this->eagerLoads))
+				{
+					$eager_loads = array_merge($eager_loads, $this->eagerLoads);	
+				}
 			}
 
-			if ( ! empty($eager_loads)) { 
+			if ( ! empty($eager_loads)) {
+
 				$this->with($eager_loads);
 			}
 
-			if (in_array('created_by', $columns))
-			{
-				$this->with('createdByUser');
-			}
-			
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
@@ -262,7 +261,7 @@ class EntryBuilder extends Builder
 
 		foreach ($entries as $entry)
 		{
-			$formatted[$entry->getKey()] = $this->formatEntry($entry);
+			$formatted[] = $this->formatEntry($entry);
 		}
 
 		return $formatted;
@@ -285,7 +284,7 @@ class EntryBuilder extends Builder
 		// Restore the primary key to the replicated model
 		$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
 
-		foreach (array_keys($clone->getAttributes()) as $field_slug)
+		foreach ($this->model->getViewOptions() as $field_slug)
 		{
 			if ($field_slug == 'created_by')
 			{
@@ -296,10 +295,10 @@ class EntryBuilder extends Builder
 				// Set the unformatted value, we might need it
 				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
 
-				$clone->setPluginValue($field_slug, $type->getFormattedValue(true));
+				$clone->setPluginValue($field_slug, $type->pluginOutput());
 				
 				// If there exist a field for the corresponding attribute, format it
-				$clone->{$field_slug} = $type->getFormattedValue();
+				$clone->{$field_slug} = $type->stringOutput();
 			}
 		};
 
@@ -459,14 +458,26 @@ class EntryBuilder extends Builder
 		return $columns;
     }
 
+    /**
+     * Get view option relations
+     * @return array
+     */
     public function getViewOptionRelations()
     {
     	$relations = array();
-
-    	foreach ($this->model->getViewOptions() as $column) {
-    		if ($this->hasRelation($column)) {
-    			$relations[] = $column;
+    	
+    	if ($this->model->isEnableAutoEagerLoading() and $view_options = $this->model->getViewOptions())
+    	{
+    		if (in_array('created_by', $view_options))
+    		{
+    			$relations[] = 'createdByUser';
     		}
+
+	    	foreach ($view_options as $column) {
+	    		if ($this->hasRelation($column)) {
+	    			$relations[] = $column;
+	    		}
+	    	} 		
     	}
 
     	return $relations;
