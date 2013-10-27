@@ -32,7 +32,7 @@ class MergeTags extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		return $this->value;
 	}

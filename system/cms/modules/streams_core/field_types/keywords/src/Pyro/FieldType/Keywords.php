@@ -59,7 +59,7 @@ class Keywords extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= 'id_'.rand(100, 10000);
@@ -93,7 +93,7 @@ class Keywords extends AbstractField
 	 * Pre output
 	 * @return array|string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		// if we want an array, format it correctly
 		if ($this->getParameter('return_type') === 'array')

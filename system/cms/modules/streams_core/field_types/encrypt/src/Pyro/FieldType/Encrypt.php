@@ -46,7 +46,7 @@ class Encrypt extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		ci()->load->library('encrypt');
 
@@ -64,7 +64,7 @@ class Encrypt extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		ci()->load->library('encrypt');
 

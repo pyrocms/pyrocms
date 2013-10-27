@@ -23,32 +23,6 @@ class Text extends AbstractField
 
 	public $custom_parameters		= array('max_length', 'default_value');
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Output form input
-	 *
-	 * @param	array
-	 * @param	array
-	 * @return	string
-	 */
-	public function formOutput()
-	{
-		$options['name'] 	= $this->form_slug;
-		$options['id']		= $this->form_slug;
-		$options['value']	= $this->value;
-		$options['autocomplete'] = 'off';
-
-		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
-		{
-			$options['maxlength'] = $max_length;
-		}
-
-		return form_input($options);
-	}
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre Output
 	 *
@@ -56,7 +30,7 @@ class Text extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		ci()->load->helper('text');
 		return escape_tags($this->value);

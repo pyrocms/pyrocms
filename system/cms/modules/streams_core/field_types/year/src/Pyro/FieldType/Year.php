@@ -36,7 +36,7 @@ class Year extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		$end_year 		= $this->_process_year_input($this->getParameter('end_year'));
 		$start_year 	= $this->_process_year_input($this->getParameter('start_year', $end_year - 80));
