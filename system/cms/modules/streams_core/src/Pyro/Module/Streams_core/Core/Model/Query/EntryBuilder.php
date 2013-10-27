@@ -482,7 +482,7 @@ class EntryBuilder extends Builder
     	
     	$entry = new Entry;
 
-    	$entry_methods = get_class_methods($entry);
+    	$model_methods = get_class_methods($this->model);
 
     	if ($this->model->isEnableAutoEagerLoading() and $view_options = $this->model->getViewOptions())
     	{
@@ -492,7 +492,8 @@ class EntryBuilder extends Builder
     		}
 
 	    	foreach ($view_options as $column) {
-	    		if ( ! in_array($column, $entry_methods) and $this->hasRelation($column)) {
+	    		$column = str_replace('relation:', '', $column);
+	    		if ($this->hasRelation($column)) {
 	    			$relations[] = $column;
 	    		}
 	    	} 		
