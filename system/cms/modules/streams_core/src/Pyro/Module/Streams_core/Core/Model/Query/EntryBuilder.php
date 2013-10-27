@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -396,28 +397,27 @@ class EntryBuilder extends Builder
 
     public function requireForeingKeys($columns)
     {
-    	$columns = array_merge($columns, get_class_methods($this->model));
-
     	$entry = new Entry;
-
-    	$entry_methods = get_class_methods($entry);
-
-    	$columns = array_diff($columns, array('stream'), $entry_methods);
 
     	foreach ($columns as $key => $column) {
 
-    		$relation = $this->getRelation($column);
-    		
-    		if ($relation instanceof BelongsToMany) {
-    			unset($columns[$key]);
-    		} elseif (method_exists($relation, 'getForeignKey')) {
-    			$foreign_key = $relation->getForeignKey();
-    			$columns[] = $foreign_key;
- 
-    			if ($column != $foreign_key)
-    			{
-    				$columns = array_diff($columns, array($column));	
-    			}
+    		$relation_method = 'relation'.ucfirst(Str::studly($column));
+
+    		if (method_exists($this->model, $relation_method)) {
+
+    			$relation = $this->getRelation($relation_method);
+
+				if ($relation instanceof BelongsToMany) {
+					unset($columns[$key]);
+				} elseif (method_exists($relation, 'getForeignKey')) {
+					$foreign_key = $relation->getForeignKey();
+					$columns[] = $foreign_key;
+
+					if ($column != $foreign_key)
+					{
+						$columns = array_diff($columns, array($column));	
+					}
+				}
     		}
     	}
 
