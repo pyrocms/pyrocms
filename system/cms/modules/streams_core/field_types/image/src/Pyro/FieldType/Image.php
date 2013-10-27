@@ -52,7 +52,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		ci()->load->config('files/files');
 
@@ -130,7 +130,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
@@ -158,7 +158,7 @@ class Image extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function preOutputPlugin()
+	public function pluginOutput()
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 

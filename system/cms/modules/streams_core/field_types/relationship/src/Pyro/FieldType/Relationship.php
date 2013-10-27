@@ -74,7 +74,7 @@ class Relationship extends AbstractField
 	 * @access 	public
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		// Start the HTML
 		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
@@ -102,7 +102,7 @@ class Relationship extends AbstractField
 	 * @access 	public
 	 * @return	string
 	 */
-	public function filterOutput()
+	public function filterInput()
 	{
 		// Start the HTML
 		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
@@ -134,13 +134,12 @@ class Relationship extends AbstractField
 	 *
 	 * @return	mixed 	null or string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		if($entry = $this->getRelation())
-		{
-			$stream = $entry->getStream();
-		
-			return $entry->{$this->stream->title_column};//$entry->toArray();
+		{		
+			// @todo - turn this into a streams edit url
+			return $entry->getTitleColumnValue();
 		}
 
 		return null;
@@ -154,7 +153,7 @@ class Relationship extends AbstractField
 	 * 
 	 * @return array
 	 */
-	public function preOutputPlugin()
+	public function pluginOutput()
 	{
 		if ($entry = $this->getRelation())
 		{
@@ -272,6 +271,7 @@ class Relationship extends AbstractField
 		 * Determine our field / type
 		 */
 		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
+		$field_type = $field->getType(null);
 
 
 		/**

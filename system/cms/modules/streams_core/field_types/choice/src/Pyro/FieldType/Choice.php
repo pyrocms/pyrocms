@@ -49,7 +49,7 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{		
 		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
 
@@ -145,7 +145,7 @@ class Choice extends AbstractField
 	 *
 	 * @return	string
 	 */
-	public function filterOutput()
+	public function filterInput()
 	{		
 		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'yes');
 
@@ -220,7 +220,7 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 
@@ -431,7 +431,7 @@ class Choice extends AbstractField
 	 * @param	array
 	 * @return	array
 	 */
-	public function preOutputPlugin()
+	public function pluginOutput()
 	{
 		$options = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), 'no', false);
 

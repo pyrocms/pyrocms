@@ -37,7 +37,7 @@ class Textarea extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		// Value
 		// We only use the default value if this is a new entry
@@ -66,7 +66,7 @@ class Textarea extends AbstractField
 	 *
 	 * @return 	string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		$parse_tags		= $this->getParameter('allow_tags', 'n');
 		$content_type 	= $this->getParameter('content_type', 'html');

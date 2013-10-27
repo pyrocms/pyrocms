@@ -83,7 +83,7 @@ class Field extends AbstractField
     * @param   object
     * @return  string
     */
-    public function formOutput()
+    public function formInput()
     {	
     	$form = '';
 
@@ -230,7 +230,7 @@ class Field extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function altPreOutput()
+	public function stringOutput()
 	{
 		$output = '';
 
@@ -266,7 +266,7 @@ class Field extends AbstractField
 			{
 				//echo $this->value; exit;
 
-				$output = $selected_type->getFormattedValue();
+				$output = $selected_type->stringOutput();
 
 				//$output = $this->builder->formatAttribute($this->entry->{$this->field->field_data['field_slug']}, $this->field);
 

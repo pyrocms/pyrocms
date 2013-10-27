@@ -32,7 +32,7 @@ class Url extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formOutput()
+	public function formInput()
 	{
 		$options['name'] 		= $this->form_slug;
 		$options['id']			= $this->form_slug;
@@ -52,7 +52,7 @@ class Url extends AbstractField
 	 *
 	 * @return string
 	 */
-	public function preOutput()
+	public function stringOutput()
 	{
 		ci()->load->helper('text');
 		return escape_tags($this->value);
