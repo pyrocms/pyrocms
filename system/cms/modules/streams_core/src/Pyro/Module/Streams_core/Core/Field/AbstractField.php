@@ -581,7 +581,24 @@ abstract class AbstractField
 	{
 		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('choose_stream', $stream));
+		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
+	}
+
+	/**
+	 * Wrapper method for the Eloquent belongsToManyEntries() method
+	 * @param  [type] $related     [description]
+	 * @param  [type] $foreign_key [description]
+	 * @return [type]              [description]
+	 */
+	public function belongsToManyEntries($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreign_key = null, $other_key = null, $stream = null, $pivot_suffix = null)
+	{
+		$pivot_suffix = $pivot_suffix ? $pivot_suffix : $this->field->field_slug;
+
+		$foreign_key = $foreign_key ? $foreign_key : 'entry_id';
+
+		$other_key = $other_key ? $other_key : 'related_id';
+
+		return $this->model->belongsToManyEntries($related, $foreign_key, $other_key, $this->getParameter('stream', $stream), $pivot_suffix);
 	}
 
 	/**

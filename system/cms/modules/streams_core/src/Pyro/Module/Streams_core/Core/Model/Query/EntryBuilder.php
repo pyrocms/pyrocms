@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 
@@ -207,8 +208,6 @@ class EntryBuilder extends Builder
 
 		$columns = $this->requireForeingKeys($columns);
 
-
-
 		$this->entries = $this->getModels($columns);
 
 		foreach ($this->entries as $entry)
@@ -405,10 +404,16 @@ class EntryBuilder extends Builder
 
     	$columns = array_diff($columns, array('stream'), $entry_methods);
 
-    	foreach ($columns as $column) {
-    		if ($relation = $this->getRelation($column) and method_exists($relation, 'getForeignKey')) {
+    	foreach ($columns as $key => $column) {
+
+    		$relation = $this->getRelation($column);
+    		
+    		if ($relation instanceof BelongsToMany) {
+    			unset($columns[$key]);
+    		} elseif (method_exists($relation, 'getForeignKey')) {
     			$foreign_key = $relation->getForeignKey();
     			$columns[] = $foreign_key;
+ 
     			if ($column != $foreign_key)
     			{
     				$columns = array_diff($columns, array($column));	

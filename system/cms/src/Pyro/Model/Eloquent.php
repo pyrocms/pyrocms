@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Relations;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntryException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Eloquent Model
@@ -224,6 +225,59 @@ abstract class Eloquent extends Model
         $query = $instance->newQuery();
 
         return new BelongsTo($query, $this, $foreignKey, $relation);
+    }
+
+    /**
+     * Define a many-to-many relationship.
+     *
+     * @param  string  $related
+     * @param  string  $table
+     * @param  string  $foreignKey
+     * @param  string  $otherKey
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function belongsToManyEntries($related, $foreignKey = null, $otherKey = null, $stream = null, $pivot_suffix = null)
+    {
+        $instance = new $related;
+
+        if( ! ($instance instanceof Entry))
+        {
+            throw new ClassNotInstanceOfEntryException;
+        }
+
+        // Once we have the foreign key names, we'll just create a new Eloquent query
+        // for the related models and returns the relationship instance which will
+        // actually be responsible for retrieving and hydrating every relations.
+        if ( ! empty($stream))
+        {
+            $instance = call_user_func(array($related, 'stream'), $stream);
+        }
+
+
+        // First, we'll need to determine the foreign key and "other key" for the
+        // relationship. Once we have determined the keys we'll make the query
+        // instances as well as the relationship instances we need for this.
+        $foreignKey = $foreignKey ?: $this->getForeignKey();
+
+        $otherKey = $otherKey ?: $instance->getForeignKey();
+
+        if ( ! $pivot_suffix)
+        {
+            $pivot_suffix = $instance->getStream()->stream_slug;
+        }
+
+        // If no table name was provided, we can guess it by concatenating the two
+        // models using underscores in alphabetical order. The two model names
+        // are transformed to snake case from their default CamelCase also.
+        // This is the pivot table
+        $table = $this->getTable().'_'.$pivot_suffix;
+
+        // Now we're ready to create a new query builder for the related model and
+        // the relationship instances for the relation. The relations will set
+        // appropriate query constraint and entirely manages the hydrations.
+        $query = $instance->newQuery();
+
+        return new BelongsToMany($query, $this, $table, $foreignKey, $otherKey, $pivot_suffix);
     }
 
 }
