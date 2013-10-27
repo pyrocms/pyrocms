@@ -39,7 +39,7 @@ class File extends AbstractField
 	 * @param	array
 	 * @return	string
 	 */
-	public function formInput($params)
+	public function formInput()
 	{
 		ci()->load->config('files/files');
 
