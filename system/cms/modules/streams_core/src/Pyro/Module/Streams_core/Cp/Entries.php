@@ -171,6 +171,9 @@ class Entries extends AbstractCp
 
 		foreach ($columns as $key => $value)
 		{
+			// Remove relation: prefix
+			$key = str_replace('relation:', '', $key);
+
 			if (is_numeric($key))
 			{
 				$parsed_columns[] = $value;
