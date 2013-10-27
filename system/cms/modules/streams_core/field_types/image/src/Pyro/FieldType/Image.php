@@ -1,8 +1,6 @@
 <?php namespace Pyro\FieldType;
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
-use Pyro\Module\Files\Model\Folder as Folder;
-use Pyro\Module\Files\Model\File as File;
 
 /**
  * PyroStreams Image Field Type
