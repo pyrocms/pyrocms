@@ -224,9 +224,9 @@ class EntryBuilder extends Builder
 		{
 			if ($eager_loads = $this->getViewOptionRelations() and is_array($eager_loads))
 			{
-				if (is_array($this->eagerLoads))
+				if (is_array($this->eagerLoad))
 				{
-					$eager_loads = array_merge($eager_loads, $this->eagerLoads);	
+					$eager_loads = array_merge($eager_loads, $this->eagerLoad);	
 				}
 			}
 
