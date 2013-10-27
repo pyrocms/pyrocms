@@ -6,7 +6,7 @@
 
 			<div class="form-group">
 				<?php if ($stream_fields->findBySlug($filter)): ?>
-					<?php echo $stream_fields->findBySlug($filter)->getType(); ?>
+					<?php echo $stream_fields->findBySlug($filter)->getType()->filterInput(); ?>
 				<?php else: ?>
 					<input type="text" name="f-<?php echo $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'; ?>" value="<?php echo ci()->input->get('f-'.$stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'); ?>" class="form-control" placeholder="<?php echo humanize($filter); ?>">
 				<?php endif; ?>

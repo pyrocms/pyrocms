@@ -21,7 +21,7 @@ class Text extends AbstractField
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $custom_parameters		= array('max_length', 'default_value');
+	public $custom_parameters		= array('max_length', 'default_value', 'placeholder');
 
 	/**
 	 * Pre Output
