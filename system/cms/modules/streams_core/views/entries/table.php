@@ -15,6 +15,9 @@
 					<?php foreach ($field_names as $field_slug=>$field_name): ?>
 					<?php
 
+						// Replace relation: from Cp voodoo
+						$field_slug = str_replace('relation:', '', $field_slug);
+
 						// Get our query string
 						$query_string = array();
 
@@ -49,7 +52,7 @@
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
-								<?php echo empty($field_name) ? humanize($field_slug) : $field_name; ?>
+								<?php echo empty($field_name) ? (substr($field_slug, 0, 5) == 'lang:' ? lang_label($field_slug) : humanize($field_slug)) : $field_name; ?>
 								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
 							</a>
 						</th>
@@ -68,23 +71,9 @@
 					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
 					<td>
 
-					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
+						<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
-							
-						if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
-
-					} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
-
-						<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
-							<?php echo $entry->created_by->username; ?>
-						</a>
-				
-					<?php } else {
-							
-							echo $entry->$view_option;
-						
-					} ?>
+						<?php echo $entry->stringOutput($view_option); ?>
 
 					</td>
 					<?php endforeach; endif; ?>

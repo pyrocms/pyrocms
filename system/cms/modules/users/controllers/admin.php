@@ -122,6 +122,7 @@ class Admin extends Admin_Controller
                     'first_name',
                     'last_name',
                     'relation:user' => '{{ entry:user:username }}',
+                    'lang:global:email' => '{{ entry:user:email }}',
                     )
                 )
             ->pagination(
