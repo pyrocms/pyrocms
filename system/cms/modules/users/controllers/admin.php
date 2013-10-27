@@ -121,12 +121,9 @@ class Admin extends Admin_Controller
                 array(
                     'first_name',
                     'last_name',
-                    'user' => '{{ user:username }}',
+                    'relation:user' => '{{ entry:user:username }}',
                     )
                 )
-            ->onQuery(function($query) {
-                return $query->load('user');
-            })
             ->pagination(
                 Settings::get('records_per_page'),
                 'admin/users/index'
