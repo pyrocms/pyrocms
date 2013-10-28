@@ -11,7 +11,7 @@
 		-->
 		<li id="dashboard-link">
 			<a href="<?php echo site_url('admin'); ?>" data-hotkey="g+d" data-follow="yes">
-				<i class="icon-dashboard"></i>
+				<i class="fa fa-dashboard"></i>
 
 				<span>
 					<?php echo lang('global:dashboard'); ?>
@@ -102,7 +102,7 @@
 		-->
 		<li>
 			<a href="<?php echo site_url('admin/settings'); ?>" data-hotkey="g+s">
-				<i class="icon-cogs"></i>
+				<i class="fa fa-cogs"></i>
 
 				<span>
 					<?php echo lang('cp:nav_settings'); ?>

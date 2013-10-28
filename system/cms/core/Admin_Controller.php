@@ -82,22 +82,22 @@ class Admin_Controller extends MY_Controller
 			// This array controls the order of the admin items.
 			$this->template->menu_order = array(
 				array(
-					'before' => '<i class="icon-book"></i>',
+					'before' => '<i class="fa fa-book"></i>',
 					'title' => 'lang:cp:nav_content',
 					'items' => array(),
 					),
 				array(
-					'before' => '<i class="icon-sitemap"></i>',
+					'before' => '<i class="fa fa-sitemap"></i>',
 					'title' => 'lang:cp:nav_structure',
 					'items' => array(),
 					),
 				array(
-					'before' => '<i class="icon-hdd"></i>',
+					'before' => '<i class="fa fa-hdd"></i>',
 					'title' => 'lang:cp:nav_data',
 					'items' => array(),
 					),
 				array(
-					'before' => '<i class="icon-group"></i>',
+					'before' => '<i class="fa fa-group"></i>',
 					'title' => 'lang:cp:nav_users',
 					'items' => array(),
 					),

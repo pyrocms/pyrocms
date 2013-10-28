@@ -124,7 +124,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 	public function admin_menu(&$menu)
 	{
 		$menu['lang:cp:nav_addons'] = array(
-			'before' => '<i class="icon-puzzle-piece"></i>',
+			'before' => '<i class="fa fa-puzzle-piece"></i>',
 			'title' => 'lang:cp:nav_addons',
 			'items' => array(
 				'lang:cp:nav_modules'			=> 'admin/addons',

@@ -8,7 +8,7 @@
 	<ul class="nav navbar-nav">
 
 		<li>
-			<a href="#" class="icon icon-search" data-hotkey="s" data-toggle="global-search"></a>
+			<a href="#" class="fa fa-search" data-hotkey="s" data-toggle="global-search"></a>
 			<a href="#" class="hidden" data-hotkey="/" data-toggle="module-search"></a>
 		</li>
 	
