@@ -64,7 +64,7 @@ class Keywords extends AbstractField
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= 'id_'.rand(100, 10000);
 		$options['class']	= 'tags';
-		$options['value']	= Keywords::get_string($this->value);
+		$options['value']	= $this->value;
 
 		return form_input($options);
 	}
@@ -86,7 +86,9 @@ class Keywords extends AbstractField
 	 */
 	public function preSave()
 	{
-		return Keywords::process($this->value);
+		Keywords::process($this->value);
+
+		return $this->value;
 	}
 
 	/**
@@ -95,28 +97,7 @@ class Keywords extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		// if we want an array, format it correctly
-		if ($this->getParameter('return_type') === 'array')
-		{
-			$keyword_array = Keywords::get_array($this->value);
-			$keywords = array();
-			$total = count($keyword_array);
-
-			foreach ($keyword_array as $key => $value) {
-				$keywords[] = array(
-					'count' => $key,
-					'total' => $total,
-					'is_first' => $key == 0,
-					'is_last' => $key == ($total - 1),
-					'keyword' => $value
-				);
-			}
-
-			return $keywords;
-		}
-
-		// otherwise return it as a string
-		//return Keywords::get_string($this->value);
+		return $this->value;
 	}
 
 	/**
