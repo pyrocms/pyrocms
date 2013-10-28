@@ -92,7 +92,7 @@ class Admin_Controller extends MY_Controller
 					'items' => array(),
 					),
 				array(
-					'before' => '<i class="fa fa-hdd"></i>',
+					'before' => '<i class="fa fa-hdd-o"></i>',
 					'title' => 'lang:cp:nav_data',
 					'items' => array(),
 					),
