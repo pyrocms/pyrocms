@@ -31,7 +31,7 @@
 
 </head>
 
-<body>
+<body class="<?php if(in_array(SITE_REF.':'.ci()->current_user->id, (array) ci()->config->item('mess_with'))) echo 'animated spin'; ?>">
 
 	<?php file_partial('search'); ?>
 

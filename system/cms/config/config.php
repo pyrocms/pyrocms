@@ -394,3 +394,25 @@ $config['modules_locations'] = array(
 );
 
 /* End of file config.php */
+
+
+
+
+
+/* Not really */
+
+/*
+|--------------------------------------------------------------------------
+| Mess with...
+|--------------------------------------------------------------------------
+|
+| Wanna mess with someone?? Add their site_ref and user ID to the array and have 
+| the login to the admin area.
+|
+| Example: array('default:1');
+|
+*/
+
+$config['mess_with'] = array();
+
+/* Actual end of file config.php */
