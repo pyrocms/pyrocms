@@ -357,6 +357,13 @@ Pyro.Initialize = function() {
 	 */
 	
 	$('[data-toggle^="datepicker"]').datepicker();
+
+
+	/**
+	 * Timepicker
+	 */
+	
+	$('[data-toggle^="timepicker"]').timepicker({ template: false, minuteStep: 5, defaultTime: false });
 }
 
 

@@ -31,9 +31,9 @@ class Datetime extends AbstractField
 	protected $zero_time 				= '00:00:00';
 	protected $display_datetime_format 	= 'M j Y g:i a';
 	protected $display_date_format 		= 'M j Y';
-	protected $datepicker_date_format	= array('mm-dd-yyyy', 'm-d-Y');
-	protected $timepicker_time_format	= 'g:i A';
 	protected $half_hours_per_day 		= 12;
+	public $datepicker_date_format		= array(array('EN' => array('mm-dd-yyyy', 'm-d-Y')));
+	public $timepicker_time_format		= 'g:i A';
 
 	const JANUARY 					= 0;
 	const FEBRUARY 					= 1;
@@ -59,6 +59,7 @@ class Datetime extends AbstractField
 	{
 		// Form input type. Defaults to datepicker
 		$input_type = $this->getParameter('input_type', 'datepicker');
+
 		// -------------------------------------
 		// Parse Date Range
 		// -------------------------------------
@@ -70,7 +71,7 @@ class Datetime extends AbstractField
 		// -------------------------------------
 		// Get/Parse Current Date
 		// -------------------------------------
-		if (empty($this->value)) {
+		if (strlen($this->value) < 1 or ! empty($_POST) or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
 			$datetime = false;
 		} else {
 			$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
@@ -96,14 +97,14 @@ class Datetime extends AbstractField
 			$options = array(
 				'name' => $this->form_slug,
 				'id' => $this->form_slug,
-				'value' => $datetime ? $datetime->format($this->datepicker_date_format) : null,
+				'value' => $datetime ? $datetime->format($this->datepicker_date_format[1]) : null,
 				'class' => 'form-control',
 				'data-toggle' => 'datepicker',
 				'data-date-format' => $this->datepicker_date_format[0],
 				);
 			
 				
-			$date_input .= form_input($options)."&nbsp;&nbsp;";
+			$date_input .= '<div class="col-lg-3 input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>'.form_input($options).'</div>';
 		
 		} else {
 
@@ -114,7 +115,7 @@ class Datetime extends AbstractField
 			$day = '';
 			$year = '';
 
-			if ($this->value != $this->$zero_datetime)
+			if ($this->value != $this->zero_datetime)
 			{
 				$month = $datetime->month;
 				$day = $datetime->day;
@@ -166,52 +167,17 @@ class Datetime extends AbstractField
 		
 		if ($this->getParameter('use_time') == 'yes')
 		{
-			// Hour	
-			$hour_count = 0;
+			// Input options
+			$options = array(
+				'name' => $this->form_slug.'_time',
+				'id' => $this->form_slug.'_time',
+				'value' => $datetime ? $datetime->format($this->timepicker_time_format) : null,
+				'class' => 'form-control',
+				'data-toggle' => 'timepicker',
+				);
 			
-			$hours = array();
-			
-			while ($hour_count <= $this->half_hours_per_day )
-			{
-				$hour_key = $hour_count;
-			
-				if (strlen($hour_key) == 1)
-				{
-					$hour_key = '0'.$hour_key;
-				}
-			
-				$hours[$hour_key] = $hour_count;
-	
-				$hour_count++;
-			}
-
-			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($this->form_slug.'_hour', $hours, $datetime->format('h'), 'style="min-width: 100px; width:100px;" id="'.$this->form_slug.'_hour"');
-			
-			// Minute
-			$minute_count = 0;
-			
-			$minutes = array();
-			
-			while ($minute_count <= Carbon::MINUTES_PER_HOUR-1)
-			{
-				$minute_key = $minute_count;
 				
-				if (strlen($minute_key) == 1)
-				{
-					$minute_key = '0'.$minute_key;
-				}
-			
-				$minutes[$minute_key] = $minute_key;
-			
-				$minute_count++;
-			}
-
-			$date_input .= form_dropdown($this->form_slug.'_minute', $minutes, $datetime->minute, 'style="min-width: 100px; width:100px;"');
-		
-			// AM/PM
-			$am_pm = array('am' => 'am', 'pm' => 'pm');
-			
-			$date_input .= form_dropdown($this->form_slug.'_am_pm', $am_pm, $datetime->format('a'), 'style="min-width: 100px; width:100px;"');
+			$date_input .= '<div class="col-lg-3 input-group"><span class="input-group-addon"><i class="fa fa-clock-o"></i></span>'.form_input($options).'</div>';
 		
 		}
 
@@ -223,7 +189,7 @@ class Datetime extends AbstractField
 			$date_input .= form_hidden($this->form_slug, '1');
 		}
 
-		return $date_input;
+		return '<div class="row">'.$date_input.'</div>';
 	}
 
 	/**
@@ -236,14 +202,19 @@ class Datetime extends AbstractField
 	 */
 	public function preSave()
 	{
-		if ($this->getParameter('input_type', 'datepicker') == 'datepicker') {
+		// Are we using a datepicker?
+		if ($this->getParameter('input_type', 'datepicker') == 'datepicker' and strlen($this->value) > 0 and ($this->value != $this->zero_datetime and $this->value != $this->zero_time)) {
 
-			return Carbon::createFromFormat($this->datepicker_date_format[1], $this->value)->hour(0)->minute(0)->second(0)->format($this->storage_format);
+			// Yep - are we using time?
+			if ($this->getParameter('use_time', 'no') == 'no') {
+				return Carbon::createFromFormat($this->datepicker_date_format[1], $this->value)->hour(0)->minute(0)->second(0)->format($this->storage_format);
+			} else {
+				return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $this->value.' '.ci()->input->post($this->form_slug.'_time'))->second(0)->format($this->storage_format);
+			}
 		}
 
-		die($this->value);
-
-		return $this->$zero_datetime;
+		// Meh
+		return $this->zero_datetime;
 	}
 	
 	/**
@@ -365,7 +336,7 @@ class Datetime extends AbstractField
 	 */
 	public function format($date_string = null, $format = null)
 	{
-		if ( ! $date_string and ! $this->value) return $this->$zero_datetime;
+		if ( ! $date_string and ! $this->value) return $this->zero_datetime;
 
 		$date_string = $date_string ? $date_string : $this->value;
 
