@@ -13,22 +13,26 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Choice extends AbstractField
 {	
-	public $field_type_slug			= 'choice';
+	public $field_type_slug = 'choice';
 	
-	public $db_col_type				= 'string';
+	public $db_col_type = 'string';
 
-	public $version					= '1.1.0';
+	public $version = '1.1.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com/',
+		);
 
-	public $custom_parameters		= array(
-										'choice_data',
-										'choice_type',
-										'min_choices',
-										'max_choices'
-									);
+	public $custom_parameters = array(
+		'choice_data',
+		'choice_type',
+		'min_choices',
+		'max_choices',
+		'placeholder',
+		);
 
-	public $plugin_return			= 'merge';
+	public $plugin_return = 'merge';
 
 	/**
 	 * Input Types
@@ -39,8 +43,10 @@ class Choice extends AbstractField
 	 * @var 	array
 	 */
 	public $input_types = array('dropdown', 'multiselect', 'radio', 'checkboxes');
-		
-	// --------------------------------------------------------------------------
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Output form input
@@ -50,8 +56,8 @@ class Choice extends AbstractField
 	 * @return	string
 	 */
 	public function formInput()
-	{		
-		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), $this->field->is_required);
+	{
+		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), ($this->field->is_required ? 'yes' : 'no'));
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
@@ -70,7 +76,7 @@ class Choice extends AbstractField
 			// always a string, and the choices
 			// are just in an array from the field.
 			// -------------------------------
-			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'"');
+			return form_dropdown($this->form_slug, $choices, $value, 'id="'.$this->form_slug.'" placeholder="'.lang_label($this->getParameter('placeholder')).'"');
 		}	
 		else
 		{
@@ -575,10 +581,12 @@ class Choice extends AbstractField
 	public function _choicesToArray($choices_raw, $type = 'dropdown', $is_required = 'no', $optgroups = true)
 	{
 		$lines = explode("\n", $choices_raw);
+
+		$placeholder = $this->getParameter('placeholder');
 		
 		if ($type == 'dropdown' and $is_required == 'no')
 		{
-			$choices[null] = ci()->config->item('dropdown_choose_null');
+			$choices[null] = empty($placeholder) ? ci()->config->item('dropdown_choose_null') : '';
 		}
 		
 		foreach ($lines as $line)
