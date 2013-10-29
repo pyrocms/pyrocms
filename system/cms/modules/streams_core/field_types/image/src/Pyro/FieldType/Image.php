@@ -2,7 +2,6 @@
 
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
 use Pyro\Module\Files\Model\Folder as Folder;
-use Pyro\Module\Files\Model\File as File;
 
 /**
  * PyroStreams Image Field Type
@@ -98,7 +97,7 @@ class Image extends AbstractField
 		ci()->load->library('files/files');
 
 		// Resize options
-		$return = ci()->files->upload(
+		$return = \Files::upload(
 			$this->getParameter('folder'),
 			null,
 			$this->field_slug.'_file',
@@ -108,7 +107,7 @@ class Image extends AbstractField
 			$this->getParameter('allowed_types', '*')
 			);
 
-		if (!$return['message'])
+		if ($return['message'])
 		{
 			// Shit..
 			ci()->session->set_flashdata('notice', $return['message']);

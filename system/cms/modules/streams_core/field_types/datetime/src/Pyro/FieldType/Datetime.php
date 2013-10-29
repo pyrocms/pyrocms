@@ -14,15 +14,24 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Datetime extends AbstractField
 {	
-	public $field_type_slug			= 'datetime';
+	public $field_type_slug = 'datetime';
 	
-	public $db_col_type				= 'datetime';
+	public $db_col_type = 'datetime';
 
-	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'input_type', 'date_format');
+	public $custom_parameters = array(
+		'use_time',
+		'start_date',
+		'end_date',
+		'input_type',
+		'date_format',
+		);
 
-	public $version					= '2.0.0';
+	public $version = '2.0.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array(
+		'name'=>'Ryan Thompson - PyroCMS',
+		'url'=>'http://pyrocms.com/'
+		);
 
 	protected $storage_format			= 'Y-m-d H:i:s';
 	protected $zero_2_digit 			= '00';
@@ -32,21 +41,21 @@ class Datetime extends AbstractField
 	protected $display_datetime_format 	= 'M j Y g:i a';
 	protected $display_date_format 		= 'M j Y';
 	protected $half_hours_per_day 		= 12;
-	public $datepicker_date_format		= array(array('EN' => array('mm-dd-yyyy', 'm-d-Y')));
+	public $datepicker_date_format		= array('mm-dd-yyyy', 'm-d-Y');
 	public $timepicker_time_format		= 'g:i A';
 
-	const JANUARY 					= 0;
-	const FEBRUARY 					= 1;
-	const APRIL 					= 2;
-	const MARCH 					= 3;
-	const MAY	 					= 4;
-	const JUNE 						= 5;
-	const JULY 						= 6;
-	const AUGUST 					= 7;
-	const SEPTEMBER 				= 8;
-	const OCTOBER 					= 9;
-	const NOVEMBER 					= 10;
-	const DECEMBER 					= 11;
+	const JANUARY 						= 0;
+	const FEBRUARY 						= 1;
+	const APRIL 						= 2;
+	const MARCH 						= 3;
+	const MAY	 						= 4;
+	const JUNE 							= 5;
+	const JULY 							= 6;
+	const AUGUST 						= 7;
+	const SEPTEMBER 					= 8;
+	const OCTOBER 						= 9;
+	const NOVEMBER 						= 10;
+	const DECEMBER 						= 11;
 
 	/**
 	 * Output form input
@@ -61,20 +70,19 @@ class Datetime extends AbstractField
 		$input_type = $this->getParameter('input_type', 'datepicker');
 
 		// -------------------------------------
-		// Parse Date Range
-		// -------------------------------------
-		// Using the start_date and end_date
-		// functions, figure out the unix values
-		// of the date range.
+		// Get the datetime value in question
 		// -------------------------------------
 
-		// -------------------------------------
-		// Get/Parse Current Date
-		// -------------------------------------
-		if (strlen($this->value) < 1 or ! empty($_POST) or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
-			$datetime = false;
-		} else {
-			$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
+		$datetime = false;
+
+		if (ci()->input->post($this->form_slug)) {
+
+			// So we have a post value - grab it
+			if (empty($this->value) or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
+				
+			} else {
+				$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
+			}
 		}
 
 		// This is our form output type
@@ -101,6 +109,7 @@ class Datetime extends AbstractField
 				'class' => 'form-control',
 				'data-toggle' => 'datepicker',
 				'data-date-format' => $this->datepicker_date_format[0],
+				'placeholder' => $this->datepicker_date_format[0],
 				);
 			
 				
@@ -174,6 +183,7 @@ class Datetime extends AbstractField
 				'value' => $datetime ? $datetime->format($this->timepicker_time_format) : null,
 				'class' => 'form-control',
 				'data-toggle' => 'timepicker',
+				'placeholder' => 'hh:mm aa',
 				);
 			
 				
