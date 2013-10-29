@@ -14,20 +14,29 @@ use Pyro\Module\Files\Model\Folder as Folder;
  */
 class Image extends AbstractField
 {
-	public $field_type_slug			= 'image';
+	public $field_type_slug = 'image';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'string';
+	public $db_col_type = 'string';
 
-	public $col_constraint 			= 15;
+	public $col_constraint = 15;
 
-	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
+	public $custom_parameters = array(
+		'folder',
+		'resize_width',
+		'resize_height',
+		'keep_ratio',
+		'allowed_types'
+		);
 
-	public $version					= '1.3.0';
+	public $version = '1.3.0';
 
-	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/'
+		);
 
-	public $input_is_file			= true;
+	public $input_is_file = true;
 
 	// --------------------------------------------------------------------------
 
@@ -68,9 +77,28 @@ class Image extends AbstractField
 			$out .= form_hidden($this->field_slug, 'dummy');
 		}
 
+
 		$options['name'] 	= $this->field_slug;
 		$options['name'] 	= $this->field_slug.'_file';
-		return $out .= form_upload($options);
+
+		$out .= '
+				<div class="fileinput fileinput-new" data-provides="fileinput">
+					<div class="input-group">
+						<div class="form-control uneditable-input span3" data-trigger="fileinput">
+							<i class="glyphicon glyphicon-file fileinput-exists"></i>
+							<span class="fileinput-filename"></span>
+						</div>
+						<span class="input-group-addon btn btn-default btn-file">
+							<span class="fileinput-new">'.lang('streams:image.select_file').'</span>
+							<span class="fileinput-exists">'.lang('streams:image.change').'</span>
+							'.form_upload($options).'
+						</span>
+						<a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times-circle"></i></a>
+					</div>
+				</div>';
+
+		
+		return $out;
 	}
 
 	// --------------------------------------------------------------------------

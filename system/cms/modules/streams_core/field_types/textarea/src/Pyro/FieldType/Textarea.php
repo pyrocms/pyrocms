@@ -57,7 +57,7 @@ class Textarea extends AbstractField
 			'id' => $this->form_slug,
 			'value' => $value,
 			'class' => 'form-control',
-			'placeholder' => $this->getParameter('placeholder'),
+			'placeholder' => lang_label($this->getParameter('placeholder')),
 		));
 	}
 

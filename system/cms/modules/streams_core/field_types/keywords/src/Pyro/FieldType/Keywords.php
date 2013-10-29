@@ -40,7 +40,7 @@ class Keywords extends AbstractField
 	 * Custom parameters
 	 * @var array
 	 */
-	public $custom_parameters  = array('return_type');
+	public $custom_parameters  = array('return_type', 'placeholder');
 
 	/**
 	 * Construct
@@ -65,19 +65,9 @@ class Keywords extends AbstractField
 		$options['id']		= 'id_'.rand(100, 10000);
 		$options['class']	= 'tags';
 		$options['value']	= $this->value;
+		$options['placeholder']	= lang_label($this->getParameter('placeholder'));
 
 		return form_input($options);
-	}
-
-	/**
-	 * Event
-	 * @return void
-	 */
-	public function event()
-	{
-		//ci()->template->append_css('jquery/jquery.tagsinput.css');
-		//ci()->template->append_js('jquery/jquery.tagsinput.js');
-		//$this->js('keywords.js');
 	}
 
 	/**
