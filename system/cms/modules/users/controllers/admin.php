@@ -126,10 +126,7 @@ class Admin extends Admin_Controller
                     'lang:global:email' => '{{ entry:user:email }}',
                     )
                 )
-            ->pagination(
-                Settings::get('records_per_page'),
-                'admin/users/index'
-                )
+            ->pagination(Settings::get('records_per_page'), 'admin/users')
             ->redirect('admin/users')
             ->render();
     }
