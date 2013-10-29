@@ -241,6 +241,10 @@ class Stream extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
+		foreach ($this->assignments->getFields()->getTypes() as $type) {
+			$type->setStream($this)->namespaceDestruct();
+		}
+
 		try {
 			$schema->dropIfExists($this->getAttribute('stream_prefix').$this->getAttribute('stream_slug'));
 		} catch (Exception $e) {
@@ -252,12 +256,6 @@ class Stream extends Eloquent
 			FieldAssignment::cleanup();
 
 			Field::cleanup();
-
-			foreach ($this->assignments->getFields()->getTypes() as $type) {
-				if (method_exists($type, 'namespaceDestruct')) {
-					$type->namespaceDestruct();
-				}
-			}
 		}
 		
 		return $success;

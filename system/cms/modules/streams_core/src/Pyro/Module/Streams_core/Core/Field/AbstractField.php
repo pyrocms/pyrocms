@@ -639,6 +639,15 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Ran when a namespace is destroyed
+	 * @return void
+	 */
+	public function namespaceDestruct()
+	{
+		
+	}
+
+	/**
 	 * Dynamic method call
 	 * @param  array $method
 	 * @param  string $arguments
