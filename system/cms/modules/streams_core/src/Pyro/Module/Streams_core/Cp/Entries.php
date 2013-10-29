@@ -125,8 +125,6 @@ class Entries extends AbstractCp
 			$this->model = $model;
 		}
 
-		$this->model->setQuery($this->model->take($this->limit)->skip($this->offset));
-
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
 
 		$this->data->view_options = $this->columns = $parsed_columns['columns'];
@@ -144,11 +142,13 @@ class Entries extends AbstractCp
 			$select = $this->columns;
 		}
 
-  		$this->data->entries 		= $this->model->enableAutoEagerLoading(true)->get($select, $this->exclude);
+  		$this->data->entries = $this->model
+			->enableAutoEagerLoading(true)
+			->take($this->limit)
+			->skip($this->offset)
+			->get($select, $this->exclude);
 
-  		$total_count = $this->model->count();
-
- 		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
+  		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
 
   		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
 
@@ -158,7 +158,7 @@ class Entries extends AbstractCp
   		}
 
   		// @todo - fix pagination
-  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($total_count);
+  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}
