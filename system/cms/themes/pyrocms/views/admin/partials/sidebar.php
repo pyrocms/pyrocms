@@ -38,7 +38,7 @@
 				<ul class="nav">
 					<li>
 						<a href="#" data-toggle="class:only-icon" data-target="#sidebar" data-persistent="sidebar" class="btn btn-sm btn-link">
-							<i class="icon-reorder"></i>
+							<i class="fa fa-reorder"></i>
 						</a>
 					</li>
 				</ul>
