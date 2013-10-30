@@ -241,8 +241,8 @@ class Stream extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		foreach ($this->assignments->getFields()->getTypes() as $type) {
-			$type->setStream($this)->namespaceDestruct();
+		foreach ($this->assignments->getFields() as $field) {
+			$field->getType()->setStream($this)->namespaceDestruct();
 		}
 
 		try {
