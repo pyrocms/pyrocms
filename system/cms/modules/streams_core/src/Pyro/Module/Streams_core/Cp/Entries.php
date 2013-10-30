@@ -123,7 +123,9 @@ class Entries extends AbstractCp
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 
 		// Allow to modify the query before we execute it
-		if ($query = $this->fireOnQuery($this->query) and $query instanceof Model\Query\EntryBuilder)
+		// We pass the model to get access to its methods but you also can run query builder methods against it
+		// Whatever you do on your closure, it must return an EntryBuilder instance
+		if ($query = $this->fireOnQuery($this->model) and $query instanceof Model\Query\EntryBuilder)
 		{
 			$this->query = $query;
 		}
