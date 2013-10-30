@@ -274,7 +274,7 @@ $config['sess_time_to_update']	= 300;
 */
 // for multi-site logins to work properly we have to set a prefix. We use the subdomain for that or default_ if none exists.
 $config['cookie_prefix']	= (substr_count($_SERVER['HTTP_HOST'], '.') > 1) ? substr($_SERVER['HTTP_HOST'], 0, strpos($_SERVER['HTTP_HOST'], '.')) . '_' : 'default_';
-$config['cookie_domain']	= ($_SERVER['HTTP_HOST'] == 'localhost') ? '' : $_SERVER['HTTP_HOST'];
+$config['cookie_domain']	= ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == 'localhost:8888') ? '' : $_SERVER['HTTP_HOST'];
 $config['cookie_path']		= BASE_URI;
 $config['cookie_secure']	= false;
 $config['cookie_httponly']  = false;
