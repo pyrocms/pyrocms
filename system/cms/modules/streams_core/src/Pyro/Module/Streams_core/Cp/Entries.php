@@ -74,6 +74,8 @@ class Entries extends AbstractCp
 			$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 		}
 
+		$instance->query = $instance->model->newQuery();
+
 		$instance->data->stream = $instance->model->getStream();
 
   		$instance->data->stream_fields = $instance->model->getFields();
@@ -107,6 +109,7 @@ class Entries extends AbstractCp
 		return $instance;
 	}
 
+
 	/**
 	 * Render table
 	 * @return void
@@ -120,12 +123,10 @@ class Entries extends AbstractCp
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
 
 		// Allow to modify the query before we execute it
-		if ($model = $this->fireOnQuery($this->model))
+		if ($query = $this->fireOnQuery($this->query) and $query instanceof Model\Query\EntryBuilder)
 		{
-			$this->model = $model;
+			$this->query = $query;
 		}
-
-		$this->model->setQuery($this->model->take($this->limit)->skip($this->offset));
 
 		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
 
@@ -144,13 +145,15 @@ class Entries extends AbstractCp
 			$select = $this->columns;
 		}
 
-  		$this->data->entries 		= $this->model->enableAutoEagerLoading(true)->get($select, $this->exclude);
+  		$this->data->entries = $this->query
+			->enableAutoEagerLoading(true)
+			->take($this->limit)
+			->skip($this->offset)
+			->get($select, $this->exclude);
 
-  		$total_count = $this->model->count();
+  		$this->data->view_options 	= $this->model->getViewOptions();
 
- 		$this->data->view_options 	= $this->model->getModel()->getViewOptions();
-
-  		$this->data->field_names 	= $this->model->getModel()->getViewOptionsFieldNames();
+  		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
 
   		if ( ! empty($this->headers))
   		{
@@ -158,10 +161,11 @@ class Entries extends AbstractCp
   		}
 
   		// @todo - fix pagination
-  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($total_count);
+  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->query->count());
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}
+
 
 	protected function parseColumnsAndFieldMaps($columns = array())
 	{
