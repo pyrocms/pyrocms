@@ -116,12 +116,6 @@ class Entry extends Eloquent
     protected $plugin = true;
 
     /**
-     * Enable or disable eager loading field type relations
-     * @var boolean
-     */
-    protected $enable_auto_eager_loading = false;
-
-    /**
      * Search index template
      * @var mixed The configuration array or false
      */
@@ -323,18 +317,6 @@ class Entry extends Eloquent
     }
 
     /**
-     * Enable or disable automatic eager loading
-     * @param boolean $format
-     * @return  object
-     */
-    public function enableAutoEagerLoading($enable_auto_eager_loading = true)
-    {
-        $this->enable_auto_eager_loading = $enable_auto_eager_loading;
-
-        return $this;
-    }
-
-    /**
      * Is formatted
      * @return boolean
      */
@@ -350,15 +332,6 @@ class Entry extends Eloquent
     public function isPlugin()
     {
         return $this->plugin;
-    }
-
-    /**
-     * Is eager loading field relations enabled
-     * @return boolean
-     */
-    public function isEnableAutoEagerLoading()
-    {
-        return $this->enable_auto_eager_loading;
     }
 
     /**

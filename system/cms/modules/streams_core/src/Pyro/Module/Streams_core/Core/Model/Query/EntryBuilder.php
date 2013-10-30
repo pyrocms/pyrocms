@@ -10,6 +10,12 @@ class EntryBuilder extends Builder
 {
 	protected $entries = array();
 
+    /**
+     * Enable or disable eager loading field type relations
+     * @var boolean
+     */
+    protected $enable_auto_eager_loading = false;
+
 	/**
 	 * Execute the query as a "select" statement.
 	 *
@@ -362,6 +368,27 @@ class EntryBuilder extends Builder
 		return $this->getRelationAttribute($attribute) instanceof Relation;
 	}
 
+    /**
+     * Enable or disable automatic eager loading
+     * @param boolean $format
+     * @return  object
+     */
+    public function enableAutoEagerLoading($enable_auto_eager_loading = true)
+    {
+        $this->enable_auto_eager_loading = $enable_auto_eager_loading;
+
+        return $this;
+    }
+
+    /**
+     * Is eager loading field relations enabled
+     * @return boolean
+     */
+    public function isEnableAutoEagerLoading()
+    {
+        return $this->enable_auto_eager_loading;
+    }
+
 	/**
 	 * Prep columns
 	 * @param  array  $columns
@@ -484,7 +511,7 @@ class EntryBuilder extends Builder
 
     	$model_methods = get_class_methods($this->model);
 
-    	if ($this->model->isEnableAutoEagerLoading() and $view_options = $this->model->getViewOptions())
+    	if ($this->isEnableAutoEagerLoading() and $view_options = $this->model->getViewOptions())
     	{
     		if (in_array('created_by', $view_options))
     		{
