@@ -638,15 +638,6 @@ abstract class AbstractField
 		return null;
 	}
 
-    /**
-     * Ran when a namespace is destroyed
-     * @return void
-     */
-    public function namespaceDestruct()
-    {
-            
-    }
-
 	/**
 	 * Ran when a namespace is destroyed
 	 * @return void
