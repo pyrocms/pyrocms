@@ -28,7 +28,7 @@
 				$('#<?php echo $form_slug; ?>').parent('div').find('.selectize-control').addClass('loading');
 
 				$.ajax({
-					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $stream; ?>/<?php echo $field_slug; ?>?query=' + encodeURIComponent(query),
+					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $stream_namespace; ?>/<?php echo $stream_param; ?>/<?php echo $field_slug; ?>?query=' + encodeURIComponent(query),
 					type: 'GET',
 					error: function() {
 						callback();

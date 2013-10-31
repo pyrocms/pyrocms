@@ -85,7 +85,8 @@ class Relationship extends AbstractField
 			array(
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
+				'stream_namespace' => $this->stream->stream_namespace,
+				'stream_param' => $this->getParameter('stream'),
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', '_title_column'),
 				'search_field' => $this->getParameter('search_field', '_title_column'),
@@ -113,7 +114,8 @@ class Relationship extends AbstractField
 			array(
 				'form_slug' => $this->getFilterSlug('contains'),
 				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
+				'stream_namespace' => $this->stream->stream_namespace,
+				'stream_param' => $this->getParameter('stream'),
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
@@ -263,14 +265,14 @@ class Relationship extends AbstractField
 		/**
 		 * Determine the stream
 		 */
-		$stream = explode('.', ci()->uri->segment(6));
+		$stream = explode('.', ci()->uri->segment(7));
 		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
 
 
 		/**
 		 * Determine our field / type
 		 */
-		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
+		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
 		$field_type = $field->getType(null);
 
 
