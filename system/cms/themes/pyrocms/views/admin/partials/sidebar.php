@@ -5,7 +5,7 @@
 		<header class="nav-bar header">
 		
 			<a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#sidebar, body">
-				<i class="icon-reorder"></i>
+				<i class="fa fa-reorder"></i>
 			</a>
 		
 
