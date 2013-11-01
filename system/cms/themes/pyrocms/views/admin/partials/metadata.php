@@ -1,16 +1,11 @@
 <?php //Asset::js(array()) ?>
 
 <?php Asset::css(array('build.css')); ?>
-<?php Asset::js(array('jquery.min.js', 'modernizr.min.js')); ?>
+<?php Asset::js(array('jquery.min.js', 'modernizr.min.js'), false, 'preload'); ?>
 
 
-<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
-	<?php //Asset::js('jquery/jquery.excanvas.min.js') ?>
-	<?php //Asset::js('jquery/jquery.flot.js') ?>
-<?php endif; ?>
-
-
-<?php echo Asset::render() ?>
+<?php echo Asset::render_css() ?>
+<?php echo Asset::render_js('preload') ?>
 
 <!--[if lt IE 9]>
 <?php echo Asset::css('ie.css', null, 'ie'); ?>

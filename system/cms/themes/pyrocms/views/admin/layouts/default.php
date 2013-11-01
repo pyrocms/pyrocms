@@ -102,6 +102,8 @@
 	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
 	<?php echo Asset::render_js('deferred') ?>
+
+	<?php echo Asset::render_js() ?>
 	
 	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
 	<!--[if lt IE 7 ]>
