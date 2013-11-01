@@ -66,10 +66,6 @@
 				<!-- Body Content -->
 				<section class="scrollable" id="body" data-exit-animation="fadeOut">
 					
-					<div class="p-l p-r">
-						<?php file_partial('notices'); ?>
-					</div>
-					
 					<?php echo $template['body']; ?>
 
 				</section>
