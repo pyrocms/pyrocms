@@ -12,6 +12,12 @@
 			<a href="#" class="hidden" data-hotkey="/" data-toggle="module-search"></a>
 		</li>
 	
+		<?php if (! empty(ci()->module_details['help'])): ?>
+		<li>
+			<a href="<?php echo ci()->module_details['help']; ?>" target="_blank" class="fa fa-info-circle"></a>
+		</li>
+		<?php endif; ?>
+
 		<li class="dropdown-submenu">
 			<a href="#" class="dropdown-submenu user" data-toggle="dropdown">
 				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
