@@ -1175,4 +1175,23 @@ class Entry extends Eloquent
 
         return $model;
     }
+
+    /**
+     * Handle dynamic method calls into the method.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        // Handle dynamic relation as join
+        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches))
+        {
+            return $this->relationAsJoin($matches[1]);
+        }
+
+        return parent::__call($method, $parameters);
+    }
+
 }
