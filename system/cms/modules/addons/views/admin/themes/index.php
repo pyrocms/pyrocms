@@ -1,5 +1,8 @@
 <div class="p">
 
+	<div class="p-b">
+		<?php file_partial('notices'); ?>
+	</div>
 
 	<!-- .panel -->
 	<section class="panel panel-default">

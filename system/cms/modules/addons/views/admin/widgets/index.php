@@ -1,5 +1,8 @@
 <div class="p">
 
+	<div class="p-b">
+		<?php file_partial('notices'); ?>
+	</div>
 
 	<section id="page-title">
 		<h1><?php echo lang('addons:widgets') ?></h1>
