@@ -396,11 +396,11 @@ class EntryBuilder extends Builder
 	 */
     protected function prepareColumns(array $columns = array('*'))
     {
-    	// Stash eager: columns
+    	// Stash relation: columns
     	$relation_columns = array();
 
     	foreach ($columns as $column) {
-    		if (substr($column, 0, 9) == 'eager:') $relation_columns[] = str_replace('eager:', '', $column);
+    		if (substr($column, 0, 9) == 'relation:') $relation_columns[] = str_replace('relation:', '', $column);
     	}
 
     	// Remove any columns that don't exist
@@ -519,7 +519,7 @@ class EntryBuilder extends Builder
     		}
 
 	    	foreach ($view_options as $column) {
-	    		$column = str_replace('eager:', '', $column);
+	    		$column = str_replace('relation:', '', $column);
 	    		if ($this->hasRelation($column)) {
 	    			$relations[] = $column;
 	    		}
