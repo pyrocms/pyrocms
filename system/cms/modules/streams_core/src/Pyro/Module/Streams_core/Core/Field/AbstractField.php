@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
+use Illuminate\Database\Eloquent\BelongsToMany;
+use Illuminate\Database\Eloquent\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Str;
 use Pyro\Module\Streams_core\Core\Field\Type;
@@ -390,13 +392,15 @@ abstract class AbstractField
 	}
 
 	/**
-	 * Get the unformatted value
+	 * Get the original value
 	 * @param  boolean $plugin
 	 * @return mixed
 	 */
-	public function getUnformattedValue($plugin = false)
+	public function getOriginalValue($field_slug = null)
 	{
-		return $this->getValueProperty();
+		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+		return $this->entry->getOriginal($field_slug);
 	}
 
 	/**
@@ -539,7 +543,8 @@ abstract class AbstractField
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
 		// If not, if there is a relation defined, query it
-		if ($this->hasRelation() and $this->value)
+		// Check if we have a parent foreing key value and avoid making queries with null values
+		if ($this->hasRelation() or ($this->hasParentForeingKey() and $this->getOriginalValue()))
 		{
 			$relations = $this->entry->getRelations();
 
@@ -557,6 +562,15 @@ abstract class AbstractField
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * Check if the relation holds the foreing key on the parent table
+	 * @return boolean
+	 */
+	public function hasParentForeingKey()
+	{
+		return ! ($this->relation() instanceof BelongsToMany) and ! ($this->relation() instanceof HasOneOrMany);
 	}
 
 	/**

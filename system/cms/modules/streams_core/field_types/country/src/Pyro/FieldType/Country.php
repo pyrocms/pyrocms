@@ -11,18 +11,17 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  */
 class Country extends AbstractField
 {
-	public $field_type_slug = 'country';
+	public $field_type_slug			= 'country';
 
-	public $db_col_type = 'string';
+	public $db_col_type				= 'string';
 
-	public $version = '1.1.0';
+	public $version					= '1.1.0';
 
-	public $custom_parameters = array('default_country');
+	public $custom_parameters   	= array('default_country');
 
-	public $author = array(
-		'name' => 'Ryan Thompson - AI Web Systems, Inc.',
-		'url' => 'http://aiwebsystems.com/'
-		);
+	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -45,8 +44,10 @@ class Country extends AbstractField
 			$value = $this->value;
 		}
 
-		return form_dropdown($this->form_slug, $this->countries($this->field->is_required), $this->value, 'id="'.$this->form_slug.'"');
+		return form_dropdown($this->form_slug, $this->getCountryOptions($this->field->is_required), $this->value, 'id="'.$this->form_slug.'"');
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Output filter input
@@ -61,8 +62,10 @@ class Country extends AbstractField
 		// We only use the default value if this is a new
 		// entry.
 
-		return form_dropdown($this->getFilterSlug('is'), array(null => '- '.$this->field->field_name.' -') + $this->countries('yes'), $this->getFilterSlug('is'), 'class="skip form-control"');
+		return form_dropdown($this->getFilterSlug('is'), $this->getCountryOptions(false), $this->getFilterSlug('is'), 'class="skip form-control"');
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -73,13 +76,7 @@ class Country extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		$countries = $this->countries('yes');
-
-		if (trim($this->value) != '') {
-			return $countries[$this->value];
-		} else {
-			return null;
-		}
+		return $this->getCountry($this->getOriginalValue());
 	}
 
 	/**
@@ -91,12 +88,8 @@ class Country extends AbstractField
 	 */
 	public function pluginOutput()
 	{
-		$countries = $this->countries('yes');
-
-		$this->value = trim($this->value);
-
 		if ($this->value != '') {
-			$return['name'] = $countries[$this->value];
+			$return['name'] = $this->getCountry($this->getOriginalValue());
 			$return['code']	= $this->value;
 
 			return $return;
@@ -104,6 +97,8 @@ class Country extends AbstractField
 			return null;
 		}
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Default Country Parameter
@@ -114,7 +109,18 @@ class Country extends AbstractField
 	{
 		// Return a drop down of countries
 		// but we don't require them to give one.
-		return form_dropdown('default_country', $this->countries('no'), $value);
+		return form_dropdown('default_country', $this->getCountryOptions('no'), $value);
+	}
+
+	public function getCountry($key = null)
+	{
+		$countries = $this->getCountryOptions('yes');
+
+		if (isset($countries[$key])) {
+			return $countries[$key];
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -125,7 +131,7 @@ class Country extends AbstractField
 	 * @param 	bool 	$is_required 	If set to true, it will add a null value to array
 	 * @return	array
 	 */
-	public function countries($is_required = false)
+	public function getCountryOptions($is_required = false)
 	{
 		$choices = array();
 
@@ -385,4 +391,5 @@ class Country extends AbstractField
 
 		return array_merge($choices, $countries);
 	}
+
 }
