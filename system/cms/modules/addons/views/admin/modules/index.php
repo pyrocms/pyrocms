@@ -1,8 +1,8 @@
-<div class="p">
+<div class="p n-p-b">
+	<?php file_partial('notices'); ?>
+</div>
 
-	<div class="p-b">
-		<?php file_partial('notices'); ?>
-	</div>
+<div class="p">
 
 	<!-- .panel -->
 	<section class="panel panel-default">
