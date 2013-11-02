@@ -177,8 +177,8 @@ class Entries extends AbstractCp
 
 		foreach ($columns as $key => $value)
 		{
-			// Remove eager: prefix
-			//$key = str_replace('eager:', '', $key);
+			// Remove relation: prefix
+			//$key = str_replace('relation:', '', $key);
 
 			if (is_numeric($key))
 			{
@@ -187,7 +187,7 @@ class Entries extends AbstractCp
 			else
 			{
 				$parsed_columns[] = $key;
-				$field_maps[str_replace('eager:', '', $key)] = $value;
+				$field_maps[str_replace('relation:', '', $key)] = $value;
 			}
 		}
 
