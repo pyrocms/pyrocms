@@ -15,8 +15,8 @@
 					<?php foreach ($field_names as $field_slug=>$field_name): ?>
 					<?php
 
-						// Replace relation: from Cp voodoo
-						$field_slug = str_replace('relation:', '', $field_slug);
+						// Replace eager: from Cp voodoo
+						$field_slug = str_replace('eager:', '', $field_slug);
 
 						// Get our query string
 						$query_string = array();
