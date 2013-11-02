@@ -1046,7 +1046,7 @@ class Entry extends Eloquent
     public function stringOutput($view_option)
     {
         // Remove this from all of our prior entryBuilder voodoo
-        $view_option = str_replace('relation:', '', $view_option);
+        $view_option = str_replace('eager:', '', $view_option);
 
         if ( ! empty($this->field_maps[$view_option])) {
 
