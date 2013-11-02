@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 
@@ -367,6 +371,35 @@ class EntryBuilder extends Builder
 	{
 		return $this->getRelationAttribute($attribute) instanceof Relation;
 	}
+
+    public function relationAsJoin($attribute)
+    {
+    	$attribute = strtolower($attribute);
+
+        if ($this->hasRelation($attribute)) {
+            
+            $relation = $this->getRelationAttribute($attribute);
+
+			$related_table = $relation->getRelated()->getTable();
+
+			$related_key = $relation->getRelated()->getKeyName();
+
+            if ($relation instanceof BelongsTo) {
+               
+                return $this->join($related_table, $related_table.'.'.$related_key, '=', $this->model->getTable().'.'.$relation->getForeignKey());
+            
+            } elseif ($relation instanceof BelongsToMany) {
+
+            	//
+
+            }
+
+        } else {
+
+            // Throw exception if its not an instance of Relation 
+
+        }
+    }
 
     /**
      * Enable or disable automatic eager loading
