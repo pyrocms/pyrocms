@@ -64,7 +64,7 @@
 
 					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php echo $entry->stringOutput($view_option); ?>
+					<?php echo $entry->getStringOutput($view_option); ?>
 
 				</td>
 				<?php endforeach; endif; ?>

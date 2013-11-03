@@ -217,7 +217,7 @@ class Entries extends AbstractCp
 			{
 				$id = $stream_namespace;
 
-				$instance->entry = $instance->entry->setFormat(false)->find($id);
+				$instance->entry = $instance->entry->find($id);
 			}
 		}
 		elseif ($mixed instanceof Model\Entry and $mixed->getKey())
@@ -226,7 +226,7 @@ class Entries extends AbstractCp
 		}
 		else
 		{
-			$instance->entry = Model\Entry::stream($mixed, $stream_namespace)->setFormat(false);
+			$instance->entry = Model\Entry::stream($mixed, $stream_namespace);
 
 			if ($id)
 			{

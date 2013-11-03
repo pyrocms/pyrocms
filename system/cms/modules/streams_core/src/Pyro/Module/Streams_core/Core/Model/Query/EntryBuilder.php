@@ -20,6 +20,16 @@ class EntryBuilder extends Builder
      */
     protected $enable_auto_eager_loading = false;
 
+    protected $foreign_keys = array();
+
+    protected $columns = array('*');
+
+    protected $stream = null;
+
+    protected $fields = null;
+
+    protected $field_maps = array();
+
 	/**
 	 * Execute the query as a "select" statement.
 	 *
@@ -248,74 +258,7 @@ class EntryBuilder extends Builder
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
-		// Shall we return formatted entries or not?
-		if ($this->model->isFormat())
-		{
-			return $this->model->newCollection($this->formatEntries($this->entries), $this->entries);
-		}
-		else
-		{
-			return $this->model->newCollection($this->entries);
-		}
-	}
-
-	/**
-	 * Format entries
-	 * @param  array  $entries
-	 * @return array
-	 */
-	public function formatEntries(array $entries = array())
-	{	
-		// returns the models with the attributes formated by their corresponding field type
-		$formatted = array();
-
-		foreach ($entries as $entry)
-		{
-			$formatted[] = $this->formatEntry($entry);
-		}
-
-		return $formatted;
-	}
-
-	/**
-	 * Format an entry
-	 * @param  object $entry
-	 * @return object
-	 */
-	public function formatEntry($entry = null)
-	{
-		// Replicate the model to keep the original intact
-		$clone = $entry->replicate();
-		
-		// We must set the fields for both the entry and the clone
-		// Setting them on the clone will have an effect on the resulting collection and 
-		// Setting them on the entry will have an effect when returning a single model
-
-		// Restore the primary key to the replicated model
-		$clone->{$this->model->getKeyName()} = $entry->{$this->model->getKeyName()};	
-
-		foreach ($this->model->getViewOptions() as $field_slug)
-		{
-			if ($field_slug == 'created_by')
-			{
-				$clone->setAttribute('created_by', $clone->createdByUser);
-			}
-			elseif ($type = $entry->getFieldType($field_slug))
-			{
-				// Set the unformatted value, we might need it
-				$clone->setUnformattedValue($field_slug, $entry->{$field_slug});
-
-				$clone->setPluginValue($field_slug, $type->pluginOutput());
-				
-				// If there exist a field for the corresponding attribute, format it
-				$clone->{$field_slug} = $type->stringOutput();
-			}
-		};
-
-		// Store the unformatted entry in case we need it later
-		$clone->setUnformattedEntry($entry);
-
-		return $clone;	
+		return $this->model->newCollection($this->entries);
 	}
 
 	/**
@@ -561,5 +504,35 @@ class EntryBuilder extends Builder
 
     	return $relations;
     }
+
+	protected function parseColumnsAndFieldMaps($columns = array())
+	{
+		$field_maps = array();
+
+		$parsed_columns = array();
+
+		foreach ($columns as $key => $value)
+		{
+			// Remove relation: prefix
+			//$key = str_replace('relation:', '', $key);
+
+			if (is_numeric($key))
+			{
+				$parsed_columns[] = $value;
+			}
+			else
+			{
+				$parsed_columns[] = $key;
+				$field_maps[str_replace('relation:', '', $key)] = $value;
+			}
+		}
+
+		return array('columns' => $parsed_columns, 'field_maps' => $field_maps);
+	}
+
+	protected function filter()
+	{
+
+	}
 
 }

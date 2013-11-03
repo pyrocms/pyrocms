@@ -1,8 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Core\Field;
 
-use Illuminate\Database\Eloquent\BelongsToMany;
-use Illuminate\Database\Eloquent\HasOneOrMany;
-use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Pyro\Module\Streams_core\Core\Field\Type;
 use Pyro\Module\Streams_core\Core\Model;
@@ -41,26 +40,6 @@ abstract class AbstractField
 	protected $defaults = null;
 
 	/**
-	 * Unformatted value
-	 * @var mixed
-	 */
-	protected $unformatted_value = null;
-
-	/**
-	 * Plugin call?
-	 * @var boolean
-	 */
-	protected $plugin = false;
-
-	public $plugin_override = false;
-
-	/**
-	 * Query injection
-	 * @var string
-	 */
-	protected $query = null;
-
-	/**
 	 * The field object
 	 * @var object
 	 */
@@ -96,11 +75,28 @@ abstract class AbstractField
 	 */
 	protected $relation = null;
 
+	protected $plugin = false;
+
 	/**
 	 * Version
 	 * @var string
 	 */
 	public $version = '1.0.0';
+
+	public function stringOutput()
+	{
+		return $this->entry->getOriginalOutput($this->fieldSlug());
+	}
+
+	public function pluginOutput()
+	{
+		return $this->entry->getEloquentOutput($this->fieldSlug());
+	}
+
+	public function dataOutput()
+	{
+		return $this->pluginOutput();
+	}
 
 	/**
 	 * Set value
@@ -111,20 +107,7 @@ abstract class AbstractField
 		$this->value = $value;
 	}
 
-	/**
-	 * Set unformatted value
-	 * @param mixed $unformatted_value
-	 */
-	public function setUnformattedValue($unformatted_value = null)
-	{
-		$this->unformatted_value = $unformatted_value;
-	}
-
-	/**
-	 * Set plugin property
-	 * @param boolean $plugin
-	 */
-	public function setPlugin($plugin = null)
+	public function setPlugin($plugin = false)
 	{
 		$this->plugin = $plugin;
 
@@ -176,6 +159,11 @@ abstract class AbstractField
 	public function getField()
 	{
 		return $this->field;
+	}
+
+	public function fieldSlug()
+	{
+		return $this->field->field_slug;
 	}
 
 	/**
@@ -350,9 +338,9 @@ abstract class AbstractField
 		{
 			return $value;
 		}
-		elseif ($this->entry and $this->entry->{$field_slug})
+		elseif ($value = $this->entry->getOriginal($field_slug))
 		{
-			return $this->entry->{$field_slug};
+			return $value;
 		}
 
 		return $default;
@@ -540,10 +528,14 @@ abstract class AbstractField
 	public function getRelation($field_slug = null)
 	{
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+		
+		// Check if we have a parent foreing key value and avoid making queries with null values
+		$original = $this->getOriginalValue();
+
+		if ($this->hasLocalForeingKey() and empty($original)) return null;
 
 		// If not, if there is a relation defined, query it
-		// Check if we have a parent foreing key value and avoid making queries with null values
-		if ($this->hasRelation() or ($this->hasParentForeingKey() and $this->getOriginalValue()))
+		if ($this->hasRelation())
 		{
 			$relations = $this->entry->getRelations();
 
@@ -557,19 +549,17 @@ abstract class AbstractField
 				return $this->relation()->getResults();
 			}
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
 	 * Check if the relation holds the foreing key on the parent table
 	 * @return boolean
 	 */
-	public function hasParentForeingKey()
+	public function hasLocalForeingKey()
 	{
-		return ! ($this->relation() instanceof BelongsToMany) and ! ($this->relation() instanceof HasOneOrMany);
+		return $this->relation() instanceof BelongsTo;
 	}
 
 	/**
@@ -621,7 +611,7 @@ abstract class AbstractField
 	 */
 	public function hasRelation()
 	{
-		return method_exists($this, 'relation') and ($this->relation() instanceof Relations\Relation);
+		return method_exists($this, 'relation') and ($this->relation() instanceof Relation);
 	}
 
 	/**
@@ -675,7 +665,7 @@ abstract class AbstractField
 			return $this->getPostValue($this->field->field_slug.'_'.Str::snake($matches[1]), $default);
 		}
 
-		return null;
+		return $this->entry->{$method}();
 	}
 
 	/**
@@ -694,6 +684,6 @@ abstract class AbstractField
 	 */
 	public function __toString()
 	{
-		return $this->stringOutput($this->value);
+		return $this->stringOutput();
 	}
 }
