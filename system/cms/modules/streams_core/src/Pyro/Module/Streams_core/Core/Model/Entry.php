@@ -1,10 +1,11 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
 use Pyro\Module\Users\Model\User;
-use Pyro\Module\Streams_core\Core\Field\Form;
+use Pyro\Module\Streams_core\Core\Field\FormBuilder;
 
 /**
  * Entry model
@@ -51,23 +52,6 @@ class Entry extends Eloquent
     protected $user_columns = array('id', 'username');
 
     /**
-     * The name of the "created at" column.
-     * @var string
-     */
-    const CREATED_AT = 'created';
-
-    /**
-     * The name of the "updated at" column.
-     * @var string
-     */
-    const UPDATED_AT = 'updated';
-
-    /**
-     * The name of the "created at" column.
-     * @var string
-     */
-    const CREATED_BY = 'created_by';
-    /**
      * Assignments
      * @var array
      */
@@ -92,40 +76,16 @@ class Entry extends Eloquent
     protected $field_maps = array();
 
     /**
-     * Unformatted values
-     * @var array
+     * Format mode
+     * @var string
      */
-    protected $unformatted_values = array();
-
-    /**
-     * Unformatted entry
-     * @var object
-     */
-    protected $unformatted_entry = null;
-
-    /**
-     * Format or no
-     * @var boolean
-     */
-    protected $format = true;
-
-    /**
-     * Plugin or no
-     * @var boolean
-     */
-    protected $plugin = true;
+    protected $format = 'eloquent';
 
     /**
      * Search index template
      * @var mixed The configuration array or false
      */
     protected $search_index_template = false;
-
-    /**
-     * Plugin values
-     * @var array
-     */
-    protected $plugin_values = array();
 
     /**
      * View options
@@ -140,6 +100,34 @@ class Entry extends Eloquent
     protected $default_view_options = array('id', 'created_by');
 
     /**
+     * The name of the "created at" column.
+     * @var string
+     */
+    const CREATED_AT = 'created';
+
+    /**
+     * The name of the "updated at" column.
+     * @var string
+     */
+    const UPDATED_AT = 'updated';
+
+    /**
+     * The name of the "created at" column.
+     * @var string
+     */
+    const CREATED_BY = 'created_by';
+
+    const FORMAT_ELOQUENT   = 'eloquent';
+
+    const FORMAT_ORIGINAL   = 'original';
+
+    const FORMAT_DATA       = 'data';
+
+    const FORMAT_PLUGIN     = 'plugin';
+
+    const FORMAT_STRING     = 'string';
+
+    /**
      * The class construct
      * @param array $attributes The attributes to instantiate the model with
      */
@@ -151,6 +139,41 @@ class Entry extends Eloquent
         {
             $this->stream($this->stream_slug, $this->stream_namespace, $this);
         }
+    }
+
+    public function asData()
+    {
+        $this->format = static::FORMAT_DATA;
+
+        return $this;
+    }
+
+    public function asEloquent()
+    {
+        $this->format = static::FORMAT_ELOQUENT;
+
+        return $this;
+    }
+
+    public function asOriginal()
+    {
+        $this->format = static::FORMAT_ORIGINAL;
+
+        return $this;
+    }
+
+    public function asPlugin()
+    {
+        $this->format = static::FORMAT_PLUGIN;
+
+        return $this;
+    }
+
+    public function asString()
+    {
+        $this->format = static::FORMAT_STRING;
+
+        return $this;
     }
 
     /**
@@ -272,7 +295,7 @@ class Entry extends Eloquent
     {
         if ( ! $field = $this->getField($field_slug))
         {
-            return false;
+            return null;
         }
 
         return $field->getType($this);
@@ -295,91 +318,48 @@ class Entry extends Eloquent
     }
 
     /**
-     * Set plugin
-     * @param boolean $plugin
-     */
-    public function setPlugin($plugin = true)
-    {
-        $this->plugin = $plugin;
-
-        return $this;
-    }
-
-    /**
-     * Set format
-     * @param boolean $format
-     */
-    public function setFormat($format = true)
-    {
-        $this->format = $format;
-
-        return $this;
-    }
-
-    /**
-     * Is formatted
+     * Is data format
      * @return boolean
      */
-    public function isFormat()
+    public function isDataFormat()
     {
-        return $this->format;
+        return ($this->format == static::FORMAT_DATA);
     }
 
     /**
-     * Is plugin call
+     * Is eloquent format
      * @return boolean
      */
-    public function isPlugin()
+    public function isEloquentFormat()
     {
-        return $this->plugin;
+        return ($this->format == static::FORMAT_ELOQUENT);
     }
 
     /**
-     * Set plugin value
-     * @param string $key  
-     * @param mixed $value
+     * Is original format
+     * @return boolean
      */
-    public function setPluginValue($key = null, $value = null)
+    public function isOriginalFormat()
     {
-        if ($key)
-        {
-            $this->plugin_values[$key] = $value;   
-        }
+        return ($this->format == static::FORMAT_ORIGINAL);
     }
 
     /**
-     * Get plugin value
-     * @param  string $key
-     * @return mixed
+     * Is plugin format
+     * @return boolean
      */
-    public function getPluginValue($key)
+    public function isPluginFormat()
     {
-        return isset($this->plugin_values[$key]) ? $this->plugin_values[$key] : $this->getAttribute($key);
+        return ($this->format == static::FORMAT_PLUGIN);
     }
 
     /**
-     * Set unformatted value
-     * @param string $key
-     * @param mixed $value
+     * Is string format
+     * @return boolean
      */
-    public function setUnformattedValue($key = null, $value = null)
+    public function isStringFormat()
     {
-        if ($key)
-        {
-            $this->unformatted_values[$key] = $value;   
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get unformatted value
-     * @param  string $key
-     * @return mixed
-     */
-    public function getUnformattedValue($key)
-    {
-        return isset($this->unformatted_values[$key]) ? $this->unformatted_values[$key] : null;
+        return ($this->format == static::FORMAT_PLUGIN);
     }
 
     /**
@@ -388,27 +368,7 @@ class Entry extends Eloquent
      */
     public function newFormBuilder()
     {
-        return new \Pyro\Module\Streams_core\Core\Field\Form($this);
-    }
-
-    /**
-     * Set unformatted uentry
-     * @param object $unformatted_entry
-     */
-    public function setUnformattedEntry($unformatted_entry = null)
-    {
-        $this->unformatted_entry = $unformatted_entry;
-
-        return $this;
-    }
-
-    /**
-     * Unformatted
-     * @return object
-     */
-    public function unformatted()
-    {
-        return $this->unformatted_entry;
+        return new \Pyro\Module\Streams_core\Core\Field\FormBuilder($this);
     }
 
     /**
@@ -535,7 +495,7 @@ class Entry extends Eloquent
 
                     $type->setStream($this->stream);
 
-                    $value = $this->getAttribute($field->field_slug);
+                    $value = $this->getEloquentOutput($field->field_slug);
 
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
@@ -973,7 +933,7 @@ class Entry extends Eloquent
             $column = $this->getTitleColumn();
         }
 
-        return $this->getAttribute($column);
+        return $this->getEloquentOutput($column);
     }
 
     /**
@@ -985,7 +945,7 @@ class Entry extends Eloquent
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if ( ! trim($title_column) or ! $this->getAttribute($title_column))
+        if ( ! trim($title_column) or ! $this->getEloquentOutput($title_column))
         {
             $title_column = $this->getKeyName();
         }
@@ -1029,13 +989,64 @@ class Entry extends Eloquent
         return $dates;
     }
 
+    public function getCreatedByAttribute($created_by)
+    {
+        if (isset($this->relations['created_by']))
+        {
+            return $this->relations['created_by'];
+        }
+
+        return $created_by;
+    }
+
     /**
      * Created by user format
      * @return [type] [description]
      */
-    public function createdByUser()
+    public function createdBy()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
+    }
+
+    public function toOutputArray()
+    {
+        $output = array();
+
+        foreach ($this->getAttributeKeys() as $attribute) {
+            
+            $output[$attribute] = $this->getOutput($attribute);
+
+        }
+
+        return $output;
+    }
+
+    public function getEloquentOutput($attribute)
+    {
+        return parent::getAttribute($attribute);
+    }
+
+    public function getOriginalOutput($attribute)
+    {
+        return $this->getOriginal($attribute);
+    }
+
+    public function getDataOutput($attribute)
+    {
+        if ($type = $this->getFieldType($attribute)) {
+            return $type->{static::FORMAT_DATA.'Output'}($attribute);
+        }
+
+        return $this->getEloquentOutput($attribute);
+    }
+
+    public function getPluginOutput($attribute)
+    {
+        if ($type = $this->getFieldType($attribute)) {
+            return $type->{static::FORMAT_PLUGIN.'Output'}($attribute);
+        }
+
+        return $this->getEloquentOutput($attribute);
     }
 
     /**
@@ -1043,36 +1054,35 @@ class Entry extends Eloquent
      * @param  string
      * @return string
      */
-    public function stringOutput($view_option)
+    public function getStringOutput($attribute)
     {
         // Remove this from all of our prior entryBuilder voodoo
-        $view_option = str_replace('relation:', '', $view_option);
+        $attribute = str_replace('relation:', '', $attribute);
 
-        if ( ! empty($this->field_maps[$view_option])) {
+        if ( ! empty($this->field_maps[$attribute])) {
 
-            return ci()->parser->parse_string($this->field_maps[$view_option], array('entry' => $this->toArray()), true, false, array(
+            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->toArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
         
+        } elseif ($type = $this->getFieldType($attribute)) {
+
+            return $type->stringOutput($attribute);
+        
         }
-        elseif ($datetime = $this->getAttributeValue($view_option) and $datetime instanceof Carbon) {
-                
-            if ( ! ($date_format = \Settings::get('date_format')) or empty($date_format)) {
-                $date_format = \Pyro\FieldType\Datetime::DISPLAY_DATETIME_FORMAT;
-            }
 
-            return $datetime->format($date_format);
+        return $this->getEloquentOutput($attribute);
+    }
 
-        } elseif ($user = $this->getAttributeValue($view_option) and $user instanceof User) { 
+    public function getOutput($attribute)
+    {
+        return $this->{'get'.Str::studly($this->format).'Output'}($attribute);
+    }
 
-            return anchor('admin/users/edit/'.$user->id, $user->username);
-
-        } else {
-  
-            return $this->getAttributeValue($view_option);
-            
-        }
+    public function getAttribute($attribute)
+    {        
+        return $this->getOutput($attribute);
     }
 
     /**
@@ -1164,15 +1174,33 @@ class Entry extends Eloquent
             ->setFields($this->fields)
             ->setFieldMaps($this->field_maps)
             ->setViewOptions($this->view_options)
-            ->setUnformattedEntry($this->unformatted_entry)
             ->setTable($this->table);
             
-
-        if ($model->getKey())
-        {
-            $model->exists = true;
-        }
+        $model->exists = $model->getKey() ? true : false;
 
         return $model;
+    }
+
+    /**
+     * Handle dynamic method calls into the method.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        // Handle dynamic relation as join
+        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches))
+        {
+            return $this->relationAsJoin($matches[1]);
+        }
+
+        return parent::__call($method, $parameters);
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toOutputArray());
     }
 }

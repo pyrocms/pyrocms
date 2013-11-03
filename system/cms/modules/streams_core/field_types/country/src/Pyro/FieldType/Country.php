@@ -76,7 +76,7 @@ class Country extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		return $this->getCountry($this->getOriginalValue());
+		return $this->getCountry($this->value);
 	}
 
 	/**
@@ -88,8 +88,8 @@ class Country extends AbstractField
 	 */
 	public function pluginOutput()
 	{
-		if ($this->value != '') {
-			$return['name'] = $this->getCountry($this->getOriginalValue());
+		if ( ! empty($this->value)) {
+			$return['name'] = $this->getCountry($this->value);
 			$return['code']	= $this->value;
 
 			return $return;
