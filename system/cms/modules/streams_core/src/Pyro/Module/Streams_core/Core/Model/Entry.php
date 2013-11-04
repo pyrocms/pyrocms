@@ -180,8 +180,7 @@ class Entry extends Eloquent
         } elseif ( ! $instance) {
             $instance = new static;
         }
-
-        if ($stream_slug instanceof Stream)
+        elseif ($stream_slug instanceof Stream)
         {
             $instance->stream = $stream_slug;
         }

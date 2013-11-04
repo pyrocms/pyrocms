@@ -102,10 +102,7 @@ class EntryBuilder extends Builder
 		}
 
 		// We need to return the models with their keys
-		$columns = $this->requireKeys($columns);
-
-        // Make sure there are no duplicate columns
-        return array_unique($columns);
+		return $this->requireKeys($columns);
     }
 
     public function requireKeys($columns)
