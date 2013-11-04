@@ -1,7 +1,6 @@
 <?php namespace Pyro\FieldType;
 
 use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
 use Pyro\Module\Streams_core\Core\Model;
 use Pyro\Module\Streams_core\Core\Field\AbstractField;
 
@@ -279,7 +278,16 @@ class Relationship extends AbstractField
 		/**
 		 * Get our entries
 		 */
-		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		
+		$fields = array_unique(
+			array(
+				$field_type->getParameter('value_field'),
+				$field_type->getParameter('label_field'),
+				$field_type->getParameter('search_field'),
+				)
+			);
+
+		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->select($fields)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**
