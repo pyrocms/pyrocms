@@ -105,18 +105,6 @@ class Entry extends Eloquent
      * The name of the "created at" column.
      * @var string
      */
-    const CREATED_AT = 'created';
-
-    /**
-     * The name of the "updated at" column.
-     * @var string
-     */
-    const UPDATED_AT = 'updated';
-
-    /**
-     * The name of the "created at" column.
-     * @var string
-     */
     const CREATED_BY = 'created_by';
 
     const FORMAT_ELOQUENT   = 'eloquent';
@@ -386,6 +374,16 @@ class Entry extends Eloquent
         return new \Pyro\Module\Streams_core\Core\Field\FormBuilder($this);
     }
 
+    public static function getInstance()
+    {
+        if (static::$instance instanceof Entry)
+        {
+            return static::$instance;
+        }
+
+        return static::$instance = new static;
+    }
+
     /**
      * Find entry
      * @param  integer $id
@@ -394,7 +392,9 @@ class Entry extends Eloquent
      */
     public static function find($id, $columns = array('*'))
     {
-        $entry = static::$instance->where(static::$instance->getKeyName(), '=', $id)->first($columns);
+        $instance = static::getInstance();
+
+        $entry = $instance->enableAutoEagerLoading(true)->where($instance->getKeyName(), '=', $id)->first($columns);
 
         $entry->exists = true;
 
@@ -425,7 +425,7 @@ class Entry extends Eloquent
     {
         if (is_string($relations)) $relations = func_get_args();
 
-        return static::$instance->newQuery()->with($relations);
+        return static::getInstance()->newQuery()->with($relations);
     }
 
     /**
@@ -447,9 +447,9 @@ class Entry extends Eloquent
      */
     public static function create(array $attributes = null)
     {
-        static::$instance->fill($attributes)->save();
+        $model = static::getInstance()->fill($attributes)->save();
 
-        return static::$instance;
+        return $model;
     }
 
     /**
@@ -477,12 +477,12 @@ class Entry extends Eloquent
             $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
 
             $this->setAttribute('created_by', $created_by);
-            $this->setAttribute('updated', '0000-00-00 00:00:00');
+            $this->setAttribute('updated_at', '0000-00-00 00:00:00');
             $this->setAttribute('ordering_count', $this->count('id')+1);
         }
         else
         {
-            $this->setAttribute('updated', time());
+            $this->setAttribute('updated_at', time());
         }
 
 
@@ -1025,22 +1025,11 @@ class Entry extends Eloquent
 
         return $dates;
     }
-
-    public function getCreatedByAttribute($created_by)
-    {
-        if (isset($this->relations['created_by']))
-        {
-            return $this->relations['created_by'];
-        }
-
-        return $created_by;
-    }
-
-    /**
-     * Created by user format
+    
+    /* Created by user format
      * @return [type] [description]
      */
-    public function createdBy()
+    public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }

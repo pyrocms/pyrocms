@@ -304,7 +304,7 @@ class Plugin_User extends Plugin
 		foreach ($user->profile->getModel()->getAllColumns() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
-					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->getPluginValue($var);
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getPluginOutput($var);
 				}
 
 				if ($user->$field_key) {
@@ -348,7 +348,7 @@ class Plugin_User extends Plugin
 			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
 		}
 
-		return $this->user_profile_data[$user_id]->getPluginValue($var);
+		return $this->user_profile_data[$user_id]->getPluginOutput($var);
 	}
 
 	/**
