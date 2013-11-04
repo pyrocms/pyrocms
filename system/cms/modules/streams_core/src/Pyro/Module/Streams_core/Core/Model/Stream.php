@@ -193,8 +193,8 @@ class Stream extends Eloquent
 			// Create the table for our new stream
 			$schema->create($attributes['stream_prefix'].$attributes['stream_slug'], function($table) {
 	            $table->increments('id');
-	            $table->datetime('created');
-	            $table->datetime('updated');
+	            $table->datetime('created_at');
+	            $table->datetime('updated_at');
 	            $table->integer('created_by')->nullable();
 	            $table->integer('ordering_count')->nullable();
 	        });
