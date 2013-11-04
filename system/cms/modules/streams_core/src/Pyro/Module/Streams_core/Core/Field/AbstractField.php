@@ -665,7 +665,7 @@ abstract class AbstractField
 			return $this->getPostValue($this->field->field_slug.'_'.Str::snake($matches[1]), $default);
 		}
 
-		return $this->entry->{$method}();
+		return null;
 	}
 
 	/**

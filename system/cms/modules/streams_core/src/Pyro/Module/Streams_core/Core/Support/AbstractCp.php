@@ -2,10 +2,8 @@
 namespace Pyro\Module\Streams_core\Core\Support;
 
 use Closure;
-use Pyro\Module\Streams_core\Core\Model;
-use Pyro\Support\AbstractCallable;
 
-abstract class AbstractCp extends AbstractCallable
+abstract class AbstractCp extends AbstractDataCp
 {
 	/**
 	 * Add URI
@@ -38,12 +36,6 @@ abstract class AbstractCp extends AbstractCallable
 	protected $cancel_uri = null;
 
 	/**
-	 * Columns
-	 * @var array
-	 */
-	protected $columns = array('*');
-
-	/**
 	 * Current field type
 	 * @var string
 	 */
@@ -73,23 +65,7 @@ abstract class AbstractCp extends AbstractCallable
 	 */
 	protected $entry = null;
 
-	/**
-	 * Exclude these fields
-	 * @var mixed
-	 */
-	protected $exclude = false;
 
-	/**
-	 * Exclude these field types
-	 * @var array
-	 */
-	protected $exclude_types = array();
-
-	/**
-	 * Failure message
-	 * @var string
-	 */
-	protected $failure_message = null;
 
 	/**
 	 * Fields
@@ -103,17 +79,12 @@ abstract class AbstractCp extends AbstractCallable
 	 */
 	protected $field_names = array();
 
-	/**
-	 * Field slugs
-	 * @var array
-	 */
-	protected $field_slugs = array();
 
 	/**
-	 * Field types
-	 * @var array
+	 * Failure message
+	 * @var string
 	 */
-	protected $field_types = null;
+	protected $failure_message = null;
 
 	/**
 	 * Form
@@ -144,78 +115,6 @@ abstract class AbstractCp extends AbstractCallable
 	 * @var array
 	 */
 	protected $hidden = array();
-
-	/**
-	 * Include types
-	 * @var array
-	 */
-	protected $include_types = array();
-
-	/**
-	 * ID
-	 * @var mixed
-	 */
-	protected $id = null;
-
-	/**
-	 * The instance
-	 * @var object
-	 */
-	protected static $instance;
-
-	/**
-	 * Limit results
-	 * @var integer
-	 */
-	protected $limit = 0;
-
-	/**
-	 * New or edit
-	 * @var string
-	 */
-	protected $mode = null;
-
-	/**
-	 * The model used
-	 * @var object
-	 */
-	protected $model = null;
-
-	/**
-	 * Namespace
-	 * @var strign
-	 */
-	protected $namespace = null;
-
-	/**
-	 * Offset
-	 * @var integer
-	 */
-	protected $offset = null;
-
-	/**
-	 * Offset URI
-	 * @var string
-	 */
-	protected $offset_uri = null;
-
-	/**
-	 * Order by field slug
-	 * @var string
-	 */
-	protected $order_by = null;
-
-	/**
-	 * Pagination count
-	 * @var integer
-	 */
-	protected $pagination = null;
-
-	/**
-	 * Pagination URI before marker
-	 * @var string
-	 */
-	protected $pagination_uri = null;
 
 	/**
 	 * Render
@@ -265,17 +164,7 @@ abstract class AbstractCp extends AbstractCallable
 	 */
 	protected $standard_columns = array();
 
-	/**
-	 * Stream
-	 * @var mixed
-	 */
-	protected $stream = null;
 
-	/**
-	 * Stream fields
-	 * @var array
-	 */
-	protected $stream_fields = null;
 
 	/**
 	 * Success message
@@ -312,18 +201,6 @@ abstract class AbstractCp extends AbstractCallable
 	 * @var boolean
 	 */
 	protected $view_override = false;
-
-	/**
-	 * Enable saving
-	 * @var boolean
-	 */
-	protected $enable_save = true;
-
-	/**
-	 * Select
-	 * @var array
-	 */
-	protected $select = null;
 
 	/**
 	 * Construct and bring in assets
@@ -365,34 +242,7 @@ abstract class AbstractCp extends AbstractCallable
 		return $this;
 	}
 
-	/**
-	 * Filters
-	 * @param  array  $filters
-	 * @return object
-	 */
-	public function filters(array $filters = array())
-	{
-		$this->filters = $filters;
-
-		return $this;
-	}
-
-	/**
-	 * Is subclass of Entry
-	 * @param  string  $subclass 
-	 * @param  string  $class
-	 * @return boolean
-	 */
-	public function isSubclassOfEntry($subclass, $class = 'Pyro\Module\Streams_core\Core\Model\Entry')
-	{
-		if ( ! is_string($subclass)) return false;
-
-		if ( ! class_exists($subclass)) return false;
-
-		$reflection = new \ReflectionClass($subclass);
-
-		return $reflection->isSubclassOf($class);
-	}
+	
 
 	/**
 	 * Buttons
@@ -406,71 +256,9 @@ abstract class AbstractCp extends AbstractCallable
 		return $this;
 	}
 
-	/**
-	 * Set defaults
-	 * @param  array  $defaults 
-	 * @return object           
-	 */
-	public function defaults(array $defaults = array())
-	{
-		$this->defaults = $defaults;
-
-		return $this;
-	}
-
 	public function disableFormOpen($disable_form_open = true)
 	{
 		$this->data->disable_form_open = $disable_form_open;
-
-		return $this;
-	}
-
-	/**
-	 * Set enable saving
-	 * @param  boolean $enable_saving 
-	 * @return object               
-	 */
-	public function enableSave($enable_save = false)
-	{
-		$this->enable_save = $enable_save;
-
-		return $this;
-	}
-
-	/**
-	 * Set excluded types
-	 * @param  array  $exclude_types 
-	 * @return object
-	 */
-	public function excludeTypes(array $exclude_types = array())
-	{
-		$this->exclude_types = $exclude_types;
-
-		return $this;
-	}
-
-	/**
-	 * Set included types
-	 * @param  array  $include_types 
-	 * @return object                
-	 */
-	public function includeTypes(array $include_types = array())
-	{
-		$this->include_types = $include_types;
-
-		return $this;
-	}
-
-	/**
-	 * Set fields
-	 * @param  string  $columns
-	 * @param  boolean $exclude
-	 * @return object           
-	 */
-	public function fields($columns = '*', $exclude = false)
-	{		
-		$this->columns = is_string($columns) ? array($columns) : $columns;
-		$this->exclude = $exclude;
 
 		return $this;
 	}
@@ -513,128 +301,8 @@ abstract class AbstractCp extends AbstractCallable
 		return $this;
 	}
 
-	/**
-	 * Get the instance
-	 * @param  boolean $render 
-	 * @return object         
-	 */
-	protected static function instance($render = null)
-	{
-		$instance = new static;
 
-		$instance->render = $render;
 
-		return $instance;
-	}
-
-	/**
-	 * Set the limit
-	 * @param  integer $limit 
-	 * @return object         
-	 */
-	public function limit($limit = 0)
-	{
-		$this->limit = $limit;
-
-		return $this;
-	}
-
-	/**
-	 * On query callback
-	 * @param  function $callback 
-	 * @return object           
-	 */
-	public function onQuery(Closure $callback = null)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	/**
-	 * On saved callback
-	 * @param  function $callback 
-	 * @return object            
-	 */
-	public function onSaved(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	/**
-	 * On saving callback
-	 * @param  function $callback 
-	 * @return object            
-	 */
-	public function onSaving(Closure $callback)
-	{
-		$this->addCallback(__FUNCTION__, $callback);
-
-		return $this;
-	}
-
-	/**
-	 * Set order direction
-	 * @param  string $direction 
-	 * @return object            
-	 */
-	public function orderDirection($direction = 'asc')
-	{
-		$this->direction = $direction;
-
-		return $this;
-	}
-
-	/**
-	 * Set order by
-	 * @param  string $column 
-	 * @return object         
-	 */
-	public function orderBy($column = null)
-	{
-		$this->order_by = $column;
-
-		return $this;
-	}
-
-	/**
-	 * Set pagination config
-	 * @param  [type] $pagination     [description]
-	 * @param  [type] $pagination_uri [description]
-	 * @return [type]                 [description]
-	 */
-	public function pagination($limit = null, $pagination_uri = null)
-	{
-		$this->limit = $limit;
-		$this->pagination_uri = $pagination_uri;
-		
-		// -------------------------------------
-		// Find offset URI from array
-		// -------------------------------------
-
-		if (is_numeric($this->limit))
-		{
-			$segs = explode('/', $this->pagination_uri);
-			$this->offset_uri = count($segs)+1;
-
-			$this->offset = ci()->input->get('page');
-
-			// Calculate actual offset if not first page
-			if ( $this->offset > 0 )
-			{
-				$this->offset = ($this->offset - 1) * $this->limit;
-			}
-		}
-		else
-		{
-			$this->offset_uri = null;
-			$this->offset = 0;
-		}
-
-		return $this;
-	}
 
 	/**
 	 * Set the redirect
@@ -703,7 +371,7 @@ abstract class AbstractCp extends AbstractCallable
 	 */
 	public function render($return = false)
 	{
-		$method = camel_case('render'.$this->render);
+		$method = $this->getTriggerMethod();
 
 		if (method_exists($this, $method))
 		{
@@ -713,18 +381,6 @@ abstract class AbstractCp extends AbstractCallable
 		if ($return) return $this->data->content;
 		
 		ci()->template->build($this->view_wrapper ?: 'admin/partials/blank_section', $this->data);
-	}
-
-	/**
-	 * Set skipped fields
-	 * @param  array  $skips 
-	 * @return object        
-	 */
-	public function skips(array $skips = array())
-	{
-		$this->skips = $skips;
-
-		return $this;
 	}
 
 	/**
@@ -759,13 +415,6 @@ abstract class AbstractCp extends AbstractCallable
 	public function noFieldsMessage($no_fields_message = null)
 	{
 		$this->data->no_fields_message = $no_fields_message;
-	}
-
-	public function select($select = null)
-	{
-		$this->select = $select;
-
-		return $this;
 	}
 
 	/**
@@ -831,26 +480,6 @@ abstract class AbstractCp extends AbstractCallable
 		$this->view_override = $view_override;
 
 		return $this;
-	}
-
-	protected function mergeData($data = array())
-	{
-		$this->data = (object) array_merge((array) $this->data, (array) $data);
-	}
-
-	/**
-	 * Dynamically get variables from the data object
-	 * @param  string $name
-	 * @return mixed
-	 */
-	public function __get($name)
-	{
-		if (isset($this->data->{$name}))
-		{
-			return $this->data->{$name};
-		}
-
-		return null;
 	}
 
 	/**

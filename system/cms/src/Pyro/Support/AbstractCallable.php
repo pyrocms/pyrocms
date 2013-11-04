@@ -1,5 +1,7 @@
 <?php namespace Pyro\Support;
 
+use Illuminate\Support\Str;
+
 class AbstractCallable
 {
     /**
@@ -27,6 +29,12 @@ class AbstractCallable
     protected $chain_trigger_method;
 
     /**
+     * Chain trigger method prefix
+     * @var string
+     */
+    const TRIGGER_PREFIX = 'trigger';
+
+    /**
      * Get the instance
      * @param  boolean $render 
      * @return object         
@@ -38,6 +46,15 @@ class AbstractCallable
         $instance->chain_trigger_method = $method;
 
         return $instance;
+    }
+
+    /**
+     * Get trigger method
+     * @return string
+     */
+    protected function getTriggerMethod()
+    {
+        return static::TRIGGER_PREFIX.Str::studly($this->chain_trigger_method);
     }
 
 	/**

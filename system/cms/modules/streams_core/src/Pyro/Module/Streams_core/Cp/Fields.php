@@ -42,7 +42,7 @@ class Fields extends AbstractCp
 	}
 
 	/**
-	 * Render assignment form
+	 * trigger assignment form
 	 * @param  string $stream_slug   
 	 * @param  string $namespace     
 	 * @param  integer $assignment_id 
@@ -50,7 +50,7 @@ class Fields extends AbstractCp
 	 */
 	public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
 	{
-		// The renderForm() method is shared with assignmentForm() and namespaceForm()
+		// The triggerForm() method is shared with assignmentForm() and namespaceForm()
 		$instance = static::instance('form');
 
 		$instance->data->stream = Data\Streams::getStream($stream_slug, $namespace);
@@ -78,14 +78,14 @@ class Fields extends AbstractCp
 	}
 
 	/**
-	 * Render field form in namespace
+	 * trigger field form in namespace
 	 * @param  string $namespace 
 	 * @param  integer $field_id 
 	 * @return object
 	 */
 	public static function namespaceForm($namespace, $field_id = null)
 	{
-		// The renderForm() method is shared with assignmentForm() and namespaceForm()
+		// The triggerForm() method is shared with assignmentForm() and namespaceForm()
 		$instance = static::instance('form');
 
 		$instance->data->namespace = $namespace;
@@ -106,23 +106,23 @@ class Fields extends AbstractCp
 	}
 
 	// --------------------------------------------------------------------------
-	// RENDER METHODS
+	// trigger METHODS
 	// --------------------------------------------------------------------------
-	// Render methods cannot be used directly.
-	// The corresponding render method will run when you call the render() at the end of any chain of methods.
+	// trigger methods cannot be used directly.
+	// The corresponding trigger method will run when you call the trigger() at the end of any chain of methods.
 	// 
 	// i.e.
-	// Cp\Fields::table()->modifier()->modifier()->modifier()->render();
+	// Cp\Fields::table()->modifier()->modifier()->modifier()->trigger();
 	// 
-	// In this example, render() will call renderTable() because the first static method was table().
+	// In this example, trigger() will call triggerTable() because the first static method was table().
 	// 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Render assignments table
+	 * trigger assignments table
 	 * @return string
 	 */
-	protected function renderAssignmentsTable()
+	protected function triggerAssignmentsTable()
 	{
 		$this->data->buttons = $this->buttons;
 
@@ -153,10 +153,10 @@ class Fields extends AbstractCp
 	}
 
 	/**
-	 * Render namespace table
+	 * trigger namespace table
 	 * @return string 
 	 */
-	protected function renderNamespaceTable()
+	protected function triggerNamespaceTable()
 	{
 		$this->data->buttons = $this->buttons;
 
@@ -218,7 +218,7 @@ class Fields extends AbstractCp
 	 *
 	 * see docs for more.
 	 */
-	protected function renderForm()
+	protected function triggerForm()
 	{
 
 		if ($_POST and ci()->input->post('field_type'))
