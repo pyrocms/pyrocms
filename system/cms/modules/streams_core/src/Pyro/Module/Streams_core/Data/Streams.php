@@ -55,7 +55,7 @@ class Streams extends AbstractData
 			'about'				=> $about,
 		);
 
-		$stream['view_options']	= (isset($extra['view_options']) and is_array($extra['view_options'])) ? $extra['view_options'] : array('id', 'created');
+		$stream['view_options']	= (isset($extra['view_options']) and is_array($extra['view_options'])) ? $extra['view_options'] : array('id', 'created_at');
 		$stream['title_column']	= isset($extra['title_column']) ? $extra['title_column'] : null;
 		$stream['sorting']		= isset($extra['sorting']) ? $extra['sorting'] : 'title';
 		$stream['permissions']	= isset($extra['permissions']) ? $extra['permissions'] : null;
