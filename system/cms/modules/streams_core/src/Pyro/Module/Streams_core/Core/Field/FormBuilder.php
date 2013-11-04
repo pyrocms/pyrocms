@@ -16,7 +16,7 @@ use Pyro\Module\Streams_core\Core\Model;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Form
+class FormBuilder
 {
 	/**
 	 * The events that have run
@@ -514,7 +514,6 @@ class Form
 		{
 			if ($type = $this->entry->getFieldType($field->field_slug))
 			{	
-				$type->setUnformattedValue($this->entry->getUnformattedValue($field->field_slug));
 				$type->setDefaults($this->defaults);
 				$type->setStream($this->entry->getStream());
 
@@ -526,7 +525,7 @@ class Form
 				// jst set it to null.
 
 				// Return the raw value as well - can be useful
-				$fields[$field->field_slug]['value']			= $this->entry->getUnformattedValue($field->field_slug);
+				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
 
 				// Get the acutal form input
 				$fields[$field->field_slug]['input'] 			= $type->getForm();	

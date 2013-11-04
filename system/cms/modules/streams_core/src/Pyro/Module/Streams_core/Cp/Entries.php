@@ -62,17 +62,10 @@ class Entries extends AbstractCp
 	 */
 	public static function table($stream_slug, $stream_namespace = null, $pagination = null, $pagination_uri = null, $extra = array())
 	{	
-		// Prepare the stream, model and render method
+		// Prepare the stream, model and trigger method
 		$instance = static::instance(__FUNCTION__);
 
-		if ($instance->isSubclassOfEntry($stream_slug))
-		{
-			$instance->model = new $stream_slug;
-		}
-		else
-		{
-			$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
-		}
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
 
 		$instance->query = $instance->model->newQuery();
 
@@ -111,10 +104,10 @@ class Entries extends AbstractCp
 
 
 	/**
-	 * Render table
+	 * trigger table
 	 * @return void
 	 */
-	protected function renderTable()
+	protected function triggerTable()
 	{
 		$this->data->buttons		= $this->buttons;
 
@@ -130,30 +123,21 @@ class Entries extends AbstractCp
 			$this->query = $query;
 		}
 
-		$parsed_columns = $this->parseColumnsAndFieldMaps($this->columns);
-
-		$this->data->view_options = $this->columns = $parsed_columns['columns'];
-
-		$this->model
-			->setFieldMaps($parsed_columns['field_maps'])
-			->setViewOptions($this->columns);
-
-		if ( ! empty($this->select))
-		{
-			$select = $this->select;
-		}
-		else
-		{
-			$select = $this->columns;
-		}
+		$this->model->setViewOptions($this->data->view_options);
 
   		$this->data->entries = $this->query
 			->enableAutoEagerLoading(true)
 			->take($this->limit)
 			->skip($this->offset)
-			->get($select, $this->exclude);
+			->get($this->select, $this->exclude);
 
-  		$this->data->view_options 	= $this->model->getViewOptions();
+		$this->data->view_options =	$this->model->getCleanViewOptions();
+
+/*  		$this->data->entries = $this->query
+			->enableAutoEagerLoading(true)
+			->take($this->limit)
+			->skip($this->offset)
+			->get($select, $this->exclude);*/
 
   		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
 
@@ -206,7 +190,7 @@ class Entries extends AbstractCp
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
 
-		// Prepare the stream, model and render method
+		// Prepare the stream, model and trigger method
 		$instance = static::instance(__FUNCTION__);
 
 		if ($instance->isSubclassOfEntry($mixed))
@@ -217,16 +201,16 @@ class Entries extends AbstractCp
 			{
 				$id = $stream_namespace;
 
-				$instance->entry = $instance->entry->setFormat(false)->find($id);
+				$instance->entry = $instance->entry->find($id);
 			}
 		}
 		elseif ($mixed instanceof Model\Entry and $mixed->getKey())
 		{
-			$instance->entry = $mixed->unformatted();
+			$instance->entry = $mixed;
 		}
 		else
 		{
-			$instance->entry = Model\Entry::stream($mixed, $stream_namespace)->setFormat(false);
+			$instance->entry = Model\Entry::stream($mixed, $stream_namespace);
 
 			if ($id)
 			{
@@ -234,14 +218,16 @@ class Entries extends AbstractCp
 			}
 		}
 
+		$instance->entry->asEloquent();
+
 		return $instance;	
 	}
 
 	/**
-	 * Render the form
-	 * @return string The rendered HTML
+	 * trigger the form
+	 * @return string The triggered HTML
 	 */
-	public function renderForm()
+	protected function triggerForm()
 	{
 		$this->fireOnSaving($this->entry);
 		
