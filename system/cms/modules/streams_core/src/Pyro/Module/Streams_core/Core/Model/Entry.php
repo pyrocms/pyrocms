@@ -15,6 +15,8 @@ use Pyro\Module\Streams_core\Core\Field\FormBuilder;
  */
 class Entry extends Eloquent
 {
+    protected $columns = array('*');
+
     /**
      * The attributes that aren't mass assignable
      * @var array
@@ -185,8 +187,9 @@ class Entry extends Eloquent
      */
     public static function stream($stream_slug, $stream_namespace = null, Entry $instance = null)
     {
-        if ( ! $instance)
-        {
+        if (static::isSubclassOfEntry($stream_slug)) {
+            $instance = new $stream_slug;
+        } elseif ( ! $instance) {
             $instance = new static;
         }
 
@@ -229,6 +232,18 @@ class Entry extends Eloquent
         $instance->setFields($instance->assignments->getFields($instance->stream));
 
         return static::$instance = $instance;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+
+    public function setColumns($columns = array('*'))
+    {
+        $this->columns = $columns;
+
+        return $this;
     }
 
     /**
@@ -445,6 +460,9 @@ class Entry extends Eloquent
      */
     public function save(array $options = array(), $skips = array())
     {
+        // Allways the format as eloquent for saving
+        $this->asEloquent();
+
         $fields = $this->getFields();
 
         $insert_data = array();
@@ -467,20 +485,17 @@ class Entry extends Eloquent
             $this->setAttribute('updated', time());
         }
 
-        // Reset values if the unformatted entry is available
-        if (($unformatted = $this->unformatted()) instanceof Entry)
-        {
-            if ($this->replicated)
-            {
-                $attributes = array_except($unformatted->getAttributes(), array($this->getKeyName()));
-            }
-            else
-            {
-                $attributes = $unformatted->getAttributes();
-            }
 
-            $this->setRawAttributes($attributes);
+        if ($this->replicated)
+        {
+            $attributes = array_except($this->getAttributes(), array($this->getKeyName()));
         }
+        else
+        {
+            $attributes = $this->getAttributes();
+        }
+
+        $this->setRawAttributes($attributes);
 
         if ( ! $fields->isEmpty())
         {
@@ -749,9 +764,9 @@ class Entry extends Eloquent
      * @param  array  $columns [description]
      * @return array
      */
-    public function getAllColumnsExclude(array $columns = array())
+    public function getAllColumnsExclude()
     {
-       return array_diff($this->getAllColumns(), $columns);
+       return array_diff($this->getAllColumns(), $this->model->getColumns());
     }
 
     /**
@@ -780,6 +795,28 @@ class Entry extends Eloquent
         }
 
         return $this->view_options;
+    }
+
+    public function getCleanViewOptions()
+    {
+        $columns = array();
+
+        foreach ($this->getViewOptions() as $key => $column) {
+
+            if (is_string($key)) {
+                
+                $segments = explode(':', $key);
+
+                $columns[] = $segments[count($segments)-1];
+            
+            } else {
+
+                $columns[] = $column;
+
+            }
+        }
+
+        return $columns;
     }
 
     /**
@@ -1008,6 +1045,23 @@ class Entry extends Eloquent
         return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
     }
 
+    /**
+     * Is subclass of Entry
+     * @param  string  $subclass 
+     * @param  string  $class
+     * @return boolean
+     */
+    public static function isSubclassOfEntry($subclass, $class = 'Pyro\Module\Streams_core\Core\Model\Entry')
+    {
+        if ( ! is_string($subclass)) return false;
+
+        if ( ! class_exists($subclass)) return false;
+
+        $reflection = new \ReflectionClass($subclass);
+
+        return $reflection->isSubclassOf($class);
+    }
+
     public function toOutputArray()
     {
         $output = array();
@@ -1100,13 +1154,12 @@ class Entry extends Eloquent
 
     /**
      * New collection instance
-     * @param  array  $entries             
-     * @param  array  $unformatted_entries 
+     * @param  array  $entries
      * @return object
      */
-    public function newCollection(array $entries = array(), array $unformatted_entries = array())
+    public function newCollection(array $entries = array())
     {
-        return new Collection\EntryCollection($entries, $unformatted_entries);
+        return new Collection\EntryCollection($entries);
     }
 
     /**
@@ -1199,8 +1252,8 @@ class Entry extends Eloquent
         return parent::__call($method, $parameters);
     }
 
-    public function __toString()
+    public function toJson($options = 0)
     {
-        return json_encode($this->toOutputArray());
+        return json_encode($this->toOutputArray(), $options);
     }
 }

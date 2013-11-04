@@ -283,7 +283,7 @@ class Relationship extends AbstractField
 		/**
 		 * Stash the title_column just in case nothing is defined later
 		 */
-		$entries = $entries->unformatted()->toArray();
+		$entries = $entries->asEloquent()->toArray();
 
 		header('Content-type: application/json');
 		echo json_encode(array('entries' => $entries));

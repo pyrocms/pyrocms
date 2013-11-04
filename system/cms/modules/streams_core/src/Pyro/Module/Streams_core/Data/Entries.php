@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core\Data;
 
 use Closure;
-use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\Core\Model\Entry;
 use Pyro\Module\Streams_core\Core\Support\AbstractData;
 
 class Entries extends AbstractData
@@ -15,9 +15,14 @@ class Entries extends AbstractData
 	 * @param  boolean $plugin           
 	 * @return object                    
 	 */
-	public static function getEntry($stream_slug, $stream_namespace = null, $id = null, $format = true, $plugin = true)
+	public static function getEntry($stream_slug, $stream_namespace = null, $id = null)
 	{
-		return Model\Entry::stream($stream_slug, $stream_namespace)->setFormat($format)->setPlugin($plugin)->find($id);
+		if ($entry = Entry::stream($stream_slug, $stream_namespace)->find($id) and $entry instanceof Entry)
+		{
+			return $entry->asString();
+		}
+		
+		return null;
 	}
 
 	/**
@@ -27,13 +32,22 @@ class Entries extends AbstractData
 	 * @param  array  $params           
 	 * @return array
 	 */
-	public static function getEntries($stream_slug = null, $stream_namespace = null, $params = array())
+	public static function getEntries($stream_slug = null, $stream_namespace = null)
 	{
-		$model = Model\Entry::stream($stream_slug, $stream_namespace);
+		$instance = static::instance(__FUNCTION__);
 
-		$params['columns'] = ! empty($params['columns']) ? $params['columns'] : null; 
+		$instance->model = Model\Entry::stream($stream_slug, $stream_namespace);
+	}
 
-		return $model->get($params['columns']);
+	protected function triggerGetEntries()
+	{
+		$this->model->setViewOptions($this->data->view_options);
+
+		return $this->query
+			->enableAutoEagerLoading(true)
+			->take($this->limit)
+			->skip($this->offset)
+			->get($this->select, $this->exclude);
 	}
 
 	/**
@@ -59,7 +73,7 @@ class Entries extends AbstractData
 	 */
 	public static function getEntryFields($stream_slug, $stream_namespace = null, $id = null)
 	{
-			$entry = Model\Entry::stream($mixed, $stream_namespace);
+			$entry = Entry::stream($mixed, $stream_namespace);
 
 			if ($id)
 			{
