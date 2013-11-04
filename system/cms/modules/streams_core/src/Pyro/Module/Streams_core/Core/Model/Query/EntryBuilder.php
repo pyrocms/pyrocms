@@ -171,8 +171,6 @@ class EntryBuilder extends Builder
     {
     	$relations = array();
 
-    	$view_options = $this->model->getColumns();
-
     	$view_options = $this->model->getAllColumns();
 
     	if ($this->isEnableAutoEagerLoading() and ! empty($view_options))
