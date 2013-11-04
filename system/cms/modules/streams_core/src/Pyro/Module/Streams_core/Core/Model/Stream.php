@@ -183,7 +183,7 @@ class Stream extends Eloquent
 
 		$attributes['is_hidden']		= isset($attributes['is_hidden']) ? $attributes['is_hidden'] : false;
 		$attributes['sorting']			= isset($attributes['sorting']) ? $attributes['sorting'] : 'title';
-		$attributes['view_options']		= isset($attributes['view_options']) ? $attributes['view_options'] : array('id', 'created');
+		$attributes['view_options']		= isset($attributes['view_options']) ? $attributes['view_options'] : array('id', 'created_at');
 
 		$schema = ci()->pdb->getSchemaBuilder();
 
