@@ -9,11 +9,11 @@ class Migration_Improve_search_index extends CI_Migration
         
         // Rename cp_edit_uri to just cp_uri
         //$table->renameColumn('cp_edit_uri', 'cp_uri');
-        ci()->pdb->statement('ALTER TABLE `'.SITE_REF.'_search_index` CHANGE `cp_edit_uri` `cp_uri` VARCHAR(255) NOT NULL  DEFAULT "";');
+        ci()->pdb->statement('ALTER TABLE `'.SITE_REF.'_search_index` CHANGE `cp_edit_uri` `cp_uri` VARCHAR(255) NOT NULL DEFAULT "";');
 
         // Rename cp_edit_uri to just cp_uri
         //$table->renameColumn('entry_key', 'entry_singular');
-        ci()->pdb->statement('ALTER TABLE `'.SITE_REF.'_search_index` CHANGE `entry_key` `entry_singular` VARCHAR(255) NOT NULL  DEFAULT "";');
+        ci()->pdb->statement('ALTER TABLE `'.SITE_REF.'_search_index` CHANGE `entry_key` `entry_singular` VARCHAR(255) NOT NULL DEFAULT "";');
 
 
         // Add the new fields for Sentry
