@@ -88,9 +88,9 @@ class EntryBuilder extends Builder
     {
 		$this->parseColumnsAndFieldMaps();
 		
-		if (empty($columns) or $this->hasAsterisk($columns)) {
+		if (empty($columns)) {
 			$columns = $this->model->getColumns();
-		} elseif ((empty($columns) or $this->hasAsterisk($columns)) and $exclude) {
+		} elseif (empty($columns) and $exclude) {
 			$columns = $this->model->getAllColumnsExclude();
 		}
 
@@ -117,11 +117,15 @@ class EntryBuilder extends Builder
         {
             array_unshift($columns, $this->model->getTable().'.'.$this->model->getKeyName());
         }
+        elseif ($this->hasAsterisk($columns))
+        {
+        	$columns = $this->model->getAllColumns();
+        }
 
         // Require foreign keys
     	foreach ($columns as $key => $column) {
 
-    		$relation_method = Str::studly($column);
+    		$relation_method = camel_case($column);
 
     		if (method_exists($this->model, $relation_method)) {
 
@@ -172,11 +176,13 @@ class EntryBuilder extends Builder
 
     	$view_options = $this->model->getColumns();
 
+    	$view_options = $this->model->getAllColumns();
+
     	if ($this->isEnableAutoEagerLoading() and ! empty($view_options))
     	{
     		if (in_array('created_by', $view_options))
     		{
-    			$relations[] = 'createdBy';
+    			$relations[] = 'createdByUser';
     		}
 
 	    	foreach ($view_options as $column) {
@@ -187,7 +193,7 @@ class EntryBuilder extends Builder
 	    	} 		
     	}
 
-    	return $relations;
+    	return array_unique($relations);
     }
 
 	protected function parseColumnsAndFieldMaps($columns = array())
@@ -252,11 +258,11 @@ class EntryBuilder extends Builder
 	{
 		if ( ! $relation) return null;
 
-		if ($type = $this->getModel()->getFieldType($relation) and $type->hasRelation())
+		if ($type = $this->model->getFieldType($relation) and $type->hasRelation())
 		{
 			return $type->relation();	
 		}
-		elseif (method_exists($this->getModel(), $relation) and $instance = $this->getModel()->$relation())
+		elseif (method_exists($this->model, $relation) and $instance = $this->model->$relation())
 		{
 			if ($instance instanceof Relation) {
 				return $instance;

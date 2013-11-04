@@ -346,8 +346,6 @@ class Type
 				$type->add_edit_field_assets();
 			}
 		}
-
-		unset($types);
 	}
 
 	/**
