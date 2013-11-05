@@ -124,7 +124,7 @@ class EntryBuilder extends Builder
 
     		$relation_method = camel_case($column);
 
-    		if (method_exists($this->model, $relation_method)) {
+    		if (method_exists($this->model, $relation_method) or $this->getRelationAttribute($column)) {
 
     			$relation = $this->getRelation($relation_method);
 
@@ -264,7 +264,7 @@ class EntryBuilder extends Builder
 			}
 		}
 
-		return $this;
+		return null;
 	}
 
 	public function hasRelation($attribute = null)
