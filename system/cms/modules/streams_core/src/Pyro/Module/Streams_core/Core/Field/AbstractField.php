@@ -583,7 +583,7 @@ abstract class AbstractField
 	 */
 	public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreign_key = null, $stream = null)
 	{
-		$foreign_key = $foreign_key ? $foreign_key : 'id';
+		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
 		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
 	}
