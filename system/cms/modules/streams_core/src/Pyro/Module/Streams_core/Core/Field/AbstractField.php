@@ -572,7 +572,7 @@ abstract class AbstractField
 	{
 		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsTo($related, $foreign_key);
+		return $this->model->belongsTo($related, $foreign_key.'_id');
 	}
 
 	/**
