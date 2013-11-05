@@ -156,19 +156,21 @@ class MY_Controller extends MX_Controller
 
         ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
         ci()->themeManager = $this->themeManager = new ThemeManager();
-        
+
         // Let the Theme Manager where our Template library thinks themes
         $this->themeManager->setLocations($this->template->theme_locations());
 
         ci()->widgetManager = $this->widgetManager = new WidgetManager();
 
-        FieldType::registerAddonFieldTypes();
-
         // activate the autoloader
         $loader->register();
 
-		// now that we have a list of enabled modules
-		$this->load->library('events');
+        // now that we have a list of enabled modules
+        $this->load->library('events');
+
+        FieldType::init();
+
+        FieldType::registerAddonFieldTypes();
 
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
