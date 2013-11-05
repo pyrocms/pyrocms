@@ -364,7 +364,16 @@ class Entry extends Eloquent
      */
     public function isStringFormat()
     {
-        return ($this->format == static::FORMAT_PLUGIN);
+        return ($this->format == static::FORMAT_STRING);
+    }
+
+    /**
+     * What format dawg?
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->format;
     }
 
     /**
@@ -1126,7 +1135,7 @@ class Entry extends Eloquent
     }
 
     public function getAttribute($attribute)
-    {        
+    {
         return $this->getOutput($attribute);
     }
 
