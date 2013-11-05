@@ -136,10 +136,9 @@ class Relationship extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		if($entry = $this->getRelation())
-		{		
-			// @todo - turn this into a streams edit url
-			return $entry->getTitleColumnValue();
+		if ($entry = $this->relation())
+		{
+			return $entry->first()->getTitleColumnValue();
 		}
 
 		return null;
@@ -155,9 +154,9 @@ class Relationship extends AbstractField
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelation())
+		if ($entry = $this->relation())
 		{
-			return $entry->toArray();
+			return $entry->first();
 		}
 
 		return null;

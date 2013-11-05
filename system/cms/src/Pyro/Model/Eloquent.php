@@ -204,7 +204,7 @@ abstract class Eloquent extends Model
 
         if (is_null($foreignKey))
         {
-            $foreignKey = snake_case($relation).'_id';
+            $foreignKey = snake_case($relation).'_id';  // This should never be used.. we always need a foreign key before we get here meow
         }
 
         $instance = new $related;
