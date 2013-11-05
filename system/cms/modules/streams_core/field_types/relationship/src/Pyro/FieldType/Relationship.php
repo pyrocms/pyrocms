@@ -280,7 +280,7 @@ class Relationship extends AbstractField
 		
 		$fields = array_unique(
 			array(
-				$field_type->getParameter('value_field'),
+				$field_type->getParameter('value_field', 'id'),
 				$field_type->getParameter('label_field'),
 				$field_type->getParameter('search_field'),
 				)
