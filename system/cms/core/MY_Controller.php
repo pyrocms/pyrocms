@@ -162,6 +162,14 @@ class MY_Controller extends MX_Controller
 
         ci()->widgetManager = $this->widgetManager = new WidgetManager();
 
+        FieldType::registerAddonFieldTypes();
+
+        // activate the autoloader
+        $loader->register();
+
+		// now that we have a list of enabled modules
+		$this->load->library('events');
+
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
 
@@ -180,14 +188,6 @@ class MY_Controller extends MX_Controller
                 continue;
             }
         }
-
-        FieldType::registerAddonFieldTypes();
-
-        // activate the autoloader
-        $loader->register();
-
-		// now that we have a list of enabled modules
-		$this->load->library('events');
 
 		if ($this->module) {
             // If this a disabled module then show a 404
