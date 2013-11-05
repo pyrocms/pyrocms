@@ -94,3 +94,50 @@ if (!function_exists('shorten_url')) {
 	}
 
 }
+
+if ( ! function_exists('redirect'))
+{
+	/**
+	 * Header Redirect
+	 *
+	 * Header redirect in two flavors
+	 * For very fine grained control over headers, you could use the Output
+	 * Library's set_header() function.
+	 *
+	 * @param	string	the URL
+	 * @param	string	the method: location or refresh
+	 * @param	int
+	 * @return	string
+	 */
+	function redirect($uri = '', $method = 'auto', $code = NULL)
+	{
+		if ( ! preg_match('#^https?://#i', $uri))
+		{
+			$uri = site_url($uri);
+		}
+		// IIS environment likely? Use 'refresh' for better compatibility
+		if ($method === 'auto' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== FALSE)
+		{
+			$method = 'refresh';
+		}
+		elseif ($method !== 'refresh' && (empty($code) OR ! is_numeric($code)))
+		{
+			// Reference: http://en.wikipedia.org/wiki/Post/Redirect/Get
+			$code = (isset($_SERVER['REQUEST_METHOD'], $_SERVER['SERVER_PROTOCOL'])
+					&& $_SERVER['REQUEST_METHOD'] === 'POST'
+					&& $_SERVER['SERVER_PROTOCOL'] === 'HTTP/1.1')
+				? 303 : 302;
+		}
+
+		switch ($method)
+		{
+			case 'refresh':
+				header('Refresh:0;url='.$uri);
+				break;
+			default:
+				header('Location: '.$uri, TRUE, $code);
+				break;
+		}
+		exit;
+	}
+}
