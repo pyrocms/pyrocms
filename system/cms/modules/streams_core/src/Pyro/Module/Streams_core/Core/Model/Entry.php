@@ -177,49 +177,49 @@ class Entry extends Eloquent
     {
         if (static::isSubclassOfEntry($stream_slug)) {
             $instance = new $stream_slug;
-        }
-
-        if ( ! $instance) {
-            $instance = new static;
-        }
-
-        if ($stream_slug instanceof Stream)
-        {
-            $instance->stream = $stream_slug;
-        }
-        elseif (is_numeric($stream_slug))
-        {
-            if ( ! $instance->stream = Stream::find($stream_slug))
-            {
-                $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
-
-                throw new Exception\StreamNotFoundException($message);
+        } else {
+            if ( ! $instance) {
+                $instance = new static;
             }
-        } 
-        else 
-        {
-            if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+
+            if ($stream_slug instanceof Stream)
             {
-                $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
-
-                throw new Exception\StreamNotFoundException($message);
+                $instance->stream = $stream_slug;
             }
+            elseif (is_numeric($stream_slug))
+            {
+                if ( ! $instance->stream = Stream::find($stream_slug))
+                {
+                    $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
+
+                    throw new Exception\StreamNotFoundException($message);
+                }
+            } 
+            else 
+            {
+                if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+                {
+                    $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+
+                    throw new Exception\StreamNotFoundException($message);
+                }
+            }
+
+            $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
+
+            $stream_relations = $instance->stream->getModel()->getRelations();
+            
+            // Check if the assignments are already loaded
+            if ( ! isset($stream_relations['assignments']))
+            {
+                // Eager load assignments nested with fields 
+                $instance->stream->load('assignments.field');    
+            }
+
+            $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
+
+            $instance->setFields($instance->assignments->getFields($instance->stream));          
         }
-
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
-
-        $stream_relations = $instance->stream->getModel()->getRelations();
-        
-        // Check if the assignments are already loaded
-        if ( ! isset($stream_relations['assignments']))
-        {
-            // Eager load assignments nested with fields 
-            $instance->stream->load('assignments.field');    
-        }
-
-        $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
-
-        $instance->setFields($instance->assignments->getFields($instance->stream));          
 
         return static::$instance = $instance;
     }
