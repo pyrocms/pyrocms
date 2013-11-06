@@ -89,6 +89,7 @@ class Relationship extends AbstractField
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', '_title_column'),
 				'search_field' => $this->getParameter('search_field', '_title_column'),
+				'value' => $this->getValueEntry(),
 				),
 			false
 			);
@@ -118,6 +119,7 @@ class Relationship extends AbstractField
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
+				'value' => $this->getValueEntry(ci()->input->get($this->getFilterSlug('contains'))),
 				),
 			false
 			);
@@ -276,7 +278,7 @@ class Relationship extends AbstractField
 
 
 		/**
-		 * Get our entries
+		 * Get our fields for the select
 		 */
 		
 		$fields = array_unique(
@@ -297,5 +299,32 @@ class Relationship extends AbstractField
 
 		header('Content-type: application/json');
 		echo json_encode(array('entries' => $entries));
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	protected function getValueEntry($value = false)
+	{
+		// Determine a value
+		$value = ($value) ? $value : $this->value;
+
+		// Break apart the stream
+		$stream = explode('.', $this->getParameter('stream'));
+		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
+
+
+		// Get our fields for the select		
+		$fields = array_unique(
+			array(
+				$this->getParameter('value_field', 'id'),
+				$this->getParameter('label_field', $stream->title_column),
+				$this->getParameter('search_field', $stream->title_column),
+				)
+			);
+
+		// Boom
+		return Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->select($fields)->where($this->getParameter('value_field'), '=', $value)->first();
 	}
 }

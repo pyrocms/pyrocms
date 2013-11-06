@@ -4,12 +4,16 @@
 
 		var selectize = $('#<?php echo $form_slug; ?>');
 
-		selectize.selectize({
+		selectize = selectize.selectize({
 			maxItems: 1,
 			valueField: '<?php echo $value_field; ?>',
 			labelField: '<?php echo $label_field; ?>',
 			searchField: '<?php echo $search_field; ?>',
-			options: [],
+			
+			<?php if ($value): ?>
+			options: [<?php echo json_encode($value->toArray()); ?>],
+			<?php endif; ?>
+
 			create: false,
 			render: {
 				/*item: function(item, escape) {
@@ -39,6 +43,10 @@
 				});
 			}
 		});
+
+		<?php if ($value): ?>
+		selectize[0].selectize.setValue('<?php echo $value->{$value_field}; ?>');
+		<?php endif; ?>
 
 		// Add our loader
 		$('#<?php echo $form_slug; ?>').parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
