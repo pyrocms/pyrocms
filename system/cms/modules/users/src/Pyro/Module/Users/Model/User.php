@@ -45,7 +45,7 @@ class User extends EloquentUser
     public static function getUserOptions($group = null, $query = false)
     {
     	if ($query) {
-    		$users = static::limit(10)->where('username', 'LIKE', $query.'%')->orWhere('email', 'LIKE', $query.'%')->get();
+    		$users = static::limit(10)->where('username', 'LIKE', '%'.$query.'%')->orWhere('email', 'LIKE', '%'.$query.'%')->get();
     	} else {
     		$users = static::limit(10)->get();
     	}
