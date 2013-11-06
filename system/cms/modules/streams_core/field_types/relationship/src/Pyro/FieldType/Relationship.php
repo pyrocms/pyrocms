@@ -139,7 +139,8 @@ class Relationship extends AbstractField
 	{
 		if ($entry = $this->relation())
 		{
-			return $entry->first()->getTitleColumnValue();
+			//return $entry->first()->getTitleColumnValue();
+			return '@todo - Ryan / Oz';
 		}
 
 		return null;
