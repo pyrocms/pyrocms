@@ -105,7 +105,7 @@ class Entry extends Eloquent
      * The name of the "created at" column.
      * @var string
      */
-    const CREATED_BY = 'created_by';
+    const CREATED_BY        = 'created_by';
 
     const FORMAT_ELOQUENT   = 'eloquent';
 
@@ -177,49 +177,49 @@ class Entry extends Eloquent
     {
         if (static::isSubclassOfEntry($stream_slug)) {
             $instance = new $stream_slug;
-        } else {
-            if ( ! $instance) {
-                $instance = new static;
-            }
-
-            if ($stream_slug instanceof Stream)
-            {
-                $instance->stream = $stream_slug;
-            }
-            elseif (is_numeric($stream_slug))
-            {
-                if ( ! $instance->stream = Stream::find($stream_slug))
-                {
-                    $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
-
-                    throw new Exception\StreamNotFoundException($message);
-                }
-            } 
-            else 
-            {
-                if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
-                {
-                    $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
-
-                    throw new Exception\StreamNotFoundException($message);
-                }
-            }
-
-            $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
-
-            $stream_relations = $instance->stream->getModel()->getRelations();
-            
-            // Check if the assignments are already loaded
-            if ( ! isset($stream_relations['assignments']))
-            {
-                // Eager load assignments nested with fields 
-                $instance->stream->load('assignments.field');    
-            }
-
-            $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
-
-            $instance->setFields($instance->assignments->getFields($instance->stream));          
         }
+
+        if ( ! $instance) {
+            $instance = new static;
+        }
+
+        if ($stream_slug instanceof Stream)
+        {
+            $instance->stream = $stream_slug;
+        }
+        elseif (is_numeric($stream_slug))
+        {
+            if ( ! $instance->stream = Stream::find($stream_slug))
+            {
+                $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
+
+                throw new Exception\StreamNotFoundException($message);
+            }
+        } 
+        else 
+        {
+            if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
+            {
+                $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
+
+                throw new Exception\StreamNotFoundException($message);
+            }
+        }
+
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
+
+        $stream_relations = $instance->stream->getModel()->getRelations();
+        
+        // Check if the assignments are already loaded
+        if ( ! isset($stream_relations['assignments']))
+        {
+            // Eager load assignments nested with fields 
+            $instance->stream->load('assignments.field');    
+        }
+
+        $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
+
+        $instance->setFields($instance->assignments->getFields($instance->stream));          
 
         return static::$instance = $instance;
     }
@@ -424,6 +424,13 @@ class Entry extends Eloquent
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
         throw new Exception\EntryNotFoundException;
+    }
+
+    public function getRelation($attribute)
+    {
+        if (isset($this->relations[$attribute])) return $this->relations[$attribute];
+
+        return null;
     }
 
     /**
@@ -1088,7 +1095,7 @@ class Entry extends Eloquent
     public function getDataOutput($attribute)
     {
         if ($type = $this->getFieldType($attribute)) {
-            return $type->{static::FORMAT_DATA.'Output'}($attribute);
+            return $type->dataOutput($attribute);
         }
 
         return $this->getEloquentOutput($attribute);
@@ -1097,7 +1104,7 @@ class Entry extends Eloquent
     public function getPluginOutput($attribute)
     {
         if ($type = $this->getFieldType($attribute)) {
-            return $type->{static::FORMAT_PLUGIN.'Output'}($attribute);
+            return $type->pluginOutput($attribute);
         }
 
         return $this->getEloquentOutput($attribute);
@@ -1115,13 +1122,15 @@ class Entry extends Eloquent
 
         if ( ! empty($this->field_maps[$attribute])) {
 
-            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->toArray()), true, false, array(
+            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->asPlugin()->toOutputArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
         
-        } elseif ($type = $this->getFieldType($attribute)) {
-
+        } else {
+            
+            $type = $this->getFieldType($attribute);
+            
             return $type->stringOutput($attribute);
         
         }
@@ -1132,11 +1141,6 @@ class Entry extends Eloquent
     public function getOutput($attribute)
     {
         return $this->{'get'.Str::studly($this->format).'Output'}($attribute);
-    }
-
-    public function getAttribute($attribute)
-    {
-        return $this->getOutput($attribute);
     }
 
     /**
@@ -1241,7 +1245,7 @@ class Entry extends Eloquent
      * @param  array   $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+/*    public function __call($method, $parameters)
     {
         // Handle dynamic relation as join
         if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches))
@@ -1251,7 +1255,7 @@ class Entry extends Eloquent
 
         return parent::__call($method, $parameters);
     }
-
+*/
     public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);
