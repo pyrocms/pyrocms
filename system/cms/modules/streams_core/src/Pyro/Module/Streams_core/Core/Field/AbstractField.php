@@ -312,12 +312,12 @@ abstract class AbstractField
 	{
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
-		if ($value = $this->getPostValue($field_slug))
-		{
-			return $value;
-		}
-		elseif ($value = $this->entry->getOriginal($field_slug))
-		{
+		if (ci()->input->post()) {
+
+			return $this->getPostValue($field_slug);
+
+		} elseif ($value = $this->entry->getOriginal($field_slug)) {
+
 			return $value;
 		}
 
