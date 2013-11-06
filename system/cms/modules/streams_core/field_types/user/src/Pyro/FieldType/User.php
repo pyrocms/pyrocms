@@ -79,6 +79,7 @@ class User extends AbstractField
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
 				'stream_namespace' => $this->stream->stream_namespace,
+				'value' => $this->getValueEntry(),
 				),
 			false
 			);
@@ -110,6 +111,7 @@ class User extends AbstractField
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
 				'stream_namespace' => $this->stream->stream_namespace,
+				'value' => $this->getValueEntry(ci()->input->get($this->getFilterSlug('contains'))),
 				),
 			false
 			);
@@ -177,5 +179,23 @@ class User extends AbstractField
 
 		header('Content-type: application/json');
 		echo json_encode(array('users' => $results));
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Get value for dropdown
+	 * @param  mixed $value string or bool
+	 * @return object
+	 */
+	protected function getValueEntry($value = false)
+	{
+		// Determine a value
+		$value = ($value) ? $value : $this->value;
+
+		// Boom
+		return UserModel::find($value);
 	}
 }
