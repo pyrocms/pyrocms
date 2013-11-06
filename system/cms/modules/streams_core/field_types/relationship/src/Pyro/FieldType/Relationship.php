@@ -305,6 +305,11 @@ class Relationship extends AbstractField
 	// -------------------------	UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Get value for dropdown
+	 * @param  mixed $value string or bool
+	 * @return object
+	 */
 	protected function getValueEntry($value = false)
 	{
 		// Determine a value
