@@ -139,10 +139,9 @@ class Relationship extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		if ($entry = $this->relation())
+		if ($entry = $this->getRelationResult())
 		{
-			//return $entry->first()->getTitleColumnValue();
-			return '@todo - Ryan / Oz';
+			return $entry->getTitleColumnValue();
 		}
 
 		return null;
@@ -158,9 +157,9 @@ class Relationship extends AbstractField
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->relation())
+		if ($entry = $this->getRelationResult())
 		{
-			return $entry->first();
+			return $entry->toArray();
 		}
 
 		return null;
