@@ -136,9 +136,9 @@ class Relationship extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		if ($entry = $this->relation())
+		if ($entry = $this->getRelationResult())
 		{
-			return $entry->first()->getTitleColumnValue();
+			return $entry->getTitleColumnValue();
 		}
 
 		return null;
@@ -154,9 +154,9 @@ class Relationship extends AbstractField
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->relation())
+		if ($entry = $this->getRelationResult())
 		{
-			return $entry->first();
+			return $entry->toArray();
 		}
 
 		return null;
@@ -282,7 +282,7 @@ class Relationship extends AbstractField
 		/**
 		 * Stash the title_column just in case nothing is defined later
 		 */
-		$entries = $entries->asEloquent()->toArray();
+		$entries = $entries->toArray();
 
 		header('Content-type: application/json');
 		echo json_encode(array('entries' => $entries));

@@ -45,7 +45,7 @@ class User extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		if ($user = $this->getRelation())
+		if ($user = $this->getRelationResult())
 		{
 			return anchor('admin/users/edit/'.$user->id, $user->username);	
 		}

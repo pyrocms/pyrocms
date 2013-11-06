@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core\Core\Model\Query;
 
+use Closure;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -124,13 +125,14 @@ class EntryBuilder extends Builder
 
     		$relation_method = camel_case($column);
 
-    		if (method_exists($this->model, $relation_method) or $this->getRelationAttribute($column)) {
-
-    			$relation = $this->getRelation($relation_method);
+    		if ($relation = $this->model->getRelationAttribute($column)) {
 
 				if ($relation instanceof BelongsToMany) {
+				
 					unset($columns[$key]);
+				
 				} elseif ($relation instanceof BelongsTo) {
+
 					$foreign_key = $relation->getForeignKey();
 					$columns[] = $foreign_key;
 
@@ -233,7 +235,7 @@ class EntryBuilder extends Builder
 		// and is error prone while we remove the developer's own where clauses.
 		$query = Relation::noConstraints(function() use ($me, $relation)
 		{	
-			return $me->getRelationAttribute($relation);
+			return $me->model->getRelationAttribute($relation);
 		});
 
 		$nested = $this->nestedRelations($relation);
@@ -249,27 +251,24 @@ class EntryBuilder extends Builder
 		return $query;
 	}
 
-	public function getRelationAttribute($relation = null)
-	{
-		if ( ! $relation) return null;
+    public function getRelationAttribute($attribute = null)
+    {
+        if (method_exists($this->model, $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
+            
+            return $relation;
+        
+        } elseif ($type = $this->model->getFieldType($attribute) and $type->hasRelation()) {
 
-		if ($type = $this->model->getFieldType($relation) and $type->hasRelation())
-		{
-			return $type->relation();	
-		}
-		elseif (method_exists($this->model, $relation) and $instance = $this->model->$relation())
-		{
-			if ($instance instanceof Relation) {
-				return $instance;
-			}
-		}
+            return $type->relation();
+        
+        }
 
 		return null;
 	}
 
 	public function hasRelation($attribute = null)
 	{
-		return $this->getRelationAttribute($attribute) instanceof Relation;
+		return $this->model->getRelationAttribute($attribute) instanceof Relation;
 	}
 
     public function relationAsJoin($attribute)
@@ -278,7 +277,7 @@ class EntryBuilder extends Builder
 
         if ($this->hasRelation($attribute)) {
             
-            $relation = $this->getRelationAttribute($attribute);
+            $relation = $this->model->getRelationAttribute($attribute);
 
 			$related_table = $relation->getRelated()->getTable();
 
@@ -483,7 +482,7 @@ class EntryBuilder extends Builder
 		if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 			if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 				
-				if ($order_by_relation = $this->getRelationAttribute($order_by) and $order_by_relation instanceof Relation)
+				if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation)
 				{
 					$order_by = $order_by_relation->getForeignKey();
 				}

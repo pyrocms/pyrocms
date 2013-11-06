@@ -97,21 +97,16 @@ class Field extends Eloquent
         {
             $type->setStream($this->stream);
         }
-        else
+        elseif ($stream)
         {
             $type->setStream($stream);
         }
-
-        if ($entry)
+        elseif ($entry instanceof Entry)
         {   
             if ( ! $stream and ! $this->stream)
             {
                 $type->setStream($entry->getModel()->getStream());
             }
-
-            $type->setModel($entry->getModel());
-            
-            $type->setEntryBuilder($entry->getModel()->newQuery());
         }
 
         return $type;

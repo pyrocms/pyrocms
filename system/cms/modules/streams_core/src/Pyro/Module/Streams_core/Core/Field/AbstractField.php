@@ -85,17 +85,17 @@ abstract class AbstractField
 
 	public function stringOutput()
 	{
-		return $this->entry->getOriginalOutput($this->fieldSlug());
+		return $this->entry->getOriginal($this->fieldSlug());
 	}
 
 	public function pluginOutput()
 	{
-		return $this->entry->getEloquentOutput($this->fieldSlug());
+		return $this->entry->getOriginal($this->fieldSlug());
 	}
 
 	public function dataOutput()
 	{
-		return $this->pluginOutput();
+		return $this->entry->getOriginal($this->fieldSlug());
 	}
 
 	/**
@@ -121,17 +121,6 @@ abstract class AbstractField
 	public function setMethod($method = 'new')
 	{
 		$this->method = $method;
-
-		return $this;
-	}
-
-	/**
-	 * Set entry builder
-	 * @param object $builder
-	 */
-	public function setEntryBuilder(Model\Query\EntryBuilder $builder = null)
-	{
-		$this->builder = $builder;
 
 		return $this;
 	}
@@ -252,17 +241,6 @@ abstract class AbstractField
 	public function setStream(Model\Stream $stream = null)
 	{
 		$this->stream = $stream;
-
-		return $this;
-	}
-
-	/**
-	 * Set the model
-	 * @param object $model
-	 */
-	public function setModel(Model\Entry $model = null)
-	{
-		$this->model = $model;
 
 		return $this;
 	}
@@ -525,7 +503,7 @@ abstract class AbstractField
 	 * Get the results for the field type relation
 	 * @return [type] [description]
 	 */
-	public function getRelation($field_slug = null)
+	public function getRelationResult($field_slug = null)
 	{
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 		
@@ -534,20 +512,15 @@ abstract class AbstractField
 
 		if ($this->hasLocalForeingKey() and empty($original)) return null;
 
-		// If not, if there is a relation defined, query it
-		if ($this->hasRelation())
-		{
-			$relations = $this->entry->getRelations();
-
-			// Return the related model if it was eager loaded
-			if (isset($relations[$field_slug]))
-			{
-				return $relations[$field_slug];
-			}
-			else
-			{
-				return $this->relation()->getResults();
-			}
+		// If the relation result exists, return it
+		if ($relation = $this->entry->getRelation($field_slug)) {
+			
+			return $relation;
+		
+		} elseif ($this->hasRelation()) {
+		
+			return $this->relation()->getResults();
+		
 		}
 
 		return null;
@@ -572,7 +545,7 @@ abstract class AbstractField
 	{
 		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsTo($related, $foreign_key);
+		return $this->entry->belongsTo($related, $foreign_key);
 	}
 
 	/**
@@ -585,7 +558,7 @@ abstract class AbstractField
 	{
 		$foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
-		return $this->model->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
+		return $this->entry->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
 	}
 
 	/**
@@ -602,7 +575,7 @@ abstract class AbstractField
 
 		$other_key = $other_key ? $other_key : 'related_id';
 
-		return $this->model->belongsToManyEntries($related, $foreign_key, $other_key, $this->getParameter('stream', $stream), $pivot_suffix);
+		return $this->entry->belongsToManyEntries($related, $foreign_key, $other_key, $this->getParameter('stream', $stream), $pivot_suffix);
 	}
 
 	/**
@@ -684,6 +657,6 @@ abstract class AbstractField
 	 */
 	public function __toString()
 	{
-		return $this->stringOutput();
+		return json_encode($this);
 	}
 }
