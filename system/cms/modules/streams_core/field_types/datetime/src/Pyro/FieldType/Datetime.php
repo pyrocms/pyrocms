@@ -83,6 +83,14 @@ class Datetime extends AbstractField
 			} else {
 				$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
 			}
+		} else {
+
+			// So we have a post value - grab it
+			if (empty($this->value) or $this->value == $this->zero_datetime) {
+				
+			} else {
+				$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
+			}
 		}
 
 		// This is our form output type
