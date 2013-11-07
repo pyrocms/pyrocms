@@ -12,7 +12,7 @@ abstract class Plugin
 	 * Holds attribute data
 	 */
 	private $attributes = array();
-	
+
 	/**
 	 * Holds content between tags
 	 */
@@ -26,7 +26,7 @@ abstract class Plugin
 	 * @param array $content Content of the tags if any
 	 * @param array $attributes Attributes passed to the plugin
 	 */
-	public function set_data($content, $attributes)
+	public function set_data($content, $attributes, $data)
 	{
 		$content and $this->content = $content;
 
@@ -42,16 +42,16 @@ abstract class Plugin
 					$set = true;
 				}
 			}
-			
+
 			if ($parse_params)
 			{
 				// For each attribute, let's see if we need to parse it.
 				foreach ($attributes as $key => $attr)
 				{
-					$attributes[$key] = $this->parse_parameter($attr);
+					$attributes[$key] = $this->parse_parameter($attr, $data);
 				}
 			}
-			
+
 			$this->attributes = $attributes;
 		}
 	}
@@ -133,7 +133,7 @@ abstract class Plugin
 		{
 			// Change our [[ ]] to {{ }}. Sneaky.
 			$value = str_replace(array('[[', ']]'), array('{{', '}}'), $value);
-			
+
 			$default_data = array(
 				'segment_1' => $this->uri->segment(1),
 				'segment_2' => $this->uri->segment(2),
@@ -143,7 +143,7 @@ abstract class Plugin
 				'segment_6' => $this->uri->segment(6),
 				'segment_7' => $this->uri->segment(7)
 			);
-	
+
 			// user info
 			if ($this->current_user) {
 				$default_data['user_id']	= $this->current_user->id;
@@ -187,7 +187,7 @@ abstract class Plugin
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);
-		
+
 		// Parse output with LEX if desired
 		if ($parse_output) {
 			$content = $this->parser->parse_string($content, ((array)$vars), true);
@@ -195,7 +195,7 @@ abstract class Plugin
 
 		return $content;
 	}
-	
+
 	/**
 	 * Render a view located in your theme folder.
 	 *
@@ -209,18 +209,18 @@ abstract class Plugin
 	{
 		// default to .html extension like the {{ theme:partial }} plugin
 		$view = strpos($view, '.') ? $view : $view . '.html';
-		
+
 		// save the existing view array so we can restore it
 		$save_path = $this->load->get_view_paths();
 
 		// add this view location to the array
 		$this->load->set_view_path($this->load->get_var('template_views'));
-		
+
 		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
-		
+
 		// Put the old array back
 		$this->load->set_view_path($save_path);
-		
+
 		// Parse output with LEX if desired
 		if ($parse_output) {
 			$content = $this->parser->parse_string($content, ((array)$vars), true);
@@ -240,7 +240,7 @@ class Plugins
 		$this->_ci->load->helper('plugin');
 	}
 
-	public function locate($plugin, $attributes, $content)
+	public function locate($plugin, $attributes, $content, $data)
 	{
 		if (strpos($plugin, ':') === false)
 		{
@@ -253,13 +253,13 @@ class Plugins
 		{
 			if (file_exists($path = $directory.'plugins/'.$class.'.php'))
 			{
-				return $this->_process($path, $class, $method, $attributes, $content);
+				return $this->_process($path, $class, $method, $attributes, $content, $data);
 			}
 
 			else {
 				if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 				{
-					return $this->_process($path, $class, $method, $attributes, $content);
+					return $this->_process($path, $class, $method, $attributes, $content, $data);
 				}
 			}
 
@@ -273,7 +273,7 @@ class Plugins
 					// Set the module as a package so I can load stuff
 					$this->_ci->load->add_package_path($dirname);
 
-					$response = $this->_process($path, $class, $method, $attributes, $content);
+					$response = $this->_process($path, $class, $method, $attributes, $content, $data);
 
 					$this->_ci->load->remove_package_path($dirname);
 
@@ -302,7 +302,7 @@ class Plugins
 	 *
 	 * @return bool|mixed
 	 */
-	private function _process($path, $class, $method, $attributes, $content)
+	private function _process($path, $class, $method, $attributes, $content, $data)
 	{
 		$class = strtolower($class);
 		$class_name = 'Plugin_'.ucfirst($class);
@@ -324,7 +324,7 @@ class Plugins
 		}
 
 		$class_init = new $class_name;
-		$class_init->set_data($content, $attributes);
+		$class_init->set_data($content, $attributes, $data);
 
 		if ( ! is_callable(array($class_init, $method)))
 		{
