@@ -380,7 +380,7 @@ class Fields
 				{
 					$values[$stream_field->field_slug] = null;
 				}
-				elseif ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
+				elseif (is_array($_POST) &&  ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
 				{
 					// If this is a new entry and there is no post data,
 					// we see if:
@@ -413,11 +413,11 @@ class Fields
 
 					// There is the possibility that this could be an array
 					// post value, so we check for that as well.
-					if (isset($_POST[$stream_field->field_slug]))
+					if (is_array($_POST) && isset($_POST[$stream_field->field_slug]))
 					{
 						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
 					}
-					elseif (isset($_POST[$stream_field->field_slug.'[]']))
+					elseif (is_array($_POST) && isset($_POST[$stream_field->field_slug.'[]']))
 					{
 						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug.'[]');
 					}
