@@ -78,7 +78,7 @@ class Datetime extends AbstractField
 		if (ci()->input->post($this->form_slug)) {
 
 			// So we have a post value - grab it
-			if (empty($this->value) or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
+			if ($this->value == null or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
 				
 			} else {
 				$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
@@ -86,7 +86,7 @@ class Datetime extends AbstractField
 		} else {
 
 			// So we have a post value - grab it
-			if (empty($this->value) or $this->value == $this->zero_datetime) {
+			if ($this->value == null or $this->value == $this->zero_datetime) {
 				
 			} else {
 				$datetime = Carbon::createFromFormat($this->storage_format, $this->value);
