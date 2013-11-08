@@ -29,156 +29,279 @@
 						<li><a href="#page-layout-script" data-toggle="tab"><span><?php echo lang('pages:script_label');?></span></a></li>
 					</ul>
 
-					<div class="tab-content">
+					<!-- .tab-content -->
+					<div class="tab-content panel-body">
 
 						<div class="tab-pane active" id="page-layout-basic">
 
-							<fieldset>
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="title">
+									<?php echo lang('global:title');?> <span>*</span>
+								</label>
+								
+								<div class="col-lg-10">
+									<?php echo form_input('title', $page_type->title, 'id="text" maxlength="60" class="form-control"'); ?>
+								</div>
 
-								<ul>
+							</div>
+							</div>
+								
 
-									<li>
-										<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
-										<div class="input"><?php echo form_input('title', $page_type->title, 'id="text" maxlength="60"'); ?></div>
-									</li>
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="title">
+									<?php echo lang('global:slug');?> <span>*</span>
+								</label>
 
-									<li>
-										<label for="title"><?php echo lang('global:slug');?> <span>*</span></label>
-										<div class="input">
-										<?php if ($this->method == 'create'): ?>
-										<?php echo form_input('slug', $page_type->slug, 'id="slug" maxlength="60"'); ?>
-										<?php else: ?>
-										<em><?php echo $page_type->slug; ?></em>
-										<?php endif; ?>
-										</div>
-									</li>
-
-		                            <li>
-		                                <label for="description"><?php echo lang('global:description');?></label>
-		                                <div class="input"><?php echo form_input('description', $page_type->description, 'id="description"'); ?></div>
-		                            </li>
-
-									<?php if ($this->method == 'edit'): ?>
-										<?php echo form_hidden('old_slug', $page_type->slug); ?>
+								<div class="col-lg-10">
+									<?php if ($this->method == 'create'): ?>
+									<?php echo form_input('slug', $page_type->slug, 'id="slug" class="form-control" maxlength="60"'); ?>
+									<?php else: ?>
+									<em><?php echo $page_type->slug; ?></em>
 									<?php endif; ?>
+								</div>
+								
+							</div>
+							</div>
 
-									<li>
-										<label for="stream_slug"><?php echo lang('page_types:select_stream');?> <span>*</span><?php if ($this->method == 'new'): ?><br><small><?php echo lang('page_types:stream_instructions'); ?></small><?php endif; ?></label>
 
-										<div class="input">
+	                        <div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="description">
+									<?php echo lang('global:description');?>
+								</label>
+								
+								<div class="col-lg-10">
+									<?php echo form_input('description', $page_type->description, 'id="description" class="form-control"'); ?>
+								</div>
+	                            
+	                        </div>
+	                        </div>
 
-											<?php if ($this->method == 'create'): ?>
+							
+							<?php if ($this->method == 'edit'): ?>
+								<?php echo form_hidden('old_slug', $page_type->slug); ?>
+							<?php endif; ?>
 
-												<?php echo form_dropdown('stream_id', array('new' => lang('page_types:auto_create_stream')) + $streams_dropdown, isset($page_type->stream_slug) ? $page_type->stream_slug : false); ?>
+							
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="stream_slug">
+									<?php echo lang('page_types:select_stream');?> <span>*</span><?php if ($this->method == 'new'): ?><br><small><?php echo lang('page_types:stream_instructions'); ?></small><?php endif; ?>
+								</label>
 
-											<?php else: ?>
+								<div class="col-lg-10">
 
-												<p><em><?php echo $this->db->limit(1)->select('stream_name')->where('id', $page_type->stream_id)->get(STREAMS_TABLE)->row()->stream_name; ?></em></p>
+									<?php if ($this->method == 'create'): ?>
 
-											<?php endif; ?>
-										</div>
-									</li>
+										<?php echo form_dropdown('stream_id', array('new' => lang('page_types:auto_create_stream')) + $streams_dropdown, isset($page_type->stream_slug) ? $page_type->stream_slug : false); ?>
 
-									<li>
-										<label for="theme_layout"><?php echo lang('page_types:theme_layout_label');?> <span>*</span></label>
-										<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_type->theme_layout ? $page_type->theme_layout : 'default'); ?></div>
-									</li>
+									<?php else: ?>
 
-									<li>
-										<label for="save_as_files"><?php echo lang('page_types:save_as_files');?><br><small><?php echo lang('page_types:saf_instructions'); ?></small></label>
-										<div class="input"><?php echo form_checkbox('save_as_files', 'y', $page_type->save_as_files == 'y' ? true : false, 'id="save_as_files"'); ?></div>
-									</li>
+										<p><em><?php echo $this->db->limit(1)->select('stream_name')->where('id', $page_type->stream_id)->get(STREAMS_TABLE)->row()->stream_name; ?></em></p>
 
-									<li>
-										<label for="content_label"><?php echo lang('page_types:content_label');?><br><small><?php echo lang('page_types:content_label_instructions'); ?></small></label>
-										<div class="input"><?php echo form_input('content_label', $page_type->content_label, 'id="content_label" maxlength="60"'); ?></div>
-									</li>
+									<?php endif; ?>
+								</div>
+							
+							</div>
+							</div>
 
-									<li>
-										<label for="title_label"><?php echo lang('page_types:title_label');?><br><small><?php echo lang('page_types:title_label_instructions'); ?></small></label>
-										<div class="input"><?php echo form_input('title_label', $page_type->title_label, 'id="title_label" maxlength="100"'); ?></div>
-									</li>
+							
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="theme_layout">
+									<?php echo lang('page_types:theme_layout_label');?> <span>*</span>
+								</label>
+								
+								<div class="col-lg-10">
+									<?php echo form_dropdown('theme_layout', $theme_layouts, $page_type->theme_layout ? $page_type->theme_layout : 'default'); ?>
+								</div>
+							
+							</div>
+							</div>
 
-								</ul>
 
-							</fieldset>
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="save_as_files">
+									<?php echo lang('page_types:save_as_files');?><br><small><?php echo lang('page_types:saf_instructions'); ?></small>
+								</label>
+								
+								<div class="col-lg-10">
+									<?php echo form_checkbox('save_as_files', 'y', $page_type->save_as_files == 'y' ? true : false, 'id="save_as_files"'); ?>
+								</div>
+							
+							</div>
+							</div>
+
+
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="content_label">
+									<?php echo lang('page_types:content_label');?><br><small><?php echo lang('page_types:content_label_instructions'); ?></small>
+								</label>
+								
+								<div class="col-lg-10">
+									<?php echo form_input('content_label', $page_type->content_label, 'id="content_label" class="form-control" maxlength="60"'); ?>
+								</div>
+							
+							</div>
+							</div>
+
+							
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="title_label">
+									<?php echo lang('page_types:title_label');?><br><small><?php echo lang('page_types:title_label_instructions'); ?></small>
+								</label>
+
+								<div class="col-lg-10">
+									<?php echo form_input('title_label', $page_type->title_label, 'id="title_label" class="form-control" maxlength="100"'); ?>
+								</div>
+							
+							</div>
+							</div>
 
 						</div>
+						<!-- /.tab-pane -->
 
+						
+						<!-- .tab-pane -->
 						<div class="tab-pane" id="page-layout-layout">
 
-							<fieldset>
+							<div class="form-group">
+							<div class="row">
+							<div class="col-lg-12">
+								
+								<label for="html_editor">
+									<?php echo lang('page_types:layout'); ?> <span>*</span>
+								</label>
 
-								<ul>
-									<li>
-										<label for="html_editor"><?php echo lang('page_types:layout'); ?> <span>*</span></label>
-										<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_type->body == '' ? '<h2>{{ title }}</h2>' : $page_type->body), 'rows' => 50, 'data-editor' => 'html')); ?>
-									</li>
-								</ul>
-
-							</fieldset>
+								<br/>
+								
+								<div>
+									<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_type->body == '' ? '<h2>{{ title }}</h2>' : $page_type->body), 'rows' => 50, 'data-editor' => 'html')); ?>
+								</div>
+							
+							</div>
+							</div>
+							</div>
 
 						</div>
+						<!-- /.tab-pane -->
 
-						<!-- Meta data tab -->
+						
+						<!-- .tab-pane -->
 						<div class="tab-pane" id="page-layout-meta">
 
-							<fieldset>
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="meta_title">
+									<?php echo lang('pages:meta_title_label');?>
+								</label>
+								
+								<div class="col-lg-10">
+									<input type="text" id="meta_title" class="form-control" name="meta_title" maxlength="255" value="<?php echo $page_type->meta_title; ?>" />
+								</div>
+								
+							</div>
+							</div>
 
-							<ul>
-								<li>
-									<label for="meta_title"><?php echo lang('pages:meta_title_label');?></label>
-									<div class="input"><input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page_type->meta_title; ?>" /></div>
-								</li>
+								
+							<div class="form-group">
+							<div class="row">
+								
+								<label class="col-lg-2" for="meta_keywords">
+									<?php echo lang('pages:meta_keywords_label');?>
+								</label>
+								
+								<div class="col-lg-10">
+									<input type="text" id="meta_keywords" class="tags" name="meta_keywords" maxlength="255" value="<?php echo $page_type->meta_keywords; ?>" />
+								</div>
+							
+							</div>
+							</div>
 
-								<li>
-									<label for="meta_keywords"><?php echo lang('pages:meta_keywords_label');?></label>
-									<div class="input"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page_type->meta_keywords; ?>" /></div>
-								</li>
+							
+							<div class="form-group">
+							<div class="row">
 
-								<li>
-									<label for="meta_description"><?php echo lang('pages:meta_desc_label');?></label>
-									<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page_type->meta_description, 'rows' => 5)); ?>
-								</li>
-							</ul>
+								<label class="col-lg-2" for="meta_description">
+									<?php echo lang('pages:meta_desc_label');?>
+								</label>
 
-							</fieldset>
+								<div class="col-lg-10">
+									<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page_type->meta_description, 'rows' => 5,  'class' => 'form-control')); ?>
+								</div>
+							
+							</div>
+							</div>
 
 						</div>
+						<!-- /.tab-pane -->
 
-						<!-- Design tab -->
+
+						<!-- .tab-pane -->
 						<div class="tab-pane" id="page-layout-css">
 
-							<fieldset>
+							<div class="form-group">
+							<div class="row">
+							<div class="col-lg-12">
 
-							<ul>
-								<li>
-									<label for="css"><?php echo lang('page_types:css_label'); ?></label><br />
-									<?php echo form_textarea('css', $page_type->css, 'class="css_editor" id="css"'); ?>
-								</li>
-							</ul>
+								<label for="css">
+									<?php echo lang('page_types:css_label'); ?>
+								</label>
 
-							</fieldset>
+								<br/>
+
+								<div>
+									<?php echo form_textarea('css', $page_type->css, 'data-editor="css" id="css"'); ?>
+								</div>
+
+							</div>
+							</div>
+							</div>
 
 						</div>
+						<!-- /.tab-pane -->
 
-						<!-- Script tab -->
+
+						<!-- .tab-pane -->
 						<div class="tab-pane" id="page-layout-script">
 
-							<fieldset>
+							<div class="form-group">
+							<div class="row">
+							<div class="col-lg-12">
 
-							<ul>
-								<li>
-									<label for="js">JavaScript</label><br />
-									<?php echo form_textarea('js', $page_type->js, 'class="js_editor" id="js"'); ?>
-								</li>
-							</ul>
+								<label for="js">
+									JavaScript
+								</label>
 
-							</fieldset>
+								<br/>
+
+								<div>
+									<?php echo form_textarea('js', $page_type->js, 'data-editor="js" id="js"'); ?>
+								</div>
+
+							</div>
+							</div>
+							</div>
 
 						</div>
+						<!-- /.tab-pane -->
 
 					</div>
+					<!-- /.tab-content -->
 
 				</div>
 

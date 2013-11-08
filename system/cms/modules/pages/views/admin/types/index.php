@@ -5,13 +5,15 @@
 <div class="p">
 
 
-	<section id="page-title">
-		<h1><?php echo lang('page_types:list_title'); ?></h1>
-	</section>
-
-
 	<!-- .panel -->
 	<section class="panel panel-default">
+
+
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<?php echo lang('page_types:list_title'); ?>
+			</h3>
+		</div>
 
 
 		<?php echo form_open('admin/pages/types/delete');?>
@@ -47,17 +49,12 @@
 				</table>
 
 				<?php else:?>
-					<div class="no_data"><?php echo lang('page_types:no_pages');?></div>
+					<div class="alert alert-info m"><?php echo lang('page_types:no_pages');?></div>
 				<?php endif; ?>
 
 			<?php echo form_close(); ?>
 
-
-		</div>
-		<!-- /.panel-content -->
-
 	</section>
 	<!-- /.panel -->
-
 
 </div>
