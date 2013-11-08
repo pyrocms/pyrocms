@@ -81,9 +81,6 @@ class Datetime extends AbstractField
 			$time = ci()->input->post($this->form_slug.'_time');
 			$date = ci()->input->post($this->form_slug);
 
-			$time = empty($time) ? date('g:i A') : $time;
-			$date = empty($date) ? date($this->datepicker_date_format[1]) : $date;
-
 			// So we have a post value - grab it
 			if ($this->value == null or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
 				
@@ -91,8 +88,10 @@ class Datetime extends AbstractField
 
 				// Yep - are we using time?
 				if ($this->getParameter('use_time', 'no') == 'no') {
+					echo $time;die;
 					return Carbon::createFromFormat($this->datepicker_date_format[1], $date)->hour(0)->minute(0)->second(0)->format($this->storage_format);
-				} else {
+				} elseif ($this->getParameter('use_time') == 'yes' and $time !== null) {
+					echo $time;die;
 					return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $date.' '.$time)->second(0)->format($this->storage_format);
 				}
 			}
@@ -233,20 +232,17 @@ class Datetime extends AbstractField
 	 */
 	public function preSave()
 	{
+		// Make some safety catches
+		$time = ci()->input->post($this->form_slug.'_time');
+		$date = ci()->input->post($this->form_slug);
+
 		// Are we using a datepicker?
 		if ($this->getParameter('input_type', 'datepicker') == 'datepicker' and $this->value != null and ($this->value != $this->zero_datetime and $this->value != $this->zero_time)) {
-
-			// Make some safety catches
-			$time = ci()->input->post($this->form_slug.'_time');
-			$date = ci()->input->post($this->form_slug);
-
-			$time = empty($time) ? date('g:i A') : $time;
-			$date = empty($date) ? date($this->datepicker_date_format[1]) : $date;
 
 			// Yep - are we using time?
 			if ($this->getParameter('use_time', 'no') == 'no') {
 				return Carbon::createFromFormat($this->datepicker_date_format[1], $date)->hour(0)->minute(0)->second(0)->format($this->storage_format);
-			} else {
+			} elseif ($this->getParameter('use_time') == 'yes' and $time !== null) {
 				return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $date.' '.$time)->second(0)->format($this->storage_format);
 			}
 		}
