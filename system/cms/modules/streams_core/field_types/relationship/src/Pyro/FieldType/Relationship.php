@@ -106,13 +106,13 @@ class Relationship extends AbstractField
 	public function filterInput()
 	{
 		// Start the HTML
-		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
+		$html = form_dropdown($this->getFilterSlug('is'), array(), null, 'id="'.$this->getFilterSlug('is').'" class="skip" placeholder="'.$this->field->field_name.'"');
 
 		// Append our JS to the HTML since it's special
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
-				'form_slug' => $this->getFilterSlug('contains'),
+				'form_slug' => $this->getFilterSlug('is'),
 				'field_slug' => $this->field->field_slug,
 				'stream_namespace' => $this->stream->stream_namespace,
 				'stream_param' => $this->getParameter('stream'),
