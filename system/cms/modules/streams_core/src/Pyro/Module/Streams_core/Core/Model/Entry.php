@@ -1109,10 +1109,10 @@ class Entry extends Eloquent
                 'namespace' => $this->stream_namespace
             ));
         
-        } else {
+        } elseif ($attribute !== 'id') {
             
             $type = $this->getFieldType($attribute);
-            
+            if (! is_object($type)) die($attribute);
             return $type->stringOutput($attribute);
         
         }
