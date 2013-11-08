@@ -119,7 +119,7 @@ class Relationship extends AbstractField
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
-				'value' => $this->getValueEntry(ci()->input->get($this->getFilterSlug('contains'))),
+				'value' => null,
 				),
 			false
 			);
@@ -304,31 +304,13 @@ class Relationship extends AbstractField
 	// -------------------------	UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Get value for dropdown
-	 * @param  mixed $value string or bool
-	 * @return object
-	 */
 	protected function getValueEntry($value = false)
 	{
-		// Determine a value
-		$value = ($value) ? $value : $this->value;
-
 		// Break apart the stream
 		$stream = explode('.', $this->getParameter('stream'));
 		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
 
-
-		// Get our fields for the select		
-		$fields = array_unique(
-			array(
-				$this->getParameter('value_field', 'id'),
-				$this->getParameter('label_field', $stream->title_column),
-				$this->getParameter('search_field', $stream->title_column),
-				)
-			);
-
 		// Boom
-		return Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->select($fields)->where($this->getParameter('value_field'), '=', $value)->first();
+		return $this->getRelationResult()->getEntryOptions($stream->title_column);
 	}
 }
