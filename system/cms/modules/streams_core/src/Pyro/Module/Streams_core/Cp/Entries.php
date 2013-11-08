@@ -147,7 +147,7 @@ class Entries extends AbstractCp
   		}
 
   		// @todo - fix pagination
-  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->query->count());
+  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}
