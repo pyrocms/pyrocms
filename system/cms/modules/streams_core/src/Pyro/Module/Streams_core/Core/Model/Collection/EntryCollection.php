@@ -67,13 +67,13 @@ class EntryCollection extends EloquentCollection
 	 * Get entry options
 	 * @return array
 	 */
-	public function getEntryOptions()
+	public function getEntryOptions($title_column = null)
 	{
 		$options = array();
 
 		foreach($this->items as $entry)
 		{
-			$options[$entry->getKey()] = $entry->getTitleColumnValue();
+			$options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
 		}
 
 		return $options;
