@@ -960,24 +960,6 @@ class Entry extends Eloquent
     }
 
     /**
-     * Get entry options
-     * @return array The array of entry options
-     */
-    public function getEntryOptions()
-    {
-        $columns = array();
-
-        $columns[] = $this->getKeyName();
-
-        if ($title_column = $this->getStream()->title_column)
-        {
-            $columns[] = $title_column;
-        }
-
-        return $this->get($columns)->getEntryOptions();
-    }
-
-    /**
      * Get title column value
      * @return mixed The title column value or model key
      */
