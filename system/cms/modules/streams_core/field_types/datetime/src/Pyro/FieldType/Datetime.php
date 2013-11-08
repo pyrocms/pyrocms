@@ -88,10 +88,8 @@ class Datetime extends AbstractField
 
 				// Yep - are we using time?
 				if ($this->getParameter('use_time', 'no') == 'no') {
-					echo $time;die;
 					return Carbon::createFromFormat($this->datepicker_date_format[1], $date)->hour(0)->minute(0)->second(0)->format($this->storage_format);
 				} elseif ($this->getParameter('use_time') == 'yes' and $time !== null) {
-					echo $time;die;
 					return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $date.' '.$time)->second(0)->format($this->storage_format);
 				}
 			}
