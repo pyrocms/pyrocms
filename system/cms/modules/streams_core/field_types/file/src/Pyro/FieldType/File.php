@@ -98,7 +98,9 @@ class File extends AbstractField
 		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
 
 		if (! $return['status']) {
-			ci()->session->set_flashdata('notice', $return['message']);
+
+			// What happened now??
+			ci()->session->set_flashdata('warning', $return['message']);
 
 			return null;
 		} else {

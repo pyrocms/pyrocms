@@ -138,8 +138,9 @@ class Image extends AbstractField
 		if (! $return['status'])
 		{
 			// Shit..
-			ci()->session->set_flashdata('notice', $return['message']);
-			redirect(site_url(uri_string()));
+			ci()->session->set_flashdata('warning', $return['message']);
+			
+			return null;
 		}
 		else
 		{
