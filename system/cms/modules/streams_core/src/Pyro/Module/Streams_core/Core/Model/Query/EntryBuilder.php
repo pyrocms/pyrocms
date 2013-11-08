@@ -77,7 +77,7 @@ class EntryBuilder extends Builder
 			$this->entries = $this->eagerLoadRelations($this->entries);
 		}
 
-		return $this->model->newCollection($this->entries)->asString();
+		return $this->model->newCollection($this->entries);
 	}
 
 	/**
