@@ -119,7 +119,7 @@ class Relationship extends AbstractField
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
-				'value' => null,
+				'value' => false,//$this->getValueEntry(ci()->input->get($this->getFilterSlug('is'))),
 				),
 			false
 			);
@@ -311,6 +311,6 @@ class Relationship extends AbstractField
 		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
 
 		// Boom
-		return $this->getRelationResult()->getEntryOptions($stream->title_column);
+		return $this->getRelationResult();
 	}
 }
