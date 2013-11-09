@@ -119,7 +119,7 @@ class Relationship extends AbstractField
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
-				'value' => false,//$this->getValueEntry(ci()->input->get($this->getFilterSlug('is'))),
+				'value' => $this->filterRelationResults(ci()->input->get($this->getFilterSlug('is'))),
 				),
 			false
 			);
@@ -304,7 +304,7 @@ class Relationship extends AbstractField
 	// -------------------------	UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
-	protected function getValueEntry($value = false)
+	protected function getValueEntry()
 	{
 		// Break apart the stream
 		$stream = explode('.', $this->getParameter('stream'));
@@ -312,5 +312,32 @@ class Relationship extends AbstractField
 
 		// Boom
 		return $this->getRelationResult();
+	}
+
+	/**
+	 * Get the results for the field type relation
+	 * @return [type] [description]
+	 */
+	protected function filterRelationResults($value)
+	{
+		$field_slug = $this->field->field_slug;
+		
+		// Check if we have value
+		$original = $value;
+
+		if ($this->hasLocalForeingKey() and empty($original)) return null;
+
+		// If the relation result exists, return it
+		if ($relation = $this->entry->getRelation($field_slug)) {
+			
+			return $relation;
+		
+		} elseif ($this->hasRelation()) {
+		
+			return $this->relation()->getResults();
+		
+		}
+
+		return null;
 	}
 }

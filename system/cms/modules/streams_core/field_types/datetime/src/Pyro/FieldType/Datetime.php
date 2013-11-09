@@ -191,7 +191,6 @@ class Datetime extends AbstractField
 		// -------------------------------------
 		// Time
 		// -------------------------------------
-		
 		if ($this->getParameter('use_time') == 'yes')
 		{
 			// Input options
