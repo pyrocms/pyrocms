@@ -61,12 +61,9 @@ class EntryBuilder extends Builder
 		// n+1 query issue for the developers to avoid running a lot of queries.
 		if (count($this->entries) > 0)
 		{
-			if ($eager_loads = $this->getViewOptionRelations() and is_array($eager_loads))
+			if ($eager_loads = $this->getViewOptionRelations() and ! empty($eager_loads))
 			{
-				if (is_array($this->eagerLoad))
-				{
-					$eager_loads = array_merge($eager_loads, $this->eagerLoad);	
-				}
+				$eager_loads = array_merge($eager_loads, $this->eagerLoad);
 			}
 
 			if ( ! empty($eager_loads)) {
@@ -173,7 +170,7 @@ class EntryBuilder extends Builder
     {
     	$relations = array();
 
-    	$view_options = $this->model->getAllColumns();
+    	$view_options = $this->model->getColumns();
 
     	if ($this->isEnableAutoEagerLoading() and ! empty($view_options))
     	{
@@ -204,13 +201,17 @@ class EntryBuilder extends Builder
 			// Remove relation: prefix
 			//$key = str_replace('relation:', '', $key);
 
-			if (is_numeric($key))
-			{
+			if (is_numeric($key)) {
+				
 				$columns[] = $value;
-			}
-			else
-			{
-				$columns[] = $key;
+			
+			} else {
+				
+				if ( ! Str::startsWith($key, 'lang:'))
+				{
+					$columns[] = $key;
+				}
+
 				$field_maps[str_replace('relation:', '', $key)] = $value;
 			}
 		}
@@ -253,7 +254,7 @@ class EntryBuilder extends Builder
 
     public function getRelationAttribute($attribute = null)
     {
-        if (method_exists($this->model, $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
+        if (method_exists($this->getModel(), $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
             
             return $relation;
         
