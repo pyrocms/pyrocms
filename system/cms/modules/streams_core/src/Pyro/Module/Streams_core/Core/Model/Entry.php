@@ -1102,14 +1102,14 @@ class Entry extends Eloquent
         // Remove this from all of our prior entryBuilder voodoo
         $attribute = str_replace('relation:', '', $attribute);
 
-        if ( ! empty($this->field_maps[$attribute])) {
+        if ( ! empty($this->field_maps[$attribute]) and $this->getFieldType($attribute)) {
 
             return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->asPlugin()->toOutputArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
         
-        } elseif ($attribute !== 'id' and $attribute !== 'created_at' and $attribute !== 'updated_at') {
+        } elseif ($attribute !== 'id' and $attribute !== 'created_at' and $attribute !== 'updated_at' and $this->getFieldType($attribute)) {
             
             $type = $this->getFieldType($attribute);
 
