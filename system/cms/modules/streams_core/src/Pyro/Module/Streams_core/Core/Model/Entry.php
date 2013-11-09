@@ -614,18 +614,9 @@ class Entry extends Eloquent
 
         // Run through destructs
         foreach ($this->getFields() as $field) {
-
-            // Get the type
-            $type = $field->getType();
-
-            if (method_exists($type, 'entryDestruct')) {
-
-                // Set the entry
-                $type->setEntry($this);
-
-                // DESTRUCT
-                $type->entryDestruct();
-            }
+            
+            $field->getType($this)->entryDestruct();
+        
         }
 
         return parent::delete();
@@ -815,7 +806,7 @@ class Entry extends Eloquent
         return $this->view_options;
     }
 
-    public function getCleanViewOptions()
+    public function getViewOptionsFields()
     {
         $columns = array();
 
@@ -847,16 +838,13 @@ class Entry extends Eloquent
 
         $fields = $this->getFields()->getArrayIndexedBySlug();
 
-        foreach ($this->getViewOptions() as $column)
+        foreach ($this->getViewOptionsFields() as $column)
         {
-            if (isset($fields[$column]))
-            {
-                $field_names[$fields[$column]->field_slug] = isset($fields[$column]) ? $fields[$column]->field_name : lang('streams:column_'.$column);     
-            }
-            else
-            {
-                $field_names[$column] = lang('streams:column_'.$column);
-            }
+            $field_names[$column] = isset($fields[$column]) ? $fields[$column]->field_name : 'lang:streams:'.$column.'.name';
+        }
+
+        foreach ($field_names as &$value) {
+            $value = lang_label($value);
         }
 
         return $field_names;
@@ -1099,20 +1087,15 @@ class Entry extends Eloquent
      */
     public function getStringOutput($attribute)
     {
-        // Remove this from all of our prior entryBuilder voodoo
-        $attribute = str_replace('relation:', '', $attribute);
-
         if ( ! empty($this->field_maps[$attribute])) {
 
-            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->asPlugin()->toOutputArray()), true, false, array(
+            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->toArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
         
-        } elseif ($attribute !== 'id') {
+        } elseif ($type = $this->getFieldType($attribute)) {
             
-            $type = $this->getFieldType($attribute);
-            if (! is_object($type)) die($attribute);
             return $type->stringOutput($attribute);
         
         }
