@@ -98,6 +98,11 @@ abstract class AbstractField
 		return $this->entry->getOriginal($this->fieldSlug());
 	}
 
+	public function relation()
+	{
+		return null;
+	}
+
 	/**
 	 * Set value
 	 * @param mixed $value
@@ -580,11 +585,11 @@ abstract class AbstractField
 
 	/**
 	 * Has relation
-	 * @return boolean [description]
+	 * @return boolean
 	 */
 	public function hasRelation()
 	{
-		return method_exists($this, 'relation') and ($this->relation() instanceof Relation);
+		return ($this->relation() instanceof Relation);
 	}
 
 	/**
@@ -614,14 +619,19 @@ abstract class AbstractField
 		return null;
 	}
 
+	/**
+	 * Ran when an entry is deleted
+	 * @return void
+	 */
+	public function entryDestruct()
+	{}
+
     /**
      * Ran when a namespace is destroyed
      * @return void
      */
     public function namespaceDestruct()
-    {
-            
-    }
+    {}
 
 	/**
 	 * Dynamic method call
