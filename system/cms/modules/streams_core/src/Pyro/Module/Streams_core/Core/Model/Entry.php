@@ -838,9 +838,22 @@ class Entry extends Eloquent
 
         $fields = $this->getFields()->getArrayIndexedBySlug();
 
-        foreach ($this->getViewOptionsFields() as $column)
+        foreach ($this->getViewOptions() as $key => $value)
         {
-            $field_names[$column] = isset($fields[$column]) ? $fields[$column]->field_name : 'lang:streams:'.$column.'.name';
+            if (Str::startsWith($key, 'lang:'))
+            {
+                $field_names[$value] = lang_label($key);
+
+                continue;
+            }
+
+            $value = is_numeric($key) ? $value : $key;
+
+            $segments = explode(':', $value);
+
+            $value = $segments[count($segments)-1];
+
+            $field_names[$value] = isset($fields[$value]) ? $fields[$value]->field_name : 'lang:streams:'.$value.'.name';
         }
 
         foreach ($field_names as &$value) {

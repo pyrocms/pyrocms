@@ -198,9 +198,6 @@ class EntryBuilder extends Builder
 
 		foreach ($this->model->getViewOptions() as $key => $value)
 		{
-			// Remove relation: prefix
-			//$key = str_replace('relation:', '', $key);
-
 			if (is_numeric($key)) {
 				
 				$columns[] = $value;
@@ -212,7 +209,11 @@ class EntryBuilder extends Builder
 					$columns[] = $key;
 				}
 
-				$field_maps[str_replace('relation:', '', $key)] = $value;
+				$segments = explode(':', $key);
+
+				$key = $segments[count($segments)-1];
+
+				$field_maps[$key] = $value;
 			}
 		}
 
