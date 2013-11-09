@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['streams:user.name']                    = 'User';
 $lang['user:add_field']                        	= 'Add User Profile Field';
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully';
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field';

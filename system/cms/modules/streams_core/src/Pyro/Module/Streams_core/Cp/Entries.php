@@ -131,7 +131,7 @@ class Entries extends AbstractCp
 			->skip($this->offset)
 			->get($this->select, $this->exclude);
 
-		$this->data->view_options =	$this->model->getCleanViewOptions();
+		$this->data->view_options =	$this->model->getViewOptionsFields();
 
 /*  		$this->data->entries = $this->query
 			->enableAutoEagerLoading(true)
