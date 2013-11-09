@@ -1,3 +1,4 @@
+<?php if (! empty($filters)): ?>
 <section id="filters">
 
 	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
@@ -17,3 +18,4 @@
 	<?php echo form_close(); ?>
 
 </section>
+<?php endif; ?>
