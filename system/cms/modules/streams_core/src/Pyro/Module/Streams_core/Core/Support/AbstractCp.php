@@ -218,6 +218,13 @@ abstract class AbstractCp extends AbstractDataCp
 		$this->data = new \stdClass;
 	}
 
+	public function skips(array $skips = array())
+	{
+		$this->skips = $skips;
+
+		return $this;
+	}
+
 	/**
 	 * Add URI
 	 * @param string $add_uri
