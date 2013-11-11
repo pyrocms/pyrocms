@@ -66,7 +66,10 @@ class Admin extends Admin_Controller
 			->filters(array('name'))
 			->fields(array(
 				'name',
-				'data' => 'string::{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
+				'data' => array(
+					'format' => 'string',
+					'template' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>'
+				),
 				'lang:streams:column_syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
 			))
 			->redirect('admin/variables')
