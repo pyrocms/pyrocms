@@ -120,7 +120,7 @@ class Field extends AbstractField
     	}
 		elseif($options = $this->getSelectableFields($selectable_fields_namespace))
 		{	
-			$form = form_dropdown($this->form_slug, $options, $this->defaults['data']);
+			$form = form_dropdown($this->form_slug, $options, $this->getDefault());
 		}
     	else
     	{
