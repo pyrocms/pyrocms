@@ -4,7 +4,7 @@ use Pyro\Module\Streams_core\Cp;
 use Pyro\Module\Streams_core\Core\Field;
 use Pyro\Module\Streams_core\Core\Model\Entry;
 use Pyro\Module\Streams_core\Core\Model\Stream;
-use Pyro\Module\Variables\Model\Variable;
+use Pyro\Module\Variables\VariableModel;
 
 /**
  * Admin controller for the variables module
@@ -60,7 +60,7 @@ class Admin extends Admin_Controller
 
 		$extra['return'] = 'admin/variables';
 */
-		Cp\Entries::table('Pyro\Module\Variables\Model\Variable')
+		Cp\Entries::table('Pyro\Module\Variables\VariableModel')
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
 			->filters(array('name'))
@@ -90,10 +90,10 @@ class Admin extends Admin_Controller
 		// Override selected field
 		if (is_string($field_slug))
 		{
-			$defaults['data'] = $field_slug;
+			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		Cp\Entries::form('Pyro\Module\Variables\Model\Variable')
+		Cp\Entries::form('Pyro\Module\Variables\VariableModel')
 			->title(lang('variables:create_title').$form)
 			->successMessage(lang('variables:add_success'))
 			->defaults($defaults)
@@ -111,7 +111,7 @@ class Admin extends Admin_Controller
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
 
-		$variable = Variable::find($id);
+		$variable = VariableModel::find($id);
 
 		$form = $this->selectable_fields_form($variable, '---', true);
 
@@ -129,7 +129,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = null)
 	{
-		$variable = Variable::find($id);
+		$variable = VariableModel::find($id);
 
 		$name = $variable->name;
 

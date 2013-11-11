@@ -1,6 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-use Pyro\Module\Streams_core\Core\Model;
+<?php namespace Pyro\Module\Variables;
 
 /**
  * Variable Library
@@ -13,20 +11,6 @@ use Pyro\Module\Streams_core\Core\Model;
 class Variables {
 
 	private $_vars = null;
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Constructor
-	 *
-	 * Get all the variables and assign them to the vars array
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		ci()->load->driver('Streams');
-	}
 
 	// ------------------------------------------------------------------------
 
@@ -93,16 +77,12 @@ class Variables {
 		if ($this->_vars === null)
 		{
 			$this->_vars = array();
+
 			if ( ! ($cached_vars = ci()->cache->get('variables_library_vars')))
 			{
-				/*$entries = ci()->streams->entries->get_entries(array(
-	    			'stream'    => 'variables',
-	    			'namespace' => 'variables'
-				));*/
+				$entries = VariableModel::all(array('name', 'data'));
 
-				//$entries = Model\Entry::stream('variables', 'variables')->get(array('name', 'data'));
-
-				foreach ($entries['entries'] as $var)
+				foreach ($entries as $var)
 				{
 					$this->_vars[$var['name']] = $var['data'];
 				}

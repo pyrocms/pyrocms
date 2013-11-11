@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Variables\Variables;
+
 /**
  * Variable Plugin
  *
@@ -20,6 +23,14 @@ class Plugin_Variables extends Plugin
             'fa' => 'ایجاد و نمایش متغییر ها',
 	);
 
+	protected $variables;
+
+	public function __construct()
+	{
+		$this->variables = new Variables;
+	}
+
+
 	/**
 	 * Returns a PluginDoc array that PyroCMS uses 
 	 * to build the reference in the admin panel
@@ -28,8 +39,6 @@ class Plugin_Variables extends Plugin
 	 */
 	public function _self_doc()
 	{
-		$this->load->library('variables/variables');
-
 		$info = array();
 
 		// dynamically build the array for the magic method __call
@@ -61,7 +70,6 @@ class Plugin_Variables extends Plugin
 	 */
 	public function __call($name, $arguments)
 	{
-		$this->load->library('variables/variables');
 		return $this->variables->$name;
 	}
 	

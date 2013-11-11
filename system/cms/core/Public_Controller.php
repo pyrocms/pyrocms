@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Redirects\Model\Redirect;
+use Pyro\Module\Variables\Variables;
 
 /**
  * Code here is run before frontend controllers
@@ -93,8 +94,7 @@ class Public_Controller extends MY_Controller
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}
 
-		// Frontend data
-		$this->load->library('variables/variables');
+		ci()->variables = new Variables;
 
 		// Assign segments to the template the new way
 		$this->template->server = $_SERVER;
