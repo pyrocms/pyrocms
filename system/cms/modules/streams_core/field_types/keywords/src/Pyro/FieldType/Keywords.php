@@ -64,7 +64,7 @@ class Keywords extends AbstractField
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= 'id_'.rand(100, 10000);
 		$options['class']	= 'keywords_input';
-		$options['value']	= Keywords::get_string($this->value);
+		$options['value']	= \Keywords::get_string($this->value);
 
 		return form_input($options);
 	}
