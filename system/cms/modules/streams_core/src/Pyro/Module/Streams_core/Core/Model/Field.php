@@ -386,6 +386,15 @@ class Field extends Eloquent
     }
 
     /**
+     * Get the field
+     * @return object 
+     */
+    public function getParameter($key, $default = null)
+    {
+        return isset($this->field_data[$key]) ? $this->field_data[$key] : $default;
+    }
+
+    /**
      * New collection instance
      * @param  array  $models
      * @return object         

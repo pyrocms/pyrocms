@@ -102,6 +102,18 @@ class Entry extends Eloquent
     protected $default_view_options = array('id', 'created_by');
 
     /**
+     * Skip field slugs
+     * @var array
+     */
+    protected $skip_field_slugs = array();
+
+    /**
+     * Disable pre save
+     * @var boolean
+     */
+    protected $disable_pre_save = false;
+
+    /**
      * The name of the "created at" column.
      * @var string
      */
@@ -195,7 +207,7 @@ class Entry extends Eloquent
                     throw new Exception\StreamNotFoundException($message);
                 }
             } 
-            else 
+            elseif ( ! $instance->stream) 
             {
                 if ( ! $instance->stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace))
                 {
@@ -218,10 +230,20 @@ class Entry extends Eloquent
 
             $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
 
-            $instance->setFields($instance->assignments->getFields($instance->stream));          
+            $instance->setFields($instance->assignments->getFields($instance->stream));              
         }
 
         return static::$instance = $instance;
+    }
+
+    public function getStreamSlug()
+    {
+        return $this->stream_slug;
+    }
+
+    public function getStreamNamespace()
+    {
+        return $this->stream_namespace;
     }
 
     public function getColumns()
@@ -243,6 +265,20 @@ class Entry extends Eloquent
     public function setFields(Collection\FieldCollection $fields = null)
     {
         $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function setSkipFieldSlugs($skip_field_slugs = array())
+    {
+        $this->$skip_field_slugs = $skip_field_slugs;
+
+        return $this;
+    }
+
+    public function disablePreSave($disable_pre_save = false)
+    {
+        $this->disable_pre_save = $disable_pre_save;
 
         return $this;
     }
@@ -476,7 +512,7 @@ class Entry extends Eloquent
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = array(), $skips = array())
+    public function save(array $options = array())
     {
         // Allways the format as eloquent for saving
         $this->asEloquent();
@@ -515,20 +551,18 @@ class Entry extends Eloquent
 
         $this->setRawAttributes($attributes);
 
-        if ( ! $fields->isEmpty())
+        if ( ! $fields->isEmpty() and ! $this->disable_pre_save)
         {
             foreach ($fields as $field)
             {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                if ( ! in_array($field->field_slug, $skips))
+                if ( ! in_array($field->field_slug, $this->skip_field_slugs))
                 {
 
                     $type = $field->getType($this);
                     $types[] = $type;
 
                     $type->setStream($this->stream);
-
-                    $value = $this->getEloquentOutput($field->field_slug);
 
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
@@ -539,24 +573,20 @@ class Entry extends Eloquent
                     }
                     else
                     {
-                        if (is_null($value))
-                        {
-                            $this->setAttribute($field->field_slug, null);
-                        }
-
-                        if (method_exists($type, 'preSave'))
-                        {
-                            $this->setAttribute($field->field_slug, $type->preSave());
-                        }
-                        elseif(is_string($value))
-                        {
-                            $this->setAttribute($field->field_slug, trim($value));
-                        }
+                        $this->setAttribute($field->field_slug, $type->preSave());
                     }
                 }
             }
+            
+            // -------------------------------------
+            // Alt Processing
+            // -------------------------------------
+            foreach ($alt_process as $type)
+            {
+                $type->setEntry($this);
+                $type->preSave();
+            }
         }
-
 
         // -------------------------------------
         // Insert data
@@ -568,16 +598,6 @@ class Entry extends Eloquent
         if ($saved = parent::save($options) and $this->search_index_template)
         {
             Search::indexEntry($this, $this->search_index_template);
-        }
-
-
-        // -------------------------------------
-        // Alt Processing
-        // -------------------------------------
-        foreach ($alt_process as $type)
-        {
-            $type->setEntry($this);
-            $type->preSave();
         }
         
         // -------------------------------------
@@ -750,6 +770,11 @@ class Entry extends Eloquent
         return $return_data;
     }
 
+    public function runFieldPreSave()
+    {
+
+    }
+
     /**
      * Get all the non-field standard columns for entries as an array
      * @return array An array of standard columns
@@ -782,9 +807,11 @@ class Entry extends Eloquent
      * Set view options
      * @param $columns
      */
-    public function setViewOptions(array $columns = array())
+    public function setViewOptions(array $columns = null)
     {
-        $this->view_options = $columns;
+        if ($columns) {
+            $this->view_options = $columns;
+        }
         
         return $this;
     }
@@ -1043,9 +1070,7 @@ class Entry extends Eloquent
      */
     public static function isSubclassOfEntry($subclass, $class = 'Pyro\Module\Streams_core\Core\Model\Entry')
     {
-        if ( ! is_string($subclass)) return false;
-
-        if ( ! class_exists($subclass)) return false;
+        if ( ! is_string($class) or ! class_exists($subclass)) return false;
 
         $reflection = new \ReflectionClass($subclass);
 

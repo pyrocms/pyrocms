@@ -120,8 +120,7 @@ class Module_Variables extends AbstractModule
 		}
 
 		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
-			'title_column' => 'name',
-		    'view_options' => array('name', 'data', 'syntax'),
+			'title_column' => 'name'
 		)))
 		{
 	        // Create the Variables folder. For the image field
@@ -159,15 +158,6 @@ class Module_Variables extends AbstractModule
 						'max_length' => 100,
 						'namespace' => 'variables',
 						'field_slug' => 'data'
-					),
-				),
-				array(
-					'name'			=> 'lang:streams:column_syntax',
-					'slug'			=> 'syntax',
-					'type'			=> 'merge_tags',
-					'assign'		=> 'variables',
-					'extra'			=> array(
-						'pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'
 					),
 				),
 			    // A default set of selectable fields

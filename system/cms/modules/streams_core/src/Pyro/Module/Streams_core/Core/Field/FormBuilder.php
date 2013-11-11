@@ -67,6 +67,11 @@ class FormBuilder
 	protected $fields = null;
 
 	/**
+	 * Field slugs
+	 */
+	
+
+	/**
 	 * Key check
 	 * @var boolean
 	 */
@@ -173,6 +178,13 @@ class FormBuilder
 	public function setFields($fields = null)
 	{
 		$this->fields = $fields;
+
+		return $this;
+	}
+
+	public function setSkips($skips = array())
+	{
+		$this->skips = $skips;
 
 		return $this;
 	}
@@ -415,20 +427,14 @@ class FormBuilder
 				continue;
 			}
 
-			// Set the value
-			if ( isset($this->entry->{$field->field_slug}) ) $field->value = $this->entry->{$field->field_slug};
-
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				// If we haven't called it (for dupes),
 				// then call it already.
 				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if (method_exists($type, 'event'))
-					{
-						$type->event();
-					}
-					
+					$type->event();
+
 					$this->field_type_events_run[] = $field->field_type;
 				}		
 			}
@@ -507,15 +513,14 @@ class FormBuilder
 	{
 		$fields = array();
 		
-		// $stream_fields, $skips, $values
-		$this->runFieldEvents();
-
 		foreach($this->fields as $key => $field)
 		{
-			if ($type = $this->entry->getFieldType($field->field_slug))
+			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
 			{	
 				$type->setDefaults($this->defaults);
 				$type->setStream($this->entry->getStream());
+
+				$fields[$field->field_slug]['field_slug'] = $field->field_slug;
 
 				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
 				$fields[$field->field_slug]['input_slug']		= $type->getFormSlug();
@@ -528,7 +533,7 @@ class FormBuilder
 				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
 
 				// Get the acutal form input
-				$fields[$field->field_slug]['input'] 			= $type->getForm();	
+				$fields[$field->field_slug]['input'] 			= $type->formInput();	
 				$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
@@ -551,6 +556,9 @@ class FormBuilder
 				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
+
+		// $stream_fields, $skips, $values
+		$this->runFieldEvents();
 
 		return $fields;
 	}

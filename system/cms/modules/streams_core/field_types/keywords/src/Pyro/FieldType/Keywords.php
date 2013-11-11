@@ -40,7 +40,7 @@ class Keywords extends AbstractField
 	 * Custom parameters
 	 * @var array
 	 */
-	public $custom_parameters  = array('return_type', 'placeholder');
+	public $custom_parameters  = array('return_type');
 
 	/**
 	 * Construct
@@ -63,11 +63,21 @@ class Keywords extends AbstractField
 	{
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= 'id_'.rand(100, 10000);
-		$options['class']	= 'tags';
-		$options['value']	= $this->value;
-		$options['placeholder']	= lang_label($this->getParameter('placeholder'));
+		$options['class']	= 'keywords_input';
+		$options['value']	= Keywords::get_string($this->value);
 
 		return form_input($options);
+	}
+
+	/**
+	 * Event
+	 * @return void
+	 */
+	public function event()
+	{
+		ci()->template->append_css('jquery/jquery.tagsinput.css');
+		ci()->template->append_js('jquery/jquery.tagsinput.js');
+		$this->js('keywords.js');
 	}
 
 	/**
@@ -76,9 +86,7 @@ class Keywords extends AbstractField
 	 */
 	public function preSave()
 	{
-		Keywords::process($this->value);
-
-		return $this->value;
+		return \Keywords::process($this->value);
 	}
 
 	/**
@@ -87,7 +95,38 @@ class Keywords extends AbstractField
 	 */
 	public function stringOutput()
 	{
-		return $this->value;
+		return $this->getKeywordsValue($this->getParameter('return_type'));
+	}
+
+	public function pluginFormatOverride($format)
+	{
+		return $this->getKeywordsValue($format);
+	}
+
+	public function getKeywordsValue($format = 'array')
+	{
+		// if we want an array, format it correctly
+		if ($format === 'array')
+		{
+			$keyword_array = \Keywords::get_array($this->value);
+			$keywords = array();
+			$total = count($keyword_array);
+
+			foreach ($keyword_array as $key => $value) {
+				$keywords[] = array(
+					'count' => $key,
+					'total' => $total,
+					'is_first' => $key == 0,
+					'is_last' => $key == ($total - 1),
+					'keyword' => $value
+				);
+			}
+
+			return $keywords;
+		}
+
+		// otherwise return it as a string
+		return \Keywords::get_string($this->value);
 	}
 
 	/**
