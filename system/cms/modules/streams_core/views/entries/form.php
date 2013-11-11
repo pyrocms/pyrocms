@@ -1,6 +1,10 @@
 <?php if ($fields): ?>
 
+
+<?php if (!$form_override): ?>
 <?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+<?php endif; ?>
+
 
 <!-- .panel-body -->
 <div class="panel-body">
@@ -34,6 +38,8 @@
 
 <?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
+
+<?php if (!$form_override): ?>
 <div class="panel-footer">
 	<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 	
@@ -51,8 +57,12 @@
 
 	<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
 </div>
+<?php endif; ?>
 
+
+<?php if (!$form_override): ?>
 <?php echo form_close();?>
+<?php endif; ?>
 
 
 <?php else: ?>

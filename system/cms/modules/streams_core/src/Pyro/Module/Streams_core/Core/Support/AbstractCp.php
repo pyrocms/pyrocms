@@ -203,6 +203,12 @@ abstract class AbstractCp extends AbstractDataCp
 	protected $view_override = false;
 
 	/**
+	 * Set to true to omitt 
+	 * @var boolean
+	 */
+	protected $form_override = false;
+
+	/**
 	 * Construct and bring in assets
 	 */
 	public function __construct()
@@ -485,6 +491,18 @@ abstract class AbstractCp extends AbstractDataCp
 	public function viewOverride($view_override = false)
 	{
 		$this->view_override = $view_override;
+
+		return $this;
+	}
+
+	/**
+	 * Set form override option
+	 * @param  boolean $form_override 
+	 * @return object                 
+	 */
+	public function formOverride($form_override = false)
+	{
+		$this->form_override = $form_override;
 
 		return $this;
 	}
