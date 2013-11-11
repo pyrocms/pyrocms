@@ -113,6 +113,8 @@ class Entry extends Eloquent
      */
     protected $disable_pre_save = false;
 
+    protected $disable_field_maps = false;
+
     /**
      * The name of the "created at" column.
      * @var string
@@ -143,11 +145,11 @@ class Entry extends Eloquent
         }
     }
 
-    public function asData()
+    public function asData(array $attribute_keys = null)
     {
         $this->format = static::FORMAT_DATA;
 
-        return $this;
+        return $this->replicateWithOutput($attribute_keys);
     }
 
     public function asEloquent()
@@ -164,18 +166,18 @@ class Entry extends Eloquent
         return $this;
     }
 
-    public function asPlugin()
+    public function asPlugin(array $attribute_keys = null)
     {
         $this->format = static::FORMAT_PLUGIN;
 
-        return $this;
+        return $this->replicateWithOutput($attribute_keys);
     }
 
-    public function asString()
+    public function asString(array $attribute_keys = null)
     {
         $this->format = static::FORMAT_STRING;
 
-        return $this;
+        return $this->replicateWithOutput($attribute_keys);
     }
 
     /**
@@ -1125,9 +1127,33 @@ class Entry extends Eloquent
      */
     public function getStringOutput($attribute)
     {
-        if ( ! empty($this->field_maps[$attribute])) {
+        if ( ! empty($this->field_maps[$attribute]) and ! $this->disable_field_maps) {
 
-            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $this->toArray()), true, false, array(
+            if (Str::startsWith($this->field_maps[$attribute], 'string::'))
+            {
+                $this->field_maps[$attribute] = str_replace('string::', '', $this->field_maps[$attribute]);
+
+                $entry = $this->asString(array($attribute));
+            
+            } elseif (Str::startsWith($this->field_maps[$attribute], 'plugin::')) {
+                
+                $this->field_maps[$attribute] = str_replace('plugin::', '', $this->field_maps[$attribute]);
+
+                $entry = $this->asPlugin(array($attribute));
+            
+            } elseif (Str::startsWith($this->field_maps[$attribute], 'data::')) {
+                
+                $this->field_maps[$attribute] = str_replace('data::', '', $this->field_maps[$attribute]);
+
+                $entry = $this->asPlugin(array($attribute));
+            
+            } else {
+
+                $entry = $this;
+            
+            }
+
+            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $entry->toArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
@@ -1141,9 +1167,16 @@ class Entry extends Eloquent
         return $this->getEloquentOutput($attribute);
     }
 
+    public function disableFieldMaps($disable_field_maps = false)
+    {
+        $this->disable_field_maps = $disable_field_maps;
+
+        return $this;
+    }
+
     public function getOutput($attribute)
     {
-        return $this->{'get'.Str::studly($this->format).'Output'}($attribute);
+        return $this->disableFieldMaps(true)->{'get'.Str::studly($this->format).'Output'}($attribute);
     }
 
     /**
@@ -1157,6 +1190,21 @@ class Entry extends Eloquent
         $this->passProperties($entry);
 
         return $entry;
+    }
+
+    public function replicateWithOutput(array $attribute_keys = null)
+    {
+        $clone = $this->replicate();
+
+        if (! $attribute_keys) {
+            $attribute_keys = $this->getAttributeKeys();
+        }
+
+        foreach ($attribute_keys as $attribute) {
+            $clone->setAttribute($attribute, $this->getOutput($attribute));
+        }
+
+        return $clone;
     }
 
     /**
