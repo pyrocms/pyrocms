@@ -229,6 +229,7 @@ class Entries extends AbstractCp
 		$this->data->entry		= $this->entry;
 		$this->data->mode		= $this->mode;
 		$this->data->fields		= $this->form->buildForm();
+		$this->data->form_override 		= $this->form_override;
 
 		if ($saved = $this->form->result() and $this->enable_save)
 		{
