@@ -86,7 +86,7 @@ class Keywords extends AbstractField
 	 */
 	public function preSave()
 	{
-		return Keywords::process($this->value);
+		return \Keywords::process($this->value);
 	}
 
 	/**
@@ -95,10 +95,20 @@ class Keywords extends AbstractField
 	 */
 	public function stringOutput()
 	{
+		return $this->getKeywordsValue($this->getParameter('return_type'));
+	}
+
+	public function pluginFormatOverride($format)
+	{
+		return $this->getKeywordsValue($format);
+	}
+
+	public function getKeywordsValue($format = 'array')
+	{
 		// if we want an array, format it correctly
-		if ($this->getParameter('return_type') === 'array')
+		if ($format === 'array')
 		{
-			$keyword_array = Keywords::get_array($this->value);
+			$keyword_array = \Keywords::get_array($this->value);
 			$keywords = array();
 			$total = count($keyword_array);
 
@@ -116,7 +126,7 @@ class Keywords extends AbstractField
 		}
 
 		// otherwise return it as a string
-		//return Keywords::get_string($this->value);
+		return \Keywords::get_string($this->value);
 	}
 
 	/**
