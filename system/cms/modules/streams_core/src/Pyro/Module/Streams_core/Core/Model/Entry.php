@@ -145,7 +145,7 @@ class Entry extends Eloquent
         }
     }
 
-    public function asData(array $attribute_keys = null)
+    public function asData($attribute_keys = null)
     {
         $this->format = static::FORMAT_DATA;
 
@@ -166,14 +166,14 @@ class Entry extends Eloquent
         return $this;
     }
 
-    public function asPlugin(array $attribute_keys = null)
+    public function asPlugin($attribute_keys = null)
     {
         $this->format = static::FORMAT_PLUGIN;
 
         return $this->replicateWithOutput($attribute_keys);
     }
 
-    public function asString(array $attribute_keys = null)
+    public function asString($attribute_keys = null)
     {
         $this->format = static::FORMAT_STRING;
 
@@ -1129,35 +1129,41 @@ class Entry extends Eloquent
     {
         if ( ! empty($this->field_maps[$attribute]) and ! $this->disable_field_maps) {
 
-            if (Str::startsWith($this->field_maps[$attribute], 'string::'))
+            $template = $this->field_maps[$attribute];
+
+            $entry = $this;
+
+            if (is_array($template))
             {
-                $this->field_maps[$attribute] = str_replace('string::', '', $this->field_maps[$attribute]);
+                $format = isset($template['format']) ? $template['format'] : null;
 
-                $entry = $this->asString(array($attribute));
-            
-            } elseif (Str::startsWith($this->field_maps[$attribute], 'plugin::')) {
-                
-                $this->field_maps[$attribute] = str_replace('plugin::', '', $this->field_maps[$attribute]);
+                switch ($format) {
 
-                $entry = $this->asPlugin(array($attribute));
-            
-            } elseif (Str::startsWith($this->field_maps[$attribute], 'data::')) {
-                
-                $this->field_maps[$attribute] = str_replace('data::', '', $this->field_maps[$attribute]);
+                    case 'string':
+                        $entry = $this->asString($attribute);
+                        break;
+                    
+                    case 'plugin':
+                        $entry = $this->asPlugin($attribute);
+                        break;
+                    
+                    case 'data':
+                        $entry = $this->asData($attribute);
+                        break;
+                    
+                    default:
+                        $entry = $this;
+                        break;
+                }
 
-                $entry = $this->asPlugin(array($attribute));
-            
-            } else {
-
-                $entry = $this;
-            
+                $template = isset($template['template']) ? $template['template'] : null;
             }
 
-            return ci()->parser->parse_string($this->field_maps[$attribute], array('entry' => $entry->toArray()), true, false, array(
+            return ci()->parser->parse_string($template, array('entry' => $entry->toArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
-        
+            
         } elseif ($type = $this->getFieldType($attribute)) {
             
             return $type->stringOutput($attribute);
@@ -1176,7 +1182,16 @@ class Entry extends Eloquent
 
     public function getOutput($attribute)
     {
-        return $this->disableFieldMaps(true)->{'get'.Str::studly($this->format).'Output'}($attribute);
+        // Disable field maps to avoid recursion
+        $this->disableFieldMaps(true);
+
+        // Get formatted output
+        $output = $this->{'get'.Str::studly($this->format).'Output'}($attribute);
+
+        // Reenable field maps
+        $this->disableFieldMaps(false);
+
+        return $output;
     }
 
     /**
@@ -1192,11 +1207,16 @@ class Entry extends Eloquent
         return $entry;
     }
 
-    public function replicateWithOutput(array $attribute_keys = null)
+    public function replicateWithOutput($attribute_keys = null)
     {
+        if (is_string($attribute_keys))
+        {
+            $attribute_keys = array($attribute_keys);
+        }
+
         $clone = $this->replicate();
 
-        if (! $attribute_keys) {
+        if (empty($attribute_keys)) {
             $attribute_keys = $this->getAttributeKeys();
         }
 
