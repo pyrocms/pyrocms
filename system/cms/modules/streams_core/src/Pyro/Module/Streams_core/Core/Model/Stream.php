@@ -429,7 +429,37 @@ class Stream extends Eloquent
 		});
 	}
 
-	// --------------------------------------------------------------------------
+	public function addViewOption($field_slug = null)
+	{
+		if ( ! $field_slug) return false;
+
+		$view_options = $this->view_options;
+
+		$view_options[] = $field_slug;
+
+		$this->view_options = array_unique($view_options);
+
+		$this->save();
+	}
+
+	public function removeViewOption($field_slug = null)
+	{
+		if ( ! $field_slug) return false;
+		
+		$view_options = $this->view_options;
+
+		if (in_array($field_slug, $view_options)) {
+			foreach ($view_options as $key => $view_option) {
+				if ($field_slug == $view_option) {
+					unset($view_options[$key]);
+				}
+			}			
+		}
+
+		$this->view_options = $view_options;
+
+		$this->save();
+	}
 
 	/**
 	 * Remove a field assignment
@@ -447,27 +477,28 @@ class Stream extends Eloquent
 		if ( ! $field instanceof Field) return false;
 
 		// Do we have a destruct function
-		if ($type = $field->getType() and method_exists($type, 'fieldAssignmentDestruct'))
+		if ($type = $field->getType())
 		{
+			print_r($type);
 			// @todo - also pass the schema builder
 			$type->setStream($this);
 			$type->fieldAssignmentDestruct();
-		}
 
-		// -------------------------------------
-		// Remove from db structure
-		// -------------------------------------
+			// -------------------------------------
+			// Remove from db structure
+			// -------------------------------------
 
-		try {
-			// Alternate method fields will not have a column, so we just
-			// check for it first
-			if ( ! $type->alt_process) {
-				$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
-					$table->dropColumn($field->field_slug);
-				});				
+			try {
+				// Alternate method fields will not have a column, so we just
+				// check for it first
+				if ( ! $type->alt_process) {
+					$schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
+						$table->dropColumn($field->field_slug);
+					});				
+				}
+			} catch (Exception $e) {
+				// @todo - log error
 			}
-		} catch (Exception $e) {
-			// @todo - log error
 		}
 
 		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
@@ -475,7 +506,6 @@ class Stream extends Eloquent
 			// -------------------------------------
 			// Remove from field assignments table
 			// -------------------------------------
-
 			if ( ! $assignment->delete()) return false;			
 		}
 
@@ -483,21 +513,7 @@ class Stream extends Eloquent
 		// -------------------------------------
 		// Remove from from field options
 		// -------------------------------------
-
-		if (in_array($field->field_slug, $this->view_options))
-		{
-			foreach ($this->view_options as $field_slug)
-			{
-				if ($field_slug == $field->field_slug)
-				{
-					unset($this->view_options[$field_slug]);
-				}
-			}
-
-			return $this->save();
-		}
-
-		// -------------------------------------
+		$this->removeViewOption($field->field_slug);
 
 		return true;
 	}
