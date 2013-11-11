@@ -100,10 +100,10 @@ class EntryBuilder extends Builder
 		}
 
 		// We need to return the models with their keys
-		return $this->requireKeys($columns);
+		return $this->requireColumns($columns);
     }
 
-    public function requireKeys($columns)
+    public function requireColumns($columns)
     {
     	$entry = new Entry;
 
@@ -117,11 +117,16 @@ class EntryBuilder extends Builder
         	$columns = $this->model->getAllColumns();
         }
 
-        // Require foreign keys
+        // Require keys
     	foreach ($columns as $key => $column) {
 
-    		$relation_method = camel_case($column);
+    		// Field types can require columns
+    		if ($type = $this->model->getFieldType($column))
+    		{
+    			$columns = array_merge($columns, $type->requireEntryColumns());
+    		}
 
+    		// Foreing keys are required too
     		if ($relation = $this->model->getRelationAttribute($column)) {
 
 				if ($relation instanceof BelongsToMany) {
@@ -255,7 +260,9 @@ class EntryBuilder extends Builder
 
     public function getRelationAttribute($attribute = null)
     {
-        if (method_exists($this->getModel(), $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
+    	$attribute = camel_case($attribute);
+
+        if (method_exists($this->model, $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
             
             return $relation;
         
