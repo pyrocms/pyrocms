@@ -123,7 +123,7 @@ class Entries extends AbstractCp
 			$this->query = $query;
 		}
 
-		$this->model->setViewOptions($this->data->view_options);
+		$this->model->setViewOptions($this->view_options);
 
   		$this->data->entries = $this->query
 			->enableAutoEagerLoading(true)
@@ -150,32 +150,6 @@ class Entries extends AbstractCp
   		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->query->count());
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
-	}
-
-
-	protected function parseColumnsAndFieldMaps($columns = array())
-	{
-		$field_maps = array();
-
-		$parsed_columns = array();
-
-		foreach ($columns as $key => $value)
-		{
-			// Remove relation: prefix
-			//$key = str_replace('relation:', '', $key);
-
-			if (is_numeric($key))
-			{
-				$parsed_columns[] = $value;
-			}
-			else
-			{
-				$parsed_columns[] = $key;
-				$field_maps[str_replace('relation:', '', $key)] = $value;
-			}
-		}
-
-		return array('columns' => $parsed_columns, 'field_maps' => $field_maps);
 	}
 
 	/**
@@ -239,6 +213,7 @@ class Entries extends AbstractCp
 
 		$this->form = $this->entry->newFormBuilder()
 			->setDefaults($this->defaults)
+			->setSkips($this->skips)
 			->enableSave($this->enable_save)
 			->successMessage($this->success_message)
 			->redirect($this->redirect)
