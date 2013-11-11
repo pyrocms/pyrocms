@@ -113,29 +113,14 @@ class FieldAssignment extends Eloquent
             }
 
             // Run the destruct
-            if ($type = $field->getType() and method_exists($type, 'fieldAssignmentDestruct'))
+            if ($type = $field->getType())
             {
                 $type->setStream($stream);
                 $type->fieldAssignmentDestruct();
             }
 
             // Update that stream's view options
-            if ($field->stream)
-            {
-                if ( ! empty($field->stream->view_options))
-                {
-                    foreach ($field->stream->view_options as $key => $option)
-                    {
-                        if (isset($field->stream->view_options[$field->field_slug]))
-                        {
-                            unset($field->stream->view_options[$field->field_slug]);
-                        }
-                    }
-                }
-
-                $field->stream->save();    
-            }
-            
+            $stream->removeViewOption($field->field_slug);
         }
 
         // Find everything above it, and take each one
