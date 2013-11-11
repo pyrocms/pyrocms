@@ -19,6 +19,11 @@ abstract class Plugin
 	private $content = array();
 
 	/**
+	 * Holds Lex parser context data at the point of the plugin invokation
+	 */
+	private $lexContext = array();
+
+	/**
 	 * Set Data for the plugin.
 	 *
 	 * Avoid doing this in constructor so we do not force logic on developers.
@@ -29,6 +34,7 @@ abstract class Plugin
 	public function set_data($content, $attributes, $data)
 	{
 		$content and $this->content = $content;
+		$data and $this->lexContext = $data;
 
 		if ($attributes)
 		{
@@ -89,6 +95,16 @@ abstract class Plugin
 	public function attributes()
 	{
 		return $this->attributes;
+	}
+
+	/**
+	 * Getter for the Lex context data
+	 *
+	 * @return array
+	 */
+	public function getLexContext()
+	{
+		return $this->lexContext;
 	}
 
 	/**
