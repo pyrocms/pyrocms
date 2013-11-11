@@ -61,13 +61,19 @@ abstract class AbstractField
 	 * The entry object
 	 * @var object
 	 */
-	protected $entry = null;
+	public $entry = null;
 
 	/**
 	 * The array of pre save parameter values
 	 * @var array
 	 */
 	protected $pre_save_parameters = array();
+
+	/**
+	 * Override the field slug use to get the current entry value
+	 * @var [type]
+	 */
+	protected $value_field_slug_override = null;
 
 	/**
 	 * The relation model
@@ -101,6 +107,11 @@ abstract class AbstractField
 	public function relation()
 	{
 		return null;
+	}
+
+	public function requireEntryColumns()
+	{
+		return array();
 	}
 
 	/**
@@ -137,6 +148,13 @@ abstract class AbstractField
 	public function setField(Model\Field $field = null)
 	{
 		$this->field = $field;
+
+		return $this;
+	}
+
+	public function setValueFieldSlugOverride($value_field_slug_override = null)
+	{
+		$this->value_field_slug_override = $value_field_slug_override;
 
 		return $this;
 	}
@@ -186,7 +204,7 @@ abstract class AbstractField
 	 */
 	public function getParameter($key, $default = null)
 	{
-		return isset($this->field->field_data[$key]) ? $this->field->field_data[$key] : $default;
+		return $this->field->getParameter($key, $default);
 	}
 
 	/**
@@ -211,7 +229,7 @@ abstract class AbstractField
 
 	public function getFormSlugProperty()
 	{
-		return $this->getFormSlug();
+		return $this->getFormSlug($this->value_field_slug_override);
 	}
 
 	/**
@@ -359,7 +377,7 @@ abstract class AbstractField
 
 	public function getValueProperty()
 	{
-		return $this->getFormValue(null, $this->getDefault(null, $this->getParameter('default_value')));
+		return $this->getFormValue($this->value_field_slug_override, $this->getDefault($this->value_field_slug_override, $this->getParameter('default_value')));
 	}
 
 	/**
@@ -506,7 +524,7 @@ abstract class AbstractField
 
 	/**
 	 * Get the results for the field type relation
-	 * @return [type] [description]
+	 * @return mixed
 	 */
 	public function getRelationResult($field_slug = null)
 	{
@@ -593,6 +611,46 @@ abstract class AbstractField
 	}
 
 	/**
+	 * Pre Save
+	 * @return mixed
+	 */
+	public function preSave()
+	{
+		return $this->value;
+	}
+
+	public function runPreSave()
+	{
+                // If we don't have a post item for this field, 
+        // then simply set the value to null. This is necessary
+        // for fields that want to run a preSave but may have
+        // a situation where no post data is sent (like a single checkbox)
+        if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
+        {
+            $form_data[$field->field_slug] = null;
+        }
+
+        // If this is not in our skips list, process it.
+        if ( ! in_array($field->field_slug, $skips))
+        {
+            $type = $field->getType($entry);
+            $this->setFormData($form_data);
+
+            if ( ! $type->alt_process)
+            {
+				$return_data[$field->field_slug] = $type->preSave();
+            }
+            else
+            {
+                // If this is an alt_process, there can still be a preSave,
+                // it just won't return anything so we don't have to
+                // save the value
+            	$type->preSave();
+            }
+        }
+	}
+
+	/**
 	 * Object to Array
 	 *
 	 * Takes an object as input and converts the class variables to array key/vals
@@ -618,6 +676,20 @@ abstract class AbstractField
 
 		return null;
 	}
+
+	/**
+	 * Ran when the form is built
+	 * @return void
+	 */
+	public function event()
+	{}
+
+	/**
+	 * Ran when a field assignment is removed from a stream
+	 * @return [type] [description]
+	 */
+	public function fieldAssignmentDestruct()
+	{}
 
 	/**
 	 * Ran when an entry is deleted
