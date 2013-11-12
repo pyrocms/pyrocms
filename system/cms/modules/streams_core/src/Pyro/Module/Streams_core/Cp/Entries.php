@@ -133,12 +133,6 @@ class Entries extends AbstractCp
 
 		$this->data->view_options =	$this->model->getViewOptionsFields();
 
-/*  		$this->data->entries = $this->query
-			->enableAutoEagerLoading(true)
-			->take($this->limit)
-			->skip($this->offset)
-			->get($select, $this->exclude);*/
-
   		$this->data->field_names 	= $this->model->getViewOptionsFieldNames();
 
   		if ( ! empty($this->headers))
@@ -147,7 +141,7 @@ class Entries extends AbstractCp
   		}
 
   		// @todo - fix pagination
-  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->query->count());
+  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->total());
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}

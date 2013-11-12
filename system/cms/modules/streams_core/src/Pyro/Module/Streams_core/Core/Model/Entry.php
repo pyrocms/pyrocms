@@ -1195,6 +1195,15 @@ class Entry extends Eloquent
     }
 
     /**
+     * Get total entry count with applied filters if present
+     * @return integer
+     */
+    public function total()
+    {
+        return $this->get(array($this->getKeyName()))->count();
+    }
+
+    /**
      * Replicate
      * @return object The clone entry
      */
