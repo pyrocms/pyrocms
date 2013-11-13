@@ -140,7 +140,7 @@ class Entries extends AbstractCp
   			$this->data->field_names = array_merge($this->data->field_names, $this->headers);
   		}
 
-  		$this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->total());
+  		$this->data->pagination = ! ($this->limit > 0) ? $this->getPagination($this->model->total()) : 0;
 		
 		$this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
 	}
