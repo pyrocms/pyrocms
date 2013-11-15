@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
 use Carbon\Carbon;
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
  * PyroStreams Date/Time Field Type
@@ -12,7 +12,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Datetime extends AbstractField
+class Datetime extends AbstractFieldType
 {	
 	public $field_type_slug			= 'datetime';
 	

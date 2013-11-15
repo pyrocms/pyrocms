@@ -1,9 +1,9 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
-use Pyro\Module\Streams_core\Core\Model;
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * PyroStreams Relationship Field Type
@@ -14,7 +14,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Relationship extends AbstractField
+class Relationship extends AbstractFieldType
 {
 	/**
 	 * Field type slug
@@ -65,7 +65,7 @@ class Relationship extends AbstractField
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\Core\Model\Entry'));
+		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'));
 	}
 
 	/**
@@ -173,7 +173,7 @@ class Relationship extends AbstractField
 	 */
 	public function paramStream($value = '')
 	{
-		$options = Model\Stream::getStreamAssociativeOptions();
+		$options = StreamModel::getStreamAssociativeOptions();
 
 		return form_dropdown('stream', $options, $value);
 	}
@@ -263,20 +263,20 @@ class Relationship extends AbstractField
 		 * Determine the stream
 		 */
 		$stream = explode('.', ci()->uri->segment(6));
-		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
+		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
 
 
 		/**
 		 * Determine our field / type
 		 */
-		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
 		$field_type = $field->getType(null);
 
 
 		/**
 		 * Get our entries
 		 */
-		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**

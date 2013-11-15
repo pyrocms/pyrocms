@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
-use Pyro\Module\Files\Model\Folder as Folder;
+use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Files\Model\Folder;
 
 /**
  * PyroStreams Image Field Type
@@ -12,7 +12,7 @@ use Pyro\Module\Files\Model\Folder as Folder;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Image extends AbstractField
+class Image extends AbstractFieldType
 {
 	public $field_type_slug			= 'image';
 

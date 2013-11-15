@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
  * PyroStreams US State Field Type
@@ -8,7 +8,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Adam Fairholm
  */
-class State extends AbstractField
+class State extends AbstractFieldType
 {
 	public $field_type_slug			= 'state';
 

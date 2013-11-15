@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Illuminate\Support\Str;
-use Pyro\Module\streams_core\Core\Field\Type;
-use Pyro\Module\streams_core\Core\Model\Entry;
-use Pyro\Module\streams_core\Core\Model\Field;
-use Pyro\Module\streams_core\Core\Model\Stream;
+use Pyro\Module\streams_core\FieldTypeManager;
+use Pyro\Module\streams_core\EntryModel;
+use Pyro\Module\streams_core\FieldModel;
+use Pyro\Module\streams_core\StreamModel;
 
 /**
  * Streams Core Plugin
@@ -86,7 +86,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$attributes_keys = array_keys($attributes);
 
-			Entry::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
+			EntryModel::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
 
 			// Setting this in a separate var so we can unset it
 			// from the array later that is passed to the parse_override function.
