@@ -1,7 +1,7 @@
 <?php
 
 use Pyro\Module\Comments\Model\Comment;
-use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  *
@@ -288,7 +288,7 @@ class Admin extends Admin_Controller
         );
 
 
-		Cp\Entries::form('blog', 'blogs')
+		EntryUi::form('blog', 'blogs')
             ->tabs($tabs)
             ->onSaving(function($entry) {
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
@@ -375,8 +375,8 @@ class Admin extends Admin_Controller
 				'status'           => $this->input->post('status'),
 				'created_on'       => $created_on,
 				'updated_on'       => $created_on,
-				'created'		   => date('Y-m-d H:i:s', $created_on),
-				'updated'		   => date('Y-m-d H:i:s', $created_on),
+				'created_at'		=> date('Y-m-d H:i:s', $created_on),
+				'updated_at'		=> date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
@@ -438,26 +438,16 @@ class Admin extends Admin_Controller
             ),
         );
 
-		Cp\Entries::form('blog', 'blogs', $id)
+		EntryUi::form('blog', 'blogs', $id)
             ->tabs($tabs)
             ->onSaving(function($entry) {
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
             })
-            ->enablePost($enable_entry_post) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enable_entry_post) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
             ->redirect('admin/blog')
             ->index($this->_index_template)
             ->render();
-
-		/*$this->template
-			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
-			->append_js('jquery/jquery.tagsinput.js')
-			->append_js('module::blog_form.js')
-			->append_css('jquery/jquery.tagsinput.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $post->id))
-			->set('post', $post)
-			->build('admin/form');*/
 	}
 
 	/**
