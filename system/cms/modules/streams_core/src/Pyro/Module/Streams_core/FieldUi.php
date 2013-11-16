@@ -236,7 +236,7 @@ class FieldUi extends AbstractUi
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		Field\Type::loadFieldCrudAssets($types);
+   		FieldTypeManager::loadFieldCrudAssets($types);
 
 		// -------------------------------------
 		// Get the field if we have the assignment
@@ -393,7 +393,7 @@ class FieldUi extends AbstractUi
 
 			// Figure out where this is coming from - post or data
 
-			if ($this->data->current_type = Field\Type::getType($field_type))
+			if ($this->data->current_type = FieldTypeManager::getType($field_type))
 			{				
 				$field_data = array();
 
@@ -462,7 +462,7 @@ class FieldUi extends AbstractUi
 			}
 		}
 
-		$this->data->parameters = Field\Type::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
+		$this->data->parameters = FieldTypeManager::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
 		
 
 		// -------------------------------------
@@ -492,7 +492,7 @@ class FieldUi extends AbstractUi
 		// -------------------------------------
 		// Run field setup events
 		// -------------------------------------
-		Field\Form::runFieldSetupEvents($this->data->current_field);
+		EntryFormBuilder::runFieldSetupEvents($this->data->current_field);
 
 		// -------------------------------------
 		// Build page
@@ -515,7 +515,7 @@ class FieldUi extends AbstractUi
 	 */
 	public function getSelectableFieldTypes()
 	{
-		$types = Field\Type::getAllTypes();
+		$types = FieldTypeManager::getAllTypes();
 
 		// -------------------------------------
 		// Include/Exclude Field Types

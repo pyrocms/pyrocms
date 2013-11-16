@@ -246,7 +246,7 @@ class FieldTypeManager
 	{
 		static::preload();
 
-		return new \Pyro\Module\Streams_core\FieldModelTypeCollection(static::$types);
+		return new \Pyro\Module\Streams_core\FieldTypeCollection(static::$types);
 	}
 
 	/**

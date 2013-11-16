@@ -808,7 +808,7 @@ class EntryFormBuilder
 	// $stream = null, $this->method = 'new', $field = null
 	public static function runFieldSetupEvents($current_field = null)
 	{
-		$types = Type::getAllTypes();
+		$types = FieldTypeManager::getAllTypes();
 
 		foreach ($types as $type)
 		{
