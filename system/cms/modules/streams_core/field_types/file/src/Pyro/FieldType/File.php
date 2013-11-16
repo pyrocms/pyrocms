@@ -77,7 +77,7 @@ class File extends AbstractFieldType
 	 * @param	obj
 	 * @return	string
 	 */
-	public function preSave($input, $field)
+	public function preSave()
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
@@ -95,7 +95,7 @@ class File extends AbstractFieldType
 		// If you don't set allowed types, we'll set it to allow all.
 		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
 
-		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
+		$return = \Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
 
 		if (! $return['status']) {
 			ci()->session->set_flashdata('notice', $return['message']);
@@ -115,7 +115,7 @@ class File extends AbstractFieldType
 	 * @param	array
 	 * @return	mixed - null or string
 	 */
-	public function stringOutput($input, $params)
+	public function stringOutput()
 	{
 		if ( ! $input) return null;
 
@@ -142,7 +142,7 @@ class File extends AbstractFieldType
 	 * @param	array
 	 * @return	mixed - null or array
 	 */
-	public function pluginOutput($input, $params)
+	public function pluginOutput()
 	{
 		if ( ! $input) return null;
 
@@ -169,7 +169,7 @@ class File extends AbstractFieldType
 		ci()->load->library('files/files');
 
 		// Get the folders
-		$tree = (array) Files::folderTreeRecursive();
+		$tree = (array) \Files::folderTreeRecursive();
 
 		if (! $tree) {
 			return '<em>'.lang('streams:file.folder_notice').'</em>';
