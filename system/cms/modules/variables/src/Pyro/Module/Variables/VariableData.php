@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @package  	PyroCMS\Core\Modules\Variables\Libraries
  */
-class Variables {
+class VariableData {
 
 	private $_vars = null;
 
@@ -80,7 +80,7 @@ class Variables {
 
 			if ( ! ($cached_vars = ci()->cache->get('variables_library_vars')))
 			{
-				$entries = VariableModel::all(array('name', 'data'));
+				$entries = VariableEntryModel::all(array('name', 'data'));
 
 				foreach ($entries as $var)
 				{

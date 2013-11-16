@@ -1,8 +1,8 @@
 <?php namespace Pyro\Module\Variables;
 
-use Pyro\Module\Streams_core\Core\Model\Entry;
+use Pyro\Module\Streams_core\EntryModel;
 
-class VariableModel extends Entry
+class VariableEntryModel extends EntryModel
 {
 
 	protected $stream_slug = 'variables';
