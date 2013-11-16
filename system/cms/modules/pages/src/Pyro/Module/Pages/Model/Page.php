@@ -2,7 +2,7 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Model\Collection;
-use Pyro\Module\Streams_core\Core\Model;
+
 /**
  * Pages model
  *
