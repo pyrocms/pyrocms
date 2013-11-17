@@ -1,6 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Blog module
@@ -133,16 +136,9 @@ class Module_Blog extends AbstractModule
 			$table->string('title', 100)->nullable()->unique();
 		});
 
-		ci()->load->driver('Streams');
-		ci()->streams->utilities->remove_namespace('blogs');
+		SchemaUtility::destroyNamespace('blogs');
 
-		if ($schema->hasTable('data_streams')) {
-			$pdb->table('data_streams')
-				->where('stream_namespace', 'blogs')
-				->delete();
-		}
-
-		ci()->streams->streams->add_stream(
+		StreamModel::addStream(
 			'lang:blog:blog_title',
 			'blog',
 			'blogs',
@@ -152,7 +148,7 @@ class Module_Blog extends AbstractModule
 
 		// Add the intro field.
 		// This can be later removed by an admin.
-		ci()->streams->fields->add_field(array(
+		FieldModel::addField(array(
 			'name'		=> 'lang:blog:intro_label',
 			'slug'		=> 'intro',
 			'namespace' => 'blogs',
