@@ -183,6 +183,8 @@ abstract class AbstractFieldType
 	public function setPreSaveParameters($pre_save_parameters = array())
 	{
 		$this->pre_save_parameters = $pre_save_parameters;
+
+		return $this;
 	}
 
 	/**
