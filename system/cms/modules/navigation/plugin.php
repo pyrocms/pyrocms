@@ -231,6 +231,7 @@ class Plugin_Navigation extends Plugin
 			$item['url']   = $link->url;
 			$item['title'] = $link->title;
 			$item['total'] = $total;
+			$item['page_id'] = $link['page_id'];
 
 			if ($wrap) {
 				$item['title'] = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
