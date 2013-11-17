@@ -2,8 +2,9 @@
 
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\FieldUi;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Admin controller for the Page Types of the Pages module.
@@ -167,12 +168,12 @@ class Admin_types extends Admin_Controller
 				$stream_slug = slugify($input['title'], '_', true);
 				$original_stream_slug = $stream_slug;
 				$count = 2;
-				while (Data\Streams::tableExists($stream_slug, 'pages_')) {
+				while (StreamModel::tableExists($stream_slug, 'pages_')) {
 					$stream_slug = $original_stream_slug.'_'.$count;
 					$count++;
 				}
 
-				$stream = Data\Streams::addStream($stream_slug, 'pages', lang('page_types:list_title_sing').' '.$input['title'], 'pages_');
+				$stream = StreamModel::addStream($stream_slug, 'pages', lang('page_types:list_title_sing').' '.$input['title'], 'pages_');
 
 				//$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
 				$input['stream_id'] = $stream->id;
@@ -232,7 +233,7 @@ class Admin_types extends Admin_Controller
 		$data->page_type->save_as_files = ($this->input->post('save_as_files') == 'y') ? 'y' : false;
 
 		// Streams dropdown data.
-		$data->streams_dropdown = Data\Streams::getStreamOptions();
+		$data->streams_dropdown = StreamModel::getStreamOptions();
 
 		// Theme layouts dropdown data.
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
@@ -382,7 +383,7 @@ class Admin_types extends Admin_Controller
 
 		// Show our fields list.
 		//$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
-		Cp\Fields::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
+		FieldUi::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' '.lang('global:fields'))
 			->addUri($page_type_uri.'/new_field')
 			->pagination(Settings::get('records_per_page'), $page_type_uri)
@@ -462,7 +463,7 @@ class Admin_types extends Admin_Controller
 	private function _new_field($stream, $page_type, $page_type_uri = null)
 	{
 		//$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
-		Cp\Fields::assignmentForm($stream->stream_slug, $stream->stream_namespace)
+		FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' : '.lang('streams:new_field'))
 			->skips(array('chunks'))
 			->redirect($page_type_uri)
@@ -480,7 +481,7 @@ class Admin_types extends Admin_Controller
 	private function _edit_field($stream, $page_type, $page_type_uri)
 	{
 		//$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
-		Cp\Fields::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
+		FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
 			->title($stream->stream_name.' : '.lang('streams:edit_field'))
 			->skips(array('chunks'))
 			->redirect($page_type_uri)
