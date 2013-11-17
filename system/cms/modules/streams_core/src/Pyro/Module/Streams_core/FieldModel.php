@@ -71,7 +71,7 @@ class FieldModel extends Eloquent
         }
 
         // Is this a valid field type?
-        if ( ! isset($type) or ! Field\Type::getType($type))
+        if ( ! isset($type) or ! FieldTypeManager::getType($type))
         {
             throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
         }
@@ -273,7 +273,7 @@ class FieldModel extends Eloquent
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $field_namespace)) return false;
 
         // Is this a valid field type?
-        if (isset($field_type) and ! Field\Type::getType($field_type))
+        if (isset($field_type) and ! FieldTypeManager::getType($field_type))
         {
             throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
         }
