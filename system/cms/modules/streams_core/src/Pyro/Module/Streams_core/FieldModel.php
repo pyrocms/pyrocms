@@ -70,10 +70,13 @@ class FieldModel extends Eloquent
             throw new Exception\FieldSlugInUseException('The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
         }
 
-        // Is this a valid field type?
-        if ( ! isset($type) or ! FieldTypeManager::getType($type))
+        if (! class_exists('Module_import'))
         {
-            throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            // Is this a valid field type?
+            if ( ! isset($type) or ! FieldTypeManager::getType($type))
+            {
+                throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            }            
         }
 
         // Set locked 
@@ -177,7 +180,7 @@ class FieldModel extends Eloquent
         
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace))
         {
-            throw new Exception\InvalidFieldException('Invalid field. Attempted ['.$field_slug.']');
+            throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
         // -------------------------------------
@@ -207,12 +210,12 @@ class FieldModel extends Eloquent
 
         if ( ! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace))
         {
-            throw new Exception\InvalidStreamException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
+            throw new Exception\InvalidStreamModelException('Invalid stream slug. Attempted ['.$stream_slug.','.$namespace.']');
         }
 
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace))
         {
-            throw new Exception\InvalidFieldException('Invalid field. Attempted ['.$field_slug.']');
+            throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
         // -------------------------------------
@@ -272,10 +275,13 @@ class FieldModel extends Eloquent
         // Find the field by slug and namespace or throw an exception
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $field_namespace)) return false;
 
-        // Is this a valid field type?
-        if (isset($field_type) and ! FieldTypeManager::getType($field_type))
+        if (! class_exists('Module_import'))
         {
-            throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            // Is this a valid field type?
+            if (isset($field_type) and ! FieldTypeManager::getType($field_type))
+            {
+                throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            }
         }
 
         return $field->update($field_data);
