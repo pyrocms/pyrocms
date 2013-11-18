@@ -93,9 +93,9 @@ class Plugin_Streams_core extends Plugin
 			$field_type = $attributes['field_type'];
 
 			// Call the field method
-			if ($type = Type::getType($field_type) and $type->plugin_override) {
+			if ($type = FieldTypeManager::getType($field_type) and $type->plugin_override) {
 				// Get the actual field.
-				$field = Field::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
+				$field = FieldModel::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
 				
 				if ( ! $field) return null;
 

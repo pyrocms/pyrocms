@@ -20,7 +20,7 @@ $config['pages:default_page_content'] = array(
 		),
 		/* The contact page data. */
 		'contact' => array(
-			'created' => date('Y-m-d H:i:s'),
+			'created_at' => date('Y-m-d H:i:s'),
 			'body' => '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
 					<div><label for="name">Name:</label>{{ name }}</div>

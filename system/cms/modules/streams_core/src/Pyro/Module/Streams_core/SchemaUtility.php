@@ -32,7 +32,7 @@ class SchemaUtility
 		});
 
 		// Remove all fields in namespace
-		return FieldModel::deleteByNamespace($namespace);
+		return true;
 	}
 
 	// --------------------------------------------------------------------------

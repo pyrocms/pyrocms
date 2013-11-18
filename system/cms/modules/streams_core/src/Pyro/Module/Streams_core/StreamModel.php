@@ -456,7 +456,9 @@ class StreamModel extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 
 		foreach ($this->assignments->getFields() as $field) {
-			$field->getType()->setStream($this)->namespaceDestruct();
+			if ($type = $field->getType()) {
+				$type->setStream($this)->namespaceDestruct();
+			}
 		}
 
 		try {
@@ -467,7 +469,7 @@ class StreamModel extends Eloquent
 
 		if ($success = parent::delete())
 		{
-			FieldAssignment::cleanup();
+			FieldAssignmentModel::cleanup();
 
 			FieldModel::cleanup();			
 		}
@@ -491,14 +493,14 @@ class StreamModel extends Eloquent
 
     	if (is_numeric($field))
     	{
-			$field = Field::findOrFail($field_id);
+			$field = FieldModel::findOrFail($field_id);
     	}
 
-		if ( ! $field instanceof Field) return false;
+		if ( ! $field instanceof FieldModel) return false;
 
-		if ( ! $assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
+		if ( ! $assignment = FieldAssignmentModel::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
 		{
-			$assignment = new FieldAssignment;
+			$assignment = new FieldAssignmentModel;
 		}
 
 		// -------------------------------------
@@ -546,7 +548,7 @@ class StreamModel extends Eloquent
 		$assignment->instructions	= isset($data['instructions']) ? $data['instructions'] : null;
 
 		// First one! Make it 1
-		$assignment->sort_order = FieldAssignment::getIncrementalSortNumber($this->getKey());
+		$assignment->sort_order = FieldAssignmentModel::getIncrementalSortNumber($this->getKey());
 
 		// Is Required
 		$assignment->is_required = isset($data['is_required']) ? $data['is_required'] : false;
@@ -688,7 +690,7 @@ class StreamModel extends Eloquent
 		$schema = ci()->pdb->getSchemaBuilder();
 		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
-		if ( ! $field instanceof Field) return false;
+		if ( ! $field instanceof FieldModel) return false;
 
 		// Do we have a destruct function
 		if ($type = $field->getType())
@@ -714,7 +716,7 @@ class StreamModel extends Eloquent
 			}
 		}
 
-		if ($assignment = FieldAssignment::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
+		if ($assignment = FieldAssignmentModel::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
 		{
 			// -------------------------------------
 			// Remove from field assignments table
