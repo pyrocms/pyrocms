@@ -49,6 +49,7 @@ class Module_import
 	 */
 	public function registerAutoloader(ClassLoader $loader, $app_path, $is_core = false)
 	{
+		$loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
 		$loader->add('Pyro\\Module\\Streams_core', $app_path.'/modules/streams_core/src/');
 
 		// Go through EVERY module and register its src folder
