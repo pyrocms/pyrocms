@@ -26,10 +26,10 @@ class Sitemap extends Public_Controller
 		foreach ($articles as $article) {
 			$entry = new SitemapEntry;
 
-			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
+			$loc = site_url('blog/'.date('Y/m/', $article->created_at).$article->slug);
 			
 			$entry->setLocation($loc);
-			$entry->setLastMod(date(DATE_W3C, $article->updated_on ?: $article->created_on));
+			$entry->setLastMod(date(DATE_W3C, $article->updated_at ?: $article->created_at));
 
 			$collection->addSitemap($entry);
 		}

@@ -206,9 +206,9 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->input->post('created_on')) {
-			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+			$created_at = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
-			$created_on = time();
+			$created_at = time();
 		}
 
 		if ($this->form_validation->run()) {
@@ -222,8 +222,7 @@ class Admin extends Admin_Controller
 				'keywords'         => Keywords::process($this->input->post('keywords')),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
-				'created_on'       => $created_on,
-				'created'		   => date('Y-m-d H:i:s', $created_on),
+				'created_at'		=> date('Y-m-d H:i:s', $created_at),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $this->current_user->id,
 				'type'             => $this->input->post('type'),
@@ -255,9 +254,8 @@ class Admin extends Admin_Controller
 			foreach ($this->validation_rules as $key => $field) {
 				$post->$field['field'] = set_value($field['field']);
 			}
-			$post->created_on = $created_on;
-			$post->created = date('Y-m-d H:i:s');
-
+			$post->created_at = $created_at;
+		
 			// if it's a fresh new article lets show them the advanced editor
 			$post->type or $post->type = 'wysiwyg-advanced';
 		}
@@ -291,7 +289,7 @@ class Admin extends Admin_Controller
 		EntryUi::form('blog', 'blogs')
             ->tabs($tabs)
             ->onSaving(function($entry) {
-            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
             ->enablePost($enable_entry_post = true) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language
@@ -334,9 +332,9 @@ class Admin extends Admin_Controller
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on')) {
-			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+			$created_at = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
-			$created_on = $post->created_on;
+			$created_at = $post->created_at;
 		}
 
 		// Load up streams
@@ -373,10 +371,9 @@ class Admin extends Admin_Controller
 				'keywords'         => Keywords::process($this->input->post('keywords'), $old_keywords_hash),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
-				'created_on'       => $created_on,
-				'updated_on'       => $created_on,
-				'created_at'		=> date('Y-m-d H:i:s', $created_on),
-				'updated_at'		=> date('Y-m-d H:i:s', $created_on),
+				'created_on'       => $created_at,
+				'created_at'		=> date('Y-m-d H:i:s', $created_at),
+				'updated_at'		=> date('Y-m-d H:i:s', $created_at),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
@@ -410,7 +407,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$post->created_on = $created_on;
+		$post->created_at = $created_at;
 
 		// Set Values
 		$values = $this->fields->set_values($stream_fields, $post, 'edit');
@@ -441,7 +438,7 @@ class Admin extends Admin_Controller
 		EntryUi::form('blog', 'blogs', $id)
             ->tabs($tabs)
             ->onSaving(function($entry) {
-            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_on).$_POST['slug'];
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
             ->enableSave($enable_entry_post) // This enables the profile submittion only if the user was created successfully
             ->successMessage('Post saved.') // @todo - language

@@ -316,7 +316,7 @@ class Admin extends Admin_Controller
             $page->rss_enabled      = ! empty($input['rss_enabled']);
             $page->comments_enabled = ! empty($input['comments_enabled']);
             $page->status           = $input['status'];
-            $page->created_on       = time();
+            $page->created_at       = time();
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : 0;
             $page->strict_uri       = ! empty($input['strict_uri']);
             $page->is_home          = ! empty($input['is_home']);

@@ -170,9 +170,6 @@ class Module_Blog extends AbstractModule
 			$table->enum('status', array('draft', 'live'))->default('draft');
 			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
 	        $table->string('preview_hash', 32)->nullable();
-			$table->string('created_at', 11);
-			$table->string('updated_at', 11)->nullable();
-
 			$table->index('slug');
 			$table->index('category_id');
 		});
