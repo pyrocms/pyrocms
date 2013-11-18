@@ -168,6 +168,7 @@ class MY_Controller extends MX_Controller
         // now that we have a list of enabled modules
         $this->load->library('events');
 
+        FieldTypeManager::init();
         FieldTypeManager::registerAddonFieldTypes();
 
         // load all modules (the Events library uses them all) and make their details widely available
