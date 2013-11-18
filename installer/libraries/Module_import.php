@@ -77,7 +77,7 @@ class Module_import
 
 	        	$field_types = isset($module_info['field_types']) ? $module_info['field_types'] : false;
 
-	        	FieldTypeManager::registerFolderFieldTypes("{$app_path}/modules/{$slug}/", $field_types);
+	        	FieldTypeManager::registerFolderFieldTypes("{$app_path}/modules/{$slug}/field_types/", $field_types);
 	        }
     	}
 
