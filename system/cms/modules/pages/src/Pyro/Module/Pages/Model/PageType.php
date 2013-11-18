@@ -50,7 +50,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public function stream()
     {
-        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream');
+        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel');
     }
 
     /**

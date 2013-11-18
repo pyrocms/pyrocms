@@ -2,7 +2,7 @@
 
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
-use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * User controller for the users module (frontend)
@@ -694,7 +694,7 @@ class Users extends Public_Controller
 			}
 		}
 
-        Cp\Entries::form($user->profile) // We can pass the profile model to generate the form
+        EntryUi::form($user->profile) // We can pass the profile model to generate the form
         	->title('Edit Profile')
             ->viewWrapper('users/profile/edit', array('_user' => $user))
             ->successMessage('Profile updated.') // @todo - language

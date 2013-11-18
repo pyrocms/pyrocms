@@ -1,10 +1,8 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
-use Pyro\Module\Streams_core\Core\Model;
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Users\Model\User as UserModel;
+use Pyro\Module\Users\Model\Group as GroupModel;
 
 /**
  * PyroStreams User Field Type
@@ -15,7 +13,7 @@ use Pyro\Module\Users\Model\User as UserModel;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class User extends AbstractField
+class User extends AbstractFieldType
 {
 	public $field_type_slug = 'user';
 
@@ -132,11 +130,11 @@ class User extends AbstractField
 
 		if (ci()->current_user->isSuperUser())
 		{
-			$groups = array_merge($groups, Model\Group::getGroupOptions());
+			$groups = array_merge($groups, GroupModel::getGroupOptions());
 		}
 		else
 		{
-			$groups = array_merge($groups, Model\Group::getGeneralGroupOptions());
+			$groups = array_merge($groups, GroupModel::getGeneralGroupOptions());
 		}
 
 		return form_dropdown('restrict_group', $groups, $value);
@@ -157,7 +155,7 @@ class User extends AbstractField
 		/**
 		 * Determine our field / type
 		 */
-		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
 		$field_type = $field->getType(null);
 
 

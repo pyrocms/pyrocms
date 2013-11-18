@@ -1,7 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Variables Module
@@ -110,16 +112,11 @@ class Module_Variables extends AbstractModule
 	public function install($pdb, $schema)
 	{
 		// Remove variables from streams
-		Data\Utility::destroyNamespace('variables');
+		SchemaUtility::destroyNamespace('variables');
 
 		ci()->lang->load('variables/variables');
 
-		if (! ci()->type->load_single_type('field')) {
-			ci()->session->set_flashdata('notice', lang('variables:field_field_type_required'));
-			return false;
-		}
-
-		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
+		if (StreamModel::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
 			'title_column' => 'name'
 		)))
 		{
@@ -177,7 +174,7 @@ class Module_Variables extends AbstractModule
 				array('name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
 			);
 
-			Data\Fields::addFields($fields, null, 'variables');			
+			FieldModel::addFields($fields, null, 'variables');			
 		}
 
 		return true;

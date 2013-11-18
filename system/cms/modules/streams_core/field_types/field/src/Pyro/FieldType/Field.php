@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
-use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams_core\FieldModel;
 
 /**
  * Field Field Type
@@ -9,7 +9,7 @@ use Pyro\Module\Streams_core\Core\Model;
  * @author  Osvaldo Brignoni
  * @package PyroCMS\Addon\FieldType
  */
-class Field extends AbstractField
+class Field extends AbstractFieldType
 {
 	/**
 	 * Field Type Name
@@ -150,7 +150,7 @@ class Field extends AbstractField
 		}
 
 		// Get the fields and display the dropdown
-		if ($fields = Model\Field::findManyByNamespace($selectable_fields_namespace, null, null, $skip_fields))
+		if ($fields = FieldModel::findManyByNamespace($selectable_fields_namespace, null, null, $skip_fields))
 		{
 			foreach ($fields as $selectable)
 			{
@@ -324,7 +324,7 @@ class Field extends AbstractField
 			0 => lang('streams:field.param_default')
 		);
 
-		$options = array_merge($options, Model\Field::getFieldNamespaceOptions());
+		$options = array_merge($options, FieldModel::getFieldNamespaceOptions());
 
 		return array(
 			'input' 		=> form_dropdown('namespace', $options, $value),
@@ -362,7 +362,7 @@ class Field extends AbstractField
 			$field_slug_value = $this->getFieldSlugValue();
 		}
 
-		return Model\Field::findBySlugAndNamespace($field_slug_value, $this->getSelectableFieldNamespace());
+		return FieldModel::findBySlugAndNamespace($field_slug_value, $this->getSelectableFieldNamespace());
 	}
 
 	public function getSelectedFieldType()

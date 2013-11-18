@@ -65,9 +65,9 @@ class Rss extends Public_Controller
 		{
 			foreach ($posts as $row)
 			{
-				//$row->created_on = human_to_unix($row->created_on);
-				$row->link = site_url('blog/'.date('Y/m', $row->created_on).'/'.$row->slug);
-				$row->created_on = date(DATE_RSS, $row->created_on);
+				//$row->created_at = human_to_unix($row->created_at);
+				$row->link = site_url('blog/'.date('Y/m', $row->created_at).'/'.$row->slug);
+				$row->created_at = date(DATE_RSS, $row->created_at);
 
 				$intro = (isset($row->intro)) ? $row->intro : $row->body;
 
@@ -77,7 +77,7 @@ class Rss extends Public_Controller
 					'link' => $row->link,
 					'guid' => $row->link,
 					'description' => $intro,
-					'date' => $row->created_on,
+					'date' => $row->created_at,
 					'category' => $row->category_title
 				);
 				$data->rss->items[] = (object)$item;

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\FieldUi;
 
 /**
  * Admin Blog Fields
@@ -53,7 +53,7 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		Cp\Fields::assignmentsTable('blog', 'blogs')
+		FieldUi::assignmentsTable('blog', 'blogs')
 			->title(lang('global:custom_fields'))
 			->addUri('admin/blog/fields/create')
 			->pagination(Settings::get('records_per_page'), 'admin/blog/fields/index')
@@ -72,7 +72,7 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function create()
 	{
-		Cp\Fields::assignmentForm('blog', 'blogs')
+		FieldUi::assignmentForm('blog', 'blogs')
 			->title(lang('streams:add_field'))
 			->redirect('admin/blog/fields')
 			->cancelUri('admin/blog/fields')
@@ -124,7 +124,7 @@ class Admin_fields extends Admin_Controller
 			'cancel_uri'	=> 'admin/blog/fields'
 		);
 
-		Cp\Fields::assignmentForm('blog', 'blogs', $this->uri->segment(5))
+		FieldUi::assignmentForm('blog', 'blogs', $this->uri->segment(5))
 			->title(lang('streams:edit_field'))
 			->redirect('admin/blog/fields')
 			->cancelUri('admin/blog/fields')

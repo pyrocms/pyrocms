@@ -8,7 +8,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
-use Pyro\Module\Streams_core\Core\Field\Type as FieldType;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -168,16 +168,14 @@ class MY_Controller extends MX_Controller
         // now that we have a list of enabled modules
         $this->load->library('events');
 
-        FieldType::init();
-
-        FieldType::registerAddonFieldTypes();
+        FieldTypeManager::registerAddonFieldTypes();
 
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
 
         foreach ($enabled_modules as $module)
         {
-            FieldType::registerFolderFieldTypes($module['path'].'/field_types/', $module['field_types']);
+            FieldTypeManager::registerFolderFieldTypes($module['path'].'/field_types/', $module['field_types']);
 
             // register classes with namespaces
             $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');

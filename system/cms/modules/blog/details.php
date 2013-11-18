@@ -1,6 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Blog module
@@ -139,26 +142,17 @@ class Module_Blog extends AbstractModule
 			$table->string('title', 100)->nullable()->unique();
 		});
 
-		ci()->load->driver('Streams');
-		ci()->streams->utilities->remove_namespace('blogs');
+		SchemaUtility::destroyNamespace('blogs');
 
-		if ($schema->hasTable('data_streams')) {
-			$pdb->table('data_streams')
-				->where('stream_namespace', 'blogs')
-				->delete();
-		}
-
-		ci()->streams->streams->add_stream(
-			'lang:blog:blog_title',
+		StreamModel::addStream(
 			'blog',
 			'blogs',
-			null,
-			null
+			'lang:blog:blog_title'
 		);
 
 		// Add the intro field.
 		// This can be later removed by an admin.
-		ci()->streams->fields->add_field(array(
+		FieldModel::addField(array(
 			'name'		=> 'lang:blog:intro_label',
 			'slug'		=> 'intro',
 			'namespace' => 'blogs',
@@ -182,9 +176,6 @@ class Module_Blog extends AbstractModule
 			$table->enum('status', array('draft', 'live'))->default('draft');
 			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
 	        $table->string('preview_hash', 32)->nullable();
-			$table->string('created_on', 11);
-			$table->string('updated_on', 11)->nullable();
-
 			$table->index('slug');
 			$table->index('category_id');
 		});

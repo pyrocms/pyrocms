@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Users;
 
 /**
@@ -250,7 +250,7 @@ class Admin extends Admin_Controller
             )
         );
 
-        Cp\Entries::form('profiles', 'users')
+        EntryUi::form('profiles', 'users')
             ->tabs($tabs)
             ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
             ->onSaving(function($profile) use ($user)
@@ -381,7 +381,7 @@ class Admin extends Admin_Controller
             )
         );
 
-        Cp\Entries::form($user->profile) // We can pass the profile model to generate the form
+        EntryUi::form($user->profile) // We can pass the profile model to generate the form
             ->tabs($tabs)
             ->successMessage('User saved.') // @todo - language
             ->redirect('admin/users')

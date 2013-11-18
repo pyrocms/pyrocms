@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Core\Field;
-use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\FieldAssignmentModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 
 /**
  * PyroStreams AJAX Controller
@@ -49,7 +49,7 @@ class Ajax extends MY_Controller
 		$type = $this->input->post('data');
 		$namespace = $this->input->post('namespace');
 
-		echo Field\Type::buildParameters($type, $namespace);
+		echo FieldTypeManager::buildParameters($type, $namespace);
 	}
 
 	// --------------------------------------------------------------------------
@@ -73,7 +73,7 @@ class Ajax extends MY_Controller
 		
 		foreach ($ids as $id) {
 			
-			Model\FieldAssignment::updateSortOrder($id, $order_count);
+			FieldAssignmentModel::updateSortOrder($id, $order_count);
 		
 			++$order_count;
 		}

@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Illuminate\Support\Str;
-use Pyro\Module\streams_core\Core\Field\Type;
-use Pyro\Module\streams_core\Core\Model\Entry;
-use Pyro\Module\streams_core\Core\Model\Field;
-use Pyro\Module\streams_core\Core\Model\Stream;
+use Pyro\Module\streams_core\FieldTypeManager;
+use Pyro\Module\streams_core\EntryModel;
+use Pyro\Module\streams_core\FieldModel;
+use Pyro\Module\streams_core\StreamModel;
 
 /**
  * Streams Core Plugin
@@ -86,16 +86,16 @@ class Plugin_Streams_core extends Plugin
 		{
 			$attributes_keys = array_keys($attributes);
 
-			Entry::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
+			EntryModel::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
 
 			// Setting this in a separate var so we can unset it
 			// from the array later that is passed to the parse_override function.
 			$field_type = $attributes['field_type'];
 
 			// Call the field method
-			if ($type = Type::getType($field_type) and $type->plugin_override) {
+			if ($type = FieldTypeManager::getType($field_type) and $type->plugin_override) {
 				// Get the actual field.
-				$field = Field::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
+				$field = FieldModel::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
 				
 				if ( ! $field) return null;
 
@@ -167,7 +167,7 @@ class Plugin_Streams_core extends Plugin
 			'limit'            => $this->attribute('limit'),
 			'offset'           => $this->attribute('offset', 0),
 			'id'               => $this->attribute('id', null),
-			'date_by'          => $this->attribute('date_by', 'created'),
+			'date_by'          => $this->attribute('date_by', 'created_at'),
 			'exclude'          => $this->attribute('exclude'),
 			'show_upcoming'    => $this->attribute('show_upcoming', 'yes'),
 			'show_past'        => $this->attribute('show_past', 'yes'),

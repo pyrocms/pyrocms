@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
  * Merge Tags Field Type
@@ -9,7 +9,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @copyright	Copyright (c) 2008-2013, AI Web Systems, Inc.
  * @link		http://aiwebsystems.com/
  */
-class MergeTags extends AbstractField
+class MergeTags extends AbstractFieldType
 {
 	public $field_type_name 		= 'Merge Tags';
 	

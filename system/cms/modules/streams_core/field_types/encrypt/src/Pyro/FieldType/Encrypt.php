@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
  * PyroStreams Encrypt Field Type
@@ -11,7 +11,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Encrypt extends AbstractField
+class Encrypt extends AbstractFieldType
 {
 	public $field_type_slug			= 'encrypt';
 

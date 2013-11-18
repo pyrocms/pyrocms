@@ -1,8 +1,9 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Core\Model;
-use Pyro\Module\Streams_core\Core\Field\AbstractField;
+use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * PyroStreams Relationship Field Type
@@ -13,7 +14,7 @@ use Pyro\Module\Streams_core\Core\Field\AbstractField;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Relationship extends AbstractField
+class Relationship extends AbstractFieldType
 {
 	/**
 	 * Field type slug
@@ -64,7 +65,7 @@ class Relationship extends AbstractField
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\Core\Model\Entry'));
+		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'));
 	}
 
 	/**
@@ -84,12 +85,10 @@ class Relationship extends AbstractField
 			array(
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->stream->stream_namespace,
-				'stream_param' => $this->getParameter('stream'),
+				'stream' => $this->getParameter('stream'),
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', '_title_column'),
 				'search_field' => $this->getParameter('search_field', '_title_column'),
-				'value' => $this->getValueEntry(),
 				),
 			false
 			);
@@ -106,20 +105,18 @@ class Relationship extends AbstractField
 	public function filterInput()
 	{
 		// Start the HTML
-		$html = form_dropdown($this->getFilterSlug('is'), array(), null, 'id="'.$this->getFilterSlug('is').'" class="skip" placeholder="'.$this->field->field_name.'"');
+		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
 
 		// Append our JS to the HTML since it's special
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
-				'form_slug' => $this->getFilterSlug('is'),
+				'form_slug' => $this->getFilterSlug('contains'),
 				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->stream->stream_namespace,
-				'stream_param' => $this->getParameter('stream'),
+				'stream' => $this->getParameter('stream'),
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
-				'value' => $this->filterRelationResults(ci()->input->get($this->getFilterSlug('is'))),
 				),
 			false
 			);
@@ -176,7 +173,7 @@ class Relationship extends AbstractField
 	 */
 	public function paramStream($value = '')
 	{
-		$options = Model\Stream::getStreamAssociativeOptions();
+		$options = StreamModel::getStreamAssociativeOptions();
 
 		return form_dropdown('stream', $options, $value);
 	}
@@ -265,79 +262,29 @@ class Relationship extends AbstractField
 		/**
 		 * Determine the stream
 		 */
-		$stream = explode('.', ci()->uri->segment(7));
-		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
+		$stream = explode('.', ci()->uri->segment(6));
+		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
 
 
 		/**
 		 * Determine our field / type
 		 */
-		$field = Model\Field::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
 		$field_type = $field->getType(null);
 
 
 		/**
-		 * Get our fields for the select
+		 * Get our entries
 		 */
-		
-		$fields = array_unique(
-			array(
-				$field_type->getParameter('value_field', 'id'),
-				$field_type->getParameter('label_field'),
-				$field_type->getParameter('search_field'),
-				)
-			);
-
-		$entries = Model\Entry::stream($stream->stream_slug, $stream->stream_namespace)->select($fields)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**
 		 * Stash the title_column just in case nothing is defined later
 		 */
-		$entries = $entries->asEloquent()->toArray();
+		$entries = $entries->toArray();
 
 		header('Content-type: application/json');
 		echo json_encode(array('entries' => $entries));
-	}
-
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	UTILITIES 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
-
-	protected function getValueEntry()
-	{
-		// Break apart the stream
-		$stream = explode('.', $this->getParameter('stream'));
-		$stream = Model\Stream::findBySlugAndNamespace($stream[0], $stream[1]);
-
-		// Boom
-		return $this->getRelationResult();
-	}
-
-	/**
-	 * Get the results for the field type relation
-	 * @return [type] [description]
-	 */
-	protected function filterRelationResults($value)
-	{
-		$field_slug = $this->field->field_slug;
-		
-		// Check if we have value
-		$original = $value;
-
-		if ($this->hasLocalForeingKey() and empty($original)) return null;
-
-		// If the relation result exists, return it
-		if ($relation = $this->entry->getRelation($field_slug)) {
-			
-			return $relation;
-		
-		} elseif ($this->hasRelation()) {
-		
-			return $this->relation()->getResults();
-		
-		}
-
-		return null;
 	}
 }

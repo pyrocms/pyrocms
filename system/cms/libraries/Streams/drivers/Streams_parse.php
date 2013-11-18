@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Core\Field\Type;
-use Pyro\Module\Streams_core\Core\Model\Entry;
-use Pyro\Module\Streams_core\Core\Model\Field;
-use Pyro\Module\Streams_core\Core\Model\Stream;
+use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Streams Parse Driver
@@ -63,7 +63,7 @@ class Streams_parse extends CI_Driver {
 
 		if (is_null($fields))
 		{
-			$stream = Stream::findBySlugAndNamespace($stream_slug, $stream_namespace);
+			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
 			$fields = $stream->assignments->getFields();
 		}
 

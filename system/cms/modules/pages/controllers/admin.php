@@ -5,7 +5,7 @@ use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
-use Pyro\Module\Streams_core as Streams;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * Pages controller
@@ -283,7 +283,7 @@ class Admin extends Admin_Controller
             $page->rss_enabled      = ! empty($input['rss_enabled']);
             $page->comments_enabled = ! empty($input['comments_enabled']);
             $page->status           = $input['status'];
-            $page->created_on       = time();
+            $page->created_at       = time();
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : 0;
             $page->strict_uri       = ! empty($input['strict_uri']);
             $page->is_home          = ! empty($input['is_home']);
@@ -339,7 +339,7 @@ class Admin extends Admin_Controller
 
         $this->form_data['parent_page'] = $parent_page;
 
-        Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
+        EntryUi::form($stream->stream_slug, $stream->stream_namespace)
             ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
@@ -481,12 +481,12 @@ class Admin extends Admin_Controller
         if ($page->entry)
         {
             // We can pass the page model to generate the form
-            $cp = Streams\Cp\Entries::form($page->entry);          
+            $ui = EntryUi::form($page->entry);          
         }
         // If for some reason the page does not have an entry, lets give it a chance to get a new one
         else
         {
-            $cp = Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
+            $ui = EntryUi::form($stream->stream_slug, $stream->stream_namespace)
                 ->onSaved(function($entry) use ($page)
                 {
                     $page->entry()->associate($entry); // Save the relation Eloquent style
@@ -494,7 +494,7 @@ class Admin extends Admin_Controller
                 });
         }
 
-        $cp->tabs($this->_tabs())
+        $ui->tabs($this->_tabs())
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })

@@ -1,10 +1,10 @@
 <?php
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Core\Field;
-use Pyro\Module\Streams_core\Core\Model\Entry;
-use Pyro\Module\Streams_core\Core\Model\Stream;
-use Pyro\Module\Variables\VariableModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Variables\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -60,7 +60,7 @@ class Admin extends Admin_Controller
 
 		$extra['return'] = 'admin/variables';
 */
-		Cp\Entries::table('Pyro\Module\Variables\VariableModel')
+		EntryUi::table('Pyro\Module\Variables\VariableEntryModel')
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
 			->filters(array('name'))
@@ -93,7 +93,7 @@ class Admin extends Admin_Controller
 			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		Cp\Entries::form('Pyro\Module\Variables\VariableModel')
+		EntryUi::form('Pyro\Module\Variables\VariableEntryModel')
 			->title(lang('variables:create_title').$form)
 			->successMessage(lang('variables:add_success'))
 			->defaults($defaults)
@@ -111,11 +111,11 @@ class Admin extends Admin_Controller
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
 
-		$variable = VariableModel::find($id);
+		$variable = VariableEntryModel::find($id);
 
 		$form = $this->selectable_fields_form($variable, '---', true);
 
-		Cp\Entries::form($variable)
+		EntryUi::form($variable)
 			->title('Edit '.$form)
 			->successMessage(sprintf(lang('variables:edit_success'), $variable->name))
 			->redirect('admin/variables')
@@ -129,7 +129,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = null)
 	{
-		$variable = VariableModel::find($id);
+		$variable = VariableEntryModel::find($id);
 
 		$name = $variable->name;
 
@@ -146,9 +146,9 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$stream = Stream::findBySlugAndNamespace('variables', 'variables');
+		$stream = StreamModel::findBySlugAndNamespace('variables', 'variables');
 
-		$field_type = Field\Type::getType('field');
+		$field_type = FieldTypeManager::getType('field');
 
 		$field_type->setStream($stream);
 

@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
-use Pyro\Module\Streams_core\Core\Model\Entry;
-use Pyro\Module\Streams_core\Core\Model\Exception\ClassNotInstanceOfEntryException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Pyro\Module\Streams_core\EntryModel;
 
 /**
  * Eloquent Model
@@ -162,7 +161,7 @@ abstract class Eloquent extends Model
      */
     public function newCollection(array $models = array())
     {
-        return new Collection\EloquentCollection($models);
+        return new EloquentCollection($models);
     }
 
     /**
@@ -173,7 +172,7 @@ abstract class Eloquent extends Model
      * @param  string  $id
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function morphToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $relation_name = 'entry', $stream_column = null, $id_column = null)
+    public function morphToEntry($related = 'Pyro\Module\Streams_core\EntryModel', $relation_name = 'entry', $stream_column = null, $id_column = null)
     {
         // Next we will guess the type and ID if necessary. The type and IDs may also
         // be passed into the function so that the developers may manually specify
@@ -193,7 +192,7 @@ abstract class Eloquent extends Model
      * @param  string  $foreignKey
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\Core\Model\Entry', $foreignKey = null, $stream = null)
+    public function belongsToEntry($related = 'Pyro\Module\Streams_core\EntryModel', $foreignKey = null, $stream = null)
     {
         list(, $caller) = debug_backtrace(false);
 
@@ -209,9 +208,9 @@ abstract class Eloquent extends Model
 
         $instance = new $related;
 
-        if( ! ($instance instanceof Entry))
+        if( ! ($instance instanceof EntryModel))
         {
-            throw new ClassNotInstanceOfEntryException;
+            throw new ClassNotInstanceOfEntryModelException;
         }
 
         // Once we have the foreign key names, we'll just create a new Eloquent query
@@ -240,9 +239,9 @@ abstract class Eloquent extends Model
     {
         $instance = new $related;
 
-        if( ! ($instance instanceof Entry))
+        if( ! ($instance instanceof EntryModel))
         {
-            throw new ClassNotInstanceOfEntryException;
+            throw new ClassNotInstanceOfEntryModelException;
         }
 
         // Once we have the foreign key names, we'll just create a new Eloquent query

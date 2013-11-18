@@ -1,7 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Pages Module
@@ -214,14 +216,14 @@ class Module_Pages extends AbstractModule
         });
 
         // Remove pages namespace, just in case its a 2nd install
-        Data\Utility::destroyNamespace('pages');
+        SchemaUtility::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
         $schema->dropIfExists('def_page_fields');
 
-        $stream = Data\Streams::addStream(
+        $stream = StreamModel::addStream(
             'def_page_fields',
             'pages',
             'Default', // @todo - language
@@ -230,7 +232,7 @@ class Module_Pages extends AbstractModule
         );
 
         // add the fields to the streams
-        Data\Fields::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
+        FieldModel::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
 
         // Insert the page type structures
         $def_page_type_id = $pdb->table('page_types')->insertGetId(array(
