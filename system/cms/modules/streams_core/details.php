@@ -67,59 +67,6 @@ class Module_Streams_core extends AbstractModule
      */
     public function install($pdb, $schema)
 	{
-		if ( ! ($config = $this->loadConfig())) {
-			return false;
-		}
-
-		// Streams Table
-        $schema->dropIfExists($config['streams:streams_table']);
-
-        $schema->create($config['streams:streams_table'], function($table) {
-            $table->increments('id');
-            $table->string('stream_name', 60);
-            $table->string('stream_slug', 60);
-            $table->string('stream_namespace', 60)->nullable();
-            $table->string('stream_prefix', 60)->nullable();
-            $table->string('about', 255)->nullable();
-            $table->binary('view_options');
-            $table->string('title_column', 255)->nullable();
-            $table->enum('sorting', array('title', 'custom'))->default('title');
-            $table->text('permissions')->nullable();
-            $table->enum('is_hidden', array('yes','no'))->default('no');
-            $table->string('menu_path', 255)->nullable();
-        });
-
-        // Fields Table
-        $schema->dropIfExists($config['streams:fields_table']);
-
-        $schema->create($config['streams:fields_table'], function($table) {
-            $table->increments('id');
-            $table->string('field_name', 60);
-            $table->string('field_slug', 60);
-            $table->string('field_namespace', 60)->nullable();
-            $table->string('field_type', 50);
-            $table->binary('field_data')->nullable();
-            $table->binary('view_options')->nullable();
-            $table->enum('is_locked', array('yes', 'no'))->default('no');
-        });
-
-        // Assignments Table
-        $schema->dropIfExists($config['streams:assignments_table']);
-
-        $schema->create($config['streams:assignments_table'], function($table) {
-            $table->increments('id');
-            $table->integer('sort_order');
-            $table->integer('stream_id');
-            $table->integer('field_id');
-            $table->enum('is_required', array('yes', 'no'))->default('no');
-            $table->enum('is_unique', array('yes', 'no'))->default('no');
-            $table->text('instructions')->nullable();
-            $table->string('field_name', 60);
-
-            // $table->foreign('stream_id'); //TODO Set up foreign keys
-            // $table->foreign('field_id'); //TODO Set up foreign keys
-        });
-
 		return true;
 	}
 
@@ -133,16 +80,6 @@ class Module_Streams_core extends AbstractModule
 	 */
 	public function uninstall($pdb, $schema)
 	{
-		if ( ! ($config = $this->loadConfig())) {
-			return false;
-		}
-
-		// Streams Table
-        $schema->dropIfExists($config['streams:streams_table']);
-        $schema->dropIfExists($config['streams:fields_table']);
-        $schema->dropIfExists($config['streams:assignments_table']);
-        $schema->dropIfExists($config['streams:searches_table']);
-
 		return true;
 	}
 
