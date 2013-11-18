@@ -167,7 +167,7 @@ class Plugin_Streams_core extends Plugin
 			'limit'            => $this->attribute('limit'),
 			'offset'           => $this->attribute('offset', 0),
 			'id'               => $this->attribute('id', null),
-			'date_by'          => $this->attribute('date_by', 'created'),
+			'date_by'          => $this->attribute('date_by', 'created_at'),
 			'exclude'          => $this->attribute('exclude'),
 			'show_upcoming'    => $this->attribute('show_upcoming', 'yes'),
 			'show_past'        => $this->attribute('show_past', 'yes'),

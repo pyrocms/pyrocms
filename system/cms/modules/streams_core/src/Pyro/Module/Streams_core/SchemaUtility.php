@@ -56,7 +56,7 @@ class SchemaUtility
 	 * @param	[array - view options]
 	 * @return	bool
 	 */
-	public static function convertTableToStream($stream_slug, $namespace, $stream_prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created'))
+	public static function convertTableToStream($stream_slug, $namespace, $stream_prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created_at'))
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 		$prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
@@ -102,15 +102,15 @@ class SchemaUtility
 		$schema->table($table, function($table) use ($schema)
 		{
 			// Created Field
-			if ( ! $schema->hasColumn($table->getTable(), 'created'))
+			if ( ! $schema->hasColumn($table->getTable(), 'created_at'))
 			{
-				$table->datetime('created')->nullable();
+				$table->datetime('created_at')->nullable();
 			}
 
 			// Updated Field
-			if ( ! $schema->hasColumn($table->getTable(), 'updated'))
+			if ( ! $schema->hasColumn($table->getTable(), 'created_at'))
 			{
-				$table->datetime('updated')->nullable();
+				$table->datetime('updated_at')->nullable();
 			}
 
 			// Created_by Field
@@ -130,9 +130,9 @@ class SchemaUtility
 		// Order The Columns
 		// ----------------------------
 
-		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created` DATETIME AFTER id");
-		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `updated` DATETIME AFTER created");
-		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created_by` INT(11) AFTER updated");
+		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created_at` DATETIME AFTER id");
+		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `updated_at` DATETIME AFTER updated_at");
+		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created_by` INT(11) AFTER updated_at");
 		ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `ordering_count` INT(11) AFTER created_by");
 
 		// ----------------------------
