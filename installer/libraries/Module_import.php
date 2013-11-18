@@ -52,18 +52,26 @@ class Module_import
 		$loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
 		$loader->add('Pyro\\Module\\Streams_core', $app_path.'/modules/streams_core/src/');
 
+		$slugs = array();
+
 		// Go through EVERY module and register its src folder
         foreach (glob("{$app_path}/modules/*/src/", GLOB_ONLYDIR) as $dir) {
 
         	// Turn 'modules/blog/src/' into 'blog'
-        	$slug = basename(dirname($dir));
+        	$slugs[] = $slug = basename(dirname($dir));
 
         	// That 'blog' should now be 'Pyro\Module\Blog'
         	$namespace = 'Pyro\\Module\\'.ucfirst($slug);
 
 	        $loader->add($namespace, $dir);
+    	}
 
-	        if ($details_class = $this->spawnClass($slug, $is_core)) {
+        // activate the autoloader
+        $loader->register();
+
+    	foreach ($slugs as $slug) {
+    		
+    		if ($details_class = $this->spawnClass($slug, $is_core)) {
 
 	        	$module_info = $details_class->info();
 
@@ -72,9 +80,6 @@ class Module_import
 	        	FieldTypeManager::registerFolderFieldTypes("{$app_path}/modules/{$slug}/", $field_types);
 	        }
     	}
-
-        // activate the autoloader
-        $loader->register();
 
         return $loader;
 	}
