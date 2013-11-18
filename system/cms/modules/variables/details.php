@@ -112,11 +112,6 @@ class Module_Variables extends AbstractModule
 
 		ci()->lang->load('variables/variables');
 
-		if (! ci()->type->load_single_type('field')) {
-			ci()->session->set_flashdata('notice', lang('variables:field_field_type_required'));
-			return false;
-		}
-
 		if (StreamModel::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
 			'title_column' => 'name'
 		)))
