@@ -62,7 +62,7 @@ class Module_import
 
 	        $loader->add($namespace, $dir);
 
-	        if ($details_class = $this->spawnClass($slug, $is_core) {
+	        if ($details_class = $this->spawnClass($slug, $is_core)) {
 
 	        	$module_info = $details_class->info();
 

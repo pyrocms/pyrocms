@@ -139,11 +139,9 @@ class Module_Blog extends AbstractModule
 		SchemaUtility::destroyNamespace('blogs');
 
 		StreamModel::addStream(
-			'lang:blog:blog_title',
 			'blog',
 			'blogs',
-			null,
-			null
+			'lang:blog:blog_title'
 		);
 
 		// Add the intro field.
