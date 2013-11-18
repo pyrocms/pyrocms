@@ -83,9 +83,11 @@ class Relationship extends AbstractFieldType
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
+				'value' => $this->value,
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
+				'stream_param' => $this->getParameter('stream'),
+				'stream_namespace' => $this->stream->stream_namespace,
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', '_title_column'),
 				'search_field' => $this->getParameter('search_field', '_title_column'),
@@ -111,9 +113,11 @@ class Relationship extends AbstractFieldType
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
+				'value' => false,
 				'form_slug' => $this->getFilterSlug('contains'),
 				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
+				'stream_param' => $this->getParameter('stream'),
+				'stream_namespace' => $this->stream->stream_namespace,
 				'value_field' => $this->getParameter('value_field', 'id'),
 				'label_field' => $this->getParameter('label_field', 'id'),
 				'search_field' => $this->getParameter('search_field', 'id'),
