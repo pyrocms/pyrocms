@@ -103,16 +103,16 @@ class AddonTypeManager
 
 			// Set our addon paths
 			static::$addon_paths = array(
-				'addon' 		=> ADDONPATH.'Extensions/'.Str::studly($module).'/'.$type_slug.'/',
-				'addon_alt' 	=> SHARED_ADDONPATH.'Extensions/'.Str::studly($module).'/'.$type_slug.'/',
+				'addon' 		=> ADDONPATH.'Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/',
+				'addon_alt' 	=> SHARED_ADDONPATH.'Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/',
 			);
 
 			// Set module paths
 			$modules = new ModuleManager;
 
 			foreach ($modules->getAllEnabled() as $enabled_module)
-				if (is_dir($enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.$type_slug.'/'))
-					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.$type_slug.'/';
+				if (is_dir($enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/'))
+					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/';
 		}
 
 		static::$initiated = true;
@@ -376,12 +376,12 @@ class AddonTypeManager
 
 		// Type name is languagized
 		if ( ! isset($instance->type_name)) {
-			$instance->type_name = lang(static::$module.':types.'.$type.'.name');
+			$instance->type_name = lang_label(static::$module.':'.static::$type_slug.'.'.$type.'.name');
 		}
 
 		// Type description is languagized
 		if ( ! isset($instance->type_description)) {
-			$instance->type_description = lang(static::$module.':types.'.$type.'.description');
+			$instance->type_description = lang_label(static::$module.':'.static::$type_slug.'.'.$type.'.description');
 		}
 
 		if (isset(ci()->profiler))
