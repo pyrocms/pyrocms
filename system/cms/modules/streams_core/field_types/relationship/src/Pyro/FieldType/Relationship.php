@@ -83,7 +83,7 @@ class Relationship extends AbstractFieldType
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
-				'value' => $this->value,
+				'value' => empty($this->value) ? false : $this->value,
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
 				'stream_param' => $this->getParameter('stream'),
