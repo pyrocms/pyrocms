@@ -74,7 +74,7 @@ class AddonTypeManager
 	 * Get instance (singleton)
 	 * @return [type] [description]
 	 */
-	public static function init($module, $type_slug, $class_prefix = false)
+	public static function init($module, $type_slug, $class_prefix = false, $preload = false)
 	{
 		if ( ! static::$initiated)
 		{
@@ -113,6 +113,10 @@ class AddonTypeManager
 			foreach ($modules->getAllEnabled() as $enabled_module)
 				if (is_dir($enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/'))
 					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/';
+
+			// Preload?
+			if ($preload)
+				self::preload();
 		}
 
 		static::$initiated = true;
