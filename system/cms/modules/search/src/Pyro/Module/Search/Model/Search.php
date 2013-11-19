@@ -103,7 +103,7 @@ class Search extends Eloquent
 		return static::insertGetId($insert_data);
 	}
 
-	public static function indexEntry(Entry $entry, $index_template = array())
+	public static function indexEntry(EntryModel $entry, $index_template = array())
 	{
 		if ( ! empty($index_template))
 		{
