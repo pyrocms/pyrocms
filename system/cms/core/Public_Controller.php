@@ -55,7 +55,7 @@ class Public_Controller extends MY_Controller
 		// Load the current theme so we can set the assets right away
 		ci()->theme = $this->themeManager->locate(Settings::get('default_theme'));
 
-		if (empty($this->theme->slug)) {
+		if (empty($this->theme->model->slug)) {
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
@@ -74,7 +74,7 @@ class Public_Controller extends MY_Controller
 		}
 
 		// Set the theme view folder
-		$this->template->set_theme($this->theme->slug);
+		$this->template->set_theme($this->theme->model->slug);
 
 		// Is there a layout file for this module?
 		if ($this->template->layout_exists($this->module.'.html')) {
