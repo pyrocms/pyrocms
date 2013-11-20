@@ -15,12 +15,6 @@ use Illuminate\Support\Str;
 class AddonTypeManager
 {
 	/**
-	 * Class prefix..
-	 * @var string
-	 */
-	protected static $class_prefix = false;
-
-	/**
 	 * The module we're loading addons in regards to
 	 * @var string
 	 */
@@ -74,7 +68,7 @@ class AddonTypeManager
 	 * Get instance (singleton)
 	 * @return [type] [description]
 	 */
-	public static function init($module, $type_slug, $class_prefix = false, $preload = false)
+	public static function init($module, $type_slug, $preload = false)
 	{
 		if ( ! static::$initiated)
 		{
@@ -89,12 +83,6 @@ class AddonTypeManager
 			static::$module = $module;
 			static::$type_slug = $type_slug;
 
-			// Set the prefix for the class
-			if ($class_prefix)
-				static::$class_prefix = $class_prefix;
-			else
-				static::$class_prefix = 'Pyro\\'.Str::studly($module).'\\';
-
 			// Needed for installer
 			if ( ! class_exists('Settings'))
 			{
@@ -103,16 +91,16 @@ class AddonTypeManager
 
 			// Set our addon paths
 			static::$addon_paths = array(
-				'addon' 		=> ADDONPATH.'Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/',
-				'addon_alt' 	=> SHARED_ADDONPATH.'Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/',
+				'addon' 		=> ADDONPATH.'addon_types/'.$module.'/'.$type_slug.'/',
+				'addon_alt' 	=> SHARED_ADDONPATH.'addon_types/'.$module.'/'.$type_slug.'/',
 			);
 
 			// Set module paths
 			$modules = new ModuleManager;
 
 			foreach ($modules->getAllEnabled() as $enabled_module)
-				if (is_dir($enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/'))
-					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/src/Extensions/'.Str::studly($module).'/'.Str::studly($type_slug).'/';
+				if (is_dir($enabled_module['path'].'/addon_types/'.$module.'/'.$type_slug.'/'))
+					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/addon_types/'.$module.'/'.$type_slug.'/';
 
 			// Preload?
 			if ($preload)
@@ -120,15 +108,6 @@ class AddonTypeManager
 		}
 
 		static::$initiated = true;
-	}
-
-	/**
-	 * Set class prefix
-	 * @param string $prefix  
-	 */
-	public static function setClassPrefix($prefix)
-	{
-		static::$class_prefix = $prefix;
 	}
 
 	/**
@@ -287,7 +266,7 @@ class AddonTypeManager
 	 */
 	public static function getClass($type)
 	{
-		return static::$class_prefix.Str::studly($type);
+		return 'Pyro\\AddonTypes\\'.Str::studly(static::$module).'\\'.Str::studly(static::$type_slug).'\\'.Str::studly($type);
 	}
 
 	/**
@@ -317,7 +296,7 @@ class AddonTypeManager
 	 */
 	public static function preload()
 	{
-		static::registerFolderTypes(static::$core_addon_path.'field_types/', true, true);
+		static::registerFolderTypes(static::$core_addon_path.'addon_types/', true, true);
 
 		static::registerAddonTypes(true);
 
