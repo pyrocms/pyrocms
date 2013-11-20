@@ -1,6 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-class Theme_Base extends Theme
+use Pyro\Module\Addons\AbstractTheme;
+
+class Theme_Base extends AbstractTheme
 {
     public $name			= 'Base';
     public $author			= 'Scott Parry';

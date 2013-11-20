@@ -62,7 +62,7 @@ class Theme_Pyrocms extends AbstractTheme
 		// only load these items on the dashboard
 		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if (( ! $opt = $this->theme->getOptionValues())) {
+			if (( ! $opt = $this->theme->model->getOptionValues())) {
 
 				if (isset($opt->pyrocms_analytics_graph) and $opt->pyrocms_analytics_graph == 'yes')	{ 
 					self::getAnalytics();
