@@ -113,7 +113,7 @@ class Admin extends Admin_Controller
 
 
         // Build out the UI with core
-        $table = Cp\Entries::table('Pyro\Module\Users\Model\Profile')
+        $table = EntryUi::table('Pyro\Module\Users\Model\Profile')
             ->title($this->module_details['name'])
             ->filters($filters)
             ->buttons($buttons)

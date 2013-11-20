@@ -262,7 +262,7 @@ class Choice extends AbstractFieldType
 			return ul($selected);
 		}
 		
-		if (isset($choices[$this->value_or_null]) and $this->value != '')
+		if (isset($choices[$this->value]) and $this->value != '' and $this->value !== null)
 		{
 			return $choices[$this->value];
 		}	
