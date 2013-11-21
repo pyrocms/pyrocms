@@ -44,6 +44,15 @@ abstract class AbstractAddonType
 	}
 
 	/**
+	 * A generic event method
+	 * @return mixed
+	 */
+	public function event()
+	{
+		// Do something
+	}
+
+	/**
 	 * Add a type CSS file
 	 */
 	public function css($file, $type = null)
