@@ -93,7 +93,7 @@ class EntryUi extends AbstractUi
 			ci()->template->append_js('streams/entry_sorting.js');
 		}
  
-		$limit = ($instance->pagination) ? $pagination : null;
+		$limit = ($instance->pagination) ? $this->pagination : null;
 
 		return $instance;
 	}

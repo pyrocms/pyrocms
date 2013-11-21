@@ -498,6 +498,19 @@ class Choice extends AbstractFieldType
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Get the value output
+	 * @return string
+	 */
+	public function valueOutput()
+	{
+		$plugin_value = self::pluginOutput();
+
+		return isset($plugin_value['value']) ? $plugin_value['value'] : null;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Data for choice. In x : X format or just X format
 	 *
 	 * @access	public
