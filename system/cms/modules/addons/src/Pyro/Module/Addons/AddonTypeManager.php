@@ -266,7 +266,7 @@ class AddonTypeManager
 	 */
 	public static function getClass($type)
 	{
-		return 'Pyro\\AddonTypes\\'.Str::studly(static::$module).'\\'.Str::studly(static::$type_slug).'\\'.Str::studly($type);
+		return 'Pyro\\AddonType\\'.Str::studly(static::$module).'\\'.Str::studly(static::$type_slug).'\\'.Str::studly($type);
 	}
 
 	/**
@@ -328,7 +328,7 @@ class AddonTypeManager
 		$class_path = dirname($reflection->getFileName());
 
 		// The root path of the type
-		$path = dirname(dirname(dirname($class_path)));
+		$path = dirname(dirname(dirname(dirname(dirname($class_path)))));
 
 		// Set asset paths
 		$instance->path = $path;
