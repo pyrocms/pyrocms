@@ -266,14 +266,14 @@ class Relationship extends AbstractFieldType
 		/**
 		 * Determine the stream
 		 */
-		$stream = explode('.', ci()->uri->segment(6));
+		$stream = explode('.', ci()->uri->segment(7));
 		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
 
 
 		/**
 		 * Determine our field / type
 		 */
-		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
 		$field_type = $field->getType(null);
 
 
