@@ -528,7 +528,7 @@ class Page extends Eloquent
 		$this->where('is_home', '=', 1)
 			->update(array('is_home' => 0));
 
-		$this->update(array('is_home' => 1));
+		$this->where('id', '=', $this->id)->update(array('is_home' => 1));
 	}
 
 	public function delete()
