@@ -18,13 +18,13 @@ class AddonTypeManager
 	 * The module we're loading addons in regards to
 	 * @var string
 	 */
-	protected static $module = false;
+	protected static $module = array();
 
 	/**
 	 * The slug of the addon type being worked with
 	 * @var string
 	 */
-	protected static $type_slug = false;
+	protected static $type_slug = array();
 
 	/**
 	 * Places where our types may be
@@ -53,16 +53,16 @@ class AddonTypeManager
 	protected static $types = array();
 
 	/**
-	 * The registry of types - field_slug => class
+	 * The registry of types
 	 * @var array
 	 */
 	protected static $slug_classes = array();
 
 	/**
-	 * Has the class being initiated
-	 * @var object
+	 * Has the classes being initiated
+	 * @var arry
 	 */
-	protected static $initiated = false;
+	protected static $initiated = array();
 
 	/**
 	 * Get instance (singleton)
@@ -70,7 +70,7 @@ class AddonTypeManager
 	 */
 	public static function init($module, $type_slug, $preload = false)
 	{
-		if ( ! static::$initiated)
+		if ( ! isset(static::$initiated[get_called_class()]))
 		{
 			ci()->load->helper('directory');
 			ci()->load->language($module.'/'.$module);
@@ -80,8 +80,8 @@ class AddonTypeManager
 			$langs = ci()->config->item('supported_languages');
 
 			// Set the module and type_slug
-			static::$module = $module;
-			static::$type_slug = $type_slug;
+			static::$module[get_called_class()] = $module;
+			static::$type_slug[get_called_class()] = $type_slug;
 
 			// Needed for installer
 			if ( ! class_exists('Settings'))
@@ -90,7 +90,7 @@ class AddonTypeManager
 			}
 
 			// Set our addon paths
-			static::$addon_paths = array(
+			static::$addon_paths[get_called_class()] = array(
 				'addon' 		=> ADDONPATH.'addon_types/'.$module.'/'.$type_slug.'/',
 				'addon_alt' 	=> SHARED_ADDONPATH.'addon_types/'.$module.'/'.$type_slug.'/',
 			);
@@ -100,14 +100,14 @@ class AddonTypeManager
 
 			foreach ($modules->getAllEnabled() as $enabled_module)
 				if (is_dir($enabled_module['path'].'/addon_types/'.$module.'/'.$type_slug.'/'))
-					static::$module_paths[$enabled_module['slug']] = $enabled_module['path'].'/addon_types/'.$module.'/'.$type_slug.'/';
+					static::$module_paths[get_called_class()][$enabled_module['slug']] = $enabled_module['path'].'/addon_types/'.$module.'/'.$type_slug.'/';
 
 			// Preload?
 			if ($preload)
 				self::preload();
 		}
 
-		static::$initiated = true;
+		static::$initiated[get_called_class()] = true;
 	}
 
 	/**
@@ -117,7 +117,7 @@ class AddonTypeManager
 	 */
 	public static function setAddonPath($key, $path)
 	{
-		static::$addon_paths[$key] = $path;
+		static::$addon_paths[get_called_class()][$key] = $path;
 	}
 
 	/**
@@ -127,7 +127,7 @@ class AddonTypeManager
 	 */
 	public static function setModulePath($key, $path)
 	{
-		static::$module_paths[$key] = $path;
+		static::$module_paths[get_called_class()][$key] = $path;
 	}
 
 	/**
@@ -136,7 +136,7 @@ class AddonTypeManager
 	 */
 	public static function getAddonPaths()
 	{
-		return static::$addon_paths;
+		return static::$addon_paths[get_called_class()];
 	}
 
 	/**
@@ -145,7 +145,7 @@ class AddonTypeManager
 	 */
 	public static function getModulePaths()
 	{
-		return static::$module_paths;
+		return static::$module_paths[get_called_class()];
 	}
 
 	/**
@@ -156,7 +156,7 @@ class AddonTypeManager
 	 */
 	public static function getType($type = null)
 	{
-		return ( ! empty(static::$types[$type]) and is_object(static::$types[$type])) ? static::$types[$type] : static::loadType($type);
+		return ( ! empty(static::$types[get_called_class()][$type]) and is_object(static::$types[get_called_class()][$type])) ? static::$types[get_called_class()][$type] : static::loadType($type);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class AddonTypeManager
 		{
 			foreach ($types as $type)
 			{
-				static::$slug_classes[$type] = static::getClass($type);
+				static::$slug_classes[get_called_class()][$type] = static::getClass($type);
 			}
 		}
 	}
@@ -189,7 +189,7 @@ class AddonTypeManager
 	 */
 	public static function registerFolderTypes($folder, $types = array(), $preload = false)
 	{
-		static::init(static::$module, static::$type_slug);
+		static::init(static::$module[get_called_class()], static::$type_slug[get_called_class()]);
 
 		if (is_string($types))
 		{
@@ -225,9 +225,9 @@ class AddonTypeManager
 
 			if ($preload)
 			{
-				foreach ($types as $type)
+				foreach ($types as $preload_type)
 				{
-					static::getType($type);
+					static::getType($preload_type);
 				}
 			}
 		}
@@ -266,7 +266,7 @@ class AddonTypeManager
 	 */
 	public static function getClass($type)
 	{
-		return 'Pyro\\AddonType\\'.Str::studly(static::$module).'\\'.Str::studly(static::$type_slug).'\\'.Str::studly($type);
+		return 'Pyro\\AddonType\\'.Str::studly(static::$module[get_called_class()]).'\\'.Str::studly(static::$type_slug[get_called_class()]).'\\'.Str::studly($type);
 	}
 
 	/**
@@ -275,7 +275,7 @@ class AddonTypeManager
 	 */
 	public static function getClasses()
 	{
-		return static::$slug_classes;
+		return static::$slug_classes[get_called_class()];
 	}
 
 	/**
@@ -286,7 +286,7 @@ class AddonTypeManager
 	{
 		static::preload();
 
-		return new \Pyro\Module\Addons\AddonTypeCollection(static::$types);
+		return new \Pyro\Module\Addons\AddonTypeCollection(static::$types[get_called_class()]);
 	}
 
 	/**
@@ -316,7 +316,7 @@ class AddonTypeManager
 	// $path, $file, $type, $mode
 	private static function loadType($type)
 	{
-		if (empty($type) or empty(static::$slug_classes[$type])) return null;
+		if (empty($type) or empty(static::$slug_classes[get_called_class()][$type])) return null;
 
 		$class = static::getClass($type);
 
@@ -358,13 +358,13 @@ class AddonTypeManager
 		}
 
 		// Type name is languagized
-		if ( ! isset($instance->type_name)) {
-			$instance->type_name = lang_label(static::$module.':'.static::$type_slug.'.'.$type.'.name');
+		if ( ! isset($instance->name)) {
+			$instance->name = lang_label('lang:'.static::$type_slug[get_called_class()].':'.$type.'.name');
 		}
 
 		// Type description is languagized
-		if ( ! isset($instance->type_description)) {
-			$instance->type_description = lang_label(static::$module.':'.static::$type_slug.'.'.$type.'.description');
+		if ( ! isset($instance->description)) {
+			$instance->description = lang_label('lang:'.static::$type_slug[get_called_class()].':'.$type.'.description');
 		}
 
 		if (isset(ci()->profiler))
@@ -372,6 +372,6 @@ class AddonTypeManager
 			ci()->profiler->log->info($class.' loaded');
 		}
 
-		return static::$types[$type] = $instance;
+		return static::$types[get_called_class()][$type] = $instance;
 	}
 }
