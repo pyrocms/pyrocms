@@ -171,6 +171,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         if (isset($link['children'])) {
             foreach ($link['children'] as $i => $child) {
+                
                 ci()->pdb
                     ->table('navigation_links')
                     ->where('id', str_replace('link_', '', $child['id']))

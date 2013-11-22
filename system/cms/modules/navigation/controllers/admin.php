@@ -151,12 +151,10 @@ class Admin extends Admin_Controller
 	/**
 	 * Order the links and record their children
 	 */
-	public function order()
+	public function order($group)
 	{
-		$order	= $this->input->post('order');
-		$data	= $this->input->post('data');
-		$group	= isset($data['group']) ? (int) $data['group'] : 0;
-
+		$order = $this->input->post('ids');
+		
 		if (is_array($order)) {
 			Navigation\Model\Link::setOrder($order, $group);
 

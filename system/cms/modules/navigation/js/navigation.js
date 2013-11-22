@@ -14,16 +14,6 @@
 			$('.box .item:first').slideDown(200).removeClass('collapsed');			
 		}
 		
-		// show and hide the sections
-		$('.box .title').click(function(){
-			window.scrollTo(0, 0);
-			if ($(this).next('section.item').hasClass('collapsed')) {
-				$('.box .item').slideUp(200).addClass('collapsed');
-				$.cookie('nav_groups', $(this).parents('.box').attr('rel'), { expires: 1, path: window.location.pathname });
-				$(this).next('section.collapsed').slideDown(200).removeClass('collapsed');
-			}
-		});
-
 		// load edit via ajax
 		$(document).on('click', 'a.ajax', function(){
 			// make sure we load it into the right one
@@ -38,9 +28,6 @@
 				// display the create/edit title in the header
 				var title = $('#title-value-'+id).html();
 				$('section.box .title h4.group-title-'+id).html(title);
-				
-				// Update Chosen
-				Pyro.chosen();
 			});
 			return false;
 		});

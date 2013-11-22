@@ -445,6 +445,8 @@ class Admin extends Admin_Controller
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
 
+            if (isset($page->is_home)) unset($page->is_home);
+
             // validate and insert
             if ($page->save())
             {    
