@@ -341,7 +341,7 @@ class Plugin_Streams extends Plugin
 		// Set rows to 'entries' var
 		// -------------------------------------
 
-		//$return['entries'] = $entries;
+		$return['entries'] = $entries;
 				
 		// -------------------------------------
 		// Pagination
