@@ -93,6 +93,45 @@ class Plugin_Streams_core extends Plugin
 		'reuse_query_string'
 		);
 
+	/**
+	 * Default Calendar Template
+	 *
+	 * @access	public
+	 * @var		string
+	 */
+	public $calendar_template = '
+
+		{table_open}<table border="0" cellpadding="0" cellspacing="0">{/table_open}
+
+		{heading_row_start}<tr>{/heading_row_start}
+
+		{heading_previous_cell}<th><a href="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
+		{heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
+		{heading_next_cell}<th><a href="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
+
+		{heading_row_end}</tr>{/heading_row_end}
+
+		{week_row_start}<tr>{/week_row_start}
+		{week_day_cell}<td>{week_day}</td>{/week_day_cell}
+		{week_row_end}</tr>{/week_row_end}
+
+		{cal_row_start}<tr>{/cal_row_start}
+		{cal_cell_start}<td>{/cal_cell_start}
+
+		{cal_cell_content}{day}{content}{/cal_cell_content}
+		{cal_cell_content_today}<div class="highlight">{day}{content}</div>{/cal_cell_content_today}
+
+		{cal_cell_no_content}{day}{/cal_cell_no_content}
+		{cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
+
+		{cal_cell_blank}&nbsp;{/cal_cell_blank}
+
+		{cal_cell_end}</td>{/cal_cell_end}
+		{cal_row_end}</tr>{/cal_row_end}
+
+		{table_close}</table>{/table_close}
+	';
+
 	///////////////////////////////////////////////////////////////////////////////
 	// --------------------------	METHODS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
@@ -106,9 +145,7 @@ class Plugin_Streams_core extends Plugin
 	 * @return	void
 	 */
 	public function __construct()
-	{
-		
-	}
+	{}
 
 	/**
 	 * _call
@@ -337,6 +374,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$entries = EntryModel::stream($stream)
 				->select('*')
+				->limit($parameters['limit'])
 				->get()
 				->toArray();
 		}
@@ -344,6 +382,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$entries = EntryModel::stream($stream)
 				->select('*')
+				->limit($parameters['limit'])
 				->get()
 				->toArray();
 		}
@@ -458,127 +497,6 @@ class Plugin_Streams_core extends Plugin
 		return $return;
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Setup the Cache Vars
-	 *
-	 * Set cache type, time format, and hash
-	 *
-	 * @access 	private
-	 * @return 	void
-	 */
-	private function setup_cache()
-	{
-		// 'tag' or 'query'
-		$this->cache_type				= $this->getAttribute('cache_type', 'query');	
-
-		// 'minutes' or 'seconds'
-		$this->cache_time_format		= $this->getAttribute('cache_time_format', 'minutes'); 
-
-		// num of seconds or minutes
-		$this->cache_ttl				= $this->getAttribute('cache', null);
-
-		// Format the cache time. It can either be in seconds
-		// or minutes depending on a param.
-		if (is_numeric($this->cache_ttl))
-		{
-			if ($this->cache_time_format == 'minutes')
-			{
-				// If they specified minutes we just need to
-				// convert it to second
-				$this->cache_ttl = $this->cache_ttl*60;
-			}
-		}
-
-		$this->set_cache_hash();
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Set the cache hash
-	 *
-	 * This creates a unique cache hash based on the
-	 * unique set of tag parameters.
-	 *
-	 * @access 	private
-	 * @return 	void
-	 */
-	private function set_cache_hash()
-	{
-		$this->cache_hash = md5(implode('-', $this->attributes()).$this->content());
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Write tag cache if we need to
-	 *
-	 * @access 	private
-	 * @param 	string - the content to write
-	 * @return 	void
-	 */
-	private function tag_cache_write($content)
-	{
-		if ($this->write_tag_cache === true)
-		{
-			$this->pyrocache->write($content, 'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache_ttl);
-		}		
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Full tag cache
-	 *
-	 * @access 	private
-	 * @return 	mixed - null or string
-	 */
-	private function full_tag_cache()
-	{
-		if ( ! $this->cache_hash)
-		{
-			$this->set_cache_hash();
-		}
-
-		// Check to see if we have a tag cache.
-		if ($this->cache_type == 'tag' and ! is_null($this->cache_ttl))
-		{
-			if ( ! $tag_cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
-			{
-				// Set this so functions know to write the
-				// cache when necesary.
-				$this->write_tag_cache = true;
-			}
-			else
-			{
-				return $tag_cache_content;
-			}
-		}
-
-		return null;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Reset the cache vars to their defaults
-	 *
-	 * @access 	private
-	 * @return 	void
-	 */
-	private function clear_cache_vars()
-	{
-		$this->cache_type			= 'query';
-		$this->cache_time_format	= 'minutes';
-		$this->cache_ttl			= null;
-		$this->cache_hash			= null;
-		$this->write_tag_cache		= false;
-	}
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Total
 	 *
@@ -617,25 +535,21 @@ class Plugin_Streams_core extends Plugin
 			return $this->db->count_all(STR_PRE.$this->getAttribute('stream'));
 		}
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
-	 * Single
+	 * Entry
 	 *
 	 * Show a single stream entry.
 	 *
 	 * @access	public
 	 * @return	array
 	 */
-	public function single()
+	public function entry()
 	{	
 		$this->set_attribute('limit', 1);
 
-		return $this->cycle();
+		return $this->entries();
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Output an input form for a stream
@@ -911,8 +825,6 @@ class Plugin_Streams_core extends Plugin
 		return array($vars);				
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Determine the fields to skip
 	 * based on include/exclude
@@ -949,8 +861,6 @@ class Plugin_Streams_core extends Plugin
 
 		return $skips;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Form assets
@@ -975,8 +885,6 @@ class Plugin_Streams_core extends Plugin
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Form CSRF input
 	 *
@@ -993,8 +901,6 @@ class Plugin_Streams_core extends Plugin
 		}		
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Form Fields
 	 *
@@ -1084,8 +990,6 @@ class Plugin_Streams_core extends Plugin
 
 		return array($vars);				
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Delete a row field
@@ -1192,49 +1096,6 @@ class Plugin_Streams_core extends Plugin
 			return array($vars);
 		}
 	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Default Calendar Template
-	 *
-	 * @access	public
-	 * @var		string
-	 */
-	public $calendar_template = '
-	
-	   {table_open}<table border="0" cellpadding="0" cellspacing="0">{/table_open}
-	
-	   {heading_row_start}<tr>{/heading_row_start}
-	
-	   {heading_previous_cell}<th><a href="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
-	   {heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
-	   {heading_next_cell}<th><a href="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
-	
-	   {heading_row_end}</tr>{/heading_row_end}
-	
-	   {week_row_start}<tr>{/week_row_start}
-	   {week_day_cell}<td>{week_day}</td>{/week_day_cell}
-	   {week_row_end}</tr>{/week_row_end}
-	
-	   {cal_row_start}<tr>{/cal_row_start}
-	   {cal_cell_start}<td>{/cal_cell_start}
-	
-	   {cal_cell_content}{day}{content}{/cal_cell_content}
-	   {cal_cell_content_today}<div class="highlight">{day}{content}</div>{/cal_cell_content_today}
-	
-	   {cal_cell_no_content}{day}{/cal_cell_no_content}
-	   {cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
-	
-	   {cal_cell_blank}&nbsp;{/cal_cell_blank}
-	
-	   {cal_cell_end}</td>{/cal_cell_end}
-	   {cal_row_end}</tr>{/cal_row_end}
-	
-	   {table_close}</table>{/table_close}
-	';
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Calendar
@@ -1430,8 +1291,6 @@ class Plugin_Streams_core extends Plugin
 		return $return_content;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Seach Form
 	 *
@@ -1499,15 +1358,13 @@ class Plugin_Streams_core extends Plugin
 		return array($vars);
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Search Results
 	 *
 	 * @access	public
 	 * @return	string
 	 */
-	function search_results()
+	public function search_results()
 	{
 		$paginate		= $this->getAttribute('paginate', 'yes');
 		$cache_segment	= $this->getAttribute('cache_segment', 3);
@@ -1598,8 +1455,119 @@ class Plugin_Streams_core extends Plugin
 		return $this->streams_content_parse($this->content(), $return, $cache->stream);
 	}
 
-	// --------------------------------------------------------------------------
+	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------	 UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Setup the Cache Vars
+	 *
+	 * Set cache type, time format, and hash
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function setup_cache()
+	{
+		// 'tag' or 'query'
+		$this->cache_type				= $this->getAttribute('cache_type', 'query');	
+
+		// 'minutes' or 'seconds'
+		$this->cache_time_format		= $this->getAttribute('cache_time_format', 'minutes'); 
+
+		// num of seconds or minutes
+		$this->cache_ttl				= $this->getAttribute('cache', null);
+
+		// Format the cache time. It can either be in seconds
+		// or minutes depending on a param.
+		if (is_numeric($this->cache_ttl))
+		{
+			if ($this->cache_time_format == 'minutes')
+			{
+				// If they specified minutes we just need to
+				// convert it to second
+				$this->cache_ttl = $this->cache_ttl*60;
+			}
+		}
+
+		$this->set_cache_hash();
+	}
+
+	/**
+	 * Set the cache hash
+	 *
+	 * This creates a unique cache hash based on the
+	 * unique set of tag parameters.
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function set_cache_hash()
+	{
+		$this->cache_hash = md5(implode('-', $this->attributes()).$this->content());
+	}
+
+	/**
+	 * Write tag cache if we need to
+	 *
+	 * @access 	private
+	 * @param 	string - the content to write
+	 * @return 	void
+	 */
+	private function tag_cache_write($content)
+	{
+		if ($this->write_tag_cache === true)
+		{
+			$this->pyrocache->write($content, 'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache_ttl);
+		}		
+	}
+
+	/**
+	 * Full tag cache
+	 *
+	 * @access 	private
+	 * @return 	mixed - null or string
+	 */
+	private function full_tag_cache()
+	{
+		if ( ! $this->cache_hash)
+		{
+			$this->set_cache_hash();
+		}
+
+		// Check to see if we have a tag cache.
+		if ($this->cache_type == 'tag' and ! is_null($this->cache_ttl))
+		{
+			if ( ! $tag_cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
+			{
+				// Set this so functions know to write the
+				// cache when necesary.
+				$this->write_tag_cache = true;
+			}
+			else
+			{
+				return $tag_cache_content;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Reset the cache vars to their defaults
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function clear_cache_vars()
+	{
+		$this->cache_type			= 'query';
+		$this->cache_time_format	= 'minutes';
+		$this->cache_ttl			= null;
+		$this->cache_hash			= null;
+		$this->write_tag_cache		= false;
+	}
+
 	/**
 	 * Output debug message or just
 	 * return false.
@@ -1613,9 +1581,9 @@ class Plugin_Streams_core extends Plugin
 		return ($this->debug_status == 'on') ? show_error($msg) : false;
 	}
 
-	// --------------------------------------------------------------------------
-	// Legacy Functions
-	// --------------------------------------------------------------------------
+	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------	 LEGACY 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Format date variables
