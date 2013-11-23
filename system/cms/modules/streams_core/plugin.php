@@ -12,7 +12,7 @@ use Pyro\Module\Streams_core\EntryModel;
  * @license		http://www.aiwebsystems.com/docs/streams
  * @link		http://www.aiwebsystems.com/streams
  */
-class Plugin_Streams extends Plugin
+class Plugin_Streams_core extends Plugin
 {
 	
 	/**
@@ -380,13 +380,13 @@ class Plugin_Streams extends Plugin
 		// we don't have to!
 		// -------------------------------------
 
-		/*$loop = false;
+		$loop = false;
 
 		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
 		{
 			$return = $return['entries'];
 			$loop = true;
-		}*/
+		}
 
 		// -------------------------------------
 		// Parse Ouput Content
