@@ -111,6 +111,24 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
+	 * _call
+	 *
+	 * Fun little method to call a stream without
+	 * using cycle. Like:
+	 *
+	 * {{ streams:stream }}
+	 *
+	 * @access 	public
+	 * @param	string
+	 * @param	string
+	 * @return	void
+	 */
+	public function __call($stream, $data)
+	{
+		return $this->entries($stream);
+	}
+
+	/**
 	 * PyroStreams attribute function
 	 *
 	 * Allows you to pass stuff like [segment_1], etc.
@@ -160,21 +178,48 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
-	 * _call
+	 * Field Function
 	 *
-	 * Fun little method to call a stream without
-	 * using cycle. Like:
-	 *
-	 * {{ streams:stream }}
-	 *
-	 * @access 	public
-	 * @param	string
-	 * @param	string
-	 * @return	void
+	 * Calls the plugin override function
 	 */
-	public function __call($stream, $data)
+	public function field()
 	{
-		return $this->entries($stream);
+		$attributes = $this->attributes();
+
+		if ($attributes)
+		{
+			$attributes_keys = array_keys($attributes);
+
+			EntryModel::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
+
+			// Setting this in a separate var so we can unset it
+			// from the array later that is passed to the parse_override function.
+			$field_type = $attributes['field_type'];
+
+			// Call the field method
+			if ($type = FieldTypeManager::getType($field_type) and $type->plugin_override) {
+				// Get the actual field.
+				$field = FieldModel::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
+				
+				if ( ! $field) return null;
+
+				// We don't need these anymore
+				unset($attributes['field_type']);
+				unset($attributes['field_slug']);
+				unset($attributes['namespace']);
+				unset($attributes['stream_slug']);
+
+				foreach ($attributes_keys as $attribute)
+				{
+					$method = 'plugin'.Str::studly($attribute.'Override');
+					if (method_exists($type, $method)) {
+						$arguments = explode('|', $attributes[$attribute]);
+
+						return call_user_func_array(array($type, $method), $arguments);
+					}
+				}
+			}						
+		}
 	}
 	
 	/**
@@ -627,7 +672,7 @@ class Plugin_Streams_core extends Plugin
 		$include 				= $this->getAttribute('include');
 		$exclude 				= $this->getAttribute('exclude');
 		$recaptcha 				= $this->getAttribute('use_recaptcha', 'no');
-		$creator_only       	= $this->getAttribute('creator_only', false);
+		$creator_only	   	= $this->getAttribute('creator_only', false);
 		$namespace 				= $this->getAttribute('namespace', $this->core_namespace);
 
 		$extra['required'] 		= $this->getAttribute('required', '<span class="required">* required</span>');
@@ -1444,8 +1489,8 @@ class Plugin_Streams_core extends Plugin
 		$vars['form_open']			= form_open($this->uri->uri_string());
 
 		$search_input = array(
-		              'name'        => 'search_term',
-		              'id'          => 'search_term');
+					  'name'		=> 'search_term',
+					  'id'		  => 'search_term');
 		
 		$vars['search_input'] 		= form_input($search_input);
 		$vars['form_submit'] 		= form_submit('search_submit', lang('streams:search'));
