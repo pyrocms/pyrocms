@@ -169,9 +169,7 @@ class Image extends AbstractFieldType
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
 		// Get image data
-		$image = ci()->db->select('filename, alt_attribute, description, name')->where('id', $this->value)->get('files')->row();
-
-		if ( ! $this->value) return null;
+		$file = FileModel::find($this->value);
 
 		// This defaults to 100px wide
 		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obviousAlt($image).'" />';
@@ -196,49 +194,20 @@ class Image extends AbstractFieldType
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
-		ci()->load->library('files/files');
+		$image = FileModel::find($this->value)->toArray();
 
-		$file = ci()->files->getFile($this->value);
+		$image->image = base_url(ci()->config->item('files:path').$image->filename);	
+		$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
 
-		if ($file['status'])
-		{
-			$image = $file['data'];
+		// For <img> tags only
+		$alt = $this->obviousAlt($image);
 
-			// If we don't have a path variable, we must have an
-			// older style image, so let's create a local file path.
-			if ( ! $image->path)
-			{
-				$image_data['image'] = base_url(ci()->config->item('files:path').$image->filename);
-			}
-			else
-			{
-				$image_data['image'] = str_replace('{{ url:site }}', base_url(), $image->path);
-			}
+		$image->img = img(array('alt' => $alt, 'src' => $image->image));
 
-			// For <img> tags only
-			$alt = $this->obviousAlt($image);
+		$image->thumb = site_url('files/thumb/'.$input);
+		$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
 
-			$image_data['filename']			= $image->filename;
-			$image_data['name']				= $image->name;
-			$image_data['alt']				= $image->alt_attribute;
-			$image_data['description']		= $image->description;
-			$image_data['img']				= img(array('alt' => $alt, 'src' => $image_data['image']));
-			$image_data['ext']				= $image->extension;
-			$image_data['mimetype']			= $image->mimetype;
-			$image_data['width']			= $image->width;
-			$image_data['height']			= $image->height;
-			$image_data['id']				= $image->id;
-			$image_data['filesize']			= $image->filesize;
-			$image_data['download_count']	= $image->download_count;
-			$image_data['date_added']		= $image->date_added;
-			$image_data['folder_id']		= $image->folder_id;
-			$image_data['folder_name']		= $image->folder_name;
-			$image_data['folder_slug']		= $image->folder_slug;
-			$image_data['thumb']			= site_url('files/thumb/'.$input);
-			$image_data['thumb_img']		= img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
-
-			return $image_data;
-		}
+		return $image;
 	}
 
 	// --------------------------------------------------------------------------

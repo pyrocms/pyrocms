@@ -227,7 +227,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$attributes_keys = array_keys($attributes);
 
-			EntryModel::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
+			EntryModel::stream($attributes['stream'], $attributes['namespace'])->find($attributes['entry_id']);
 
 			// Setting this in a separate var so we can unset it
 			// from the array later that is passed to the parse_override function.
@@ -372,25 +372,33 @@ class Plugin_Streams_core extends Plugin
 
 		if ($this->cache_type == 'query' and is_numeric($this->cache_ttl))
 		{
-			$entries = EntryModel::stream($stream)
+			$entries = array();
+
+			$model_entries = EntryModel::stream($stream)
 				->select('*')
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->orderBy($parameters['order_by'], $parameters['sort'])
-				->get()
-				->toArray();
+				->get();
+
+			foreach ($entries as $entry)
+				$entries_array[] = $entry->asPlugin()->toArray();
 		}
 		else
 		{
-			$entries = EntryModel::stream($stream)
+			$entries = array();
+			
+			$model_entries = EntryModel::stream($stream)
 				->select('*')
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->orderBy($parameters['order_by'], $parameters['sort'])
-				->get()
-				->toArray();
+				->get();
+
+			foreach ($model_entries as $entry)
+				$entries[] = $entry->asPlugin()->toArray();
 		}
-		
+
 		// -------------------------------------
 		// Rename
 		// -------------------------------------
