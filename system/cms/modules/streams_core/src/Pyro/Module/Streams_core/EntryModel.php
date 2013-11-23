@@ -674,7 +674,7 @@ class EntryModel extends Eloquent
 
         $search_index_scope = $this->getStreamTypeSlug();
 
-        SearchModel::dropIndex($search_index_module, $search_index_scope, $this->id);
+        Search::dropIndex($search_index_module, $search_index_scope, $this->id);
 
 
         // Run through destructs
