@@ -45,7 +45,7 @@ class Plugin_Streams_core extends Plugin
 		'show_upcoming'		=> 'yes',
 		'show_past'			=> 'yes',
 		'restrict_user'		=> 'no',
-		'where'				=> null,
+		'where'				=> '1',
 		'exclude'			=> null,
 		'exclude_by'		=> 'id',
 		'include'			=> null,
@@ -374,6 +374,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$entries = EntryModel::stream($stream)
 				->select('*')
+				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->get()
 				->toArray();
@@ -382,6 +383,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$entries = EntryModel::stream($stream)
 				->select('*')
+				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->get()
 				->toArray();
