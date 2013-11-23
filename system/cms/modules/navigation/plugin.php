@@ -302,10 +302,9 @@ class Plugin_Navigation extends Plugin
 				}
 			}
 
-			$short_segments 
-				= array_slice($this->uri->segment_array(), 0, count($uri_segments));
+			$short_segments = array_slice($this->uri->segment_array(), 0, count($uri_segments));
 
-			if ( ! array_diff($short_segments, $uri_segments))
+			if ( ! array_diff($short_segments, $uri_segments) and $short_segments)
 			{
 				$wrapper['class'][] = $parent_class;
 			}
