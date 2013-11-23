@@ -1,7 +1,8 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File as FileModel;
+use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
  * PyroStreams Image Field Type
@@ -26,7 +27,8 @@ class Image extends AbstractFieldType
 		'resize_width',
 		'resize_height',
 		'keep_ratio',
-		'allowed_types'
+		'allowed_types',
+		'on_entry_destruct',
 		);
 
 	public $version = '1.3.0';
@@ -43,6 +45,7 @@ class Image extends AbstractFieldType
 	public function __construct()
 	{
 		ci()->load->library('image_lib');
+		ci()->load->library('files/files');
 	}
 
 	public function event()
@@ -67,26 +70,29 @@ class Image extends AbstractFieldType
 		$out = '';
 		
 		// if there is content and it is not dummy or cleared
-		if ($this->value and $this->value != 'dummy')
-		{
-			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.site_url('files/large/'.$this->value).'" target="_break"><img src="'.site_url('files/thumb/'.$this->value).'" /></a><br />';
-			$out .= form_hidden($this->getParameter('field_slug'), $this->value);
-		}
-		else
-		{
-			$out .= form_hidden($this->field_slug, 'dummy');
+		if ($this->value and $this->value != 'dummy') {
+
+			$file = FileModel::find($this->value);
+
+			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.$file->path.'" target="_break"><img src="'.$file->path.'" /></a><br />';
+			$out .= form_hidden($this->form_slug, $this->value);
+		
+		} else {
+
+			$file = null;
+
+			$out .= form_hidden($this->form_slug, 'dummy');
+
 		}
 
-
-		$options['name'] 	= $this->field_slug;
-		$options['name'] 	= $this->field_slug.'_file';
+		$options['name'] 	= $this->form_slug.'_file';
 
 		$out .= '
 				<div class="fileinput fileinput-new" data-provides="fileinput">
 					<div class="input-group">
 						<div class="form-control uneditable-input span3" data-trigger="fileinput">
 							<i class="glyphicon glyphicon-file fileinput-exists"></i>
-							<span class="fileinput-filename"></span>
+							<span class="fileinput-filename">'.($file ? $file->name : null).'</span>
 						</div>
 						<span class="input-group-addon btn btn-default btn-file">
 							<span class="fileinput-new">'.lang('streams:image.select_file').'</span>
@@ -116,7 +122,7 @@ class Image extends AbstractFieldType
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$this->fiel_slug.'_file']['name']) or ! $_FILES[$this->field_slug.'_file']['name'])
+		if ( ! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name'])
 		{
 			// return what we got
 			return $this->value;
@@ -128,7 +134,7 @@ class Image extends AbstractFieldType
 		$return = \Files::upload(
 			$this->getParameter('folder'),
 			null,
-			$this->field_slug.'_file',
+			$this->form_slug.'_file',
 			$this->getParameter('resize_width', null),
 			$this->getParameter('resize_height', null),
 			$this->getParameter('keep_ratio', false),
@@ -232,6 +238,21 @@ class Image extends AbstractFieldType
 			$image_data['thumb_img']		= img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
 
 			return $image_data;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Ran when the entry is deleted
+	 * @return void
+	 */
+	public function entryDestruct()
+	{
+		if ($this->getParameter('on_entry_destruct', 'keep') == 'delete') {
+			
+			// Delete that file
+			\Files::deleteFile($this->value);
 		}
 	}
 
