@@ -375,6 +375,7 @@ class Plugin_Streams_core extends Plugin
 			$entries = EntryModel::stream($stream)
 				->select('*')
 				->limit($parameters['limit'])
+				->orderBy($parameters['order_by'], $parameters['sort'])
 				->get()
 				->toArray();
 		}
@@ -383,6 +384,7 @@ class Plugin_Streams_core extends Plugin
 			$entries = EntryModel::stream($stream)
 				->select('*')
 				->limit($parameters['limit'])
+				->orderBy($parameters['order_by'], $parameters['sort'])
 				->get()
 				->toArray();
 		}
