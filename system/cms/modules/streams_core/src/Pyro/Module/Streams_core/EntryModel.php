@@ -649,13 +649,7 @@ class EntryModel extends Eloquent
         // Event: Post Insert Entry
         // -------------------------------------
 
-        $trigger_data = array(
-            'entry_id'      => $this->getKey(),
-            'stream'        => $this->stream,
-            'insert_data'   => $this->getAttributes()
-        );
-
-        \Events::trigger('streams_post_insert_entry', $trigger_data);
+        \Events::trigger('streams_post_insert_entry', $this);
 
         return $saved;
     }
@@ -684,7 +678,15 @@ class EntryModel extends Eloquent
         
         }
 
-        return parent::delete();
+        // Fire before deleting an entry
+        \Events::trigger('streams_pre_delete_entry', $this);
+
+        $deleted = parent::delete();
+
+        // Fire after deleting an entry
+        \Events::trigger('streams_post_delete_entry', $this->id);
+
+        return $deleted;
     }
 
     /**
