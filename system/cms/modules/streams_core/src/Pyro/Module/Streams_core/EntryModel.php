@@ -622,15 +622,6 @@ class EntryModel extends Eloquent
                     }
                 }
             }
-            
-            // -------------------------------------
-            // Alt Processing
-            // -------------------------------------
-            foreach ($alt_process as $type)
-            {
-                $type->setEntry($this);
-                $type->preSave();
-            }
         }
 
         // -------------------------------------
@@ -643,6 +634,15 @@ class EntryModel extends Eloquent
         if ($saved = parent::save($options) and $this->search_index_template)
         {
             Search::indexEntry($this, $this->search_index_template);
+        }
+
+        // -------------------------------------
+        // Alt Processing
+        // -------------------------------------
+        foreach ($alt_process as $type)
+        {
+            $type->setEntry($this);
+            $type->preSave();
         }
         
         // -------------------------------------
