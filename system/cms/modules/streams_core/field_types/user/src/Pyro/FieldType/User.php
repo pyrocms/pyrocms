@@ -38,22 +38,6 @@ class User extends AbstractFieldType
 	}
 
 	/**
-	 * Format the Admin output
-	 * @return [type] [description]
-	 */
-	public function stringOutput()
-	{
-		if ($user = $this->getRelationResult())
-		{
-			return anchor('admin/users/edit/'.$user->id, $user->username);	
-		}
-		else
-		{
-			return $this->value;
-		}
-	}
-
-	/**
 	 * Output form input
 	 *
 	 * @param	array
@@ -113,6 +97,41 @@ class User extends AbstractFieldType
 			);
 
 		return $html;
+	}
+
+	/**
+	 * Format the Admin output
+	 * 
+	 * @return [type] [description]
+	 */
+	public function stringOutput()
+	{
+		if ($user = $this->getRelationResult())
+		{
+			return anchor('admin/users/edit/'.$user->id, $user->username);	
+		}
+		else
+		{
+			return $this->value;
+		}
+	}
+
+	/**
+	 * Pre Ouput Plugin
+	 * 
+	 * This takes the data from the join array
+	 * and formats it using the row parser.
+	 * 
+	 * @return array
+	 */
+	public function pluginOutput()
+	{
+		if ($entry = $this->getRelationResult())
+		{
+			return $entry->toArray();
+		}
+
+		return null;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
