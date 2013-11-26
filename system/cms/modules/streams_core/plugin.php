@@ -167,30 +167,20 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
-	 * PyroStreams attribute function
-	 *
 	 * Allows you to pass stuff like [segment_1], etc.
-	 *
-	 * In PyroCMS 2.2, this has been deprecated by the
-	 * parse_parameter() function in the Plugins library.
-	 *
-	 * However, since the syntax is slightly different,
-	 * we will keep this around for backwards compat.
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	[string]
-	 * @return	string
-	 */	
+	 * @param  string $attribute 
+	 * @param  string $default   
+	 * @return string
+	 */
 	public function getAttribute($attribute, $default = null)
 	{
-		$value = $this->attribute($attribute, $default);
+		$attribute = $this->attribute($attribute, $default);
 
 		// Variables
 		$segments = array();
 
 		// See if we have any vars in there
-		if(strpos($value, '[') !== false):
+		if(strpos($attribute, '[') !== false):
 		
 			// Pile em in
 			for($i = 1; $i < 20; $i++)
@@ -205,14 +195,13 @@ class Plugin_Streams_core extends Plugin
 			endif;
 
 			foreach($variables as $variable => $value):
-			
-				$value = str_replace("[$variable]", $value, $attribute);
+				$attribute = str_replace("[$variable]", $value, $attribute);
 			
 			endforeach;
 		
 		endif;
 		
-		return $value;
+		return $attribute;
 	}
 
 	/**
@@ -471,18 +460,6 @@ class Plugin_Streams_core extends Plugin
 		}
 				
 		// -------------------------------------
-		// No Results
-		// -------------------------------------
-		// In the case of no results, we will return
-		// our no_results paramter value.
-		// -------------------------------------
-		
-		if ($return['total'] == 0)
-		{
-			return $this->getAttribute('no_results', lang('streams:no_results'));
-		}
-
-		// -------------------------------------
 		// {{ entries }} Bypass
 		// -------------------------------------
 		// If we don't want to use {{ entries }},
@@ -523,42 +500,23 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
-	 * Total
-	 *
-	 * Get the total number of rows for a stream.
-	 *
-	 * @access	public
-	 * @return	int
+	 * Get total entries
+	 * @return integer
 	 */
 	public function total()
 	{
-		if ( ! $this->getAttribute('stream'))
-		{
-			return null;
-		}
+		return count(self::entries());
+	}
 
-		$this->setup_cache();
+	/**
+	 * Return content if exists
+	 * @return bool
+	 */
+	public function exists()
+	{
+		$this->set_attribute('limit', 1);
 
-		$this->load->config('streams/streams');
-
-		if ( ! is_null($this->cache_ttl))
-		{
-			if ( ! $cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
-			{
-				return $this->pyrocache->write(
-					$this->db->count_all(STR_PRE.$this->getAttribute('stream')),
-					'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache_ttl);
-
-			}
-			else
-			{
-				return $cache_content;
-			}
-		}
-		else
-		{
-			return $this->db->count_all(STR_PRE.$this->getAttribute('stream'));
-		}
+		return count(self::entries()) != 0 ? $this->content() : false;
 	}
 	
 	/**
