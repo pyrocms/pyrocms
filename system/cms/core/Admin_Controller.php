@@ -180,6 +180,8 @@ class Admin_Controller extends MY_Controller
 				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
+			ksort($ordered_menu);
+
 			// And there we go! These are the admin menu items.
 			$this->template->menu_items = $ordered_menu;
 		}
