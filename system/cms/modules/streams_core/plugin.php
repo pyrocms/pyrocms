@@ -34,6 +34,7 @@ class Plugin_Streams_core extends Plugin
 	public $entries_parameters = array(
 		'stream'			=> null,
 		'namespace'			=> null,
+		'select'			=> '*',
 		'limit'				=> null,
 		'offset'			=> 0,
 		'single'			=> 'no',
@@ -227,7 +228,7 @@ class Plugin_Streams_core extends Plugin
 		{
 			$attributes_keys = array_keys($attributes);
 
-			EntryModel::stream($attributes['stream_slug'], $attributes['namespace'])->find($attributes['entry_id']);
+			EntryModel::stream($attributes['stream'], $attributes['namespace'])->find($attributes['entry_id']);
 
 			// Setting this in a separate var so we can unset it
 			// from the array later that is passed to the parse_override function.
@@ -372,23 +373,33 @@ class Plugin_Streams_core extends Plugin
 
 		if ($this->cache_type == 'query' and is_numeric($this->cache_ttl))
 		{
-			$entries = EntryModel::stream($stream)
-				->select('*')
+			$entries = array();
+
+			$model_entries = EntryModel::stream($stream)
+				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
-				->get()
-				->toArray();
+				->orderBy($parameters['order_by'], $parameters['sort'])
+				->get();
+
+			foreach ($entries as $entry)
+				$entries_array[] = $entry->asPlugin()->toArray();
 		}
 		else
 		{
-			$entries = EntryModel::stream($stream)
-				->select('*')
+			$entries = array();
+			
+			$model_entries = EntryModel::stream($stream)
+				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
-				->get()
-				->toArray();
+				->orderBy($parameters['order_by'], $parameters['sort'])
+				->get();
+
+			foreach ($model_entries as $entry)
+				$entries[] = $entry->asPlugin()->toArray();
 		}
-		
+
 		// -------------------------------------
 		// Rename
 		// -------------------------------------
@@ -427,7 +438,7 @@ class Plugin_Streams_core extends Plugin
 		// Set rows to 'entries' var
 		// -------------------------------------
 
-		//$return['entries'] = $entries;
+		$return['entries'] = $entries;
 				
 		// -------------------------------------
 		// Pagination
