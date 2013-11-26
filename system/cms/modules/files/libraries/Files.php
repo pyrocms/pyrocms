@@ -429,6 +429,8 @@ class Files
 	{
 		$file = File::find($file_id);
 
+		$local_filename = $file->filename;
+
 		if (! $file) {
 			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
@@ -515,6 +517,7 @@ class Files
 
 				// get rid of the "temp" file
 				@unlink(self::$path.$file->filename);
+				@unlink(self::$path.$local_filename);
 
 				$extra_data = array('id' => $file_id,
 					'name' => $new_name,
@@ -863,9 +866,9 @@ class Files
 		if ($file = File::find($id)) {
 			Applied::deleteByHash($file->keywords);
 
-			$file->delete();
-
 			self::_unlinkFile($file);
+
+			$file->delete();
 
 			return self::result(true, lang('files:item_deleted'), $file->name);
 		}
