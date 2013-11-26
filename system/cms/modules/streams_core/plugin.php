@@ -382,8 +382,14 @@ class Plugin_Streams_core extends Plugin
 				->orderBy($parameters['order_by'], $parameters['sort'])
 				->get();
 
-			foreach ($entries as $entry)
-				$entries_array[] = $entry->asPlugin()->toArray();
+			foreach ($model_entries as $k => $entry) {
+
+				// Add the count
+				$entry->count = $k;
+
+				// Add to our result array
+				$entries[] = $entry->asPlugin()->toArray();
+			}
 		}
 		else
 		{
@@ -396,8 +402,14 @@ class Plugin_Streams_core extends Plugin
 				->orderBy($parameters['order_by'], $parameters['sort'])
 				->get();
 
-			foreach ($model_entries as $entry)
+			foreach ($model_entries as $k => $entry) {
+
+				// Add the count
+				$entry->count = $k;
+
+				// Add to our result array
 				$entries[] = $entry->asPlugin()->toArray();
+			}
 		}
 
 		// -------------------------------------
