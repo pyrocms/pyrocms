@@ -375,6 +375,7 @@ class Plugin_Streams_core extends Plugin
 
 				// Add the count
 				$entry->count = $k;
+				$entry->human_count = $k+1;
 
 				// Add to our result array
 				$entries[] = $entry->asPlugin()->toArray();
@@ -395,6 +396,7 @@ class Plugin_Streams_core extends Plugin
 
 				// Add the count
 				$entry->count = $k;
+				$entry->human_count = $k+1;
 
 				// Add to our result array
 				$entries[] = $entry->asPlugin()->toArray();
