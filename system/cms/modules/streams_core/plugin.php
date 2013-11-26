@@ -34,6 +34,7 @@ class Plugin_Streams_core extends Plugin
 	public $entries_parameters = array(
 		'stream'			=> null,
 		'namespace'			=> null,
+		'select'			=> '*',
 		'limit'				=> null,
 		'offset'			=> 0,
 		'single'			=> 'no',
@@ -375,7 +376,7 @@ class Plugin_Streams_core extends Plugin
 			$entries = array();
 
 			$model_entries = EntryModel::stream($stream)
-				->select('*')
+				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->orderBy($parameters['order_by'], $parameters['sort'])
@@ -389,7 +390,7 @@ class Plugin_Streams_core extends Plugin
 			$entries = array();
 			
 			$model_entries = EntryModel::stream($stream)
-				->select('*')
+				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
 				->orderBy($parameters['order_by'], $parameters['sort'])
