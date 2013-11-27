@@ -27,7 +27,7 @@
 
 					<?php foreach ($tab['fields'] as $field) { ?>
 
-						<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
+						<li class="<?php echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
 							<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 
 							<?php if( $fields[$field]['instructions'] != '' ): ?>
