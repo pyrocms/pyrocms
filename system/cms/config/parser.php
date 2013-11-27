@@ -17,6 +17,7 @@ $config['allowed_functions']	=	array(
 	'htmlentities',
 	'htmlspecialchars',
 	'htmlspecialchars_decode',
+	'humanize',
 	'implode',
 	'is_array',
 	'is_int',
