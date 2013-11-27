@@ -500,7 +500,7 @@ class Admin_types extends Admin_Controller
 	 */
 	private function _delete_field($stream, $page_type_uri = null)
 	{
-		Data\Fields::teardownFieldAssignment($this->uri->segment(7));
+		FieldModel::teardownFieldAssignment($this->uri->segment(7));
 
 		redirect($page_type_uri);
 	}
