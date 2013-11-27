@@ -97,7 +97,7 @@ class Image extends AbstractFieldType
 		ci()->load->library('files/files');
 
 		// Resize options
-		$return = Files::upload(
+		$return = \Files::upload(
 			$this->getParameter('folder'),
 			null,
 			$this->field_slug.'_file',
@@ -163,7 +163,7 @@ class Image extends AbstractFieldType
 
 		ci()->load->library('files/files');
 
-		$file = Files::getFile($this->value);
+		$file = \Files::getFile($this->value);
 
 		if ($file['status'])
 		{
