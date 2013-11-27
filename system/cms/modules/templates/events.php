@@ -24,6 +24,21 @@ class Events_Templates
 
         //register the email event
         Events::register('email', array($this, 'send_email'));
+
+        // Clean up
+        Events::register('module_uninstalled', array($this, 'remove_email_templates'));
+        Events::register('module_disabled', array($this, 'remove_email_templates'));
+    }
+
+    /**
+     *  Remove module email templates
+     *
+     *  object $module
+     *  return void
+     */
+    public function remove_email_templates($module)
+    {
+        ci()->pdb->table('email_templates')->where('module', '=', $module->slug)->delete();
     }
 
     public function send_email($data = array())
