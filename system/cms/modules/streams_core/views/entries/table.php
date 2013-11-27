@@ -84,7 +84,7 @@
 								// This is kept for backwards compatibility
 								$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
-								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
+								$all_buttons[] = anchor($url, lang_label($button['label']), 'class="'.$class.'"');
 							}
 
 							echo implode('&nbsp;', $all_buttons);
