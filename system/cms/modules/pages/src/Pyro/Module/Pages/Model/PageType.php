@@ -93,18 +93,18 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      *
      *
      */
-    public function place_page_layout_files($input)
+    public static function placePageLayoutFiles($input)
     {
         // Our folder path:
-        $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$input['slug'];
+        $folder = ADDONPATH.'assets/page_types/'.$input['slug'];
 
         if (is_dir($folder)) {
             $this->removePageLayoutFiles($input['slug']);
-        } elseif ( ! mkdir($folder, 0777)) {
+        } elseif ( ! mkdir($folder, 0777, true)) {
             return false;
         }
 
-        $this->load->helper('file');
+        ci()->load->helper('file');
 
         // Write our three files.
         write_file($folder.'/'.$input['slug'].'.html', $input['body']);
@@ -122,7 +122,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * purposes.
      *
      */
-    public function get_page_type_files_for_page(&$page, $pt = false)
+    public function getPageTypeFilesForPage(&$page, $pt = false)
     {
         if ($page->save_as_files == 'y') {
             // We are getting this for a pt instead of a page,
@@ -133,7 +133,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
 
             $this->load->helper('file');
 
-            $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$page->{$pt_slug_var}.'/';
+            $folder = ADDONPATH.'assets/page_types/'.$page->{$pt_slug_var}.'/';
 
             $page->db_originals = new stdClass();
 
@@ -211,7 +211,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     {
         ci()->load->helper('file');
 
-        $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
+        $result = delete_files(ADDONPATH.'assets/page_types/'.$slug);
 
         $instance = new static;
 
@@ -232,8 +232,8 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public static function removePageLayoutFolder($slug)
     {
-        if (is_dir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug)) {
-            return rmdir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
+        if (is_dir(ADDONPATH.'assets/page_types/'.$slug)) {
+            return rmdir(ADDONPATH.'assets/page_types/'.$slug);
         }
 
         return null;
