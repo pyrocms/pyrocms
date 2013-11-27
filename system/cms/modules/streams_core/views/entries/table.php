@@ -91,7 +91,7 @@
 									$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
 									// Label
-									$label = $button['label'];
+									$label = lang_label($button['label']);
 
 									// Remove URL
 									unset($button['url'], $button['label']);
