@@ -99,7 +99,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
         $folder = ADDONPATH.'assets/page_types/'.$input['slug'];
 
         if (is_dir($folder)) {
-            $this->removePageLayoutFiles($input['slug']);
+            self::removePageLayoutFiles($input['slug']);
         } elseif ( ! mkdir($folder, 0777, true)) {
             return false;
         }
