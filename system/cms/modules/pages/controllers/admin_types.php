@@ -201,7 +201,7 @@ class Admin_types extends Admin_Controller
 			if ($id > 0) {
 				// Should we create some files?
 				if ($this->input->post('save_as_files') == 'y') {
-					PageType::place_page_layout_files($input);
+					PageType::placePageLayoutFiles($input);
 				}
 
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
