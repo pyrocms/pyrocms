@@ -60,7 +60,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     {
         if ($exists = static::where('slug', $slug)->first())
         {
-            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+            ci()->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
         }
 
         return $exists;
