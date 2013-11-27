@@ -13,7 +13,7 @@ class Events_Settings {
 
 	public function __construct()
 	{
-		// Log defualts
+		// Clean up
 		Events::register('module_uninstalled', array($this, 'remove_settings'));
 		Events::register('module_disabled', array($this, 'remove_settings'));
 	}

@@ -13,7 +13,7 @@ class Events_Comments {
 
 	public function __construct()
 	{
-		// Log defualts
+		// Clean up
 		Events::register('module_uninstalled', array($this, 'remove_comments'));
 		Events::register('module_disabled', array($this, 'remove_settings'));
 	}
