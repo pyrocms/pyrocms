@@ -520,6 +520,19 @@ class Plugin_Streams_core extends Plugin
 
 		return count(self::entries()) != 0 ? $this->content() : false;
 	}
+
+	/**
+	 * Return a shuffled array of entries
+	 * @return array
+	 */
+	public function shuffle()
+	{
+		$entries = self::entries();
+		
+		shuffle($entries);
+		
+		return $entries;
+	}
 	
 	/**
 	 * Entry
