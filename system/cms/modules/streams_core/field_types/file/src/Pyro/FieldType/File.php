@@ -155,8 +155,6 @@ class File extends AbstractFieldType
 	{
 		if ( ! $input) return null;
 
-		$image_data = array();
-
 		ci()->load->config('files/files');
 		ci()->load->helper('html');
 

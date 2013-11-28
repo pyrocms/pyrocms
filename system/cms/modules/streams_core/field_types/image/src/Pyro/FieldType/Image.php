@@ -194,20 +194,22 @@ class Image extends AbstractFieldType
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
-		$image = FileModel::find($this->value)->toArray();
+		$image = FileModel::find($this->value);
 
-		$image->image = base_url(ci()->config->item('files:path').$image->filename);	
-		$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
+		if ($image) {
+			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
+			$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
 
-		// For <img> tags only
-		$alt = $this->obviousAlt($image);
+			// For <img> tags only
+			$alt = $this->obviousAlt($image);
 
-		$image->img = img(array('alt' => $alt, 'src' => $image->image));
+			$image->img = img(array('alt' => $alt, 'src' => $image->image));
 
-		$image->thumb = site_url('files/thumb/'.$input);
-		$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
+			$image->thumb = site_url('files/thumb/'.$input);
+			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
+		}
 
-		return $image;
+		return $image ? $image->toArray() : false;
 	}
 
 	// --------------------------------------------------------------------------
