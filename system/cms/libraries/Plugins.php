@@ -117,6 +117,9 @@ abstract class Plugin
 
 		// See if we have any vars in there
 		if(strpos($attribute, '[') !== false):
+
+			// Add some constants
+			$variables['site_ref'] = SITE_REF;
 		
 			// Pile em in
 			for($i = 1; $i < 20; $i++)
