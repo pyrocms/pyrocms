@@ -331,8 +331,23 @@ class Plugin_Streams_core extends Plugin
 				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort'])
-				->get();
+				->orderBy($parameters['order_by'], $parameters['sort']);
+
+			// Check for joins
+			foreach ($this->getAttributes() as $attribute => $value) {
+
+				// Prefixed with "join_"?
+				if (substr($attribute, 0, 5) == 'join_') {
+
+					// Grab the arguments
+					list($arg1, $condition, $arg2) = explode('|', $value);
+
+					// Execute it
+					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				}
+			}
+
+			$model_entries = $model_entries->get();
 
 			foreach ($model_entries as $k => $entry) {
 
@@ -352,8 +367,23 @@ class Plugin_Streams_core extends Plugin
 				->select(explode('|', $parameters['select']))
 				->whereRaw($parameters['where'])
 				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort'])
-				->get();
+				->orderBy($parameters['order_by'], $parameters['sort']);
+
+			// Check for joins
+			foreach ($this->getAttributes() as $attribute => $value) {
+
+				// Prefixed with "join_"?
+				if (substr($attribute, 0, 5) == 'join_') {
+
+					// Grab the arguments
+					list($arg1, $condition, $arg2) = explode('|', $value);
+
+					// Execute it
+					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				}
+			}
+
+			$model_entries = $model_entries->get();
 
 			foreach ($model_entries as $k => $entry) {
 
