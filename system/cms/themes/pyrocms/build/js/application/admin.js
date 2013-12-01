@@ -324,14 +324,17 @@ Pyro.Initialize = function() {
 	
 	$('[data-editor]').each(function() {
 
+		// The thing
+		var editor_input = $(this);
+
 		// Spawn an ID
-		var id = Math.floor(Math.random()*111) + '_' + $(this).attr('data-editor') + '_editor';
+		var id = Math.floor(Math.random()*111) + '_' + editor_input.attr('data-editor') + '_editor';
 
 		// Get the language
 		var language = $(this).attr('data-editor');
 
 		// Add the ID
-		$(this).attr('data-editor', id).hide().after('<div id="' + id + '" class="editor" style="height: 500px;"></div>');
+		editor_input.attr('data-editor', id).hide().after('<div id="' + id + '" class="editor" style="height: 500px;"></div>');
 
 		// Span an editor
 		var editor = ace.edit(id);
@@ -341,7 +344,14 @@ Pyro.Initialize = function() {
 		editor.getSession().setMode('ace/mode/' + language);
 
 		// Set the current value
-		editor.setValue($(this).val());
+		editor.setValue(editor_input.val());
+
+		// Listen for submission
+		if (editor_input.is('textarea')) {
+			editor_input.closest('form').on('submit', function() {
+				editor_input.val(editor.getValue());
+			});
+		}
 	});
 
 
