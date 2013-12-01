@@ -1,7 +1,10 @@
 <?php
 
+use Illuminate\Support\Str;
 use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 
 /**
  * Streams Plugin
@@ -205,19 +208,42 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
+	 * Get all attributes parsed through getAttribute()
+	 * @param  array  $defaults 
+	 * @return array
+	 */
+	public function getAttributes($defaults = array())
+	{
+		// Get all attributes
+		$attributes = $this->attributes();
+
+		// Put em through processing
+		foreach ($attributes as $attribute => &$value) {
+
+			// Determine our defalut
+			$default = isset($defaults[$attribute]) ? $defaults[$attribute] : null;
+
+			// Get the value with segments n shit
+			$value = $this->getAttribute($attribute);
+		}
+
+		return $attributes;
+	}
+
+	/**
 	 * Field Function
 	 *
 	 * Calls the plugin override function
 	 */
 	public function field()
 	{
-		$attributes = $this->attributes();
+		$attributes = $this->getAttributes();
 
 		if ($attributes)
 		{
 			$attributes_keys = array_keys($attributes);
 
-			EntryModel::stream($attributes['stream'], $attributes['namespace'])->find($attributes['entry_id']);
+			$entry = EntryModel::stream($attributes['stream'], $attributes['namespace'])->find($attributes['entry_id']);
 
 			// Setting this in a separate var so we can unset it
 			// from the array later that is passed to the parse_override function.
@@ -225,25 +251,23 @@ class Plugin_Streams_core extends Plugin
 
 			// Call the field method
 			if ($type = FieldTypeManager::getType($field_type) and $type->plugin_override) {
+				
 				// Get the actual field.
-				$field = FieldModel::findBySlugAndNamespace($attributes['field_slug'], $attributes['namespace']);
+				$field = $entry->getFieldType($attributes['field_slug']);
 				
 				if ( ! $field) return null;
 
-				// We don't need these anymore
-				unset($attributes['field_type']);
-				unset($attributes['field_slug']);
-				unset($attributes['namespace']);
-				unset($attributes['stream_slug']);
+				$method = 'plugin'.Str::studly($attributes['method'].'Override');
 
-				foreach ($attributes_keys as $attribute)
-				{
-					$method = 'plugin'.Str::studly($attribute.'Override');
-					if (method_exists($type, $method)) {
-						$arguments = explode('|', $attributes[$attribute]);
+				if (method_exists($field, $method)) {
+					
+					$arguments = array();
 
-						return call_user_func_array(array($type, $method), $arguments);
-					}
+					foreach ($attributes as $attribute => $value)
+						if (substr($attribute, 0, 4) == 'arg_')
+							$arguments[substr($attribute, 4)] = $value;
+
+					return call_user_func_array(array($field, $method), $arguments);
 				}
 			}						
 		}
@@ -412,7 +436,7 @@ class Plugin_Streams_core extends Plugin
 
 		$renames = array();
 
-		foreach ($this->attributes() as $key => $to)
+		foreach ($this->getAttributes() as $key => $to)
 		{
 			if (substr($key, 0, 7) == 'rename:' and strlen($key) > 7)
 			{
@@ -1502,7 +1526,7 @@ class Plugin_Streams_core extends Plugin
 	 */
 	private function set_cache_hash()
 	{
-		$this->cache_hash = md5(implode('-', $this->attributes()).$this->content());
+		$this->cache_hash = md5(implode('-', $this->getAttributes()).$this->content());
 	}
 
 	/**

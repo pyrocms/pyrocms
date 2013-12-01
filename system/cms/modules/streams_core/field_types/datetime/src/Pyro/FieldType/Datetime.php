@@ -18,6 +18,8 @@ class Datetime extends AbstractFieldType
 	
 	public $db_col_type = 'datetime';
 
+	public $plugin_override = true;
+
 	public $custom_parameters = array(
 		'use_time',
 		'start_date',
@@ -379,7 +381,7 @@ class Datetime extends AbstractFieldType
 
 		$format = $format ? $format : $this->getParameter('date_format', $default_format);
 		
-		return $this->getDateTime($date_string)->format($format);
+		return Carbon::createFromFormat($this->storage_format, $date_string)->format($format);
 	}
 
 	/**
@@ -418,5 +420,15 @@ class Datetime extends AbstractFieldType
 			static::NOVEMBER	=> lang('cal_november'),
 			static::DECEMBER	=> lang('cal_december'),
 		);
+	}
+
+	/**
+	 * Allow return of custom formatted date
+	 * @param  string $format
+	 * @return string
+	 */
+	public function pluginFormatOverride($format = 'Y-m-d H:i:s')
+	{
+		return $this->format(null, $format);
 	}
 }
