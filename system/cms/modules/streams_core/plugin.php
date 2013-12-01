@@ -170,67 +170,6 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
-	 * Allows you to pass stuff like [segment_1], etc.
-	 * @param  string $attribute 
-	 * @param  string $default   
-	 * @return string
-	 */
-	public function getAttribute($attribute, $default = null)
-	{
-		$attribute = $this->attribute($attribute, $default);
-
-		// Variables
-		$segments = array();
-
-		// See if we have any vars in there
-		if(strpos($attribute, '[') !== false):
-		
-			// Pile em in
-			for($i = 1; $i < 20; $i++)
-				$variables['segment_'.$i] = $this->uri->segment($i);
-						
-			// We can only get the user data if it is available
-			if($this->current_user):
-			
-				$variables['user_id']	= $this->current_user->id;
-				$variables['username']	= $this->current_user->username;
-			
-			endif;
-
-			foreach($variables as $variable => $value):
-				$attribute = str_replace("[$variable]", $value, $attribute);
-			
-			endforeach;
-		
-		endif;
-		
-		return $attribute;
-	}
-
-	/**
-	 * Get all attributes parsed through getAttribute()
-	 * @param  array  $defaults 
-	 * @return array
-	 */
-	public function getAttributes($defaults = array())
-	{
-		// Get all attributes
-		$attributes = $this->attributes();
-
-		// Put em through processing
-		foreach ($attributes as $attribute => &$value) {
-
-			// Determine our defalut
-			$default = isset($defaults[$attribute]) ? $defaults[$attribute] : null;
-
-			// Get the value with segments n shit
-			$value = $this->getAttribute($attribute);
-		}
-
-		return $attributes;
-	}
-
-	/**
 	 * Field Function
 	 *
 	 * Calls the plugin override function
