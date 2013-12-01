@@ -45,7 +45,7 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! Settings::get('frontend_enabled') && (empty($this->current_user) or $this->current_user->group != 'admin')) {
+		if ( ! Settings::get('frontend_enabled') && (empty($this->current_user) or ! $this->current_user->isSuperUser())) {
 			header('Retry-After: 600');
 
 			$error = Settings::get('unavailable_message') ?: lang('cms:fatal_error');
