@@ -79,7 +79,7 @@ class Settings
 		$setting = ci()->setting_m->get($key);
 
 		// Setting doesn't exist, maybe it's a config option
-		$value = $setting ? ($setting->value ?: $setting->default) : config_item($key);
+		$value = $setting !== false ? (! is_null($setting->value) ? $setting->value : $setting->default) : config_item($key);
 
 		// Store it for later
 		self::$cache[$key] = $value;
