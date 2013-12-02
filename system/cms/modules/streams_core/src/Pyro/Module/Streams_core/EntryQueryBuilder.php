@@ -335,6 +335,7 @@ class EntryQueryBuilder extends Builder
 		// -------------------------------------
 		// Filters (QueryString API)
 		// -------------------------------------
+		$this->stream = $this->model->getStream();
 
 		if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 
@@ -500,5 +501,17 @@ class EntryQueryBuilder extends Builder
 				$this->orderBy($order_by, 'ASC');
 			}
 		}
+	}
+
+	/**
+	 * Retrieve the "count" result of the query.
+	 * @param  string $column
+	 * @return int
+	 */
+	public function count($column = '*')
+	{
+		$this->applyFilters();
+
+		return parent::count($column);
 	}
 }
