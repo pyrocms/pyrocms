@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pyro\Module\Streams_core\EntryModel;
 
 /**
@@ -277,6 +278,45 @@ abstract class Eloquent extends Model
         $query = $instance->newQuery();
 
         return new BelongsToMany($query, $this, $table, $foreignKey, $otherKey, $pivot_suffix);
+    }
+
+    /**
+     * Define a one-to-many relationship.
+     *
+     * @param  string  $related
+     * @param  string  $foreignKey
+     * @param  string  $stream
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hasManyEntries($related, $foreignKey = null, $stream = null)
+    {
+        $instance = new $related;
+
+        if( ! ($instance instanceof EntryModel))
+        {
+            throw new ClassNotInstanceOfEntryModelException;
+        }
+
+        // Once we have the foreign key names, we'll just create a new Eloquent query
+        // for the related models and returns the relationship instance which will
+        // actually be responsible for retrieving and hydrating every relations.
+        if ( ! empty($stream))
+        {
+            $instance = call_user_func(array($related, 'stream'), $stream);
+        }
+
+
+        // First, we'll need to determine the foreign key and "other key" for the
+        // relationship. Once we have determined the keys we'll make the query
+        // instances as well as the relationship instances we need for this.
+        $foreignKey = $foreignKey ?: $this->getForeignKey();
+
+        // Now we're ready to create a new query builder for the related model and
+        // the relationship instances for the relation. The relations will set
+        // appropriate query constraint and entirely manages the hydrations.
+        $query = $instance->newQuery();
+
+        return new HasMany($query, $this, $foreignKey);
     }
 
 }
