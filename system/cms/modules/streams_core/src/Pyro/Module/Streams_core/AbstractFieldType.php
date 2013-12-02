@@ -603,6 +603,19 @@ abstract class AbstractFieldType
 	}
 
 	/**
+	 * Wrapper method for the Eloquent hasMany() method
+	 * @param  [type] $related     [description]
+	 * @param  [type] $foreign_key [description]
+	 * @return [type]              [description]
+	 */
+	public function hasManyEntries($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $stream = null)
+	{
+		$foreign_key = $foreign_key ? $foreign_key : 'entry_id';
+
+		return $this->entry->hasManyEntries($related, $foreign_key, $this->getParameter('stream', $stream));
+	}
+
+	/**
 	 * Has relation
 	 * @return boolean
 	 */
