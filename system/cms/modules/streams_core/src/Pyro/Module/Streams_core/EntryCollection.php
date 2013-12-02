@@ -59,7 +59,16 @@ class EntryCollection extends EloquentCollection
 	{
 		$this->format = EntryModel::FORMAT_PLUGIN;
 
-		return $this;
+		$entries = array();
+
+		foreach($this->items as $entry) {
+			$entries[] = $entry->asPlugin();
+		}
+
+		return new static($entries);
+
+
+		//return $this;
 	}
 
 	/**
