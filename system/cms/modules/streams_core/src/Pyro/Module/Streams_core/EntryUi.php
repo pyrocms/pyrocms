@@ -182,6 +182,8 @@ class EntryUi extends AbstractUi
 			}
 		}
 
+		$instance->stream = $instance->entry->getStream();
+
 		$instance->entry->asEloquent();
 
 		return $instance;	
@@ -219,9 +221,23 @@ class EntryUi extends AbstractUi
 		$this->data->entry		= $this->entry;
 		$this->data->mode		= $this->mode;
 		$this->data->fields		= $this->form->buildForm();
-		$this->data->form_override 		= $this->form_override;
 
-		if ($saved = $this->form->result() and $this->enable_save)
+		$this->data->form_override 		= $this->form_override;
+		
+		if ($this->getIsMultiForm()) {
+
+			$original_fields = $this->data->fields;
+			
+			$this->data->fields = array();
+
+			foreach ($original_fields as $field_slug => $field) {
+				$this->data->fields[$this->data->stream->stream_slug.':'.$this->data->stream->stream_namespace.':'.$field_slug] = $field;
+			}
+
+			$this->data->fields = array_merge($this->data->fields, $this->nested_fields);
+		}
+		
+		if ($saved = $this->form->result() and $this->enable_save and ! $this->is_nested_form)
 		{
 			$this->fireOnSaved($saved);
 			
@@ -230,22 +246,22 @@ class EntryUi extends AbstractUi
 
 				// Boring.
 				case 'save':
-					$url = site_url(ci()->parser->parse_string($this->data->redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->redirect, $saved->toArray(), true));
 					break;
 
 				// Exit
 				case 'save_exit':
-					$url = site_url(ci()->parser->parse_string($this->data->exit_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->exit_redirect, $saved->toArray(), true));
 					break;
 
 				// Create
 				case 'save_create':
-					$url = site_url(ci()->parser->parse_string($this->data->create_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->create_redirect, $saved->toArray(), true));
 					break;
 
 				// Continue
 				case 'save_continue':
-					$url = site_url(ci()->parser->parse_string($this->data->continue_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->continue_redirect, $saved->toArray(), true));
 					break;
 				
 				// Donknow
@@ -265,10 +281,12 @@ class EntryUi extends AbstractUi
 		}
 		else
 		{
-			$this->data->tabs = $this->distributeFields($this->data->tabs, $this->entry->getFieldSlugs());
+			$this->data->tabs = $this->distributeFields($this->data->tabs, array_keys($this->data->fields));
 
 			$this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->data, true);
 		}
+
+		return $this;
 	}
 
 	/**

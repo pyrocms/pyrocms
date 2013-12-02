@@ -214,6 +214,11 @@ abstract class AbstractUi extends AbstractCallable
 	 */
 	protected $include_types = array();
 
+	/**
+	 * Is nested form
+	 * @var boolean
+	 */
+	public $is_nested_form = false;
 
 	/**
 	 * New or edit
@@ -228,6 +233,12 @@ abstract class AbstractUi extends AbstractCallable
 	 * @var strign
 	 */
 	protected $namespace = null;
+
+	/**
+	 * Nested fields
+	 * @var array
+	 */
+	protected $nested_fields = array();
 
 	/**
 	 * Offset
@@ -345,6 +356,19 @@ abstract class AbstractUi extends AbstractCallable
 		$this->data = new \stdClass;
 	}
 
+	public function addForm(EntryUi $entry_ui)
+	{
+		if ($stream = $entry_ui->getStream()) {
+			$instance = $entry_ui->isNestedForm(true)->triggerForm();
+
+			foreach ($instance->getFields() as $field_slug => $field) {
+				$this->nested_fields[$stream->stream_slug.':'.$stream->stream_namespace.':'.$field_slug] = $field;
+			}
+		}
+
+		return $this;
+	}
+
 	/**
 	 * Add URI
 	 * @param string $add_uri
@@ -383,11 +407,25 @@ abstract class AbstractUi extends AbstractCallable
 		return $this;
 	}
 
+	/**
+	 * Disable form open
+	 * @param  boolean
+	 * @return object
+	 */
 	public function disableFormOpen($disable_form_open = true)
 	{
 		$this->data->disable_form_open = $disable_form_open;
 
 		return $this;
+	}
+
+	/**
+	 * Get fields
+	 * @return array
+	 */
+	public function getFields()
+	{
+		return $this->data->fields;
 	}
 
 	/**
@@ -409,6 +447,20 @@ abstract class AbstractUi extends AbstractCallable
 		return $pagination;
 	}
 
+	/**
+	 * Get stream
+	 * @return object
+	 */
+	public function getStream()
+	{
+		return $this->stream;
+	}
+
+	/**
+	 * Headers
+	 * @param  array
+	 * @return object
+	 */
 	public function headers($headers = array())
 	{
 		$this->headers = $headers;
@@ -487,6 +539,27 @@ abstract class AbstractUi extends AbstractCallable
 	public function cancelUri($cancel_uri = null)
 	{
 		$this->data->cancel_uri = $cancel_uri;
+
+		return $this;
+	}
+
+	/**
+	 * Get is multi form value
+	 * @return boolean
+	 */
+	public function getIsMultiForm()
+	{
+		return ! empty($this->nested_fields);
+	}
+
+	/**
+	 * Set is_nested_form value
+	 * @param  boolean
+	 * @return object
+	 */
+	public function isNestedForm($is_nested_form = false)
+	{
+		$this->is_nested_form = $is_nested_form;
 
 		return $this;
 	}
