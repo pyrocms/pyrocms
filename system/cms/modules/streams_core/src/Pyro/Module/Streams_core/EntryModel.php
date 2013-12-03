@@ -383,7 +383,9 @@ class EntryModel extends Eloquent
         }
 
         $type = $field->getType($this);
-        
+        $type->setEntry($this);
+        $type->setValue($this->{$field_slug});
+
         return $type;
     }
 
