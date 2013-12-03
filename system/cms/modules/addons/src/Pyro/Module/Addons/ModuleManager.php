@@ -104,7 +104,7 @@ class ModuleManager
     public function get($slug)
     {
         // Fetch the actual module record
-        if (( ! $record = $this->modules->get($slug))) {
+        if (( ! $record = $this->modules->findBySlug($slug))) {
             return false;
         }
 

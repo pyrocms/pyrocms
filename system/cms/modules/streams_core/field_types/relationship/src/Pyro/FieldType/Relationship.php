@@ -162,6 +162,24 @@ class Relationship extends AbstractFieldType
 		return null;
 	}
 
+	/**
+	 * Pre Ouput Data
+	 * 
+	 * This takes the data from the join array
+	 * and formats it using the row parser.
+	 * 
+	 * @return array
+	 */
+	public function dataOutput()
+	{
+		if ($entry = $this->getRelationResult())
+		{
+			return $entry;
+		}
+
+		return null;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	PARAMETERS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
