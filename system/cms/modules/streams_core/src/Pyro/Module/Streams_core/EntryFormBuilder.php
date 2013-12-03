@@ -464,7 +464,7 @@ class EntryFormBuilder
 			{
 				if ($type = $entry->getFieldType($field->field_slug) and ! $type->alt_process)
 				{
-					$values[$field->field_slug] = $type->value;
+					$values[$field->field_slug] = $type->getFormValue($field->field_slug, $entry->{$field->field_slug});
 				}
 			}
 		}
