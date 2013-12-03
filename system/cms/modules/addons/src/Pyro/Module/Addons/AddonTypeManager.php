@@ -282,12 +282,19 @@ class AddonTypeManager
 	 * Get all types
 	 * @return array 
 	 */
-	public static function getAllTypes($preload = true)
+	public static function getAllTypes()
 	{
-		if ($preload) {
-			static::preload();
-		}
+		static::preload();
 
+		return new \Pyro\Module\Addons\AddonTypeCollection(static::$types[get_called_class()]);
+	}
+
+	/**
+	 * Get registered types
+	 * @return array 
+	 */
+	public static function getRegisteredTypes()
+	{
 		return new \Pyro\Module\Addons\AddonTypeCollection(static::$types[get_called_class()]);
 	}
 
