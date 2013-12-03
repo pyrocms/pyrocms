@@ -343,9 +343,9 @@ class Blog extends Public_Controller
 		}
 		$post['keywords'] = $formatted_keywords;
 		$post['keywords_arr'] = $keywords_arr;
-
+                
 		// Full URL for convenience.
-		$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+		$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
 	
 		// What is the preview? If there is a field called intro,
 		// we will use that, otherwise we will cut down the blog post itself.
