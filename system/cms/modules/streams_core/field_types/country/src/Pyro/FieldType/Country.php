@@ -88,7 +88,7 @@ class Country extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ( ! empty($this->value)) {
+		if ($this->value) {
 			$return['name'] = $this->getCountry($this->value);
 			$return['code']	= $this->value;
 
