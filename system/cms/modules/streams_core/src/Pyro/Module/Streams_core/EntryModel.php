@@ -382,7 +382,10 @@ class EntryModel extends Eloquent
             return null;
         }
 
-        return $field->getType($this);
+        $type = $field->getType($this);
+        $type->setValue($this->{$field_slug});
+
+        return $type;
     }
 
     /**
