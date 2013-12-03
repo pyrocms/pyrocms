@@ -237,6 +237,19 @@ class Module_Files extends Module
 				'module' => 'files',
 				'order' => 987,
 			),
+			array(
+				'slug' => 'file_hashing',
+				'title' => 'Hash Naming Files Uploaded',
+				'description' => 'Use hashing on uploaded files.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '1',
+				'options' => '1=Enable|0=Disable',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 986,
+			      ),
 		);
 
 		foreach ($settings as $setting)

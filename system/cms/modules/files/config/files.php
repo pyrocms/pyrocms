@@ -5,7 +5,7 @@ if ( ! defined('UPLOAD_PATH')) define('UPLOAD_PATH', null);
 
 $config['files:path'] = UPLOAD_PATH.'files/';
 
-$config['files:encrypt_filename'] = true;
+$config['files:encrypt_filename'] = (Settings::get('file_hashing') == 1)?true:false;
 
 $config['files:allowed_file_ext'] = array(
 	'a'	=> array('mpga', 'mp2', 'mp3', 'ra', 'rv', 'wav'),
