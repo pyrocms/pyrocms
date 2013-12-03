@@ -290,6 +290,15 @@ class AddonTypeManager
 	}
 
 	/**
+	 * Get registered types
+	 * @return array 
+	 */
+	public static function getRegisteredTypes()
+	{
+		return new \Pyro\Module\Addons\AddonTypeCollection(static::$types[get_called_class()]);
+	}
+
+	/**
 	 * Get the types together as a big object
 	 *
 	 * @return	void
