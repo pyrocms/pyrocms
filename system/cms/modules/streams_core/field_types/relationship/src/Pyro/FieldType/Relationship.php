@@ -293,9 +293,19 @@ class Relationship extends AbstractFieldType
 
 
 		/**
+		 * Determine our select
+		 */
+		$select = array(
+			'value_field' => $field->getParameter('value_field'),
+			'label_field' => $field->getParameter('label_field'),
+			'search_field' => $field->getParameter('search_field'),
+			);
+
+
+		/**
 		 * Get our entries
 		 */
-		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->select($select)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**
