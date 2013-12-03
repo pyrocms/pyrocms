@@ -177,7 +177,7 @@ class EntryUi extends AbstractUi
 
 			if ($id)
 			{
-				$instance->entry = $instance->entry->find($id);
+				$instance->entry = $instance->entry->select('*')->find($id);
 			}
 		}
 
