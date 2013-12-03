@@ -160,7 +160,7 @@ class Relationship extends AbstractFieldType
 	{
 		if ($entry = $this->getRelationResult())
 		{
-			return $entry->toArray();
+			return $entry->asPlugin()->toArray();
 		}
 
 		return null;
@@ -178,7 +178,7 @@ class Relationship extends AbstractFieldType
 	{
 		if ($entry = $this->getRelationResult())
 		{
-			return $entry;
+			return $entry->asPlugin();
 		}
 
 		return null;
