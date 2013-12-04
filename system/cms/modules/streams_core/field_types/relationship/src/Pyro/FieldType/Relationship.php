@@ -109,11 +109,14 @@ class Relationship extends AbstractFieldType
 		// Start the HTML
 		$html = form_dropdown($this->getFilterSlug('is'), array(), null, 'id="'.$this->getFilterSlug('is').'" class="skip" placeholder="'.$this->field->field_name.'"');
 
+		// Set the value
+		$this->setValue(ci()->input->get($this->getFilterSlug('is')));
+
 		// Append our JS to the HTML since it's special
 		$html .= $this->view(
 			'fragments/relationship.js.php',
 			array(
-				'value' => false,
+				'value' => $this->getRelationResult(),
 				'form_slug' => $this->getFilterSlug('is'),
 				'field_slug' => $this->field->field_slug,
 				'stream_param' => $this->getParameter('stream'),
@@ -296,10 +299,10 @@ class Relationship extends AbstractFieldType
 		 * Determine our select
 		 */
 		$select = array_unique(
-			array(
-				'value_field' => $field->getParameter('value_field', 'id'),
-				'label_field' => $field->getParameter('label_field'),
-				'search_field' => $field->getParameter('search_field'),
+			array_merge(
+				array_values(explode('|', $field->getParameter('value_field', 'id'))),
+				array_values(explode('|', $field->getParameter('label_field').'|site')),
+				array_values(explode('|', $field->getParameter('search_field')))
 				)
 			);
 
