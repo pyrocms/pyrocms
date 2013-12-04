@@ -451,7 +451,7 @@ class Blog extends Public_Controller
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
 			$this->template->set('form_display', (
 				$post['comments_enabled'] === 'always' or
-					($post['comments_enabled'] !== 'no' and time() < strtotime('+'.$post['comments_enabled'], $post['created_at']))
+					($post['comments_enabled'] !== 'no' and time() < strtotime($post['comments_enabled'] + $post['created_at']))
 			));
 		}
 
