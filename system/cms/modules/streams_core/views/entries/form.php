@@ -52,7 +52,7 @@
 	<?php endif; ?>
 
 	<?php if (! empty($continue_redirect)): ?>
-	<button type="submit" name="btnAction" value="save_continue" class="btn btn-success"><?php echo lang('buttons:save_continue'); ?></button>
+	<button type="submit" name="btnAction" value="save_continue" class="btn btn-info"><?php echo lang('buttons:save_continue'); ?></button>
 	<?php endif; ?>
 
 	<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
