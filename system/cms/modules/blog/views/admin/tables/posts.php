@@ -27,7 +27,7 @@
 					<td><?php echo lang('blog:'.$post->status.'_label') ?></td>
 					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_at).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="button" target="_blank"><?php echo lang('global:view')?></a>
+                                            <a href="<?php echo site_url('blog/'.date('Y/m', strtotime($post->created_at)).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="button" target="_blank"><?php echo lang('global:view')?></a>
                         <?php else: ?>
 							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="button" target="_blank"><?php echo lang('global:preview')?></a>
                         <?php endif ?>
