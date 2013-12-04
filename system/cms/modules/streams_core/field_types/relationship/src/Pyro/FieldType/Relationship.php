@@ -65,7 +65,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'));
+		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
 	}
 
 	/**
