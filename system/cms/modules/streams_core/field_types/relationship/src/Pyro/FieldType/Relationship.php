@@ -295,10 +295,12 @@ class Relationship extends AbstractFieldType
 		/**
 		 * Determine our select
 		 */
-		$select = array(
-			'value_field' => $field->getParameter('value_field'),
-			'label_field' => $field->getParameter('label_field'),
-			'search_field' => $field->getParameter('search_field'),
+		$select = array_unique(
+			array(
+				'value_field' => $field->getParameter('value_field'),
+				'label_field' => $field->getParameter('label_field'),
+				'search_field' => $field->getParameter('search_field'),
+				)
 			);
 
 
