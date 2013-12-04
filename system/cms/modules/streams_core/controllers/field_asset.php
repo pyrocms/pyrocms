@@ -43,7 +43,7 @@ class Field_asset extends Public_Controller
 		// Check the type
 		$type = $this->uri->segment(4);
 
-		$this->field_type = Type::getType($type);
+		$this->field_type = FieldTypeManager::getType($type);
 
 		// Check the file
 		$file = $this->uri->segment(5);

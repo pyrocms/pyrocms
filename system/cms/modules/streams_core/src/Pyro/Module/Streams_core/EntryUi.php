@@ -177,7 +177,7 @@ class EntryUi extends AbstractUi
 
 			if ($id)
 			{
-				$instance->entry = $instance->entry->find($id);
+				$instance->entry = $instance->entry->select('*')->find($id);
 			}
 		}
 
@@ -245,22 +245,22 @@ class EntryUi extends AbstractUi
 
 				// Boring.
 				case 'save':
-					$url = site_url(ci()->parser->parse_string($this->redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->data->redirect, $saved->toArray(), true));
 					break;
 
 				// Exit
 				case 'save_exit':
-					$url = site_url(ci()->parser->parse_string($this->exit_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->data->exit_redirect, $saved->toArray(), true));
 					break;
 
 				// Create
 				case 'save_create':
-					$url = site_url(ci()->parser->parse_string($this->create_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->data->create_redirect, $saved->toArray(), true));
 					break;
 
 				// Continue
 				case 'save_continue':
-					$url = site_url(ci()->parser->parse_string($this->continue_redirect, $saved->toArray(), true));
+					$url = site_url(ci()->parser->parse_string($this->data->continue_redirect, $saved->toArray(), true));
 					break;
 				
 				// Donknow
