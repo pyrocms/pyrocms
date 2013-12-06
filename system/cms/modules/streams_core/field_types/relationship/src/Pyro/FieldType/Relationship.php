@@ -276,6 +276,56 @@ class Relationship extends AbstractFieldType
 	}
 
 	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	PLUGINS	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Output filter input for plugins
+	 *
+	 * @access 	public
+	 * @return	string
+	 */
+	public function pluginFilterInput()
+	{
+		// The condition:
+		$condition = $this->plugin->getAttribute('condition', 'is');
+
+		// Stream and namespace slug
+		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+		// Get the stream
+		$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
+
+		// Get the entries!
+		$entries = EntryModel::stream($stream)
+			->select(array('id', $this->plugin->getAttribute('select', $stream->title_column)))
+			->orderBy($this->plugin->getAttribute('order_by', $stream->title_column), $this->plugin->getAttribute('sort', 'asc'))
+			->whereRaw($this->plugin->getAttribute('where', '1'))
+			->get();
+
+		// Build the options array
+		$options = array(null => $this->plugin->getAttribute('placeholder', '-----'));
+
+		foreach ($entries as $entry)
+			$options[$entry->id] = $entry->{$this->plugin->getAttribute('select', $stream->title_column)};
+
+		// Build input extras
+		$extras = array(
+			'id' => $this->plugin->getAttribute('id'),
+			'class' => $this->plugin->getAttribute('class'),
+			'placeholder' => $this->plugin->getAttribute('placeholder'),
+			);
+
+		// Make the extra stuff a string
+		foreach ($extras as $attribute => &$value)
+			$value = $attribute.'="'.$value.'"';
+
+		
+		// Return that shiz
+		return form_dropdown($this->getFilterSlug($condition), $options, $this->plugin->getAttribute('value', ci()->input->get($this->getFilterSlug($condition))), implode(' ', $extras));
+	}
+
+	///////////////////////////////////////////////////////////////////////////
 	// -------------------------	AJAX 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////
 

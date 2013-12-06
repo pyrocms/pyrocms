@@ -352,7 +352,7 @@ class Admin extends Admin_Controller
             ->tabs($this->_tabs())
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ id }}')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
             ->index($this->_index_template)
             ->render();
     }
@@ -503,7 +503,7 @@ class Admin extends Admin_Controller
             })
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ id }}')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
             ->index($this->_index_template)
             ->render();
     }

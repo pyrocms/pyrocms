@@ -42,15 +42,15 @@ abstract class Plugin
 					$set = true;
 				}
 			}
-			
+
 			if ($parse_params)
 			{
 				// For each attribute, let's see if we need to parse it.
 				foreach ($attributes as $key => $attr) {
-					$attributes[$key] = $this->parse_parameter($attr);
+					$attributes[$key] = $this->parseAttribute($attr);
 				}
 			}
-
+			
 			$this->attributes = $attributes;
 		}
 	}
@@ -112,8 +112,25 @@ abstract class Plugin
 	{
 		$attribute = $this->attribute($attribute, $default);
 
-		// Variables
-		$segments = array();
+		return $this->parseAttribute($attribute);
+	}
+
+	/**
+	 * Parse the attribute for goodies
+	 * @param  string $attribute
+	 * @return string
+	 */
+	public function parseAttribute($attribute)
+	{
+		// Parse for variables. Before we do anything crazy,
+		// let's check for a bracket.
+		if (strpos($attribute, '[[') !== false) {
+			
+			// Change our [[ ]] to {{ }}. Sneaky.
+			$attribute = str_replace(array('[[', ']]'), array('{{', '}}'), $attribute);
+
+			$attribute = $this->parser->parse_string($attribute, array(), true);
+		}
 
 		// See if we have any vars in there
 		if(strpos($attribute, '[') !== false):
@@ -174,47 +191,9 @@ abstract class Plugin
 	 *
 	 * @return mixed The value.
 	 */
-	public function set_attribute($param, $value)
+	public function setAttribute($param, $value)
 	{
 		$this->attributes[$param] = $value;
-	}
-
-	/**
-	 * Parse special variables in an attribute
-	 *
-	 * @param string $value The value of the attribute.
-	 * @param array  $data  Additional data to parse with
-	 *
-	 * @return string The value.
-	 */
-	public function parse_parameter($value, $data = array())
-	{
-		// Parse for variables. Before we do anything crazy,
-		// let's check for a bracket.
-		if (strpos($value, '[[') !== false) {
-			// Change our [[ ]] to {{ }}. Sneaky.
-			$value = str_replace(array('[[', ']]'), array('{{', '}}'), $value);
-
-			$default_data = array(
-				'segment_1' => $this->uri->segment(1),
-				'segment_2' => $this->uri->segment(2),
-				'segment_3' => $this->uri->segment(3),
-				'segment_4' => $this->uri->segment(4),
-				'segment_5' => $this->uri->segment(5),
-				'segment_6' => $this->uri->segment(6),
-				'segment_7' => $this->uri->segment(7)
-			);
-
-			// user info
-			if ($this->current_user) {
-				$default_data['user_id']	= $this->current_user->id;
-				$default_data['username']	= $this->current_user->username;
-			}
-
-			return $this->parser->parse_string($value, array_merge($default_data, $data), true);
-		}
-
-		return $value;
 	}
 
 	/**

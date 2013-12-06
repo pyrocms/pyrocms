@@ -176,39 +176,41 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function field()
 	{
-		$attributes = $this->getAttributes();
+		// Get the stream
+		$stream = StreamModel::findBySlugAndNamespace($this->getAttribute('stream'), $this->getAttribute('namespace'));
 
-		if ($attributes)
-		{
-			$attributes_keys = array_keys($attributes);
+		// Get the field type
+		$field = FieldModel::findBySlugAndNamespace($this->getAttribute('field_slug'), $this->getAttribute('namespace'));
 
-			$entry = EntryModel::stream($attributes['stream'], $attributes['namespace'])->find($attributes['entry_id']);
+		// Do we have an entry?
+		if ($entry = EntryModel::stream($stream)) {
 
-			// Setting this in a separate var so we can unset it
-			// from the array later that is passed to the parse_override function.
-			$field_type = $attributes['field_type'];
+			// Sweet Jesus we do - get the bootstrapped type
+			$type = $entry->getFieldType($field->field_slug);
+		} else {
 
-			// Call the field method
-			if ($type = FieldTypeManager::getType($field_type) and $type->plugin_override) {
-				
-				// Get the actual field.
-				$field = $entry->getFieldType($attributes['field_slug']);
-				
-				if ( ! $field) return null;
+			// Get the plain ole type
+			$type = FieldTypeManager::getType($field->field_type);
+		}
 
-				$method = 'plugin'.Str::studly($attributes['method'].'Override');
+		// Set the plugin
+		$type->setPlugin($this);
 
-				if (method_exists($field, $method)) {
-					
-					$arguments = array();
+		// Pattern the method name
+		$method = 'plugin'.Str::studly($this->getAttribute('method'));
 
-					foreach ($attributes as $attribute => $value)
-						if (substr($attribute, 0, 4) == 'arg_')
-							$arguments[substr($attribute, 4)] = $value;
+		// If the method exists - go for it
+		// No reason for testing if plugin_override here..
+		// Rage of motion is pretty limited already
+		if (method_exists($type, $method)) {
+			
+			$arguments = array();
 
-					return call_user_func_array(array($field, $method), $arguments);
-				}
-			}						
+			foreach ($this->getAttributes() as $attribute => $value)
+				if (substr($attribute, 0, 4) == 'arg_')
+					$arguments[substr($attribute, 4)] = $value;
+
+			return call_user_func_array(array($type, $method), $arguments);
 		}
 	}
 	
@@ -261,35 +263,10 @@ class Plugin_Streams_core extends Plugin
 		// we will just go ahead and return that.
 		// -------------------------------------
 
-		$this->setup_cache();
+		$this->setupCache();
 
-		/*if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
-		{
-			return $full_tag_cache;
-		}*/
-
-		// -------------------------------------
-		// Pagination & Limit
-		// -------------------------------------
-		// Gather any pagination config overrides
-		// from the plugin. Also, set limit if 
-		// there is none and we are using pagination.
-		// -------------------------------------
-		
-		$pagination_configuration = array();
-		
-		foreach ($this->pagination_configuration as $configuration)
-		{
-			if ($this->attribute($configuration))
-			{
-				$pagination_config[$configuration] = $this->attribute($configuration);
-			}
-		}
-
-		if ($parameters['paginate'] == 'yes' and ! $parameters['limit'])
-		{
-			$parameters['limit'] = Settings::get('records_per_page');
-		}
+		if (! is_null($tag_cache = $this->getTagCache()))
+			return $tag_cache;
 
 		// -------------------------------------
 		// Set Namespace
@@ -325,75 +302,19 @@ class Plugin_Streams_core extends Plugin
 
 		if ($this->cache_type == 'query' and is_numeric($this->cache_ttl))
 		{
-			$entries = array();
+			// Try cache
+			if (! $entries = ci()->cache->get($this->cache_hash)) {
 
-			$model_entries = EntryModel::stream($stream)
-				->select(explode('|', $parameters['select']))
-				->whereRaw($parameters['where'])
-				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort']);
+				// Nothin.. Get entries
+				$entries = self::get($stream, $parameters);
 
-			// Check for joins
-			foreach ($this->getAttributes() as $attribute => $value) {
-
-				// Prefixed with "join_"?
-				if (substr($attribute, 0, 5) == 'join_') {
-
-					// Grab the arguments
-					list($arg1, $condition, $arg2) = explode('|', $value);
-
-					// Execute it
-					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
-				}
-			}
-
-			$model_entries = $model_entries->get();
-
-			foreach ($model_entries as $k => $entry) {
-
-				// Add the count
-				$entry->count = $k;
-				$entry->human_count = $k+1;
-
-				// Add to our result array
-				$entries[] = $entry->asPlugin()->toArray();
+				// Save to cache
+				ci()->cache->set($this->cache_hash, $entries, $this->cache_ttl);
 			}
 		}
 		else
 		{
-			$entries = array();
-			
-			$model_entries = EntryModel::stream($stream)
-				->select(explode('|', $parameters['select']))
-				->whereRaw($parameters['where'])
-				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort']);
-
-			// Check for joins
-			foreach ($this->getAttributes() as $attribute => $value) {
-
-				// Prefixed with "join_"?
-				if (substr($attribute, 0, 5) == 'join_') {
-
-					// Grab the arguments
-					list($arg1, $condition, $arg2) = explode('|', $value);
-
-					// Execute it
-					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
-				}
-			}
-
-			$model_entries = $model_entries->get();
-
-			foreach ($model_entries as $k => $entry) {
-
-				// Add the count
-				$entry->count = $k;
-				$entry->human_count = $k+1;
-
-				// Add to our result array
-				$entries[] = $entry->asPlugin()->toArray();
-			}
+			$entries = self::get($stream, $parameters);
 		}
 
 		// -------------------------------------
@@ -431,28 +352,10 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		// -------------------------------------
-		// Set rows to 'entries' var
+		// Set entries
 		// -------------------------------------
 
 		$return['entries'] = $entries;
-				
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
-		
-		if ($parameters['paginate'] == 'yes')
-		{
-			$return['total'] 	= $entries['pag_count'];
-			
-			$pag_segment = (isset($parameters['pag_segment'])) ? $parameters['pag_segment'] : null;
-			
-			$return['pagination'] = $this->row_m->build_pagination($parameters['pag_segment'], $parameters['limit'], $return['total'], $pagination_config);
-		}	
-		else
-		{	
-			$return['pagination'] 	= null;
-			$return['total'] 		= count($entries);
-		}
 				
 		// -------------------------------------
 		// {{ entries }} Bypass
@@ -463,31 +366,18 @@ class Plugin_Streams_core extends Plugin
 
 		$loop = false;
 
-		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
+		if (preg_match('/\{\{\s?entries\s?\}\}/', is_string($this->content()) ? $this->content() : null) == 0)
 		{
 			$return = $return['entries'];
 			$loop = true;
 		}
 
 		// -------------------------------------
-		// Parse Ouput Content
-		// -------------------------------------
-		
-		/*$return_content = $this->streams->parse->parse_tag_content(
-			$this->content(),
-			$return,
-			$parameters['stream'],
-			$this->core_namespace,
-			$loop,
-			$this->fields
-			);*/
-	
-		// -------------------------------------
 		// Cache End Procedures
 		// -------------------------------------
 
-		//$this->tag_cache_write($return);
-		$this->clear_cache_vars();
+		$this->writeTagCache($return);
+		//$this->clearCacheVariables();
 
 		// -------------------------------------
 		//print_r($return);die;
@@ -500,7 +390,42 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function total()
 	{
-		return count(self::entries());
+		// -------------------------------------
+		// Get Plugin Attributes
+		// -------------------------------------
+		
+		$parameters = array();
+		
+		foreach ($this->entries_parameters as $parameter => $parameter_default)
+		{
+			$parameters[$parameter] = $this->getAttribute($parameter, $parameter_default);
+		}
+
+		// Boom. Stream.
+		$stream = StreamModel::getStream($parameters['stream'], $parameters['namespace']);
+
+		// Start up the query
+		$model_entries = EntryModel::stream($stream)
+			->select('id')
+			->whereRaw($parameters['where'])
+			->limit($parameters['limit'])
+			->orderBy($parameters['order_by'], $parameters['sort']);
+
+		// Check for joins
+		foreach ($this->getAttributes() as $attribute => $value) {
+
+			// Prefixed with "join_"?
+			if (substr($attribute, 0, 5) == 'join_') {
+
+				// Grab the arguments
+				list($arg1, $condition, $arg2) = explode('|', $value);
+
+				// Execute it
+				$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+			}
+		}
+
+		return $model_entries = $model_entries->count();
 	}
 
 	/**
@@ -509,7 +434,8 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function exists()
 	{
-		$this->set_attribute('limit', 1);
+		$this->setAttribute('limit', 1);
+		$this->setAttribute('select', 'id');
 
 		return count(self::entries()) != 0 ? $this->content() : false;
 	}
@@ -537,9 +463,32 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function entry()
 	{	
-		$this->set_attribute('limit', 1);
+		$this->setAttribute('limit', 1);
 
 		return $this->entries();
+	}
+
+	/**
+	 * Pagination
+	 * @return string
+	 */
+	public function pagination()
+	{
+		// Get a total
+		$total = self::total();
+		
+		// Whip it up
+		$pagination = create_pagination(
+			$pag_uri = $this->getAttribute('pag_uri', uri_string()),
+			$total = $total,
+			$limit = $this->getAttribute('limit', $this->entries_parameters['limit']),
+			$offset_uri = 2
+			);
+
+		// Do whatever this is
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);		
+
+		return $pagination;
 	}
 	
 	/**
@@ -1100,11 +1049,11 @@ class Plugin_Streams_core extends Plugin
 		// Cache
 		// -------------------------------------
 
-		$this->setup_cache();
+		$this->setupCache();
 
-		if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
+		if ( ! is_null($tag_cache = $this->getTagCache()))
 		{
-			return $full_tag_cache;
+			return $tag_cache;
 		}
 
 		// -------------------------------------
@@ -1182,7 +1131,7 @@ class Plugin_Streams_core extends Plugin
 				$entries = $this->row_m->get_rows($parameters, $this->fields, $stream);
 			}
 
-			$this->clear_cache_vars();
+			$this->clearCacheVariables();
 				
 			// -------------------------------------
 			// Format Calendar Data
@@ -1273,9 +1222,9 @@ class Plugin_Streams_core extends Plugin
 		// Cache End Procedures
 		// -------------------------------------
 
-		$this->tag_cache_write($return_content);
+		$this->writeTagCache($return_content);
 
-		$this->clear_cache_vars();
+		$this->clearCacheVariables();
 
 		// -------------------------------------
 
@@ -1458,30 +1407,32 @@ class Plugin_Streams_core extends Plugin
 	 * @access 	private
 	 * @return 	void
 	 */
-	private function setup_cache()
+	private function setupCache()
 	{
 		// 'tag' or 'query'
-		$this->cache_type				= $this->getAttribute('cache_type', 'query');	
+		$this->cache_type = $this->getAttribute('cache_type', 'query');	
 
-		// 'minutes' or 'seconds'
-		$this->cache_time_format		= $this->getAttribute('cache_time_format', 'minutes'); 
+		// 'minutes' or 'seconds' or 'hours'
+		$this->cache_time_format = $this->getAttribute('cache_time_format', 'minutes'); 
 
-		// num of seconds or minutes
-		$this->cache_ttl				= $this->getAttribute('cache', null);
+		// num of seconds / minutes / hours
+		$this->cache_ttl = $this->getAttribute('cache_ttl', null);
 
-		// Format the cache time. It can either be in seconds
-		// or minutes depending on a param.
+		// Format the cache time.
 		if (is_numeric($this->cache_ttl))
 		{
+			// Seconds (do nothing)
+
+			// Use minutes?
 			if ($this->cache_time_format == 'minutes')
-			{
-				// If they specified minutes we just need to
-				// convert it to second
 				$this->cache_ttl = $this->cache_ttl*60;
-			}
+
+			// Use hours?
+			if ($this->cache_time_format == 'hours')
+				$this->cache_ttl = $this->cache_ttl*3600;
 		}
 
-		$this->set_cache_hash();
+		$this->setupCacheHash();
 	}
 
 	/**
@@ -1493,9 +1444,9 @@ class Plugin_Streams_core extends Plugin
 	 * @access 	private
 	 * @return 	void
 	 */
-	private function set_cache_hash()
+	private function setupCacheHash()
 	{
-		$this->cache_hash = md5(implode('-', $this->getAttributes()).$this->content());
+		$this->cache_hash = md5('streams_core'.implode('-', $this->getAttributes()).(is_string($this->content()) ? $this->content() : null).$_SERVER['QUERY_STRING']);
 	}
 
 	/**
@@ -1505,11 +1456,11 @@ class Plugin_Streams_core extends Plugin
 	 * @param 	string - the content to write
 	 * @return 	void
 	 */
-	private function tag_cache_write($content)
+	private function writeTagCache($content)
 	{
 		if ($this->write_tag_cache === true)
 		{
-			$this->pyrocache->write($content, 'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache_ttl);
+			ci()->cache->set($this->cache_hash, $content, $this->cache_ttl);
 		}		
 	}
 
@@ -1519,17 +1470,15 @@ class Plugin_Streams_core extends Plugin
 	 * @access 	private
 	 * @return 	mixed - null or string
 	 */
-	private function full_tag_cache()
+	private function getTagCache()
 	{
-		if ( ! $this->cache_hash)
-		{
-			$this->set_cache_hash();
-		}
+		if (! $this->cache_hash)
+			$this->setupCacheHash();
 
 		// Check to see if we have a tag cache.
 		if ($this->cache_type == 'tag' and ! is_null($this->cache_ttl))
 		{
-			if ( ! $tag_cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
+			if (! $tag_cache_content = ci()->cache->get($this->cache_hash))
 			{
 				// Set this so functions know to write the
 				// cache when necesary.
@@ -1550,13 +1499,56 @@ class Plugin_Streams_core extends Plugin
 	 * @access 	private
 	 * @return 	void
 	 */
-	private function clear_cache_vars()
+	private function clearCacheVariables()
 	{
 		$this->cache_type			= 'query';
 		$this->cache_time_format	= 'minutes';
 		$this->cache_ttl			= null;
 		$this->cache_hash			= null;
 		$this->write_tag_cache		= false;
+	}
+
+	/**
+	 * Get entries
+	 * @return array
+	 */
+	public function get($stream, $parameters)
+	{
+		$entries = array();
+
+		$model_entries = EntryModel::stream($stream)
+			->select(explode('|', $parameters['select']))
+			->whereRaw($parameters['where'])
+			->limit($parameters['limit'])
+			->orderBy($parameters['order_by'], $parameters['sort']);
+
+		// Check for joins
+		foreach ($this->getAttributes() as $attribute => $value) {
+
+			// Prefixed with "join_"?
+			if (substr($attribute, 0, 5) == 'join_') {
+
+				// Grab the arguments
+				list($arg1, $condition, $arg2) = explode('|', $value);
+
+				// Execute it
+				$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+			}
+		}
+
+		$model_entries = $model_entries->get();
+
+		foreach ($model_entries as $k => $entry) {
+
+			// Add the count
+			$entry->count = $k;
+			$entry->human_count = $k+1;
+
+			// Add to our result array
+			$entries[] = $entry->asPlugin()->toArray();
+		}
+
+		return $entries;
 	}
 
 	/**

@@ -25,7 +25,7 @@ if ( ! function_exists('create_pagination')) {
 		$ci = & get_instance();
 		$ci->load->library('pagination');
 
-		$current_page = $ci->input->get('page');
+		$current_page = $ci->input->get('page') ? $ci->input->get('page') : 1;
 		$suffix = $ci->config->item('url_suffix');
 
 		$limit = $limit === null ? Settings::get('records_per_page') : $limit;
@@ -48,6 +48,7 @@ if ( ! function_exists('create_pagination')) {
 
 		return array(
 			'current_page' => $current_page,
+			'total_pages' => ceil($total_rows/$limit),
 			'per_page' => $limit,
 			'limit' => $limit,
 			'offset' => $offset,
