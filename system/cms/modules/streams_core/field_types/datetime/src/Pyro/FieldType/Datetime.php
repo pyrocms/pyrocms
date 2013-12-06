@@ -18,8 +18,6 @@ class Datetime extends AbstractFieldType
 	
 	public $db_col_type = 'datetime';
 
-	public $plugin_override = true;
-
 	public $custom_parameters = array(
 		'use_time',
 		'start_date',
@@ -385,20 +383,6 @@ class Datetime extends AbstractFieldType
 	}
 
 	/**
-	 * Pre Ouput Plugin
-	 *
-	 * Ouput the UNIX time.
-	 * 
-	 * @access	public
-	 * @param	array
-	 * @return	string
-	 */
-	public function pluginOutput()
-	{
-		return $this->getDateTime($this->value);
-	}
-
-	/**
 	 * Get translated month naes
 	 * @return array
 	 */
@@ -422,13 +406,31 @@ class Datetime extends AbstractFieldType
 		);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	PLUGINS	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Pre Ouput Plugin
+	 *
+	 * Ouput the UNIX time.
+	 * 
+	 * @access	public
+	 * @param	array
+	 * @return	string
+	 */
+	public function pluginOutput()
+	{
+		return $this->getDateTime($this->value);
+	}
+
 	/**
 	 * Allow return of custom formatted date
 	 * @param  string $format
 	 * @return string
 	 */
-	public function pluginFormatOverride($format = 'Y-m-d H:i:s')
+	public function pluginFormat($format = 'Y-m-d H:i:s', $datetime = null)
 	{
-		return $this->format(null, $format);
+		return $this->format($datetime, $format);
 	}
 }
