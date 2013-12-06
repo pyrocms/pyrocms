@@ -383,6 +383,66 @@ class Datetime extends AbstractFieldType
 	}
 
 	/**
+	 * Return a timestamp as DateTime object.
+	 *
+	 * @param  mixed  $value
+	 * @return \Carbon\Carbon
+	 */
+	public function getDateTime($date_string = null)
+	{		
+		if ($date_string === $this->zero_datetime or $date_string === null) return Carbon::createFromTime(0,0,0);
+
+		if (is_string($date_string)) {
+			$date_time = explode(' ', $date_string);
+
+			$date = $date_time[0];
+			$time = ! empty($date_time[1]) ? $date_time[1] : '';
+
+			$date = explode('-', $date);
+			$time = explode(':', $time);
+
+			if (count($date) == 3) {
+				$year = $date[0];
+				$month = $date[1];
+				$day = $date[2];
+				$hour = ! empty($time[0]) ? $time[0] : 0;
+				$minute = ! empty($time[1]) ? $time[1] : 0;
+
+				return Carbon::create($year, $month, $day, $hour, $minute, 0);	
+			}
+		}
+
+		// If this value is an integer, we will assume it is a UNIX timestamp's value
+		// and format a Carbon object from this timestamp. This allows flexibility
+		// when defining your date fields as they might be UNIX timestamps here.
+		if (is_numeric($date_string))
+		{
+			return Carbon::createFromTimestamp($date_string);
+		}
+		elseif ( ! $date_string instanceof DateTime)
+		{
+			return Carbon::createFromFormat($this->storage_date_format, $date_string);
+		}
+		
+		return Carbon::instance($date_string);
+	}
+
+	protected function to24Hour($datetime, $hour = 0)
+	{
+		if ($this->getAmPmValue() == 'pm' and $hour <= $this->half_hours_per_day)
+		{
+			$datetime->addHours($this->half_hours_per_day);
+		}
+
+		return $datetime;
+	}
+
+	protected function to12Hour($hour = 0)
+	{
+		return ($hour <= $this->half_hours_per_day) ? $hour : (int) $hour - $this->half_hours_per_day;
+	}
+
+	/**
 	 * Get translated month naes
 	 * @return array
 	 */
