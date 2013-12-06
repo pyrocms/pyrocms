@@ -182,15 +182,19 @@ class Plugin_Streams_core extends Plugin
 		// Get the field type
 		$field = FieldModel::findBySlugAndNamespace($this->getAttribute('field_slug'), $this->getAttribute('namespace'));
 
-		// Do we have an entry?
-		if ($this->getAttribute('entry_id') and $entry = EntryModel::stream($stream)->find($this->getAttribute('entry_id'))) {
+		// Do we have a stream?
+		if ($entry = EntryModel::stream($stream)) {
 
-			// Sweet Jesus we do - get the bootstrapped type
-			$type = $entry->getFieldType($field->field_slug);
-		} else {
+			// Do we have an entry?
+			if ($this->getAttribute('entry_id') and $entry = $entry::find($this->getAttribute('entry_id'))) {
 
-			// Get the plain ole type
-			$type = FieldTypeManager::getType($field->field_type);
+				// Sweet Jesus we do - get the bootstrapped type
+				$type = $entry->getFieldType($field->field_slug);
+			} else {
+
+				// We don't - but we have what we need
+				$type = $entry->getFieldType($field->field_slug);
+			}
 		}
 
 		// Set the plugin
