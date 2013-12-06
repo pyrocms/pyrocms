@@ -445,6 +445,15 @@ abstract class AbstractFieldType
 	}
 
 	/**
+	 * Get filter output for a field type for plugin usage
+	 * @return string
+	 */
+	public function pluginFilterInput()
+	{
+		return $this->filterInput();
+	}
+
+	/**
 	 * Get is new property
 	 * @return bool
 	 */

@@ -16,14 +16,14 @@ class Plugin_Input extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ input:get key="foo" }}
+	 * {{ input:get key="foo" default="bar" }}
 	 *
 	 * @param	string
 	 * @return	mixed
 	 */
 	public function get()
 	{
-		return $this->input->get($this->getAttribute('key'));
+		return $this->input->get($this->getAttribute('key', $this->getAttribute('default')));
 	}
 
 	/**
@@ -33,14 +33,48 @@ class Plugin_Input extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ input:post key="foo" }}
+	 * {{ input:post key="foo" default="bar" }}
 	 *
 	 * @param	string
 	 * @return	mixed
 	 */
 	public function post()
 	{
-		return $this->input->post($this->getAttribute('key'));
+		return $this->input->post($this->getAttribute('key', $this->getAttribute('default')));
+	}
+
+	/**
+	 * Cookie
+	 *
+	 * Get a $_COOKIE value
+	 *
+	 * Usage:
+	 *
+	 * {{ input:cookie key="foo" default="bar" }}
+	 *
+	 * @param	string
+	 * @return	mixed
+	 */
+	public function cookie()
+	{
+		return $this->input->cookie($this->getAttribute('key', $this->getAttribute('default')));
+	}
+
+	/**
+	 * Server
+	 *
+	 * Get a $_SERVER value
+	 *
+	 * Usage:
+	 *
+	 * {{ input:server key="foo" default="bar" }}
+	 *
+	 * @param	string
+	 * @return	mixed
+	 */
+	public function server()
+	{
+		return $this->input->server($this->getAttribute('key', $this->getAttribute('default')));
 	}
 }
 
