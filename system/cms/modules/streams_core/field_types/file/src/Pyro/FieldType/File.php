@@ -15,22 +15,31 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  */
 class File extends AbstractFieldType
 {
-	public $field_type_slug			= 'file';
+	public $field_type_slug = 'file';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type				= 'string';
+	public $db_col_type = 'string';
 	
-	public $col_constraint 			= 15;
+	public $col_constraint = 15;
 
-	public $custom_parameters		= array('folder', 'allowed_types');
+	public $custom_parameters = array(
+		'folder',
+		'on_entry_destruct',
+		'allowed_types',
+		);
 
-	public $version					= '1.2.0';
+	public $version = '1.2.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $input_is_file			= true;
+	public $input_is_file = true;
 
 	// --------------------------------------------------------------------------
+
+	public function __construct()
+	{
+		ci()->load->config('files/files');
+	}
 
 	/**
 	 * Output form input
@@ -41,19 +50,17 @@ class File extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		ci()->load->config('files/files');
-
 		// Get the file
 		if ($this->value) {
-			$current_file = FileModel::find($this->value);
+			$file = FileModel::find($this->value);
 		} else {
-			$current_file = null;
+			$file = null;
 		}
 
 		$out = '';
 
-		if ($current_file) {
-			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a></div>';
+		if ($file) {
+			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$file->id).'">'.$file->name.'</a></div>';
 		}
 
 		// Output the actual used value
@@ -98,7 +105,9 @@ class File extends AbstractFieldType
 		$return = \Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
 
 		if (! $return['status']) {
-			ci()->session->set_flashdata('notice', $return['message']);
+
+			// What happened now??
+			ci()->session->set_flashdata('warning', $return['message']);
 
 			return null;
 		} else {
@@ -144,16 +153,26 @@ class File extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ( ! $input) return null;
+		if ( ! $this->value) return null;
 
-		$image_data = array();
-
-		ci()->load->config('files/files');
-		ci()->load->helper('html');
-
-		$file = FileModel::find($input);
+		$file = FileModel::find($this->value);
 
 		return $file ? $file : false;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Ran when the entry is deleted
+	 * @return void
+	 */
+	public function entryDestruct()
+	{
+		if ($this->getParameter('on_entry_destruct', 'keep') == 'delete') {
+			
+			// Delete that file
+			\Files::deleteFile($this->value);
+		}
 	}
 
 	// --------------------------------------------------------------------------
