@@ -153,12 +153,9 @@ class File extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ( ! $input) return null;
+		if ( ! $this->value) return null;
 
-		ci()->load->config('files/files');
-		ci()->load->helper('html');
-
-		$file = FileModel::find($input);
+		$file = FileModel::find($this->value);
 
 		return $file ? $file : false;
 	}

@@ -205,8 +205,8 @@ class Image extends AbstractFieldType
 
 			$image->img = img(array('alt' => $alt, 'src' => $image->image));
 
-			$image->thumb = site_url('files/thumb/'.$input);
-			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$input)));
+			$image->thumb = site_url('files/thumb/'.$this->value);
+			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$this->value)));
 		}
 
 		return $image ? $image->toArray() : false;
