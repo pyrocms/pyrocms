@@ -229,6 +229,7 @@ class Plugin_Navigation extends Plugin
 
 			// attributes of anchor
 			$item['url']   = $link->url;
+			$item['uri']   = $link->uri;
 			$item['title'] = $link->title;
 			$item['total'] = $total;
 			$item['page_id'] = $link['page_id'];
