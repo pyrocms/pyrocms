@@ -1,4 +1,8 @@
-<?php if (is_array($categories)): ?>
+<?php 
+/* Sort array by ID */
+usort($categories, function($a, $b) { return $a->id - $b->id; });
+
+if (is_array($categories)): ?>
 <ul>
 	<?php foreach ($categories as $category): ?>
 	<li>
