@@ -10,6 +10,7 @@ $config['allowed_functions']	=	array(
 	'character_limiter',
 	'count',
 	'count_chars',
+	'date_parse_from_format',
 	'empty',
 	'explode',
 	'format_date',
