@@ -351,7 +351,7 @@ class Relationship extends AbstractFieldType
 		$select = array_unique(
 			array_merge(
 				array_values(explode('|', $field->getParameter('value_field', 'id'))),
-				array_values(explode('|', $field->getParameter('label_field').'|site')),
+				array_values(explode('|', $field->getParameter('label_field'))),
 				array_values(explode('|', $field->getParameter('search_field')))
 				)
 			);
