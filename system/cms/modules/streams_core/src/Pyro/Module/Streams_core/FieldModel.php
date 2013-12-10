@@ -700,7 +700,12 @@ class FieldModel extends Eloquent
      */
     public function getParameter($key, $default = null)
     {
-        return isset($this->field_data[$key]) ? $this->field_data[$key] : $default;
+        $parameter = isset($this->field_data[$key]) ? $this->field_data[$key] : $default;
+
+        // Check for empty string
+        if (empty($parameter)) return null;
+
+        return $parameter;
     }
 
 
