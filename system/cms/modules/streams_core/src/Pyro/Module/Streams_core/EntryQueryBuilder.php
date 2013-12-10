@@ -26,8 +26,6 @@ class EntryQueryBuilder extends Builder
 
     protected $stream = null;
 
-    protected $fields = null;
-
     protected $field_maps = array();
 
 	/**
@@ -40,7 +38,6 @@ class EntryQueryBuilder extends Builder
 	{
 		// Get set up with our environment
 		$this->stream = $this->model->getStream();
-		$this->fields = $this->model->getFields();
 		$this->table = $this->model->getTable();
 
 		$columns = $this->prepareColumns($columns);

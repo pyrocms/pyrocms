@@ -3,7 +3,7 @@
 use Illuminate\Database\Query\Expression as DBExpression;
 use Pyro\Model\Eloquent;
 
-class FieldAssignmentModel extends Eloquent
+class FieldAssignmentModel extends FieldModel
 {
     /**
      * Define the table name
@@ -166,7 +166,7 @@ class FieldAssignmentModel extends Eloquent
 
     /**
      * Cleanup stale assignments for fields and streams that don't exists
-     * @return [type] [description]
+     * @return boolean
      */
     public static function cleanup()
     {
@@ -220,6 +220,46 @@ class FieldAssignmentModel extends Eloquent
         }
 
         return parent::update($attributes);
+    }
+
+    /**
+     * Get attribute. Allow to get eager loaded field model attributes from the field assignment
+     * @param  string $key
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        if (isset($this->relations['field']) and isset($this->relations['field']->{$key})) {
+            return $this->relations['field']->{$key};
+        }
+
+        return parent::getAttribute($key);
+    }
+    
+    /**
+     * Set attribute. Allow to set eager loaded field model attributes from the field assignment
+     * @param string $key
+     * @param mixed $value
+     */
+    public function setAttribute($key, $value)
+    {
+        if (isset($this->relations['field']) and isset($this->relations['field']->{$key})) {
+            $this->relations['field']->{$key} = $value;
+        } else {
+            parent::setAttribute($key);
+        }
+    }
+
+    /**
+     * Push changes to relations on every save
+     * @param  array  $options
+     * @return mixed
+     */
+    public function save(array $options = array())
+    {
+        parent::push();
+
+        return parent::save($options);
     }
 
     /**

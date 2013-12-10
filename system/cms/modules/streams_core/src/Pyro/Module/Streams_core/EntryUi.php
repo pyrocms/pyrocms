@@ -67,7 +67,7 @@ class EntryUi extends AbstractUi
 
 		$instance->data->stream = $instance->model->getStream();
 
-  		$instance->data->stream_fields = $instance->model->getFields();
+  		$instance->data->stream_fields = $instance->model->getAssignments();
 
   		$instance->field_slugs = $instance->data->stream_fields->getFieldSlugs();
 
