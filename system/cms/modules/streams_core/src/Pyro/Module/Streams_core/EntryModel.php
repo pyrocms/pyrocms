@@ -328,7 +328,7 @@ class EntryModel extends Eloquent
             $this->stream->load('assignments.field');    
         }      
 
-        return $this->stream->assignments;
+        return $this->stream->assignments->setStream($this->stream);
     }
 
     /**

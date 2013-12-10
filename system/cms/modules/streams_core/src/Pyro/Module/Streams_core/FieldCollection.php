@@ -17,6 +17,20 @@ class FieldCollection extends EloquentCollection
 	protected $types = array();
 
 	/**
+	 * Set stream
+	 * @param StreamModel $stream
+	 * @return  object
+	 */
+	public function setStream(StreamModel $stream) {
+
+		$this->each(function($field) use ($stream) {
+			$field->setStream($stream);
+		});
+
+		return $this;
+	}
+
+	/**
 	 * Find a field by slug
 	 * @param  string $field_slug
 	 * @return object
