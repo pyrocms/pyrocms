@@ -1,8 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
-use Pyro\Model\EloquentCollection;
-
-class FieldAssignmentCollection extends EloquentCollection
+class FieldAssignmentCollection extends FieldCollection
 {
 	/**
 	 * Get stream ids from the assignment collection
@@ -20,23 +18,5 @@ class FieldAssignmentCollection extends EloquentCollection
 	public function getFieldIds()
 	{
 		return array_values($this->lists('field_id'));
-	}
-
-	/**
-	 * Get a field collection from the assignment collection
-	 * @return array
-	 */
-	public function getFields($stream = null)
-	{
-		$fields = array();
-
-		foreach ($this->items as $assignment)
-		{
-			$assignment->field->setStream($stream);
-
-			$fields[] = $assignment->field;
-		}
-
-		return new FieldCollection($fields);
 	}
 }

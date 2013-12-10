@@ -493,4 +493,22 @@ class Datetime extends AbstractFieldType
 	{
 		return $this->format($datetime, $format);
 	}
+
+	public function pluginDifference($delta_datetime = null, $datetime = null, $absolute = false)
+	{
+		// Get delta datetime object
+		if ($delta_datetime)
+			$delta_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $delta_datetime);
+		else
+			$delta_datetime = Carbon::now()->addDays(7);
+
+		// Get datetime object
+		if ($datetime and $datetime != 'now' and ! empty($datetime))
+			$datetime = Carbon::createFromFormat('Y-m-d H:i:s', $datetime);
+		else
+			$datetime = Carbon::now();
+
+		// Return the differences
+		return (array) $datetime->diff($delta_datetime, (bool) $absolute);
+	}
 }

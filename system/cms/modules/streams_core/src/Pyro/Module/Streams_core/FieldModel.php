@@ -394,7 +394,7 @@ class FieldModel extends Eloquent
         }
 
         // @todo - replace the Type library with the PSR version
-        if ( ! $type = FieldTypeManager::getType($this->getAttribute('field_type')))
+        if ( ! $type = FieldTypeManager::getType($this->field_type))
         {
             return false;
         }
@@ -702,6 +702,8 @@ class FieldModel extends Eloquent
     {
         return isset($this->field_data[$key]) ? $this->field_data[$key] : $default;
     }
+
+
 
     /**
      * New collection instance
