@@ -229,7 +229,7 @@ class StreamModel extends Eloquent
 			}			
 		}
 
-		$stream_fields = $stream->assignments->getAssignments();
+		$stream_fields = $stream->assignments->getFields();
 
 		// @todo = This has to be redone as PSR
 		return ci()->fields->set_rules($stream_fields, $method, $skips, true, $row_id);
@@ -455,7 +455,7 @@ class StreamModel extends Eloquent
 	{
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		foreach ($this->assignments->getAssignments() as $field) {
+		foreach ($this->assignments->getTypes() as $field) {
 			if ($type = $field->getType()) {
 				$type->setStream($this)->namespaceDestruct();
 			}
