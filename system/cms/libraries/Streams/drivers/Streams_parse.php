@@ -64,7 +64,7 @@ class Streams_parse extends CI_Driver {
 		if (is_null($fields))
 		{
 			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-			$fields = $stream->assignments->getFields();
+			$fields = $stream->assignments->getTypes();
 		}
 
 		// -------------------------------------
