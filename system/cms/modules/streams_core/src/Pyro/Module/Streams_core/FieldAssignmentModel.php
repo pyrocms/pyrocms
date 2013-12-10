@@ -237,32 +237,6 @@ class FieldAssignmentModel extends FieldModel
     }
     
     /**
-     * Set attribute. Allow to set eager loaded field model attributes from the field assignment
-     * @param string $key
-     * @param mixed $value
-     */
-    public function setAttribute($key, $value)
-    {
-        if (isset($this->relations['field']) and isset($this->relations['field']->{$key})) {
-            $this->relations['field']->{$key} = $value;
-        } else {
-            parent::setAttribute($key);
-        }
-    }
-
-    /**
-     * Push changes to relations on every save
-     * @param  array  $options
-     * @return mixed
-     */
-    public function save(array $options = array())
-    {
-        parent::push();
-
-        return parent::save($options);
-    }
-
-    /**
      * Update sort order
      * @param  integer  $id        The assignment id
      * @param  integer $sort_order The sort order
