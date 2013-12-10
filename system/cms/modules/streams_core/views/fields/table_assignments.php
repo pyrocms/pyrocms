@@ -11,24 +11,17 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($assignments as $assignment):?>
+		<?php foreach ($assignments as $assignment): ?>
 			<tr>
 				<td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
 				<td>
 					<input type="hidden" name="action_to[]" value="<?php echo $assignment->id;?>" />
-					<?php
-						if ( ! $field_name = $assignment->field_name and $field = $assignment->field)
-						{
-							$field_name = $field->field_name;
-						}
-					 
-					 	echo lang_label($field_name);
-				 	?>
+					<?php echo $assignment->field_name; ?>
 				</td>
-				<?php if ($field = $assignment->field): ?>
-					<td><?php echo $field->field_slug; ?></td>
-					<td><?php echo $field->getType()->field_type_name; ?></td>
-				<?php endif; ?>
+
+				<td><?php echo $assignment->field_slug; ?></td>
+				<td><?php echo $assignment->getType()->field_type_name; ?></td>
+
 				<td class="actions">
 					<?php
 

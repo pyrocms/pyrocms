@@ -112,14 +112,6 @@ abstract class AbstractFieldType
 		return array();
 	}
 
-	/**
-	 * Set value
-	 * @param mixed $value
-	 */
-	public function setValue($value = null)
-	{
-		$this->value = $value;
-	}
 
 	public function setPlugin($plugin = false)
 	{

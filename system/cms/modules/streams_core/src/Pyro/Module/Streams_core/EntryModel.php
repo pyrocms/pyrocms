@@ -217,22 +217,9 @@ class EntryModel extends Eloquent
                     throw new Exception\StreamModelNotFoundException($message);
                 }
             }
-
-            $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
-
-            $stream_relations = $instance->stream->getModel()->getRelations();
-            
-            // Check if the assignments are already loaded
-            if ( ! isset($stream_relations['assignments']))
-            {
-                // Eager load assignments nested with fields 
-                $instance->stream->load('assignments.field');    
-            }
-
-            $instance->setAssignments($instance->stream->getModel()->getRelation('assignments'));
-
-            $instance->setFields($instance->assignments->getFields($instance->stream));              
         }
+
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug); 
 
         return static::$instance = $instance;
     }
@@ -327,37 +314,21 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Set assignments
-     * @param array $assignments
-     */
-    public function setAssignments(FieldAssignmentCollection $assignments = null)
-    {
-        $this->assignments = $assignments;
-
-        return $this;
-    }
-
-    /**
      * Get assignments
      * @return [type] [description]
      */
     public function getAssignments()
     {
-        return $this->assignments;
-    }
-
-    /**
-     * Get fields
-     * @return array
-     */
-    public function getFields()
-    {
-        if ($this->fields instanceof FieldCollection)
+        $stream_relations = $this->stream->getModel()->getRelations();
+        
+        // Check if the assignments are already loaded
+        if ( ! isset($stream_relations['assignments']))
         {
-            return $this->fields;
-        }
+            // Eager load assignments nested with fields 
+            $this->stream->load('assignments.field');    
+        }      
 
-        return new FieldCollection;
+        return $this->stream->assignments;
     }
 
     /**
@@ -367,7 +338,9 @@ class EntryModel extends Eloquent
      */
     public function getField($field_slug = '')
     {
-        return $this->getFields()->findBySlug($field_slug);
+        if (! $assignments = $this->getAssignments()) return null;
+
+        return $assignments->findBySlug($field_slug);
     }
 
     /**
@@ -377,14 +350,9 @@ class EntryModel extends Eloquent
      */
     public function getFieldType($field_slug = '')
     {
-        if ( ! $field = $this->getField($field_slug))
-        {
-            return null;
-        }
+        if (! $field = $this->getField($field_slug)) return null;
 
-        $type = $field->getType($this);
-        $type->setEntry($this);
-        $type->setValue($this->{$field_slug});
+        $type = $field->getType($this); 
 
         return $type;
     }
@@ -395,7 +363,7 @@ class EntryModel extends Eloquent
      */
     public function getFieldSlugs()
     {
-        return $this->getFields()->getFieldSlugs();
+        return $this->getAssignments()->getFieldSlugs();
     }
 
     public function setFieldMaps($field_maps = array())
@@ -564,7 +532,7 @@ class EntryModel extends Eloquent
         // Allways the format as eloquent for saving
         $this->asEloquent();
 
-        $fields = $this->getFields();
+        $fields = $this->getAssignments();
 
         $insert_data = array();
 
@@ -682,7 +650,7 @@ class EntryModel extends Eloquent
 
 
         // Run through destructs
-        foreach ($this->getFields() as $field) {
+        foreach ($this->getAssignments() as $field) {
             
             $field->getType($this)->entryDestruct();
         
@@ -912,7 +880,7 @@ class EntryModel extends Eloquent
     {
         $field_names = array();
 
-        $fields = $this->getFields()->getArrayIndexedBySlug();
+        $fields = $this->getAssignments()->getArrayIndexedBySlug();
 
         foreach ($this->getViewOptions() as $key => $value)
         {

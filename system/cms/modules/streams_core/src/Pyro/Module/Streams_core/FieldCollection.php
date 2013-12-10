@@ -16,16 +16,6 @@ class FieldCollection extends EloquentCollection
 	 */
 	protected $types = array();
 
-	public function  __construct($fields = array())
-	{
-		parent::__construct($fields);
-		
-		foreach ($fields as $field)
-		{
-			$this->by_slug[$field->field_slug] = $field;
-		}
-	}
-
 	/**
 	 * Find a field by slug
 	 * @param  string $field_slug
@@ -33,7 +23,7 @@ class FieldCollection extends EloquentCollection
 	 */
 	public function findBySlug($field_slug = null)
 	{
-		return isset($this->by_slug[$field_slug]) ? $this->by_slug[$field_slug] : null;
+		return $this->findByAttribute($field_slug, 'field_slug');
 	}
 
 	/**

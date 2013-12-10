@@ -9,7 +9,7 @@
 	<?php foreach ($fields as $field) { ?>
 
 		<li class="<?php  echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
-			<label for="<?php echo $field['input_slug'];?>"><?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
+			<label for="<?php echo $field['input_slug'];?>"><?php echo lang_label($field['input_title']);?> <?php if ($field['is_required']): ?><span class="required">*</span><?php endif; ?>
 
 			<?php if( $field['instructions'] != '' ): ?>
 				<br /><small><?php echo lang_label($field['instructions']); ?></small>

@@ -15,6 +15,8 @@
  */
 class EntryFormBuilder
 {
+	protected $assignments;
+
 	/**
 	 * The events that have run
 	 * @var array
@@ -156,11 +158,7 @@ class EntryFormBuilder
     	{
 			$this->entry = $entry;
 
-			$this->stream = $entry->getStream();
-
-			$this->assignments = $entry->getAssignments();
-
-			$this->fields = $entry->getFields();
+			$this->assignments = $this->entry->getAssignments();
 
 			$this->method = $entry->getKey() ? 'edit' : 'new';    		
     	}
@@ -169,16 +167,9 @@ class EntryFormBuilder
 	}
 
 	/**
-	 * Set fields
-	 * @param array $fields
+	 * Set skips
+	 * @param array $skips
 	 */
-	public function setFields($fields = null)
-	{
-		$this->fields = $fields;
-
-		return $this;
-	}
-
 	public function setSkips($skips = array())
 	{
 		$this->skips = $skips;
@@ -250,7 +241,7 @@ class EntryFormBuilder
 		//$stream_fields = ci()->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields	
-		if ($this->fields->isEmpty())
+		if ($this->assignments->isEmpty())
 		{
 			return null;
 		}
@@ -298,9 +289,7 @@ class EntryFormBuilder
 
 		//$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
 
-		$values = $this->getFormValues($this->fields, $this->entry, $this->skips);
-
-		$this->setEntryValues($values);
+		$values = $this->getFormValues($this->assignments, $this->entry, $this->skips);
 
 		// -------------------------------------
 		// Run Type Events
@@ -407,9 +396,9 @@ class EntryFormBuilder
 	// $stream_fields, $skips = array(), $values = array()
 	public function runFieldEvents()
 	{
-		if ( ! $this->fields or ( ! is_array($this->fields) and ! is_object($this->fields))) return null;
+		if ( ! $this->assignments or ( ! is_array($this->assignments) and ! is_object($this->assignments))) return null;
 
-		foreach ($this->fields as $field)
+		foreach ($this->assignments as $field)
 		{
 			// We need the slug to go on.
 			if ( ! $type = $field->getType($this->entry))
@@ -454,7 +443,7 @@ class EntryFormBuilder
 
 	public static function getFormValues($fields = array(), EntryModel $entry = null, $skips = array())
 	{
-		if ( ! empty($fields) and ! $entry) return array();
+		if (empty($fields) or ! $entry) return array();
 
 		$values = array();
 
@@ -462,9 +451,9 @@ class EntryFormBuilder
 		{
 			if ( ! in_array($field->field_slug, $skips))
 			{
-				if ($type = $entry->getFieldType($field->field_slug) and ! $type->alt_process)
+				if ($type = $field->getType($entry) and ! $type->alt_process)
 				{
-					$values[$field->field_slug] = $type->getFormValue($field->field_slug, $entry->{$field->field_slug});
+					$values[$field->field_slug] = $type->getFormValue();
 				}
 			}
 		}
@@ -480,7 +469,7 @@ class EntryFormBuilder
 	{
 		if (empty($this->field_types))
 		{
-			foreach ($this->fields as $field)
+			foreach ($this->assignments as $field)
 			{
 				if ($type = $this->entry->getFieldType($field->field_slug))
 				{
@@ -503,12 +492,13 @@ class EntryFormBuilder
 	{
 		$fields = array();
 		
-		foreach($this->fields as $key => $field)
+		foreach($this->assignments as $field)
 		{
+
+
 			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
-			{	
+			{
 				$type->setDefaults($this->defaults);
-				$type->setStream($this->entry->getStream());
 
 				$fields[$field->field_slug]['field_slug'] = $field->field_slug;
 
@@ -523,7 +513,8 @@ class EntryFormBuilder
 				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
 
 				// Get the acutal form input
-				$fields[$field->field_slug]['input'] 			= $type->formInput();	
+			 	$fields[$field->field_slug]['input'] 			= $type->formInput();
+				
 				$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
@@ -540,7 +531,7 @@ class EntryFormBuilder
 				}
 
 				// Set the required string
-				$fields[$field->field_slug]['required']		= ($field->is_required == 'yes') ? $required : null;
+				$fields[$field->field_slug]['is_required']		= $field->is_required;
 
 				// Set even/odd
 				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
@@ -584,7 +575,7 @@ class EntryFormBuilder
 				$rules = array();
 
 				// If we don't have the type, then no need to go on.
-				if ( ! $type = $assignment->field->getType())
+				if ( ! $type = $assignment->getType())
 				{
 					continue;
 				}
@@ -606,7 +597,7 @@ class EntryFormBuilder
 				{
 					if (isset($type->input_is_file) && $type->input_is_file === true)
 					{
-						$rules[] = 'streams_file_required['.$assignment->field->field_slug.']';
+						$rules[] = 'streams_file_required['.$assignment->field_slug.']';
 					}
 					else
 					{
@@ -624,7 +615,7 @@ class EntryFormBuilder
 
 				if (method_exists($type, 'validate'))
 				{
-					$rules[] = "streams_field_validation[{$assignment->field->getKey()}:{$this->method}]";
+					$rules[] = "streams_field_validation[{$assignment->getKey()}:{$this->method}]";
 				}
 
 				// -------------------------------------
@@ -633,7 +624,7 @@ class EntryFormBuilder
 	
 				if ($assignment->is_unique == 'yes')
 				{
-					$rules[] = 'streams_unique['.$assignment->field->field_slug.':'.$this->method.':'.$assignment->field->stream_id.':'.$row_id.']';
+					$rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$row_id.']';
 				}
 
 				// -------------------------------------
@@ -666,8 +657,8 @@ class EntryFormBuilder
 				// -------------------------------------
 
 				$validation_rules[] = array(
-					'field'	=> $assignment->field->field_slug,
-					'label' => lang_label($assignment->field->field_name),
+					'field'	=> $assignment->field_slug,
+					'label' => lang_label($assignment->field_name),
 					'rules'	=> implode('|', $rules)				
 				);
 
