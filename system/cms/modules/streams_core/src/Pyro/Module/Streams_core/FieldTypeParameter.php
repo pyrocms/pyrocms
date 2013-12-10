@@ -95,24 +95,6 @@ class FieldTypeParameter
 	}
 
 	/**
-	 * Related class field
-	 *
-	 * @param	string
-	 * @return 	string
-	 */
-	public function relation_class($value = null)
-	{
-		$data = array(
-        	'name'        => 'relation_class',
-            'id'          => 'relation_class',
-        	'value'       => $value,
-        	'maxlength'   => '300'
- 		);
-
-		return form_input($data);
-	}
-
-	/**
 	 * Default default field
 	 *
 	 * @param	string
