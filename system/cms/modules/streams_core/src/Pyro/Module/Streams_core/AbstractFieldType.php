@@ -492,6 +492,20 @@ abstract class AbstractFieldType
 		ci()->assets[] = $html;
 	}
 
+	public function formInputRow()
+	{
+		$data = array();
+
+		$data['form_input'] = $this->formInput();
+		$data['entry_id'] = $this->entry->getKey();
+		$data['instructions'] = $this->field->instructions;
+		$data['input_label'] = $this->field->field_name;
+		$data['form_slug'] = $this->form_slug;
+		$data['is_required'] = $this->field->is_required;
+
+		return $this->view('module::streams_core/fields/form_input_row', $data);
+	}
+
 	/**
 	 * Load a view from a field type
 	 *
@@ -503,18 +517,37 @@ abstract class AbstractFieldType
 	{
 		$field_type = $field_type ? $field_type : $this->field_type_slug;
 
-		if ($field_type != $this->field_type_slug)
-		{
-			$type = Type::getType($field_type);
-		}
-		else
-		{
-			$type = $this;
+		$view_path = '';
+
+		if (Str::startsWith($view_name, 'module::')) {
+
+			$view_name = str_replace('module::', '',$view_name);
+
+			$explode = explode('/', $view_name);
+
+			$module = ci()->moduleManager->get($explode[0]);
+
+			$view_name = $explode[count($explode)-1];
+
+			$view_path = FCPATH.$module['path'].'/views/fields/';
+
+		} else {
+
+			if ($field_type != $this->field_type_slug) {
+
+				$type = Type::getType($field_type);
+			
+			} else {
+				
+				$type = $this;
+			}
+
+			$view_path = $type->path_views;
 		}
 
 		$paths = ci()->load->get_view_paths();
 
-		ci()->load->set_view_path($type->path_views);
+		ci()->load->set_view_path($view_path);
 
 		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
 

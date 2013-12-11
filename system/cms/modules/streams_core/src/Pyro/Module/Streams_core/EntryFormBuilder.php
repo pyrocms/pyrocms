@@ -539,15 +539,12 @@ class EntryFormBuilder
 		
 		foreach($this->assignments as $field)
 		{
-
-
 			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
 			{
 				$type->setDefaults($this->defaults);
 
-				$fields[$field->field_slug]['field_slug'] = $field->field_slug;
-
-				$fields[$field->field_slug]['input_title'] 	= $field->field_name;
+				$fields[$field->field_slug]['field_slug'] 		= $field->field_slug;
+				$fields[$field->field_slug]['input_label'] 		= $field->field_name;
 				$fields[$field->field_slug]['input_slug']		= $type->getFormSlug();
 				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
 				
@@ -558,9 +555,8 @@ class EntryFormBuilder
 				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
 
 				// Get the acutal form input
-			 	$fields[$field->field_slug]['input'] 			= $type->formInput();
-				
-				$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
+				$fields[$field->field_slug]['input_row'] 		= $type->formInputRow();	
+				//$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
 				$fields[$field->field_slug]['error_raw']		= ci()->form_validation->error($field->field_slug);
@@ -575,7 +571,7 @@ class EntryFormBuilder
 					$fields[$field->field_slug]['error']		= null;
 				}
 
-				// Set the required string
+				// Set is_required boolean
 				$fields[$field->field_slug]['is_required']		= $field->is_required;
 
 				// Set even/odd
@@ -615,7 +611,7 @@ class EntryFormBuilder
 
 		foreach ($this->assignments as $assignment)
 		{
-			if ( ! in_array($field->field_slug, $this->skips))
+			if ( ! in_array($assignments->field_slug, $this->skips))
 			{
 				$rules = array();
 
@@ -631,7 +627,7 @@ class EntryFormBuilder
 
 				if (method_exists($type, 'pre_validation_compile'))
 				{
-					$type->pre_validation_compile($assignment->field);
+					$type->pre_validation_compile($assignment);
 				}
 
 				// -------------------------------------

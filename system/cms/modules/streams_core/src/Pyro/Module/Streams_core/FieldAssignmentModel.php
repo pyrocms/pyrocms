@@ -147,24 +147,6 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get the field name attr
-     * @param  string $field_name 
-     * @return string             
-     */
-    public function getFieldNameAttribute($field_name)
-    {
-        // This guarantees that the language will be loaded
-        if ($this->field)
-        {
-            FieldTypeManager::getType($this->field->field_type);
-
-            $field_name = lang_label($field_name);
-        }
-        
-        return $field_name;
-    }
-
-    /**
      * Cleanup stale assignments for fields and streams that don't exists
      * @return boolean
      */
@@ -223,17 +205,71 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get attribute. Allow to get eager loaded field model attributes from the field assignment
-     * @param  string $key
-     * @return mixed
+     * Get the field name attr
+     * @param  string $field_name 
+     * @return string             
      */
-    public function getAttribute($key)
+    public function getFieldNameAttribute($field_name)
     {
-        if (isset($this->relations['field']) and isset($this->relations['field']->{$key})) {
-            return $this->relations['field']->{$key};
-        }
+        // This guarantees that the language will be loaded
+        if ($this->field instanceof FieldModel)
+        {
+            FieldTypeManager::getType($this->field->field_type);
 
-        return parent::getAttribute($key);
+            $field_name = lang_label($this->field->field_name);
+        }
+        
+        return $field_name;
+    }
+
+    /**
+     * Get field slug attribute from the field relation
+     * @param  string $field_slug
+     * @return string
+     */
+    public function getFieldSlugAttribute($field_slug)
+    {
+        return $this->field->field_slug;
+    }
+
+    /**
+     * Get field namespace attribute
+     * @param  string $field_namespace
+     * @return string
+     */
+    public function getFieldNamespaceAttribute($field_namespace)
+    {
+        return $this->field->field_namespace;
+    }
+
+    /**
+     * Get field type attribute
+     * @param  string $field_namespace
+     * @return string
+     */
+    public function getFieldTypeAttribute($field_type)
+    {
+        return $this->field->field_type;
+    }
+
+    /**
+     * Get field data attribute
+     * @param  string $field_namespace
+     * @return array
+     */
+    public function getFieldDataAttribute($field_data)
+    {
+        return $this->field->field_data;
+    }
+
+    /**
+     * Get is locked attribute
+     * @param  string $field_namespace
+     * @return boolean
+     */
+    public function getIsLockedAttribute($is_locked)
+    {
+        return $this->field->is_locked;
     }
     
     /**

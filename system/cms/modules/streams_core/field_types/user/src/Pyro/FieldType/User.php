@@ -23,6 +23,8 @@ class User extends AbstractFieldType
 
 	public $version = '1.0.0';
 
+	protected $users;
+
 	public $author = array(
 		'name'=>'Ryan Thompson - PyroCMS',
 		'url'=>'http://pyrocms.com/'
@@ -46,26 +48,23 @@ class User extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Start the HTML
-		$html = form_dropdown(
-			$this->form_slug,
-			array(),
-			null,
-			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
-			);
+		$id = null;
 
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/user.js.php',
-			array(
-				'form_slug' => $this->form_slug,
-				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->stream->stream_namespace,
-				),
-			false
-			);
+		if ($user = $this->getRelationResult()) {
+			$id = $user->id;
+		}
+		elseif ($this->getParameter('default_to_current_user') == 'yes') {
+			$id = ci()->current_user->id;
+		} elseif ($this->getDefault()) {
+			$id = $this->getDefault();
+		}
 
-		return $html;
+		return form_dropdown($this->form_slug, $this->getUserOptions(), $id);
+	}
+
+	public function getUserOptions()
+	{
+		return $this->users = $this->users ? $this->users : UserModel::getUserOptions();
 	}
 
 	/**
@@ -132,6 +131,13 @@ class User extends AbstractFieldType
 		}
 
 		return null;
+	}
+
+	public function pluginTestOverride()
+	{
+		die('hello');
+
+		return 'hello';
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
