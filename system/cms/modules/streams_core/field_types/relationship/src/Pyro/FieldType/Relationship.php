@@ -76,7 +76,7 @@ class Relationship extends AbstractFieldType
 		
 		// Check / retreive hashed storage
 		if (! isset($this->runtime_cache[$hash])) {
-			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
+			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->enableAutoEagerLoading(true)->select('*');
 		}
 
 		return $this->runtime_cache[$hash];
