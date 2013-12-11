@@ -29,14 +29,7 @@
 
 						<?php if (isset($fields[$field])): ?>
 						<li class="<?php echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
-							<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
-
-							<?php if( $fields[$field]['instructions'] != '' ): ?>
-								<br /><small><?php echo lang_label($fields[$field]['instructions']); ?></small>
-							<?php endif; ?>
-							</label>
-
-							<div class="input"><?php echo $fields[$field]['input']; ?></div>
+							<?php echo $fields[$field]['input_row']; ?>
 						</li>
 						<?php endif; ?>
 					<?php } ?>
