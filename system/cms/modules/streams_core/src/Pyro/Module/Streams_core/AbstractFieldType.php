@@ -725,10 +725,24 @@ abstract class AbstractFieldType
 	}
 
 	/**
-	 * Ran when the form is built
+	 * Run when the form is built
 	 * @return void
 	 */
 	public function event()
+	{}
+
+	/**
+	 * Run when a table is built
+	 * @return void
+	 */
+	public function filterEvent()
+	{}
+
+	/**
+	 * Run when the public form is built
+	 * @return void
+	 */
+	public function publicEvent()
 	{}
 
 	/**

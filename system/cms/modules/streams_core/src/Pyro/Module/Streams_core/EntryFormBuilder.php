@@ -24,6 +24,12 @@ class EntryFormBuilder
 	public $field_type_events_run = array();
 
 	/**
+	 * The public events that have run
+	 * @var array
+	 */
+	public $field_type_public_events_run = array();
+
+	/**
 	 * The entry object
 	 * @var object
 	 */
@@ -394,7 +400,7 @@ class EntryFormBuilder
 	 * @return 	array
 	 */
 	// $stream_fields, $skips = array(), $values = array()
-	public function runFieldEvents()
+	public function runFieldTypeEvents()
 	{
 		if ( ! $this->assignments or ( ! is_array($this->assignments) and ! is_object($this->assignments))) return null;
 
@@ -415,6 +421,45 @@ class EntryFormBuilder
 					$type->event();
 
 					$this->field_type_events_run[] = $field->field_type;
+				}		
+			}
+		}
+	}
+
+	/**
+	 * Run Field Public Events
+	 *
+	 * Runs all the publicEvent() functions for some
+	 * stream fields. The publicEvent() functions usually
+	 * have field asset loads.
+	 *
+	 * @access 	public
+	 * @param 	obj - stream fields
+	 * @param 	[array - skips]
+	 * @return 	array
+	 */
+	// $stream_fields, $skips = array(), $values = array()
+	public function runFieldTypePublicEvents()
+	{
+		if ( ! $this->assignments or ( ! is_array($this->assignments) and ! is_object($this->assignments))) return null;
+
+		foreach ($this->assignments as $field)
+		{
+			// We need the slug to go on.
+			if ( ! $type = $field->getType($this->entry))
+			{
+				continue;
+			}
+
+			if ( ! in_array($field->field_slug, $this->skips))
+			{
+				// If we haven't called it (for dupes),
+				// then call it already.
+				if ( ! in_array($field->field_type, $this->field_type_public_events_run))
+				{
+					$type->publicEvent();
+
+					$this->field_type_public_events_run[] = $field->field_type;
 				}		
 			}
 		}
@@ -535,7 +580,7 @@ class EntryFormBuilder
 		}
 
 		// $stream_fields, $skips, $values
-		$this->runFieldEvents();
+		$this->runFieldTypeEvents();
 
 		return $fields;
 	}

@@ -29,6 +29,7 @@ class Plugin_Streams_core extends Plugin
 	public $cache_ttl				= null;			// num of seconds or minutes
 	public $cache_hash				= null;
 	public $write_tag_cache			= false;		// Whether or not we need
+	public $runtime_cache			= array();
 
 	/**
 	 * Possible entries parameters
@@ -1518,38 +1519,50 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function get($stream, $parameters)
 	{
-		$entries = array();
+		// Build the runtime hash
+		$hash = md5($stream.implode('', $parameters));
 
-		$model_entries = EntryModel::stream($stream)
-			->select(explode('|', $parameters['select']))
-			->whereRaw($parameters['where'])
-			->limit($parameters['limit'])
-			->orderBy($parameters['order_by'], $parameters['sort']);
+		// Does the runtime cache result exist?
+		if (! isset($this->runtime_cache[$hash])) {
 
-		// Check for joins
-		foreach ($this->getAttributes() as $attribute => $value) {
+			$entries = array();
 
-			// Prefixed with "join_"?
-			if (substr($attribute, 0, 5) == 'join_') {
+			$model_entries = EntryModel::stream($stream)
+				->select(explode('|', $parameters['select']))
+				->whereRaw($parameters['where'])
+				->limit($parameters['limit'])
+				->orderBy($parameters['order_by'], $parameters['sort']);
 
-				// Grab the arguments
-				list($arg1, $condition, $arg2) = explode('|', $value);
+			// Check for joins
+			foreach ($this->getAttributes() as $attribute => $value) {
 
-				// Execute it
-				$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				// Prefixed with "join_"?
+				if (substr($attribute, 0, 5) == 'join_') {
+
+					// Grab the arguments
+					list($arg1, $condition, $arg2) = explode('|', $value);
+
+					// Execute it
+					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				}
 			}
-		}
 
-		$model_entries = $model_entries->get();
+			$model_entries = $model_entries->enableAutoEagerLoading(true)->get();
 
-		foreach ($model_entries as $k => $entry) {
+			foreach ($model_entries as $k => $entry) {
 
-			// Add the count
-			$entry->count = $k;
-			$entry->human_count = $k+1;
+				// Add the count
+				$entry->count = $k;
+				$entry->human_count = $k+1;
 
-			// Add to our result array
-			$entries[] = $entry->asPlugin()->toArray();
+				// Add to our result array
+				$entries[] = $entry->asPlugin()->toArray();
+			}
+
+			$this->runtime_cache[$hash] = $entries;
+
+		} else {
+			$entries = $this->runtime_cache[$hash];
 		}
 
 		return $entries;
