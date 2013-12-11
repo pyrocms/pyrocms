@@ -58,6 +58,12 @@ class Relationship extends AbstractFieldType
 		'url' => 'http://pyrocms.com/'
 		);
 
+	/**
+	 * Runtime funtime cache
+	 * @var array
+	 */
+	public $runtime_cache = array();
+
 
 	/**
 	 * Relation
@@ -65,7 +71,14 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
+		// Crate our runtime cache hash
+		$hash = $this->value;	// ^_^
+
+		if (! isset($this->runtime_cache[$hash])) {
+			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
+		}
+
+		$this->runtime_cache[$hash];
 	}
 
 	/**
