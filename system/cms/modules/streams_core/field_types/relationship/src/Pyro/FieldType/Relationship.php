@@ -58,29 +58,12 @@ class Relationship extends AbstractFieldType
 		'url' => 'http://pyrocms.com/'
 		);
 
-	///////////////////////////////////////////////////////////////////////////////
-	// --------------------------	METHODS 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
-
 	/**
-	 * Run when form is built
-	 *
-	 * @return	void
+	 * Runtime funtime cache
+	 * @var array
 	 */
-	public function event()
-	{
-		$this->appendMetadata($this->view('fragments/relationship.js.php'));
-	}
+	public $runtime_cache = array();
 
-	/**
-	 * Run when filter form is built
-	 *
-	 * @return	void
-	 */
-	public function filterEvent()
-	{
-		$this->appendMetadata($this->view('fragments/relationship.js.php'));
-	}
 
 	/**
 	 * Relation
@@ -88,7 +71,14 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
+		// Crate our runtime cache hash
+		$hash = $this->value;	// ^_^
+
+		if (! isset($this->runtime_cache[$hash])) {
+			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
+		}
+
+		$this->runtime_cache[$hash];
 	}
 
 	/**
@@ -99,37 +89,24 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Entry options
-		$options = $this->getRelationResult();
-		
-		// To array
-		if ($options) $options = $options->toArray(); else array();
-		
-		// Data
-		$data = '
-			data-options="'.htmlentities(json_encode($options)).'"
-			data-value="'.$this->value.'"
-			data-form_slug="'.$this->form_slug.'"
-			data-field_slug="'.$this->field->field_slug.'"
-			data-stream_param="'.$this->getParameter('stream').'"
-			data-stream_namespace="'.$this->stream->stream_namespace.'"
-			
-			data-value_field="'.$this->getParameter('value_field', 'id').'"
-			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
-			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
-			
-			id="'.$this->form_slug.'"
-			class="skip selectize-relationship"
-			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
-			';
-
 		// Start the HTML
-		return form_dropdown(
-			$this->form_slug,
-			array(),
-			null,
-			$data
+		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
+
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/relationship.js.php',
+			array(
+				'form_slug' => $this->form_slug,
+				'field_slug' => $this->field->field_slug,
+				'stream' => $this->getParameter('stream'),
+				'value_field' => $this->getParameter('value_field', 'id'),
+				'label_field' => $this->getParameter('label_field', '_title_column'),
+				'search_field' => $this->getParameter('search_field', '_title_column'),
+				),
+			false
 			);
+
+		return $html;
 	}
 
 	/**
@@ -140,40 +117,24 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		// Set the value
-		$this->value = ci()->input->get($this->getFilterSlug('is'));
-
-		// Entry options
-		$options = $this->getRelationResult();
-
-		// To array
-		if ($options) $options = $options->toArray(); else array();
-		
-		// Data
-		$data = '
-			data-options="'.htmlentities(json_encode($options)).'"
-			data-value="'.$this->value.'"
-			data-form_slug="'.$this->form_slug.'"
-			data-field_slug="'.$this->field->field_slug.'"
-			data-stream_param="'.$this->getParameter('stream').'"
-			data-stream_namespace="'.$this->stream->stream_namespace.'"
-			
-			data-value_field="'.$this->getParameter('value_field', 'id').'"
-			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
-			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
-			
-			id="'.$this->getFilterSlug('is').'"
-			class="skip selectize-relationship"
-			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
-			';
-
 		// Start the HTML
-		return form_dropdown(
-			$this->getFilterSlug('is'),
-			array(),
-			null,
-			$data
+		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
+
+		// Append our JS to the HTML since it's special
+		$html .= $this->view(
+			'fragments/relationship.js.php',
+			array(
+				'form_slug' => $this->getFilterSlug('contains'),
+				'field_slug' => $this->field->field_slug,
+				'stream' => $this->getParameter('stream'),
+				'value_field' => $this->getParameter('value_field', 'id'),
+				'label_field' => $this->getParameter('label_field', 'id'),
+				'search_field' => $this->getParameter('search_field', 'id'),
+				),
+			false
 			);
+
+		return $html;
 	}
 
 	/**
@@ -379,33 +340,21 @@ class Relationship extends AbstractFieldType
 		/**
 		 * Determine the stream
 		 */
-		$stream = explode('.', ci()->uri->segment(7));
+		$stream = explode('.', ci()->uri->segment(6));
 		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
 
 
 		/**
 		 * Determine our field / type
 		 */
-		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
 		$field_type = $field->getType(null);
-
-
-		/**
-		 * Determine our select
-		 */
-		$select = array_unique(
-			array_merge(
-				array_values(explode('|', $field->getParameter('value_field', 'id'))),
-				array_values(explode('|', $field->getParameter('label_field'))),
-				array_values(explode('|', $field->getParameter('search_field')))
-				)
-			);
 
 
 		/**
 		 * Get our entries
 		 */
-		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->select($select)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
 
 
 		/**
