@@ -88,6 +88,27 @@ class EntryCollection extends EloquentCollection
 	}
 
 	/**
+	 * Lists
+	 * @return array
+	 */
+	public function lists($title_column = null, $key = null)
+	{
+		if ($title_column and $key)
+		{
+			return parent::lists($title_column, $key);
+		}
+
+		$options = array();
+
+		foreach($this->items as $entry)
+		{
+			$options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
+		}
+
+		return $options;
+	}
+
+	/**
 	 * To output array
 	 * @return array
 	 */

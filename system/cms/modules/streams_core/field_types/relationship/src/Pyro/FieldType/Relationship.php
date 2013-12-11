@@ -72,8 +72,9 @@ class Relationship extends AbstractFieldType
 	public function relation()
 	{
 		// Crate our runtime cache hash
-		$hash = $this->value;	// ^_^
-
+		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
+		
+		// Check / retreive hashed storage
 		if (! isset($this->runtime_cache[$hash])) {
 			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->select('*');
 		}
