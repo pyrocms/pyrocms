@@ -201,7 +201,7 @@ class EntryModel extends Eloquent
             }
             elseif (is_numeric($stream_slug))
             {
-                if ( ! $instance->stream = StreamModel::find($stream_slug))
+                if ( ! $instance->stream = StreamModel::with('assignments.field')->find($stream_slug))
                 {
                     $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
 
@@ -319,15 +319,6 @@ class EntryModel extends Eloquent
      */
     public function getAssignments()
     {
-        $stream_relations = $this->stream->getModel()->getRelations();
-        
-        // Check if the assignments are already loaded
-        if ( ! isset($stream_relations['assignments']))
-        {
-            // Eager load assignments nested with fields 
-            $this->stream->load('assignments.field');    
-        }      
-
         return $this->stream->assignments->setStream($this->stream);
     }
 
@@ -338,9 +329,7 @@ class EntryModel extends Eloquent
      */
     public function getField($field_slug = '')
     {
-        if (! $assignments = $this->getAssignments()) return null;
-
-        return $assignments->findBySlug($field_slug);
+        return $this->getAssignments()->findBySlug($field_slug);
     }
 
     /**
