@@ -13,6 +13,12 @@ class EntryUi extends AbstractUi
 	protected $index = false;
 
 	/**
+	 * The filter events that have run
+	 * @var array
+	 */
+	public $field_type_filter_events_run = array();
+
+	/**
 	 * Set the auto index params or false
 	 * @param  mixed $params $params array or false
 	 * @return object          [description]
@@ -110,6 +116,8 @@ class EntryUi extends AbstractUi
 		$this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : $this->filters;
 
 		$this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
+
+		$this->runFieldTypeFilterEvents();
 
 		// Allow to modify the query before we execute it
 		// We pass the model to get access to its methods but you also can run query builder methods against it
@@ -318,5 +326,44 @@ class EntryUi extends AbstractUi
 		}
 
 		return $tabs;
+	}
+
+	/**
+	 * Run Field Filter Events
+	 *
+	 * Runs all the filterEvent() functions for some
+	 * stream fields. The filterEvent() functions usually
+	 * have field asset loads.
+	 *
+	 * @access 	public
+	 * @param 	obj - stream fields
+	 * @param 	[array - skips]
+	 * @return 	array
+	 */
+	// $stream_fields, $skips = array(), $values = array()
+	public function runFieldTypeFilterEvents()
+	{
+		if ( ! $this->data->stream_fields or ( ! is_array($this->data->stream_fields) and ! is_object($this->data->stream_fields))) return null;
+
+		foreach ($this->data->stream_fields as $field)
+		{
+			// We need the slug to go on.
+			if ( ! $type = $field->getType($this->entry))
+			{
+				continue;
+			}
+
+			if ( ! in_array($field->field_slug, $this->skips))
+			{
+				// If we haven't called it (for dupes),
+				// then call it already.
+				if ( ! in_array($field->field_type, $this->field_type_filter_events_run))
+				{
+					$type->filterEvent();
+
+					$this->field_type_filter_events_run[] = $field->field_type;
+				}		
+			}
+		}
 	}
 }
