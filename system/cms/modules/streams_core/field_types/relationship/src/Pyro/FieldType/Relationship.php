@@ -62,7 +62,9 @@ class Relationship extends AbstractFieldType
 	 * Runtime funtime cache
 	 * @var array
 	 */
-	public $runtime_cache = array();
+	public $runtime_cache = array(
+		'pluginOutput' => array(),
+		);
 
 
 	/**
@@ -71,15 +73,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		// Crate our runtime cache hash
-		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
-		
-		// Check / retreive hashed storage
-		if (! isset($this->runtime_cache[$hash])) {
-			$this->runtime_cache[$hash] = $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->enableAutoEagerLoading(true)->select('*');
-		}
-
-		return $this->runtime_cache[$hash];
+		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->enableAutoEagerLoading(true)->select('*');
 	}
 
 	/**
@@ -168,12 +162,19 @@ class Relationship extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelationResult())
-		{
-			return $entry->asPlugin()->toArray();
-		}
+		// Crate our runtime cache hash
+		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
 
-		return null;
+		if (! isset($this->runtime_cache['pluginOutput'][$hash])) {
+			if ($entry = $this->getRelationResult())
+			{
+				return $this->runtime_cache['pluginOutput'][$hash] = $entry->asPlugin()->toArray();
+			} else {
+				return $this->runtime_cache['pluginOutput'][$hash] = null;
+			}
+		} else {
+			return $this->runtime_cache['pluginOutput'][$hash];
+		}
 	}
 
 	/**
