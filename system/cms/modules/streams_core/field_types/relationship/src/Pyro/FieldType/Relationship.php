@@ -58,6 +58,19 @@ class Relationship extends AbstractFieldType
 		'url' => 'http://pyrocms.com/'
 		);
 
+	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Called before the form is built.
+	 *
+	 * @return	void
+	 */
+	public function event()
+	{
+		$this->appendMetadata($this->view('fragments/relationship.js.php'));
+	}
 
 	/**
 	 * Relation
@@ -76,26 +89,37 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
+		// Entry options
+		$options = $this->getRelationResult();
+		
+		// To array
+		if ($options) $options = $options->toArray(); else array();
+		
+		// Data
+		$data = '
+			data-options="'.htmlentities(json_encode($options)).'"
+			data-value="'.$this->value.'"
+			data-form_slug="'.$this->form_slug.'"
+			data-field_slug="'.$this->field->field_slug.'"
+			data-stream_param="'.$this->getParameter('stream').'"
+			data-stream_namespace="'.$this->stream->stream_namespace.'"
+			
+			data-value_field="'.$this->getParameter('value_field', 'id').'"
+			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
+			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
+			
+			id="'.$this->form_slug.'"
+			class="skip selectize-relationship"
+			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
+			';
+
 		// Start the HTML
-		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
-
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/relationship.js.php',
-			array(
-				'value' => $this->getRelationResult(),
-				'form_slug' => $this->form_slug,
-				'field_slug' => $this->field->field_slug,
-				'stream_param' => $this->getParameter('stream'),
-				'stream_namespace' => $this->stream->stream_namespace,
-				'value_field' => $this->getParameter('value_field', 'id'),
-				'label_field' => $this->getParameter('label_field', '_title_column'),
-				'search_field' => $this->getParameter('search_field', '_title_column'),
-				),
-			false
+		return form_dropdown(
+			$this->form_slug,
+			array(),
+			null,
+			$data
 			);
-
-		return $html;
 	}
 
 	/**
