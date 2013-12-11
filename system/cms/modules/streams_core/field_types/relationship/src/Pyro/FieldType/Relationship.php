@@ -63,11 +63,21 @@ class Relationship extends AbstractFieldType
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Called before the form is built.
+	 * Run when form is built
 	 *
 	 * @return	void
 	 */
 	public function event()
+	{
+		$this->appendMetadata($this->view('fragments/relationship.js.php'));
+	}
+
+	/**
+	 * Run when filter form is built
+	 *
+	 * @return	void
+	 */
+	public function filterEvent()
 	{
 		$this->appendMetadata($this->view('fragments/relationship.js.php'));
 	}
@@ -130,9 +140,6 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		// Manually fire the event
-		self::event();
-
 		// Set the value
 		$this->value = ci()->input->get($this->getFilterSlug('is'));
 
