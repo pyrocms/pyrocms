@@ -39,7 +39,7 @@
 						<div class="row">
 							
 							<label class="col-lg-2 control-label" for="<?php echo $fields[$field]['input_slug'];?>">
-								<?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+								<?php echo lang_label($fields[$field]['input_label']);?> <?php echo $fields[$field]['required'];?>
 
 								<?php if( $fields[$field]['instructions'] != '' ): ?>
 									<p class="help-block c-gray-light">This is an example<?php echo lang_label($fields[$field]['instructions']); ?></p>
@@ -47,7 +47,7 @@
 							</label>
 
 							<div  class="col-lg-10">
-								<?php echo $fields[$field]['input']; ?>
+								<?php echo $fields[$field]['input_row']; ?>
 							</div>
 
 						</div>
