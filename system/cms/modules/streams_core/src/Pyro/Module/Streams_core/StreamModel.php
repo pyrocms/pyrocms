@@ -267,7 +267,7 @@ class StreamModel extends Eloquent
      * @param  string $stream_namespace 
      * @return object                   
      */
-	public static function findBySlugAndNamespace($stream_slug = null, $stream_namespace = null)
+	public static function findBySlugAndNamespace($stream_slug, $stream_namespace = null)
 	{
 		if ( ! $stream_namespace)
         {
@@ -276,7 +276,7 @@ class StreamModel extends Eloquent
 
 		if ( ! $stream = static::getCache(static::getStreamCacheName($stream_slug, $stream_namespace)))
 		{
-			$stream = static::where('stream_slug', $stream_slug)
+			$stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
 			->where('stream_namespace', $stream_namespace)
 			->take(1)
 			->first();
