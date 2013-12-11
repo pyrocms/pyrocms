@@ -15,7 +15,7 @@
 		<div class="row">
 			
 			<label class="col-lg-2" for="<?php echo $field['input_slug'];?>">
-				<?php echo lang_label($field['input_title']);?> <?php echo $field['required'];?>
+				<?php echo lang_label($field['input_label']);?> <?php echo $field['required'];?>
 
 				<?php if( $field['instructions'] != '' ): ?>
 					<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
@@ -24,7 +24,7 @@
 			</label>
 
 			<div class="col-lg-10">
-				<?php echo $field['input']; ?>
+				<?php echo $field['input_row']; ?>
 			</div>
 
 		</div>
