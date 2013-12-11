@@ -32,12 +32,26 @@ class User extends AbstractFieldType
 		);
 
 	/**
+	 * Runtime funtime cache
+	 * @var array
+	 */
+	public $runtime_cache = array();
+
+	/**
 	 * The field type relation
 	 * @return [type] [description]
 	 */
 	public function relation()
 	{
-		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Users\Model\User'));
+		// Crate our runtime cache hash
+		$hash = md5($this->stream->stream_slug.implode('.', $this->getParameters()));
+		
+		// Check / retreive hashed storage
+		if (! isset($this->runtime_cache[$hash])) {
+			$this->runtime_cache[$hash] = $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Users\Model\User'));
+		}
+
+		return $this->runtime_cache[$hash];
 	}
 
 	/**
