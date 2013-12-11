@@ -46,7 +46,7 @@ class User extends EloquentUser
     {
     	$users = static::all();
     	
-    	if ($group = Group::findByName($group))
+    	if ( ! empty($group) and $group = Group::findByName($group))
     	{
 	    	$users = $users->filter(function($user) use ($group) {
 	    		return $user->inGroup($group);
