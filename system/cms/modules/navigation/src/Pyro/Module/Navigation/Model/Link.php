@@ -300,7 +300,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         // We have to fetch it ourselves instead of just using $current_user because this
         // will all be cached per user group
-        $group = Users\Model\Group::findByName($user_group);
+        $group = $user_group ? Users\Model\Group::findByName($user_group) : null;
 
         foreach ($links as $key => &$row) {
             // Looks like it's restricted. Let's find out who
