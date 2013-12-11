@@ -130,29 +130,43 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		// Start the HTML
-		$html = form_dropdown($this->getFilterSlug('is'), array(), null, 'id="'.$this->getFilterSlug('is').'" class="skip" placeholder="'.$this->field->field_name.'"');
+		// Manually fire the event
+		self::event();
 
 		// Set the value
-		$this->setValue(ci()->input->get($this->getFilterSlug('is')));
+		$this->value = ci()->input->get($this->getFilterSlug('is'));
 
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/relationship.js.php',
-			array(
-				'value' => $this->getRelationResult(),
-				'form_slug' => $this->getFilterSlug('is'),
-				'field_slug' => $this->field->field_slug,
-				'stream_param' => $this->getParameter('stream'),
-				'stream_namespace' => $this->stream->stream_namespace,
-				'value_field' => $this->getParameter('value_field', 'id'),
-				'label_field' => $this->getParameter('label_field', 'id'),
-				'search_field' => $this->getParameter('search_field', 'id'),
-				),
-			false
+		// Entry options
+		$options = $this->getRelationResult();
+
+		// To array
+		if ($options) $options = $options->toArray(); else array();
+		
+		// Data
+		$data = '
+			data-options="'.htmlentities(json_encode($options)).'"
+			data-value="'.$this->value.'"
+			data-form_slug="'.$this->form_slug.'"
+			data-field_slug="'.$this->field->field_slug.'"
+			data-stream_param="'.$this->getParameter('stream').'"
+			data-stream_namespace="'.$this->stream->stream_namespace.'"
+			
+			data-value_field="'.$this->getParameter('value_field', 'id').'"
+			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
+			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
+			
+			id="'.$this->getFilterSlug('is').'"
+			class="skip selectize-relationship"
+			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
+			';
+
+		// Start the HTML
+		return form_dropdown(
+			$this->getFilterSlug('is'),
+			array(),
+			null,
+			$data
 			);
-
-		return $html;
 	}
 
 	/**
