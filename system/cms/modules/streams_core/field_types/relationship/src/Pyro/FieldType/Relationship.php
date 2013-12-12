@@ -1,5 +1,6 @@
 <?php namespace Pyro\FieldType;
 
+use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\FieldModel;
@@ -39,8 +40,7 @@ class Relationship extends AbstractFieldType
 		'label_field',
 		'search_field',
 		'template',
-		'module_slug',
-		'relation_class',
+		'module_slug'
 		);
 
 	/**
@@ -73,7 +73,24 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsToEntry($this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel'))->enableAutoEagerLoading(true)->select('*');
+		if (! $relation_class = $this->relationClass()) return null;
+
+		$instance = new $relation_class;
+
+		if ($instance instanceof EntryModel) {
+			return $this->belongsToEntry($relation_class);	
+		}
+
+		return $this->belongsTo($relation_class);
+	}
+
+	/**
+	 * Relation class
+	 * @return string
+	 */
+	public function relationClass()
+	{
+		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
 	}
 
 	/**
@@ -84,24 +101,33 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Start the HTML
-		$html = form_dropdown($this->form_slug, array(), null, 'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"');
+		$id = ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null;
 
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/relationship.js.php',
-			array(
-				'form_slug' => $this->form_slug,
-				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
-				'value_field' => $this->getParameter('value_field', 'id'),
-				'label_field' => $this->getParameter('label_field', '_title_column'),
-				'search_field' => $this->getParameter('search_field', '_title_column'),
-				),
-			false
-			);
+		$data = array(
+			'form_slug' => $this->form_slug,
+			'id' => ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null,
+			'options' => $this->getOptions()
+		);
 
-		return $html;
+		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
+	}
+	
+	/**
+	 * Options
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		$options = array();
+
+		if ($relation_class = $this->relationClass())
+		{
+			$instance = new $relation_class;
+
+			$options = $instance->get()->lists($this->getParameter('title_column'), $this->getParameter('value_field','id'));
+		}
+
+		return $options;
 	}
 
 	/**
@@ -112,24 +138,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		// Start the HTML
-		$html = form_dropdown($this->getFilterSlug('contains'), array(), null, 'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"');
-
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/relationship.js.php',
-			array(
-				'form_slug' => $this->getFilterSlug('contains'),
-				'field_slug' => $this->field->field_slug,
-				'stream' => $this->getParameter('stream'),
-				'value_field' => $this->getParameter('value_field', 'id'),
-				'label_field' => $this->getParameter('label_field', 'id'),
-				'search_field' => $this->getParameter('search_field', 'id'),
-				),
-			false
-			);
-
-		return $html;
+		return form_dropdown($this->form_slug, $this->getOptions());
 	}
 
 	/**
@@ -209,162 +218,12 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Define the placeholder of the input
+	 * Title column for options
 	 * @param  string $value
 	 * @return html
 	 */
-	public function paramPlaceholder($value = '')
+	public function paramTitleColumn($value = '')
 	{
-		return form_input('placeholder', $value);
-	}
-
-	/**
-	 * Define the field to use for values
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramValueField($value = '')
-	{
-		return form_input('value_field', $value);
-	}
-
-	/**
-	 * Define the field to use for labels (options)
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramLabelField($value = '')
-	{
-		return form_input('label_field', $value);
-	}
-
-	/**
-	 * Define the field to use for search
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramSearchField($value = '')
-	{
-		return form_input('search_field', $value);
-	}
-
-	/**
-	 * Define any special template slug for this stream
-	 * Loads like:
-	 *  - views/field_types/TEMPLATE/option.php
-	 *  - views/field_types/TEMPLATE/item.php
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramTemplate($value = '')
-	{
-		return form_input('template', $value);
-	}
-
-	/**
-	 * Define an override of the module slug
-	 * in case it is not the same as the namespace
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramModuleSlug($value = '')
-	{
-		return form_input('module_slug', $value);
-	}
-
-	/**
-	 * Define an override of the module slug
-	 * in case it is not the same as the namespace
-	 * @param  string $value
-	 * @return html
-	 */
-	public function paramRelationClass($value = '')
-	{
-		return form_input('relation_class', $value);
-	}
-
-	///////////////////////////////////////////////////////////////////////////
-	// -------------------------	PLUGINS	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Output filter input for plugins
-	 *
-	 * @access 	public
-	 * @return	string
-	 */
-	public function pluginFilterInput()
-	{
-		// The condition:
-		$condition = $this->plugin->getAttribute('condition', 'is');
-
-		// Stream and namespace slug
-		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-		// Get the stream
-		$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
-		// Get the entries!
-		$entries = EntryModel::stream($stream)
-			->select(array('id', $this->plugin->getAttribute('select', $stream->title_column)))
-			->orderBy($this->plugin->getAttribute('order_by', $stream->title_column), $this->plugin->getAttribute('sort', 'asc'))
-			->whereRaw($this->plugin->getAttribute('where', '1'))
-			->get();
-
-		// Build the options array
-		$options = array(null => $this->plugin->getAttribute('placeholder', '-----'));
-
-		foreach ($entries as $entry)
-			$options[$entry->id] = $entry->{$this->plugin->getAttribute('select', $stream->title_column)};
-
-		// Build input extras
-		$extras = array(
-			'id' => $this->plugin->getAttribute('id'),
-			'class' => $this->plugin->getAttribute('class'),
-			'placeholder' => $this->plugin->getAttribute('placeholder'),
-			);
-
-		// Make the extra stuff a string
-		foreach ($extras as $attribute => &$value)
-			$value = $attribute.'="'.$value.'"';
-
-		
-		// Return that shiz
-		return form_dropdown($this->getFilterSlug($condition), $options, $this->plugin->getAttribute('value', ci()->input->get($this->getFilterSlug($condition))), implode(' ', $extras));
-	}
-
-	///////////////////////////////////////////////////////////////////////////
-	// -------------------------	AJAX 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////
-
-	public function ajaxSearch()
-	{
-		/**
-		 * Determine the stream
-		 */
-		$stream = explode('.', ci()->uri->segment(6));
-		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
-
-
-		/**
-		 * Determine our field / type
-		 */
-		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream->stream_namespace);
-		$field_type = $field->getType(null);
-
-
-		/**
-		 * Get our entries
-		 */
-		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->where($stream->title_column, 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
-
-
-		/**
-		 * Stash the title_column just in case nothing is defined later
-		 */
-		$entries = $entries->toArray();
-
-		header('Content-type: application/json');
-		echo json_encode(array('entries' => $entries));
+		return form_input('title_column', $value);
 	}
 }
