@@ -114,6 +114,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live' AND `category_id` = '{$category->id}'",
+			'order_by'		=> "created_at",
 			'paginate'		=> 'yes',
 			'pag_segment'	=> 4
 		);
