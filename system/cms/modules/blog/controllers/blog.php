@@ -159,6 +159,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
+			'order_by'		=> "created_at",
 			'year'			=> $year,
 			'month'			=> $month,
 			'paginate'		=> 'yes',
