@@ -1,3 +1,6 @@
+
+<!-- The $field_type object is also available in the view -->
+
 <label for="<?php echo $form_slug;?>"><?php echo $input_label;?>
 
 	<?php if($is_required): ?><span class="required">*</span><?php endif; ?>

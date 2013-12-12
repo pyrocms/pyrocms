@@ -495,15 +495,14 @@ abstract class AbstractFieldType
 	public function formInputRow()
 	{
 		$data = array();
-
+		$data['field_type'] = $this;
 		$data['form_input'] = $this->formInput();
-		$data['entry_id'] = $this->entry->getKey();
 		$data['instructions'] = $this->field->instructions;
 		$data['input_label'] = $this->field->field_name;
 		$data['form_slug'] = $this->form_slug;
 		$data['is_required'] = $this->field->is_required;
 
-		return $this->view('module::streams_core/fields/form_input_row', $data);
+		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), $data);
 	}
 
 	/**
@@ -513,23 +512,25 @@ abstract class AbstractFieldType
 	 * @param	string
 	 * @param	bool
 	 */
-	public function view($view_name, $data = array(), $field_type = null)
+	public function view($view_slug, $data = array(), $field_type = null)
 	{
 		$field_type = $field_type ? $field_type : $this->field_type_slug;
 
 		$view_path = '';
 
-		if (Str::startsWith($view_name, 'module::')) {
+		if (Str::startsWith($view_slug, 'module::')) {
 
-			$view_name = str_replace('module::', '',$view_name);
+			$view_slug = str_replace('module::', '',$view_slug);
 
-			$explode = explode('/', $view_name);
+			$segments = explode('/', $view_slug);
 
-			$module = ci()->moduleManager->get($explode[0]);
+			$module_slug = array_shift($segments);
 
-			$view_name = $explode[count($explode)-1];
+			$view_slug = array_pop($segments);
 
-			$view_path = FCPATH.$module['path'].'/views/fields/';
+			$module = ci()->moduleManager->get($module_slug);
+
+			$view_path = FCPATH.$module['path'].'/views/'.implode('/',$segments).'/';
 
 		} else {
 
@@ -549,7 +550,7 @@ abstract class AbstractFieldType
 
 		ci()->load->set_view_path($view_path);
 
-		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_slug, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
 
 		ci()->load->set_view_path($paths);
 
