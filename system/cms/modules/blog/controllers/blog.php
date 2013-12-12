@@ -160,6 +160,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'order_by'		=> "created_at",
+			'date_by'		=> "created_at",
 			'year'			=> $year,
 			'month'			=> $month,
 			'paginate'		=> 'yes',
