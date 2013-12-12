@@ -23,6 +23,11 @@ class ModuleManager
     protected $enabled = array();
 
     /**
+     * Caches module
+     */
+    protected $loaded_modules = array();
+
+    /**
      * Caches modules that are installed
      */
     protected $installed = array();
@@ -104,9 +109,14 @@ class ModuleManager
     public function get($slug)
     {
         // Fetch the actual module record
-        if (( ! $record = $this->modules->findBySlug($slug))) {
+        if (isset($this->loaded_modules[$slug])) {
+            $record = $this->loaded_modules[$slug];
+        }
+        elseif ((! $record = $this->modules->findBySlug($slug))) {
             return false;
         }
+
+        $this->loaded_modules[$slug] = $record;
 
         $this->exists[$slug] = true;
         $this->enabled[$slug] = $record->isEnabled();

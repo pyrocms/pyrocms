@@ -142,7 +142,7 @@ class Datetime extends AbstractFieldType
 			$day = '';
 			$year = '';
 
-			if ($this->value != $this->zero_datetime)
+			if ($this->value != $this->zero_datetime and $datetime)
 			{
 				$month = $datetime->month;
 				$day = $datetime->day;
