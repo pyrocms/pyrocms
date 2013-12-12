@@ -216,7 +216,6 @@ class FieldUi extends AbstractUi
 	 */
 	protected function triggerForm()
 	{
-
 		if ($_POST and ci()->input->post('field_type'))
 		{
 			$this->data->current_field->field_type = ci()->input->post('field_type');
@@ -429,8 +428,8 @@ class FieldUi extends AbstractUi
 				$post_data = array(
 					'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
 					'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
-					'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : false,
-					'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
+					'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : 'no',
+					'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : 'no',
 				);
 
 				if ( ! ($edit = $this->data->assignment->getKey()))
