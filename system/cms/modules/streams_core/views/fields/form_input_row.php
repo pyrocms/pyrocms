@@ -1,11 +1,12 @@
-<label for="<?php echo $form_slug;?>"><?php echo $input_label;?>
-
+<label class="col-lg-2 control-label" for="<?php echo $fields[$field]['input_slug'];?>">
+	<?php echo lang_label($input_label);?>
 	<?php if($is_required): ?><span class="required">*</span><?php endif; ?>
 
-	<?php if( ! empty($instructions)): ?>
-		<br /><small><?php echo $instructions; ?></small>
+	<?php if( $instructions != '' ): ?>
+		<p class="help-block c-gray-light"><?php echo lang_label($instructions); ?></p>
 	<?php endif; ?>
-
 </label>
 
-<div class="input"><?php echo $form_input; ?></div>
+<div  class="col-lg-10">
+	<?php echo $form_input; ?>
+</div>

@@ -14,18 +14,7 @@
 		<div class="form-group <?php  echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
 		<div class="row">
 			
-			<label class="col-lg-2" for="<?php echo $field['input_slug'];?>">
-				<?php echo lang_label($field['input_label']);?> <?php echo $field['required'];?>
-
-				<?php if( $field['instructions'] != '' ): ?>
-					<p class="help-block"><?php echo lang_label($field['instructions']); ?></p>
-				<?php endif; ?>
-
-			</label>
-
-			<div class="col-lg-10">
-				<?php echo $field['input_row']; ?>
-			</div>
+			<?php echo $field['input_row']; ?>
 
 		</div>
 		</div>
