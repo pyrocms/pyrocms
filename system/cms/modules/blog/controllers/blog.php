@@ -49,7 +49,7 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
-		// Get our comment count whil we're at it.
+/*		// Get our comment count whil we're at it.
 		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
 				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
 				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
@@ -92,7 +92,7 @@ class Blog extends Public_Controller
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('pagination', $posts['pagination'])
-			->build('posts');
+			->build('posts');*/
 	}
 
 	/**
