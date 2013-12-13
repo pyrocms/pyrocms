@@ -319,7 +319,6 @@ class EntryModel extends Eloquent
      */
     public function getAssignments()
     {
-        //if (! is_object($this->stream->assignments)) die(print_r($this, true));
         return $this->stream->assignments->setStream($this->stream);
     }
 
