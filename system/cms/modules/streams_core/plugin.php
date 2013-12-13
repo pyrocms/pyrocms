@@ -82,6 +82,7 @@ class Plugin_Streams_core extends Plugin
 		'use_recaptcha'		=> 'no',
 		'success_message'	=> 'lang:streams:$m_entry_success',
 		'error_message'		=> 'lang:streams:$m_entry_error',
+		'skip'				=> null,
 		);
 
 	/**
@@ -537,9 +538,9 @@ class Plugin_Streams_core extends Plugin
 		// Fire up EntryUi
 		// -------------------------------------
 
-		$form = EntryUi::form($parameters['stream'], $parameters['namespace'])->get();
+		$form = EntryUi::form($parameters['stream'], $parameters['namespace']);
 
-		print_r(self::toArray($form));die;
+		return $form->get()->fields->toArray();
 	}
 
 	/**
@@ -1344,16 +1345,21 @@ class Plugin_Streams_core extends Plugin
 	// --------------------------	 UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Convert objects value to arrays
+	 * @param  mixed $mixed 
+	 * @return array
+	 */
 	private function toArray($mixed)
 	{
-		// Objects to arrays dawg
-		if (! is_string($mixed))
-			$mixed = array_change_key_case((array) $mixed, CASE_LOWER);
+		// Start with an array
+		if (! is_array($mixed))
+			$mixed = self::toArray($mixed);
 
 		// Clean the children!
 		if (is_array($mixed))
 			foreach ($mixed as &$children)
-				$children = self::clean($children);
+				$children = self::toArray($children);
 
 		return $mixed;
 	}
