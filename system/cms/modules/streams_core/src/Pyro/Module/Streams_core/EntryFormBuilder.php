@@ -95,6 +95,12 @@ class EntryFormBuilder
 	protected $skips = array();
 
 	/**
+	 * Hidden
+	 * @var array
+	 */
+	protected $hidden = array();
+
+	/**
 	 * Success message
 	 * @var string
 	 */
@@ -179,6 +185,17 @@ class EntryFormBuilder
 	public function setSkips($skips = array())
 	{
 		$this->skips = $skips;
+
+		return $this;
+	}
+
+	/**
+	 * Set hidden
+	 * @param array $hidden
+	 */
+	public function setHidden($hidden = array())
+	{
+		$this->hidden = $hidden;
 
 		return $this;
 	}
@@ -550,6 +567,7 @@ class EntryFormBuilder
 
 				// Get some general info
 				$field->form_slug = $type->getFormSlug();
+				$field->is_hidden = (bool) in_array($field->field_slug, $this->hidden);
 
 				// Get the form input flavors
 				$field->form_input = defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
@@ -570,6 +588,8 @@ class EntryFormBuilder
 
 				// Set even/odd
 				$field->odd_even = (($k+1)%2 == 0) ? 'even' : 'odd';
+			} else {
+				unset($this->assignments[$k]); // Get rid of it
 			}
 		}
 
