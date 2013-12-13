@@ -213,6 +213,7 @@ class EntryUi extends AbstractUi
 		$this->form = $this->entry->newFormBuilder()
 			->setDefaults($this->defaults)
 			->setSkips($this->skips)
+			->setHidden($this->hidden)
 			->enableSave($this->enable_save)
 			->successMessage($this->success_message)
 			->redirect($this->redirect)
