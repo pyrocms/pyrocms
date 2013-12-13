@@ -216,7 +216,7 @@ class Datetime extends AbstractFieldType
 			$date_input .= form_hidden($this->form_slug, '1');
 		}
 
-		return '<div class="row">'.$date_input.'</div>';
+		return '<div>'.$date_input.'</div>';
 	}
 
 	/**

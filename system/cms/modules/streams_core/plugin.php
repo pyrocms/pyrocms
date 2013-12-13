@@ -82,6 +82,15 @@ class Plugin_Streams_core extends Plugin
 		'use_recaptcha'		=> 'no',
 		'success_message'	=> 'lang:streams:$m_entry_success',
 		'error_message'		=> 'lang:streams:$m_entry_error',
+		'defualts'			=> null,
+		'skips'				=> null,
+		'hidden'			=> null,
+		'class'				=> null,
+		'redirect'			=> null,
+		'exit_redirect'		=> null,
+		'continue_redirect'	=> null,
+		'create_redirect'	=> null,
+		'cancel_uri'		=> null,
 		);
 
 	/**
@@ -506,7 +515,7 @@ class Plugin_Streams_core extends Plugin
 			);
 
 		// Do whatever this is
-		$pagination['links'] = str_replace('-1', '1', $pagination['links']);		
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
 
 		return $pagination;
 	}
@@ -523,23 +532,116 @@ class Plugin_Streams_core extends Plugin
 		ci()->load->library(array('form_validation'));
 
 		// -------------------------------------
-		// Get Plugin Attributes
+		// Get Plugin Attributes / Paramaters
 		// -------------------------------------
+
+		$attributes = $this->getAttributes();
 		
 		$parameters = array();
 		
-		foreach ($this->entries_parameters as $parameter => $parameter_default)
+		foreach ($this->form_parameters as $parameter => $parameter_default)
 		{
 			$parameters[$parameter] = $this->getAttribute($parameter, $parameter_default);
 		}
+
+		$parameters = array_merge($attributes, $parameters);
 
 		// -------------------------------------
 		// Fire up EntryUi
 		// -------------------------------------
 
-		$form = EntryUi::form($parameters['stream'], $parameters['namespace'])->get();
+		$form = EntryUi::form($parameters['stream'], $parameters['namespace'], $parameters['entry_id']);
 
-		print_r(self::toArray($form));die;
+		/**
+		 * Set default values
+		 */
+		
+		if ($parameters['defaults']) {
+
+			// Get em!
+			$defaults = array();
+
+			// Loop and process
+			foreach ($parameters['defaults'] as $default) {
+
+				// Break it apart
+				list($field_slug, $value) = explode('=', $default);
+
+				// Stash em
+				$defaults[$field_slug] = $value;
+			}
+
+			// Set
+			$form = $form->defaults($defaults);
+		}
+
+		/**
+		 * Skip these fields
+		 */
+		
+		if ($parameters['skips'])
+			$form = $form->skips(explode('|', $parameters['skips']));
+
+		/**
+		 * Hide these fields
+		 */
+		
+		if ($parameters['hidden'])
+			$form = $form->hidden(explode('|', $parameters['hidden']));
+
+		/**
+		 * Set some redirects
+		 */
+
+		if ($parameters['redirect'])
+			$form = $form->redirect($parameters['redirect']);
+		else
+			$form = $form->redirect(ci()->uri->uri_string());
+
+		if ($parameters['exit_redirect'])
+			$form = $form->exitRedirect($parameters['exit_redirect']);
+
+		if ($parameters['continue_redirect'])
+			$form = $form->continueRedirect($parameters['continue_redirect']);
+
+		if ($parameters['continue_redirect'])
+			$form = $form->continueRedirect($parameters['continue_redirect']);
+
+		if ($parameters['cancel_uri'])
+			$form = $form->cancelUri($parameters['cancel_uri']);
+
+		/**
+		 * DONE = Fetch the object
+		 */
+
+		$fields = $form->get()->fields->toArray();
+
+		/**
+		 * Override any labels
+		 */
+
+		foreach ($fields as $k => $field)
+			if (isset($parameters[$field['field']['field_slug'].'_label']))
+				$fields[$k]['field_name'] = $parameters[$field['field']['field_slug'].'_label'];
+
+		/**
+		 * Build our return
+		 */
+
+		$return = array(
+			'fields' => $fields,
+			'form_open' => form_open_multipart(ci()->uri->uri_string(), array('class' => $parameters['class'])),
+			'form_close' => '</form>',
+			);
+		
+		foreach ($fields as $k => $field) {
+
+			// Copy it
+			$return[$field['field']['field_slug']] = $field;
+		}
+
+		// Return our sex
+		return array($return);
 	}
 
 	/**
@@ -1344,16 +1446,21 @@ class Plugin_Streams_core extends Plugin
 	// --------------------------	 UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Convert objects value to arrays
+	 * @param  mixed $mixed 
+	 * @return array
+	 */
 	private function toArray($mixed)
 	{
-		// Objects to arrays dawg
-		if (! is_string($mixed))
-			$mixed = array_change_key_case((array) $mixed, CASE_LOWER);
+		// Start with an array
+		if (! is_array($mixed))
+			$mixed = self::toArray($mixed);
 
 		// Clean the children!
 		if (is_array($mixed))
 			foreach ($mixed as &$children)
-				$children = self::clean($children);
+				$children = self::toArray($children);
 
 		return $mixed;
 	}

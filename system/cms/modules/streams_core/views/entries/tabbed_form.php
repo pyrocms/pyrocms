@@ -13,6 +13,7 @@
 	</ul>
 
 	<?php foreach($tabs as $tab): ?>
+
 	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
 		
 		<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
@@ -25,14 +26,15 @@
 
 				<ul>
 
-					<?php foreach ($tab['fields'] as $field) { ?>
+					<?php foreach ($tab['fields'] as $slug): ?>
 
-						<?php if (isset($fields[$field])): ?>
-						<li class="<?php echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
-							<?php echo $fields[$field]['input_row']; ?>
-						</li>
+						<?php if ($field = $fields->findBySlug($slug)): ?>
+							<li class="<?php echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field->input_slug), $hidden) ? 'hidden' : null; ?>">
+								<?php echo $field->input_row; ?>
+							</li>
 						<?php endif; ?>
-					<?php } ?>
+					
+					<?php endforeach; ?>
 
 				</ul>
 
@@ -41,6 +43,7 @@
 		<?php endif; ?>
 
 	</div>
+
 	<?php endforeach; ?>
 
 </div>
