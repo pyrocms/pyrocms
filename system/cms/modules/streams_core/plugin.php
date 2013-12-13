@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Str;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\StreamModel;
 use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * Streams Plugin
@@ -67,6 +68,20 @@ class Plugin_Streams_core extends Plugin
 		'pag_base'			=> null,		// If null, this is automatically set
 		'partial'			=> null,
 		'site_ref'			=> SITE_REF
+		);
+
+	/**
+	 * Possible form parameters
+	 * @var array
+	 */
+	public $form_parameters = array(
+		'stream'			=> null,
+		'namespace'			=> null,
+		'entry_id'			=> null,
+		'id'				=> null,
+		'use_recaptcha'		=> 'no',
+		'success_message'	=> 'lang:streams:$m_entry_success',
+		'error_message'		=> 'lang:streams:$m_entry_error',
 		);
 
 	/**
@@ -504,270 +519,27 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function form()
 	{
-		// -------------------------------------
-		// General Loads
-		// -------------------------------------
-
-		$data = new stdClass;
-		
-		$this->load->library(array('form_validation', 'streams_core/Fields'));
- 
-		// -------------------------------------
-		// Get vars
-		// -------------------------------------
-		
-		$extra = array();
-
-		$mode 					= $this->getAttribute('mode', 'new');
-		
-		// Make sure that we have a valid mode.
-		if ($mode != 'new' and $mode != 'edit') $mode = 'new';
-
-		$edit_id 				= $this->getAttribute('edit_id', false);
-		$edit_segment 			= $this->getAttribute('edit_segment', false);
-		$stream 			= $this->getAttribute('stream');
-		$stream_segment 		= $this->getAttribute('stream_segment');
-		$where 					= $this->getAttribute('where');
-		$include 				= $this->getAttribute('include');
-		$exclude 				= $this->getAttribute('exclude');
-		$recaptcha 				= $this->getAttribute('use_recaptcha', 'no');
-		$creator_only	   	= $this->getAttribute('creator_only', false);
-		$namespace 				= $this->getAttribute('namespace', $this->core_namespace);
-
-		$extra['required'] 		= $this->getAttribute('required', '<span class="required">* required</span>');
-		$extra['return'] 		= $this->getAttribute('return', $this->uri->uri_string());
-		$extra['error_start'] 	= $this->getAttribute('error_start', '<span class="error">');
-		$extra['error_end']		= $this->getAttribute('error_end', '</span>');
-		
-		$this->getAttribute('use_recaptcha', 'no') == 'yes' ? $recaptcha = TRUE : $recaptcha = false;
+		// Load up things we'll need for the form
+		ci()->load->library(array('form_validation'));
 
 		// -------------------------------------
-		// Messages
-		// -------------------------------------
-		// Lang line references:
-		// - new_entry_success
-		// - new_entry_error
-		// - edit_entry_success
-		// - edit_entry_error
+		// Get Plugin Attributes
 		// -------------------------------------
 		
-		$extra['success_message'] 	= $this->getAttribute('success_message', "lang:streams:{$mode}_entry_success");
-		$extra['failure_message'] 	= $this->getAttribute('failure_message', "lang:streams:{$mode}_entry_error");
-							
-		// -------------------------------------
-		// Get Stream Data
-		// -------------------------------------
+		$parameters = array();
 		
-		$data->stream			= $this->streams_m->get_stream($stream, true, $namespace);
-		
-		if ( ! $data->stream) return lang('streams:invalid_stream');
-		
-		$data->stream_id		= $data->stream->id;
-
-		// -------------------------------------
-		// Collect Email Notification Data
-		// -------------------------------------
-		// Default is two notifications. We collect
-		// this data no matter what and the 
-		// form library takes care of the rest.
-		// -------------------------------------
-	
-		$notifications 			= array();
-
-		$numbers = array('a', 'b');
-	
-		foreach ($numbers as $notify_num)
+		foreach ($this->entries_parameters as $parameter => $parameter_default)
 		{
-			$notifications[$notify_num]['notify'] 		= $this->getAttribute('notify_'.$notify_num);
-			$notifications[$notify_num]['template'] 	= $this->getAttribute('notify_template_'.$notify_num);
-			$notifications[$notify_num]['from'] 		= $this->getAttribute('notify_from_'.$notify_num);
-		}		
-		
-		$extra['email_notifications'] = $notifications;
-		
-		// -------------------------------------
-		// Get Edit ID from URL if in Edit Mode
-		// -------------------------------------
-		
-		$entry = false;
-		
-		if ($mode == 'edit')
-		{
-			// Do they want us to grab the ID from the URL?
-			if (is_numeric($edit_segment))
-			{
-				$edit_id = $this->uri->segment($edit_segment);
-			}
-			
-			// Do they want a where?
-			// This overrides the edit_id
-			if ($where)
-			{
-				$bits = explode('==', $where);
-				
-				if (count($bits) == 2)
-				{
-					$query = $this->db->limit(1)->where($bits[0], $bits[1])->get($data->stream->stream_prefix.$data->stream->stream);
-					
-					if($query->num_rows() == 1)
-					{
-						// WTF is this doing? It gets
-						// overwritten anyways.
-						$entry = $query->row();	
-						$edit_id = $entry->id;
-					}
-				}
-			}
-			else
-			{
-				// Get the row
-				$entry = $this->row_m->get_row($edit_id, $data->stream, false);
-			}			
+			$parameters[$parameter] = $this->getAttribute($parameter, $parameter_default);
 		}
 
 		// -------------------------------------
-		// Check Author Only
-		// -------------------------------------
-		// If this mode is on edit, and it is set
-		// to creator_only, we can check to see
-		// if the editor is the creator.
+		// Fire up EntryUi
 		// -------------------------------------
 
-		if ($creator_only == 'yes' and $mode == 'edit')
-		{
-			// Must be logged in
-			if ( ! isset($this->current_user->id))
-			{
-				return null;
-			}
+		$form = EntryUi::form($parameters['stream'], $parameters['namespace'])->get();
 
-			if ($this->current_user->id != $entry->created_by)
-			{
-				return null;
-			}
-		}
-
-		// -------------------------------------
-		// Include/Exclude
-		// -------------------------------------
-
-		$skips = $this->determine_skips($include, $exclude, $data->stream_id);
-
-		// -------------------------------------
-		// Form key
-		// -------------------------------------
-		// Add a unique identifier to the form. This is needed if
-		// you have multiple stream forms per page. If they are new entry forms,
-		// there is no real way to determine a unique identifer, so the user
-		// will need to add one themselves. This is a little different for editing
-		// forms, 
-		// -------------------------------------
-
-		$hidden = array();
-
-		if ($form_key = $this->getAttribute('form_key'))
-		{
-			$hidden['_streams_form_key'] = $form_key;
-			$extra['form_key'] = $form_key;
-		}
-		elseif ($mode == 'edit')
-		{
-			$hidden['_streams_form_key'] = $data->stream->stream_namespace.'_'.$data->stream->stream.'_'.$entry->id;
-			$extra['form_key'] = $hidden['_streams_form_key'];
-		}
-
-		// -------------------------------------
-		// Process and Output Form Data
-		// -------------------------------------
-	
-		$vars['fields'] = $this->fields->build_form($data->stream, $mode, $entry, true, $recaptcha, $skips, $extra);
-
-		// We can't have a form if we have no fields.
-		if ( ! $vars['fields']) return;
-
-		// -------------------------------------
-		// Individual Field Access 
-		// -------------------------------------
-		// For greater form control, this allows
-		// users to access each form item
-		// indivudally.
-		// -------------------------------------
-
-		foreach($vars['fields'] as $field)
-		{
-			$vars[$field['input_slug']]['label'] 			= lang_label($field['input_title']);
-			$vars[$field['input_slug']]['slug'] 			= $field['input_slug'];
-			$vars[$field['input_slug']]['value'] 			= $field['value'];
-
-			if($field['input_parts'] !== false)
-			{
-				$vars[$field['input_slug']]['input']		= $field['input_parts'];
-				$vars[$field['input_slug']]['input_built']	= $field['input'];
-			}
-			else
-			{
-				$vars[$field['input_slug']]['input']		= $field['input'];
-				$vars[$field['input_slug']]['input_built']	= $field['input'];
-			}
-
-			$vars[$field['input_slug']]['error_raw'] 		= $field['error_raw'];
-			$vars[$field['input_slug']]['error'] 			= $field['error'];
-			$vars[$field['input_slug']]['is_required'] 		= ($field['required']) ? true : false;
-			$vars[$field['input_slug']]['required'] 		= $field['required'];
-			$vars[$field['input_slug']]['odd_even'] 		= $field['odd_even'];
-			$vars[$field['input_slug']]['instructions']		= $field['instructions'];
-		}
-		
-		// -------------------------------------
-		// reCAPTCHA
-		// -------------------------------------
-		
-		if ($recaptcha)
-		{
-			$this->recaptcha->_rConfig['theme'] = $this->getAttribute('recaptcha_theme', 'red');
-
-			$vars['recaptcha'] = $this->recaptcha->get_html();
-
-			// Output the error if we have one
-			if ($this->form_validation->field_data('recaptcha_response_field'))
-			{
-				$vars['recaptcha_error'] = $this->form_validation->error('recaptcha_response_field');
-			}	
-			else
-			{
-				$vars['recaptcha_error'] = '';
-			}
-		}
-		
-		// -------------------------------------
-		// Basic Form elements
-		// -------------------------------------
-		
-		$parameters['class']		= $this->getAttribute('form_class', 'crud_form');
-		$parameters['id']			= $this->getAttribute('form_id');
-				
-		// Add a row_edit_id where needed
-		if ($mode == 'edit')
-		{
-			$hidden['row_edit_id'] = $entry->id;
-		}
-
-		// Always add a stream_id to the form.
-		$hidden['stream_id'] = $data->stream_id;
-
-		// -------------------------------------
-		// Compile {{ tag }} form elements
-		// -------------------------------------
-
-		$vars['form_open']		= form_open_multipart($this->uri->uri_string(), $parameters, $hidden);	
-		$vars['form_close']		= '</form>';
-		$vars['form_submit']	= '<input type="submit" value="'.lang('save_label').'" />';
-		$vars['form_reset']		= '<input type="reset" value="'.lang('streams:reset').'" />';
-		$vars['validation_errors'] = validation_errors($extra['error_start'], $extra['error_end']);
-
-		// -------------------------------------
-		
-		return array($vars);				
+		print_r(self::toArray($form));die;
 	}
 
 	/**
@@ -1566,6 +1338,24 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		return $entries;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------	 UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	private function toArray($mixed)
+	{
+		// Objects to arrays dawg
+		if (! is_string($mixed))
+			$mixed = array_change_key_case((array) $mixed, CASE_LOWER);
+
+		// Clean the children!
+		if (is_array($mixed))
+			foreach ($mixed as &$children)
+				$children = self::clean($children);
+
+		return $mixed;
 	}
 
 	/**

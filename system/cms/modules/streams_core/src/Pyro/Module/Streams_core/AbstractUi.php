@@ -584,6 +584,23 @@ abstract class AbstractUi extends AbstractCallable
 	}
 
 	/**
+	 * Get the form and its components
+	 * @param  boolean $array
+	 * @return object or array          
+	 */
+	public function get()
+	{
+		$method = $this->getTriggerMethod();
+
+		if (method_exists($this, $method))
+		{
+			$this->{$method}();
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Set success message
 	 * @param  string $success_message 
 	 * @return object                  
