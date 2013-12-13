@@ -57,7 +57,7 @@ abstract class AbstractAddonType
 	 */
 	public function css($file, $type = null)
 	{
-		$type = $type ? $type : AddonTypeManager::getType($this->slug);
+		$type = $type ? $type : $this;
 
 		$html = '<link href="'.base_url($type->path_css.$file).'" type="text/css" rel="stylesheet" />';
 
@@ -71,7 +71,9 @@ abstract class AbstractAddonType
 	 */
 	public function js($file, $type = false)
 	{
-		$html = '<script type="text/javascript" src="'.base_url($this->path_js.$file).'"></script>';
+		$type = $type ? $type : $this;
+
+		$html = '<script type="text/javascript" src="'.base_url($type->path_js.$file).'"></script>';
 
 		ci()->template->append_metadata($html);
 
