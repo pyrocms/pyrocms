@@ -81,10 +81,10 @@ abstract class AbstractUi extends AbstractCallable
 
 
 	/**
-	 * Failure message
+	 * Error message
 	 * @var string
 	 */
-	protected $failure_message = null;
+	protected $error_message = null;
 
 	/**
 	 * Form
@@ -613,13 +613,13 @@ abstract class AbstractUi extends AbstractCallable
 	}
 
 	/**
-	 * Set failure message
-	 * @param  string $failure_message 
+	 * Set error message
+	 * @param  string $error_message 
 	 * @return object                  
 	 */
-	public function failureMessage($failure_message = null)
+	public function errorMessage($error_message = null)
 	{
-		$this->failure_message = $failure_message;
+		$this->error_message = $error_message;
 
 		return $this;
 	}

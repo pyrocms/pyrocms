@@ -219,7 +219,7 @@ class EntryFormBuilder
      * - email_notifications
      * - return
      * - success_message
-     * - failure_message
+     * - error_message
      * - error_start
      * - error_end
      * - required
@@ -242,7 +242,7 @@ class EntryFormBuilder
 			'error_end'					=> null,
 			'required'					=> '<span>*</span>',
 			'success_message'			=> 'lang:streams:'.$this->method.'_entry_success',
-			'failure_message'			=> 'lang:streams:'.$this->method.'_entry_error'
+			'error_message'			=> 'lang:streams:'.$this->method.'_entry_error'
 		);
 
 		ci()->load->language('streams_core/pyrostreams');
@@ -343,7 +343,7 @@ class EntryFormBuilder
 					// ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
 					if ( ! $this->entry->save())
 					{		
-						ci()->session->set_flashdata('notice', lang_label($this->failure_message));
+						ci()->session->set_flashdata('notice', lang_label($this->error_message));
 					}
 					else
 					{
@@ -368,9 +368,9 @@ class EntryFormBuilder
 				}
 				else // edit
 				{
-					if ( ! $this->entry->save() and $this->failure_message)
+					if ( ! $this->entry->save() and $this->error_message)
 					{
-						ci()->session->set_flashdata('notice', lang_label($this->failure_message));	
+						ci()->session->set_flashdata('notice', lang_label($this->error_message));	
 					}
 					else
 					{

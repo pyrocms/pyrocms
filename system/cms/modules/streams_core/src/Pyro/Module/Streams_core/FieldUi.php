@@ -446,7 +446,7 @@ class FieldUi extends AbstractUi
 
 				if( ! $success)
 				{
-					ci()->session->set_flashdata('notice', $this->failure_message ? lang_label($this->failure_message) : lang('streams:save_field_error'));
+					ci()->session->set_flashdata('notice', $this->error_message ? lang_label($this->error_message) : lang('streams:save_field_error'));
 				}
 				else
 				{

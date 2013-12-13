@@ -81,9 +81,9 @@ class Plugin_Streams_core extends Plugin
 		'id'				=> null,
 		'use_recaptcha'		=> 'no',
 		'save_success_message'	=> 'lang:streams:new_entry_success',
-		'save_failure_message'	=> 'lang:streams:new_entry_error',
+		'save_error_message'	=> 'lang:streams:new_entry_error',
 		'update_success_message'	=> 'lang:streams:edit_entry_success',
-		'update_failure_message'	=> 'lang:streams:edit_entry_error',
+		'update_error_message'	=> 'lang:streams:edit_entry_error',
 		'defualts'			=> null,
 		'skips'				=> null,
 		'hidden'			=> null,
@@ -613,13 +613,13 @@ class Plugin_Streams_core extends Plugin
 			$form = $form->cancelUri($parameters['cancel_uri']);
 
 		/**
-		 * Set success and failure messages
+		 * Set success and error messages
 		 */
 
 		if (! $parameters['entry_id'])
-			$form = $form->successMessage($parameters['save_success_message'])->errorMessage($parameters['save_failure_message']);
+			$form = $form->successMessage($parameters['save_success_message'])->errorMessage($parameters['save_error_message']);
 		else
-			$form = $form->successMessage($parameters['update_success_message'])->errorMessage($parameters['update_failure_message']);
+			$form = $form->successMessage($parameters['update_success_message'])->errorMessage($parameters['update_error_message']);
 
 		/**
 		 * DONE = Fetch the object
