@@ -347,7 +347,16 @@ class Users extends Public_Controller
 
 				// We are registering with a null group_id so we just
 				// use the default user ID in the settings.
-				$id = $this->ion_auth->register($username, $password, $email, null, $profile_data);
+				$user = Sentry::register(
+					array(
+						'username' => $username,
+						'password' => $password,
+						'email' => $email,
+						'profile_data' => $profile_data,
+						)
+					);
+				
+				$id = $user->id;
 
 				// Try to create the user
 				if ($id > 0) {
