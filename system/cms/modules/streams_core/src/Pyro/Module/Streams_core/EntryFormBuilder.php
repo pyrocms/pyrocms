@@ -542,55 +542,41 @@ class EntryFormBuilder
 	// $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
 	public function buildFields()
 	{
-		$fields = array();
-		
-		foreach($this->assignments as $field)
+		foreach($this->assignments as $k => &$field)
 		{
 			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
 			{
 				$type->setDefaults($this->defaults);
 
-				$fields[$field->field_slug]['field_slug'] 		= $field->field_slug;
-				$fields[$field->field_slug]['input_label'] 		= $field->field_name;
-				$fields[$field->field_slug]['input_slug']		= $type->getFormSlug();
-				$fields[$field->field_slug]['instructions'] 	= $field->instructions;
+				// Get some general info
+				$field->form_slug = $type->getFormSlug();
+
+				// Get the form input flavors
+				$field->form_input = defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
+				$field->input_row = $type->formInputRow();
 				
-				// Set the value. In the odd case it isn't set,
-				// jst set it to null.
-
-				// Return the raw value as well - can be useful
-				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
-
-				// Get the acutal form input
-				$fields[$field->field_slug]['input_row'] 		= $type->formInputRow();
-				$fields[$field->field_slug]['input']	 		= defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
-				//$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
-
 				// Set the error if there is one
-				$fields[$field->field_slug]['error_raw']		= ci()->form_validation->error($field->field_slug);
+				$field->error_raw = ci()->form_validation->error($field->field_slug);
 
 				// Format tht error
-				if ($fields[$field->field_slug]['error_raw']) 
+				if ($field->error_raw) 
 				{
-					$fields[$field->field_slug]['error']		= $fields[$field->field_slug]['error_raw'];
+					$field->error = $field->error_raw;
 				}
 				else
 				{
-					$fields[$field->field_slug]['error']		= null;
+					$field->error = null;
 				}
 
-				// Set is_required boolean
-				$fields[$field->field_slug]['is_required']		= $field->is_required;
-
 				// Set even/odd
-				$fields[$field->field_slug]['odd_even']		= (($field->field_slug+1)%2 == 0) ? 'even' : 'odd';
+				$field->odd_even = (($k+1)%2 == 0) ? 'even' : 'odd';
 			}
 		}
 
 		// $stream_fields, $skips, $values
 		$this->runFieldTypeEvents();
 
-		return $fields;
+		return $this->assignments;
 	}
 
 	/**
