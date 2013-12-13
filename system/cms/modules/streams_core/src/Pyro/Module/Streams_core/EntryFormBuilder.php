@@ -234,7 +234,6 @@ class EntryFormBuilder
  		// -------------------------------------
 		// Set default extras
 		// -------------------------------------
-		
 		$default_extras = array(
 			'email_notifications'		=> null,
 			'return'					=> current_url(),
@@ -256,6 +255,14 @@ class EntryFormBuilder
 			// be set to null. 
 			if ( ! isset($extra[$key])) $extra[$key] = $value;
 		}
+
+		// If we don't have any messages set
+		// DO IT
+		if (empty($this->success_message))
+			$this->successMessage($extra['success_message']);
+
+		if (empty($this->error_message))
+			$this->errorMessage($extra['error_message']);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -554,7 +561,7 @@ class EntryFormBuilder
 	{
 		foreach($this->assignments as $k => &$field)
 		{
-			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
+			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips) and ! in_array($field->field_slug, $tmp))
 			{
 				$type->setDefaults($this->defaults);
 
@@ -563,8 +570,8 @@ class EntryFormBuilder
 				$field->is_hidden = (bool) in_array($field->field_slug, $this->hidden);
 
 				// Get the form input flavors
-				$field->form_input = defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
-				$field->input_row = $type->formInputRow();
+				$field->form_input = defined('ADMIN_THEME') ? $type->formInput() : $type->publicFormInput();
+				$field->input_row = defined('ADMIN_THEME') ? $type->formInputRow() : null;
 				
 				// Set the error if there is one
 				$field->error_raw = ci()->form_validation->error($field->field_slug);
@@ -807,6 +814,18 @@ class EntryFormBuilder
 	public function successMessage($success_message = null)
 	{
 		$this->success_message = $success_message;
+
+		return $this;
+	}
+
+	/**
+	 * Failure messages
+	 * @param  string $error_message
+	 * @return object                  
+	 */
+	public function errorMessage($error_message = null)
+	{
+		$this->error_message = $error_message;
 
 		return $this;
 	}

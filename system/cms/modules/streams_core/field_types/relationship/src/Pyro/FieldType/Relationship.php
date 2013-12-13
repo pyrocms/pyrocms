@@ -37,10 +37,10 @@ class Relationship extends AbstractFieldType
 		'stream',
 		'placeholder',
 		'value_field',
-		'label_field',
-		'search_field',
+		'option_format',
 		'template',
-		'module_slug'
+		'module_slug',
+		'relation_class',
 		);
 
 	/**
@@ -66,6 +66,9 @@ class Relationship extends AbstractFieldType
 		'pluginOutput' => array(),
 		);
 
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Relation
@@ -98,15 +101,6 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Relation class
-	 * @return string
-	 */
-	public function relationClass()
-	{
-		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
-	}
-
-	/**
 	 * Output form input
 	 *
 	 * @access 	public
@@ -118,29 +112,11 @@ class Relationship extends AbstractFieldType
 
 		$data = array(
 			'form_slug' => $this->form_slug,
-			'id' => ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null,
+			'id' => ($selected instanceof Eloquent) ? $selected->getKey() : null,
 			'options' => $this->getOptions()
 		);
 
 		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
-	}
-	
-	/**
-	 * Options
-	 * @return array
-	 */
-	public function getOptions()
-	{
-		$options = array();
-
-		if ($relation_class = $this->relationClass())
-		{
-			$instance = new $relation_class;
-
-			$options = $instance->get()->lists($this->getParameter('title_column'), $this->getParameter('value_field','id'));
-		}
-
-		return $options;
 	}
 
 	/**
@@ -231,12 +207,59 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Title column for options
+	 * Option format
 	 * @param  string $value
 	 * @return html
 	 */
-	public function paramTitleColumn($value = '')
+	public function paramOptionFormat($value = '')
 	{
-		return form_input('title_column', $value);
+		return form_input('option_format', $value);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Relation class
+	 * @return string
+	 */
+	public function relationClass()
+	{
+		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+	}
+
+	/**
+	 * Options
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		// Get options
+		$options = array();
+
+		if ($relation_class = $this->relationClass())
+		{
+			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
+
+			$instance = new $relation_class;
+
+			$options = $instance::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
+		}
+
+		// Format options
+		$formatted_options = array();
+
+		$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}');
+
+		$value_field = $this->getParameter('value_field', 'id');
+
+		foreach ($options as $option)
+			$formatted_options[$option[$value_field]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
+
+		// Boom
+		return $formatted_options;
 	}
 }

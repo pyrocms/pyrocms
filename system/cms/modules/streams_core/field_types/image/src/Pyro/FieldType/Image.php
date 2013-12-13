@@ -40,8 +40,6 @@ class Image extends AbstractFieldType
 
 	public $input_is_file = true;
 
-	// --------------------------------------------------------------------------
-
 	public function __construct()
 	{
 		ci()->load->library('image_lib');
@@ -54,7 +52,9 @@ class Image extends AbstractFieldType
 		$this->css('imagefield.css');		
 	}
 
-	// --------------------------------------------------------------------------
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Output form input
@@ -107,7 +107,30 @@ class Image extends AbstractFieldType
 		return $out;
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Output public form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function publicFormInput()
+	{
+		// Gotta use this..
+		ci()->load->config('files/files');
+
+		// Load our file
+		if ($this->value and $this->value != 'dummy')
+			$file = FileModel::find($this->value);
+		else
+			$file = null;
+
+		// Build the input's options
+		$options['name'] = $this->form_slug.'_file';
+
+		// GO!
+		return form_upload($options).form_hidden($this->form_slug, $this->value);
+	}
 
 	/**
 	 * Process before saving to database

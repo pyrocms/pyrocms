@@ -41,9 +41,9 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse_string($string, $data = array(), $return = false, $is_include = false, $streams_parse = array())
+	public function parse_string($string, $data = array(), $return = false, $is_include = false, $streams_parse = array(), $include_cached_vars = true)
 	{
-		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse, $include_cached_vars);
 	}
 
 	/**
@@ -57,7 +57,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array())
+	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array(), $include_cached_vars = true)
 	{
 		// Start benchmark
 		ci()->benchmark->mark('parse_start');
@@ -65,7 +65,9 @@ class MY_Parser extends CI_Parser {
 		// Convert from object to array
 		is_array($data) or $data = (array) $data;
 
-		$data = array_merge($data, ci()->load->_ci_cached_vars);
+		// Include cached vars too?
+		if ($include_cached_vars)
+			$data = array_merge($data, ci()->load->_ci_cached_vars);
 
 		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
 		{
