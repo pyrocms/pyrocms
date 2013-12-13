@@ -241,7 +241,7 @@ class EntryUi extends AbstractUi
 				$this->data->fields[$this->data->stream->stream_slug.':'.$this->data->stream->stream_namespace.':'.$field_slug] = $field;
 			}
 
-			$this->data->fields = array_merge($this->data->fields, $this->nested_fields);
+			$this->data->fields->merge($this->nested_fields);
 		}
 		
 		if ($saved = $this->form->result() and $this->enable_save and ! $this->is_nested_form)
@@ -288,7 +288,7 @@ class EntryUi extends AbstractUi
 		}
 		else
 		{
-			$this->data->tabs = $this->distributeFields($this->data->tabs, array_keys($this->data->fields));
+			$this->data->tabs = $this->distributeFields($this->data->tabs, $this->data->fields->getFieldSlugs());
 
 			$this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->data, true);
 		}
