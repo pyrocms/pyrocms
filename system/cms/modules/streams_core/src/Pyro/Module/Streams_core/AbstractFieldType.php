@@ -428,6 +428,18 @@ abstract class AbstractFieldType
 	}
 
 	/**
+	 * Output public form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function publicFormInput()
+	{
+		return $this->formInput();
+	}
+
+	/**
 	 * Get filter output for a field type
 	 * @return string The input HTML
 	 */

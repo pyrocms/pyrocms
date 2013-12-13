@@ -555,7 +555,8 @@ class EntryFormBuilder
 				$fields[$field->field_slug]['value']			= $this->entry->getOriginal($field->field_slug);
 
 				// Get the acutal form input
-				$fields[$field->field_slug]['input_row'] 		= $type->formInputRow();	
+				$fields[$field->field_slug]['input_row'] 		= $type->formInputRow();
+				$fields[$field->field_slug]['input']	 		= defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
 				//$fields[$field->field_slug]['input_parts'] 		= $type->setPlugin(true)->getForm();
 
 				// Set the error if there is one
