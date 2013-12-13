@@ -337,7 +337,7 @@ class AddonTypeManager
 		$class_path = dirname($reflection->getFileName());
 
 		// The root path of the type
-		$path = dirname(dirname(dirname(dirname(dirname($class_path)))));
+		$path = str_replace(FCPATH, '', dirname(dirname(dirname(dirname(dirname($class_path))))));
 
 		// Set asset paths
 		$instance->path = $path;

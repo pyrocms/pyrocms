@@ -341,7 +341,8 @@ class Link extends \Illuminate\Database\Eloquent\Model
                     if ($front_end and $page->restricted_to) {
                         $page->restricted_to = (array) explode(',', $page->restricted_to);
 
-                        if ( ! $user_group or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to))) {
+print_r($page->restricted_to);
+                        if ( (! $user_group and $page->restricted_to) or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to) and ! empty($page->restricted_to))) {
                             unset($links[$key]);
                         }
                     }
