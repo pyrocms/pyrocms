@@ -228,8 +228,8 @@ class Plugin_Navigation extends Plugin
 			$wrapper = array();
 
 			// attributes of anchor
-			$item['url']   = $link->url;
-			$item['uri']   = $link->uri;
+			$item['url']   = ci()->parser->parse_string($link->url, null, true);
+			$item['uri']   = ci()->parser->parse_string($link->uri, null, true);
 			$item['title'] = $link->title;
 			$item['total'] = $total;
 			$item['page_id'] = $link['page_id'];
