@@ -90,7 +90,7 @@ class Fields
      * - email_notifications
      * - return
      * - success_message
-     * - failure_message
+     * - error_message
      * - error_start
      * - error_end
      * - required
@@ -112,7 +112,7 @@ class Fields
 			'error_end'					=> null,
 			'required'					=> '<span>*</span>',
 			'success_message'			=> 'lang:streams:'.$method.'_entry_success',
-			'failure_message'			=> 'lang:streams:'.$method.'_entry_error'
+			'error_message'			=> 'lang:streams:'.$method.'_entry_error'
 		);
 
 		$this->CI->load->language('streams_core/pyrostreams');
@@ -229,7 +229,7 @@ class Fields
 				{
 					if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($error_message));
 					}
 					else
 					{
@@ -260,7 +260,7 @@ class Fields
 														$skips
 													))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['error_message']));	
 					}
 					else
 					{
