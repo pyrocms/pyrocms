@@ -1,0 +1,251 @@
+#body {
+	padding-top: 0;
+}
+
+/*layout*/
+@media (min-width: 768px) {
+
+	html,
+	body {
+		width:100%;
+		height:100%;
+		overflow-x: hidden;
+	}
+
+	#body {
+		padding-top: 50px;
+	}
+
+
+	/**
+	 * Horizontal and vertical boxes
+	 * for creating our nice fullscreen
+	 * app-like layout
+	 */
+
+	.horizontal-box {
+		display: table;
+		border-collapse: collapse;
+		border-spacing:0;
+		width: 100%;
+
+		> aside,
+		> section {
+			display: table-cell;
+			vertical-align: top;
+			height: 100%;
+			padding: 0;
+			float: none;
+
+			&.show, 
+			&.hidden-sm	{
+				display: table-cell !important;
+			}
+		}
+
+		&.stretch {
+			height:100%;
+		}
+	}
+
+	.vertical-box {
+		display: table;
+		border-collapse: collapse;
+		border-spacing:0;
+		position: relative;
+		height: 100%;
+		width: 100%;
+
+		> section, 
+		> footer {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;	
+		}
+
+		> footer {
+			top: auto;
+			z-index: 1000;
+
+			+ section {
+				bottom: 50px;
+			}
+		}
+
+		> header {
+
+			~ section {
+				top: 50px;
+			}
+		}
+
+		&.flex {
+		
+			> header,
+			> section,
+			> footer {
+				position: static;
+			}
+
+			> section{
+				display: table-row;
+				height: 100%;
+				overflow:hidden;
+				top: auto !important; 
+				bottom: auto !important;
+
+				> section {
+					position: relative;
+					height: 100%;
+					min-height:200px;
+
+					&.ie {
+						height: auto;
+						display: table-cell;
+					}
+
+					> section {
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						left: 0;
+						right: 0;
+						height: 100%;
+						overflow: auto;
+					}
+				}
+			}
+		}
+	}
+	
+	.aside-xxs{
+		width: 24px;
+	}
+	.aside-xs{
+		width: 48px;
+	}
+	.aside{
+		width: 180px;
+	}
+	.aside-sm{
+		width: 150px;
+	}
+	.aside-md{
+		width: 200px;
+	}
+	.aside-lg{
+		width: 250px;
+	}
+	.aside-xl{
+		width: 300px;
+	}
+	.aside-xxl{
+		width: 400px;
+	}
+}
+
+.horizontal-box > aside, 
+.horizontal-box > section {
+	padding: 0 !important;
+}
+
+
+
+/**
+ * These are for inside h/v boxes typically
+ */
+
+.header, 
+.footer {
+	min-height: 50px;
+	padding: 0 @padding-base-horizontal;
+
+	> p {
+		margin-top: 15px;
+		display: inline-block;
+	}
+
+	> .btn,
+	> .btn-group,
+	> .btn-toolbar {
+		margin-top: 10px;
+	}
+
+	> .btn-lg {
+		margin-top: 0;
+	}
+
+	.nav-tabs {
+		border: none;
+		margin-left: -@padding-base-horizontal;
+		margin-right: -@padding-base-horizontal;	
+	
+		> li {
+	
+			a {
+				border: none !important;
+				border-radius: 0;
+				padding-top: @padding-base-vertical;
+				padding-bottom: @padding-base-vertical;
+				line-height: @line-height-base;
+				&:hover, 
+				&:focus {
+					background-color: transparent;
+				}
+			}
+
+			&.active a {
+				color: @text-color;
+
+				&,
+				&:hover {
+					background-color: @body-bg;
+				}
+			}
+		}
+
+		&.nav-white {
+
+			> li.active a {
+				&,
+				&:hover {
+					background-color: #fff;
+				}
+			}
+		}
+	}
+
+	&.navbar {
+		min-height: 0;
+		border-radius: 0;
+		border: none;
+		margin-bottom: 0;
+		.navbar-nav{
+			margin: 0 -15px !important;
+		}
+	}
+}
+
+
+
+/**
+ * Control scrollable content
+ */
+
+.scrollable{
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling:touch;
+}
+
+.no-touch {
+	.scrollable.hover {
+		overflow-y: hidden;
+		&:hover
+		{
+			overflow: visible;
+			overflow-y: auto;
+		}
+	}
+}

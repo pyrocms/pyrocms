@@ -79,7 +79,7 @@ class Settings
 		$setting = ci()->setting_m->get($key);
 
 		// Setting doesn't exist, maybe it's a config option
-		$value = $setting ? ($setting->value ?: $setting->default) : config_item($key);
+		$value = $setting !== false ? (! is_null($setting->value) ? $setting->value : $setting->default) : config_item($key);
 
 		// Store it for later
 		self::$cache[$key] = $value;
@@ -227,17 +227,27 @@ class Settings
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
 					'value'	=> $setting->value,
-					'class'	=> 'text width-20'
+					'class'	=> 'form-control text width-20'
 				));
 				break;
 
 			case 'textarea':
-				$form_control = form_textarea(array(
-					'id'	=> $setting->slug,
-					'name'	=> $setting->slug,
-					'value'	=> $setting->value,
-					'class'	=> 'width-20'
-				));
+				if ($setting->slug == 'ckeditor_config') {
+					$form_control = form_textarea(array(
+						'id'	=> $setting->slug,
+						'name'	=> $setting->slug,
+						'value'	=> $setting->value,
+						'class'	=> 'form-control width-20',
+						'data-editor' => 'js'
+					));
+				} else {
+					$form_control = form_textarea(array(
+						'id'	=> $setting->slug,
+						'name'	=> $setting->slug,
+						'value'	=> $setting->value,
+						'class'	=> 'form-control width-20'
+					));
+				}
 				break;
 
 			case 'password':
@@ -245,7 +255,7 @@ class Settings
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
 					'value'	=> 'XXXXXXXXXXXX',
-					'class'	=> 'text width-20',
+					'class'	=> 'form-control text width-20',
 					'autocomplete' => 'off',
 				));
 				break;

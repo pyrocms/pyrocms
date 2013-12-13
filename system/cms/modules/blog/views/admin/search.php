@@ -28,7 +28,7 @@
 					<td><?php echo form_checkbox('action_to[]', $post->id);?></td>
 					<td><?php echo $post->title;?></td>
 					<td><?php echo $post->category_title;?></td>
-					<td><?php echo format_date($post->created_on);?></td>
+					<td><?php echo format_date($post->created_at);?></td>
 					<td><?php echo lang('blog_'.$post->status.'_label');?></td>
 					<td>
 						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe" target="_blank"') . ' | ' ?>

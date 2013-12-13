@@ -121,11 +121,11 @@ class Admin_modules extends Admin_Controller
 	{
 		$module = $this->modules->findBySlug($slug);
 
-		if ($module->uninstall()) {
+		if ($module and $this->moduleManager->uninstall($slug)) {
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $module->name));
 
 			// Fire an event. A module has been disabled when uninstalled.
-			Events::trigger('module_disabled', $module);
+			Events::trigger('module_uninstalled', $module);
 		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:uninstall_error'), $module->name));
 		}
@@ -162,7 +162,7 @@ class Admin_modules extends Admin_Controller
 			}
 
 			// Fire an event. A module has been disabled when deleted.
-			Events::trigger('module_disabled', $slug);
+			Events::trigger('module_deleted', $slug);
 		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:delete_error'), $slug));
 		}
@@ -181,10 +181,10 @@ class Admin_modules extends Admin_Controller
 	public function install($slug)
 	{
 		$module = $this->modules->findBySlug($slug);
-
-		if ($module and $module->install()) {
+		
+		if ($module and $this->moduleManager->install($slug)) {
 			// Fire an event. A module has been enabled when installed.
-			Events::trigger('module_enabled', $module);
+			Events::trigger('module_installed', $module);
 
 			// Clear the module cache
 			$this->cache->clear('module_m');

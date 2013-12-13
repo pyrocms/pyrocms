@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
         'from' => array(
             'field' => 'from',
             'label' => 'lang:redirects:from',
-            'rules' => 'trim|required|max_length[250]|callback__check_unique'
+            'rules' => 'trim|required|max_length[250]'
         ),
         array(
             'field' => 'to',
@@ -113,13 +113,7 @@ class Admin extends Admin_Controller
         // Get the redirect
         $redirect = Redirect::find($id);
 
-        $this->form_validation->set_rules(array_merge($this->validation_rules, array(
-            'from' => array(
-                'field' => 'from',
-                'label' => 'lang:redirects:from',
-                'rules' => 'trim|required|max_length[250]|callback__check_unique['.$id.']'
-            )
-        )));
+        $this->form_validation->set_rules($this->validation_rules);
 
         if ($this->form_validation->run()) {
             $redirect->type = $this->input->post('type');
@@ -176,21 +170,5 @@ class Admin extends Admin_Controller
         }
 
         redirect('admin/redirects');
-    }
-
-    /**
-     * Callback method for validating the redirect's name
-     *
-     * @param  string $from
-     * @return bool
-     */
-    public function _check_unique($from, $id = null)
-    {
-        if ( ! Redirect::findByFromAndId($from, $id)) {
-            return true;
-        }
-
-        $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
-        return false;
     }
 }

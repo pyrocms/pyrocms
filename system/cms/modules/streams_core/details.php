@@ -52,7 +52,9 @@ class Module_Streams_core extends AbstractModule
 			'frontend' => false,
 			'backend' => false,
 			'skip_xss' => true,
-			'author' => 'Parse19',
+			'author' => 'PyroCMS Dev Team',
+			// Register field types with the autoloader
+			'field_types' => true
 		);
 	}
 
@@ -65,6 +67,7 @@ class Module_Streams_core extends AbstractModule
      */
     public function install($pdb, $schema)
 	{
+<<<<<<< HEAD
 		if ( ! ($config = $this->loadConfig())) {
 			return false;
 		}
@@ -143,6 +146,8 @@ class Module_Streams_core extends AbstractModule
             $table->text('filters')->nullable();
         });
 
+=======
+>>>>>>> 78fc6eb0f3fa4bce6a882b1dbd2bf21aefd4f44c
 		return true;
 	}
 
@@ -156,16 +161,6 @@ class Module_Streams_core extends AbstractModule
 	 */
 	public function uninstall($pdb, $schema)
 	{
-		if ( ! ($config = $this->loadConfig())) {
-			return false;
-		}
-
-		// Streams Table
-        $schema->dropIfExists($config['streams:streams_table']);
-        $schema->dropIfExists($config['streams:fields_table']);
-        $schema->dropIfExists($config['streams:assignments_table']);
-        $schema->dropIfExists($config['streams:searches_table']);
-
 		return true;
 	}
 

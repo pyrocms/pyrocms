@@ -60,8 +60,19 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     public static function findBySlugAndNotId($slug, $id)
     {
         return static::where('slug', '=', $slug)
-                        ->where('id','!=',$id)
-                        ->get();
+            ->where('id','!=',$id)
+            ->get();
+    }
+
+    /**
+     * Get a folder by slug and not id
+     *
+     * @param  int $parent_id The slug of the folder to retrieve
+     * @return object
+     */
+    public static function countByParentId($parent_id)
+    {
+        return static::where('parent_id', '=', $parent_id)->count();
     }
 
     /**

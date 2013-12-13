@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Beim Hinzufügen des Eintrags ist ein F
 $lang['streams:new_entry_success']						= "Eintrag erfolgreich hinzugefügt.";
 $lang['streams:edit_entry_error']						= "Beim Aktualisieren des Eintrags ist ein Fehler aufgetreten.";
 $lang['streams:edit_entry_success']					= "Eintrag erfolgreich aktualisiert.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Bist du sicher, dass du den Stream <strong>%s</strong> löschen willst? Dadurch werden <strong>%s %s</strong> permanent gelöscht.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Mache dieses Feld zur Titels
 $lang['streams:label.field_name']						= "Feldname";
 $lang['streams:label.field_slug']						= "Feldslug";
 $lang['streams:label.field_type']						= "Feldtyp";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Erstellt von";
-$lang['streams:created_date']							= "Erstellungdatum";
-$lang['streams:updated_date']							= "Aktualisierungsdatum";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Erstellt von";
+$lang['streams:column_created']							= "Erstellungdatum";
+$lang['streams:column_updated']							= "Aktualisierungsdatum";
 $lang['streams:value']									= "Wert";
 $lang['streams:manage']									= "Verwalten";
 $lang['streams:search']									= "Suche";
@@ -187,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "Fehler beim Laden des Sicherheitsbildes.
 $lang['streams:max_length'] 							= "Maximallänge";
 $lang['streams:upload_location'] 					= "Uploadverzeichnis";
 $lang['streams:default_value'] 						= "Standardwert";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
 $lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
 $lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate

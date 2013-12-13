@@ -59,47 +59,6 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 }
 
 /**
- * Return a users display name based on settings
- *
- * @param int $user the users id
- * @param string $linked if true a link to the profile page is returned, 
- *                       if false it returns just the display name.
- * @return  string
- */
-function user_displayname($user, $linked = true)
-{
-    // User is numeric and user hasn't been pulled yet isn't set.
-    if (is_numeric($user)) {
-        User::find($user);
-    }
-
-    $name = $user->display_name ?: $user->username;
-
-    // Static var used for cache
-    if ( ! isset($_users)) {
-        static $_users = array();
-    }
-
-    // check if it exists
-    if (isset($_users[$user->id])) {
-        if( ! empty( $_users[$user->id]->profile_link ) and $linked) {
-            return $_users[$user->id]->profile_link;
-        } else {
-            return $name;
-        }
-    }
-
-    // Set cached variable
-    if (Settings::get('enable_profiles') and $linked) {
-        $_users[$user->id]->profile_link = anchor('user/'.$user->username, $name);
-        return $_users[$user->id]->profile_link;
-    }
-
-    // Not cached, Not linked. get_user caches the result so no need to cache non linked
-    return $name;
-}
-
-/**
  * Whacky old password hasher
  *
  * @param int    $identity  The users identity
@@ -114,18 +73,25 @@ function user_displayname($user, $linked = true)
 function whacky_old_password_hasher($identity, $password)
 {
     if ( ! isset($identity, $password)) {
-        return false;
+        return rand_string(100);
     }
 
-    $salt = ci()->pdb
-        ->table('users')
-        ->select('salt')
-        ->whereRaw('(username = ? OR email = ?)', array($identity, $identity))
-        ->take(1)
-        ->pluck('salt');
+    $schema = ci()->pdb->getSchemaBuilder();
 
-    if ( ! $salt) {
-        return false;
+    if ($schema->hasColumn('users', 'salt')) {
+
+        $salt = ci()->pdb
+            ->table('users')
+            ->select('salt')
+            ->whereRaw('(username = ? OR email = ?)', array($identity, $identity))
+            ->take(1)
+            ->pluck('salt');
+
+        if ( ! $salt) {
+            return rand_string(100);
+        }
+    } else {
+        return rand_string(100);
     }
 
     return sha1($password.$salt);

@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']					= "اضافه کردن این ورودی ب
 $lang['streams:new_entry_success']				= "ورودی با موفقیت اضافه شد.";
 $lang['streams:edit_entry_error']					= "به روز رسانی این ورودی با خطا همراه بود";
 $lang['streams:edit_entry_success']				= "ورودی مورد نظر به روز رسانی شد.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']					= "آیا اطمینان دارد که می خواهید استریم <strong>%s</strong> را حذف کنید . این کار استریم <strong>%s %s</strong> را کلا حذف خواهد کرد.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "ستون عنوان، این
 $lang['streams:label.field_name']					= "نام فیلد";
 $lang['streams:label.field_slug']					= "نام انگلیسی فیلد";
 $lang['streams:label.field_type']					= "نوع فیلد";
-$lang['streams:id']						= "ID";
-$lang['streams:created_by']					= "ایجاد شده توسط";
-$lang['streams:created_date']					= "تاریخ ایجاد";
-$lang['streams:updated_date']					= "تاریخ ویرایش";
+$lang['streams:column_id']						= "ID";
+$lang['streams:column_created_by']					= "ایجاد شده توسط";
+$lang['streams:column_created']					= "تاریخ ایجاد";
+$lang['streams:column_updated']					= "تاریخ ویرایش";
 $lang['streams:value']						= "مقدار";
 $lang['streams:manage']						= "مدیریت";
 $lang['streams:search']						= "جستجو";
@@ -187,7 +188,9 @@ $lang['recaptcha_html_error'] 					= "تصویر امنیتی بارگذاری �
 $lang['streams:max_length'] 					= "طول بیشینه";
 $lang['streams:upload_location'] 					= "محل آپلود";
 $lang['streams:default_value'] 					= "مقدار پیشفرض";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']					= 'مسیر منو';
 $lang['streams:about_instructions']					= 'شرحی کوتاه برای استریم شما';
 $lang['streams:slug_instructions']					= 'این همان نام جدول شما در دیتابیس خواهد بود';

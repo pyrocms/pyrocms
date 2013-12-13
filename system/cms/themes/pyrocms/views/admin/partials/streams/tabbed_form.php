@@ -1,52 +1,71 @@
-<?php echo form_open_multipart(uri_string(), 'class="streams_form"'); ?>
+<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
 
-<div class="tabs">
-
-	<ul class="tab-menu">
+	
+	<!-- .nav.nav-tabs -->
+	<ul class="nav nav-tabs">
 	<?php foreach($tabs as $tab): ?>
-		<li>
-			<a href="#<?php echo $tab['id']; ?>" title="<?php echo $tab['title']; ?>">
+
+		<li class="<?php echo array_search($tab, $tabs) == 0 ? 'active' : null; ?>">
+		
+			<a href="#<?php echo $tab['id']; ?>" data-toggle="tab" title="<?php echo $tab['title']; ?>">
 				<span><?php echo $tab['title']; ?></span>
 			</a>
+
 		</li>
+
 	<?php endforeach; ?>
 	</ul>
+	<!-- /.nav.nav-tabs -->
 
-	<?php foreach($tabs as $tab): ?>
-	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
-		<fieldset>
 
-			<ul>
+	<!-- .tab-content.panel-body -->
+	<section class="tab-content panel-body">
 
-			<?php foreach ($tab['fields'] as $field) { ?>
+		<?php foreach($tabs as $tab): ?>
 
-				<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
-					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+			<div class="tab-pane <?php echo array_search($tab, $tabs) == 0 ? 'active' : null; ?>" id="<?php echo $tab['id']; ?>">
+				
+				<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
-					<?php if( $fields[$field]['instructions'] != '' ): ?>
-						<br /><small><?php echo $this->fields->translate_label($fields[$field]['instructions']); ?></small>
-					<?php endif; ?>
-					</label>
+					<?php echo $tab['content']; ?>
 
-					<div class="input"><?php echo $fields[$field]['input']; ?></div>
-				</li>
+				<?php else: ?>
 
-			<?php } ?>
+					<?php foreach ($tab['fields'] as $field): ?>
 
-			</ul>
+						<div class="form-group <?php echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
+							
+							<label for="<?php echo $fields[$field]['input_slug'];?>">
+								<?php echo lang_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
+							</label>
 
-		</fieldset>
+							<?php echo $fields[$field]['input']; ?>
 
+							<?php if( $fields[$field]['instructions'] != '' ): ?>
+								<p class="help-block"><?php echo lang_label($fields[$field]['instructions']); ?></p>
+							<?php endif; ?>
+
+						</div>
+
+					<?php endforeach; ?>
+					
+				<?php endif; ?>
+
+			</div>
+
+		<?php endforeach; ?>
+
+	</section>
+	<!-- /.tab-content.panel-body -->
+
+
+	<?php if ($mode == 'edit'): ?>
+		<input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" />
+	<?php endif; ?>
+
+	<div class="panel-footer">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 	</div>
-	<?php endforeach; ?>
 
-</div>
 
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
-
-	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
-	</div>
-
-<?php echo form_close();
+<?php echo form_close(); ?>

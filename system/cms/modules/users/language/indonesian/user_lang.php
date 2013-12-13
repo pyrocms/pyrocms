@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field'; #translate
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
+$lang['user:profile_company']         	  		= 'Company'; #translate
+$lang['user:profile_updated_on']           		= 'Updated On'; #translate
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user:register_header']                  = 'Registrasi';
@@ -154,49 +154,49 @@ $lang['user:reset_pass_email_subject']         = 'Set Ulang Password';
 $lang['user:reset_pass_email_body']            = 'Password Anda di %s sudah diset ulang. Apabila Anda tidak meminta perubahan ini, silakan email kami di %s dan kami akan perbaiki semestinya.';
 
 // Profile
-$lang['profile_of_title']             = 'Profil %s';
+$lang['user:profile_of_title']             = 'Profil %s';
 
-$lang['profile_user_details_label']   = 'Ddetail Pengguna';
-$lang['profile_role_label']           = 'Peran';
-$lang['profile_registred_on_label']   = 'Registrasi pada';
-$lang['profile_last_login_label']     = 'Terakhir masuk';
-$lang['profile_male_label']           = 'Laki-laki';
-$lang['profile_female_label']         = 'Perempuan';
+$lang['user:profile_user_details_label']   = 'Ddetail Pengguna';
+$lang['user:profile_role_label']           = 'Peran';
+$lang['user:profile_registred_on_label']   = 'Registrasi pada';
+$lang['user:profile_last_login_label']     = 'Terakhir masuk';
+$lang['user:profile_male_label']           = 'Laki-laki';
+$lang['user:profile_female_label']         = 'Perempuan';
 
-$lang['profile_not_set_up']           = 'Pengguna ini belum melengkapi profil.';
+$lang['user:profile_not_set_up']           = 'Pengguna ini belum melengkapi profil.';
 
-$lang['profile_edit']                 = 'Edit profil Anda';
+$lang['user:profile_edit']                 = 'Edit profil Anda';
 
-$lang['profile_personal_section']     = 'Personal';
+$lang['user:profile_personal_section']     = 'Personal';
 
-$lang['profile_display_name']         = 'Nama yang Tampil';
-$lang['profile_dob']                  = 'Tanggal Lahir';
-$lang['profile_dob_day']              = 'Hari';
-$lang['profile_dob_month']            = 'Bulan';
-$lang['profile_dob_year']             = 'Tahun';
-$lang['profile_gender']               = 'Jenis kelamin';
-$lang['profile_gender_nt']            = 'Jangan sebutkan';
-$lang['profile_gender_male']          = 'Laki-laki';
-$lang['profile_gender_female']        = 'Perempuan';
-$lang['profile_bio']                  = 'Tentang saya';
+$lang['user:profile_display_name']         = 'Nama yang Tampil';
+$lang['user:profile_dob']                  = 'Tanggal Lahir';
+$lang['user:profile_dob_day']              = 'Hari';
+$lang['user:profile_dob_month']            = 'Bulan';
+$lang['user:profile_dob_year']             = 'Tahun';
+$lang['user:profile_gender']               = 'Jenis kelamin';
+$lang['user:profile_gender_nt']            = 'Jangan sebutkan';
+$lang['user:profile_gender_male']          = 'Laki-laki';
+$lang['user:profile_gender_female']        = 'Perempuan';
+$lang['user:profile_bio']                  = 'Tentang saya';
 
-$lang['profile_contact_section']      = 'Kontak';
+$lang['user:profile_contact_section']      = 'Kontak';
 
-$lang['profile_phone']                = 'Telepon';
-$lang['profile_mobile']               = 'Selular';
-$lang['profile_address']              = 'Alamat';
-$lang['profile_address_line1']        = 'Baris #1';
-$lang['profile_address_line2']        = 'Baris #2';
-$lang['profile_address_line3']        = 'Baris #3';
-$lang['profile_address_postcode']     = 'Kode Pos';
-$lang['profile_website']              = 'Situs';
+$lang['user:profile_phone']                = 'Telepon';
+$lang['user:profile_mobile']               = 'Selular';
+$lang['user:profile_address']              = 'Alamat';
+$lang['user:profile_address_line1']        = 'Baris #1';
+$lang['user:profile_address_line2']        = 'Baris #2';
+$lang['user:profile_address_line3']        = 'Baris #3';
+$lang['user:profile_address_postcode']     = 'Kode Pos';
+$lang['user:profile_website']              = 'Situs';
 
-$lang['profile_avatar_section']       = 'Avatar';
+$lang['user:profile_avatar_section']       = 'Avatar';
 
-$lang['profile_edit_success']         = 'Profile Anda telah disimpan.';
-$lang['profile_edit_error']           = 'Terjadi kesalahan.';
+$lang['user:profile_edit_success']         = 'Profile Anda telah disimpan.';
+$lang['user:profile_edit_error']           = 'Terjadi kesalahan.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Simpan profil';
+$lang['user:profile_save_btn']             = 'Simpan profil';
 /* End of file user_lang.php */

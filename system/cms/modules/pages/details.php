@@ -1,6 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Pages Module
@@ -99,7 +102,11 @@ class Module_Pages extends AbstractModule
                     array(
                         'name' => 'pages:create_title',
                         'uri' => 'admin/pages/choose_type',
-                        'class' => 'add modal'
+                        'class' => 'btn-sm btn-success',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#modal',
+                        'data-hotkey' => 'n',
+                        'data-follow' => 'yes',
                     )
                 );
             } else {
@@ -111,7 +118,9 @@ class Module_Pages extends AbstractModule
                         array(
                             'name' => 'pages:create_title',
                             'uri' => 'admin/pages/create?page_type='.$page_type->id,
-                            'class' => 'add'
+                            'class' => 'btn-sm btn-success',
+                            'data-hotkey' => 'n',
+                            'data-follow' => 'yes',
                         )
                     );
                 }
@@ -124,7 +133,9 @@ class Module_Pages extends AbstractModule
                 array(
                     'name' => 'streams:new_field',
                     'uri' => 'admin/pages/types/fields/'.ci()->uri->segment(5).'/new_field',
-                    'class' => 'add'
+                    'class' => 'btn-sm btn-success',
+                    'data-hotkey' => 'n',
+                    'data-follow' => 'yes',
                 )
             );
         } else {
@@ -132,7 +143,9 @@ class Module_Pages extends AbstractModule
                 array(
                     'name' => 'pages:types_create_title',
                     'uri' => 'admin/pages/types/create',
-                    'class' => 'add'
+                    'class' => 'btn-sm btn-success',
+                    'data-hotkey' => 'n',
+                    'data-follow' => 'yes',
                 )
             );
         }
@@ -180,6 +193,7 @@ class Module_Pages extends AbstractModule
             $table->integer('parent_id');
             $table->string('type_id', 255);
             $table->string('entry_id', 255)->nullable();
+            $table->string('entry_type', 122);
             $table->text('css')->nullable();
             $table->text('js')->nullable();
             $table->string('meta_title', 255)->nullable();
@@ -201,39 +215,31 @@ class Module_Pages extends AbstractModule
             $table->index('parent_id');
         });
 
-        ci()->load->driver('Streams');
-
         // Remove pages namespace, just in case its a 2nd install
-        ci()->streams->utilities->remove_namespace('pages');
-
-        // Remove existing page streams
-        $pdb
-            ->table('data_streams')
-            ->where('stream_namespace', '=', 'pages')
-            ->delete();
+        SchemaUtility::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
         // Def Page Fields Schema
         $schema->dropIfExists('def_page_fields');
 
-        $stream_id = ci()->streams->streams->add_stream(
-            'Default',
+        $stream = StreamModel::addStream(
             'def_page_fields',
             'pages',
+            'Default', // @todo - language
             null,
-            'A basic page type to get you started adding content.'
+            'A basic page type to get you started adding content.' // @todo - language
         );
 
         // add the fields to the streams
-        ci()->streams->fields->add_fields(config_item('pages:default_fields'));
+        FieldModel::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
 
         // Insert the page type structures
-        $def_page_type_id = $pdb->table('page_types')->insert(array(
+        $def_page_type_id = $pdb->table('page_types')->insertGetId(array(
             'id' => 1,
             'title' => 'Default',
             'slug' => 'default',
-            'stream_id' => $stream_id,
+            'stream_id' => $stream->id,
             'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
             'css' => '',
             'js' => '',
@@ -248,6 +254,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'home',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -260,6 +267,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'contact',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -272,6 +280,7 @@ class Module_Pages extends AbstractModule
                 'uri' => '404',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -282,9 +291,9 @@ class Module_Pages extends AbstractModule
 
         foreach ($page_entries as $key => $d) {
             // Contact Page
-            $page_id = $pdb->table('pages')->insert($d);
+            $page_id = $pdb->table('pages')->insertGetId($d);
 
-            $entry_id = $pdb->table('def_page_fields')->insert($page_content[$key]);
+            $entry_id = $pdb->table('def_page_fields')->insertGetId($page_content[$key]);
 
             // Update the page with this entry_id
             $pdb->table('pages')

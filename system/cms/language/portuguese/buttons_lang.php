@@ -17,6 +17,8 @@ $lang['buttons:cancel']		= 'Cancelar';
 $lang['buttons:upload']		= 'Enviar';
 $lang['buttons:save']		= 'Gravar';
 $lang['buttons:save_exit']	= 'Gravar e sair';
+$lang['buttons:save_continue']	= 'Save &amp; Continue';
+$lang['buttons:save_create']	= 'Save &amp; Create';
 $lang['buttons:delete']		= 'Remover';
 $lang['buttons:publish']	= 'Publicar';
 $lang['buttons:approve']	= 'Aprovar';
@@ -35,7 +37,7 @@ $lang['buttons:edit']		= 'Editar';
 $lang['buttons:clone']		= 'Clonar';
 $lang['buttons:re-index']	= 'Reindexar';
 $lang['buttons:copy']		= 'Copiar';
-$lang['buttons:filter']		= 'Filter';
-$lang['buttons:clear']		= 'Clear';
+$lang['buttons:filter']		= 'Filtrar';
+$lang['buttons:clear']		= 'Limpar';
 
 /* End of file buttons_lang.php */

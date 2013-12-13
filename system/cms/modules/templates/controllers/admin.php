@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Templates\Model\EmailTemplate;
+
 /**
  * Email Templates Admin Controller
  *
@@ -26,8 +29,7 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('templates');
-		$this->load->model('email_templates_m');
-
+		
 		foreach ($this->config->item('supported_languages') as $key => $lang)
 		{
 			$lang_options[$key] = $lang['name'];
@@ -100,11 +102,13 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$templates = $this->email_templates_m->get_all();
+		$templates = EmailTemplate::findByIsDefault(false);
+		$default_templates = EmailTemplate::findByIsDefault(true);
 
 		$this->template
 			->title($this->module_details['name'])
 			->set('templates', $templates)
+			->set('default_templates', $default_templates)
 			->build('admin/index');
 	}
 
@@ -134,7 +138,7 @@ class Admin extends Admin_Controller
 				$data[$key] = $this->input->post($key);
 			}
 			unset($data['btnAction']);
-			if ($id = $this->email_templates_m->insert($data))
+			if ($id = EmailTemplate::insert($data))
 			{
 				// Fire an event. A new email template has been created.
 				Events::trigger('email_template_created', $id);
@@ -158,7 +162,7 @@ class Admin extends Admin_Controller
 
 	public function edit($id = false)
 	{
-		$email_template = $this->email_templates_m->get($id);
+		$email_template = EmailTemplate::find($id);
 
 		$this->load->library('form_validation');
 
@@ -195,7 +199,7 @@ class Admin extends Admin_Controller
 				);
 			}
 
-			if ($this->email_templates_m->update($id, $data))
+			if (EmailTemplate::update($id, $data))
 			{
 				// Fire an event. An email template has been updated.
 				Events::trigger('email_template_updated', $id);
@@ -237,7 +241,11 @@ class Admin extends Admin_Controller
 
 			foreach ($ids as $id)
 			{
-				if ($this->email_templates_m->delete($id))
+				if ( ! $template = EmailTemplate::find($id)) {
+					continue;
+				}
+
+				if ($template->delete())
 				{
 					$deleted++;
 				}
@@ -284,11 +292,11 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = false)
 	{
-		$email_template = $this->email_templates_m->get($id);
+		$email_template = EmailTemplate::find($id);
 
 		$this->template
 			->set_layout('modal')
-			->build('admin/preview', $email_template);
+			->build('admin/preview', array('email_template' => $email_template));
 	}
 
 	/**
@@ -304,14 +312,14 @@ class Admin extends Admin_Controller
 		$id = (int)$id;
 
 		//we will need this later after the form submission
-		$copy = $this->email_templates_m->get($id);
+		$copy = EmailTemplate::find($id);
 
 		//unset the id and is_default from $copy we don't need or want them anymore
 		unset($copy->id);
 		unset($copy->is_default);
 
 		//lets get all variations of this template so we can remove the lang options
-		$existing = $this->email_templates_m->get_many_by('slug', $copy->slug);
+		$existing = EmailTemplate::findBySlug($copy->slug);
 
 		$lang_options = $this->template->lang_options;
 
@@ -332,7 +340,7 @@ class Admin extends Admin_Controller
 			// insert stuff to db
 			$copy->lang = $this->input->post('lang');
 
-			if ($new_id = $this->email_templates_m->insert($copy))
+			if ($new_id = EmailTemplate::insert($copy->toArray()))
 			{
 				// Fire the "created" event here also.
 				Events::trigger('email_template_created');

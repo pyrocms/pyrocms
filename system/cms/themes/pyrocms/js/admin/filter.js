@@ -1,6 +1,6 @@
 $(function(){
 
-	pyro.filter = {
+	Pyro.filter = {
 		$content		: $('#filter-stage'),
 		// filter form object
 		$filter_form	: $('#filters form'),
@@ -16,70 +16,70 @@ $(function(){
 			$('a.cancel').button();
 
 			//listener for select elements
-			$('select', pyro.filter.$filter_form).on('change', function(){
+			$('select', Pyro.filter.$filter_form).on('change', function(){
 
 				//build the form data
-				form_data = pyro.filter.$filter_form.serialize();
+				form_data = Pyro.filter.$filter_form.serialize();
 
 				//fire the query
-				pyro.filter.do_filter(pyro.filter.f_module, form_data);
+				Pyro.filter.do_filter(Pyro.filter.f_module, form_data);
 			});
 
 			//listener for keywords
-			$('input[type="text"]', pyro.filter.$filter_form).on('keyup', $.debounce(500, function(){
+			$('input[type="text"]', Pyro.filter.$filter_form).on('keyup', function(){
 
 				//build the form data
-				form_data = pyro.filter.$filter_form.serialize();
+				form_data = Pyro.filter.$filter_form.serialize();
 
-				pyro.filter.do_filter(pyro.filter.f_module, form_data);
+				Pyro.filter.do_filter(Pyro.filter.f_module, form_data);
 			
-			}));
+			});
 	
 			//listener for pagination
 			$('body').on('click', '.pagination a', function(e){
 				e.preventDefault();
 				url = $(this).attr('href');
-				form_data = pyro.filter.$filter_form.serialize();
-				pyro.filter.do_filter(pyro.filter.f_module, form_data, url);
+				form_data = Pyro.filter.$filter_form.serialize();
+				Pyro.filter.do_filter(Pyro.filter.f_module, form_data, url);
 			});
 			
 			//clear filters
-			$('a.cancel', pyro.filter.$filter_form).click(function() {
+			$('a.cancel', Pyro.filter.$filter_form).click(function() {
 			
 					//reset the defaults
 					//$('select', filter_form).children('option:first').addAttribute('selected', 'selected');
-					$('select', pyro.filter.$filter_form).val('0');
+					$('select', Pyro.filter.$filter_form).val('0');
 					
 					//clear text inputs
 					$('input[type="text"]').val('');
 			
 					//build the form data
-					form_data = pyro.filter.$filter_form.serialize();
+					form_data = Pyro.filter.$filter_form.serialize();
 			
-					pyro.filter.do_filter(pyro.filter.f_module, form_data);
+					Pyro.filter.do_filter(Pyro.filter.f_module, form_data);
 			});
 			
 			//prevent default form submission
-			pyro.filter.$filter_form.submit(function(e){
+			Pyro.filter.$filter_form.submit(function(e){
 				e.preventDefault(); 
 			});
 
 			// trigger an event to submit immediately after page load
-			pyro.filter.$filter_form.find('select').first().trigger('change');
+			Pyro.filter.$filter_form.find('select').first().trigger('change');
 		},
 	
 		//launch the query based on module
 		do_filter: function(module, form_data, url){
-			form_action	= pyro.filter.$filter_form.attr('action');
+			form_action	= Pyro.filter.$filter_form.attr('action');
 			post_url	= form_action ? form_action : SITE_URL + 'admin/' + module;
 
 			if (typeof url !== 'undefined'){
 				post_url = url;
 			}
 
-			pyro.clear_notifications();
+			Pyro.clear_notifications();
 
-			pyro.filter.$content.fadeOut('fast', function(){
+			Pyro.filter.$content.fadeOut('fast', function(){
 				//send the request to the server
 				$.post(post_url, form_data, function(data, response, xhr) {
 					
@@ -90,15 +90,15 @@ $(function(){
 					{
 						html = 'html' in data ? data.html : '';
 
-						pyro.filter.handler_response_json(data);
+						Pyro.filter.handler_response_json(data);
 					}
 					else {
 						html = data;
 					}
 
 					//success stuff here
-					pyro.chosen();
-					pyro.filter.$content.html(html).fadeIn('fast');
+					Pyro.chosen();
+					Pyro.filter.$content.html(html).fadeIn('fast');
 				});
 			});
 		},
@@ -107,13 +107,13 @@ $(function(){
 		{
 			if ('update_filter_field' in json && typeof json.update_filter_field == 'object')
 			{
-				$.each(json.update_filter_field, pyro.filter.update_filter_field);
+				$.each(json.update_filter_field, Pyro.filter.update_filter_field);
 			}
 		},
 
 		update_filter_field: function(field, data)
 		{
-			var $field = pyro.filter.$filter_form.find('[name='+field+']');
+			var $field = Pyro.filter.$filter_form.find('[name='+field+']');
 
 			if ($field.is('select'))
 			{
@@ -136,6 +136,6 @@ $(function(){
 		}
 	};
 
-	pyro.filter.init();
+	Pyro.filter.init();
 
 });

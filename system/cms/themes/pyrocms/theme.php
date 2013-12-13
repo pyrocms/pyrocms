@@ -10,7 +10,7 @@ class Theme_Pyrocms extends AbstractTheme
     public $author_website	= 'http://pyrocms.com/';
     public $website			= 'http://pyrocms.com/';
     public $description		= 'PyroCMS admin theme. HTML5 and CSS3 styling.';
-    public $version			= '1.0.0';
+    public $version			= '2.0.0';
 	public $type			= 'admin';
 	public $options 		= array(
 		'pyrocms_recent_comments' => array(
@@ -62,7 +62,7 @@ class Theme_Pyrocms extends AbstractTheme
 		// only load these items on the dashboard
 		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
 			// don't bother fetching the data if it's turned off in the theme
-			if (( ! $opt = $this->theme->getOptionValues())) {
+			if (( ! $opt = $this->theme->model->getOptionValues())) {
 
 				if (isset($opt->pyrocms_analytics_graph) and $opt->pyrocms_analytics_graph == 'yes')	{ 
 					self::getAnalytics();

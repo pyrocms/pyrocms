@@ -3,6 +3,8 @@
 /* load the MX core module class */
 require dirname(__FILE__).'/Modules.php';
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 /**
  * Modular Extensions - HMVC
  *
@@ -39,6 +41,8 @@ class MX_Router extends CI_Router
 {
 	private $module;
 
+	protected static $DB = null;
+
 	public function fetch_module()
 	{
 		return $this->module;
@@ -51,6 +55,12 @@ class MX_Router extends CI_Router
 		/* locate module controller */
 		if ($located = $this->locate($segments)) {
 			return $located;
+		}
+
+		/* Routes module */
+		if ($routes_segments = $this->routes($segments))
+		{
+			if ($located = $this->locate($routes_segments)) return $located;
 		}
 
 		/* use a default 404_override controller */
@@ -72,19 +82,17 @@ class MX_Router extends CI_Router
 		 */
 		if ($path = self::is_multisite() and ! defined('SITE_REF'))
 		{
-			require_once BASEPATH.'database/DB.php';
-
-			$site = DB()
-				->select('site.name, site.ref, site.domain, site.active, alias.domain as alias_domain, alias.type as alias_type')
-				->where('site.domain', SITE_DOMAIN)
-				->or_where('alias.domain', SITE_DOMAIN)
-				->join('core_domains alias', 'alias.site_id = site.id', 'left')
-				->get('core_sites site')
-				->row();
+			$site = self::$DB
+				->table('core_sites')
+				->select('core_sites.name', 'core_sites.ref', 'core_sites.domain', 'core_sites.is_activated', 'core_domains.domain as alias_domain', 'core_domains.type as alias_type')
+				->where('core_sites.domain', '=', SITE_DOMAIN)
+				->orWhere('core_domains.domain', '=', SITE_DOMAIN)
+				->leftJoin('core_domains', 'core_domains.site_id', '=', 'core_sites.id')
+				->first();				
 
 			// If the site is disabled we set the message in a constant for MY_Controller to display
-			if (isset($site->active) and ! $site->active) {
-				$status = DB()->where('slug', 'status_message')
+			if (isset($site->is_activated) and ! $site->is_activated) {
+				$status = $DB->where('slug', 'status_message')
 					->get('core_settings')
 					->row();
 
@@ -243,5 +251,106 @@ class MX_Router extends CI_Router
 		}
 
 		Modules::$locations = $locations;
+	}
+
+	/**
+	 * Check if a route from the routes module has been used
+	 * @param  array $segments
+	 * @return array           [description]
+	 */
+	public function routes($segments)
+	{
+		// Connect and save the connection
+		self::$DB = self::connect();
+		
+		//TODO Caching Here
+		$routes = self::$DB->table(SITE_REF.'_routes')->select('route_key', 'route_value')->get();
+		
+		$uri = implode('/', $segments);
+		
+		foreach ($routes as $route)
+		{
+			if ($uri == $route->route_key) return explode('/', $route->route_value);
+
+			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $route->route_key));
+
+			// Does the RegEx match?
+			if (preg_match('#^'.$key.'$#', $uri))
+			{
+				// Do we have a back-reference?
+				if (strpos($route->route_value, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+				{
+					$val = preg_replace('#^'.$key.'$#', $route->route_value, $uri);
+				}
+
+				return explode('/', $route->route_value);
+			}
+		}
+	}
+
+	private function connect() {
+
+		include APPPATH.'config/database.php';
+
+        $db = $db[ENVIRONMENT];
+
+
+        // Is this a PDO connection?
+        if ($db['dbdriver']) {
+
+        	preg_match('/(mysql|pgsql|sqlite)+:.+dbname=(\w+)/', $db['dsn'], $matches);
+            $subdriver = $matches[1];
+            $database = $matches[2];
+            unset($matches);
+
+            $drivers = array(
+                'mysql' => '\Illuminate\Database\MySqlConnection',
+                'pgsql' => '\Illuminate\Database\PostgresConnection',
+                'sqlite' => '\Illuminate\Database\SQLiteConnection',
+            );
+
+            $pdo = new PDO($db['dsn'], $db['username'], $db['password'], array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+            // Make a connection instance with the existing PDO connection
+            $conn = new $drivers[$subdriver]($pdo, $database);
+
+            $resolver = new Illuminate\Database\ConnectionResolver;
+            $resolver->addConnection('default', $conn);
+            $resolver->setDefaultConnection('default');
+
+            Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
+
+        // Not using the new PDO driver
+        } else {
+
+            $capsule = new Capsule;
+
+            $capsule->addConnection(array(
+                'driver' => $dbdb['dbdriver'],
+                'host' => $db["hostname"],
+                'database' => $db["database"],
+                'username' => $db["username"],
+                'prefix' => $prefix,
+                'password' => $db["password"],
+                'charset' => $db["char_set"],
+                'collation' => $db["dbcollat"],
+            ));
+
+            // Set the fetch mode FETCH_CLASS so we 
+            // get objects back by default.
+            $capsule->setFetchMode(PDO::FETCH_CLASS);
+
+            // Setup the Eloquent ORM
+            $capsule->bootEloquent();
+
+            // Make this Capsule instance available globally via static methods... (optional)
+            $capsule->setAsGlobal();
+
+            $conn = $capsule->connection();
+        }
+
+        $conn->setFetchMode(PDO::FETCH_OBJ);
+
+        return $conn;
 	}
 }

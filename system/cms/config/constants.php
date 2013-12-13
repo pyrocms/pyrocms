@@ -119,7 +119,7 @@ define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 |
 */
 
-define('IS_SECURE', (string) (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on'));
+define('IS_SECURE', (string) (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'));
 
 // Base URL (keeps this crazy sh*t out of the config.php
 if (isset($_SERVER['HTTP_HOST'])) {
@@ -155,7 +155,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.3.0-dev');
+define('CMS_VERSION', '3.0-dev');
 
 /*
 |--------------------------------------------------------------------------

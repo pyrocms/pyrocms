@@ -1,6 +1,7 @@
 <?php
 
 use Composer\Autoload\ClassLoader;
+use Pyro\Module\Streams_core\FieldTypeManager;
 
 include PYROPATH.'core/MY_Model.php';
 
@@ -14,7 +15,7 @@ class Module_import
 		$this->buildFolderStructure(ADDONPATH, dirname(FCPATH));
 
 		// Lets PSR-0 up our modules
-		$this->registerAutoloader(new ClassLoader, realpath(PYROPATH));
+		$this->registerAutoloader(new ClassLoader, realpath(PYROPATH), true);
 	}
 
 	/**
@@ -46,12 +47,39 @@ class Module_import
 	 *
 	 * @return Composer\Autoload\ClassLoader
 	 */
-	public function registerAutoloader($loader, $app_path)
+	public function registerAutoloader(ClassLoader $loader, $app_path, $is_core = false)
 	{
-        $loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
-        
+		$loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
+		$loader->add('Pyro\\Module\\Streams_core', $app_path.'/modules/streams_core/src/');
+
+		$slugs = array();
+
+		// Go through EVERY module and register its src folder
+        foreach (glob("{$app_path}/modules/*/src/", GLOB_ONLYDIR) as $dir) {
+
+        	// Turn 'modules/blog/src/' into 'blog'
+        	$slugs[] = $slug = basename(dirname($dir));
+
+        	// That 'blog' should now be 'Pyro\Module\Blog'
+        	$namespace = 'Pyro\\Module\\'.ucfirst($slug);
+
+	        $loader->add($namespace, $dir);
+    	}
+
         // activate the autoloader
         $loader->register();
+
+    	foreach ($slugs as $slug) {
+    		
+    		if ($details_class = $this->spawnClass($slug, $is_core)) {
+
+	        	$module_info = $details_class->info();
+
+	        	$field_types = isset($module_info['field_types']) ? $module_info['field_types'] : false;
+
+	        	FieldTypeManager::registerFolderFieldTypes("{$app_path}/modules/{$slug}/field_types/", $field_types);
+	        }
+    	}
 
         return $loader;
 	}
@@ -164,6 +192,18 @@ class Module_import
 				$this->install($slug, true);
 			}
 		}
+
+		$user = ci()->session->userdata('user');
+
+		// Populate site profiles
+		$this->pdb
+			->table('profiles')->insert(array(
+				'user_id'       => 1,
+				'first_name'    => $user['firstname'],
+				'last_name'     => $user['lastname'],
+				'display_name'  => $user['firstname'].' '.$user['lastname'],
+				'lang'          => 'en',
+			));
 
 		// After modules are imported we need to modify the settings table
 		// This allows regular admins to upload addons on the first install but not on multi

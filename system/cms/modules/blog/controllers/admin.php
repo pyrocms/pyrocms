@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Comments\Model\Comment;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  *
@@ -17,12 +18,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]'
 		),
 		array(
 			'field' => 'category_id',
@@ -84,9 +85,11 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->load->model(array('blog_m', 'blog_categories_m'));
+		
 		$this->lang->load(array('blog', 'categories'));
+
+/*		$this->load->model(array('blog_m', 'blog_categories_m'));
+		
 
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
@@ -95,14 +98,38 @@ class Admin extends Admin_Controller
 			foreach ($categories as $category) {
 				$_categories[$category->id] = $category->title;
 			}
-		}
+		}*/
 
-		// Date ranges for select boxes
+/*		// Date ranges for select boxes
 		$this->template
 			->set('hours', array_combine($hours = range(0, 23), $hours))
 			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
 			->set('categories', $_categories)
-			->append_css('module::blog.css');
+			->append_css('module::blog.css');*/
+
+
+		/**
+         * Search Index Template
+         * - Autoindex this shit
+         */
+        
+/*        $this->_index_template = array(
+            'singular' => 'blog:post',
+            'plural' => 'blog:posts',
+            'title' => '{{ post:title }}',
+            'description' => '{{ entry:body }}',
+            'keywords' => '{{ post:meta_keywords }}',
+            'uri' => '{{ post:uri }}',
+            'cp_uri' => 'admin/blog/edit/{{ entry:id }}',
+            'group_access' => null,
+            'user_access' => null
+            );
+
+
+		// we need this for our manual view below
+		$this->_categories = $_categories;
+		$this->_hours = $hours;
+		$this->_minutes = $minutes;*/
 	}
 
 	/**
@@ -110,7 +137,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		//set the base/default where clause
+/*		//set the base/default where clause
 		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
@@ -124,14 +151,14 @@ class Admin extends Admin_Controller
 
 		if ($this->input->post('f_keywords')) {
 			$base_where['keywords'] = $this->input->post('f_keywords');
-		}
+		}*/
 
 		// Create pagination links
-		$total_rows = $this->blog_m->count_by($base_where);
-		$pagination = create_pagination('admin/blog/index', $total_rows);
+/*		$total_rows = $this->blog_m->count_by($base_where);
+		$pagination = create_pagination('admin/blog/index', $total_rows);*/
 
 		// Using this data, get the relevant results
-		$blog = $this->blog_m
+/*		$blog = $this->blog_m
 			->limit($pagination['limit'], $pagination['offset'])
 			->get_many_by($base_where);
 
@@ -140,14 +167,14 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('admin/filter.js')
-			->set_partial('filters', 'admin/partials/filters')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 
 		$this->input->is_ajax_request()
 			? $this->template->build('admin/tables/posts')
-			: $this->template->build('admin/index');
+			: $this->template->build('admin/index');*/
+
+		EntryUi::table('blog', 'blogs')->render();
 
 	}
 
@@ -167,82 +194,115 @@ class Admin extends Admin_Controller
 		$post = new stdClass;
 
 		// Get the blog stream.
-		$this->load->driver('Streams');
-		$stream = $this->streams->streams->get_stream('blog', 'blogs');
-		$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
+		//$this->load->driver('Streams');
+		//$stream = $this->streams->streams->get_stream('blog', 'blogs');
+		//$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
 
 		// Get the validation for our custom blog fields.
-		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
+		//$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
 
 		// Combine our validation rules.
-		$rules = array_merge($this->validation_rules, $blog_validation);
+		//$rules = array_merge($this->validation_rules, $blog_validation);
 
 		// Set our validation rules
-		$this->form_validation->set_rules($rules);
+		//$this->form_validation->set_rules($rules);
 
 		if ($this->input->post('created_on')) {
-			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+			$created_at = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
-			$created_on = time();
+			$created_at = time();
 		}
+		//$this->form_validation->run()
 
-		if ($this->form_validation->run()) {
+		if (true) {
 
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
-			$extra = array(
+/*			$extra = array(
 				'title'            => $this->input->post('title'),
 				'slug'             => $this->input->post('slug'),
 				'category_id'      => $this->input->post('category_id'),
 				'keywords'         => Keywords::process($this->input->post('keywords')),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
-				'created_on'       => $created_on,
-				'created'		   => date('Y-m-d H:i:s', $created_on),
+				'created_at'		=> date('Y-m-d H:i:s', $created_at),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $this->current_user->id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash
-			);
+			);*/
 
-			if ($id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)) {
-				$this->cache->clear('blog_m');
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
+			if (
+				//$id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)
+				true) {
+				//$this->cache->clear('blog_m');
+				$this->session->set_flashdata('success', sprintf(lang('blog:post_add_success'), $this->input->post('title')));
 
 				// Blog article has been updated, may not be anything to do with publishing though
-				Events::trigger('post_created', $id);
+				//Events::trigger('post_created', $id);
 
 				// They are trying to put this live
 				if ($this->input->post('status') == 'live') {
 					// Fire an event, we're posting a new blog!
-					Events::trigger('post_published', $id);
+				//	Events::trigger('post_published', $id);
 				}
 			} else {
 				$this->session->set_flashdata('error', lang('blog:post_add_error'));
 			}
-
+$id = null;
 			// Redirect back to the form or main page
-			($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
+			//($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
 		} else {
 			// Go through all the known fields and get the post values
 			$post = new stdClass;
 			foreach ($this->validation_rules as $key => $field) {
 				$post->$field['field'] = set_value($field['field']);
 			}
-			$post->created_on = $created_on;
-
+			$post->created_at = $created_at;
+		
 			// if it's a fresh new article lets show them the advanced editor
 			$post->type or $post->type = 'wysiwyg-advanced';
 		}
 
 		// Set Values
-		$values = $this->fields->set_values($stream_fields, null, 'new');
+		//$values = $this->fields->set_values($stream_fields, null, 'new');
 
 		// Run stream field events
-		$this->fields->run_field_events($stream_fields, array(), $values);
+		//$this->fields->run_field_events($stream_fields, array(), $values);
 
-		$this->template
+		// Build out our form structure
+		$tabs = array(
+/*            array(
+                'title'     => lang('blog:content_label'),
+                'id'        => 'blog-content-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/content', array('post' => $post), true),
+            ),*/
+            array(
+                'title'     => lang('global:custom_fields'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            ),
+            /*array(
+                'title'     => lang('blog:options_label'),
+                'id'        => 'blog-options-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
+            ),*/
+        );
+
+
+		EntryUi::form('Pyro\Module\Blog\BlogEntryModel')
+            ->tabs($tabs)
+            ->onSaving(function($entry) {
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
+            })
+            ->enableSave($enable_entry_save = true) // This enables the profile submittion only if the user was created successfully
+            ->successMessage('Post saved.') // @todo - language
+            ->redirect('admin/blog')
+            //->index($this->_index_template)
+            ->render();
+
+		/*$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
@@ -251,7 +311,7 @@ class Admin extends Admin_Controller
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array) $post))
 			->set('post', $post)
-			->build('admin/form');
+			->build('admin/form');*/
 	}
 
 	/**
@@ -277,34 +337,21 @@ class Admin extends Admin_Controller
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on')) {
-			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+			$created_at = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
-			$created_on = $post->created_on;
+			$created_at = $post->created_at;
 		}
 
 		// Load up streams
-		$this->load->driver('Streams');
-		$stream = $this->streams->streams->get_stream('blog', 'blogs');
-		$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
+		//$this->load->driver('Streams');
+		//$stream = $this->streams->streams->get_stream('blog', 'blogs');
+		//$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
 
 		// Get the validation for our custom blog fields.
 		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
 
-		$blog_validation = array_merge($this->validation_rules, array(
-			'title' => array(
-				'field' => 'title',
-				'label' => 'lang:global:title',
-				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
-			),
-			'slug' => array(
-				'field' => 'slug',
-				'label' => 'lang:global:slug',
-				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
-			),
-		));
-
 		// Merge and set our validation rules
-		$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
+		//$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
 
 		$hash = $this->input->post('preview_hash');
 
@@ -317,6 +364,8 @@ class Admin extends Admin_Controller
 			$hash = '';
 		}
 
+		$enable_entry_save = false;
+
 		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
@@ -327,10 +376,9 @@ class Admin extends Admin_Controller
 				'keywords'         => Keywords::process($this->input->post('keywords'), $old_keywords_hash),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
-				'created_on'       => $created_on,
-				'updated_on'       => $created_on,
-				'created'		   => date('Y-m-d H:i:s', $created_on),
-				'updated'		   => date('Y-m-d H:i:s', $created_on),
+				'created_on'       => $created_at,
+				'created_at'		=> date('Y-m-d H:i:s', $created_at),
+				'updated_at'		=> date('Y-m-d H:i:s', $created_at),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
@@ -338,7 +386,7 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash,
 			);
 
-			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra)) {
+			if ($enable_entry_save = $this->blog_m->update($id, $extra)) {
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
 				// Blog article has been updated, may not be anything to do with publishing though
@@ -354,7 +402,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Redirect back to the form or main page
-			($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
+			//($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
 		}
 
 		// Go through all the known fields and get the post values
@@ -364,7 +412,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$post->created_on = $created_on;
+		$post->created_at = $created_at;
 
 		// Set Values
 		$values = $this->fields->set_values($stream_fields, $post, 'edit');
@@ -372,15 +420,36 @@ class Admin extends Admin_Controller
 		// Run stream field events
 		$this->fields->run_field_events($stream_fields, array(), $values);
 
-		$this->template
-			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
-			->append_js('jquery/jquery.tagsinput.js')
-			->append_js('module::blog_form.js')
-			->append_css('jquery/jquery.tagsinput.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $post->id))
-			->set('post', $post)
-			->build('admin/form');
+
+		// Build out our form structure
+		$tabs = array(
+            array(
+                'title'     => lang('blog:content_label'),
+                'id'        => 'blog-content-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/content', array('post' => $post), true),
+            ),
+            array(
+                'title'     => lang('global:custom_fields'),
+                'id'        => 'profile-fields',
+                'fields'    => '*'
+            ),
+            array(
+                'title'     => lang('blog:options_label'),
+                'id'        => 'blog-options-tab',
+                'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
+            ),
+        );
+
+		EntryUi::form('blog', 'blogs', $id)
+            ->tabs($tabs)
+            ->onSaving(function($entry) {
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
+            })
+            ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
+            ->successMessage('Post saved.') // @todo - language
+            ->redirect('admin/blog')
+            ->index($this->_index_template)
+            ->render();
 	}
 
 	/**
@@ -413,7 +482,7 @@ class Admin extends Admin_Controller
 				break;
 
 			default:
-				redirect('admin/blog');
+				// redirect('admin/blog');
 				break;
 		}
 	}

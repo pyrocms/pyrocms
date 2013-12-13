@@ -28,7 +28,12 @@ $lang['streams:new_entry_error'] = "Un problème a été rencontré lors de l'aj
 $lang['streams:new_entry_success'] = "Entrée ajoutée avec succès.";
 $lang['streams:edit_entry_error'] = "Un problème a été rencontré lors de la mise à jour de cette entrée.";
 $lang['streams:edit_entry_success'] = "Entrée mise à jour avec succès.";
+<<<<<<< HEAD
 $lang['streams:delete_summary'] = "Êtes-vous sûr(e) de vouloir supprimer le flux <strong>%s</strong>&nbsp;? Ceci <strong>supprimera %s %s</strong> de façon permanente.";
+=======
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
+$lang['streams:delete_summary'] = "Êtes vous sur de vouloir supprimer le flux <strong>%s</strong>&nbsp;? Ceci <strong>supprimera %s %s</strong> de façon permanente.";
+>>>>>>> 78fc6eb0f3fa4bce6a882b1dbd2bf21aefd4f44c
 
 /* Misc Errors */
 
@@ -67,10 +72,10 @@ $lang['streams:label.make_field_title_column'] = "Faire de ce champ le titre de 
 $lang['streams:label.field_name'] = "Nom du champ";
 $lang['streams:label.field_slug'] = "Slug du champ";
 $lang['streams:label.field_type'] = "Type de champ";
-$lang['streams:id'] = "ID";
-$lang['streams:created_by'] = "Créé par";
-$lang['streams:created_date'] = "Créé le";
-$lang['streams:updated_date'] = "Mis à jour le";
+$lang['streams:column_id'] = "ID";
+$lang['streams:column_created_by'] = "Créé par";
+$lang['streams:column_created'] = "Créé le";
+$lang['streams:column_updated'] = "Mis à jour le";
 $lang['streams:value'] = "Valeur";
 $lang['streams:manage'] = "Gérer";
 $lang['streams:search'] = "Chercher";
@@ -187,7 +192,9 @@ $lang['recaptcha_html_error'] = "Un problème à eu lieu lors du chargement de l
 $lang['streams:max_length'] = "Longueur max";
 $lang['streams:upload_location'] = "Dossier de chargement";
 $lang['streams:default_value'] = "Valeur par défaut";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path'] = 'Chemin du Menu';
 $lang['streams:about_instructions'] = 'Une courte description de votre flux.';
 $lang['streams:slug_instructions'] = 'Sera utilisé comme nom de table en base de données pour votre flux.';

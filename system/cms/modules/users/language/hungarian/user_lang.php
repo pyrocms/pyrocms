@@ -3,9 +3,9 @@
 $lang['user:add_field']                        = 'Felhasználói profil mező hozzáadása';
 $lang['user:profile_delete_success']           = 'Felhasználói profil mező sikeresen törölve';
 $lang['user:profile_delete_failure']           = 'Probléma lépett fel a profil mező törlése közben';
-$lang['profile_user_basic_data_label']         = 'Alap adatok';
-$lang['profile_company']                       = 'Vállalat';
-$lang['profile_updated_on']                    = 'Frissítve';
+$lang['user:profile_user_basic_data_label']    = 'Alap adatok';
+$lang['user:profile_company']                  = 'Vállalat';
+$lang['user:profile_updated_on']               = 'Frissítve';
 $lang['user:profile_fields_label']             = 'Profil mezők';
 
 $lang['user:register_header']                  = 'Regisztálás';
@@ -154,50 +154,50 @@ $lang['user:reset_pass_email_subject']         = 'Új jelszó';
 $lang['user:reset_pass_email_body']            = 'A jelszavad a(z) "%s" weboldalon meg lett változtatva. Amennyiben nem te kezdeményezted a változást, kérjük írj egy levelet a %s címre és gondoskodunk a hiba javításáról.';
 
 // Profile
-$lang['profile_of_title']                      = '%s profilja';
+$lang['user:profile_of_title']                      = '%s profilja';
 
-$lang['profile_user_details_label']            = 'Felhasználói adatok';
-$lang['profile_role_label']                    = 'Beosztás';
-$lang['profile_registred_on_label']            = 'Regisztráció dátuma';
-$lang['profile_last_login_label']              = 'Utolsó bejelentkezés';
-$lang['profile_male_label']                    = 'Férfi';
-$lang['profile_female_label']                  = 'Nő';
+$lang['user:profile_user_details_label']            = 'Felhasználói adatok';
+$lang['user:profile_role_label']                    = 'Beosztás';
+$lang['user:profile_registred_on_label']            = 'Regisztráció dátuma';
+$lang['user:profile_last_login_label']              = 'Utolsó bejelentkezés';
+$lang['user:profile_male_label']                    = 'Férfi';
+$lang['user:profile_female_label']                  = 'Nő';
 
-$lang['profile_not_set_up']                    = 'Ennek a felhaszálónak nincs profilja.';
+$lang['user:profile_not_set_up']                    = 'Ennek a felhaszálónak nincs profilja.';
 
-$lang['profile_edit']                          = 'Profil módosítása';
+$lang['user:profile_edit']                          = 'Profil módosítása';
 
-$lang['profile_personal_section']              = 'Személyes';
+$lang['user:profile_personal_section']              = 'Személyes';
 
-$lang['profile_display_name']                  = 'Megjelenített név';
-$lang['profile_dob']                           = 'Születési dátum';
-$lang['profile_dob_day']                       = 'Nap';
-$lang['profile_dob_month']                     = 'Hónap';
-$lang['profile_dob_year']                      = 'Év';
-$lang['profile_gender']                        = 'Nem';
-$lang['profile_gender_nt']                     = 'Nincs megadva';
-$lang['profile_gender_male']                   = 'Férfi';
-$lang['profile_gender_female']                 = 'Nő';
-$lang['profile_bio']                           = 'Rólam';
+$lang['user:profile_display_name']                  = 'Megjelenített név';
+$lang['user:profile_dob']                           = 'Születési dátum';
+$lang['user:profile_dob_day']                       = 'Nap';
+$lang['user:profile_dob_month']                     = 'Hónap';
+$lang['user:profile_dob_year']                      = 'Év';
+$lang['user:profile_gender']                        = 'Nem';
+$lang['user:profile_gender_nt']                     = 'Nincs megadva';
+$lang['user:profile_gender_male']                   = 'Férfi';
+$lang['user:profile_gender_female']                 = 'Nő';
+$lang['user:profile_bio']                           = 'Rólam';
 
-$lang['profile_contact_section']               = 'Elérhetőség';
+$lang['user:profile_contact_section']               = 'Elérhetőség';
 
-$lang['profile_phone']                         = 'Telefon';
-$lang['profile_mobile']                        = 'Mobil';
-$lang['profile_address']                       = 'Cím';
-$lang['profile_address_line1']                 = 'Cím #1';
-$lang['profile_address_line2']                 = 'Cím #2';
-$lang['profile_address_line3']                 = 'Város';
-$lang['profile_address_postcode']              = 'Irányítószám';
-$lang['profile_website']                       = 'Weboldal';
+$lang['user:profile_phone']                         = 'Telefon';
+$lang['user:profile_mobile']                        = 'Mobil';
+$lang['user:profile_address']                       = 'Cím';
+$lang['user:profile_address_line1']                 = 'Cím #1';
+$lang['user:profile_address_line2']                 = 'Cím #2';
+$lang['user:profile_address_line3']                 = 'Város';
+$lang['user:profile_address_postcode']              = 'Irányítószám';
+$lang['user:profile_website']                       = 'Weboldal';
 
-$lang['profile_api_section']                   = 'API hozzáférés';
+$lang['user:profile_api_section']                   = 'API hozzáférés';
 
-$lang['profile_edit_success']                  = 'A felhasználói fiók elmentve.';
-$lang['profile_edit_error']                    = 'Hiba lépett fel.';
+$lang['user:profile_edit_success']                  = 'A felhasználói fiók elmentve.';
+$lang['user:profile_edit_error']                    = 'Hiba lépett fel.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Profil mentése';
+$lang['user:profile_save_btn']             = 'Profil mentése';
 
 /* End of file user_lang.php */

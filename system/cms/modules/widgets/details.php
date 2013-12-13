@@ -82,6 +82,9 @@ class Module_Widgets extends AbstractModule
                         array(
                             'name' => 'widgets:add_area',
                             'uri' => 'admin/widgets/areas/create',
+                            'class' => 'btn-sm btn-success',
+                            'data-hotkey' => 'n',
+                            'data-follow' => 'yes',
                         ),
                     ),
                 ),

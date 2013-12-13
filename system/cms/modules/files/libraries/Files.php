@@ -1,9 +1,10 @@
 <?php
 
+use Cartalyst\Sentry\Users\Eloquent\User;
+
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
 use Pyro\Module\Keywords\Model\Applied;
-use Pyro\Module\Users\Model\User;
 
 /**
  * PyroCMS File library.
@@ -428,6 +429,8 @@ class Files
 	{
 		$file = File::find($file_id);
 
+		$local_filename = $file->filename;
+
 		if (! $file) {
 			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
@@ -514,6 +517,7 @@ class Files
 
 				// get rid of the "temp" file
 				@unlink(self::$path.$file->filename);
+				@unlink(self::$path.$local_filename);
 
 				$extra_data = array('id' => $file_id,
 					'name' => $new_name,
@@ -862,9 +866,9 @@ class Files
 		if ($file = File::find($id)) {
 			Applied::deleteByHash($file->keywords);
 
-			$file->delete();
-
 			self::_unlinkFile($file);
+
+			$file->delete();
 
 			return self::result(true, lang('files:item_deleted'), $file->name);
 		}
@@ -935,12 +939,18 @@ class Files
 	**/
 	public static function allowedActions(User $user)
 	{
+		if (is_null($user)) {
+			throw new InvalidArgumentException('Argument #1 $user cannot be null.');
+		}
+
 		return array_map(function($role) use ($user) {
+
 			// build a simplified permission list for use in this module
 			if ($user->hasAccess("files.{$value}")) {
 				return $value;
 			}
-		}, ci()->module_m->roles('files'));
+			
+		}, ci()->moduleManager->roles('files'));
 	}
 
 	// ------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Search\Model\Search;
 
 /**
  * Search module
@@ -25,7 +26,7 @@ class Module_Search extends AbstractModule
 				'tw' => '搜尋',
 				'cn' => '搜寻',
 				'it' => 'Ricerca',
-                            'fa' => 'جستجو',
+				'fa' => 'جستجو',
 				'fi' => 'Etsi',
 			),
 			'description' => array(
@@ -36,7 +37,7 @@ class Module_Search extends AbstractModule
 				'tw' => '此模組可用以搜尋網站中不同類型的資料內容。',
 				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。',
 				'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
-                            'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
+				'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
 				'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
 			),
 		);
@@ -53,19 +54,20 @@ class Module_Search extends AbstractModule
             $table->text('keywords')->fulltext();
             $table->text('keywords_hash');
             $table->string('module', 40);
-            $table->string('entry_key', 100);
+            $table->string('scope', 100);
+            $table->string('entry_singular', 100);
             $table->string('entry_plural', 100);
-            $table->string('entry_id', 255);
+            $table->string('entry_id', 193);
             $table->string('uri', 255);
-            $table->string('cp_edit_uri', 255);
-            $table->string('cp_delete_uri', 255);
+            $table->string('cp_uri', 255);
+            $table->text('group_access')->nullable();
+            $table->text('user_access')->nullable();
 
 			//   FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 
-            $table->unique(array('module', 'entry_key', 'entry_id'));
+            $table->unique(array('module', 'scope', 'entry_id'));
         });
 
-		ci()->load->model('search/search_index_m');
 		ci()->load->library('keywords/keywords');
 
 		foreach (ci()->pdb->table('pages')->get() as $page) {
@@ -78,20 +80,20 @@ class Module_Search extends AbstractModule
 	    			->where('id', $page->id)
 	    			->update(array('meta_keywords' => $hash));
 
-	    		ci()->search_index_m->index(
-	    			'pages',
-	    			'pages:page',
-	    			'pages:pages',
-	    			$page->id,
-	    			$page->uri,
-	    			$page->title,
-	    			$page->meta_description ?: null,
-	    			array(
-	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
-	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
-	    				'keywords' 		=> $hash,
-	    			)
-	    		);
+	    		Search::index(
+	    			$module = 'pages',
+	    			$scope = 'def_page_fields.pages',
+	    			$singular = 'pages:page',
+	    			$plural = 'pages:pages',
+	    			$entry_id = $page->id,
+	    			$title = $page->title,
+	    			$description = $page->meta_description,
+	    			$keywords = $page->meta_keywords,
+	    			$uri = $page->uri,
+	    			$cp_uri = 'admin/pages/edit/'.$page->id,
+	    			$group_access = null,
+	    			$user_access = null
+	    			);
 	    	}
 		}
 

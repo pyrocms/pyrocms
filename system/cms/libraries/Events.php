@@ -56,6 +56,13 @@ class Events
 
 		return true;
 	}
+	
+	/**
+	 * Return all registered event keys
+	 */
+	static function registered() {
+		return array_keys(self::$_listeners);
+	}
 
 	/**
 	 * Spawn Class

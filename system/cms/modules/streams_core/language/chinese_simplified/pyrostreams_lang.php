@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "添加该条目出错。";
 $lang['streams:new_entry_success']						= "成功添加该条目。";
 $lang['streams:edit_entry_error']						= "更新该条目出错。";
 $lang['streams:edit_entry_success']						= "成功更新该条目。";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "您确定要删除 <strong>%s</strong> 流? 这将会<strong>永久性地删除 %s %s</strong>.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "标记此字段的标题栏"
 $lang['streams:label.field_name']						= "字段名称";
 $lang['streams:label.field_slug']						= "字段标号";
 $lang['streams:label.field_type']						= "字段种类";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "创建于";
-$lang['streams:created_date']							= "创建时间";
-$lang['streams:updated_date']							= "更新时间";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "创建于";
+$lang['streams:column_created']							= "创建时间";
+$lang['streams:column_updated']							= "更新时间";
 $lang['streams:value']									= "数字";
 $lang['streams:manage']									= "管理";
 $lang['streams:search']									= "查询";
@@ -187,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "加载错误的安全图片。请稍后�
 $lang['streams:max_length'] 							= "最大长度";
 $lang['streams:upload_location'] 						= "上传地址";
 $lang['streams:default_value'] 							= "默认值";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
 $lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
 $lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate

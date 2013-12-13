@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Merkinnän lisäämisessä tapahtui vir
 $lang['streams:new_entry_success']						= "Merkintä lisättiin onnistuneesti.";
 $lang['streams:edit_entry_error']						= "Tämän merkinnän muokkaamisessa tapahtui virhe.";
 $lang['streams:edit_entry_success']						= "Merkinnän muokkaaminen onnistui.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Oletko varma, että haluat poistaa <strong>%s</strong> striimin? Tämä <strong>poistaa %s %s</strong> pysyvästi.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Tee kentästä otsikko sarak
 $lang['streams:label.field_name']						= "Kentän nimi";
 $lang['streams:label.field_slug']						= "Kentän polkutunnus";
 $lang['streams:label.field_type']						= "Kentän tyyppi";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Luonut";
-$lang['streams:created_date']							= "Luotu";
-$lang['streams:updated_date']							= "Päivitetty";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Luonut";
+$lang['streams:column_created']							= "Luotu";
+$lang['streams:column_updated']							= "Päivitetty";
 $lang['streams:value']									= "Arvo";
 $lang['streams:manage']									= "Hallinnoi";
 $lang['streams:search']									= "Hae";
@@ -187,7 +188,9 @@ $lang['recaptcha_html_error'] 							= "Truvallisuus kuvan latauksessa tapahtui 
 $lang['streams:max_length'] 							= "Enimmäispituus";
 $lang['streams:upload_location'] 						= "Latauskansio";
 $lang['streams:default_value'] 							= "Oletusarvo";
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Valikkopolku';
 $lang['streams:about_instructions']						= 'Lyhyt kuvaus striimistäsi.';
 $lang['streams:slug_instructions']						= 'Tämä tulee olemaan myös tietokanta taulu striimillesi.';

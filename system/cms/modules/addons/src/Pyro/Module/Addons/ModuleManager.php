@@ -23,6 +23,11 @@ class ModuleManager
     protected $enabled = array();
 
     /**
+     * Caches module
+     */
+    protected $loaded_modules = array();
+
+    /**
      * Caches modules that are installed
      */
     protected $installed = array();
@@ -104,9 +109,14 @@ class ModuleManager
     public function get($slug)
     {
         // Fetch the actual module record
-        if (( ! $record = $this->modules->get($slug))) {
+        if (isset($this->loaded_modules[$slug])) {
+            $record = $this->loaded_modules[$slug];
+        }
+        elseif ((! $record = $this->modules->findBySlug($slug))) {
             return false;
         }
+
+        $this->loaded_modules[$slug] = $record;
 
         $this->exists[$slug] = true;
         $this->enabled[$slug] = $record->isEnabled();
@@ -130,6 +140,7 @@ class ModuleManager
 
         return array(
             'name' => $name,
+            'module' => $module_class,
             'slug' => $record->slug,
             'version' => $record->version,
             'description' => $description,
@@ -144,6 +155,8 @@ class ModuleManager
             'is_current' => version_compare($record->version, $this->version($record->slug),  '>='),
             'current_version' => $this->version($record->slug),
             'path' => $location,
+            'help' => method_exists($module_class, 'help') ? $module_class->help() : false,
+            'field_types' => ! empty($info['field_types']) ? $info['field_types'] : false,
             'updated_on' => $record->updated_on
         );
     }
@@ -173,10 +186,14 @@ class ModuleManager
      */
     public function getAll($params = null, $return_disabled = true)
     {
+        // This is FUCKING BROKEN and I don't know why.. it returns em all
         $result = $this->modules->findWithFilter($params, $return_disabled);
 
         $modules = array();
         foreach ($result as $record) {
+
+            // TMP FIX - @todo - Phil fix me..
+            if (!$return_disabled and !$record->isEnabled()) continue;
 
             // Let's get REAL
             if ( ! $module = $this->spawnClass($record->slug, $record->isCore())) {
@@ -189,6 +206,7 @@ class ModuleManager
             $info = $module_class->info();
 
             $name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
+
             $description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
 
             $module = array(
@@ -209,6 +227,8 @@ class ModuleManager
                 'is_current'      => version_compare($record->version, $this->version($record->slug),  '>='),
                 'current_version' => $this->version($record->slug),
                 'path'            => $location,
+                'help' => method_exists($module_class, 'help') ? $module_class->help() : false,
+                'field_types'     => ! empty($info['field_types']) ? $info['field_types'] : false,
                 'updated_on'      => $record->updated_on
             );
 
@@ -306,7 +326,7 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the install method to get it into the database
-        if ($module_class->install()) {
+        if ($module_class->install(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
 
             // TURN ME ON BABY!
             $module->enabled = true;
@@ -334,6 +354,7 @@ class ModuleManager
     {
         if (( ! $located = $this->spawnClass($slug, $is_core))) {
             // the files are missing so let's clean the "modules" table
+
             return $this->modules->findBySlug($slug)->delete();
         }
 
@@ -344,11 +365,11 @@ class ModuleManager
         $module_class->upload_path = 'uploads/'.SITE_REF.'/';
 
         // Run the uninstall method to drop the module's tables
-        if (( ! $module_class->uninstall())) {
+        if (! $module_class->uninstall(ci()->pdb, ci()->pdb->getSchemaBuilder())) {
             return false;
         }
 
-        $record = $this->findBySlug($slug);
+        $record = $this->modules->findBySlug($slug);
 
         $record->enabled   = false;
         $record->installed = false;
@@ -481,7 +502,21 @@ class ModuleManager
                 $input['is_core']   = $is_core; // is core if core
 
                 // Looks like it installed ok, add a record
-                $this->modules->create($input);
+                $this->modules->create(
+                    array(
+                        'name' => serialize($input['name']),
+                        'slug' => $input['slug'],
+                        'version' => $input['version'],
+                        'description' => serialize($input['description']),
+                        'is_frontend' => ! empty($input['frontend']),
+                        'is_backend'  => ! empty($input['backend']),
+                        'skip_xss'    => ! empty($input['skip_xss']),
+                        'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
+                        'enabled' => $input['enabled'],
+                        'installed' => $input['installed'],
+                        'is_core' => $input['is_core'],
+                        )
+                    );
             }
             unset($temp_modules);
 

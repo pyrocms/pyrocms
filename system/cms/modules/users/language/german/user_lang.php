@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Benutzerprofil-Feld hinzufügen';
 $lang['user:profile_delete_success']           	= 'Das Benutzerprofil-Feld wurde gelöscht';
 $lang['user:profile_delete_failure']            = 'Das Benutzerprofil-Feld konnte nicht gelöscht werden';
-$lang['profile_user_basic_data_label']  		= 'Basisangaben';
-$lang['profile_company']         	  			= 'Firma';
-$lang['profile_updated_on']           			= 'Aktualisiert am';
+$lang['user:profile_user_basic_data_label']  	= 'Basisangaben';
+$lang['user:profile_company']         	  		= 'Firma';
+$lang['user:profile_updated_on']           		= 'Aktualisiert am';
 $lang['user:profile_fields_label']	 		 	= 'Profil Felder';
 
 $lang['user:register_header']                   = 'Registrieren';
@@ -154,59 +154,59 @@ $lang['user:reset_pass_email_subject']         = 'Passwort zur&uuml;ckzusetzen';
 $lang['user:reset_pass_email_body']            = 'Dein Passwort bei %s wurde zur&uuml;ckgesetzt. Wenn du dies nicht veranlasst hast, sende bitte umgehend eine Email an %s.';
 
 // Profile
-$lang['profile_of_title'] = '%s\'s Profil';
+$lang['user:profile_of_title'] = '%s\'s Profil';
 
-$lang['profile_user_details_label']    = 'Benutzer-Details';
-$lang['profile_role_label']            = 'Funktion';
-$lang['profile_registred_on_label']    = 'Registriert am';
-$lang['profile_last_login_label']      = 'Letzte Anmeldung';
-$lang['profile_male_label']            = 'M&auml;nnlich';
-$lang['profile_female_label']          = 'Weiblich';
+$lang['user:profile_user_details_label']    = 'Benutzer-Details';
+$lang['user:profile_role_label']            = 'Funktion';
+$lang['user:profile_registred_on_label']    = 'Registriert am';
+$lang['user:profile_last_login_label']      = 'Letzte Anmeldung';
+$lang['user:profile_male_label']            = 'M&auml;nnlich';
+$lang['user:profile_female_label']          = 'Weiblich';
 
-$lang['profile_not_set_up']            = 'Dieser Benutzer hat kein Profil eingerichtet.';
+$lang['user:profile_not_set_up']            = 'Dieser Benutzer hat kein Profil eingerichtet.';
 
-$lang['profile_edit']                  = 'Dein Profil bearbeiten';
+$lang['user:profile_edit']                  = 'Dein Profil bearbeiten';
 
-$lang['profile_personal_section']      = 'Pers&ouml;nliches';
+$lang['user:profile_personal_section']      = 'Pers&ouml;nliches';
 
-$lang['profile_personal_section']      = 'Anzeige-Name';
-$lang['profile_dob']                   = 'Geburtssdatum';
-$lang['profile_dob_day']               = 'Tag';
-$lang['profile_dob_month']             = 'Monat';
-$lang['profile_dob_year']              = 'Jahr';
-$lang['profile_gender']                = 'Geschlecht';
-$lang['profile_gender_nt']             = 'Nicht anzeigen';
-$lang['profile_gender_male']          = 'M&auml;nnlich';
-$lang['profile_gender_female']        = 'Weiblich';
-$lang['profile_bio']                   = '&Uuml;ber mich';
+$lang['user:profile_personal_section']      = 'Anzeige-Name';
+$lang['user:profile_dob']                   = 'Geburtssdatum';
+$lang['user:profile_dob_day']               = 'Tag';
+$lang['user:profile_dob_month']             = 'Monat';
+$lang['user:profile_dob_year']              = 'Jahr';
+$lang['user:profile_gender']                = 'Geschlecht';
+$lang['user:profile_gender_nt']             = 'Nicht anzeigen';
+$lang['user:profile_gender_male']          = 'M&auml;nnlich';
+$lang['user:profile_gender_female']        = 'Weiblich';
+$lang['user:profile_bio']                   = '&Uuml;ber mich';
 
-$lang['profile_contact_section']       = 'Kontakt';
+$lang['user:profile_contact_section']       = 'Kontakt';
 
-$lang['profile_phone']                 = 'Telefon';
-$lang['profile_mobile']                = 'Handy';
-$lang['profile_address']               = 'Adresse';
-$lang['profile_address_line1']         = 'Zeile #1';
-$lang['profile_address_line2']         = 'Zeile #2';
-$lang['profile_address_line3']         = 'Zeile #3';
-$lang['profile_address_postcode']      = 'Postleitzahl';
-$lang['profile_website']               = 'Homepage';
+$lang['user:profile_phone']                 = 'Telefon';
+$lang['user:profile_mobile']                = 'Handy';
+$lang['user:profile_address']               = 'Adresse';
+$lang['user:profile_address_line1']         = 'Zeile #1';
+$lang['user:profile_address_line2']         = 'Zeile #2';
+$lang['user:profile_address_line3']         = 'Zeile #3';
+$lang['user:profile_address_postcode']      = 'Postleitzahl';
+$lang['user:profile_website']               = 'Homepage';
 
-$lang['profile_messenger_section']     = 'Instant Messenger';
+$lang['user:profile_messenger_section']     = 'Instant Messenger';
 
-$lang['profile_msn_handle']            = 'MSN';
-$lang['profile_aim_handle']            = 'AIM';
-$lang['profile_yim_handle']            = 'Yahoo! Messenger';
-$lang['profile_gtalk_handle']          = 'GoogleTalk';
+$lang['user:profile_msn_handle']            = 'MSN';
+$lang['user:profile_aim_handle']            = 'AIM';
+$lang['user:profile_yim_handle']            = 'Yahoo! Messenger';
+$lang['user:profile_gtalk_handle']          = 'GoogleTalk';
 
-$lang['profile_avatar_section']        = 'Avatar';
-$lang['profile_social_section']        = 'Soziales Netzwerk';
+$lang['user:profile_avatar_section']        = 'Avatar';
+$lang['user:profile_social_section']        = 'Soziales Netzwerk';
 
-$lang['profile_gravatar']              = 'Gravatar';
-$lang['profile_twitter']               = 'Twitter';
+$lang['user:profile_gravatar']              = 'Gravatar';
+$lang['user:profile_twitter']               = 'Twitter';
 
-$lang['profile_edit_success']          = 'Dein Profil wurde gesichert.';
-$lang['profile_edit_error']            = 'Ein Fehler ist aufgetreten.';
+$lang['user:profile_edit_success']          = 'Dein Profil wurde gesichert.';
+$lang['user:profile_edit_error']            = 'Ein Fehler ist aufgetreten.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] = 'Profil sichern';
+$lang['user:profile_save_btn'] = 'Profil sichern';

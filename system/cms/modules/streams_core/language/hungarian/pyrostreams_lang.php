@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']                 = 'Hiba történt a bejegyzés 
 $lang['streams:new_entry_success']               = 'Bejegyzés sikeresen hozzáadva.';
 $lang['streams:edit_entry_error']                = 'Hiba történt a bejegyzés frissítése közben.';
 $lang['streams:edit_entry_success']              = 'Bejegyzés sikeresen frissítve.';
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']                  = 'Biztos vagy benne hogy törölni akarod a <strong>%s</strong> adatfolyamot? Ez <strong>törölni fogja %s %s-t</strong> véglegesen.';
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']   = 'Mező oszlopcímmé tétele'
 $lang['streams:label.field_name']                = 'Mezőnév';
 $lang['streams:label.field_slug']                = 'Mező keresőbarát URL-je';
 $lang['streams:label.field_type']                = 'Mező típus';
-$lang['streams:id']                              = 'Azonosító (ID)';
-$lang['streams:created_by']                      = 'Létrehozta';
-$lang['streams:created_date']                    = 'Létrehozás dátuma';
-$lang['streams:updated_date']                    = 'Frissítés dátuma';
+$lang['streams:column_id']                              = 'Azonosító (ID)';
+$lang['streams:column_created_by']                      = 'Létrehozta';
+$lang['streams:column_created']                    = 'Létrehozás dátuma';
+$lang['streams:column_updated']                    = 'Frissítés dátuma';
 $lang['streams:value']                           = 'Érték';
 $lang['streams:manage']                          = 'Kezelés';
 $lang['streams:search']                          = 'Keresés';
@@ -187,7 +188,9 @@ $lang['recaptcha_html_error']                    = 'Hiba történt a biztonsági
 $lang['streams:max_length']                      = 'Max hossz';
 $lang['streams:upload_location']                 = 'Feltöltés helye';
 $lang['streams:default_value']                   = 'Alapértelmezett érték';
-
+$lang['streams:allow_tags'] 							= "Allow Tags";
+$lang['streams:link_uri'] 								= "Link URI";
+$lang['streams:relation_class'] 						= "Relation Class";
 $lang['streams:menu_path']								= 'Menu Path'; #translate
 $lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
 $lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate

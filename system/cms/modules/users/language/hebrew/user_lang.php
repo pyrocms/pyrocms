@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field'; #translate
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
+$lang['user:profile_company']         	  		= 'Company'; #translate
+$lang['user:profile_updated_on']           		= 'Updated On'; #translate
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user:register_header']                  = 'הרשמה';
@@ -154,61 +154,61 @@ $lang['user:reset_pass_email_subject']         = 'הסיסמה אופסה';
 $lang['user:reset_pass_email_body']            = 'סיסמתכם ב %s אופסה. אם לא ביקשת שינוי זה, אנא שלח אימייל ל %s ואנו נפתור את המצב.';
 
 // Profile
-$lang['profile_of_title']             = 'הפרופיל של %s';
+$lang['user:profile_of_title']             = 'הפרופיל של %s';
 
-$lang['profile_user_details_label']   = 'פרטי משתמש';
-$lang['profile_role_label']           = 'תפקיד';
-$lang['profile_registred_on_label']   = 'נרשם ב';
-$lang['profile_last_login_label']     = 'תאריך כניסה אחרונה';
-$lang['profile_male_label']           = 'זכר';
-$lang['profile_female_label']         = 'נקבה';
+$lang['user:profile_user_details_label']   = 'פרטי משתמש';
+$lang['user:profile_role_label']           = 'תפקיד';
+$lang['user:profile_registred_on_label']   = 'נרשם ב';
+$lang['user:profile_last_login_label']     = 'תאריך כניסה אחרונה';
+$lang['user:profile_male_label']           = 'זכר';
+$lang['user:profile_female_label']         = 'נקבה';
 
-$lang['profile_not_set_up']           = 'אין סט אפ למשתמש זה';
+$lang['user:profile_not_set_up']           = 'אין סט אפ למשתמש זה';
 
-$lang['profile_edit']                 = 'ערוך פרופיל';
+$lang['user:profile_edit']                 = 'ערוך פרופיל';
 
-$lang['profile_personal_section']     = 'אישי';
+$lang['user:profile_personal_section']     = 'אישי';
 
-$lang['profile_display_name']         = 'הצג שם';
-$lang['profile_dob']                  = 'תאריך לידה';
-$lang['profile_dob_day']              = 'יום';
-$lang['profile_dob_month']            = 'חודש';
-$lang['profile_dob_year']             = 'שנה';
-$lang['profile_gender']               = 'מין';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
-$lang['profile_bio']                  = 'קצי עלי';
+$lang['user:profile_display_name']         = 'הצג שם';
+$lang['user:profile_dob']                  = 'תאריך לידה';
+$lang['user:profile_dob_day']              = 'יום';
+$lang['user:profile_dob_month']            = 'חודש';
+$lang['user:profile_dob_year']             = 'שנה';
+$lang['user:profile_gender']               = 'מין';
+$lang['user:profile_gender_nt']            = 'Not Telling'; #translate
+$lang['user:profile_gender_male']          = 'Male'; #translate
+$lang['user:profile_gender_female']        = 'Female'; #translate
+$lang['user:profile_bio']                  = 'קצי עלי';
 
-$lang['profile_contact_section']      = 'יצירת קשר';
+$lang['user:profile_contact_section']      = 'יצירת קשר';
 
-$lang['profile_phone']                = 'טלפון';
-$lang['profile_mobile']               = 'נייד';
-$lang['profile_address']              = 'כתובת';
-$lang['profile_address_line1']        = 'שורה #1';
-$lang['profile_address_line2']        = 'שורה #2';
-$lang['profile_address_line3']        = 'שורה #3';
-$lang['profile_address_postcode']     = 'Post/Zip Code';
-$lang['profile_website']              = 'Website';
+$lang['user:profile_phone']                = 'טלפון';
+$lang['user:profile_mobile']               = 'נייד';
+$lang['user:profile_address']              = 'כתובת';
+$lang['user:profile_address_line1']        = 'שורה #1';
+$lang['user:profile_address_line2']        = 'שורה #2';
+$lang['user:profile_address_line3']        = 'שורה #3';
+$lang['user:profile_address_postcode']     = 'Post/Zip Code';
+$lang['user:profile_website']              = 'Website';
 
-$lang['profile_messenger_section']    = 'Instant messengers';
+$lang['user:profile_messenger_section']    = 'Instant messengers';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
+$lang['user:profile_avatar_section']       = 'Avatar';
+$lang['user:profile_social_section']       = 'Social';
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'הפרופיל נשמר בהצלחה.';
-$lang['profile_edit_error']           = 'אירעה שגיאה. הפרופיל לא נשמר.';
+$lang['user:profile_edit_success']         = 'הפרופיל נשמר בהצלחה.';
+$lang['user:profile_edit_error']           = 'אירעה שגיאה. הפרופיל לא נשמר.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'שמור פרופיל';
+$lang['user:profile_save_btn']             = 'שמור פרופיל';
 
 /* End of file user_lang.php */

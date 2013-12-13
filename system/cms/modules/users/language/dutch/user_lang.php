@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Voeg Gebruiker profiel veld toe';
 $lang['user:profile_delete_success']           	= 'Gebruiker profiel veld is verwijderd';
 $lang['user:profile_delete_failure']            = 'Er was een probleem met het verwijderen van uw gebruiker profiel veld';
-$lang['profile_user_basic_data_label']  		= 'Basis gegevens';
-$lang['profile_company']         	  			= 'Bedrijf';
-$lang['profile_updated_on']           			= 'Gewijzigd op';
+$lang['user:profile_user_basic_data_label']  	= 'Basis gegevens';
+$lang['user:profile_company']         	  		= 'Bedrijf';
+$lang['user:profile_updated_on']           		= 'Gewijzigd op';
 $lang['user:profile_fields_label']	 		 	= 'Profiel velden';
 
 $lang['user:register_header'] 			= 'Registratie';
@@ -154,49 +154,49 @@ $lang['user:reset_pass_email_subject'] 			= 'Wachtwoord Reset';
 $lang['user:reset_pass_email_body'] 			= 'Uw wachtwoord voor %s is opnieuw ingesteld . Mocht u hier niet om gevraagd hebben, stuur dan een een email naar %s zodat wij de situtie kunnen oplossen.';
 
 // Profile
-$lang['profile_of_title'] 				= 'Profiel van %s';
+$lang['user:profile_of_title'] 				= 'Profiel van %s';
 
-$lang['profile_user_details_label'] 	= 'Gebruikersgegevens';
-$lang['profile_role_label'] 			= 'Rol';
-$lang['profile_registred_on_label'] 	= 'Geregistreerd op';
-$lang['profile_last_login_label'] 		= 'Laatste login';
-$lang['profile_male_label'] 			= 'Man';
-$lang['profile_female_label'] 			= 'Vrouw';
+$lang['user:profile_user_details_label'] 	= 'Gebruikersgegevens';
+$lang['user:profile_role_label'] 			= 'Rol';
+$lang['user:profile_registred_on_label'] 	= 'Geregistreerd op';
+$lang['user:profile_last_login_label'] 		= 'Laatste login';
+$lang['user:profile_male_label'] 			= 'Man';
+$lang['user:profile_female_label'] 			= 'Vrouw';
 
-$lang['profile_not_set_up'] 			= 'Deze gebruiker heeft nog geen profiel.';
+$lang['user:profile_not_set_up'] 			= 'Deze gebruiker heeft nog geen profiel.';
 
-$lang['profile_edit'] 					= 'Wijzig uw profiel';
+$lang['user:profile_edit'] 					= 'Wijzig uw profiel';
 
-$lang['profile_personal_section'] 		= 'Persoonlijk';
+$lang['user:profile_personal_section'] 		= 'Persoonlijk';
 
-$lang['profile_display_name']			= 'Schermnaam';
-$lang['profile_dob']					= 'Geboortedatum';
-$lang['profile_dob_day']				= 'Dag';
-$lang['profile_dob_month']				= 'Maand';
-$lang['profile_dob_year']				= 'Jaar';
-$lang['profile_gender']					= 'Geslacht';
-$lang['profile_gender_nt']            = 'Niet aangegeven';
-$lang['profile_gender_male']          = 'Man';
-$lang['profile_gender_female']        = 'Vrouw';
-$lang['profile_bio']					= 'Over mij';
+$lang['user:profile_display_name']			= 'Schermnaam';
+$lang['user:profile_dob']					= 'Geboortedatum';
+$lang['user:profile_dob_day']				= 'Dag';
+$lang['user:profile_dob_month']				= 'Maand';
+$lang['user:profile_dob_year']				= 'Jaar';
+$lang['user:profile_gender']					= 'Geslacht';
+$lang['user:profile_gender_nt']            = 'Niet aangegeven';
+$lang['user:profile_gender_male']          = 'Man';
+$lang['user:profile_gender_female']        = 'Vrouw';
+$lang['user:profile_bio']					= 'Over mij';
 
-$lang['profile_contact_section'] 		= 'Contact';
+$lang['user:profile_contact_section'] 		= 'Contact';
 
-$lang['profile_phone']					= 'Telefoonnummer';
-$lang['profile_mobile']					= 'Mobiele nummer';
-$lang['profile_address']				= 'Adres';
-$lang['profile_address_line1'] 			= 'Regel #1';
-$lang['profile_address_line2'] 			= 'Regel #2';
-$lang['profile_address_line3'] 			= 'Regel #3';
-$lang['profile_address_postcode'] 		= 'Postcode';
-$lang['profile_website']				= 'Website';
+$lang['user:profile_phone']					= 'Telefoonnummer';
+$lang['user:profile_mobile']					= 'Mobiele nummer';
+$lang['user:profile_address']				= 'Adres';
+$lang['user:profile_address_line1'] 			= 'Regel #1';
+$lang['user:profile_address_line2'] 			= 'Regel #2';
+$lang['user:profile_address_line3'] 			= 'Regel #3';
+$lang['user:profile_address_postcode'] 		= 'Postcode';
+$lang['user:profile_website']				= 'Website';
 
-$lang['profile_avatar_section'] 		= 'Avatar';
+$lang['user:profile_avatar_section'] 		= 'Avatar';
 
-$lang['profile_edit_success'] 			= 'Uw profiel is opgeslagen.';
-$lang['profile_edit_error'] 			= 'Er is een fout opgetreden.';
+$lang['user:profile_edit_success'] 			= 'Uw profiel is opgeslagen.';
+$lang['user:profile_edit_error'] 			= 'Er is een fout opgetreden.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= 'Profiel Opslaan';
+$lang['user:profile_save_btn'] 				= 'Profiel Opslaan';
 /* End of file user_lang.php */

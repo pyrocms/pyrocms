@@ -1,6 +1,10 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 
 /**
  * Blog module
@@ -78,7 +82,9 @@ class Module_Blog extends AbstractModule
 						array(
 							'name' => 'blog:create_title',
 							'uri' => 'admin/blog/create',
-							'class' => 'add',
+							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+				    		'data-follow' => 'yes',
 						),
 					),
 				),
@@ -89,7 +95,9 @@ class Module_Blog extends AbstractModule
 						array(
 							'name' => 'cat:create_title',
 							'uri' => 'admin/blog/categories/create',
-							'class' => 'add',
+							'class' => 'btn-sm btn-success',
+							'data-hotkey' => 'n',
+				    		'data-follow' => 'yes',
 						),
 					),
 				),
@@ -105,12 +113,16 @@ class Module_Blog extends AbstractModule
 							'create' => array(
 								'name' 	=> 'streams:add_field',
 								'uri' 	=> 'admin/blog/fields/create',
-								'class' => 'add'
+								'class' => 'btn-sm btn-success',
+								'data-hotkey' => 'n',
+				    			'data-follow' => 'yes',
 								)
 							)
 					);
 			}
 		}
+
+		//$this->addFields();
 
 		return $info;
 	}
@@ -124,7 +136,8 @@ class Module_Blog extends AbstractModule
      */
 	public function install($pdb, $schema)
 	{
-		$schema->dropIfExists('blog');
+		
+
 		$schema->dropIfExists('blog_categories');
 
 		$schema->create('blog_categories', function($table) {
@@ -133,64 +146,163 @@ class Module_Blog extends AbstractModule
 			$table->string('title', 100)->nullable()->unique();
 		});
 
-		ci()->load->driver('Streams');
-		ci()->streams->utilities->remove_namespace('blogs');
+		SchemaUtility::destroyNamespace('blogs');
 
-		if ($schema->hasTable('data_streams')) {
-			$pdb->table('data_streams')
-				->where('stream_namespace', 'blogs')
-				->delete();
-		}
-
-		ci()->streams->streams->add_stream(
-			'lang:blog:blog_title',
+		StreamModel::addStream(
 			'blog',
 			'blogs',
-			null,
-			null
+			'lang:blog:blog_title'
 		);
 
-		// Add the intro field.
-		// This can be later removed by an admin.
-		$intro_field = array(
-			'name'		=> 'lang:blog:intro_label',
-			'slug'		=> 'intro',
-			'namespace' => 'blogs',
-			'type'		=> 'wysiwyg',
-			'assign'	=> 'blog',
-			'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
-			'required'	=> true
-		);
-		ci()->streams->fields->add_field($intro_field);
+		$this->addFields();
 
 		// Add fields to streamsy table
-		$schema->table('blog', function($table) {
-			$table->string('slug', 200)->unique();
-			$table->string('title', 200)->unique();
-			$table->integer('category_id');
-			$table->string('attachment', 255)->default('');
-			$table->text('body');
-			$table->text('parsed');
-			$table->string('keywords', 32)->default('');
-			$table->integer('author_id')->nullable();
-			$table->enum('comments_enabled', array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'))->default('3 months');
-			$table->enum('status', array('draft', 'live'))->default('draft');
-			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
-	        $table->string('preview_hash', 32)->nullable();
-			$table->string('created_on', 11);
-			$table->string('updated_on', 11)->nullable();
-
-			$table->index('slug');
-			$table->index('category_id');
-		});
+/*		$schema->table('blog', function($table) {
+			//$table->string('slug', 200)->unique();
+			//$table->string('title', 200)->unique();
+			//$table->integer('category_id');
+			//$table->string('attachment', 255)->default('');
+			//$table->text('body');
+			//$table->text('parsed');
+			//$table->string('keywords', 32)->default('');
+			//$table->integer('author_id')->nullable();
+			//$table->enum('comments_enabled', array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'))->default('3 months');
+			//$table->enum('status', array('draft', 'live'))->default('draft');
+			//$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+	        //$table->string('preview_hash', 32)->nullable();
+			//$table->index('slug');
+			//$table->index('category_id');
+		});*/
 
 		return true;
 	}
 
+	public function addFields()
+	{
+		FieldTypeManager::registerFolderFieldTypes(APPPATH.'/modules/streams_core/field_types/', true);
+		
+		$comments_enabled_options = array(
+			'no' => 'lang:global:no',
+			'1 day' => 'lang:global:duration:1-day',
+			'1 week' => 'lang:global:duration:1-week',
+			'2 weeks' => 'lang:global:duration:2-weeks',
+			'1 month' => 'lang:global:duration:1-month',
+			'3 months' => 'lang:global:duration:3-months',
+			'always' => 'lang:global:duration:always',
+		);
+		
+		$comments_enabled_choice_data = '';
+
+		foreach ($comments_enabled_options as $key => $value) {
+			$comments_enabled_choice_data .= $key.' : '.$value."\n";
+		}
+
+		$status_options = array(
+			'draft' => 'lang:blog:draft_label',
+			'live' => 'lang:blog:live_label',
+		);
+
+		$status_choice_data = '';
+
+		foreach ($status_options as $key => $value) {
+			$status_choice_data .= $key.' : '.$value."\n";
+		}
+
+		// Add the intro field.
+		// This can be later removed by an admin.
+		FieldModel::addFields(array(
+			array(
+				'name'		=> 'lang:blog:title_label',
+				'slug'		=> 'title',
+				'type'		=> 'text',
+				'required'	=> true,
+				'locked'	=> true,
+			),
+			array(
+				'name'		=> 'lang:blog:intro_label',
+				'slug'		=> 'intro',
+				'type'		=> 'wysiwyg',
+				'required'	=> true,
+				'locked'	=> true,
+				'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
+			),
+			array(
+				'name'		=> 'lang:global:slug',
+				'slug'		=> 'slug',
+				'type'		=> 'slug',
+				'required'	=> true,
+				'unique'	=> true,
+				'locked'	=> true,
+				'extra'		=> array('slug_field' => 'title'),
+				'locked'	=> true,
+			),
+			array(
+				'name'		=> 'lang:global:body',
+				'slug'		=> 'body',
+				'type'		=> 'wysiwyg',
+				'required'	=> true,
+				'locked'	=> true,
+				'extra'		=> array('editor_type' => 'advanced'),
+			),
+			array(
+				'name'		=> 'lang:streams:keywords.name',
+				'slug'		=> 'keywords',
+				'type'		=> 'keywords',
+			),
+			array(
+				'name'		=> 'lang:blog:author_label',
+				'slug'		=> 'author_id',
+				'type'		=> 'user',
+				'required'  => true,
+				'locked'	=> true,
+			),
+			array(
+				'name'		=> 'lang:blog:comments_enabled',
+				'slug'		=> 'comments_enabled',
+				'type'		=> 'choice',
+				'locked'	=> true,
+				'default'	=> '3 months',
+				'extra'		=> array(
+					'choice_data' => $comments_enabled_choice_data
+				),
+			),
+			array(
+				'name'		=> 'lang:blog:status_label',
+				'slug'		=> 'status',
+				'type'		=> 'choice',
+				'locked'	=> true,
+				'default'	=> 'draft',
+				'extra'		=> array(
+					'choice_data' => $status_choice_data
+				),
+			),
+			array(
+				'name'		=> 'lang:blog:preview_hash',
+				'slug'		=> 'preview_hash',
+				'type'		=> 'text',
+				'locked'	=> true,
+				'default'	=> 'draft'
+			),
+			array(
+				'name'		=> 'lang:blog:category_label',
+				'slug'		=> 'category_id',
+				'type'		=> 'relationship',
+				'required'	=> true,
+				'locked'	=> true,
+				'extra'		=> array(
+					'title_column' => 'title',
+					'relation_class' => 'Pyro\Module\Blog\BlogCategoryModel',
+				),
+			),
+		), 'blog', 'blogs');
+	}
+
 	public function uninstall($pdb, $schema)
 	{
+		SchemaUtility::destroyNamespace('blogs');
+
 		// This is a core module, lets keep it around.
-		return false;
+		return true;
 	}
 
 	public function upgrade($old_version)

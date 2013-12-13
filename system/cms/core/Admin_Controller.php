@@ -54,7 +54,7 @@ class Admin_Controller extends MY_Controller
 		$this->theme = ci()->theme = $theme;
 
 		// make a constant as this is used in a lot of places
-		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->slug);
+		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->model->slug);
 			
 		// Set the location of assets
 		Asset::add_path('theme', $this->theme->web_path.'/');
@@ -80,13 +80,37 @@ class Admin_Controller extends MY_Controller
 			$menu_items = array();
 
 			// This array controls the order of the admin items.
-			$this->template->menu_order = array('lang:cp:nav_content', 'lang:cp:nav_structure', 'lang:cp:nav_data', 'lang:cp:nav_users', 'lang:cp:nav_settings', 'lang:global:profile');
+			$this->template->menu_order = array(
+				array(
+					'before' => '<i class="fa fa-book"></i>',
+					'title' => 'lang:cp:nav_content',
+					'items' => array(),
+					),
+				array(
+					'before' => '<i class="fa fa-sitemap"></i>',
+					'title' => 'lang:cp:nav_structure',
+					'items' => array(),
+					),
+				array(
+					'before' => '<i class="fa fa-hdd-o"></i>',
+					'title' => 'lang:cp:nav_data',
+					'items' => array(),
+					),
+				array(
+					'before' => '<i class="fa fa-group"></i>',
+					'title' => 'lang:cp:nav_users',
+					'items' => array(),
+					),
+				);
 
 			$modules = $this->moduleManager->getAllEnabled(array(
 				'is_backend' => true,
 			));
 
 			foreach ($modules as $module) {
+
+				// Only enabled ones
+				if (! module_enabled($module['slug'])) continue;
 
 				// If we do not have an admin_menu function, we use the
 				// regular way of checking out the details.php data.
@@ -109,13 +133,6 @@ class Admin_Controller extends MY_Controller
 				}
 			}
 
-			// We always have our 
-			// edit profile links and such.
-			$menu_items['lang:global:profile'] = array(
-				'lang:cp:edit_profile_label' => 'edit-profile',
-				'lang:cp:logout_label'		 => 'admin/logout'
-			);
-
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 
 			$event_output = Events::trigger('admin_menu', $menu_items);
@@ -130,9 +147,23 @@ class Admin_Controller extends MY_Controller
 			$ordered_menu = array();
 
 			foreach ($this->template->menu_order as $order) {
-				if (isset($menu_items[$order])) {
-					$ordered_menu[lang_label($order)] = $menu_items[$order];
-					unset($menu_items[$order]);
+
+				// We need to follow standards
+				if (isset($order['title']) and isset($menu_items[$order['title']])) {
+
+					// Add our menu starter
+					$ordered_menu[lang_label($order['title'])] = $order;
+
+					// Do we have items or a URI?
+					if (is_array($menu_items[$order['title']])) {
+						$ordered_menu[lang_label($order['title'])]['items'] = $menu_items[$order['title']];
+					} elseif (is_string($menu_items[$order['title']])) {
+						$ordered_menu[lang_label($order['title'])]['uri'] = $menu_items[$order['title']];
+						unset($ordered_menu[lang_label($order['title'])]['items']);
+					}
+
+					// Bai
+					unset($menu_items[$order['title']]);
 				}
 			}
 
@@ -149,6 +180,8 @@ class Admin_Controller extends MY_Controller
 				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
+			ksort($ordered_menu);
+
 			// And there we go! These are the admin menu items.
 			$this->template->menu_items = $ordered_menu;
 		}
@@ -158,12 +191,12 @@ class Admin_Controller extends MY_Controller
 		// Template configuration
 		$this->template
 			->enable_parser(false)
-			->set('theme_options', (object) $this->theme->getOptionValues())
+			->set('theme_options', (object) $this->theme->model->getOptionValues())
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
 
 		// trigger the run() method in the selected admin theme
-		$class = 'Theme_'.ucfirst($this->theme->slug);
+		$class = 'Theme_'.ucfirst($this->theme->model->slug);
 		call_user_func(array(new $class, 'run'));
 	}
 
@@ -198,7 +231,7 @@ class Admin_Controller extends MY_Controller
 				return true;
 
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('dashboard')){
+			} elseif ($current_page === 'admin/index' && $this->current_user->hasAccess('admin.general')){
 				return true;
 			}
 

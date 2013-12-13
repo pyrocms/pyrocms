@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Pridėti lauką prie vartotojo profilio';
 $lang['user:profile_delete_success']           	= 'Vartotojo profilio laukas sėkmingai ištrintas';
 $lang['user:profile_delete_failure']            = 'Buvo kalida trinant vartotojo profilio lauką';
-$lang['profile_user_basic_data_label']  		= 'Pagrindinė informacija';
-$lang['profile_company']         	  			= 'Įmonė';
-$lang['profile_updated_on']           			= 'Atnaujinta';
+$lang['user:profile_user_basic_data_label']  	= 'Pagrindinė informacija';
+$lang['user:profile_company']         	  		= 'Įmonė';
+$lang['user:profile_updated_on']           		= 'Atnaujinta';
 $lang['user:profile_fields_label']	 		 	= 'Profilio laukai';
 
 $lang['user:register_header']                  = 'Registracija';
@@ -154,61 +154,61 @@ $lang['user:reset_pass_email_subject']         = 'Slaptažodžio keitimas';
 $lang['user:reset_pass_email_body']            = 'Jūsų slaptažodis %s buvo anuliuotas. Jei neprašė šio pakeitimo, rašykite mums adresu %s ir mes išspręsti situaciją.';
 
 // Profile
-$lang['profile_of_title']             = '%s\'s Profilis';
+$lang['user:profile_of_title']             = '%s\'s Profilis';
 
-$lang['profile_user_details_label']   = 'Vartotojo informacija';
-$lang['profile_role_label']           = 'Vaidmuo';
-$lang['profile_registred_on_label']   = 'Prisiregistravo';
-$lang['profile_last_login_label']     = 'Paskutinis prisijungimas';
-$lang['profile_male_label']           = 'Vyras';
-$lang['profile_female_label']         = 'Moteris';
+$lang['user:profile_user_details_label']   = 'Vartotojo informacija';
+$lang['user:profile_role_label']           = 'Vaidmuo';
+$lang['user:profile_registred_on_label']   = 'Prisiregistravo';
+$lang['user:profile_last_login_label']     = 'Paskutinis prisijungimas';
+$lang['user:profile_male_label']           = 'Vyras';
+$lang['user:profile_female_label']         = 'Moteris';
 
-$lang['profile_not_set_up']           = 'Šis vartotojas neturi savo profilio.';
+$lang['user:profile_not_set_up']           = 'Šis vartotojas neturi savo profilio.';
 
-$lang['profile_edit']                 = 'Redaguoti profilį';
+$lang['user:profile_edit']                 = 'Redaguoti profilį';
 
-$lang['profile_personal_section']     = 'Asmeninis';
+$lang['user:profile_personal_section']     = 'Asmeninis';
 
-$lang['profile_display_name']         = 'Rodomas vardas';
-$lang['profile_dob']                  = 'Gimimo data';
-$lang['profile_dob_day']              = 'Diena';
-$lang['profile_dob_month']            = 'Mėnuo';
-$lang['profile_dob_year']             = 'Metai';
-$lang['profile_gender']               = 'Lytis';
-$lang['profile_gender_nt']            = 'Nesakysiu';
-$lang['profile_gender_male']          = 'Vyras';
-$lang['profile_gender_female']        = 'Moteris';
-$lang['profile_bio']                  = 'Apie mane';
+$lang['user:profile_display_name']         = 'Rodomas vardas';
+$lang['user:profile_dob']                  = 'Gimimo data';
+$lang['user:profile_dob_day']              = 'Diena';
+$lang['user:profile_dob_month']            = 'Mėnuo';
+$lang['user:profile_dob_year']             = 'Metai';
+$lang['user:profile_gender']               = 'Lytis';
+$lang['user:profile_gender_nt']            = 'Nesakysiu';
+$lang['user:profile_gender_male']          = 'Vyras';
+$lang['user:profile_gender_female']        = 'Moteris';
+$lang['user:profile_bio']                  = 'Apie mane';
 
-$lang['profile_contact_section']      = 'Kontaktai';
+$lang['user:profile_contact_section']      = 'Kontaktai';
 
-$lang['profile_phone']                = 'Tel.';
-$lang['profile_mobile']               = 'Mob. tel.';
-$lang['profile_address']              = 'Adresas';
-$lang['profile_address_line1']        = 'Eilutė#1';
-$lang['profile_address_line2']        = 'Eilutė #2';
-$lang['profile_address_line3']        = 'Eilutė #3';
-$lang['profile_address_postcode']     = 'Pašto/Zip Kodas';
-$lang['profile_website']              = 'Internetinis puslapis';
+$lang['user:profile_phone']                = 'Tel.';
+$lang['user:profile_mobile']               = 'Mob. tel.';
+$lang['user:profile_address']              = 'Adresas';
+$lang['user:profile_address_line1']        = 'Eilutė#1';
+$lang['user:profile_address_line2']        = 'Eilutė #2';
+$lang['user:profile_address_line3']        = 'Eilutė #3';
+$lang['user:profile_address_postcode']     = 'Pašto/Zip Kodas';
+$lang['user:profile_website']              = 'Internetinis puslapis';
 
-$lang['profile_messenger_section']    = 'Mesendžeriai';
+$lang['user:profile_messenger_section']    = 'Mesendžeriai';
 
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
+$lang['user:profile_msn_handle']           = 'MSN';
+$lang['user:profile_aim_handle']           = 'AIM';
+$lang['user:profile_yim_handle']           = 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle']         = 'GTalk';
 
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
+$lang['user:profile_avatar_section']       = 'Avatar';
+$lang['user:profile_social_section']       = 'Social';
 
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['user:profile_gravatar']             = 'Gravatar';
+$lang['user:profile_twitter']              = 'Twitter';
 
-$lang['profile_edit_success']         = 'Jūsų profilis buvo išsaugotas.';
-$lang['profile_edit_error']           = 'Įvyko klaida.';
+$lang['user:profile_edit_success']         = 'Jūsų profilis buvo išsaugotas.';
+$lang['user:profile_edit_error']           = 'Įvyko klaida.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'Išsaugoti profilį';
+$lang['user:profile_save_btn']             = 'Išsaugoti profilį';
 
 /* End of file user_lang.php */

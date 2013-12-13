@@ -10,9 +10,9 @@
 
 ## Team
 
-* [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
+* [Ryan Thompson](http://aiwebsystems.com/)
 
 ## Description
 

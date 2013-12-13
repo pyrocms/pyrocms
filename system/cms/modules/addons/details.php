@@ -1,12 +1,14 @@
 <?php
 
+use Pyro\Module\Addons\AbstractModule;
+
 /**
  * Addons Module
  *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Modules
  */
-class Module_Addons extends Pyro\Module\Addons\AbstractModule
+class Module_Addons extends AbstractModule
 {
 	public $version = '2.0.0';
 
@@ -100,7 +102,9 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/modules/upload',
-					'class' => 'add',
+					'class' => 'btn-sm btn-success',
+					'data-hotkey' => 'u',
+				    'data-follow' => 'yes',
 				),
 			);
 
@@ -108,7 +112,10 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
-					'class' => 'add modal',
+					'class' => 'btn-sm btn-success',
+					'data-toggle' => 'modal',
+					'data-hotkey' => 'u',
+				    'data-follow' => 'yes',
 				),
 			);
 		}
@@ -119,11 +126,15 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 	public function admin_menu(&$menu)
 	{
 		$menu['lang:cp:nav_addons'] = array(
-			'lang:cp:nav_modules'			=> 'admin/addons',
-			'lang:global:themes'			=> 'admin/addons/themes',
-			'lang:global:plugins'			=> 'admin/addons/plugins',
-			'lang:global:widgets'			=> 'admin/addons/widgets',
-			'lang:global:field_types'		=> 'admin/addons/field-types'
+			'before' => '<i class="fa fa-puzzle-piece"></i>',
+			'title' => 'lang:cp:nav_addons',
+			'items' => array(
+				'lang:cp:nav_modules'			=> 'admin/addons',
+				'lang:global:themes'			=> 'admin/addons/themes',
+				'lang:global:plugins'			=> 'admin/addons/plugins',
+				'lang:global:widgets'			=> 'admin/addons/widgets',
+				'lang:global:field_types'		=> 'admin/addons/field-types',
+				),
 		);
 
 		add_admin_menu_place('lang:cp:nav_addons', 6);
@@ -131,41 +142,6 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
 
 	public function install($pdb, $schema)
 	{
-		$schema = $this->pdb->getSchemaBuilder();
-
-        $schema->dropIfExists('themes');
-
-        $schema->create('themes', function($table) {
-            $table->increments('id');
-            $table->integer('site_id')->nullable();
-            $table->string('slug');
-            $table->string('name');
-            $table->text('description');
-            $table->string('author')->nullable();
-            $table->string('author_website')->nullable();
-            $table->string('website')->nullable();
-            $table->string('version')->default('1.0.0');
-            $table->boolean('enabled')->default(true);
-            $table->integer('order')->default(0);
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
-        });
-
-        $schema->dropIfExists('theme_options');
-
-        $schema->create('theme_options', function($table) {
-            $table->increments('id');
-            $table->string('slug', 30);
-            $table->string('title', 100);
-            $table->text('description');
-            $table->enum('type', array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker'));
-            $table->string('default', 255);
-            $table->string('value', 255);
-            $table->text('options');
-            $table->boolean('is_required');
-            $table->integer('theme_id')->nullable();
-        });
-
         $this->pdb->table('settings')->insert(array(
             array(
                 'slug' => 'addons_upload',
@@ -184,7 +160,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
                 'slug' => 'default_theme',
                 'title' => 'Default Theme',
                 'description' => 'Select the theme you want users to see by default.',
-                'type' => '',
+                'type' => 'select',
                 'default' => 'default',
                 'value' => 'default',
                 'options' => 'func:get_themes',
@@ -197,7 +173,7 @@ class Module_Addons extends Pyro\Module\Addons\AbstractModule
                 'slug' => 'admin_theme',
                 'title' => 'Control Panel Theme',
                 'description' => 'Select the theme for the control panel.',
-                'type' => '',
+                'type' => 'select',
                 'default' => '',
                 'value' => 'pyrocms',
                 'options' => 'func:get_themes',

@@ -63,6 +63,8 @@ class Plugin_User extends Plugin
 		return $info;
 	}
 
+	public $user_data = array();
+
 	/**
 	 * Array of data for the currently
 	 * logged in user.
@@ -76,7 +78,7 @@ class Plugin_User extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ user:logged_in group="admin" }}
+	 *     {{ if {user:logged_in group="admin"} }}
 	 *         <p>Hello admin!</p>
 	 *     {{ endif }}
 	 *
@@ -112,7 +114,7 @@ class Plugin_User extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ user:not_logged_in group="admin" }}
+	 *     {{ if {user:not_logged_in group="admin"} }}
 	 *            <p>Hello not an admin</p>
 	 *     {{ endif }}
 	 *
@@ -193,42 +195,38 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
-			'name'  => lang('profile_last_login_label'),
+			'name'  => lang('user:profile_last_login_label'),
 			'slug'  => 'last_login'
 		);
 
 		$plugin_data[] = array(
-			'value' => date(Settings::get('date_format'), $profile_data['created_on']),
-			'name'  => lang('profile_registred_on_label'),
+			'value' => $profile_data['created_on']->format(Settings::get('date_format')),
+			'name'  => lang('user:profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
 
 		// Display name and updated on
 		$plugin_data[] = array(
 			'value' => $profile_data['display_name'],
-			'name'  => lang('profile_display_name'),
+			'name'  => lang('user:profile_display_name'),
 			'slug'  => 'display_name'
 		);
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['updated_on']),
-			'name'  => lang('profile_updated_on'),
+			'name'  => lang('user:profile_updated_on'),
 			'slug'  => 'updated_on'
 		);
 
-		foreach ($this->current_user->getStreamFields() as $key => $field) {
-			if (!isset($profile_data[$key])) {
-				continue;
+		foreach ($profile = $this->current_user->profile->getAttributes() as $field_slug => $field)
+		{
+			if ($field = $this->current_user->profile->getField($field_slug))
+			{
+				$plugin_data[] = array(
+					'value' => $profile[$field_slug],
+					'name'  => $field->field_name,
+					'slug'  => $field_slug
+				);
 			}
-
-			$name = lang($field->field_name) ?: $field->field_name;
-
-			$plugin_data[] = array(
-				'value' => $profile_data[$key],
-				'name'  => $this->fields->translate_label($name),
-				'slug'  => $field->field_slug
-			);
-
-			unset($name);
 		}
 
 		return $plugin_data;
@@ -291,25 +289,22 @@ class Plugin_User extends Plugin
 		// No user provided, but we know one
 		} elseif (is_null($user_id) and isset($this->current_user->id)) {
 			// Otherwise, we can use the current user id
-			$user_id = $this->current_user->id;
+			$user = $this->current_user;
+		}
+		else
+		{
+			// We must have a user id at this point
+			$user = Users\Model\User::find($user_id);	
 		}
 
-		$user = Users\Model\User::find($user_id);
+		
 
 		// Got through each stream field and see if we need to format it
 		// for plugin return (ie if we haven't already done that).
-		foreach ($user->getStreamFields() as $field_key => $field_data) {
+		foreach ($user->profile->getModel()->getAllColumns() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
-					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
-						$field_key, 
-						$user->$field_key,
-						$user->profile_id,
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->user_stream,
-						true
-					);
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getPluginOutput($var);
 				}
 
 				if ($user->$field_key) {
@@ -319,15 +314,7 @@ class Plugin_User extends Plugin
 			// Not a plugin call
 			} else {
 				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key])) {
-					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
-						$field_key,
-						$user->{$field_key},
-						$user->profile_id,
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->user_stream,
-						false
-					);
+					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $user->{$field_key};
 				}
 
 				if ($user->{$field_key}) {
@@ -349,37 +336,19 @@ class Plugin_User extends Plugin
 	 */
 	private function get_user_var($var, $user_id)
 	{
-		if (isset($this->user_profile_data[$user_id]['plugin'][$var])) {
-			return $this->user_profile_data[$user_id]['plugin'][$var];
+		if ( ! isset($this->user_data[$user_id]))
+		{
+			$this->user_data[$user_id] = Users\Model\User::find($user_id);
 		}
 
-		$user = Users\Model\User::find($user_id);
+		if (in_array($var, $this->user_data[$user_id]->getHidden())) return null;
 
-		$stream_fields = $user->getStreamFields();
-
-		// Is this a user stream field?
-		if ($stream_fields and array_key_exists($var, $stream_fields)) {
-			$formatted_column = $this->row_m->format_column(
-				$var, 
-				$user->$var, 
-				$user->profile_id,
-				$stream_fields->{$var}->field_type, 
-				$stream_fields->{$var}->field_data, 
-				$user->stream, 
-				true
-			);
-		} else {
-			$formatted_column = $user[$var];
+		if ( ! isset($this->user_profile_data[$user_id]))
+		{
+			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
 		}
 
-		// Save for later user
-		$this->user_profile_data[$user_id]['plugin'][$var] = $formatted_column;
-
-		if (is_array($formatted_column)) {
-			return array($formatted_column);
-		}
-
-		return $formatted_column;
+		return $this->user_profile_data[$user_id]->getPluginOutput($var);
 	}
 
 	/**
@@ -395,9 +364,9 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt'))) {
-			return;
-		}
+		$user = new Users\Model\User;
+
+		if (in_array($name, $user->getHidden())) return null;
 
 		$user_id = $this->attribute('user_id', null);
 

@@ -5,6 +5,7 @@ use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * Pages controller
@@ -21,6 +22,8 @@ class Admin extends Admin_Controller
      */
     protected $section = 'pages';
 
+    protected $form_data = array();
+
     /**
      * Constructor
      */
@@ -31,8 +34,24 @@ class Admin extends Admin_Controller
         // Load the required classes
         $this->lang->load('pages');
         $this->lang->load('page_types');
-
-        $this->load->driver('Streams');
+        $this->load->library('keywords/keywords');
+        
+        /**
+         * Search Index Template
+         * - Autoindex this shit
+         */
+        
+        $this->_index_template = array(
+            'singular' => 'pages:page',
+            'plural' => 'pages:pages',
+            'title' => '{{ post:title }}',
+            'description' => '{{ post:meta_description }}',
+            'keywords' => '{{ post:meta_keywords }}',
+            'uri' => '{{ post:full_uri }}',
+            'cp_uri' => 'admin/pages/edit/{{ entry:id }}',
+            'group_access' => null,
+            'user_access' => null
+            );
     }
 
     /**
@@ -40,18 +59,13 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
-        $pages = Page::with('children')->get();
+        $pages = Page::tree();
 
         $this->template
 
             ->title($this->module_details['name'])
 
-            ->append_js('jquery/jquery.ui.nestedSortable.js')
-            ->append_js('jquery/jquery.cooki.js')
-            ->append_js('jquery/jquery.stickyscroll.js')
             ->append_js('module::index.js')
-
-            ->append_css('module::index.css')
 
             ->set('pages', $pages)
             ->build('admin/index');
@@ -68,34 +82,13 @@ class Admin extends Admin_Controller
         $parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
 
         // Who needs a menu when there is only one option?
-        if ($types->count() === 1) {
+        if (count($types) == 1) {
             redirect('admin/pages/create?page_type='.$types[0]->id.$parent);
         }
 
-        // Directly output the menu if it's for the modal.
-        // All we need is the <ul>.
-        if ($this->input->get('modal') === 'true') {
-            $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
-            $html .= '<ul class="modal_select">';
-
-            foreach ($types as $pt) {
-                $html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
-
-                if (trim($pt->description)) {
-                    $html .= ' | '.$pt->description;
-                }
-
-                $html .= '</a></li>';
-            }
-
-            echo $html .= '</ul>';
-
-            return;
-        }
-
-        // If this is not being displayed in the modal, we can
-        // display an entire page.
+        // Display in a modal
         $this->template
+            ->set_layout('modal')
             ->set('parent', $parent)
             ->set('page_types', $types)
             ->build('admin/choose_type');
@@ -108,34 +101,40 @@ class Admin extends Admin_Controller
      */
     public function order()
     {
-        $order  = $this->input->post('order');
-        $data   = $this->input->post('data');
-        $root_pages = isset($data['root_pages']) ? $data['root_pages'] : array();
+        $ids = $this->input->post('ids');
 
-        if (is_array($order)) {
+        //reset all parent > child relations
+        Page::resetParentByIds($ids);
 
-            //reset all parent > child relations
-            $this->page_m->update_all(array('parent_id' => 0));
-
-            foreach ($order as $i => $page) {
-                $id = str_replace('page_', '', $page['id']);
-
+        foreach ($ids as $order => $page)
+        {
+            if (is_integer($order))
+            {
                 //set the order of the root pages
-                $this->page_m->update($id, array('order' => $i), true);
+                $model = Page::find($page['id']);
+                $model->skip_validation = true;
+                $model->order = $order;
+                
+                $model->save();
 
-                //iterate through children and set their order and parent
-                $this->page_m->_set_children($page);
+                if ($model->entry)
+                {
+                    $model->entry->updateOrderingCount($order);
+                }
             }
 
-            // rebuild page URIs
-            $this->page_m->update_lookup($root_pages);
-
-            //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-            $this->cache->clear('navigation_m');
-            $this->cache->clear('page_m');
-
-            Events::trigger('page_ordered', array($order, $root_pages));
+            //iterate through children and set their order and parent
+            Page::setChildren($page);
         }
+
+        // rebuild page URIs
+        Page::updateLookup($ids);
+
+        //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+        $this->cache->clear('navigation_m');
+        $this->cache->clear('page_m');
+
+        Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $ids));
     }
 
     /**
@@ -172,49 +171,61 @@ class Admin extends Admin_Controller
      * @param int $id The ID of the page
      * @param null $parent_id The ID of the parent page, if this is a recursive nested duplication
      */
-    public function duplicate($id, $parent_id = null)
+    public function duplicate($id, $parent = null)
     {
         $page  = Page::with('children')->find($id);
 
-        $new_slug = $page->slug;
+        $duplicate_page = $page->replicate();
 
-        // No parent around? Do what you like
-        if (is_null($parent_id)) {
-            do {
-                // Turn "Foo" into "Foo 2"
-                $page->title = increment_string($page->title, ' ', 2);
+        do {
+            // Turn "Foo" into "Foo 2"
+            $duplicate_page->title = increment_string($duplicate_page->title, ' ', 2);
 
-                // Turn "foo" into "foo-2"
-                $page->slug = increment_string($page->slug, '-', 2);
+            if ($parent)
+            {
+                $duplicate_page->uri = $parent->uri.'/'.$duplicate_page->slug;
+            }
+            else
+            {
+                $duplicate_page->uri = increment_string($duplicate_page->uri, '-', 2);
+            }
 
-                // Find if this already exists in this level
-                $has_dupes = Page::where('slug', $page->slug)
-                    ->where('parent_id', $page->parent_id)
-                    ->count() > 0;
-            } while ($has_dupes === true);
+            // Turn "foo" into "foo-2"
+            $duplicate_page->slug = increment_string($duplicate_page->slug, '-', 2);
 
-        // Oop, a parent turned up, work with that
-        } else {
-            $page->parent_id = $parent_id;
+            // Find if this already exists in this level
+            $has_dupes = Page::isUniqueSlug($duplicate_page->slug, $duplicate_page->parent_id, $duplicate_page->id);
+
+        } while ($has_dupes === true);
+
+        if ($parent)
+        {
+            $duplicate_page->parent()->associate($parent);
         }
 
-        $page->restricted_to = null;
-        $page->navigation_group_id = 0;
+        // $duplicate_page->restricted_to = null;
+        //$duplicate_page->navigation_group_id = 0;
 
-        throw new Exception('FAIL BECAUSE STREAMS ARENT ELOQUENT YET');
+        if ($page->entry)
+        {
+            $duplicate_entry = $page->entry->replicate();
+            $duplicate_entry->save();
 
-        // TODO Streams need to be converted to Eloquent so we can make a "stream" or "entry" relationship
-        $new_page = Page::create($page->toArray());
+            $duplicate_page->entry()->associate($duplicate_entry);
+        }
+        
+        $duplicate_page->index($this->_index_template)->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
-        // $this->streams_m->get_stream($page['stream_id']);
+        // $this->streams_m->get_stream($duplicate_page['stream_id']);
 
-        foreach ($page->children as $child) {
-            $this->duplicate($child->id, $new_page);
+        foreach ($duplicate_page->children as $child)
+        {
+            $this->duplicate($child->id, $duplicate_page);
         }
 
         // only allow a redirect when everything is finished (only the top level page has a null parent_id)
-        if (is_null($parent_id)) {
+        if (is_null($parent)) {
             redirect('admin/pages');
         }
     }
@@ -230,20 +241,27 @@ class Admin extends Admin_Controller
 
         // What type of page are we creating?
         $page_type = PageType::find($this->input->get('page_type'));
+        
+        $parent_page = null;
+
+        if ($parent_id = $this->input->get('parent'))
+        {
+            $parent_page = Page::find($parent_id);
+        }
 
         // Redirect to the page type selection menu if no page type was specified
-        if (! $page_type) {
+        if ( ! $page_type) {
             redirect('admin/pages/choose_type');
         }
-    
+        
         // Get the stream that we are using for this page type.
-        $stream = $page_type->getStream();
+        $stream = $page_type->stream;
 
-        $stream_validation = $this->_setup_stream_fields($stream);
+        //$stream_validation = $this->_setup_stream_fields($stream);
 
-        if ($this->input->method() === 'post') {
-            
-            $input = $this->input->post();
+        $enable_save = false;
+
+        if ($input = ci()->input->post()) {
 
             // Do they have permission to proceed?
             if ($input['status'] === 'live') {
@@ -253,8 +271,10 @@ class Admin extends Admin_Controller
             // 
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
-            $page->parent_id        = (int) $input['parent_id'];
+            $page->uri              = isset($input['slug']) ? $input['slug'] : null;
+            $page->parent_id        = isset($parent_id) ? (int) $parent_id : 0;
             $page->type_id          = (int) $page_type->id;
+            $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : null;
@@ -270,16 +290,17 @@ class Admin extends Admin_Controller
             $page->order            = time();
 
             // Insert the page data, along with
-            if ($page->save()) {
-
-                if ( ! empty($input['is_home'])) {
+            if ($enable_save = $page->save())
+            {
+                $page->buildLookup();
+                
+                if ( ! empty($input['is_home']))
+                {
                     $page->setHomePage();
                 }
 
                 // We define this for the field type
                 define('PAGE_ID', $page->id);
-
-                $page->buildLookup();
 
                 // Add a Navigation Link
                 if ( ! empty($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
@@ -302,66 +323,38 @@ class Admin extends Admin_Controller
                     }
                 }
 
-                // Add the stream data.
-                if ($stream) {
-                    $this->load->driver('Streams');
-
-                    // Insert the stream using the streams driver.
-                    if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace)) {
-                        // Update with our new entry id
-                        if ( ! $this->db->limit(1)->where('id', $page->id)->update('pages', array('entry_id' => $entry_id))) {
-                            return false;
-                        }
-                    } else {
-                        // Something went wrong. Abort!
-                        return false;
-                    }
-                }
-
-                $this->cache->clear('page_m');
+                //$this->cache->clear('page_m');
 
                 Events::trigger('page_created', $page);
-
-                $this->session->set_flashdata('success', lang('pages:create_success'));
-
-                // Redirect back to the form or main page
-                $input['btnAction'] === 'save_exit'
-                    ? redirect('admin/pages')
-                    : redirect('admin/pages/edit/'.$page->id);
-
             }
         }
-
-        // Go through our stream fields and set the current value
-        // for the form. Since we are creating a new form, this should
-        // simply be the post data if it is available.
-        $assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
-        $page_content_data = array();
-
-        if ($assignments) {
-            foreach ($assignments as $assign) {
-                $page_content_data[$assign->field_slug] = $this->input->post($assign->field_slug);
-            }
-        }
-
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
-
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, null, 'new');
 
         // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);
+        //$this->fields->run_field_events($stream_fields, array(), $values);*/
 
         // Set some data that both create and edit forms will need
         $this->_form_data();
 
-        // Load WYSIWYG editor
-        $this->template
-            ->title($this->module_details['name'], lang('pages:create_title'))
-            ->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
-            ->set('page', $page)
-            ->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
-            ->build('admin/form');
+        $this->form_data['page'] = $page;
+
+        $this->form_data['parent_page'] = $parent_page;
+
+        EntryUi::form($stream->stream_slug, $stream->stream_namespace)
+            ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
+            })
+            ->onSaved(function($entry) use ($page)
+            {
+                $page->entry()->associate($entry); // Save the relation Eloquent style
+                $page->save();
+            })
+            ->tabs($this->_tabs())
+            ->successMessage('Page saved.') // @todo - language
+            ->redirect('admin/pages')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->index($this->_index_template)
+            ->render();
     }
 
     /**
@@ -399,9 +392,9 @@ class Admin extends Admin_Controller
             show_error('No page type found.');
         }
 
-        $stream = $page->type->getStream();
-
-        $stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
+        $stream = $page->type->stream;
+        $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
+        //$stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
         // If there's a keywords hash
         if ($page->meta_keywords != '') {
@@ -432,14 +425,15 @@ class Admin extends Admin_Controller
             }
 
             // Translate the data of restricted_to to something we can use in the form.
-            if ($input['restricted_to'][0] == '') {
+            if (isset($input['restricted_to']) and $input['restricted_to'][0] == '') {
                 $input['restricted_to'][0] = '0';
             }
 
             // Assign post data to the page
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
-            $page->parent_id        = (int) $input['parent_id'];
+            $page->uri              = isset($input['slug']) ? $input['slug'] : null;
+            $page->parent_id        = isset($input['parent_id']) ? $input['parent_id'] : 0;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : '';
@@ -452,71 +446,66 @@ class Admin extends Admin_Controller
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
 
+            if (isset($page->is_home)) unset($page->is_home);
+
             // validate and insert
-            if ($page->save()) {
-
+            if ($page->save())
+            {    
                 $page->buildLookup();
-
-                // Add the stream data.
-                if ($stream and $page->entry_id) {
-                    $this->load->driver('Streams');
-
-                    // Insert the stream using the streams driver. Our only extra field is the page_id
-                    // which links this particular entry to our page.
-                    $this->streams->entries->update_entry($page->entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
-                }
-
-                $this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $page->title));
-
+                
                 Events::trigger('page_updated', $page);
 
-                $this->cache->clear('page_m');
+                //$this->cache->clear('page_m');
                 //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                $this->cache->clear('navigation_m');
-
-                // Mission accomplished!
-                $input['btnAction'] == 'save_exit'
-                    ? redirect('admin/pages')
-                    : redirect('admin/pages/edit/'.$page->id);
+                // $this->cache->clear('navigation_m');
             }
         }
-
+        else
+        {
+            // Save the entry type if it was not set
+            $page->setEntryType()->save();
+        }
 
         // Go through our stream fields and set the current value
         // for the form. Since we are creating a new form, this should
         // simply be the post data if it is available.
 
-        $assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
         $page_content_data = array();
 
-        // Get straight raw from the db
-        $page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
-
-        if ($assignments) {
-            foreach ($assignments as $assign) {
-                $from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
-
-                $page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-            }
-        }
-
-        $stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
-
-        // Set Values
-        $values = $this->fields->set_values($stream_fields, $page_stream_entry_raw, 'edit');
-
         // Run stream field events
-        $this->fields->run_field_events($stream_fields, array(), $values);
+        //$this->fields->run_field_events($stream_fields, array(), $values);*/
 
         $this->_form_data();
 
-        $this->template
-            ->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
-            ->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
-            ->append_css('module::page-edit.css')
-            ->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $page->entry_id))
-            ->set('page', $page)
-            ->build('admin/form');
+        $this->form_data['page'] = $page;
+
+        $this->form_data['parent_page'] = $page->parent;
+
+        if ($page->entry)
+        {
+            // We can pass the page model to generate the form
+            $ui = EntryUi::form($page->entry);          
+        }
+        // If for some reason the page does not have an entry, lets give it a chance to get a new one
+        else
+        {
+            $ui = EntryUi::form($stream->stream_slug, $stream->stream_namespace)
+                ->onSaved(function($entry) use ($page)
+                {
+                    $page->entry()->associate($entry); // Save the relation Eloquent style
+                    $page->save();
+                });
+        }
+
+        $ui->tabs($this->_tabs())
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
+            })
+            ->successMessage('Page saved.') // @todo - language
+            ->redirect('admin/pages')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->index($this->_index_template)
+            ->render();
     }
 
     /**
@@ -550,14 +539,55 @@ class Admin extends Admin_Controller
         $this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
         // Load navigation list
-        $this->template->navigation_groups = Navigation\Model\Group::getGroupOptions();
-        $this->template->group_options = Users\Model\Group::getGroupOptions();
+        $this->form_data['navigation_groups'] = $this->template->navigation_groups = Navigation\Model\Group::getGroupOptions();
+        $this->form_data['group_options'] = $this->template->group_options = Users\Model\Group::getGroupOptions();
 
         $this->template
-            ->append_js('jquery/jquery.tagsinput.js')
-            ->append_js('jquery/jquery.cooki.js')
-            ->append_js('module::form.js')
-            ->append_css('jquery/jquery.tagsinput.css');
+            ->append_js('module::form.js');
+    }
+
+    private function _tabs()
+    {
+        $form_details       = ci()->load->view('admin/pages/partials/form_details', $this->form_data, true);
+        $form_meta          = ci()->load->view('admin/pages/partials/form_meta', $this->form_data, true);
+        $form_css           = ci()->load->view('admin/pages/partials/form_css', $this->form_data, true);
+        $form_javascript    = ci()->load->view('admin/pages/partials/form_javascript', $this->form_data, true);
+        $form_options       = ci()->load->view('admin/pages/partials/form_options', $this->form_data, true);
+
+        $tabs = array(
+            array(
+                'title'     => 'Details',
+                'id'        => 'page-details',
+                'content'    => $form_details
+            ),
+            array(
+                'title'     => 'Metadata',
+                'id'        => 'page-meta',
+                'content'    => $form_meta
+            ),
+            array(
+                'title'     => 'Content',
+                'id'        => 'page-fields',
+                'fields'    => '*'
+            ),
+            array(
+                'title'     => 'Design',
+                'id'        => 'page-design',
+                'content'    => $form_css
+            ),
+            array(
+                'title'     => 'Script',
+                'id'        => 'page-script',
+                'content'    => $form_javascript
+            ),
+            array(
+                'title'     => 'Options',
+                'id'        => 'page-options',
+                'content'    => $form_options
+            ),
+        );
+
+        return $tabs;  
     }
 
     /**
@@ -588,8 +618,7 @@ class Admin extends Admin_Controller
                     $deleted_ids = $id;
 
                     // Delete any page comments for this entry
-                    $comments = Comment::findManyByModuleAndEntryId('pages',$id);
-                    $comments->delete();
+                    $comments = Comment::where('module','=','pages')->where('entry_id','=',$id)->delete();
 
                     // Wipe cache for this model, the content has changd
                     $this->cache->clear('page_m');

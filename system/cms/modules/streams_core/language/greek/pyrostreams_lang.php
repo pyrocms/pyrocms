@@ -28,6 +28,7 @@ $lang['streams:new_entry_error']						= "Υπήρξε κάποιο πρόβλη�
 $lang['streams:new_entry_success']						= "Η εγγραφή προστέθηκε με επιτυχία.";
 $lang['streams:edit_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την ενημέρωση αυτής της εγγραφής.";
 $lang['streams:edit_entry_success']					= "Η εγγραφή ενημερώθηκε με επιτυχία.";
+$lang['streams:editing_locked_field']					= "You are editing a locked field. Changes could cause unexpected errors."; # translate
 $lang['streams:delete_summary']							= "Είσαστε σίγουροι ότι θέλετε να διαγράψετε την ροή <strong>%s</strong>; Αυτό θα <strong>διαγράψει %s %s</strong> για πάντα.";
 
 /* Misc Errors */
@@ -67,10 +68,10 @@ $lang['streams:label.make_field_title_column']			= "Ορισμός πεδίου 
 $lang['streams:label.field_name']						= "Όνομα Πεδίου";
 $lang['streams:label.field_slug']						= "Σύντομο Όνομα Πεδίου";
 $lang['streams:label.field_type']						= "Τύπος Πεδίου";
-$lang['streams:id']										= "ID";
-$lang['streams:created_by']								= "Δημιουργήθηκε Από";
-$lang['streams:created_date']							= "Ημερομηνία Δημιουργίας";
-$lang['streams:updated_date']							= "Ημερομηνία Ενημέρωσης";
+$lang['streams:column_id']										= "ID";
+$lang['streams:column_created_by']								= "Δημιουργήθηκε Από";
+$lang['streams:column_created']							= "Ημερομηνία Δημιουργίας";
+$lang['streams:column_updated']							= "Ημερομηνία Ενημέρωσης";
 $lang['streams:value']									= "Τιμή";
 $lang['streams:manage']									= "Διαχείριση";
 $lang['streams:search']									= "Αναζήτηση";

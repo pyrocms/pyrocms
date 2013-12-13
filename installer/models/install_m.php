@@ -79,6 +79,7 @@ class Install_m extends CI_Model
 		    $table->string('username', 20);
 		    $table->string('email', 60);
 		    $table->string('password', 255);
+		    $table->string('salt', 6);
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_code')->nullable();
@@ -151,34 +152,6 @@ class Install_m extends CI_Model
 		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');	// Set for grammer ($schema)
 		$conn->setTablePrefix($db['site_ref'].'_'); // Set for connection ($conn)
 
-		// Profiles
-		$schema->create('profiles', function($table) {
-		    $table->increments('id');
-		    $table->integer('user_id');
-		    $table->string('display_name', 50); // TODO Revise these lengths
-		    $table->string('first_name', 50);
-		    $table->string('last_name', 50)->nullable();
-		    $table->string('company', 100)->nullable();
-		    $table->string('lang', 2)->default('en');
-		    $table->text('bio')->nullable();
-		    $table->integer('dob')->nullable();
-		    $table->enum('gender', array('m', 'f', ''))->default('');
-		    $table->string('phone', 20)->nullable();
-		    $table->string('website', 255)->nullable();
-		    $table->integer('updated_on')->nullable();
-
-		    $table->index('user_id');
-		});
-
-		// Populate site profiles
-		$conn->table('profiles')->insert(array(
-			'user_id'       => 1,
-			'first_name'    => $user['firstname'],
-			'last_name'     => $user['lastname'],
-			'display_name'  => $user['firstname'].' '.$user['lastname'],
-			'lang'          => 'en',
-		));
-
 		// Migrations
 		$schema->create('migrations', function($table) {
 		    $table->integer('version');
@@ -212,6 +185,40 @@ class Install_m extends CI_Model
 		    $table->index('is_backend');
 		});
 
+		$schema->dropIfExists('themes');
+
+        $schema->create('themes', function($table) {
+            $table->increments('id');
+            $table->integer('site_id')->nullable();
+            $table->string('slug');
+            $table->string('name');
+            $table->text('description');
+            $table->string('author')->nullable();
+            $table->string('author_website')->nullable();
+            $table->string('website')->nullable();
+            $table->string('version')->default('1.0.0');
+            $table->string('type')->nullable();
+            $table->boolean('enabled')->default(true);
+            $table->integer('order')->default(0);
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
+        });
+
+        $schema->dropIfExists('theme_options');
+
+        $schema->create('theme_options', function($table) {
+            $table->increments('id');
+            $table->string('slug', 30);
+            $table->string('title', 100);
+            $table->text('description');
+            $table->enum('type', array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker'));
+            $table->string('default', 255);
+            $table->string('value', 255);
+            $table->text('options');
+            $table->boolean('is_required');
+            $table->integer('theme_id')->nullable();
+        });
+
 		$schema->create('settings', function($table) {
 		    $table->string('slug', 30);
 		    $table->string('title', 100);
@@ -228,6 +235,55 @@ class Install_m extends CI_Model
 		    $table->unique('slug');
 		    $table->index('slug');
 		});
+
+				// Streams Table
+        $schema->dropIfExists('data_streams');
+
+        $schema->create('data_streams', function($table) {
+            $table->increments('id');
+            $table->string('stream_name', 60);
+            $table->string('stream_slug', 60);
+            $table->string('stream_namespace', 60)->nullable();
+            $table->string('stream_prefix', 60)->nullable();
+            $table->string('about', 255)->nullable();
+            $table->binary('view_options');
+            $table->string('title_column', 255)->nullable();
+            $table->enum('sorting', array('title', 'custom'))->default('title');
+            $table->text('permissions')->nullable();
+            $table->enum('is_hidden', array('yes','no'))->default('no');
+            $table->string('menu_path', 255)->nullable();
+        });
+
+        // Fields Table
+        $schema->dropIfExists('data_fields');
+
+        $schema->create('data_fields', function($table) {
+            $table->increments('id');
+            $table->string('field_name', 60);
+            $table->string('field_slug', 60);
+            $table->string('field_namespace', 60)->nullable();
+            $table->string('field_type', 50);
+            $table->binary('field_data')->nullable();
+            $table->binary('view_options')->nullable();
+            $table->enum('is_locked', array('yes', 'no'))->default('no');
+        });
+
+        // Assignments Table
+        $schema->dropIfExists('data_field_assignments');
+
+        $schema->create('data_field_assignments', function($table) {
+            $table->increments('id');
+            $table->integer('sort_order');
+            $table->integer('stream_id');
+            $table->integer('field_id');
+            $table->enum('is_required', array('yes', 'no'))->default('no');
+            $table->enum('is_unique', array('yes', 'no'))->default('no');
+            $table->text('instructions')->nullable();
+            $table->string('field_name', 60);
+
+            // $table->foreign('stream_id'); //TODO Set up foreign keys
+            // $table->foreign('field_id'); //TODO Set up foreign keys
+        });
 	}
 
 }

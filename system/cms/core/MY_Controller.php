@@ -8,6 +8,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Users\Model\User;
 
 /**
@@ -61,11 +62,17 @@ class MY_Controller extends MX_Controller
 		// Set up the Illuminate\Database layer
 		ci()->pdb = self::setupDatabase();
 
+        // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
+        // See https://github.com/loic-sharma/profiler        
+        $logger = new \Profiler\Logger\Logger;         
+        ci()->profiler = new \Profiler\Profiler($logger);
+
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
         // Register module manager for usage everywhere, its handy
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
+        $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
         
         // activate the autoloader
@@ -149,16 +156,27 @@ class MY_Controller extends MX_Controller
 
         ci()->moduleManager = $this->moduleManager = new ModuleManager($user);
         ci()->themeManager = $this->themeManager = new ThemeManager();
-        
+
         // Let the Theme Manager where our Template library thinks themes
         $this->themeManager->setLocations($this->template->theme_locations());
 
         ci()->widgetManager = $this->widgetManager = new WidgetManager();
 
+        // activate the autoloader
+        $loader->register();
+
+        // now that we have a list of enabled modules
+        $this->load->library('events');
+
+        FieldTypeManager::init();
+        FieldTypeManager::registerAddonFieldTypes();
+
         // load all modules (the Events library uses them all) and make their details widely available
         $enabled_modules = $this->moduleManager->getAllEnabled();
 
-        foreach ($enabled_modules as $module) {
+        foreach ($enabled_modules as $module)
+        {
+            FieldTypeManager::registerFolderFieldTypes($module['path'].'/field_types/', $module['field_types']);
 
             // register classes with namespaces
             $loader->add('Pyro\\Module\\'.ucfirst($module['slug']), $module['path'].'/src/');
@@ -171,12 +189,6 @@ class MY_Controller extends MX_Controller
                 continue;
             }
         }
-
-        // activate the autoloader
-        $loader->register();
-
-		// now that we have a list of enabled modules
-		$this->load->library('events');
 
 		if ($this->module) {
             // If this a disabled module then show a 404
@@ -198,7 +210,6 @@ class MY_Controller extends MX_Controller
 
 		// Enable profiler on local box
 	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET)) {
-			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
 	    }
 	}

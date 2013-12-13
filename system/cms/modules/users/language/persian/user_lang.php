@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user:add_field']                        	= 'فیلد جدید برای پروفایل';
-$lang['user:profile_delete_success']           	= 'فیلد پروفایل حذف شد';
+$lang['user:add_field']                         = 'فیلد جدید برای پروفایل';
+$lang['user:profile_delete_success']            = 'فیلد پروفایل حذف شد';
 $lang['user:profile_delete_failure']            = 'حذف کردن فیلد پروفایل با خطا همراه بود';
-$lang['profile_user_basic_data_label']  		= 'اطلاعات پایه';
-$lang['profile_company']         	  			= 'شرکت'; 
-$lang['profile_updated_on']           			= 'تاریخ ویرایش';
-$lang['user:profile_fields_label']	 		 	= 'فیلد های پروفایل';
+$lang['user:profile_user_basic_data_label']     = 'اطلاعات پایه';
+$lang['user:profile_company']                   = 'شرکت'; 
+$lang['user:profile_updated_on']                = 'تاریخ ویرایش';
+$lang['user:profile_fields_label']              = 'فیلد های پروفایل';
 
 $lang['user:register_header']                  = 'ثبت نام';
 $lang['user:register_step1']                   = '<strong>گام اول:</strong>ثبت نام';
@@ -16,7 +16,7 @@ $lang['user:login_header']                     = 'لاگین';
 
 // titles
 $lang['user:add_title']                        = 'اضافه کردن کاربر';
-$lang['user:list_title'] 			= 'کاربرها';
+$lang['user:list_title']                       = 'کاربرها';
 $lang['user:inactive_title']                   = 'کاربرهای غیر فعال';
 $lang['user:active_title']                     = 'کاربرهای فعال';
 $lang['user:registred_title']                  = 'کاربرهای ثبت نام شده';
@@ -72,7 +72,7 @@ $lang['user:lang']                             = 'زبان';
 
 $lang['user:activation_code']                  = 'کد فعالسازی';
 
-$lang['user:reset_instructions']			   = 'لطفا نام کاربری و یا ایمیل خود را وارد نمایید';
+$lang['user:reset_instructions']               = 'لطفا نام کاربری و یا ایمیل خود را وارد نمایید';
 $lang['user:reset_password_link']              = 'پسوردم را فراموش کرده ام';
 
 $lang['user:activation_code_sent_notice']      = 'یک ایمیل حاوی کد فعالسازی برای شما ارسال شد.';
@@ -119,7 +119,7 @@ $lang['user:mass_delete_error']                = 'شما باید ابتدا ک�
 // Register
 $lang['user:email_pass_missing']               = 'فیلد های ایمیل و پسورد کامل نشده اند.';
 $lang['user:email_exists']                     = 'ایمیلی که شما انتخاب کرده اید در حال حاضر توسط کاربر دیگری انتخاب شده است.';
-$lang['user:register_error']		    = 'ما فکر می کنیم که شما یک روبات هستید، اگر ما اشتباه می کنیم، شما ببخشید.';
+$lang['user:register_error']            = 'ما فکر می کنیم که شما یک روبات هستید، اگر ما اشتباه می کنیم، شما ببخشید.';
 $lang['user:register_reasons']                 = 'برای دسترسی به قسمت های خاصی از سایت شما باید عضو شوید';
 
 
@@ -160,50 +160,50 @@ $lang['user:reset_pass_email_subject']         = 'ریست پسورد';
 $lang['user:reset_pass_email_body']            = 'پسورد شما در %s ریست شد. چنانچه شما درخواست ریست پسورد را ارائه نکرده اید با ما %s تماس بگیرید تا مشکل را برطرف نماییم.';
 
 // Profile
-$lang['profile_of_title']             = 'پروفایل %s';
+$lang['user:profile_of_title']             = 'پروفایل %s';
 
-$lang['profile_user_details_label']   = 'مشخصات کاربر';
-$lang['profile_role_label']           = 'نقش';
-$lang['profile_registred_on_label']   = 'تاریخ ثبت نام';
-$lang['profile_last_login_label']     = 'آخرین بازدید';
-$lang['profile_male_label']           = 'مذکر';
-$lang['profile_female_label']         = 'مونث';
-$lang['user:profile_fields_label']	  = 'فیلد های پروفایل';
+$lang['user:profile_user_details_label']   = 'مشخصات کاربر';
+$lang['user:profile_role_label']           = 'نقش';
+$lang['user:profile_registred_on_label']   = 'تاریخ ثبت نام';
+$lang['user:profile_last_login_label']     = 'آخرین بازدید';
+$lang['user:profile_male_label']           = 'مذکر';
+$lang['user:profile_female_label']         = 'مونث';
+$lang['user:profile_fields_label']    = 'فیلد های پروفایل';
 
-$lang['profile_not_set_up']           = 'کاربر هنوز پورفایل خود را ایجاد نکرده است.';
+$lang['user:profile_not_set_up']           = 'کاربر هنوز پورفایل خود را ایجاد نکرده است.';
 
-$lang['profile_edit']                 = 'پروفایل خود را ویرایش کنید';
+$lang['user:profile_edit']                 = 'پروفایل خود را ویرایش کنید';
 
-$lang['profile_personal_section']     = 'شخصی';
+$lang['user:profile_personal_section']     = 'شخصی';
 
-$lang['profile_display_name']         = 'نام مستعار';
-$lang['profile_dob']                  = 'تاریخ تولد';
-$lang['profile_dob_day']              = 'روز';
-$lang['profile_dob_month']            = 'ماه';
-$lang['profile_dob_year']             = 'سال';
-$lang['profile_gender']               = 'جنسیت';
-$lang['profile_gender_nt']            = 'مایل به بازگو نیستم';
-$lang['profile_gender_male']          = 'مذکر';
-$lang['profile_gender_female']        = 'کونث';
-$lang['profile_bio']                  = 'درباره من';
+$lang['user:profile_display_name']         = 'نام مستعار';
+$lang['user:profile_dob']                  = 'تاریخ تولد';
+$lang['user:profile_dob_day']              = 'روز';
+$lang['user:profile_dob_month']            = 'ماه';
+$lang['user:profile_dob_year']             = 'سال';
+$lang['user:profile_gender']               = 'جنسیت';
+$lang['user:profile_gender_nt']            = 'مایل به بازگو نیستم';
+$lang['user:profile_gender_male']          = 'مذکر';
+$lang['user:profile_gender_female']        = 'کونث';
+$lang['user:profile_bio']                  = 'درباره من';
 
-$lang['profile_contact_section']      = 'تماس';
+$lang['user:profile_contact_section']      = 'تماس';
 
-$lang['profile_phone']                = 'تلفن';
-$lang['profile_mobile']               = 'موبایل';
-$lang['profile_address']              = 'آدرس';
-$lang['profile_address_line1']        = 'خط اول';
-$lang['profile_address_line2']        = 'خط دوم';
-$lang['profile_address_line3']        = 'شهر';
-$lang['profile_address_postcode']     = 'کد پستی';
-$lang['profile_website']              = 'وبسایت';
+$lang['user:profile_phone']                = 'تلفن';
+$lang['user:profile_mobile']               = 'موبایل';
+$lang['user:profile_address']              = 'آدرس';
+$lang['user:profile_address_line1']        = 'خط اول';
+$lang['user:profile_address_line2']        = 'خط دوم';
+$lang['user:profile_address_line3']        = 'شهر';
+$lang['user:profile_address_postcode']     = 'کد پستی';
+$lang['user:profile_website']              = 'وبسایت';
 
-$lang['profile_api_section']     	  = 'API Access'; #Translate
+$lang['user:profile_api_section']          = 'API Access'; #Translate
 
-$lang['profile_edit_success']         = 'پروفایل شما ذخیره شد.';
-$lang['profile_edit_error']           = 'خطایی رخ داده است';
+$lang['user:profile_edit_success']         = 'پروفایل شما ذخیره شد.';
+$lang['user:profile_edit_error']           = 'خطایی رخ داده است';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn']             = 'ذخیره ی پروفایل';
+$lang['user:profile_save_btn']             = 'ذخیره ی پروفایل';
 /* End of file user_lang.php */

@@ -3,9 +3,9 @@
 $lang['user:add_field']                        	= 'Add User Profile Field'; #translate
 $lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
 $lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
+$lang['user:profile_company']         	  		= 'Company'; #translate
+$lang['user:profile_updated_on']           		= 'Updated On'; #translate
 $lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user:register_header'] 			= 'Registrace';
@@ -154,59 +154,59 @@ $lang['user:reset_pass_email_subject'] 			= 'Obnovení hesla';
 $lang['user:reset_pass_email_body'] 			= 'Vaše heslo na %s bylo obnoveno. Pokud jste si nevyžádal/a tuto změnu, napište nám prosím na %s a my se pokusíme situaci vyřešit.';
 
 // Profile
-$lang['profile_of_title'] 				= 'Profil - %s';
+$lang['user:profile_of_title'] 				= 'Profil - %s';
 
-$lang['profile_user_details_label'] 	= 'Detaily';
-$lang['profile_role_label'] 			= 'Role';
-$lang['profile_registred_on_label'] 	= 'Registrace';
-$lang['profile_last_login_label'] 		= 'Poslední přihlášení';
-$lang['profile_male_label'] 			= 'Muž';
-$lang['profile_female_label'] 			= 'Žena';
+$lang['user:profile_user_details_label'] 	= 'Detaily';
+$lang['user:profile_role_label'] 			= 'Role';
+$lang['user:profile_registred_on_label'] 	= 'Registrace';
+$lang['user:profile_last_login_label'] 		= 'Poslední přihlášení';
+$lang['user:profile_male_label'] 			= 'Muž';
+$lang['user:profile_female_label'] 			= 'Žena';
 
-$lang['profile_not_set_up'] 			= 'Tento uživatel nemá vytvořený profil.';
+$lang['user:profile_not_set_up'] 			= 'Tento uživatel nemá vytvořený profil.';
 
-$lang['profile_edit'] 					= 'Upravit svůj profil';
+$lang['user:profile_edit'] 					= 'Upravit svůj profil';
 
-$lang['profile_personal_section'] 		= 'Osobní';
+$lang['user:profile_personal_section'] 		= 'Osobní';
 
-$lang['profile_display_name']			= 'Zobrazené jméno';
-$lang['profile_dob']					= 'Datum narození';
-$lang['profile_dob_day']				= 'Den';
-$lang['profile_dob_month']				= 'Měsíc';
-$lang['profile_dob_year']				= 'Rok';
-$lang['profile_gender']					= 'Pohlaví';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
-$lang['profile_bio']					= 'O mně';
+$lang['user:profile_display_name']			= 'Zobrazené jméno';
+$lang['user:profile_dob']					= 'Datum narození';
+$lang['user:profile_dob_day']				= 'Den';
+$lang['user:profile_dob_month']				= 'Měsíc';
+$lang['user:profile_dob_year']				= 'Rok';
+$lang['user:profile_gender']					= 'Pohlaví';
+$lang['user:profile_gender_nt']            = 'Not Telling'; #translate
+$lang['user:profile_gender_male']          = 'Male'; #translate
+$lang['user:profile_gender_female']        = 'Female'; #translate
+$lang['user:profile_bio']					= 'O mně';
 
-$lang['profile_contact_section'] 		= 'Kontakt';
+$lang['user:profile_contact_section'] 		= 'Kontakt';
 
-$lang['profile_phone']					= 'Telefon';
-$lang['profile_mobile']					= 'Mobil';
-$lang['profile_address']				= 'Adresa';
-$lang['profile_address_line1'] 			= 'Řádka #1';
-$lang['profile_address_line2'] 			= 'Řádka #2';
-$lang['profile_address_line3'] 			= 'Řádka #3';
-$lang['profile_address_postcode'] 		= 'PSČ';
-$lang['profile_website']				= 'Web';
+$lang['user:profile_phone']					= 'Telefon';
+$lang['user:profile_mobile']					= 'Mobil';
+$lang['user:profile_address']				= 'Adresa';
+$lang['user:profile_address_line1'] 			= 'Řádka #1';
+$lang['user:profile_address_line2'] 			= 'Řádka #2';
+$lang['user:profile_address_line3'] 			= 'Řádka #3';
+$lang['user:profile_address_postcode'] 		= 'PSČ';
+$lang['user:profile_website']				= 'Web';
 
-$lang['profile_messenger_section'] 		= 'IM';
+$lang['user:profile_messenger_section'] 		= 'IM';
 
-$lang['profile_msn_handle'] 			= 'MSN';
-$lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'Yahoo! messenger';
-$lang['profile_gtalk_handle'] 			= 'GTalk';
+$lang['user:profile_msn_handle'] 			= 'MSN';
+$lang['user:profile_aim_handle'] 			= 'AIM';
+$lang['user:profile_yim_handle'] 			= 'Yahoo! messenger';
+$lang['user:profile_gtalk_handle'] 			= 'GTalk';
 
-$lang['profile_avatar_section'] 		= 'Profilový obrázek';
-$lang['profile_social_section'] 		= 'Socialní sítě';
+$lang['user:profile_avatar_section'] 		= 'Profilový obrázek';
+$lang['user:profile_social_section'] 		= 'Socialní sítě';
 
-$lang['profile_gravatar'] 				= 'Gravatar';
-$lang['profile_twitter'] 				= 'Twitter';
+$lang['user:profile_gravatar'] 				= 'Gravatar';
+$lang['user:profile_twitter'] 				= 'Twitter';
 
-$lang['profile_edit_success'] 			= 'Váš profil byl uložen.';
-$lang['profile_edit_error'] 			= 'Objevila se chyba.';
+$lang['user:profile_edit_success'] 			= 'Váš profil byl uložen.';
+$lang['user:profile_edit_error'] 			= 'Objevila se chyba.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= 'Uložit profil';
+$lang['user:profile_save_btn'] 				= 'Uložit profil';

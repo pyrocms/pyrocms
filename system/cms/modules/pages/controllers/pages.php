@@ -52,7 +52,6 @@ class Pages extends Public_Controller
 					set_status_header(404);
 				}
 
-				exit;
 			}
 
 			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
@@ -158,6 +157,9 @@ class Pages extends Public_Controller
 		// Metadata
 		// ---------------------------------
 
+		$page->meta_title = $this->parser->parse_string($page->meta_title, array('current_user' => ci()->current_user), true);
+		$page->meta_description = $this->parser->parse_string($page->meta_description, array('current_user' => ci()->current_user), true);
+
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
 		$meta_title = ($page->meta_title ?: $page->type->meta_title);
@@ -222,8 +224,8 @@ class Pages extends Public_Controller
 		}
 
 		// Get our stream.
-		$this->load->driver('Streams');
-		$stream = $this->streams_m->get_stream($page->type->stream_id);
+		//$this->load->driver('Streams');
+		//$stream = $this->streams_m->get_stream($page->type->stream_id);
 
 		// We are going to pre-build this data so we have the data
 		// available to the template plugin (since we are pre-parsing our views).
@@ -232,11 +234,11 @@ class Pages extends Public_Controller
 		// Parse our view file. The view file is nothing
 		// more than an echo of $page->layout->body and the
 		// comments after it (if the page has comments).
-		$html = $this->template->load_view('pages/page', array('page' => $page), false);
+		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $page->getAttributes()), false);
 
 		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $stream->stream_slug,
-			'namespace' => $stream->stream_namespace,
+			'stream' => $page->type->stream->stream_slug,
+			'namespace' => $page->type->stream->stream_namespace,
 			'id_name' => 'entry_id'
 		));
 

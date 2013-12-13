@@ -171,6 +171,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         if (isset($link['children'])) {
             foreach ($link['children'] as $i => $child) {
+                
                 ci()->pdb
                     ->table('navigation_links')
                     ->where('id', str_replace('link_', '', $child['id']))
@@ -299,7 +300,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     {
         // We have to fetch it ourselves instead of just using $current_user because this
         // will all be cached per user group
-        $group = Users\Model\Group::findByName($user_group);
+        $group = $user_group ? Users\Model\Group::findByName($user_group) : null;
 
         foreach ($links as $key => &$row) {
             // Looks like it's restricted. Let's find out who
@@ -340,12 +341,16 @@ class Link extends \Illuminate\Database\Eloquent\Model
                     if ($front_end and $page->restricted_to) {
                         $page->restricted_to = (array) explode(',', $page->restricted_to);
 
-                        if ( ! $user_group or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to))) {
+print_r($page->restricted_to);
+                        if ( (! $user_group and $page->restricted_to) or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to) and ! empty($page->restricted_to))) {
                             unset($links[$key]);
                         }
                     }
                     break;
             }
+            
+            // Process all the little children
+            $row->children = self::makeUrlArray($row->children, $user_group, $front_end);
         }
 
         return $links;

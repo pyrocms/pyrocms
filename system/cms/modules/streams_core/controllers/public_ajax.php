@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\FieldTypeManager;
+use Illuminate\Support\Str;
+
 /**
  * PyroStreams Public AJAX Controller
  *
@@ -21,7 +24,7 @@ class Public_ajax extends Public_Controller
 
         // Only AJAX gets through!
        	if ( ! $this->input->is_ajax_request()) {
-       		die('Must be an ajax request.');
+       		//die('Must be an ajax request.');
        	}
     }
 
@@ -47,16 +50,17 @@ class Public_ajax extends Public_Controller
 		$params			= array_slice($segments, 5);
 
 		// Is this a valid field type?
-		if ( ! isset($this->type->types->$field_type)) {
+		if ( ! $type = FieldTypeManager::getType($field_type))
+		{
 			exit('Invalid Field Type.');
 		}
 
 		// We prefix all ajax functions with ajax_
-		$method = 'ajax_'.$method;
+		$method = Str::studly('ajax_'.$method);
 
 		// Does the method exist?
-		if ( method_exists($this->type->types->$field_type, $method)) {
-			exit(call_user_func_array(array($this->type->types->$field_type, $method), $params));
+		if (method_exists($type, $method)) {
+			exit(call_user_func_array(array($type, $method), $params));
 		}
 
 		exit("Method '{$method}' not found.");

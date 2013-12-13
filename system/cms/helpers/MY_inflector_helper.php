@@ -42,7 +42,7 @@ if (!function_exists('slugify')) {
 		$string = strtolower(trim(Utf8::toAscii($string)));
 		$string = preg_replace('/[\s]+/', $separator, $string);
 		
-		return preg_replace("/[^0-9a-z]/i", '', $string);
+		return preg_replace("/[^0-9-a-z]/i", '', $string);
 	}
 }
 
