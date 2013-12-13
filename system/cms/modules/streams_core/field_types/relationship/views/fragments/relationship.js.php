@@ -6,10 +6,10 @@
 		$('select.selectize-relationship').each(function() {
 
 			var input = $(this);
-			var options = input.attr('data-options') == 'null' ? null : [$.parseJSON(input.attr('data-options'))];
+			var options = input.attr('data-options') == 'null' ? null : $.parseJSON(input.attr('data-options'));
 
-			input = input.selectize({
-				maxItems: 1,
+			input.selectize({
+				maxItems: input.attr('data-max_selections'),
 				valueField: input.attr('data-value_field'),
 				labelField: input.attr('data-label_field'),
 				searchField: input.attr('data-search_field'),

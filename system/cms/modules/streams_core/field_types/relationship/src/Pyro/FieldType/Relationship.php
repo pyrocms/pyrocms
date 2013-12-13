@@ -66,6 +66,29 @@ class Relationship extends AbstractFieldType
 		'pluginOutput' => array(),
 		);
 
+	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Run before form is built
+	 *
+	 * @return	void
+	 */
+	public function event()
+	{
+		$this->appendMetadata($this->view('fragments/relationship.js.php'));
+	}
+
+	/**
+	 * Run before table is built
+	 *
+	 * @return	void
+	 */
+	public function filterEvent()
+	{
+		$this->appendMetadata($this->view('fragments/relationship.js.php'));
+	}
 
 	/**
 	 * Relation
@@ -114,35 +137,39 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$id = ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null;
+		// Entry options
+		$options = $this->getRelationResult();
 
-		$data = array(
-			'form_slug' => $this->form_slug,
-			'id' => ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null,
-			'options' => $this->getOptions()
-		);
+		// To array
+		if ($options) $options = $options->toArray(); else array();
 
-		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
+		// Data
+		$data = '
+			data-options="'.htmlentities(json_encode($options)).'"
+			data-value="'.htmlentities(implode(',', $value)).'"
+			data-form_slug="'.$this->form_slug.'"
+			data-field_slug="'.$this->field->field_slug.'"
+			data-stream_param="'.$this->getParameter('stream').'"
+			data-stream_namespace="'.$this->stream->stream_namespace.'"
+			
+			data-value_field="'.$this->getParameter('value_field', 'id').'"
+			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
+			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
+			
+			id="'.$this->form_slug.'"
+			class="skip selectize-relationship"
+			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
+			';
+
+		// Start the HTML
+		return form_dropdown(
+			$this->form_slug,
+			array(),
+			null,
+			$data
+			);
 	}
 	
-	/**
-	 * Options
-	 * @return array
-	 */
-	public function getOptions()
-	{
-		$options = array();
-
-		if ($relation_class = $this->relationClass())
-		{
-			$instance = new $relation_class;
-
-			$options = $instance->get()->lists($this->getParameter('title_column'), $this->getParameter('value_field','id'));
-		}
-
-		return $options;
-	}
-
 	/**
 	 * Output filter input
 	 *
@@ -151,7 +178,41 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		return form_dropdown($this->form_slug, $this->getOptions());
+		// Set the value
+		$this->setValue(ci()->input->get($this->getFilterSlug('is')));
+
+		// Entry options
+		$options = $this->getRelationResult();
+
+		// To array
+		if ($options) $options = $options->toArray(); else array();
+
+		// Data
+		$data = '
+			data-options="'.htmlentities(json_encode($options)).'"
+			data-form_slug="'.$this->getFilterSlug('is').'"
+			data-field_slug="'.$this->field->field_slug.'"
+			data-stream_param="'.$this->getParameter('stream').'"
+			data-stream_namespace="'.$this->stream->stream_namespace.'"
+			
+			data-max_selections="1"
+
+			data-value_field="'.$this->getParameter('value_field', 'id').'"
+			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
+			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
+			
+			id="'.$this->form_slug.'"
+			class="skip selectize-relationship"
+			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
+			';
+
+		// Start the HTML
+		return form_dropdown(
+			$this->getFilterSlug('is'),
+			array(),
+			null,
+			$data
+			);
 	}
 
 	/**
