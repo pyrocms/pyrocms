@@ -40,7 +40,8 @@ class Relationship extends AbstractFieldType
 		'label_field',
 		'search_field',
 		'template',
-		'module_slug'
+		'module_slug',
+		'relation_class',
 		);
 
 	/**
@@ -151,7 +152,7 @@ class Relationship extends AbstractFieldType
 			data-field_slug="'.$this->field->field_slug.'"
 			data-stream_param="'.$this->getParameter('stream').'"
 			data-stream_namespace="'.$this->stream->stream_namespace.'"
-			
+
 			data-value_field="'.$this->getParameter('value_field', 'id').'"
 			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
 			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
@@ -195,8 +196,6 @@ class Relationship extends AbstractFieldType
 			data-stream_param="'.$this->getParameter('stream').'"
 			data-stream_namespace="'.$this->stream->stream_namespace.'"
 			
-			data-max_selections="1"
-
 			data-value_field="'.$this->getParameter('value_field', 'id').'"
 			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
 			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
@@ -299,5 +298,52 @@ class Relationship extends AbstractFieldType
 	public function paramTitleColumn($value = '')
 	{
 		return form_input('title_column', $value);
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// -------------------------	AJAX 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////
+
+	public function ajaxSearch()
+	{
+		/**
+		 * Determine the stream
+		 */
+		$stream = explode('.', ci()->uri->segment(7));
+		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
+
+
+		/**
+		 * Determine our field / type
+		 */
+		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
+		$field_type = $field->getType();
+
+
+		/**
+		 * Determine our select
+		 */
+		$select = array_unique(
+			array_merge(
+				array_values(explode('|', $field->getParameter('value_field', 'id'))),
+				array_values(explode('|', $field->getParameter('label_field'))),
+				array_values(explode('|', $field->getParameter('search_field')))
+				)
+			);
+
+
+		/**
+		 * Get our entries
+		 */
+		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->select($select)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+
+
+		/**
+		 * Stash the title_column just in case nothing is defined later
+		 */
+		$entries = $entries->toArray();
+
+		header('Content-type: application/json');
+		echo json_encode(array('entries' => $entries));
 	}
 }

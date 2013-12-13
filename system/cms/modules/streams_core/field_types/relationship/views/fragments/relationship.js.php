@@ -9,7 +9,7 @@
 			var options = input.attr('data-options') == 'null' ? null : $.parseJSON(input.attr('data-options'));
 
 			input.selectize({
-				maxItems: input.attr('data-max_selections'),
+				maxItems: 1,
 				valueField: input.attr('data-value_field'),
 				labelField: input.attr('data-label_field'),
 				searchField: input.attr('data-search_field'),
