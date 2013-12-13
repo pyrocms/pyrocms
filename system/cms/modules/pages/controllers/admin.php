@@ -5,7 +5,7 @@ use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
-use Pyro\Module\Streams_core as Streams;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * Pages controller
@@ -34,8 +34,24 @@ class Admin extends Admin_Controller
         // Load the required classes
         $this->lang->load('pages');
         $this->lang->load('page_types');
-
-        $this->load->driver('Streams');
+        $this->load->library('keywords/keywords');
+        
+        /**
+         * Search Index Template
+         * - Autoindex this shit
+         */
+        
+        $this->_index_template = array(
+            'singular' => 'pages:page',
+            'plural' => 'pages:pages',
+            'title' => '{{ post:title }}',
+            'description' => '{{ post:meta_description }}',
+            'keywords' => '{{ post:meta_keywords }}',
+            'uri' => '{{ post:full_uri }}',
+            'cp_uri' => 'admin/pages/edit/{{ entry:id }}',
+            'group_access' => null,
+            'user_access' => null
+            );
     }
 
     /**
@@ -231,7 +247,7 @@ class Admin extends Admin_Controller
             $duplicate_page->entry()->associate($duplicate_entry);
         }
         
-        $duplicate_page->save();
+        $duplicate_page->index($this->_index_template)->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
         // $this->streams_m->get_stream($duplicate_page['stream_id']);
@@ -276,7 +292,7 @@ class Admin extends Admin_Controller
 
         //$stream_validation = $this->_setup_stream_fields($stream);
 
-        $enable_post = false;
+        $enable_save = false;
 
         if ($input = ci()->input->post()) {
 
@@ -307,7 +323,7 @@ class Admin extends Admin_Controller
             $page->order            = time();
 
             // Insert the page data, along with
-            if ($enable_post = $page->save())
+            if ($enable_save = $page->save())
             {
                 $page->buildLookup();
                 
@@ -356,8 +372,11 @@ class Admin extends Admin_Controller
 
         $this->form_data['parent_page'] = $parent_page;
 
-        Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
-            ->enablePost($enable_post) // This will interrupt submittion for the entry if the page was not created
+        EntryUi::form($stream->stream_slug, $stream->stream_namespace)
+            ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
+            })
             ->onSaved(function($entry) use ($page)
             {
                 $page->entry()->associate($entry); // Save the relation Eloquent style
@@ -366,6 +385,8 @@ class Admin extends Admin_Controller
             ->tabs($this->_tabs())
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->index($this->_index_template)
             ->render();
     }
 
@@ -458,6 +479,8 @@ class Admin extends Admin_Controller
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
 
+            if (isset($page->is_home)) unset($page->is_home);
+
             // validate and insert
             if ($page->save())
             {    
@@ -494,12 +517,12 @@ class Admin extends Admin_Controller
         if ($page->entry)
         {
             // We can pass the page model to generate the form
-            $cp = Streams\Cp\Entries::form($page->entry);          
+            $ui = EntryUi::form($page->entry);          
         }
         // If for some reason the page does not have an entry, lets give it a chance to get a new one
         else
         {
-            $cp = Streams\Cp\Entries::form($stream->stream_slug, $stream->stream_namespace)
+            $ui = EntryUi::form($stream->stream_slug, $stream->stream_namespace)
                 ->onSaved(function($entry) use ($page)
                 {
                     $page->entry()->associate($entry); // Save the relation Eloquent style
@@ -507,9 +530,14 @@ class Admin extends Admin_Controller
                 });
         }
 
-        $cp->tabs($this->_tabs())
+        $ui->tabs($this->_tabs())
+            ->onSaving(function($entry) use ($page) {
+                if ($_POST) $_POST['full_uri'] = $page->uri;
+            })
             ->successMessage('Page saved.') // @todo - language
             ->redirect('admin/pages')
+            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->index($this->_index_template)
             ->render();
     }
 

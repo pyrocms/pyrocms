@@ -157,6 +157,9 @@ class Pages extends Public_Controller
 		// Metadata
 		// ---------------------------------
 
+		$page->meta_title = $this->parser->parse_string($page->meta_title, array('current_user' => ci()->current_user), true);
+		$page->meta_description = $this->parser->parse_string($page->meta_description, array('current_user' => ci()->current_user), true);
+
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
 		$meta_title = ($page->meta_title ?: $page->type->meta_title);
@@ -231,7 +234,7 @@ class Pages extends Public_Controller
 		// Parse our view file. The view file is nothing
 		// more than an echo of $page->layout->body and the
 		// comments after it (if the page has comments).
-		$html = $this->template->load_view('pages/page', array('page' => $page), false);
+		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $page->getAttributes()), false);
 
 		$view = $this->parser->parse_string($html, $page, true, false, array(
 			'stream' => $page->type->stream->stream_slug,

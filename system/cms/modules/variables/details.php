@@ -1,7 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Variables Module
@@ -106,18 +108,12 @@ class Module_Variables extends AbstractModule
 	public function install($pdb, $schema)
 	{
 		// Remove variables from streams
-		Data\Utility::destroyNamespace('variables');
+		SchemaUtility::destroyNamespace('variables');
 
 		ci()->lang->load('variables/variables');
 
-		if (! ci()->type->load_single_type('field')) {
-			ci()->session->set_flashdata('notice', lang('variables:field_field_type_required'));
-			return false;
-		}
-
-		if (Data\Streams::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
-			'title_column' => 'name',
-		    'view_options' => array('name', 'data', 'syntax'),
+		if (StreamModel::addStream('variables', 'variables', 'lang:variables:name', null, 'lang:variables:description', array(
+			'title_column' => 'name'
 		)))
 		{
 	        // Create the Variables folder. For the image field
@@ -157,15 +153,6 @@ class Module_Variables extends AbstractModule
 						'field_slug' => 'data'
 					),
 				),
-				array(
-					'name'			=> 'lang:streams:column_syntax',
-					'slug'			=> 'syntax',
-					'type'			=> 'merge_tags',
-					'assign'		=> 'variables',
-					'extra'			=> array(
-						'pattern' => '<span class="syntax">&#123;&#123; variables:{{ name }} &#125;&#125;</span>'
-					),
-				),
 			    // A default set of selectable fields
 				array('name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
 				array('name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
@@ -183,7 +170,7 @@ class Module_Variables extends AbstractModule
 				array('name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
 			);
 
-			Data\Fields::addFields($fields, null, 'variables');			
+			FieldModel::addFields($fields, null, 'variables');			
 		}
 
 		return true;

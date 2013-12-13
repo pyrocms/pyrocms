@@ -22,9 +22,9 @@
 		<li class="date-meta">
 			<label><?php echo lang('blog:date_label') ?></label>
 			<div class="input datetime_input">
-				<?php echo form_input('created_on', date('Y-m-d', strtotime($post->created)), 'maxlength="10" id="datepicker" class="text width-20"') ?> &nbsp;
-				<?php echo form_dropdown('created_on_hour', $hours, date('H', strtotime($post->created))) ?> :
-				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim(strtotime($post->created), '0'))) ?>
+				<?php echo form_input('created_on', date('Y-m-d', strtotime($post->created_at)), 'maxlength="10" id="datepicker" class="text width-20"') ?> &nbsp;
+				<?php echo form_dropdown('created_on_hour', $hours, date('H', strtotime($post->created_at))) ?> :
+				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim(strtotime($post->created_at), '0'))) ?>
 			</div>
 		</li>
 

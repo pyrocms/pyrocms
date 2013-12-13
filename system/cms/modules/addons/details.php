@@ -1,12 +1,14 @@
 <?php
 
+use Pyro\Module\Addons\AbstractModule;
+
 /**
  * Addons Module
  *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Modules
  */
-class Module_Addons extends Pyro\Module\Addons\AbstractModule
+class Module_Addons extends AbstractModule
 {
 	public $version = '2.0.0';
 

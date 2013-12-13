@@ -219,7 +219,6 @@ class Install_m extends CI_Model
             $table->integer('theme_id')->nullable();
         });
 
-
 		$schema->create('settings', function($table) {
 		    $table->string('slug', 30);
 		    $table->string('title', 100);
@@ -236,6 +235,55 @@ class Install_m extends CI_Model
 		    $table->unique('slug');
 		    $table->index('slug');
 		});
+
+				// Streams Table
+        $schema->dropIfExists('data_streams');
+
+        $schema->create('data_streams', function($table) {
+            $table->increments('id');
+            $table->string('stream_name', 60);
+            $table->string('stream_slug', 60);
+            $table->string('stream_namespace', 60)->nullable();
+            $table->string('stream_prefix', 60)->nullable();
+            $table->string('about', 255)->nullable();
+            $table->binary('view_options');
+            $table->string('title_column', 255)->nullable();
+            $table->enum('sorting', array('title', 'custom'))->default('title');
+            $table->text('permissions')->nullable();
+            $table->enum('is_hidden', array('yes','no'))->default('no');
+            $table->string('menu_path', 255)->nullable();
+        });
+
+        // Fields Table
+        $schema->dropIfExists('data_fields');
+
+        $schema->create('data_fields', function($table) {
+            $table->increments('id');
+            $table->string('field_name', 60);
+            $table->string('field_slug', 60);
+            $table->string('field_namespace', 60)->nullable();
+            $table->string('field_type', 50);
+            $table->binary('field_data')->nullable();
+            $table->binary('view_options')->nullable();
+            $table->enum('is_locked', array('yes', 'no'))->default('no');
+        });
+
+        // Assignments Table
+        $schema->dropIfExists('data_field_assignments');
+
+        $schema->create('data_field_assignments', function($table) {
+            $table->increments('id');
+            $table->integer('sort_order');
+            $table->integer('stream_id');
+            $table->integer('field_id');
+            $table->enum('is_required', array('yes', 'no'))->default('no');
+            $table->enum('is_unique', array('yes', 'no'))->default('no');
+            $table->text('instructions')->nullable();
+            $table->string('field_name', 60);
+
+            // $table->foreign('stream_id'); //TODO Set up foreign keys
+            // $table->foreign('field_id'); //TODO Set up foreign keys
+        });
 	}
 
 }

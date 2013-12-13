@@ -1,8 +1,10 @@
 <?php
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Core\Field;
-use Pyro\Module\Streams_core\Core\Model;
+use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Variables\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -58,13 +60,20 @@ class Admin extends Admin_Controller
 
 		$extra['return'] = 'admin/variables';
 */
-		Cp\Entries::table('variables', 'variables')
+		EntryUi::table('Pyro\Module\Variables\VariableEntryModel')
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
+			->filters(array('name'))
+			->fields(array(
+				'name',
+				'data' => array(
+					'format' => 'string',
+					'template' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>'
+				),
+				'lang:streams:column_syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
+			))
 			->redirect('admin/variables')
 			->render();
-
-		//$this->streams->cp->entries_table('variables', 'variables', 10, 'admin/variables/index', true, $extra);
 	}
 
 	/**
@@ -81,17 +90,15 @@ class Admin extends Admin_Controller
 		// Override selected field
 		if (is_string($field_slug))
 		{
-			$defaults['data'] = $field_slug;
+			$defaults['data_field_slug'] = $field_slug;
 		}
-		
-		Cp\Entries::form('variables', 'variables')
+
+		EntryUi::form('Pyro\Module\Variables\VariableEntryModel')
 			->title(lang('variables:create_title').$form)
 			->successMessage(lang('variables:add_success'))
-			->hidden(array('syntax'))
 			->defaults($defaults)
 			->redirect('admin/variables')
 			->render();
-		//$this->streams->cp->entry_form('variables', 'variables', 'new', null, true, $extra, array(), false, array('syntax'), $defaults);
 	}
 
 	/**
@@ -104,20 +111,15 @@ class Admin extends Admin_Controller
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
 
-		$variable = Model\Entry::stream('variables', 'variables')->findEntry($id);
+		$variable = VariableEntryModel::find($id);
 
 		$form = $this->selectable_fields_form($variable, '---', true);
 
-		// This is a bit redundant but we want a nice message.
-		//$variable = $this->streams->entries->get_entry($id, 'variables', 'variables');
-
-		Cp\Entries::form($variable)
+		EntryUi::form($variable)
 			->title('Edit '.$form)
 			->successMessage(sprintf(lang('variables:edit_success'), $variable->name))
-			->hidden(array('syntax'))
 			->redirect('admin/variables')
 			->render();
-		//$this->streams->cp->entry_form('variables', 'variables', 'edit', $id, true, $extra, array(), false, array('syntax'));
 	}
 
 	/**
@@ -127,11 +129,13 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = null)
 	{
-		$variable = $this->streams->entries->get_entry($id, 'variables', 'variables');
+		$variable = VariableEntryModel::find($id);
 
-		if ($this->streams->entries->delete_entry($id, 'variables', 'variables'))
+		$name = $variable->name;
+
+		if ($variable and $variable->delete())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $variable->name));
+			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $name));
 
 			redirect('admin/variables');
 		}
@@ -142,13 +146,13 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$stream = Model\Stream::findBySlugAndNamespace('variables', 'variables');
+		$stream = StreamModel::findBySlugAndNamespace('variables', 'variables');
 
-		$field_type = Field\Type::getLoader()->getType('field');
+		$field_type = FieldTypeManager::getType('field');
 
 		$field_type->setStream($stream);
 
-		$options = $field_type->get_selectable_fields('variables', 'variables', 'variables');
+		$options = $field_type->getSelectableFields('variables');
 
 		if ( ! $field_slug)
 		{

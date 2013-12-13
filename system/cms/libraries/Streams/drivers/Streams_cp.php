@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\EntryUi;
 
 /**
  * Control Panel Driver
@@ -76,7 +76,7 @@ class Streams_cp extends CI_Driver {
 			$extra[$key] = isset($extra[$key]) ? $extra[$key] : null;
 		}
 
-		return Cp\Entries::table($stream_slug, $namespace_slug)
+		return EntryUi::table($stream_slug, $namespace_slug)
 			->buttons($extra['buttons'])
 			->render();
 
@@ -342,7 +342,7 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
-		return Cp\Entries::form($stream_slug, $namespace_slug, $entry_id)
+		return EntryUi::form($stream_slug, $namespace_slug, $entry_id)
 			//->fields(array('name', 'data'))
 			->render();
 

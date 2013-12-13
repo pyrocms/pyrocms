@@ -101,13 +101,14 @@ class ThemeManager
 		$web_path = $location.$slug;
 
 		//load the theme details.php file
-		$details = $this->spawnClass($location, $slug);
+		$theme = $this->spawnClass($location, $slug);
 
-		if (( ! $theme = $this->themes->findBySlug($slug))) {
+		if (( ! $model = $this->themes->findBySlug($slug))) {
 			throw new \Exception("Theme '{$slug}' does not exist!");
 		}
 
 		// Add some extra bits, that aren't in the DB
+		$theme->model      = $model;
 		$theme->path       = $path;
 		$theme->web_path   = $web_path;
 		$theme->screenshot = $web_path.'/screenshot.png';
@@ -197,30 +198,36 @@ class ThemeManager
      */
     public function register(AbstractTheme $theme, $slug) {
 
-        // Looks like it installed ok, add a record
-        $record = $this->themes->create(array(
-            'slug'              => $slug,
-            'name'              => $theme->name,
-            'author'            => $theme->author,
-            'author_website'    => $theme->author_website,
-            'website'           => $theme->website,
-            'description'       => $theme->description,
-            'version'           => $theme->version,
-            'type'		=> $theme->type,
-        ));
+    	$record = false;
 
-        foreach ($theme->options as $key => $option) {
-            $record->options()->create(array(
-                'slug'          => $key,
-                'title'         => $option['title'],
-                'description'   => $option['description'],
-                'default'       => $option['default'],
-                'value'         => $option['default'],
-                'type'          => $option['type'],
-                'options'       => $option['options'],
-                'is_required'   => $option['is_required'],
-            ));
-        }
+    	if (! $this->themes->findBySlug($slug)) {
+	        // Looks like it installed ok, add a record
+	        $record = $this->themes->create(array(
+	            'slug'              => $slug,
+	            'name'              => $theme->name,
+	            'author'            => $theme->author,
+	            'author_website'    => $theme->author_website,
+	            'website'           => $theme->website,
+	            'description'       => $theme->description,
+	            'version'           => $theme->version,
+	            'type'		=> $theme->type,
+	        ));
+
+	        if (is_array($theme->options)) {
+		        foreach ($theme->options as $key => $option) {
+		            $record->options()->create(array(
+		                'slug'          => $key,
+		                'title'         => $option['title'],
+		                'description'   => $option['description'],
+		                'default'       => $option['default'],
+		                'value'         => $option['default'],
+		                'type'          => $option['type'],
+		                'options'       => $option['options'],
+		                'is_required'   => $option['is_required'],
+		            ));
+		        }
+	    	}    		
+    	}
 
         return $record;
     }

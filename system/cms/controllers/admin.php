@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Users\Model\User;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 
 /**
@@ -125,25 +126,36 @@ class Admin extends Admin_Controller
 	{
 		if ($old) $password = whacky_old_password_hasher($email, $password);
 
-		try {
+		if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = User::findByEmail($email)) !== null) {
 
-			$this->sentry->authenticate(array(
-				'email' => $email,
-				'password' => $password,
-			), (bool) $this->input->post('remember'));
-		} catch (WrongPasswordException $e) {
-			
-			// This'll happen for all old logins
-			return false;
+			$user = $this->sentry->findUserById($user->id);
 
-		} catch (UserNotFoundException $e) {
+			$this->sentry->login($user, false);
+		
+		} else {
 
-			// Generic fuckup
-			return false;
+			try {
 
-		} catch (Exception $e) {
+				$this->sentry->authenticate(array(
+					'email' => $email,
+					'password' => $password,
+				), (bool) $this->input->post('remember'));
+				
+			} catch (WrongPasswordException $e) {
+				
+				// This'll happen for all old logins
+				return false;
 
-			return false;
+			} catch (UserNotFoundException $e) {
+
+				// Generic fuckup
+				return false;
+
+			} catch (Exception $e) {
+
+				return false;
+			}
+
 		}
 
 		return true;

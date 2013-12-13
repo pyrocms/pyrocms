@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Streams_core\Cp;
+use Pyro\Module\Streams_core\FieldUi;
 
 /**
  * Admin fields controller for the variables module
@@ -46,7 +46,7 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		Cp\Fields::namespaceTable('variables')
+		FieldUi::namespaceTable('variables')
 			->skips(array('name', 'syntax', 'data'))
 			->title(lang('variables:fields_title'))
 			->buttons($buttons)
@@ -68,7 +68,7 @@ class Admin_fields extends Admin_Controller
 			$title = lang('streams:add_field');
 		}
 
-		Cp\Fields::namespaceForm('variables', $id)->title($title)->render();
+		FieldUi::namespaceForm('variables', $id)->title($title)->render();
 	}
 
 	public function delete()

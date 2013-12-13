@@ -29,6 +29,7 @@ class Admin_themes extends Admin_Controller
 	{
 		parent::__construct();
 	
+		$this->themeManager->registerUnavailableThemes();
 		$this->themes = $this->themeManager->getModel();
 
 		$this->lang->load('addons');
@@ -42,13 +43,11 @@ class Admin_themes extends Admin_Controller
 	 */
 	public function index()
 	{
-		$themes = $this->themes->findAll();
+		$themes = $this->themes->findGeneralThemes();
 
 		foreach ($themes as &$theme) {
-			if (( ! isset($theme->type)) or $theme->type !== 'admin') {
-				if ($theme->slug == Settings::get('default_theme')) {
-					$theme->is_default = true;
-				}
+			if ($theme->slug == Settings::get('default_theme')) {
+				$theme->is_default = true;
 			}
 		}
 

@@ -1,58 +1,19 @@
-<?php if ( $filters != null ): ?>
-<fieldset id="filters">
+<section id="filters">
 
-	<legend><?php echo lang('global:filters'); ?></legend>
+	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
 
-	<?php echo form_open('', array('method' => 'get')); ?>
+		<?php foreach ($filters as $filter): ?>
 
-	<ul>  
-		<?php foreach ( $filters as $params ): ?>
-			<li>
-				<?php
+			<?php echo $stream_fields->findBySlug($filter)->getType()->getFilterOutput(); ?>
 
-					$name = 'f-';
-
-					// Build the name
-					if (isset($params['not']) and $params['not']) $name .= 'not-';
-					if (isset($params['exact']) and $params['exact']) $name .= 'exact-';
-
-					$name .= $params['field'];
-
-
-					// Get the value
-					$value = end(explode('-', $this->input->get($name)));
-
-
-					// Dropdown type
-					echo '<label>'.lang_label(isset($params['label']) ? $params['label'] : humanize($params['field'])).':&nbsp;</label>';
-
-					if ( isset($params['options']) )
-					{
-						echo form_dropdown(
-							$name,
-							$params['options'],
-							$value
-							);
-					}
-					else
-					{
-						echo form_input(
-							$name,
-							$value
-							);
-					}
-
-				?>
-			</li>
 		<?php endforeach; ?>
+		
+		
+		<button class="button green"><?php echo lang('buttons:filter'); ?></button>
+		<a class="button" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
 
-		<li>
-			<div class="buttons">
-				<?php echo form_submit('filter-'.$stream->stream_slug, lang('buttons:filter'), 'class="button"'); ?>
-				<?php echo anchor(current_url(), lang('buttons:clear'), 'class="button"'); ?>
-			</div>
-		</li>
-	</ul>
+		<br/><br/>
+
 	<?php echo form_close(); ?>
-</fieldset>
-<?php endif; ?>
+
+</section>

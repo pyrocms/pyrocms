@@ -54,7 +54,7 @@ class Admin_Controller extends MY_Controller
 		$this->theme = ci()->theme = $theme;
 
 		// make a constant as this is used in a lot of places
-		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->slug);
+		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->theme->model->slug);
 			
 		// Set the location of assets
 		Asset::add_path('theme', $this->theme->web_path.'/');
@@ -87,6 +87,9 @@ class Admin_Controller extends MY_Controller
 			));
 
 			foreach ($modules as $module) {
+
+				// Only enabled ones
+				if (! module_enabled($module['slug'])) continue;
 
 				// If we do not have an admin_menu function, we use the
 				// regular way of checking out the details.php data.
@@ -149,6 +152,8 @@ class Admin_Controller extends MY_Controller
 				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
+			ksort($ordered_menu);
+
 			// And there we go! These are the admin menu items.
 			$this->template->menu_items = $ordered_menu;
 		}
@@ -158,12 +163,12 @@ class Admin_Controller extends MY_Controller
 		// Template configuration
 		$this->template
 			->enable_parser(false)
-			->set('theme_options', (object) $this->theme->getOptionValues())
+			->set('theme_options', (object) $this->theme->model->getOptionValues())
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
 
 		// trigger the run() method in the selected admin theme
-		$class = 'Theme_'.ucfirst($this->theme->slug);
+		$class = 'Theme_'.ucfirst($this->theme->model->slug);
 		call_user_func(array(new $class, 'run'));
 	}
 

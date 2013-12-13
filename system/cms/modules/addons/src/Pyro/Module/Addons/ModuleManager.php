@@ -23,6 +23,11 @@ class ModuleManager
     protected $enabled = array();
 
     /**
+     * Caches module
+     */
+    protected $loaded_modules = array();
+
+    /**
      * Caches modules that are installed
      */
     protected $installed = array();
@@ -104,9 +109,14 @@ class ModuleManager
     public function get($slug)
     {
         // Fetch the actual module record
-        if (( ! $record = $this->modules->get($slug))) {
+        if (isset($this->loaded_modules[$slug])) {
+            $record = $this->loaded_modules[$slug];
+        }
+        elseif ((! $record = $this->modules->findBySlug($slug))) {
             return false;
         }
+
+        $this->loaded_modules[$slug] = $record;
 
         $this->exists[$slug] = true;
         $this->enabled[$slug] = $record->isEnabled();
@@ -145,6 +155,7 @@ class ModuleManager
             'is_current' => version_compare($record->version, $this->version($record->slug),  '>='),
             'current_version' => $this->version($record->slug),
             'path' => $location,
+            'field_types' => ! empty($info['field_types']) ? $info['field_types'] : false,
             'updated_on' => $record->updated_on
         );
     }
@@ -174,10 +185,14 @@ class ModuleManager
      */
     public function getAll($params = null, $return_disabled = true)
     {
+        // This is FUCKING BROKEN and I don't know why.. it returns em all
         $result = $this->modules->findWithFilter($params, $return_disabled);
 
         $modules = array();
         foreach ($result as $record) {
+
+            // TMP FIX - @todo - Phil fix me..
+            if (!$return_disabled and !$record->isEnabled()) continue;
 
             // Let's get REAL
             if ( ! $module = $this->spawnClass($record->slug, $record->isCore())) {
@@ -190,6 +205,7 @@ class ModuleManager
             $info = $module_class->info();
 
             $name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
+
             $description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
 
             $module = array(
@@ -210,6 +226,7 @@ class ModuleManager
                 'is_current'      => version_compare($record->version, $this->version($record->slug),  '>='),
                 'current_version' => $this->version($record->slug),
                 'path'            => $location,
+                'field_types'     => ! empty($info['field_types']) ? $info['field_types'] : false,
                 'updated_on'      => $record->updated_on
             );
 

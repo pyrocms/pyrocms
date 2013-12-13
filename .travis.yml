@@ -2,8 +2,10 @@ language: php
 php:
   - "5.3"
   - "5.4"
+  - "5.5"
 before_script:
   - "sudo chmod -R 777  ."
+  - "sudo apt-get update --fix-missing"
   - "sudo apt-get install apache2"
   - "sudo a2enmod actions"
   - "sudo a2enmod rewrite"

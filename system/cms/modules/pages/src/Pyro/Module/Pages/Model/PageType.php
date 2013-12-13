@@ -50,7 +50,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public function stream()
     {
-        return $this->belongsTo('Pyro\Module\Streams_core\Core\Model\Stream');
+        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel');
     }
 
     /**
@@ -60,7 +60,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     {
         if ($exists = static::where('slug', $slug)->first())
         {
-            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
+            ci()->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
         }
 
         return $exists;
@@ -93,18 +93,18 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      *
      *
      */
-    public function place_page_layout_files($input)
+    public static function placePageLayoutFiles($input)
     {
         // Our folder path:
-        $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$input['slug'];
+        $folder = ADDONPATH.'assets/page_types/'.$input['slug'];
 
         if (is_dir($folder)) {
-            $this->remove_page_layout_files($input['slug']);
-        } elseif ( ! mkdir($folder, 0777)) {
+            self::removePageLayoutFiles($input['slug']);
+        } elseif ( ! mkdir($folder, 0777, true)) {
             return false;
         }
 
-        $this->load->helper('file');
+        ci()->load->helper('file');
 
         // Write our three files.
         write_file($folder.'/'.$input['slug'].'.html', $input['body']);
@@ -122,7 +122,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * purposes.
      *
      */
-    public function get_page_type_files_for_page(&$page, $pt = false)
+    public function getPageTypeFilesForPage(&$page, $pt = false)
     {
         if ($page->save_as_files == 'y') {
             // We are getting this for a pt instead of a page,
@@ -133,7 +133,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
 
             $this->load->helper('file');
 
-            $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$page->{$pt_slug_var}.'/';
+            $folder = ADDONPATH.'assets/page_types/'.$page->{$pt_slug_var}.'/';
 
             $page->db_originals = new stdClass();
 
@@ -183,9 +183,11 @@ class PageType extends \Illuminate\Database\Eloquent\Model
             $this->stream->delete();
         }
 
+        $instance = new static;
+
         // If we are saving as files, we need to remove the page
         // layout files to keep things tidy.
-        $this->remove_page_layout_files($this->slug, true);
+        $instance->removePageLayoutFiles($this->slug, true);
 
         // Delete the actual page entry.
         return parent::delete();
@@ -205,14 +207,16 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param bool [$remove_folder] Should we remove the folder as well as the files?
      * @return bool Was the operation successful?
      */
-    public function remove_page_layout_files($slug, $remove_folder = false)
+    public static function removePageLayoutFiles($slug, $remove_folder = false)
     {
         ci()->load->helper('file');
 
-        $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
+        $result = delete_files(ADDONPATH.'assets/page_types/'.$slug);
+
+        $instance = new static;
 
         if ($remove_folder) {
-            $result = $this->remove_page_layout_folder($slug);
+            $result = $instance->removePageLayoutFolder($slug);
         }
 
         return $result;
@@ -226,10 +230,10 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * @param  string $slug The slug of the folder to remove.
      * @return mixed  null or bool result of rmdir
      */
-    public function remove_page_layout_folder($slug)
+    public static function removePageLayoutFolder($slug)
     {
-        if (is_dir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug)) {
-            return rmdir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
+        if (is_dir(ADDONPATH.'assets/page_types/'.$slug)) {
+            return rmdir(ADDONPATH.'assets/page_types/'.$slug);
         }
 
         return null;
