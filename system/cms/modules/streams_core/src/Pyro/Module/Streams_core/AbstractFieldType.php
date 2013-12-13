@@ -510,8 +510,8 @@ abstract class AbstractFieldType
 		$data = array();
 		$data['field_type'] = $this;
 		$data['form_input'] = $this->formInput();
-		$data['instructions'] = $this->field->instructions;
-		$data['input_label'] = $this->field->field_name;
+		$data['instructions'] = lang_label($this->field->instructions);
+		$data['input_label'] = lang_label($this->field->field_name);
 		$data['form_slug'] = $this->form_slug;
 		$data['is_required'] = $this->field->is_required;
 

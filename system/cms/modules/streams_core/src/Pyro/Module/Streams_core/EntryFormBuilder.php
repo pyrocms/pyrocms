@@ -261,8 +261,8 @@ class EntryFormBuilder
 		if (empty($this->success_message))
 			$this->successMessage($extra['success_message']);
 
-		if (empty($this->failure_message))
-			$this->failureMessage($extra['failure_message']);
+		if (empty($this->error_message))
+			$this->errorMessage($extra['error_message']);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -561,7 +561,7 @@ class EntryFormBuilder
 	{
 		foreach($this->assignments as $k => &$field)
 		{
-			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
+			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips) and ! in_array($field->field_slug, $tmp))
 			{
 				$type->setDefaults($this->defaults);
 
@@ -570,8 +570,8 @@ class EntryFormBuilder
 				$field->is_hidden = (bool) in_array($field->field_slug, $this->hidden);
 
 				// Get the form input flavors
-				$field->form_input = defined(ADMIN_THEME) ? $type->formInput() : $type->publicFormInput();
-				$field->input_row = $type->formInputRow();
+				$field->form_input = defined('ADMIN_THEME') ? $type->formInput() : $type->publicFormInput();
+				$field->input_row = defined('ADMIN_THEME') ? $type->formInputRow() : null;
 				
 				// Set the error if there is one
 				$field->error_raw = ci()->form_validation->error($field->field_slug);
@@ -820,12 +820,12 @@ class EntryFormBuilder
 
 	/**
 	 * Failure messages
-	 * @param  string $failure_message
+	 * @param  string $error_message
 	 * @return object                  
 	 */
-	public function failureMessage($failure_message = null)
+	public function errorMessage($error_message = null)
 	{
-		$this->failure_message = $failure_message;
+		$this->error_message = $error_message;
 
 		return $this;
 	}

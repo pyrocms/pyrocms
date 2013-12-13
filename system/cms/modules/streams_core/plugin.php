@@ -84,7 +84,7 @@ class Plugin_Streams_core extends Plugin
 		'save_error_message'	=> 'lang:streams:new_entry_error',
 		'update_success_message'	=> 'lang:streams:edit_entry_success',
 		'update_error_message'	=> 'lang:streams:edit_entry_error',
-		'defualts'			=> null,
+		'defaults'			=> null,
 		'skips'				=> null,
 		'hidden'			=> null,
 		'class'				=> null,

@@ -37,8 +37,7 @@ class Relationship extends AbstractFieldType
 		'stream',
 		'placeholder',
 		'value_field',
-		'label_field',
-		'search_field',
+		'option_format',
 		'template',
 		'module_slug',
 		'relation_class',
@@ -68,28 +67,8 @@ class Relationship extends AbstractFieldType
 		);
 
 	///////////////////////////////////////////////////////////////////////////////
-	// --------------------------	METHODS 	  ------------------------------ //
+	// -------------------------	METHODS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Run before form is built
-	 *
-	 * @return	void
-	 */
-	public function event()
-	{
-		$this->appendMetadata($this->view('fragments/relationship.js.php'));
-	}
-
-	/**
-	 * Run before table is built
-	 *
-	 * @return	void
-	 */
-	public function filterEvent()
-	{
-		$this->appendMetadata($this->view('fragments/relationship.js.php'));
-	}
 
 	/**
 	 * Relation
@@ -122,15 +101,6 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Relation class
-	 * @return string
-	 */
-	public function relationClass()
-	{
-		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
-	}
-
-	/**
 	 * Output form input
 	 *
 	 * @access 	public
@@ -138,39 +108,17 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Entry options
-		$options = $this->getRelationResult();
+		$id = ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null;
 
-		// To array
-		if ($options) $options = $options->toArray(); else array();
+		$data = array(
+			'form_slug' => $this->form_slug,
+			'id' => ($selected instanceof Eloquent) ? $selected->getKey() : null,
+			'options' => $this->getOptions()
+		);
 
-		// Data
-		$data = '
-			data-options="'.htmlentities(json_encode($options)).'"
-			data-value="'.htmlentities(implode(',', $value)).'"
-			data-form_slug="'.$this->form_slug.'"
-			data-field_slug="'.$this->field->field_slug.'"
-			data-stream_param="'.$this->getParameter('stream').'"
-			data-stream_namespace="'.$this->stream->stream_namespace.'"
-
-			data-value_field="'.$this->getParameter('value_field', 'id').'"
-			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
-			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
-			
-			id="'.$this->form_slug.'"
-			class="skip selectize-relationship"
-			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
-			';
-
-		// Start the HTML
-		return form_dropdown(
-			$this->form_slug,
-			array(),
-			null,
-			$data
-			);
+		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
 	}
-	
+
 	/**
 	 * Output filter input
 	 *
@@ -179,39 +127,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		// Set the value
-		$this->setValue(ci()->input->get($this->getFilterSlug('is')));
-
-		// Entry options
-		$options = $this->getRelationResult();
-
-		// To array
-		if ($options) $options = $options->toArray(); else array();
-
-		// Data
-		$data = '
-			data-options="'.htmlentities(json_encode($options)).'"
-			data-form_slug="'.$this->getFilterSlug('is').'"
-			data-field_slug="'.$this->field->field_slug.'"
-			data-stream_param="'.$this->getParameter('stream').'"
-			data-stream_namespace="'.$this->stream->stream_namespace.'"
-			
-			data-value_field="'.$this->getParameter('value_field', 'id').'"
-			data-label_field="'.$this->getParameter('label_field', '_title_column').'"
-			data-search_field="'.$this->getParameter('search_field', '_title_column').'"
-			
-			id="'.$this->form_slug.'"
-			class="skip selectize-relationship"
-			placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:relationship.placeholder')).'"
-			';
-
-		// Start the HTML
-		return form_dropdown(
-			$this->getFilterSlug('is'),
-			array(),
-			null,
-			$data
-			);
+		return form_dropdown($this->form_slug, $this->getOptions());
 	}
 
 	/**
@@ -291,59 +207,59 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Title column for options
+	 * Option format
 	 * @param  string $value
 	 * @return html
 	 */
-	public function paramTitleColumn($value = '')
+	public function paramOptionFormat($value = '')
 	{
-		return form_input('title_column', $value);
+		return form_input('option_format', $value);
 	}
 
-	///////////////////////////////////////////////////////////////////////////
-	// -------------------------	AJAX 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
-	public function ajaxSearch()
+	/**
+	 * Relation class
+	 * @return string
+	 */
+	public function relationClass()
 	{
-		/**
-		 * Determine the stream
-		 */
-		$stream = explode('.', ci()->uri->segment(7));
-		$stream = StreamModel::findBySlugAndNamespace($stream[0], $stream[1]);
+		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+	}
 
+	/**
+	 * Options
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		// Get options
+		$options = array();
 
-		/**
-		 * Determine our field / type
-		 */
-		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(8), ci()->uri->segment(6));
-		$field_type = $field->getType();
+		if ($relation_class = $this->relationClass())
+		{
+			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
 
+			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
 
-		/**
-		 * Determine our select
-		 */
-		$select = array_unique(
-			array_merge(
-				array_values(explode('|', $field->getParameter('value_field', 'id'))),
-				array_values(explode('|', $field->getParameter('label_field'))),
-				array_values(explode('|', $field->getParameter('search_field')))
-				)
-			);
+			$instance = new $relation_class;
 
+			$options = $instance::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
+		}
 
-		/**
-		 * Get our entries
-		 */
-		$entries = EntryModel::stream($stream->stream_slug, $stream->stream_namespace)->select($select)->where($field_type->getParameter('search_field'), 'LIKE', '%'.ci()->input->get('query').'%')->take(10)->get();
+		// Format options
+		$formatted_options = array();
 
+		$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}');
 
-		/**
-		 * Stash the title_column just in case nothing is defined later
-		 */
-		$entries = $entries->toArray();
+		$value_field = $this->getParameter('value_field', 'id');
 
-		header('Content-type: application/json');
-		echo json_encode(array('entries' => $entries));
+		foreach ($options as $option)
+			$formatted_options[$option[$value_field]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
+
+		// Boom
+		return $formatted_options;
 	}
 }
