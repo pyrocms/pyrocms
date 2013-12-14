@@ -161,9 +161,6 @@ class EntryUi extends AbstractUi
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
 
-		// We'll need the language too pry
-		ci()->lang->load($stream_namespace.'/'.$stream_namespace);
-
 		// Prepare the stream, model and trigger method
 		$instance = static::instance(__FUNCTION__);
 
@@ -195,6 +192,11 @@ class EntryUi extends AbstractUi
 		$instance->stream = $instance->entry->getStream();
 
 		$instance->entry->asEloquent();
+
+		$stream_namespace = $instance->stream->stream_namespace;
+
+		// We'll need the language too pry
+		ci()->lang->load($stream_namespace.'/'.$stream_namespace);
 
 		return $instance;	
 	}
