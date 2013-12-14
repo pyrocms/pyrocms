@@ -87,7 +87,7 @@
 				<fieldset>
 
 				<ul>
-sdfsdf
+
 					<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true) ?>
 
 				</ul>
