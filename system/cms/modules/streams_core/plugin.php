@@ -258,8 +258,6 @@ class Plugin_Streams_core extends Plugin
 		// Toggle debug mode
 		$this->debug_status = $this->getAttribute('debug', 'on');
 
-		$return = array();
-
 		// Load languages desired
 		self::loadLanguages();
 
@@ -385,36 +383,15 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		// -------------------------------------
-		// Set entries
-		// -------------------------------------
-
-		$return['entries'] = $entries;
-				
-		// -------------------------------------
-		// {{ entries }} Bypass
-		// -------------------------------------
-		// If we don't want to use {{ entries }},
-		// we don't have to!
-		// -------------------------------------
-
-		$loop = false;
-
-		if (preg_match('/\{\{\s?entries\s?\}\}/', is_string($this->content()) ? $this->content() : null) == 0)
-		{
-			$return = $return['entries'];
-			$loop = true;
-		}
-
-		// -------------------------------------
 		// Cache End Procedures
 		// -------------------------------------
 
-		$this->writeTagCache($return);
+		$this->writeTagCache($entries);
 		//$this->clearCacheVariables();
 
 		// -------------------------------------
-		//print_r($return);die;
-		return $return;
+		//print_r($entries);die;
+		return $entries;
 	}
 
 	/**
