@@ -506,15 +506,7 @@ abstract class AbstractFieldType
 
 	public function formInputRow()
 	{
-		$data = array();
-		$data['field_type'] = $this;
-		$data['form_input'] = $this->formInput();
-		$data['instructions'] = lang_label($this->field->instructions);
-		$data['input_label'] = lang_label($this->field->field_name);
-		$data['form_slug'] = $this->form_slug;
-		$data['is_required'] = $this->field->is_required;
-
-		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), $data);
+		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field' => $this));
 	}
 
 	/**
