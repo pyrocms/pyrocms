@@ -23,11 +23,11 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array())
+	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array(), $include_cached_vars = true)
 	{
 		$string = ci()->load->view($template, $data, true);
 
-		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse, $include_cached_vars);
 	}
 
 	/**
