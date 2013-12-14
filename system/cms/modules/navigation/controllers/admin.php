@@ -306,7 +306,6 @@ class Admin extends Admin_Controller
 			$link->uri = $this->input->post('uri');
 			$link->module_name = $this->input->post('module_name');
 			$link->page_id = (int) $this->input->post('page_id');
-			$link->position = $this->input->post('target');
 			$link->target = $this->input->post('target');
 			$link->class = $this->input->post('class');
 			$link->navigation_group_id = (int) $this->input->post('navigation_group_id');

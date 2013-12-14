@@ -84,7 +84,6 @@ class Plugin_Streams_core extends Plugin
 		'save_error_message'	=> 'lang:streams:new_entry_error',
 		'update_success_message'	=> 'lang:streams:edit_entry_success',
 		'update_error_message'	=> 'lang:streams:edit_entry_error',
-		'defaults'			=> null,
 		'skips'				=> null,
 		'hidden'			=> null,
 		'class'				=> null,
@@ -564,24 +563,14 @@ class Plugin_Streams_core extends Plugin
 		 * Set default values
 		 */
 		
-		if ($parameters['defaults']) {
+		// Get em!
+		$defaults = array();
+		
+		foreach ($this->getAttributes() as $key => $default)
+			if (substr($key, -8) == '_default')
+				$defaults[substr($key, 0, -8)] = $default;
 
-			// Get em!
-			$defaults = array();
-
-			// Loop and process
-			foreach ($parameters['defaults'] as $default) {
-
-				// Break it apart
-				list($field_slug, $value) = explode('=', $default);
-
-				// Stash em
-				$defaults[$field_slug] = $value;
-			}
-
-			// Set
-			$form = $form->defaults($defaults);
-		}
+		$form = $form->defaults($defaults);
 
 		/**
 		 * Skip these fields
