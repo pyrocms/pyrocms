@@ -129,7 +129,7 @@ abstract class Plugin
 			// Change our [[ ]] to {{ }}. Sneaky.
 			$attribute = str_replace(array('[[', ']]'), array('{{', '}}'), $attribute);
 
-			$attribute = $this->parser->parse_string($attribute, array(), true);
+			$attribute = $this->parser->parse_string($attribute, ci(), true);
 		}
 
 		// See if we have any vars in there
