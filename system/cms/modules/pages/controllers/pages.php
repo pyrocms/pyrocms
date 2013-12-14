@@ -234,9 +234,14 @@ class Pages extends Public_Controller
 		// Parse our view file. The view file is nothing
 		// more than an echo of $page->layout->body and the
 		// comments after it (if the page has comments).
-		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $page->getAttributes()), false);
 
-		$view = $this->parser->parse_string($html, $page->entry->asPlugin()->toArray(), true, false, array(
+		$attributes = $page->getAttributes();
+
+		$attributes = array_merge($attributes, $page->entry->asPlugin()->getAttributes());
+
+		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $attributes), false);
+		
+		$view = $this->parser->parse_string($html, $page, true, false, array(
 			'stream' => $page->type->stream->stream_slug,
 			'namespace' => $page->type->stream->stream_namespace,
 			'id_name' => 'entry_id'
