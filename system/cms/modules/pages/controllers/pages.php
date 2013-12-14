@@ -111,14 +111,15 @@ class Pages extends Public_Controller
 			$page->restricted_to = (array) explode(',', $page->restricted_to);
 
 			// Grab user group IDs
-			$user_groups = $this->current_user->groups->lists('id');
+			$user_groups = isset($this->current_user->id) ? $this->current_user->groups->lists('id') : array();
 
 			// Get the similarities between groups / restriced group IDs
-			$matches = array_intersect($row->restricted_to, $user_groups);
+			$matches = array_intersect($page->restricted_to, $user_groups);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! isset($this->current_user->id) or (! in_array(1, $user_groups) and empty($matches))) {
+			if ( ! $user_groups or (! in_array(1, $user_groups) and empty($matches))) {
 				// send them to login but bring them back when they're done
+				$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $url_segments));
 				redirect('users/login');
 			}
 		}

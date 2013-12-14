@@ -160,7 +160,7 @@ class Plugin_Navigation extends Plugin
 		$links = Navigation\Model\Link::getTreeByGroup($group, array(
 
 			// TODO Rethink group logic for sentry
-			'user_groups' => $this->current_user ? $this->current_user->groups->lists('id') : false,
+			'user_groups' => isset($this->current_user->id) ? $this->current_user->groups->lists('id') : false,
 			'front_end'  => true,
 			'is_secure'  => IS_SECURE,
 		));

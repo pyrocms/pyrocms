@@ -152,6 +152,8 @@ class Users extends Public_Controller
 			} else {
 				redirect($redirect_to ?: '');
 			}
+		} else {
+			$user = new stdClass();
 		}
 
 

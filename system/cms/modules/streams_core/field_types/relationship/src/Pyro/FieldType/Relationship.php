@@ -108,11 +108,9 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$id = ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null;
-
 		$data = array(
 			'form_slug' => $this->form_slug,
-			'id' => ($selected instanceof Eloquent) ? $selected->getKey() : null,
+			'id' => $this->value,
 			'options' => $this->getOptions()
 		);
 
@@ -127,7 +125,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		return form_dropdown($this->form_slug, $this->getOptions());
+		return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
 	}
 
 	/**
