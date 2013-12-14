@@ -58,14 +58,6 @@ class Relationship extends AbstractFieldType
 		'url' => 'http://pyrocms.com/'
 		);
 
-	/**
-	 * Runtime funtime cache
-	 * @var array
-	 */
-	public $runtime_cache = array(
-		'pluginOutput' => array(),
-		);
-
 	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	METHODS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
@@ -76,28 +68,19 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		// Crate our runtime cache hash
-		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
+		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
 
-		// Check / retreive hashed storage
-		if (! isset($this->runtime_cache[$hash])) {
+		if (! $relation_class = $this->relationClass()) return null;
 
-			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
 
-			if (! $relation_class = $this->relationClass()) return null;
+		$instance = new $relation_class;
 
-			if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
-
-			$instance = new $relation_class;
-
-			if ($instance instanceof EntryModel) {
-				return $this->belongsToEntry($relation_class);	
-			}
-
-			$this->runtime_cache[$hash] = $this->belongsTo($relation_class);
+		if ($instance instanceof EntryModel) {
+			return $this->belongsToEntry($relation_class);	
 		}
 
-		return $this->runtime_cache[$hash];
+		return $this->belongsTo($relation_class);
 	}
 
 	/**
