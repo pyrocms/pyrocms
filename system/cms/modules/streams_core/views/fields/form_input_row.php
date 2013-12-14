@@ -1,12 +1,12 @@
-<label class="col-lg-2 control-label" for="<?php echo $fields->form_slug;?>">
-	<?php echo lang_label($field->field_name);?>
-	<?php if($field->is_required): ?><span class="required">*</span><?php endif; ?>
+<label class="col-lg-2 control-label" for="<?php echo $field_type->form_slug;?>">
+	<?php echo lang_label($field_type->getField()->field_name);?>
+	<?php if($field_type->getField()->is_required): ?><span class="required">*</span><?php endif; ?>
 
-	<?php if( lang_label($field->instructions) != '' ): ?>
-		<p class="help-block c-gray-light"><?php echo lang_label($field->instructions); ?></p>
+	<?php if( lang_label($field_type->getField()->instructions) != '' ): ?>
+		<p class="help-block c-gray-light"><?php echo lang_label($field_type->getField()->instructions); ?></p>
 	<?php endif; ?>
 </label>
 
 <div  class="col-lg-10">
-	<?php echo $field->form_input(); ?>
+	<?php echo $field_type->formInput(); ?>
 </div>

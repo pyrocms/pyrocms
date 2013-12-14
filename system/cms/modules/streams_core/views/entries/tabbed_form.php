@@ -38,7 +38,7 @@
 						<div class="form-group <?php echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $fields[$field]['input_slug']), $hidden) ? 'hidden' : null; ?>">
 						<div class="row">
 							
-							<?php echo $fields[$field]['input_row']; ?>
+							<?php echo $field->input_row; ?>
 
 						</div>
 						</div>

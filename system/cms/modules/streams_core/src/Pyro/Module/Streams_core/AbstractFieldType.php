@@ -507,7 +507,7 @@ abstract class AbstractFieldType
 
 	public function formInputRow()
 	{
-		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field' => $this));
+		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field_type' => $this));
 	}
 
 	/**
