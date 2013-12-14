@@ -94,12 +94,12 @@ abstract class AbstractFieldType
 
 	public function pluginOutput()
 	{
-		return $this->entry->getOriginal($this->fieldSlug());
+		return $this->stringOutput();
 	}
 
 	public function dataOutput()
 	{
-		return $this->entry->getOriginal($this->fieldSlug());
+		return $this->stringOutput();
 	}
 
 	public function relation()
