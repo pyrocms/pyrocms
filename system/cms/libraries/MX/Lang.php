@@ -58,6 +58,8 @@ class MX_Lang extends CI_Lang
 		$_module OR $_module = CI::$APP->router->fetch_module();
 		list($path, $_langfile) = Modules::find($langfile . '_lang', $_module, 'language/' . $idiom . '/');
 
+		if ($path and ! file_exists($path.$_langfile.'.php')) return null;
+
 		// Falls back to a default language if the current language file is missing.
 		if ($path === false && self::$fall_back) {
 			list($path, $_langfile) = Modules::find($langfile . '_lang', $_module, 'language/' . self::$fall_back . '/');
