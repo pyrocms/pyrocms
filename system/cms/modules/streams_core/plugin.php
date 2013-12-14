@@ -261,6 +261,9 @@ class Plugin_Streams_core extends Plugin
 
 		$return = array();
 
+		// Load languages desired
+		self::loadLanguages();
+
 		// -------------------------------------
 		// Get Plugin Attributes
 		// -------------------------------------
@@ -493,7 +496,7 @@ class Plugin_Streams_core extends Plugin
 	 * @return	array
 	 */
 	public function entry()
-	{	
+	{
 		$this->setAttribute('limit', 1);
 
 		return $this->entries();
@@ -532,6 +535,9 @@ class Plugin_Streams_core extends Plugin
 	{
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
+
+		// Load languages desired
+		self::loadLanguages();
 
 		// -------------------------------------
 		// Get Plugin Attributes / Paramaters
@@ -1131,7 +1137,7 @@ class Plugin_Streams_core extends Plugin
 	{
 		$this->load->helper('form');
 	
-		$stream 	= $this->getAttribute('stream');
+		$stream 		= $this->getAttribute('stream');
 		$namespace 		= $this->getAttribute('namespace', $this->core_namespace);
 		$fields 		= $this->getAttribute('fields');
 		
@@ -1458,22 +1464,17 @@ class Plugin_Streams_core extends Plugin
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Convert objects value to arrays
-	 * @param  mixed $mixed 
-	 * @return array
+	 * Loop through attributes and load
+	 * languages like foo_lang="foo/foo"
+	 *
+	 * @return void
 	 */
-	private function toArray($mixed)
+	private function loadLanguages()
 	{
-		// Start with an array
-		if (! is_array($mixed))
-			$mixed = self::toArray($mixed);
-
-		// Clean the children!
-		if (is_array($mixed))
-			foreach ($mixed as &$children)
-				$children = self::toArray($children);
-
-		return $mixed;
+		// Load languages
+		foreach ($this->getAttributes() as $key => $lang)
+			if (substr($key, -5) == '_lang')
+				ci()->lang->load($lang);
 	}
 
 	/**

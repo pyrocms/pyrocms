@@ -195,9 +195,6 @@ class EntryUi extends AbstractUi
 
 		$stream_namespace = $instance->stream->stream_namespace;
 
-		// We'll need the language too pry
-		ci()->lang->load($stream_namespace.'/'.$stream_namespace);
-
 		return $instance;	
 	}
 
