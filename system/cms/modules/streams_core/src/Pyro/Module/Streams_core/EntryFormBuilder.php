@@ -561,7 +561,7 @@ class EntryFormBuilder
 	{
 		foreach($this->assignments as $k => &$field)
 		{
-			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips) and ! in_array($field->field_slug, $tmp))
+			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
 			{
 				$type->setDefaults($this->defaults);
 
