@@ -1,14 +1,14 @@
 
 <!-- The $field_type object is also available in the view -->
 
-<label for="<?php echo $form_slug;?>"><?php echo lang_label($field->field_name);?>
+<label for="<?php echo $form_slug;?>"><?php echo $input_label;?>
 
 	<?php if($is_required): ?><span class="required">*</span><?php endif; ?>
 
-	<?php if( ! empty($field->instructions)): ?>
-		<br /><small><?php echo lang_label($field->field_name); ?></small>
+	<?php if( ! empty($instructions)): ?>
+		<br /><small><?php echo $instructions; ?></small>
 	<?php endif; ?>
 
 </label>
 
-<div class="input"><?php echo $field->formInput(); ?></div>
+<div class="input"><?php echo $form_input; ?></div>
