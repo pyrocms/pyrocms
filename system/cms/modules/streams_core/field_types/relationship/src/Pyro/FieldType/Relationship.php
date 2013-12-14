@@ -77,10 +77,10 @@ class Relationship extends AbstractFieldType
 		$instance = new $relation_class;
 
 		if ($instance instanceof EntryModel) {
-			return $this->belongsToEntry($relation_class);	
+			return $this->belongsToEntry($relation_class)->select('*');	
 		}
 
-		return $this->belongsTo($relation_class);
+		return $this->belongsTo($relation_class)->select('*');
 	}
 
 	/**
