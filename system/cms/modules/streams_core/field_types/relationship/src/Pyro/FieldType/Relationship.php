@@ -158,19 +158,12 @@ class Relationship extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		// Crate our runtime cache hash
-		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
-
-		if (! isset($this->runtime_cache['pluginOutput'][$hash])) {
-			if ($entry = $this->getRelationResult())
-			{
-				return $this->runtime_cache['pluginOutput'][$hash] = $entry->asPlugin()->toArray();
-			} else {
-				return $this->runtime_cache['pluginOutput'][$hash] = null;
-			}
-		} else {
-			return $this->runtime_cache['pluginOutput'][$hash];
+		if ($entry = $this->getRelationResult())
+		{
+			return $entry->asPlugin()->toArray();
 		}
+
+		return null;
 	}
 
 	/**

@@ -511,7 +511,7 @@ class Datetime extends AbstractFieldType
 	public function pluginDifference($delta_datetime = null, $datetime = null, $absolute = false)
 	{
 		// Get delta datetime object
-		if ($delta_datetime)
+		if ($delta_datetime and $delta_datetime != 'now')
 			$delta_datetime = Carbon::createFromFormat('Y-m-d H:i:s', $delta_datetime);
 		else
 			$delta_datetime = Carbon::now()->addDays(7);

@@ -462,18 +462,6 @@ class Plugin_Streams_core extends Plugin
 	}
 
 	/**
-	 * Return content if exists
-	 * @return bool
-	 */
-	public function exists()
-	{
-		$this->setAttribute('limit', 1);
-		$this->setAttribute('select', 'id');
-
-		return count(self::entries()) != 0 ? $this->content() : false;
-	}
-
-	/**
 	 * Return a shuffled array of entries
 	 * @return array
 	 */
@@ -498,7 +486,9 @@ class Plugin_Streams_core extends Plugin
 	{
 		$this->setAttribute('limit', 1);
 
-		return $this->entries();
+		$return = $this->entries();
+		
+		return empty($return) ? false : ci()->parser->parse_string($this->content(), $return[0], true, false, null, false);
 	}
 
 	/**
