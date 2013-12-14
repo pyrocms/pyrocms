@@ -125,11 +125,11 @@ class Link extends \Illuminate\Database\Eloquent\Model
 
         $front_end = (isset($params['front_end']) and $params['front_end']);
 
-        $user_group = (isset($params['user_group'])) ? $params['user_group'] : false;
+        $user_groups = (isset($params['user_groups'])) ? $params['user_groups'] : false;
 
-        $all_links = self::with('children')->where('navigation_group_id','=',$group)->where('parent', '=', 0)->orderBy('position')->get();
+        $all_links = self::where('navigation_group_id','=',$group)->where('parent', '=', 0)->orderBy('position')->get();
 
-        $all_links = self::makeUrlArray($all_links, $user_group, $front_end);
+        $all_links = self::makeUrlArray($all_links, $user_groups, $front_end);
 
         return $all_links;
     }
@@ -296,18 +296,21 @@ class Link extends \Illuminate\Database\Eloquent\Model
      * @param  array $row Array of links
      * @return mixed Array of links with valid urls
      */
-    public static function makeUrlArray($links, $user_group = false, $front_end = false)
+    public static function makeUrlArray($links, $user_groups = false, $front_end = false)
     {
-        // We have to fetch it ourselves instead of just using $current_user because this
-        // will all be cached per user group
-        $group = $user_group ? Users\Model\Group::findByName($user_group) : null;
-
         foreach ($links as $key => &$row) {
+            
             // Looks like it's restricted. Let's find out who
             if ($row->restricted_to and $front_end) {
+
+                // Explode!
                 $row->restricted_to = (array) explode(',', $row->restricted_to);
 
-                if (! $user_group or ($user_group != 'admin' and ! in_array($group->id, $row->restricted_to))) {
+                // Get the similarities
+                $matches = array_intersect($row->restricted_to, $user_groups);
+
+                // Test it..
+                if (empty($user_groups) or (in_array(1, $user_groups) == false and empty($matches))) {
                     unset($links[$key]);
                 }
             }
@@ -339,10 +342,14 @@ class Link extends \Illuminate\Database\Eloquent\Model
 
                     // But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
                     if ($front_end and $page->restricted_to) {
+
+                        // EXPLODE again!
                         $page->restricted_to = (array) explode(',', $page->restricted_to);
 
-print_r($page->restricted_to);
-                        if ( (! $user_group and $page->restricted_to) or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to) and ! empty($page->restricted_to))) {
+                        // Get the similarities
+                        $matches = array_intersect($row->restricted_to, $user_groups);
+
+                        if ( (empty($user_groups) and $page->restricted_to) or (in_array(1, $user_groups) == false and empty($matches))) {
                             unset($links[$key]);
                         }
                     }

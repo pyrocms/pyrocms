@@ -106,12 +106,20 @@ class Pages extends Public_Controller
 
 		// Nope, it is a page, but do they have access?
 		elseif ($page->restricted_to) {
+
+			// My favorite.. EXPLODE
 			$page->restricted_to = (array) explode(',', $page->restricted_to);
 
+			// Grab user group IDs
+			$user_groups = $this->current_user->groups->lists('id');
+
+			// Get the similarities between groups / restriced group IDs
+			$matches = array_intersect($row->restricted_to, $user_groups);
+
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to))) {
+			if ( ! isset($this->current_user->id) or (! in_array(1, $user_groups) and empty($matches))) {
 				// send them to login but bring them back when they're done
-				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
+				redirect('users/login');
 			}
 		}
 

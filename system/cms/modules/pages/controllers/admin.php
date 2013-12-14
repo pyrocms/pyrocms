@@ -367,8 +367,6 @@ class Admin extends Admin_Controller
         // We are lost without an id. Redirect to the pages index.
         $id or redirect('admin/pages');
 
-        $this->template->set('parent_id', null);
-
         // The user needs to be able to edit pages.
         role_or_die('pages', 'edit_live');
 
@@ -433,7 +431,6 @@ class Admin extends Admin_Controller
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
-            $page->parent_id        = isset($input['parent_id']) ? $input['parent_id'] : 0;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : '';
