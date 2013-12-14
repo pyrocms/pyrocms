@@ -610,12 +610,6 @@ class EntryModel extends Eloquent
         // Event: Post Insert Entry
         // -------------------------------------
 
-        $trigger_data = array(
-            'entry_id'      => $this->getKey(),
-            'stream'        => $this->stream,
-            'insert_data'   => $this->getAttributes()
-        );
-
         \Events::trigger('streams_post_insert_entry', $trigger_data);
 
         return $saved;
@@ -645,7 +639,15 @@ class EntryModel extends Eloquent
         
         }
 
+        // Fire before deleting an entry
+        \Events::trigger('streams_pre_delete_entry', $this);
+
         return parent::delete();
+
+        // Fire after deleting an entry
+        \Events::trigger('streams_post_delete_entry', $this->id);
+
+        return $deleted;
     }
 
     /**
@@ -1232,7 +1234,7 @@ class EntryModel extends Eloquent
      * @param  array   $parameters
      * @return mixed
      */
-/*    public function __call($method, $parameters)
+    public function __call($method, $parameters)
     {
         // Handle dynamic relation as join
         if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches))
@@ -1242,7 +1244,7 @@ class EntryModel extends Eloquent
 
         return parent::__call($method, $parameters);
     }
-*/
+    
     public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);

@@ -418,6 +418,7 @@ abstract class AbstractFieldType
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['autocomplete'] = 'off';
+		$options['placeholder'] = lang_label($this->getParameter('placeholder'));
 
 		if ($max_length = $this->getParameter('max_length') and is_numeric($max_length))
 		{
@@ -506,7 +507,7 @@ abstract class AbstractFieldType
 
 	public function formInputRow()
 	{
-		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field_type' => &$this));
+		return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field_type' => $this));
 	}
 
 	/**
