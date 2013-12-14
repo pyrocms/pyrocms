@@ -610,7 +610,7 @@ class EntryModel extends Eloquent
         // Event: Post Insert Entry
         // -------------------------------------
 
-        \Events::trigger('streams_post_insert_entry', $trigger_data);
+        \Events::trigger('streams_post_insert_entry', ['entry' => $saved, 'stream' => $this->stream]);
 
         return $saved;
     }
