@@ -217,6 +217,34 @@ if( PHP_VERSION_ID < 50307 ){
 
 /*
  * --------------------------------------------------------------------
+ * CHECK GD
+ * --------------------------------------------------------------------
+ *
+ * PyroCMS required GD library
+ *
+ */
+ 
+ if ( ! extension_loaded('gd') && !function_exists('gd_info')) {
+    echo "PHP GD library is NOT installed on your web server. PryroCMS required it to manage images. Here you can find an instalaltion guide: http://www.php.net/manual/en/image.installation.php";
+    exit();
+ }
+ 
+ /*
+ * --------------------------------------------------------------------
+ * CHECK cURL
+ * --------------------------------------------------------------------
+ *
+ * PyroCMS required cURL
+ *
+ */
+ 
+ if (!function_exists('curl_version') ){
+ 	echo "cURL is not installed. Please install it before procede.";
+ 	exit();
+ }
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE COMPOSER AUTOLOADER
  * --------------------------------------------------------------------
  *
