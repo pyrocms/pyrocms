@@ -2,7 +2,7 @@
 
 use Closure;
 use Illuminate\Support\Str;
-use Pyro\Model\EloquentQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class EntryQueryBuilder extends EloquentQueryBuilder
+class EntryQueryBuilder extends Builder
 {
 	protected $entries = array();
 

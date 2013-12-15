@@ -274,10 +274,17 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-		return static::with('assignments.field')->where('stream_slug', $stream_slug)
+		if ( ! $stream = static::getCache(static::getStreamCacheName($stream_slug, $stream_namespace)))
+		{
+			$stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
 			->where('stream_namespace', $stream_namespace)
 			->take(1)
 			->first();
+
+			$stream = static::setCache(static::getStreamCacheName($stream_slug, $stream_namespace), $stream);
+		}
+
+		return $stream;
 	}
 
 	/**
@@ -293,6 +300,17 @@ class StreamModel extends Eloquent
 
 		throw new Exception\StreamModelNotFoundException;
 	}
+
+	/**
+	 * Get stream cache name
+	 * @param  string $stream_slug      
+	 * @param  string $stream_namespace 
+	 * @return object                   
+	 */
+    protected static function getStreamCacheName($stream_slug = '', $stream_namespace = '')
+    {
+        return 'stream['.$stream_slug.','.$stream_namespace.']';
+    }
 
     /**
      * Find by slug
@@ -735,6 +753,16 @@ class StreamModel extends Eloquent
 		}
 
 		return $schema->hasTable($table);
+	}
+
+    public static function find($id, $columns = array('*'))
+    {
+    	if ($stream = static::getCache($id))
+    	{
+    		return $stream;
+    	}
+
+    	return static::setCache($id, parent::find($id, $columns));
 	}
 
 	/**
