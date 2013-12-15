@@ -501,7 +501,7 @@ class EntryModel extends Eloquent
      * Save a new model and return the instance.
      *
      * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @return \Pyro\Model\Eloquent|static
      */
     public static function create(array $attributes = null)
     {

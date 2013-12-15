@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Files\Model;
 
+use Pyro\Model\Eloquent;
+
 /**
  * File model
  *
@@ -7,7 +9,7 @@
  * @package  PyroCMS\Core\Modules\Keywords\Models
  * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Files.Model.File.html
  */
-class File extends \Illuminate\Database\Eloquent\Model
+class File extends Eloquent
 {
     /**
      * Define the table name

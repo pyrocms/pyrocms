@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Keywords\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use Pyro\Model\Eloquent;
 
 /**
  * Applied Keyword model
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @author    PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
  */
-class Applied extends Model
+class Applied extends Eloquent
 {
     /**
      * Define the table name

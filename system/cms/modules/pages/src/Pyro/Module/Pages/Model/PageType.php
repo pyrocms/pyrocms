@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Pages\Model;
 
+use Pyro\Model\Eloquent;
+
 /**
  * Page type model
  *
@@ -7,7 +9,7 @@
  * @package     PyroCMS\Core\Modules\Pages\Models
  * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Pages.Model.PageType.html
  */
-class PageType extends \Illuminate\Database\Eloquent\Model
+class PageType extends Eloquent
 {
     /**
      * Define the table name
