@@ -291,7 +291,7 @@ class StreamModel extends Eloquent
 	{
 		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
 
-		throw new Exception\StreamNotFoundException;
+		throw new Exception\StreamModelNotFoundException;
 	}
 
     /**
