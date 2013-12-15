@@ -41,6 +41,13 @@ abstract class Eloquent extends Model
      */
     protected $replicated = false;
 
+    public function get(array $columns = array('*'))
+    {
+        //echo md5($this->toSql().implode('.', $this->getQuery()->getBindings())).'<br/>';
+
+        return parent::get($columns);
+    }
+
     /**
      * We can store data in the class at runtime so we don't have to keep hitting the database
      *
