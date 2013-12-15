@@ -40,34 +40,16 @@ class Plugin_Streams_core extends Plugin
 		'stream'			=> null,
 		'namespace'			=> null,
 		'select'			=> '*',
+		'load'				=> null,
 		'limit'				=> null,
-		'offset'			=> 0,
-		'single'			=> 'no',
-		'id'				=> null,
 		'date_by'			=> 'created_at',
-		'year'				=> null,
-		'month'				=> null,
-		'day'				=> null,
-		'show_upcoming'		=> 'yes',
-		'show_past'			=> 'yes',
-		'restrict_user'		=> 'no',
-		'where'				=> '1',
+		'where'				=> null,
 		'exclude'			=> null,
 		'exclude_by'		=> 'id',
 		'include'			=> null,
 		'include_by'		=> 'id',
-		'disable'			=> null,
 		'order_by'			=> 'created_at',
 		'sort'				=> 'desc',
-		'exclude_called'	=> 'no',
-		'paginate'			=> 'no',
-		'pag_method'		=> 'offset',	// 'offset' or 'page'
-		'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
-		'pag_segment'		=> 2,
-		'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
-		'pag_base'			=> null,		// If null, this is automatically set
-		'partial'			=> null,
-		'site_ref'			=> SITE_REF
 		);
 
 	/**
@@ -415,7 +397,7 @@ class Plugin_Streams_core extends Plugin
 		$stream = StreamModel::getStream($parameters['stream'], $parameters['namespace']);
 
 		// Start up the query
-		$model_entries = EntryModel::stream($stream)
+		$entries = EntryModel::stream($stream)
 			->select('id')
 			->whereRaw($parameters['where'])
 			->limit($parameters['limit'])
@@ -431,11 +413,11 @@ class Plugin_Streams_core extends Plugin
 				list($arg1, $condition, $arg2) = explode('|', $value);
 
 				// Execute it
-				$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				$entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
 			}
 		}
 
-		return $model_entries = $model_entries->count();
+		return $entries = $entries->count();
 	}
 
 	/**
@@ -1372,15 +1354,25 @@ class Plugin_Streams_core extends Plugin
 		// Does the runtime cache result exist?
 		if (! isset($this->runtime_cache[$hash])) {
 
-			$entries = array();
+			/**
+			 * Get everything started
+			 */
 
-			$model_entries = EntryModel::stream($stream)
-				->select(explode('|', $parameters['select']))
-				->whereRaw($parameters['where'])
-				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort']);
+			$entries = EntryModel::stream($stream)->select(explode('|', $parameters['select']));
 
-			// Check for joins
+
+			/**
+			 * Where statement
+			 */
+
+			if ($parameters['where'])
+				$entries->whereRaw($parameters['where']);
+
+			
+			/**
+			 * Process joins
+			 */
+
 			foreach ($this->getAttributes() as $attribute => $value) {
 
 				// Prefixed with "join_"?
@@ -1390,20 +1382,48 @@ class Plugin_Streams_core extends Plugin
 					list($arg1, $condition, $arg2) = explode('|', $value);
 
 					// Execute it
-					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+					$entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
 				}
 			}
 
-			$model_entries = $model_entries->enableAutoEagerLoading(true)->get();
+			
+			/**
+			 * Lazy load (expiramental)
+			 */
+			if ($parameters['load'])
+				$entries->with(explode('|', $parameters['load']));
 
-			foreach ($model_entries as $k => $entry) {
+
+			/**
+			 * Limit
+			 */
+
+			$entries->limit($parameters['limit']);
+
+
+			/**
+			 * Order by
+			 */
+
+			$entries->orderBy($parameters['order_by'], $parameters['sort']);
+
+			
+			/**
+			 * Get entries
+			 */
+			
+			$entries = $entries->enableAutoEagerLoading(true)->get()->toArray();
+
+
+			/**
+			 * Process entries
+			 */
+
+			foreach ($entries as $k => &$entry) {
 
 				// Add the count
-				$entry->count = $k;
-				$entry->human_count = $k+1;
-
-				// Add to our result array
-				$entries[] = $entry->asPlugin()->toArray();
+				$entry['count'] = $k;
+				$entry['human_count'] = $k+1;
 			}
 
 			$this->runtime_cache[$hash] = $entries;
