@@ -67,6 +67,8 @@ class Plugin_Streams_core extends Plugin
 		'update_success_message'	=> 'lang:streams:edit_entry_success',
 		'update_error_message'	=> 'lang:streams:edit_entry_error',
 		'skips'				=> null,
+		'include'			=> null,
+		'exclude'			=> null,
 		'hidden'			=> null,
 		'class'				=> null,
 		'redirect'			=> null,
@@ -446,7 +448,7 @@ class Plugin_Streams_core extends Plugin
 		$this->setAttribute('limit', 1);
 
 		$return = $this->entries();
-		
+
 		return empty($return) ? false : ci()->parser->parse_string($this->content(), $return[0], true, false, null, false);
 	}
 
@@ -522,11 +524,14 @@ class Plugin_Streams_core extends Plugin
 		$form = $form->defaults($defaults);
 
 		/**
-		 * Skip these fields
+		 * Skip fields
 		 */
+
+		// Determine initial skips from the include / exclude params
+		$skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->getStream());
 		
-		if ($parameters['skips'])
-			$form = $form->skips(explode('|', $parameters['skips']));
+		if (! empty($skips))
+			$form = $form->skips($skips);
 
 		/**
 		 * Hide these fields
@@ -1358,7 +1363,7 @@ class Plugin_Streams_core extends Plugin
 			 * Get everything started
 			 */
 
-			$entries = EntryModel::stream($stream)->asPlugin()->select(explode('|', $parameters['select']));
+			$entries = EntryModel::stream($stream)->select(explode('|', $parameters['select']));
 
 
 			/**
@@ -1412,7 +1417,7 @@ class Plugin_Streams_core extends Plugin
 			 * Get entries
 			 */
 			
-			$entries = $entries->enableAutoEagerLoading(true)->get();
+			$entries = $entries->enableAutoEagerLoading(true)->get()->asPlugin()->toArray();
 
 
 			/**
@@ -1422,11 +1427,8 @@ class Plugin_Streams_core extends Plugin
 			foreach ($entries as $k => &$entry) {
 
 				// Add the count
-				$entry->count = $k;
-				$entry->human_count = $k+1;
-
-				// To plugin
-				$entry->asPlugin()->toArray();
+				$entry['count'] = $k;
+				$entry['human_count'] = $k+1;
 			}
 
 			$this->runtime_cache[$hash] = $entries;
@@ -1454,6 +1456,46 @@ class Plugin_Streams_core extends Plugin
 		foreach ($this->getAttributes() as $key => $lang)
 			if (substr($key, -5) == '_lang')
 				ci()->lang->load($lang);
+	}
+
+	/**
+	 * Get all the skips from skips, includes and excludes
+	 * @param  mixed $skips   
+	 * @param  mixed $include 
+	 * @param  mixed $exclude 
+	 * @param  object $stream 
+	 * @return array
+	 */
+	private function getSkipsFromSkipsIncludeExclude($skips, $include, $exclude, $stream)
+	{
+		// Make sure these are arrays
+		$skips = is_string($skips) ? explode('|', $skips) : $skips;
+		$include = is_string($include) ? explode('|', $include) : $skips;
+		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $skips;
+
+		// Get the streams assignments first
+		$assignments = $stream->assignments->toArray();
+
+		// Manually set skips first
+		$skips = $skips;
+
+		// Skip unless they're in the include
+		foreach ($assignments as $assignment) {
+
+			// Is it included?
+			if (! in_array($assignment['field']['field_slug'], $include)) {
+
+				// Nope.. Seeya
+				$skips[] = $assignment['field']['field_slug'];
+			}
+		}
+
+		// Skip excludes
+		foreach ($exlcude as $skip)
+			$skips[] = $skip;
+
+		// Return unique
+		return array_unique($skips);
 	}
 
 	/**
