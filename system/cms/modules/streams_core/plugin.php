@@ -1358,7 +1358,7 @@ class Plugin_Streams_core extends Plugin
 			 * Get everything started
 			 */
 
-			$entries = EntryModel::stream($stream)->select(explode('|', $parameters['select']));
+			$entries = EntryModel::stream($stream)->asPlugin()->select(explode('|', $parameters['select']));
 
 
 			/**
@@ -1412,18 +1412,21 @@ class Plugin_Streams_core extends Plugin
 			 * Get entries
 			 */
 			
-			$entries = $entries->enableAutoEagerLoading(true)->get()->toArray();
+			$entries = $entries->enableAutoEagerLoading(true)->get();
 
 
 			/**
 			 * Process entries
 			 */
-
+			
 			foreach ($entries as $k => &$entry) {
 
 				// Add the count
-				$entry['count'] = $k;
-				$entry['human_count'] = $k+1;
+				$entry->count = $k;
+				$entry->human_count = $k+1;
+
+				// To plugin
+				$entry->asPlugin()->toArray();
 			}
 
 			$this->runtime_cache[$hash] = $entries;
