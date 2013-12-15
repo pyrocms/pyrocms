@@ -28,9 +28,7 @@ class EntryQueryBuilder extends Builder
 
     protected $field_maps = array();
 
-    protected $runtime_cache = array();
-
-	/**
+    /**
 	 * Execute the query as a "select" statement.
 	 *
 	 * @param  array  $columns
@@ -38,9 +36,6 @@ class EntryQueryBuilder extends Builder
 	 */
 	public function get($columns = null, $exclude = false)
 	{
-		//echo $this->toSql().' - ';
-		//echo $this->runtime_cache[md5($this->toSql().implode('.', $this->getQuery()->getBindings()))] = md5($this->toSql().implode('.', $this->getQuery()->getBindings())).'<br>';
-
 		// Get set up with our environment
 		$this->stream = $this->model->getStream();
 		$this->table = $this->model->getTable();

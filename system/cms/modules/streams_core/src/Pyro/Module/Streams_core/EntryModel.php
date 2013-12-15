@@ -259,7 +259,7 @@ class EntryModel extends Eloquent
             }
         }
 
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug); 
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
         return static::$instance = $instance;
     }
