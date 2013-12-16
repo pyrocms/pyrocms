@@ -10,7 +10,7 @@ class Migration_Update_core_streams_time_conventions extends CI_Migration
         $schema = ci()->pdb->getSchemaBuilder();
 
         // Get all the streams
-        $streams = Stream::all();
+        $streams = StreamModel::all();
 
         // Update son..
         foreach ($streams as $slug => $stream) {
