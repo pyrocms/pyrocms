@@ -15,7 +15,7 @@ class Text extends AbstractFieldType
 {
 	public $field_type_slug			= 'text';
 
-	public $db_col_type				= 'string';
+	public $db_col_type				= 'varchar';
 
 	public $version					= '1.0.0';
 

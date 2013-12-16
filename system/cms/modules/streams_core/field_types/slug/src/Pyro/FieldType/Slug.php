@@ -16,7 +16,7 @@ class Slug extends AbstractFieldType
 {
 	public $field_type_slug			= 'slug';
 
-	public $db_col_type				= 'string';
+	public $db_col_type				= 'varchar';
 
 	public $custom_parameters		= array( 'space_type', 'slug_field' );
 

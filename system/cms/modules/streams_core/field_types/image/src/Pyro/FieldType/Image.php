@@ -18,7 +18,7 @@ class Image extends AbstractFieldType
 	public $field_type_slug = 'image';
 
 	// Files are saved as 15 character strings.
-	public $db_col_type = 'string';
+	public $db_col_type = 'varchar';
 
 	public $col_constraint = 15;
 

@@ -15,7 +15,7 @@ class Email extends AbstractFieldType
 {
 	public $field_type_slug				= 'email';
 
-	public $db_col_type					= 'string';
+	public $db_col_type					= 'varchar';
 
 	public $extra_validation			= 'valid_email';
 
