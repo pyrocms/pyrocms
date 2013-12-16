@@ -348,7 +348,7 @@ class Plugin_User extends Plugin
 			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
 		}
 
-		return $this->user_profile_data[$user_id]->getPluginOutput($var);
+		return isset($this->user_profile_data[$user_id]) ? $this->user_profile_data[$user_id]->getPluginOutput($var) : null;
 	}
 
 	/**
