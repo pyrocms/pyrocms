@@ -8,6 +8,7 @@
         "dflydev/markdown": "1.0.*",
         "ircmaxell/password-compat": "1.0.*",
         "illuminate/database": "4.0.*",
+        "illuminate/cache": "4.0.*",
         "nesbot/Carbon": "1.*",
         "patchwork/utf8": "1.1.*",
         "thepixeldeveloper/sitemap": "2.0.*",
