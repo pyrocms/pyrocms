@@ -23,7 +23,7 @@ class Keywords extends AbstractFieldType
 	 * DB column type
 	 * @var string
 	 */
-	public $db_col_type        = 'varchar';
+	public $db_col_type        = 'string';
 
 	/**
 	 * Version
