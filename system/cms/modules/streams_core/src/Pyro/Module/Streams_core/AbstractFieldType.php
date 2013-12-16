@@ -79,7 +79,17 @@ abstract class AbstractFieldType
 	 */
 	protected $relation = null;
 
+	/**
+	 * The plugin object
+	 * @var boolean
+	 */
 	protected $plugin = false;
+
+	/**
+	 * Remember stuff
+	 * @var array
+	 */
+	protected $runtime_cache = array();
 
 	/**
 	 * Version
@@ -771,6 +781,15 @@ abstract class AbstractFieldType
      */
     public function namespaceDestruct()
     {}
+
+    /**
+	 * Generate a cache key based on attributes
+	 * @return string 
+	 */
+	public function generateCacheKey()
+	{
+		return md5(implode('-', $this->field->field_data).'-'.$this->field->field_type.'-'.$this->field->field_slug.'-'.$this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->entry->id);
+	}
 
 	/**
 	 * Dynamic method call
