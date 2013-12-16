@@ -358,7 +358,7 @@ class Link extends Eloquent
             }
             
             // Process all the little children
-            $row->children = self::makeUrlArray($row->children, $user_group, $front_end);
+            $row->children = self::makeUrlArray($row->children, $user_groups, $front_end);
         }
 
         return $links;
