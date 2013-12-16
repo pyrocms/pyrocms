@@ -578,6 +578,13 @@ abstract class AbstractFieldType
 	 */
 	public function getRelationResult($field_slug = null)
 	{
+		// Create the cache key
+		$key = $this->generateCacheKey();
+
+		if (isset($this->runtime_cache[$key])) {
+			return $this->runtime_cache[$key];
+		}
+
 		$field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 		
 		// Check if we have a parent foreing key value and avoid making queries with null values
@@ -588,11 +595,11 @@ abstract class AbstractFieldType
 		// If the relation result exists, return it
 		if ($relation = $this->entry->getRelation($field_slug)) {
 			
-			return $relation;
+			return $this->runtime_cache[$key] = $relation;
 		
 		} elseif ($this->hasRelation()) {
 		
-			return $this->relation()->getResults();
+			return $this->runtime_cache[$key] = $this->relation()->getResults();
 		
 		}
 
