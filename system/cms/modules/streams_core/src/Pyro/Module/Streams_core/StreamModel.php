@@ -604,15 +604,16 @@ class StreamModel extends Eloquent
 			$db_type_method = camel_case($type->db_col_type);
 
 			// This seems like a sane default, and allows for 2.2 style widgets
+			// Bad boy.. whomever.
 			if (! method_exists($type, $db_type_method)) {
-				$db_type_method = 'text';
+				//$db_type_method = 'text';
 			}
 
 			// -------------------------------------
 			// Constraint
 			// -------------------------------------
 
-			$constraint = null;
+			$constraint = 255;
 
 			// First we check and see if a constraint has been added
 			if (isset($type->col_constraint) and $type->col_constraint) {
