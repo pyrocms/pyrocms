@@ -50,6 +50,7 @@ class Plugin_Streams_core extends Plugin
 		'include_by'		=> 'id',
 		'order_by'			=> 'created_at',
 		'sort'				=> 'desc',
+		'debug'				=> 'no',
 		);
 
 	/**
@@ -298,17 +299,17 @@ class Plugin_Streams_core extends Plugin
 		// Check for a retrieve our stream.
 		// -------------------------------------
 		
-		if ( ! isset($parameters['stream']))
+		if ( ! isset($parameters['stream']) and $parameters['debug'] == 'yes')
 		{
-			$this->_error_out(lang('streams:no_stream_provided'));
+			$this->error(lang('streams:no_stream_provided'));
 		}
 
 
 		$stream = StreamModel::getStream($parameters['stream'], $parameters['namespace']);
 
-		if ( ! $stream)
+		if ( ! $stream and $parameters['debug'] == 'yes')
 		{
-			$this->_error_out(lang('streams:invalid_stream'));
+			$this->error(lang('streams:invalid_stream'));
 		}
 
 		// -------------------------------------
@@ -1506,7 +1507,7 @@ class Plugin_Streams_core extends Plugin
 	 * @param	string
 	 * @return 	mixed
 	 */	
-	private function _error_out($msg)
+	private function error($msg)
 	{
 		return ($this->debug_status == 'on') ? show_error($msg) : false;
 	}
