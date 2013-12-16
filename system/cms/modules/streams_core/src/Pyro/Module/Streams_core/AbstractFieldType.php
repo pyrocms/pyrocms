@@ -99,7 +99,7 @@ abstract class AbstractFieldType
 
 	public function stringOutput()
 	{
-		return $this->entry->getOriginal($this->fieldSlug());
+		return $this->value;
 	}
 
 	public function pluginOutput()
