@@ -1,12 +1,14 @@
 <?php namespace Pyro\Module\Templates\Model;
 
+use Pyro\Model\Eloquent;
+
 /**
  * Email Template model
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Templates\Models
  */
-class EmailTemplate extends \Illuminate\Database\Eloquent\Model
+class EmailTemplate extends Eloquent
 {
     /**
      * Define the table name

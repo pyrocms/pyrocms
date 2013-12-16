@@ -2,7 +2,7 @@
 
 use Closure;
 use Illuminate\Support\Str;
-use Pyro\Model\EloquentQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class EntryQueryBuilder extends EloquentQueryBuilder
+class EntryQueryBuilder extends Builder
 {
 	protected $entries = array();
 
@@ -28,9 +28,7 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
     protected $field_maps = array();
 
-    protected $runtime_cache = array();
-
-	/**
+    /**
 	 * Execute the query as a "select" statement.
 	 *
 	 * @param  array  $columns
@@ -38,9 +36,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 	 */
 	public function get($columns = null, $exclude = false)
 	{
-		//echo $this->toSql().' - ';
-		//echo $this->runtime_cache[md5($this->toSql().implode('.', $this->getQuery()->getBindings()))] = md5($this->toSql().implode('.', $this->getQuery()->getBindings())).'<br>';
-
 		// Get set up with our environment
 		$this->stream = $this->model->getStream();
 		$this->table = $this->model->getTable();

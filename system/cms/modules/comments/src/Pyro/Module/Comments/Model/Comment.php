@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Comments\Model;
 
 use Settings;
+use Pyro\Model\Eloquent;
 
 /**
  * Comment model
@@ -8,7 +9,7 @@ use Settings;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Comments\Models
  */
-class Comment extends \Illuminate\Database\Eloquent\Model
+class Comment extends Eloquent
 {
     /**
      * Define the table name

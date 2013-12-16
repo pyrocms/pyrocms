@@ -143,7 +143,7 @@ class Relationship extends AbstractFieldType
 	{
 		if ($entry = $this->getRelationResult())
 		{
-			return $entry->asPlugin()->toArray();
+			return $entry->asPlugin();
 		}
 
 		return null;
@@ -235,5 +235,21 @@ class Relationship extends AbstractFieldType
 
 		// Boom
 		return $formatted_options;
+	}
+
+	/**
+	 * Override parent here
+	 * @return object 
+	 */
+	public function getRelationResult()
+	{
+		// Create the cache key
+		$key = $this->generateCacheKey();
+
+		if (! isset($this->runtime_cache[$key])) {
+			$this->runtime_cache[$key] = parent::getRelationResult();
+		}
+
+		return $this->runtime_cache[$key];
 	}
 }

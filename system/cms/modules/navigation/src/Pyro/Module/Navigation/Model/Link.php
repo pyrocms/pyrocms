@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Navigation\Model;
 
+use Pyro\Model\Eloquent;
 use Pyro\Module\Navigation\Model\Group;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Users;
@@ -10,7 +11,7 @@ use Pyro\Module\Users;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Navigation\Models
  */
-class Link extends \Illuminate\Database\Eloquent\Model
+class Link extends Eloquent
 {
     /**
      * Define the table name

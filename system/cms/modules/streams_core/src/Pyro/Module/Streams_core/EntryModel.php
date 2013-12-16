@@ -120,14 +120,29 @@ class EntryModel extends Eloquent
      */
     const CREATED_BY        = 'created_by';
 
+    /**
+     * Format Eloquent Constant
+     */
     const FORMAT_ELOQUENT   = 'eloquent';
 
+    /**
+     * Format Original Constant
+     */
     const FORMAT_ORIGINAL   = 'original';
 
+    /**
+     * Format Data Constant
+     */
     const FORMAT_DATA       = 'data';
 
+    /**
+     * Format Plugin Constant
+     */
     const FORMAT_PLUGIN     = 'plugin';
 
+    /**
+     * Format String Constant
+     */
     const FORMAT_STRING     = 'string';
 
     /**
@@ -144,6 +159,11 @@ class EntryModel extends Eloquent
         }
     }
 
+    /**
+     * Format entry as data
+     * @param  array $attribute_keys
+     * @return object
+     */
     public function asData($attribute_keys = null)
     {
         $this->format = static::FORMAT_DATA;
@@ -151,6 +171,11 @@ class EntryModel extends Eloquent
         return $this->replicateWithOutput($attribute_keys);
     }
 
+    /**
+     * Keep entry format as Eloquent
+     * @param  array $attribute_keys
+     * @return object
+     */
     public function asEloquent()
     {
         $this->format = static::FORMAT_ELOQUENT;
@@ -158,6 +183,11 @@ class EntryModel extends Eloquent
         return $this;
     }
 
+    /**
+     * Keep entry format as Original
+     * @param  array $attribute_keys
+     * @return object
+     */
     public function asOriginal()
     {
         $this->format = static::FORMAT_ORIGINAL;
@@ -165,6 +195,11 @@ class EntryModel extends Eloquent
         return $this;
     }
 
+    /**
+     * Format entry for Plugin use
+     * @param  array $attribute_keys
+     * @return object
+     */
     public function asPlugin($attribute_keys = null)
     {
         $this->format = static::FORMAT_PLUGIN;
@@ -172,6 +207,11 @@ class EntryModel extends Eloquent
         return $this->replicateWithOutput($attribute_keys);
     }
 
+    /**
+     * Form entry as String
+     * @param  array $attribute_keys
+     * @return object
+     */
     public function asString($attribute_keys = null)
     {
         $this->format = static::FORMAT_STRING;
@@ -219,7 +259,7 @@ class EntryModel extends Eloquent
             }
         }
 
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug); 
+        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
 
         return static::$instance = $instance;
     }
@@ -501,7 +541,7 @@ class EntryModel extends Eloquent
      * Save a new model and return the instance.
      *
      * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @return \Pyro\Model\Eloquent|static
      */
     public static function create(array $attributes = null)
     {

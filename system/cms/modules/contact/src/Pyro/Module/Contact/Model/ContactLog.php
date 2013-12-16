@@ -1,13 +1,13 @@
 <?php namespace Pyro\Module\Contact\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use Pyro\Model\Eloquent;
 
 /**
  *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Contact\Models
  */
-class ContactLog extends Model
+class ContactLog extends Eloquent
 {
 	/**
 	 * Define the table name
