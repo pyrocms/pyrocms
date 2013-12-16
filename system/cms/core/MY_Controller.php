@@ -238,7 +238,7 @@ class MY_Controller extends MX_Controller
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
 
-            preg_match('/(mysql|pgsql|sqlite)+:host=(\w+).+dbname=(\w+)/', $config['dsn'], $matches);
+            preg_match('/(mysql|pgsql|sqlite)+:host=(\w.+).+dbname=(\w+)/', $config['dsn'], $matches);
             
             $config['dbdriver'] = $matches[1];
             $config['hostname'] = $matches[2];
