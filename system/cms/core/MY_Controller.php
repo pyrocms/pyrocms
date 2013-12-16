@@ -4,6 +4,7 @@ require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
@@ -230,62 +231,59 @@ class MY_Controller extends MX_Controller
         $pdo = $this->db->get_connection();
 
         include APPPATH.'config/database.php';
-
+        include APPPATH.'config/cache_laravel.php';
+    
         $config = $db[ENVIRONMENT];
 
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
 
-        	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            preg_match('/(mysql|pgsql|sqlite)+:host=(\w+).+dbname=(\w+)/', $config['dsn'], $matches);
+            
+            $config['dbdriver'] = $matches[1];
+            $config['hostname'] = $matches[2];
+            $config['database'] = $matches[3];
 
-            preg_match('/(mysql|pgsql|sqlite)+:.+dbname=(\w+)/', $config['dsn'], $matches);
-            $subdriver = $matches[1];
-            $database = $matches[2];
             unset($matches);
-
-            $drivers = array(
-                'mysql' => '\Illuminate\Database\MySqlConnection',
-                'pgsql' => '\Illuminate\Database\PostgresConnection',
-                'sqlite' => '\Illuminate\Database\SQLiteConnection',
-            );
-
-            // Make a connection instance with the existing PDO connection
-            $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
-
-            $resolver = new Illuminate\Database\ConnectionResolver;
-            $resolver->addConnection('default', $conn);
-            $resolver->setDefaultConnection('default');
-
-            Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
-
-        // Not using the new PDO driver
-        } else {
-
-            $capsule = new Capsule;
-
-            $capsule->addConnection(array(
-                'driver' => $config['dbdriver'],
-                'host' => $config["hostname"],
-                'database' => $config["database"],
-                'username' => $config["username"],
-                'prefix' => $prefix,
-                'password' => $config["password"],
-                'charset' => $config["char_set"],
-                'collation' => $config["dbcollat"],
-            ));
-
-            // Set the fetch mode FETCH_CLASS so we 
-            // get objects back by default.
-            $capsule->setFetchMode(PDO::FETCH_CLASS);
-
-            // Setup the Eloquent ORM
-            $capsule->bootEloquent();
-
-            // Make this Capsule instance available globally via static methods... (optional)
-            $capsule->setAsGlobal();
-
-            $conn = $capsule->connection();
         }
+
+        $capsule = new Capsule;
+
+        $capsule->addConnection(array(
+            'driver' => $config['dbdriver'],
+            'host' => $config["hostname"],
+            'database' => $config["database"],
+            'username' => $config["username"],
+            'prefix' => $prefix,
+            'password' => $config["password"],
+            'charset' => $config["char_set"],
+            'collation' => $config["dbcollat"],
+        ));
+
+        // Set the fetch mode FETCH_CLASS so we 
+        // get objects back by default.
+        $capsule->setFetchMode(PDO::FETCH_CLASS);
+
+        // Setup the Eloquent ORM
+        $capsule->bootEloquent();
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $capsule->setAsGlobal();
+
+        $container = $capsule->getContainer();
+
+        $container->offsetGet('config')->offsetSet('cache.driver', $cache_laravel['driver']);
+
+        // Set driver specific settings
+        if ($cache_laravel['driver'] == 'array') {
+
+        }
+
+        $cacheManager = new CacheManager($container);
+
+        $capsule->setCacheManager($cacheManager);
+
+        $conn = $capsule->connection();
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 
