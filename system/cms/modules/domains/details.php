@@ -1,11 +1,14 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Addons\AbstractModule;
+
 /**
  * Domains module
  *
  * @author  Ryan Thompson - AI Web Systems, Inc.
  * @package PyroCMS\Core\Modules\Domains
  */
-class Module_Domains extends Module
+class Module_Domains extends AbstractModule
 {
 	public $version = '1.0.0';
 
@@ -45,7 +48,14 @@ class Module_Domains extends Module
 		);
 	}
 
-	public function install()
+	/**
+	 * Install
+	 *
+	 * This function is run to install the module
+	 *
+	 * @return bool
+	 */
+	public function install($pdb, $schema)
 	{
 		if ( ! $this->db->table_exists('core_domains'))
 		{
@@ -70,9 +80,8 @@ class Module_Domains extends Module
 		return true;
 	}
 
-	public function uninstall()
+	public function uninstall($pdb, $schema)
 	{
-		// This is a core module, lets keep it around.
 		return false;
 	}
 
@@ -80,5 +89,4 @@ class Module_Domains extends Module
 	{
 		return true;
 	}
-
 }
