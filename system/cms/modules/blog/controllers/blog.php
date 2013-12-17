@@ -49,7 +49,7 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
-/*		// Get our comment count whil we're at it.
+		// Get our comment count whil we're at it.
 		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
 				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
 				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
@@ -61,6 +61,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
+			'order_by'		=> "created_at",
 			'paginate'		=> 'yes',
 			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
@@ -92,7 +93,7 @@ class Blog extends Public_Controller
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts['entries'])
 			->set('pagination', $posts['pagination'])
-			->build('posts');*/
+			->build('posts');
 	}
 
 	/**
@@ -113,6 +114,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live' AND `category_id` = '{$category->id}'",
+			'order_by'		=> "created_at",
 			'paginate'		=> 'yes',
 			'pag_segment'	=> 4
 		);
@@ -157,6 +159,8 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
+			'order_by'		=> "created_at",
+			'date_by'		=> "created_at",
 			'year'			=> $year,
 			'month'			=> $month,
 			'paginate'		=> 'yes',
@@ -204,6 +208,7 @@ class Blog extends Public_Controller
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> 1,
+			'order_by'		=> "created_at",
 			'where'			=> "`slug` = '{$slug}'"
 		);
 		$data = $this->streams->entries->get_entries($params);
@@ -233,6 +238,7 @@ class Blog extends Public_Controller
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'limit'			=> 1,
+			'order_by'		=> "created_at",
 			'where'			=> "`preview_hash` = '{$hash}'"
 		);
 		$data = $this->streams->entries->get_entries($params);
@@ -288,6 +294,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
+			'order_by'		=> "created_at",
 			'paginate'		=> 'yes',
 			'pag_segment'	=> 4
 		);
@@ -451,7 +458,7 @@ class Blog extends Public_Controller
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
 			$this->template->set('form_display', (
 				$post['comments_enabled'] === 'always' or
-					($post['comments_enabled'] !== 'no' and time() < strtotime($post['comments_enabled'] + $post['created_at']))
+					($post['comments_enabled'] !== 'no' and time() < strtotime('+'.$post['comments_enabled'], strtotime($post['created_at'])))
 			));
 		}
 
@@ -463,7 +470,7 @@ class Blog extends Public_Controller
 			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
 			->set_metadata('og:description', $post['preview'], 'og')
 			->set_metadata('article:published_time', date(DATE_ISO8601, strtotime($post['created_at'])), 'og')
-			->set_metadata('article:modified_time', date(DATE_ISO8601, strtotime($post['updated_at'])), 'og')
+			->set_metadata('article:modified_time', date(DATE_ISO8601, strtotime($post['updated_on'])), 'og')
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
 			->set_breadcrumb($post['title'])
