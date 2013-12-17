@@ -1471,8 +1471,8 @@ class Plugin_Streams_core extends Plugin
 	{
 		// Make sure these are arrays
 		$skips = is_string($skips) ? explode('|', $skips) : $skips;
-		$include = is_string($include) ? explode('|', $include) : $skips;
-		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $skips;
+		$include = is_string($include) ? explode('|', $include) : $include;
+		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $exclude;
 
 		// Get the streams assignments first
 		$assignments = $stream->assignments->toArray();
@@ -1480,14 +1480,18 @@ class Plugin_Streams_core extends Plugin
 		// Manually set skips first
 		$skips = $skips;
 
-		// Skip unless they're in the include
-		foreach ($assignments as $assignment) {
+		// Are we using include?
+		if (! empty($include)) {
 
-			// Is it included?
-			if (! in_array($assignment['field']['field_slug'], $include)) {
+			// Skip unless they're in the include
+			foreach ($assignments as $assignment) {
 
-				// Nope.. Seeya
-				$skips[] = $assignment['field']['field_slug'];
+				// Is it included?
+				if (! in_array($assignment['field']['field_slug'], $include)) {
+
+					// Nope.. Seeya
+					$skips[] = $assignment['field']['field_slug'];
+				}
 			}
 		}
 
