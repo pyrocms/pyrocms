@@ -227,7 +227,7 @@ class Admin extends Admin_Controller
 				$comment->delete();
 
 				// Wipe cache for this model, the content has changed
-				$this->cache->clear('Comment');
+				$this->cache->forget('Comment');
 				$comments[] = $comment;
 			}
 		}

@@ -152,7 +152,7 @@ class Plugin_Integration extends Plugin
 					}
 
 					// Call the model or library with the method provided and the same arguments
-					$this->cache->set('analytics_plugin', $data, 60 * 60 * (int) $refresh); // 24 hours
+					$this->cache->put('analytics_plugin', $data, 60 * 60 * (int) $refresh); // 24 hours
 				}
 			} catch (Exception $e) {
 				log_message('error', 'Could not connect to Google Analytics. Called from the analytics plugin');

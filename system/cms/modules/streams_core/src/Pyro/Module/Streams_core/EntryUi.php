@@ -133,6 +133,7 @@ class EntryUi extends AbstractUi
 			->enableAutoEagerLoading(true)
 			->take($this->limit)
 			->skip($this->offset)
+			->remember(10)
 			->get($this->select, $this->exclude);
 
 		$this->data->view_options =	$this->model->getViewOptionsFields();

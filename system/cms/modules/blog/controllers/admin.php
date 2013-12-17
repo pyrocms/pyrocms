@@ -236,7 +236,7 @@ class Admin extends Admin_Controller
 			if (
 				//$id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)
 				true) {
-				//$this->cache->clear('blog_m');
+				//$this->cache->forget('blog_m');
 				$this->session->set_flashdata('success', sprintf(lang('blog:post_add_success'), $this->input->post('title')));
 
 				// Blog article has been updated, may not be anything to do with publishing though
@@ -508,7 +508,7 @@ $id = null;
 					$this->blog_m->publish($id);
 
 					// Wipe cache for this model, the content has changed
-					$this->cache->clear('blog_m');
+					$this->cache->forget('blog_m');
 					$post_titles[] = $post->title;
 				}
 			}
@@ -558,7 +558,7 @@ $id = null;
 						$comments->delete();
 
 						// Wipe cache for this model, the content has changed
-						$this->cache->clear('blog_m');
+						$this->cache->forget('blog_m');
 						$post_titles[] = $post->title;
 						$deleted_ids[] = $id;
 					}

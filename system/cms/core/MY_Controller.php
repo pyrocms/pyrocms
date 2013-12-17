@@ -4,8 +4,8 @@ require APPPATH."libraries/MX/Controller.php";
 
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
-use Illuminate\Cache\CacheManager;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Pyro\Cache\CacheManager;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
@@ -78,9 +78,6 @@ class MY_Controller extends MX_Controller
         
         // activate the autoloader
         $loader->register();
-
-		// the Quick\Cache package is instantiated to $this->cache in the config file
-		$this->load->config('cache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
@@ -231,7 +228,7 @@ class MY_Controller extends MX_Controller
         $pdo = $this->db->get_connection();
 
         include APPPATH.'config/database.php';
-        include APPPATH.'config/cache_laravel.php';
+        include APPPATH.'config/cache.php';
     
         $config = $db[ENVIRONMENT];
 
@@ -272,16 +269,23 @@ class MY_Controller extends MX_Controller
 
         $container = $capsule->getContainer();
 
-        $container->offsetGet('config')->offsetSet('cache.driver', $cache_laravel['driver']);
+        $container->offsetGet('config')->offsetSet('cache.driver', $cache['driver']);
+        $container->offsetGet('config')->offsetSet('cache.prefix', $cache['prefix']);
 
         // Set driver specific settings
-        if ($cache_laravel['driver'] == 'array') {
+        if ($cache['driver'] == 'file') {
+        
+            $container->offsetGet('config')->offsetSet('cache.path', $cache['path']);
+        
+        } elseif ($cache['driver'] == 'redis') {
 
+            $container->offsetGet('config')->offsetSet('redis', $cache['redis']);
+        
         }
 
-        $cacheManager = new CacheManager($container);
+        ci()->cache = new CacheManager($container);
 
-        $capsule->setCacheManager($cacheManager);
+        $capsule->setCacheManager(ci()->cache);
 
         $conn = $capsule->connection();
 

@@ -11,7 +11,7 @@ class Events_Variables
 	{
 		if ($data['stream']->stream_namespace == 'variables' and $data['stream']->stream_slug == 'variables')
 		{
-			ci()->cache->forget('variables_library_vars');
+			ci()->cache->forget('variables.variables');
 		}
 	}
 }
