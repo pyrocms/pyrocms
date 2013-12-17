@@ -37,6 +37,6 @@ class Ajax extends MY_Controller
 				break;
 		}
 
-		$this->cache->clear('widget_m');
+		$this->cache->forget('widget_m');
 	}
 }

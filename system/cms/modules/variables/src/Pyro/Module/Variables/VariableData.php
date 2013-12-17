@@ -72,9 +72,9 @@ class VariableData {
 	public static function getAll()
 	{
 		// the variables haven't been fetched yet, load them
-		if ( ! static::$_vars  or ! (static::$_vars = ci()->cache->get('variables_library_vars')))
+		if ( ! static::$_vars)
 		{
-			$entries = VariableEntryModel::all(array('name', 'data'));
+			$entries = VariableEntryModel::remember(10, 'variables.variables')->get(array('name', 'data'));
 
 			foreach ($entries as $var)
 			{
@@ -82,7 +82,7 @@ class VariableData {
 			}
 		}
 
-		return ci()->cache->set('variables_library_vars', static::$_vars);
+		return static::$_vars;
 	}
 }
 

@@ -325,7 +325,7 @@ class Plugin_Streams_core extends Plugin
 				$entries = self::get($stream, $parameters);
 
 				// Save to cache
-				ci()->cache->set($this->cache_hash, $entries, $this->cache_ttl);
+				ci()->cache->put($this->cache_hash, $entries, $this->cache_ttl);
 			}
 		}
 		else
@@ -1300,7 +1300,7 @@ class Plugin_Streams_core extends Plugin
 	{
 		if ($this->write_tag_cache === true)
 		{
-			ci()->cache->set($this->cache_hash, $content, $this->cache_ttl);
+			ci()->cache->put($this->cache_hash, $content, $this->cache_ttl);
 		}		
 	}
 
@@ -1418,7 +1418,7 @@ class Plugin_Streams_core extends Plugin
 			 * Get entries
 			 */
 			
-			$entries = $entries->enableAutoEagerLoading(true)->get()->asPlugin()->toArray();
+			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->asPlugin()->toArray();
 
 
 			/**

@@ -187,7 +187,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_installed', $module);
 
 			// Clear the module cache
-			$this->cache->clear('module_m');
+			$this->cache->forget('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $module->name));
 		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:install_error'), $module->name));
@@ -213,7 +213,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_enabled', $module);
 
 			// Clear the module cache
-			$this->cache->clear('module_m');
+			$this->cache->forget('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $module->name));
 		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:enable_error'), $module->name));
@@ -237,7 +237,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_disabled', $module);
 
 			// Clear the module cache
-			$this->cache->clear('module_m');
+			$this->cache->forget('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $module->name));
 		} else {
 			$this->session->set_flashdata('error', sprintf(lang('addons:modules:disable_error'), $module->name));

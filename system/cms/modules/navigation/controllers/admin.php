@@ -163,7 +163,7 @@ class Admin extends Admin_Controller
 			Navigation\Model\Link::setOrder($order, $group);
 
 			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-			$this->cache->clear('navigation_m');
+			$this->cache->forget('navigation_m');
 			Events::trigger('post_navigation_order', array(
 				'order' => $order,
 				'group' => $group
@@ -224,7 +224,7 @@ class Admin extends Admin_Controller
 
 			if ($link) {
 				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-				$this->cache->clear('navigation_m');
+				$this->cache->forget('navigation_m');
 
 				Events::trigger('post_navigation_create', $link);
 
@@ -315,7 +315,7 @@ class Admin extends Admin_Controller
 			if ($link->save()) {
 
 				//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-				$this->cache->clear('navigation_m');
+				$this->cache->forget('navigation_m');
 
 				Events::trigger('post_navigation_edit', $link);
 
@@ -366,7 +366,7 @@ class Admin extends Admin_Controller
 		}
 		// Flush the cache and redirect
 		//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-		$this->cache->clear('navigation_m');
+		$this->cache->forget('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 
 		redirect('admin/navigation');

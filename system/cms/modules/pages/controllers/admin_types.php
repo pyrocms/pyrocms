@@ -206,7 +206,7 @@ class Admin_types extends Admin_Controller
 
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
 
-				$this->cache->clear('page_m');
+				$this->cache->forget('page_m');
 
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
@@ -299,7 +299,7 @@ class Admin_types extends Admin_Controller
 			$page_type->save();
 
 			// Wipe cache for this model as the data has changed
-			$this->cache->clear('page_type_m');
+			$this->cache->forget('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 
@@ -312,7 +312,7 @@ class Admin_types extends Admin_Controller
 				PageType::removePageLayoutFiles($input['slug']);
 			}
 
-			$this->cache->clear('page_m');
+			$this->cache->forget('page_m');
 
 			Events::trigger('page_type_updated', $id);
 
@@ -553,7 +553,7 @@ class Admin_types extends Admin_Controller
 			$pages->delete();
 
 			// Wipe cache for this model, the content has changd
-			$this->cache->clear('page_type_m');
+			$this->cache->forget('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
 

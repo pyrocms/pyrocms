@@ -175,7 +175,7 @@ class Theme_Pyrocms extends AbstractTheme
 				$data['analytic_views'] = $flot_data_views;
 
 				// Call the model or library with the method provided and the same arguments
-				$this->cache->set('analytics', array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 60 * 60 * 6); // 6 hours
+				$this->cache->put('analytics', array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 60 * 60 * 6); // 6 hours
 			} catch (Exception $e) {
 				$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
 			}

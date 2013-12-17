@@ -81,7 +81,7 @@ class Admin_themes extends Admin_Controller
 			// Success...
 			$this->session->set_flashdata('success', lang('addons:themes:re-index_success'));
 
-			$this->cache->clear('theme_m');
+			$this->cache->forget('theme_m');
 
 			redirect('admin/addons/themes/options/'.$slug);
 		}
@@ -124,7 +124,7 @@ class Admin_themes extends Admin_Controller
 				// Success...
 				$this->session->set_flashdata('success', lang('addons:themes:save_success'));
 
-				$this->cache->clear('theme_m');
+				$this->cache->forget('theme_m');
 
 				redirect('admin/addons/themes/options/'.$slug);
 			}
