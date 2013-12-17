@@ -20,8 +20,6 @@ class File extends AbstractFieldType
 	// Files are saved as 15 character strings.
 	public $db_col_type = 'string';
 	
-	public $col_constraint = 15;
-
 	public $custom_parameters = array(
 		'folder',
 		'on_entry_destruct',
