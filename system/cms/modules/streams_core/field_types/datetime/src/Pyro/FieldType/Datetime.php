@@ -238,7 +238,7 @@ class Datetime extends AbstractFieldType
 		$year = ci()->input->post($this->form_slug.'_year');
 
 		// Are we using a datepicker?
-		if ($this->getParameter('input_type', 'datepicker') == 'datepicker' and $date != null and ($date != $this->zero_date and $this->value != $this->zero_time)) {
+		if ($this->getParameter('input_type', 'datepicker') == 'datepicker' and $date != null and $data != $this->zero_date and ($this->getParameter('use_time', 'no') == 'no' and $time != $this->zero_time)) {
 
 			// Yep - are we using time?
 			if ($this->getParameter('use_time', 'no') == 'no') {
@@ -248,7 +248,7 @@ class Datetime extends AbstractFieldType
 			}
 
 		// Nope we're using the dropdown method
-		} elseif ($month != null and $day != null and $year != null) {
+		} elseif ($month != null and $day != null and $year != null and ($this->getParameter('use_time', 'no') == 'no' and $time != $this->zero_time)) {
 
 			// Yep - are we using time?
 			if ($this->getParameter('use_time', 'no') == 'no') {
