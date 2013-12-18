@@ -39,7 +39,7 @@ Pyro.Initialize = function() {
 	
 	Pyro.Loading();
 
-	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.ignore-loading)', function(e) {
+	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.ignore-loading):not(.ajax)', function(e) {
 		
 		// Could be opening in a new window
 		if (e.ctrlKey) return true;
