@@ -20,6 +20,12 @@ abstract class AbstractFieldType
 	protected $assets = array();
 
 	/**
+	 * Database column type
+	 * @var string
+	 */
+	public $db_col_type = 'text';
+
+	/**
 	 * Custom parameters
 	 * @var array
 	 */
