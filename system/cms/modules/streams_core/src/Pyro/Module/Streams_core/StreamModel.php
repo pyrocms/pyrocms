@@ -132,6 +132,15 @@ class StreamModel extends Eloquent
 		return $stream->update($data);
 	}
 
+	public static function getAllStreamsAndFields()
+	{	
+		return ci()->cache->rememberForever('all.streams.assignments.fields', function() {
+
+			return static::with('assignments.field')->get();
+
+		});
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -267,24 +276,21 @@ class StreamModel extends Eloquent
      * @param  string $stream_namespace 
      * @return object                   
      */
-	public static function findBySlugAndNamespace($stream_slug, $stream_namespace = null)
+	public static function findBySlugAndNamespace($stream_slug, $stream_namespace = null, $fresh = false)
 	{
 		if ( ! $stream_namespace)
         {
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-		if ( ! $stream = static::getCache(static::getStreamCacheName($stream_slug, $stream_namespace)))
-		{
-			$stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
-			->where('stream_namespace', $stream_namespace)
-			->take(1)
-			->first();
+        if ($fresh) {
+	        return static::with('assignments.field')->where('stream_slug', $stream_slug)
+				->where('stream_namespace', $stream_namespace)
+				->take(1)
+				->first();
+        }
 
-			$stream = static::setCache(static::getStreamCacheName($stream_slug, $stream_namespace), $stream);
-		}
-
-		return $stream;
+		return static::getAllStreamsAndFields()->findBySlugAndNamespace($stream_slug, $stream_namespace);
 	}
 
 	/**
@@ -756,14 +762,13 @@ class StreamModel extends Eloquent
 		return $schema->hasTable($table);
 	}
 
-    public static function find($id, $columns = array('*'))
+    public static function find($id, $columns = array('*'), $fresh = false)
     {
-    	if ($stream = static::getCache($id))
-    	{
-    		return $stream;
+    	if ($fresh) {
+    		return static::find($id, $columns);
     	}
 
-    	return static::setCache($id, parent::find($id, $columns));
+    	return static::getAllStreamsAndFields()->findByKey($id);
 	}
 
 	/**
