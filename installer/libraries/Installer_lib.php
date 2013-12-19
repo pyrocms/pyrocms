@@ -183,6 +183,8 @@ class Installer_lib
 	 */
 	public function install(array $user, array $db)
 	{
+		include APPPATH.'config/cache.php';
+
 		$config = array(
 			'driver' => $db['driver'],
             'password' => $db["password"],
