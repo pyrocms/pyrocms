@@ -4,12 +4,18 @@
 	// Ready
 	$(document).ready(function() {
 
-		var $select = $(this);
+		var $select = $('select.<?php echo $field_type->form_slug; ?>-selectize');
 		
 		$select.selectize({
 
 			// Relationship is 1 to 1
 			maxItems: 1,
+
+			// Throttle MS
+			loadThrottle: 500,
+
+			// Disable creation
+			create: false,
 
 			// Let's always use this..
 			valueField: 'id',
@@ -18,8 +24,8 @@
 			// Note that label_format will override this
 			labelField: '<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>',
 
-			// Search these
-			// This is JS - it will limit the dropdown despite what's passed back w/JSON
+			// Search these fields
+			// This is JS.. so we need it here for the plugin - it will limit the dropdown despite what's passed back w/JSON
 			// We want to pass it all back though for formatting if applicable
 			searchField: '<?php echo str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>',
 
@@ -27,9 +33,6 @@
 			<?php if ($entry): ?>
 			options: <?php echo $entry; ?>,
 			<?php endif; ?>
-
-			// Don't allow creation of new shiz
-			create: false,
 
 			/**
 			 * Customize how shit is rendered
@@ -63,15 +66,15 @@
 
 			/**
 			 * Load from our AJAX public feed
-			 * @param  {object}   query
+			 * @param  {string}   term
 			 * @param  {function} callback
 			 * @return {mixed}
 			 */
-			load: function(query, callback) {
+			load: function(term, callback) {
 
-				// If the query is less than 3 chars - skip it
+				// If the term is less than 3 chars - skip it
 				// this will help reduce server load ya'll
-				if (query.length) return callback();
+				if (term.length < 3) return callback();
 				
 				// We're loading..
 				$select.parent('div').find('.selectize-control').addClass('loading');
@@ -80,9 +83,14 @@
 				$.ajax({
 
 					// Keep this public so we can use this on the front end
-					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $field_type->form_slug; ?>?query=' + encodeURIComponent(query),
+					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $field_type->form_slug; ?>',
 
-					// Might as well..
+					// The data!
+					data: {
+						'term': encodeURIComponent(term),
+					},
+
+					// Do it.
 					type: 'POST',
 
 					// Error

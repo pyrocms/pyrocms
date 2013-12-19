@@ -121,11 +121,17 @@ class Relationship extends AbstractFieldType
 	{
 		// Attribtues
 		$attribtues = array(
-			'id' => $this->form_slug,
-			'class' => $this->form_slug.'-selectize',
+			'class' => $this->form_slug.'-selectize skip',
 			);
 
-		return form_dropdown($this->form_slug, array(), null, true);
+		// String em
+		$attribtue_string = '';
+
+		foreach ($attribtues as $attribtue => $value)
+			$attribtue_string .= $attribtue.'="'.$value.'" ';
+
+		// Return an HTML dropdown
+		return form_dropdown($this->form_slug, array(), null, $attribtue_string);
 	}
 
 	/**
@@ -136,7 +142,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
+		//return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
 	}
 
 	/**
@@ -219,6 +225,65 @@ class Relationship extends AbstractFieldType
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	   AJAX 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Search for entries!
+	 * @return string JSON
+	 */
+	public function ajaxSearch()
+	{
+		// Get the term first
+		$term = ci()->input->post('term');
+
+
+		/**
+		 * List the stream, namespace and field_slug
+		 * and get the stream model
+		 */
+		list($stream_namespace, $stream_slug, $field_slug) = explode('-', ci()->uri->segment(6));
+
+		$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
+
+		
+		/**
+		 * Get our field / type
+		 */
+		$field = $stream->assignments->findBySlug($field_slug);
+
+		$field_type = $field->getType();
+
+
+		/**
+		 * Fire up the query
+		 */
+		list($related_stream_slug, $related_stream_namespace) = explode('.', $field_type->getParameter('stream'));
+
+		$entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
+			->select('*')
+			->where(function($query) use ($field_type, $term) {
+
+				// Where any of these
+				foreach (explode('|', $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))) as $i => $field_slug) {
+
+					// First where?
+					if ($i == 0) {
+						$query->where($field_slug, 'LIKE', '%'.$term.'%');
+					} else {
+						$query->orWhere($field_slug, 'LIKE', '%'.$term.'%');
+					}
+				}
+			})
+			->limit(10)
+			->get();
+
+		// JSON - Wee!
+		header('Content-type: application/json');
+		die(json_encode(array('entries' => $entries)));
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	UTILITIES 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 
@@ -229,39 +294,5 @@ class Relationship extends AbstractFieldType
 	public function getRelationClass()
 	{
 		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
-	}
-
-	/**
-	 * Options
-	 * @return array
-	 */
-	public function getOptions()
-	{
-		// Get options
-		$options = array();
-
-		if ($relation_class = $this->getRelationClass())
-		{
-			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
-			$instance = new $relation_class;
-
-			$options = $instance::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
-		}
-
-		// Format options
-		$formatted_options = array();
-
-		$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}');
-
-		$value_field = $this->getParameter('value_field', 'id');
-
-		foreach ($options as $option)
-			$formatted_options[$option[$value_field]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
-
-		// Boom
-		return $formatted_options;
 	}
 }
