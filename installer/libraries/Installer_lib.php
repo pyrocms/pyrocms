@@ -183,8 +183,6 @@ class Installer_lib
 	 */
 	public function install(array $user, array $db)
 	{
-		include APPPATH.'config/cache.php';
-
 		$config = array(
 			'driver' => $db['driver'],
             'password' => $db["password"],
@@ -225,19 +223,8 @@ class Installer_lib
 		
         $container = $capsule->getContainer();
 
-        $container->offsetGet('config')->offsetSet('cache.driver', $cache['driver']);
-        $container->offsetGet('config')->offsetSet('cache.prefix', $cache['prefix']);
-
-        // Set driver specific settings
-        if ($cache['driver'] == 'file') {
-        
-            $container->offsetGet('config')->offsetSet('cache.path', $cache['path']);
-        
-        } elseif ($cache['driver'] == 'redis') {
-
-            $container->offsetGet('config')->offsetSet('redis', $cache['redis']);
-        
-        }
+        $container->offsetGet('config')->offsetSet('cache.driver', 'array');
+        $container->offsetGet('config')->offsetSet('cache.prefix', 'pyrocms');
 
         ci()->cache = new CacheManager($container);
 
