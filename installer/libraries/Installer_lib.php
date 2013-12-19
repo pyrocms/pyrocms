@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Pyro\Cache\CacheManager;
 
 /**
  * @author  PyroCMS Dev Team
@@ -219,6 +220,15 @@ class Installer_lib
 			'charset' => $config['charset'],
 			'collation' => $config['collation'],
         ));
+		
+        $container = $capsule->getContainer();
+
+        $container->offsetGet('config')->offsetSet('cache.driver', 'array');
+        $container->offsetGet('config')->offsetSet('cache.prefix', 'pyrocms');
+
+        ci()->cache = new CacheManager($container);
+
+        $capsule->setCacheManager(ci()->cache);
 
         // Set the fetch mode FETCH_CLASS so we 
         // get objects back by default.
