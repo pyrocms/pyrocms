@@ -265,7 +265,7 @@ class Relationship extends AbstractFieldType
 					}
 				}
 			})
-			->take(10);
+			->take(10)
 			->get();
 
 		// JSON - Wee!
