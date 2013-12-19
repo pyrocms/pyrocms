@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Cache\CacheManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
 
