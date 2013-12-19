@@ -124,7 +124,7 @@ class Relationship extends AbstractFieldType
 			'class' => $this->form_slug.'-selectize skip',
 			);
 
-		// String em
+		// String em up
 		$attribtue_string = '';
 
 		foreach ($attribtues as $attribtue => $value)
@@ -237,40 +237,48 @@ class Relationship extends AbstractFieldType
 		// Get the search term first
 		$term = ci()->input->post('term');
 
-		// List THIS stream, namespace and field_slug
+
+		/**
+		 * List THIS stream, namespace and field_slug
+		 */
 		list($stream_namespace, $stream_slug, $field_slug) = explode('-', ci()->uri->segment(6));
 		
-		// Get THIS field
+
+
+		/**
+		 * Get THIS field and type
+		 */
         $field = FieldModel::findBySlugAndNamespace($field_slug, $stream_namespace);
-
-        // And THIS field type
 		$field_type = $field->getType(null);
+		ci()->cache->forget('all.streams.assignments.fields');
 
-		// List RELATED _stream and namespace
+		/**
+		 * Populate RELATED stream variables
+		 */
 		list($related_stream_slug, $related_stream_namespace) = explode('.', $field_type->getParameter('stream'));
 
-		// Get RELATED entries
+
+		/**
+		 * Search for RELATED entries
+		 */
+		ci()->cache->forget('all.streams.assignments.fields');
 		$entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
 			->select('*')
-			->where(function($query) use ($field_type, $term) {
-
-				// Where any of these
-				foreach (explode('|', $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))) as $i => $field_slug) {
-
-					// First where?
-					if ($i == 0) {
-						$query->where($field_slug, 'LIKE', '%'.$term.'%');
-					} else {
-						$query->orWhere($field_slug, 'LIKE', '%'.$term.'%');
-					}
-				}
-			})
+			->where($field_type->getParameter('search_fields', 'id'), 'LIKE', '%'.$term.'%')
 			->take(10)
-			->get();
+			->get()
+			->asPlugin()
+			->toArray();
 
-		// JSON - Wee!
+		
+		/**
+		 * Return entries as JSON
+		 */
 		header('Content-type: application/json');
-		die(json_encode(array('entries' => $entries)));
+
+		echo json_encode(array('entries' => $entries));
+
+		exit;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////

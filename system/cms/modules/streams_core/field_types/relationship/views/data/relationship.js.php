@@ -110,7 +110,7 @@
 
 		// Set the value
 		<?php if ($entry): ?>
-		//$select[0].selectize.setValue($select.attr('data-value'));
+		$select[0].selectize.setValue('<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>');
 		<?php endif; ?>
 
 		// Inject our loader
