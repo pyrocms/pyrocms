@@ -424,7 +424,7 @@ class EntryFormBuilder
 	 * @return 	array
 	 */
 	// $stream_fields, $skips = array(), $values = array()
-	public function runFieldTypeEvents()
+	public function runFieldTypeEvents($entry = false)
 	{
 		if ( ! $this->assignments or ( ! is_array($this->assignments) and ! is_object($this->assignments))) return null;
 
@@ -436,6 +436,13 @@ class EntryFormBuilder
 				continue;
 			}
 
+			// Set the stream / entry
+			if ($entry) {
+				$type->setStream($entry->getStream());
+				$type->setEntry($entry);
+			}
+
+			// Skip it?
 			if ( ! in_array($field->field_slug, $this->skips))
 			{
 				// If we haven't called it (for dupes),
@@ -449,7 +456,7 @@ class EntryFormBuilder
 
 				// Run field events per field regardless if the type
 				// event has been ran yet
-				$type->fieldEvent();	
+				$type->fieldEvent();
 			}
 		}
 	}
@@ -565,8 +572,11 @@ class EntryFormBuilder
 	{
 		foreach($this->assignments as $k => &$field)
 		{
-			if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips))
+			if ($type = $this->entry->getFieldType($field->field_slug, true) and ! in_array($field->field_slug, $this->skips))
 			{
+				$type->setStream($this->entry->getStream());
+				$type->setEntry($this->entry);
+
 				$type->setDefaults($this->defaults);
 
 				// Get some general info
@@ -598,7 +608,7 @@ class EntryFormBuilder
 		}
 
 		// $stream_fields, $skips, $values
-		$this->runFieldTypeEvents();
+		$this->runFieldTypeEvents($this->entry);
 
 		return $this->assignments;
 	}
