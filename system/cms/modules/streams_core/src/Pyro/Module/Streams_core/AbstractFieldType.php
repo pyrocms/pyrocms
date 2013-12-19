@@ -782,6 +782,13 @@ abstract class AbstractFieldType
 	{}
 
 	/**
+	 * Run when a table is built per field
+	 * @return void
+	 */
+	public function filterFieldEvent()
+	{}
+
+	/**
 	 * Run when the public form is built per field
 	 * @return void
 	 */
