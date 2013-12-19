@@ -101,7 +101,7 @@ class FieldModel extends Eloquent
         // Assignment (Optional)
         // -------------------------------------
 
-        if (isset($assign) and $assign != '' and $stream = StreamModel::findBySlugAndNamespace($assign, $namespace))
+        if (isset($assign) and $assign != '' and $stream = StreamModel::findBySlugAndNamespace($assign, $namespace, true))
         {
             $data = array();
         

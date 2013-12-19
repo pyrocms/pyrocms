@@ -93,7 +93,7 @@ class StreamModel extends Eloquent
 	 */
 	public static function getStream($stream_slug, $stream_namespace = null)
 	{
-		if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace))
+		if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace, true))
 		{
 			throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
 		}
@@ -111,9 +111,11 @@ class StreamModel extends Eloquent
 	 */
 	public static function deleteStream($stream_slug, $stream_namespace = null)
 	{
-		$stream = static::getStream($stream_slug, $stream_namespace);
+		if ($stream = static::getStream($stream_slug, $stream_namespace)) {
+			return $stream->delete();	
+		}
 		
-		return $stream->delete();
+		return false;
 	}
 
 	/**
@@ -396,7 +398,7 @@ class StreamModel extends Eloquent
 		}
 
 		// Check if it doesn't exist
-		if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace']))
+		if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace'], true))
 		{
 			return false;
 		}
