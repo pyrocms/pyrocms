@@ -71,7 +71,7 @@
 
 				// If the query is less than 3 chars - skip it
 				// this will help reduce server load ya'll
-				if (query.length < 3) return callback();
+				if (query.length) return callback();
 				
 				// We're loading..
 				$select.parent('div').find('.selectize-control').addClass('loading');
