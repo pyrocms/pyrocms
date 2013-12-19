@@ -105,13 +105,21 @@
 						callback(results.entries);
 					},
 				});
-			}
-		});
+			},
 
-		// Set the value
-		<?php if ($entry): ?>
-		$select[0].selectize.setValue('<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>');
-		<?php endif; ?>
+			/**
+			 * Loaded / Ready
+			 * @return {void}
+			 */
+			onInitialize: function() {
+
+				// Set the value
+				<?php if ($entry): ?>
+
+				this.setValue('<?php echo $entry->{$field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))}; ?>');
+				<?php endif; ?>
+			},
+		});
 
 		// Inject our loader
 		$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
