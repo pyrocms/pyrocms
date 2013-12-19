@@ -62,17 +62,21 @@ class Relationship extends AbstractFieldType
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Fired when form is built
+	 * Fired when form is built per field
 	 * @param  boolean $field 
 	 */
-	public function event()
+	public function fieldEvent()
 	{
+		// Get related entries
+		$entry = $this->getRelationResult();
+
 		// Basically the selectize config mkay?
 		$this->appendMetadata(
 			$this->view(
 				'data/relationship.js.php',
 				array(
 					'field_type' => $this,
+					'entry' => $entry,
 					),
 				true
 				)
@@ -115,13 +119,13 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$data = array(
-			'form_slug' => $this->form_slug,
-			'id' => $this->value,
-			'options' => $this->getOptions()
-		);
+		// Attribtues
+		$attribtues = array(
+			'id' => $this->form_slug,
+			'class' => $this->form_slug.'-selectize',
+			);
 
-		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
+		return form_dropdown($this->form_slug, array(), null, true);
 	}
 
 	/**

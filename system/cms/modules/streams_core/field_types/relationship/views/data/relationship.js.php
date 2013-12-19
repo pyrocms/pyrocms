@@ -4,62 +4,109 @@
 	// Ready
 	$(document).ready(function() {
 
-		// Trigger em all
-		$('select.relationship-field-type').each(function() {
+		var $select = $(this);
+		
+		$select.selectize({
 
-			var $select = $(this);
-			
-			//var options = $select.attr('data-options') == 'null' ? null : $.parseJSON($select.attr('data-options'));
+			// Relationship is 1 to 1
+			maxItems: 1,
 
-			$select.selectize({
-				maxItems: 1,
-				valueField: 'id',
-				labelField: '<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>',
-				searchField: ['<?php str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>'],
+			// Let's always use this..
+			valueField: 'id',
 
-				options: <?php echo $entry; ?>,
+			// What is the default label field?
+			// Note that label_format will override this
+			labelField: '<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>',
 
-				// Don't allow creation of new shiz
-				create: false,
+			// Search these
+			// This is JS - it will limit the dropdown despite what's passed back w/JSON
+			// We want to pass it all back though for formatting if applicable
+			searchField: '<?php echo str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>',
 
-				// Render customization
-				render: {
-					/*item: function(item, escape) {
-						return '<div>' +
-							(item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
-							(item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
-						'</div>';
-					},*/
-					option: function(item, escape) {
-						return '<div class="b-g-c-red">' + item['<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>'] + '</div>';
-					}
-				},
-				load: function(query, callback) {
-					if (!query.length) return callback();
-					
-					$select.parent('div').find('.selectize-control').addClass('loading');
+			// The value as an entry
+			<?php if ($entry): ?>
+			options: <?php echo $entry; ?>,
+			<?php endif; ?>
 
-					$.ajax({
-						url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/' + $select.attr('data-stream_namespace') + '/' + $select.attr('data-stream_param') + '/' + $select.attr('data-field_slug') + '?query=' + encodeURIComponent(query),
-						type: 'GET',
-						error: function() {
-							callback();
-						},
-						success: function(results) {
-							callback(results.entries);
-						}
-					});
+			// Don't allow creation of new shiz
+			create: false,
+
+			/**
+			 * Customize how shit is rendered
+			 * @type {object}
+			 */
+			render: {
+
+				/**
+				 * This defines how a selectable item is formatted
+				 * @param  {object} item
+				 * @param  {[type]} escape
+				 * @return {string}
+				 */
+				/*item: function(item, escape) {
+					return '<div>' +
+						(item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
+						(item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
+					'</div>';
+				},*/
+
+				/**
+				 * This defines how the selected option is formatted
+				 * @param  {object} item
+				 * @param  {[type]} escape
+				 * @return {string}
+				 */
+				option: function(item, escape) {
+					return '<div class="b-g-c-red">' + item['<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>'] + '</div>';
 				}
-			});
+			},
 
-			// Set the value
-			if (options) {
-				$select[0].selectize.setValue($select.attr('data-value'));
+			/**
+			 * Load from our AJAX public feed
+			 * @param  {object}   query
+			 * @param  {function} callback
+			 * @return {mixed}
+			 */
+			load: function(query, callback) {
+
+				// If the query is less than 3 chars - skip it
+				// this will help reduce server load ya'll
+				if (query.length < 3) return callback();
+				
+				// We're loading..
+				$select.parent('div').find('.selectize-control').addClass('loading');
+
+				// Search!
+				$.ajax({
+
+					// Keep this public so we can use this on the front end
+					url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/<?php echo $field_type->form_slug; ?>?query=' + encodeURIComponent(query),
+
+					// Might as well..
+					type: 'POST',
+
+					// Error
+					error: function() {
+						callback(); // Don't do shit
+					},
+
+					// Sucksess
+					success: function(results) {
+
+						// Return our entries array for formatting.. or maybe not
+						callback(results.entries);
+					},
+				});
 			}
-
-			// Add our loader
-			$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
 		});
+
+		// Set the value
+		<?php if ($entry): ?>
+		//$select[0].selectize.setValue($select.attr('data-value'));
+		<?php endif; ?>
+
+		// Inject our loader
+		$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
 
 	});
 
