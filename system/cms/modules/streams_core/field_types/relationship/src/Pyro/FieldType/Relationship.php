@@ -244,12 +244,13 @@ class Relationship extends AbstractFieldType
 		list($stream_namespace, $stream_slug, $field_slug) = explode('-', ci()->uri->segment(6));
 		
 
+
 		/**
 		 * Get THIS field and type
 		 */
         $field = FieldModel::findBySlugAndNamespace($field_slug, $stream_namespace);
 		$field_type = $field->getType(null);
-		
+		ci()->cache->forget('all.streams.assignments.fields');
 
 		/**
 		 * Populate RELATED stream variables
@@ -260,6 +261,7 @@ class Relationship extends AbstractFieldType
 		/**
 		 * Search for RELATED entries
 		 */
+		ci()->cache->forget('all.streams.assignments.fields');
 		$entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
 			->select('*')
 			->where($field_type->getParameter('search_fields', 'id'), 'LIKE', '%'.$term.'%')
