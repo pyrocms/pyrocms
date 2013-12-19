@@ -57,25 +57,19 @@ class Module_Domains extends AbstractModule
 	 */
 	public function install($pdb, $schema)
 	{
-		if ( ! $this->db->table_exists('core_domains'))
-		{
-			$result = $this->db->query('	
-				CREATE TABLE IF NOT EXISTS `core_domains` (
-				  `id` int NOT NULL AUTO_INCREMENT,
-				  `domain` varchar(100) NOT NULL,
-				  `site_id` int NOT NULL,
-				  `type` enum("park", "redirect") NOT NULL DEFAULT "park",
-				  PRIMARY KEY (`id`),
-				  KEY `domain` (`domain`),
-				  UNIQUE `unique` (`domain`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8; ');
+		$schema->dropIfExists('core_domains');
 
-			// Create alias table
-			if ( ! $result)
-			{
-				return false;
-			}
-		}
+		$schema->create('core_domains', function($table) {
+
+			$table->engine = 'InnoDB';
+			
+			$table->increments('id');
+			$table->string('domain', 100)->unique();
+			$table->integer('site_id');
+			$table->enum('type', array('park', 'redirect'))->default('park');
+
+			$table->index('domain');
+		});
 
 		return true;
 	}
