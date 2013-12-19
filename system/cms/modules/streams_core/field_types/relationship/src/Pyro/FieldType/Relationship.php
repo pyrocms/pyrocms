@@ -234,32 +234,22 @@ class Relationship extends AbstractFieldType
 	 */
 	public function ajaxSearch()
 	{
-		// Get the term first
+		// Get the search term first
 		$term = ci()->input->post('term');
 
-
-		/**
-		 * List the stream, namespace and field_slug
-		 * and get the stream model
-		 */
+		// List THIS stream, namespace and field_slug
 		list($stream_namespace, $stream_slug, $field_slug) = explode('-', ci()->uri->segment(6));
-
-		$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
 		
-		/**
-		 * Get our field / type
-		 */
-		$field = $stream->assignments->findBySlug($field_slug);
+		// Get THIS field
+        $field = FieldModel::findBySlugAndNamespace($field_slug, $stream_namespace);
 
-		$field_type = $field->getType();
+        // And THIS field type
+		$field_type = $field->getType(null);
 
-
-		/**
-		 * Fire up the query
-		 */
+		// List RELATED _stream and namespace
 		list($related_stream_slug, $related_stream_namespace) = explode('.', $field_type->getParameter('stream'));
 
+		// Get RELATED entries
 		$entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
 			->select('*')
 			->where(function($query) use ($field_type, $term) {
@@ -275,7 +265,7 @@ class Relationship extends AbstractFieldType
 					}
 				}
 			})
-			->limit(10)
+			->take(10);
 			->get();
 
 		// JSON - Wee!
