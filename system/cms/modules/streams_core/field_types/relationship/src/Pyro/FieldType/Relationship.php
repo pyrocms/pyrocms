@@ -120,18 +120,18 @@ class Relationship extends AbstractFieldType
 	public function formInput()
 	{
 		// Attribtues
-		$attribtues = array(
+		$attributes = array(
 			'class' => $this->form_slug.'-selectize skip',
 			);
 
 		// String em up
-		$attribtue_string = '';
+		$attribute_string = '';
 
-		foreach ($attribtues as $attribtue => $value)
-			$attribtue_string .= $attribtue.'="'.$value.'" ';
+		foreach ($attributes as $attribute => $value)
+			$attribute_string .= $attribute.'="'.$value.'" ';
 
 		// Return an HTML dropdown
-		return form_dropdown($this->form_slug, array(), null, $attribtue_string);
+		return form_dropdown($this->form_slug, array(), null, $attribute_string);
 	}
 
 	/**
