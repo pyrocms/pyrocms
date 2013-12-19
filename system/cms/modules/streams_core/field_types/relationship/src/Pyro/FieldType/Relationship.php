@@ -35,11 +35,10 @@ class Relationship extends AbstractFieldType
 	 */
 	public $custom_parameters = array(
 		'stream',
-		'placeholder',
-		'value_field',
+		'label_field',
+		'search_fields',
 		'option_format',
-		'template',
-		'module_slug',
+		'label_format',
 		'relation_class',
 		);
 
@@ -63,19 +62,43 @@ class Relationship extends AbstractFieldType
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
+	 * Fired when form is built
+	 * @param  boolean $field 
+	 */
+	public function event()
+	{
+		// Basically the selectize config mkay?
+		$this->appendMetadata(
+			$this->view(
+				'data/relationship.js.php',
+				array(
+					'field_type' => $this,
+					),
+				true
+				)
+			);
+	}
+
+	/**
 	 * Relation
 	 * @return object The relation object
 	 */
 	public function relation()
 	{
+		// Extract our relationship stream
 		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
 
-		if (! $relation_class = $this->relationClass()) return null;
+		// Get the relationship class
+		if (! $relation_class = $this->getRelationClass()) return null;
 
+		// If the stream doesn't exist..
 		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
 
+		// Create a new instance
+		// of our relation class to use/abuse
 		$instance = new $relation_class;
 
+		// 
 		if ($instance instanceof EntryModel) {
 			return $this->belongsToEntry($relation_class)->select('*');	
 		}
@@ -198,7 +221,7 @@ class Relationship extends AbstractFieldType
 	 * Relation class
 	 * @return string
 	 */
-	public function relationClass()
+	public function getRelationClass()
 	{
 		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
 	}
@@ -212,7 +235,7 @@ class Relationship extends AbstractFieldType
 		// Get options
 		$options = array();
 
-		if ($relation_class = $this->relationClass())
+		if ($relation_class = $this->getRelationClass())
 		{
 			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
 

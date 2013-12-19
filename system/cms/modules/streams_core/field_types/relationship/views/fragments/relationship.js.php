@@ -1,22 +1,28 @@
 <script type="text/javascript">
 
+	
+	// Ready
 	$(document).ready(function() {
 
 		// Trigger em all
-		$('select.selectize-relationship').each(function() {
+		$('select.relationship-field-type').each(function() {
 
-			var input = $(this);
-			var options = input.attr('data-options') == 'null' ? null : $.parseJSON(input.attr('data-options'));
+			var $select = $(this);
+			
+			//var options = $select.attr('data-options') == 'null' ? null : $.parseJSON($select.attr('data-options'));
 
-			input.selectize({
+			$select.selectize({
 				maxItems: 1,
-				valueField: input.attr('data-value_field'),
-				labelField: input.attr('data-label_field'),
-				searchField: input.attr('data-search_field'),
+				valueField: 'id',
+				labelField: '<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>',
+				searchField: ['<?php str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>'],
 
-				options: options,
+				options: <?php echo $entry; ?>,
 
+				// Don't allow creation of new shiz
 				create: false,
+
+				// Render customization
 				render: {
 					/*item: function(item, escape) {
 						return '<div>' +
@@ -25,16 +31,16 @@
 						'</div>';
 					},*/
 					option: function(item, escape) {
-						return '<div>' + item[input.attr('data-label_field')] + '</div>';
+						return '<div class="b-g-c-red">' + item['<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>'] + '</div>';
 					}
 				},
 				load: function(query, callback) {
 					if (!query.length) return callback();
 					
-					input.parent('div').find('.selectize-control').addClass('loading');
+					$select.parent('div').find('.selectize-control').addClass('loading');
 
 					$.ajax({
-						url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/' + input.attr('data-stream_namespace') + '/' + input.attr('data-stream_param') + '/' + input.attr('data-field_slug') + '?query=' + encodeURIComponent(query),
+						url: SITE_URL + 'streams_core/public_ajax/field/relationship/search/' + $select.attr('data-stream_namespace') + '/' + $select.attr('data-stream_param') + '/' + $select.attr('data-field_slug') + '?query=' + encodeURIComponent(query),
 						type: 'GET',
 						error: function() {
 							callback();
@@ -48,11 +54,14 @@
 
 			// Set the value
 			if (options) {
-				input[0].selectize.setValue(input.attr('data-value'));
+				$select[0].selectize.setValue($select.attr('data-value'));
 			}
 
 			// Add our loader
-			input.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
+			$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
 		});
+
 	});
+
+
 </script>
