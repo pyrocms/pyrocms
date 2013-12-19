@@ -398,7 +398,7 @@ class StreamModel extends Eloquent
 		}
 
 		// Check if it doesn't exist
-		if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace']))
+		if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace'], true))
 		{
 			return false;
 		}
