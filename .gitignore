@@ -3,7 +3,7 @@
 .project
 .settings
 .idea
-composer.lock
+!composer.lock
 assets/cache/*
 assets/page_types/*
 !assets/page_types/.htaccess
@@ -15,7 +15,7 @@ system/cms/config/database.php
 system/cms/logs/log-*.php
 nbproject/
 uploads/*
-vendor/*
+!vendor/*
 
 addons/*
 !addons/shared_addons

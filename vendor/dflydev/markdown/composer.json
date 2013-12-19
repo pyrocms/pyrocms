@@ -1,0 +1,39 @@
+{
+    "name": "dflydev/markdown",
+    "type": "library",
+    "description": "PHP Markdown & Extra",
+    "homepage": "http://github.com/dflydev/dflydev-markdown",
+    "keywords": ["markdown"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dragonfly Development Inc.",
+            "email": "info@dflydev.com",
+            "homepage": "http://dflydev.com"
+        },
+        {
+            "name": "Beau Simensen",
+            "email": "beau@dflydev.com",
+            "homepage": "http://beausimensen.com"
+        },
+        {
+            "name": "Michel Fortin",
+            "homepage": "http://michelf.com"
+        },
+        {
+            "name": "John Gruber",
+            "homepage": "http://daringfireball.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { "dflydev\\markdown": "src" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

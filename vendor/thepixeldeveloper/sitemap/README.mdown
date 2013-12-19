@@ -1,0 +1,51 @@
+Sitemap - XML Sitemap Generation for PHP 5.3+ 
+==============================
+
+[![Build Status](https://travis-ci.org/ThePixelDeveloper/Sitemap-v2.png?branch=master)](https://travis-ci.org/ThePixelDeveloper/Sitemap-v2)
+
+Sitemap is a tool to generate XML sitemaps quickly.
+
+Usage
+-----
+
+``` php
+
+$basic = new SitemapEntry;
+$basic->setLocation('http://example.com/page-1');
+$basic->setLastMod(time());
+
+// Different collection types.
+
+$collection = new URLSetCollection;
+$collection->addSitemap($basic);
+
+$collection = new SitemapIndexCollection;
+$collection->addSitemap($basic);
+
+$collection->output();
+```
+
+Output
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>http://example.com/page-1</loc>
+		<lastmod>1359837115</lastmod>
+	</url>
+</urlset>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+		<loc>http://example.com/page-1</loc>
+		<lastmod>1359837115</lastmod>
+	</sitemap>
+</urlset>
+```
+
+Todo
+----
+
+Work on a cleaner, more obvious and extensible API.

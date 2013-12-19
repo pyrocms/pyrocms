@@ -1,0 +1,71 @@
+{
+	"name": "cartalyst/sentry",
+	"description": "PHP 5.3+ Fully-featured Authentication & Authorization System",
+	"keywords": ["auth", "security", "laravel", "codeigniter", "fuelphp", "kohana"],
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Cartalyst LLC",
+			"email": "help@cartalyst.com"
+		},
+		{
+			"name": "Dan Syme",
+			"email": "dan.syme@cartalyst.com",
+			"role": "Creator & Designer"
+		},
+		{
+			"name": "Ben Corlett",
+			"email": "ben.corlett@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Daniel Petrie",
+			"email": "dan.petrie@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Bruno Gaspar",
+			"email": "bruno.gaspar@cartalyst.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"mockery/mockery": "0.7.2",
+
+		"illuminate/cookie": "~4",
+		"illuminate/database": "~4",
+		"illuminate/session": "~4",
+		"ircmaxell/password-compat": "1.0.*"
+	},
+	"suggest": {
+		"illuminate/database": "Default sentry user, group and throttling implementations.",
+		"ircmaxell/password-compat": "Default hashing uses PHP 5.5 password_* functions, with forward-compatible support.",
+		"happydemon/txt": "Required Text helpers when using the Kohana implementation"
+	},
+	"autoload": {
+		"classmap": [
+			"src/Cartalyst/Sentry/Groups/Exceptions.php",
+			"src/Cartalyst/Sentry/Throttling/Exceptions.php",
+			"src/Cartalyst/Sentry/Users/Exceptions.php",
+			"src/migrations"
+		],
+		"psr-0": {
+			"Cartalyst\\Sentry": "src/"
+		}
+	},
+	"extra": {
+		"component": "package",
+		"frameworks": ["Laravel 3", "Laravel 4", "CodeIgniter 3", "FuelPHP 1", "Kohana"],
+		"versions": {
+			"1": "1.1/master",
+			"2": "master"
+		},
+		"branch-alias": {
+			"dev-master": "2.0-dev"
+		}
+	},
+	"minimum-stability": "dev"
+}
