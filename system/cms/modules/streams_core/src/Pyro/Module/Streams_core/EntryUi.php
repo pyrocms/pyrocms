@@ -366,7 +366,11 @@ class EntryUi extends AbstractUi
 					$type->filterEvent();
 
 					$this->field_type_filter_events_run[] = $field->field_type;
-				}		
+				}
+
+				// Field filter events run per field regardless of it the type
+				// event ran or not
+				$type->filterFieldEvent();
 			}
 		}
 	}
