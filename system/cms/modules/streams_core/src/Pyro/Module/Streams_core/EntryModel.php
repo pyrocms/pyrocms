@@ -241,7 +241,7 @@ class EntryModel extends Eloquent
             }
             elseif (is_numeric($stream_slug))
             {
-                if ( ! $instance->stream = StreamModel::find($stream_slug))
+                if ( ! $instance->stream = StreamModel::getCachedCollection()->findByAttribute($stream_slug, $id))
                 {
                     $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
 
@@ -250,7 +250,7 @@ class EntryModel extends Eloquent
             } 
             elseif ( ! $instance->stream) 
             {
-                if ( ! $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace))
+                if ( ! $instance->stream = StreamModel::getCachedCollection()->findBySlugAndNamespace($stream_slug, $stream_namespace))
                 {
                     $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
 
