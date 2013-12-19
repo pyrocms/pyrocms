@@ -180,12 +180,16 @@ class FieldModel extends Eloquent
             throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
-        // -------------------------------------
-        // Assign Field
-        // -------------------------------------
-    
-        // Add actual assignment
-        return $stream->assignField($field, $assign_data);
+        if ($stream) {
+            // -------------------------------------
+            // Assign Field
+            // -------------------------------------
+        
+            // Add actual assignment
+            return $stream->assignField($field, $assign_data);            
+        }
+
+        return false;
     }
 
     /**

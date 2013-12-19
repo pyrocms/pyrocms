@@ -304,7 +304,7 @@ class StreamModel extends Eloquent
 	 */
 	public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null)
 	{
-		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
+		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace, true))) return $model;
 
 		throw new Exception\StreamModelNotFoundException;
 	}
