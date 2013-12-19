@@ -302,9 +302,9 @@ class StreamModel extends Eloquent
 	 * @param  array  $columns
 	 * @return \Pyro\Module\Streams_core\StreamModel|Collection|static
 	 */
-	public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null)
+	public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null, $fresh = false)
 	{
-		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
+		if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace, $fresh))) return $model;
 
 		throw new Exception\StreamModelNotFoundException;
 	}
