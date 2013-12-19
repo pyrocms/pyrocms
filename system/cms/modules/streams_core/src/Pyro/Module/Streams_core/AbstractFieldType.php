@@ -490,7 +490,7 @@ abstract class AbstractFieldType
 	{
 		$field_type = $field_type ? $field_type : $this->field_type_slug;
 		
-		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
+		$html = '<link href="'.base_url($this->path_css.$file).'" type="text/css" rel="stylesheet" />';
 
 		ci()->template->append_metadata($html);
 
@@ -504,7 +504,7 @@ abstract class AbstractFieldType
 	{
 		$field_type = $field_type ? $field_type : $this->field_type_slug;
 
-		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
+		$html = '<script type="text/javascript" src="'.base_url($this->path_js.$file).'"></script>';
 
 		ci()->template->append_metadata($html);
 
@@ -754,24 +754,45 @@ abstract class AbstractFieldType
 	}
 
 	/**
-	 * Run when the form is built
+	 * Run when the form is built per field type
 	 * @return void
 	 */
 	public function event()
 	{}
 
 	/**
-	 * Run when a table is built
+	 * Run when a table is built per field type
 	 * @return void
 	 */
 	public function filterEvent()
 	{}
 
 	/**
-	 * Run when the public form is built
+	 * Run when the public form is built per field type
 	 * @return void
 	 */
 	public function publicEvent()
+	{}
+
+	/**
+	 * Run when the form is built per field
+	 * @return void
+	 */
+	public function fieldEvent()
+	{}
+
+	/**
+	 * Run when a table is built per field
+	 * @return void
+	 */
+	public function filterFieldEvent()
+	{}
+
+	/**
+	 * Run when the public form is built per field
+	 * @return void
+	 */
+	public function publicFieldEvent()
 	{}
 
 	/**

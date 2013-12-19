@@ -286,11 +286,12 @@ class FieldTypeManager
 		$class_path = dirname($reflection->getFileName());
 
 		// The root path of the field type
-		$path = dirname(dirname(dirname($class_path)));
+		$path = str_replace(FCPATH, '', dirname(dirname(dirname($class_path))));
 
 		// Set asset paths
 		$instance->path = $path;
 		$instance->path_views = $path.'/views/';
+		$instance->path_img = $path.'/img/';
 		$instance->path_css = $path.'/css/';
 		$instance->path_js = $path.'/js/';
 

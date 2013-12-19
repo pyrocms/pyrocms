@@ -12,6 +12,11 @@ class StreamCollection extends EloquentCollection
 	 */
 	public function findBySlugAndNamespace($slug = null, $namespace = null)
 	{
+		if ( ! $namespace)
+        {
+            @list($slug, $namespace) = explode('.', $slug);
+        }
+
 		return array_first($this->items, function($key, $stream) use ($slug, $namespace)
         {
 			return $stream->stream_slug == $slug and $stream->stream_namespace == $namespace;

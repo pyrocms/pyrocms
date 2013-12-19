@@ -134,7 +134,7 @@ class StreamModel extends Eloquent
 		return $stream->update($data);
 	}
 
-	public static function getAllStreamsAndFields()
+	public static function getCachedCollection()
 	{	
 		return ci()->cache->rememberForever('all.streams.assignments.fields', function() {
 
@@ -285,14 +285,10 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-        if ($fresh) {
-	        return static::with('assignments.field')->where('stream_slug', $stream_slug)
-				->where('stream_namespace', $stream_namespace)
-				->take(1)
-				->first();
-        }
-
-		return static::getAllStreamsAndFields()->findBySlugAndNamespace($stream_slug, $stream_namespace);
+        return static::with('assignments.field')->where('stream_slug', $stream_slug)
+			->where('stream_namespace', $stream_namespace)
+			->take(1)
+			->first();
 	}
 
 	/**
@@ -762,15 +758,6 @@ class StreamModel extends Eloquent
 		}
 
 		return $schema->hasTable($table);
-	}
-
-    public static function find($id, $columns = array('*'), $fresh = false)
-    {
-    	if ($fresh) {
-    		return static::find($id, $columns);
-    	}
-
-    	return static::getAllStreamsAndFields()->findByKey($id);
 	}
 
 	/**

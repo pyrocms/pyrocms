@@ -445,7 +445,11 @@ class EntryFormBuilder
 					$type->event();
 
 					$this->field_type_events_run[] = $field->field_type;
-				}		
+				}
+
+				// Run field events per field regardless if the type
+				// event has been ran yet
+				$type->fieldEvent();	
 			}
 		}
 	}
