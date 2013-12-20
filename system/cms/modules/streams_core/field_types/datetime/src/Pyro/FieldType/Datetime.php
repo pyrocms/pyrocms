@@ -369,7 +369,7 @@ class Datetime extends AbstractFieldType
 	 */
 	public function stringOutput()
 	{
-		return $this->format();
+		return $this->format() == $this->zero_datetime ? null : $this->format();
 	}
 
 	/**
