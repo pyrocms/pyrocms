@@ -96,7 +96,7 @@ class Relationship extends AbstractFieldType
 		if (! $relation_class = $this->getRelationClass()) return null;
 
 		// If the stream doesn't exist..
-		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
+		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace, true)) return null;
 
 		// Create a new instance
 		// of our relation class to use/abuse
@@ -104,7 +104,7 @@ class Relationship extends AbstractFieldType
 
 		// If it's an entry model - boomskie
 		if ($instance instanceof EntryModel) {
-			return $this->belongsToEntry($relation_class)->select('*');	
+			return $this->belongsToEntry($relation_class);
 		}
 
 		// Otherwise - boomskie too

@@ -31,7 +31,7 @@
 
 			// The value as an entry
 			<?php if ($entry): ?>
-			options: <?php echo $entry; ?>,
+			options: [<?php echo $entry; ?>],
 			<?php endif; ?>
 
 			/**
@@ -119,6 +119,11 @@
 				<?php endif; ?>
 			},
 		});
+
+		// Set the value
+		<?php if ($entry): ?>
+		$select[0].selectize.setValue('<?php echo $entry->id; ?>');
+		<?php endif; ?>
 
 		// Inject our loader
 		$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
