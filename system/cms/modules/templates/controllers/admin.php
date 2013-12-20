@@ -199,7 +199,7 @@ class Admin extends Admin_Controller
 				);
 			}
 
-			if (EmailTemplate::update($id, $data))
+			if (EmailTemplate::where('id', '=', $id)->update($data))
 			{
 				// Fire an event. An email template has been updated.
 				Events::trigger('email_template_updated', $id);

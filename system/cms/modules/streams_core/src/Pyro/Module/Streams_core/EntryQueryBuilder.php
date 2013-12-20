@@ -223,7 +223,7 @@ class EntryQueryBuilder extends Builder
 			->setFieldMaps($field_maps);
 	}
 
-/**
+	/**
 	 * Get the relation instance for the given relation name.
 	 *
 	 * @param  string  $relation
