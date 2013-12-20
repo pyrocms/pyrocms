@@ -394,17 +394,20 @@ class FieldModel extends Eloquent
      */
     public function getType(EntryModel $entry = null)
     {
-        if ($this->_type) return $this->_type;
-
         // If no entry was passed at least instantiate an empty entry object
-        if ( ! $entry)
-        {
+        if ( ! $entry) {
             $entry = new EntryModel;
         }
 
+        if ($this->_type) {
+            $this->_type->setField($this);
+            $this->_type->setEntry($entry);
+            $this->_type->setStream($this->getStream());
+            return $this->_type;
+        }
+
         // @todo - replace the Type library with the PSR version
-        if ( ! $this->_type = FieldTypeManager::getType($this->field_type))
-        {
+        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
             return false;
         }
 
