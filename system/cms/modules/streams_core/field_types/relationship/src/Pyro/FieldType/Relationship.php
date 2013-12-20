@@ -37,6 +37,7 @@ class Relationship extends AbstractFieldType
 		'stream',
 		'label_field',
 		'search_fields',
+		'placeholder',
 		'option_format',
 		'label_format',
 		'relation_class',
@@ -122,6 +123,7 @@ class Relationship extends AbstractFieldType
 		// Attribtues
 		$attributes = array(
 			'class' => $this->form_slug.'-selectize skip',
+			'placeholder' => $this->getParameter('placeholder', lang('streams:relationship.placeholder')),
 			);
 
 		// String em up
@@ -260,21 +262,11 @@ class Relationship extends AbstractFieldType
 		/**
 		 * Search for RELATED entries
 		 */
-		$entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
+		echo $entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
 			->select('*')
 			->where($field_type->getParameter('search_fields', 'id'), 'LIKE', '%'.$term.'%')
 			->take(10)
 			->get();
-			//->asPlugin();
-			//->toArray();
-
-		
-		/**
-		 * Return entries as JSON
-		 */
-		header('Content-type: application/json');
-
-		echo json_encode(array('entries' => $entries));
 
 		exit;
 	}
@@ -290,5 +282,15 @@ class Relationship extends AbstractFieldType
 	public function getRelationClass()
 	{
 		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+	}
+
+	/**
+	 * Count total possible options
+	 * @return [type] [description]
+	 */
+	public function totalOptions()
+	{
+		// Return that shiz
+		return EntryModel::stream($this->getParameter('stream'))->select('id')->count();
 	}
 }
