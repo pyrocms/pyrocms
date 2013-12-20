@@ -259,7 +259,7 @@ class Datetime extends AbstractFieldType
 		}
 
 		// Meh
-		return $this->zero_datetime;
+		return null;
 	}
 	
 	/**
