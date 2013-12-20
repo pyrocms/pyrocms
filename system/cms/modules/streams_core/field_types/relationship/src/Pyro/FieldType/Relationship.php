@@ -104,7 +104,7 @@ class Relationship extends AbstractFieldType
 
 		// If it's an entry model - boomskie
 		if ($instance instanceof EntryModel) {
-			return $this->belongsToEntry($relation_class);
+			return $this->belongsToEntry($relation_class)->select('*');
 		}
 
 		// Otherwise - boomskie too
