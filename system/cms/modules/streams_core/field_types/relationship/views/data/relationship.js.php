@@ -115,8 +115,7 @@
 
 				// Set the value
 				<?php if ($entry): ?>
-
-				this.setValue('<?php echo $entry->{$field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))}; ?>');
+				this.setValue('<?php echo $entry->id; ?>');
 				<?php endif; ?>
 			},
 		});
