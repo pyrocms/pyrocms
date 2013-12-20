@@ -377,11 +377,11 @@ class EntryModel extends Eloquent
      * @param  string $field_slug
      * @return object
      */
-    public function getFieldType($field_slug = '', $new = false)
+    public function getFieldType($field_slug = '')
     {
         if (! $field = $this->getField($field_slug)) return null;
 
-        $type = $field->getType($this, $new); 
+        $type = $field->getType($this); 
 
         return $type;
     }

@@ -127,11 +127,8 @@ class FieldTypeManager
 	 * @param  boolean $gather_types 
 	 * @return object
 	 */
-	public static function getType($type = null, $new = false)
+	public static function getType($type = null)
 	{
-		if ($new) {
-			return self::loadType($type);
-		}
 		return ( ! empty(static::$types[$type]) and is_object(static::$types[$type])) ? static::$types[$type] : static::loadType($type);
 	}
 
@@ -277,7 +274,7 @@ class FieldTypeManager
 	// $path, $file, $type, $mode
 	private static function loadType($type)
 	{
-		//if (empty($type) or empty(static::$slug_classes[$type])) return null;
+		if (empty($type) or empty(static::$slug_classes[$type])) return null;
 
 		$class = static::getClass($type);
 
