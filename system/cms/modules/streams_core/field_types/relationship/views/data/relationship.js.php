@@ -12,10 +12,15 @@
 			maxItems: 1,
 
 			// Throttle MS
-			loadThrottle: 500,
+			loadThrottle: 300,
 
 			// Disable creation
 			create: false,
+
+			// Preload stuff if applicable
+			<?php //if ($field_type->totalOptions() < 1000): ?>
+			//preload: true,
+			<?php //endif; ?>
 
 			// Let's always use this..
 			valueField: 'id',
@@ -44,24 +49,25 @@
 				 * This defines how a selectable item is formatted
 				 * @param  {object} item
 				 * @param  {[type]} escape
-				 * @return {string}
+				 * @return {string} using a view, parsed tags or whatever
 				 */
-				/*item: function(item, escape) {
-					return '<div>' +
-						(item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
-						(item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
-					'</div>';
-				},*/
+				<?php if ($field_type->getParameter('item_format', false)): ?>
+				item: function(item, escape) {
+					return <?php echo ci()->parser->parse_string($field_type->getParameter('item_format'), ci(), true); ?>;
+				},
+				<?php endif; ?>
 
 				/**
 				 * This defines how the selected option is formatted
 				 * @param  {object} item
 				 * @param  {[type]} escape
-				 * @return {string}
+				 * @return {string} using a view, parsed tags or whatever
 				 */
+				<?php if ($field_type->getParameter('option_format', false)): ?>
 				option: function(item, escape) {
-					return '<div class="b-g-c-red">' + item['<?php echo $field_type->getParameter('label_field', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id')); ?>'] + '</div>';
-				}
+					return <?php echo ci()->parser->parse_string($field_type->getParameter('option_format'), ci(), true); ?>;
+				},
+				<?php endif; ?>
 			},
 
 			/**
@@ -101,8 +107,8 @@
 					// Sucksess
 					success: function(results) {
 
-						// Return our entries array for formatting.. or maybe not
-						callback(results.entries);
+						// Return our results
+						callback($.parseJSON(results));
 					},
 				});
 			},
@@ -119,11 +125,6 @@
 				<?php endif; ?>
 			},
 		});
-
-		// Set the value
-		<?php if ($entry): ?>
-		$select[0].selectize.setValue('<?php echo $entry->id; ?>');
-		<?php endif; ?>
 
 		// Inject our loader
 		$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
