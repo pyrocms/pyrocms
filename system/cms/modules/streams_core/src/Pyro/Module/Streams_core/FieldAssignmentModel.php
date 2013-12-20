@@ -325,6 +325,15 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
+     * Get stream
+     * @return object
+     */
+    public function getStream()
+    {
+        return $this->stream()->getResults();
+    }
+
+    /**
      * Stream
      * @return object
      */
