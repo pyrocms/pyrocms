@@ -30,7 +30,10 @@ class FieldModel extends Eloquent
      * Stream
      * @var object
      */
-    public $stream = null;
+    protected $_stream = null;
+
+    protected $_type = null;
+
 
     /**
      * Add field
@@ -389,40 +392,35 @@ class FieldModel extends Eloquent
      * @param  [type] $entry [description]
      * @return [type]        [description]
      */
-    public function getType(EntryModel $entry = null, StreamModel $stream = null)
+    public function getType(EntryModel $entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
-        if ( ! $entry)
-        {
+        if ( ! $entry) {
             $entry = new EntryModel;
         }
 
+        if ($this->_type) {
+            $this->_type->setField($this);
+            $this->_type->setEntry($entry);
+            $this->_type->setStream($this->getStream());
+            return $this->_type;
+        }
+
         // @todo - replace the Type library with the PSR version
-        if ( ! $type = FieldTypeManager::getType($this->field_type))
-        {
+        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
             return false;
         }
 
-        $type->setField($this);
-        $type->setEntry($entry);
+        $this->_type->setField($this);
+        $this->_type->setEntry($entry);
+        $this->_type->setStream($this->getStream());
 
-        if ( ! $stream and $this->stream)
-        {
-            $type->setStream($this->stream);
-        }
-        elseif ($stream)
-        {
-            $type->setStream($stream);
-        }
-        elseif ($entry instanceof EntryModel)
-        {   
-            if ( ! $stream and ! $this->stream)
-            {
-                $type->setStream($entry->getModel()->getStream());
-            }
-        }
+        return $this->_type;
+    }
 
-        return $type;
+    public function getStream()
+    {
+        return $this->_stream;
     }
 
     // --------------------------------------------------------------------------

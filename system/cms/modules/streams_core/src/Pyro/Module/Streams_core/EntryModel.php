@@ -241,7 +241,7 @@ class EntryModel extends Eloquent
             }
             elseif (is_numeric($stream_slug))
             {
-                if ( ! $instance->stream = StreamModel::getCachedCollection()->findByAttribute($stream_slug, $id))
+                if ( ! $instance->stream = StreamModel::findByAttribute($stream_slug, $id))
                 {
                     $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
 
@@ -250,7 +250,7 @@ class EntryModel extends Eloquent
             } 
             elseif ( ! $instance->stream) 
             {
-                if ( ! $instance->stream = StreamModel::getCachedCollection()->findBySlugAndNamespace($stream_slug, $stream_namespace))
+                if ( ! $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace))
                 {
                     $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
 
@@ -538,6 +538,24 @@ class EntryModel extends Eloquent
     }
 
     /**
+     * Get cache collection key
+     * @return string
+     */
+    public function getCacheCollectionKey($suffix = null)
+    {
+        return $this->getCacheCollectionPrefix().$suffix;
+    }
+
+    /**
+     * Get cache collection prefix
+     * @return string
+     */
+    public function getCacheCollectionPrefix()
+    {
+        return 'streams.'.$this->getStream()->stream_slug.'.'.$this->getStream()->stream_namespace.'.';
+    }
+
+    /**
      * Save a new model and return the instance.
      *
      * @param  array  $attributes
@@ -545,9 +563,16 @@ class EntryModel extends Eloquent
      */
     public static function create(array $attributes = null)
     {
+        $this->flushCacheCollection();
+
         $model = static::getInstance()->fill($attributes)->save();
 
         return $model;
+    }
+
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
     }
 
     /**
@@ -558,6 +583,8 @@ class EntryModel extends Eloquent
      */
     public function save(array $options = array())
     {
+        $this->flushCacheCollection();
+
         // Allways the format as eloquent for saving
         $this->asEloquent();
 

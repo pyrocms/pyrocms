@@ -449,7 +449,7 @@ class EntryFormBuilder
 
 				// Run field events per field regardless if the type
 				// event has been ran yet
-				$type->fieldEvent();	
+				$type->fieldEvent();
 			}
 		}
 	}
@@ -488,7 +488,11 @@ class EntryFormBuilder
 					$type->publicEvent();
 
 					$this->field_type_public_events_run[] = $field->field_type;
-				}		
+				}
+
+				// Run field events per field regardless if the type
+				// event has been ran yet
+				$type->publicFieldEvent();
 			}
 		}
 	}

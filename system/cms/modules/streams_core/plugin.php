@@ -1419,7 +1419,7 @@ class Plugin_Streams_core extends Plugin
 			 */
 			
 			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->asPlugin()->toArray();
-
+			
 
 			/**
 			 * Process entries
