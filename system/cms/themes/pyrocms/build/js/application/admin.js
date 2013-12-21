@@ -148,7 +148,7 @@ Pyro.Initialize = function() {
 	 * Selectize
 	 */
 	
-	$('select:not(.skip)').selectize();
+	$('select:not(.skip):not(.selectized)').selectize();
 	$('input[type="text"].tags').selectize({
 		delimiter: ',',
 		create: function(input) {
