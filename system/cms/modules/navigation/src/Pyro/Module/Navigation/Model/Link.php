@@ -118,17 +118,18 @@ class Link extends Eloquent
      */
     public static function getTreeByGroup($group, $params = array())
     {
-        // the plugin passes the abbreviation
-        if ( ! is_numeric($group)) {
-            $row = Group::findGroupByAbbrev($group);
-            $group = $row ? $row->id : null;
-        }
-
         $front_end = (isset($params['front_end']) and $params['front_end']);
 
         $user_groups = (isset($params['user_groups'])) ? $params['user_groups'] : false;
 
-        $all_links = self::where('navigation_group_id','=',$group)->where('parent', '=', 0)->orderBy('position')->get();
+        // By wuuut?
+        if (is_numeric($group)) {
+            $group = Group::with('links.children.parent')->where('id', '=', $group)->first();
+        } else {
+            $group = Group::with('links.children.parent')->where('abbrev', '=', $group)->first();
+        }
+
+        $all_links = $group->links;
 
         $all_links = self::makeUrlArray($all_links, $user_groups, $front_end);
 

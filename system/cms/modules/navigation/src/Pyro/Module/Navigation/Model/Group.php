@@ -38,7 +38,7 @@ class Group extends Eloquent
      */
     public function links()
     {
-        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'navigation_group_id');
+        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'navigation_group_id')->where('parent', '=', 0)->orderBy('position', 'ASC');
     }
 
     /**
