@@ -538,6 +538,24 @@ class EntryModel extends Eloquent
     }
 
     /**
+     * Get cache collection key
+     * @return string
+     */
+    public function getCacheCollectionKey($suffix = null)
+    {
+        return $this->getCacheCollectionPrefix().$suffix;
+    }
+
+    /**
+     * Get cache collection prefix
+     * @return string
+     */
+    public function getCacheCollectionPrefix()
+    {
+        return 'streams.'.$this->getStream()->stream_slug.'.'.$this->getStream()->stream_namespace.'.';
+    }
+
+    /**
      * Save a new model and return the instance.
      *
      * @param  array  $attributes
@@ -545,9 +563,16 @@ class EntryModel extends Eloquent
      */
     public static function create(array $attributes = null)
     {
+        $this->flushCacheCollection();
+
         $model = static::getInstance()->fill($attributes)->save();
 
         return $model;
+    }
+
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
     }
 
     /**
@@ -558,6 +583,8 @@ class EntryModel extends Eloquent
      */
     public function save(array $options = array())
     {
+        $this->flushCacheCollection();
+
         // Allways the format as eloquent for saving
         $this->asEloquent();
 
