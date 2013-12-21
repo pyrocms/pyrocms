@@ -52,6 +52,8 @@ class EntryQueryBuilder extends Builder
 			$this->model->passProperties($entry);
 		}
 
+		$this->indexCacheCollection();
+
 		// If we actually found models we will also eager load any relationships that
 		// have been specified as needing to be eager loaded, which will solve the
 		// n+1 query issue for the developers to avoid running a lot of queries.
@@ -71,6 +73,20 @@ class EntryQueryBuilder extends Builder
 		}
 
 		return $this->model->newCollection($this->entries);
+	}
+
+	/**
+	 * Index cache key
+	 * @return object
+	 */
+	public function indexCacheCollection()
+	{
+		ci()->cache->collection(
+			$this->model->getCacheCollectionKey('entries'), 
+			[$this->getQuery()->getCacheKey()]
+		)->index();
+
+		return $this;
 	}
 
 	/**
