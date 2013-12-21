@@ -34,6 +34,13 @@ class Settings
 	{
 		ci()->load->model('settings/setting_m');
 		ci()->lang->load('settings/settings');
+
+		$settings = ci()->setting_m->getAll();
+
+		// Set them all
+		foreach ($settings as $setting) {
+			self::$cache[$setting->slug] = $setting->value !== false ? (! is_null($setting->value) ? $setting->value : $setting->default) : config_item($setting->slug);
+		}
 	}
 
 	/**
