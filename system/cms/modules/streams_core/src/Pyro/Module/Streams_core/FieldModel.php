@@ -380,6 +380,10 @@ class FieldModel extends Eloquent
         return parent::create($attributes);
     }
 
+    /**
+     * Set stream
+     * @param object
+     */
     public function setStream(StreamModel $stream = null)
     {
         $this->stream = $stream;
@@ -395,6 +399,24 @@ class FieldModel extends Eloquent
     public function getType(EntryModel $entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
+        if ($this->_type) {
+            return $this->bootType($entry);
+        }
+
+        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
+            return false;
+        }
+
+        return $this->bootType($entry);
+    }
+
+    /**
+     * Boot field type
+     * @param  object
+     * @return object|null
+     */
+    public function bootType(EntryModel $entry = null)
+    {
         if ( ! $entry) {
             $entry = new EntryModel;
         }
@@ -402,28 +424,20 @@ class FieldModel extends Eloquent
         if ($this->_type) {
             $this->_type->setField($this);
             $this->_type->setEntry($entry);
-            $this->_type->setStream($this->getStream());
-            return $this->_type;
+            $this->_type->setStream($this->stream);
         }
-
-        // @todo - replace the Type library with the PSR version
-        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
-            return false;
-        }
-
-        $this->_type->setField($this);
-        $this->_type->setEntry($entry);
-        $this->_type->setStream($this->getStream());
 
         return $this->_type;
     }
 
+    /**
+     * Get a stream that was set on the field model
+     * @return object|null
+     */
     public function getStream()
     {
         return $this->_stream;
     }
-
-    // --------------------------------------------------------------------------
 
     /**
      * Update field
