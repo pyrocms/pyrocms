@@ -3,6 +3,7 @@
 use Illuminate\Cache\CacheManager as IlluminateCacheManager;
 use Illuminate\Cache\FileStore;
 use Illuminate\Cache\RedisStore;
+use Illuminate\Redis\Database as RedisDatabase;
 use Illuminate\Filesystem\Filesystem;
 
 class CacheManager extends IlluminateCacheManager
@@ -25,8 +26,10 @@ class CacheManager extends IlluminateCacheManager
 	 * @return \Illuminate\Cache\RedisStore
 	 */
 	protected function createRedisDriver()
-	{
-		return $this->repository(new RedisStore($this->app['config']['redis'], $this->getPrefix()));
+	{	
+		$servers = $this->app['config']['redis'];
+
+		return $this->repository(new RedisStore(new RedisDatabase($servers), $this->getPrefix()));
 	}
 
 
