@@ -64,7 +64,7 @@ abstract class Eloquent extends Model
      * Set cache minutes
      * @return integer
      */
-    public function setCacheMinutes(integer $cache_minutes)
+    public function setCacheMinutes($cache_minutes)
     {
         $this->cache_minutes = $cache_minutes;
 
