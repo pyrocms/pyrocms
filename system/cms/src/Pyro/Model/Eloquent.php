@@ -18,6 +18,8 @@ use Pyro\Module\Streams_core\EntryModel;
 abstract class Eloquent extends Model
 {   
 
+    public $cache_minutes = 30;
+
     // --------------------------------------------------------------------------
     // Runtime Cache
     // --------------------------------------------------------------------------
@@ -41,11 +43,13 @@ abstract class Eloquent extends Model
      */
     protected $replicated = false;
 
-    public function get(array $columns = array('*'))
+    /**
+     * Get cache minutes
+     * @return integer
+     */
+    public function getCacheMinutes()
     {
-        //echo md5($this->toSql().implode('.', $this->getQuery()->getBindings())).'<br/>';
-
-        return parent::get($columns);
+        return $this->cache_minutes;
     }
 
     /**
@@ -170,6 +174,47 @@ abstract class Eloquent extends Model
     public function newCollection(array $models = array())
     {
         return new EloquentCollection($models);
+    }
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param  bool  $excludeDeleted
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $builder = new EloquentQueryBuilder($this->newBaseQueryBuilder());
+
+        // Once we have the query builders, we will set the model instances so the
+        // builder can easily access any information it may need from the model
+        // while it is constructing and executing various queries against it.
+        $builder->setModel($this)->with($this->with);
+
+        if ($excludeDeleted and $this->softDelete)
+        {
+                $builder->whereNull($this->getQualifiedDeletedAtColumn());
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Get cache collection key
+     * @return string
+     */
+    public function getCacheCollectionKey($suffix = null)
+    {
+        return $this->getCacheCollectionPrefix().$suffix;
+    }
+
+    /**
+     * Get cache collection prefix
+     * @return string
+     */
+    public function getCacheCollectionPrefix()
+    {
+        return get_called_class();
     }
 
     /**

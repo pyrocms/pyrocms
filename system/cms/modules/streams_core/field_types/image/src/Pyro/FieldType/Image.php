@@ -44,15 +44,28 @@ class Image extends AbstractFieldType
 		ci()->load->library('files/files');
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Run when building a form per type
+	 * @return void 
+	 */
 	public function event()
 	{
 		$this->js('imagefield.js');
 		$this->css('imagefield.css');		
 	}
 
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	METHODS 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * The field type relation
+	 * @return object
+	 */
+	public function relation()
+	{
+		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
+	}
 
 	/**
 	 * Output form input
@@ -219,7 +232,7 @@ class Image extends AbstractFieldType
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
-		$image = FileModel::find($this->value);
+		$image = $this->getRelationResult();
 
 		if ($image) {
 			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
