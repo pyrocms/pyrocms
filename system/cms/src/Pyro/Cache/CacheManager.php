@@ -2,6 +2,7 @@
 
 use Illuminate\Cache\CacheManager as IlluminateCacheManager;
 use Illuminate\Cache\FileStore;
+use Illuminate\Cache\RedisStore;
 use Illuminate\Filesystem\Filesystem;
 
 class CacheManager extends IlluminateCacheManager
@@ -17,6 +18,17 @@ class CacheManager extends IlluminateCacheManager
 
 		return $this->repository(new FileStore(new Filesystem, $path));
 	}
+
+	/**
+	 * Create an instance of the Redis cache driver.
+	 *
+	 * @return \Illuminate\Cache\RedisStore
+	 */
+	protected function createRedisDriver()
+	{
+		return $this->repository(new RedisStore($this->app['config']['redis'], $this->getPrefix()));
+	}
+
 
 	/**
 	 * Get a cache collection of keys or set the keys to be indexed
