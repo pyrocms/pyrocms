@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Events\Dispatcher;
 use Pyro\Module\Streams_core\EntryModel;
 
 /**
@@ -18,7 +19,7 @@ use Pyro\Module\Streams_core\EntryModel;
 abstract class Eloquent extends Model
 {   
 
-    public $cache_minutes = 30;
+    protected $cache_minutes = 30;
 
     // --------------------------------------------------------------------------
     // Runtime Cache
@@ -43,6 +44,13 @@ abstract class Eloquent extends Model
      */
     protected $replicated = false;
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::$dispatcher = new Dispatcher;
+    }
+
     /**
      * Get cache minutes
      * @return integer
@@ -50,6 +58,17 @@ abstract class Eloquent extends Model
     public function getCacheMinutes()
     {
         return $this->cache_minutes;
+    }
+
+    /**
+     * Set cache minutes
+     * @return integer
+     */
+    public function setCacheMinutes($cache_minutes)
+    {
+        $this->cache_minutes = $cache_minutes;
+
+        return $this;
     }
 
     /**
@@ -133,6 +152,8 @@ abstract class Eloquent extends Model
             }
         }
 
+        $this->flushCacheCollection();
+
         return parent::update($attributes);
     }
 
@@ -151,7 +172,21 @@ abstract class Eloquent extends Model
             return false;
         }
 
+        $this->flushCacheCollection();
+
         return parent::save($options);
+    }
+
+    public function delete()
+    {
+        $this->flushCacheCollection();
+
+        return parent::delete();
+    }
+
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey())->flush();
     }
 
     /**

@@ -32,11 +32,12 @@ class FieldAssignmentModel extends FieldModel
      * @param  integer $stream_id 
      * @return object            
      */
-    public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null)
+    public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null, $fresh = false)
     {
         return static::where('field_id', $field_id)
             ->where('stream_id', $stream_id)
             ->take(1)
+            ->fresh($fresh)
             ->first();
     }
 

@@ -515,6 +515,8 @@ class EntryQueryBuilder extends Builder
 				$this->orderBy($order_by, 'ASC');
 			}
 		}
+
+		return $this;
 	}
 
 	/**
