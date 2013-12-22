@@ -144,6 +144,9 @@ class FieldAssignmentModel extends FieldModel
             }
         }
 
+        // Make sure that garbage is collected even it the stream is not present anymore
+        FieldModel::where('field_namespace', '=', $namespace)->delete();
+
         return parent::delete();
     }
 
@@ -155,9 +158,7 @@ class FieldAssignmentModel extends FieldModel
     {
         $field_ids = FieldModel::all()->modelKeys();
 
-        $stream_ids = StreamModel::all()->modelKeys();
-
-        return static::whereNotIn('field_id', $field_ids)->orWhereNotIn('stream_id', $stream_ids)->delete();
+        return static::whereNotIn('field_id', $field_ids)->delete();
     }
 
    /**
