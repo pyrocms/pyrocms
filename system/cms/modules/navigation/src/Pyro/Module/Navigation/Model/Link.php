@@ -13,6 +13,8 @@ use Pyro\Module\Users;
  */
 class Link extends Eloquent
 {
+    public $cache_minutes = 0;
+
     /**
      * Define the table name
      *
@@ -35,16 +37,6 @@ class Link extends Eloquent
     public $timestamps = false;
 
     /**
-     * Relationship: Parent
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo('Pyro\Module\Navigation\Model\Link', 'parent');
-    }
-
-    /**
      * Relationship: Children
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
@@ -52,6 +44,16 @@ class Link extends Eloquent
     public function children()
     {
         return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent');
+    }
+    
+    /**
+     * Relationship: Page
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function page()
+    {
+        return $this->belongsTo('Pyro\Module\Pages\Model\Page');
     }
 
     /**
@@ -118,17 +120,18 @@ class Link extends Eloquent
      */
     public static function getTreeByGroup($group, $params = array())
     {
-        // the plugin passes the abbreviation
-        if ( ! is_numeric($group)) {
-            $row = Group::findGroupByAbbrev($group);
-            $group = $row ? $row->id : null;
-        }
-
         $front_end = (isset($params['front_end']) and $params['front_end']);
 
         $user_groups = (isset($params['user_groups'])) ? $params['user_groups'] : false;
 
-        $all_links = self::where('navigation_group_id','=',$group)->where('parent', '=', 0)->orderBy('position')->get();
+        // By wuuut?
+        if (is_numeric($group)) {
+            $group = Group::with('links.children', 'links.page')->where('id', '=', $group)->first();
+        } else {
+            $group = Group::with('links.children', 'links.page')->where('abbrev', '=', $group)->first();
+        }
+
+        $all_links = $group->links;
 
         $all_links = self::makeUrlArray($all_links, $user_groups, $front_end);
 
@@ -326,10 +329,10 @@ class Link extends Eloquent
                     break;
                 case 'page':
 
-                    if ($front_end) {
-                        $page = Page::findByIdAndStatus($row->page_id, 'live');
+                    if ($row->page->status == 'live') {
+                        $page = $row->page;
                     } else {
-                        $page = Page::find($row->page_id);
+                        $page = false;
                     }
 
                     // Fuck this then

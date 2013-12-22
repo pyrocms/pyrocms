@@ -36,6 +36,9 @@ class EntryQueryBuilder extends Builder
 	 */
 	public function get($columns = null, $exclude = false)
 	{
+		$this->remember($this->model->getCacheMinutes());
+		$this->indexCacheCollection();
+		
 		// Get set up with our environment
 		$this->stream = $this->model->getStream();
 		$this->table = $this->model->getTable();
@@ -71,6 +74,20 @@ class EntryQueryBuilder extends Builder
 		}
 
 		return $this->model->newCollection($this->entries);
+	}
+
+	/**
+	 * Index cache collection
+	 * @return object
+	 */
+	public function indexCacheCollection()
+	{
+		ci()->cache->collection(
+			$this->model->getCacheCollectionKey('entries'), 
+			[$this->getQuery()->getCacheKey()]
+		)->index();
+
+		return $this;
 	}
 
 	/**
@@ -223,7 +240,7 @@ class EntryQueryBuilder extends Builder
 			->setFieldMaps($field_maps);
 	}
 
-/**
+	/**
 	 * Get the relation instance for the given relation name.
 	 *
 	 * @param  string  $relation
@@ -498,6 +515,8 @@ class EntryQueryBuilder extends Builder
 				$this->orderBy($order_by, 'ASC');
 			}
 		}
+
+		return $this;
 	}
 
 	/**

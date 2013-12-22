@@ -30,7 +30,10 @@ class FieldModel extends Eloquent
      * Stream
      * @var object
      */
-    public $stream = null;
+    protected $_stream = null;
+
+    protected $_type = null;
+
 
     /**
      * Add field
@@ -377,6 +380,10 @@ class FieldModel extends Eloquent
         return parent::create($attributes);
     }
 
+    /**
+     * Set stream
+     * @param object
+     */
     public function setStream(StreamModel $stream = null)
     {
         $this->stream = $stream;
@@ -389,43 +396,48 @@ class FieldModel extends Eloquent
      * @param  [type] $entry [description]
      * @return [type]        [description]
      */
-    public function getType(EntryModel $entry = null, StreamModel $stream = null)
+    public function getType(EntryModel $entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
-        if ( ! $entry)
-        {
-            $entry = new EntryModel;
+        if ($this->_type) {
+            return $this->bootType($entry);
         }
 
-        // @todo - replace the Type library with the PSR version
-        if ( ! $type = FieldTypeManager::getType($this->field_type))
-        {
+        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
             return false;
         }
 
-        $type->setField($this);
-        $type->setEntry($entry);
-
-        if ( ! $stream and $this->stream)
-        {
-            $type->setStream($this->stream);
-        }
-        elseif ($stream)
-        {
-            $type->setStream($stream);
-        }
-        elseif ($entry instanceof EntryModel)
-        {   
-            if ( ! $stream and ! $this->stream)
-            {
-                $type->setStream($entry->getModel()->getStream());
-            }
-        }
-
-        return $type;
+        return $this->bootType($entry);
     }
 
-    // --------------------------------------------------------------------------
+    /**
+     * Boot field type
+     * @param  object
+     * @return object|null
+     */
+    public function bootType(EntryModel $entry = null)
+    {
+        if ( ! $entry) {
+            $entry = new EntryModel;
+        }
+
+        if ($this->_type) {
+            $this->_type->setField($this);
+            $this->_type->setEntry($entry);
+            $this->_type->setStream($this->stream);
+        }
+
+        return $this->_type;
+    }
+
+    /**
+     * Get a stream that was set on the field model
+     * @return object|null
+     */
+    public function getStream()
+    {
+        return $this->_stream;
+    }
 
     /**
      * Update field

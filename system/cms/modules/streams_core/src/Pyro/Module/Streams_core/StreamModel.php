@@ -265,9 +265,9 @@ class StreamModel extends Eloquent
 	 * @param  integer $offset           
 	 * @return object                    
 	 */
-	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null)
+	public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null, $fresh = true)
 	{
-		return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
+		return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->fresh($fresh)->get();
 	}
 
     /**
@@ -288,6 +288,7 @@ class StreamModel extends Eloquent
         return static::with('assignments.field')->where('stream_slug', $stream_slug)
 			->where('stream_namespace', $stream_namespace)
 			->take(1)
+			->fresh($fresh)
 			->first();
 	}
 
@@ -502,7 +503,7 @@ class StreamModel extends Eloquent
 
 		if ( ! $field instanceof FieldModel) return false;
 
-		if ( ! $assignment = FieldAssignmentModel::findByFieldIdAndStreamId($field->getKey(), $this->getKey()))
+		if ( ! $assignment = FieldAssignmentModel::findByFieldIdAndStreamId($field->getKey(), $this->getKey(), true))
 		{
 			$assignment = new FieldAssignmentModel;
 		}

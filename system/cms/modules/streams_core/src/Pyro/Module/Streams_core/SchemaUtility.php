@@ -25,7 +25,7 @@ class SchemaUtility
 		// Some field destructs use stream data from the cache,
 		// so let's make sure that the slug cache has run.
 
-		$streams = StreamModel::findManyByNamespace($namespace);
+		$streams = StreamModel::findManyByNamespace($namespace, $limit = 0, $offset = null, $fresh = true);
 
 		$streams->each(function ($stream) {
 			$stream->delete();
