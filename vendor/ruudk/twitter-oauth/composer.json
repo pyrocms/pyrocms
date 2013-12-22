@@ -1,0 +1,20 @@
+{
+    "name": "ruudk/twitter-oauth",
+    "type": "library",
+    "description": "PHP 5.3 version of abraham/twitteroauth",
+    "homepage": "http://github.com/ruudk/twitteroauth",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Ruud Kamphuis",
+            "email": "ruud@1plus1media.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+	    "classmap": ["src"]
+	}
+}

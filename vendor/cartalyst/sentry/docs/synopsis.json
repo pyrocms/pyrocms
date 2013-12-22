@@ -1,0 +1,7 @@
+{
+	"name" : "Sentry 2",
+	"branch" : "master",
+	"github" : "cartalyst/sentry",
+	"travis" : true,
+	"demo" : false
+}
