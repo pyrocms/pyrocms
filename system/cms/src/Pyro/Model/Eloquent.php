@@ -187,6 +187,8 @@ abstract class Eloquent extends Model
     public function flushCacheCollection()
     {
         ci()->cache->collection($this->getCacheCollectionKey())->flush();
+
+        return $this;
     }
 
     /**
