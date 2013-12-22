@@ -13,6 +13,8 @@ use Pyro\Module\Users;
  */
 class Link extends Eloquent
 {
+    public $cache_minutes = 0;
+
     /**
      * Define the table name
      *
@@ -327,8 +329,8 @@ class Link extends Eloquent
                     break;
                 case 'page':
 
-                    if ($link->page->status == 'live') {
-                        $page = $link->page;
+                    if ($row->page->status == 'live') {
+                        $page = $row->page;
                     } else {
                         $page = false;
                     }
