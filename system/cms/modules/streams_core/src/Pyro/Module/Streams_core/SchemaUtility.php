@@ -31,6 +31,12 @@ class SchemaUtility
 			$stream->delete();
 		});
 
+		// Make sure that garbage is collected even it the stream is not present anymore
+		FieldModel::where('field_namespace', '=', $namespace)->delete();
+
+		FieldAssignmentModel::cleanup();
+		FieldModel::cleanup();
+
 		// Remove all fields in namespace
 		return true;
 	}
