@@ -13,6 +13,7 @@
 * [Jerel Unruh](http://jerel.co/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Ryan Thompson](http://aiwebsystems.com/)
+* [Osvaldo Brignoni](https://github.com/obrignoni)
 
 ## Description
 
