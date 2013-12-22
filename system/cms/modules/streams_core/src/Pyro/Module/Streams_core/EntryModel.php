@@ -563,8 +563,6 @@ class EntryModel extends Eloquent
      */
     public static function create(array $attributes = null)
     {
-        $this->flushCacheCollection();
-
         $model = static::getInstance()->fill($attributes)->save();
 
         return $model;
