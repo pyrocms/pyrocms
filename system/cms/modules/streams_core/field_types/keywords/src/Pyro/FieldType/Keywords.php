@@ -95,6 +95,8 @@ class Keywords extends AbstractFieldType
 
 	public function getKeywordsValue($format = 'array')
 	{
+		if (! $this->value) return null;
+
 		// if we want an array, format it correctly
 		if ($format === 'array')
 		{

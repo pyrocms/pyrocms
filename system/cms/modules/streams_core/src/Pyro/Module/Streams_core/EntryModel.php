@@ -635,7 +635,7 @@ class EntryModel extends Eloquent
 
                     $type->setStream($this->stream);
 
-                    $type->setValue($this->getAttribute($field->field_slug));
+                    $type->value = $this->getAttribute($field->field_slug);
 
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
