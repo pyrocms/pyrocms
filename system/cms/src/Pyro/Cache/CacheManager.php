@@ -3,7 +3,7 @@
 use Illuminate\Cache\CacheManager as IlluminateCacheManager;
 use Illuminate\Cache\FileStore;
 use Illuminate\Cache\RedisStore;
-new Illuminate\Redis\Database as RedisDatabase;
+use Illuminate\Redis\Database as RedisDatabase;
 use Illuminate\Filesystem\Filesystem;
 
 class CacheManager extends IlluminateCacheManager
