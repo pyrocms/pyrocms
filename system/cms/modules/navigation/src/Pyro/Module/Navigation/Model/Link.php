@@ -35,16 +35,6 @@ class Link extends Eloquent
     public $timestamps = false;
 
     /**
-     * Relationship: Parent
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo('Pyro\Module\Navigation\Model\Link', 'parent');
-    }
-
-    /**
      * Relationship: Children
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
@@ -52,6 +42,16 @@ class Link extends Eloquent
     public function children()
     {
         return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent');
+    }
+    
+    /**
+     * Relationship: Page
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function page()
+    {
+        return $this->belongsTo('Pyro\Module\Pages\Model\Page');
     }
 
     /**
@@ -124,9 +124,9 @@ class Link extends Eloquent
 
         // By wuuut?
         if (is_numeric($group)) {
-            $group = Group::with('links.children.parent')->where('id', '=', $group)->first();
+            $group = Group::with('links.children', 'links.page')->where('id', '=', $group)->first();
         } else {
-            $group = Group::with('links.children.parent')->where('abbrev', '=', $group)->first();
+            $group = Group::with('links.children', 'links.page')->where('abbrev', '=', $group)->first();
         }
 
         $all_links = $group->links;
@@ -327,10 +327,10 @@ class Link extends Eloquent
                     break;
                 case 'page':
 
-                    if ($front_end) {
-                        $page = Page::findByIdAndStatus($row->page_id, 'live');
+                    if ($link->page->status == 'live') {
+                        $page = $link->page;
                     } else {
-                        $page = Page::find($row->page_id);
+                        $page = false;
                     }
 
                     // Fuck this then
