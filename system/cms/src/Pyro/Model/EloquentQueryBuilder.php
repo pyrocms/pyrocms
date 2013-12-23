@@ -36,7 +36,7 @@ class EloquentQueryBuilder extends Builder
 	{
 		ci()->cache->collection(
 			$this->model->getCacheCollectionKey(), 
-			[$this->getQuery()->getCacheKey()]
+			array($this->getQuery()->getCacheKey())
 		)->index();
 
 		return $this;
