@@ -37,7 +37,13 @@ class EntryCollection extends EloquentCollection
 	{
 		$this->format = EntryModel::FORMAT_STRING;
 
-		return $this;
+		$entries = array();
+
+		foreach($this->items as $entry) {
+			$entries[] = $entry->asString();
+		}
+
+		return new static($entries);
 	}
 
 	/**
@@ -48,7 +54,13 @@ class EntryCollection extends EloquentCollection
 	{
 		$this->format = EntryModel::FORMAT_DATA;
 
-		return $this;
+		$entries = array();
+
+		foreach($this->items as $entry) {
+			$entries[] = $entry->asData();
+		}
+
+		return new static($entries);
 	}
 
 	/**
@@ -66,9 +78,6 @@ class EntryCollection extends EloquentCollection
 		}
 
 		return new static($entries);
-
-
-		//return $this;
 	}
 
 	/**
