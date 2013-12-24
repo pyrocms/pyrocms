@@ -37,6 +37,7 @@ class Relationship extends AbstractFieldType
 		'stream',
 		'placeholder',
 		'value_field',
+		'title_field',
 		'option_format',
 		'template',
 		'module_slug',
@@ -68,15 +69,17 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
 
-		if (! $relation_class = $this->relationClass()) return null;
-
-		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
+		if (! $relation_class = $this->getRelationClass()) return null;
 
 		$instance = new $relation_class;
 
 		if ($instance instanceof EntryModel) {
+
+			@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+			if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
+
 			return $this->belongsToEntry($relation_class)->select('*');	
 		}
 
@@ -195,15 +198,6 @@ class Relationship extends AbstractFieldType
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Relation class
-	 * @return string
-	 */
-	public function relationClass()
-	{
-		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
-	}
-
-	/**
 	 * Options
 	 * @return array
 	 */
@@ -212,26 +206,35 @@ class Relationship extends AbstractFieldType
 		// Get options
 		$options = array();
 
-		if ($relation_class = $this->relationClass())
+		if ($relation_class = $this->getRelationClass())
 		{
-			list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
 			$instance = new $relation_class;
 
-			$options = $instance::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
+			if ($instance instanceof EntryModel) {
+			
+				@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+				$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
+
+				$options = $relation_class::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
+				
+				$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}'); 
+
+			} else {
+
+				$options = $relation_class::limit(1000)->select('*')->get()->toArray();
+
+				$option_format = $this->getParameter('option_format', '{{ '.$this->getParameter('title_field', 'id').' }}'); 
+
+			}
 		}
 
 		// Format options
 		$formatted_options = array();
 
-		$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}');
-
-		$value_field = $this->getParameter('value_field', 'id');
-
-		foreach ($options as $option)
-			$formatted_options[$option[$value_field]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
+		foreach ($options as $option) {
+			$formatted_options[$option[$this->getParameter('value_field', 'id')]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
+		}
 
 		// Boom
 		return $formatted_options;
