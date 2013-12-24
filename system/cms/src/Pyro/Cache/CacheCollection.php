@@ -71,7 +71,7 @@ class CacheCollection extends Collection
 
 		ci()->cache->forget($this->collectionKey);
 
-		$this->items = [];
+		$this->items = array();
 
 		return $this;
 	}

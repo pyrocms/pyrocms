@@ -284,7 +284,7 @@ class Module_Blog extends AbstractModule
 				'required'	=> true,
 				'locked'	=> true,
 				'extra'		=> array(
-					'title_column' => 'title',
+					'title_field' => 'title',
 					'relation_class' => 'Pyro\Module\Blog\BlogCategoryModel',
 				),
 			),

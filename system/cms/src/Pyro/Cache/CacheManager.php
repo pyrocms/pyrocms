@@ -41,6 +41,8 @@ class CacheManager extends IlluminateCacheManager
 	 */
 	public function collection($collectionKey, $keys = array())
 	{
+		if (is_string($keys)) $keys = array($keys);
+
 		if ($cached = ci()->cache->get($collectionKey) and is_array($cached)) {
 			$keys = array_merge($keys, $cached);
 		}

@@ -727,6 +727,15 @@ abstract class AbstractFieldType
 	}
 
 	/**
+	 * Relation class
+	 * @return string
+	 */
+	public function getRelationClass()
+	{
+		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+	}
+
+	/**
 	 * Object to Array
 	 *
 	 * Takes an object as input and converts the class variables to array key/vals
