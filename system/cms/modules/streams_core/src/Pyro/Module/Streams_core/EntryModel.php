@@ -541,7 +541,7 @@ class EntryModel extends Eloquent
      * Get cache collection key
      * @return string
      */
-    public function getCacheCollectionKey($suffix = null)
+    public function getCacheCollectionKey($suffix = 'entries')
     {
         return $this->getCacheCollectionPrefix().$suffix;
     }

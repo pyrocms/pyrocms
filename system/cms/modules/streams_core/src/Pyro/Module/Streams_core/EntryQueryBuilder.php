@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Pyro\Model\EloquentQueryBuilder;
 
-class EntryQueryBuilder extends Builder
+class EntryQueryBuilder extends EloquentQueryBuilder
 {
 	protected $entries = array();
 
@@ -36,8 +37,7 @@ class EntryQueryBuilder extends Builder
 	 */
 	public function get($columns = null, $exclude = false)
 	{
-		$this->remember($this->model->getCacheMinutes());
-		$this->indexCacheCollection();
+		$this->rememberIndex();
 		
 		// Get set up with our environment
 		$this->stream = $this->model->getStream();
@@ -74,20 +74,6 @@ class EntryQueryBuilder extends Builder
 		}
 
 		return $this->model->newCollection($this->entries);
-	}
-
-	/**
-	 * Index cache collection
-	 * @return object
-	 */
-	public function indexCacheCollection()
-	{
-		ci()->cache->collection(
-			$this->model->getCacheCollectionKey('entries'), 
-			[$this->getQuery()->getCacheKey()]
-		)->index();
-
-		return $this;
 	}
 
 	/**

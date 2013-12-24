@@ -25,6 +25,8 @@ class StreamModel extends Eloquent
      */
     public $timestamps = false;
 
+    protected static $streams_cache = array();
+
 	/**
 	 * Add a Stream.
 	 *
@@ -285,11 +287,15 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-        return static::with('assignments.field')->where('stream_slug', $stream_slug)
+		if (isset(static::$streams_cache[$stream_slug.'.'.$stream_namespace])) return static::$streams_cache[$stream_slug.'.'.$stream_namespace];
+
+		$stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
 			->where('stream_namespace', $stream_namespace)
 			->take(1)
 			->fresh($fresh)
 			->first();
+
+		return static::$streams_cache[$stream->stream_slug.'.'.$stream->stream_namespace] = static::$streams_cache[$stream->id] = $stream;
 	}
 
 	/**
@@ -759,6 +765,19 @@ class StreamModel extends Eloquent
 		}
 
 		return $schema->hasTable($table);
+	}
+
+	public static function find($id, $columns = array('*'))
+	{
+        if (isset(static::$streams_cache[$id])) return static::$streams_cache[$id];
+
+        $stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
+			->where('stream_namespace', $stream_namespace)
+			->take(1)
+			->fresh($fresh)
+			->first();
+
+		return static::$streams_cache[$id] = static::$streams_cache[$id] = $stream;
 	}
 
 	/**
