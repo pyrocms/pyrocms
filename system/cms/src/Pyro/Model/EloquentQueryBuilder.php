@@ -12,8 +12,7 @@ class EloquentQueryBuilder extends Builder
      */
     public function get($columns = array('*'))
     {
-		$this->remember($this->model->getCacheMinutes());
-		$this->indexCacheCollection();
+		$this->rememberIndex();
 
 		$models = $this->getModels($columns);
 
@@ -28,6 +27,16 @@ class EloquentQueryBuilder extends Builder
 		return $this->model->newCollection($models);
     }
 
+    public function rememberIndex()
+    {
+    	if ($cache_minutes = $this->model->getCacheMinutes()) {
+			$this->remember($cache_minutes);
+			$this->indexCacheCollection();    		
+		}
+
+		return $this;
+    }
+
 	/**
 	 * Index cache collection
 	 * @return object
@@ -36,7 +45,7 @@ class EloquentQueryBuilder extends Builder
 	{
 		ci()->cache->collection(
 			$this->model->getCacheCollectionKey(), 
-			array($this->getQuery()->getCacheKey())
+			$this->getQuery()->getCacheKey()
 		)->index();
 
 		return $this;
