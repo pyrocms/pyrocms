@@ -332,7 +332,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getStream()
     {
-        return $this->stream()->getResults();
+        return StreamModel::find($this->stream_id);
     }
 
     /**

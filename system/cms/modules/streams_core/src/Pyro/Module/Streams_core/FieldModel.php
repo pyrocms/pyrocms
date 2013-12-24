@@ -399,35 +399,22 @@ class FieldModel extends Eloquent
     public function getType(EntryModel $entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
-        if ($this->_type) {
-            return $this->bootType($entry);
-        }
 
-        if ( ! $this->_type = FieldTypeManager::getType($this->field_type)) {
+        if ( ! $type = FieldTypeManager::getType($this->field_type)) {
             return false;
         }
 
-        return $this->bootType($entry);
-    }
-
-    /**
-     * Boot field type
-     * @param  object
-     * @return object|null
-     */
-    public function bootType(EntryModel $entry = null)
-    {
         if ( ! $entry) {
             $entry = new EntryModel;
         }
 
-        if ($this->_type) {
-            $this->_type->setField($this);
-            $this->_type->setEntry($entry);
-            $this->_type->setStream($this->stream);
+        if ($type) {
+            $type->setField($this);
+            $type->setEntry($entry);
+            $type->setStream($this->getStream());
         }
 
-        return $this->_type;
+        return $type;
     }
 
     /**
