@@ -767,12 +767,11 @@ class StreamModel extends Eloquent
 		return $schema->hasTable($table);
 	}
 
-	public static function find($id, $columns = array('*'))
+	public static function find($id, $columns = array('*'), $fresh = false)
 	{
-        if (isset(static::$streams_cache[$id])) return static::$streams_cache[$id];
+		if (isset(static::$streams_cache[$id])) return static::$streams_cache[$id];
 
-        $stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
-			->where('stream_namespace', $stream_namespace)
+		$stream = static::with('assignments.field')->where('id', $id)
 			->take(1)
 			->fresh($fresh)
 			->first();
