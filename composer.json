@@ -1,6 +1,9 @@
 {
     "minimum-stability": "dev",
     
+    "prefer-stable": true,
+    "preferred-install": "dist",
+
     "require": {
         "pyrocms/lex": "2.2.*",
         "doctrine/dbal": "2.4.x",
