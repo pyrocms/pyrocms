@@ -35,8 +35,8 @@ $lang['settings:dashboard_rss_count_desc']		= 'Kuinka monta syötettä haluat li
 
 $lang['settings:date_format']					= 'Päiväyksen muoto';
 $lang['settings:date_format_desc']				= 'Miten päiväyksen muoto tulisi olla sivustolla ja hallintapaneelissa? ' .
-													'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.date.php" target="_black">date muotoa</a> - TAI - ' .
-													'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.strftime.php" target="_black">strftime muotoa</a>.';
+                                                    'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.date.php" target="_black">date muotoa</a> - TAI - ' .
+                                                    'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.strftime.php" target="_black">strftime muotoa</a>.';
 
 $lang['settings:frontend_enabled']				= 'Sivuston status';
 $lang['settings:frontend_enabled_desc']			= 'Käytä tätä asetusta kun et halua näyttää sivuja käyttäjille. Käytetään yleensä sivuston ylläpidon yhteydessä.';

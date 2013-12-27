@@ -91,7 +91,7 @@ $lang['settings:comment_order_desc']			= 'ترتیب نمایش کامنت ها 
 
 $lang['settings:enable_comments'] 			= 'فعال کردن کامنت ها';
 $lang['settings:enable_comments_desc']			= 'آیا کاربران مجاز به ارسال نظرات و کامنت های خود هستند؟';
-	
+
 $lang['settings:moderate_comments']			= 'مدیریت نظر ها و کامت ها';
 $lang['settings:moderate_comments_desc']                 = 'آیا باید کامنت ها و نظر های کاربران ارسال می کنندبررسی و تایید شود و بعد از آن روی سایت نمایش داده شوند؟';
 

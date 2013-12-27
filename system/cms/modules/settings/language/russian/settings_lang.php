@@ -38,8 +38,8 @@ $lang['settings:dashboard_rss_count_desc']		= 'Какое количество �
 
 $lang['settings:date_format']								= 'Формат даты';
 $lang['settings:date_format_desc']						= 'Как будут отображаться даты на сайте и в панели управления? ' .
-													'С помощью <a href="http://php.net/manual/ru/function.date.php" target="_black">функции date</a> из PHP - или - ' .
-													'Используя <a href="http://php.net/manual/ru/function.strftime.php" target="_black">форматирование строк с датой</a> из PHP.';
+                                                    'С помощью <a href="http://php.net/manual/ru/function.date.php" target="_black">функции date</a> из PHP - или - ' .
+                                                    'Используя <a href="http://php.net/manual/ru/function.strftime.php" target="_black">форматирование строк с датой</a> из PHP.';
 
 $lang['settings:frontend_enabled']					= 'Сайт';
 $lang['settings:frontend_enabled_desc']				= 'Используйте эту опцию для контроля активности пользовательской части сайта. Полезно, если вы хотите временно отключить ваш сайт для технического обслуживания.';

@@ -30,8 +30,8 @@ $lang['settings:dashboard_rss_count_desc'] 		= 'كم عدد أخبار RSS ال�
 
 $lang['settings:date_format'] 					= 'نسق التاريخ';
 $lang['settings:date_format_desc']				= 'كيف يجب عرض التواريخ في الموقع ولوحة التحكم؟ ' .
-													'باستخدام <a href="http://php.net/manual/en/function.date.php" target="_black">نسق تواريخ</a> PHP - أو - ' .
-													'باستخدام نسق <a href="http://php.net/manual/en/function.strftime.php" target="_black">النصوص المُنسّقة كتواريخ</a> باستخدام PHP.';
+                                                    'باستخدام <a href="http://php.net/manual/en/function.date.php" target="_black">نسق تواريخ</a> PHP - أو - ' .
+                                                    'باستخدام نسق <a href="http://php.net/manual/en/function.strftime.php" target="_black">النصوص المُنسّقة كتواريخ</a> باستخدام PHP.';
 
 $lang['settings:frontend_enabled'] 				= 'حالة الموقع';
 $lang['settings:frontend_enabled_desc'] 		= 'استخدم هذا الخيار لإتاحة أو حجب واجهة الموقع. يُمكن الإستفادة من هذا الخيار لحجب الموقع وقت الصيانة.';
