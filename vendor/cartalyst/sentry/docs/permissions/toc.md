@@ -1,3 +1,0 @@
-## Permissions
-
-- [Overview]({url}/permissions)
