@@ -19,6 +19,8 @@ class Profile extends EntryModel
 
     protected $stream_namespace = 'users';
 
+    protected $table = 'profiles';
+
     public function user()
     {
     	return $this->belongsTo('Pyro\Module\Users\Model\User');
