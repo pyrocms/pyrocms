@@ -20,7 +20,7 @@ class Migration_Improve_search_index extends CI_Migration
         $schema->table('search_index', function($table) {
             
             // Remove the old index
-            $table->dropUnique('search_index_module_entry_key_entry_id_unique');
+            $table->dropUnique('search_index_module_entry_singular_entry_id_unique');
 
             // Add permissions (JSON of IDs)
             $table->text('group_access')->nullable();

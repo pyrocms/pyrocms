@@ -1,23 +1,25 @@
 <?php
 
+use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+
 class Migration_Convert_variables_to_streams extends CI_Migration
 {
     public function up()
     {
-        $this->load->driver('Streams');
-
-        if ( ! $stream = $this->streams_m->get_stream_id_from_slug('variables', 'variables'))
+        if ( ! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
         {
             $schema = $this->pdb->getSchemaBuilder();
 
             // Convert Variables to a stream
-            $this->streams->utilities->convert_table_to_stream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
+            SchemaUtility::convertTableToStream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
             
             // Convert name column to Slug field
-            $this->streams->utilities->convert_column_to_field('variables', 'variables', 'lang:variables:name_label', 'name', 'slug', array('max_length' => 100, 'space_type' => null, 'slug_field' => null, 'is_locked' => true), array('is_required' => true, 'is_unique' => true));
+            SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:name_label', 'name', 'slug', array('max_length' => 100, 'space_type' => null, 'slug_field' => null, 'is_locked' => true), array('is_required' => true, 'is_unique' => true));
             
             // Convert data column to Field field - @todo - don't convert, add field, modify character limit and add data_field_slug
-            $this->streams->utilities->convert_column_to_field('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
+            SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
 
             $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `name` `name` VARCHAR(100)");
             $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `data` `data` TEXT");
@@ -67,7 +69,7 @@ class Migration_Convert_variables_to_streams extends CI_Migration
                 array('namespace' => 'variables','name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
             );
 
-            $this->streams->fields->add_fields($fields);
+            FieldModel::addFields($fields, 'variables', 'variables');
 
             return true;
         }
