@@ -19,12 +19,15 @@ class Migration_Remove_variables_syntax_column extends CI_Migration
                     $assignment->delete();
                 }
 
-                $field->delete();                
+                $field->delete();
             }
 
-            $schema->table('variables', function ($table) {
-                $table->dropColumn('syntax');
-            });
+            // Drop syntax if the column exists
+            if ($schema->hasColumn('syntax')) {
+                $schema->table('variables', function ($table) {
+                    $table->dropColumn('syntax');
+                });
+            }
         }
 
         return true;
