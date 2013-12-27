@@ -293,9 +293,10 @@ class MX_Router extends CI_Router
 
 	private function connect() {
 
-		include APPPATH.'config/database.php';
+		require APPPATH.'config/database.php';
         
-        $config = $db[ENVIRONMENT];
+        // Use whatever the config tells us to use, it will probably be environment
+        $config = $db[$active_group];
 
         // Is this a PDO connection?
         if ($config) {
