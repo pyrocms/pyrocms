@@ -230,7 +230,7 @@ class MY_Controller extends MX_Controller
         include APPPATH.'config/database.php';
         include APPPATH.'config/cache.php';
     
-        $config = $db[ENVIRONMENT];
+        $config = $db[$active_group];
 
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
