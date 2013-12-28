@@ -596,6 +596,10 @@ class FieldModel extends Eloquent
     {
         $field_ids = FieldAssignmentModel::all()->getFieldIds();
 
+        if (! $field_ids) {
+            return true;
+        }
+        
         return static::whereNotIn('id', $field_ids)->delete();
     }
     

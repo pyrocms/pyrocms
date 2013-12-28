@@ -158,6 +158,10 @@ class FieldAssignmentModel extends FieldModel
     {
         $field_ids = FieldModel::all()->modelKeys();
 
+        if (! $field_ids) {
+            return true;
+        }
+
         return static::whereNotIn('field_id', $field_ids)->delete();
     }
 
