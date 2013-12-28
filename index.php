@@ -73,8 +73,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	@ini_set('cgi.fix_pathinfo', 0);
 	
 	// PHP 5.3 will BITCH without this
-	if (ini_get('date.timezone') == '')
-	{
+	if (ini_get('date.timezone') == '') {
 		date_default_timezone_set('UTC');
 	}
 
