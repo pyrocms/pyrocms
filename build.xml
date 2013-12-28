@@ -50,17 +50,17 @@
     <target name="dist" depends="build">
         <echo msg="Creating .tar.gz archive..." />
 
-        <tar destfile="./build/release.tar.gz" basedir="." compression="gzip">
+        <tar destfile="./build/release.tar.gz" basedir="." compression="gzip" includeemptydirs="true">
             <fileset dir="${sourcedir}">
-                <include name="*" />
+                <include name="**/**" />
             </fileset>
         </tar>
 
         <echo msg="Creating .zip archive..." />
 
-        <zip destfile="./build/release.zip" basedir=".">
+        <zip destfile="./build/release.zip" basedir="." includeemptydirs="true">
             <fileset dir="${sourcedir}">
-                <include name="*" />
+                <include name="**/**" />
             </fileset>
         </zip>
 
