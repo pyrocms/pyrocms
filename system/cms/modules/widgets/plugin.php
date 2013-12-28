@@ -14,13 +14,13 @@ class Plugin_Widgets extends Plugin
 	public $name = array(
 		'en' => 'Widgets',
 		'ar' => 'الودجتس',
-            'fa' => 'ویجت ها',
+        'fa' => 'ویجت ها',
 	);
 
 	public $description = array(
 		'en' => 'Display widgets by widget area or individually.',
 		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
-            'fa' => 'نمایش دادن ویجت ها با استفاده از مکان ها و یا به صورتی تکی',
+        'fa' => 'نمایش دادن ویجت ها با استفاده از مکان ها و یا به صورتی تکی',
 		'it' => 'Mostra singolarmente o a gruppi i Widget',
 	);
 
@@ -72,7 +72,7 @@ class Plugin_Widgets extends Plugin
 						'required' => true,
 					),
 				),
-			),// end first method
+			), // end first method
 		);
 
 		return $info;
@@ -112,29 +112,20 @@ class Plugin_Widgets extends Plugin
 	 */
 	public function instance()
 	{
-		$id     = $this->attribute('id');
-		$widget = $this->widgets->find($id);
+		$id = $this->attribute('id');
+		$instance = ci()->widgetManager->getInstanceModel()->find($id);
+		
+		if (! $instance) {
+			return;
+		}
+		
+		$widget = ci()->widgetManager->get($instance->widget->slug);
 
 		if (! $widget) {
 			return;
 		}
 
-		$attributes = array_merge(array(
-			'instance_title'  => $widget->instance_title
-		), $this->attributes(), array(
-			'instance_id'       => $widget->instance_id,
-			'widget_id'         => $widget->id,
-			'widget_slug'       => $widget->slug,
-			'widget_title'      => $widget->title,
-			'widget_area_id'    => $widget->widget_area_id,
-			'widget_area_slug'  => $widget->widget_area_slug
-		));
-
-		unset($attributes['id']);
-
-		$widget->options['widget'] = $attributes;
-
-		return $this->widgets->render($widget->slug, $widget->options);
+		return $this->widgetManager->render($widget, $instance);
 	}
 }
 

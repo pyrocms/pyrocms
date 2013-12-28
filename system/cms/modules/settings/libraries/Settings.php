@@ -38,14 +38,9 @@ class Settings
         $settings = ci()->setting_m->getAll();
 
         // Set them all
-        foreach ($settings as $setting)
-            if ($setting->value !== false and isset($setting->value))
-                if ($setting->value === null)
-                    self::$cache[$setting->slug] = $setting->default;
-                else
-                    self::$cache[$setting->slug] = $setting->value;
-            else
-                self::$cache[$setting->slug] = config_item($setting->slug);
+        foreach ($settings as $setting) {
+            self::$cache[$setting->slug] = isset($setting->value) ? $setting->value : $setting->default;
+        }
     }
 
     /**
@@ -91,7 +86,7 @@ class Settings
         $setting = ci()->setting_m->get($key);
 
         // Setting doesn't exist, maybe it's a config option
-        $value = $setting !== false ? (! is_null($setting->value) ? $setting->value : $setting->default) : config_item($key);
+        $value = ! is_null($setting) ? ($setting->value ?: $setting->default) : config_item($key);
 
         // Store it for later
         self::$cache[$key] = $value;
