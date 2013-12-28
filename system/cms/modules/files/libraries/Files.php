@@ -418,6 +418,11 @@ class Files
 				else
 				{
 					$data['id'] = substr(md5(microtime() . $data['filename']), 0, 15);
+					$i = 0;
+					while(ci()->file_m->exists($data['id']))
+					{
+					    $data['id'] = substr(md5(microtime() . $data['filename'] . $i++), 0, 15);
+					}
 					$file_id = $data['id'];
 					ci()->file_m->insert($data);
 				}
