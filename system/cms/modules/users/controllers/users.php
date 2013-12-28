@@ -365,8 +365,7 @@ class Users extends Public_Controller
 
 					// Make a profile
 					$profile_data['user_id'] = $id;
-					$profile = new Model\Profile;
-					$profile::create($profile_data);
+					Model\Profile::create($profile_data);
 
 					// Assign to users
 					Model\User::assignGroupIdsToUser($user, array(1));

@@ -23,7 +23,7 @@ class Migration_Remove_variables_syntax_column extends CI_Migration
             }
 
             // Drop syntax if the column exists
-            if ($schema->hasColumn('syntax')) {
+            if ($schema->hasColumn('variables', 'syntax')) {
                 $schema->table('variables', function ($table) {
                     $table->dropColumn('syntax');
                 });

@@ -295,10 +295,10 @@ class WidgetManager
             return $this->rendered_areas[$short_name];
         }
 
-        // @HACK: Let's get this out of here somehow
+        // HACK: Let's get this out of here somehow
         $view = ($short_name === 'dashboard') ? 'admin/widget_wrapper' : 'widget_wrapper';
 
-        // @HACK: Less reliance on global code
+        // HACK: Less reliance on global code
         $path = ci()->template->get_views_path().'modules/widgets/';
 
         if (! file_exists($path.$view.'.php')) {
@@ -325,6 +325,10 @@ class WidgetManager
             // Widget 
             $widget_class = $this->get($instance->widget->slug);
 
+            if ($widget_class === false) {
+                continue;
+            }
+
             $instance->body = $this->render($widget_class, $instance);
 
             // add this view location to the array
@@ -332,7 +336,7 @@ class WidgetManager
 
             $output .= ci()->load->_ci_load(array(
                 '_ci_view' => $view, 
-                '_ci_vars' => array('widget' => $widget_class), 
+                '_ci_vars' => compact('widget_class', 'instance'), 
                 '_ci_return' => true
             ))."\n";
 

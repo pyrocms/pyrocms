@@ -396,7 +396,7 @@ class Plugin_Theme extends Plugin
 	 */
 	public function path()
 	{
-		$path = & rtrim($this->load->get_var('template_views'), '/');
+		$path = rtrim($this->load->get_var('template_views'), '/');
 
 		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path) . '/';
 	}

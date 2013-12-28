@@ -47,8 +47,7 @@ class CacheCollection extends Collection
 
 	public function index()
 	{	
-		if ($keys = ci()->cache->get($this->collectionKey))
-		{
+		if ($keys = ci()->cache->get($this->collectionKey)) {
 			$this->addKeys($keys);
 		}
 

@@ -30,8 +30,8 @@ $lang['settings:dashboard_rss_count_desc']		= 'Cantidad de items que se mostrar�
 
 $lang['settings:date_format'] 					= 'Formato de la Fecha';
 $lang['settings:date_format_desc']				= '¿Como deberían ser presentadas las fechas en el sitio web y panel de control? ' .
-													'Usando <a href="http://php.net/manual/es/function.date.php" target="_black">formato de fecha</a> de PHP - OR - ' .
-													'Usando el formato de <a href="http://php.net/manual/es/function.strftime.php" target="_black">cadenas formateadas como fechas</a> desde PHP.';
+                                                    'Usando <a href="http://php.net/manual/es/function.date.php" target="_black">formato de fecha</a> de PHP - OR - ' .
+                                                    'Usando el formato de <a href="http://php.net/manual/es/function.strftime.php" target="_black">cadenas formateadas como fechas</a> desde PHP.';
 
 $lang['settings:frontend_enabled']				= 'Estado del Sitio';
 $lang['settings:frontend_enabled_desc']			= 'Usa esta opción para habilitar o desabilitar el sitio visible al usuario. Útil cuando quieres poner el sitio en mantenimiento.';
