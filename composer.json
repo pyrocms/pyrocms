@@ -10,8 +10,8 @@
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
         "ircmaxell/password-compat": "1.0.*",
-        "illuminate/database": "4.0.*",
         "illuminate/cache": "4.0.*",
+        "illuminate/database": "4.0.*",
         "illuminate/filesystem": "4.0.*",
         "nesbot/Carbon": "1.*",
         "patchwork/utf8": "1.1.*",
@@ -22,10 +22,9 @@
         "loic-sharma/profiler": "1.1.*"
     },
     "require-dev": {
-        "illuminate/database": "4.0.x",
-        "illuminate/encryption": "4.0.x",
-        "illuminate/filesystem": "4.0.x",
-        "illuminate/redis": "4.0.x"
+        "illuminate/encryption": "4.0.*",
+        "illuminate/redis": "4.0.*",
+        "phing/phing": "2.6.*"
     },
     "autoload": {
         "classmap": [

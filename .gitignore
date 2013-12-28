@@ -3,6 +3,8 @@
 .project
 .settings
 .idea
+build/
+
 composer.lock
 assets/cache/*
 assets/page_types/*

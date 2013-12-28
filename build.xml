@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PyroCMS" default="dist" basedir="." description="Create download ZIP and TAR from PyroCMS source code">
+
+    <property name="sourcedir" value="./build/source" override="true" />
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <echo msg="Making directory ./build" />
+        <mkdir dir="./build" />
+        <mkdir dir="${sourcedir}" />
+    </target>
+
+    <!-- Fileset for all files -->
+    <fileset dir="." id="allfiles">
+        <include name="addons/**" />
+        <include name="assets/**" />
+        <include name="installer/**" />
+        <include name="system/**" />
+        <include name="uploads/**" />
+        <include name="vendor/**" />
+        <include name=".htaccess" />
+        <include name="index.php" />
+        <include name="LICENSE" />
+        <include name="*.md" />
+    </fileset>
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare">
+		<copy todir="${sourcedir}">
+            <fileset refid="allfiles" />
+        </copy>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: Rebuild                               -->
+    <!-- ============================================  -->
+    <target name="rebuild" description="rebuilds this package">
+        <delete dir="${sourcedir}" />
+        <phingcall target="build" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT)  Target: dist                       --> 
+    <!-- ============================================  -->
+    <target name="dist" depends="build">
+        <echo msg="Creating .tar.gz archive..." />
+
+        <tar destfile="./build/release.tar.gz" basedir="." compression="gzip">
+            <fileset dir="${sourcedir}">
+                <include name="*" />
+            </fileset>
+        </tar>
+
+        <echo msg="Creating .zip archive..." />
+
+        <zip destfile="./build/release.zip" basedir=".">
+            <fileset dir="${sourcedir}">
+                <include name="*" />
+            </fileset>
+        </zip>
+
+        <echo msg="Files copied and compressed in build directory OK!" />
+    </target>
+</project>
