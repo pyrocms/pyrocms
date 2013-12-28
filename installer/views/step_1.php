@@ -5,30 +5,28 @@
 	<h3>{db_driver}</h3>
 </section>
 <section id="db-driver" class="item">
-	<div class="one_full">
 
-		<div class="mysql one_third alert <?php echo $db_drivers['mysql'] ? 'success' : 'error' ?>">
-			<img alt="MySQL logo" src="<?php echo base_url('assets/img/dbdrivers/mysql.png') ?>" />
-			<p>{mysql_about}</p>
-			<?php echo form_radio('db_driver', "mysql", $selected_db_driver, 'id="use-mysql"'.($db_drivers['mysql'] ? '' : ' disabled')) ?>
-			<?php echo lang($db_drivers['mysql'] ? 'use_mysql' : 'not_available', 'use-mysql') ?>
-		</div>
-
-		<div class="pgsql one_third alert <?php echo $db_drivers['pgsql'] ? 'success' : 'error' ?>">
-			<img alt="PostgreSQL Logo" src="<?php echo base_url('assets/img/dbdrivers/pgsql.png') ?>" />
-			<p>{pgsql_about}</p>
-			<?php echo form_radio('db_driver', "pgsql", $selected_db_driver === 'pgsql', 'id="use-pgsql"'.($db_drivers['pgsql'] ? '' : ' disabled')) ?>
-			<?php echo lang($db_drivers['pgsql'] ? 'use_pgsql' : 'not_available', 'use-pgsql') ?>
-		</div>
-
-		<div class="sqlite one_third last alert <?php echo $db_drivers['sqlite'] ? 'success' : 'error' ?>">
-			<img alt="SQLite logo" src="<?php echo base_url('assets/img/dbdrivers/sqlite.gif') ?>" style="background-color:white" />
-			<p>{sqlite_about}</p>
-			<?php echo form_radio('db_driver', "sqlite", $selected_db_driver === 'sqlite', 'id="use-sqlite"'.($db_drivers['sqlite'] ? '' : ' disabled')) ?>
-			<?php echo lang($db_drivers['sqlite'] ? 'use_sqlite' : 'not_available', 'use-sqlite') ?>
-		</div>
-
+	<div class="db-selection mysql alert <?php echo $db_drivers['mysql'] ? 'success' : 'error' ?>">
+		<img alt="MySQL logo" src="<?php echo base_url('assets/img/dbdrivers/mysql.png') ?>" />
+		<p>{mysql_about}</p>
+		<?php echo form_radio('db_driver', "mysql", $selected_db_driver, 'id="use-mysql"'.($db_drivers['mysql'] ? '' : ' disabled')) ?>
+		<?php echo lang($db_drivers['mysql'] ? 'use_mysql' : 'not_available', 'use-mysql') ?>
 	</div>
+
+	<div class="db-selection pgsql alert <?php echo $db_drivers['pgsql'] ? 'success' : 'error' ?>">
+		<img alt="PostgreSQL Logo" src="<?php echo base_url('assets/img/dbdrivers/pgsql.png') ?>" />
+		<p>{pgsql_about}</p>
+		<?php echo form_radio('db_driver', "pgsql", $selected_db_driver === 'pgsql', 'id="use-pgsql"'.($db_drivers['pgsql'] ? '' : ' disabled')) ?>
+		<?php echo lang($db_drivers['pgsql'] ? 'use_pgsql' : 'not_available', 'use-pgsql') ?>
+	</div>
+
+	<div class="db-selection sqlite last alert <?php echo $db_drivers['sqlite'] ? 'success' : 'error' ?>">
+		<img alt="SQLite logo" src="<?php echo base_url('assets/img/dbdrivers/sqlite.gif') ?>" style="background-color:white" />
+		<p>{sqlite_about}</p>
+		<?php echo form_radio('db_driver', "sqlite", $selected_db_driver === 'sqlite', 'id="use-sqlite"'.($db_drivers['sqlite'] ? '' : ' disabled')) ?>
+		<?php echo lang($db_drivers['sqlite'] ? 'use_sqlite' : 'not_available', 'use-sqlite') ?>
+	</div>
+
 </section>
 
 <section class="title">

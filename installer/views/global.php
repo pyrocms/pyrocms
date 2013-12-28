@@ -76,7 +76,7 @@
 			<?php endif; ?>
 
 			<!-- Message type 3 (data for the same page load) -->
-			<?php if ($messages): ?>
+			<?php if (! empty($messages)): ?>
 				<?php foreach ($messages as $type => $message): ?>
 					<ul class="block-message <?php echo ($type) ? $type : 'success'; ?>">
 						<li><?php echo $message; ?></li>
