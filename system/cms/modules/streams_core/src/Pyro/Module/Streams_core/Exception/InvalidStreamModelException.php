@@ -2,5 +2,5 @@
 
 class InvalidStreamModelException extends Exception
 {
-	protected $message = 'Invalid stream model.';
+    protected $message = 'Invalid stream model.';
 }

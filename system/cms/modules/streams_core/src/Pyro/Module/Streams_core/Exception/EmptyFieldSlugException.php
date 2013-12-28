@@ -2,5 +2,5 @@
 
 class EmptyFieldSlugException extends Exception
 {
-	protected $message = 'The Field slug is empty.';
+    protected $message = 'The Field slug is empty.';
 }

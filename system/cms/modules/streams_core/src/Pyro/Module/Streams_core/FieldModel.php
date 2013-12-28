@@ -10,7 +10,7 @@ class FieldModel extends Eloquent
      *
      * @var string
      */
-	protected $table = 'data_fields';
+    protected $table = 'data_fields';
 
     /**
      * The attributes that aren't mass assignable
@@ -44,47 +44,42 @@ class FieldModel extends Eloquent
     public static function addField($field)
     {
         extract($field);
-    
+
         // -------------------------------------
         // Validate Data
         // -------------------------------------
-        
+
         // Do we have a field name?
-        if ( ! isset($name) or ! trim($name))
-        {
+        if ( ! isset($name) or ! trim($name)) {
             throw new Exception\EmptyFieldNameException;
-        }           
+        }
 
         // Do we have a field slug?
-        if( ! isset($slug) or ! trim($slug))
-        {
+        if( ! isset($slug) or ! trim($slug)) {
             throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
-        if( ! isset($namespace) or ! trim($namespace))
-        {
-            throw new Exception\EmptyFieldNamespaceException;   
+        if( ! isset($namespace) or ! trim($namespace)) {
+            throw new Exception\EmptyFieldNamespaceException;
         }
-        
+
         // Is this stream slug already available?
-        if ($field = static::findBySlugAndNamespace($slug, $namespace))
-        {
+        if ($field = static::findBySlugAndNamespace($slug, $namespace)) {
             throw new Exception\FieldSlugInUseException('The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
         }
 
         // Is this a valid field type?
-        if ( ! isset($type) or ! FieldTypeManager::getType($type))
-        {
+        if ( ! isset($type) or ! FieldTypeManager::getType($type)) {
             throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
-        }            
+        }
 
-        // Set locked 
+        // Set locked
         $locked = (isset($locked) and $locked === true) ? 'yes' : 'no';
-        
+
         // Set extra
         if ( ! isset($extra) or ! is_array($extra)) $extra = array();
-    
+
         // -------------------------------------
         // Create Field
         // -------------------------------------
@@ -104,26 +99,25 @@ class FieldModel extends Eloquent
         // Assignment (Optional)
         // -------------------------------------
 
-        if (isset($assign) and $assign != '' and $stream = StreamModel::findBySlugAndNamespace($assign, $namespace, true))
-        {
+        if (isset($assign) and $assign != '' and $stream = StreamModel::findBySlugAndNamespace($assign, $namespace, true)) {
             $data = array();
-        
+
             // Title column
             $data['title_column'] = isset($title_column) ? $title_column : false;
 
             // Instructions
             $data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
-            
+
             // Is Unique
             $data['is_unique'] = isset($unique) ? $unique : false;
-            
+
             // Is Required
             $data['is_required'] = isset($required) ? $required : false;
-        
+
             // Add actual assignment
             return $stream->assignField($field, $data);
         }
-        
+
         return $field;
     }
 
@@ -140,20 +134,16 @@ class FieldModel extends Eloquent
 
         $success = true;
 
-        foreach ($fields as $field)
-        {
-            if ($assign_stream_slug)
-            {
+        foreach ($fields as $field) {
+            if ($assign_stream_slug) {
                 $field['assign'] = $assign_stream_slug;
             }
 
-            if ($namespace)
-            {
+            if ($namespace) {
                 $field['namespace'] = $namespace;
             }
 
-            if( ! static::addField($field))
-            {
+            if( ! static::addField($field)) {
                 $success = false;
             }
         }
@@ -177,7 +167,7 @@ class FieldModel extends Eloquent
         // -------------------------------------
 
         $stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace, true);
-        
+
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
             throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
@@ -187,9 +177,9 @@ class FieldModel extends Eloquent
             // -------------------------------------
             // Assign Field
             // -------------------------------------
-        
+
             // Add actual assignment
-            return $stream->assignField($field, $assign_data);            
+            return $stream->assignField($field, $assign_data);
         }
 
         return false;
@@ -212,20 +202,18 @@ class FieldModel extends Eloquent
         // Validate Data
         // -------------------------------------
 
-        if ( ! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace))
-        {
+        if ( ! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace)) {
             throw new Exception\InvalidStreamModelException('Invalid stream slug. Attempted ['.$stream_slug.','.$namespace.']');
         }
 
-        if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace))
-        {
+        if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
             throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
         // -------------------------------------
         // De-assign Field
         // -------------------------------------
-        
+
         return $stream->removeFieldAssignment($field);
     }
 
@@ -239,19 +227,17 @@ class FieldModel extends Eloquent
     public static function deleteField($field_slug, $namespace)
     {
         // Do we have a field slug?
-        if( ! isset($field_slug) or ! trim($field_slug))
-        {
+        if( ! isset($field_slug) or ! trim($field_slug)) {
             throw new Exception\EmptyFieldSlugException;
         }
-        
+
         // Do we have a namespace?
-        if( ! isset($namespace) or ! trim($namespace))
-        {
-            throw new Exception\EmptyFieldNamespaceException;   
+        if( ! isset($namespace) or ! trim($namespace)) {
+            throw new Exception\EmptyFieldNamespaceException;
         }
 
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) return false;
-    
+
         return $field->delete();
     }
 
@@ -265,23 +251,20 @@ class FieldModel extends Eloquent
     public static function updateField($field_slug, $field_namespace, $field_name = null, $field_type = null, $field_data = array())
     {
         // Do we have a field slug?
-        if( ! isset($field_slug) or ! trim($field_slug))
-        {
+        if( ! isset($field_slug) or ! trim($field_slug)) {
             throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
-        if( ! isset($field_namespace) or ! trim($field_namespace))
-        {
-            throw new Exception\EmptyFieldNamespaceException;   
+        if( ! isset($field_namespace) or ! trim($field_namespace)) {
+            throw new Exception\EmptyFieldNamespaceException;
         }
-    
+
         // Find the field by slug and namespace or throw an exception
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $field_namespace)) return false;
 
         // Is this a valid field type?
-        if (isset($field_type) and ! FieldTypeManager::getType($field_type))
-        {
+        if (isset($field_type) and ! FieldTypeManager::getType($field_type)) {
             throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
         }
 
@@ -299,13 +282,12 @@ class FieldModel extends Eloquent
     public static function getFieldAssignments($field_slug, $namespace)
     {
         // Do we have a field slug?
-        if( ! isset($field_slug) or ! trim($field_slug))
-        {
+        if( ! isset($field_slug) or ! trim($field_slug)) {
             throw new Exception\EmptyFieldSlugException;
         }
-    
+
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) return false;
-    
+
         return $field->assignments;
     }
 
@@ -323,29 +305,25 @@ class FieldModel extends Eloquent
     public static function teardownFieldAssignment($assign_id, $force_delete = false)
     {
         // Get the assignment
-        if ($assignment = FieldAssignmentModel::find($assign_id))
-        {
+        if ($assignment = FieldAssignmentModel::find($assign_id)) {
             // Get stream
-            if ( ! $stream = $assignment->stream)
-            {
+            if ( ! $stream = $assignment->stream) {
                 return false;
             }
 
             // Get field
-            if ( ! $field = $assignment->field)
-            {
+            if ( ! $field = $assignment->field) {
                 return false;
             }
 
             // Delete the assignment
             $stream->removeFieldAssignment($field);
-            
+
             // Remove the field only if unlocked and has no assingments
-            if ( ! $field->is_locked or $field->assignments->isEmpty() or $force_delete)
-            {
+            if ( ! $field->is_locked or $field->assignments->isEmpty() or $force_delete) {
                 // Remove the field
                 return $field->delete();
-            }           
+            }
         }
     }
 
@@ -364,14 +342,11 @@ class FieldModel extends Eloquent
         $instance = new static;
 
         // Load the type to see if there are other params
-        if ($type = FieldTypeManager::getType($attributes['field_type']))
-        {
+        if ($type = FieldTypeManager::getType($attributes['field_type'])) {
             $type->setPreSaveParameters($attributes);
 
-            foreach ($type->getCustomParameters() as $param)
-            {
-                if (method_exists($type, Str::studly('param_'.$param.'_pre_save')) and $value = $type->getPreSaveParameter($param))
-                {
+            foreach ($type->getCustomParameters() as $param) {
+                if (method_exists($type, Str::studly('param_'.$param.'_pre_save')) and $value = $type->getPreSaveParameter($param)) {
                     $attributes['field_data'][$param] = $type->{Str::studly('param_'.$param.'_pre_save')}( $value );
                 }
             }
@@ -435,7 +410,7 @@ class FieldModel extends Eloquent
      */
     public function update(array $attributes = array())
     {
-        
+
         $field_type = $this->getAttribute('field_type');
 
         $type = $this->getType();
@@ -467,7 +442,7 @@ class FieldModel extends Eloquent
         $to = $attributes['field_slug'];
 
         if(
-            (isset($attributes['field_type']) and $field_type != $attributes['field_type']) or 
+            (isset($attributes['field_type']) and $field_type != $attributes['field_type']) or
             (isset($attributes['field_slug']) and $field_slug != $attributes['field_slug']) or
             (isset($field_data['max_length']) and $field_data['max_length'] != $attributes['max_length']) or
             (isset($field_data['default_value']) and $field_data['default_value'] != $attributes['default_value'])
@@ -485,31 +460,25 @@ class FieldModel extends Eloquent
 
                 $streams = array();
 
-                foreach ($assignments as $assignment)
-                {
-                    if ( ! method_exists($type, 'alt_rename_column'))
-                    {
-                        if ( $to and $from != $to)
-                        {
+                foreach ($assignments as $assignment) {
+                    if ( ! method_exists($type, 'alt_rename_column')) {
+                        if ( $to and $from != $to) {
                             $schema->table($prefix.$assignment->stream->stream_prefix.$assignment->stream->stream_slug, function ($table) use ($from, $to) {
                                 $table->renameColumn($from, $to);
-                            });                            
+                            });
                         }
                     }
 
-                    if ($assignment->stream and isset($assignment->stream->view_options[$field_slug]))
-                    {
+                    if ($assignment->stream and isset($assignment->stream->view_options[$field_slug])) {
                         $assignment->stream->view_options[$field_slug] = $attributes['field_slug'];
                         $assignment->stream->save();
                     }
                 }
-                
+
                 // Run though alt rename column routines. Needs to be done
                 // after the above loop through assignments.
-                foreach ($assignments as $assignment)
-                {
-                    if (method_exists($type, 'alt_rename_column'))
-                    {
+                foreach ($assignments as $assignment) {
+                    if (method_exists($type, 'alt_rename_column')) {
                         // We run a different function for alt_process
                         $type->alt_rename_column($this, $assignment->stream, $assignment);
                     }
@@ -518,14 +487,12 @@ class FieldModel extends Eloquent
         }
 
         // Run edit field update hook
-        if (method_exists($type, 'update_field'))
-        {
+        if (method_exists($type, 'update_field')) {
             $type->update_field($this, $assignments);
         }
-    
+
         // Gather extra data
-        foreach ($type->getCustomParameters() as $param)
-        {
+        foreach ($type->getCustomParameters() as $param) {
             if (method_exists($type, Str::studly('param_'.$param.'_pre_save'))) {
                 $field_data[$param] = $type->{Str::studly('param_'.$param.'_pre_save')}( $this );
             }
@@ -533,16 +500,13 @@ class FieldModel extends Eloquent
 
         $attributes['field_data'] = $field_data;
 
-        if (parent::update($attributes))
-        {
-            if ( ! $assignments->isEmpty() and $to and $from != $to)
-            {
-                StreamModel::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);                
+        if (parent::update($attributes)) {
+            if ( ! $assignments->isEmpty() and $to and $from != $to) {
+                StreamModel::updateTitleColumnByStreamIds($assignments->getStreamIds(), $from, $to);
             }
 
             return true;
-        }
-        else {
+        } else {
             // Boo.
             return false;
         }
@@ -568,17 +532,15 @@ class FieldModel extends Eloquent
      */
     public function delete()
     {
-        if ($success = parent::delete())
-        {
+        if ($success = parent::delete()) {
             // Find assignments, and delete rows from table
-            if ($assignments = $this->getAttribute('assignments') and ! $assignments->isEmpty())
-            {
+            if ($assignments = $this->getAttribute('assignments') and ! $assignments->isEmpty()) {
                 // Delete assignments
                 FieldAssignmentModel::cleanup();
                 // Reset instances where the title column
                 // is the field we are deleting. PyroStreams will
                 // always just use the ID in place of the field.
-                
+
                 $title_column = $this->getAttribute('field_slug');
 
                 StreamModel::updateTitleColumnByStreamIds($assignments->getStreamIds(), $title_column);
@@ -599,10 +561,10 @@ class FieldModel extends Eloquent
         if (! $field_ids) {
             return true;
         }
-        
+
         return static::whereNotIn('id', $field_ids)->delete();
     }
-    
+
     /**
      * Delete fields by namespace
      * @param  string $namespace
@@ -630,8 +592,8 @@ class FieldModel extends Eloquent
 
     /**
      * Find by slug and namespace (or false)
-     * @param  string $field_slug      
-     * @param  string $field_namespace 
+     * @param  string $field_slug
+     * @param  string $field_namespace
      * @return mixed                  Object or false if none found
      */
     public static function findBySlugAndNamespaceOrFail($field_slug = null, $field_namespace = null)
@@ -643,18 +605,17 @@ class FieldModel extends Eloquent
 
     /**
      * Find many by namespace
-     * @param  string $field_namespace 
-     * @param  integer $limit           
-     * @param  integer $offset          
-     * @param  array $skips           
-     * @return array                  
+     * @param  string $field_namespace
+     * @param  integer $limit
+     * @param  integer $offset
+     * @param  array $skips
+     * @return array
      */
     public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)
     {
         $query = static::where('field_namespace', '=', $field_namespace);
 
-        if ( ! empty($skips))
-        {
+        if ( ! empty($skips)) {
             $query = $query->whereNotIn('field_slug', $skips);
         }
 
@@ -677,18 +638,14 @@ class FieldModel extends Eloquent
 
     public static function getFieldOptions($skips = array())
     {
-        if (is_string($skips))
-        {
+        if (is_string($skips)) {
             $skips = array($skips);
         }
 
-        if ( ! empty($skips))
-        {
-            return static::whereNotIn('field_slug', $skips)->lists('field_name', 'id');    
-        }
-        else
-        {
-            return static::lists('field_name', 'id'); 
+        if ( ! empty($skips)) {
+            return static::whereNotIn('field_slug', $skips)->lists('field_name', 'id');
+        } else {
+            return static::lists('field_name', 'id');
         }
     }
 
@@ -703,7 +660,7 @@ class FieldModel extends Eloquent
 
     /**
      * Get the field
-     * @return object 
+     * @return object
      */
     public function getParameter($key, $default = null)
     {
@@ -720,7 +677,7 @@ class FieldModel extends Eloquent
     /**
      * New collection instance
      * @param  array  $models
-     * @return object         
+     * @return object
      */
     public function newCollection(array $models = array())
     {
@@ -771,7 +728,7 @@ class FieldModel extends Eloquent
     /**
      * Get view options attr
      * @param  string $view_options
-     * @return array               
+     * @return array
      */
     public function getViewOptionsAttribute($view_options)
     {
@@ -783,7 +740,7 @@ class FieldModel extends Eloquent
      * @param array $view_options
      */
     public function setViewOptionsAttribute($view_options)
-    {   
+    {
         $this->attributes['view_options'] = serialize($view_options);
     }
 

@@ -4,109 +4,106 @@ use Pyro\Model\EloquentCollection;
 
 class FieldCollection extends EloquentCollection
 {
-	/**
-	 * By slug
-	 * @var array
-	 */
-	protected $by_slug = null;
+    /**
+     * By slug
+     * @var array
+     */
+    protected $by_slug = null;
 
-	/**
-	 * The array of Types 
-	 * @var array
-	 */
-	protected $types = array();
+    /**
+     * The array of Types
+     * @var array
+     */
+    protected $types = array();
 
-	/**
-	 * Set stream
-	 * @param StreamModel $stream
-	 * @return  object
-	 */
-	public function setStream(StreamModel $stream) {
+    /**
+     * Set stream
+     * @param StreamModel $stream
+     * @return  object
+     */
+    public function setStream(StreamModel $stream)
+    {
+        $this->each(function($field) use ($stream) {
+            $field->setStream($stream);
+        });
 
-		$this->each(function($field) use ($stream) {
-			$field->setStream($stream);
-		});
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Find a field by slug
+     * @param  string $field_slug
+     * @return object
+     */
+    public function findBySlug($field_slug = null)
+    {
+        return $this->findByAttribute($field_slug, 'field_slug');
+    }
 
-	/**
-	 * Find a field by slug
-	 * @param  string $field_slug
-	 * @return object
-	 */
-	public function findBySlug($field_slug = null)
-	{
-		return $this->findByAttribute($field_slug, 'field_slug');
-	}
+    /**
+     * Get field slugs
+     * @return array
+     */
+    public function getFieldSlugs()
+    {
+        return array_values($this->lists('field_slug'));
+    }
 
-	/**
-	 * Get field slugs
-	 * @return array
-	 */
-	public function getFieldSlugs()
-	{
-		return array_values($this->lists('field_slug'));
-	}
+    /**
+     * Get field slugs
+     * @param  array  $columns
+     * @return array
+     */
+    public function getFieldSlugsExclude(array $columns = array())
+    {
+        $all = array_merge($this->getStandardColumns(), $this->getFieldSlugs());
 
-	/**
-	 * Get field slugs
-	 * @param  array  $columns
-	 * @return array
-	 */
-	public function getFieldSlugsExclude(array $columns = array())
-	{
-		$all = array_merge($this->getStandardColumns(), $this->getFieldSlugs());
+        return array_diff($all, $columns);
+    }
 
-		return array_diff($all, $columns);
-	}
+    /**
+     * Get array indexed by slug
+     * @return array
+     */
+    public function getArrayIndexedBySlug()
+    {
+        $fields = array();
 
-	/**
-	 * Get array indexed by slug
-	 * @return array
-	 */
-	public function getArrayIndexedBySlug()
-	{
-		$fields = array();
+        foreach ($this->items as $field) {
+            $fields[$field->field_slug] = $field;
+        }
 
-		foreach ($this->items as $field)
-		{
-			$fields[$field->field_slug] = $field;
-		}
+        return $fields;
+    }
 
-		return $fields;
-	}
+    /**
+     * Get an array of field types
+     * @param  Pyro\Module\Streams_core\EntryModel $entry An optional entry to instantiate the field types
+     * @return array The array of field types
+     */
+    public function getTypes($entry = null)
+    {
+        $types = array();
 
-	/**
-	 * Get an array of field types
-	 * @param  Pyro\Module\Streams_core\EntryModel $entry An optional entry to instantiate the field types
-	 * @return array The array of field types
-	 */
-	public function getTypes($entry = null)
-	{
-		$types = array();
+        foreach ($this->items as $field) {
+            $types[$field->field_type] = $field->getType($entry);
+        }
 
-		foreach ($this->items as $field)
-		{
-			$types[$field->field_type] = $field->getType($entry);
-		}
+        return new FieldTypeCollection($types);
+    }
 
-		return new FieldTypeCollection($types);
-	}	
+    /**
+     * Field namespace options
+     * @return array The array of field namespaces
+     */
+    public function getFieldNamespaceOptions()
+    {
+        $options = array();
 
-	/**
-	 * Field namespace options
-	 * @return array The array of field namespaces
-	 */
-	public function getFieldNamespaceOptions()
-	{
-		$options = array();
+        foreach ($this->items as $field) {
+            $options[$field->field_namespace] = humanize($field->field_namespace);
+        }
 
-		foreach ($this->items as $field)
-		{
-			$options[$field->field_namespace] = humanize($field->field_namespace);
-		}
-
-		return $options;
-	}
+        return $options;
+    }
 }

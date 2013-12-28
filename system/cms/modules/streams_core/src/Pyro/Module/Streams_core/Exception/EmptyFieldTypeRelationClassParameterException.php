@@ -2,5 +2,5 @@
 
 class EmptyFieldTypeRelationClassParameterException extends Exception
 {
-	protected $message = 'The field type relation class parameter is empty.';
+    protected $message = 'The field type relation class parameter is empty.';
 }

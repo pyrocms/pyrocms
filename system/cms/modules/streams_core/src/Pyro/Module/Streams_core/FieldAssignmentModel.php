@@ -10,7 +10,7 @@ class FieldAssignmentModel extends FieldModel
      *
      * @var string
      */
-	protected $table = 'data_field_assignments';
+    protected $table = 'data_field_assignments';
 
     /**
      * The attributes that aren't mass assignable
@@ -28,9 +28,9 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Find by field id and stream id
-     * @param  integer $field_id  
-     * @param  integer $stream_id 
-     * @return object            
+     * @param  integer $field_id
+     * @param  integer $stream_id
+     * @return object
      */
     public static function findByFieldIdAndStreamId($field_id = null, $stream_id = null, $fresh = false)
     {
@@ -43,10 +43,10 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Find many by stream ID
-     * @param  integer  $stream_id 
-     * @param  integer  $limit     
-     * @param  integer $offset    
-     * @param  string  $order     
+     * @param  integer  $stream_id
+     * @param  integer  $limit
+     * @param  integer $offset
+     * @param  string  $order
      * @return array
      */
     public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
@@ -100,21 +100,18 @@ class FieldAssignmentModel extends FieldModel
 
         $stream = $this->getAttribute('stream');
 
-        if ($field = $this->getAttribute('field'))
-        {
+        if ($field = $this->getAttribute('field')) {
             // Drop the column if it exists
-            if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug))
-            {
+            if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug)) {
                 $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
-                    
+
                     $table->dropColumn($field->field_slug);
-                
-                });            
+
+                });
             }
 
             // Run the destruct
-            if ($type = $field->getType())
-            {
+            if ($type = $field->getType()) {
                 $type->setStream($stream);
                 $type->fieldAssignmentDestruct();
             }
@@ -125,8 +122,7 @@ class FieldAssignmentModel extends FieldModel
 
         // Find everything above it, and take each one
         // down a peg.
-        if ($this->sort_order == '' or ! is_numeric($this->sort_order))
-        {
+        if ($this->sort_order == '' or ! is_numeric($this->sort_order)) {
             $this->sort_order = 0;
         }
 
@@ -135,10 +131,8 @@ class FieldAssignmentModel extends FieldModel
             ->where('sort_order', '>', $this->sort_order)
             ->get(array($this->getKeyName(), 'sort_order'));
 
-        if ( ! $other_assignments->isEmpty())
-        {
-            foreach ($other_assignments as $assignment)
-            {
+        if ( ! $other_assignments->isEmpty()) {
+            foreach ($other_assignments as $assignment) {
                 $assignment->sort_order = $assignment->sort_order - 1;
                 $assignment->save();
             }
@@ -192,19 +186,17 @@ class FieldAssignmentModel extends FieldModel
             // In this case, they don't want this to
             // be the title column anymore, so we wipe it out
             StreamModel::updateTitleColumnByStreamIds($stream->id, $field->field_slug);
-        }
-        elseif (isset($attributes['title_column']) and
-            ($attributes['title_column'] == 'yes' or $attributes['title_column'] === true) and 
+        } elseif (isset($attributes['title_column']) and
+            ($attributes['title_column'] == 'yes' or $attributes['title_column'] === true) and
             $stream->title_column != $field->field_slug)
         {
-            if ($attributes['title_column'] == 'yes')
-            {
+            if ($attributes['title_column'] == 'yes') {
                 $attributes['title_column'] = $field->field_slug;
             }
 
             // Scenario B: They have checked the title column
             // and this field it not the current field.
-            StreamModel::updateTitleColumnByStreamIds($stream->id, $field->field_slug, $attributes['title_column']);    
+            StreamModel::updateTitleColumnByStreamIds($stream->id, $field->field_slug, $attributes['title_column']);
         }
 
         return parent::update($attributes);
@@ -212,19 +204,18 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Get the field name attr
-     * @param  string $field_name 
-     * @return string             
+     * @param  string $field_name
+     * @return string
      */
     public function getFieldNameAttribute($field_name)
     {
         // This guarantees that the language will be loaded
-        if ($this->field instanceof FieldModel)
-        {
+        if ($this->field instanceof FieldModel) {
             FieldTypeManager::getType($this->field->field_type);
 
             $field_name = lang_label($this->field->field_name);
         }
-        
+
         return $field_name;
     }
 
@@ -277,7 +268,7 @@ class FieldAssignmentModel extends FieldModel
     {
         return $this->field->is_locked;
     }
-    
+
     /**
      * Update sort order
      * @param  integer  $id        The assignment id
@@ -291,8 +282,8 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Get incremental sort order
-     * @param  integer $stream_id 
-     * @return integer            
+     * @param  integer $stream_id
+     * @return integer
      */
     public static function getIncrementalSortNumber($stream_id = null)
     {
@@ -322,8 +313,8 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * New collection instance
-     * @param  array  $models 
-     * @return object         
+     * @param  array  $models
+     * @return object
      */
     public function newCollection(array $models = array())
     {
@@ -345,7 +336,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public function stream()
     {
-    	return $this->belongsTo('Pyro\Module\Streams_core\StreamModel', 'stream_id');
+        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel', 'stream_id');
     }
 
     /**
@@ -359,8 +350,8 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Get is required attr
-     * @param  string $is_required 
-     * @return boolean              
+     * @param  string $is_required
+     * @return boolean
      */
     public function getIsRequiredAttribute($is_required)
     {
@@ -378,8 +369,8 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Get is unique attr
-     * @param  string $is_required 
-     * @return boolean              
+     * @param  string $is_required
+     * @return boolean
      */
     public function getIsUniqueAttribute($is_unique)
     {
