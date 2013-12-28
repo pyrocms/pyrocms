@@ -1,8 +1,21 @@
 {
+    "autoload": {
+        "classmap": [
+            "system/cms/controllers",
+            "system/cms/libraries"
+        ],
+        "psr-0": {
+            "Pyro": "system/cms/src/"
+        }
+    },
+
     "minimum-stability": "dev",
-    
     "prefer-stable": true,
     "preferred-install": "dist",
+
+    "config": {
+        "vendor-dir": "system/vendor"
+    },
 
     "require": {
         "pyrocms/lex": "2.2.*",
@@ -25,14 +38,5 @@
         "illuminate/encryption": "4.0.*",
         "illuminate/redis": "4.0.*",
         "phing/phing": "2.6.*"
-    },
-    "autoload": {
-        "classmap": [
-            "system/cms/controllers",
-            "system/cms/libraries"
-        ],
-        "psr-0": {
-            "Pyro": "system/cms/src/"
-        }
     }
 }

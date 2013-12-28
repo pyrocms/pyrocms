@@ -19,7 +19,6 @@
         <include name="installer/**" />
         <include name="system/**" />
         <include name="uploads/**" />
-        <include name="vendor/**" />
         <include name=".htaccess" />
         <include name="index.php" />
         <include name="LICENSE" />
