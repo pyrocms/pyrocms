@@ -24,6 +24,7 @@
         <include name="index.php" />
         <include name="LICENSE" />
         <include name="*.md" />
+        <exclude name=".DS_Store" />
     </fileset>
 
     <!-- ============================================  -->
