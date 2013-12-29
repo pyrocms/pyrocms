@@ -2,5 +2,5 @@
 
 class EmptyFieldNameException extends Exception
 {
-	protected $message = 'The Field name is empty.';
+    protected $message = 'The Field name is empty.';
 }

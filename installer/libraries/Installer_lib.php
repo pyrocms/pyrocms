@@ -201,7 +201,7 @@ class Installer_lib
             	$config['database'] = $db["database"];
 				break;
 			case 'sqlite':
-				$config['location'] = $db['location'];
+				$config['database'] = $db['location'];
 				break;
 			default:
 				throw new InstallerException("Unknown database driver type: {$db['driver']}");
@@ -209,18 +209,8 @@ class Installer_lib
 		}
 
 		$capsule = new Capsule;
+        $capsule->addConnection($config);
 
-        $capsule->addConnection(array(
-			'driver' => $config['driver'],
-			'host' => $config['host'],
-			'database' => $config['database'],
-			'username' => $config['username'],
-			'prefix' => $config['prefix'],
-			'password' => $config['password'],
-			'charset' => $config['charset'],
-			'collation' => $config['collation'],
-        ));
-		
         $container = $capsule->getContainer();
 
         $container->offsetGet('config')->offsetSet('cache.driver', 'array');

@@ -2,5 +2,5 @@
 
 class EmptyFieldNamespaceException extends Exception
 {
-	protected $message = 'The Field namespace is empty.';
+    protected $message = 'The Field namespace is empty.';
 }

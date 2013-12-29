@@ -2,5 +2,5 @@
 
 class FieldModelNotFoundException extends Exception
 {
-	protected $message = 'The Field model was not found.';
+    protected $message = 'The Field model was not found.';
 }

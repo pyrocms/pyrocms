@@ -53,9 +53,6 @@ class Installer extends CI_Controller
 	/** @var array The view variables for creating the language menu */
 	private $language_nav = array();
 
-	/** @var array Store error messages for installer */
-	public $messages = array();
-
 	/**
 	 * At start this controller should:
 	 * 1. Load the array of supported servers
@@ -431,10 +428,13 @@ class Installer extends CI_Controller
 			try {
 				$pdb = $this->installer_lib->install($user, $db_config);
 			} catch (Exception $e) {
-				// Let's tell them why the install failed
-				$this->session->set_flashdata('error', $e->getMessage());
 
-				$this->_render_view('step_4');
+				$this->_render_view('step_4', array(
+					'messages' => array(
+						'error' => $e->getMessage(),
+					)
+				));
+
 				return;
 			}
 

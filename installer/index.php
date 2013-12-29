@@ -223,11 +223,11 @@ if( PHP_VERSION_ID < 50307 ){
  * ...and it will take care of our classes
  *
  */
-if (!file_exists('../vendor/autoload.php')) {
+if (!file_exists('../system/vendor/autoload.php')) {
 	echo "It seems composer hasn't been installed yet. Please reload this page after running the following commands in a terminal:";
 	exit("<pre>cd ".realpath('..')."\nphp composer.phar install</pre>");
 }
-require_once '../vendor/autoload.php';
+require_once '../system/vendor/autoload.php';
 
 /*
  * --------------------------------------------------------------------

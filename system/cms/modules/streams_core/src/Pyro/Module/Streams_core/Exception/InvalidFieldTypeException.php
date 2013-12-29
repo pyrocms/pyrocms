@@ -2,5 +2,5 @@
 
 class InvalidFieldTypeException extends Exception
 {
-	protected $message = 'Invalid field type.';
+    protected $message = 'Invalid field type.';
 }
