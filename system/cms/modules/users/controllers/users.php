@@ -367,6 +367,7 @@ class Users extends Public_Controller
 					$profile_data['user_id'] = $id;
 					Model\Profile::create($profile_data);
 
+
 					// Assign to users
 					Model\User::assignGroupIdsToUser($user, array(1));
 
@@ -395,6 +396,11 @@ class Users extends Public_Controller
 					// activate instantly
 					} elseif ((int) Settings::get('activation_email') === 2) {
 						$user->activateUser();
+
+						$user = $this->sentry->findUserById($user->id);
+						$this->sentry->login($user, false);
+
+						$this->session->set_flashdata('success', lang('user:logged_in'));
 						redirect($this->config->item('register_redirect', 'ion_auth'));
 					
 					} else {
