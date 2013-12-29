@@ -48,7 +48,7 @@ class EntryModel extends Eloquent
 
     /**
      * The array of user columns that will be selected
-     * @var array 
+     * @var array
      */
     protected $user_columns = array('id', 'username');
 
@@ -153,8 +153,7 @@ class EntryModel extends Eloquent
     {
         parent::__construct($attributes);
 
-        if ($this->stream_slug and $this->stream_namespace)
-        {
+        if ($this->stream_slug and $this->stream_namespace) {
             $this->stream($this->stream_slug, $this->stream_namespace, $this);
         }
     }
@@ -235,23 +234,16 @@ class EntryModel extends Eloquent
                 $instance = new static;
             }
 
-            if ($stream_slug instanceof StreamModel)
-            {
+            if ($stream_slug instanceof StreamModel) {
                 $instance->stream = $stream_slug;
-            }
-            elseif (is_numeric($stream_slug))
-            {
-                if ( ! $instance->stream = StreamModel::getCachedCollection()->findByAttribute($stream_slug, 'id'))
-                {
+            } elseif (is_numeric($stream_slug)) {
+                if ( ! $instance->stream = StreamModel::findByAttribute($stream_slug, $id)) {
                     $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
 
                     throw new Exception\StreamModelNotFoundException($message);
                 }
-            } 
-            elseif ( ! $instance->stream) 
-            {
-                if ( ! $instance->stream = StreamModel::getCachedCollection()->findBySlugAndNamespace($stream_slug, $stream_namespace))
-                {
+            } elseif ( ! $instance->stream) {
+                if ( ! $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) {
                     $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
 
                     throw new Exception\StreamModelNotFoundException($message);
@@ -277,10 +269,10 @@ class EntryModel extends Eloquent
 
     /**
      * Delete an entry
-     * @param  string $stream_slug      
-     * @param  string $stream_namespace 
-     * @param  integer $id               
-     * @return boolean                   
+     * @param  string $stream_slug
+     * @param  string $stream_namespace
+     * @param  integer $id
+     * @return boolean
      */
     public static function deleteEntry($stream_slug, $stream_namespace = null, $id)
     {
@@ -381,7 +373,7 @@ class EntryModel extends Eloquent
     {
         if (! $field = $this->getField($field_slug)) return null;
 
-        $type = $field->getType($this); 
+        $type = $field->getType($this);
 
         return $type;
     }
@@ -467,8 +459,7 @@ class EntryModel extends Eloquent
 
     public static function getInstance()
     {
-        if (static::$instance instanceof static)
-        {
+        if (static::$instance instanceof static) {
             return static::$instance;
         }
 
@@ -591,42 +582,33 @@ class EntryModel extends Eloquent
         $insert_data = array();
 
         $alt_process = array();
-        
+
         $types = array();
-        
+
         // Set some values for a new entry
-        if ( ! $this->exists)
-        {
+        if ( ! $this->exists) {
             $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
 
             $this->setAttribute('created_by', $created_by);
             $this->setAttribute('updated_at', '0000-00-00 00:00:00');
             $this->setAttribute('ordering_count', $this->count('id')+1);
-        }
-        else
-        {
+        } else {
             $this->setAttribute('updated_at', time());
         }
 
 
-        if ($this->replicated)
-        {
+        if ($this->replicated) {
             $attributes = array_except($this->getAttributes(), array($this->getKeyName()));
-        }
-        else
-        {
+        } else {
             $attributes = $this->getAttributes();
         }
 
         $this->setRawAttributes($attributes);
 
-        if ( ! $fields->isEmpty() and ! $this->disable_pre_save)
-        {
-            foreach ($fields as $field)
-            {
+        if ( ! $fields->isEmpty() and ! $this->disable_pre_save) {
+            foreach ($fields as $field) {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                if ( ! in_array($field->field_slug, $this->skip_field_slugs))
-                {
+                if ( ! in_array($field->field_slug, $this->skip_field_slugs)) {
 
                     $type = $field->getType($this);
                     $types[] = $type;
@@ -638,12 +620,9 @@ class EntryModel extends Eloquent
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
                     // actual table
-                    if ($type->alt_process)
-                    {
+                    if ($type->alt_process) {
                         $alt_process[] = $type;
-                    }
-                    else
-                    {
+                    } else {
                         $this->setAttribute($field->field_slug, $type->preSave());
                     }
                 }
@@ -657,20 +636,18 @@ class EntryModel extends Eloquent
         // Is there any logic to complete before inserting?
         //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
 
-        if ($saved = parent::save($options) and $this->search_index_template)
-        {
+        if ($saved = parent::save($options) and $this->search_index_template) {
             Search::indexEntry($this, $this->search_index_template);
         }
 
         // -------------------------------------
         // Alt Processing
         // -------------------------------------
-        foreach ($alt_process as $type)
-        {
+        foreach ($alt_process as $type) {
             $type->setEntry($this);
             $type->preSave();
         }
-        
+
         // -------------------------------------
         // Event: Post Insert Entry
         // -------------------------------------
@@ -687,8 +664,7 @@ class EntryModel extends Eloquent
     public function delete()
     {
         // Delete index automatically per SAPI conventions
-        if ( ! $search_index_module = $this->getModuleSlug())
-        {
+        if ( ! $search_index_module = $this->getModuleSlug()) {
             $search_index_module = $this->getStream()->stream_namespace;
         }
 
@@ -699,9 +675,9 @@ class EntryModel extends Eloquent
 
         // Run through destructs
         foreach ($this->getAssignments() as $field) {
-            
+
             $field->getType($this)->entryDestruct();
-        
+
         }
 
         // Fire before deleting an entry
@@ -726,15 +702,13 @@ class EntryModel extends Eloquent
         $entry_class = get_called_class();
 
         // Try to figure out if the module from an extended entry model
-        if ($entry_class != 'Pyro\Module\Streams_core\EntryModel')
-        {
+        if ($entry_class != 'Pyro\Module\Streams_core\EntryModel') {
             $folders = explode($entry_class, '\\');
 
             $module = isset($folders[2]) ? strtolower($folders[2]) : null;
 
             // Check if this module exists, set to null if it doesn't
-            if ( ! module_exists($module))
-            {
+            if ( ! module_exists($module)) {
                 $module = false;
             }
         }
@@ -781,63 +755,50 @@ class EntryModel extends Eloquent
     public static function runFieldPreProcesses($fields, $entry = null, $form_data = array(), $skips = array(), $set_missing_to_null = true)
     {
         $return_data = array();
-        
-        if ($fields)
-        {
-            foreach ($fields as $field)
-            {
-                // If we don't have a post item for this field, 
+
+        if ($fields) {
+            foreach ($fields as $field) {
+                // If we don't have a post item for this field,
                 // then simply set the value to null. This is necessary
                 // for fields that want to run a preSave but may have
                 // a situation where no post data is sent (like a single checkbox)
-                if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
-                {
+                if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null) {
                     $form_data[$field->field_slug] = null;
                 }
 
                 // If this is not in our skips list, process it.
-                if ( ! in_array($field->field_slug, $skips))
-                {
+                if ( ! in_array($field->field_slug, $skips)) {
                     $type = $field->getType($entry);
                     $type->setFormData($form_data);
-        
-                    if ( ! $type->alt_process)
-                    {
+
+                    if ( ! $type->alt_process) {
                         // If a preSave function exists, go ahead and run it
-                        if (method_exists($type, 'preSave'))
-                        {
+                        if (method_exists($type, 'preSave')) {
                             $return_data[$field->field_slug] = $type->preSave();
 
                             // We are unsetting the null values to as to
                             // not upset db can be null rules.
-                            if (is_null($return_data[$field->field_slug]))
-                            {
+                            if (is_null($return_data[$field->field_slug])) {
                                 unset($return_data[$field->field_slug]);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             $return_data[$field->field_slug] = isset($form_data[$type->getFormSlug()]) ? $form_data[$type->getFormSlug()] : null;
 
                             // Make null - some fields don't like just blank values
-                            if ($return_data[$field->field_slug] == '')
-                            {
+                            if ($return_data[$field->field_slug] == '') {
                                 $return_data[$field->field_slug] = null;
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         // If this is an alt_process, there can still be a preSave,
                         // it just won't return anything so we don't have to
                         // save the value
-                        if (method_exists($type, 'preSave'))
-                        {
+                        if (method_exists($type, 'preSave')) {
                             $type->preSave();
                         }
                     }
                 }
-            }   
+            }
         }
 
         return $return_data;
@@ -885,7 +846,7 @@ class EntryModel extends Eloquent
         if ($columns) {
             $this->view_options = $columns;
         }
-        
+
         return $this;
     }
 
@@ -913,11 +874,11 @@ class EntryModel extends Eloquent
         foreach ($this->getViewOptions() as $key => $column) {
 
             if (is_string($key)) {
-                
+
                 $segments = explode(':', $key);
 
                 $columns[] = $segments[count($segments)-1];
-            
+
             } else {
 
                 $columns[] = $column;
@@ -938,10 +899,8 @@ class EntryModel extends Eloquent
 
         $fields = $this->getAssignments()->getArrayIndexedBySlug();
 
-        foreach ($this->getViewOptions() as $key => $value)
-        {
-            if (Str::startsWith($key, 'lang:'))
-            {
+        foreach ($this->getViewOptions() as $key => $value) {
+            if (Str::startsWith($key, 'lang:')) {
                 $field_names[$value] = lang_label($key);
 
                 continue;
@@ -969,8 +928,7 @@ class EntryModel extends Eloquent
      */
     public function getTitleColumnValue($default = null)
     {
-        if ( ! $column = $default)
-        {
+        if ( ! $column = $default) {
             $column = $this->getTitleColumn();
         }
 
@@ -986,8 +944,7 @@ class EntryModel extends Eloquent
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if ( ! trim($title_column) or ! $this->getEloquentOutput($title_column))
-        {
+        if ( ! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
             $title_column = $this->getKeyName();
         }
 
@@ -1022,14 +979,13 @@ class EntryModel extends Eloquent
     {
         $dates = array(static::CREATED_AT, static::UPDATED_AT);
 
-        if ($this->softDelete)
-        {
+        if ($this->softDelete) {
             $dates = array_push($dates, static::DELETED_AT);
         }
 
         return $dates;
     }
-    
+
     /* Created by user format
      * @return [type] [description]
      */
@@ -1040,7 +996,7 @@ class EntryModel extends Eloquent
 
     /**
      * Is subclass of Entry
-     * @param  string  $subclass 
+     * @param  string  $subclass
      * @param  string  $class
      * @return boolean
      */
@@ -1058,7 +1014,7 @@ class EntryModel extends Eloquent
         $output = array();
 
         foreach ($this->getAttributeKeys() as $attribute) {
-            
+
             $output[$attribute] = $this->getOutput($attribute);
 
         }
@@ -1107,8 +1063,7 @@ class EntryModel extends Eloquent
 
             $entry = $this;
 
-            if (is_array($template))
-            {
+            if (is_array($template)) {
                 $format = isset($template['format']) ? $template['format'] : null;
 
                 switch ($format) {
@@ -1116,15 +1071,15 @@ class EntryModel extends Eloquent
                     case 'string':
                         $entry = $this->asString($attribute);
                         break;
-                    
+
                     case 'plugin':
                         $entry = $this->asPlugin($attribute);
                         break;
-                    
+
                     case 'data':
                         $entry = $this->asData($attribute);
                         break;
-                    
+
                     default:
                         $entry = $this;
                         break;
@@ -1137,11 +1092,11 @@ class EntryModel extends Eloquent
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
             ));
-            
+
         } elseif ($type = $this->getFieldType($attribute)) {
-            
+
             return $type->stringOutput($attribute);
-        
+
         }
 
         return $this->getEloquentOutput($attribute);
@@ -1192,8 +1147,7 @@ class EntryModel extends Eloquent
 
     public function replicateWithOutput($attribute_keys = null)
     {
-        if (is_string($attribute_keys))
-        {
+        if (is_string($attribute_keys)) {
             $attribute_keys = array($attribute_keys);
         }
 
@@ -1245,8 +1199,7 @@ class EntryModel extends Eloquent
         // while it is constructing and executing various queries against it.
         $builder->setModel($this)->with($this->with);
 
-        if ($excludeDeleted and $this->softDelete)
-        {
+        if ($excludeDeleted and $this->softDelete) {
             $builder->whereNull($this->getQualifiedDeletedAtColumn());
         }
 
@@ -1286,7 +1239,7 @@ class EntryModel extends Eloquent
             ->setFieldMaps($this->field_maps)
             ->setViewOptions($this->view_options)
             ->setTable($this->table);
-            
+
         $model->exists = $model->getKey() ? true : false;
 
         return $model;
@@ -1302,14 +1255,13 @@ class EntryModel extends Eloquent
     public function __call($method, $parameters)
     {
         // Handle dynamic relation as join
-        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches))
-        {
+        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
             return $this->relationAsJoin($matches[1]);
         }
 
         return parent::__call($method, $parameters);
     }
-    
+
     public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);

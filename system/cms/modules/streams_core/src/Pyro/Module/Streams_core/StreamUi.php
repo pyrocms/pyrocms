@@ -4,34 +4,34 @@
 
 class StreamUi extends AbstractUi
 {
-	public function table()
-	{
+    public function table()
+    {
 
-	}
+    }
 
-	public function form()
-	{
+    public function form()
+    {
 
-	}
+    }
 
-	public function viewOptions()
-	{
+    public function viewOptions()
+    {
 
-	}
+    }
 
-	public function triggerTable()
-	{
+    public function triggerTable()
+    {
 
-	}
+    }
 
-	public function triggerForm()
-	{
+    public function triggerForm()
+    {
 
-	}
+    }
 
-	public function triggerViewOptions()
-	{
-		
-	}
+    public function triggerViewOptions()
+    {
+
+    }
 
 }

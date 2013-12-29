@@ -56,7 +56,7 @@ $lang['global:fields']					= 'Champs';
 $lang['global:custom_fields']			= 'Champs personnalisés';
 
 $lang['login_title'] 					= 'Connexion';
-$lang['global:fatal_error'] 			= 'Erreur Fatale, CMS déjà installé&nbsp;?';
+$lang['global:fatal_error'] 			= 'Erreur Fatale, est-ce que le CMS est déjà installé&nbsp;?';
 $lang['global:demo_restrictions'] 		= 'Certaines fonctionnalités de cette page ont été désactivées pour la démonstration.';
 
 $lang['login_error_label'] 				= 'Erreur de Connexion';

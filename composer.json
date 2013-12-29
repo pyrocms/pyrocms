@@ -1,8 +1,21 @@
 {
+    "autoload": {
+        "classmap": [
+            "system/cms/controllers",
+            "system/cms/libraries"
+        ],
+        "psr-0": {
+            "Pyro": "system/cms/src/"
+        }
+    },
+
     "minimum-stability": "dev",
-    
     "prefer-stable": true,
     "preferred-install": "dist",
+
+    "config": {
+        "vendor-dir": "system/vendor"
+    },
 
     "require": {
         "pyrocms/lex": "2.2.*",
@@ -10,9 +23,8 @@
         "cartalyst/sentry": "2.0.*",
         "dflydev/markdown": "1.0.*",
         "ircmaxell/password-compat": "1.0.*",
-        "illuminate/html": "4.0.*",
-        "illuminate/database": "4.0.*",
         "illuminate/cache": "4.0.*",
+        "illuminate/database": "4.0.*",
         "illuminate/filesystem": "4.0.*",
         "nesbot/Carbon": "1.*",
         "patchwork/utf8": "1.1.*",
@@ -23,18 +35,8 @@
         "loic-sharma/profiler": "1.1.*"
     },
     "require-dev": {
-        "illuminate/database": "4.0.x",
-        "illuminate/encryption": "4.0.x",
-        "illuminate/filesystem": "4.0.x",
-        "illuminate/redis": "4.0.x"
-    },
-    "autoload": {
-        "classmap": [
-            "system/cms/controllers",
-            "system/cms/libraries"
-        ],
-        "psr-0": {
-            "Pyro": "system/cms/src/"
-        }
+        "illuminate/encryption": "4.0.*",
+        "illuminate/redis": "4.0.*",
+        "phing/phing": "2.6.*"
     }
 }

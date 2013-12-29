@@ -3,6 +3,8 @@
 .project
 .settings
 .idea
+build/
+
 composer.lock
 assets/cache/*
 assets/page_types/*
@@ -13,9 +15,9 @@ assets/page_types/default/*
 system/cms/cache/*
 system/cms/config/database.php
 system/cms/logs/log-*.php
+system/vendor/*
 nbproject/
 uploads/*
-vendor/*
 
 addons/*
 !addons/shared_addons

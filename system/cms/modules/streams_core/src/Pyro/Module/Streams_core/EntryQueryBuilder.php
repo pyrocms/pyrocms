@@ -13,7 +13,7 @@ use Pyro\Model\EloquentQueryBuilder;
 
 class EntryQueryBuilder extends EloquentQueryBuilder
 {
-	protected $entries = array();
+    protected $entries = array();
 
     /**
      * Enable or disable eager loading field type relations
@@ -30,122 +30,114 @@ class EntryQueryBuilder extends EloquentQueryBuilder
     protected $field_maps = array();
 
     /**
-	 * Execute the query as a "select" statement.
-	 *
-	 * @param  array  $columns
-	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 */
-	public function get($columns = null, $exclude = false)
-	{
-		$this->rememberIndex();
-		
-		// Get set up with our environment
-		$this->stream = $this->model->getStream();
-		$this->table = $this->model->getTable();
+     * Execute the query as a "select" statement.
+     *
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function get($columns = null, $exclude = false)
+    {
+        $this->rememberIndex();
 
-		$columns = $this->prepareColumns($columns);
+        // Get set up with our environment
+        $this->stream = $this->model->getStream();
+        $this->table = $this->model->getTable();
 
-		$this->applyFilters();
+        $columns = $this->prepareColumns($columns);
 
-		$this->entries = $this->getModels($columns);
+        $this->applyFilters();
 
-		foreach ($this->entries as $entry)
-		{
-			// Pass our custom properties to the queried models
-			$this->model->passProperties($entry);
-		}
+        $this->entries = $this->getModels($columns);
 
-		// If we actually found models we will also eager load any relationships that
-		// have been specified as needing to be eager loaded, which will solve the
-		// n+1 query issue for the developers to avoid running a lot of queries.
-		if (count($this->entries) > 0)
-		{
-			if ($eager_loads = $this->getViewOptionRelations() and ! empty($eager_loads))
-			{
-				$eager_loads = array_merge($eager_loads, $this->eagerLoad);
-			}
+        foreach ($this->entries as $entry) {
+            // Pass our custom properties to the queried models
+            $this->model->passProperties($entry);
+        }
 
-			if ( ! empty($eager_loads)) {
+        // If we actually found models we will also eager load any relationships that
+        // have been specified as needing to be eager loaded, which will solve the
+        // n+1 query issue for the developers to avoid running a lot of queries.
+        if (count($this->entries) > 0) {
+            if ($eager_loads = $this->getViewOptionRelations() and ! empty($eager_loads)) {
+                $eager_loads = array_merge($eager_loads, $this->eagerLoad);
+            }
 
-				$this->with($eager_loads);
-			}
+            if ( ! empty($eager_loads)) {
 
-			$this->entries = $this->eagerLoadRelations($this->entries);
-		}
+                $this->with($eager_loads);
+            }
 
-		return $this->model->newCollection($this->entries);
-	}
+            $this->entries = $this->eagerLoadRelations($this->entries);
+        }
 
-	/**
-	 * Prep columns
-	 * @param  array  $columns
-	 * @return array
-	 */
+        return $this->model->newCollection($this->entries);
+    }
+
+    /**
+     * Prep columns
+     * @param  array  $columns
+     * @return array
+     */
     protected function prepareColumns($columns = null)
     {
-		$this->parseColumnsAndFieldMaps();
-		
-		if (empty($columns)) {
-			$columns = $this->model->getColumns();
-		} elseif (empty($columns) and $exclude) {
-			$columns = $this->model->getAllColumnsExclude();
-		}
+        $this->parseColumnsAndFieldMaps();
 
-		foreach ($columns as $key => $column) {
+        if (empty($columns)) {
+            $columns = $this->model->getColumns();
+        } elseif (empty($columns) and $exclude) {
+            $columns = $this->model->getAllColumnsExclude();
+        }
 
-			$segments = explode(':', $column);
+        foreach ($columns as $key => $column) {
 
-			$columns[$key] = $segments[count($segments)-1];
-		}
+            $segments = explode(':', $column);
 
-		// We need to return the models with their keys
-		return $this->requireColumns($columns);
+            $columns[$key] = $segments[count($segments)-1];
+        }
+
+        // We need to return the models with their keys
+        return $this->requireColumns($columns);
     }
 
     public function requireColumns($columns)
     {
-    	$entry = new EntryModel;
+        $entry = new EntryModel;
 
-    	// Always include the primary key if we are selecting specific columns, regardless
-        if ( ! $this->hasAsterisk($columns) and ! in_array($this->model->getKeyName(), $columns))
-        {
+        // Always include the primary key if we are selecting specific columns, regardless
+        if ( ! $this->hasAsterisk($columns) and ! in_array($this->model->getKeyName(), $columns)) {
             array_unshift($columns, $this->model->getTable().'.'.$this->model->getKeyName());
-        }
-        elseif ($this->hasAsterisk($columns))
-        {
-        	$columns = $this->model->getAllColumns();
+        } elseif ($this->hasAsterisk($columns)) {
+            $columns = $this->model->getAllColumns();
         }
 
         // Require keys
-    	foreach ($columns as $key => $column) {
+        foreach ($columns as $key => $column) {
 
-    		// Field types can require columns
-    		if ($type = $this->model->getFieldType($column))
-    		{
-    			$columns = array_merge($columns, $type->requireEntryColumns());
-    		}
+            // Field types can require columns
+            if ($type = $this->model->getFieldType($column)) {
+                $columns = array_merge($columns, $type->requireEntryColumns());
+            }
 
-    		// Foreing keys are required too
-    		if ($relation = $this->model->getRelationAttribute($column)) {
+            // Foreing keys are required too
+            if ($relation = $this->model->getRelationAttribute($column)) {
 
-				if ($relation instanceof BelongsToMany) {
-				
-					unset($columns[$key]);
-				
-				} elseif ($relation instanceof BelongsTo) {
+                if ($relation instanceof BelongsToMany) {
 
-					$foreign_key = $relation->getForeignKey();
-					$columns[] = $foreign_key;
+                    unset($columns[$key]);
 
-					if ($column != $foreign_key)
-					{
-						$columns = array_diff($columns, array($column));	
-					}
-				}
-    		}
-    	}
+                } elseif ($relation instanceof BelongsTo) {
 
-    	return array_unique($columns);
+                    $foreign_key = $relation->getForeignKey();
+                    $columns[] = $foreign_key;
+
+                    if ($column != $foreign_key) {
+                        $columns = array_diff($columns, array($column));
+                    }
+                }
+            }
+        }
+
+        return array_unique($columns);
     }
 
     /**
@@ -155,15 +147,13 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function hasAsterisk(array $columns = array())
     {
-    	if ( ! empty($columns))
-    	{
-			foreach ($columns as $column)
-			{
-				if ($column == '*') return true;
-			}
-    	}
+        if ( ! empty($columns)) {
+            foreach ($columns as $column) {
+                if ($column == '*') return true;
+            }
+        }
 
-    	return false;
+        return false;
     }
 
     /**
@@ -172,138 +162,132 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function getViewOptionRelations()
     {
-    	$relations = array();
+        $relations = array();
 
-    	$view_options = $this->model->getColumns();
+        $view_options = $this->model->getColumns();
 
-    	if ($this->isEnableAutoEagerLoading() and ! empty($view_options))
-    	{
-    		if (in_array('created_by', $view_options))
-    		{
-    			$relations[] = 'createdByUser';
-    		}
+        if ($this->isEnableAutoEagerLoading() and ! empty($view_options)) {
+            if (in_array('created_by', $view_options)) {
+                $relations[] = 'createdByUser';
+            }
 
-	    	foreach ($view_options as $column) {
-	    		$column = str_replace('relation:', '', $column);
-	    		if ($this->hasRelation($column)) {
-	    			$relations[] = $column;
-	    		}
-	    	} 		
-    	}
+            foreach ($view_options as $column) {
+                $column = str_replace('relation:', '', $column);
+                if ($this->hasRelation($column)) {
+                    $relations[] = $column;
+                }
+            }
+        }
 
-    	return array_unique($relations);
+        return array_unique($relations);
     }
 
-	protected function parseColumnsAndFieldMaps($columns = array())
-	{
-		$field_maps = array();
+    protected function parseColumnsAndFieldMaps($columns = array())
+    {
+        $field_maps = array();
 
-		$columns = array();
+        $columns = array();
 
-		foreach ($this->model->getViewOptions() as $key => $value)
-		{
-			if (is_numeric($key)) {
-				
-				$columns[] = $value;
-			
-			} else {
-				
-				if ( ! Str::startsWith($key, 'lang:'))
-				{
-					$columns[] = $key;
-				}
+        foreach ($this->model->getViewOptions() as $key => $value) {
+            if (is_numeric($key)) {
 
-				$segments = explode(':', $key);
+                $columns[] = $value;
 
-				$key = $segments[count($segments)-1];
+            } else {
 
-				$field_maps[$key] = $value;
-			}
-		}
+                if ( ! Str::startsWith($key, 'lang:')) {
+                    $columns[] = $key;
+                }
 
-		$this->model
-			->setColumns($columns)
-			->setFieldMaps($field_maps);
-	}
+                $segments = explode(':', $key);
 
-	/**
-	 * Get the relation instance for the given relation name.
-	 *
-	 * @param  string  $relation
-	 * @return \Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function getRelation($relation)
-	{
-		$me = $this;
+                $key = $segments[count($segments)-1];
 
-		// We want to run a relationship query without any constrains so that we will
-		// not have to remove these where clauses manually which gets really hacky
-		// and is error prone while we remove the developer's own where clauses.
-		$query = Relation::noConstraints(function() use ($me, $relation)
-		{	
-			return $me->model->getRelationAttribute($relation);
-		});
+                $field_maps[$key] = $value;
+            }
+        }
 
-		$nested = $this->nestedRelations($relation);
+        $this->model
+            ->setColumns($columns)
+            ->setFieldMaps($field_maps);
+    }
 
-		// If there are nested relationships set on the query, we will put those onto
-		// the query instances so that they can be handled after this relationship
-		// is loaded. In this way they will all trickle down as they are loaded.
-		if (count($nested) > 0)
-		{
-			$query->getQuery()->with($nested);
-		}
+    /**
+     * Get the relation instance for the given relation name.
+     *
+     * @param  string  $relation
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function getRelation($relation)
+    {
+        $me = $this;
 
-		return $query;
-	}
+        // We want to run a relationship query without any constrains so that we will
+        // not have to remove these where clauses manually which gets really hacky
+        // and is error prone while we remove the developer's own where clauses.
+        $query = Relation::noConstraints(function() use ($me, $relation) {
+            return $me->model->getRelationAttribute($relation);
+        });
+
+        $nested = $this->nestedRelations($relation);
+
+        // If there are nested relationships set on the query, we will put those onto
+        // the query instances so that they can be handled after this relationship
+        // is loaded. In this way they will all trickle down as they are loaded.
+        if (count($nested) > 0) {
+            $query->getQuery()->with($nested);
+        }
+
+        return $query;
+    }
 
     public function getRelationAttribute($attribute = null)
     {
-    	$attribute = camel_case($attribute);
+        $attribute = camel_case($attribute);
 
         if (method_exists($this->model, $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
-            
+
             return $relation;
-        
+
         } elseif ($type = $this->model->getFieldType($attribute) and $type->hasRelation()) {
 
             return $type->relation();
-        
+
         }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function hasRelation($attribute = null)
-	{
-		return $this->model->getRelationAttribute($attribute) instanceof Relation;
-	}
+    public function hasRelation($attribute = null)
+    {
+        return $this->model->getRelationAttribute($attribute) instanceof Relation;
+    }
 
     public function relationAsJoin($attribute)
     {
-    	$attribute = strtolower($attribute);
+        $attribute = strtolower($attribute);
 
         if ($this->hasRelation($attribute)) {
-            
+
             $relation = $this->model->getRelationAttribute($attribute);
 
-			$related_table = $relation->getRelated()->getTable();
+            $related_table = $relation->getRelated()->getTable();
 
-			$related_key = $relation->getRelated()->getKeyName();
+            $related_key = $relation->getRelated()->getKeyName();
 
             if ($relation instanceof BelongsTo) {
-               
+
                 return $this->join($related_table, $related_table.'.'.$related_key, '=', $this->model->getTable().'.'.$relation->getForeignKey());
-            
+
             } elseif ($relation instanceof BelongsToMany) {
 
-            	//
+                //
 
             }
 
         } else {
 
-            // Throw exception if its not an instance of Relation 
+            // Throw exception if its not an instance of Relation
 
         }
     }
@@ -330,190 +314,189 @@ class EntryQueryBuilder extends EloquentQueryBuilder
     }
 
 
-	protected function applyFilters()
-	{
-		// -------------------------------------
-		// Filters (QueryString API)
-		// -------------------------------------
-		$this->stream = $this->model->getStream();
+    protected function applyFilters()
+    {
+        // -------------------------------------
+        // Filters (QueryString API)
+        // -------------------------------------
+        $this->stream = $this->model->getStream();
 
-		if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+        if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
 
-			// Get all URL variables
-			$query_string_variables = ci()->input->get();
+            // Get all URL variables
+            $query_string_variables = ci()->input->get();
 
-			// Loop and process!
-			foreach ($query_string_variables as $filter => $value) {
-				
-				// Split into components
-				$commands = explode('-', $filter);
+            // Loop and process!
+            foreach ($query_string_variables as $filter => $value) {
 
-				// Filter?
-				if ($commands[0] != 'f') continue;
+                // Split into components
+                $commands = explode('-', $filter);
 
-				// Only filter our current namespace / stream
-				if ($commands[1] != $this->stream->stream_namespace) continue;
-				if ($commands[2] != $this->stream->stream_slug) continue;
+                // Filter?
+                if ($commands[0] != 'f') continue;
 
-				// Switch on the restriction
-				switch ($commands[4]) {
-					
-					/**
-					 * IS
-					 * results in: filter = value
-					 */
-					case 'is':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
+                // Only filter our current namespace / stream
+                if ($commands[1] != $this->stream->stream_namespace) continue;
+                if ($commands[2] != $this->stream->stream_slug) continue;
 
-						// Do it
-						$this->where($commands[3], '=', $value);
-						break;
+                // Switch on the restriction
+                switch ($commands[4]) {
 
+                    /**
+                     * IS
+                     * results in: filter = value
+                     */
+                    case 'is':
 
-					/**
-					 * ISNOT
-					 * results in: filter != value
-					 */
-					case 'isnot':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
 
-						// Do it
-						$this->where($commands[3], '!=', $value);
-						break;
+                        // Do it
+                        $this->where($commands[3], '=', $value);
+                        break;
 
 
-					/**
-					 * ISNOT
-					 * results in: filter != value
-					 */
-					case 'isnot':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
+                    /**
+                     * ISNOT
+                     * results in: filter != value
+                     */
+                    case 'isnot':
 
-						// Do it
-						$this->where($commands[3], '!=', $value);
-						break;
-					
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
 
-					/**
-					 * CONTAINS
-					 * results in: filter LIKE '%value%'
-					 */
-					case 'contains':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
-
-						// Do it
-						$this->where($commands[3], 'LIKE', '%'.$value.'%');
-						break;
+                        // Do it
+                        $this->where($commands[3], '!=', $value);
+                        break;
 
 
-					/**
-					 * DOESNOTCONTAIN
-					 * results in: filter NOT LIKE '%value%'
-					 */
-					case 'doesnotcontain':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
+                    /**
+                     * ISNOT
+                     * results in: filter != value
+                     */
+                    case 'isnot':
 
-						// Do it
-						$this->where($commands[3], 'NOT LIKE', '%'.$value.'%');
-						break;
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
 
-
-					/**
-					 * STARTSWITH
-					 * results in: filter LIKE 'value%'
-					 */
-					case 'startswith':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
-
-						// Do it
-						$this->where($commands[3], 'LIKE', $value.'%');
-						break;
+                        // Do it
+                        $this->where($commands[3], '!=', $value);
+                        break;
 
 
-					/**
-					 * ENDSWITH
-					 * results in: filter LIKE '%value'
-					 */
-					case 'endswith':
-						
-						// Gotta have a value for this one
-						if (empty($value)) continue;
+                    /**
+                     * CONTAINS
+                     * results in: filter LIKE '%value%'
+                     */
+                    case 'contains':
 
-						// Do it
-						$this->where($commands[3], 'LIKE', '%'.$value);
-						break;
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
 
-
-					/**
-					 * ISEMPTY
-					 * results in: (filter IS NULL OR filter = '')
-					 */
-					case 'isempty':
-						
-						$this->where(function($query) use ($commands, $value) {
-							$query->where($commands[3], 'IS', 'NULL');
-							$query->orWhere($commands[3], '=', '');
-						});
-						break;
+                        // Do it
+                        $this->where($commands[3], 'LIKE', '%'.$value.'%');
+                        break;
 
 
-					/**
-					 * ISNOTEMPTY
-					 * results in: filter > '')
-					 */
-					case 'isnotempty':
-						
-						$this->where($commands[3], '>', '');
-						break;
+                    /**
+                     * DOESNOTCONTAIN
+                     * results in: filter NOT LIKE '%value%'
+                     */
+                    case 'doesnotcontain':
+
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
+
+                        // Do it
+                        $this->where($commands[3], 'NOT LIKE', '%'.$value.'%');
+                        break;
 
 
-					default: break;
-				}
-			}
-		}
-		
-		// -------------------------------------
-		// Ordering / Sorting (QueryString API)
-		// -------------------------------------
+                    /**
+                     * STARTSWITH
+                     * results in: filter LIKE 'value%'
+                     */
+                    case 'startswith':
 
-		if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-			if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-				
-				if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation)
-				{
-					$order_by = $order_by_relation->getForeignKey();
-				}
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
 
-				$this->orderBy($order_by, $sort_by);
-			} else {
-				$this->orderBy($order_by, 'ASC');
-			}
-		}
+                        // Do it
+                        $this->where($commands[3], 'LIKE', $value.'%');
+                        break;
 
-		return $this;
-	}
 
-	/**
-	 * Retrieve the "count" result of the query.
-	 * @param  string $column
-	 * @return int
-	 */
-	public function count($column = '*')
-	{
-		$this->applyFilters();
+                    /**
+                     * ENDSWITH
+                     * results in: filter LIKE '%value'
+                     */
+                    case 'endswith':
 
-		return parent::count($column);
-	}
+                        // Gotta have a value for this one
+                        if (empty($value)) continue;
+
+                        // Do it
+                        $this->where($commands[3], 'LIKE', '%'.$value);
+                        break;
+
+
+                    /**
+                     * ISEMPTY
+                     * results in: (filter IS NULL OR filter = '')
+                     */
+                    case 'isempty':
+
+                        $this->where(function($query) use ($commands, $value) {
+                            $query->where($commands[3], 'IS', 'NULL');
+                            $query->orWhere($commands[3], '=', '');
+                        });
+                        break;
+
+
+                    /**
+                     * ISNOTEMPTY
+                     * results in: filter > '')
+                     */
+                    case 'isnotempty':
+
+                        $this->where($commands[3], '>', '');
+                        break;
+
+
+                    default: break;
+                }
+            }
+        }
+
+        // -------------------------------------
+        // Ordering / Sorting (QueryString API)
+        // -------------------------------------
+
+        if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+            if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+
+                if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation) {
+                    $order_by = $order_by_relation->getForeignKey();
+                }
+
+                $this->orderBy($order_by, $sort_by);
+            } else {
+                $this->orderBy($order_by, 'ASC');
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the "count" result of the query.
+     * @param  string $column
+     * @return int
+     */
+    public function count($column = '*')
+    {
+        $this->applyFilters();
+
+        return parent::count($column);
+    }
 }

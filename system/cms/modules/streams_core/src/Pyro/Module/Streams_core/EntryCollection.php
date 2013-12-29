@@ -5,140 +5,137 @@ use Pyro\Model\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {
-	protected $format = 'eloquent';
+    protected $format = 'eloquent';
 
-	/**
-	 * Set the active format of all models as original
-	 * @return object
-	 */
-	public function asOriginal()
-	{
-		$this->format = EntryModel::FORMAT_ORIGINAL;
+    /**
+     * Set the active format of all models as original
+     * @return object
+     */
+    public function asOriginal()
+    {
+        $this->format = EntryModel::FORMAT_ORIGINAL;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set the active format of all models as eloquent
-	 * @return object
-	 */
-	public function asEloquent()
-	{
-		$this->format = EntryModel::FORMAT_ELOQUENT;
+    /**
+     * Set the active format of all models as eloquent
+     * @return object
+     */
+    public function asEloquent()
+    {
+        $this->format = EntryModel::FORMAT_ELOQUENT;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set the active format of all models as string
-	 * @return object
-	 */
-	public function asString()
-	{
-		$this->format = EntryModel::FORMAT_STRING;
+    /**
+     * Set the active format of all models as string
+     * @return object
+     */
+    public function asString()
+    {
+        $this->format = EntryModel::FORMAT_STRING;
 
-		$entries = array();
+        $entries = array();
 
-		foreach($this->items as $entry) {
-			$entries[] = $entry->asString();
-		}
+        foreach($this->items as $entry) {
+            $entries[] = $entry->asString();
+        }
 
-		return new static($entries);
-	}
+        return new static($entries);
+    }
 
-	/**
-	 * Set the active format of all models as data
-	 * @return object
-	 */
-	public function asData()
-	{
-		$this->format = EntryModel::FORMAT_DATA;
+    /**
+     * Set the active format of all models as data
+     * @return object
+     */
+    public function asData()
+    {
+        $this->format = EntryModel::FORMAT_DATA;
 
-		$entries = array();
+        $entries = array();
 
-		foreach($this->items as $entry) {
-			$entries[] = $entry->asData();
-		}
+        foreach($this->items as $entry) {
+            $entries[] = $entry->asData();
+        }
 
-		return new static($entries);
-	}
+        return new static($entries);
+    }
 
-	/**
-	 * Set the active format of all models as plugin
-	 * @return object
-	 */
-	public function asPlugin()
-	{
-		$this->format = EntryModel::FORMAT_PLUGIN;
+    /**
+     * Set the active format of all models as plugin
+     * @return object
+     */
+    public function asPlugin()
+    {
+        $this->format = EntryModel::FORMAT_PLUGIN;
 
-		$entries = array();
+        $entries = array();
 
-		foreach($this->items as $entry) {
-			$entries[] = $entry->asPlugin();
-		}
+        foreach($this->items as $entry) {
+            $entries[] = $entry->asPlugin();
+        }
 
-		return new static($entries);
-	}
+        return new static($entries);
+    }
 
-	/**
-	 * Get entry options
-	 * @return array
-	 */
-	public function getEntryOptions($title_column = null)
-	{
-		$options = array();
+    /**
+     * Get entry options
+     * @return array
+     */
+    public function getEntryOptions($title_column = null)
+    {
+        $options = array();
 
-		foreach($this->items as $entry)
-		{
-			$options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
-		}
+        foreach($this->items as $entry) {
+            $options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
+        }
 
-		return $options;
-	}
+        return $options;
+    }
 
-	/**
-	 * Lists
-	 * @return array
-	 */
-	public function lists($title_column = null, $key = null)
-	{
-		if ($title_column and $key)
-		{
-			return parent::lists($title_column, $key);
-		}
+    /**
+     * Lists
+     * @return array
+     */
+    public function lists($title_column = null, $key = null)
+    {
+        if ($title_column and $key) {
+            return parent::lists($title_column, $key);
+        }
 
-		$options = array();
+        $options = array();
 
-		foreach($this->items as $entry)
-		{
-			$options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
-		}
+        foreach($this->items as $entry) {
+            $options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
+        }
 
-		return $options;
-	}
+        return $options;
+    }
 
-	/**
-	 * To output array
-	 * @return array
-	 */
-	public function toOutputArray()
-	{
-		$output = array();
+    /**
+     * To output array
+     * @return array
+     */
+    public function toOutputArray()
+    {
+        $output = array();
 
-		foreach ($this->items as $entry) {
-			$output[] = $entry->{'as'.Str::studly($this->format)}()->toOutputArray();
-		}
+        foreach ($this->items as $entry) {
+            $output[] = $entry->{'as'.Str::studly($this->format)}()->toOutputArray();
+        }
 
-		return $output;
-	}
+        return $output;
+    }
 
-	/**
-	 * To Json
-	 * @param  integer $options
-	 * @return string
-	 */
-	public function toJson($options = 0)
-	{
-		return json_encode($this->toOutputArray(), $options);
-	}
+    /**
+     * To Json
+     * @param  integer $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toOutputArray(), $options);
+    }
 }
