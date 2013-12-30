@@ -128,11 +128,12 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
+			$user = Model\User::findByEmail($user->email);
+			
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login', $user->id);
 
 			if ($this->input->is_ajax_request()) {
-				$user = Model\User::findByEmail($user->email);
 
 				exit(json_encode(array(
 					'status' => true,
