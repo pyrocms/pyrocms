@@ -370,7 +370,7 @@ class Users extends Public_Controller
 
 
 					// Assign to users
-					Model\User::assignGroupIdsToUser($user, array(1));
+					Model\User::assignGroupIdsToUser($user, array(2));
 
 					// trigger an event for third party devs
 					Events::trigger('post_user_register', $id);
