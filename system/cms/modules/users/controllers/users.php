@@ -128,11 +128,12 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
+			$user = Model\User::findByEmail($this->input->post('email'));
+
 			// trigger a post login event for third party devs
-			Events::trigger('post_user_login');
+			Events::trigger('post_user_login', $user->id);
 
 			if ($this->input->is_ajax_request()) {
-				$user = Model\User::findByEmail($user->email);
 
 				exit(json_encode(array(
 					'status' => true,
@@ -369,7 +370,7 @@ class Users extends Public_Controller
 
 
 					// Assign to users
-					Model\User::assignGroupIdsToUser($user, array(1));
+					Model\User::assignGroupIdsToUser($user, array(2));
 
 					// trigger an event for third party devs
 					Events::trigger('post_user_register', $id);
@@ -689,7 +690,7 @@ class Users extends Public_Controller
 			$profile_data = $secure_post;
 
 			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false) {
-				Events::trigger('post_user_update');
+				Events::trigger('post_user_update', $id);
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			
 			} else {
