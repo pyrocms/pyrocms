@@ -498,7 +498,7 @@ class EntryFormBuilder
         foreach ($fields as $field) {
             if ( ! in_array($field->field_slug, $skips)) {
                 if ($type = $field->getType($entry) and ! $type->alt_process) {
-                    $values[$field->field_slug] = $type->getFormValue();
+                    $entry->{$field->field_slug} = $values[$field->field_slug] = $type->getFormValue();
                 }
             }
         }

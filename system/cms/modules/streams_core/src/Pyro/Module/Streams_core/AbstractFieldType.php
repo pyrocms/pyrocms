@@ -158,6 +158,17 @@ abstract class AbstractFieldType
         return $this;
     }
 
+    /**
+     * Set value
+     * @param object $value
+     */
+    public function setValue($value = null)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
     public function setValueFieldSlugOverride($value_field_slug_override = null)
     {
         $this->value_field_slug_override = $value_field_slug_override;
