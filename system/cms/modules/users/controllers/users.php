@@ -128,8 +128,8 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
-			$user = Model\User::findByEmail($user->email);
-			
+			$user = Model\User::findByEmail($this->input->post('email'));
+
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login', $user->id);
 
