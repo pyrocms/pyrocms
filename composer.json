@@ -32,7 +32,8 @@
         "ruudk/twitter-oauth": "*",
         "simplepie/simplepie": "1.3.*",
         "tijsverkoyen/akismet": "1.1.*",
-        "loic-sharma/profiler": "1.1.*"
+        "loic-sharma/profiler": "1.1.*",
+        "omnipay/omnipay": "~2.0"
     },
     "require-dev": {
         "illuminate/encryption": "4.0.*",
