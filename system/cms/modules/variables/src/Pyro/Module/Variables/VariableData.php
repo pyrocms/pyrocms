@@ -10,7 +10,7 @@
  */
 class VariableData {
 
-	private $_vars = null;
+	private static $_vars = null;
 
 	// ------------------------------------------------------------------------
 
@@ -26,18 +26,9 @@ class VariableData {
 	{
 		// Variables are being used on this site and they 
 		// haven't been loaded yet... now eager load them
-		if ($this->_vars === null)
-		{
-			$this->get_all();
-		}
 
 		// the requested variable isn't in the database or cache; set it to null
-		if ( ! isset($this->_vars[$name]))
-		{
-			$this->_vars[$name] = null;
-		}
-
-		return $this->_vars[$name];
+		return $this->get($name);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -54,12 +45,19 @@ class VariableData {
 	{
 		// if $this->_vars is null then load them all as this is 
 		// the first time this library has been touched
-		if ($this->_vars === null)
-		{
-			$this->get_all();
-		}
+		$this->getAll();
 
-		$this->_vars[$name] = $value;
+		$this->set($name, $value);
+	}
+
+	public static function get($name)
+	{
+		return isset(static::$_vars[$name]) ? static::$_vars[$name] : null;
+	}
+
+	public static function set($name, $value = null)
+	{
+		return static::$_vars[$name] = $value;
 	}
 
 	// ------------------------------------------------------------------------
@@ -71,29 +69,20 @@ class VariableData {
 	 *
 	 * @return array
 	 */
-	public function get_all()
+	public static function getAll()
 	{
 		// the variables haven't been fetched yet, load them
-		if ($this->_vars === null)
+		if ( ! static::$_vars)
 		{
-			$this->_vars = array();
+			$entries = VariableEntryModel::remember(10, 'variables.variables')->get(array('name', 'data'));
 
-			if ( ! ($cached_vars = ci()->cache->get('variables_library_vars')))
+			foreach ($entries as $var)
 			{
-				$entries = VariableEntryModel::all(array('name', 'data'));
-
-				foreach ($entries as $var)
-				{
-					$this->_vars[$var['name']] = $var['data'];
-				}
-			} 
-			else
-			{
-				$this->_vars = $cached_vars;
+				static::set($var['name'], $var['data']);
 			}
 		}
 
-		return ci()->cache->set('variables_library_vars', $this->_vars);
+		return static::$_vars;
 	}
 }
 

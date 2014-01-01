@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Events\Dispatcher;
 use Pyro\Module\Streams_core\EntryModel;
 
 /**
@@ -17,6 +18,8 @@ use Pyro\Module\Streams_core\EntryModel;
  */
 abstract class Eloquent extends Model
 {   
+
+    protected $cache_minutes = 30;
 
     // --------------------------------------------------------------------------
     // Runtime Cache
@@ -40,6 +43,33 @@ abstract class Eloquent extends Model
      * @var boolean
      */
     protected $replicated = false;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::$dispatcher = new Dispatcher;
+    }
+
+    /**
+     * Get cache minutes
+     * @return integer
+     */
+    public function getCacheMinutes()
+    {
+        return $this->cache_minutes;
+    }
+
+    /**
+     * Set cache minutes
+     * @return integer
+     */
+    public function setCacheMinutes($cache_minutes)
+    {
+        $this->cache_minutes = $cache_minutes;
+
+        return $this;
+    }
 
     /**
      * We can store data in the class at runtime so we don't have to keep hitting the database
@@ -122,6 +152,8 @@ abstract class Eloquent extends Model
             }
         }
 
+        $this->flushCacheCollection();
+
         return parent::update($attributes);
     }
 
@@ -140,7 +172,23 @@ abstract class Eloquent extends Model
             return false;
         }
 
+        $this->flushCacheCollection();
+
         return parent::save($options);
+    }
+
+    public function delete()
+    {
+        $this->flushCacheCollection();
+
+        return parent::delete();
+    }
+
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey())->flush();
+
+        return $this;
     }
 
     /**
@@ -163,6 +211,47 @@ abstract class Eloquent extends Model
     public function newCollection(array $models = array())
     {
         return new EloquentCollection($models);
+    }
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param  bool  $excludeDeleted
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $builder = new EloquentQueryBuilder($this->newBaseQueryBuilder());
+
+        // Once we have the query builders, we will set the model instances so the
+        // builder can easily access any information it may need from the model
+        // while it is constructing and executing various queries against it.
+        $builder->setModel($this)->with($this->with);
+
+        if ($excludeDeleted and $this->softDelete)
+        {
+                $builder->whereNull($this->getQualifiedDeletedAtColumn());
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Get cache collection key
+     * @return string
+     */
+    public function getCacheCollectionKey($suffix = null)
+    {
+        return $this->getCacheCollectionPrefix().$suffix;
+    }
+
+    /**
+     * Get cache collection prefix
+     * @return string
+     */
+    public function getCacheCollectionPrefix()
+    {
+        return get_called_class();
     }
 
     /**

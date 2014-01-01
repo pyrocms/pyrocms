@@ -79,7 +79,7 @@ class Install_m extends CI_Model
 		    $table->string('username', 20);
 		    $table->string('email', 60);
 		    $table->string('password', 255);
-		    $table->string('salt', 6);
+		    $table->string('salt', 6)->nullable();
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_code')->nullable();
@@ -223,7 +223,7 @@ class Install_m extends CI_Model
 		    $table->string('slug', 30);
 		    $table->string('title', 100);
 		    $table->text('description');
-		    $table->enum('type', array('text','textarea','password','select','select-multiple','radio','checkbox'));
+		    $table->enum('type', array('text','textarea','password','select','select-multiple','radio','checkbox'))->default('text');
 		    $table->text('default')->nullable();
 		    $table->text('value')->nullable();
 		    $table->string('options', 255)->nullable();

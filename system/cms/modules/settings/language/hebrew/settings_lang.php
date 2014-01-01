@@ -27,8 +27,8 @@ $lang['settings:dashboard_rss_count_desc']		= 'כמה פריטים RSS ברצו�
 
 $lang['settings:date_format']					= 'תבנית תאריך';
 $lang['settings:date_format_desc']				= 'כיצד התאריכים אמורה להיות מוצגת על פני האתר בלוח הבקרה?' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.';
+                                                    'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+                                                    'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.';
 
 $lang['settings:frontend_enabled']				= 'סטטוס האתר';
 $lang['settings:frontend_enabled_desc']			= 'השתמש באפשרות זו כדי לחלק הפונים למשתמש באתר או לבטל. שימושי כאשר אתה רוצה לקחת האתר השבתה לצורכי תחזוקה';

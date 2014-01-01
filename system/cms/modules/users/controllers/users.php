@@ -1,5 +1,6 @@
 <?php
 
+use Cartalyst\Sentry\Sentry;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
 use Pyro\Module\Streams_core\EntryUi;
@@ -127,11 +128,12 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
+			$user = Model\User::findByEmail($this->input->post('email'));
+
 			// trigger a post login event for third party devs
-			Events::trigger('post_user_login');
+			Events::trigger('post_user_login', $user->id);
 
 			if ($this->input->is_ajax_request()) {
-				$user = Model\User::findByEmail($user->email);
 
 				exit(json_encode(array(
 					'status' => true,
@@ -152,6 +154,8 @@ class Users extends Public_Controller
 			} else {
 				redirect($redirect_to ?: '');
 			}
+		} else {
+			$user = new stdClass();
 		}
 
 
@@ -206,7 +210,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('global:password'),
-				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
+				'rules' => 'required|min_length[5]|max_length[20]'
 			),
 			array(
 				'field' => 'email',
@@ -347,12 +351,11 @@ class Users extends Public_Controller
 
 				// We are registering with a null group_id so we just
 				// use the default user ID in the settings.
-				$user = Sentry::register(
+				$user = Model\User::create(
 					array(
 						'username' => $username,
 						'password' => $password,
 						'email' => $email,
-						'profile_data' => $profile_data,
 						)
 					);
 				
@@ -360,11 +363,14 @@ class Users extends Public_Controller
 
 				// Try to create the user
 				if ($id > 0) {
-					// Convert the array to an object
-					$user->username = $username;
-					$user->display_name = $username;
-					$user->email = $email;
-					$user->password = $password;
+
+					// Make a profile
+					$profile_data['user_id'] = $id;
+					Model\Profile::create($profile_data);
+
+
+					// Assign to users
+					Model\User::assignGroupIdsToUser($user, array(2));
 
 					// trigger an event for third party devs
 					Events::trigger('post_user_register', $id);
@@ -385,19 +391,20 @@ class Users extends Public_Controller
 
 					// show the "you need to activate" page while they wait for their email
 					if ((int) Settings::get('activation_email') === 1) {
-						$this->session->set_flashdata('notice', $this->ion_auth->messages());
+						$this->session->set_flashdata('notice', lang('user:activation_code_sent_notice'));
 						redirect('users/activate');
 
 					// activate instantly
 					} elseif ((int) Settings::get('activation_email') === 2) {
-						$this->ion_auth->activate($id, false);
+						$user->activateUser();
 
-						$this->ion_auth->login($this->input->post('email'), $this->input->post('password'));
+						$user = $this->sentry->findUserById($user->id);
+						$this->sentry->login($user, false);
+
+						$this->session->set_flashdata('success', lang('user:logged_in'));
 						redirect($this->config->item('register_redirect', 'ion_auth'));
 					
 					} else {
-						$this->ion_auth->deactivate($id);
-
 						/* show that admin needs to activate your account */
 						$this->session->set_flashdata('notice', lang('user:activation_by_admin_notice'));
 						redirect('users/register'); /* bump it to show the flash data */
@@ -406,6 +413,7 @@ class Users extends Public_Controller
 
 				// Can't create the user, show why
 				} else {
+					// TODO: What's the Sentry equivalent here?
 					$this->template->error_string = $this->ion_auth->errors();
 				}
 			} else {
@@ -682,7 +690,7 @@ class Users extends Public_Controller
 			$profile_data = $secure_post;
 
 			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false) {
-				Events::trigger('post_user_update');
+				Events::trigger('post_user_update', $id);
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			
 			} else {
@@ -767,7 +775,7 @@ class Users extends Public_Controller
 	 */
 	public function _username_check($username)
 	{
-		if ($this->ion_auth->username_check($username)) {
+		if (Model\User::findByUsername($username)) {
 			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
@@ -784,7 +792,7 @@ class Users extends Public_Controller
 	 */
 	public function _email_check($email)
 	{
-		if ($this->ion_auth->email_check($email)) {
+		if (Model\User::findByEmail($email)) {
 			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}

@@ -1,54 +1,122 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// in case someone uses the CodeIgniter cache we set the site specific path for them
-$config['cache_path'] = APPPATH . 'cache/' . SITE_REF . '/codeigniter/';
+$cache = array(
 
-$config['rss_cache'] = 3600; // 1 hour TTL on blog rss caching
+	/*
+	|--------------------------------------------------------------------------
+	| Default Cache Driver
+	|--------------------------------------------------------------------------
+	|
+	| This option controls the default cache "driver" that will be used when
+	| using the Caching library. Of course, you may use other drivers any
+	| time you wish. This is the default when another is not specified.
+	|
+	| Supported: "file", "database", "apc", "memcached", "redis", "array"
+	|
+	*/
 
-// Set the location for simplepie cache
-$config['simplepie_cache_dir'] = APPPATH . 'cache/' . SITE_REF . '/simplepie/';
+	'driver' => 'file',
+
+	/*
+	|--------------------------------------------------------------------------
+	| File Cache Location
+	|--------------------------------------------------------------------------
+	|
+	| When using the "file" cache driver, we need a location where the cache
+	| files may be stored. A sensible default has been specified, but you
+	| are free to change it to any other place on disk that you desire.
+	|
+	*/
+
+	'path' => APPPATH . 'cache/' . SITE_REF . '/laravel/',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Database Cache Connection
+	|--------------------------------------------------------------------------
+	|
+	| When using the "database" cache driver you may specify the connection
+	| that should be used to store the cached items. When this option is
+	| null the default database connection will be utilized for cache.
+	|
+	*/
+
+	'connection' => null,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Database Cache Table
+	|--------------------------------------------------------------------------
+	|
+	| When using the "database" cache driver we need to know the table that
+	| should be used to store the cached items. A default table name has
+	| been provided but you're free to change it however you deem fit.
+	|
+	*/
+
+	'table' => 'cache',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Memcached Servers
+	|--------------------------------------------------------------------------
+	|
+	| Now you may specify an array of your Memcached servers that should be
+	| used when utilizing the Memcached cache driver. All of the servers
+	| should contain a value for "host", "port", and "weight" options.
+	|
+	*/
+
+	'memcached' => array(
+
+		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
+
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Cache Key Prefix
+	|--------------------------------------------------------------------------
+	|
+	| When utilizing a RAM based store such as APC or Memcached, there might
+	| be other applications utilizing the same cache. So, we'll specify a
+	| value to get prefixed to all our keys so we can avoid collisions.
+	|
+	*/
+
+	'prefix' => 'pyrocms',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Redis Databases
+	|--------------------------------------------------------------------------
+	|
+	| Redis is an open source, fast, and advanced key-value store that also
+	| provides a richer set of commands than a typical key-value systems
+	| such as APC or Memcached. Laravel makes it easy to dig right in.
+	|
+	*/
+
+	'redis' => array(
+
+		'cluster' => false,
+
+		'default' => array(
+			'host'     => '127.0.0.1',
+			'port'     => 6379,
+			'database' => 0,
+		),
+
+	),
+
+	// Set the RSS cache time
+	'rss_cache' => 3600, // 1 hour TTL on blog rss caching
+
+	// Set the location for simplepie cache
+	'simplepie_cache_dir' => APPPATH . 'cache/' . SITE_REF . '/simplepie/'
+
+);
 
 // Make sure all the folders exist
-is_dir($config['cache_path']) OR mkdir($config['cache_path'], DIR_WRITE_MODE, TRUE);
-is_dir($config['simplepie_cache_dir']) OR mkdir($config['simplepie_cache_dir'], DIR_WRITE_MODE, TRUE);
-
-/**
- * You can use multiple instances of Quick Cache in your app. For example:
- *
- * $other_cache = new Quick\Cache(array('driver' => 'redis', 'other_config' => 'some value'));
- * $config = $other_cache->config_instance();
- * $config->set('some_other_item', 'my value');
- *
- * In this way you can cache some items in Redis, some in the filesystem, and some
- * using a driver for your other favorite store
- */
-
-// you can use either "file" or "redis" drivers currently. If you want to
-// contribute a driver come to http://github.com/jerel/quick-cache
-ci()->cache = new Quick\Cache(array('driver' => 'file'));
-
-$qc_config = ci()->cache->config_instance();
-
-/* Global Config */
-$qc_config->set('expiration', 86400 /* default Time To Live in seconds */);
-
-/* Filesystem Driver Config */
-$qc_config->set('cache_path', APPPATH.'cache/'.SITE_REF.'/'); /* make sure all paths have a trailing slash */
-$qc_config->set('object_dir', 'object_cache/');
-$qc_config->set('dir_chmod', 0777);
-
-/* Redis Driver Config
-$qc_config->set('redis_prefix', 'cache.'.SITE_REF);
-$qc_config->set('redis_connection', array(
-		'host'     => '127.0.0.1',
-		'port'     => 6379,
-		// 'database' => 15
-		)
-);
-// this is also valid syntax for the redis connection
-// $qc_config->set('redis_connection', 'tcp://127.0.0.1:6379');
-
-// refresh the connection with the new connection parameters
-ci()->cache->connect();
-
-*/
+is_dir($cache['path']) OR mkdir($cache['path'], DIR_WRITE_MODE, TRUE);
+is_dir($cache['simplepie_cache_dir']) OR mkdir($cache['simplepie_cache_dir'], DIR_WRITE_MODE, TRUE);

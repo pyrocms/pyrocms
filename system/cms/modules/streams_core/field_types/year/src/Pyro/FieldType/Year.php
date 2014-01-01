@@ -15,7 +15,7 @@ class Year extends AbstractFieldType
 {
 	public $field_type_slug			= 'year';
 
-	public $db_col_type				= 'string';
+	public $db_col_type				= 'integer';
 
 	public $col_constraint			= 4;
 

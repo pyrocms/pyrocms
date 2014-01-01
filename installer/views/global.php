@@ -20,14 +20,14 @@
 
 	<script type="text/javascript">
 		var base_url = '<?php echo base_url(); ?>',
-				pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
+			pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
 	</script>
 
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
 
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.complexify.js') ?>"></script>
 
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/installer.js') ?>"></script>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 		<div class="topbar">
 			<div class="wrapper">
 			<div id="logo">
-				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
+				<img src="<?php echo base_url('assets/images/logo.png') ?>" alt="PyroCMS" />
 			</div>
 			<ul id="lang">
 				<?php foreach($language_nav as $lang => $info):?>
@@ -76,14 +76,10 @@
 			<?php endif; ?>
 
 			<!-- Message type 3 (data for the same page load) -->
-			<?php if ($this->messages): ?>
-				<?php foreach (array_keys($this->messages) as $type): ?>
+			<?php if (! empty($messages)): ?>
+				<?php foreach ($messages as $type => $message): ?>
 					<ul class="block-message <?php echo ($type) ? $type : 'success'; ?>">
-						<?php foreach ($this->messages as $key => $message): ?>
-							<?php if ($key === $type): ?>
-								<li><?php echo $message; ?></li>
-							<?php endif; ?>
-						<?php endforeach; ?>
+						<li><?php echo $message; ?></li>
 					</ul>
 				<?php endforeach; ?>
 			<?php endif; ?>

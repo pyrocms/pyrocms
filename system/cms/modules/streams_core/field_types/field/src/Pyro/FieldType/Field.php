@@ -118,7 +118,7 @@ class Field extends AbstractFieldType
 			$form .= form_hidden($this->form_slug.'_field_slug', $selected_field->field_slug);
     		$form .= $selected_type->formInput();
     	}
-		elseif($options = $this->getSelectableFields($selectable_fields_namespace))
+		elseif($options = $this->getSelectableFields($selectable_fields_namespace) and ! empty($options))
 		{	
 			$form = form_dropdown($this->form_slug, $options, $this->getFieldSlugValue());
 		}
@@ -142,11 +142,11 @@ class Field extends AbstractFieldType
 	    // This will prevent fields assigned to this stream from being selectable for entry.
 		$skip_fields = array();
 
-		$options = false;
+		$options = array();
 
 		if ($selectable_fields_namespace and ! $this->stream->assignments->isEmpty())
 		{
-			$skip_fields = $this->stream->assignments->getFields()->getFieldSlugs();
+			$skip_fields = $this->stream->assignments->getFieldSlugs();
 		}
 
 		// Get the fields and display the dropdown

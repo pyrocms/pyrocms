@@ -28,6 +28,8 @@ class Plugin_Variables extends Plugin
 	public function __construct()
 	{
 		$this->variables = new VariableData;
+
+		$this->variables->getAll();
 	}
 
 
@@ -42,7 +44,6 @@ class Plugin_Variables extends Plugin
 		$info = array();
 
 		// dynamically build the array for the magic method __call
-		$variables = $this->variables->get_all();
 		ksort($variables);
 
 		foreach ($variables as $slug => $value)
@@ -70,7 +71,7 @@ class Plugin_Variables extends Plugin
 	 */
 	public function __call($name, $arguments)
 	{
-		return $this->variables->$name;
+		return $this->variables->{$name};
 	}
 	
 	/**

@@ -20,8 +20,6 @@ class Image extends AbstractFieldType
 	// Files are saved as 15 character strings.
 	public $db_col_type = 'string';
 
-	public $col_constraint = 15;
-
 	public $custom_parameters = array(
 		'folder',
 		'resize_width',
@@ -40,21 +38,34 @@ class Image extends AbstractFieldType
 
 	public $input_is_file = true;
 
-	// --------------------------------------------------------------------------
-
 	public function __construct()
 	{
 		ci()->load->library('image_lib');
 		ci()->load->library('files/files');
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Run when building a form per type
+	 * @return void 
+	 */
 	public function event()
 	{
 		$this->js('imagefield.js');
 		$this->css('imagefield.css');		
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * The field type relation
+	 * @return object
+	 */
+	public function relation()
+	{
+		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
+	}
 
 	/**
 	 * Output form input
@@ -107,7 +118,30 @@ class Image extends AbstractFieldType
 		return $out;
 	}
 
-	// --------------------------------------------------------------------------
+	/**
+	 * Output public form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function publicFormInput()
+	{
+		// Gotta use this..
+		ci()->load->config('files/files');
+
+		// Load our file
+		if ($this->value and $this->value != 'dummy')
+			$file = FileModel::find($this->value);
+		else
+			$file = null;
+
+		// Build the input's options
+		$options['name'] = $this->form_slug.'_file';
+
+		// GO!
+		return form_upload($options).form_hidden($this->form_slug, $this->value);
+	}
 
 	/**
 	 * Process before saving to database
@@ -194,7 +228,7 @@ class Image extends AbstractFieldType
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
-		$image = FileModel::find($this->value);
+		$image = $this->getRelationResult();
 
 		if ($image) {
 			$image->image = base_url(ci()->config->item('files:path').$image->filename);	

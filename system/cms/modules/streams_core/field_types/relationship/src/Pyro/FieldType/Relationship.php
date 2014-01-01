@@ -37,10 +37,11 @@ class Relationship extends AbstractFieldType
 		'stream',
 		'placeholder',
 		'value_field',
-		'label_field',
-		'search_field',
+		'title_field',
+		'option_format',
 		'template',
-		'module_slug'
+		'module_slug',
+		'relation_class',
 		);
 
 	/**
@@ -58,14 +59,9 @@ class Relationship extends AbstractFieldType
 		'url' => 'http://pyrocms.com/'
 		);
 
-	/**
-	 * Runtime funtime cache
-	 * @var array
-	 */
-	public $runtime_cache = array(
-		'pluginOutput' => array(),
-		);
-
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Relation
@@ -73,24 +69,21 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		if (! $relation_class = $this->relationClass()) return null;
+
+		if (! $relation_class = $this->getRelationClass()) return null;
 
 		$instance = new $relation_class;
 
 		if ($instance instanceof EntryModel) {
-			return $this->belongsToEntry($relation_class);	
+
+			@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+			if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
+
+			return $this->belongsToEntry($relation_class)->select('*');	
 		}
 
-		return $this->belongsTo($relation_class);
-	}
-
-	/**
-	 * Relation class
-	 * @return string
-	 */
-	public function relationClass()
-	{
-		return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+		return $this->belongsTo($relation_class)->select('*');
 	}
 
 	/**
@@ -101,33 +94,13 @@ class Relationship extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$id = ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null;
-
 		$data = array(
 			'form_slug' => $this->form_slug,
-			'id' => ($selected = $this->getRelationResult() and $selected instanceof Eloquent) ? $selected->getKey() : null,
+			'id' => $this->value,
 			'options' => $this->getOptions()
 		);
 
 		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
-	}
-	
-	/**
-	 * Options
-	 * @return array
-	 */
-	public function getOptions()
-	{
-		$options = array();
-
-		if ($relation_class = $this->relationClass())
-		{
-			$instance = new $relation_class;
-
-			$options = $instance->get()->lists($this->getParameter('title_column'), $this->getParameter('value_field','id'));
-		}
-
-		return $options;
 	}
 
 	/**
@@ -138,7 +111,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		return form_dropdown($this->form_slug, $this->getOptions());
+		return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
 	}
 
 	/**
@@ -171,19 +144,12 @@ class Relationship extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		// Crate our runtime cache hash
-		$hash = md5($this->stream->stream_slug.$this->stream->stream_namespace.$this->field->field_slug.$this->value);
-
-		if (! isset($this->runtime_cache['pluginOutput'][$hash])) {
-			if ($entry = $this->getRelationResult())
-			{
-				return $this->runtime_cache['pluginOutput'][$hash] = $entry->asPlugin()->toArray();
-			} else {
-				return $this->runtime_cache['pluginOutput'][$hash] = null;
-			}
-		} else {
-			return $this->runtime_cache['pluginOutput'][$hash];
+		if ($entry = $this->getRelationResult())
+		{
+			return $entry->asPlugin()->toArray();
 		}
+
+		return null;
 	}
 
 	/**
@@ -218,12 +184,59 @@ class Relationship extends AbstractFieldType
 	}
 
 	/**
-	 * Title column for options
+	 * Option format
 	 * @param  string $value
 	 * @return html
 	 */
-	public function paramTitleColumn($value = '')
+	public function paramOptionFormat($value = '')
 	{
-		return form_input('title_column', $value);
+		return form_input('option_format', $value);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Options
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		// Get options
+		$options = array();
+
+		if ($relation_class = $this->getRelationClass())
+		{
+			$instance = new $relation_class;
+
+			if ($instance instanceof EntryModel) {
+			
+				@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
+
+				$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
+
+				$options = $relation_class::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
+				
+				$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}'); 
+
+			} else {
+
+				$options = $relation_class::limit(1000)->select('*')->get()->toArray();
+
+				$option_format = $this->getParameter('option_format', '{{ '.$this->getParameter('title_field', 'id').' }}'); 
+
+			}
+		}
+
+		// Format options
+		$formatted_options = array();
+
+		foreach ($options as $option) {
+			$formatted_options[$option[$this->getParameter('value_field', 'id')]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
+		}
+
+		// Boom
+		return $formatted_options;
 	}
 }

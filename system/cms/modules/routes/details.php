@@ -14,10 +14,7 @@ use Pyro\Module\Streams_core\SchemaUtility;
  */
 class Module_Routes extends AbstractModule
 {
-
 	public $version = '1.1';
-
-
 
 	/**
 	 * Return module information
@@ -26,7 +23,7 @@ class Module_Routes extends AbstractModule
 	public function info()
 	{
 		// Module information
-		$info =  array(
+		$info = array(
 			'name' => array(
 				'en' => 'Routes'
 			),
@@ -38,11 +35,7 @@ class Module_Routes extends AbstractModule
 			'backend' => true,
 			'menu' => 'structure',
 			'sections' => array()
-			/*'roles' => array(
-				'upload_file',
-				'download_file',
-				),*/
-			);
+		);
 
 
 		// Routes
@@ -54,9 +47,9 @@ class Module_Routes extends AbstractModule
 					'name' 	=> 'global:add',
 					'uri' 	=> 'admin/routes/create',
 					'class' => 'btn-sm btn-success'
-					),
 				),
-			);
+			),
+		);
 
 		return $info;
 	}
@@ -73,8 +66,6 @@ class Module_Routes extends AbstractModule
 		// Clean house
 		self::uninstall($pdb, $schema);
 
-
-
 		/* Install Streams Data
 		----------------------------------------------------------------------------*/
 
@@ -86,9 +77,7 @@ class Module_Routes extends AbstractModule
 			$prefix = '',
 			$about = NULL,
 			$extra = array('title_column' => 'name')
-			);
-
-		
+		);
 
 		// Build the fields
 		$fields = array(
@@ -98,43 +87,50 @@ class Module_Routes extends AbstractModule
 				'namespace'		=> 'routes',
 				'locked'		=> true,
 				'type'			=> 'text',
-				),
+			),
 			array(
 				'name'			=> 'lang:routes:name',
 				'slug'			=> 'name',
 				'namespace'		=> 'routes',
 				'locked'		=> true,
 				'type'			=> 'text',
-				),
+			),
 			array(
 				'name'			=> 'lang:routes:route_key',
 				'slug'			=> 'route_key',
 				'namespace'		=> 'routes',
 				'locked'		=> true,
 				'type'			=> 'text',
-				),
+			),
 			array(
 				'name'			=> 'lang:routes:route_value',
 				'slug'			=> 'route_value',
 				'namespace'		=> 'routes',
 				'locked'		=> true,
 				'type'			=> 'text',
-				),
-			);
+			),
+		);
 
 		// Add all the fields
 		FieldModel::addFields($fields, null, 'routes');
 
-
-
 		/* Routes assignments
 		-----------------------------------------------------------*/
-		FieldModel::assignField('routes', 'routes', 'module',		array('instructions' => 'lang:routes:instructions.module'));
-		FieldModel::assignField('routes', 'routes', 'name',			array('is_unique' => true, 'instructions' => 'lang:routes:instructions.name'));
-		FieldModel::assignField('routes', 'routes', 'route_key',	array('is_required' => true, 'instructions' => 'lang:routes:instructions.route_key'));
-		FieldModel::assignField('routes', 'routes', 'route_value',	array('is_required' => true, 'instructions' => 'lang:routes:instructions.route_value'));
-
-
+		FieldModel::assignField('routes', 'routes', 'module', array(
+			'instructions' => 'lang:routes:instructions.module')
+		);
+		FieldModel::assignField('routes', 'routes', 'name', array(
+			'is_unique' => true,
+			'instructions' => 'lang:routes:instructions.name')
+		);
+		FieldModel::assignField('routes', 'routes', 'route_key', array(
+			'is_required' => true,
+			'instructions' => 'lang:routes:instructions.route_key')
+		);
+		FieldModel::assignField('routes', 'routes', 'route_value', array(
+			'is_required' => true,
+			'instructions' => 'lang:routes:instructions.route_value')
+		);
 
 		// Good to go
 		return true;

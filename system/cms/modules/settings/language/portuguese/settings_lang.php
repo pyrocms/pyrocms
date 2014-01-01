@@ -30,8 +30,8 @@ $lang['settings:dashboard_rss_count_desc'] 		= 'Quantos itens RSS devem ser most
 
 $lang['settings:date_format'] 					= 'Formato da data';
 $lang['settings:date_format_desc'] 				= 'Como devem ser exibidas as datas em todo o site e no painel de controlo? ' .
-													'Utilize o <a href="http://php.net/manual/en/function.date.php" target="_black">formato de data</a> PHP - OU - ' .
-													'Utilize o formato de <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formatadas como data</a> do PHP.';
+                                                    'Utilize o <a href="http://php.net/manual/en/function.date.php" target="_black">formato de data</a> PHP - OU - ' .
+                                                    'Utilize o formato de <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formatadas como data</a> do PHP.';
 
 $lang['settings:frontend_enabled'] 				= 'Situação do site';
 $lang['settings:frontend_enabled_desc'] 		= 'Use esta opção para definir se a frente do site ficará visível ou não. Últil quando houver a necessidade de desligar o site para manutenção.';

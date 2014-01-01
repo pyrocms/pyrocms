@@ -40,34 +40,17 @@ class Plugin_Streams_core extends Plugin
 		'stream'			=> null,
 		'namespace'			=> null,
 		'select'			=> '*',
+		'load'				=> null,
 		'limit'				=> null,
-		'offset'			=> 0,
-		'single'			=> 'no',
-		'id'				=> null,
 		'date_by'			=> 'created_at',
-		'year'				=> null,
-		'month'				=> null,
-		'day'				=> null,
-		'show_upcoming'		=> 'yes',
-		'show_past'			=> 'yes',
-		'restrict_user'		=> 'no',
-		'where'				=> '1',
+		'where'				=> null,
 		'exclude'			=> null,
 		'exclude_by'		=> 'id',
 		'include'			=> null,
 		'include_by'		=> 'id',
-		'disable'			=> null,
 		'order_by'			=> 'created_at',
 		'sort'				=> 'desc',
-		'exclude_called'	=> 'no',
-		'paginate'			=> 'no',
-		'pag_method'		=> 'offset',	// 'offset' or 'page'
-		'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
-		'pag_segment'		=> 2,
-		'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
-		'pag_base'			=> null,		// If null, this is automatically set
-		'partial'			=> null,
-		'site_ref'			=> SITE_REF
+		'debug'				=> 'no',
 		);
 
 	/**
@@ -80,10 +63,13 @@ class Plugin_Streams_core extends Plugin
 		'entry_id'			=> null,
 		'id'				=> null,
 		'use_recaptcha'		=> 'no',
-		'success_message'	=> 'lang:streams:$m_entry_success',
-		'error_message'		=> 'lang:streams:$m_entry_error',
-		'defualts'			=> null,
+		'save_success_message'	=> 'lang:streams:new_entry_success',
+		'save_error_message'	=> 'lang:streams:new_entry_error',
+		'update_success_message'	=> 'lang:streams:edit_entry_success',
+		'update_error_message'	=> 'lang:streams:edit_entry_error',
 		'skips'				=> null,
+		'include'			=> null,
+		'exclude'			=> null,
 		'hidden'			=> null,
 		'class'				=> null,
 		'redirect'			=> null,
@@ -162,7 +148,7 @@ class Plugin_Streams_core extends Plugin
 	';
 
 	///////////////////////////////////////////////////////////////////////////////
-	// --------------------------	METHODS 	  ------------------------------ //
+	// --------------------------	  METHODS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////
 	
 	/**
@@ -257,7 +243,8 @@ class Plugin_Streams_core extends Plugin
 		// Toggle debug mode
 		$this->debug_status = $this->getAttribute('debug', 'on');
 
-		$return = array();
+		// Load languages desired
+		self::loadLanguages();
 
 		// -------------------------------------
 		// Get Plugin Attributes
@@ -312,17 +299,17 @@ class Plugin_Streams_core extends Plugin
 		// Check for a retrieve our stream.
 		// -------------------------------------
 		
-		if ( ! isset($parameters['stream']))
+		if ( ! isset($parameters['stream']) and $parameters['debug'] == 'yes')
 		{
-			$this->_error_out(lang('streams:no_stream_provided'));
+			$this->error(lang('streams:no_stream_provided'));
 		}
 
 
 		$stream = StreamModel::getStream($parameters['stream'], $parameters['namespace']);
 
-		if ( ! $stream)
+		if ( ! $stream and $parameters['debug'] == 'yes')
 		{
-			$this->_error_out(lang('streams:invalid_stream'));
+			$this->error(lang('streams:invalid_stream'));
 		}
 
 		// -------------------------------------
@@ -338,7 +325,7 @@ class Plugin_Streams_core extends Plugin
 				$entries = self::get($stream, $parameters);
 
 				// Save to cache
-				ci()->cache->set($this->cache_hash, $entries, $this->cache_ttl);
+				ci()->cache->put($this->cache_hash, $entries, $this->cache_ttl);
 			}
 		}
 		else
@@ -381,36 +368,15 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		// -------------------------------------
-		// Set entries
-		// -------------------------------------
-
-		$return['entries'] = $entries;
-				
-		// -------------------------------------
-		// {{ entries }} Bypass
-		// -------------------------------------
-		// If we don't want to use {{ entries }},
-		// we don't have to!
-		// -------------------------------------
-
-		$loop = false;
-
-		if (preg_match('/\{\{\s?entries\s?\}\}/', is_string($this->content()) ? $this->content() : null) == 0)
-		{
-			$return = $return['entries'];
-			$loop = true;
-		}
-
-		// -------------------------------------
 		// Cache End Procedures
 		// -------------------------------------
 
-		$this->writeTagCache($return);
+		$this->writeTagCache($entries);
 		//$this->clearCacheVariables();
 
 		// -------------------------------------
-		//print_r($return);die;
-		return $return;
+		//print_r($entries);die;
+		return $entries;
 	}
 
 	/**
@@ -434,7 +400,7 @@ class Plugin_Streams_core extends Plugin
 		$stream = StreamModel::getStream($parameters['stream'], $parameters['namespace']);
 
 		// Start up the query
-		$model_entries = EntryModel::stream($stream)
+		$entries = EntryModel::stream($stream)
 			->select('id')
 			->whereRaw($parameters['where'])
 			->limit($parameters['limit'])
@@ -450,23 +416,11 @@ class Plugin_Streams_core extends Plugin
 				list($arg1, $condition, $arg2) = explode('|', $value);
 
 				// Execute it
-				$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+				$entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
 			}
 		}
 
-		return $model_entries = $model_entries->count();
-	}
-
-	/**
-	 * Return content if exists
-	 * @return bool
-	 */
-	public function exists()
-	{
-		$this->setAttribute('limit', 1);
-		$this->setAttribute('select', 'id');
-
-		return count(self::entries()) != 0 ? $this->content() : false;
+		return $entries = $entries->count();
 	}
 
 	/**
@@ -491,10 +445,12 @@ class Plugin_Streams_core extends Plugin
 	 * @return	array
 	 */
 	public function entry()
-	{	
+	{
 		$this->setAttribute('limit', 1);
 
-		return $this->entries();
+		$return = $this->entries();
+
+		return empty($return) ? false : ci()->parser->parse_string($this->content(), $return[0], true, false, null, false);
 	}
 
 	/**
@@ -531,6 +487,9 @@ class Plugin_Streams_core extends Plugin
 		// Load up things we'll need for the form
 		ci()->load->library(array('form_validation'));
 
+		// Load languages desired
+		self::loadLanguages();
+
 		// -------------------------------------
 		// Get Plugin Attributes / Paramaters
 		// -------------------------------------
@@ -556,31 +515,24 @@ class Plugin_Streams_core extends Plugin
 		 * Set default values
 		 */
 		
-		if ($parameters['defaults']) {
+		// Get em!
+		$defaults = array();
+		
+		foreach ($this->getAttributes() as $key => $default)
+			if (substr($key, -8) == '_default')
+				$defaults[substr($key, 0, -8)] = $default;
 
-			// Get em!
-			$defaults = array();
-
-			// Loop and process
-			foreach ($parameters['defaults'] as $default) {
-
-				// Break it apart
-				list($field_slug, $value) = explode('=', $default);
-
-				// Stash em
-				$defaults[$field_slug] = $value;
-			}
-
-			// Set
-			$form = $form->defaults($defaults);
-		}
+		$form = $form->defaults($defaults);
 
 		/**
-		 * Skip these fields
+		 * Skip fields
 		 */
+
+		// Determine initial skips from the include / exclude params
+		$skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->getStream());
 		
-		if ($parameters['skips'])
-			$form = $form->skips(explode('|', $parameters['skips']));
+		if (! empty($skips))
+			$form = $form->skips($skips);
 
 		/**
 		 * Hide these fields
@@ -609,6 +561,15 @@ class Plugin_Streams_core extends Plugin
 
 		if ($parameters['cancel_uri'])
 			$form = $form->cancelUri($parameters['cancel_uri']);
+
+		/**
+		 * Set success and error messages
+		 */
+
+		if (! $parameters['entry_id'])
+			$form = $form->successMessage($parameters['save_success_message'])->errorMessage($parameters['save_error_message']);
+		else
+			$form = $form->successMessage($parameters['update_success_message'])->errorMessage($parameters['update_error_message']);
 
 		/**
 		 * DONE = Fetch the object
@@ -1120,7 +1081,7 @@ class Plugin_Streams_core extends Plugin
 	{
 		$this->load->helper('form');
 	
-		$stream 	= $this->getAttribute('stream');
+		$stream 		= $this->getAttribute('stream');
 		$namespace 		= $this->getAttribute('namespace', $this->core_namespace);
 		$fields 		= $this->getAttribute('fields');
 		
@@ -1339,7 +1300,7 @@ class Plugin_Streams_core extends Plugin
 	{
 		if ($this->write_tag_cache === true)
 		{
-			ci()->cache->set($this->cache_hash, $content, $this->cache_ttl);
+			ci()->cache->put($this->cache_hash, $content, $this->cache_ttl);
 		}		
 	}
 
@@ -1399,15 +1360,25 @@ class Plugin_Streams_core extends Plugin
 		// Does the runtime cache result exist?
 		if (! isset($this->runtime_cache[$hash])) {
 
-			$entries = array();
+			/**
+			 * Get everything started
+			 */
 
-			$model_entries = EntryModel::stream($stream)
-				->select(explode('|', $parameters['select']))
-				->whereRaw($parameters['where'])
-				->limit($parameters['limit'])
-				->orderBy($parameters['order_by'], $parameters['sort']);
+			$entries = EntryModel::stream($stream)->select(explode('|', $parameters['select']));
 
-			// Check for joins
+
+			/**
+			 * Where statement
+			 */
+
+			if ($parameters['where'])
+				$entries->whereRaw($parameters['where']);
+
+			
+			/**
+			 * Process joins
+			 */
+
 			foreach ($this->getAttributes() as $attribute => $value) {
 
 				// Prefixed with "join_"?
@@ -1417,20 +1388,48 @@ class Plugin_Streams_core extends Plugin
 					list($arg1, $condition, $arg2) = explode('|', $value);
 
 					// Execute it
-					$model_entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
+					$entries->join(substr($attribute, 5), $arg1, $condition, $arg2);
 				}
 			}
 
-			$model_entries = $model_entries->enableAutoEagerLoading(true)->get();
+			
+			/**
+			 * Lazy load (expiramental)
+			 */
+			if ($parameters['load'])
+				$entries->with(explode('|', $parameters['load']));
 
-			foreach ($model_entries as $k => $entry) {
+
+			/**
+			 * Limit
+			 */
+
+			$entries->limit($parameters['limit']);
+
+
+			/**
+			 * Order by
+			 */
+
+			$entries->orderBy($parameters['order_by'], $parameters['sort']);
+
+			
+			/**
+			 * Get entries
+			 */
+			
+			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->asPlugin()->toArray();
+			
+
+			/**
+			 * Process entries
+			 */
+			
+			foreach ($entries as $k => &$entry) {
 
 				// Add the count
-				$entry->count = $k;
-				$entry->human_count = $k+1;
-
-				// Add to our result array
-				$entries[] = $entry->asPlugin()->toArray();
+				$entry['count'] = $k;
+				$entry['human_count'] = $k+1;
 			}
 
 			$this->runtime_cache[$hash] = $entries;
@@ -1447,22 +1446,61 @@ class Plugin_Streams_core extends Plugin
 	///////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Convert objects value to arrays
-	 * @param  mixed $mixed 
+	 * Loop through attributes and load
+	 * languages like foo_lang="foo/foo"
+	 *
+	 * @return void
+	 */
+	private function loadLanguages()
+	{
+		// Load languages
+		foreach ($this->getAttributes() as $key => $lang)
+			if (substr($key, -5) == '_lang')
+				ci()->lang->load($lang);
+	}
+
+	/**
+	 * Get all the skips from skips, includes and excludes
+	 * @param  mixed $skips   
+	 * @param  mixed $include 
+	 * @param  mixed $exclude 
+	 * @param  object $stream 
 	 * @return array
 	 */
-	private function toArray($mixed)
+	private function getSkipsFromSkipsIncludeExclude($skips, $include, $exclude, $stream)
 	{
-		// Start with an array
-		if (! is_array($mixed))
-			$mixed = self::toArray($mixed);
+		// Make sure these are arrays
+		$skips = is_string($skips) ? explode('|', $skips) : $skips;
+		$include = is_string($include) ? explode('|', $include) : $include;
+		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $exclude;
 
-		// Clean the children!
-		if (is_array($mixed))
-			foreach ($mixed as &$children)
-				$children = self::toArray($children);
+		// Get the streams assignments first
+		$assignments = $stream->assignments->toArray();
 
-		return $mixed;
+		// Manually set skips first
+		$skips = $skips;
+
+		// Are we using include?
+		if (! empty($include)) {
+
+			// Skip unless they're in the include
+			foreach ($assignments as $assignment) {
+
+				// Is it included?
+				if (! in_array($assignment['field']['field_slug'], $include)) {
+
+					// Nope.. Seeya
+					$skips[] = $assignment['field']['field_slug'];
+				}
+			}
+		}
+
+		// Skip excludes
+		foreach ($exlcude as $skip)
+			$skips[] = $skip;
+
+		// Return unique
+		return array_unique($skips);
 	}
 
 	/**
@@ -1473,7 +1511,7 @@ class Plugin_Streams_core extends Plugin
 	 * @param	string
 	 * @return 	mixed
 	 */	
-	private function _error_out($msg)
+	private function error($msg)
 	{
 		return ($this->debug_status == 'on') ? show_error($msg) : false;
 	}

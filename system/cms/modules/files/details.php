@@ -83,17 +83,17 @@ class Module_Files extends AbstractModule
 		$schema->dropIfExists('file_folders');
 
 		$schema->create('files', function($table) {
-			$table->increments('id');
+			$table->string('id', 255);
 			$table->integer('folder_id');
 			$table->integer('user_id');
 			$table->enum('type', array('a', 'v', 'd', 'i', 'o'));
-			$table->string('name', 100);
-			$table->string('filename', 255);
-			$table->string('path', 255);
+			$table->string('name');
+			$table->string('filename');
+			$table->string('path');
 			$table->text('description');
 			$table->string('extension', 10);
 			$table->string('mimetype', 100);
-			$table->string('keywords', 32)->nullable();
+			$table->string('keywords')->nullable();
 			$table->integer('width')->nullable();
 			$table->integer('height')->nullable();
 			$table->integer('filesize')->nullable();
@@ -108,8 +108,8 @@ class Module_Files extends AbstractModule
 		$schema->create('file_folders', function($table) {
 			$table->increments('id');
 			$table->integer('parent_id')->nullable();
-			$table->string('slug', 100);
-			$table->string('name', 100);
+			$table->string('slug');
+			$table->string('name');
 			$table->string('location', 20)->default('local');
 			$table->string('remote_container', 100)->nullable();
 			$table->integer('date_added');

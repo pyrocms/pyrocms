@@ -76,6 +76,9 @@ class MX_Router extends CI_Router
 	/** Locate the controller **/
 	public function locate($segments)
 	{
+		// Connect and save the connection
+		self::$DB = self::connect();
+		
 		/**
 		 * Load the site ref for multi-site support if the "sites" module exists
 		 * and the multi-site constants haven't been defined already (hmvc request)
@@ -290,64 +293,46 @@ class MX_Router extends CI_Router
 
 	private function connect() {
 
-		include APPPATH.'config/database.php';
-
-        $db = $db[ENVIRONMENT];
-
+		require APPPATH.'config/database.php';
+        
+        // Use whatever the config tells us to use, it will probably be environment
+        $config = $db[$active_group];
 
         // Is this a PDO connection?
-        if ($db['dbdriver']) {
+        if ($config) {
 
-        	preg_match('/(mysql|pgsql|sqlite)+:.+dbname=(\w+)/', $db['dsn'], $matches);
-            $subdriver = $matches[1];
-            $database = $matches[2];
+            preg_match('/(mysql|pgsql|sqlite)+:host=(\w.+).+dbname=(\w+)/', $config['dsn'], $matches);
+            //print_r($matches);die;
+            $config['dbdriver'] = $matches[1];
+            $config['hostname'] = $matches[2];
+            $config['database'] = $matches[3];
+
             unset($matches);
-
-            $drivers = array(
-                'mysql' => '\Illuminate\Database\MySqlConnection',
-                'pgsql' => '\Illuminate\Database\PostgresConnection',
-                'sqlite' => '\Illuminate\Database\SQLiteConnection',
-            );
-
-            $pdo = new PDO($db['dsn'], $db['username'], $db['password'], array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
-            // Make a connection instance with the existing PDO connection
-            $conn = new $drivers[$subdriver]($pdo, $database);
-
-            $resolver = new Illuminate\Database\ConnectionResolver;
-            $resolver->addConnection('default', $conn);
-            $resolver->setDefaultConnection('default');
-
-            Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
-
-        // Not using the new PDO driver
-        } else {
-
-            $capsule = new Capsule;
-
-            $capsule->addConnection(array(
-                'driver' => $dbdb['dbdriver'],
-                'host' => $db["hostname"],
-                'database' => $db["database"],
-                'username' => $db["username"],
-                'prefix' => $prefix,
-                'password' => $db["password"],
-                'charset' => $db["char_set"],
-                'collation' => $db["dbcollat"],
-            ));
-
-            // Set the fetch mode FETCH_CLASS so we 
-            // get objects back by default.
-            $capsule->setFetchMode(PDO::FETCH_CLASS);
-
-            // Setup the Eloquent ORM
-            $capsule->bootEloquent();
-
-            // Make this Capsule instance available globally via static methods... (optional)
-            $capsule->setAsGlobal();
-
-            $conn = $capsule->connection();
         }
+
+        $capsule = new Capsule;
+
+        $capsule->addConnection(array(
+            'driver' => $config['dbdriver'],
+            'host' => $config["hostname"],
+            'database' => $config["database"],
+            'username' => $config["username"],
+            'password' => $config["password"],
+            'charset' => $config["char_set"],
+            'collation' => $config["dbcollat"],
+        ));
+
+        // Set the fetch mode FETCH_CLASS so we 
+        // get objects back by default.
+        $capsule->setFetchMode(PDO::FETCH_CLASS);
+
+        // Setup the Eloquent ORM
+        $capsule->bootEloquent();
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $capsule->setAsGlobal();
+
+        $conn = $capsule->connection();
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 

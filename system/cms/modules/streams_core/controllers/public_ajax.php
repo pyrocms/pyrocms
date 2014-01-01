@@ -50,7 +50,7 @@ class Public_ajax extends Public_Controller
 		$params			= array_slice($segments, 5);
 
 		// Is this a valid field type?
-		if ( ! $type = Type::getType($field_type))
+		if ( ! $type = FieldTypeManager::getType($field_type))
 		{
 			exit('Invalid Field Type.');
 		}

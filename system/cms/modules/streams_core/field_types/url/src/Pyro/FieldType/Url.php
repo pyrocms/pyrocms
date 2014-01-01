@@ -13,17 +13,26 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  */
 class Url extends AbstractFieldType
 {
-	public $field_type_slug				= 'url';
+	public $field_type_slug = 'url';
 
-	public $db_col_type					= 'string';
+	public $db_col_type = 'string';
 
-	public $extra_validation			= 'valid_url';
+	public $extra_validation = 'valid_url';
 
-	public $version						= '1.0.0';
+	public $version = '1.0.0';
 
-	public $author						= array('name' => 'Parse19', 'url' => 'http://parse19.com');
+	public $custom_parameters = array(
+		'placeholder',
+		);
 
-	// --------------------------------------------------------------------------
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/',
+		);
+
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Output form input
@@ -34,14 +43,14 @@ class Url extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$options['name'] 	= $this->form_slug;
-		$options['id']		= $this->form_slug;
-		$options['value']	= $this->value;
+		$options['name'] 		= $this->form_slug;
+		$options['id']			= $this->form_slug;
+		$options['value']		= $this->value;
+		$options['class']		= 'form-control';
+		$options['placeholder']	= 'http://example.com';
 
 		return form_input($options);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Pre Output
@@ -56,4 +65,17 @@ class Url extends AbstractFieldType
 		return escape_tags($this->value);
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	PARAMETERS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Placeholder!
+	 *
+	 * @return	string
+	 */
+	public function paramPlaceholder($value = 'http://example.com/')
+	{
+		return form_input('placeholder', $value);
+	}
 }

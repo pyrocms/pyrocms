@@ -1,23 +1,4 @@
 {
-    "minimum-stability": "dev",
-    
-    "require": {
-        "pyrocms/lex": "2.2.*",
-        "doctrine/dbal": "2.4.x",
-        "cartalyst/sentry": "2.0.*",
-        "dflydev/markdown": "1.0.*",
-        "ircmaxell/password-compat": "1.0.*",
-        "illuminate/database": "4.0.*",
-        "nesbot/Carbon": "1.*",
-        "patchwork/utf8": "1.1.*",
-        "thepixeldeveloper/sitemap": "2.0.*",
-        "quick/cache": "1.0.*",
-        "ruudk/twitter-oauth": "*",
-        "simplepie/simplepie": "1.3.*",
-        "tijsverkoyen/akismet": "1.1.*",
-        "loic-sharma/profiler": "1.1.*"
-    },
-    
     "autoload": {
         "classmap": [
             "system/cms/controllers",
@@ -26,5 +7,36 @@
         "psr-0": {
             "Pyro": "system/cms/src/"
         }
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "preferred-install": "dist",
+
+    "config": {
+        "vendor-dir": "system/vendor"
+    },
+
+    "require": {
+        "pyrocms/lex": "2.2.*",
+        "doctrine/dbal": "2.4.x",
+        "cartalyst/sentry": "2.0.*",
+        "dflydev/markdown": "1.0.*",
+        "ircmaxell/password-compat": "1.0.*",
+        "illuminate/cache": "4.0.*",
+        "illuminate/database": "4.0.*",
+        "illuminate/filesystem": "4.0.*",
+        "nesbot/Carbon": "1.*",
+        "patchwork/utf8": "1.1.*",
+        "thepixeldeveloper/sitemap": "2.0.*",
+        "ruudk/twitter-oauth": "*",
+        "simplepie/simplepie": "1.3.*",
+        "tijsverkoyen/akismet": "1.1.*",
+        "loic-sharma/profiler": "1.1.*"
+    },
+    "require-dev": {
+        "illuminate/encryption": "4.0.*",
+        "illuminate/redis": "4.0.*",
+        "phing/phing": "2.6.*"
     }
 }

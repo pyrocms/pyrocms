@@ -76,7 +76,7 @@ class Migration_Add_themes_table extends CI_Migration
                 if ($is_core === false and $is_shared === false) {
                     $this->pdb->statement("
                         UPDATE {$prefix}themes t 
-                        JOIN {$prefix}sites s ON s.ref = ".SITE_REF."
+                        JOIN core_sites s ON s.ref = '".SITE_REF."'
                         SET t.site_id = s.id 
                     ");
                 }

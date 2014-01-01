@@ -15,7 +15,7 @@ class Encrypt extends AbstractFieldType
 {
 	public $field_type_slug			= 'encrypt';
 
-	public $db_col_type				= 'text';
+	public $db_col_type				= 'long_text';
 
 	public $custom_parameters		= array('hide_typing');
 

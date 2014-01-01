@@ -1,18 +1,19 @@
 # PyroCMS Community Edition
 
-[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.3/develop)](https://travis-ci.org/pyrocms/pyrocms)
+[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.3/master)](https://travis-ci.org/pyrocms/pyrocms)
 
 * [Website](https://www.pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://forum.pyrocms.com)
-* Version: 2.3.0-dev
+* Version: 2.3.0
 
 ## Team
 
 * [Jerel Unruh](http://jerel.co/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Ryan Thompson](http://aiwebsystems.com/)
+* [Osvaldo Brignoni](https://github.com/obrignoni)
 
 ## Description
 

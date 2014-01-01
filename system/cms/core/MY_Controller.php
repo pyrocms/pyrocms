@@ -5,6 +5,7 @@ require APPPATH."libraries/MX/Controller.php";
 use Cartalyst\Sentry;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Pyro\Cache\CacheManager;
 use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
@@ -50,6 +51,11 @@ class MY_Controller extends MX_Controller
 
 		$this->benchmark->mark('my_controller_start');
 
+        // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
+        // See https://github.com/loic-sharma/profiler        
+        $logger = new \Profiler\Logger\Logger;         
+        ci()->profiler = new \Profiler\Profiler($logger);
+
         if ( ! defined('AUTO_LANGUAGE')) {
             $this->pickLanguage();
 		}
@@ -62,11 +68,6 @@ class MY_Controller extends MX_Controller
 		// Set up the Illuminate\Database layer
 		ci()->pdb = self::setupDatabase();
 
-        // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
-        // See https://github.com/loic-sharma/profiler        
-        $logger = new \Profiler\Logger\Logger;         
-        ci()->profiler = new \Profiler\Profiler($logger);
-
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
@@ -77,9 +78,6 @@ class MY_Controller extends MX_Controller
         
         // activate the autoloader
         $loader->register();
-
-		// the Quick\Cache package is instantiated to $this->cache in the config file
-		$this->load->config('cache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
@@ -230,62 +228,66 @@ class MY_Controller extends MX_Controller
         $pdo = $this->db->get_connection();
 
         include APPPATH.'config/database.php';
-
-        $config = $db[ENVIRONMENT];
+        include APPPATH.'config/cache.php';
+    
+        $config = $db[$active_group];
 
         // Is this a PDO connection?
-        if ($pdo instanceof PDO) {
+        if (isset($config['dsn'])) {
 
-        	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            preg_match('/(mysql|pgsql|sqlite)+:host=(\w.+).+dbname=(\w+)/', $config['dsn'], $matches);
+            
+            $config['dbdriver'] = $matches[1];
+            $config['hostname'] = $matches[2];
+            $config['database'] = $matches[3];
 
-            preg_match('/(mysql|pgsql|sqlite)+:.+dbname=(\w+)/', $config['dsn'], $matches);
-            $subdriver = $matches[1];
-            $database = $matches[2];
             unset($matches);
-
-            $drivers = array(
-                'mysql' => '\Illuminate\Database\MySqlConnection',
-                'pgsql' => '\Illuminate\Database\PostgresConnection',
-                'sqlite' => '\Illuminate\Database\SQLiteConnection',
-            );
-
-            // Make a connection instance with the existing PDO connection
-            $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
-
-            $resolver = new Illuminate\Database\ConnectionResolver;
-            $resolver->addConnection('default', $conn);
-            $resolver->setDefaultConnection('default');
-
-            Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
-
-        // Not using the new PDO driver
-        } else {
-
-            $capsule = new Capsule;
-
-            $capsule->addConnection(array(
-                'driver' => $config['dbdriver'],
-                'host' => $config["hostname"],
-                'database' => $config["database"],
-                'username' => $config["username"],
-                'prefix' => $prefix,
-                'password' => $config["password"],
-                'charset' => $config["char_set"],
-                'collation' => $config["dbcollat"],
-            ));
-
-            // Set the fetch mode FETCH_CLASS so we 
-            // get objects back by default.
-            $capsule->setFetchMode(PDO::FETCH_CLASS);
-
-            // Setup the Eloquent ORM
-            $capsule->bootEloquent();
-
-            // Make this Capsule instance available globally via static methods... (optional)
-            $capsule->setAsGlobal();
-
-            $conn = $capsule->connection();
         }
+
+        $capsule = new Capsule;
+
+        $capsule->addConnection(array(
+            'driver' => $config['dbdriver'],
+            'host' => $config["hostname"],
+            'database' => $config["database"],
+            'username' => $config["username"],
+            'prefix' => $prefix,
+            'password' => $config["password"],
+            'charset' => $config["char_set"],
+            'collation' => $config["dbcollat"],
+        ));
+
+        // Set the fetch mode FETCH_CLASS so we 
+        // get objects back by default.
+        $capsule->setFetchMode(PDO::FETCH_CLASS);
+
+        // Setup the Eloquent ORM
+        $capsule->bootEloquent();
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $capsule->setAsGlobal();
+
+        $container = $capsule->getContainer();
+
+        $container->offsetGet('config')->offsetSet('cache.driver', $cache['driver']);
+        $container->offsetGet('config')->offsetSet('cache.prefix', $cache['prefix']);
+
+        // Set driver specific settings
+        if ($cache['driver'] == 'file') {
+        
+            $container->offsetGet('config')->offsetSet('cache.path', $cache['path']);
+        
+        } elseif ($cache['driver'] == 'redis') {
+
+            $container->offsetGet('config')->offsetSet('redis', $cache['redis']);
+        
+        }
+
+        ci()->cache = new CacheManager($container);
+
+        $capsule->setCacheManager(ci()->cache);
+
+        $conn = $capsule->connection();
 
         $conn->setFetchMode(PDO::FETCH_OBJ);
 

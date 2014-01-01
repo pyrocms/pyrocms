@@ -1,12 +1,14 @@
 <?php namespace Pyro\Module\Navigation\Model;
 
+use Pyro\Model\Eloquent;
+
 /**
  * Navigation model for the navigation module.
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Navigation\Models
  */
-class Group extends \Illuminate\Database\Eloquent\Model
+class Group extends Eloquent
 {
     /**
      * Define the table name
@@ -36,7 +38,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      */
     public function links()
     {
-        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'navigation_group_id');
+        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'navigation_group_id')->where('parent', '=', 0)->orderBy('position', 'ASC');
     }
 
     /**

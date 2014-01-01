@@ -72,14 +72,14 @@ class Module_Settings extends AbstractModule
         );
     }
 
-	public function admin_menu(&$menu)
-	{
-		unset($menu['lang:cp:nav_settings']);
+    public function admin_menu(&$menu)
+    {
+        unset($menu['lang:cp:nav_settings']);
 
-		$menu['lang:cp:nav_settings'] = 'admin/settings';
+        $menu['lang:cp:nav_settings'] = 'admin/settings';
 
-		add_admin_menu_place('lang:cp:nav_settings', 7);
-	}
+        add_admin_menu_place('lang:cp:nav_settings', 7);
+    }
 
     /**
      * Install
@@ -88,9 +88,9 @@ class Module_Settings extends AbstractModule
      *
      * @return bool
      */
-	public function install($pdb, $schema)
-	{
-		log_message('debug', '-- Settings: going to install the default settings');
+    public function install($pdb, $schema)
+    {
+        log_message('debug', '-- Settings: going to install the default settings');
 
         // Regarding ordering: any additions to this table can have an order
         // value the same as a sibling in the same section. For example if you

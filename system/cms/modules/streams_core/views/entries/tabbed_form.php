@@ -29,7 +29,7 @@
 					<?php foreach ($tab['fields'] as $slug): ?>
 
 						<?php if ($field = $fields->findBySlug($slug)): ?>
-							<li class="<?php echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field->input_slug), $hidden) ? 'hidden' : null; ?>">
+							<li class="<?php echo in_array($field->field_slug, $hidden) ? 'hidden' : null; ?>">
 								<?php echo $field->input_row; ?>
 							</li>
 						<?php endif; ?>

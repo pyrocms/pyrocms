@@ -1,12 +1,14 @@
 <?php namespace Pyro\Module\Comments\Model;
 
+use Pyro\Model\Eloquent;
+
 /**
  * Comment Blacklist model
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Comments\Models
  */
-class CommentBlacklist extends \Illuminate\Database\Eloquent\Model
+class CommentBlacklist extends Eloquent
 {
     /**
      * Define the table name

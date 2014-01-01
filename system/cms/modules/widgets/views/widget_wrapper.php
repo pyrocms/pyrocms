@@ -1,8 +1,8 @@
-<div class="widget <?php echo $widget->slug ?>">
-	<?php if ($widget->options['show_title']): ?>
-		<h3><?php echo $widget->instance_title ?></h3>
+<div class="widget <?php echo $instance->slug ?>">
+	<?php if ($instance->options['show_title']): ?>
+		<h3><?php echo $instance->title ?></h3>
 	<?php endif ?>
 
-	<?php echo $widget->body ?>
+	<?php echo $instance->body ?>
 	<div class="divider"></div>
 </div>

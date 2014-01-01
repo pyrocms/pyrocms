@@ -163,8 +163,8 @@ class Admin extends Admin_Controller
             Page::updateLookup($root_pages);
 
             //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-            $this->cache->clear('navigation_m');
-            $this->cache->clear('page_m');
+            $this->cache->forget('navigation_m');
+            $this->cache->forget('page_m');
 
             Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $root_pages));
         }
@@ -349,14 +349,14 @@ class Admin extends Admin_Controller
                         if ($link) {
 
                             //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                            $this->cache->clear('navigation_m');
+                            $this->cache->forget('navigation_m');
 
                             Events::trigger('post_navigation_create', $link);
                         }
                     }
                 }
 
-                //$this->cache->clear('page_m');
+                //$this->cache->forget('page_m');
 
                 Events::trigger('page_created', $page);
             }
@@ -399,8 +399,6 @@ class Admin extends Admin_Controller
     {
         // We are lost without an id. Redirect to the pages index.
         $id or redirect('admin/pages');
-
-        $this->template->set('parent_id', null);
 
         // The user needs to be able to edit pages.
         role_or_die('pages', 'edit_live');
@@ -466,7 +464,6 @@ class Admin extends Admin_Controller
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
-            $page->parent_id        = isset($input['parent_id']) ? $input['parent_id'] : 0;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : '';
@@ -488,9 +485,9 @@ class Admin extends Admin_Controller
                 
                 Events::trigger('page_updated', $page);
 
-                //$this->cache->clear('page_m');
+                //$this->cache->forget('page_m');
                 //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                // $this->cache->clear('navigation_m');
+                // $this->cache->forget('navigation_m');
             }
         }
         else
@@ -585,6 +582,7 @@ class Admin extends Admin_Controller
     private function _tabs()
     {
         $form_details       = ci()->load->view('admin/pages/partials/form_details', $this->form_data, true);
+        $form_meta          = ci()->load->view('admin/pages/partials/form_meta', $this->form_data, true);
         $form_css           = ci()->load->view('admin/pages/partials/form_css', $this->form_data, true);
         $form_javascript    = ci()->load->view('admin/pages/partials/form_javascript', $this->form_data, true);
         $form_options       = ci()->load->view('admin/pages/partials/form_options', $this->form_data, true);
@@ -594,6 +592,11 @@ class Admin extends Admin_Controller
                 'title'     => 'Details',
                 'id'        => 'page-details',
                 'content'    => $form_details
+            ),
+            array(
+                'title'     => 'Metadata',
+                'id'        => 'page-meta',
+                'content'    => $form_meta
             ),
             array(
                 'title'     => 'Content',
@@ -651,9 +654,9 @@ class Admin extends Admin_Controller
                     $comments = Comment::where('module','=','pages')->where('entry_id','=',$id)->delete();
 
                     // Wipe cache for this model, the content has changd
-                    $this->cache->clear('page_m');
+                    $this->cache->forget('page_m');
                     //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                    $this->cache->clear('navigation_m');
+                    $this->cache->forget('navigation_m');
 
                 } else {
                     $this->session->set_flashdata('error', lang('pages:delete_home_error'));
