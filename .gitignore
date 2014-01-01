@@ -18,6 +18,7 @@ system/cms/logs/log-*.php
 system/vendor/*
 nbproject/
 uploads/*
+vendor/*
 
 addons/*
 !addons/shared_addons
