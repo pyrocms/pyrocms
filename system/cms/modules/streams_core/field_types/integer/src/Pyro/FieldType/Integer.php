@@ -48,7 +48,7 @@ class Integer extends AbstractFieldType
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
-		$options['placeholder']	= $this->getParameter('placeholder');
+		$options['placeholder']	= lang_label($this->getParameter('placeholder'));
 		$options['class']	= 'form-control';
 		
 		// Max length
