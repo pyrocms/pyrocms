@@ -68,9 +68,6 @@ class MX_Router extends CI_Router
 	/** Locate the controller **/
 	public function locate($segments)
 	{
-		// Connect and save the connection
-		self::$DB = self::connect();
-		
 		/**
 		 * Load the site ref for multi-site support if the "sites" module exists
 		 * and the multi-site constants haven't been defined already (hmvc request)
