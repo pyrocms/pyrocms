@@ -425,7 +425,11 @@ class EntryFormBuilder
 
                 // Run field events per field regardless if the type
                 // event has been ran yet
-                $type->fieldEvent();
+                if (defined('ADMIN_THEME')) {
+                    $type->fieldEvent();
+                } else {
+                    $type->publicFieldEvent();
+                }
             }
         }
     }
