@@ -53,7 +53,7 @@ $lang['required_error_label']			      = 'Uzupełnij wymagane pole';
 $lang['note_label']						          = 'Notatka';
 $lang['success_label']					        = 'Sukces!';
 $lang['global:fields']					        = 'Pola';
-$lang['global:custom_fields']					= 'Custom Fields'; #translate
+$lang['global:custom_fields']				  	= 'Własne pola';
 
 $lang['login_title']					          = 'Zaloguj się';
 $lang['global:fatal_error']				      = 'Błąd krytyczny, sprawdź czy CMS jest zainstalowany!';
@@ -113,6 +113,6 @@ $lang['global:plugins']					        = 'Pluginy';
 $lang['global:plugin']					        = 'Plugin';
 
 $lang['global:options']					        = 'Opcje';
-$lang['global:plain-text']				= 'Plain Text'; #translate
+$lang['global:plain-text']				      = 'Czysty tekst';
 
 /* End of file global_lang.php */
