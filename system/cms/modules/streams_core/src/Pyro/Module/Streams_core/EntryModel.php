@@ -1044,6 +1044,10 @@ class EntryModel extends Eloquent
     public function getPluginOutput($attribute)
     {
         if ($type = $this->getFieldType($attribute)) {
+
+            // Set value - entry - stream
+            $type->setValue($this->{$attribute})->setEntry($this)->setStream($this->stream);
+
             return $type->pluginOutput($attribute);
         }
 
