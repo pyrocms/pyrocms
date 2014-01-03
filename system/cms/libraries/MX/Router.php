@@ -41,8 +41,6 @@ class MX_Router extends CI_Router
 {
 	private $module;
 
-	protected static $DB = null;
-
 	public function fetch_module()
 	{
 		return $this->module;
@@ -55,12 +53,6 @@ class MX_Router extends CI_Router
 		/* locate module controller */
 		if ($located = $this->locate($segments)) {
 			return $located;
-		}
-
-		/* Routes module */
-		if ($routes_segments = $this->routes($segments))
-		{
-			if ($located = $this->locate($routes_segments)) return $located;
 		}
 
 		/* use a default 404_override controller */
@@ -76,16 +68,15 @@ class MX_Router extends CI_Router
 	/** Locate the controller **/
 	public function locate($segments)
 	{
-		// Connect and save the connection
-		self::$DB = self::connect();
-		
 		/**
 		 * Load the site ref for multi-site support if the "sites" module exists
 		 * and the multi-site constants haven't been defined already (hmvc request)
 		 */
 		if ($path = self::is_multisite() and ! defined('SITE_REF'))
 		{
-			$site = self::$DB
+			$DB = self::connect();
+
+			$site = $DB
 				->table('core_sites')
 				->select('core_sites.name', 'core_sites.ref', 'core_sites.domain', 'core_sites.is_activated', 'core_domains.domain as alias_domain', 'core_domains.type as alias_type')
 				->where('core_sites.domain', '=', SITE_DOMAIN)
@@ -254,41 +245,6 @@ class MX_Router extends CI_Router
 		}
 
 		Modules::$locations = $locations;
-	}
-
-	/**
-	 * Check if a route from the routes module has been used
-	 * @param  array $segments
-	 * @return array           [description]
-	 */
-	public function routes($segments)
-	{
-		// Connect and save the connection
-		self::$DB = self::connect();
-		
-		//TODO Caching Here
-		$routes = self::$DB->table(SITE_REF.'_routes')->select('route_key', 'route_value')->get();
-		
-		$uri = implode('/', $segments);
-		
-		foreach ($routes as $route)
-		{
-			if ($uri == $route->route_key) return explode('/', $route->route_value);
-
-			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $route->route_key));
-
-			// Does the RegEx match?
-			if (preg_match('#^'.$key.'$#', $uri))
-			{
-				// Do we have a back-reference?
-				if (strpos($route->route_value, '$') !== FALSE AND strpos($key, '(') !== FALSE)
-				{
-					$val = preg_replace('#^'.$key.'$#', $route->route_value, $uri);
-				}
-
-				return explode('/', $route->route_value);
-			}
-		}
 	}
 
 	private function connect() {
