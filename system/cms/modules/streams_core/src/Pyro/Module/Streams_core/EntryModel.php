@@ -1049,6 +1049,8 @@ class EntryModel extends Eloquent
             $type->setValue($this->{$attribute})->setEntry($this)->setStream($this->stream);
 
             return $type->pluginOutput($attribute);
+        } elseif ($attribute == 'id') {
+            return (string) $this->id;
         }
 
         return $this->getEloquentOutput($attribute);
