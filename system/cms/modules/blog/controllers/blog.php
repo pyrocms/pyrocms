@@ -247,18 +247,14 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 
-		$params = array(
-			'stream'		=> 'blog',
-			'namespace'		=> 'blogs',
-			'limit'			=> 1,
-			'order_by'		=> "created_at",
-			'where'			=> "`slug` = '{$slug}'"
-		);
-		$data = $this->streams->entries->get_entries($params);
-		$post = (isset($data['entries'][0])) ? $data['entries'][0] : null;
+		// Get the latest blog posts
+		$post = EntryModel::stream('blog', 'blogs')
+			->where('slug', '=', $slug)
+			->first()
+			->asPlugin()
+			->toArray();
 
-		if ( ! $post or ($post['status'] !== 'live' and ! $this->ion_auth->is_admin()))
-		{
+		if (! $post or ($status->status !== 'live' and ! ci()->current_user->isSuperUser())) {
 			redirect('blog');
 		}
 
@@ -435,7 +431,7 @@ class Blog extends Public_Controller
 			}
 		}
 
-		$this->_process_post($post);
+		$post = self::processPosts($post);
 
 		// Add in OG keywords
 		foreach ($post['keywords_arr'] as $keyword)
@@ -486,7 +482,7 @@ class Blog extends Public_Controller
 	 */
 	protected static function processPosts($posts)
 	{
-		foreach ($posts as &$post) {
+		foreach ((array) $posts as &$post) {
 			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
 		}
 
