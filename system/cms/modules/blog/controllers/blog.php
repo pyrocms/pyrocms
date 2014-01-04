@@ -486,7 +486,7 @@ class Blog extends Public_Controller
 	 */
 	protected static function processPosts($posts)
 	{
-		foreach ($posts as $post) {
+		foreach ($posts as &$post) {
 			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
 		}
 
