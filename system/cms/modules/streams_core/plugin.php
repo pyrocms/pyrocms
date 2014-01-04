@@ -1413,6 +1413,15 @@ class Plugin_Streams_core extends Plugin
 
 			$entries->orderBy($parameters['order_by'], $parameters['sort']);
 
+
+			/**
+			 * Debug
+			 */
+
+			if ($parameters['debug'] == 'yes') {
+				echo $entries->toSql();
+			}
+
 			
 			/**
 			 * Get entries
