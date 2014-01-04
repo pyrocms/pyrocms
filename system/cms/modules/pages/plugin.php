@@ -245,7 +245,7 @@ class Plugin_Pages extends Plugin
 	public function url()
 	{
 		$id = $this->attribute('id');
-		$page = $this->cache->method('Pyro\Module\Pages\Model\Page', 'find', array($id));
+		$page = Page::find($id);
 
 		return site_url($page ? $page->uri : '');
 	}
