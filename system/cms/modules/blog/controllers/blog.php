@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Streams_core\EntryModel;
+
 /**
  * Public Blog module controller
  *
@@ -49,38 +52,37 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
-		// Get our comment count whil we're at it.
-		$this->row_m->sql['select'][] = "(SELECT COUNT(id) FROM ".
-				$this->db->protect_identifiers('comments', true)." WHERE module='blog'
-				AND is_active='1' AND entry_key='blog:post' AND entry_plural='blog:posts'
-				AND entry_id=".$this->db->protect_identifiers('blog.id', true).") as `comment_count`";
+		// Total posts
+		$total = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->count();
+
+		// Skip
+		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
 
 		// Get the latest blog posts
-		$posts = $this->streams->entries->get_entries(array(
-			'stream'		=> 'blog',
-			'namespace'		=> 'blogs',
-			'limit'			=> Settings::get('records_per_page'),
-			'where'			=> "`status` = 'live'",
-			'order_by'		=> "created_at",
-			'paginate'		=> 'yes',
-			'pag_base'		=> site_url('blog/page'),
-			'pag_segment'   => 3
-		));
+		$posts = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->orderBy('created_at', 'DESC')
+			->take(Settings::get('records_per_page'))
+			->skip($skip)
+			->get()
+			->asPlugin()
+			->toArray();
 
-		// Process posts
-		foreach ($posts['entries'] as &$post)
-		{
-			$this->_process_post($post);
-		}
-
-		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
-
-		$data = array(
-			'pagination' => $posts['pagination'],
-			'posts' => $posts['entries']
+		// Create pagination
+		$pagination = create_pagination(
+			'blog',
+			$total,
+			Settings::get('records_per_page')
 		);
 
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($posts);
+
+		// Go!
 		$this->template
 			->title($this->module_details['name'])
 			->set_breadcrumb(lang('blog:blog_title'))
@@ -91,8 +93,8 @@ class Blog extends Public_Controller
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
-			->set('posts', $posts['entries'])
-			->set('pagination', $posts['pagination'])
+			->set('posts', $posts)
+			->set('pagination', $pagination['links'])
 			->build('posts');
 	}
 
@@ -108,26 +110,37 @@ class Blog extends Public_Controller
 		// Get category data
 		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
 
-		// Get the blog posts
-		$params = array(
-			'stream'		=> 'blog',
-			'namespace'		=> 'blogs',
-			'limit'			=> Settings::get('records_per_page'),
-			'where'			=> "`status` = 'live' AND `category_id` = '{$category->id}'",
-			'order_by'		=> "created_at",
-			'paginate'		=> 'yes',
-			'pag_segment'	=> 4
-		);
-		$posts = $this->streams->entries->get_entries($params);
+		// Total posts
+		$total = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->where('category_id', '=', $category->id)
+			->count();
 
-		// Process posts
-		foreach ($posts['entries'] as &$post)
-		{
-			$this->_process_post($post);
-		}
+		// Skip
+		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+
+		// Get the latest blog posts
+		$posts = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->where('category_id', '=', $category->id)
+			->orderBy('created_at', 'DESC')
+			->take(Settings::get('records_per_page'))
+			->skip($skip)
+			->get()
+			->asPlugin()
+			->toArray();
+
+		// Create pagination
+		$pagination = create_pagination(
+			'blog',
+			$total,
+			Settings::get('records_per_page')
+		);
+
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
 
 		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
+		$meta = $this->_posts_metadata($posts);
 
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title)
@@ -135,10 +148,10 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $category->title)
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
-			->set('pagination', $posts['pagination'])
+			->set('pagination', $pagination['links'])
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
-			->set('posts', $posts['entries'])
-			->set('category', (array)$category)
+			->set('posts', $posts)
+			->set('category', (array) $category)
 			->build('posts');
 	}
 
@@ -153,30 +166,39 @@ class Blog extends Public_Controller
 		$year or $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
 
-		// Get the blog posts
-		$params = array(
-			'stream'		=> 'blog',
-			'namespace'		=> 'blogs',
-			'limit'			=> Settings::get('records_per_page'),
-			'where'			=> "`status` = 'live'",
-			'order_by'		=> "created_at",
-			'date_by'		=> "created_at",
-			'year'			=> $year,
-			'month'			=> $month,
-			'paginate'		=> 'yes',
-			'pag_segment'	=> 5
+		// Total posts
+		$total = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->whereYear('created_at', '=', $year)
+			->whereMonth('created_at', '=', $month)
+			->count();
+
+		// Skip
+		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+
+		// Get the latest blog posts
+		$posts = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->whereYear('created_at', '=', $year)
+			->whereMonth('created_at', '=', $month)
+			->orderBy('created_at', 'DESC')
+			->take(Settings::get('records_per_page'))
+			->skip($skip)
+			->get()
+			->asPlugin()
+			->toArray();
+
+		// Create pagination
+		$pagination = create_pagination(
+			'blog',
+			$total,
+			Settings::get('records_per_page')
 		);
-		$posts = $this->streams->entries->get_entries($params);
 
-		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
-
-		foreach ($posts['entries'] as &$post)
-		{
-			$this->_process_post($post);
-		}
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
 
 		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
+		$meta = $this->_posts_metadata($posts);
 
 		$this->template
 			->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
@@ -184,9 +206,9 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $month_year.', '.$meta['keywords'])
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
-			->set('pagination', $posts['pagination'])
+			->set('pagination', $pagination['links'])
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
-			->set('posts', $posts['entries'])
+			->set('posts', $posts)
 			->set('month_year', $month_year)
 			->build('archive');
 	}
@@ -326,46 +348,6 @@ class Blog extends Public_Controller
 	}
 
 	/**
-	 * Process Post
-	 *
-	 * Process data that was not part of the 
-	 * initial streams call.
-	 *
-	 * @return 	void
-	 */
-	private function _process_post(&$post)
-	{
-		$this->load->helper('text');
-
-		// Keywords array
-		$keywords = Keywords::get($post['keywords']);
-		$formatted_keywords = array();
-		$keywords_arr = array();
-
-		foreach ($keywords as $key)
-		{
-			$formatted_keywords[] 	= array('keyword' => $key->name);
-			$keywords_arr[] 		= $key->name;
-
-		}
-		$post['keywords'] = $formatted_keywords;
-		$post['keywords_arr'] = $keywords_arr;
-
-		// Full URL for convenience.
-		$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
-	
-		// What is the preview? If there is a field called intro,
-		// we will use that, otherwise we will cut down the blog post itself.
-		$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
-
-		// Category
-		if ($post['category_id'] > 0 and isset($this->categories[$post['category_id']]))
-		{
-			$post['category'] = $this->categories[$post['category_id']];
-		}
-	}
-
-	/**
 	 * Posts Metadata
 	 *
 	 * @param array $posts
@@ -382,9 +364,9 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				if (isset($post['category']) and ! in_array($post['category']['title'], $keywords))
+				if (isset($post['category_id']) and ! in_array($post['category_id']['title'], $keywords))
 				{
-					$keywords[] = $post['category']['title'];
+					$keywords[] = $post['category_id']['title'];
 				}
 
 				$description[] = $post['title'];
