@@ -58,7 +58,11 @@ class Blog extends Public_Controller
 			->count();
 
 		// Skip
-		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		if (ci()->input->get('page')) {
+			$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		} else {
+			$skip = 0;
+		}
 
 		// Get the latest blog posts
 		$posts = EntryModel::stream('blog', 'blogs')
@@ -117,7 +121,11 @@ class Blog extends Public_Controller
 			->count();
 
 		// Skip
-		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		if (ci()->input->get('page')) {
+			$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		} else {
+			$skip = 0;
+		}
 
 		// Get the latest blog posts
 		$posts = EntryModel::stream('blog', 'blogs')
@@ -174,7 +182,11 @@ class Blog extends Public_Controller
 			->count();
 
 		// Skip
-		$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		if (ci()->input->get('page')) {
+			$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		} else {
+			$skip = 0;
+		}
 
 		// Get the latest blog posts
 		$posts = EntryModel::stream('blog', 'blogs')
