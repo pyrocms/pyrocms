@@ -86,6 +86,9 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
 
+		// Process
+		self::processPosts($posts);
+
 		// Go!
 		$this->template
 			->title($this->module_details['name'])
@@ -150,6 +153,9 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
 
+		// Process
+		self::processPosts($posts);
+
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title)
 			->set_metadata('description', $category->title.'. '.$meta['description'])
@@ -211,6 +217,9 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
+
+		// Process
+		self::processPosts($posts);
 
 		$this->template
 			->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
@@ -334,11 +343,8 @@ class Blog extends Public_Controller
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
-		// Process posts
-		foreach ($posts['entries'] as &$post)
-		{
-			$this->_process_post($post);
-		}
+		// Process
+		self::processPosts($posts);
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts['entries']);
@@ -471,5 +477,17 @@ class Blog extends Public_Controller
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('post', array($post))
 			->build('view');
+	}
+
+	/**
+	 * Process posts
+	 * @param  array $posts by reference
+	 * @return void        
+	 */
+	protected static function processPosts(&$posts)
+	{
+		foreach ($posts as $post) {
+			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
+		}
 	}
 }

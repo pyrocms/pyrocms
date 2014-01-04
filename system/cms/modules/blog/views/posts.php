@@ -4,7 +4,7 @@
 
 		<div class="post">
 
-			<h3><a href="{{ url:site }}blog/{{ helper:date format="Y/m" timestamp=created_at }}/{{ slug }}">{{ title }}</a></h3>
+			<h3><a href="{{ url }}">{{ title }}</a></h3>
 
 			<div class="meta">
 
