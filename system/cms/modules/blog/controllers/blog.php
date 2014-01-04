@@ -431,7 +431,8 @@ class Blog extends Public_Controller
 			}
 		}
 
-		$post = self::processPosts($post);
+		$post = self::processPosts(array($post));
+		$post = $post[0];
 
 		// Add in OG keywords
 		foreach ($post['keywords_arr'] as $keyword)
@@ -482,7 +483,7 @@ class Blog extends Public_Controller
 	 */
 	protected static function processPosts($posts)
 	{
-		foreach ((array) $posts as &$post) {
+		foreach ($posts as &$post) {
 			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
 		}
 
