@@ -87,7 +87,7 @@ class Blog extends Public_Controller
 		$meta = $this->_posts_metadata($posts);
 
 		// Process
-		self::processPosts($posts);
+		$posts = self::processPosts($posts);
 
 		// Go!
 		$this->template
@@ -154,7 +154,7 @@ class Blog extends Public_Controller
 		$meta = $this->_posts_metadata($posts);
 
 		// Process
-		self::processPosts($posts);
+		$posts = self::processPosts($posts);
 
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title)
@@ -219,7 +219,7 @@ class Blog extends Public_Controller
 		$meta = $this->_posts_metadata($posts);
 
 		// Process
-		self::processPosts($posts);
+		$posts = self::processPosts($posts);
 
 		$this->template
 			->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
@@ -344,7 +344,7 @@ class Blog extends Public_Controller
 		$posts = $this->streams->entries->get_entries($params);
 
 		// Process
-		self::processPosts($posts);
+		$posts = self::processPosts($posts);
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts['entries']);
@@ -484,10 +484,12 @@ class Blog extends Public_Controller
 	 * @param  array $posts by reference
 	 * @return void        
 	 */
-	protected static function processPosts(&$posts)
+	protected static function processPosts($posts)
 	{
 		foreach ($posts as $post) {
 			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
 		}
+
+		return $posts;
 	}
 }
