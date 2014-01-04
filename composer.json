@@ -32,7 +32,9 @@
         "ruudk/twitter-oauth": "*",
         "simplepie/simplepie": "1.3.*",
         "tijsverkoyen/akismet": "1.1.*",
-        "loic-sharma/profiler": "1.1.*"
+        "loic-sharma/profiler": "1.1.*",
+        "omnipay/omnipay": "~2.0",
+        "h4cc/wkhtmltoimage-amd64": "0.11.0-RC1"
     },
     "require-dev": {
         "illuminate/encryption": "4.0.*",
