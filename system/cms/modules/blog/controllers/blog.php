@@ -312,38 +312,44 @@ class Blog extends Public_Controller
 		// decode encoded cyrillic characters
 		$tag = rawurldecode($tag) or redirect('blog');
 
-		// Here we need to add some custom joins into the
-		// row query. This shouldn't be in the controller, but
-		// we need to figure out where this sort of stuff should go.
-		// Maybe the entire blog moduel should be replaced with stream
-		// calls with items like this. Otherwise, this currently works.
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.
-			$this->db->protect_identifiers('keywords_applied.hash', true).' = '.
-			$this->db->protect_identifiers('blog.keywords', true);
+		// Total posts
+		$total = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->where('keywords', 'LIKE', '%'.$tag.'%')
+			->count();
 
-		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.
-			$this->db->protect_identifiers('keywords.id', true).' = '.
-			$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
+		// Skip
+		if (ci()->input->get('page')) {
+			$skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+		} else {
+			$skip = 0;
+		}
 
-		$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $tag)."'";
+		// Get the latest blog posts
+		$posts = EntryModel::stream('blog', 'blogs')
+			->where('status', '=', 'live')
+			->where('keywords', 'LIKE', '%'.$tag.'%')
+			->orderBy('created_at', 'DESC')
+			->take(Settings::get('records_per_page'))
+			->skip($skip)
+			->get()
+			->asPlugin()
+			->toArray();
 
-		// Get the blog posts
-		$params = array(
-			'stream'		=> 'blog',
-			'namespace'		=> 'blogs',
-			'limit'			=> Settings::get('records_per_page'),
-			'where'			=> "`status` = 'live'",
-			'order_by'		=> "created_at",
-			'paginate'		=> 'yes',
-			'pag_segment'	=> 4
+		// Create pagination
+		$pagination = create_pagination(
+			'blog',
+			$total,
+			Settings::get('records_per_page')
 		);
-		$posts = $this->streams->entries->get_entries($params);
+
+		$pagination['links'] = str_replace('-1', '1', $pagination['links']);
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($posts);
 
 		// Process
 		$posts = self::processPosts($posts);
-
-		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
 
 		$name = str_replace('-', ' ', $tag);
 
@@ -354,9 +360,9 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $name)
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
-			->set('pagination', $posts['pagination'])
+			->set('pagination', $pagination['links'])
 			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
-			->set('posts', $posts['entries'])
+			->set('posts', $posts)
 			->set('tag', $tag)
 			->build('posts');
 	}
