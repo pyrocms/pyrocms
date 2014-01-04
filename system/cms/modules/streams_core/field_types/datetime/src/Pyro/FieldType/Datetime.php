@@ -495,10 +495,7 @@ class Datetime extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		return array(
-			'timestamp' => strtotime($this->getDateTime($this->value)),
-			'datetime' => $this->getDateTime($this->value),
-			);
+		return (string) strtotime($this->value);
 	}
 
 	/**
