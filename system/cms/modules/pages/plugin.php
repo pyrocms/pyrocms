@@ -250,7 +250,7 @@ class Plugin_Pages extends Plugin
 	public function url()
 	{
 		$id   = $this->attribute('id');
-		$page = $this->pyrocache->model('page_m', 'get', array($id));
+		$page = $this->pyrocache->model('page_m', 'get', array($id, false));
 
 		return site_url($page ? $page->uri : '');
 	}

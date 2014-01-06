@@ -7,7 +7,7 @@
  */
 class Pages extends Public_Controller
 {
-	
+
 	/**
 	 * Constructor method
 	 */
@@ -159,7 +159,7 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true, true));
 				}
 
 				// Cache for next time
@@ -241,7 +241,7 @@ class Pages extends Public_Controller
 		}
 
 		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
-		
+
 		// Add our page and page layout JS
 		if ($js)
 		{
