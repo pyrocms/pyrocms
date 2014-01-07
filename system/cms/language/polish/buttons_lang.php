@@ -17,8 +17,6 @@ $lang['buttons:cancel']		= 'Anuluj';
 $lang['buttons:upload']		= 'Wyślij';
 $lang['buttons:save']		= 'Zapisz';
 $lang['buttons:save_exit']	= 'Zapisz i zakończ';
-$lang['buttons:save_continue']	= 'Save &amp; Continue';
-$lang['buttons:save_create']	= 'Save &amp; Create';
 $lang['buttons:delete']		= 'Usuń';
 $lang['buttons:publish']	= 'Publikuj';
 $lang['buttons:approve']	= 'Zatwierdź';
@@ -28,7 +26,7 @@ $lang['buttons:uninstall']	= 'Odinstaluj';
 $lang['buttons:enable']		= 'Włącz';
 $lang['buttons:disable']	= 'Wyłącz';
 $lang['buttons:yes']		= 'Tak';
-$lang['buttons:no']		= 'Nie';
+$lang['buttons:no']         = 'Nie';
 $lang['buttons:activate']	= 'Aktywuj';
 $lang['buttons:deactivate']	= 'Deaktywuj';
 $lang['buttons:preview']	= 'Podgląd';
@@ -37,7 +35,7 @@ $lang['buttons:edit']		= 'Edytuj';
 $lang['buttons:clone']		= 'Klonuj';
 $lang['buttons:re-index']	= 'Przeindeksuj';
 $lang['buttons:copy']		= 'Kopiuj';
-$lang['buttons:filter']		= 'Filter';
-$lang['buttons:clear']		= 'Clear';
+$lang['buttons:filter']		= 'Filtruj';
+$lang['buttons:clear']		= 'Wyczyść';
 
 /* End of file buttons_lang.php */
