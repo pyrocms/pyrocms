@@ -6,8 +6,14 @@ class {{ className }} extends EntryModel
 {
     protected $table = {{ table }};
 
+    protected static $streamData;
+
     public static function getStream()
     {
-    	return {{ stream }};
+		if (static::$streamData) {
+			return static::$streamData;
+		}
+
+    	return static::$streamData = {{ stream }};
     }
 }
