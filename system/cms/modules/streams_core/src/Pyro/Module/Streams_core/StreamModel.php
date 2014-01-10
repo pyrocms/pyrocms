@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
+use Illuminate\Support\Str;
 use Pyro\Model\Eloquent;
 
 class StreamModel extends Eloquent
@@ -26,6 +27,24 @@ class StreamModel extends Eloquent
     public $timestamps = false;
 
     protected static $streams_cache = array();
+
+    /**
+     * Compile entry model
+     * @return [type] [description]
+     */
+    public function compileEntryModel()
+    {
+        if (! empty($this->stream_slug) and ! empty($this->stream_namespace)) {
+            $className = Str::studly($this->stream_namespace).Str::studly($this->stream_slug);
+
+            $generator = new EntryModelGenerator;
+
+            $generator->make($className.'EntryModel.php', array(
+                'table' => "'".$this->stream_prefix.$this->stream_slug."'",
+                'stream' => str_replace('Pyro', '\Pyro', var_export($this->load('assignments.field'), true)),
+            ), true);            
+        }
+    }
 
     /**
      * Add a Stream.
@@ -288,7 +307,7 @@ class StreamModel extends Eloquent
             ->fresh($fresh)
             ->first();
 
-        return static::$streams_cache[$stream->stream_slug.'.'.$stream->stream_namespace] = static::$streams_cache[$stream->id] = $stream;
+        return $stream;
     }
 
     /**
@@ -551,6 +570,13 @@ class StreamModel extends Eloquent
         return $assignment->save();
     }
 
+    public function save(array $options = array())
+    {
+        $this->compileEntryModel();
+
+        return parent::save($options);
+    }
+
     /**
      * Get Stream options
      * @return array The array of Stream options indexed by id
@@ -794,6 +820,10 @@ class StreamModel extends Eloquent
      */
     public function getViewOptionsAttribute($view_options)
     {
+        if (! is_string($view_options)) {
+            return $view_options;
+        }
+
         return unserialize($view_options);
     }
 

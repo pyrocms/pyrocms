@@ -712,7 +712,11 @@ class FieldModel extends Eloquent
      */
     public function setFieldDataAttribute($field_data)
     {
-        $this->attributes['field_data'] = serialize($field_data);
+        if (! is_string($field_data)) {
+            $this->attributes['field_data'] = serialize($field_data);
+        }
+
+        $this->attributes['field_data'] = $field_data;
     }
 
     /**
@@ -722,7 +726,11 @@ class FieldModel extends Eloquent
      */
     public function getFieldDataAttribute($field_data)
     {
-        return unserialize($field_data);
+        if (is_string($field_data)) {
+            return unserialize($field_data);
+        }
+
+        return $field_data;
     }
 
     /**

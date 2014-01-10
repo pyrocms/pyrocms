@@ -71,6 +71,7 @@ class Plugin_Streams_core extends Plugin
 		'include'			=> null,
 		'exclude'			=> null,
 		'hidden'			=> null,
+		'order'				=> null,
 		'class'				=> null,
 		'redirect'			=> null,
 		'exit_redirect'		=> null,
@@ -556,8 +557,8 @@ class Plugin_Streams_core extends Plugin
 		if ($parameters['continue_redirect'])
 			$form = $form->continueRedirect($parameters['continue_redirect']);
 
-		if ($parameters['continue_redirect'])
-			$form = $form->continueRedirect($parameters['continue_redirect']);
+		if ($parameters['create_redirect'])
+			$form = $form->createRedirect($parameters['create_redirect']);
 
 		if ($parameters['cancel_uri'])
 			$form = $form->cancelUri($parameters['cancel_uri']);
@@ -586,6 +587,14 @@ class Plugin_Streams_core extends Plugin
 				$fields[$k]['field_name'] = $parameters[$field['field']['field_slug'].'_label'];
 
 		/**
+		 * Override form order
+		 */
+		
+		if ($parameters['order']) {
+			$fields = $this->reorderFormFields($fields, $parameters['order']);
+		}
+
+		/**
 		 * Build our return
 		 */
 
@@ -601,7 +610,7 @@ class Plugin_Streams_core extends Plugin
 			$return[$field['field']['field_slug']] = $field;
 		}
 
-		// Return our sex
+		// Return our goodness
 		return array($return);
 	}
 
@@ -1481,7 +1490,7 @@ class Plugin_Streams_core extends Plugin
 		// Make sure these are arrays
 		$skips = is_string($skips) ? explode('|', $skips) : $skips;
 		$include = is_string($include) ? explode('|', $include) : $include;
-		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $exclude;
+		$exclude = is_string($exclude) ? explode('|', $exclude) : $exclude;
 
 		// Get the streams assignments first
 		$assignments = $stream->assignments->toArray();
@@ -1505,11 +1514,41 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		// Skip excludes
-		foreach ($exlcude as $skip)
+		foreach ((array) $exclude as $skip)
 			$skips[] = $skip;
 
 		// Return unique
 		return array_unique($skips);
+	}
+
+	/**
+	 * Reorder the form inputs
+	 * @param  array $fields
+	 * @param  string $order Pipe delimited field slugs
+	 * @return array
+	 */
+	private function reorderFormFields($fields, $order)
+	{
+		$order = explode('|', $order);
+
+		$sorted = array();
+
+		// Loop and save fields as sorted
+		foreach ($order as $field_slug) {
+			foreach ($fields as $k => $field) {
+				if ($field['field']['field_slug'] == $field_slug) {
+					$sorted[] = $field;
+					unset($fields[$k]);
+				}
+			}
+		}
+
+		// Add the rest
+		foreach ($fields as $field) {
+			$sorted[] = $field;
+		}
+
+		return $sorted;
 	}
 
 	/**

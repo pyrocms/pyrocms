@@ -425,7 +425,7 @@ class Blog extends Public_Controller
 		{
 			// Get the category. We'll just do it ourselves
 			// since we need an array.
-			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array())
+			if ($category = $this->db->limit(1)->where('id', $post['category_id']['id'])->get('blog_categories')->row_array())
 			{
 				$this->template->set_breadcrumb($category['title'], 'blog/category/'.$category['slug']);
 

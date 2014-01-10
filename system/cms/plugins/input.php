@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
 /**
  * Input Plugin
  *
@@ -23,7 +24,11 @@ class Plugin_Input extends Plugin
 	 */
 	public function get()
 	{
-		return $this->input->get($this->getAttribute('key', $this->getAttribute('default')));
+		if ($this->getAttribute('key')) {
+			return $this->input->get($this->getAttribute('key'));
+		} else {
+			return $this->getAttribute('default');
+		}
 	}
 
 	/**
@@ -40,7 +45,11 @@ class Plugin_Input extends Plugin
 	 */
 	public function post()
 	{
-		return $this->input->post($this->getAttribute('key', $this->getAttribute('default')));
+		if ($this->getAttribute('key')) {
+			return $this->input->post($this->getAttribute('key'));
+		} else {
+			return $this->getAttribute('default');
+		}
 	}
 
 	/**
@@ -57,7 +66,11 @@ class Plugin_Input extends Plugin
 	 */
 	public function cookie()
 	{
-		return $this->input->cookie($this->getAttribute('key', $this->getAttribute('default')));
+		if ($this->getAttribute('key')) {
+			return $this->input->cookie($this->getAttribute('key'));
+		} else {
+			return $this->getAttribute('default');
+		}
 	}
 
 	/**
@@ -74,8 +87,10 @@ class Plugin_Input extends Plugin
 	 */
 	public function server()
 	{
-		return $this->input->server($this->getAttribute('key', $this->getAttribute('default')));
+		if ($this->getAttribute('key')) {
+			return $this->input->server($this->getAttribute('key'));
+		} else {
+			return $this->getAttribute('default');
+		}
 	}
 }
-
-/* End of file input.php */

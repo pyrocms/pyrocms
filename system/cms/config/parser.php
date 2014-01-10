@@ -32,6 +32,7 @@ $config['allowed_functions']	=	array(
 	'number_format',
 	'preg_match',
 	'preg_replace',
+	'rand_string',
 	'rtrim',
 	'safe_mailto',
 	'slugify',

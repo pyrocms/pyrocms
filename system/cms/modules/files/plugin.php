@@ -355,6 +355,24 @@ class Plugin_Files extends Plugin
 	}
 
 	/**
+	 * Return a file
+	 * @return array/null
+	 *
+	 * * Usage:
+	 *
+	 * {{ files:file id="9517fd0bf8faa65" }}
+	 * 	// your html logic
+	 * {{ /files:file }}
+	 * 
+	 */
+	public function find()
+	{
+		$file = File::find($this->getAttribute('id'));
+
+		return $file ? ci()->parser->parse_string($this->content(), $file->toArray(), true) : false;
+	}
+
+	/**
 	 * Folder contents
 	 *
 	 * Creates a list of folders

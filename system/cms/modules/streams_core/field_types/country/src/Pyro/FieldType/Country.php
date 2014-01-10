@@ -32,19 +32,16 @@ class Country extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Value
-		// We only use the default value if this is a new
-		// entry.
-		if ( ! $this->value and ! $this->entry->getKey())
-		{
-			$value = $this->getParameter('default_country');
-		} 
-		else
-		{
+		// Value or default_value
+		if (! $this->value and ! $this->entry->getKey()) {
+			$value = $this->getParameter('default_value');
+		} else {
 			$value = $this->value;
 		}
 
-		return form_dropdown($this->form_slug, $this->getCountryOptions($this->field->is_required), $this->value, 'id="'.$this->form_slug.'"');
+		$options = $this->getCountryOptions($this->field->is_required);
+
+		return form_dropdown($this->form_slug, $options, $value, 'id="'.$this->form_slug.'"');
 	}
 
 	// --------------------------------------------------------------------------

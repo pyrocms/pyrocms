@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Closure;
+use Illuminate\Support\Str;
 use Pyro\Support\AbstractCallable;
 
 abstract class AbstractUi extends AbstractCallable
@@ -426,6 +427,11 @@ abstract class AbstractUi extends AbstractCallable
     public function getFields()
     {
         return $this->data->fields;
+    }
+
+    public function getEntryModelClass($stream_slug, $stream_namespace)
+    {
+        return 'Pyro\Module\Streams_core\Data\\'.Str::studly($stream_namespace).Str::studly($stream_slug).'EntryModel';
     }
 
     /**

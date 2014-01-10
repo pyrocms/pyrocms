@@ -100,7 +100,7 @@ class Users extends Public_Controller
 			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
-		if ( ! $_POST and $args = func_get_args()) {
+		if (! $_POST and $args = func_get_args()) {
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
 
@@ -198,7 +198,7 @@ class Users extends Public_Controller
 		}
 
 		/* show the disabled registration message */
-		if ( ! Settings::get('enable_registration')) {
+		if (! Settings::get('enable_registration')) {
 			$this->template
 				->title(lang('user:register_title'))
 				->build('disabled');
@@ -345,7 +345,7 @@ class Users extends Public_Controller
 
 				// Do we have a display name? If so, let's use that.
 				// Othwerise we can use the username.
-				if ( ! isset($profile_data['display_name']) or ! $profile_data['display_name']) {
+				if (! isset($profile_data['display_name']) or ! $profile_data['display_name']) {
 					$profile_data['display_name'] = $username;
 				}
 
@@ -391,6 +391,7 @@ class Users extends Public_Controller
 
 					// show the "you need to activate" page while they wait for their email
 					if ((int) Settings::get('activation_email') === 1) {
+						Events::trigger('send_activation_email', $user);
 						$this->session->set_flashdata('notice', lang('user:activation_code_sent_notice'));
 						redirect('users/activate');
 
@@ -456,7 +457,7 @@ class Users extends Public_Controller
 	{
 		// Get info from email
 		if ($this->input->post('email')) {
-			$this->template->activate_user = $this->ion_auth->get_user_by_email($this->input->post('email'));
+			$this->template->activate_user = Model\User::findByEmail($this->input->post('email'));
 			$id = $this->template->activate_user->id;
 		}
 
@@ -464,16 +465,20 @@ class Users extends Public_Controller
 
 		// If user has supplied both bits of information
 		if ($id and $code) {
+
+			// Get the User
+			$user = Model\User::find($id);
+
 			// Try to activate this user
-			if ($this->ion_auth->activate($id, $code)) {
-				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
+			if ($user->attemptActivation($code)) {
+				$this->session->set_flashdata('activated_email', lang('user:activated_message'));
 
 				// trigger an event for third party devs
 				Events::trigger('post_user_activation', $id);
 
 				redirect('users/activated');
 			} else {
-				$this->template->error_string = $this->ion_auth->errors();
+				$this->template->error_string = lang('user:activation_incorrect');
 			}
 		}
 
@@ -525,14 +530,14 @@ class Users extends Public_Controller
 			$uname = (string) $this->input->post('user_name');
 			$email = (string) $this->input->post('email');
 
-			if ( ! ($uname or $email)) {
+			if (! ($uname or $email)) {
 				// they submitted with an empty form, abort
 				$this->template->set('error_string', $this->ion_auth->errors())
 					->build('reset_pass');
 			}
 
-			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email))) {
-				$user_meta = $this->ion_auth->get_user_by_username($email);
+			if (! ($user_meta = Model\User::findByEmail($email))) {
+				$user_meta = Model\User::findByUsername($email);
 			}
 
 			// have we found a user?
@@ -588,6 +593,69 @@ class Users extends Public_Controller
 		$this->template
 			->title(lang('user:password_reset_title'))
 			->build('reset_pass_complete');
+	}
+
+	/**
+	 * Resend the activation email
+	 * @return [type] [description]
+	 */
+	public function resend_activation()
+	{
+		$this->template->title(lang('user:resend_activation_title'));
+
+		if (PYRO_DEMO) {
+			show_error(lang('global:demo_restrictions'));
+		}
+
+		//if user is logged in they don't need to be here
+		if ($this->current_user) {
+			$this->session->set_flashdata('error', lang('user:already_logged_in'));
+			redirect('');
+		}
+
+		if ($this->input->post('email')) {
+			$uname = (string) $this->input->post('user_name');
+			$email = (string) $this->input->post('email');
+
+			if (! ($uname or $email)) {
+				// they submitted with an empty form, abort
+				$this->template->set('error_string', lang('user:forgot_incorrect'))
+					->build('resend_activation');
+			}
+
+			if (! ($user = Model\User::findByEmail($email))) {
+				$user = Model\User::findByUsername($email);
+			}
+
+			if ($user->is_activated) {
+				// they submitted with an empty form, abort
+				$this->session->set_flashdata('error', 'Your account is already activated.');
+				redirect('');
+			}
+
+			// have we found a user?
+			if ($user) {
+				
+				$result = Events::trigger('send_activation_email', $user);
+
+				if ($result) {
+					//set success message
+					$this->template->success_string = lang('user:activation_code_sent_notice');
+
+					$this->template->build('activate');
+				
+				} else {
+					// Set an error message explaining the reset failed
+					$this->template->error_string = lang('user:settings_saved_error');
+				}
+
+			} else {
+				//wrong username / email combination
+				$this->template->error_string = lang('user:forgot_incorrect');
+			}
+		}
+
+		$this->template->build('resend_activation');
 	}
 
 	/**
@@ -730,38 +798,48 @@ class Users extends Public_Controller
 	{
 		$password = $this->input->post('password');
 
-		try {
 
-			$this->sentry->authenticate(array(
-				'email' => $email,
-				'password' => $password,
-			), (bool) $this->input->post('remember'));
+		if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = Model\User::findByEmail($email)) !== null) {
 
-		} catch (UserNotFoundException $e) {
+            $user = $this->sentry->findUserById($user->id);
 
-			// Could not log in with password. Maybe its an old style pass?
-			try {
-				// Try logging in with this double-hashed password
+            $this->sentry->login($user, false);
+
+        } else {
+
+        	try {
+
 				$this->sentry->authenticate(array(
 					'email' => $email,
-					'password' => whacky_old_password_hasher($email, $password),
+					'password' => $password,
 				), (bool) $this->input->post('remember'));
 
 			} catch (UserNotFoundException $e) {
 
-				// That madness didn't work, error
-				$this->form_validation->set_message('_check_login', 'Incorrect login.');
+				// Could not log in with password. Maybe its an old style pass?
+				try {
+					// Try logging in with this double-hashed password
+					$this->sentry->authenticate(array(
+						'email' => $email,
+						'password' => whacky_old_password_hasher($email, $password),
+					), (bool) $this->input->post('remember'));
+
+				} catch (UserNotFoundException $e) {
+
+					// That madness didn't work, error
+					$this->form_validation->set_message('_check_login', 'Incorrect login.');
+					return false;
+				}
+
+			} catch (Exception $e) {
+
+				Events::trigger('login_failed', $email);
+				error_log('Login failed for user '.$email);
+
+				$this->form_validation->set_message('_check_login', $e->getMessage());
 				return false;
 			}
-
-		} catch (Exception $e) {
-
-			Events::trigger('login_failed', $email);
-			error_log('Login failed for user '.$email);
-
-			$this->form_validation->set_message('_check_login', $e->getMessage());
-			return false;
-		}
+        }
 
 		return true;
 	}
