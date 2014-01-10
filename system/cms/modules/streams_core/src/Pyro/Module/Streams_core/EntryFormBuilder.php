@@ -282,12 +282,9 @@ class EntryFormBuilder
         // as well as the data validation when
         // we decide what to do with the form.
         // -------------------------------------
-/*
-        if ($_POST and $this->key_check) {
-            ci()->form_validation->reset_validation();
-            // $stream_fields, $this->method, $skips, false, $this->entry->id
-            $this->setRules();
-        }*/
+        ci()->form_validation->reset_validation();
+        $validation_rules = $this->setRules();
+        ci()->form_validation->set_rules($validation_rules);
 
 
 
@@ -317,27 +314,13 @@ class EntryFormBuilder
         $values = $this->getFormValues($this->assignments, $this->entry, $this->skips);
 
         // -------------------------------------
-        // Run Type Events
-        // -------------------------------------
-        // No matter what, we'll need these
-        // events run for field type assets
-        // and other processes.
-        // -------------------------------------
-
-        // $stream_fields, $skips, $values
-
-        $fields = $this->buildFields();
-
-        // -------------------------------------
         // Validation
         // -------------------------------------
 
         $result_id = '';
 
         if ($_POST and $this->enable_save) {
-            // @todo - restore validation here
-            // ci()->form_validation->run() === true
-            if (true) {
+            if (empty($validation_rules) or ci()->form_validation->run()) {
                 if ( ! $this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if ( ! $this->entry->save()) {
@@ -382,6 +365,16 @@ class EntryFormBuilder
                 }
             }
         }
+
+        // -------------------------------------
+        // Run Type Events
+        // -------------------------------------
+        // No matter what, we'll need these
+        // events run for field type assets
+        // and other processes.
+        // -------------------------------------
+
+        $fields = $this->buildFields();
 
         // -------------------------------------
         // Set Fields & Return Them
@@ -534,25 +527,32 @@ class EntryFormBuilder
     {
         foreach($this->assignments as $k => &$field) {
             if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips)) {
+                
+                // Set defaults
                 $type->setDefaults($this->defaults);
+
+                // Set the error if there is one
+                $field->error = ci()->form_validation->error($field->form_slug);
+
+                // Determine the value
+                if ($field->error) {
+                    ci()->form_validation->set_value($field->form_slug);
+                } else {
+                    $field->value = $type->value = $this->entry->{$field->field_slug};
+                }
 
                 // Get some general info
                 $field->form_slug = $type->getFormSlug();
+                $field->field_slug = $field->field_slug;
                 $field->is_hidden = (bool) in_array($field->field_slug, $this->hidden);
 
                 // Get the form input flavors
                 $field->form_input = defined('ADMIN_THEME') ? $type->formInput() : $type->publicFormInput();
                 $field->input_row = defined('ADMIN_THEME') ? $type->formInputRow() : null;
 
-                // Set the error if there is one
-                $field->error_raw = ci()->form_validation->error($field->field_slug);
-
-                // Format tht error
-                if ($field->error_raw) {
-                    $field->error = $field->error_raw;
-                } else {
-                    $field->error = null;
-                }
+                // Translate the instructions
+                $field->instructions = lang_label($field->instructions);
+                $field->placeholder = lang_label($field->getParameter('placeholder'));
 
                 // Set even/odd
                 $field->odd_even = (($k+1)%2 == 0) ? 'even' : 'odd';
@@ -590,9 +590,8 @@ class EntryFormBuilder
         // -------------------------------------
         // Loop through and set the rules
         // -------------------------------------
-
         foreach ($this->assignments as $assignment) {
-            if ( ! in_array($assignments->field_slug, $this->skips)) {
+            if ( ! in_array($assignment->field->field_slug, $this->skips)) {
                 $rules = array();
 
                 // If we don't have the type, then no need to go on.
@@ -612,7 +611,7 @@ class EntryFormBuilder
                 // Set required if necessary
                 // -------------------------------------
 
-                if ($assignment->is_required == 'yes') {
+                if ($assignment->is_required == true) {
                     if (isset($type->input_is_file) && $type->input_is_file === true) {
                         $rules[] = 'streams_file_required['.$assignment->field_slug.']';
                     } else {
@@ -636,7 +635,7 @@ class EntryFormBuilder
                 // Set unique if necessary
                 // -------------------------------------
 
-                if ($assignment->is_unique == 'yes') {
+                if ($assignment->is_unique == true) {
                     $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$row_id.']';
                 }
 
@@ -665,8 +664,10 @@ class EntryFormBuilder
                 // and unset $rules
                 // -------------------------------------
 
+                if (empty($rules)) continue;
+
                 $validation_rules[] = array(
-                    'field'	=> $assignment->field_slug,
+                    'field'	=> $assignment->stream->stream_namespace.'-'.$assignment->stream->stream_slug.'-'.$assignment->field->field_slug,
                     'label' => lang_label($assignment->field_name),
                     'rules'	=> implode('|', $rules)
                 );
@@ -679,11 +680,7 @@ class EntryFormBuilder
         // Set the rules or return them
         // -------------------------------------
 
-        if ($this->return_validation_rules) {
-            return $validation_rules;
-        } else {
-            return ci()->form_validation->set_rules($validation_rules);
-        }
+        return $validation_rules;
     }
 
     /**

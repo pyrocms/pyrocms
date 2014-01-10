@@ -288,7 +288,7 @@ class StreamModel extends Eloquent
             ->fresh($fresh)
             ->first();
 
-        return static::$streams_cache[$stream->stream_slug.'.'.$stream->stream_namespace] = static::$streams_cache[$stream->id] = $stream;
+        return $stream;
     }
 
     /**

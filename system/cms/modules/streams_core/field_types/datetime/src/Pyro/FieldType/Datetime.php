@@ -238,23 +238,39 @@ class Datetime extends AbstractFieldType
 		$year = ci()->input->post($this->form_slug.'_year');
 
 		// Are we using a datepicker?
-		if ($this->getParameter('input_type', 'datepicker') == 'datepicker' and $date != null and $data != $this->zero_date and ($this->getParameter('use_time', 'no') == 'no' and $time != $this->zero_time)) {
+		if ($this->getParameter('input_type', 'datepicker') == 'datepicker') {
 
-			// Yep - are we using time?
-			if ($this->getParameter('use_time', 'no') == 'no') {
-				return Carbon::createFromFormat($this->datepicker_date_format[1], $date)->hour(0)->minute(0)->second(0)->format($this->storage_format);
-			} elseif ($this->getParameter('use_time') == 'yes' and $time !== null) {
-				return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $date.' '.$time)->second(0)->format($this->storage_format);
+			// Do we have our date?
+			if ($date and $date !== $this->zero_date) {
+
+				// Are we using time?
+				if ($this->getParameter('use_time') == 'yes') {
+
+					// Do we have everything?
+					if ($time and $time !== $this->zero_time) {
+						return Carbon::createFromFormat($this->datepicker_date_format[1].' '.$this->timepicker_time_format, $date.' '.$time)->second(0)->format($this->storage_format);
+					}
+				} else {
+					return Carbon::createFromFormat($this->datepicker_date_format[1], $date)->hour(0)->minute(0)->second(0)->format($this->storage_format);
+				}
 			}
 
 		// Nope we're using the dropdown method
-		} elseif ($month != null and $day != null and $year != null and ($this->getParameter('use_time', 'no') == 'no' and $time != $this->zero_time)) {
+		} else {
 
-			// Yep - are we using time?
-			if ($this->getParameter('use_time', 'no') == 'no') {
-				return Carbon::createFromFormat('n-j-Y', $month.'-'.$day.'-'.$year)->hour(0)->minute(0)->second(0)->format($this->storage_format);
-			} elseif ($this->getParameter('use_time') == 'yes' and $time !== null) {
-				return Carbon::createFromFormat('n-j-Y '.$this->timepicker_time_format, $month.'-'.$day.'-'.$year.' '.$time)->second(0)->format($this->storage_format);
+			// Do we have our date?
+			if ($month and $day and $year) {
+
+				// Are we using time?
+				if ($this->getParameter('use_time') == 'yes') {
+
+					// Do we have everything?
+					if ($time and $time !== $this->zero_time) {
+						return Carbon::createFromFormat('n-j-Y '.$this->timepicker_time_format, $month.'-'.$day.'-'.$year.' '.$time)->second(0)->format($this->storage_format);
+					}
+				} else {
+					return Carbon::createFromFormat('n-j-Y', $month.'-'.$day.'-'.$year)->hour(0)->minute(0)->second(0)->format($this->storage_format);
+				}
 			}
 		}
 
