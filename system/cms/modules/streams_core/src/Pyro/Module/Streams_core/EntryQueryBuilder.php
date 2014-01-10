@@ -25,8 +25,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
     protected $columns = array('*');
 
-    protected $stream = null;
-
     protected $field_maps = array();
 
     /**
@@ -40,7 +38,7 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         $this->rememberIndex();
 
         // Get set up with our environment
-        $this->stream = $this->model->getStream();
+
         $this->table = $this->model->getTable();
 
         $columns = $this->prepareColumns($columns);
@@ -319,9 +317,8 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         // -------------------------------------
         // Filters (QueryString API)
         // -------------------------------------
-        $this->stream = $this->model->getStream();
 
-        if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+        if (ci()->input->get('filter-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
 
             // Get all URL variables
             $query_string_variables = ci()->input->get();
@@ -336,8 +333,8 @@ class EntryQueryBuilder extends EloquentQueryBuilder
                 if ($commands[0] != 'f') continue;
 
                 // Only filter our current namespace / stream
-                if ($commands[1] != $this->stream->stream_namespace) continue;
-                if ($commands[2] != $this->stream->stream_slug) continue;
+                if ($commands[1] != $this->model->getStream()->stream_namespace) continue;
+                if ($commands[2] != $this->model->getStream()->stream_slug) continue;
 
                 // Switch on the restriction
                 switch ($commands[4]) {
@@ -472,8 +469,8 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         // Ordering / Sorting (QueryString API)
         // -------------------------------------
 
-        if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-            if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
+        if ($order_by = ci()->input->get('order-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
+            if ($sort_by = ci()->input->get('sort-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
 
                 if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation) {
                     $order_by = $order_by_relation->getForeignKey();
