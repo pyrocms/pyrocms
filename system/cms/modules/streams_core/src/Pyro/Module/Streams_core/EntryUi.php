@@ -67,15 +67,21 @@ class EntryUi extends AbstractUi
         // Prepare the stream, model and trigger method
         $instance = static::instance(__FUNCTION__);
 
-        $instance->model = EntryModel::stream($stream_slug, $stream_namespace);
+        // If we are not passing the stream namespace we probably are passing an Entry model class
+        if (! $stream_namespace) {
+            $instance->model = new $stream_slug;    
+        } else {
+            $class = $instance->getEntryModelClass($stream_slug, $stream_namespace);
+            $instance->model = new $class; 
+        }
 
         $instance->query = $instance->model->newQuery();
 
         $instance->data->stream = $instance->model->getStream();
 
-          $instance->data->stream_fields = $instance->model->getAssignments();
+        $instance->data->stream_fields = $instance->model->getAssignments();
 
-          $instance->field_slugs = $instance->data->stream_fields->getFieldSlugs();
+        $instance->field_slugs = $instance->model->getFieldSlugs();
 
           // -------------------------------------
         // Sorting
@@ -131,7 +137,7 @@ class EntryUi extends AbstractUi
             ->enableAutoEagerLoading(true)
             ->take($this->limit)
             ->skip($this->offset)
-            ->remember(3)
+            //->remember(3)
             ->get($this->select, $this->exclude);
 
         $this->data->view_options =	$this->model->getViewOptionsFields();
