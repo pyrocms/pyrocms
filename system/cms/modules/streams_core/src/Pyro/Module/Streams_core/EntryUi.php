@@ -179,14 +179,18 @@ class EntryUi extends AbstractUi
         } elseif ($mixed instanceof EntryModel and $mixed->getKey()) {
             $instance->entry = $mixed;
         } else {
-            $instance->entry = EntryModel::stream($mixed, $stream_namespace);
-
+            $class = $instance->getEntryModelClass($mixed, $stream_namespace);
+            $instance->entry = new $class;
+            $instance->stream = $instance->entry->getStream();
+            
             if ($id) {
-                $instance->entry = $instance->entry->select('*')->find($id);
+                $instance->entry = $instance->entry->find($id);
             }
         }
 
-        $instance->stream = $instance->entry->getStream();
+        if (! $instance->entry) {
+            // Throw error;
+        }
 
         $instance->entry->asEloquent();
 
