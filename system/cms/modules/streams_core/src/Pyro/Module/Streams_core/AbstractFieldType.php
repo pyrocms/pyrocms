@@ -226,7 +226,7 @@ abstract class AbstractFieldType
      */
     public function getStream()
     {
-        return $this->stream;
+        return $this->entry->getStream();
     }
 
     /**
@@ -251,7 +251,7 @@ abstract class AbstractFieldType
      */
     public function getFormSlugPrefix()
     {
-        return $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
+        return $this->getStream()->stream_namespace.'-'.$this->getStream()->stream_slug.'-';
     }
 
     public function getFilterSlug($condition = 'contains', $field_slug = null)
@@ -267,7 +267,7 @@ abstract class AbstractFieldType
      */
     public function getFilterSlugPrefix()
     {
-        return 'f-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
+        return 'f-'.$this->getStream()->stream_namespace.'-'.$this->getStream()->stream_slug.'-';
     }
 
     /**
@@ -815,7 +815,7 @@ abstract class AbstractFieldType
      */
     public function generateCacheKey()
     {
-        return md5(implode('-', $this->field->field_data).'-'.$this->field->field_type.'-'.$this->field->field_slug.'-'.$this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->entry->id);
+        return md5(implode('-', $this->field->field_data).'-'.$this->field->field_type.'-'.$this->field->field_slug.'-'.$this->getStream()->stream_slug.'-'.$this->getStream()->stream_namespace.'-'.$this->entry->id);
     }
 
     /**

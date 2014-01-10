@@ -408,6 +408,17 @@ abstract class Eloquent extends Model
         return new HasMany($query, $this, $foreignKey);
     }
 
+    public static function __set_state(array $array)
+    {
+        $model = new static;
+
+        foreach ($array as $key => $value) {
+            $model->{$key} = $value;
+        }
+
+        return $model;
+    }
+
 }
 
 /* End of file Eloquent.php */

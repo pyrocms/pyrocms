@@ -1,0 +1,19 @@
+namespace Pyro\Module\Streams_core\Data;
+
+use Pyro\Module\Streams_core\EntryModel;
+
+class {{ className }} extends EntryModel
+{
+    protected $table = {{ table }};
+
+    protected static $streamData;
+
+    public static function getStream()
+    {
+		if (static::$streamData) {
+			return static::$streamData;
+		}
+
+    	return static::$streamData = {{ stream }};
+    }
+}

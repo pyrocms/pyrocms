@@ -145,6 +145,21 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
+     * Save the model
+     * @param  array  $options
+     * @return boolean
+     */
+    public function save(array $options = array())
+    {
+        $success = parent::save($options);
+
+        // Save the stream so that the EntryModel gets recompiled
+        $this->stream->save();
+
+        return $success;
+    }
+
+    /**
      * Cleanup stale assignments for fields and streams that don't exists
      * @return boolean
      */
@@ -209,6 +224,10 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldNameAttribute($field_name)
     {
+        if (! empty($field_name)) {
+            return $field_name;
+        }
+
         // This guarantees that the language will be loaded
         if ($this->field instanceof FieldModel) {
             FieldTypeManager::getType($this->field->field_type);
@@ -226,7 +245,11 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldSlugAttribute($field_slug)
     {
-        return $this->field->field_slug;
+        if ($this->field) {
+            return $this->field->field_slug;
+        }
+
+        return null;
     }
 
     /**
@@ -246,7 +269,11 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldTypeAttribute($field_type)
     {
-        return $this->field->field_type;
+        if ($this->field) {
+            return $this->field->field_type;
+        }
+
+        return null;
     }
 
     /**
@@ -319,15 +346,6 @@ class FieldAssignmentModel extends FieldModel
     public function newCollection(array $models = array())
     {
         return new FieldAssignmentCollection($models);
-    }
-
-    /**
-     * Get stream
-     * @return object
-     */
-    public function getStream()
-    {
-        return StreamModel::find($this->stream_id);
     }
 
     /**

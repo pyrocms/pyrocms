@@ -78,4 +78,15 @@ class EloquentCollection extends Collection
 			$model->delete();
 		});
 	}
+
+    public static function __set_state(array $array)
+    {
+        $model = new static;
+
+        foreach ($array as $key => $value) {
+            $model->{$key} = $value;
+        }
+
+        return $model;
+    }
 }
