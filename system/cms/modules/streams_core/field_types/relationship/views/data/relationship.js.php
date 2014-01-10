@@ -17,11 +17,6 @@
 			// Disable creation
 			create: false,
 
-			// Preload stuff if applicable
-			<?php //if ($field_type->totalOptions() < 1000): ?>
-			//preload: true,
-			<?php //endif; ?>
-
 			// Let's always use this..
 			valueField: 'id',
 
@@ -32,7 +27,7 @@
 			// Search these fields
 			// This is JS.. so we need it here for the plugin - it will limit the dropdown despite what's passed back w/JSON
 			// We want to pass it all back though for formatting if applicable
-			searchField: '<?php echo str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>',
+			searchField: ['<?php echo str_replace('|', "','", $field_type->getParameter('search_fields', ($field_type->stream->title_column ? $field_type->stream->title_column : 'id'))); ?>'],
 
 			// The value as an entry
 			<?php if ($entry): ?>
@@ -130,6 +125,5 @@
 		$select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
 
 	});
-
 
 </script>
