@@ -145,6 +145,21 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
+     * Save the model
+     * @param  array  $options
+     * @return boolean
+     */
+    public function save(array $options = array())
+    {
+        $success = parent::save($options);
+
+        // Save the stream so that the EntryModel gets recompiled
+        $this->stream->save();
+
+        return $success;
+    }
+
+    /**
      * Cleanup stale assignments for fields and streams that don't exists
      * @return boolean
      */
@@ -331,6 +346,15 @@ class FieldAssignmentModel extends FieldModel
     public function newCollection(array $models = array())
     {
         return new FieldAssignmentCollection($models);
+    }
+
+    /**
+     * Stream
+     * @return object
+     */
+    public function stream()
+    {
+        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel', 'stream_id');
     }
 
     /**
