@@ -23,46 +23,10 @@ class EntryModel extends Eloquent
     protected $guarded = array('id');
 
     /**
-     * Stream slug
-     * @var string
-     */
-    protected $stream_slug = null;
-
-    /**
-     * Stream namespace
-     * @var string
-     */
-    protected $stream_namespace = null;
-
-    /**
-     * Stream
-     * @var object
-     */
-    protected $stream = null;
-
-    /**
-     * Static instance
-     * @var [type]
-     */
-    protected static $instance = null;
-
-    /**
      * The array of user columns that will be selected
      * @var array
      */
     protected $user_columns = array('id', 'username');
-
-    /**
-     * Assignments
-     * @var array
-     */
-    protected $assignments = null;
-
-    /**
-     * Fields
-     * @var array
-     */
-    protected $fields = null;
 
     /**
      * Field type instances
@@ -146,19 +110,6 @@ class EntryModel extends Eloquent
     const FORMAT_STRING     = 'string';
 
     /**
-     * The class construct
-     * @param array $attributes The attributes to instantiate the model with
-     */
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-
-        if ($this->stream_slug and $this->stream_namespace) {
-            $this->stream($this->stream_slug, $this->stream_namespace, $this);
-        }
-    }
-
-    /**
      * Format entry as data
      * @param  array $attribute_keys
      * @return object
@@ -219,44 +170,6 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Return an instance of the Entry model with the gathered stream and field assignments
-     * @param  string $stream_slug
-     * @param  string $stream_namespace
-     * @param  object $instance
-     * @return object
-     */
-    public static function stream($stream_slug, $stream_namespace = null, EntryModel $instance = null)
-    {
-        if (static::isSubclassOfEntryModel($stream_slug)) {
-            $instance = new $stream_slug;
-        } else {
-            if ( ! $instance) {
-                $instance = new static;
-            }
-
-            if ($stream_slug instanceof StreamModel) {
-                $instance->stream = $stream_slug;
-            } elseif (is_numeric($stream_slug)) {
-                if ( ! $instance->stream = StreamModel::findByAttribute($stream_slug, $id)) {
-                    $message = 'The Stream model was not found. Attempted [ID: '.$stream_slug.']';
-
-                    throw new Exception\StreamModelNotFoundException($message);
-                }
-            } elseif ( ! $instance->stream) {
-                if ( ! $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) {
-                    $message = 'The Stream model was not found. Attempted [ '.$stream_slug.', '.$stream_namespace.' ]';
-
-                    throw new Exception\StreamModelNotFoundException($message);
-                }
-            }
-        }
-
-        $instance->setTable($instance->stream->stream_prefix.$instance->stream->stream_slug);
-
-        return static::$instance = $instance;
-    }
-
-    /**
      * Get entry
      * @param  string $stream_slug
      * @param  string $stream_namespace
@@ -300,7 +213,7 @@ class EntryModel extends Eloquent
 
     public function getStreamSlug()
     {
-        return $this->stream_slug;
+        return $this->getStream()->stream_slug;
     }
 
     public function getStreamNamespace()
@@ -324,9 +237,9 @@ class EntryModel extends Eloquent
      * Set fields
      * @param array $fields
      */
-    public function setFields(FieldCollection $fields = null)
+    public function setFields($fields = array())
     {
-        $this->fields = $fields;
+        $this->fields = FieldCollection::make($fields);
 
         return $this;
     }
@@ -351,7 +264,7 @@ class EntryModel extends Eloquent
      */
     public function getAssignments()
     {
-        return $this->stream->assignments->setStream($this->stream);
+        return $this->getStream()->assignments;
     }
 
     /**
@@ -457,32 +370,6 @@ class EntryModel extends Eloquent
         return new EntryFormBuilder($this);
     }
 
-    public static function getInstance()
-    {
-        if (static::$instance instanceof static) {
-            return static::$instance;
-        }
-
-        return static::$instance = new static;
-    }
-
-    /**
-     * Find entry
-     * @param  integer $id
-     * @param  array  $columns
-     * @return object
-     */
-    public static function find($id, $columns = array('*'))
-    {
-        $instance = static::getInstance();
-
-        $entry = $instance->enableAutoEagerLoading(true)->where($instance->getKeyName(), '=', $id)->first($columns);
-
-        $entry->exists = true;
-
-        return $entry;
-    }
-
     /**
      * Find a model by its primary key or throw an exception.
      *
@@ -502,19 +389,6 @@ class EntryModel extends Eloquent
         if (isset($this->relations[$attribute])) return $this->relations[$attribute];
 
         return null;
-    }
-
-    /**
-     * Being querying a model with eager loading.
-     *
-     * @param  array|string  $relations
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public static function with($relations)
-    {
-        if (is_string($relations)) $relations = func_get_args();
-
-        return static::getInstance()->newQuery()->with($relations);
     }
 
     /**
@@ -544,19 +418,6 @@ class EntryModel extends Eloquent
     public function getCacheCollectionPrefix()
     {
         return 'streams.'.$this->getStream()->stream_slug.'.'.$this->getStream()->stream_namespace.'.';
-    }
-
-    /**
-     * Save a new model and return the instance.
-     *
-     * @param  array  $attributes
-     * @return \Pyro\Model\Eloquent|static
-     */
-    public static function create(array $attributes = null)
-    {
-        $model = static::getInstance()->fill($attributes)->save();
-
-        return $model;
     }
 
     public function flushCacheCollection()
@@ -953,22 +814,12 @@ class EntryModel extends Eloquent
 
     /**
      * Get stream
-     * @return object
+     * This method is overriden in the compiled model
+     * @return null
      */
-    public function getStream()
+    public static function getStream()
     {
-        return $this->stream instanceof StreamModel ? $this->stream : new StreamModel;
-    }
-
-    /**
-     * Set stream
-     * @param object $stream
-     */
-    public function setStream(StreamModel $stream = null)
-    {
-        $this->stream = $stream;
-
-        return $this;
+        return null;
     }
 
     /**
@@ -1130,15 +981,6 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Get total entry count with applied filters if present
-     * @return integer
-     */
-    public function total()
-    {
-        return $this->get(array($this->getKeyName()))->count();
-    }
-
-    /**
      * Replicate
      * @return object The clone entry
      */
@@ -1178,16 +1020,6 @@ class EntryModel extends Eloquent
     public function newCollection(array $entries = array())
     {
         return new EntryCollection($entries);
-    }
-
-    /**
-     * New field collection instance
-     * @param  array  $fields
-     * @return object
-     */
-    protected function newFieldCollection(array $fields = array())
-    {
-        return new FieldCollection($fields);
     }
 
     /**
@@ -1240,11 +1072,8 @@ class EntryModel extends Eloquent
     public function passProperties(EntryModel $model = null)
     {
         $model
-            ->setStream($this->stream)
-            ->setFields($this->fields)
             ->setFieldMaps($this->field_maps)
-            ->setViewOptions($this->view_options)
-            ->setTable($this->table);
+            ->setViewOptions($this->view_options);
 
         $model->exists = $model->getKey() ? true : false;
 
