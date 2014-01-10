@@ -64,10 +64,35 @@ class Relationship extends AbstractFieldType
 
 	/**
 	 * Fired when form is built per field
-	 * @param  boolean $field 
+	 * @return void
 	 */
 	public function fieldEvent()
 	{
+		// Get related entries
+		$entry = $this->getRelationResult();
+
+		// Basically the selectize config mkay?
+		$this->appendMetadata(
+			$this->view(
+				'data/relationship.js.php',
+				array(
+					'field_type' => $this,
+					'entry' => $entry,
+					),
+				true
+				)
+			);
+	}
+
+	/**
+	 * Fired when filters are built per field
+	 * @return void
+	 */
+	public function filterFieldEvent()
+	{
+		// Set the value
+		$this->setValue(ci()->input->get($this->getFilterSlug('is')));
+
 		// Get related entries
 		$entry = $this->getRelationResult();
 
@@ -90,14 +115,8 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		// Extract our relationship stream
-		list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
 		// Get the relationship class
 		if (! $relation_class = $this->getRelationClass()) return null;
-
-		// If the stream doesn't exist..
-		if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace, true)) return null;
 
 		// Create a new instance
 		// of our relation class to use/abuse
@@ -123,7 +142,7 @@ class Relationship extends AbstractFieldType
 		// Attribtues
 		$attributes = array(
 			'class' => $this->form_slug.'-selectize skip',
-			'placeholder' => $this->getParameter('placeholder', lang('streams:relationship.placeholder')),
+			'placeholder' => $this->getParameter('placeholder', $this->field->field_name),
 			);
 
 		// String em up
@@ -158,7 +177,20 @@ class Relationship extends AbstractFieldType
 	 */
 	public function filterInput()
 	{
-		//return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
+		// Attribtues
+		$attributes = array(
+			'class' => $this->form_slug.'-selectize skip',
+			'placeholder' => $this->getParameter('placeholder', $this->field->field_name),
+			);
+
+		// String em up
+		$attribute_string = '';
+
+		foreach ($attributes as $attribute => $value)
+			$attribute_string .= $attribute.'="'.$value.'" ';
+
+		// Return an HTML dropdown
+		return form_dropdown($this->getFilterSlug('is'), array(), null, $attribute_string);
 	}
 
 	/**
@@ -193,7 +225,11 @@ class Relationship extends AbstractFieldType
 	{
 		if ($entry = $this->getRelationResult())
 		{
-			return $entry->asPlugin()->toArray();
+			if ($entry instanceof EntryModel) {
+				return $entry->asPlugin()->toArray();
+			} else {
+				return $entry->toArray();
+			}
 		}
 
 		return null;
