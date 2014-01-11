@@ -77,7 +77,9 @@ class Module_Navigation extends AbstractModule
 				array(
 				    'name' => 'nav:group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
-				    'class' => 'add',
+				    'class' => 'btn-sm btn-success',
+					'data-hotkey' => 'n',
+					'data-follow' => 'yes',
 				),
 		    ),
 		);

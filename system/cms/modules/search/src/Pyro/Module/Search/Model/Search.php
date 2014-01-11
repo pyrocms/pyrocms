@@ -68,7 +68,7 @@ class Search extends Eloquent
 	 * @return	array
 	 */
 	public static function index($module, $scope, $singular, $plural, $entry_id, $title, $description = null, $keywords = null, $uri = null, $cp_uri = null, $group_access = null, $user_access = null)
-	{	
+	{
 		ci()->load->library('keywords/keywords');
 
 		// Drop it so we can create a new index
@@ -83,8 +83,8 @@ class Search extends Eloquent
 			if (is_array($keywords)) {
 				$insert_data['keywords'] = impode(',', $keywords);
 			} elseif (is_string($keywords)) {
-				$insert_data['keywords'] = ci()->keywords->get_string($keywords);
-				$insert_data['keywords_hash'] = $keywords;
+				$insert_data['keywords'] = $keywords;
+				$insert_data['keywords_hash'] = ci()->keywords->get_string($keywords);
 			}
 		}
 

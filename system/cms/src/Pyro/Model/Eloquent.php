@@ -19,7 +19,7 @@ use Pyro\Module\Streams_core\EntryModel;
 abstract class Eloquent extends Model
 {   
 
-    protected $cache_minutes = 30;
+    protected $cacheMinutes = false;
 
     // --------------------------------------------------------------------------
     // Runtime Cache
@@ -57,16 +57,16 @@ abstract class Eloquent extends Model
      */
     public function getCacheMinutes()
     {
-        return $this->cache_minutes;
+        return $this->cacheMinutes;
     }
 
     /**
      * Set cache minutes
      * @return integer
      */
-    public function setCacheMinutes($cache_minutes)
+    public function setCacheMinutes($cacheMinutes)
     {
-        $this->cache_minutes = $cache_minutes;
+        $this->cacheMinutes = $cacheMinutes;
 
         return $this;
     }

@@ -38,17 +38,17 @@ jQuery(function($){
 		if (typeof(results.message) !== "undefined" && results.message > '') {
 
 			var li_status_class = 'info',
-				status_class = 'icon-info-sign';
+				status_class = 'fa fa-info-sign';
 
 			switch (results.status) {
 				case true:
 					li_status_class = 'success';
-					status_class = 'icon-ok-sign';
+					status_class = 'fa fa-ok-sign';
 				break;
 
 				case false:
 					li_status_class = 'failure';
-					status_class = 'icon-remove-sign';
+					status_class = 'fa fa-remove-sign';
 				break;
 			}
 

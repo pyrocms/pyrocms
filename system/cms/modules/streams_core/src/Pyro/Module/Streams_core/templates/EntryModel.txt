@@ -4,16 +4,16 @@ use Pyro\Module\Streams_core\EntryModel;
 
 class {{ className }} extends EntryModel
 {
+    /**
+	 * The table
+	 * @type string
+	 */
     protected $table = {{ table }};
 
-    protected static $streamData;
+    /**
+     * The compiled stream data as an array
+     */
+    protected static $streamData = {{ stream }};
 
-    public static function getStream()
-    {
-		if (static::$streamData) {
-			return static::$streamData;
-		}
-
-    	return static::$streamData = {{ stream }};
-    }
+    {{ relations }}
 }

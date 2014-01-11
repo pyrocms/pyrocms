@@ -1,6 +1,6 @@
 <?php if (! $assignments->isEmpty()): ?>
 
-    <table class="table-list" border="0" cellspacing="0">
+	<table class="table table-hover n-m">
 		<thead>
 			<tr>
 				<th></th>
@@ -11,18 +11,25 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($assignments as $assignment): ?>
+		<?php foreach ($assignments as $assignment):?>
 			<tr>
-				<td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
+				<td width="30" class="handle"><?php //echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
 				<td>
 					<input type="hidden" name="action_to[]" value="<?php echo $assignment->id;?>" />
-					<?php echo $assignment->field_name; ?>
+					<?php
+						if ( ! $field_name = $assignment->field_name and $field = $assignment->field)
+						{
+							$field_name = $field->field_name;
+						}
+					 
+					 	echo lang_label($field_name);
+				 	?>
 				</td>
-
-				<td><?php echo $assignment->field_slug; ?></td>
-				<td><?php echo $assignment->getType()->field_type_name; ?></td>
-
-				<td class="actions">
+				<?php if ($field = $assignment->field): ?>
+					<td><?php echo $field->field_slug; ?></td>
+					<td><?php echo $field->getType()->field_type_name; ?></td>
+				<?php endif; ?>
+				<td class="text-right">
 					<?php
 
 						$all_buttons = array();
@@ -31,7 +38,9 @@
 							foreach ($buttons as $button) {
 								// don't render button if field is locked and $button['locked'] is set to TRUE
 								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
-								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+
+								$class = isset($button['class']) ? $button['class'] : null;
+								$class .= (isset($button['confirm']) and $button['confirm']) ? ' confirm' : null;
 
 								$url = ci()->parser->parse_string($button['url'], $assignment->toArray(), true);
 
@@ -56,7 +65,7 @@
 
 <?php else: ?>
 
-<div class="no_data">
+<div class="alert alert-info m">
 	<?php
 
 		if (isset($no_assignments_message) and $no_assignments_message) {
@@ -68,4 +77,4 @@
 	?>
 </div><!--.no_data-->
 
-<?php endif;
+<?php endif; ?>

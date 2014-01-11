@@ -1,6 +1,6 @@
 jQuery(function($){
 
-	$.extend($.ui.accordion.prototype, {
+	/*$.extend($.ui.accordion.prototype, {
 		refresh: function(){
 			this.destroy();
 			this.widget().accordion(this.options)
@@ -458,5 +458,5 @@ jQuery(function($){
 	// Select code 
 	$(".widget-code").focus(function(){$(this).select()});
 	$(".widget-code").mouseup(function(e){e.preventDefault();});
-
+*/
 });

@@ -85,7 +85,11 @@ class Image extends AbstractFieldType
 
 			$file = FileModel::find($this->value);
 
-			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.$file->path.'" target="_break"><img src="'.$file->path.'" /></a><br />';
+			$folder = Folder::find($file->folder_id);
+
+			$path = ci()->parser->parse_string($file->path, $folder, true, false, null, false);
+
+			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.$path.'" target="_break"><img src="'.$path.'" /></a><br />';
 			$out .= form_hidden($this->form_slug, $this->value);
 		
 		} else {

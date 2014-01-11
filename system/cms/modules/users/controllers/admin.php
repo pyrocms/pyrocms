@@ -91,46 +91,44 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
-        // ---------------------------
-        // User Filters
-        // ---------------------------
+        // Filters
+        $filters = array(
+            'first_name',
+            'last_name',
+            );
 
-        // Determine active param
-        $by_active = ((bool) $this->input->post('f_active')) ?: false;
+        // Buttons
+        $buttons = array(
+            array(
+                'label' => lang('global:edit'),
+                'url' => 'admin/users/edit/{{ user:id }}',
+                'class' => 'btn-sm btn-warning',
+                ),
+            array(
+                'label' => lang('global:delete'),
+                'url' => 'admin/users/delete/{{ user:id }}',
+                'class' => 'btn-sm btn-danger confirm',
+                ),
+            );
 
-        // Determine group param
-        $by_group = $this->input->post('f_group');
 
-        // Keyphrase param
-        $keywords = $this->input->post('f_keywords');
-
-        // Create pagination links
-        // @TODO Create user pagination and reimplement filter
-        // $pagination = create_pagination('admin/users/index', User_m::($base_where));
-
-        // Using this data, get the relevant results
-        if ($this->current_user->isSuperUser()) {
-            $users = Users\Model\User::all();
-        } else {
-            $users = Users\Model\User::all();
-        }
-
-        // Unset the layout if we have an ajax request
-        if ($this->input->is_ajax_request()) {
-            $this->template->set_layout(false);
-        }
-
-        // Render the view
-        $this->template
+        // Build out the UI with core
+        $table = EntryUi::table('Pyro\Module\Users\Model\Profile')
             ->title($this->module_details['name'])
-            // ->set('pagination', $pagination)
-            ->set('users', $users)
-            ->set_partial('filters', 'admin/users/partials/filters')
-            ->append_js('admin/filter.js');
-
-        $this->input->is_ajax_request()
-            ? $this->template->build('admin/users/tables/users') 
-            : $this->template->build('admin/users/index');
+            ->filters($filters)
+            ->buttons($buttons)
+            ->fields(
+                array(
+                    'first_name',
+                    'last_name',
+                    'lang:user:activated_account_title' => '{{ if entry:user:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
+                    'relation:user' => '{{ entry:user:username }}',
+                    'lang:global:email' => '{{ entry:user:email }}',
+                    )
+                )
+            ->pagination(Settings::get('records_per_page'), 'admin/users')
+            ->redirect('admin/users')
+            ->render();
     }
 
     /**
@@ -241,7 +239,7 @@ class Admin extends Admin_Controller
 
         $tabs = array(
             array(
-                'title'     => lang('profile_user_basic_data_label'),
+                'title'     => lang('user:profile_user_basic_data_label'),
                 'id'        => 'basic',
                 'content'    => $user_form
             ),
@@ -254,13 +252,14 @@ class Admin extends Admin_Controller
 
         EntryUi::form('profiles', 'users')
             ->tabs($tabs)
-            ->enablesave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
             ->onSaving(function($profile) use ($user)
             {
                 $profile->user_id = $user->id; // Set the profile user id before saving
             })
             ->successMessage('User saved.') // @todo - language
             ->redirect('admin/users')
+            ->cancelUri('admin/users')
             ->render();
     }
 
@@ -386,6 +385,7 @@ class Admin extends Admin_Controller
             ->tabs($tabs)
             ->successMessage('User saved.') // @todo - language
             ->redirect('admin/users')
+            ->cancelUri('admin/users')
             ->render();
     }
 

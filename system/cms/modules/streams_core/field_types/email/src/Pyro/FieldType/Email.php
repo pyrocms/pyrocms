@@ -34,9 +34,11 @@ class Email extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$options['name'] 	= $this->form_slug;
-		$options['id']		= $this->form_slug;
-		$options['value']	= $this->value;
+		$options['name'] = $this->form_slug;
+		$options['id'] = $this->form_slug;
+		$options['value'] = $this->value;
+		$options['class'] = 'form-control';
+		$options['placeholder'] = 'example@domain.com';
 
 		return form_input($options);
 	}

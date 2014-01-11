@@ -155,6 +155,7 @@ class ModuleManager
             'is_current' => version_compare($record->version, $this->version($record->slug),  '>='),
             'current_version' => $this->version($record->slug),
             'path' => $location,
+            'help' => method_exists($module_class, 'help') ? $module_class->help() : false,
             'field_types' => ! empty($info['field_types']) ? $info['field_types'] : false,
             'updated_on' => $record->updated_on
         );
@@ -226,6 +227,7 @@ class ModuleManager
                 'is_current'      => version_compare($record->version, $this->version($record->slug),  '>='),
                 'current_version' => $this->version($record->slug),
                 'path'            => $location,
+                'help' => method_exists($module_class, 'help') ? $module_class->help() : false,
                 'field_types'     => ! empty($info['field_types']) ? $info['field_types'] : false,
                 'updated_on'      => $record->updated_on
             );

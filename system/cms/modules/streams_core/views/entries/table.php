@@ -1,13 +1,22 @@
-<?php $this->load->view('streams_core/entries/filters'); ?>
+<!-- .panel-body -->
+<!--<div class="panel-body">-->
 
-<?php if ($entries->count() > 0) { ?>
+	<?php if (! empty($filters)): ?>
+		<?php $this->load->view('streams_core/entries/filters'); ?>
+	<?php endif; ?>
 
-    <table class="table-list" cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
+
+	<?php if ($entries->count() > 0): ?>
+
+		<table class="table table-hover n-m">
+			<thead>
+				<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
 					<?php foreach ($field_names as $field_slug=>$field_name): ?>
 					<?php
+
+						// Replace relation: from Cp voodoo
+						$field_slug = str_replace('relation:', '', $field_slug);
 
 						// Get our query string
 						$query_string = array();
@@ -34,84 +43,98 @@
 						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $field_slug)
 							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
 								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
-									$caret = '&#9650;';
+									$caret = 'fa fa-caret-up';
 								else
-									$caret = '&#9660;';
+									$caret = 'fa fa-caret-down';
 							else
-								$caret = '&#9650;';
+								$caret = 'fa fa-caret-up';
 
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
-								<?php echo $field_name; ?>
-								<?php if ($caret) echo $caret; ?>
+								<?php echo empty($field_name) ? (substr($field_slug, 0, 5) == 'lang:' ? lang_label($field_slug) : humanize($field_slug)) : $field_name; ?>
+								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
 							</a>
 						</th>
 
 					<?php endforeach; ?>
 				    <th></th>
 				</tr>
-		</thead>
-		<tbody>
-		<?php foreach ($entries as $entry) { ?>
+			</thead>
+			<tbody>
+			<?php foreach ($entries as $entry) { ?>
 
-			<tr>
+				<tr>
 
-				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
+					<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
-				<td>
+					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
+					<td>
 
-					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
+						<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php echo $entry->getStringOutput($view_option); ?>
+						<?php echo $entry->getStringOutput($view_option); ?>
 
-				</td>
-				<?php endforeach; endif; ?>
-				<td class="actions">
+					</td>
+					<?php endforeach; endif; ?>
+					<td class="text-right">
 
-					<?php
+						<?php
 
-						if (isset($buttons)) {
-							$all_buttons = array();
+							if (isset($buttons)) {
+								$all_buttons = array();
 
-							foreach ($buttons as $button) {
-								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
+								foreach ($buttons as $button) {
 
-								$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+									// The second is kept for backwards compatibility
+									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+									$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
-								// This is kept for backwards compatibility
-								$url = str_replace('-entry_id-', $entry->getKey(), $url);
+									// Label
+									$label = lang_label($button['label']);
 
-								$all_buttons[] = anchor($url, lang_label($button['label']), 'class="'.$class.'"');
+									// Remove URL
+									unset($button['url'], $button['label']);
+
+									// Parse variables in attributes
+									foreach ($button as $key => &$value)
+										$value = ci()->parser->parse_string($value, $entry->toArray(), true);
+
+									$all_buttons[] = anchor($url, $label, $button);
+								}
+
+								echo implode('&nbsp;', $all_buttons);
+								unset($all_buttons);
 							}
 
-							echo implode('&nbsp;', $all_buttons);
-							unset($all_buttons);
-						}
+						?>
+					</td>
+				</tr>
+			<?php } ?>
+			</tbody>
+	    </table>
 
-					?>
-				</td>
-			</tr>
-		<?php } ?>
-		</tbody>
-    </table>
+	    <div class="panel-footer">
+			
+			<?php if ($pagination) echo $pagination['links']; ?>
 
-<?php if ($pagination): echo $pagination['links']; endif; ?>
+		</div>
 
-<?php } else { ?>
+	<?php else: ?>
 
-<div class="no_data">
-	<?php
+		<div class="alert alert-info m">
+			<?php
 
-		if (isset($no_entries_message) and $no_entries_message) {
-			echo lang_label($no_entries_message);
-		} else {
-			echo lang('streams:no_entries');
-		}
+				if (isset($no_entries_message) and $no_entries_message) {
+					echo lang_label($no_entries_message);
+				} else {
+					echo lang('streams:no_entries');
+				}
 
-	?>
-</div><!--.no_data-->
+			?>
+		</div><!--.no_data-->
 
-<?php } ?>
+	<?php endif; ?>
+
+<!--</div>-->
+<!-- /.panel-body -->

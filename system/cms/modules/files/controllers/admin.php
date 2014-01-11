@@ -66,10 +66,7 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->title($this->module_details['name'])
-			->append_css('jquery/jquery.tagsinput.css')
-			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
-			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')

@@ -10,3 +10,5 @@ $lang['streams:image.need_folder']		= 'You need to set an upload folder before y
 $lang['streams:image.keep_ratio'] 		= 'Keep Ratio';
 $lang['streams:image.keep_ratio_instr']		= 'When resizing, should we keep the ratio?';
 $lang['streams:image.allowed_types_instr'] 	= 'Ex: jpg|jpeg|png';
+$lang['streams:image.select_file'] = 'Select file';
+$lang['streams:image.change'] = 'Change';

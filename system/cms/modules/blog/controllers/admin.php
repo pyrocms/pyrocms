@@ -167,8 +167,6 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_js('admin/filter.js')
-			->set_partial('filters', 'admin/partials/filters')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 

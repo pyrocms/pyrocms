@@ -1,71 +1,88 @@
+<?php if (!$form_override): ?>
 <?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+<?php endif; ?>
 
-<div class="tabs">
-
-	<ul class="tab-menu">
+	
+	<!-- .nav.nav-tabs -->
+	<ul class="nav nav-tabs">
 	<?php foreach($tabs as $tab): ?>
-		<li>
-			<a href="#<?php echo $tab['id']; ?>" title="<?php echo $tab['title']; ?>">
+
+		<li class="<?php echo array_search($tab, $tabs) == 0 ? 'active' : null; ?>">
+		
+			<a href="#<?php echo $tab['id']; ?>" data-toggle="tab" title="<?php echo $tab['title']; ?>">
 				<span><?php echo $tab['title']; ?></span>
 			</a>
+
 		</li>
+
 	<?php endforeach; ?>
 	</ul>
+	<!-- /.nav.nav-tabs -->
 
-	<?php foreach($tabs as $tab): ?>
 
-	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
-		
-		<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
+	<!-- .tab-content.panel-body -->
+	<section class="tab-content panel-body">
 
-			<?php echo $tab['content']; ?>
+		<?php foreach($tabs as $tab): ?>
 
-		<?php else: ?>
-		
-			<fieldset>
+			<div class="tab-pane <?php echo array_search($tab, $tabs) == 0 ? 'active' : null; ?>" id="<?php echo $tab['id']; ?>">
+				
+				<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
-				<ul>
+					<?php echo $tab['content']; ?>
+
+				<?php else: ?>
 
 					<?php foreach ($tab['fields'] as $slug): ?>
 
 						<?php if ($field = $fields->findBySlug($slug)): ?>
-							<li class="<?php echo in_array($field->field_slug, $hidden) ? 'hidden' : null; ?>">
-								<?php echo $field->input_row; ?>
-							</li>
+						<div class="form-group <?php echo in_array($field->field_slug, $hidden) ? 'hidden' : null; ?>">
+						<div class="row">
+							
+							<?php echo $field->input_row; ?>
+
+						</div>
+						</div>
 						<?php endif; ?>
-					
+
 					<?php endforeach; ?>
+					
+				<?php endif; ?>
 
-				</ul>
+			</div>
 
-			</fieldset>
-			
-		<?php endif; ?>
+		<?php endforeach; ?>
 
-	</div>
+	</section>
+	<!-- /.tab-content.panel-body -->
 
-	<?php endforeach; ?>
 
-</div>
+	<?php if ($mode == 'edit'): ?>
+		<input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" />
+	<?php endif; ?>
 
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
+	<?php if (!$form_override): ?>
+	<div class="panel-footer">
+		<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 		
 		<?php if (! empty($exit_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
+		<button type="submit" name="btnAction" value="save_exit" class="btn btn-success"><?php echo lang('buttons:save_exit'); ?></button>
 		<?php endif; ?>
 
 		<?php if (! empty($create_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
+		<button type="submit" name="btnAction" value="save_create" class="btn btn-info"><?php echo lang('buttons:save_create'); ?></button>
 		<?php endif; ?>
 
 		<?php if (! empty($continue_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
+		<button type="submit" name="btnAction" value="save_continue" class="btn btn-info"><?php echo lang('buttons:save_continue'); ?></button>
 		<?php endif; ?>
 
-		<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+		<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
 	</div>
+	<?php endif; ?>
 
-<?php echo form_close();
+
+<?php if (!$form_override): ?>
+<?php echo form_close(); ?>
+<?php endif; ?>

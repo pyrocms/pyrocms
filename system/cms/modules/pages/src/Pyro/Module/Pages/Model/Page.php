@@ -377,8 +377,8 @@ class Page extends Eloquent
 		{
 			foreach ($page['children'] as $i => $child)
 			{
-				$child_id = (int) str_replace('page_', '', $child['id']);
-				$page_id = (int) str_replace('page_', '', $page['id']);
+				echo $child_id = (int) $child['id'];
+				echo $page_id = (int) $page['id'];
 
 				// Since we are skipping validation on the model we are doing a little validation of our own
 				if (is_numeric($child_id) and is_numeric($page_id))
@@ -555,7 +555,12 @@ class Page extends Eloquent
 
 	public static function resetParentByIds($ids = array())
 	{
-		return static::whereIn('id', $ids)->update(array('parent_id' => 0));
+		$root_ids = array();
+
+		foreach ($ids as $i => $page)
+			$root_ids[] = $page['id'];
+
+		return static::whereIn('id', $root_ids)->update(array('parent_id' => 0));
 	}
 
     // --------------------------------------------------------------------------
