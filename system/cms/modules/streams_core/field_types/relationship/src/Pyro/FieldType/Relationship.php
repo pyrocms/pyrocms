@@ -113,23 +113,14 @@ class Relationship extends AbstractFieldType
 	 * Relation
 	 * @return object The relation object
 	 */
-	public function relation()
-	{
-		// Get the relationship class
-		if (! $relation_class = $this->getRelationClass()) return null;
-
-		// Create a new instance
-		// of our relation class to use/abuse
-		$instance = new $relation_class;
-
-		// If it's an entry model - boomskie
-		if ($instance instanceof EntryModel) {
-			return $this->belongsToEntry($relation_class)->select('*');
+    public function relation()
+    
+        if (! $relationClass = $this->getRelationClass()) {
+            return null;
 		}
 
-		// Otherwise - boomskie too
-		return $this->belongsTo($relation_class);
-	}
+        return $this->belongsTo($relationClass);
+    }
 
 	/**
 	 * Output form input

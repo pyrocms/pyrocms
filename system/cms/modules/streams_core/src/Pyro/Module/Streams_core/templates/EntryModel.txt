@@ -14,4 +14,6 @@ class {{ className }} extends EntryModel
      * The compiled stream data as an array
      */
     protected static $streamData = {{ stream }};
+
+    {{ relations }}
 }
