@@ -715,9 +715,9 @@ abstract class AbstractFieldType
      * Relation class
      * @return string
      */
-    public function getRelationClass($default = null)
+    public function getRelationClass()
     {
-        return $this->getParameter('relation_class', $default);
+        return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
     }
 
     /**

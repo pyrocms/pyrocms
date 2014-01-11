@@ -1,0 +1,37 @@
+.topbar, .subbar, .sections_bar {position: fixed;}
+.wrapper { width: 1024px; margin: 0 auto; }
+#container { width: 1024px; height: 100%; min-height: 100%; margin: 0 auto; padding: 0; }
+section.title, section.item { width: 994px; }
+#logo {   display: inherit; }
+.topbar { height: 50px; }
+.topbar ul li a { padding: 15px 5px 15px 5px; }
+.subbar { margin-top: 25px; }
+.subbar small { display: block; }
+.sections_bar { margin-top: 9px; }
+#content-body { top: 0px; }
+#analyticsWrapper, #analytics { width: 750px; }
+section#content { width: 1024px; padding: 0; margin: 150px 0 150px 0; float: left; }
+.one_full { width: 1024px; margin: 0; float: left; }
+.one_half { width: 497px; margin-right: 15px; float: left; }
+.one_half section.title, .one_half section.item  { width: 467px; }
+/*
+.one_third { width: 250px; margin-right: 15px; float: left; }
+.one_third section.title, .one_third section.item {width: 220px;}
+.two_third { width: 500px; margin-right: 15px; float: left; }
+.two_third section.title, .two_third section.item {width: 470px;}
+*/
+.one_quarter { width: 200px; margin-right: 15px; float: left; }
+.three_quarter { width: 500px; float: left; }
+#quick_links ul li { width: 75px; float: left; 	margin: 3px 5px 0 5px; }
+footer p { float: left; padding: 10px 0 0 0; width: 60%; }
+ul#lang { float: right; margin-right: 0; }
+.move-handle {display: block;}
+fieldset {padding: 25px; margin: 5px 0 15px 0;}
+.form_inputs .input > input {min-width: 210px!important;}
+table th.collapse, table td.collapse {display: table-cell;}
+table .actions a { display: inline; margin-bottom: 0; }
+.subbar h2, .subbar h2 a  { font-size: 28px; }
+.alert { width: 994px; }
+table { width: 100%; margin: 0; font-size: 13px; }
+.move-handle {display: none;}
+.form_inputs fieldset {width: 944px;}

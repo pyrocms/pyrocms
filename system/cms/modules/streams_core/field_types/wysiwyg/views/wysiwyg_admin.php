@@ -1,5 +1,5 @@
-<script src="<?php echo Asset::get_filepath_js('../build/js/plugins/ckeditor/ckeditor.js') ?>"></script>
-<script src="<?php echo Asset::get_filepath_js('../build/js/plugins/ckeditor/adapters/jquery.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('ckeditor/ckeditor.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('ckeditor/adapters/jquery.js') ?>"></script>
 
 <script type="text/javascript">
 
@@ -13,11 +13,11 @@
 	(function($) {
 		$(function(){
 
-			Pyro.init_ckeditor = function(){
+			pyro.init_ckeditor = function(){
 				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, true) ?>
-				//Pyro.init_ckeditor_maximize();
+				pyro.init_ckeditor_maximize();
 			};
-			Pyro.init_ckeditor();
+			pyro.init_ckeditor();
 
 		});
 	})(jQuery);

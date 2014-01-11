@@ -18,6 +18,19 @@
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
+	<?php echo Asset::css('plugins.css'); ?>
+	<?php echo Asset::css('workless/workless.css'); ?>
+	<?php echo Asset::css('workless/application.css'); ?>
+	<?php echo Asset::css('workless/responsive.css'); ?>
+        <?php
+        $vars = $this->load->_ci_cached_vars;
+        if ($vars['lang']['direction']=='rtl'){
+            echo Asset::css('workless/rtl/rtl.css');
+        }
+        ?>
+	<!-- End CSS-->
+
 	<!-- Load up some favicons -->
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -31,80 +44,43 @@
 
 </head>
 
-<body class="<?php if(in_array(SITE_REF.':'.ci()->current_user->id, (array) ci()->config->item('mess_with'))) echo 'animated spin'; ?>">
+<body>
 
-	<?php file_partial('search'); ?>
-
-	<section id="loading"><span><?php echo Asset::img('loading.png', null, array('class' => 'animated spin')); ?></span></section>
-
-
-	<main class="horizontal-box stretch">
-
-		<?php file_partial('sidebar'); ?>
+	<div id="container">
 
 		<section id="content">
-			
-			<section class="vertical-box">
 
-				<!-- Actions Bar -->
-				<section id="actions" class="nav-bar animated-zing fadeInDown" data-exit-animation="fadeOutUp">
-					
-					<div class="row-fluid">
+			<header class="hide-on-ckeditor-maximize">
+			<?php file_partial('header'); ?>
+			</header>
 
-						<div class="col-md-12">
-							<?php file_partial('sections'); ?>
-							<?php file_partial('shortcuts'); ?>
-							<?php file_partial('information'); ?>
-						</div>
-
-					</div>
-					
-				</section>
-				<!-- /Actions Bar -->
-
-
-				<!-- Body Content -->
-				<section class="scrollable" id="body" data-exit-animation="fadeOut">
-					
-					<?php echo $template['body']; ?>
-
-				</section>
-				<!-- /Body Content -->
-
-			</section>
+			<div id="content-body">
+				<?php file_partial('notices'); ?>
+				<?php echo $template['body']; ?>
+			</div>
 
 		</section>
 
-	</main>
+	</div>
 
+	<footer class="clearfix">
+		<div class="wrapper">
+			<p class="credits">Copyright &copy;<?php echo date('Y'); ?> PyroCMS LLC &nbsp; <span>Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</span></p>
 
-	<!-- Modal used for Ajax -->
-	<div class="modal fade" id="modal"></div>
+			<ul id="lang">
+				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
+					<select class="chzn" name="lang" onchange="this.form.submit();">
+						<?php foreach(config_item('supported_languages') as $key => $lang): ?>
+							<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? ' selected="selected" ' : ''; ?>>
+								 <?php echo $lang['name']; ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</form>
+			</ul>
+		</div>
+	</footer>
 
-	<script type="text/javascript">
-		Pyro = { 'lang': {} };
-
-		var APPPATH_URI					= "<?php echo APPPATH_URI;?>";
-		var SITE_URL					= "<?php echo rtrim(site_url(), '/').'/';?>";
-		var BASE_URL					= "<?php echo BASE_URL;?>";
-		var BASE_URI					= "<?php echo BASE_URI;?>";
-		var UPLOAD_PATH					= "<?php echo UPLOAD_PATH;?>";
-		var DEFAULT_TITLE				= "<?php echo addslashes(Settings::get('site_name')); ?>";
-		Pyro.current_module				= "<?php echo isset($module_details['slug']) ? $module_details['slug'] : null; ?>";
-		Pyro.admin_theme_url			= "<?php echo BASE_URL . ci()->theme->path; ?>";
-		Pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
-		Pyro.base_uri					= "<?php echo BASE_URI; ?>";
-		Pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
-		Pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
-		Pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
-	</script>
-	
-	<?php Asset::js('build.min.js', null, 'deferred'); ?>
-
-	<?php echo Asset::render_js('deferred') ?>
-
-	<?php echo Asset::render_js() ?>
-	
 	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
 	<!--[if lt IE 7 ]>
 	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>

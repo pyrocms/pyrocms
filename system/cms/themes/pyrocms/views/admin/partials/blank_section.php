@@ -1,23 +1,9 @@
-<div class="p n-p-b">
-	<?php file_partial('notices'); ?>
-</div>
+<section class="title">
+	<?php if(isset($template['page_title'])) { echo '<h4>'.lang_label($template['page_title']).'</h4>'; } ?>
+</section>
 
-<div class="p">
-
-
-	<!-- .panel -->
-	<section class="panel panel-default animated-zing fadeIn">
-	
-		<div class="panel-heading">
-			<h3 class="panel-title">
-				<?php if(isset($template['page_title'])) { echo lang_label($template['page_title']); } ?>
-			</h3>
-		</div>
-
+<section class="item">
+	<div class="content">
 		<?php echo $content; ?>
-
-	</section>
-	<!-- /.panel -->
-
-
-</div>
+	</div>
+</section>

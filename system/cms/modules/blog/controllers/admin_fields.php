@@ -42,14 +42,12 @@ class Admin_fields extends Admin_Controller
 		$buttons = array(
 			array(
 				'url'		=> 'admin/blog/fields/edit/{{ id }}',
-				'label'		=> $this->lang->line('global:edit'),
-				'class'		=> 'btn-sm btn-success',
+				'label'		=> $this->lang->line('global:edit')
 			),
 			array(
 				'url'		=> 'admin/blog/fields/delete/{{ id }}',
 				'label'		=> $this->lang->line('global:delete'),
-				'class'		=> 'btn-sm btn-danger',
-				'confirm'	=> true,
+				'confirm'	=> true
 			)
 		);
 

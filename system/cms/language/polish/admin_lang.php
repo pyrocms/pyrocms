@@ -52,8 +52,4 @@ $lang['cp:google_analytics_no_connect']	          = 'Nie można połączyć się
 $lang['required_label'] 				                  = 'Wymagane';
 $lang['sb_recent_users'] 				                  = 'Ostatni użytkownicy';
 
-$lang['cp:search.instructions']			= 'Type and hit enter to add terms to your search.';
-$lang['cp:search.example']				= 'e.g. module: <i class="icon-level-down"></i> term <i class="icon-level-down"></i> -exlude <i class="icon-level-down"></i> #keyword';
-$lang['cp:search.close_instructions']	= 'Press \'esc\' to quit';
-$lang['cp:search.close_instructions.mobile']	= 'Click here to quit';
 /* End of file admin_lang.php */

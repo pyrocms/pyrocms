@@ -75,9 +75,7 @@ class Module_Redirects extends AbstractModule
 				array(
 				    'name' => 'redirects:add_title',
 				    'uri' => 'admin/redirects/add',
-				    'class' => 'btn-sm btn-success',
-					'data-hotkey' => 'n',
-					'data-follow' => 'yes',
+				    'class' => 'add',
 				),
 		    ),
 		);

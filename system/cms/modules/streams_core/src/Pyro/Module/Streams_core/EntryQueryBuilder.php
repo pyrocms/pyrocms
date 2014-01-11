@@ -56,6 +56,15 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         // have been specified as needing to be eager loaded, which will solve the
         // n+1 query issue for the developers to avoid running a lot of queries.
         if (count($this->entries) > 0) {
+            if ($eager_loads = $this->getViewOptionRelations() and ! empty($eager_loads)) {
+                $eager_loads = array_merge($eager_loads, $this->eagerLoad);
+            }
+
+            if ( ! empty($eager_loads)) {
+
+                $this->with($eager_loads);
+            }
+
             $this->entries = $this->eagerLoadRelations($this->entries);
         }
 

@@ -82,9 +82,7 @@ class Module_Users extends AbstractModule
                         'create' => array(
                             'name'  => 'user:add_title',
                             'uri'   => 'admin/users/create',
-                            'class' => 'btn-sm btn-success',
-                            'data-hotkey' => 'n',
-                            'data-follow' => 'yes',
+                            'class' => 'add'
                         )
                     )
                 ),
@@ -95,9 +93,7 @@ class Module_Users extends AbstractModule
                         array(
                             'name' => 'users:groups:add_title',
                             'uri' => 'admin/users/groups/add',
-                            'class' => 'btn-sm btn-success',
-                            'data-hotkey' => 'n',
-                            'data-follow' => 'yes',
+                            'class' => 'add',
                         ),
                     ),
                 ),
@@ -114,9 +110,7 @@ class Module_Users extends AbstractModule
                             'create' => array(
                                 'name'  => 'user:add_field',
                                 'uri'   => 'admin/users/fields/create',
-                                'class' => 'btn-sm btn-success',
-                                'data-hotkey' => 'n',
-                                'data-follow' => 'yes',
+                                'class' => 'add'
                             )
                         )
                     )

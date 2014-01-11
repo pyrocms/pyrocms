@@ -42,13 +42,9 @@ class User extends EloquentUser
      * @param  string $group Optional group name to filter users
      * @return array         The array of user options
      */
-    public static function getUserOptions($group = null, $query = false)
+    public static function getUserOptions($group = null)
     {
-    	if ($query) {
-    		$users = static::limit(10)->where('username', 'LIKE', '%'.$query.'%')->orWhere('email', 'LIKE', '%'.$query.'%')->get();
-    	} else {
-    		$users = static::limit(10)->get();
-    	}
+    	$users = static::all();
     	
     	if ( ! empty($group) and $group = Group::findByName($group))
     	{

@@ -2,7 +2,7 @@
 	$(function(){
 
 		// Generate a slug from the title
-		Pyro.GenerateSlug('input[name="name"]', 'input[name="slug"]');
+		pyro.generate_slug('input[name="name"]', 'input[name="slug"]');
 	
 	});
 

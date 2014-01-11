@@ -65,7 +65,12 @@ class Admin extends Admin_Controller
 
             ->title($this->module_details['name'])
 
+            ->append_js('jquery/jquery.ui.nestedSortable.js')
+            ->append_js('jquery/jquery.cooki.js')
+            ->append_js('jquery/jquery.stickyscroll.js')
             ->append_js('module::index.js')
+
+            ->append_css('module::index.css')
 
             ->set('pages', $pages)
             ->build('admin/index');
@@ -86,9 +91,30 @@ class Admin extends Admin_Controller
             redirect('admin/pages/create?page_type='.$types[0]->id.$parent);
         }
 
-        // Display in a modal
+        // Directly output the menu if it's for the modal.
+        // All we need is the <ul>.
+        if ($this->input->is_ajax_request()) {
+            $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
+            $html .= '<ul class="modal_select">';
+
+            foreach ($types as $pt) {
+                $html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
+
+                if (trim($pt->description)) {
+                    $html .= ' | '.$pt->description;
+                }
+
+                $html .= '</a></li>';
+            }
+
+            echo $html .= '</ul>';
+
+            return;
+        }
+
+        // If this is not being displayed in the modal, we can
+        // display an entire page.
         $this->template
-            ->set_layout('modal')
             ->set('parent', $parent)
             ->set('page_types', $types)
             ->build('admin/choose_type');
@@ -101,40 +127,47 @@ class Admin extends Admin_Controller
      */
     public function order()
     {
-        $ids = $this->input->post('ids');
+        $order  = $this->input->post('order');
+        $data   = $this->input->post('data');
+        $root_pages = isset($data['root_pages']) ? $data['root_pages'] : array();
 
-        //reset all parent > child relations
-        Page::resetParentByIds($ids);
+        if (is_array($order)) {
 
-        foreach ($ids as $order => $page)
-        {
-            if (is_integer($order))
+            //reset all parent > child relations
+            Page::resetParentByIds($root_pages);
+
+            foreach ($order as $i => $page)
             {
-                //set the order of the root pages
-                $model = Page::find($page['id']);
-                $model->skip_validation = true;
-                $model->order = $order;
-                
-                $model->save();
+                $id = str_replace('page_', '', $page['id']);
 
-                if ($model->entry)
+                if (is_integer($i))
                 {
-                    $model->entry->updateOrderingCount($order);
+                    //set the order of the root pages
+                    $model = Page::find($id);
+                    $model->skip_validation = true;
+                    $model->order = $i;
+                    
+                    $model->save();
+
+                    if ($model->entry)
+                    {
+                        $model->entry->updateOrderingCount($i);
+                    }
                 }
+
+                //iterate through children and set their order and parent
+                Page::setChildren($page);
             }
 
-            //iterate through children and set their order and parent
-            Page::setChildren($page);
+            // rebuild page URIs
+            Page::updateLookup($root_pages);
+
+            //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
+            $this->cache->forget('navigation_m');
+            $this->cache->forget('page_m');
+
+            Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $root_pages));
         }
-
-        // rebuild page URIs
-        Page::updateLookup($ids);
-
-        //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-        $this->cache->clear('navigation_m');
-        $this->cache->clear('page_m');
-
-        Events::trigger('page_ordered', array('order' => $order, 'root_pages' => $ids));
     }
 
     /**
@@ -316,14 +349,14 @@ class Admin extends Admin_Controller
                         if ($link) {
 
                             //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                            $this->cache->clear('navigation_m');
+                            $this->cache->forget('navigation_m');
 
                             Events::trigger('post_navigation_create', $link);
                         }
                     }
                 }
 
-                //$this->cache->clear('page_m');
+                //$this->cache->forget('page_m');
 
                 Events::trigger('page_created', $page);
             }
@@ -452,9 +485,9 @@ class Admin extends Admin_Controller
                 
                 Events::trigger('page_updated', $page);
 
-                //$this->cache->clear('page_m');
+                //$this->cache->forget('page_m');
                 //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                // $this->cache->clear('navigation_m');
+                // $this->cache->forget('navigation_m');
             }
         }
         else
@@ -540,7 +573,10 @@ class Admin extends Admin_Controller
         $this->form_data['group_options'] = $this->template->group_options = Users\Model\Group::getGroupOptions();
 
         $this->template
-            ->append_js('module::form.js');
+            ->append_js('jquery/jquery.tagsinput.js')
+            ->append_js('jquery/jquery.cooki.js')
+            ->append_js('module::form.js')
+            ->append_css('jquery/jquery.tagsinput.css');
     }
 
     private function _tabs()
@@ -618,9 +654,9 @@ class Admin extends Admin_Controller
                     $comments = Comment::where('module','=','pages')->where('entry_id','=',$id)->delete();
 
                     // Wipe cache for this model, the content has changd
-                    $this->cache->clear('page_m');
+                    $this->cache->forget('page_m');
                     //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                    $this->cache->clear('navigation_m');
+                    $this->cache->forget('navigation_m');
 
                 } else {
                     $this->session->set_flashdata('error', lang('pages:delete_home_error'));

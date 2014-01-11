@@ -45,7 +45,7 @@
 
 <script type="text/javascript">
 	jQuery(function($) {
-		Pyro.GenerateSlug('input[name="description"]', 'input[name="name"]');
+		pyro.generate_slug('input[name="description"]', 'input[name="name"]');
 	});
 </script>
 </div>

@@ -718,7 +718,6 @@ class EntryModel extends Eloquent
     public function getViewOptions()
     {
         if ($this->hasAsterisk($this->view_options)) {
-
             if ($stream_view_options = $this->getStream()->view_options and ! empty($stream_view_options)) {
                 return $stream_view_options;
             } else {
@@ -806,7 +805,7 @@ class EntryModel extends Eloquent
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if (! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
+        if ( ! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
             $title_column = $this->getKeyName();
         }
 
@@ -814,12 +813,13 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Get the stream object with assignments and field relations
-     * @return Pyro\Module\Streams_core\StreamModel
+     * Get stream
+     * This method is overriden in the compiled model
+     * @return null
      */
     public static function getStream()
     {
-        return StreamModel::object(static::$streamData);
+        return null;
     }
 
     /**

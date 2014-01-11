@@ -25,15 +25,15 @@
 
 		<?php switch ($button) :
 			case 'delete':
-				if($btn_class == 'btn') $btn_class .= ' btn-danger';
+				if($btn_class == 'btn') $btn_class .= ' red';
 
 			?>
-				<button type="submit" name="btnAction" value="delete" class="btn-sm <?php echo $btn_class; ?> confirm">
+				<button type="submit" name="btnAction" value="delete" class="<?php echo $btn_class; ?> confirm">
 					<span><?php echo lang('buttons:delete'); ?></span>
 				</button>
 				<?php break;
 			case 're-index': ?>
-				<button type="submit" name="btnAction" value="re-index" class="btn btn-sm orange">
+				<button type="submit" name="btnAction" value="re-index" class="btn orange">
 					<span><?php echo lang('buttons:re-index'); ?></span>
 				</button>
 				<?php break;
@@ -45,14 +45,14 @@
 			case 'save_exit':
 			case 'unapprove':
 			case 'upload': ?>
-				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> btn-sm btn-success">
+				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> blue">
 					<span><?php echo lang('buttons:' . $button); ?></span>
 				</button>
 				<?php break;
 			case 'cancel':
 			case 'close':
 			case 'preview':
-				if($btn_class == 'btn') $btn_class .= ' btn-sm btn-default';
+				if($btn_class == 'btn') $btn_class .= ' gray';
 				$uri = 'admin/' . $this->module_details['slug'];
 				$active_section = $this->load->get_var('active_section');
 

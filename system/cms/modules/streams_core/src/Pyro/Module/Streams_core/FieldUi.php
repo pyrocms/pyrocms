@@ -131,6 +131,9 @@ class FieldUi extends AbstractUi
         // Allow to set custom 'Add Field' uri
         $this->data->add_uri = $this->add_uri;
 
+        ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
+        ci()->template->append_js('streams/assignments.js');
+
         $this->data->content = ci()->load->view('streams_core/fields/table_assignments', $this->data, true);
 
         return $this;
@@ -434,6 +437,8 @@ class FieldUi extends AbstractUi
         // -------------------------------------
         // Build page
         // -------------------------------------
+
+        ci()->template->append_js('streams/fields.js');
 
         // Set the cancel URI. If there is no cancel URI, then we won't
         // have a cancel button.

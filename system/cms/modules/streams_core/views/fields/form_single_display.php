@@ -1,16 +1,12 @@
-<li<?php if(isset($this->type->types->{$field['field_type']}->admin_display) and $this->type->types->{$field['field_type']}->admin_display == 'full'): ?> class="full_width_input"<?php endif; ?>>
+	<li<?php if(isset($this->type->types->{$field['field_type']}->admin_display) and $this->type->types->{$field['field_type']}->admin_display == 'full'): ?> class="full_width_input"<?php endif; ?>>
 
-	<label class="col-lg-2 control-label" for="<?php echo $field_type->form_slug;?>">
-		<?php echo lang_label($field_type->getField()->field_name);?>
-		<?php if($field_type->getField()->is_required): ?><span class="required">*</span><?php endif; ?>
+		<label for="<?php echo $field['field_slug'];?>"><?php echo $field['field_name'];?> <?php if ($field['required']): ?><span>*</span><?php endif; ?>
 
-		<?php if( lang_label($field_type->getField()->instructions) != '' ): ?>
-			<p class="help-block c-gray-light"><?php echo lang_label($field_type->getField()->instructions); ?></p>
+		<?php if( $field['instructions'] != '' ): ?>
+			<br /><small><?php echo $field['instructions']; ?></small>
 		<?php endif; ?>
-	</label>
+		</label>
 
-	<div  class="col-lg-10">
-		<?php echo $field_type->formInput(); ?>
-	</div>
+		<div class="input"><?php echo $field['input']; ?></div>
 
-</li>
+	</li>

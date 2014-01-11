@@ -1,8 +1,5 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\EntryUi;
-use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Users\Model\User as UserModel;
 use Pyro\Module\Users\Model\Group as GroupModel;
@@ -26,16 +23,12 @@ class User extends AbstractFieldType
 
 	public $version = '1.0.0';
 
+	protected $users;
+
 	public $author = array(
 		'name'=>'Ryan Thompson - PyroCMS',
 		'url'=>'http://pyrocms.com/'
 		);
-
-	/**
-	 * Runtime funtime cache
-	 * @var array
-	 */
-	public $runtime_cache = array();
 
 	/**
 	 * The field type relation
@@ -43,7 +36,7 @@ class User extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsTo($this->getRelationClass('Pyro\Module\Users\Model\User'));
+		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Users\Model\User'));
 	}
 
 	/**
@@ -55,27 +48,23 @@ class User extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		// Start the HTML
-		$html = form_dropdown(
-			$this->form_slug,
-			array(),
-			null,
-			'id="'.$this->form_slug.'" class="skip" placeholder="'.lang_label($this->getParameter('placeholder', 'lang:streams:user.placeholder')).'"'
-			);
+		$id = null;
 
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/user.js.php',
-			array(
-				'form_slug' => $this->form_slug,
-				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->stream->stream_namespace,
-				'value' => $this->getValueEntry(),
-				),
-			false
-			);
+		if ($user = $this->getRelationResult()) {
+			$id = $user->id;
+		}
+		elseif ($this->getParameter('default_to_current_user') == 'yes') {
+			$id = ci()->current_user->id;
+		} elseif ($this->getDefault()) {
+			$id = $this->getDefault();
+		}
 
-		return $html;
+		return form_dropdown($this->form_slug, $this->getUserOptions(), $id);
+	}
+
+	public function getUserOptions()
+	{
+		return $this->users = $this->users ? $this->users : UserModel::getUserOptions();
 	}
 
 	/**
@@ -102,7 +91,6 @@ class User extends AbstractFieldType
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
 				'stream_namespace' => $this->stream->stream_namespace,
-				'value' => $this->getValueEntry(ci()->input->get($this->getFilterSlug('contains'))),
 				),
 			false
 			);
@@ -143,6 +131,13 @@ class User extends AbstractFieldType
 		}
 
 		return null;
+	}
+
+	public function pluginTestOverride()
+	{
+		die('hello');
+
+		return 'hello';
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -205,23 +200,5 @@ class User extends AbstractFieldType
 
 		header('Content-type: application/json');
 		echo json_encode(array('users' => $results));
-	}
-
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	UTILITIES 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Get value for dropdown
-	 * @param  mixed $value string or bool
-	 * @return object
-	 */
-	protected function getValueEntry($value = false)
-	{
-		// Determine a value
-		$value = ($value) ? $value : $this->value;
-
-		// Boom
-		return UserModel::find($value);
 	}
 }

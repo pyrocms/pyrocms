@@ -3,7 +3,7 @@
 
 		// Generate a slug from the title
 		if ($('#page-form').data('mode') == 'create') {
-			Pyro.GenerateSlug('input[name="title"]', 'input[name="slug"]');
+			pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 		}
 
 		// needed so that Keywords can return empty JSON
@@ -11,9 +11,9 @@
 			allowEmpty: true
 		});
 
-		/*$('#meta_keywords').tagsInput({
+		$('#meta_keywords').tagsInput({
 			autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
-		});*/
+		});
 		
 		// Hide the huge textarea
 		$('#page-chunks').on('mousedown', '.sort-handle', function(e){
@@ -21,7 +21,7 @@
 		});
 		
 		// Attach sortable to the page chunks ul
-		/*$("#page-chunks").sortable({
+		$("#page-chunks").sortable({
 			opacity:0.3,
 			handle: ".sort-handle",
 			placeholder: 'sort-placeholder',
@@ -37,10 +37,10 @@
 				$('.chunky').show();
 				pyro.init_ckeditor();
 			}
-		});*/
+		});
 		
 		// add another page chunk
-		$(document).on('click', 'a.add-chunk', function(e){
+		$('a.add-chunk').live('click', function(e){
 			e.preventDefault();
 
 			// The date in hexdec
@@ -56,18 +56,21 @@
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
 				'<div class="alignright">' +
-				'<a href="javascript:void(0)" class="remove-chunk btn red">' + Pyro.lang.remove + '</a>' +
+				'<a href="javascript:void(0)" class="remove-chunk btn red">' + pyro.lang.remove + '</a>' +
 				'<span class="sort-handle"></span>' +
 				'</div><br style="clear:both" />' +
 				'<span class="chunky"><textarea id="' + key + '" class="pages wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</span></li>');
 
 			// initialize the editor using the view from fragments/wysiwyg.php
-			Pyro.init_ckeditor();
+			pyro.init_ckeditor();
 			$("#page-chunks").sortable("refresh");
+
+			// Update Chosen
+			pyro.chosen();
 		});
 
-		$(document).on('click', 'a.remove-chunk', function(e) {
+		$('a.remove-chunk').live('click', function(e) {
 			e.preventDefault();
 
 			var removemsg = $(this).attr('title');
@@ -80,7 +83,7 @@
 			}
 		});
 
-		$(document).on('change', 'select[name^=chunk_type]', function() {
+		$('select[name^=chunk_type]').live('change', function() {
 			chunk = $(this).closest('li.page-chunk');
 			textarea = $('textarea', chunk);
 
@@ -97,7 +100,7 @@
 			// Set up the new instance
 			textarea.addClass(this.value);
 
-			Pyro.init_ckeditor();
+			pyro.init_ckeditor();
 		});
 
 	});

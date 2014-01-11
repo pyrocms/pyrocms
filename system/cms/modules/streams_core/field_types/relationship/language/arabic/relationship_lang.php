@@ -3,6 +3,3 @@
 $lang['streams:relationship.name'] 				= 'Vazba';
 $lang['streams:relationship.choose_stream'] 	= 'Stream pro vazbu';
 $lang['streams:relationship.doesnt_exist']		= 'Navázaný stream neexistuje.';
-
-// Placeholders
-$lang['streams:relationship.placeholder']		= 'Type to search...';

@@ -1,28 +1,21 @@
-<section class="filters p m-t margin-bottom">
+<?php if (! empty($filters)): ?>
+<section id="filters">
 
 	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
 
 		<?php foreach ($filters as $filter): ?>
 
-			<div class="form-group">
-				<?php if ($stream_fields->findBySlug($filter)): ?>
-					<?php echo $stream_fields->findBySlug($filter)->getType()->filterInput(); ?>
-				<?php else: ?>
-					<input type="text" name="f-<?php echo $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'; ?>" value="<?php echo ci()->input->get('f-'.$stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'); ?>" class="form-control" placeholder="<?php echo humanize($filter); ?>">
-				<?php endif; ?>
-			</div>
+			<?php if ($field = $stream_fields->findBySlug($filter)) echo $field->getType()->filterInput(); ?>
 
 		<?php endforeach; ?>
 		
-		<div class="form-group">
+		
+		<button class="button green"><?php echo lang('buttons:filter'); ?></button>
+		<a class="button" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
 
-			<div>
-				<button class="btn btn-success"><?php echo lang('buttons:filter'); ?></button>
-				<a class="btn btn-default clear-filters" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
-			</div>
-			
-		</div>
+		<br/><br/>
 
 	<?php echo form_close(); ?>
 
 </section>
+<?php endif; ?>

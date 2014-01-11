@@ -1,152 +1,92 @@
 <?php echo form_open(uri_string()); ?>
 
-<!-- .panel-body -->
-<div class="panel-body">
+<div class="form_inputs">
 
-	<div class="form-group">
-	<div class="row">
-		
-		<label class="col-lg-2" for="field_name"><?php echo lang('streams:label.field_name');?> <span>*</span></label>
-		
-		<div class="col-lg-10">
-			<?php
+	<ul>
 
-			if ($current_field->isFieldNameLang()) {
-				echo '<p><em>'.$current_field->field_name.'</em></p>';
-				echo form_hidden('field_name', $current_field->field_name);
-			} else {
-				echo form_input('field_name', $current_field->field_name, 'maxlength="60" id="field_name" class="form-control" autocomplete="off"');
-			}
+		<li>
+			<label for="field_name"><?php echo lang('streams:label.field_name');?> <span>*</span></label>
+			<div class="input">
+				<?php
 
-			?>
-		</div>
+				if ($current_field->isFieldNameLang()) {
+					echo '<p><em>'.$current_field->field_name.'</em></p>';
+					echo form_hidden('field_name', $current_field->field_name);
+				} else {
+					echo form_input('field_name', $current_field->field_name, 'maxlength="60" id="field_name" autocomplete="off"');
+				}
 
-	</div>
-	</div>
+				?></div>
 
-	
-	<div class="form-group">
-	<div class="row">
-		
-		<label class="col-lg-2" for="field_slug"><?php echo lang('streams:label.field_slug');?> <span>*</span>
+		</li>
 
-			<small class="help-block"><?php echo lang('global:slug_instructions'); ?></small>
-		</label>
+		<li>
+			<label for="field_slug"><?php echo lang('streams:label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
+			<div class="input"><?php echo form_input('field_slug', $current_field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
+		</li>
 
-		<div class="col-lg-10">
-			<?php echo form_input('field_slug', $current_field->field_slug, 'maxlength="60" class="form-control" id="field_slug"'); ?>
-		</div>
+		<?php if (isset($stream)): ?>
 
-	</div>
-	</div>
-		
 
-	<?php if (isset($stream)): ?>
-	
-		<div class="form-group">
-		<div class="row">
-			
-			<label class="col-lg-10 col-lg-offset-2" for="is_required">
-				<?php echo form_checkbox('is_required', 'yes', isset($assignment) ? $assignment->is_required : false, 'id="is_required"');?>
-				&nbsp;
-				<?php echo lang('streams:label.field_required');?>
-			</label>
 
-		</div>
-		</div>
-	
+			<li>
+				<label for="is_required"><?php echo lang('streams:label.field_required');?></label>
+				<div class="input"><?php echo form_checkbox('is_required', 'yes', isset($assignment) ? $assignment->is_required : false, 'id="is_required"');?></div>
+			</li>
 
-		<div class="form-group">
-		<div class="row">
 
-			<label class="col-lg-10 col-lg-offset-2" for="is_required">
-				<?php echo form_checkbox('is_unique', 'yes', isset($assignment) ? $assignment->is_unique : false, 'id="is_unique"'); ?>
-				&nbsp;
-				<?php echo lang('streams:label.field_unique');?>
-			</label>			
+			<li>
+				<label for="is_unique"><?php echo lang('streams:label.field_unique');?></label>
+				<div class="input"><?php echo form_checkbox('is_unique', 'yes', isset($assignment) ? $assignment->is_unique : false, 'id="is_unique"'); ?></div>
+			</li>
 
-		</div>
-		</div>
-	
+			<li>
+				<label for="field_instructions"><?php echo lang('streams:label.field_instructions');?><br /><small><?php echo lang('streams:instr.field_instructions');?></small></label>
+				<div class="input"><?php echo form_textarea('instructions', isset($assignment) ? $assignment->instructions : null, 'id="field_instructions"');?></div>
+			</li>
 
-		<div class="form-group">
-		<div class="row">
-			
-			<label class="col-lg-2" for="field_instructions"><?php echo lang('streams:label.field_instructions');?>
+			<?php if ($allow_title_column_set): ?>
+				<li>
+					<label for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
+					<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+				</li>
+			<?php endif; ?>
 
-				<small class="help-block"><?php echo lang('streams:instr.field_instructions');?></small>
-			</label>
-
-			<div class="col-lg-10">
-				<?php echo form_textarea('instructions', isset($assignment) ? $assignment->instructions : null, 'class="form-control" id="field_instructions"');?>
-			</div>
-
-		</div>
-		</div>
-	
-
-		<?php if ($allow_title_column_set): ?>
-		<div class="form-group">
-		<div class="row">
-			
-			<label class="col-lg-2" for="title_column"><?php echo lang('streams:label.make_field_title_column');?></label>
-
-			<div class="col-lg-10">
-				<?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?>
-			</div>
-
-		</div>
-		</div>
 		<?php endif; ?>
 
-	<?php endif; ?>
+		<?php
 
-	<?php
+			// We send some special params in an edit situation
+			$ajax_url = 'streams/ajax/build_parameters';
 
-		// We send some special params in an edit situation
-		$ajax_url = 'streams/ajax/build_parameters';
+			if($this->uri->segment(4) == 'edit'):
 
-		if($this->uri->segment(4) == 'edit'):
+				$ajax_url .= '/edit/'.$current_field->id;
 
-			$ajax_url .= '/edit/'.$current_field->id;
+			endif;
 
-		endif;
+		?>
 
-	?>
+		<li>
+			<label for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $current_field->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type"'); ?></div>
+		</li>
 
-	<div class="form-group">
-	<div class="row">
+		<div id="parameters">
 		
-		<label class="col-lg-2" for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>
-
-		<div class="col-lg-10">
-			<?php echo form_dropdown('field_type', $field_types, $current_field->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type"'); ?>
+			<?php echo $parameters; ?>
+		
 		</div>
 
+	</ul>
+
+		<div class="float-right buttons">
+
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		<?php if ($cancel_uri): ?>
+		<a href="<?php echo site_url($cancel_uri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		<?php endif; ?>
+
 	</div>
-	</div>
-		
-
-
-	<div id="parameters">
-	
-		<?php echo $parameters; ?>
-	
-	</div>
-
-	
-</div>
-<!-- /.panel-body -->
-
-
-<div class="panel-footer">
-
-	<button type="submit" name="btnAction" value="save" class="btn btn-success"><span><?php echo lang('buttons:save'); ?></span></button>	
-	<?php if ($cancel_uri): ?>
-	<a href="<?php echo site_url($cancel_uri); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>
-	<?php endif; ?>
-
-</div>
-
 
 <?php echo form_close();

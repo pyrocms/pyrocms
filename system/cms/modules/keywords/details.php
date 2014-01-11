@@ -56,11 +56,9 @@ class Module_Keywords extends AbstractModule
             'menu'     => 'data',
             'shortcuts' => array(
                 array(
-                    'name' => 'keywords:add_title',
-                    'uri' => 'admin/keywords/add',
-                    'class' => 'btn-sm btn-success',
-                    'data-hotkey' => 'n',
-                    'data-follow' => 'yes',
+                   'name' => 'keywords:add_title',
+                   'uri' => 'admin/keywords/add',
+                   'class' => 'add',
                 ),
             ),
         );

@@ -3,6 +3,3 @@
 $lang['streams:relationship.name'] 				= "Relation";
 $lang['streams:relationship.choose_stream'] 	= "Stream en relation";
 $lang['streams:relationship.doesnt_exist']		= "Le stream en relation n'existe pas.";
-
-// Placeholders
-$lang['streams:relationship.placeholder']		= 'Type to search...';

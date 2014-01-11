@@ -1,12 +1,9 @@
-<div class="modal-dialog">
-<div class="modal-content">
+<section class="title">
+        <h4><?php echo lang('pages:choose_type_title');?></h4>
+</section>
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title"><?php echo lang('pages:choose_type_title');?></h4>
-    </div>
-    
-    <div class="modal-body">
+<section class="item">
+    <div class="content">
         <table border="0" cellspacing="0">
             <thead>
                 <th width="20%"><?php echo lang('global:title');?></th>
@@ -30,6 +27,4 @@
             </tbody>
         </table>
     </div>
-
-</div>
-</div>
+</section>

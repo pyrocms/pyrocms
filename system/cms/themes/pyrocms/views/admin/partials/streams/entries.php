@@ -1,16 +1,10 @@
-<!-- .panel-body -->
-<!--<div class="panel-body">-->
+<?php $this->load->view('admin/partials/streams/filters'); ?>
 
-	<?php if (! empty($filters)): ?>
-		<?php $this->load->view('admin/partials/streams/filters'); ?>
-	<?php endif; ?>
+<?php if ($entries->count() > 0) { ?>
 
-
-	<?php if ($entries->count() > 0): ?>
-
-		<table class="table n-m">
-			<thead>
-				<tr>
+    <table class="table-list" cellpadding="0" cellspacing="0">
+		<thead>
+			<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
 					<?php foreach ($field_names as $field_slug=>$field_name): ?>
 					<?php
@@ -40,105 +34,98 @@
 						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $field_slug)
 							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
 								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
-									$caret = 'icon-caret-up';
+									$caret = '&#9650;';
 								else
-									$caret = 'icon-caret-down';
+									$caret = '&#9660;';
 							else
-								$caret = 'icon-caret-up';
+								$caret = '&#9650;';
 
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
 								<?php echo $field_name; ?>
-								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
+								<?php if ($caret) echo $caret; ?>
 							</a>
 						</th>
 
 					<?php endforeach; ?>
 				    <th></th>
 				</tr>
-			</thead>
-			<tbody>
-			<?php foreach ($entries as $entry) { ?>
+		</thead>
+		<tbody>
+		<?php foreach ($entries as $entry) { ?>
 
-				<tr>
+			<tr>
 
-					<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
+				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
-					<td>
+				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
+				<td>
 
-					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
+				<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
-							
-						if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
-
-					} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
-
-						<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
-							<?php echo $entry->created_by->username; ?>
-						</a>
-				
-					<?php } else {
-							
-							echo $entry->$view_option;
+				<?php if ($entry->$view_option instanceof \Carbon\Carbon) {
 						
-					} ?>
+					if ($entry->$view_option): echo $entry->$view_option->format('M j Y g:i a'); endif; 
 
-					</td>
-					<?php endforeach; endif; ?>
-					<td class="text-right">
+				} elseif ($view_option == 'created_by' and is_object($entry->created_by)) { ?>
 
-						<?php
+					<a href="<?php echo site_url('admin/users/edit/'. $entry->created_by->id); ?>">
+						<?php echo $entry->created_by->username; ?>
+					</a>
+			
+				<?php } else {
+						
+						echo $entry->$view_option;
+					
+				} ?>
 
-							if (isset($buttons)) {
-								$all_buttons = array();
+				</td>
+				<?php endforeach; endif; ?>
+				<td class="actions">
 
-								foreach ($buttons as $button) {
-									$class = (isset($button['confirm']) and $button['confirm']) ? 'confirm' : 'button';
-									$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
+					<?php
 
-									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+						if (isset($buttons)) {
+							$all_buttons = array();
 
-									// This is kept for backwards compatibility
-									$url = str_replace('-entry_id-', $entry->getKey(), $url);
+							foreach ($buttons as $button) {
+								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
 
-									$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
-								}
+								$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
 
-								echo implode('&nbsp;', $all_buttons);
-								unset($all_buttons);
+								// This is kept for backwards compatibility
+								$url = str_replace('-entry_id-', $entry->getKey(), $url);
+
+								$all_buttons[] = anchor($url, $button['label'], 'class="'.$class.'"');
 							}
 
-						?>
-					</td>
-				</tr>
-			<?php } ?>
-			</tbody>
-	    </table>
+							echo implode('&nbsp;', $all_buttons);
+							unset($all_buttons);
+						}
 
-	    <div class="panel-footer">
-			
-			<?php if ($pagination) echo $pagination['links']; ?>
+					?>
+				</td>
+			</tr>
+		<?php } ?>
+		</tbody>
+    </table>
 
-		</div>
+<?php if ($pagination): echo $pagination['links']; endif; ?>
 
-	<?php else: ?>
+<?php } else { ?>
 
-		<div class="margin alert alert-info">
-			<?php
+<div class="no_data">
+	<?php
 
-				if (isset($no_entries_message) and $no_entries_message) {
-					echo lang_label($no_entries_message);
-				} else {
-					echo lang('streams:no_entries');
-				}
+		if (isset($no_entries_message) and $no_entries_message) {
+			echo lang_label($no_entries_message);
+		} else {
+			echo lang('streams:no_entries');
+		}
 
-			?>
-		</div><!--.no_data-->
+	?>
+</div><!--.no_data-->
 
-	<?php endif; ?>
-
-<!--</div>-->
-<!-- /.panel-body -->
+<?php } ?>

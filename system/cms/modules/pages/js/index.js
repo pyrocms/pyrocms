@@ -2,7 +2,7 @@
 	$(function() {
 
 		// set values for pyro.sort_tree (we'll use them below also)
-		$item_list	= $('ul.dd-list');
+		$item_list	= $('ul.sortable');
 		$url		= 'admin/pages/order';
 		$cookie		= 'open_pages';
 
@@ -11,7 +11,7 @@
 		$details_id	= $('div#page-details #page-id');
 
 		// show the page details pane
-		$item_list.find('li a').on('click', function(e) {
+		$item_list.find('li a').live('click', function(e) {
 			e.preventDefault();
 
 			$a = $(this);
@@ -23,7 +23,7 @@
 
 			// Load the details box in
 			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id, function(){
-				//refresh_sticky_page_details(true);
+				refresh_sticky_page_details(true);
 			});
 
 			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );
@@ -57,6 +57,15 @@
 		}
 
 		// And off we go
-		//Pyro.sort_tree($item_list, $url, $cookie, data_callback, post_sort_callback);
+		pyro.sort_tree($item_list, $url, $cookie, data_callback, post_sort_callback);
+
+		 function refresh_sticky_page_details(reset) {
+			 var els = $('.scroll-follow');
+			if ( reset === true ) {
+				els.stickyScroll('reset');
+			}
+			els.stickyScroll({ topBoundary: 170, bottomBoundary: 110, minimumWidth: 770});
+		}
+		refresh_sticky_page_details();
 	});
 })(jQuery);

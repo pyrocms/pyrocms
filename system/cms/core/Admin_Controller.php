@@ -80,28 +80,7 @@ class Admin_Controller extends MY_Controller
 			$menu_items = array();
 
 			// This array controls the order of the admin items.
-			$this->template->menu_order = array(
-				array(
-					'before' => '<i class="fa fa-book"></i>',
-					'title' => 'lang:cp:nav_content',
-					'items' => array(),
-					),
-				array(
-					'before' => '<i class="fa fa-sitemap"></i>',
-					'title' => 'lang:cp:nav_structure',
-					'items' => array(),
-					),
-				array(
-					'before' => '<i class="fa fa-hdd-o"></i>',
-					'title' => 'lang:cp:nav_data',
-					'items' => array(),
-					),
-				array(
-					'before' => '<i class="fa fa-group"></i>',
-					'title' => 'lang:cp:nav_users',
-					'items' => array(),
-					),
-				);
+			$this->template->menu_order = array('lang:cp:nav_content', 'lang:cp:nav_structure', 'lang:cp:nav_data', 'lang:cp:nav_users', 'lang:cp:nav_settings', 'lang:global:profile');
 
 			$modules = $this->moduleManager->getAllEnabled(array(
 				'is_backend' => true,
@@ -133,6 +112,13 @@ class Admin_Controller extends MY_Controller
 				}
 			}
 
+			// We always have our 
+			// edit profile links and such.
+			$menu_items['lang:global:profile'] = array(
+				'lang:cp:edit_profile_label' => 'edit-profile',
+				'lang:cp:logout_label'		 => 'admin/logout'
+			);
+
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 
 			$event_output = Events::trigger('admin_menu', $menu_items);
@@ -147,23 +133,9 @@ class Admin_Controller extends MY_Controller
 			$ordered_menu = array();
 
 			foreach ($this->template->menu_order as $order) {
-
-				// We need to follow standards
-				if (isset($order['title']) and isset($menu_items[$order['title']])) {
-
-					// Add our menu starter
-					$ordered_menu[lang_label($order['title'])] = $order;
-
-					// Do we have items or a URI?
-					if (is_array($menu_items[$order['title']])) {
-						$ordered_menu[lang_label($order['title'])]['items'] = $menu_items[$order['title']];
-					} elseif (is_string($menu_items[$order['title']])) {
-						$ordered_menu[lang_label($order['title'])]['uri'] = $menu_items[$order['title']];
-						unset($ordered_menu[lang_label($order['title'])]['items']);
-					}
-
-					// Bai
-					unset($menu_items[$order['title']]);
+				if (isset($menu_items[$order])) {
+					$ordered_menu[lang_label($order)] = $menu_items[$order];
+					unset($menu_items[$order]);
 				}
 			}
 

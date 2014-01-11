@@ -143,6 +143,8 @@ class Admin extends Admin_Controller
 
 		// Create the layout
 		$this->template
+			->append_js('jquery/jquery.ui.nestedSortable.js')
+			->append_js('jquery/jquery.cooki.js')
 			->title($this->module_details['name'])
 			->set('navigation', $navigation)
 			->build('admin/index');
@@ -151,10 +153,12 @@ class Admin extends Admin_Controller
 	/**
 	 * Order the links and record their children
 	 */
-	public function order($group)
+	public function order()
 	{
-		$order = $this->input->post('ids');
-		
+		$order	= $this->input->post('order');
+		$data	= $this->input->post('data');
+		$group	= isset($data['group']) ? (int) $data['group'] : 0;
+
 		if (is_array($order)) {
 			Navigation\Model\Link::setOrder($order, $group);
 

@@ -13,28 +13,19 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  */
 class Integer extends AbstractFieldType
 {
-	public $field_type_slug = 'integer';
+	public $field_type_slug			= 'integer';
 
-	public $db_col_type = 'integer';
+	public $db_col_type				= 'integer';
 
-	public $custom_parameters = array(
-		'max_length',
-		'default_value',
-		'placeholder',
-		);
+	public $custom_parameters		= array('max_length', 'default_value');
 
-	public $extra_validation = 'integer';
+	public $extra_validation		= 'integer';
 
-	public $version = '1.0.0';
+	public $version					= '1.0.0';
 
-	public $author = array(
-		'name'=>'Ryan Thompson - PyroCMS',
-		'url'=>'http://pyrocms.com/'
-		);
+	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	METHODS 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -49,7 +40,6 @@ class Integer extends AbstractFieldType
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
 		$options['placeholder']	= lang_label($this->getParameter('placeholder'));
-		$options['class']	= 'form-control';
 		
 		// Max length
 		if ($max_length = $this->getParameter('max_length'))
@@ -60,17 +50,4 @@ class Integer extends AbstractFieldType
 		return form_input($options);
 	}
 
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	PARAMETERS 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Placeholder!
-	 *
-	 * @return	string
-	 */
-	public function paramPlaceholder($value = '')
-	{
-		return form_input('placeholder', $value);
-	}
 }
