@@ -189,40 +189,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function getOptions()
 	{
-		// Get options
-		$options = array();
-
-		if ($relation_class = $this->getRelationClass())
-		{
-			$instance = new $relation_class;
-
-			if ($instance instanceof EntryModel) {
-			
-				@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-				$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
-				$options = $relation_class::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
-				
-				$option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}'); 
-
-			} else {
-
-				$options = $relation_class::limit(1000)->select('*')->get()->toArray();
-
-				$option_format = $this->getParameter('option_format', '{{ '.$this->getParameter('title_field', 'id').' }}'); 
-
-			}
-		}
-
-		// Format options
-		$formatted_options = array();
-
-		foreach ($options as $option) {
-			$formatted_options[$option[$this->getParameter('value_field', 'id')]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
-		}
-
 		// Boom
-		return $formatted_options;
+		return array();
 	}
 }
