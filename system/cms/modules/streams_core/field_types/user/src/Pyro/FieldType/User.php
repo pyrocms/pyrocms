@@ -50,7 +50,7 @@ class User extends AbstractFieldType
 	{
 		$id = null;
 
-		if ($user = $this->getRelationResult()) {
+		if ($user = $this->getRelation()) {
 			$id = $user->id;
 		}
 		elseif ($this->getParameter('default_to_current_user') == 'yes') {
@@ -105,7 +105,7 @@ class User extends AbstractFieldType
 	 */
 	public function stringOutput()
 	{
-		if ($user = $this->getRelationResult())
+		if ($user = $this->getRelation())
 		{
 			return anchor('admin/users/edit/'.$user->id, $user->username);	
 		}
@@ -125,7 +125,7 @@ class User extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelationResult())
+		if ($entry = $this->getRelation())
 		{
 			return $entry->toArray();
 		}
