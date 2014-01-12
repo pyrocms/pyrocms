@@ -194,8 +194,6 @@ class EntryUi extends AbstractUi
 
         $instance->entry->asEloquent();
 
-        $stream_namespace = $instance->stream->stream_namespace;
-
         return $instance;
     }
 

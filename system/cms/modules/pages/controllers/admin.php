@@ -391,7 +391,7 @@ class Admin extends Admin_Controller
         }
 
         $stream = $page->type->stream;
-        $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
+        //$page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
         //$stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
         // If there's a keywords hash
