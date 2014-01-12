@@ -2,8 +2,6 @@
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\AbstractFieldType;
-use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\StreamModel;
 
 /**
@@ -112,8 +110,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function stringOutput()
 	{
-		if ($entry = $this->getRelationResult())
-		{
+		if ($entry = $this->getRelation()->first()) {
 			return $entry->getTitleColumnValue();
 		}
 
@@ -130,9 +127,8 @@ class Relationship extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelationResult())
-		{
-			return $entry->asPlugin()->toArray();
+		if ($entry = $this->getRelation()) {
+			return $entry->first()->asPlugin()->toArray();
 		}
 
 		return null;
@@ -145,9 +141,8 @@ class Relationship extends AbstractFieldType
 	 */
 	public function dataOutput()
 	{
-		if ($entry = $this->getRelationResult())
-		{
-			return $entry;
+		if ($entry = $this->getRelation()) {
+			return $entry->first();
 		}
 
 		return null;
