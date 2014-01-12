@@ -89,7 +89,7 @@ abstract class AbstractFieldType
      * The plugin object
      * @var boolean
      */
-    protected $plugin = false;
+    protected $plugin = null;
 
     /**
      * Version
@@ -718,6 +718,17 @@ abstract class AbstractFieldType
     public function getRelationClass($default = null)
     {
         return $this->getParameter('relation_class', $default);
+    }
+
+    /**
+     * Convenience to return relation object
+     * @return Illuminate\Database\Eloquent\Relation
+     */
+    public function getRelation()
+    {
+        $method = lcfirst(Str::studly($this->field->field_slug));
+
+        return $this->entry->{$method}();
     }
 
     /**
