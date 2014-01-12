@@ -1,6 +1,5 @@
 <?php namespace Pyro\Module\Streams_core;
 
-use Illuminate\Support\Str;
 use Pyro\Model\Eloquent;
 
 class StreamModel extends Eloquent
@@ -26,7 +25,7 @@ class StreamModel extends Eloquent
      */
     public $timestamps = false;
 
-    protected static $streams_cache = array();
+    protected static $streamsCache = array();
 
     /**
      * Compile entry model
@@ -34,16 +33,10 @@ class StreamModel extends Eloquent
      */
     public function compileEntryModel()
     {
-        if (! empty($this->stream_slug) and ! empty($this->stream_namespace)) {
-            $className = Str::studly($this->stream_namespace).Str::studly($this->stream_slug);
 
-            $generator = new EntryModelGenerator;
+        $generator = new EntryModelGenerator;
 
-            $generator->make($className.'EntryModel.php', array(
-                'table' => "'".$this->stream_prefix.$this->stream_slug."'",
-                'stream' => str_replace('Pyro', '\Pyro', var_export($this->load('assignments.field'), true)),
-            ), true);            
-        }
+        return $generator->compile($this);
     }
 
     /**
@@ -299,7 +292,7 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-        if (isset(static::$streams_cache[$stream_slug.'.'.$stream_namespace])) return static::$streams_cache[$stream_slug.'.'.$stream_namespace];
+        if (isset(static::$streamsCache[$stream_slug.'.'.$stream_namespace])) return static::$streamsCache[$stream_slug.'.'.$stream_namespace];
 
         $stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
             ->where('stream_namespace', $stream_namespace)
@@ -307,7 +300,7 @@ class StreamModel extends Eloquent
             ->fresh($fresh)
             ->first();
 
-        return $stream;
+        return static::$streamsCache[$stream->stream_slug.'.'.$stream->stream_namespace] = static::$streamsCache[$stream->id] = $stream;
     }
 
     /**
@@ -770,14 +763,14 @@ class StreamModel extends Eloquent
 
     public static function find($id, $columns = array('*'), $fresh = false)
     {
-        if (isset(static::$streams_cache[$id])) return static::$streams_cache[$id];
+        if (isset(static::$streamsCache[$id])) return static::$streamsCache[$id];
 
         $stream = static::with('assignments.field')->where('id', $id)
             ->take(1)
             ->fresh($fresh)
             ->first();
 
-        return static::$streams_cache[$id] = static::$streams_cache[$id] = $stream;
+        return static::$streamsCache[$id] = static::$streamsCache[$id] = $stream;
     }
 
     /**
@@ -862,5 +855,50 @@ class StreamModel extends Eloquent
     public function assignments()
     {
         return $this->hasMany('Pyro\Module\Streams_core\FieldAssignmentModel', 'stream_id')->orderBy('sort_order');
+    }
+
+    /**
+     * Get stream model object from stream data array
+     * @param  array $streamData
+     * @return Pyro\Module\Streams_core\StreamModel
+     */
+    public static function object($streamData)
+    {
+        $assignments = array();
+
+        if (isset(static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']])) {
+            return static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']];
+        }
+
+        if (is_array($streamData) and ! empty($streamData['assignments'])) {
+
+            foreach ($streamData['assignments'] as $assignment) {
+
+                if (! empty($assignment['field'])) {
+                    $fieldModel = new FieldModel($assignment['field']);
+                    unset($assignment['field']);
+                }
+
+                $assignmentModel = new FieldAssignmentModel($assignment);
+
+                $assignmentModel->setRawAttributes($assignment);
+
+                $assignmentModel->setRelation('field', $fieldModel);
+
+                $assignments[] = $assignmentModel;
+            }
+
+            unset($streamData['assignments']);
+        }
+
+        $streamModel = new static;
+        
+        $streamModel->setRawAttributes($streamData);
+        
+        $assignmentsCollection = new FieldAssignmentCollection($assignments);
+        
+        $streamModel->setRelation('assignments', $assignmentsCollection);
+
+        return static::$streamsCache[$streamModel->stream_namespace.'.'.$streamModel->stream_slug] = $streamModel;
     }
 }

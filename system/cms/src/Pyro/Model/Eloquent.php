@@ -19,7 +19,7 @@ use Pyro\Module\Streams_core\EntryModel;
 abstract class Eloquent extends Model
 {   
 
-    protected $cache_minutes = 30;
+    protected $cache_minutes = false;
 
     // --------------------------------------------------------------------------
     // Runtime Cache
