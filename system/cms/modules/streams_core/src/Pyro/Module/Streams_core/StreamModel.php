@@ -862,8 +862,10 @@ class StreamModel extends Eloquent
     {
         $assignments = array();
 
-        if (isset(static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']])) {
-            return static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']];
+        if (isset($streamData['stream_namespace'], $streamData['stream_slug'])) {
+            if (isset(static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']])) {
+                return static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']];
+            }
         }
 
         if (is_array($streamData) and ! empty($streamData['assignments'])) {
