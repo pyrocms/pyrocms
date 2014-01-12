@@ -292,15 +292,11 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-        if (isset(static::$streamsCache[$stream_slug.'.'.$stream_namespace])) return static::$streamsCache[$stream_slug.'.'.$stream_namespace];
-
-        $stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
+        return static::with('assignments.field')->where('stream_slug', $stream_slug)
             ->where('stream_namespace', $stream_namespace)
             ->take(1)
             ->fresh($fresh)
             ->first();
-
-        return static::$streamsCache[$stream->stream_slug.'.'.$stream->stream_namespace] = static::$streamsCache[$stream->id] = $stream;
     }
 
     /**
