@@ -69,21 +69,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function relation()
 	{
-
-		if (! $relation_class = $this->getRelationClass()) return null;
-
-		$instance = new $relation_class;
-
-		if ($instance instanceof EntryModel) {
-
-			@list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-			if (! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace)) return null;
-
-			return $this->belongsToEntry($relation_class)->select('*');	
-		}
-
-		return $this->belongsTo($relation_class)->select('*');
+		return $this->belongsTo($this->getRelationClass('Pyro\Module\Streams_core\EntryModel'));
 	}
 
 	/**

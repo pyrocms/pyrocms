@@ -42,8 +42,9 @@ class EntryModelGenerator extends Generator
             $stream->load('assignments.field');
 
             $generator->make($className.'EntryModel.php', array(
-                'table' => "'".$stream->stream_prefix.$stream->stream_slug."'",
-                'stream' => $this->compileStreamData($stream),
+                'table'     => "'".$stream->stream_prefix.$stream->stream_slug."'",
+                'stream'    => $this->compileStreamData($stream),
+                'relations' => $this->compileRelations($stream),
             ), true);
 
             return true;
@@ -59,42 +60,77 @@ class EntryModelGenerator extends Generator
 
         foreach ($stream->getAttributes() as $key => $value) {
             $value = $this->adjustValue($value);
-            $string .= "\n            '{$key}' => {$value},";
+            $string .= "\n        '{$key}' => {$value},";
         }
 
         // Assignments array
-        $string .= "\n            'assignments' => array(";
+        $string .= "\n        'assignments' => array(";
 
         foreach ($stream->assignments as $assignment) {
 
             // Assignment attributes array
-            $string .= "\n                array(";
+            $string .= "\n            array(";
 
             foreach ($assignment->getAttributes() as $key => $value) {
+                $value = $this->adjustValue($value);
+                $string .= "\n                '{$key}' => {$value},";
+            }
+
+            // Field attributes array
+            $string .= "\n                'field' => array(";
+
+            foreach ($assignment->field->getAttributes() as $key => $value) {
                 $value = $this->adjustValue($value);
                 $string .= "\n                    '{$key}' => {$value},";
             }
 
-            // Field attributes array
-            $string .= "\n                    'field' => array(";
-
-            foreach ($assignment->field->getAttributes() as $key => $value) {
-                $value = $this->adjustValue($value);
-                $string .= "\n                        '{$key}' => {$value},";
-            }
-
             // End field attributes array
-            $string .= "\n                    ),";
+            $string .= "\n                ),";
             
             // End assignment attributes array
-            $string .= "\n                ),";
+            $string .= "\n            ),";
         }
 
         // End assignments array
-        $string .= "\n            ),";
+        $string .= "\n        ),";
     
         // End stream attributes array
-        $string .= "\n        )";
+        $string .= "\n    )";
+
+        return $string;
+    }
+
+    public function compileRelations(StreamModel $stream)
+    {
+        $string = '';
+
+        foreach ($stream->assignments as $assignment) {
+            
+            if ($assignment->getType()->hasRelation()) {
+                
+                $relation = $assignment->getType()->relation();
+
+                $relationClass = get_class($relation);
+
+                $relationClassName = explode('\\', $relationClass);
+
+                $relationMethod = Str::camel($assignment->field->field_slug);
+
+                $relationTypeMethod = lcfirst($relationClassName[count($relationClassName)-1]);
+
+                $related = get_class($relation->getRelated());
+
+                $string .= "\n    public function {$relationMethod}()";
+
+                $string .= "\n    {";
+
+                $string .= "\n        return \$this->{$relationTypeMethod}('{$related}', '{$assignment->field->field_slug}');";
+
+                $string .= "\n    }";
+
+                $string .= "\n\n";
+            }
+        }
 
         return $string;
     }
