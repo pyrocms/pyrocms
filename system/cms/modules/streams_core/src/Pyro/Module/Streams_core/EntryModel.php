@@ -82,7 +82,7 @@ class EntryModel extends Eloquent
      * Stream data
      * @var array/null
      */
-    protected static $streamData = null;
+    protected static $streamData = array();
 
     /**
      * The name of the "created at" column.
