@@ -17,7 +17,7 @@
 	<label class="col-lg-2" for="meta_keywords"><?php echo lang('pages:meta_keywords_label');?></label>
 
 	<div  class="col-lg-10">
-		<input type="text" class="form-control" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
+		<input type="text" class="tags" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
 	</div>
 
 </div>
