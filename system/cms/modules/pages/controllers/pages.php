@@ -178,8 +178,9 @@ class Pages extends Public_Controller
 		$keyword_hash = $page->meta_keywords ?: $page->type->meta_keywords;
 
 		if ($keyword_hash) {
-			$meta_keywords = Keywords::get_string($page->meta_keywords);
-		}
+            $meta_keywords = implode(', ', AppliedKeywords::getNamesByHash($page->meta_keywords)->lists('name'));
+            $page->meta_keywords = $meta_keywords;
+        }
 
 		$meta_robots = $page->meta_robots_no_index ? 'noindex' : 'index';
 		$meta_robots .= $page->meta_robots_no_follow ? ',nofollow' : ',follow';
