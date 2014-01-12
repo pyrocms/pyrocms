@@ -127,7 +127,11 @@ class FieldTypeManager
      */
     public static function getType($type = null)
     {
-        return static::loadType($type);
+        if (! empty(static::$types[$type]) and is_object(static::$types[$type])) {
+            return static::$types[$type];
+        } else {
+            return static::loadType($type);
+        }
     }
 
     /**

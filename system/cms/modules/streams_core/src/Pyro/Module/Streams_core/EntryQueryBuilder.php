@@ -85,7 +85,8 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         }
 
         // We need to return the models with their keys
-        return $this->requireColumns($columns);
+        //return $this->requireColumns($columns);
+        return $columns;
     }
 
     public function requireColumns($columns)

@@ -79,6 +79,12 @@ class EntryModel extends Eloquent
     protected $disable_field_maps = false;
 
     /**
+     * Stream data
+     * @var array/null
+     */
+    protected static $streamData = array();
+
+    /**
      * The name of the "created at" column.
      * @var string
      */

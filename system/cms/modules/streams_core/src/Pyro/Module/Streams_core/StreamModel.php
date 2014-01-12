@@ -292,13 +292,11 @@ class StreamModel extends Eloquent
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
         }
 
-        $stream = static::with('assignments.field')->where('stream_slug', $stream_slug)
+        return static::with('assignments.field')->where('stream_slug', $stream_slug)
             ->where('stream_namespace', $stream_namespace)
             ->take(1)
             ->fresh($fresh)
             ->first();
-
-        return $stream;
     }
 
     /**
@@ -864,8 +862,10 @@ class StreamModel extends Eloquent
     {
         $assignments = array();
 
-        if (isset(static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']])) {
-            return static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']];
+        if (isset($streamData['stream_namespace'], $streamData['stream_slug'])) {
+            if (isset(static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']])) {
+                return static::$streamsCache[$streamData['stream_namespace'].'.'.$streamData['stream_slug']];
+            }
         }
 
         if (is_array($streamData) and ! empty($streamData['assignments'])) {

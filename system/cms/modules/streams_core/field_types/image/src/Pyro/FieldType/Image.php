@@ -390,7 +390,7 @@ class Image extends AbstractFieldType
 	{
 		if ( ! $this->value or $this->value == 'dummy' ) return null;
 
-		$image = $this->getRelationResult();
+		$image = $this->getRelation();
 
 		if ($image) {
 			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
