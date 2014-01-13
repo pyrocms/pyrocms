@@ -2,6 +2,7 @@
 
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Users\Model\Profile;
 
 /**
  * Users Events Class
@@ -39,7 +40,7 @@ class Events_Users {
 		if (isset(ci()->current_user->profile)) return false;
 
 		// Get the profile
-		$profile = EntryModel::stream('profiles', 'users')->select('*')->where('user_id', ci()->current_user->id)->first();
+		$profile = Profile::where('user_id', ci()->current_user->id)->first();
 
 		// If we have a result - use it
 		if ($profile) {
