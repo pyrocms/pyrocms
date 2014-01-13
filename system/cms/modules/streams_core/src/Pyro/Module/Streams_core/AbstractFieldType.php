@@ -588,7 +588,7 @@ abstract class AbstractFieldType
 
         if ($this->hasLocalForeingKey() and empty($original)) return null;
 
-        $attribute = lcfirst(Str::studly($this->field->field_slug));
+        $attribute = lcfirst(Str::studly($field_slug));
 
         return $this->entry->{$attribute};
     }
@@ -613,49 +613,6 @@ abstract class AbstractFieldType
         $foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
 
         return $this->entry->belongsTo($related, $foreign_key);
-    }
-
-    /**
-     * Wrapper method for the Eloquent belongsToEntry() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
-     */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $stream = null)
-    {
-        $foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
-
-        return $this->entry->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
-    }
-
-    /**
-     * Wrapper method for the Eloquent belongsToManyEntries() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
-     */
-    public function belongsToManyEntries($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $other_key = null, $stream = null, $pivot_suffix = null)
-    {
-        $pivot_suffix = $pivot_suffix ? $pivot_suffix : $this->field->field_slug;
-
-        $foreign_key = $foreign_key ? $foreign_key : 'entry_id';
-
-        $other_key = $other_key ? $other_key : 'related_id';
-
-        return $this->entry->belongsToManyEntries($related, $foreign_key, $other_key, $this->getParameter('stream', $stream), $pivot_suffix);
-    }
-
-    /**
-     * Wrapper method for the Eloquent hasMany() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
-     */
-    public function hasManyEntries($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $stream = null)
-    {
-        $foreign_key = $foreign_key ? $foreign_key : 'entry_id';
-
-        return $this->entry->hasManyEntries($related, $foreign_key, $this->getParameter('stream', $stream));
     }
 
     /**
@@ -711,7 +668,9 @@ abstract class AbstractFieldType
         // Fallack default
         if (! $default and $this->getParameter('stream')) {
             list($stream, $namespace) = explode('.', $this->getParameter('stream'));
-            $default = StreamModel::getEntryModelClass($stream, $namespace);
+            if (isset($stream) and isset($namespace)) {
+                $default = StreamModel::getEntryModelClass($stream, $namespace);
+            }
         }
 
         return $this->getParameter('relation_class', $default);
