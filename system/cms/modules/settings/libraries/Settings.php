@@ -49,6 +49,7 @@ class Settings
      * Gets the setting value requested
      *
      * @param	string	$key
+     * @return mixed
      */
     public function __get($key)
     {

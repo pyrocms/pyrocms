@@ -252,8 +252,8 @@ class Pages extends Public_Controller
 		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $attributes), false);
 		
 		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $page->type->stream->stream_slug,
-			'namespace' => $page->type->stream->stream_namespace,
+			'stream' => $page->entry->getStreamSlug(),
+			'namespace' => $page->entry->getStreamNamespace(),
 			'id_name' => 'entry_id'
 		));
 

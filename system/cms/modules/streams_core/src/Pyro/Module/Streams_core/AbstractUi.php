@@ -429,9 +429,15 @@ abstract class AbstractUi extends AbstractCallable
         return $this->data->fields;
     }
 
+    /**
+     * Get entry model class
+     * @param $stream_slug
+     * @param $stream_namespace
+     * @return string
+     */
     public function getEntryModelClass($stream_slug, $stream_namespace)
     {
-        return 'Pyro\Module\Streams_core\Data\\'.Str::studly($stream_namespace).Str::studly($stream_slug).'EntryModel';
+        return StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
     }
 
     /**
