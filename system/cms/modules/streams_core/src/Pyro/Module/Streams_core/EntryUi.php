@@ -133,7 +133,11 @@ class EntryUi extends AbstractUi
 
         $this->model->setViewOptions($this->view_options);
 
-          $this->data->entries = $this->query
+        $this->select = array_unique(array_merge($this->data->view_options, array('id')));
+        $this->select = array_unique(array_merge($this->data->view_options, $this->select));
+        $this->select = array_unique($this->select);
+
+        $this->data->entries = $this->query
             ->enableAutoEagerLoading(true)
             ->take($this->limit)
             ->skip($this->offset)
@@ -142,13 +146,13 @@ class EntryUi extends AbstractUi
 
         $this->data->view_options =	$this->model->getViewOptionsFields();
 
-          $this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+        $this->data->field_names 	= $this->model->getViewOptionsFieldNames();
 
-          if ( ! empty($this->headers)) {
-              $this->data->field_names = array_merge($this->data->field_names, $this->headers);
-          }
+        if ( ! empty($this->headers)) {
+            $this->data->field_names = array_merge($this->data->field_names, $this->headers);
+        }
 
-          $this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
+        $this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
 
         $this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
     }
