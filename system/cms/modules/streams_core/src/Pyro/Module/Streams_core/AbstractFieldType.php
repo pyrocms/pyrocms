@@ -588,18 +588,9 @@ abstract class AbstractFieldType
 
         if ($this->hasLocalForeingKey() and empty($original)) return null;
 
-        // If the relation result exists, return it
-        if ($relation = $this->entry->getRelation($field_slug)) {
+        $attribute = lcfirst(Str::studly($this->field->field_slug));
 
-            return $relation;
-
-        } elseif ($this->hasRelation()) {
-
-            return $this->relation()->getResults();
-
-        }
-
-        return null;
+        return $this->entry->{$attribute};
     }
 
     /**
@@ -724,17 +715,6 @@ abstract class AbstractFieldType
         }
 
         return $this->getParameter('relation_class', $default);
-    }
-
-    /**
-     * Convenience to return relation object
-     * @return Illuminate\Database\Eloquent\Relation
-     */
-    public function getRelation()
-    {
-        $method = lcfirst(Str::studly($this->field->field_slug));
-
-        return $this->entry->{$method}();
     }
 
     /**
