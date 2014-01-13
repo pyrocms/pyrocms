@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
+use Illuminate\Support\Str;
 use Pyro\Model\Eloquent;
 
 class StreamModel extends Eloquent
@@ -37,6 +38,17 @@ class StreamModel extends Eloquent
         $generator = new EntryModelGenerator;
 
         return $generator->compile($this);
+    }
+
+    /**
+     * Get entry model class
+     * @param $stream_slug
+     * @param $stream_namespace
+     * @return string
+     */
+    public static function getEntryModelClass($stream_slug, $stream_namespace)
+    {
+        return 'Pyro\Module\Streams_core\Data\\'.Str::studly("{$stream_namespace}_{$stream_slug}".'EntryModel');
     }
 
     /**
@@ -144,6 +156,10 @@ class StreamModel extends Eloquent
         return $stream->update($data);
     }
 
+    /**
+     * Get cache collection
+     * @return mixed
+     */
     public static function getCachedCollection()
     {
         return ci()->cache->rememberForever('all.streams.assignments.fields', function() {

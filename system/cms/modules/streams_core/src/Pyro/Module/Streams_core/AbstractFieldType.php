@@ -720,7 +720,7 @@ abstract class AbstractFieldType
         // Fallack default
         if (! $default and $this->getParameter('stream')) {
             list($stream, $namespace) = explode('.', $this->getParameter('stream'));
-            $default = 'Pyro\Module\Streams_core\Data\\'.Str::studly("{$namespace}_{$stream}_entry_model");
+            $default = StreamModel::getEntryModelClass($stream, $namespace);
         }
 
         return $this->getParameter('relation_class', $default);

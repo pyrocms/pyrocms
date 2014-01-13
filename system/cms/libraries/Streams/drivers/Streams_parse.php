@@ -63,8 +63,14 @@ class Streams_parse extends CI_Driver {
 
 		if (is_null($fields))
 		{
-			$stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-			$fields = $stream->assignments->getTypes();
+            $entryModelClass = StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
+
+            $entryModel = new $entryModelClass;
+
+			if (!empty($entryModel)) {
+                $stream = $entryModel->getStream();
+                $fields = $stream->assignments->getTypes();
+            }
 		}
 
 		// -------------------------------------
@@ -78,7 +84,7 @@ class Streams_parse extends CI_Driver {
 
 		$original_content = $content;
 
-		if ($fields and preg_match('/="/', $content))
+		if (! $fields->isEmpty() and preg_match('/="/', $content))
 		{
 			foreach ($fields as $field)
 			{
