@@ -50,18 +50,4 @@ class EloquentQueryBuilder extends Builder
 
 		return $this;
 	}
-
-	/**
-	 * Get fresh models / disable cache
-	 * @param  boolean $fresh
-	 * @return object
-	 */
-    public function fresh($fresh = true)
-    {
-        if ($fresh) {
-            $this->model->setCacheMinutes(0);
-        }
-
-        return $this;
-    }
 }
