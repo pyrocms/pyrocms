@@ -74,7 +74,7 @@ class VariableData {
 		// the variables haven't been fetched yet, load them
 		if ( ! static::$_vars)
 		{
-			$entries = VariableEntryModel::remember(10, 'variables.variables')->get(array('name', 'data'));
+			$entries = VariableEntryModel::setCacheMinutes(30)->get(array('name', 'data'));
 
 			foreach ($entries as $var)
 			{
