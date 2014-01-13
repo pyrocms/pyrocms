@@ -41,16 +41,13 @@ class Streams extends CI_Driver_Library
 	 */
 	public function __construct()
 	{
-		ci()->load->language('streams_core/pyrostreams');
+/*		ci()->load->language('streams_core/pyrostreams');
 		ci()->load->config('streams_core/streams');
-		ci()->load->library(array('streams_core/Type', 'streams_core/Fields', 'Form_validation'));
-
-		ci()->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
 
 		// Load the language file
 		if (is_dir(APPPATH.'libraries/Streams')) {
 			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
-		}
+		}*/
 	}
 
 	/**
