@@ -10,7 +10,6 @@ use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
 use Pyro\Module\Streams_core\FieldTypeManager;
-use Pyro\Module\Users\Model\User;
 
 /**
  * Code here is run before ALL controllers
@@ -72,6 +71,7 @@ class MY_Controller extends MX_Controller
         $loader = new ClassLoader;
 
         // Register module manager for usage everywhere, its handy
+        $loader->add('Pyro\\Module\\Settings', realpath(APPPATH).'/modules/settings/src/');
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
         $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
