@@ -13,14 +13,18 @@ use Pyro\Module\Users;
  */
 class Link extends Eloquent
 {
-    public $cache_minutes = 0;
-
     /**
      * Define the table name
      *
      * @var string
      */
     protected $table = 'navigation_links';
+
+    /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
 
     /**
      * The attributes that aren't mass assignable

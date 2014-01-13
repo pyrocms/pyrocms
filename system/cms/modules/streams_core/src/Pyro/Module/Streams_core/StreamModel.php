@@ -156,19 +156,6 @@ class StreamModel extends Eloquent
         return $stream->update($data);
     }
 
-    /**
-     * Get cache collection
-     * @return mixed
-     */
-    public static function getCachedCollection()
-    {
-        return ci()->cache->rememberForever('all.streams.assignments.fields', function() {
-
-            return static::with('assignments.field')->get();
-
-        });
-    }
-
     // --------------------------------------------------------------------------
 
     /**
@@ -363,20 +350,6 @@ class StreamModel extends Eloquent
         }
 
         return false;
-    }
-
-    /**
-     * Total
-     * @param  string $stream_namespace
-     * @return integer
-     */
-    public static function total($stream_namespace = null)
-    {
-        if ($stream_namespace) {
-            return static::findManyByNamespace($stream_namespace)->count();
-        }
-
-        return static::all()->count();
     }
 
     /**

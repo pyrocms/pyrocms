@@ -19,6 +19,12 @@ class PageType extends Eloquent
     protected $table = 'page_types';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

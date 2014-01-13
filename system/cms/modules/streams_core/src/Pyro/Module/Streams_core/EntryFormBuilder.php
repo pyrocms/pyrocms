@@ -631,17 +631,17 @@ class EntryFormBuilder
                 // in the field type itself.
                 // -------------------------------------
 
-                if (method_exists($type, 'validate')) {
+                /*if (method_exists($type, 'validate')) {
                     $rules[] = "streams_field_validation[{$assignment->getKey()}:{$this->method}]";
-                }
+                }*/
 
                 // -------------------------------------
                 // Set unique if necessary
                 // -------------------------------------
 
-                if ($assignment->is_unique == true) {
+                /*if ($assignment->is_unique == true) {
                     $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$row_id.']';
-                }
+                }*/
 
                 // -------------------------------------
                 // Set extra validation

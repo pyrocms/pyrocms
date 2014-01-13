@@ -11,6 +11,12 @@ use Pyro\Module\Streams_core\Data\UsersProfilesEntryModel;
 class Profile extends UsersProfilesEntryModel
 {
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * User relation
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
