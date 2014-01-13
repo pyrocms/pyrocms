@@ -133,16 +133,6 @@ class Admin_Controller extends MY_Controller
 				}
 			}
 
-			// Trigger an event so modules can mess with the
-			// menu items array via the events structure. 
-			$event_output = Events::trigger('admin_menu', $menu_items);
-
-			// If we get an array, we assume they have altered the menu items
-			// and are returning them to us to use.
-			if (is_array($event_output)) {
-				$menu_items = $event_output;
-			}
-
 			// Order the menu items. We go by our menu_order array.
 			$ordered_menu = array();
 
@@ -180,7 +170,17 @@ class Admin_Controller extends MY_Controller
 				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
-			ksort($ordered_menu);
+            ksort($ordered_menu);
+
+            // Trigger an event so modules can mess with the
+            // menu items array via the events structure. 
+            $event_output = Events::trigger('admin_menu', $ordered_menu, 'array');
+
+            // If we get an array, we assume they have altered the menu items
+            // and are returning them to us to use.
+            if (is_array($event_output)) {
+                $ordered_menu = $event_output[0];
+            }
 
 			// And there we go! These are the admin menu items.
 			$this->template->menu_items = $ordered_menu;
