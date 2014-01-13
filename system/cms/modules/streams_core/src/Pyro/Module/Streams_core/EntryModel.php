@@ -216,15 +216,22 @@ class EntryModel extends Eloquent
         return static::stream($stream_slug, $stream_namespace)->get();
     }
 
-
+    /**
+     * Get stream slug
+     * @return mixed
+     */
     public function getStreamSlug()
     {
         return $this->getStream()->stream_slug;
     }
 
+    /**
+     * Get stream namespace
+     * @return mixed
+     */
     public function getStreamNamespace()
     {
-        return $this->stream_namespace;
+        return $this->getStream()->stream_namespace;
     }
 
     public function getColumns()
