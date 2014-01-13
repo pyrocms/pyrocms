@@ -110,7 +110,7 @@ class Relationship extends AbstractFieldType
 	 */
 	public function stringOutput()
 	{
-		if ($entry = $this->getRelation()->first()) {
+		if ($entry = $this->getRelationResult()) {
 			return $entry->getTitleColumnValue();
 		}
 
@@ -127,8 +127,8 @@ class Relationship extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelation()) {
-			return $entry->first()->asPlugin()->toArray();
+		if ($entry = $this->getRelationResult()) {
+			return $entry->asPlugin()->toArray();
 		}
 
 		return null;
@@ -141,8 +141,8 @@ class Relationship extends AbstractFieldType
 	 */
 	public function dataOutput()
 	{
-		if ($entry = $this->getRelation()) {
-			return $entry->first();
+		if ($entry = $this->getRelationResult()) {
+			return $entry;
 		}
 
 		return null;

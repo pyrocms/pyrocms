@@ -50,7 +50,7 @@ class User extends AbstractFieldType
 	{
 		$id = null;
 
-		if ($user = $this->getRelation()) {
+		if ($user = $this->getRelationResult()) {
 			$id = $user->id;
 		}
 		elseif ($this->getParameter('default_to_current_user') == 'yes') {
@@ -90,7 +90,7 @@ class User extends AbstractFieldType
 			array(
 				'form_slug' => $this->form_slug,
 				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->stream->stream_namespace,
+				'stream_namespace' => $this->entry->getStreamNamespace(),
 				),
 			false
 			);
@@ -100,14 +100,14 @@ class User extends AbstractFieldType
 
 	/**
 	 * Format the Admin output
-	 * 
+	 *
 	 * @return [type] [description]
 	 */
 	public function stringOutput()
 	{
-		if ($user = $this->getRelation())
+		if ($user = $this->getRelationResult())
 		{
-			return anchor('admin/users/edit/'.$user->id, $user->username);	
+			return anchor('admin/users/edit/'.$user->id, $user->username);
 		}
 		else
 		{
@@ -117,15 +117,15 @@ class User extends AbstractFieldType
 
 	/**
 	 * Pre Ouput Plugin
-	 * 
+	 *
 	 * This takes the data from the join array
 	 * and formats it using the row parser.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelation())
+		if ($entry = $this->getRelationResult())
 		{
 			return $entry->toArray();
 		}
