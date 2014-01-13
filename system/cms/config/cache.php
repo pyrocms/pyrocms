@@ -28,7 +28,7 @@ $cache = array(
 	|
 	*/
 
-	'path' => APPPATH . 'cache/' . SITE_REF . '/laravel/',
+	'path' => APPPATH.'cache'.DIRECTORY_SEPARATOR.SITE_REF.DIRECTORY_SEPARATOR.'laravel',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -113,7 +113,7 @@ $cache = array(
 	'rss_cache' => 3600, // 1 hour TTL on blog rss caching
 
 	// Set the location for simplepie cache
-	'simplepie_cache_dir' => APPPATH . 'cache/' . SITE_REF . '/simplepie/'
+	'simplepie_cache_dir' => APPPATH.'cache'.DIRECTORY_SEPARATOR.SITE_REF.DIRECTORY_SEPARATOR.'simplepie'
 
 );
 
