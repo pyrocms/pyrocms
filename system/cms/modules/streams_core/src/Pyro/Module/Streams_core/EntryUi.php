@@ -133,7 +133,9 @@ class EntryUi extends AbstractUi
 
         $this->model->setViewOptions($this->view_options);
 
+        $this->select = array_unique(array_merge($this->data->view_options, array('id')));
         $this->select = array_unique(array_merge($this->data->view_options, $this->select));
+        $this->select = array_unique($this->select);
 
         $this->data->entries = $this->query
             ->enableAutoEagerLoading(true)
