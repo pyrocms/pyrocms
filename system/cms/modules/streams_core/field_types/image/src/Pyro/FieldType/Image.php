@@ -205,8 +205,18 @@ class Image extends AbstractFieldType
 		// Get image data
 		$file = FileModel::find($this->value);
 
+        // Get folder
+        $folder = FileModel::find($file->folder);
+
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obviousAlt($image).'" />';
+        if ($file->path) {
+            $attribtues = array(
+                'width' => '100',
+                'class' => 'img-thumbnail',
+                );
+
+            return img(ci()->parser->parse_string($file->path, $folder, true, false, null, false), $this->obviousAlt($file), $attribtues);
+        }
 	}
 
 	// --------------------------------------------------------------------------
