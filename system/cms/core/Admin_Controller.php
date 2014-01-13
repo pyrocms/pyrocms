@@ -178,7 +178,7 @@ class Admin_Controller extends MY_Controller
 
             // If we get an array, we assume they have altered the menu items
             // and are returning them to us to use.
-            if (is_array($event_output)) {
+            if (isset($event_output[0]) and is_array($event_output[0])) {
                 $ordered_menu = $event_output[0];
             }
 

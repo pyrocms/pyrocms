@@ -341,7 +341,7 @@ class Relationship extends AbstractFieldType
      * Relation class
      * @return string
      */
-    public function getRelationClass()
+    public function getRelationClass($default = NULL)
     {
         return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
     }
