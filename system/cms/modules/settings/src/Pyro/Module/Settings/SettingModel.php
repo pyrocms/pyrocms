@@ -10,16 +10,17 @@ class SettingModel extends Eloquent
      */
     protected $table = 'settings';
 
+    public $timestamps = false;
+
     /**
      * Gets a single setting using the key.
      *
      * @param	mixed	$where
      * @return	object
      */
-    public function findBySlug($slug)
+    public static function findBySlug($slug)
     {
-        return $this->where('slug', '=', $slug)
-            ->first();
+        return static::where('slug', '=', $slug)->first();
     }
 
     /**

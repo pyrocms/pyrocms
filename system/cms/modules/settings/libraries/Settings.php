@@ -110,8 +110,8 @@ class Settings
     public static function set($key, $value)
     {
         if (is_string($key)) {
-            if (is_scalar($value) and $setting = $this->settingModel->findBuSlug($key)) {
-                $setting->update(array('value' => $value));
+            if (is_scalar($value) and $setting = SettingModel::findBySlug($key)) {
+                $setting->where('slug', '=', $key)->update(array('value' => $value));
             }
 
             self::$cache[$key] = $value;
