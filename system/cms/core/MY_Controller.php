@@ -402,7 +402,8 @@ class MY_Controller extends MX_Controller
         	// Array of overridden cookie settings...
         ),'pyro_user_cookie');
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, 'Pyro\Module\Users\Model\User');
+        $userClass = Settings::get('user_class') ?: 'Pyro\Module\Users\Model\User';
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, $userClass);
         $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 
         $throttle->disable();
