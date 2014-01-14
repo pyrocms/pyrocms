@@ -21,6 +21,12 @@ class Search extends Eloquent
     protected $table = 'search_index';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

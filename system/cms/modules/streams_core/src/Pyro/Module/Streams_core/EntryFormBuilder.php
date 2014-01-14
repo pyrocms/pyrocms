@@ -596,7 +596,10 @@ class EntryFormBuilder
         // -------------------------------------
         foreach ($this->assignments as $assignment) {
             if ( ! in_array($assignment->field->field_slug, $this->skips)) {
+                
                 $rules = array();
+
+                $stream = $this->entry->getStream();
 
                 // If we don't have the type, then no need to go on.
                 if ( ! $type = $assignment->getType()) {
@@ -639,9 +642,9 @@ class EntryFormBuilder
                 // Set unique if necessary
                 // -------------------------------------
 
-                /*if ($assignment->is_unique == true) {
-                    $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$row_id.']';
-                }*/
+                if ($assignment->is_unique == true) {
+                    $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$this->entry->getKey().']';
+                }
 
                 // -------------------------------------
                 // Set extra validation
@@ -671,7 +674,7 @@ class EntryFormBuilder
                 if (empty($rules)) continue;
 
                 $validation_rules[] = array(
-                    'field'	=> $assignment->stream->stream_namespace.'-'.$assignment->stream->stream_slug.'-'.$assignment->field->field_slug,
+                    'field'	=> $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$assignment->field->field_slug,
                     'label' => lang_label($assignment->field_name),
                     'rules'	=> implode('|', $rules)
                 );

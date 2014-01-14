@@ -291,7 +291,7 @@ $id = null;
         );
 
 
-		EntryUi::form('Pyro\Module\Blog\BlogEntryModel')
+		EntryUi::form('blog', 'blogs')
             ->tabs($tabs)
             ->onSaving(function($entry) {
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];

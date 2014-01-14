@@ -18,6 +18,12 @@ class Keyword extends Eloquent
 	protected $table = 'keywords';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

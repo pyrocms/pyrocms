@@ -48,7 +48,7 @@ class StreamModel extends Eloquent
      */
     public static function getEntryModelClass($stream_slug, $stream_namespace)
     {
-        return 'Pyro\Module\Streams_core\Data\\'.Str::studly("{$stream_namespace}_{$stream_slug}".'EntryModel');
+        return 'Pyro\\Module\\Streams_core\\Data\\'.Str::studly("{$stream_namespace}_{$stream_slug}".'EntryModel');
     }
 
     /**

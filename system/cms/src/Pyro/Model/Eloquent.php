@@ -267,6 +267,14 @@ abstract class Eloquent extends Model
 
         return $this;
     }
+
+    /**
+     * Get the title column value
+     */
+    public function getTitleColumnValue()
+    {
+        return null;
+    }
 }
 
 /* End of file Eloquent.php */

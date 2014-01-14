@@ -18,18 +18,6 @@ class EloquentCollection extends Collection
  		return false;
  	}
 
-	public function setModel( \Pyro\Model\Eloquent $model = null)
-	{
-		$this->model = $model;
-
-		return $this;
-	}
-
-	public function getModel()
-	{
-		return $this->model;
-	}
-
 	/**
 	 * Get a clean tree of parent > child models by removing models 
 	 * from the original collection that exists as children of other models
@@ -78,15 +66,4 @@ class EloquentCollection extends Collection
 			$model->delete();
 		});
 	}
-
-    public static function __set_state(array $array)
-    {
-        $model = new static;
-
-        foreach ($array as $key => $value) {
-            $model->{$key} = $value;
-        }
-
-        return $model;
-    }
 }

@@ -133,9 +133,13 @@ class EntryUi extends AbstractUi
 
         $this->model->setViewOptions($this->view_options);
 
-        $this->select = array_unique(array_merge($this->data->view_options, array('id')));
-        $this->select = array_unique(array_merge($this->data->view_options, $this->select));
-        $this->select = array_unique($this->select);
+        if (isset($this->data->view_options) and is_array($this->data->view_options)) {
+            $this->select = array_unique(array_merge($this->data->view_options, array('id')));
+            $this->select = array_unique(array_merge($this->data->view_options, $this->select));
+        }
+        if (is_array($this->select)) {
+            $this->select = array_unique($this->select);
+        }
 
         $this->data->entries = $this->query
             ->enableAutoEagerLoading(true)
@@ -183,8 +187,12 @@ class EntryUi extends AbstractUi
         } elseif ($mixed instanceof EntryModel and $mixed->getKey()) {
             $instance->entry = $mixed;
         } else {
-            $class = $instance->getEntryModelClass($mixed, $stream_namespace);
-            $instance->entry = new $class;
+
+            if ($stream_namespace) {
+                $mixed = $class = $instance->getEntryModelClass($mixed, $stream_namespace);
+            }
+
+            $instance->entry = new $mixed;
             $instance->stream = $instance->entry->getStream();
             
             if ($id) {

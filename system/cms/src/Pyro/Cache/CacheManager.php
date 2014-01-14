@@ -3,6 +3,7 @@
 use Illuminate\Cache\CacheManager as IlluminateCacheManager;
 use Illuminate\Cache\FileStore;
 use Illuminate\Cache\RedisStore;
+use Illuminate\Cache\StoreInterface;
 use Illuminate\Redis\Database as RedisDatabase;
 use Illuminate\Filesystem\Filesystem;
 
@@ -50,5 +51,14 @@ class CacheManager extends IlluminateCacheManager
 		$collection = CacheCollection::make($keys);
 
 		return $collection->setKey($collectionKey);
+	}
+
+	/**
+	 * Is cache enabled?
+	 * @return boolean
+	 */
+	public function isEnabled()
+	{
+		return $this->app['config']['cache.enable'];
 	}
 }

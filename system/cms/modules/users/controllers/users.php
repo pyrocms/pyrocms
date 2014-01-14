@@ -5,6 +5,8 @@ use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
 use Pyro\Module\Streams_core\EntryUi;
 
+use Pyro\Module\Streams_core\Data\UsersProfilesEntryModel;
+
 /**
  * User controller for the users module (frontend)
  *
@@ -205,6 +207,9 @@ class Users extends Public_Controller
 			return;
 		}
 
+        // Start a user model
+        $userModel = new UsersProfilesEntryModel;
+
 		// Validation rules
 		$validation = array(
 			array(
@@ -235,7 +240,7 @@ class Users extends Public_Controller
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
-		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+		$profile_validation = array();//$this->streams->streams->validation_array('profiles', 'users');
 
 		// Remove display_name
 		foreach ($profile_validation as $key => $values) {
@@ -250,7 +255,7 @@ class Users extends Public_Controller
 
 		// Get user profile data. This will be passed to our
 		// streams insert_entry data in the model.
-		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+		$assignments = $userModel->getAssignments();
 
 		// This is the required profile data we have from
 		// the register form
@@ -437,7 +442,7 @@ class Users extends Public_Controller
 
 		// Anything in the post?
 
-		$this->template->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data));
+		$this->template->set('profile_fields', $assignments);
 
 		$this->template
 			->title(lang('user:register_title'))

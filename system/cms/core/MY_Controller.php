@@ -269,6 +269,13 @@ class MY_Controller extends MX_Controller
 
         $container = $capsule->getContainer();
 
+        if ($cache['enable']) {
+            if (isset($cache['environment'][ENVIRONMENT])) {
+                $cache['enable'] = $cache['environment'][ENVIRONMENT];
+            }
+        }
+
+        $container->offsetGet('config')->offsetSet('cache.enable', $cache['enable']);
         $container->offsetGet('config')->offsetSet('cache.driver', $cache['driver']);
         $container->offsetGet('config')->offsetSet('cache.prefix', $cache['prefix']);
 
