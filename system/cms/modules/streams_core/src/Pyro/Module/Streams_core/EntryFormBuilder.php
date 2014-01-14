@@ -592,7 +592,10 @@ class EntryFormBuilder
         // -------------------------------------
         foreach ($this->assignments as $assignment) {
             if ( ! in_array($assignment->field->field_slug, $this->skips)) {
+                
                 $rules = array();
+
+                $stream = $this->entry->getStream();
 
                 // If we don't have the type, then no need to go on.
                 if ( ! $type = $assignment->getType()) {
@@ -667,7 +670,7 @@ class EntryFormBuilder
                 if (empty($rules)) continue;
 
                 $validation_rules[] = array(
-                    'field'	=> $assignment->stream->stream_namespace.'-'.$assignment->stream->stream_slug.'-'.$assignment->field->field_slug,
+                    'field'	=> $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$assignment->field->field_slug,
                     'label' => lang_label($assignment->field_name),
                     'rules'	=> implode('|', $rules)
                 );
