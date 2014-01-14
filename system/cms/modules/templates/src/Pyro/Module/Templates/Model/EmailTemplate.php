@@ -18,6 +18,12 @@ class EmailTemplate extends Eloquent
     protected $table = 'email_templates';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array
