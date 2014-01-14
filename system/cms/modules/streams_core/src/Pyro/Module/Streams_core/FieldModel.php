@@ -740,7 +740,11 @@ class FieldModel extends Eloquent
      */
     public function getViewOptionsAttribute($view_options)
     {
-        return unserialize($view_options);
+        if (is_string($view_options)) {
+            return unserialize($view_options);
+        }
+
+        return $view_options;
     }
 
     /**
@@ -749,7 +753,11 @@ class FieldModel extends Eloquent
      */
     public function setViewOptionsAttribute($view_options)
     {
-        $this->attributes['view_options'] = serialize($view_options);
+        if (is_array($view_options)) {
+            $this->attributes['view_options'] = serialize($view_options);
+        } else {
+            $this->attributes['view_options'] = $view_options;    
+        }
     }
 
     /**
