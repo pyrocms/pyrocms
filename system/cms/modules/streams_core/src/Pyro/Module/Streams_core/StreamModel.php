@@ -34,7 +34,6 @@ class StreamModel extends Eloquent
      */
     public function compileEntryModel()
     {
-
         $generator = new EntryModelGenerator;
 
         return $generator->compile($this);

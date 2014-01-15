@@ -37,7 +37,6 @@ class FieldAssignmentModel extends FieldModel
         return static::where('field_id', $field_id)
             ->where('stream_id', $stream_id)
             ->take(1)
-            ->fresh($fresh)
             ->first();
     }
 

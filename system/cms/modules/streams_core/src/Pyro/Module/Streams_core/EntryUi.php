@@ -355,6 +355,8 @@ class EntryUi extends AbstractUi
                 continue;
             }
 
+            $type->setStream($this->model->getStream());
+
             if ( ! in_array($field->field_slug, $this->skips)) {
                 // If we haven't called it (for dupes),
                 // then call it already.

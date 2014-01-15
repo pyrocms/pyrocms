@@ -301,6 +301,8 @@ class EntryModel extends Eloquent
 
         $type = $field->getType($this);
 
+        $type->setStream($this->getStream());
+
         return $type;
     }
 

@@ -337,12 +337,12 @@ class FieldModel extends Eloquent
      * @return  bool
      */
     // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
-    public static function create(array $attributes = array())
+    public function save(array $options = array())
     {
-        $instance = new static;
-
+        $attributes = $this->getAttributes();
+        
         // Load the type to see if there are other params
-        if ($type = FieldTypeManager::getType($attributes['field_type'])) {
+        if ($type = FieldTypeManager::getType($this->field_type)) {
             $type->setPreSaveParameters($attributes);
 
             foreach ($type->getCustomParameters() as $param) {
@@ -352,7 +352,7 @@ class FieldModel extends Eloquent
             }
         }
 
-        return parent::create($attributes);
+        return parent::save($options);
     }
 
     /**
@@ -386,7 +386,7 @@ class FieldModel extends Eloquent
         if ($type) {
             $type->setField($this);
             $type->setEntry($entry);
-            $type->setStream($this->getStream());
+            $type->setStream($entry->getStream());
         }
 
         return $type;
