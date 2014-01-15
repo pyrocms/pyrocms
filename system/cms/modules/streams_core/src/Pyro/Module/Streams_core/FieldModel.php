@@ -386,7 +386,7 @@ class FieldModel extends Eloquent
         if ($type) {
             $type->setField($this);
             $type->setEntry($entry);
-            $type->setStream($this->getStream());
+            $type->setStream($entry->getStream());
         }
 
         return $type;

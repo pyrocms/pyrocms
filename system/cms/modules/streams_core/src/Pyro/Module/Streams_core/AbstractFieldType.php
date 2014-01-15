@@ -226,7 +226,7 @@ abstract class AbstractFieldType
      */
     public function getStream()
     {
-        return $this->entry->getStream();
+        return $this->stream;
     }
 
     /**
