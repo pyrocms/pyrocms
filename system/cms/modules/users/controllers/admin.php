@@ -149,6 +149,7 @@ class Admin extends Admin_Controller
                 // Join users and select a couple things extra
                 $query = $query->select(
                     array(
+                        'users.id',
                         'first_name',
                         'last_name',
                         'users.is_activated',
