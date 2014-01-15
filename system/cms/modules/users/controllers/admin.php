@@ -93,8 +93,26 @@ class Admin extends Admin_Controller
     {
         // Filters
         $filters = array(
-            'first_name',
-            'last_name',
+            'user' => array(
+                'type' => 'text',
+                'title' => 'lang:global:user',
+                'slug' => 'user',
+                ),
+            'email' => array(
+                'type' => 'text',
+                'title' => 'lang:global:email',
+                'slug' => 'email',
+                ),
+            'is_activated' => array(
+                'type' => 'select',
+                'title' => 'lang:user:active',
+                'slug' => 'is_activated',
+                'options' => array(
+                    null => '-- '.lang('user:active').' --',
+                    '1' => lang('global:yes'),
+                    '0' => lang('global:no'),
+                    ),
+                ),
             );
 
         // Buttons
@@ -121,11 +139,43 @@ class Admin extends Admin_Controller
                 array(
                     'first_name',
                     'last_name',
-                    'lang:user:activated_account_title' => '{{ if entry:user:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
-                    'relation:user' => '{{ entry:user:username }}',
-                    'lang:global:email' => '{{ entry:user:email }}',
+                    'lang:user:activated_account_title' => '{{ if entry:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
+                    'lang:global:user' => '{{ entry:username }}',
+                    'lang:global:email' => '{{ entry:email }}',
                     )
                 )
+            ->onQuery(function($query) {
+
+                // Join users and select a couple things extra
+                $query = $query->select(
+                    array(
+                        'first_name',
+                        'last_name',
+                        'users.is_activated',
+                        'users.email',
+                        'users.username',
+                        )
+                    );
+
+                $query = $query->join('users', 'profiles.user_id', '=', 'users.id');
+
+                // Filter user
+                if (ci()->input->get('user')) {
+                    $query = $query->where('users.username', 'LIKE', '%'.ci()->input->get('user').'%');
+                }
+
+                // Filter email
+                if (ci()->input->get('email')) {
+                    $query = $query->where('users.email', 'LIKE', '%'.ci()->input->get('email').'%');
+                }
+
+                // Filter is_activated
+                if (ci()->input->get('is_activated') != null) {
+                    $query = $query->where('users.is_activated', '=', ci()->input->get('is_activated'));
+                }
+
+                return $query;
+            })
             ->pagination(Settings::get('records_per_page'), 'admin/users')
             ->redirect('admin/users')
             ->render();
