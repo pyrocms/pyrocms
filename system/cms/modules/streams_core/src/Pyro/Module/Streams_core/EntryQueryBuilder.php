@@ -35,8 +35,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function get($columns = null, $exclude = false)
     {
-        $this->rememberIndex();
-
         // Get set up with our environment
 
         $this->table = $this->model->getTable();
