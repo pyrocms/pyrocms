@@ -119,12 +119,12 @@ class Admin extends Admin_Controller
         $buttons = array(
             array(
                 'label' => lang('global:edit'),
-                'url' => 'admin/users/edit/{{ user:id }}',
+                'url' => 'admin/users/edit/{{ id }}',
                 'class' => 'btn-sm btn-warning',
                 ),
             array(
                 'label' => lang('global:delete'),
-                'url' => 'admin/users/delete/{{ user:id }}',
+                'url' => 'admin/users/delete/{{ id }}',
                 'class' => 'btn-sm btn-danger confirm',
                 ),
             );
