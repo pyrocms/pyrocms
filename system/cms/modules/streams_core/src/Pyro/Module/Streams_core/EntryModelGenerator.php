@@ -105,8 +105,10 @@ class EntryModelGenerator extends Generator
         $string = '';
 
         foreach ($stream->assignments as $assignment) {
+
+            $type = $assignment->getType();
             
-            if ($assignment->getType()->hasRelation()) {
+            if ($type->hasRelation()) {
                 
                 $relation = $assignment->getType()->relation();
 
@@ -124,7 +126,21 @@ class EntryModelGenerator extends Generator
 
                 $string .= "\n    {";
 
-                $string .= "\n        return \$this->{$relationTypeMethod}('{$related}', '{$assignment->field->field_slug}');";
+                $string .= "\n        return \$this->{$relationTypeMethod}('{$related}', '{$assignment->field->field_slug}";
+
+                if (method_exists($type, 'getRelationTable')) {
+                    $string .= ", '{$type->getRelationTable()}'";
+                }
+
+                if (method_exists($type, 'getForeignKey')) {
+                    $string .= ", '{$type->getForeignKey()}'";
+                }
+
+                if (method_exists($type, 'getOtherKey')) {
+                    $string .= ", '{$type->getOtherKey()}'";
+                }
+
+                $string .= "');";
 
                 $string .= "\n    }";
 
