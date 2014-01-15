@@ -601,69 +601,6 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * Resend the activation email
-	 * @return [type] [description]
-	 */
-	public function resend_activation()
-	{
-		$this->template->title(lang('user:resend_activation_title'));
-
-		if (PYRO_DEMO) {
-			show_error(lang('global:demo_restrictions'));
-		}
-
-		//if user is logged in they don't need to be here
-		if ($this->current_user) {
-			$this->session->set_flashdata('error', lang('user:already_logged_in'));
-			redirect('');
-		}
-
-		if ($this->input->post('email')) {
-			$uname = (string) $this->input->post('user_name');
-			$email = (string) $this->input->post('email');
-
-			if (! ($uname or $email)) {
-				// they submitted with an empty form, abort
-				$this->template->set('error_string', lang('user:forgot_incorrect'))
-					->build('resend_activation');
-			}
-
-			if (! ($user = Model\User::findByEmail($email))) {
-				$user = Model\User::findByUsername($email);
-			}
-
-			if ($user->is_activated) {
-				// they submitted with an empty form, abort
-				$this->session->set_flashdata('error', 'Your account is already activated.');
-				redirect('');
-			}
-
-			// have we found a user?
-			if ($user) {
-				
-				$result = Events::trigger('send_activation_email', $user);
-
-				if ($result) {
-					//set success message
-					$this->template->success_string = lang('user:activation_code_sent_notice');
-
-					$this->template->build('activate');
-				
-				} else {
-					// Set an error message explaining the reset failed
-					$this->template->error_string = lang('user:settings_saved_error');
-				}
-
-			} else {
-				//wrong username / email combination
-				$this->template->error_string = lang('user:forgot_incorrect');
-			}
-		}
-
-		$this->template->build('resend_activation');
-	}
-
-	/**
 	 * Edit Profile
 	 *
 	 * @param int $id
