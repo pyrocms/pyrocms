@@ -638,15 +638,15 @@ class EntryFormBuilder
                 // Set unique if necessary
                 // -------------------------------------
 
-                if ($assignment->is_unique == true) {
+                /*if ($assignment->is_unique == true) {
                     $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$this->entry->getKey().']';
-                }
+                }*/
 
                 // -------------------------------------
                 // Set extra validation
                 // -------------------------------------
 
-                if (isset($type->extra_validation)) {
+                /*if (isset($type->extra_validation)) {
                     if (is_string($type->extra_validation)) {
                         $extra_rules = explode('|', $type->extra_validation);
                         $rules = array_merge($rules, $extra_rules);
@@ -654,7 +654,7 @@ class EntryFormBuilder
                     } elseif (is_array($type->extra_validation)) {
                         $rules = array_merge($rules, $type->extra_validation);
                     }
-                }
+                }*/
 
                 // -------------------------------------
                 // Remove duplicate rule values
