@@ -5,7 +5,7 @@
 
 		<?php foreach ($filters as $filter): ?>
 
-			<?php if ($field = $stream_fields->findBySlug($filter)) echo $field->getType()->filterInput(); ?>
+			<?php if ($field = $stream_fields->findBySlug($filter)) echo $field->getType()->setStream($stream)->filterInput(); ?>
 
 		<?php endforeach; ?>
 		
