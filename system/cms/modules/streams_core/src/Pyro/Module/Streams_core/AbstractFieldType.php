@@ -402,6 +402,15 @@ abstract class AbstractFieldType
     }
 
     /**
+     * Get value
+     * @param mixed $value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
      * Get form
      * @param  boolean
      * @return string|boolean
