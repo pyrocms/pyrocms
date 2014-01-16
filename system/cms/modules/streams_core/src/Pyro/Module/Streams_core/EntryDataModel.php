@@ -93,7 +93,9 @@ class EntryDataModel
 	 */
 	public static function __callStatic($method, $arguments)
 	{
-		$entryModelClass = $this->getEntryModelClass();
+		$instance = new static;
+		
+		$entryModelClass = $instance->getEntryModelClass();
 
 		return call_user_func_array(array($entryModelClass, $method), $arguments);
 	}
