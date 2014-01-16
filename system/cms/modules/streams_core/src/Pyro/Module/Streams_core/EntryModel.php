@@ -521,6 +521,7 @@ class EntryModel extends Eloquent
         // -------------------------------------
         foreach ($alt_process as $type) {
             $type->setEntry($this);
+            $type->setStream($this->getStream());
             $type->preSave();
         }
 
@@ -901,6 +902,9 @@ class EntryModel extends Eloquent
     public function getDataOutput($attribute)
     {
         if ($type = $this->getFieldType($attribute)) {
+
+            $type->setStream($this->getStream());
+
             return $type->dataOutput($attribute);
         }
 
