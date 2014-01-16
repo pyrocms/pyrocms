@@ -82,14 +82,19 @@ class EntryCollection extends EloquentCollection
 
     /**
      * Get entry options
+     * @param  string or null $attribute
      * @return array
      */
-    public function getEntryOptions($title_column = null)
+    public function getEntryOptions($attribute = null)
     {
         $options = array();
 
         foreach($this->items as $entry) {
-            $options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
+            if ($attribute) {
+                $options[$entry->getKey()] = $entry->{$attribute};
+            } else {
+                $options[$entry->getKey()] = $entry->getTitleColumnValue();
+            }
         }
 
         return $options;
