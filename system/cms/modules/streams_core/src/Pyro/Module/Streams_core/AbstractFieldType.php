@@ -80,7 +80,7 @@ abstract class AbstractFieldType
     protected $value_field_slug_override = null;
 
     /**
-     * The relation model
+     * The relation class
      * @var [type]
      */
     protected $relation = null;
@@ -611,6 +611,19 @@ abstract class AbstractFieldType
         return $this->relation() instanceof BelongsTo;
     }
 
+    protected function getValidRelationMethods()
+    {
+        return array(
+            'hasOne',
+            'morphOne',
+            'belongsTo',
+            'morphTo',
+            'hasMany',
+            'morphMany',
+            'belongsToMany',
+        );
+    }
+
     /**
      * Wrapper method for the Eloquent hasOne method
      * @param  EntryModel  $related
@@ -621,7 +634,11 @@ abstract class AbstractFieldType
     {
         $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->hasOne($related, $foreignKey);
+        return array(
+            'method' => 'hasOne',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
     }
 
     /**
@@ -634,7 +651,13 @@ abstract class AbstractFieldType
      */
     public function morphOne($related, $name, $type = null, $id = null)
     {
-        return $this->entry->morphOne($related, $name, $type, $id);
+        return array(
+            'method' => 'morphOne',
+            'related' => $related, 
+            'name' => $name,
+            'type' => $type,
+            'id' => $id,
+        );
     }
 
     /**
@@ -647,7 +670,11 @@ abstract class AbstractFieldType
     {
         $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->belongsTo($related, $foreignKey);
+        return array(
+            'method' => 'belongsTo',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
     }
 
     /**
@@ -659,7 +686,12 @@ abstract class AbstractFieldType
      */
     public function morphTo($name = null, $type = null, $id = null)
     {
-        return $this->entry->morphTo($name, $type, $id);
+        return array(
+            'method' => 'morphTo',
+            'name' => $name, 
+            'type' => $type,
+            'id' => $id,
+        );
     }
 
     /**
@@ -672,7 +704,11 @@ abstract class AbstractFieldType
     {
         $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->hasMany($related, $foreignKey);
+        return array(
+            'method' => 'hasMany',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
     }
 
     /**
@@ -685,7 +721,12 @@ abstract class AbstractFieldType
      */
     public function morphMany($related, $name, $type = null, $id = null)
     {
-        return $this->entry->morphMany($related, $name, $type, $id);
+        return array(
+            'method' => 'morphMany',
+            'name' => $name, 
+            'type' => $type,
+            'id' => $id,
+        );
     }
 
     /**
@@ -698,7 +739,13 @@ abstract class AbstractFieldType
      */
     public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
     {
-        return $this->entry->belongsToMany($related, $table, $foreignKey, $otherKey);
+        return array(
+            'method' => 'belongsToMany',
+            'related' => $related, 
+            'table' => $table,
+            'foreignKey' => $foreignKey,
+            'otherKey' => $otherKey,
+        );
     }
 
     /**
@@ -707,7 +754,11 @@ abstract class AbstractFieldType
      */
     public function hasRelation()
     {
-        return ($this->relation() instanceof Relation);
+        $relationArray = $this->relation();
+
+        if (! is_array($relationArray) or empty($relationArray)) return false;
+
+        if (! empty($relationArray['method']) and in_array($relationArray['method'], $this->getValidRelationMethods())) return true;
     }
 
     /**
