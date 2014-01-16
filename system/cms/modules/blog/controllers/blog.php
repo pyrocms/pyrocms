@@ -238,13 +238,13 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$post = BlogsBlogModel::where('slug', '=', $slug)
+		$post = BlogsBlogModel::select('*')->where('slug', '=', $slug)
 			->first()
 			->asPlugin()
 			->toArray();
 
         if (! is_object(ci()->current_user) or ! ci()->current_user->isSuperUser()) {
-            if (! $post or $status->status !== 'live') {
+            if (! $post or $post['status']['key'] !== 'live') {
                 redirect('blog');
             }
         }
