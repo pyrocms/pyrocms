@@ -57,7 +57,20 @@ class EntryDataModel
 	 */
 	public function __get($name)
 	{
-		return $this->entryModel->{$name};
+		if ($name == 'user') {
+			die('user');
+		}
+
+		return $this->entryModel->getAttribute($name);
+	}
+
+	/**
+	 * Get property dynamic call
+	 * @return mixed
+	 */
+	public function __set($name, $value)
+	{
+		return $this->entryModel->setAttribute($name, $value);
 	}
 
 	/**
