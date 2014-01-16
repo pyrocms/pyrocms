@@ -52,7 +52,7 @@ class EntryModelGenerator extends Generator
             $path = DIRECTORY_SEPARATOR.$path;
         }
 
-        return $this->dataPath(ucfirst(SITE_REF).$path);
+        return $this->dataPath(Str::studly(SITE_REF).'Site'.$path);
     }
 
     public function getPath($path)

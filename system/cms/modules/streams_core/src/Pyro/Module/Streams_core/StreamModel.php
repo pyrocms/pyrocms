@@ -62,7 +62,7 @@ class StreamModel extends Eloquent
      */
     public static function getEntryModelNamespace()
     {
-        return 'Pyro\\Module\\Streams_core\\Data\\'.ucfirst(SITE_REF);
+        return 'Pyro\\Module\\Streams_core\\Data\\'.Str::studly(SITE_REF).'Site';
     }
 
     /**
