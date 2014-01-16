@@ -39,7 +39,7 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
         $this->table = $this->model->getTable();
 
-        $columns = $this->prepareColumns($columns);
+        //$columns = $this->prepareColumns($columns);
 
         $this->applyFilters();
 
