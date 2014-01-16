@@ -13,6 +13,12 @@ class StreamModel extends Eloquent
     protected $table = 'data_streams';
 
     /**
+     * Cache minutes
+     * @var boolean/int
+     */
+    protected $cacheMinutes = false;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array
@@ -115,7 +121,7 @@ class StreamModel extends Eloquent
      */
     public static function getStream($stream_slug, $stream_namespace = null)
     {
-        if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace, true)) {
+        if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace)) {
             throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
         }
 
@@ -275,9 +281,9 @@ class StreamModel extends Eloquent
      * @param  integer $offset
      * @return object
      */
-    public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null, $fresh = true)
+    public static function findManyByNamespace($stream_namespace, $limit = 0, $offset = null)
     {
-        return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->fresh($fresh)->get();
+        return static::where('stream_namespace', '=', $stream_namespace)->take($limit)->skip($offset)->get();
     }
 
     /**
@@ -288,7 +294,7 @@ class StreamModel extends Eloquent
      * @param  string $stream_namespace
      * @return object
      */
-    public static function findBySlugAndNamespace($stream_slug, $stream_namespace = null, $fresh = false)
+    public static function findBySlugAndNamespace($stream_slug, $stream_namespace = null)
     {
         if ( ! $stream_namespace) {
             @list($stream_slug, $stream_namespace) = explode('.', $stream_slug);
@@ -297,7 +303,6 @@ class StreamModel extends Eloquent
         return static::with('assignments.field')->where('stream_slug', $stream_slug)
             ->where('stream_namespace', $stream_namespace)
             ->take(1)
-            ->fresh($fresh)
             ->first();
     }
 
@@ -308,9 +313,9 @@ class StreamModel extends Eloquent
      * @param  array  $columns
      * @return \Pyro\Module\Streams_core\StreamModel|Collection|static
      */
-    public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null, $fresh = false)
+    public static function findBySlugAndNamespaceOrFail($stream_slug = null, $stream_namespace = null)
     {
-        if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace, $fresh))) return $model;
+        if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
 
         throw new Exception\StreamModelNotFoundException;
     }
@@ -386,7 +391,7 @@ class StreamModel extends Eloquent
         }
 
         // Check if it doesn't exist
-        if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace'], true)) {
+        if(static::findBySlugAndNamespace($attributes['stream_slug'], $attributes['stream_namespace'])) {
             return false;
         }
 
@@ -745,13 +750,12 @@ class StreamModel extends Eloquent
         return $schema->hasTable($table);
     }
 
-    public static function find($id, $columns = array('*'), $fresh = false)
+    public static function find($id, $columns = array('*'))
     {
         if (isset(static::$streamsCache[$id])) return static::$streamsCache[$id];
 
         $stream = static::with('assignments.field')->where('id', $id)
             ->take(1)
-            ->fresh($fresh)
             ->first();
 
         return static::$streamsCache[$id] = static::$streamsCache[$id] = $stream;

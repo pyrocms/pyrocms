@@ -612,16 +612,93 @@ abstract class AbstractFieldType
     }
 
     /**
-     * Wrapper method for the Eloquent belongsTo() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
+     * Wrapper method for the Eloquent hasOne method
+     * @param  EntryModel  $related
+     * @param  string  $foreignKey 
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function belongsTo($related, $foreign_key = null)
+    public function hasOne($related, $foreignKey = null)
     {
-        $foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->belongsTo($related, $foreign_key);
+        return $this->entry->hasOne($related, $foreignKey);
+    }
+
+    /**
+     * Wrapper method for the Eloquent morphOne method
+     * @param  EntryModel $related
+     * @param  string $name
+     * @param  string $type
+     * @param  string $id
+     * @return Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function morphOne($related, $name, $type = null, $id = null)
+    {
+        return $this->entry->morphOne($related, $name, $type, $id);
+    }
+
+    /**
+     * Wrapper method for the Eloquent belongsTo() method
+     * @param  EntryModel $related
+     * @param  string $foreignKey
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function belongsTo($related, $foreignKey = null)
+    {
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+
+        return $this->entry->belongsTo($related, $foreignKey);
+    }
+
+    /**
+     * Wrapper method for the Eloquent morphTo() method
+     * @param  string $name 
+     * @param  string $type 
+     * @param  string $id   
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function morphTo($name = null, $type = null, $id = null)
+    {
+        return $this->entry->morphTo($name, $type, $id);
+    }
+
+    /**
+     * Wrapper method for the Eloquent hasMany() method
+     * @param  EntryModel  $related    
+     * @param  string  $foreignKey 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hasMany($related, $foreignKey = null)
+    {
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+
+        return $this->entry->hasMany($related, $foreignKey);
+    }
+
+    /**
+     * Wrapper method for the Eloquent morphMany() method
+     * @param  EntryModel $related 
+     * @param  string $name    
+     * @param  string $type    
+     * @param  string $id      
+     * @return Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function morphMany($related, $name, $type = null, $id = null)
+    {
+        return $this->entry->morphMany($related, $name, $type, $id);
+    }
+
+    /**
+     * Wrapper method for the Eloquent belongsTo() method
+     * @param  EntryModel $related    
+     * @param  string $table      
+     * @param  string $foreignKey 
+     * @param  string $otherKey   
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
+    {
+        return $this->entry->belongsToMany($related, $table, $foreignKey, $otherKey);
     }
 
     /**
