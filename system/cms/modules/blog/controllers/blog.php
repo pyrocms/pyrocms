@@ -1,6 +1,7 @@
 <?php 
 
 use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Blog\BlogsBlogModel;
 
 /**
  * Public Blog module controller
@@ -37,10 +38,6 @@ class Blog extends Public_Controller
 		{
 			$this->categories[$cate['id']] = $cate;
 		}
-
-		// Get blog stream. We use this to set the template
-		// stream throughout the blog module.
-		$this->stream = $this->streams_m->get_stream('blog', true, 'blogs');
 	}
 
 	/**
@@ -53,9 +50,7 @@ class Blog extends Public_Controller
 	public function index()
 	{
 		// Total posts
-		$total = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
-			->count();
+		$total = BlogsBlogModel::where('status', '=', 'live')->count();
 
 		// Skip
 		if (ci()->input->get('page')) {
@@ -65,14 +60,14 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$posts = BlogsBlogModel::select('*')
+            ->where('status', '=', 'live')
 			->orderBy('created_at', 'DESC')
 			->take(Settings::get('records_per_page'))
 			->skip($skip)
 			->get()
-			->asPlugin()
-			->toArray();
+            ->asPlugin()
+            ->toArray();
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -99,7 +94,6 @@ class Blog extends Public_Controller
 			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
-			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts)
 			->set('pagination', $pagination['links'])
 			->build('posts');
@@ -118,8 +112,7 @@ class Blog extends Public_Controller
 		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
 
 		// Total posts
-		$total = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$total = BlogsBlogModel::where('status', '=', 'live')
 			->where('category_id', '=', $category->id)
 			->count();
 
@@ -131,8 +124,8 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$posts = BlogsBlogModel::select('*')
+            ->where('status', '=', 'live')
 			->where('category_id', '=', $category->id)
 			->orderBy('created_at', 'DESC')
 			->take(Settings::get('records_per_page'))
@@ -163,7 +156,6 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
 			->set('pagination', $pagination['links'])
-			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts)
 			->set('category', (array) $category)
 			->build('posts');
@@ -181,8 +173,7 @@ class Blog extends Public_Controller
 		$month_date = new DateTime($year.'-'.$month.'-01');
 
 		// Total posts
-		$total = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$total = BlogsBlogModel::where('status', '=', 'live')
 			->whereYear('created_at', '=', $year)
 			->whereMonth('created_at', '=', $month)
 			->count();
@@ -195,8 +186,8 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$posts = BlogsBlogModel::select('*')
+            ->where('status', '=', 'live')
 			->whereYear('created_at', '=', $year)
 			->whereMonth('created_at', '=', $month)
 			->orderBy('created_at', 'DESC')
@@ -228,7 +219,6 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
 			->set('pagination', $pagination['links'])
-			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts)
 			->set('month_year', $month_year)
 			->build('archive');
@@ -248,15 +238,16 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$post = EntryModel::stream('blog', 'blogs')
-			->where('slug', '=', $slug)
+		$post = BlogsBlogModel::where('slug', '=', $slug)
 			->first()
 			->asPlugin()
 			->toArray();
 
-		if (! $post or ($status->status !== 'live' and ! ci()->current_user->isSuperUser())) {
-			redirect('blog');
-		}
+        if (! is_object(ci()->current_user) or ! ci()->current_user->isSuperUser()) {
+            if (! $post or $status->status !== 'live') {
+                redirect('blog');
+            }
+        }
 
 		$this->_single_view($post);
 	}
@@ -313,8 +304,7 @@ class Blog extends Public_Controller
 		$tag = rawurldecode($tag) or redirect('blog');
 
 		// Total posts
-		$total = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$total = BlogsBlogModel::where('status', '=', 'live')
 			->where('keywords', 'LIKE', '%'.$tag.'%')
 			->count();
 
@@ -326,8 +316,8 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = EntryModel::stream('blog', 'blogs')
-			->where('status', '=', 'live')
+		$posts = BlogsBlogModel::select('*')
+            ->where('status', '=', 'live')
 			->where('keywords', 'LIKE', '%'.$tag.'%')
 			->orderBy('created_at', 'DESC')
 			->take(Settings::get('records_per_page'))
@@ -361,7 +351,6 @@ class Blog extends Public_Controller
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
 			->set('pagination', $pagination['links'])
-			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('posts', $posts)
 			->set('tag', $tag)
 			->build('posts');
@@ -384,7 +373,7 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				if (isset($post['category_id']) and ! in_array($post['category_id']['title'], $keywords))
+				if (isset($post['category_id']['title']) and ! in_array($post['category_id']['title'], $keywords))
 				{
 					$keywords[] = $post['category_id']['title'];
 				}
@@ -477,7 +466,6 @@ class Blog extends Public_Controller
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
 			->set_breadcrumb($post['title'])
-			->set_stream($this->stream->stream_slug, $this->stream->stream_namespace)
 			->set('post', array($post))
 			->build('view');
 	}
