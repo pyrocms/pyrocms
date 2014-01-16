@@ -165,15 +165,11 @@ class FieldModel extends Eloquent
         // -------------------------------------
         // Validate Data
         // -------------------------------------
-
-        $stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace, true);
-
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
             throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
-        if ($stream) {
-
+        if ($stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace)) {
             // -------------------------------------
             // Assign Field
             // -------------------------------------
