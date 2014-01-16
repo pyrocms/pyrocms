@@ -112,7 +112,7 @@ class FieldAssignmentModel extends FieldModel
             // Run the destruct
             if ($type = $field->getType()) {
                 $type->setStream($stream);
-                $type->fieldAssignmentDestruct();
+                $type->fieldAssignmentDestruct($schema);
             }
 
             // Update that stream's view options
