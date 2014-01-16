@@ -57,10 +57,6 @@ class EntryModelGenerator extends Generator
 
     public function getPath($path)
     {
-        if (! is_dir($this->dataPath())) {
-            mkdir($this->dataPath(), 0755);
-        }        
-
         if (! is_dir($this->siteRefPath())) {
             mkdir($this->siteRefPath(), 0755);
         }
