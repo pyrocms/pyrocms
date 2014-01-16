@@ -131,7 +131,7 @@ class Plugin_User extends Plugin
         $hasAccess = false;
 
         if ($this->current_user) {
-            $hasAccess = $this->sentry->current_user->hasAccess($role);
+            $hasAccess = $this->current_user->hasAccess($role);
         }
 
         return $hasAccess ? $this->content() : true;
