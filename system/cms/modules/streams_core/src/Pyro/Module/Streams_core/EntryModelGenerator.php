@@ -25,11 +25,47 @@ class EntryModelGenerator extends Generator
         return '<?php '.$this->parser->parse($this->template, $data, null);
     }
 
-    public function getPath($path)
+    /**
+     * Data path
+     * @return string
+     */
+    public function dataPath($path = null)
     {
         $basePath = dirname(__FILE__);
 
-        return $basePath.'/Data/'.$path;
+        if ($path) {
+            $path = DIRECTORY_SEPARATOR.$path;
+        }
+
+        return $basePath.DIRECTORY_SEPARATOR.'Data'.$path;
+    }
+
+    /**
+     * Site ref path
+     * @return string
+     */
+    public function siteRefPath($path = null)
+    {
+        $basePath = dirname(__FILE__);
+
+        if ($path) {
+            $path = DIRECTORY_SEPARATOR.$path;
+        }
+
+        return $this->dataPath(ucfirst(SITE_REF).$path);
+    }
+
+    public function getPath($path)
+    {
+        if (! is_dir($this->dataPath())) {
+            mkdir($this->dataPath(), 0755);
+        }        
+
+        if (! is_dir($this->siteRefPath())) {
+            mkdir($this->siteRefPath(), 0755);
+        }
+
+        return $this->siteRefPath($path);
     }
 
     public function compile(StreamModel $stream)
@@ -42,6 +78,7 @@ class EntryModelGenerator extends Generator
             $stream->load('assignments.field');
 
             $generator->make($className.'EntryModel.php', array(
+                'namespace' => StreamModel::getEntryModelNamespace(),
                 'table'     => "'".$stream->stream_prefix.$stream->stream_slug."'",
                 'stream'    => $this->compileStreamData($stream),
                 'relations' => $this->compileRelations($stream),

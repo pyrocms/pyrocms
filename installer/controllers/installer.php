@@ -40,7 +40,6 @@ class Installer extends CI_Controller
 		'addons',
 		'assets/cache',
 		'uploads',
-		'system/cms/modules/streams_core/src/Pyro/Module/Streams_core/Data',
 	);
 
 	/** @var array Files that need to be writable */

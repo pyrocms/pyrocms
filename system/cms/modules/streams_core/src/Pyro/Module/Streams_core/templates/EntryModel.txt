@@ -1,4 +1,4 @@
-namespace Pyro\Module\Streams_core\Data;
+namespace {{ namespace }};
 
 use Pyro\Module\Streams_core\EntryModel;
 
