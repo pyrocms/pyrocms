@@ -92,20 +92,50 @@ class Plugin_User extends Plugin
 			return null;
 		}
 
-		if ( ! is_null($group)) {
-			try {
-				$group = $this->sentry->getGroupProvider()->findByName($group);
-			} catch (Sentry\Groups\GroupNotFoundException $e) {
-				return;
-			}
+        $loggedIn = false;
 
-			if ( ! $this->current_user->inGroup($group)) {
-				return;
-			}
+		if ( ! is_null($group)) {
+            foreach (explode('|', $group) as $group) {
+                try {
+                    $group = $this->sentry->getGroupProvider()->findByName($group);
+                } catch (Sentry\Groups\GroupNotFoundException $e) {
+                    continue;
+                }
+
+                if ($this->current_user->inGroup($group)) {
+                    $loggedIn = true;
+                }
+            }
 		}
 
-		return $this->content() ?: true;
+		return $loggedIn ? $this->content() : true;
 	}
+
+    /**
+     * Has access
+     *
+     * See if a user has access to a role
+     *
+     * Usage:
+     *
+     *     {{ if {user:has_access group="foo.bar"} }}
+     *            <p>Hello not an admin</p>
+     *     {{ endif }}
+     *
+     * @return boolean State indicator.
+     */
+    public function has_access()
+    {
+        $role = $this->attribute('role', null);
+
+        $hasAccess = false;
+
+        if ($this->current_user) {
+            $hasAccess = $this->sentry->current_user->hasAccess($role);
+        }
+
+        return $hasAccess ? $this->content() : true;
+    }
 
 	/**
 	 * Not logged in
