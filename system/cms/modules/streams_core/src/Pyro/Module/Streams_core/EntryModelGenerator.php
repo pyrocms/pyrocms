@@ -58,7 +58,7 @@ class EntryModelGenerator extends Generator
     public function getPath($path)
     {
         if (! is_dir($this->siteRefPath())) {
-            mkdir($this->siteRefPath(), 0755);
+            mkdir($this->siteRefPath(), 0777);
         }
 
         return $this->siteRefPath($path);
@@ -92,7 +92,7 @@ class EntryModelGenerator extends Generator
         $string = 'array(';
 
         foreach ($stream->getAttributes() as $key => $value) {
-            $value = $this->adjustValue($value);
+            $value = $this->adjustValue($value, in_array($key, array('stream_name', 'about')));
             $string .= "\n        '{$key}' => {$value},";
         }
 
@@ -105,7 +105,7 @@ class EntryModelGenerator extends Generator
             $string .= "\n            array(";
 
             foreach ($assignment->getAttributes() as $key => $value) {
-                $value = $this->adjustValue($value);
+                $value = $this->adjustValue($value, in_array($key, array('instructions')));
                 $string .= "\n                '{$key}' => {$value},";
             }
 
@@ -113,7 +113,7 @@ class EntryModelGenerator extends Generator
             $string .= "\n                'field' => array(";
 
             foreach ($assignment->field->getAttributes() as $key => $value) {
-                $value = $this->adjustValue($value);
+                $value = $this->adjustValue($value, in_array($key, array('field_name')));
                 $string .= "\n                    '{$key}' => {$value},";
             }
 
@@ -141,6 +141,8 @@ class EntryModelGenerator extends Generator
 
             $type = $assignment->getType();
 
+            $relationString = '';
+
             if ($type->hasRelation()) {
                 
                 $relationArray = $type->relation();
@@ -149,56 +151,87 @@ class EntryModelGenerator extends Generator
 
                 $relationMethod = $relationArray['method'];
 
-                unset($relationArray['method']);
+                $relationString .= "\n    public function {$method}()";
 
-                foreach ($relationArray as $key => $value) {
-                    $relationArray[$key] = $this->adjustValue($value);
-                }
+                $relationString .= "\n    {";
 
-                $string .= "\n    public function {$method}()";
-
-                $string .= "\n    {";
-
-                $string .= "\n        return \$this->{$relationMethod}(";
+                $relationString .= "\n        return \$this->{$relationMethod}(";
 
                 if ($relationMethod == 'hasOne' 
                     or $relationMethod == 'belongsTo'
                     or $relationMethod == 'hasMany') {
                     
-                    $string .= $this->parser->parse(
-                        '{{ related }}, {{ foreignKey }}',
-                        $relationArray
-                    );                    
+                    if (empty($relationArray['related'])) return null;
+                    
+                    // @todo - throw exception if related class is Pyro\Module\Streams_core\EntryModel 
+                    // or not compile the relation at all?
+                    
+                    $relationString .= $this->adjustValue($relationArray['related']);
+
+                    if (! empty($relationArray['foreingKey'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['foreingKey']);
+                    }                   
                 
                 } elseif ($relationMethod == 'morphOne') {
-                
-                    $string .= $this->parser->parse(
-                        '{{ related }}, {{ name }}, {{ type }}, {{ id }}',
-                        $relationArray
-                    );
+                    
+                    if (empty($relationArray['related'])) return null;
+
+                    $relationString .= $this->adjustValue($relationArray['related']);
+
+                    if (! empty($relationArray['name'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['name']);
+                    }
+
+                    if (! empty($relationArray['type'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['type']);
+                    }
+
+                    if (! empty($relationArray['id'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                    }
                 
                 } elseif ($relationMethod == 'morphTo'
                     or $relationMethod == 'morphMany') {
                 
-                    $string .= $this->parser->parse(
-                        '{{ name }}, {{ type }}, {{ id }}',
-                        $relationArray
-                    );
+                    if (! empty($relationArray['name'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['name']);
+                    }
+
+                    if (! empty($relationArray['type'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['type']);
+                    }
+
+                    if (! empty($relationArray['id'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                    }
                 
                 } elseif ($relationMethod == 'belongsToMany') {
-                
-                    $string .= $this->parser->parse(
-                        '{{ related }}, {{ table }}, {{ foreignKey }}, {{ otherKey }}',
-                        $relationArray
-                    );
+
+                    if (empty($relationArray['related'])) return null;
+
+                    $relationString .= $this->adjustValue($relationArray['related']);
+
+                    if (! empty($relationArray['table'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['table']);
+                    }
+
+                    if (! empty($relationArray['foreignKey'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['foreignKey']);
+                    }
+
+                    if (! empty($relationArray['id'])) {
+                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                    }
                 
                 }
 
-                $string .= ");";
+                $relationString .= ");";
 
-                $string .= "\n    }";
+                $relationString .= "\n    }";
 
-                $string .= "\n\n";
+                $relationString .= "\n";
+
+                $string .= $relationString;
             }
         }
 
@@ -210,12 +243,18 @@ class EntryModelGenerator extends Generator
      * @param  mixed $value
      * @return mixed
      */
-    public function adjustValue($value)
-    {
-        if (! is_numeric($value) and ! is_bool($value)) {
-            $value = "'".$value."'";
-        } elseif (is_null($value)) {
+    public function adjustValue($value, $escape = false)
+    {   
+        if (is_null($value)) {
             $value = 'null';
+        }
+        elseif (! is_numeric($value) and ! is_bool($value)) {
+            
+            if ($escape) {
+                $value = addslashes($value);
+            }
+
+            $value = "'".$value."'";
         }
 
         return $value;
