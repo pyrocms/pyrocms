@@ -107,40 +107,61 @@ class EntryModelGenerator extends Generator
         foreach ($stream->assignments as $assignment) {
 
             $type = $assignment->getType();
-            
+
             if ($type->hasRelation()) {
                 
-                $relation = $assignment->getType()->relation();
+                $relationArray = $type->relation();
 
-                $relationClass = get_class($relation);
+                $method = Str::camel($assignment->field->field_slug);
 
-                $relationClassName = explode('\\', $relationClass);
+                $relationMethod = $relationArray['method'];
 
-                $relationMethod = Str::camel($assignment->field->field_slug);
+                unset($relationArray['method']);
 
-                $relationTypeMethod = lcfirst($relationClassName[count($relationClassName)-1]);
+                foreach ($relationArray as $key => $value) {
+                    $relationArray[$key] = $this->adjustValue($value);
+                }
 
-                $related = get_class($relation->getRelated());
-
-                $string .= "\n    public function {$relationMethod}()";
+                $string .= "\n    public function {$method}()";
 
                 $string .= "\n    {";
 
-                $string .= "\n        return \$this->{$relationTypeMethod}('{$related}', '{$assignment->field->field_slug}";
+                $string .= "\n        return \$this->{$relationMethod}(";
 
-                if (method_exists($type, 'getRelationTable')) {
-                    $string .= ", '{$type->getRelationTable()}'";
+                if ($relationMethod == 'hasOne' 
+                    or $relationMethod == 'belongsTo'
+                    or $relationMethod == 'hasMany') {
+                    
+                    $string .= $this->parser->parse(
+                        '{{ related }}, {{ foreignKey }}',
+                        $relationArray
+                    );                    
+                
+                } elseif ($relationMethod == 'morphOne') {
+                
+                    $string .= $this->parser->parse(
+                        '{{ related }}, {{ name }}, {{ type }}, {{ id }}',
+                        $relationArray
+                    );
+                
+                } elseif ($relationMethod == 'morphTo'
+                    or $relationMethod == 'morphMany') {
+                
+                    $string .= $this->parser->parse(
+                        '{{ name }}, {{ type }}, {{ id }}',
+                        $relationArray
+                    );
+                
+                } elseif ($relationMethod == 'belongsToMany') {
+                
+                    $string .= $this->parser->parse(
+                        '{{ related }}, {{ table }}, {{ foreignKey }}, {{ otherKey }}',
+                        $relationArray
+                    );
+                
                 }
 
-                if (method_exists($type, 'getForeignKey')) {
-                    $string .= ", '{$type->getForeignKey()}'";
-                }
-
-                if (method_exists($type, 'getOtherKey')) {
-                    $string .= ", '{$type->getOtherKey()}'";
-                }
-
-                $string .= "');";
+                $string .= ");";
 
                 $string .= "\n    }";
 
