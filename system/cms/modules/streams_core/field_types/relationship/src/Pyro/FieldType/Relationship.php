@@ -1,5 +1,7 @@
 <?php namespace Pyro\FieldType;
 
+use Illuminate\Support\Str;
+
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Streams_core\EntryModel;
@@ -35,7 +37,7 @@ class Relationship extends AbstractFieldType
      */
     public $custom_parameters = array(
         'stream',
-        'label_field',
+        'method',
         'search_fields',
         'placeholder',
         'option_format',
@@ -76,7 +78,8 @@ class Relationship extends AbstractFieldType
             $this->view(
                 'data/relationship.js.php',
                 array(
-                    'field_type' => $this,
+                    'relatedModel' => $this->getRelationClass(),
+                    'fieldType' => $this,
                     'entry' => $entry,
                     ),
                 true
@@ -92,16 +95,20 @@ class Relationship extends AbstractFieldType
     {
         // Set the value
         $this->setValue(ci()->input->get($this->getFilterSlug('is')));
-
+        
         // Get related entries
-        $entry = $this->getRelationResult();
+        $relatedModel = $this->getRelationClass();
+
+        // Get it
+        $entry = $relatedModel::select('*')->find($this->getValue());
 
         // Basically the selectize config mkay?
         $this->appendMetadata(
             $this->view(
                 'data/relationship.js.php',
                 array(
-                    'field_type' => $this,
+                    'relatedModel' => $this->getRelationClass(),
+                    'fieldType' => $this,
                     'entry' => $entry,
                     ),
                 true
@@ -115,7 +122,7 @@ class Relationship extends AbstractFieldType
      */
     public function relation()
     {
-        return $this->belongsTo($this->getRelationClass('Pyro\Module\Streams_core\EntryModel'));
+        return $this->belongsTo($this->getRelationClass());
     }
 
     /**
@@ -135,8 +142,9 @@ class Relationship extends AbstractFieldType
         // String em up
         $attribute_string = '';
 
-        foreach ($attributes as $attribute => $value)
+        foreach ($attributes as $attribute => $value) {
             $attribute_string .= $attribute.'="'.$value.'" ';
+        }
 
         // Return an HTML dropdown
         return form_dropdown($this->form_slug, array(), null, $attribute_string);
@@ -173,8 +181,9 @@ class Relationship extends AbstractFieldType
         // String em up
         $attribute_string = '';
 
-        foreach ($attributes as $attribute => $value)
+        foreach ($attributes as $attribute => $value) {
             $attribute_string .= $attribute.'="'.$value.'" ';
+        }
 
         // Return an HTML dropdown
         return form_dropdown($this->getFilterSlug('is'), array(), null, $attribute_string);
@@ -186,7 +195,7 @@ class Relationship extends AbstractFieldType
      */
     public function stringOutput()
     {
-        if ($entry = $this->getRelation()->first()) {
+        if ($entry = $this->getRelationResult()) {
             return $entry->getTitleColumnValue();
         }
 
@@ -199,7 +208,7 @@ class Relationship extends AbstractFieldType
      */
     public function pluginOutput()
     {
-        if ($entry = $this->getRelation()) {
+        if ($entry = $this->getRelationResult()) {
             return $entry->first()->asPlugin()->toArray();
         }
 
@@ -212,7 +221,7 @@ class Relationship extends AbstractFieldType
      */
     public function dataOutput()
     {
-        if ($entry = $this->getRelation()) {
+        if ($entry = $this->getRelationResult()) {
             return $entry->first();
         }
 
@@ -245,6 +254,16 @@ class Relationship extends AbstractFieldType
         return form_input('option_format', $value);
     }
 
+    /**
+     * Label format
+     * @param  string $value
+     * @return html
+     */
+    public function paramLabelFormat($value = '')
+    {
+        return form_input('label_format', $value);
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     // -------------------------       AJAX       ------------------------------ //
     ///////////////////////////////////////////////////////////////////////////////
@@ -255,37 +274,34 @@ class Relationship extends AbstractFieldType
      */
     public function ajaxSearch()
     {
-        // Get the search term first
-        $term = ci()->input->post('term');
+        // Get the post data
+        $post = ci()->input->post();
 
-
-        /**
-         * List THIS stream, namespace and field_slug
-         */
-        list($stream_namespace, $stream_slug, $field_slug) = explode('-', ci()->uri->segment(6));
-        
 
         /**
          * Get THIS field and type
          */
-        $field = FieldModel::findBySlugAndNamespace($field_slug, $stream_namespace);
-        $field_type = $field->getType(null);
-        
+        $field = FieldModel::findBySlugAndNamespace($post['field_slug'], $post['stream_namespace']);
+        $fieldType = $field->getType(null);
 
+        
         /**
-         * Populate RELATED stream variables
+         * Get the relationClass
          */
-        list($related_stream_slug, $related_stream_namespace) = explode('.', $field_type->getParameter('stream'));
+        $relatedModel = $fieldType->getRelationClass();
 
 
         /**
          * Search for RELATED entries
          */
-        echo $entries = EntryModel::stream($related_stream_slug, $related_stream_namespace)
-            ->select('*')
-            ->where($field_type->getParameter('search_fields', 'id'), 'LIKE', '%'.$term.'%')
-            ->take(10)
-            ->get();
+        if (method_exists($relatedModel, 'streamsRelationshipAjaxSearch')) {
+            echo $relatedModel::streamsRelationshipAjaxSearch($fieldType);
+        } else {
+            echo $relatedModel::select(explode('|', $fieldType->getParameter('select_fields', '*')))
+                ->where($fieldType->getParameter('search_fields', 'id'), 'LIKE', '%'.$post['term'].'%')
+                ->take(10)
+                ->get();
+        }
 
         exit;
     }
@@ -300,59 +316,6 @@ class Relationship extends AbstractFieldType
      */
     public function getOptions()
     {
-        // Get options
-        $options = array();
-
-        if ($relation_class = $this->getRelationClass()) {
-
-            $instance = new $relation_class;
-
-            if ($instance instanceof EntryModel) {
-            
-                list($stream_slug, $stream_namespace) = explode('.', $this->getParameter('stream'));
-
-                $stream = StreamModel::findBySlugAndNamespace($stream_slug, $stream_namespace);
-
-                $options = $relation_class::stream($stream_slug, $stream_namespace)->limit(1000)->select('*')->get()->toArray();
-                
-                $option_format = $this->getParameter('option_format', '{{ '.($stream->title_column ? $stream->title_column : 'id').' }}'); 
-
-            } else {
-
-                $options = $relation_class::limit(1000)->select('*')->get()->toArray();
-
-                $option_format = $this->getParameter('option_format', '{{ '.$this->getParameter('title_field', 'id').' }}'); 
-
-            }
-        }
-
-        // Format options
-        $formatted_options = array();
-
-        foreach ($options as $option) {
-                $formatted_options[$option[$this->getParameter('value_field', 'id')]] = ci()->parser->parse_string($option_format, $option, true, false, array(), false);
-        }
-
-        // Boom
-        return $formatted_options;
-    }
-
-    /**
-     * Relation class
-     * @return string
-     */
-    public function getRelationClass($default = NULL)
-    {
-        return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
-    }
-
-    /**
-     * Count total possible options
-     * @return [type] [description]
-     */
-    public function totalOptions()
-    {
-        // Return that shiz
-        return EntryModel::stream($this->getParameter('stream'))->select('id')->count();
+        return false;
     }
 }
