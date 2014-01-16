@@ -31,7 +31,7 @@ class EntryDataModel
 	{
 		$entryModelClass = $this->getEntryModelClass();
 
-		$this->streamModel = new $entryModelClass;
+		$this->entryModel = new $entryModelClass;
 	}
 
 	/**
@@ -94,7 +94,7 @@ class EntryDataModel
 	public static function __callStatic($method, $arguments)
 	{
 		$instance = new static;
-		
+
 		$entryModelClass = $instance->getEntryModelClass();
 
 		return call_user_func_array(array($entryModelClass, $method), $arguments);
