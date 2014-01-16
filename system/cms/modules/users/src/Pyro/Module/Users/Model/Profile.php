@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Pyro\Module\Streams_core\Data\UsersProfilesEntryModel;
+use Pyro\Module\Streams_core\EntryDataModel;
 
 /**
  * Profile model for the users module.
@@ -8,8 +8,12 @@ use Pyro\Module\Streams_core\Data\UsersProfilesEntryModel;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class Profile extends UsersProfilesEntryModel
+class Profile extends EntryDataModel
 {
+    protected $streamSlug = 'profiles';
+
+    protected $streamNamespace = 'users';
+
     /**
      * Cache minutes
      * @var int
