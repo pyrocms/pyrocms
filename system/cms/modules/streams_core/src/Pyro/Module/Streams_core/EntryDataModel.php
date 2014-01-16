@@ -44,7 +44,7 @@ class EntryDataModel
 			throw new EmptyStreamSlugException;
 		}
 
-		if (! $streamNamespace = $this->getStreamSlug()) {
+		if (! $streamNamespace = $this->getStreamNamespace()) {
 			throw new EmptyStreamNamespaceException;
 		}
 
