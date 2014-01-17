@@ -971,7 +971,7 @@ class EntryModel extends Eloquent
 
         } elseif ($type = $this->getFieldType($attribute)) {
 
-            return $type->stringOutput($attribute);
+            return $type->stringOutput();
 
         }
 
@@ -1064,26 +1064,6 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Define a polymorphic one-to-one relationship.
-     *
-     * @param  string  $related
-     * @param  string  $name
-     * @param  string  $type
-     * @param  string  $id
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
-     */
-    public function morphOneEntry($related, $name, $type = null, $id = null)
-    {
-        $instance = new $related;
-
-        list($type, $id) = $this->getMorphs($name, $type, $id);
-
-        $table = $instance->getTable();
-
-        return new MorphOneEntryRelation($instance->newQuery(), $this, $table.'.'.$type, $table.'.'.$id);
-    }
-
-    /**
      * Pass properties
      * @param  object $instance
      * @return object
@@ -1106,7 +1086,7 @@ class EntryModel extends Eloquent
      * @param  array   $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+/*    public function __call($method, $parameters)
     {
         // Handle dynamic relation as join
         if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
@@ -1115,7 +1095,7 @@ class EntryModel extends Eloquent
 
         return parent::__call($method, $parameters);
     }
-
+*/
     public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);
