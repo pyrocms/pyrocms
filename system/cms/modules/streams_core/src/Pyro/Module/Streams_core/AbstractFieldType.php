@@ -235,7 +235,7 @@ abstract class AbstractFieldType
      */
     public function getFormSlug($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         return $this->getFormSlugPrefix().$field_slug;
     }
@@ -346,7 +346,7 @@ abstract class AbstractFieldType
      */
     public function getFormValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         if (ci()->input->post()) {
 
@@ -362,11 +362,11 @@ abstract class AbstractFieldType
 
     public function getPostValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
-        if ($value = ci()->input->post($this->getFormSlug($field_slug))) {
+        if ($value = ci()->input->post($this->getFormSlug())) {
             return $value;
-        } elseif ($value = ci()->input->post($this->getFormSlug($field_slug).'[]')) {
+        } elseif ($value = ci()->input->post($this->getFormSlug().'[]')) {
             return $value;
         }
 
@@ -795,6 +795,15 @@ abstract class AbstractFieldType
         }
 
         return $this->getParameter('relation_class', $default);
+    }
+
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return $this->field->field_slug;
     }
 
     /**
