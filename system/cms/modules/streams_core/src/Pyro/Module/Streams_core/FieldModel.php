@@ -709,13 +709,6 @@ class FieldModel extends Eloquent
     public function setFieldDataAttribute($field_data)
     {
         if (is_array($field_data)) {
-
-            if (! empty($field_data)) {
-                foreach ($field_data as $key => $value) {
-                    $field_data[$key] = addslashes($value);
-                }
-            }
-
             $this->attributes['field_data'] = serialize($field_data);
         } else {
             $this->attributes['field_data'] = $field_data;
