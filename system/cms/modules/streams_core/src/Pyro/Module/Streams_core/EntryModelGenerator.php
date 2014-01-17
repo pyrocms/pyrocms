@@ -170,6 +170,8 @@ class EntryModelGenerator extends Generator
 
             $type = $assignment->getType();
 
+            $type->setStream($stream);
+
             $relationString = '';
                 
             $relationArray = $type->relation();
@@ -246,8 +248,8 @@ class EntryModelGenerator extends Generator
                     $relationString .= ', '.$this->adjustValue($relationArray['foreignKey']);
                 }
 
-                if (! empty($relationArray['id'])) {
-                    $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                if (! empty($relationArray['otherKey'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['otherKey']);
                 }
             
             }
@@ -321,6 +323,8 @@ class EntryModelGenerator extends Generator
             $string .= "\n{$this->s(8)}{$key} => array(";
 
             $type = $assignment->getType();
+
+            $type->setStream($stream);
 
             foreach ($type->relation() as $key => $value) {
                 
