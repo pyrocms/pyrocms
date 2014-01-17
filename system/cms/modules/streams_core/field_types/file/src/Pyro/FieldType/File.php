@@ -15,29 +15,59 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  */
 class File extends AbstractFieldType
 {
+    /**
+     * Field type slug
+     * @var string
+     */
 	public $field_type_slug = 'file';
 
-	// Files are saved as 15 character strings.
-	public $db_col_type = 'string';
+    /**
+     * No column - we'll make our own below
+     * @var boolean
+     */
+	public $db_col_type = false;
 	
+    /**
+     * Custom field type parameters
+     * @var array
+     */
 	public $custom_parameters = array(
 		'folder',
 		'on_entry_destruct',
 		'allowed_types',
 		);
 
+    /**
+     * Field type version
+     * @var string
+     */
 	public $version = '1.2.0';
 
-	public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
+    /**
+     * Who made it?
+     * @var array
+     */
+	public $author = array(
+        'name '=> 'Ryan Thompson - PyroCMS',
+        'url' => 'http://www.pyrocms.com/'
+        );
 
-	public $input_is_file = true;
-
-	// --------------------------------------------------------------------------
-
-	public function __construct()
+    /**
+     * Construct
+     */
+    public function __construct()
 	{
 		ci()->load->config('files/files');
 	}
+
+    /**
+     * The field type relation
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function relation()
+    {
+        return $this->belongsTo($this->getRelationClass('Pyro\Module\Files\Model\File'));
+    }
 
 	/**
 	 * Output form input
@@ -62,9 +92,8 @@ class File extends AbstractFieldType
 		}
 
 		// Output the actual used value
-		$out .= form_hidden($this->form_slug, $this->value);
+		$out .= form_hidden($this->form_slug.'_id', $this->value);
 
-		$options['name'] 	= $this->form_slug;
 		$options['name'] 	= $this->form_slug.'_file';
 
 		$this->js('filefield.js');
@@ -72,8 +101,6 @@ class File extends AbstractFieldType
 
 		return $out .= form_upload($options);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Process before saving to database
@@ -88,8 +115,8 @@ class File extends AbstractFieldType
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
 		if (! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
-			if (ci()->input->post($this->form_slug)) {
-				return ci()->input->post($this->form_slug);
+			if (ci()->input->post($this->form_slug.'_id')) {
+				return ci()->input->post($this->form_slug.'_id');
 			} else {
 				return null;
 			}
@@ -100,79 +127,83 @@ class File extends AbstractFieldType
 		$return = \Files::upload($this->getParameter('folder'), null, $this->form_slug.'_file', null, null, null, $this->getParameter('allowed_types', '*'));
 
 		if (! $return['status']) {
-
-			// What happened now??
 			ci()->session->set_flashdata('warning', $return['message']);
-
 			return null;
 		} else {
-			// Return the ID of the file DB entry
 			return $return['data']['id'];
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
-	 * Process before outputting
-	 *
-	 * @param	array
-	 * @return	mixed - null or string
-	 */
-	public function stringOutput()
-	{
-		if ( ! $input) return null;
+     * Format the Admin output
+     * 
+     * @return [type] [description]
+     */
+    public function stringOutput()
+    {
+        if ($file = $this->getRelationResult()) {
+            return '<a href="'.base_url('files/download/'.$file->id).'">'.$file->name.'</a>';
+        }
+    }
 
-		ci()->load->config('files/files');
+    /**
+     * Pre Ouput Plugin
+     * 
+     * This takes the data from the join array
+     * and formats it using the row parser.
+     * 
+     * @return array
+     */
+    public function pluginOutput()
+    {
+        if ($file = $this->getRelationResult()) {
+            return $file->toArray();
+        }
 
-		$file = FileModel::find($input);
+        return null;
+    }
 
-		if ($file) {
-			return '<a href="'.base_url('files/download/'.$input).'">'.$file->name.'</a>';
-		}
-	}
+    /**
+     * Pre Ouput Data 
+     * @return array
+     */
+    public function dataOutput()
+    {
+        if ($file = $this->getRelationResult()) {
+            return $file;
+        }
 
-	// --------------------------------------------------------------------------
+        return null;
+    }
 
-	/**
-	 * Process before outputting for the plugin
-	 *
-	 * This creates an array of data to be merged with the
-	 * tag array so relationship data can be called with
-	 * a {field.column} syntax
-	 *
-	 * @param	string
-	 * @param	string
-	 * @param	array
-	 * @return	mixed - null or array
-	 */
-	public function pluginOutput()
-	{
-		if ( ! $this->value) return null;
+    /**
+     * Overide the column name like field_slug_id
+     * @param  Illuminate\Database\Schema   $schema
+     * @return void
+     */
+    public function fieldAssignmentConstruct($schema)
+    {
+        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
 
-		$file = FileModel::find($this->value);
+        $schema->table($tableName, function($table) {
+            $table->string($this->field->field_slug.'_id')->nullable();
+        });
+    }
 
-		return $file ? $file : false;
-	}
+    /**
+     * Ran when the entry is deleted
+     * @return void
+     */
+    public function entryDestruct()
+    {
+        if ($this->getParameter('on_entry_destruct', 'keep') == 'delete') {
+            
+            // Delete that file
+            \Files::deleteFile($this->value);
+        }
+    }
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Ran when the entry is deleted
-	 * @return void
-	 */
-	public function entryDestruct()
-	{
-		if ($this->getParameter('on_entry_destruct', 'keep') == 'delete') {
-			
-			// Delete that file
-			\Files::deleteFile($this->value);
-		}
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
+    /**
 	 * Choose a folder to upload to.
 	 *
 	 * @param	[string - value]
@@ -203,8 +234,6 @@ class File extends AbstractFieldType
 		return form_dropdown('folder', $choices, $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Allowed Types
 	 *
@@ -217,5 +246,4 @@ class File extends AbstractFieldType
 
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}
-
 }

@@ -20,7 +20,7 @@ class User extends AbstractFieldType
 {
 	public $field_type_slug = 'user';
 
-	public $db_col_type = 'integer';
+	public $db_col_type = false;
 
 	public $custom_parameters = array('restrict_group');
 
@@ -31,15 +31,13 @@ class User extends AbstractFieldType
 		'url'=>'http://pyrocms.com/'
 		);
 
-	/**
-	 * Runtime funtime cache
-	 * @var array
-	 */
-	public $runtime_cache = array();
+	///////////////////////////////////////////////////////////////////////////////
+    // -------------------------      METHODS     ------------------------------ //
+    ///////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * The field type relation
-	 * @return [type] [description]
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function relation()
 	{
@@ -137,13 +135,41 @@ class User extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelationResult())
+		if ($entry = $this->getRelationResult() and is_object($entry))
 		{
 			return $entry->toArray();
 		}
 
 		return null;
 	}
+
+    /**
+     * Pre Ouput Data 
+     * @return array
+     */
+    public function dataOutput()
+    {
+        if ($entry = $this->getRelationResult())
+        {
+            return $entry;
+        }
+
+        return null;
+    }
+
+    /**
+     * Overide the column name like field_slug_id
+     * @param  Illuminate\Database\Schema   $schema
+     * @return void
+     */
+    public function fieldAssignmentConstruct($schema)
+    {
+        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
+
+        $schema->table($tableName, function($table) {
+            $table->integer($this->field->field_slug.'_id')->nullable();
+        });
+    }
 
 	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	PARAMETERS 	  ------------------------------ //

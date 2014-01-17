@@ -29,7 +29,7 @@ class Relationship extends AbstractFieldType
      * DB column type
      * @var string
      */
-    public $db_col_type = 'integer';
+    public $db_col_type = false;
 
     /**
      * Custom parameters
@@ -63,6 +63,15 @@ class Relationship extends AbstractFieldType
     ///////////////////////////////////////////////////////////////////////////////
     // -------------------------    METHODS       ------------------------------ //
     ///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Relation
+     * @return object The relation object
+     */
+    public function relation()
+    {
+        return $this->belongsTo($this->getRelationClass());
+    }
 
     /**
      * Fired when form is built per field
@@ -114,15 +123,6 @@ class Relationship extends AbstractFieldType
                 true
                 )
             );
-    }
-
-    /**
-     * Relation
-     * @return object The relation object
-     */
-    public function relation()
-    {
-        return $this->belongsTo($this->getRelationClass());
     }
 
     /**
@@ -196,6 +196,7 @@ class Relationship extends AbstractFieldType
     public function stringOutput()
     {
         if ($entry = $this->getRelationResult()) {
+
             return $entry->getTitleColumnValue();
         }
 
@@ -228,9 +229,19 @@ class Relationship extends AbstractFieldType
         return null;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // -------------------------    PARAMETERS       ------------------------------ //
-    ///////////////////////////////////////////////////////////////////////////////
+    /**
+     * Overide the column name like field_slug_id
+     * @param  Illuminate\Database\Schema   $schema
+     * @return void
+     */
+    public function fieldAssignmentConstruct($schema)
+    {
+        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
+
+        $schema->table($tableName, function($table) {
+            $table->integer($this->field->field_slug.'_id')->nullable();
+        });
+    }
 
     /**
      * Choose a stream to relate to.. or remote source
@@ -263,10 +274,6 @@ class Relationship extends AbstractFieldType
     {
         return form_input('label_format', $value);
     }
-
-    ///////////////////////////////////////////////////////////////////////////////
-    // -------------------------       AJAX       ------------------------------ //
-    ///////////////////////////////////////////////////////////////////////////////
 
     /**
      * Search for entries!
@@ -306,16 +313,16 @@ class Relationship extends AbstractFieldType
         exit;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // -------------------------    UTILITIES       ------------------------------ //
-    ///////////////////////////////////////////////////////////////////////////////
-
     /**
-     * Options
-     * @return array
+     * Get filter slug
+     * @param  string $condition
+     * @param  string $field_slug
+     * @return string
      */
-    public function getOptions()
+    public function getFilterSlug($condition = 'contains', $field_slug = null)
     {
-        return false;
+        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+
+        return $this->getFilterSlugPrefix().$field_slug.'_id-'.$condition;
     }
 }

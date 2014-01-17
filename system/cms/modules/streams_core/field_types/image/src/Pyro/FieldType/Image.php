@@ -15,11 +15,29 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  */
 class Image extends AbstractFieldType
 {
+    /**
+     * Field type slug
+     * @var string
+     */
 	public $field_type_slug = 'image';
 
-	// Files are saved as 15 character strings.
-	public $db_col_type = 'string';
+	/**
+     * Files are stored as string IDs
+     * @var string
+     */
+	public $db_col_type = false;
 
+    /**
+     * Alternative processing
+     * Because field_slug != column
+     * @var boolean
+     */
+    public $alt_process = true;
+
+    /**
+     * Custom field type options
+     * @var array
+     */
 	public $custom_parameters = array(
 		'folder',
 		'resize_width',
@@ -29,24 +47,38 @@ class Image extends AbstractFieldType
 		'on_entry_destruct',
 		);
 
+    /**
+     * Field type version
+     * @var string
+     */
 	public $version = '1.3.0';
 
+    /**
+     * Who done it
+     * @var array
+     */
 	public $author = array(
 		'name' => 'Ryan Thompson - PyroCMS',
 		'url' => 'http://pyrocms.com/'
 		);
 
-	public $input_is_file = true;
-
+    /**
+     * Construct
+     */
 	public function __construct()
 	{
 		ci()->load->library('image_lib');
 		ci()->load->library('files/files');
 	}
 
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	METHODS 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
+    /**
+     * The field type relation
+     * @return object
+     */
+    public function relation()
+    {
+        return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
+    }
 
 	/**
 	 * Run when building a form per type
@@ -56,15 +88,6 @@ class Image extends AbstractFieldType
 	{
 		$this->js('imagefield.js');
 		$this->css('imagefield.css');		
-	}
-
-	/**
-	 * The field type relation
-	 * @return object
-	 */
-	public function relation()
-	{
-		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
 	}
 
 	/**
@@ -90,13 +113,13 @@ class Image extends AbstractFieldType
 			$path = ci()->parser->parse_string($file->path, $folder, true, false, null, false);
 
 			$out .= '<span class="image_remove">X</span><a class="image_link" href="'.$path.'" target="_break"><img src="'.$path.'" /></a><br />';
-			$out .= form_hidden($this->form_slug, $this->value);
+			$out .= form_hidden($this->form_slug.'_id', $this->value);
 		
 		} else {
 
 			$file = null;
 
-			$out .= form_hidden($this->form_slug, 'dummy');
+			$out .= form_hidden($this->form_slug.'_id', 'dummy');
 
 		}
 
@@ -144,7 +167,7 @@ class Image extends AbstractFieldType
 		$options['name'] = $this->form_slug.'_file';
 
 		// GO!
-		return form_upload($options).form_hidden($this->form_slug, $this->value);
+		return form_upload($options).form_hidden($this->form_slug.'_id', $this->value);
 	}
 
 	/**
@@ -179,73 +202,52 @@ class Image extends AbstractFieldType
 			$this->getParameter('allowed_types', '*')
 			);
 
-		if (! $return['status'])
-		{
-			// Shit..
+		if (! $return['status']) {
 			ci()->session->set_flashdata('warning', $return['message']);
-			
 			return null;
-		}
-		else
-		{
-			// Return the ID of the file DB entry
+		} else {
 			return $return['data']['id'];
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Pre Output
-	 *
-	 * @access	public
-	 * @param	array
-	 * @return	string
+	 * @return	Pyro\Module\Files\Model\File
 	 */
 	public function stringOutput()
 	{
-		if ( ! $this->value or $this->value == 'dummy' ) return null;
-
-		// Get image data
-		$file = FileModel::find($this->value);
-
-        // Get folder
-        $folder = FileModel::find($file->folder);
-
-		// This defaults to 100px wide
-        if ($file->path) {
+        if ($image = $this->getRelationResult()) {
             $attribtues = array(
                 'width' => '100',
                 'class' => 'img-thumbnail',
                 );
 
-            return img(ci()->parser->parse_string($file->path, $folder, true, false, null, false), $this->obviousAlt($file), $attribtues);
+            return img(ci()->parser->parse_string(
+                $image->path,
+                $$image->folder,
+                true,
+                false,
+                null,
+                false
+                ),
+            $this->obviousAlt($image),
+            $attribtues
+            );
         }
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
-	 * Process before outputting for the plugin
-	 *
-	 * This creates an array of data to be merged with the
-	 * tag array so relationship data can be called with
-	 * a {field.column} syntax
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @param	array
-	 * @return	array
-	 */
+     * Process before outputting for the plugin
+     * @return array or null
+     */
 	public function pluginOutput()
 	{
-		$image = $this->getImage();
+		if ($image = $this->getRelationResult()) {
+            return $image->toArray();
+        }
 
-		return $image ? $image->toArray() : false;
+        return null;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Process before outputting for PHP
@@ -255,12 +257,12 @@ class Image extends AbstractFieldType
 	 */
 	public function dataOutput()
 	{
-		$image = $this->getImage();
+		if ($image = $this->getRelationResult()) {
+            return $image;
+        }
 
-		return $image ? $image : false;
+        return null;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Ran when the entry is deleted
@@ -275,7 +277,19 @@ class Image extends AbstractFieldType
 		}
 	}
 
-	// --------------------------------------------------------------------------
+    /**
+     * Overide the column name like field_slug_id
+     * @param  Illuminate\Database\Schema   $schema
+     * @return void
+     */
+    public function fieldAssignmentConstruct($schema)
+    {
+        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
+
+        $schema->table($tableName, function($table) {
+            $table->string($this->field->field_slug.'_id')->nullable();
+        });
+    }
 
 	/**
 	 * Choose a folder to upload to.
@@ -314,8 +328,6 @@ class Image extends AbstractFieldType
 		return form_dropdown('folder', $choices, $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Resize Width
 	 *
@@ -328,8 +340,6 @@ class Image extends AbstractFieldType
 		return form_input('resize_width', $value);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Resize Height
 	 *
@@ -341,8 +351,6 @@ class Image extends AbstractFieldType
 	{
 		return form_input('resize_height', $value);
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Param Allowed Types
@@ -360,8 +368,6 @@ class Image extends AbstractFieldType
 				'instructions'	=> lang('streams:image.keep_ratio_instr'));
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Param Allowed Types
 	 *
@@ -375,8 +381,6 @@ class Image extends AbstractFieldType
 				'input'			=> form_input('allowed_types', $value),
 				'instructions'	=> lang('streams:image.allowed_types_instr'));
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Obvious alt attribute for <img> tags only
@@ -394,27 +398,5 @@ class Image extends AbstractFieldType
 			return $image->description;
 		}
 		return $image->name;
-	}
-
-	private function getImage()
-	{
-		if ( ! $this->value or $this->value == 'dummy' ) return null;
-
-		$image = $this->getRelation();
-
-		if ($image) {
-			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
-			$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
-
-			// For <img> tags only
-			$alt = $this->obviousAlt($image);
-
-			$image->img = img(array('alt' => $alt, 'src' => $image->image));
-
-			$image->thumb = site_url('files/thumb/'.$this->value);
-			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$this->value)));
-		}
-
-		return $image;
 	}
 }
