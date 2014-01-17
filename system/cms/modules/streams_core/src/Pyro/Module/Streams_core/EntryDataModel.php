@@ -3,7 +3,7 @@
 use Pyro\Module\Streams_core\Exception\EmptyStreamNamespaceException;
 use Pyro\Module\Streams_core\Exception\EmptyStreamSlugException;
 
-class EntryDataModel
+abstract class EntryDataModel
 {
 	/**
 	 * Stream slug
@@ -40,15 +40,20 @@ class EntryDataModel
 	 */
 	public function getEntryModelClass()
 	{
-		if (! $streamSlug = $this->getStreamSlug()) {
+		if (! $this->streamSlug) {
 			throw new EmptyStreamSlugException;
 		}
 
-		if (! $streamNamespace = $this->getStreamNamespace()) {
+		if (! $this->streamNamespace) {
 			throw new EmptyStreamNamespaceException;
 		}
 
-		return StreamModel::getEntryModelClass($streamSlug, $streamNamespace);
+		return StreamModel::getEntryModelClass($this->streamSlug, $this->streamNamespace);
+	}
+
+	public function getEntryModel()
+	{
+		return $this->entryModel;
 	}
 
 	/**
@@ -57,10 +62,6 @@ class EntryDataModel
 	 */
 	public function __get($name)
 	{
-		if ($name == 'user') {
-			die('user');
-		}
-
 		return $this->entryModel->getAttribute($name);
 	}
 
@@ -73,32 +74,24 @@ class EntryDataModel
 		return $this->entryModel->setAttribute($name, $value);
 	}
 
-	/**
-	 * Method dynamic call
-	 * @return mixed
-	 */
-	public function __call($method, $arguments)
-	{
-		return call_user_func_array(array($this->entryModel, $method), $arguments);
-	}
+    /**
+     * Handle dynamic method calls into the method.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (method_exists($this->entryModel, $method) or in_array($method, array('increment', 'decrement')))
+        {
+                return call_user_func_array(array($this->entryModel, $method), $parameters);
+        }
 
-	/**
-	 * Get stream slug
-	 * @return string
-	 */
-	public function getStreamSlug()
-	{
-		return $this->streamSlug;
-	}
+        $query = $this->entryModel->newQuery();
 
-	/**
-	 * Get namespace
-	 * @return string
-	 */
-	public function getStreamNamespace()
-	{
-		return $this->streamNamespace;
-	}
+        return call_user_func_array(array($query, $method), $parameters);
+    }
 
 	/**
 	 * Static method dynamic call
@@ -108,9 +101,7 @@ class EntryDataModel
 	{
 		$instance = new static;
 
-		$entryModelClass = $instance->getEntryModelClass();
-
-		return call_user_func_array(array($entryModelClass, $method), $arguments);
+		return $instance->__call($method, $arguments);
 	}
 
 }
