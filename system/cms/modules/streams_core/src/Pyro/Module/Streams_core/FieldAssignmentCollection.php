@@ -19,4 +19,11 @@ class FieldAssignmentCollection extends FieldCollection
     {
         return array_values($this->lists('field_id'));
     }
+
+    public function getRelationFields()
+    {
+        return $this->filter(function($assignment) {
+            return $assignment->getType()->hasRelation();
+        });
+    }
 }

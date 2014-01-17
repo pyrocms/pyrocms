@@ -72,7 +72,11 @@ class EloquentQueryBuilder extends Builder
      */
     public function fresh($fresh = true)
     {
-    	return $this->model->fresh($fresh);
+        if ($fresh) {
+            $this->model->setCacheMinutes(false);
+        }
+
+        return $this;
     }
 
 	/**

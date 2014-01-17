@@ -341,6 +341,8 @@ abstract class AbstractUi extends AbstractCallable
      */
     protected $model = null;
 
+    protected $eagerLoads = null;
+
     /**
      * Construct and bring in assets
      */
@@ -394,7 +396,12 @@ abstract class AbstractUi extends AbstractCallable
         return $this;
     }
 
+    public function with($eagerLoads = null)
+    {
+        $this->eagerLoads = $eagerLoads;
 
+        return $this;
+    }
 
     /**
      * Buttons

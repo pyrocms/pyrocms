@@ -516,7 +516,7 @@ class StreamModel extends Eloquent
         // Do we have a pre-add function?
         if (method_exists($field_type, 'fieldAssignmentConstruct')) {
             $field_type->setStream($this);
-            $field_type->fieldAssignmentConstruct();
+            $field_type->fieldAssignmentConstruct(ci()->pdb->getSchemaBuilder());
         }
 
         // -------------------------------------
@@ -897,6 +897,8 @@ class StreamModel extends Eloquent
         $assignmentsCollection = new FieldAssignmentCollection($assignments);
         
         $streamModel->setRelation('assignments', $assignmentsCollection);
+
+        $streamModel->assignments = $assignmentsCollection;
 
         return static::$streamsCache[$streamModel->stream_namespace.'.'.$streamModel->stream_slug] = $streamModel;
     }

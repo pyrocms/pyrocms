@@ -7,6 +7,8 @@ class EntryModelGenerator extends Generator
 {
     protected $templateFilename = 'EntryModel.txt';
 
+    protected $relationFields;
+
     /**
      * Fetch the compiled template for a model
      *
@@ -78,6 +80,7 @@ class EntryModelGenerator extends Generator
                 'table'     => "'".$stream->stream_prefix.$stream->stream_slug."'",
                 'stream'    => $this->compileStreamData($stream),
                 'relations' => $this->compileRelations($stream),
+                'relationFields' => $this->compileRelationFieldsData($stream),
             ), true);
 
             return true;
@@ -92,148 +95,244 @@ class EntryModelGenerator extends Generator
         $string = 'array(';
 
         foreach ($stream->getAttributes() as $key => $value) {
-            $value = $this->adjustValue($value, in_array($key, array('stream_name', 'about')));
-            $string .= "\n        '{$key}' => {$value},";
+            
+            if ($key == 'view_options') {
+            
+                $string .= $this->compileUnserializable($key, $value, 8, false);
+            
+            } else {
+             
+                $value = $this->adjustValue($value, in_array($key, array('stream_name', 'about')));
+             
+                $string .= "\n{$this->s(8)}'{$key}' => {$value},";                
+            }
         }
 
         // Assignments array
-        $string .= "\n        'assignments' => array(";
+        $string .= "\n{$this->s(8)}'assignments' => array(";
 
         foreach ($stream->assignments as $assignment) {
 
             // Assignment attributes array
-            $string .= "\n            array(";
+            $string .= "\n{$this->s(12)}array(";
 
             foreach ($assignment->getAttributes() as $key => $value) {
+                
                 $value = $this->adjustValue($value, in_array($key, array('instructions')));
-                $string .= "\n                '{$key}' => {$value},";
+                
+                $string .= "\n{$this->s(16)}'{$key}' => {$value},";
             }
 
             // Field attributes array
-            $string .= "\n                'field' => array(";
+            $string .= "\n{$this->s(16)}'field' => array(";
 
             foreach ($assignment->field->getAttributes() as $key => $value) {
-                $value = $this->adjustValue($value, in_array($key, array('field_name')));
-                $string .= "\n                    '{$key}' => {$value},";
+
+                if ($key == 'field_data') {
+
+                    $string .= $this->compileUnserializable($key, $value, 20);
+
+                } else {
+
+                    $value = $this->adjustValue($value, in_array($key, array('field_name')));
+
+                    $string .= "\n{$this->s(20)}'{$key}' => {$value},";
+
+                }
             }
 
             // End field attributes array
-            $string .= "\n                ),";
+            $string .= "\n{$this->s(16)}),";
             
             // End assignment attributes array
-            $string .= "\n            ),";
+            $string .= "\n{$this->s(12)}),";
         }
 
         // End assignments array
-        $string .= "\n        ),";
+        $string .= "\n{$this->s(8)}),";
     
         // End stream attributes array
-        $string .= "\n    )";
+        $string .= "\n{$this->s(4)})";
 
         return $string;
+    }
+
+    public function getRelationFields(StreamModel $stream)
+    {
+        return $this->relationFields = $this->relationFields ?: $stream->assignments->getRelationFields();
     }
 
     public function compileRelations(StreamModel $stream)
     {
         $string = '';
 
-        foreach ($stream->assignments as $assignment) {
+        foreach ($this->getRelationFields($stream) as $assignment) {
 
             $type = $assignment->getType();
 
             $relationString = '';
-
-            if ($type->hasRelation()) {
                 
-                $relationArray = $type->relation();
+            $relationArray = $type->relation();
 
-                $method = Str::camel($assignment->field->field_slug);
+            $method = Str::camel($assignment->field->field_slug);
 
-                $relationMethod = $relationArray['method'];
+            $relationMethod = $relationArray['method'];
 
-                $relationString .= "\n    public function {$method}()";
+            $relationString .= "\n{$this->s(4)}public function {$method}()";
 
-                $relationString .= "\n    {";
+            $relationString .= "\n{$this->s(4)}{";
 
-                $relationString .= "\n        return \$this->{$relationMethod}(";
+            $relationString .= "\n{$this->s(8)}return \$this->{$relationMethod}(";
 
-                if ($relationMethod == 'hasOne' 
-                    or $relationMethod == 'belongsTo'
-                    or $relationMethod == 'hasMany') {
-                    
-                    if (empty($relationArray['related'])) return null;
-                    
-                    // @todo - throw exception if related class is Pyro\Module\Streams_core\EntryModel 
-                    // or not compile the relation at all?
-                    
-                    $relationString .= $this->adjustValue($relationArray['related']);
-
-                    if (! empty($relationArray['foreingKey'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['foreingKey']);
-                    }                   
+            if ($relationMethod == 'hasOne' 
+                or $relationMethod == 'belongsTo'
+                or $relationMethod == 'hasMany') {
                 
-                } elseif ($relationMethod == 'morphOne') {
-                    
-                    if (empty($relationArray['related'])) return null;
-
-                    $relationString .= $this->adjustValue($relationArray['related']);
-
-                    if (! empty($relationArray['name'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['name']);
-                    }
-
-                    if (! empty($relationArray['type'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['type']);
-                    }
-
-                    if (! empty($relationArray['id'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
-                    }
+                if (empty($relationArray['related'])) return null;
                 
-                } elseif ($relationMethod == 'morphTo'
-                    or $relationMethod == 'morphMany') {
+                // @todo - throw exception if related class is Pyro\Module\Streams_core\EntryModel 
+                // or not compile the relation at all?
                 
-                    if (! empty($relationArray['name'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['name']);
-                    }
+                $relationString .= $this->adjustValue($relationArray['related']);
 
-                    if (! empty($relationArray['type'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['type']);
-                    }
-
-                    if (! empty($relationArray['id'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
-                    }
+                if (! empty($relationArray['foreingKey'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['foreingKey']);
+                }                   
+            
+            } elseif ($relationMethod == 'morphOne') {
                 
-                } elseif ($relationMethod == 'belongsToMany') {
+                if (empty($relationArray['related'])) return null;
 
-                    if (empty($relationArray['related'])) return null;
+                $relationString .= $this->adjustValue($relationArray['related']);
 
-                    $relationString .= $this->adjustValue($relationArray['related']);
-
-                    if (! empty($relationArray['table'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['table']);
-                    }
-
-                    if (! empty($relationArray['foreignKey'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['foreignKey']);
-                    }
-
-                    if (! empty($relationArray['id'])) {
-                        $relationString .= ', '.$this->adjustValue($relationArray['id']);
-                    }
-                
+                if (! empty($relationArray['name'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['name']);
                 }
 
-                $relationString .= ");";
+                if (! empty($relationArray['type'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['type']);
+                }
 
-                $relationString .= "\n    }";
+                if (! empty($relationArray['id'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                }
+            
+            } elseif ($relationMethod == 'morphTo'
+                or $relationMethod == 'morphMany') {
+            
+                if (! empty($relationArray['name'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['name']);
+                }
 
-                $relationString .= "\n";
+                if (! empty($relationArray['type'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['type']);
+                }
 
-                $string .= $relationString;
+                if (! empty($relationArray['id'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                }
+            
+            } elseif ($relationMethod == 'belongsToMany') {
+
+                if (empty($relationArray['related'])) return null;
+
+                $relationString .= $this->adjustValue($relationArray['related']);
+
+                if (! empty($relationArray['table'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['table']);
+                }
+
+                if (! empty($relationArray['foreignKey'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['foreignKey']);
+                }
+
+                if (! empty($relationArray['id'])) {
+                    $relationString .= ', '.$this->adjustValue($relationArray['id']);
+                }
+            
             }
+
+            $relationString .= ");";
+
+            $relationString .= "\n{$this->s(4)}}";
+
+            $relationString .= "\n";
+
+            $string .= $relationString;
         }
+
+        return $string;
+    }
+
+    public function compileUnserializable($key, $value, $numberSpaces = 4, $useKeys = true)
+    {
+        $string = '';
+        
+        if (is_string($value)) {
+            $value = unserialize($value);    
+        }
+        
+        $spaces = $this->s($numberSpaces);
+
+        if (is_array($value) and ! empty($value)) {
+
+            $string .= "\n{$spaces}'{$key}' => array(";
+
+            foreach ($value as $k => $v) {
+                
+                if (! is_array($v)) {
+
+                    $v = $this->adjustValue($v, true);
+                    
+                    $addFourSpaces = $spaces.$this->s(4);
+
+                    if ($useKeys) {
+                        
+                        $string .= "\n{$addFourSpaces}'{$k}' => {$v},";    
+                    
+                    } else {
+
+                        $string .= "\n{$addFourSpaces}{$v},";
+
+                    }                    
+                }
+
+            }
+
+            $string .= "\n{$spaces}),";
+
+        } else {
+
+            $string .= "\n{$spaces}'{$key}' => null,";
+        
+        }
+
+        return $string;
+    }
+
+    public function compileRelationFieldsData(StreamModel $stream)
+    {
+        $string = "array(";
+
+        foreach ($this->getRelationFields($stream) as $assignment) {
+            
+            $key = $this->adjustValue($assignment->fieldSlug);
+
+            $string .= "\n{$this->s(8)}{$key} => array(";
+
+            $type = $assignment->getType();
+
+            foreach ($type->relation() as $key => $value) {
+                
+                $value = $this->adjustValue($value);
+
+                $string .= "\n{$this->s(12)}'{$key}' => {$value},";
+            }
+
+            $string .= "\n{$this->s(8)}),";                
+        }
+
+        $string .= "\n{$this->s(4)})";
 
         return $string;
     }
@@ -258,5 +357,15 @@ class EntryModelGenerator extends Generator
         }
 
         return $value;
+    }
+
+    /**
+     * Add a number of spaces
+     * @param int
+     * @return string
+     */ 
+    protected function s($n)
+    {
+        return str_repeat("\x20", $n);
     }
 }

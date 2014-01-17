@@ -187,7 +187,7 @@ class ModuleManager
     public function getAll($params = null, $return_disabled = true, $fresh = true)
     {
         // This is FUCKING BROKEN and I don't know why.. it returns em all
-        $result = $this->modules->fresh($fresh)->findWithFilter($params, $return_disabled);
+        $result = $this->modules->findWithFilter($params, $return_disabled);
 
         $modules = array();
         foreach ($result as $record) {

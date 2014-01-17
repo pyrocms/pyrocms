@@ -588,27 +588,11 @@ abstract class AbstractFieldType
      * Get the results for the field type relation
      * @return mixed
      */
-    public function getRelationResult($field_slug = null)
+    public function getRelationResult($attribute = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $attribute = $attribute ? $attribute : $this->field->field_slug;
 
-        // Check if we have a parent foreing key value and avoid making queries with null values
-        $original = $this->getOriginalValue();
-
-        if ($this->hasLocalForeingKey() and empty($original)) return null;
-
-        $attribute = lcfirst(Str::studly($field_slug));
-
-        return $this->entry->{$attribute};
-    }
-
-    /**
-     * Check if the relation holds the foreing key on the parent table
-     * @return boolean
-     */
-    public function hasLocalForeingKey()
-    {
-        return $this->relation() instanceof BelongsTo;
+        return $this->entry->getAttribute($attribute);;
     }
 
     protected function getValidRelationMethods()

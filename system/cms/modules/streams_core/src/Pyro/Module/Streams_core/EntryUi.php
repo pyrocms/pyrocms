@@ -62,7 +62,7 @@ class EntryUi extends AbstractUi
      *
      * see docs for more explanation
      */
-    public static function table($stream_slug, $stream_namespace = null, $pagination = null, $pagination_uri = null, $extra = array())
+    public static function table($stream_slug, $stream_namespace = null)
     {
         // Prepare the stream, model and trigger method
         $instance = static::instance(__FUNCTION__);
@@ -82,6 +82,8 @@ class EntryUi extends AbstractUi
         $instance->data->stream_fields = $instance->model->getAssignments();
 
         $instance->field_slugs = $instance->model->getFieldSlugs();
+
+        $instance->with($instance->model->getRelationFieldsSlugs());
 
           // -------------------------------------
         // Sorting
@@ -104,7 +106,7 @@ class EntryUi extends AbstractUi
             ci()->template->append_js('streams/entry_sorting.js');
         }
 
-        $limit = ($instance->pagination) ? $pagination : null;
+        //$limit = ($instance->pagination) ? $pagination : null;
 
         return $instance;
     }
@@ -131,6 +133,8 @@ class EntryUi extends AbstractUi
             $this->query = $query;
         }
 
+
+
         $this->model->setViewOptions($this->view_options);
 
         if (isset($this->data->view_options) and is_array($this->data->view_options)) {
@@ -141,12 +145,11 @@ class EntryUi extends AbstractUi
             $this->select = array_unique($this->select);
         }
 
-        $this->data->entries = $this->query
+        $this->data->entries = $this->model->with($this->eagerLoads)
             ->enableAutoEagerLoading(true)
             ->take($this->limit)
             ->skip($this->offset)
-            //->remember(3)
-            ->get($this->select, $this->exclude);
+            ->get();
 
         $this->data->view_options =	$this->model->getViewOptionsFields();
 
@@ -240,7 +243,7 @@ class EntryUi extends AbstractUi
         $this->data->defaults	= $this->defaults;
         $this->data->entry		= $this->entry;
         $this->data->mode		= $this->mode;
-        $this->data->fields		= $this->form->buildForm();
+        $this->data->fields		= $this->form->buildForm() ?: new FieldCollection;
 
         $this->data->form_override 		= $this->form_override;
 
