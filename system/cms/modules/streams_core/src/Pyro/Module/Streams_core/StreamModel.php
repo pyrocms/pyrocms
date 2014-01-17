@@ -898,6 +898,8 @@ class StreamModel extends Eloquent
         
         $streamModel->setRelation('assignments', $assignmentsCollection);
 
+        $streamModel->assignments = $assignmentsCollection;
+
         return static::$streamsCache[$streamModel->stream_namespace.'.'.$streamModel->stream_slug] = $streamModel;
     }
 }
