@@ -15,5 +15,7 @@ class {{ className }} extends EntryModel
      */
     protected static $streamData = {{ stream }};
 
+    protected static $relationFieldsData = {{ relationFields }};
+
     {{ relations }}
 }

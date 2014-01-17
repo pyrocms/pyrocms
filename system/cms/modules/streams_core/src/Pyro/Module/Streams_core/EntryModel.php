@@ -839,6 +839,26 @@ class EntryModel extends Eloquent
     }
 
     /**
+     * Get relation field data
+     */
+    public static function getRelationFields()
+    {
+        return static::$relationFieldsData;
+    }
+
+    /**
+     * Get relation field slugs
+     */
+    public static function getRelationFieldsSlugs()
+    {
+        $relationFields = static::getRelationFields();
+
+        if (empty($relationFields)) return null;
+
+        return array_keys($relationFields);
+    }
+
+    /**
      * Get the dates the should use Carbon
      * @return array The array of date columns
      */
