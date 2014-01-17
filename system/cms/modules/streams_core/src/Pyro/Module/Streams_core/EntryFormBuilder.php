@@ -167,7 +167,7 @@ class EntryFormBuilder
     public function __construct(EntryModel $entry = null)
     {
         if ($entry) {
-            $this->entry = $entry;
+            $this->entry = $entry->setStreamProcess(true);
 
             $this->assignments = $this->entry->getAssignments();
 
@@ -466,26 +466,6 @@ class EntryFormBuilder
         }
     }
 
-    /**
-     * Gather values into an array
-     * for a form
-     *
-     * @access 	public
-     * @param 	object - stream_fields
-     * @param 	object - row
-     * @param 	string - edit or new
-     * @param 	array
-     * @param 	array
-     * @return 	array
-     */
-    // $stream_fields, $row, $mode, $skips = array(), $defaults = array(), $this->key_check = true
-    public function setEntryValues($values = array())
-    {
-        foreach ($values as $field_slug => $value) {
-            $this->entry->{$field_slug} = $value;
-        }
-    }
-
     public static function getFormValues($fields = array(), EntryModel $entry = null, $skips = array())
     {
         if (empty($fields) or ! $entry) return array();
@@ -495,7 +475,7 @@ class EntryFormBuilder
         foreach ($fields as $field) {
             if ( ! in_array($field->field_slug, $skips)) {
                 if ($type = $field->getType($entry) and ! $type->alt_process) {
-                    $entry->{$field->field_slug} = $values[$field->field_slug] = $type->getFormValue();
+                    $entry->{$type->getColumnName()} = $values[$type->getColumnName()] = $type->getFormValue();
                 }
             }
         }

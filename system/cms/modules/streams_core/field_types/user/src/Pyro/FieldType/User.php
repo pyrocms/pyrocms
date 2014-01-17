@@ -171,6 +171,15 @@ class User extends AbstractFieldType
         });
     }
 
+	/**
+     * Get column name
+     * @return string
+     */
+	public function getColumnName()
+	{
+		return parent::getColumnName().'_id';
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	PARAMETERS 	  ------------------------------ //
 	///////////////////////////////////////////////////////////////////////////////

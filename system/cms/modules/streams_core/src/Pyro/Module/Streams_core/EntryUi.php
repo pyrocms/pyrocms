@@ -145,7 +145,7 @@ class EntryUi extends AbstractUi
             $this->select = array_unique($this->select);
         }
 
-        $this->data->entries = $this->model->with($this->eagerLoads)
+        $this->data->entries = $this->model->with((array) $this->eagerLoads)
             ->enableAutoEagerLoading(true)
             ->take($this->limit)
             ->skip($this->offset)

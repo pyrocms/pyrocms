@@ -71,6 +71,11 @@ class EntryModel extends Eloquent
     protected $skip_field_slugs = array();
 
     /**
+     * Process the model with field types
+     */
+    protected $streamProcess = false;
+
+    /**
      * Disable pre save
      * @var boolean
      */
@@ -83,6 +88,12 @@ class EntryModel extends Eloquent
      * @var array/null
      */
     protected static $streamData = array();
+
+    /**
+     * Relation fields
+     * @var array
+     */
+    protected static $relationFieldsData = array();
 
     /**
      * The name of the "created at" column.
@@ -114,6 +125,13 @@ class EntryModel extends Eloquent
      * Format String Constant
      */
     const FORMAT_STRING     = 'string';
+
+    public function setStreamProcess($streamProcess = false)
+    {
+        $this->streamProcess = $streamProcess;
+
+        return $this;
+    }
 
     /**
      * Format entry as data
@@ -481,28 +499,27 @@ class EntryModel extends Eloquent
 
         $this->setRawAttributes($attributes);
 
-        if ( ! $fields->isEmpty() and ! $this->disable_pre_save) {
-            foreach ($fields as $field) {
-                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                if ( ! in_array($field->field_slug, $this->skip_field_slugs)) {
+        if ($this->streamProcess) {
 
-                    $type = $field->getType($this);
-                    $types[] = $type;
+            if ( ! $fields->isEmpty() and ! $this->disable_pre_save) {
+                foreach ($fields as $field) {
+                    // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
+                    if ( ! in_array($field->field_slug, $this->skip_field_slugs)) {
 
-                    $type->setStream($this->stream);
+                        $type = $field->getType($this);
+                        $types[] = $type;
 
-                    $type->setValue($this->getAttribute($field->field_slug));
-
-                    // We don't process the alt process stuff.
-                    // This is for field types that store data outside of the
-                    // actual table
-                    if ($type->alt_process) {
-                        $alt_process[] = $type;
-                    } else {
-                        $this->setAttribute($field->field_slug, $type->preSave());
+                        // We don't process the alt process stuff.
+                        // This is for field types that store data outside of the
+                        // actual table
+                        if ($type->alt_process) {
+                            $alt_process[] = $field->field_slug;
+                        } else {
+                            $this->setAttribute($type->getColumnName(), $type->preSave());
+                        }
                     }
                 }
-            }
+            }            
         }
 
         // -------------------------------------
@@ -516,15 +533,20 @@ class EntryModel extends Eloquent
             Search::indexEntry($this, $this->search_index_template);
         }
 
-        // -------------------------------------
-        // Alt Processing
-        // -------------------------------------
-        foreach ($alt_process as $type) {
-            $type->setEntry($this);
-            $type->setStream($this->getStream());
-            $type->preSave();
-        }
+        if ($this->streamProcess) {
 
+            // -------------------------------------
+            // Alt Processing
+            // -------------------------------------
+            foreach ($fields as $field) {
+                if (! in_array($field->field_slug, $this->skip_field_slugs)) {
+                    if (in_array($field->field_slug, $alt_process)) {
+                        $type = $field->getType($this);
+                        $type->preSave();
+                    }
+                }
+            }
+        }
         // -------------------------------------
         // Event: Post Insert Entry
         // -------------------------------------
