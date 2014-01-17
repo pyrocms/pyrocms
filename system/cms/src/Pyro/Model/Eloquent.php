@@ -125,22 +125,6 @@ abstract class Eloquent extends Model
         return array_keys($this->getAttributes());
     }
 
-    /**
-     * Caches the result of all() in the runtime cache
-     *
-     * @param  array  $options
-     * @return bool
-     */
-    public static function all($columns = array('*'))
-    {
-        if (static::isCache('all'))
-        {
-            return static::getCache('all');
-        }
-        
-        return static::setCache('all', parent::all($columns));
-    }
-
     public function update(array $attributes = array())
     {
         // Remove any post values that do not correspond to existing columns
@@ -252,20 +236,6 @@ abstract class Eloquent extends Model
     public function getCacheCollectionPrefix()
     {
         return get_called_class();
-    }
-
-    /**
-     * Get fresh models / disable cache
-     * @param  boolean $fresh
-     * @return object
-     */
-    public function fresh($fresh = true)
-    {
-        if ($fresh) {
-            $this->setCacheMinutes(false);
-        }
-
-        return $this;
     }
 
     /**
