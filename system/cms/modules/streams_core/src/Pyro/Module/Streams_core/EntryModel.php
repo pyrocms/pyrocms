@@ -85,6 +85,12 @@ class EntryModel extends Eloquent
     protected static $streamData = array();
 
     /**
+     * Relation fields
+     * @var array
+     */
+    protected static $relationFieldsData = array();
+
+    /**
      * The name of the "created at" column.
      * @var string
      */
@@ -497,7 +503,7 @@ class EntryModel extends Eloquent
                     // This is for field types that store data outside of the
                     // actual table
                     if ($type->alt_process) {
-                        $alt_process[] = $type;
+                        $alt_process[] = $field->field_slug;
                     } else {
                         $this->setAttribute($field->field_slug, $type->preSave());
                     }
@@ -519,10 +525,15 @@ class EntryModel extends Eloquent
         // -------------------------------------
         // Alt Processing
         // -------------------------------------
-        foreach ($alt_process as $type) {
-            $type->setEntry($this);
-            $type->setStream($this->getStream());
-            $type->preSave();
+        foreach ($fields as $field) {
+            if (! in_array($field->field_slug, $this->skip_field_slugs)) {
+                if (in_array($field->field_slug, $alt_process)) {
+                    $type = $field->getType($this);
+                    
+                    $type->setValue($this->getAttribute($field->field_slug));
+                    $type->preSave();
+                }
+            }
         }
 
         // -------------------------------------
