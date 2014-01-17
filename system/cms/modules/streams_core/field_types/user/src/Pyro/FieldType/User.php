@@ -17,7 +17,7 @@ class User extends AbstractFieldType
 {
 	public $field_type_slug = 'user';
 
-	public $db_col_type = 'integer';
+	public $db_col_type = false;
 
 	public $custom_parameters = array('restrict_group');
 
@@ -131,6 +131,15 @@ class User extends AbstractFieldType
 		}
 
 		return null;
+	}
+
+	public function fieldAssignmentConstruct($schema)
+	{
+		$tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
+
+		$schema->table($tableName, function($table) {
+			$table->integer($this->field->field_slug.'_id')->nullable();
+		});
 	}
 
 	public function pluginTestOverride()
