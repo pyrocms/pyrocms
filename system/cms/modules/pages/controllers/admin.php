@@ -6,6 +6,7 @@ use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
 use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Pages controller
@@ -256,7 +257,6 @@ class Admin extends Admin_Controller
         
         // Get the stream that we are using for this page type.
         $stream = $page_type->stream;
-
         //$stream_validation = $this->_setup_stream_fields($stream);
 
         $enable_save = false;
@@ -274,7 +274,7 @@ class Admin extends Admin_Controller
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
             $page->parent_id        = isset($parent_id) ? (int) $parent_id : 0;
             $page->type_id          = (int) $page_type->id;
-            $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
+            $page->entry_type       = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : null;

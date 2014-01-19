@@ -400,12 +400,6 @@ class Blog extends Public_Controller
 	 */
 	private function _single_view($post)
 	{
-		// if it uses markdown then display the parsed version
-		if ($post['type'] === 'markdown')
-		{
-			$post['body'] = $post['parsed'];
-		}
-
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
 		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
@@ -414,7 +408,7 @@ class Blog extends Public_Controller
 		{
 			// Get the category. We'll just do it ourselves
 			// since we need an array.
-			if ($category = $this->db->limit(1)->where('id', $post['category_id']['id'])->get('blog_categories')->row_array())
+			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array())
 			{
 				$this->template->set_breadcrumb($category['title'], 'blog/category/'.$category['slug']);
 
@@ -430,7 +424,7 @@ class Blog extends Public_Controller
 		$post = $post[0];
 
 		// Add in OG keywords
-		foreach ($post['keywords_arr'] as $keyword)
+        foreach (explode(',', $post['keywords']) as $keyword)
 		{
 			$this->template->set_metadata('article:tag', $keyword, 'og');
 		}
@@ -449,8 +443,8 @@ class Blog extends Public_Controller
 
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
 			$this->template->set('form_display', (
-				$post['comments_enabled'] === 'always' or
-					($post['comments_enabled'] !== 'no' and time() < strtotime('+'.$post['comments_enabled'], strtotime($post['created_at'])))
+				$post['comments_enabled']['key'] === 'always' or
+					($post['comments_enabled']['key'] !== 'no' and time() < strtotime('+'.$post['comments_enabled']['key'], strtotime($post['created_at'])))
 			));
 		}
 
@@ -460,11 +454,11 @@ class Blog extends Public_Controller
 			->set_metadata('og:url', current_url(), 'og')
 			->set_metadata('og:title', $post['title'], 'og')
 			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
-			->set_metadata('og:description', $post['preview'], 'og')
+			->set_metadata('og:description', $post['intro'], 'og')
 			->set_metadata('article:published_time', date(DATE_ISO8601, strtotime($post['created_at'])), 'og')
-			->set_metadata('article:modified_time', date(DATE_ISO8601, strtotime($post['updated_on'])), 'og')
-			->set_metadata('description', $post['preview'])
-			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
+			->set_metadata('article:modified_time', date(DATE_ISO8601, strtotime($post['updated_at'])), 'og')
+			->set_metadata('description', strip_tags($post['intro']))
+			->set_metadata('keywords', $post['keywords'])
 			->set_breadcrumb($post['title'])
 			->set('post', array($post))
 			->build('view');
