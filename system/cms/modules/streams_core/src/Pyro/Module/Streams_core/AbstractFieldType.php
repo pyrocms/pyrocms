@@ -235,7 +235,7 @@ abstract class AbstractFieldType
      */
     public function getFormSlug($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
+        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
         return $this->getFormSlugPrefix().$field_slug;
     }
@@ -440,6 +440,7 @@ abstract class AbstractFieldType
         $options['name'] 	= $this->form_slug;
         $options['id']		= $this->form_slug;
         $options['value']	= $this->value;
+        $options['class']   = 'form-control';
         $options['autocomplete'] = 'off';
         $options['placeholder'] = lang_label($this->getParameter('placeholder'));
 
