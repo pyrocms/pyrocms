@@ -38,10 +38,10 @@ class Relationship extends AbstractFieldType
     public $custom_parameters = array(
         'stream',
         'method',
-        'search_fields',
+        'search_columns',
         'placeholder',
         'option_format',
-        'label_format',
+        'item_format',
         'relation_class',
         );
 
@@ -136,7 +136,7 @@ class Relationship extends AbstractFieldType
         // Attribtues
         $attributes = array(
             'class' => $this->form_slug.'-selectize skip',
-            'placeholder' => $this->getParameter('placeholder', $this->field->field_name),
+            'placeholder' => lang_label($this->getParameter('placeholder', $this->field->field_name)),
             );
 
         // String em up
@@ -276,6 +276,15 @@ class Relationship extends AbstractFieldType
     }
 
     /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
+
+    /**
      * Search for entries!
      * @return string JSON
      */
@@ -305,7 +314,7 @@ class Relationship extends AbstractFieldType
             echo $relatedModel::streamsRelationshipAjaxSearch($fieldType);
         } else {
             echo $relatedModel::select(explode('|', $fieldType->getParameter('select_fields', '*')))
-                ->where($fieldType->getParameter('search_fields', 'id'), 'LIKE', '%'.$post['term'].'%')
+                ->where($fieldType->getParameter('search_columns', 'id'), 'LIKE', '%'.$post['term'].'%')
                 ->take(10)
                 ->get();
         }
