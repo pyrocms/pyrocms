@@ -23,7 +23,7 @@
             // Search these fields
             // This is JS.. so we need it here for the plugin - it will limit the dropdown despite what's passed back w/JSON
             // We want to pass it all back though for formatting if applicable
-            searchField: ['<?php echo str_replace('|', "','", $fieldType->getParameter('search_fields', (isset($fieldType->stream->title_column) ? $fieldType->stream->title_column : 'id'))); ?>'],
+            searchField: ['<?php echo str_replace('|', "','", $fieldType->getParameter('search_columns', (isset($fieldType->stream->title_column) ? $fieldType->stream->title_column : 'id'))); ?>'],
 
             // The value as an entry
             <?php if ($entry): ?>
@@ -58,7 +58,7 @@
                  */
                 option: function(item, escape) {
                     <?php if ($fieldType->getParameter('option_format', false)): ?>
-                    return <?php echo ci()->parser->parse_string($fieldType->getParameter('item_format'), ci(), true); ?>;
+                    return <?php echo ci()->parser->parse_string($fieldType->getParameter('option_format'), ci(), true); ?>;
                     <?php else: ?>
                     return '<div>' + item.<?php echo $relatedModel::getStream()->title_column; ?> + '</div>';
                     <?php endif; ?>
