@@ -524,7 +524,7 @@ class EntryFormBuilder
                 if ($field->error) {
                     ci()->form_validation->set_value($field->form_slug);
                 } else {
-                    $field->value = $type->value = $this->entry->{$field->field_slug};
+                    $field->value = $type->value = $this->entry->{$type->getColumnName()};
                 }
 
                 // Get some general info
