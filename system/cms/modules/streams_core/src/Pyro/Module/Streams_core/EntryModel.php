@@ -277,7 +277,7 @@ class EntryModel extends Eloquent
 
     public function setSkipFieldSlugs($skip_field_slugs = array())
     {
-        $this->$skip_field_slugs = $skip_field_slugs;
+        $this->skip_field_slugs = $skip_field_slugs;
 
         return $this;
     }

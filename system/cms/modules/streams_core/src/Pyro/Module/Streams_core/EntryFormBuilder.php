@@ -476,6 +476,8 @@ class EntryFormBuilder
             }
         }
 
+        $entry->setSkipFieldSlugs($skips);
+
         return $values;
     }
 
