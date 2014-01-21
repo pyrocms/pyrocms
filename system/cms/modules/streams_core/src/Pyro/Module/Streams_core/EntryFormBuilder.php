@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
-// This will be similar to the Fields driver
+use Pyro\Support\Fluent;
 
 /**
  * PyroStreams Core Fields Library
@@ -13,152 +13,13 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class EntryFormBuilder
+class EntryFormBuilder extends Fluent
 {
-    protected $assignments;
-
     /**
-     * The events that have run
+     * Field type events run
      * @var array
-     */
-    public $field_type_events_run = array();
-
-    /**
-     * The public events that have run
-     * @var array
-     */
-    public $field_type_public_events_run = array();
-
-    /**
-     * The entry object
-     * @var object
-     */
-    protected $entry;
-
-    /**
-     * New or edit
-     * @var string
-     */
-    protected $method = 'new';
-
-    /**
-     * Defaults
-     * @var array
-     */
-    protected $defaults = array();
-
-    /**
-     * Recaptcha or not
-     * @var boolean
-     */
-    protected $recaptcha = false;
-
-    /**
-     * The values
-     * @var array
-     */
-    protected $values = array();
-
-    /**
-     * The form key
-     * @var string
-     */
-    protected $form_key = null;
-
-    /**
-     * Fields in the form
-     * @var array
-     */
-    protected $fields = null;
-
-    /**
-     * Field slugs
-     */
-
-
-    /**
-     * Key check
-     * @var boolean
-     */
-    protected $key_check = null;
-
-    /**
-     * The stream object
-     * @var object
-     */
-    protected $stream = null;
-
-    /**
-     * Skip processing
-     * @var array
-     */
-    protected $skips = array();
-
-    /**
-     * Hidden
-     * @var array
-     */
-    protected $hidden = array();
-
-    /**
-     * Success message
-     * @var string
-     */
-    protected $success_message = null;
-
-    /**
-     * Return validation rules
-     * @var boolean
-     */
-    protected $return_validation_rules = false;
-
-    /**
-     * Fields types available
-     * @var array
-     */
-    protected $field_types = array();
-
-    /**
-     * The result
-     * @var boolean
-     */
-    protected $result = false;
-
-    /**
-     * Save redirect URI
-     * @var string
-     */
-    protected $redirect = null;
-
-    /**
-     * Save and exit redirect URI
-     * @var string
-     */
-    protected $exit_redirect = null;
-
-    /**
-     * Save and continue redirect URI
-     * @var string
-     */
-    protected $continue_redirect = null;
-
-    /**
-     * Cancel URI
-     * @var string
-     */
-    protected $cancel_uri = null;
-
-    /**
-     * Save and create redirect URI
-     * @var string
-     */
-    protected $create_redirect = null;
-
-    /**
-     * Enable post
-     * @var boolean
-     */
-    protected $enable_save = true;
+     */ 
+    protected $fieldTypeEventsRun = array();
 
     /**
      * Construct with the entry object optional
@@ -166,15 +27,52 @@ class EntryFormBuilder
      */
     public function __construct(EntryModel $entry = null)
     {
+        $attributes = array();
+
+        $attributes['entry'] = null;
+
         if ($entry) {
-            $this->entry = $entry->setStreamProcess(true);
 
-            $this->assignments = $this->entry->getAssignments();
+            $attributes['entry'] = $entry->setStreamProcess(true);
 
-            $this->method = $entry->getKey() ? 'edit' : 'new';
+            $attributes['assignments'] = $entry->getAssignments();
+
+            $attributes['method'] = $entry->getKey() ? 'edit' : 'new';
         }
 
         ci()->load->helper('form');
+
+        parent::__construct($attributes);
+    }
+    
+    /**
+     * Get default attributes
+     * @return array
+     */
+    public function getDefaultAttributes()
+    {
+        return array(
+            'assignments' => array(),
+            'cancelUri' => null,
+            'continueRedirect' => null,
+            'createRedirect' => null,
+            'defaults' => array(),
+            'enableSave' => true,
+            'fieldTypeEventsRun' => array(),
+            'fieldTypePublicEventsRun' => array(),
+            'fieldTypes' => array(),
+            'fields' => null,
+            'method' => 'new',
+            'returnValidationRules' => false,
+            'recaptcha' => false,
+            'redirect' => null,
+            'result' => null,
+            'skips' => array(),
+            'stream' => null,
+            'successMessage' => null,
+            'values' => array(),
+            'exitRedirect' => null,
+        );
     }
 
     /**
@@ -319,7 +217,7 @@ class EntryFormBuilder
 
         $result_id = '';
 
-        if ($_POST and $this->enable_save) {
+        if ($_POST and $this->enableSave) {
             if (empty($validation_rules) or ci()->form_validation->run()) {
                 if ( ! $this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
@@ -407,13 +305,14 @@ class EntryFormBuilder
                 continue;
             }
 
-            if ( ! in_array($field->field_slug, $this->skips)) {
+            if ( ! in_array($field->field_slug, $this->get('skips', array()))) {
+
                 // If we haven't called it (for dupes),
                 // then call it already.
-                if ( ! in_array($field->field_type, $this->field_type_events_run)) {
+                if (! in_array($field->field_type, $this->fieldTypeEventsRun)) {
                     $type->event();
 
-                    $this->field_type_events_run[] = $field->field_type;
+                    $this->fieldTypeEventsRun[] = $field->field_type;
                 }
 
                 // Run field events per field regardless if the type
@@ -449,10 +348,10 @@ class EntryFormBuilder
             if ( ! in_array($field->field_slug, $this->skips)) {
                 // If we haven't called it (for dupes),
                 // then call it already.
-                if ( ! in_array($field->field_type, $this->field_type_public_events_run)) {
+                if ( ! in_array($field->field_type, $this->fieldTypePublicEventsRun)) {
                     $type->publicEvent();
 
-                    $this->field_type_public_events_run[] = $field->field_type;
+                    $this->fieldTypePublicEventsRun[] = $field->field_type;
                 }
 
                 // Run field events per field regardless if the type
@@ -487,15 +386,15 @@ class EntryFormBuilder
      */
     public function getFieldTypes()
     {
-        if (empty($this->field_types)) {
+        if (empty($this->fieldTypes)) {
             foreach ($this->assignments as $field) {
                 if ($type = $this->entry->getFieldType($field->field_slug)) {
-                    $this->field_types[$field->field_slug] = $type;
+                    $this->fieldTypes[$field->field_slug] = $type;
                 }
             }
         }
 
-        return $this->field_types;
+        return $this->fieldTypes;
     }
 
     /**
@@ -508,7 +407,7 @@ class EntryFormBuilder
     public function buildFields()
     {
         foreach($this->assignments as $k => &$field) {
-            if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->skips)) {
+            if ($type = $this->entry->getFieldType($field->field_slug) and ! in_array($field->field_slug, $this->get('skips', array()))) {
                 
                 // Set defaults
                 $type->setDefaults($this->defaults);
@@ -526,11 +425,11 @@ class EntryFormBuilder
                 // Get some general info
                 $field->form_slug = $type->getFormSlug();
                 $field->field_slug = $field->field_slug;
-                $field->is_hidden = (bool) in_array($field->field_slug, $this->hidden);
+                $field->is_hidden = (bool) in_array($field->field_slug, $this->get('hidden', array()));
 
                 // Get the form input flavors
-                $field->form_input = defined('ADMIN_THEME') ? $type->formInput() : $type->publicFormInput();
-                $field->input_row = defined('ADMIN_THEME') ? $type->formInputRow() : null;
+                $field->form_input = $type->getInput();
+                $field->input_row = $type->formInputRow();
 
                 // Translate the instructions
                 $field->instructions = lang_label($field->instructions);
@@ -573,7 +472,7 @@ class EntryFormBuilder
         // Loop through and set the rules
         // -------------------------------------
         foreach ($this->assignments as $assignment) {
-            if ( ! in_array($assignment->field->field_slug, $this->skips)) {
+            if ( ! in_array($assignment->field->field_slug, $this->get('skips', array()))) {
                 
                 $rules = array();
 
@@ -759,18 +658,6 @@ class EntryFormBuilder
     public function errorMessage($error_message = null)
     {
         $this->error_message = $error_message;
-
-        return $this;
-    }
-
-    /**
-     * Enable saving
-     * @param  boolean $enable_save
-     * @return object
-     */
-    public function enableSave($enable_save = false)
-    {
-        $this->enable_save = $enable_save;
 
         return $this;
     }
