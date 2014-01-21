@@ -128,7 +128,7 @@ class EntryCollection extends EloquentCollection
         $output = array();
 
         foreach ($this->items as $entry) {
-            $output[] = $entry->{'as'.Str::studly($this->format)}()->toOutputArray();
+            $output[] = $entry->getFotmatter()->{'as'.Str::studly($this->format)}()->toOutputArray();
         }
 
         return $output;
@@ -139,8 +139,8 @@ class EntryCollection extends EloquentCollection
      * @param  integer $options
      * @return string
      */
-    public function toJson($options = 0)
+/*    public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);
-    }
+    }*/
 }
