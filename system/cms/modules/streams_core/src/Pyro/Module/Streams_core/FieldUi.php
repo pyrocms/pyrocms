@@ -14,11 +14,13 @@ class FieldUi extends AbstractUi
      */
     public static function assignmentsTable($stream_slug, $namespace = null)
     {
-        $instance = static::instance(__FUNCTION__);
+        $instance = new static;
+
+        $instance->triggerMethod(__FUNCTION__);
 
         $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace);
 
-        $instance->data->namespace = $namespace;
+        $instance->namespace = $namespace;
 
         return $instance;
     }
@@ -30,9 +32,11 @@ class FieldUi extends AbstractUi
      */
     public static function namespaceTable($namespace = null)
     {
-        $instance = static::instance(__FUNCTION__);
+        $instance = new static;
 
-        $instance->data->namespace = $namespace;
+        $instance->triggerMethod(__FUNCTION__);
+
+        $instance->namespace = $namespace;
 
         return $instance;
     }
@@ -47,24 +51,34 @@ class FieldUi extends AbstractUi
     public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
     {
         // The triggerForm() method is shared with assignmentForm() and namespaceForm()
-        $instance = static::instance('form');
+        $instance = new static;
 
-        $instance->data->stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace);
+        $instance
 
-        $instance->data->namespace = $namespace;
+            ->triggerMethod(__FUNCTION__)
+            
+            ->stream(StreamModel::findBySlugAndNamespace($stream_slug, $namespace))
+            
+            ->namespace($namespace)
 
-        $instance->id = $assignment_id;
+            ->id($assignment_id);
 
         if (is_numeric($assignment_id)) {
-            // If we have no assignment, we can't continue
-            $instance->data->assignment = FieldAssignmentModel::findOrFail($assignment_id);
+            
+            $instance
+                // If we have no assignment, we can't continue
+                ->assignment(FieldAssignmentModel::findOrFail($assignment_id))
 
-            // Find the field now
-            $instance->data->current_field = FieldModel::findOrFail($instance->data->assignment->field_id);
+                // Find the field now
+                ->currentField(FieldModel::findOrFail($instance->assignment->field_id));
+                
         } else {
-            $instance->data->assignment = new FieldAssignmentModel;
 
-            $instance->data->current_field = new FieldModel;
+            $instance
+
+                ->assignment(new FieldAssignmentModel)
+
+                ->currentField(new FieldModel);
         }
 
         return $instance;
@@ -73,23 +87,26 @@ class FieldUi extends AbstractUi
     /**
      * trigger field form in namespace
      * @param  string $namespace
-     * @param  integer $field_id
+     * @param  integer $fieldId
      * @return object
      */
-    public static function namespaceForm($namespace, $field_id = null)
+    public static function namespaceForm($namespace, $fieldId = null)
     {
         // The triggerForm() method is shared with assignmentForm() and namespaceForm()
-        $instance = static::instance('form');
+        $instance = new static;
 
-        $instance->data->namespace = $namespace;
-
-        $instance->id = $field_id;
-
-        if (is_numeric($field_id)) {
+        $instance
+            ->triggerMethod('form')
+            
+            ->namespace($namespace)
+            
+            ->id($fieldId);
+            
+        if (is_numeric($fieldId)) {
             // Find the field now
-            $instance->data->current_field = FieldModel::findOrFail($field_id);
+            $instance->currentField(FieldModel::findOrFail($fieldId));
         } else {
-            $instance->data->current_field = new FieldModel;
+            $instance->currentField(new FieldModel);
         }
 
         return $instance;
@@ -114,27 +131,20 @@ class FieldUi extends AbstractUi
      */
     protected function triggerAssignmentsTable()
     {
-        $this->data->buttons = $this->buttons;
-
 
         // -------------------------------------
         // Get fields and create pagination if necessary
         // -------------------------------------
-        $this->data->assignments = FieldAssignmentModel::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
+        $this->assignments = FieldAssignmentModel::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
 
         if ($this->limit > 0) {
-            $this->data->pagination = $this->getPagination(FieldAssignmentModel::countByStreamId($this->stream->id));
-        } else {
-            $this->data->pagination = null;
+            $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id));
         }
-
-        // Allow to set custom 'Add Field' uri
-        $this->data->add_uri = $this->add_uri;
 
         ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
         ci()->template->append_js('streams/assignments.js');
 
-        $this->data->content = ci()->load->view('streams_core/fields/table_assignments', $this->data, true);
+        $this->content = ci()->load->view('streams_core/fields/table_assignments', $this->attributes, true);
 
         return $this;
     }
@@ -145,28 +155,16 @@ class FieldUi extends AbstractUi
      */
     protected function triggerNamespaceTable()
     {
-        $this->data->buttons = $this->buttons;
-
         // -------------------------------------
         // Get fields and create pagination if necessary
         // -------------------------------------
-        $this->data->fields = FieldModel::findManyByNamespace($this->data->namespace, $this->pagination, $this->offset, $this->skips);
+        $this->fields = FieldModel::findManyByNamespace($this->namespace, $this->limit, $this->offset, $this->skips);
 
-        if (is_numeric($this->pagination)) {
-            $this->data->pagination = create_pagination(
-                                            $pagination_uri,
-                                            ci()->fields_m->count_fields($namespace),
-                                            $pagination, // Limit per page
-                                            $page_uri // URI segment
-                                        );
-        } else {
-            $this->data->pagination = null;
+        if ($this->limit) {
+            $this->paginationTotalRecords(ci()->fields_m->count_fields($this->namespace));
         }
 
-        // Allow view to inherit custom 'Add Field' uri
-        $this->data->add_uri = $this->add_uri;
-
-        $this->data->content = ci()->load->view('streams_core/fields/table_namespace', $this->data, true);
+        $this->content = ci()->load->view('streams_core/fields/table_namespace', $this->attributes, true);
 
         return $this;
     }
@@ -206,16 +204,16 @@ class FieldUi extends AbstractUi
     {
 
         if ($_POST and ci()->input->post('field_type')) {
-            $this->data->current_field->field_type = ci()->input->post('field_type');
+            $this->currentField->field_type = ci()->input->post('field_type');
         }
 
         // Need this for the view
-        $this->data->method = $this->id ? 'edit' : 'new';
+        $this->method = $this->id ? 'edit' : 'new';
 
         $types = $this->getSelectableFieldTypes();
 
         // Get our list of available fields
-        $this->data->field_types = $types->getOptions();
+        $this->field_types = $types->getOptions();
 
         // -------------------------------------
         // Field Type Assets
@@ -231,14 +229,14 @@ class FieldUi extends AbstractUi
         // We'll always work off the assignment.
         // -------------------------------------
 
-           $this->data->allow_title_column_set = $this->allow_title_column_set;
+           $this->allow_title_column_set = $this->allow_title_column_set;
 
         // -------------------------------------
         // Cancel Button
         // -------------------------------------
 
-        $this->data->show_cancel = $this->show_cancel;
-        $this->data->cancel_uri = $this->cancel_uri;
+/*        $this->show_cancel = $this->show_cancel;
+        $this->cancel_uri = $this->cancel_uri;*/
 
         // -------------------------------------
         // Validation & Setup
@@ -250,9 +248,9 @@ class FieldUi extends AbstractUi
             // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[new:'.$this->stream->stream_prefix.$this->stream->stream_slug.']';
         } else {
             // @todo edit version of this.
-            // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$this->data->current_field->field_slug.':'.$namespace.']';
+            // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$this->currentField->field_slug.':'.$namespace.']';
 
-            // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[edit:'.$this->stream->stream_prefix.$this->stream->stream_slug.':'.$this->data->current_field->field_slug.']';
+            // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[edit:'.$this->stream->stream_prefix.$this->stream->stream_slug.':'.$this->currentField->field_slug.']';
         }
 
         $assign_validation = array(
@@ -300,7 +298,7 @@ class FieldUi extends AbstractUi
         if (ci()->input->post('field_type')) {
             $field_type = ci()->input->post('field_type');
         } else {
-            $field_type = $this->data->current_field->field_type;
+            $field_type = $this->currentField->field_type;
         }
 
         //ci()->form_validation->set_rules($validation);
@@ -313,24 +311,24 @@ class FieldUi extends AbstractUi
         $post_data = ci()->input->post();
 
         // Repopulate title column set
-        $this->data->title_column_status = false;
+        $this->title_column_status = false;
 
-        if (isset($this->data->stream)) {
-            if ($this->data->allow_title_column_set and $this->data->current_field->getKey()) {
-                if ($this->data->stream->title_column) {
-                    if ($this->data->stream->title_column == ci()->input->post('title_column')) {
-                        $post_data['title_column'] = $this->data->current_field->field_slug;
+        if (isset($this->stream)) {
+            if ($this->allow_title_column_set and $this->currentField->getKey()) {
+                if ($this->stream->title_column) {
+                    if ($this->stream->title_column == ci()->input->post('title_column')) {
+                        $post_data['title_column'] = $this->currentField->field_slug;
 
-                        $this->data->title_column_status = true;
+                        $this->title_column_status = true;
                     }
-                } elseif ($this->data->stream->title_column and $this->data->stream->title_column == $this->data->current_field->field_slug) {
-                    $this->data->title_column_status = true;
+                } elseif ($this->stream->title_column and $this->stream->title_column == $this->currentField->field_slug) {
+                    $this->title_column_status = true;
                 }
-            } elseif ($this->data->allow_title_column_set and ! $this->data->current_field->getKey()) {
+            } elseif ($this->allow_title_column_set and ! $this->currentField->getKey()) {
                 if (ci()->input->post('title_column')) {
-                    $post_data['title_column'] = $this->data->current_field->field_slug;
+                    $post_data['title_column'] = $this->currentField->field_slug;
 
-                    $this->data->title_column_status = true;
+                    $this->title_column_status = true;
                 }
             }
         }
@@ -354,32 +352,32 @@ class FieldUi extends AbstractUi
 
             // Figure out where this is coming from - post or data
 
-            if ($this->data->current_type = FieldTypeManager::getType($field_type)) {
+            if ($this->current_type = FieldTypeManager::getType($field_type)) {
                 $field_data = array();
 
                 // Build items out of post data
-                foreach ($this->data->current_type->getCustomParameters() as $param) {
+                foreach ($this->current_type->getCustomParameters() as $param) {
                     if ($value = ci()->input->post($param)) {
                         $field_data[$param] = $value;
-                    } elseif (isset($this->data->current_field->field_data[$param])) {
-                        $field_data[$param] = $this->data->current_field->field_data[$param];
+                    } elseif (isset($this->currentField->field_data[$param])) {
+                        $field_data[$param] = $this->currentField->field_data[$param];
                     }
                 }
             }
 
-            $this->data->current_field->fill(array(
+            $this->currentField->fill(array(
                 'field_name' => $post_data['field_name'],
                 'field_slug' => $post_data['field_slug'],
                 'field_type' => $post_data['field_type'],
-                'field_namespace' => $this->data->namespace,
+                'field_namespace' => $this->namespace,
                 'field_data' => $field_data
             ));
 
-            if ( ! $this->data->current_field->save()) {
+            if ( ! $this->currentField->save()) {
                 ci()->session->set_flashdata('notice', lang('streams:save_field_error'));
             }
 
-            if (isset($this->data->stream) and isset($this->data->assignment)) {
+            if (isset($this->stream) and isset($this->assignment)) {
                 $post_data = array(
                     'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
                     'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
@@ -387,12 +385,12 @@ class FieldUi extends AbstractUi
                     'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
                 );
 
-                if ( ! ($edit = $this->data->assignment->getKey())) {
+                if ( ! ($edit = $this->assignment->getKey())) {
                     // Add the assignment
-                    $success = $this->data->stream->assignField($this->data->current_field, $post_data);
+                    $success = $this->stream->assignField($this->currentField, $post_data);
                 } else {
                     // Update the assignment
-                    $success = $this->data->assignment->update($post_data);
+                    $success = $this->assignment->update($post_data);
                 }
 
                 if( ! $success) {
@@ -409,7 +407,7 @@ class FieldUi extends AbstractUi
             }
         }
 
-        $this->data->parameters = FieldTypeManager::buildParameters($field_type, $this->data->namespace, $this->data->current_field);
+        $this->parameters = FieldTypeManager::buildParameters($field_type, $this->namespace, $this->currentField);
 
 
         // -------------------------------------
@@ -419,20 +417,20 @@ class FieldUi extends AbstractUi
         foreach ($validation as $field) {
             if ( ! isset($_POST[$field['field']]) and $this->id) {
                 // We don't know where the value is. Hooray
-                if (isset($this->data->current_field->{$field['field']})) {
-                    $this->data['field']->{$field['field']} = $this->data->current_field->{$field['field']};
+                if (isset($this->currentField->{$field['field']})) {
+                    $this['field']->{$field['field']} = $this->currentField->{$field['field']};
                 } else {
-                    $this->data['field']->{$field['field']} = $assignment->{$field['field']};
+                    $this['field']->{$field['field']} = $assignment->{$field['field']};
                 }
             } else {
-                $this->data['field']->{$field['field']} = ci()->input->post($field['field']);
+                $this['field']->{$field['field']} = ci()->input->post($field['field']);
             }
         }
 
         // -------------------------------------
         // Run field setup events
         // -------------------------------------
-        EntryFormBuilder::runFieldSetupEvents($this->data->current_field);
+        EntryFormBuilder::runFieldSetupEvents($this->currentField);
 
         // -------------------------------------
         // Build page
@@ -442,9 +440,9 @@ class FieldUi extends AbstractUi
 
         // Set the cancel URI. If there is no cancel URI, then we won't
         // have a cancel button.
-        $this->data->cancel_uri = $this->cancel_uri;
+        $this->cancel_uri = $this->cancel_uri;
 
-        $this->data->content = ci()->load->view('streams_core/fields/form', $this->data, true);
+        $this->content = ci()->load->view('streams_core/fields/form', $this->attributes, true);
 
         return $this;
     }
