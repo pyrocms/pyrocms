@@ -53,15 +53,15 @@
 	<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
 		
-		<?php if (! empty($exit_redirect)): ?>
+		<?php if (! empty($exitRedirect)): ?>
 		<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
 		<?php endif; ?>
 
-		<?php if (! empty($create_redirect)): ?>
+		<?php if (! empty($createRedirect)): ?>
 		<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
 		<?php endif; ?>
 
-		<?php if (! empty($continue_redirect)): ?>
+		<?php if (! empty($continueRedirect)): ?>
 		<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
 		<?php endif; ?>
 

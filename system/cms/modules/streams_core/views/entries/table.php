@@ -6,7 +6,7 @@
 		<thead>
 			<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
-					<?php foreach ($field_names as $field_slug=>$field_name): ?>
+					<?php foreach ($fieldNames as $fieldSlug => $fieldName): ?>
 					<?php
 
 						// Get our query string
@@ -18,7 +18,7 @@
 						$original_query_string = $query_string;
 
 						// Set the order slug
-						$query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] = $field_slug;
+						$query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] = $fieldSlug;
 
 						// Set the sort string
 						$query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] = 
@@ -31,7 +31,7 @@
 						// Determine our caret for this item
 						$caret = false;
 
-						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $field_slug)
+						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $fieldSlug)
 							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
 								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
 									$caret = '&#9650;';
@@ -43,7 +43,7 @@
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
-								<?php echo $field_name; ?>
+								<?php echo $fieldName; ?>
 								<?php if ($caret) echo $caret; ?>
 							</a>
 						</th>
@@ -59,12 +59,12 @@
 
 				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
+				<?php if (! $viewOptions->isEmpty()): foreach( $viewOptions as $viewOption ): ?>
 				<td>
 
 					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php echo $entry->getStringOutput($view_option); ?>
+					<?php echo $entry->getFormatter()->getStringOutput($viewOption); ?> 
 
 				</td>
 				<?php endforeach; endif; ?>

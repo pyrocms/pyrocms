@@ -9,11 +9,11 @@
 			<div class="input">
 				<?php
 
-				if ($current_field->isFieldNameLang()) {
-					echo '<p><em>'.$current_field->field_name.'</em></p>';
-					echo form_hidden('field_name', $current_field->field_name);
+				if ($currentField->isFieldNameLang()) {
+					echo '<p><em>'.$currentField->field_name.'</em></p>';
+					echo form_hidden('field_name', $currentField->field_name);
 				} else {
-					echo form_input('field_name', $current_field->field_name, 'maxlength="60" id="field_name" autocomplete="off"');
+					echo form_input('field_name', $currentField->field_name, 'maxlength="60" id="field_name" autocomplete="off"');
 				}
 
 				?></div>
@@ -22,7 +22,7 @@
 
 		<li>
 			<label for="field_slug"><?php echo lang('streams:label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
-			<div class="input"><?php echo form_input('field_slug', $current_field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
+			<div class="input"><?php echo form_input('field_slug', $currentField->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
 		<?php if (isset($stream)): ?>
@@ -61,7 +61,7 @@
 
 			if($this->uri->segment(4) == 'edit'):
 
-				$ajax_url .= '/edit/'.$current_field->id;
+				$ajax_url .= '/edit/'.$currentField->id;
 
 			endif;
 
@@ -69,7 +69,7 @@
 
 		<li>
 			<label for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>
-			<div class="input"><?php echo form_dropdown('field_type', $field_types, $current_field->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type"'); ?></div>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $currentField->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type"'); ?></div>
 		</li>
 
 		<div id="parameters">
@@ -83,8 +83,9 @@
 		<div class="float-right buttons">
 
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
-		<?php if ($cancel_uri): ?>
-		<a href="<?php echo site_url($cancel_uri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		
+		<?php if ($cancelUri): ?>
+			<a href="<?php echo site_url($cancelUri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
 		<?php endif; ?>
 
 	</div>

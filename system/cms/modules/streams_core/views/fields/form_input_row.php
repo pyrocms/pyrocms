@@ -8,4 +8,4 @@
 
 </label>
 
-<div class="input"><?php echo $field_type->formInput(); ?></div>
+<div class="input"><?php echo $field_type->getInput(); ?></div>

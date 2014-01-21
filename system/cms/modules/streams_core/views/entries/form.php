@@ -18,38 +18,36 @@
 
 </div>
 
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
-
-	
+<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 <div class="float-right buttons">
 	<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
 	
-	<?php if (! empty($exit_redirect)): ?>
+	<?php if (! empty($exitRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($create_redirect)): ?>
+	<?php if (! empty($createRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($continue_redirect)): ?>
+	<?php if (! empty($continueRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
 	<?php endif; ?>
 
-	<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+	<a href="<?php echo site_url(isset($cancelUri) ? $cancelUri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
 </div>
 
 
-<?php if (isset($disable_form_open) and ! $disable_form_open): echo form_close(); endif; ?>
+<?php if (isset($disableFormOpen) and ! $disableFormOpen): echo form_close(); endif; ?>
 
 <?php else: ?>
 
 <div class="no_data">
 	<?php
 
-		if (isset($no_fields_message) and $no_fields_message) {
-			echo lang_label($no_fields_message);
+		if (isset($noFieldsMessage) and $noFieldsMessage) {
+			echo lang_label($noFieldsMessage);
 		} else {
 			echo lang('streams:no_fields_msg_first');
 		}
