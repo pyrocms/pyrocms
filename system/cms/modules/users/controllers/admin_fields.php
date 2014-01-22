@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Cp;
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams_core\FieldUi;
 
 /**
  * Admin User Fields
@@ -56,7 +55,7 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		Cp\Fields::assignmentsTable('profiles', 'users')
+		FieldUi::assignmentsTable('profiles', 'users')
 			->title(lang('user:profile_fields_label'))
 			->pagination(Settings::get('records_per_page'), 'admin/users/fields/index')
 			->buttons($buttons)
