@@ -348,8 +348,8 @@ class AddonTypeManager
 		// -------------------------
 		// Load the language file
 		// -------------------------
-		if (is_dir($path) and is_dir($path.'/language'))
-		{
+		if (is_dir($path) and is_dir($path.'/language')) {
+            
 			$lang = ci()->config->item('language');
 
 			// Fallback on English.
@@ -371,13 +371,17 @@ class AddonTypeManager
 			$instance->name = lang_label('lang:'.static::$type_slug[get_called_class()].':'.$type.'.name');
 		}
 
+        // Type name (plural) is languagized
+        if ( ! isset($instance->plural)) {
+            $instance->plural = lang_label('lang:'.static::$type_slug[get_called_class()].':'.$type.'.plural');
+        }
+
 		// Type description is languagized
 		if ( ! isset($instance->description)) {
 			$instance->description = lang_label('lang:'.static::$type_slug[get_called_class()].':'.$type.'.description');
 		}
 
-		if (isset(ci()->profiler))
-		{
+		if (isset(ci()->profiler)) {
 			ci()->profiler->log->info($class.' loaded');
 		}
 
