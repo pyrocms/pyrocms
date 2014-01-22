@@ -24,23 +24,21 @@
 </div>
 <!-- /.panel-body -->
 
-
 <?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
-
 
 <?php if (!$form_override): ?>
 <div class="panel-footer">
 	<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 	
-	<?php if (! empty($exit_redirect)): ?>
+	<?php if (! empty($exitRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_exit" class="btn btn-success"><?php echo lang('buttons:save_exit'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($create_redirect)): ?>
+	<?php if (! empty($createRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_create" class="btn btn-info"><?php echo lang('buttons:save_create'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($continue_redirect)): ?>
+	<?php if (! empty($continueRedirect)): ?>
 	<button type="submit" name="btnAction" value="save_continue" class="btn btn-info"><?php echo lang('buttons:save_continue'); ?></button>
 	<?php endif; ?>
 
@@ -49,23 +47,20 @@
 <?php endif; ?>
 
 
-<?php if (!$form_override): ?>
-<?php echo form_close();?>
-<?php endif; ?>
-
+<?php if (isset($disableFormOpen) and ! $disableFormOpen): echo form_close(); endif; ?>
 
 <?php else: ?>
 
 
 <div class="alert alert-info m">
+
 <?php
 
-	if (isset($no_fields_message) and $no_fields_message) {
-		echo lang_label($no_fields_message);
-	} else {
-		echo lang('streams:no_fields_msg_first');
-	}
-
+	if (isset($noFieldsMessage) and $noFieldsMessage) {
+        echo lang_label($noFieldsMessage);
+    } else {
+        echo lang('streams:no_fields_msg_first');
+    }
 ?>
 </div>
 

@@ -4,7 +4,7 @@ use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\StreamModel;
-use Pyro\Module\Variables\VariableEntryModel;
+use Pyro\Module\Variables\Model\VariablesVariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -60,19 +60,18 @@ class Admin extends Admin_Controller
 
 		$extra['return'] = 'admin/variables';
 */
-		EntryUi::table('Pyro\Module\Variables\VariableEntryModel')
+		EntryUi::table('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
+			->fields(array(
+				'name',
+				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
+				'syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
+			))
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
 			->filters(array('name'))
-			->fields(array(
-				'name',
-				'data' => array(
-					'format' => 'string',
-					'template' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>'
-				),
-				'lang:streams:column_syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
-			))
+			->pagination(2, 'admin/variables')
 			->redirect('admin/variables')
+			->cancelUri('admin/variables')
 			->render();
 	}
 
@@ -93,7 +92,7 @@ class Admin extends Admin_Controller
 			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		EntryUi::form('Pyro\Module\Variables\VariableEntryModel')
+		EntryUi::form('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
 			->title(lang('variables:create_title').$form)
 			->successMessage(lang('variables:add_success'))
 			->defaults($defaults)
@@ -111,7 +110,7 @@ class Admin extends Admin_Controller
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
 
-		$variable = VariableEntryModel::find($id);
+		$variable = VariablesVariableEntryModel::find($id);
 
 		$form = $this->selectable_fields_form($variable, '---', true);
 
@@ -129,7 +128,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = null)
 	{
-		$variable = VariableEntryModel::find($id);
+		$variable = VariablesVariableEntryModel::find($id);
 
 		$name = $variable->name;
 
@@ -146,7 +145,7 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$stream = StreamModel::findBySlugAndNamespace('variables', 'variables');
+		$stream = VariablesVariableEntryModel::getStream();
 
 		$field_type = FieldTypeManager::getType('field');
 

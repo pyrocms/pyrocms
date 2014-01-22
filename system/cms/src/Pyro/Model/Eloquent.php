@@ -245,6 +245,13 @@ abstract class Eloquent extends Model
     {
         return null;
     }
+
+    public function getRelation($attribute)
+    {
+        if (isset($this->relations[$attribute])) return $this->relations[$attribute];
+
+        return null;
+    }
 }
 
 /* End of file Eloquent.php */

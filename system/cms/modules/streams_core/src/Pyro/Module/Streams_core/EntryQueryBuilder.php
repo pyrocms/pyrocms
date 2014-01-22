@@ -45,11 +45,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
         $this->entries = $this->getModels($columns);
 
-        foreach ($this->entries as $entry) {
-            // Pass our custom properties to the queried models
-            $this->model->passProperties($entry);
-        }
-
         // If we actually found models we will also eager load any relationships that
         // have been specified as needing to be eager loaded, which will solve the
         // n+1 query issue for the developers to avoid running a lot of queries.

@@ -2,20 +2,8 @@
 
 use Illuminate\Support\Str;
 
-class AbstractCallable
+abstract class AbstractCallable extends Fluent
 {
-    /**
-     * Instance
-     * @var [type]
-     */
-    protected static $instance;
-
-    /**
-     * Callback trigger prefix
-     * @var string
-     */
-    protected $callback_trigger_prefix = 'fire_';
-
 	/**
 	 * Registered callbacks
 	 * @var array
@@ -23,10 +11,10 @@ class AbstractCallable
 	protected $callbacks = array();
 
     /**
-     * Chain trigger method
+     * Callback trigger prefix
      * @var string
      */
-    protected $chain_trigger_method;
+    const CALLBACK_TRIGGER_PREFIX = 'fire_';
 
     /**
      * Chain trigger method prefix
@@ -35,26 +23,12 @@ class AbstractCallable
     const TRIGGER_PREFIX = 'trigger';
 
     /**
-     * Get the instance
-     * @param  boolean $render 
-     * @return object         
-     */
-    protected static function instance($method = null)
-    {
-        $instance = new static;
-
-        $instance->chain_trigger_method = $method;
-
-        return $instance;
-    }
-
-    /**
      * Get trigger method
      * @return string
      */
     protected function getTriggerMethod()
     {
-        return static::TRIGGER_PREFIX.Str::studly($this->chain_trigger_method);
+        return static::TRIGGER_PREFIX.Str::studly($this->triggerMethod);
     }
 
 	/**
@@ -71,25 +45,26 @@ class AbstractCallable
     {
         if (is_callable($method_callable))
         {
-        	$this->callbacks[camel_case($this->callback_trigger_prefix.$method_name)] = \Closure::bind($method_callable, $this, get_class());
+        	$this->callbacks[camel_case(static::CALLBACK_TRIGGER_PREFIX.$method_name)] = \Closure::bind($method_callable, $this, get_class());
         }
     }
  
  	/**
- 	 * Hook into PHP calls to look for callbacks
- 	 * @param  strign $method_name 
- 	 * @param  array  $args        
- 	 * @return function              
+ 	 * Handle dynamic calls to the container to set attributes 
+     * or Hook into PHP calls to look for callbacks
+ 	 * @param  strign $method 
+ 	 * @param  array  $parameters        
+ 	 * @return function|\Illuminate\Support\Fluent      
  	 */
-	public function __call($method_name, array $args)
+	public function __call($method, $parameters)
     {
-        if (isset($this->callbacks[$method_name]))
+        if (isset($this->callbacks[$method]))
         {
-            return call_user_func_array($this->callbacks[$method_name], $args);
+            return call_user_func_array($this->callbacks[$method], $parameters);
         }
-        else
-        {
-        	return null;
-        }
+
+        $this->attributes[$method] = count($parameters) > 0 ? $parameters[0] : true;
+
+        return $this;
     }
 }

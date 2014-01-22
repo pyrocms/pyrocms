@@ -8,5 +8,5 @@
 </label>
 
 <div  class="col-lg-10">
-	<?php echo $field_type->formInput(); ?>
+	<?php echo $field_type->getInput(); ?>
 </div>

@@ -12,7 +12,7 @@
 			<thead>
 				<tr>
 					<?php if ($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
-					<?php foreach ($field_names as $field_slug=>$field_name): ?>
+					<?php foreach ($fieldNames as $fieldSlug => $fieldName): ?>
 					<?php
 
 						// Replace relation: from Cp voodoo
@@ -27,7 +27,7 @@
 						$original_query_string = $query_string;
 
 						// Set the order slug
-						$query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] = $field_slug;
+						$query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] = $fieldSlug;
 
 						// Set the sort string
 						$query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] = 
@@ -40,7 +40,7 @@
 						// Determine our caret for this item
 						$caret = false;
 
-						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $field_slug)
+						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $fieldSlug)
 							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
 								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
 									$caret = 'fa fa-caret-up';
@@ -52,8 +52,8 @@
 						?>
 						<th>
 							<a href="<?php echo site_url(uri_string()).'?'.http_build_query($query_string); ?>">
-								<?php echo empty($field_name) ? (substr($field_slug, 0, 5) == 'lang:' ? lang_label($field_slug) : humanize($field_slug)) : $field_name; ?>
-								<?php if ($caret) echo '<b class="'.$caret.'"></b>'; ?>
+								<?php echo $fieldName; ?>
+                                <?php if ($caret) echo $caret; ?>
 							</a>
 						</th>
 
@@ -68,12 +68,21 @@
 
 					<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
+<<<<<<< HEAD
 					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
 					<td>
+=======
+				<?php if (! $viewOptions->isEmpty()): foreach( $viewOptions as $viewOption ): ?>
+				<td>
+>>>>>>> refs/heads/2.3/develop
 
 						<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
+<<<<<<< HEAD
 						<?php echo $entry->getStringOutput($view_option); ?>
+=======
+					<?php echo $entry->getFormatter()->getStringOutput($viewOption); ?> 
+>>>>>>> refs/heads/2.3/develop
 
 					</td>
 					<?php endforeach; endif; ?>

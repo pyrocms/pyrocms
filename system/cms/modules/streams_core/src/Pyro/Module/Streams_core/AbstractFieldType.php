@@ -323,7 +323,7 @@ abstract class AbstractFieldType
      * Set the defaults
      * @param array $defaults
      */
-    public function setDefaults(array $defaults = array())
+    public function setDefaults($defaults = array())
     {
         $this->defaults = $defaults;
     }
@@ -531,6 +531,11 @@ abstract class AbstractFieldType
     public function formInputRow()
     {
         return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field_type' => $this));
+    }
+
+    public function getInput()
+    {
+        return defined('ADMIN_THEME') ? $this->formInput() : $this->publicFormInput();
     }
 
     /**

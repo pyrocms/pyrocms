@@ -134,66 +134,6 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Format entry as data
-     * @param  array $attribute_keys
-     * @return object
-     */
-    public function asData($attribute_keys = null)
-    {
-        $this->format = static::FORMAT_DATA;
-
-        return $this->replicateWithOutput($attribute_keys);
-    }
-
-    /**
-     * Keep entry format as Eloquent
-     * @param  array $attribute_keys
-     * @return object
-     */
-    public function asEloquent()
-    {
-        $this->format = static::FORMAT_ELOQUENT;
-
-        return $this;
-    }
-
-    /**
-     * Keep entry format as Original
-     * @param  array $attribute_keys
-     * @return object
-     */
-    public function asOriginal()
-    {
-        $this->format = static::FORMAT_ORIGINAL;
-
-        return $this;
-    }
-
-    /**
-     * Format entry for Plugin use
-     * @param  array $attribute_keys
-     * @return object
-     */
-    public function asPlugin($attribute_keys = null)
-    {
-        $this->format = static::FORMAT_PLUGIN;
-
-        return $this->replicateWithOutput($attribute_keys);
-    }
-
-    /**
-     * Form entry as String
-     * @param  array $attribute_keys
-     * @return object
-     */
-    public function asString($attribute_keys = null)
-    {
-        $this->format = static::FORMAT_STRING;
-
-        return $this->replicateWithOutput($attribute_keys);
-    }
-
-    /**
      * Get entry
      * @param  string $stream_slug
      * @param  string $stream_namespace
@@ -333,67 +273,6 @@ class EntryModel extends Eloquent
         return $this->getAssignments()->getFieldSlugs();
     }
 
-    public function setFieldMaps($field_maps = array())
-    {
-        $this->field_maps = $field_maps;
-
-        return $this;
-    }
-
-    /**
-     * Is data format
-     * @return boolean
-     */
-    public function isDataFormat()
-    {
-        return ($this->format == static::FORMAT_DATA);
-    }
-
-    /**
-     * Is eloquent format
-     * @return boolean
-     */
-    public function isEloquentFormat()
-    {
-        return ($this->format == static::FORMAT_ELOQUENT);
-    }
-
-    /**
-     * Is original format
-     * @return boolean
-     */
-    public function isOriginalFormat()
-    {
-        return ($this->format == static::FORMAT_ORIGINAL);
-    }
-
-    /**
-     * Is plugin format
-     * @return boolean
-     */
-    public function isPluginFormat()
-    {
-        return ($this->format == static::FORMAT_PLUGIN);
-    }
-
-    /**
-     * Is string format
-     * @return boolean
-     */
-    public function isStringFormat()
-    {
-        return ($this->format == static::FORMAT_STRING);
-    }
-
-    /**
-     * What format dawg?
-     * @return string
-     */
-    public function getFormat()
-    {
-        return $this->format;
-    }
-
     /**
      * Create a new form builder
      * @return object
@@ -415,13 +294,6 @@ class EntryModel extends Eloquent
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
         throw new Exception\EntryModelNotFoundException;
-    }
-
-    public function getRelation($attribute)
-    {
-        if (isset($this->relations[$attribute])) return $this->relations[$attribute];
-
-        return null;
     }
 
     /**
@@ -456,6 +328,13 @@ class EntryModel extends Eloquent
     public function flushCacheCollection()
     {
         ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
+    }
+
+    public function getFormatter()
+    {
+        $formatter = new EntryFormatter;
+
+        return $formatter->entry($this);
     }
 
     /**
@@ -703,11 +582,6 @@ class EntryModel extends Eloquent
         return $return_data;
     }
 
-    public function runFieldPreSave()
-    {
-
-    }
-
     /**
      * Get all the non-field standard columns for entries as an array
      * @return array An array of standard columns
@@ -734,92 +608,6 @@ class EntryModel extends Eloquent
     public function getAllColumnsExclude()
     {
        return array_diff($this->getAllColumns(), $this->model->getColumns());
-    }
-
-    /**
-     * Set view options
-     * @param $columns
-     */
-    public function setViewOptions(array $columns = null)
-    {
-        if ($columns) {
-            $this->view_options = $columns;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get view options
-     * @return array
-     */
-    public function getViewOptions()
-    {
-        if ($this->hasAsterisk($this->view_options)) {
-
-            if ($stream_view_options = $this->getStream()->view_options and ! empty($stream_view_options)) {
-                return $stream_view_options;
-            } else {
-                return $this->default_view_options;
-            }
-        }
-
-        return $this->view_options;
-    }
-
-    public function getViewOptionsFields()
-    {
-        $columns = array();
-
-        foreach ($this->getViewOptions() as $key => $column) {
-
-            if (is_string($key)) {
-
-                $segments = explode(':', $key);
-
-                $columns[] = $segments[count($segments)-1];
-
-            } else {
-
-                $columns[] = $column;
-
-            }
-        }
-
-        return $columns;
-    }
-
-    /**
-     * Get view options field names
-     * @return array
-     */
-    public function getViewOptionsFieldNames()
-    {
-        $field_names = array();
-
-        $fields = $this->getAssignments()->getArrayIndexedBySlug();
-
-        foreach ($this->getViewOptions() as $key => $value) {
-            if (Str::startsWith($key, 'lang:')) {
-                $field_names[$value] = lang_label($key);
-
-                continue;
-            }
-
-            $value = is_numeric($key) ? $value : $key;
-
-            $segments = explode(':', $value);
-
-            $value = $segments[count($segments)-1];
-
-            $field_names[$value] = isset($fields[$value]) ? $fields[$value]->field_name : 'lang:streams:'.$value.'.name';
-        }
-
-        foreach ($field_names as &$value) {
-            $value = lang_label($value);
-        }
-
-        return $field_names;
     }
 
     /**
@@ -918,161 +706,6 @@ class EntryModel extends Eloquent
         return $reflection->isSubclassOf($class);
     }
 
-    public function toOutputArray()
-    {
-        $output = array();
-
-        foreach ($this->getAttributeKeys() as $attribute) {
-
-            $output[$attribute] = $this->getOutput($attribute);
-
-        }
-
-        return $output;
-    }
-
-    public function getEloquentOutput($attribute)
-    {
-        return parent::getAttribute($attribute);
-    }
-
-    public function getOriginalOutput($attribute)
-    {
-        return $this->getOriginal($attribute);
-    }
-
-    public function getDataOutput($attribute)
-    {
-        if ($type = $this->getFieldType($attribute)) {
-
-            $type->setStream($this->getStream());
-
-            return $type->dataOutput($attribute);
-        }
-
-        return $this->getEloquentOutput($attribute);
-    }
-
-    public function getPluginOutput($attribute)
-    {
-        if ($type = $this->getFieldType($attribute)) {
-
-            // Set value - entry - stream
-            $type->setValue($this->{$attribute})->setEntry($this)->setStream($this->stream);
-
-            return $type->pluginOutput($attribute);
-        } elseif ($attribute == 'id') {
-            return (string) $this->id;
-        }
-
-        return $this->getEloquentOutput($attribute);
-    }
-
-    /**
-     * String output
-     * @param  string
-     * @return string
-     */
-    public function getStringOutput($attribute)
-    {
-        if ( ! empty($this->field_maps[$attribute]) and ! $this->disable_field_maps) {
-
-            $template = $this->field_maps[$attribute];
-
-            $entry = $this;
-
-            if (is_array($template)) {
-                $format = isset($template['format']) ? $template['format'] : null;
-
-                switch ($format) {
-
-                    case 'string':
-                        $entry = $this->asString($attribute);
-                        break;
-
-                    case 'plugin':
-                        $entry = $this->asPlugin($attribute);
-                        break;
-
-                    case 'data':
-                        $entry = $this->asData($attribute);
-                        break;
-
-                    default:
-                        $entry = $this;
-                        break;
-                }
-
-                $template = isset($template['template']) ? $template['template'] : null;
-            }
-
-            return ci()->parser->parse_string($template, array('entry' => $entry->toArray()), true, false, array(
-                'stream' => $this->stream_slug,
-                'namespace' => $this->stream_namespace
-            ));
-
-        } elseif ($type = $this->getFieldType($attribute)) {
-
-            return $type->stringOutput();
-
-        }
-
-        return $this->getEloquentOutput($attribute);
-    }
-
-    public function disableFieldMaps($disable_field_maps = false)
-    {
-        $this->disable_field_maps = $disable_field_maps;
-
-        return $this;
-    }
-
-    public function getOutput($attribute)
-    {
-        // Disable field maps to avoid recursion
-        $this->disableFieldMaps(true);
-
-        // Get formatted output
-        $output = $this->{'get'.Str::studly($this->format).'Output'}($attribute);
-
-        // Reenable field maps
-        $this->disableFieldMaps(false);
-
-        return $output;
-    }
-
-    /**
-     * Replicate
-     * @return object The clone entry
-     */
-    public function replicate()
-    {
-        $entry = parent::replicate();
-
-        $this->passProperties($entry);
-
-        return $entry;
-    }
-
-    public function replicateWithOutput($attribute_keys = null)
-    {
-        if (is_string($attribute_keys)) {
-            $attribute_keys = array($attribute_keys);
-        }
-
-        $clone = $this->replicate();
-
-        if (empty($attribute_keys)) {
-            $attribute_keys = $this->getAttributeKeys();
-        }
-
-        foreach ($attribute_keys as $attribute) {
-            $clone->setAttribute($attribute, $this->getOutput($attribute));
-        }
-
-        return $clone;
-    }
-
     /**
      * New collection instance
      * @param  array  $entries
@@ -1110,16 +743,15 @@ class EntryModel extends Eloquent
      * @param  object $instance
      * @return object
      */
-    public function passProperties(EntryModel $model = null)
+/*    public function passProperties(EntryModel $model = null)
     {
         $model
-            ->setFieldMaps($this->field_maps)
             ->setViewOptions($this->view_options);
 
         $model->exists = $model->getKey() ? true : false;
 
         return $model;
-    }
+    }*/
 
     /**
      * Handle dynamic method calls into the method.
@@ -1138,8 +770,8 @@ class EntryModel extends Eloquent
         return parent::__call($method, $parameters);
     }
 */
-    public function toJson($options = 0)
+/*    public function toJson($options = 0)
     {
         return json_encode($this->toOutputArray(), $options);
-    }
+    }*/
 }

@@ -1,8 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
-// The CP driver is broken down into more logical classes
-
 use Closure;
+use Pyro\Module\Streams_core\Exception\ClassNotInstanceOfEntryException;
 
 class EntryUi extends AbstractUi
 {
@@ -16,18 +15,17 @@ class EntryUi extends AbstractUi
      * The filter events that have run
      * @var array
      */
-    public $field_type_filter_events_run = array();
+    public $fieldTypeFilterEventsRun = array();
 
     /**
-     * Set the auto index params or false
-     * @param  mixed $params $params array or false
-     * @return object          [description]
-     */
-    public function index($params = false)
+     * Get default attributes
+     * @return array
+     */ 
+    public function getDefaultAttributes()
     {
-        $this->index = $params;
-
-        return $this;
+        return array_merge(parent::getDefaultAttributes(), array(
+            'index' => false,
+        ));
     }
 
     /**
@@ -65,50 +63,27 @@ class EntryUi extends AbstractUi
     public static function table($stream_slug, $stream_namespace = null)
     {
         // Prepare the stream, model and trigger method
-        $instance = static::instance(__FUNCTION__);
+        $instance = new static;
+
+        $instance->triggerMethod(__FUNCTION__);
 
         // If we are not passing the stream namespace we probably are passing an Entry model class
         if (! $stream_namespace) {
-            $instance->model = new $stream_slug;    
+            $model = new $stream_slug;
         } else {
             $class = $instance->getEntryModelClass($stream_slug, $stream_namespace);
-            $instance->model = new $class; 
+            $model = new $class;     
         }
 
-        $instance->query = $instance->model->newQuery();
-
-        $instance->data->stream = $instance->model->getStream();
-
-        $instance->data->stream_fields = $instance->model->getAssignments();
-
-        $instance->field_slugs = $instance->model->getFieldSlugs();
-
-        $instance->with($instance->model->getRelationFieldsSlugs());
-
-          // -------------------------------------
-        // Sorting
-        // @since 2.1.5
-        // -------------------------------------
-
-        if ($instance->data->stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true)) {
-            $instance->data->stream->sorting = 'custom';
-
-            // As an added measure of obsurity, we are going to encrypt the
-            // slug of the module so it isn't easily changed.
-            ci()->load->library('encrypt');
-
-            // We need some variables to use in the sort.
-            ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='
-                .$instance->data->stream->id.'; var stream_offset='.$offset
-                .'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug'])
-                .'";</script>');
-
-            ci()->template->append_js('streams/entry_sorting.js');
+        if ( ! ($model instanceof EntryDataModel) and ! ($model instanceof EntryModel)) {
+            throw new ClassNotInstanceOfEntryException;
         }
 
-        //$limit = ($instance->pagination) ? $pagination : null;
-
-        return $instance;
+        return $instance
+            
+            ->with($model->getRelationFieldsSlugs())
+            
+            ->model($model);
     }
 
 
@@ -118,13 +93,24 @@ class EntryUi extends AbstractUi
      */
     protected function triggerTable()
     {
-        $this->data->buttons		= $this->buttons;
+        $this->formatter($this->model->getFormatter());
 
-        $this->data->filters 		= isset($extra['filters']) ? $extra['filters'] : $this->filters;
+        $this->formatter->viewOptions($this->fields);
 
-        $this->data->search_id 		= isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null;
+        $this
+            ->assignments($this->model->getAssignments())
+            
+            ->query($this->model->newQuery())
+            
+            ->stream($this->model->getStream())
+            
+            ->viewOptions($this->formatter->getViewOptions())
+            
+            ->fieldNames($this->formatter->getViewOptionsFieldNames())
 
-        $this->runFieldTypeFilterEvents();
+            ->searchId(isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null)
+
+            ->runFieldTypeFilterEvents();
 
         // Allow to modify the query before we execute it
         // We pass the model to get access to its methods but you also can run query builder methods against it
@@ -133,35 +119,43 @@ class EntryUi extends AbstractUi
             $this->query = $query;
         }
 
-
-
-        $this->model->setViewOptions($this->view_options);
-
-        if (isset($this->data->view_options) and is_array($this->data->view_options)) {
-            $this->select = array_unique(array_merge($this->data->view_options, array('id')));
-            $this->select = array_unique(array_merge($this->data->view_options, $this->select));
+/*        if (isset($this->view_options) and is_array($this->view_options)) {
+            $this->select = array_unique(array_merge($this->view_options, array('id')));
+            $this->select = array_unique(array_merge($this->view_options, $this->select));
         }
         if (is_array($this->select)) {
             $this->select = array_unique($this->select);
         }
-
-        $this->data->entries = $this->model->with((array) $this->eagerLoads)
-            ->enableAutoEagerLoading(true)
+*/
+        $this->entries = $this->model
+            ->with((array) $this->with)
             ->take($this->limit)
             ->skip($this->offset)
-            ->get();
+            ->get($this->select);
 
-        $this->data->view_options =	$this->model->getViewOptionsFields();
+        if ($this->limit > 0) {
+            $this->paginationTotalRecords($this->model->count());    
+        }
+        
+        if ($this->get('sorting', $this->stream->sorting) == 'custom') {
+            $instance->stream->sorting = 'custom';
 
-        $this->data->field_names 	= $this->model->getViewOptionsFieldNames();
+            // As an added measure of obsurity, we are going to encrypt the
+            // slug of the module so it isn't easily changed.
+            ci()->load->library('encrypt');
 
-        if ( ! empty($this->headers)) {
-            $this->data->field_names = array_merge($this->data->field_names, $this->headers);
+            // We need some variables to use in the sort.
+            ci()->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='
+                .$this->stream->id.'; var stream_offset='.$offset
+                .'; var streams_module="'.ci()->encrypt->encode(ci()->module_details['slug'])
+                .'";</script>');
+
+            ci()->template->append_js('streams/entry_sorting.js');
         }
 
-        $this->data->pagination = ! ($this->limit > 0) ?: $this->getPagination($this->model->count());
+        $this->content = ci()->load->view('streams_core/entries/table', $this->attributes, true);
 
-        $this->data->content = ci()->load->view('streams_core/entries/table', $this->data, true);
+        return $this;
     }
 
     /**
@@ -177,37 +171,39 @@ class EntryUi extends AbstractUi
         ci()->load->library(array('form_validation'));
 
         // Prepare the stream, model and trigger method
-        $instance = static::instance(__FUNCTION__);
+        $instance = new static;
+
+        $instance->triggerMethod(__FUNCTION__);
 
         if ($instance->isSubclassOfEntryModel($mixed)) {
-            $instance->entry = new $mixed;
+            $instance->entryModel = new $mixed;
 
             if (is_numeric($stream_namespace)) {
                 $id = $stream_namespace;
 
-                $instance->entry = $instance->entry->find($id);
+                $instance->entryModel = $instance->entryModel->find($id);
             }
+        
         } elseif ($mixed instanceof EntryModel and $mixed->getKey()) {
-            $instance->entry = $mixed;
+        
+            $instance->entryModel = $mixed;
+        
         } else {
 
             if ($stream_namespace) {
                 $mixed = $class = $instance->getEntryModelClass($mixed, $stream_namespace);
             }
 
-            $instance->entry = new $mixed;
-            $instance->stream = $instance->entry->getStream();
+            $instance->entryModel = new $mixed;
             
             if ($id) {
-                $instance->entry = $instance->entry->find($id);
+                $instance->entryModel = $instance->entryModel->find($id);
             }
         }
 
-        if (! $instance->entry) {
+        if (! $instance->entryModel) {
             // Throw error;
         }
-
-        $instance->entry->asEloquent();
 
         return $instance;
     }
@@ -218,46 +214,29 @@ class EntryUi extends AbstractUi
      */
     protected function triggerForm()
     {
-        $this->fireOnSaving($this->entry);
+        $this->fireOnSaving($this->entryModel);
 
         // Automatically index in search?
         if ($this->index) {
-            $this->entry->setSearchIndexTemplate($this->index);
+            $this->entryModel->setSearchIndexTemplate($this->index);
         }
-
-        $this->form = $this->entry->newFormBuilder()
-            ->setDefaults($this->defaults)
-            ->setSkips($this->skips)
-            ->setHidden($this->hidden)
-            ->enableSave($this->enable_save)
-            ->successMessage($this->success_message)
-            ->redirect($this->redirect)
-            ->exitRedirect($this->exit_redirect)
-            ->continueRedirect($this->continue_redirect)
-            ->createRedirect($this->create_redirect)
-            ->cancelUri($this->cancel_uri);
-
-        $this->data->stream 	= $this->entry->getStream();
-        $this->data->tabs		= $this->tabs;
-        $this->data->hidden 	= $this->hidden;
-        $this->data->defaults	= $this->defaults;
-        $this->data->entry		= $this->entry;
-        $this->data->mode		= $this->mode;
-        $this->data->fields		= $this->form->buildForm() ?: new FieldCollection;
-
-        $this->data->form_override 		= $this->form_override;
+        $this->stream   = $this->entryModel->getStream();
+        $this->form = $this->entryModel->newFormBuilder()
+            ->addAttributes($this->attributes);
+        
+        $this->fields		= $this->form->buildForm() ?: new FieldCollection;
 
         if ($this->getIsMultiForm()) {
 
-            $original_fields = $this->data->fields;
+            $original_fields = $this->fields;
 
-            $this->data->fields = array();
+            $this->fields = array();
 
             foreach ($original_fields as $field_slug => $field) {
-                $this->data->fields[$this->data->stream->stream_slug.':'.$this->data->stream->stream_namespace.':'.$field_slug] = $field;
+                $this->fields[$this->stream->stream_slug.':'.$this->stream->stream_namespace.':'.$field_slug] = $field;
             }
 
-            $this->data->fields->merge($this->nested_fields);
+            $this->fields->merge($this->nested_fields);
         }
 
         if ($saved = $this->form->result() and $this->enable_save and ! $this->is_nested_form) {
@@ -268,22 +247,22 @@ class EntryUi extends AbstractUi
 
                 // Boring.
                 case 'save':
-                    $url = site_url(ci()->parser->parse_string($this->data->redirect, $saved->toArray(), true));
+                    $url = site_url(ci()->parser->parse_string($this->redirect, $saved->toArray(), true));
                     break;
 
                 // Exit
                 case 'save_exit':
-                    $url = site_url(ci()->parser->parse_string($this->data->exit_redirect, $saved->toArray(), true));
+                    $url = site_url(ci()->parser->parse_string($this->exitRedirect, $saved->toArray(), true));
                     break;
 
                 // Create
                 case 'save_create':
-                    $url = site_url(ci()->parser->parse_string($this->data->create_redirect, $saved->toArray(), true));
+                    $url = site_url(ci()->parser->parse_string($this->createRedirect, $saved->toArray(), true));
                     break;
 
                 // Continue
                 case 'save_continue':
-                    $url = site_url(ci()->parser->parse_string($this->data->continue_redirect, $saved->toArray(), true));
+                    $url = site_url(ci()->parser->parse_string($this->continueRedirect, $saved->toArray(), true));
                     break;
 
                 // Donknow
@@ -295,14 +274,14 @@ class EntryUi extends AbstractUi
             redirect($url);
         }
 
-        $this->data->form_url  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
+        $this->formUrl  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
 
-        if (empty($this->data->tabs)) {
-            $this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/form', $this->data, true);
+        if (empty($this->tabs)) {
+            $this->content  = ci()->load->view($this->view ?: 'streams_core/entries/form', $this->attributes, true);
         } else {
-            $this->data->tabs = $this->distributeFields($this->data->tabs, $this->data->fields->getFieldSlugs());
+            $this->tabs = $this->distributeFields($this->tabs, $this->fields->getFieldSlugs());
 
-            $this->data->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->data, true);
+            $this->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->attributes, true);
         }
 
         return $this;
@@ -350,23 +329,22 @@ class EntryUi extends AbstractUi
     // $stream_fields, $skips = array(), $values = array()
     public function runFieldTypeFilterEvents()
     {
-        if ( ! $this->data->stream_fields or ( ! is_array($this->data->stream_fields) and ! is_object($this->data->stream_fields))) return null;
+        if ( ! $this->assignments or ( ! is_array($this->assignments) and ! is_object($this->assignments))) return null;
 
-        foreach ($this->data->stream_fields as $field) {
+        foreach ($this->assignments as $field) {
             // We need the slug to go on.
-            if ( ! $type = $field->getType($this->entry)) {
+            if ( ! $type = $field->getType($this->entryModel)) {
                 continue;
             }
 
             $type->setStream($this->model->getStream());
 
-            if ( ! in_array($field->field_slug, $this->skips)) {
+            if ( ! in_array($field->field_slug, $this->get('skips', array()))) {
                 // If we haven't called it (for dupes),
                 // then call it already.
-                if ( ! in_array($field->field_type, $this->field_type_filter_events_run)) {
+                if ( ! in_array($field->field_type, $this->fieldTypeFilterEventsRun)) {
                     $type->filterEvent();
-
-                    $this->field_type_filter_events_run[] = $field->field_type;
+                    $this->fieldTypeFilterEventsRun[] = $field->field_type;
                 }
 
                 // Field filter events run per field regardless of it the type

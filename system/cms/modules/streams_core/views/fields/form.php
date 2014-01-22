@@ -34,7 +34,12 @@
 		</label>
 
 		<div class="col-lg-10">
-			<?php echo form_input('field_slug', $current_field->field_slug, 'maxlength="60" class="form-control" id="field_slug"'); ?>
+            <?php if ($currentField->isFieldNameLang()): ?>
+                <p><em><?php echo $currentField->field_name; ?></em></p>
+                <?php echo form_hidden('field_name', $currentField->field_name); ?>
+            <?php else: ?>
+                <?php echo form_input('field_name', $currentField->field_name, 'maxlength="60" class="form-control" id="field_name"'); ?>
+            <?php endif; ?>
 		</div>
 
 	</div>
@@ -106,13 +111,24 @@
 		// We send some special params in an edit situation
 		$ajax_url = 'streams/ajax/build_parameters';
 
+<<<<<<< HEAD
 		if($this->uri->segment(4) == 'edit'):
+=======
+				$ajax_url .= '/edit/'.$currentField->id;
+>>>>>>> refs/heads/2.3/develop
 
 			$ajax_url .= '/edit/'.$current_field->id;
 
 		endif;
 
+<<<<<<< HEAD
 	?>
+=======
+		<li>
+			<label for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $currentField->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type"'); ?></div>
+		</li>
+>>>>>>> refs/heads/2.3/develop
 
 	<div class="form-group">
 	<div class="row">
@@ -127,6 +143,14 @@
 	</div>
 		
 
+<<<<<<< HEAD
+=======
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		
+		<?php if ($cancelUri): ?>
+			<a href="<?php echo site_url($cancelUri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		<?php endif; ?>
+>>>>>>> refs/heads/2.3/develop
 
 	<div id="parameters">
 	
