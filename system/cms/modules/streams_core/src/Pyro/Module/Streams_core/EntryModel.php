@@ -277,9 +277,11 @@ class EntryModel extends Eloquent
      * Create a new form builder
      * @return object
      */
-    public function newFormBuilder()
+    public function newFormBuilder(array $attributes = array())
     {
-        return new EntryFormBuilder($this);
+        $formBuilder = new EntryFormBuilder($this);
+
+        return $formBuilder->mergeAttributes($attributes);
     }
 
     /**
@@ -346,9 +348,6 @@ class EntryModel extends Eloquent
     public function save(array $options = array())
     {
         $this->flushCacheCollection();
-
-        // Allways the format as eloquent for saving
-        $this->asEloquent();
 
         $fields = $this->getAssignments();
 
