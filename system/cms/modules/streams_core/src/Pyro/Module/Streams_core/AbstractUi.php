@@ -7,9 +7,11 @@ use Pyro\Support\AbstractCallable;
 abstract class AbstractUi extends AbstractCallable
 {
     /**
-     * Construct and bring in assets
+     * Boot
+     * 
+     * @return void
      */
-    public function __construct(array $attributes = array())
+    public function boot()
     {
         ci()->load->language('streams_core/pyrostreams');
         ci()->load->config('streams_core/streams');
@@ -18,67 +20,99 @@ abstract class AbstractUi extends AbstractCallable
         if (is_dir(APPPATH.'libraries/Streams')) {
             ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
         }
-
-        parent::__construct($attributes);
     }
 
      /**
      * Get default attributes
+     * 
      * @return array
      */
     public function getDefaultAttributes()
     {
         return array(
-            'addUri' => null,
-            'allowSetColumnTitle' => false,
             'assignments' => array(),
-            'cancelUri' => null,
-            'continueRedirect' => null,
-            'createRedirect' => null,
+            'content' => null,
             'defaults' => array(),
             'disableFormOpen' => array(),
+            'enableNestedForm' => false,
+            'enableSetColumnTitle' => false,
             'enableSave' => true,
+            'errorStart'                => null,
+            'errorEnd'                  => null,
             'fieldTypeEventsRun' => array(),
             'fieldTypePublicEventsRun' => array(),
             'fieldTypes' => array(),
             'fields' => null,
             'filters' => array(),
+            'formUrl' => null,
             'hidden' => array(),
+            'index' => false,
+            'messageError' => null,
+            'messageSuccess' => null,
             'method' => 'new',
             'mode' => 'new',
             'noEntriesMessage' => null,
             'noFieldsMessage' => null,
             'orderBy' => null,
             'orderDirection' => 'asc',
+            'pagination' => null,
             'returnValidationRules' => false,
             'recaptcha' => false,
-            'redirect' => null,
+            'redirectCreate' => null,
+            'redirectSave' => null,
+            'redirectSaveContinue' => null,
+            'redirectSaveExit' => null,
             'result' => null,
             'select' => array('*'),
             'skips' => array(),
             'stream' => null,
-            'successMessage' => null,
             'tabs' => null, // @todo - we might rename this to fieldGroups, more generic
+            'uriAdd' => null,
+            'uriCancel' => null,
+            'viewOverride' => false,
+            'formOverride' => false,
             'values' => array(),
-            'exitRedirect' => null,
         );
     }
 
-    public function addForm(EntryUi $entry_ui)
+    /**
+     * Get valid redirects
+     * 
+     * @return array
+     */
+    public function getValidRedirects()
     {
-        if ($stream = $entry_ui->getStream()) {
-            $instance = $entry_ui->isNestedForm(true)->triggerForm();
+        return array(
+            'create',
+            'save',
+            'saveExit',
+            'saveContinue'
+        );
+    }
 
-            foreach ($instance->getFields() as $field_slug => $field) {
-                $this->nested_fields[$stream->stream_slug.':'.$stream->stream_namespace.':'.$field_slug] = $field;
-            }
+    /**
+     * Messages
+     * 
+     * @return Pyro\Module\Streams_core\AbstractUi 
+     */
+    public function messages(array $messages = array())
+    {
+        foreach ($messages as $key => $value) {
+            $method = Str::camel($key).'Message';
+            $this->{$method}($value);
         }
 
         return $this;
     }
 
+    public function errors($start = null, $end = null)
+    {
+        return $this->errorStart($start)->errorEnd($end);
+    }
+
     /**
      * Get entry model class
+     * 
      * @param $stream_slug
      * @param $stream_namespace
      * @return string
@@ -90,8 +124,9 @@ abstract class AbstractUi extends AbstractCallable
 
     /**
      * Total Records
+     * 
      * @param  integer $totalRecords The total records
-     * @return array                 The pagination array
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     protected function paginationTotalRecords($paginationTotalRecords = null)
     {
@@ -107,9 +142,6 @@ abstract class AbstractUi extends AbstractCallable
 
             $this->attributes['pagination'] = $pagination;
 
-        } else {
-
-            $this->attributes['pagination'] = null;
         }
 
         return $this;
@@ -117,6 +149,7 @@ abstract class AbstractUi extends AbstractCallable
 
     /**
      * Get is multi form value
+     * 
      * @return boolean
      */
     public function getIsMultiForm()
@@ -125,13 +158,13 @@ abstract class AbstractUi extends AbstractCallable
     }
 
     /**
-     * Set is_nested_form value
-     * @param  boolean
-     * @return object
+     * Get the object after triggering all the modifiers
+     * 
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
-    public function isNestedForm($is_nested_form = false)
+    public function getUi()
     {
-        $this->is_nested_form = $is_nested_form;
+        $this->render(true);
 
         return $this;
     }
@@ -151,21 +184,9 @@ abstract class AbstractUi extends AbstractCallable
     }
 
     /**
-     * Get the object after triggering all the modifiers
-     * @param  boolean $array
-     * @return object or array
-     */
-    public function getUi()
-    {
-        $this->render(true);
-
-        return $this;
-    }
-
-    /**
      * Set title
      * @param  string $title
-     * @return object
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     public function title($title = null)
     {
@@ -177,77 +198,24 @@ abstract class AbstractUi extends AbstractCallable
     }
 
     /**
-     * View
-     * @param  string $view [description]
-     * @return [type]       [description]
-     */
-/*    public function view($view = null, $data = array())
-    {
-        $this->view = $view;
-        $this->mergeData($data);
-
-        return $this;
-    }*/
-
-    /**
      * View wrapper
      * @param  string $viewWrapper
      * @param  array  $data
-     * @return object
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
-    public function viewWrapper($viewWrapper = null, $data = array())
+    public function viewWrapper($viewWrapper = null, array $attributes = array())
     {
         $this->viewWrapper = $viewWrapper;
         
-        if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $this->attributes[$key] = $value;
-            }            
-        }
+        $this->mergeAttributes($attributes);
 
         return $this;
     }
 
-    /**
-     * Set view override option
-     * @param  boolean $view_override
-     * @return object
-     */
-/*    public function viewOverride($view_override = false)
-    {
-        $this->view_override = $view_override;
-
-        return $this;
-    }
-*/
-    /**
-     * Set form override option
-     * @param  boolean $form_override
-     * @return object
-     */
-/*    public function formOverride($form_override = false)
-    {
-        $this->form_override = $form_override;
-
-        return $this;
-    }
-*/
-    /**
-     * Set the limit
-     * @param  integer $limit
-     * @return object
-     */
-/*    public function limit($limit = 0)
-    {
-        $this->limit = $limit;
-
-        return $this;
-    }
-*/
     /**
      * On query callback
      * @param  function $callback
-     * @return object
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     public function onQuery(Closure $callback = null)
     {
@@ -259,7 +227,7 @@ abstract class AbstractUi extends AbstractCallable
     /**
      * On saved callback
      * @param  function $callback
-     * @return object
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     public function onSaved(Closure $callback)
     {
@@ -271,7 +239,7 @@ abstract class AbstractUi extends AbstractCallable
     /**
      * On saving callback
      * @param  function $callback
-     * @return object
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     public function onSaving(Closure $callback)
     {
@@ -281,46 +249,10 @@ abstract class AbstractUi extends AbstractCallable
     }
 
     /**
-     * Set order direction
-     * @param  string $direction
-     * @return object
-     */
-/*    public function orderDirection($direction = 'asc')
-    {
-        $this->direction = $direction;
-
-        return $this;
-    }
-*/
-    /**
-     * Set order by
-     * @param  string $column
-     * @return object
-     */
-/*    public function orderBy($column = null)
-    {
-        $this->order_by = $column;
-
-        return $this;
-    }*/
-
-    /**
-     * Set defaults
-     * @param  array  $defaults
-     * @return object
-     */
-/*    public function defaults(array $defaults = array())
-    {
-        $this->defaults = $defaults;
-
-        return $this;
-    }*/
-
-    /**
      * Set pagination config
-     * @param  [type] $pagination     [description]
-     * @param  [type] $paginationUri [description]
-     * @return [type]                 [description]
+     * @param  integer $pagination
+     * @param  string $paginationUri
+     * @return Pyro\Module\Streams_core\AbstractUi
      */
     public function pagination($limit = null, $paginationUri = null)
     {
@@ -349,30 +281,6 @@ abstract class AbstractUi extends AbstractCallable
         return $this;
     }
 
-    /**
-     * Set skipped fields
-     * @param  array  $skips
-     * @return object
-     */
-/*    public function skips(array $skips = array())
-    {
-        $this->skips = $skips;
-
-        return $this;
-    }
-*/
-    /**
-     * Set enable saving
-     * @param  boolean $enable_saving
-     * @return object
-     */
-/*    public function enableSave($enable_save = false)
-    {
-        $this->enable_save = $enable_save;
-
-        return $this;
-    }
-*/
     /**
      * Set excluded types
      * @param  array  $exclude_types
@@ -410,6 +318,65 @@ abstract class AbstractUi extends AbstractCallable
 
         return $this;
     }*/
+
+    /**
+     * Redirect
+     * 
+     * @param string|array $redirect
+     * @return Pyro\Module\Streams_core\AbstractUi
+     */ 
+    public function redirect($redirect = null)
+    {
+        if (is_string($redirect)) {
+
+            $this->redirectSave($redirect);
+
+        } elseif (is_array($redirect)) {
+            foreach ($redirect as $key => $value) {
+                $this->{'redirect'.Str::studly($key)}($value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Run redirect
+     * 
+     * @param null|object|array $data
+     * @return void
+     */
+    protected function runRedirect($data = null, $actionName = 'btnAction')
+    {
+        $uri = site_url(uri_string());
+
+        $action = ci()->input->post($actionName);
+
+        foreach ($this->getValidRedirects() as $name) {
+            if ($action == Str::camel($name)) {
+                $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
+            }
+        }
+
+        redirect($uri);
+    }
+
+    /**
+     * Uris
+     * 
+     * @param array $uris
+     * @return Pyro\Module\Streams_core\AbstractUi
+     */ 
+    public function uris(array $uris = array())
+    {
+        if (is_array($uris)) {
+            foreach ($uris as $key => $value) {
+                $this->{'uri'.Str::studly($key)}($value);
+            }
+        }
+
+        return $this;
+    }
 
     /**
      * Render the object when treated as a string
