@@ -84,8 +84,8 @@
 
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
 		
-		<?php if ($cancelUri): ?>
-			<a href="<?php echo site_url($cancelUri); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
+		<?php if ($uriCancel): ?>
+			<a href="<?php echo site_url($uriCancel); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
 		<?php endif; ?>
 
 	</div>

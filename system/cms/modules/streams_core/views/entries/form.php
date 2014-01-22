@@ -23,19 +23,19 @@
 <div class="float-right buttons">
 	<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
 	
-	<?php if (! empty($exitRedirect)): ?>
+	<?php if (! empty($redirectSave)): ?>
 	<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($createRedirect)): ?>
-	<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
+	<?php if (! empty($redirectCreate)): ?>
+	<button type="submit" name="btnAction" value="create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($continueRedirect)): ?>
+	<?php if (! empty($redirectSaveContinue)): ?>
 	<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
 	<?php endif; ?>
 
-	<a href="<?php echo site_url(isset($cancelUri) ? $cancelUri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+	<a href="<?php echo site_url($uriCancel ?: 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
 </div>
 
 

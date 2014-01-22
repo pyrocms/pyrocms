@@ -105,8 +105,8 @@
 <div class="no_data">
 	<?php
 
-		if (isset($no_entries_message) and $no_entries_message) {
-			echo lang_label($no_entries_message);
+		if (! empty($messageNoEntries)) {
+			echo lang_label($messageNoEntries);
 		} else {
 			echo lang('streams:no_entries');
 		}
