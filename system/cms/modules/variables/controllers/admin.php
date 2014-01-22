@@ -70,8 +70,6 @@ class Admin extends Admin_Controller
 			->buttons($buttons)
 			->filters(array('name'))
 			->pagination(2, 'admin/variables')
-			->redirect('admin/variables')
-			->cancelUri('admin/variables')
 			->render();
 	}
 
@@ -94,7 +92,9 @@ class Admin extends Admin_Controller
 
 		EntryUi::form('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
 			->title(lang('variables:create_title').$form)
-			->successMessage(lang('variables:add_success'))
+			->messages(array(
+				'success' => lang('variables:add_success'),
+			))
 			->defaults($defaults)
 			->redirect('admin/variables')
 			->render();
@@ -116,7 +116,9 @@ class Admin extends Admin_Controller
 
 		EntryUi::form($variable)
 			->title('Edit '.$form)
-			->successMessage(sprintf(lang('variables:edit_success'), $variable->name))
+			->messages(array(
+				'success' => sprintf(lang('variables:edit_success'), $variable->name),
+			))
 			->redirect('admin/variables')
 			->render();
 	}
