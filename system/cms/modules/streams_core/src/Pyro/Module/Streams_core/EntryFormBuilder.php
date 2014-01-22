@@ -90,11 +90,11 @@ class EntryFormBuilder extends AbstractUi
      *
      * - email_notifications
      * - return
-     * - success_message
-     * - error_message
-     * - error_start
-     * - error_end
-     * - required
+     * - messageSuccess
+     * - messageError
+     * - errorStart
+     * - errorEnd
+     * - outputRequired
      *
      * @return	array - fields
      */
@@ -163,7 +163,7 @@ class EntryFormBuilder extends AbstractUi
                 if ( ! $this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if ( ! $this->entry->save()) {
-                        ci()->session->set_flashdata('notice', lang_label($this->error_message));
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
 
@@ -179,11 +179,11 @@ class EntryFormBuilder extends AbstractUi
 
                         // -------------------------------------
 
-                        ci()->session->set_flashdata('success', lang_label($this->success_message));
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 } else { // edit
-                    if ( ! $this->entry->save() and $this->error_message) {
-                        ci()->session->set_flashdata('notice', lang_label($this->error_message));
+                    if ( ! $this->entry->save() and $this->messageError) {
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
 
@@ -199,7 +199,7 @@ class EntryFormBuilder extends AbstractUi
 
                         // -------------------------------------
 
-                        ci()->session->set_flashdata('success', lang_label($this->success_message));
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 }
             }

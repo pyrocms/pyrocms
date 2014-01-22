@@ -98,7 +98,7 @@ abstract class AbstractUi extends AbstractCallable
     public function messages(array $messages = array())
     {
         foreach ($messages as $key => $value) {
-            $method = Str::camel($key).'Message';
+            $method = 'message'.Str::studly($key);
             $this->{$method}($value);
         }
 
