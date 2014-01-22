@@ -16,7 +16,7 @@
 					<?php
 
 						// Replace relation: from Cp voodoo
-						$field_slug = str_replace('relation:', '', $field_slug);
+						$fieldSlug = str_replace('relation:', '', $fieldSlug);
 
 						// Get our query string
 						$query_string = array();
@@ -68,21 +68,12 @@
 
 					<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-<<<<<<< HEAD
-					<?php if (is_array($view_options)): foreach( $view_options as $view_option ): ?>
+					<?php if (! $viewOptions->isEmpty()): foreach($viewOptions as $viewOption): ?>
 					<td>
-=======
-				<?php if (! $viewOptions->isEmpty()): foreach( $viewOptions as $viewOption ): ?>
-				<td>
->>>>>>> refs/heads/2.3/develop
 
 						<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-<<<<<<< HEAD
-						<?php echo $entry->getStringOutput($view_option); ?>
-=======
-					<?php echo $entry->getFormatter()->getStringOutput($viewOption); ?> 
->>>>>>> refs/heads/2.3/develop
+						<?php echo $entry->getFormatter()->getStringOutput($viewOption); ?> 
 
 					</td>
 					<?php endforeach; endif; ?>

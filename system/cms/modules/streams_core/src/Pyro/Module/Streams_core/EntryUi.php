@@ -220,11 +220,11 @@ class EntryUi extends AbstractUi
         if ($this->index) {
             $this->entryModel->setSearchIndexTemplate($this->index);
         }
-        $this->stream   = $this->entryModel->getStream();
-        $this->form = $this->entryModel->newFormBuilder()
-            ->addAttributes($this->attributes);
+
+        $this->stream = $this->entryModel->getStream();
+        $this->form = $this->entryModel->newFormBuilder()->addAttributes($this->attributes);
         
-        $this->fields		= $this->form->buildForm() ?: new FieldCollection;
+        $this->fields = $this->form->buildForm() ?: new FieldCollection;
 
         if ($this->getIsMultiForm()) {
 

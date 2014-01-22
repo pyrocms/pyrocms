@@ -620,7 +620,7 @@ class EntryModel extends Eloquent
             $column = $this->getTitleColumn();
         }
 
-        return $this->getEloquentOutput($column);
+        return $this->getAttribute($column);
     }
 
     /**
@@ -632,7 +632,7 @@ class EntryModel extends Eloquent
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if (! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
+        if (! trim($title_column) or ! $this->getAttribute($title_column)) {
             $title_column = $this->getKeyName();
         }
 
