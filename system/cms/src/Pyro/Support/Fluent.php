@@ -10,7 +10,17 @@ class Fluent extends IlluminateFluent
 	public function __construct(array $attributes = array())
 	{
 		parent::__construct(array_merge($this->getDefaultAttributes(), $attributes));
+
+		$this->boot();
 	}
+
+	/**
+	 * Boot - initialize things on the construct without having to call parent
+	 * 
+	 * @return @void
+	 */
+	public function boot()
+	{}
 
 	/**
 	 * Get default attributes
@@ -28,7 +38,7 @@ class Fluent extends IlluminateFluent
 	 * @param attributes - array
 	 * @return Pyro\Support\Fluent
 	 */ 
-    protected function addAttributes(array $attributes = array())
+    protected function mergeAttributes(array $attributes = array())
     {
         $this->attributes = array_merge($this->attributes, $attributes);
 
