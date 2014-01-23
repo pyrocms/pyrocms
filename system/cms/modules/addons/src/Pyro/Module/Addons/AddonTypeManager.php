@@ -341,7 +341,8 @@ class AddonTypeManager
 
 		// Set asset paths
 		$instance->path = $path;
-		$instance->path_views = $path.'/views/';
+        $instance->path_views = $path.'/views/';
+        $instance->path_img = $path.'/img/';
 		$instance->path_css = $path.'/css/';
 		$instance->path_js = $path.'/js/';
 
