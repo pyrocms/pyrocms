@@ -261,6 +261,8 @@ class Admin extends Admin_Controller
 
         $enable_save = false;
 
+        $entryModelClass = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
+
         if ($input = ci()->input->post()) {
 
             // Do they have permission to proceed?
@@ -274,7 +276,7 @@ class Admin extends Admin_Controller
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
             $page->parent_id        = isset($parent_id) ? (int) $parent_id : 0;
             $page->type_id          = (int) $page_type->id;
-            $page->entry_type       = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
+            $page->entry_type       = $entryModelClass;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : null;
@@ -339,7 +341,7 @@ class Admin extends Admin_Controller
 
         $this->form_data['parent_page'] = $parent_page;
 
-        EntryUi::form($stream->stream_slug, $stream->stream_namespace)
+        EntryUi::form($entryModelClass)
             ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
@@ -350,9 +352,13 @@ class Admin extends Admin_Controller
                 $page->save();
             })
             ->tabs($this->_tabs())
-            ->successMessage('Page saved.') // @todo - language
-            ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->messages(array(
+                'success' => 'Page saved.'
+            )) // @todo - language
+            ->redirect(array(
+                'save' => 'admin/pages',
+                'saveContinue' => 'admin/pages/edit/{{ url:segments segment="4" }}'
+            ))
             ->index($this->_index_template)
             ->render();
     }

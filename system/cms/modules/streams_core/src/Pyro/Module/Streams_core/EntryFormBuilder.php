@@ -1,7 +1,5 @@
 <?php namespace Pyro\Module\Streams_core;
 
-use Pyro\Support\Fluent;
-
 /**
  * PyroStreams Core Fields Library
  *
@@ -13,7 +11,7 @@ use Pyro\Support\Fluent;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class EntryFormBuilder extends Fluent
+class EntryFormBuilder extends AbstractUi
 {
     /**
      * Field type events run
@@ -40,61 +38,38 @@ class EntryFormBuilder extends Fluent
             $attributes['method'] = $entry->getKey() ? 'edit' : 'new';
         }
 
-        ci()->load->helper('form');
+        ci()->load->helper(array('form', 'url'));
 
         parent::__construct($attributes);
     }
     
+    public function boot()
+    {
+        // -------------------------------------
+        // Set default messages
+        // -------------------------------------
+        $this->messages(array(
+            'success'   => 'lang:streams:'.$this->method.'_entry_success',
+            'error'     => 'lang:streams:'.$this->method.'_entry_error'
+        ));
+    }
+
     /**
      * Get default attributes
      * @return array
      */
     public function getDefaultAttributes()
     {
-        return array(
-            'assignments' => array(),
-            'cancelUri' => null,
-            'continueRedirect' => null,
-            'createRedirect' => null,
-            'defaults' => array(),
-            'enableSave' => true,
-            'fieldTypeEventsRun' => array(),
-            'fieldTypePublicEventsRun' => array(),
-            'fieldTypes' => array(),
-            'fields' => null,
-            'method' => 'new',
-            'returnValidationRules' => false,
-            'recaptcha' => false,
-            'redirect' => null,
-            'result' => null,
-            'skips' => array(),
-            'stream' => null,
-            'successMessage' => null,
-            'values' => array(),
-            'exitRedirect' => null,
-        );
-    }
-
-    /**
-     * Set skips
-     * @param array $skips
-     */
-    public function setSkips($skips = array())
-    {
-        $this->skips = $skips;
-
-        return $this;
-    }
-
-    /**
-     * Set hidden
-     * @param array $hidden
-     */
-    public function setHidden($hidden = array())
-    {
-        $this->hidden = $hidden;
-
-        return $this;
+        return array_merge(parent::getDefaultAttributes(), array(
+            'emailNotifications'        => null,
+            'fieldTypeEventsRun'        => array(),
+            'fieldTypePublicEventsRun'  => array(),
+            'returnValidationRules'     => false,
+            'recaptcha'                 => false,
+            'redirect'                  => current_url(),
+            'outputRequired'            => '<span>*</span>',
+            'values'                    => array(),
+        ));
     }
 
     /**
@@ -115,52 +90,18 @@ class EntryFormBuilder extends Fluent
      *
      * - email_notifications
      * - return
-     * - success_message
-     * - error_message
-     * - error_start
-     * - error_end
-     * - required
+     * - messageSuccess
+     * - messageError
+     * - errorStart
+     * - errorEnd
+     * - outputRequired
      *
      * @return	array - fields
      */
     // $stream, $this->method, $row = false, $plugin = false, $this->recaptcha = false, $skips = array(), $extra = array(), $defaults = array()
      public function buildForm()
      {
-         ci()->load->helper(array('form', 'url'));
-
-         // -------------------------------------
-        // Set default extras
         // -------------------------------------
-        $default_extras = array(
-            'email_notifications'		=> null,
-            'return'					=> current_url(),
-            'error_start'				=> null,
-            'error_end'					=> null,
-            'required'					=> '<span>*</span>',
-            'success_message'			=> 'lang:streams:'.$this->method.'_entry_success',
-            'error_message'			=> 'lang:streams:'.$this->method.'_entry_error'
-        );
-
-        ci()->load->language('streams_core/pyrostreams');
-
-        // Go through our defaults and see if anything has been
-        // passed in the $extra array to replace any values.
-        foreach ($default_extras as $key => $value) {
-            // Note that we don't check to see if the variable has
-            // a non-null value, since the $extra variables can
-            // be set to null.
-            if ( ! isset($extra[$key])) $extra[$key] = $value;
-        }
-
-        // If we don't have any messages set
-        // DO IT
-        if (empty($this->success_message))
-            $this->successMessage($extra['success_message']);
-
-        if (empty($this->error_message))
-            $this->errorMessage($extra['error_message']);
-
-         // -------------------------------------
         // Get Stream Fields
         // -------------------------------------
 
@@ -190,7 +131,7 @@ class EntryFormBuilder extends Fluent
         // Set Error Delimns
         // -------------------------------------
 
-        ci()->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
+        ci()->form_validation->set_error_delimiters($this->errorStart, $this->errorEnd);
 
         // -------------------------------------
         // Set reCAPTCHA
@@ -222,7 +163,7 @@ class EntryFormBuilder extends Fluent
                 if ( ! $this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if ( ! $this->entry->save()) {
-                        ci()->session->set_flashdata('notice', lang_label($this->error_message));
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
 
@@ -230,19 +171,19 @@ class EntryFormBuilder extends Fluent
                         // Send Emails
                         // -------------------------------------
 
-                        if (isset($extra['email_notifications']) and $extra['email_notifications']) {
-                            foreach ($extra['email_notifications'] as $notify) {
+                        if (isset($this->emailNotifications) and $this->emailNotifications) {
+                            foreach ($this->emailNotifications as $notify) {
                                 $this->sendEmail($notify, $result_id, ! $this->entry->getKey(), $stream);
                             }
                         }
 
                         // -------------------------------------
 
-                        ci()->session->set_flashdata('success', lang_label($this->success_message));
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 } else { // edit
-                    if ( ! $this->entry->save() and $this->error_message) {
-                        ci()->session->set_flashdata('notice', lang_label($this->error_message));
+                    if ( ! $this->entry->save() and $this->messageError) {
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
 
@@ -250,15 +191,15 @@ class EntryFormBuilder extends Fluent
                         // Send Emails
                         // -------------------------------------
 
-                        if (isset($extra['email_notifications']) and is_array($extra['email_notifications'])) {
-                            foreach($extra['email_notifications'] as $notify) {
+                        if (isset($this->emailNotifications) and is_array($this->emailNotifications)) {
+                            foreach($this->emailNotifications as $notify) {
                                 $this->sendEmail($notify, $result_id, $this->method = 'update', $stream);
                             }
                         }
 
                         // -------------------------------------
 
-                        ci()->session->set_flashdata('success', lang_label($this->success_message));
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 }
             }
@@ -572,110 +513,6 @@ class EntryFormBuilder extends Fluent
     }
 
     /**
-     * Set defaults
-     * @param string $defaults
-     */
-    public function setDefaults($defaults = null)
-    {
-        $this->defaults = $defaults;
-
-        return $this;
-    }
-
-    /**
-     * Set the redirect
-     * @param  string $return
-     * @return object
-     */
-    public function redirect($redirect = null)
-    {
-        $this->redirect = $redirect;
-
-        return $this;
-    }
-
-    /**
-     * Set the save/exit redirect
-     * @param  string $return
-     * @return object
-     */
-    public function exitRedirect($exit_redirect = null)
-    {
-        $this->exit_redirect = $exit_redirect;
-
-        return $this;
-    }
-
-    /**
-     * Set the save/continue redirect
-     * @param  string $return
-     * @return object
-     */
-    public function continueRedirect($continue_redirect = null)
-    {
-        $this->continue_redirect = $continue_redirect;
-
-        return $this;
-    }
-
-    /**
-     * Set the save/exit redirect
-     * @param  string $return
-     * @return object
-     */
-    public function createRedirect($create_redirect = null)
-    {
-        $this->create_redirect = $create_redirect;
-
-        return $this;
-    }
-
-    /**
-     * Set the cancel URI
-     * @param  string $cancel_uri
-     * @return object
-     */
-    public function cancelUri($cancel_uri = null)
-    {
-        $this->cancel_uri = $cancel_uri;
-
-        return $this;
-    }
-
-    /**
-     * Success messages
-     * @param  string $success_message
-     * @return object
-     */
-    public function successMessage($success_message = null)
-    {
-        $this->success_message = $success_message;
-
-        return $this;
-    }
-
-    /**
-     * Failure messages
-     * @param  string $error_message
-     * @return object
-     */
-    public function errorMessage($error_message = null)
-    {
-        $this->error_message = $error_message;
-
-        return $this;
-    }
-
-    /**
-     * The result
-     * @return mixed
-     */
-    public function result()
-    {
-        return $this->result;
-    }
-
-    /**
      * Run Field Setup Event Functions
      *
      * This allows field types to add custom CSS/JS
@@ -848,4 +685,7 @@ class EntryFormBuilder extends Fluent
 
         return $email;
     }
+
+    public function render($return = false)
+    {}
 }

@@ -103,7 +103,7 @@
 
 									<?php else: ?>
 
-										<p><em><?php echo $this->db->limit(1)->select('stream_name')->where('id', $page_type->stream_id)->get(STREAMS_TABLE)->row()->stream_name; ?></em></p>
+										<p><em><?php echo $page_type->stream->stream_name; ?></em></p>
 
 									<?php endif; ?>
 								</div>

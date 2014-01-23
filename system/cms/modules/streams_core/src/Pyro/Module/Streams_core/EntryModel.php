@@ -277,9 +277,11 @@ class EntryModel extends Eloquent
      * Create a new form builder
      * @return object
      */
-    public function newFormBuilder()
+    public function newFormBuilder(array $attributes = array())
     {
-        return new EntryFormBuilder($this);
+        $formBuilder = new EntryFormBuilder($this);
+
+        return $formBuilder->mergeAttributes($attributes);
     }
 
     /**

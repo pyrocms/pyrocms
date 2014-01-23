@@ -54,8 +54,8 @@ class FieldUi extends AbstractUi
         $instance = new static;
 
         $instance
-
-            ->triggerMethod(__FUNCTION__)
+            
+            ->triggerMethod('form')
             
             ->stream(StreamModel::findBySlugAndNamespace($stream_slug, $namespace))
             

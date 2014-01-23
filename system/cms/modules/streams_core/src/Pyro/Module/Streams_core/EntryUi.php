@@ -6,27 +6,10 @@ use Pyro\Module\Streams_core\Exception\ClassNotInstanceOfEntryException;
 class EntryUi extends AbstractUi
 {
     /**
-     * Search index params or false
-     * @var mixed
-     */
-    protected $index = false;
-
-    /**
      * The filter events that have run
      * @var array
      */
     public $fieldTypeFilterEventsRun = array();
-
-    /**
-     * Get default attributes
-     * @return array
-     */ 
-    public function getDefaultAttributes()
-    {
-        return array_merge(parent::getDefaultAttributes(), array(
-            'index' => false,
-        ));
-    }
 
     /**
      * Entries Table
@@ -79,11 +62,7 @@ class EntryUi extends AbstractUi
             throw new ClassNotInstanceOfEntryException;
         }
 
-        return $instance
-            
-            ->with($model->getRelationFieldsSlugs())
-            
-            ->model($model);
+        return $instance->model($model)->with($model->getRelationFieldsSlugs());
     }
 
 
@@ -165,7 +144,7 @@ class EntryUi extends AbstractUi
      * @param  [type] $id               [description]
      * @return [type]                   [description]
      */
-    public static function form($mixed, $stream_namespace = null, $id = null)
+    public static function form($streamSlugOrClassOrModel, $streamNamespaceOrId = null, $id = null)
     {
         // Load up things we'll need for the form
         ci()->load->library(array('form_validation'));
@@ -175,34 +154,43 @@ class EntryUi extends AbstractUi
 
         $instance->triggerMethod(__FUNCTION__);
 
-        if ($instance->isSubclassOfEntryModel($mixed)) {
-            $instance->entryModel = new $mixed;
+        $streamSlug = null;
+        $streamNamespace = null;
 
-            if (is_numeric($stream_namespace)) {
-                $id = $stream_namespace;
-
-                $instance->entryModel = $instance->entryModel->find($id);
-            }
-        
-        } elseif ($mixed instanceof EntryModel and $mixed->getKey()) {
-        
-            $instance->entryModel = $mixed;
-        
-        } else {
-
-            if ($stream_namespace) {
-                $mixed = $class = $instance->getEntryModelClass($mixed, $stream_namespace);
-            }
-
-            $instance->entryModel = new $mixed;
+        if (is_numeric($streamNamespaceOrId)) {
             
-            if ($id) {
-                $instance->entryModel = $instance->entryModel->find($id);
-            }
+            $id = $streamNamespaceOrId;
+        
+        } elseif (is_string($streamNamespaceOrId)) {
+            
+            $streamNamespace = $streamNamespaceOrId;
         }
 
-        if (! $instance->entryModel) {
-            // Throw error;
+        // Is this a model already?
+        if ($streamSlugOrClassOrModel instanceof EntryModel) {
+            
+            $instance->model = $streamSlugOrClassOrModel;
+        
+        } elseif (is_string($streamSlugOrClassOrModel) and is_string($streamNamespace)) {
+            
+            $streamSlug = $streamSlugOrClassOrModel;
+            
+            $class = $instance->getEntryModelClass($streamSlug, $streamNamespace);
+
+            $instance->model = new $class;
+        
+        } elseif (is_string($streamSlugOrClassOrModel) and ! $streamSlug and ! $streamNamespace) {
+
+            $class = $streamSlugOrClassOrModel;
+
+            $instance->model = new $class;
+        }
+
+        // If the model does not have an id and we passed one, query it
+        if ($instance->model and ! $instance->model->getKey() and is_numeric($id)) {
+        
+            $instance->model = $instance->model->find($id);
+        
         }
 
         return $instance;
@@ -214,17 +202,18 @@ class EntryUi extends AbstractUi
      */
     protected function triggerForm()
     {
-        $this->fireOnSaving($this->entryModel);
+        $this->fireOnSaving($this->model);
 
         // Automatically index in search?
         if ($this->index) {
-            $this->entryModel->setSearchIndexTemplate($this->index);
+            $this->model->setSearchIndexTemplate($this->index);
         }
 
-        $this->stream = $this->entryModel->getStream();
-        $this->form = $this->entryModel->newFormBuilder()->addAttributes($this->attributes);
+        $this->stream   = $this->model->getStream();
+        $this->assignments = $this->model->getAssignments();
+        $this->form = $this->model->newFormBuilder($this->attributes);
         
-        $this->fields = $this->form->buildForm() ?: new FieldCollection;
+        $this->fields		= $this->form->buildForm() ?: new FieldCollection;
 
         if ($this->getIsMultiForm()) {
 
@@ -239,39 +228,10 @@ class EntryUi extends AbstractUi
             $this->fields->merge($this->nested_fields);
         }
 
-        if ($saved = $this->form->result() and $this->enable_save and ! $this->is_nested_form) {
+        if ($saved = $this->form->get('result') and $this->enableSave and ! $this->isNestedForm) {
             $this->fireOnSaved($saved);
 
-            // Ooohh where to go..
-            switch (ci()->input->post('btnAction')) {
-
-                // Boring.
-                case 'save':
-                    $url = site_url(ci()->parser->parse_string($this->redirect, $saved->toArray(), true));
-                    break;
-
-                // Exit
-                case 'save_exit':
-                    $url = site_url(ci()->parser->parse_string($this->exitRedirect, $saved->toArray(), true));
-                    break;
-
-                // Create
-                case 'save_create':
-                    $url = site_url(ci()->parser->parse_string($this->createRedirect, $saved->toArray(), true));
-                    break;
-
-                // Continue
-                case 'save_continue':
-                    $url = site_url(ci()->parser->parse_string($this->continueRedirect, $saved->toArray(), true));
-                    break;
-
-                // Donknow
-                default:
-                    $url = site_url(uri_string());
-                    break;
-            }
-
-            redirect($url);
+            $this->runRedirect($saved);
         }
 
         $this->formUrl  = $_SERVER['QUERY_STRING'] ? uri_string().'?'.$_SERVER['QUERY_STRING'] : uri_string();
@@ -315,6 +275,25 @@ class EntryUi extends AbstractUi
     }
 
     /**
+     * Add form
+     * 
+     * @param  Pyro\Module\Streams_core\EntryUi
+     * @return Pyro\Module\Streams_core\EntryUi
+     */ 
+    public function addForm(EntryUi $entry_ui)
+    {
+        if ($stream = $entry_ui->getStream()) {
+            $instance = $entry_ui->isNestedForm(true)->triggerForm();
+
+            foreach ($instance->getFields() as $field_slug => $field) {
+                $this->nested_fields[$stream->stream_slug.':'.$stream->stream_namespace.':'.$field_slug] = $field;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Run Field Filter Events
      *
      * Runs all the filterEvent() functions for some
@@ -333,7 +312,7 @@ class EntryUi extends AbstractUi
 
         foreach ($this->assignments as $field) {
             // We need the slug to go on.
-            if ( ! $type = $field->getType($this->entryModel)) {
+            if ( ! $type = $field->getType($this->model)) {
                 continue;
             }
 
