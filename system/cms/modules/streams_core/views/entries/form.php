@@ -1,8 +1,8 @@
 <?php if ($fields): ?>
 
 
-<?php if (!$form_override): ?>
-<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+<?php if (!$disableFormOpen): ?>
+<?php echo form_open_multipart($formUrl, 'class="streams_form"'); ?>
 <?php endif; ?>
 
 
@@ -11,7 +11,7 @@
 
 	<?php foreach ($fields as $field): ?>
 
-		<div class="form-group <?php  echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
+		<div class="form-group <?php  echo in_array(str_replace($stream->stream_namespace.'-'.$stream->stream_slug.'-', '', $field->input_slug), $hidden) ? 'hidden' : null;  ?>">
 		<div class="row">
 			
 			<?php echo $field->input_row; ?>
@@ -26,7 +26,7 @@
 
 <?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
-<?php if (!$form_override): ?>
+<?php if (!$disableFormOpen): ?>
 <div class="panel-footer">
 	<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 	

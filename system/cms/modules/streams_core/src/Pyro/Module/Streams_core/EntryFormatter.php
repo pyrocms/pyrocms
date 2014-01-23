@@ -207,7 +207,7 @@ class EntryFormatter extends Fluent
             return ci()->parser->parse_string($this->template, array('entry' => $this->entry->toArray()), true, false, array(
                 'stream' => $this->stream_slug,
                 'namespace' => $this->stream_namespace
-            ));
+            ), false, false);
 
         } elseif ($type = $this->entry->getFieldType($fieldSlug)) {
 

@@ -347,9 +347,6 @@ class EntryModel extends Eloquent
     {
         $this->flushCacheCollection();
 
-        // Allways the format as eloquent for saving
-        $this->asEloquent();
-
         $fields = $this->getAssignments();
 
         $insert_data = array();
