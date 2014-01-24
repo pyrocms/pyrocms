@@ -78,12 +78,9 @@ abstract class AbstractExtension extends Fluent
 	{
 		$extension = $extension ? $extension : $this->slug;
 
-		if ($extension != $this->slug)
-		{
+		if ($extension != $this->slug) {
 			$extension = ExtensionManager::getExtension($extension);
-		}
-		else
-		{
+		} else {
 			$extension = $this;
 		}
 
