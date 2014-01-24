@@ -2,9 +2,9 @@
 
 use Closure;
 use Illuminate\Support\Str;
-use Pyro\Support\AbstractCallable;
+use Pyro\Support\Fluent;
 
-abstract class AbstractUi extends AbstractCallable
+abstract class AbstractUi extends Fluent
 {
     /**
      * Boot
@@ -29,16 +29,16 @@ abstract class AbstractUi extends AbstractCallable
      */
     public function getDefaultAttributes()
     {
-        return array(
+        $defaultAttributes = array(
             'assignments' => array(),
             'content' => null,
             'defaults' => array(),
-            'disableFormOpen' => array(),
+            'disableFormOpen' => false,
             'enableNestedForm' => false,
             'enableSetColumnTitle' => false,
             'enableSave' => true,
-            'errorStart'                => null,
-            'errorEnd'                  => null,
+            'errorStart' => null,
+            'errorEnd' => null,
             'fieldTypeEventsRun' => array(),
             'fieldTypePublicEventsRun' => array(),
             'fieldTypes' => array(),
@@ -58,10 +58,6 @@ abstract class AbstractUi extends AbstractCallable
             'pagination' => null,
             'returnValidationRules' => false,
             'recaptcha' => false,
-            'redirectCreate' => null,
-            'redirectSave' => null,
-            'redirectSaveContinue' => null,
-            'redirectSaveExit' => null,
             'result' => null,
             'select' => array('*'),
             'skips' => array(),
@@ -73,6 +69,15 @@ abstract class AbstractUi extends AbstractCallable
             'formOverride' => false,
             'values' => array(),
         );
+        
+        // Set redirects to null
+        $redirects = $this->getValidRedirects();
+
+        foreach ($redirects as $key) {
+            $defaultAttributes['redirect'.Str::studly($key)] = null;
+        }
+
+        return $defaultAttributes;
     }
 
     /**
@@ -104,6 +109,8 @@ abstract class AbstractUi extends AbstractCallable
 
         return $this;
     }
+
+
 
     public function errors($start = null, $end = null)
     {
@@ -331,8 +338,18 @@ abstract class AbstractUi extends AbstractCallable
 
             $this->redirectSave($redirect);
 
+            if (! $this->uriCancel) {
+                $this->uriCancel($redirect);
+            }
+
         } elseif (is_array($redirect)) {
+            
             foreach ($redirect as $key => $value) {
+
+                if ($key == 'save' and ! $this->uriCancel) {
+                    $this->uriCancel($value);
+                }
+
                 $this->{'redirect'.Str::studly($key)}($value);
             }
         }

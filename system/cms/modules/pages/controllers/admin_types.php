@@ -104,6 +104,7 @@ class Admin_types extends Admin_Controller
 
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
+		$this->load->library('form_validation');
 
 		$this->load->driver('Streams');
 	}
@@ -263,7 +264,7 @@ class Admin_types extends Admin_Controller
 		unset(static::$validate[3]);
 
 		// Set the validation rules
-		$this->form_validation->set_rules(static::$validate);
+		//$this->form_validation->set_rules(static::$validate);
 
 		$data = new stdClass;
 		$data->page_type = PageType::find($id);
@@ -324,7 +325,7 @@ class Admin_types extends Admin_Controller
 		// Loop through each validation rule
 		foreach (static::$validate as $rule) {
 			if ($this->input->post($rule['field'])) {
-				$data->page_type->{$rule['field']} = set_value($rule['field']);
+				//$data->page_type->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 

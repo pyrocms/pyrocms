@@ -505,8 +505,10 @@ class Admin extends Admin_Controller
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
             ->successMessage('Page saved.') // @todo - language
-            ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->redirect(array(
+                'save' => 'admin/pages',
+                'continue' => uri_string(),
+            ))
             ->index($this->_index_template)
             ->render();
     }
