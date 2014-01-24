@@ -190,7 +190,6 @@ class EntryUi extends AbstractUi
         if ($instance->model and ! $instance->model->getKey() and is_numeric($id)) {
         
             $instance->model = $instance->model->find($id);
-        
         }
 
         return $instance;
