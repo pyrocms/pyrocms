@@ -2,7 +2,7 @@
 
 use Pyro\Model\EloquentCollection;
 
-class AddonTypeCollection extends EloquentCollection
+class ExtensionCollection extends EloquentCollection
 {
 	/**
 	 * By slug
@@ -16,22 +16,22 @@ class AddonTypeCollection extends EloquentCollection
 
 	/**
 	 * Construct
-	 * @param array $types
+	 * @param array $extensions
 	 */
-	public function  __construct($types = array())
+	public function  __construct($extensions = array())
 	{
-		parent::__construct($types);
+		parent::__construct($extensions);
 		
-		foreach ($types as $type)
+		foreach ($extensions as $extension)
 		{
 			// Index by slug
-			if (isset($type->slug))
-				$this->by_slug[$type->slug] = $type;
+			if (isset($extension->slug))
+				$this->by_slug[$extension->slug] = $extension;
 		}
 	}
 
 	/**
-	 * Find type by slug
+	 * Find extension by slug
 	 * @param  string $slug
 	 * @return object
 	 */
@@ -47,8 +47,8 @@ class AddonTypeCollection extends EloquentCollection
 	 */
 	public function includes($include = array())
 	{
-		$this->filter(function($type) use ($include) {
-			return in_array($type->type_slug, $include);
+		$this->filter(function($extension) use ($include) {
+			return in_array($extension->slug, $include);
 		});
 	}
 
@@ -59,8 +59,8 @@ class AddonTypeCollection extends EloquentCollection
 	 */
 	public function excludes($exclude = array())
 	{
-		$this->filter(function($type) use ($exclude) {
-			return ! in_array($type->type_slug, $exclude);
+		$this->filter(function($extension) use ($exclude) {
+			return ! in_array($extension->slug, $exclude);
 		});
 	}
 }

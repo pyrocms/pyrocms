@@ -22,7 +22,7 @@ abstract class AbstractUi extends Fluent
         }
     }
 
-     /**
+    /**
      * Get default attributes
      * 
      * @return array
