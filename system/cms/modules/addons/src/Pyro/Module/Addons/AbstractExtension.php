@@ -3,48 +3,34 @@
 use Illuminate\Support\Str;
 use Pyro\Module\Addons\ExtensionManager;
 
-abstract class AbstractExtension
+use Pyro\Support\Fluent;
+
+/**
+ * Abstract Extension
+ * A great start to all your custom classes and extensions
+ * @author Ryan Thompson - AI Web Systems, Inc. <support@aiwebsystems.com>
+ * @package Pyro\Module\Addons
+ */
+abstract class AbstractExtension extends Fluent 
 {
-	/**
-	 * Assets
-	 * @var array
-	 */
-	protected $assets = array();
+    /**
+     * Get default attributes
+     * 
+     * @return array
+     */
+    public function getDefaultAttributes()
+    {
+        $defaultAttributes = array(
+            'assets' => array(),
+            'extension' => null,
+            'version' => '1.0.0',
+        );
+        
+        return $defaultAttributes;
+    }
 
 	/**
-	 * The extension object
-	 * @var object
-	 */
-	protected $extension = null;
-
-	/**
-	 * Version
-	 * @var string
-	 */
-	public $version = '1.0.0';
-
-	/**
-	 * Set extension
-	 * @param object $extension
-	 */
-	public function setExtension($extension = null)
-	{
-		$this->extension = $extension;
-
-		return $this;
-	}
-
-	/**
-	 * Get the extension
-	 * @return object 
-	 */
-	public function getExtension()
-	{
-		return $this->extension;
-	}
-
-	/**
-	 * Add a extension CSS file
+	 * Append CSS file
 	 */
 	public function css($file, $extension = null)
 	{
@@ -58,7 +44,7 @@ abstract class AbstractExtension
 	}
 
 	/**
-	 * Add a extension JS file
+	 * Append JS file
 	 */
 	public function js($file, $extension = false)
 	{
@@ -72,7 +58,7 @@ abstract class AbstractExtension
 	}
 
 	/**
-	 * Append etadata
+	 * Append metadata
 	 */
 	public function appendMetadata($html)
 	{
@@ -82,7 +68,7 @@ abstract class AbstractExtension
 	}
 
 	/**
-	 * Load a view from a extension
+	 * Load an extension view
 	 *
 	 * @param	string
 	 * @param	string
