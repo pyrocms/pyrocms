@@ -362,7 +362,7 @@ abstract class AbstractUi extends Fluent
         // There is a high probability this will be the same as uriCancel
         // so we set a default here and you can still override it
         if (! $this->uriCancel) {
-            $this->uriCancel($value);
+            $this->uriCancel($redirect);
         }
 
         return $this;
