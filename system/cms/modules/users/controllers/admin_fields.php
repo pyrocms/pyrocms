@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\FieldUi;
 
 /**
@@ -73,7 +74,7 @@ class Admin_fields extends Admin_Controller
 	{
 		// $extra['show_cancel'] 	= true;
 
-		Cp\Fields::assignmentForm('profiles', 'users')
+		FieldUi::assignmentForm('profiles', 'users')
 			->title(lang('streams:new_field'))
 			->redirects('admin/users/fields')
 			->render();
@@ -93,7 +94,7 @@ class Admin_fields extends Admin_Controller
 		}
 
 		// Tear down the assignment
-		if ( ! Data\Fields::teardownFieldAssignment($assign_id)) {
+		if ( ! FieldModel::teardownFieldAssignment($assign_id)) {
 		    $this->session->set_flashdata('notice', lang('user:profile_delete_failure'));
 		} else {
 		    $this->session->set_flashdata('success', lang('user:profile_delete_success'));
@@ -117,7 +118,7 @@ class Admin_fields extends Admin_Controller
 
 		//$extra['show_cancel'] 	= true;
 
-		Cp\Fields::assignmentForm('profiles', 'users', $assign_id)
+		FieldUi::assignmentForm('profiles', 'users', $assign_id)
 			->title(lang('streams:edit_field'))
 			->redirects('admin/users/fields')
 			->render();
