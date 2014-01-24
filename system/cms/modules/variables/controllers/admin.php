@@ -4,7 +4,7 @@ use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\StreamModel;
-use Pyro\Module\Variables\Model\VariablesVariableEntryModel;
+use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -45,18 +45,18 @@ class Admin extends Admin_Controller
 		$buttons = array(
 			array(
 				'label' => lang('global:edit'),
-				'url'	=>'admin/variables/edit/-entry_id-'
+				'url'	=>'admin/variables/edit/{{ id }}'
 			),
 			array(
 				'label' => lang('global:delete'),
-				'url'	=>'admin/variables/delete/-entry_id-',
+				'url'	=>'admin/variables/delete/{{ id }}',
 				'confirm' => true
 			),
 		);
 
 		$form = $this->selectable_fields_form();
 
-		EntryUi::table('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
+		EntryUi::table('Pyro\Module\Variables\Model\VariableEntryModel')
 			->fields(array(
 				'name',
 				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
@@ -86,7 +86,7 @@ class Admin extends Admin_Controller
 			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		EntryUi::form('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
+		EntryUi::form('Pyro\Module\Variables\Model\VariableEntryModel')
 			->title(lang('variables:create_title').$form)
 			->defaults($defaults)
 			->skips(array('foo', 'bar'))
@@ -107,7 +107,7 @@ class Admin extends Admin_Controller
 		// From cancel_uri?
 		if ($id == '-id-') redirect(site_url('admin/variables'));
 
-		$variable = VariablesVariableEntryModel::find($id);
+		$variable = VariableEntryModel::find($id);
 
 		$form = $this->selectable_fields_form($variable, '---', true);
 
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = null)
 	{
-		$variable = VariablesVariableEntryModel::find($id);
+		$variable = VariableEntryModel::find($id);
 
 		if ($variable and $variable->delete())
 		{
@@ -142,7 +142,7 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$stream = VariablesVariableEntryModel::getStream();
+		$stream = VariableEntryModel::getStream();
 
 		$field_type = FieldTypeManager::getType('field');
 

@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @package  	PyroCMS\Core\Modules\Variables\Libraries
  */
-class VariableData {
+class Variables {
 
 	private static $_vars = null;
 
@@ -69,7 +69,7 @@ class VariableData {
 	 *
 	 * @return array
 	 */
-	public static function getAll()
+	public static function all()
 	{
 		// the variables haven't been fetched yet, load them
 		if ( ! static::$_vars)
