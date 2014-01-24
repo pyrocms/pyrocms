@@ -103,6 +103,8 @@ class Fluent extends IlluminateFluent
         if (isset($this->callbacks[$method]))
         {
             return call_user_func_array($this->callbacks[$method], $parameters);
+        } elseif (substr($method, 0, 3) == 'get') {
+            return $this->get(lcfirst(substr($method, 3)), count($parameters) > 0 ? $parameters[0] : null);
         }
 
         $this->attributes[$method] = count($parameters) > 0 ? $parameters[0] : true;

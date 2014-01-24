@@ -296,12 +296,11 @@ $id = null;
             ->onSaving(function($entry) {
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
-            ->enableSave($enable_entry_save = true) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enableSave = true) // This enables the profile submittion only if the user was created successfully
             ->messages(array(
             	'success' => 'Post saved.'
             )) // @todo - language
             ->redirects('admin/blog')
-            //->index($this->_index_template)
             ->render();
 
 		/*$this->template
@@ -366,7 +365,7 @@ $id = null;
 			$hash = '';
 		}
 
-		$enable_entry_save = false;
+		$enableSave = false;
 
 		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
@@ -388,7 +387,7 @@ $id = null;
 				'preview_hash'     => $hash,
 			);
 
-			if ($enable_entry_save = $this->blog_m->update($id, $extra)) {
+			if ($enableSave = $this->blog_m->update($id, $extra)) {
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
 				// Blog article has been updated, may not be anything to do with publishing though
@@ -447,7 +446,7 @@ $id = null;
             ->onSaving(function($entry) {
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
-            ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
             ->messages(array(
             	'success' => 'Post saved.'
             )) // @todo - language

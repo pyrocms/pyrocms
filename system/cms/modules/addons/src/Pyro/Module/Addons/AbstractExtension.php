@@ -1,9 +1,8 @@
 <?php namespace Pyro\Module\Addons;
 
 use Illuminate\Support\Str;
-use Pyro\Module\Addons\ExtensionManager;
-
 use Pyro\Support\Fluent;
+use Pyro\Module\Addons\ExtensionManager;
 
 /**
  * Abstract Extension
@@ -14,6 +13,12 @@ use Pyro\Support\Fluent;
 abstract class AbstractExtension extends Fluent 
 {
     /**
+     * Extension version
+     * @var string
+     */
+    public $version = '1.0.0';
+
+    /**
      * Get default attributes
      * 
      * @return array
@@ -23,7 +28,6 @@ abstract class AbstractExtension extends Fluent
         $defaultAttributes = array(
             'assets' => array(),
             'extension' => null,
-            'version' => '1.0.0',
         );
         
         return $defaultAttributes;
@@ -74,7 +78,7 @@ abstract class AbstractExtension extends Fluent
 	 * @param	string
 	 * @param	bool
 	 */
-	public function view($view_name, $data = array(), $extension = null)
+	public function view($viewName, $data = array(), $extension = null)
 	{
 		$extension = $extension ? $extension : $this->slug;
 
@@ -88,10 +92,20 @@ abstract class AbstractExtension extends Fluent
 
 		ci()->load->set_view_path($extension->path_views);
 
-		$view_data = ci()->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->objectToArray($data), '_ci_return' => true));
+		$view_data = ci()->load->_ci_load(array('_ci_view' => $viewName, '_ci_vars' => $data, '_ci_return' => true));
 
 		ci()->load->set_view_path($paths);
 
 		return $view_data;
 	}
+
+    /**
+     * Called just before loadExtension()
+     * is finished in the manager
+     * @return void
+     */
+    public function loaded()
+    {
+        // We're loaded
+    }
 }

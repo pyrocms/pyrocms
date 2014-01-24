@@ -24,27 +24,27 @@ abstract class AbstractExtensionManager
 	 * The slug of the addon extension being worked with
 	 * @var string
 	 */
-	protected static $extension_slug = array();
+	protected static $slug = array();
 
 	/**
 	 * Places where our extensions may be
 	 *
 	 * @var		array
 	 */
-	protected static $addon_paths = array();
+	protected static $addonPaths = array();
 
 	/**
 	 * Modules where dashboards may be
 	 *
 	 * @var		array
 	 */
-	protected static $module_paths = array();
+	protected static $modulePaths = array();
 
 	/**
 	 * Core addon path
 	 * @var [extension]
 	 */
-	protected static $core_addon_path;
+	protected static $coreAddonPath;
 
 	/**
 	 * Available extensions
@@ -56,7 +56,7 @@ abstract class AbstractExtensionManager
 	 * The registry of extensions
 	 * @var array
 	 */
-	protected static $slug_classes = array();
+	protected static $extensionClasses = array();
 
 	/**
 	 * Has the classes being initiated
@@ -68,10 +68,9 @@ abstract class AbstractExtensionManager
 	 * Get instance (singleton)
 	 * @return [extension] [description]
 	 */
-	public static function init($module, $extension_slug, $preload = false)
+	public static function init($module, $slug, $preload = false)
 	{
-		if ( ! isset(static::$initiated[get_called_class()]))
-		{
+		if (! isset(static::$initiated[get_called_class()])) {
 			ci()->load->helper('directory');
 			ci()->load->language($module.'/'.$module);
 
@@ -79,32 +78,34 @@ abstract class AbstractExtensionManager
 			// This defaults to english.
 			$langs = ci()->config->item('supported_languages');
 
-			// Set the module and extension_slug
+			// Set the module and slug
 			static::$module[get_called_class()] = $module;
-			static::$extension_slug[get_called_class()] = $extension_slug;
+			static::$slug[get_called_class()] = $slug;
 
 			// Needed for installer
-			if ( ! class_exists('Settings'))
-			{
+			if ( ! class_exists('Settings')) {
 				ci()->load->library('settings/Settings');
 			}
 
 			// Set our addon paths
-			static::$addon_paths[get_called_class()] = array(
-				'addon' 		=> ADDONPATH.'extensions/'.$module.'/'.$extension_slug.'/',
-				'addon_alt' 	=> SHARED_ADDONPATH.'extensions/'.$module.'/'.$extension_slug.'/',
+			static::$addonPaths[get_called_class()] = array(
+				'addon' 		=> ADDONPATH.'extensions/'.$module.'/'.$slug.'/',
+				'addon_alt' 	=> SHARED_ADDONPATH.'extensions/'.$module.'/'.$slug.'/',
 			);
 
 			// Set module paths
 			$modules = new ModuleManager;
 
-			foreach ($modules->getAllEnabled() as $enabled_module)
-				if (is_dir($enabled_module['path'].'/extensions/'.$module.'/'.$extension_slug.'/'))
-					static::$module_paths[get_called_class()][$enabled_module['slug']] = $enabled_module['path'].'/extensions/'.$module.'/'.$extension_slug.'/';
+			foreach ($modules->getAllEnabled() as $enabledModule) {
+                if (is_dir($enabledModule['path'].'/extensions/'.$module.'/'.$slug.'/')) {
+                    static::$modulePaths[get_called_class()][$enabledModule['slug']] = $enabledModule['path'].'/extensions/'.$module.'/'.$slug.'/';
+                }
+            }
 
 			// Preload?
-			if ($preload)
-				self::preload();
+			if ($preload) {
+                self::preload();
+            }
 		}
 
 		static::$initiated[get_called_class()] = true;
@@ -117,7 +118,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function setAddonPath($key, $path)
 	{
-		static::$addon_paths[get_called_class()][$key] = $path;
+		static::$addonPaths[get_called_class()][$key] = $path;
 	}
 
 	/**
@@ -127,7 +128,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function setModulePath($key, $path)
 	{
-		static::$module_paths[get_called_class()][$key] = $path;
+		static::$modulePaths[get_called_class()][$key] = $path;
 	}
 
 	/**
@@ -136,7 +137,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getAddonPaths()
 	{
-		return static::$addon_paths[get_called_class()];
+		return static::$addonPaths[get_called_class()];
 	}
 
 	/**
@@ -145,7 +146,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getModulePaths()
 	{
-		return static::$module_paths[get_called_class()];
+		return static::$modulePaths[get_called_class()];
 	}
 
 	/**
@@ -176,7 +177,7 @@ abstract class AbstractExtensionManager
 
 		if (is_array($extensions)) {
 			foreach ($extensions as $extension) {
-				static::$slug_classes[get_called_class()][$extension] = static::getClass($extension);
+				static::$extensionClasses[get_called_class()][$extension] = static::getClass($extension);
 			}
 		}
 	}
@@ -190,7 +191,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function registerFolderExtensions($folder, $extensions = array(), $preload = false)
 	{
-		static::init(static::$module[get_called_class()], static::$extension_slug[get_called_class()]);
+		static::init(static::$module[get_called_class()], static::$slug[get_called_class()]);
 
 		if (is_string($extensions)) {
 			$extensions = array($extensions);
@@ -260,7 +261,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getClass($extension)
 	{
-		return 'Pyro\\Extension\\'.Str::studly(static::$module[get_called_class()]).'\\'.Str::studly(static::$extension_slug[get_called_class()]).'\\'.Str::studly($extension);
+		return 'Pyro\\Extension\\'.Str::studly(static::$module[get_called_class()]).'\\'.Str::studly(static::$slug[get_called_class()]).'\\'.Str::studly($extension);
 	}
 
 	/**
@@ -269,7 +270,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getClasses()
 	{
-		return static::$slug_classes[get_called_class()];
+		return static::$extensionClasses[get_called_class()];
 	}
 
 	/**
@@ -299,7 +300,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function preload()
 	{
-		static::registerFolderExtensions(static::$core_addon_path.'extensions/', true, true);
+		static::registerFolderExtensions(static::$coreAddonPath.'extensions/', true, true);
 
 		static::registerExtensions(true);
 
@@ -319,11 +320,13 @@ abstract class AbstractExtensionManager
 	// $path, $file, $extension, $mode
 	private static function loadExtension($extension)
 	{
-		if (empty($extension) or empty(static::$slug_classes[get_called_class()][$extension])) return null;
+		if (empty($extension) or empty(static::$extensionClasses[get_called_class()][$extension])) return null;
 
 		$class = static::getClass($extension);
 
 		$instance = new $class;
+
+        $type = static::$slug[get_called_class()];
 
 		$reflection = new \ReflectionClass($instance);
 
@@ -343,7 +346,7 @@ abstract class AbstractExtensionManager
 		// -------------------------
 		// Load the language file
 		// -------------------------
-		if (is_dir($path) and is_dir($path.'/language')) {
+        if (is_dir($path) and is_dir($path.'/language')) {
             
 			$lang = ci()->config->item('language');
 
@@ -356,29 +359,41 @@ abstract class AbstractExtensionManager
 				$lang = 'english';
 			}
 
-			ci()->lang->load($extension.'_lang', $lang, false, false, $path.'/');
+			ci()->lang->load($extension.'_'.$type.'_lang', $lang, false, false, $path.'/');
 
 			unset($lang);
 		}
 
 		// Extension name is languagized
 		if ( ! isset($instance->name)) {
-			$instance->name = lang_label('lang:'.static::$extension_slug[get_called_class()].':'.$extension.'.name');
+			$instance->name = lang_label('lang:'.$extension.':'.$type.'.name');
 		}
 
         // Extension name (plural) is languagized
         if ( ! isset($instance->plural)) {
-            $instance->plural = lang_label('lang:'.static::$extension_slug[get_called_class()].':'.$extension.'.plural');
+            $instance->plural = lang_label('lang:'.$extension.':'.$type.'.plural');
         }
 
 		// Extension description is languagized
 		if ( ! isset($instance->description)) {
-			$instance->description = lang_label('lang:'.static::$extension_slug[get_called_class()].':'.$extension.'.description');
+			$instance->description = lang_label('lang:'.$extension.':'.$type.'.description');
 		}
 
 		if (isset(ci()->profiler)) {
 			ci()->profiler->log->info($class.' loaded');
 		}
+
+        // Set the extension type
+        // This is helpful when same name extensions
+        // have different purposes and therefore are a 
+        // different extension type
+        // Example: 
+        //  - contact (extension) information (type)
+        //  - contact (extension) form (type)
+        $instance->type = $type;
+
+        // We're loaded
+        $instance->loaded();
 
 		return static::$extensions[get_called_class()][$extension] = $instance;
 	}
