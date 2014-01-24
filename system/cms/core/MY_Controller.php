@@ -75,6 +75,11 @@ class MY_Controller extends MX_Controller
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
         $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
+
+        // Map the streams model namespace to the site ref
+        $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
+
+        $loader->add('Pyro\\Streams\\Model', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
         
         // activate the autoloader
         $loader->register();
