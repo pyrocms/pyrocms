@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class ExtensionManager
+abstract class AbstractExtensionManager
 {
 	/**
 	 * The module we're loading addons in regards to
