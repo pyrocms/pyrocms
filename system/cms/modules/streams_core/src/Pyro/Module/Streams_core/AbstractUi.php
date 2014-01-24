@@ -336,7 +336,7 @@ abstract class AbstractUi extends Fluent
     {
         if (is_string($redirects)) {
 
-            $this->redirectsSave($redirects);
+            $this->redirectSave($redirects);
 
         } elseif (is_array($redirects)) {
             
@@ -362,7 +362,7 @@ abstract class AbstractUi extends Fluent
         // There is a high probability this will be the same as uriCancel
         // so we set a default here and you can still override it
         if (! $this->uriCancel) {
-            $this->uriCancel($value);
+            $this->uriCancel($redirect);
         }
 
         return $this;
