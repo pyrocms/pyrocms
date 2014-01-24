@@ -367,7 +367,7 @@ class FieldModel extends Eloquent
      * @param  [type] $entry [description]
      * @return [type]        [description]
      */
-    public function getType(EntryModel $entry = null)
+    public function getType($entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
 
