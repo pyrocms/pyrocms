@@ -327,31 +327,42 @@ abstract class AbstractUi extends Fluent
     }*/
 
     /**
-     * Redirect
+     * Redirects
      * 
      * @param string|array $redirect
      * @return Pyro\Module\Streams_core\AbstractUi
      */ 
-    public function redirect($redirect = null)
+    public function redirects($redirects = null)
     {
-        if (is_string($redirect)) {
+        if (is_string($redirects)) {
 
-            $this->redirectSave($redirect);
+            $this->redirectsSave($redirects);
 
-            if (! $this->uriCancel) {
-                $this->uriCancel($redirect);
-            }
-
-        } elseif (is_array($redirect)) {
+        } elseif (is_array($redirects)) {
             
-            foreach ($redirect as $key => $value) {
-
-                if ($key == 'save' and ! $this->uriCancel) {
-                    $this->uriCancel($value);
-                }
+            foreach ($redirects as $key => $value) {
 
                 $this->{'redirect'.Str::studly($key)}($value);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Redirect save
+     * 
+     * @param string $redirect
+     * @return Pyro\Module\Streams_core\AbstractUi 
+     */ 
+    public function redirectSave($redirect)
+    {
+        $this->attributes['redirectSave'] = $redirect;
+
+        // There is a high probability this will be the same as uriCancel
+        // so we set a default here and you can still override it
+        if (! $this->uriCancel) {
+            $this->uriCancel($value);
         }
 
         return $this;

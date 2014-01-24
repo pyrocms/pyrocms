@@ -93,8 +93,7 @@ class Admin extends Admin_Controller
 			->messages(array(
 				'success' => lang('variables:add_success'),
 			))
-			
-			->redirect('admin/variables')
+			->redirects('admin/variables')
 			->render();
 	}
 
@@ -117,7 +116,7 @@ class Admin extends Admin_Controller
 			->messages(array(
 				'success' => sprintf(lang('variables:edit_success'), $variable->name),
 			))
-			->redirect('admin/variables')
+			->redirects('admin/variables')
 			->render();
 	}
 

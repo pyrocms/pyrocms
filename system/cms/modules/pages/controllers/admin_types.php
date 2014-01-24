@@ -386,7 +386,9 @@ class Admin_types extends Admin_Controller
 		//$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
 		FieldUi::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' '.lang('global:fields'))
-			->addUri($page_type_uri.'/new_field')
+			->uris(
+				'add' => $page_type_uri.'/new_field'
+			))
 			->pagination(Settings::get('records_per_page'), $page_type_uri)
 			->buttons($buttons)
 			->render();
@@ -467,9 +469,8 @@ class Admin_types extends Admin_Controller
 		FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' : '.lang('streams:new_field'))
 			->skips(array('chunks'))
-			->redirect($page_type_uri)
-			->cancelUri($page_type_uri)
-			->allowSetColumnTitle(true)
+			->redirects($page_type_uri)
+			->enableSetColumnTitle(true)
 			->render();
 	}
 
@@ -485,9 +486,8 @@ class Admin_types extends Admin_Controller
 		FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
 			->title($stream->stream_name.' : '.lang('streams:edit_field'))
 			->skips(array('chunks'))
-			->redirect($page_type_uri)
-			->cancelUri($page_type_uri)
-			->allowSetColumnTitle(true)
+			->redirects($page_type_uri)
+			->enableSetColumnTitle(true)
 			->render();
 	}
 

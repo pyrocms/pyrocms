@@ -724,8 +724,10 @@ class Users extends Public_Controller
         EntryUi::form($user->profile) // We can pass the profile model to generate the form
         	->title('Edit Profile')
             ->viewWrapper('users/profile/edit', array('_user' => $user))
-            ->successMessage('Profile updated.') // @todo - language
-            ->redirect('admin/users')
+            ->messages(array(
+            	'success' => 'Profile updated.'
+            )) // @todo - language
+            ->redirects('admin/users')
             ->render();
 	}
 

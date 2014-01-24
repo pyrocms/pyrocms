@@ -75,7 +75,7 @@ class Admin_fields extends Admin_Controller
 
 		Cp\Fields::assignmentForm('profiles', 'users')
 			->title(lang('streams:new_field'))
-			->redirect('admin/users/fields')
+			->redirects('admin/users/fields')
 			->render();
 	}
 
@@ -119,7 +119,7 @@ class Admin_fields extends Admin_Controller
 
 		Cp\Fields::assignmentForm('profiles', 'users', $assign_id)
 			->title(lang('streams:edit_field'))
-			->redirect('admin/users/fields')
+			->redirects('admin/users/fields')
 			->render();
 	}
 }
