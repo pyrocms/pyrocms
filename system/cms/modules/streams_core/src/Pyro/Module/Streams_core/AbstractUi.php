@@ -336,7 +336,7 @@ abstract class AbstractUi extends Fluent
     {
         if (is_string($redirects)) {
 
-            $this->redirectsSave($redirects);
+            $this->redirectSave($redirects);
 
         } elseif (is_array($redirects)) {
             
