@@ -116,12 +116,12 @@ class FieldUi extends AbstractUi
     // trigger METHODS
     // --------------------------------------------------------------------------
     // trigger methods cannot be used directly.
-    // The corresponding trigger method will run when you call the trigger() at the end of any chain of methods.
+    // The corresponding trigger method will run when you call the render() at the end of any chain of methods.
     //
     // i.e.
-    // Cp\Fields::table()->modifier()->modifier()->modifier()->trigger();
+    // FieldUi::table()->modifier()->modifier()->modifier()->render();
     //
-    // In this example, trigger() will call triggerTable() because the first static method was table().
+    // In this example, render() will call triggerTable() because the first method was table().
     //
     // --------------------------------------------------------------------------
 

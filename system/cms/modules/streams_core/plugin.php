@@ -485,9 +485,6 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function form()
 	{
-		// Load up things we'll need for the form
-		ci()->load->library(array('form_validation'));
-
 		// Load languages desired
 		self::loadLanguages();
 
@@ -547,30 +544,36 @@ class Plugin_Streams_core extends Plugin
 		 */
 
 		if ($parameters['redirect'])
-			$form = $form->redirect($parameters['redirect']);
+			$form = $form->redirectSave($parameters['redirect']);
 		else
-			$form = $form->redirect(ci()->uri->uri_string());
+			$form = $form->redirectSave(ci()->uri->uri_string());
 
-		if ($parameters['exit_redirect'])
-			$form = $form->exitRedirect($parameters['exit_redirect']);
+		if ($parameters['redirect_exit'])
+			$form = $form->redirectExit($parameters['redirect_exit']);
 
-		if ($parameters['continue_redirect'])
-			$form = $form->continueRedirect($parameters['continue_redirect']);
+		if ($parameters['redirect_continue'])
+			$form = $form->redirectContinue($parameters['redirect_continue']);
 
-		if ($parameters['create_redirect'])
-			$form = $form->createRedirect($parameters['create_redirect']);
+		if ($parameters['redirect_create'])
+			$form = $form->redirectCreate($parameters['redirect_create']);
 
-		if ($parameters['cancel_uri'])
-			$form = $form->cancelUri($parameters['cancel_uri']);
+		if ($parameters['uri_cancel'])
+			$form = $form->uriCancel($parameters['uri_cancel']);
 
 		/**
 		 * Set success and error messages
 		 */
 
 		if (! $parameters['entry_id'])
-			$form = $form->successMessage($parameters['save_success_message'])->errorMessage($parameters['save_error_message']);
+			$form = $form->messages(array(
+				'success' => $parameters['save_message_success'],
+				'error' => $parameters['save_message_error'],
+			));
 		else
-			$form = $form->successMessage($parameters['update_success_message'])->errorMessage($parameters['update_error_message']);
+			$form = $form->messages(array(
+				'success' => $parameters['update_message_success'],
+				'error' => $parameters['update_message_error'],
+			));
 
 		/**
 		 * DONE = Fetch the object

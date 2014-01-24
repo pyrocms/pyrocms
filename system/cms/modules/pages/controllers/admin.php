@@ -259,7 +259,7 @@ class Admin extends Admin_Controller
         $stream = $page_type->stream;
         //$stream_validation = $this->_setup_stream_fields($stream);
 
-        $enable_save = false;
+        $enableSave = false;
 
         $entryModelClass = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
 
@@ -292,7 +292,7 @@ class Admin extends Admin_Controller
             $page->order            = time();
 
             // Insert the page data, along with
-            if ($enable_save = $page->save())
+            if ($enableSave = $page->save())
             {
                 $page->buildLookup();
                 
@@ -342,7 +342,7 @@ class Admin extends Admin_Controller
         $this->form_data['parent_page'] = $parent_page;
 
         EntryUi::form($entryModelClass)
-            ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
+            ->enableSave($enableSave) // This will interrupt submittion for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
@@ -355,7 +355,7 @@ class Admin extends Admin_Controller
             ->messages(array(
                 'success' => 'Page saved.'
             )) // @todo - language
-            ->redirect(array(
+            ->redirects(array(
                 'save' => 'admin/pages',
                 'saveContinue' => 'admin/pages/edit/{{ url:segments segment="4" }}'
             ))
@@ -504,8 +504,10 @@ class Admin extends Admin_Controller
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
-            ->successMessage('Page saved.') // @todo - language
-            ->redirect(array(
+            ->messages(array(
+                'success' => 'Page saved.'
+            )) // @todo - language
+            ->redirects(array(
                 'save' => 'admin/pages',
                 'continue' => uri_string(),
             ))

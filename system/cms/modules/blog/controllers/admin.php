@@ -297,8 +297,10 @@ $id = null;
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
             ->enableSave($enable_entry_save = true) // This enables the profile submittion only if the user was created successfully
-            ->successMessage('Post saved.') // @todo - language
-            ->redirect('admin/blog')
+            ->messages(array(
+            	'success' => 'Post saved.'
+            )) // @todo - language
+            ->redirects('admin/blog')
             //->index($this->_index_template)
             ->render();
 
@@ -446,8 +448,10 @@ $id = null;
             	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
             })
             ->enableSave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
-            ->successMessage('Post saved.') // @todo - language
-            ->redirect('admin/blog')
+            ->messages(array(
+            	'success' => 'Post saved.'
+            )) // @todo - language
+            ->redirects('admin/blog')
             ->index($this->_index_template)
             ->render();
 	}
