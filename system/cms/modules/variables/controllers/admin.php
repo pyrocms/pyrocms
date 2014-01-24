@@ -56,10 +56,6 @@ class Admin extends Admin_Controller
 
 		$form = $this->selectable_fields_form();
 
-/*		$extra['title'] = lang('variables:name').$form;
-
-		$extra['return'] = 'admin/variables';
-*/
 		EntryUi::table('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
 			->fields(array(
 				'name',
@@ -69,7 +65,7 @@ class Admin extends Admin_Controller
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
 			->filters(array('name'))
-			->pagination(2, 'admin/variables')
+			->pagination(Settings::get('records_per_page'), 'admin/variables')
 			->render();
 	}
 
@@ -92,10 +88,12 @@ class Admin extends Admin_Controller
 
 		EntryUi::form('Pyro\Module\Variables\Model\VariablesVariableEntryModel')
 			->title(lang('variables:create_title').$form)
+			->defaults($defaults)
+			->skips(array('foo', 'bar'))
 			->messages(array(
 				'success' => lang('variables:add_success'),
 			))
-			->defaults($defaults)
+			
 			->redirect('admin/variables')
 			->render();
 	}
@@ -132,11 +130,9 @@ class Admin extends Admin_Controller
 	{
 		$variable = VariablesVariableEntryModel::find($id);
 
-		$name = $variable->name;
-
 		if ($variable and $variable->delete())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $name));
+			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $variable->name));
 
 			redirect('admin/variables');
 		}
