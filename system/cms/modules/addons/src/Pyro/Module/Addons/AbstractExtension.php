@@ -40,7 +40,7 @@ abstract class AbstractExtension extends Fluent
 	{
 		$extension = $extension ? $extension : $this;
 
-		$html = '<link href="'.base_url($extension->path_css.$file).'" type="text/css" rel="stylesheet" />';
+		$html = '<link href="'.base_url($extension->pathCss.$file).'" type="text/css" rel="stylesheet" />';
 
 		ci()->template->append_metadata($html);
 
@@ -54,7 +54,7 @@ abstract class AbstractExtension extends Fluent
 	{
 		$extension = $extension ? $extension : $this;
 
-		$html = '<script type="text/javascript" src="'.base_url($extension->path_js.$file).'"></script>';
+		$html = '<script type="text/javascript" src="'.base_url($extension->pathJs.$file).'"></script>';
 
 		ci()->template->append_metadata($html);
 
@@ -90,7 +90,7 @@ abstract class AbstractExtension extends Fluent
 
 		$paths = ci()->load->get_view_paths();
 
-		ci()->load->set_view_path($extension->path_views);
+		ci()->load->set_view_path($extension->pathViews);
 
 		$view_data = ci()->load->_ci_load(array('_ci_view' => $viewName, '_ci_vars' => $data, '_ci_return' => true));
 
