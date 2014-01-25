@@ -94,3 +94,15 @@ if (!function_exists('shorten_url')) {
 	}
 
 }
+
+if (!function_exists('index_uri')) {
+
+    /**
+     * Return the index URI of the current route
+     * @return string
+     */
+    function index_uri()
+    {
+        return substr(uri_string(), 0, strpos(uri_string(), ci()->router->method));
+    }
+}
