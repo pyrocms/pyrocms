@@ -39,7 +39,7 @@
 	#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
-	RedirectMatch 403 ^/.*/(composer\.json|composer\.lock|system/cms/cache|system/codeigniter|system/vendor|system/cms/config|system/cms/logs|system/cms/modules/streams_core/src/Pyro/Module/Streams_core/Data|\.git|\.hg).*$
+	RedirectMatch 403 ^/.*/(composer\.json|composer\.lock|system/cms/cache|system/codeigniter|system/vendor|system/cms/config|system/cms/logs|system/cms/modules/streams_core/models|\.git|\.hg).*$
 
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f

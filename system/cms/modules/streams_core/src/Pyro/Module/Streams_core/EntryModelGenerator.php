@@ -18,13 +18,26 @@ class EntryModelGenerator extends Generator
      */
     protected function getTemplate($className, $data = array())
     {
-        $basePath = dirname(__FILE__);
-
-        $this->template = file_get_contents($basePath.'/templates/'.$this->templateFilename);
+        $this->template = file_get_contents($this->getBasePath(
+            'src'.DIRECTORY_SEPARATOR.
+            'Pyro'.DIRECTORY_SEPARATOR.
+            'Module'.DIRECTORY_SEPARATOR.
+            'Streams_core'.DIRECTORY_SEPARATOR.
+            'templates'.DIRECTORY_SEPARATOR.$this->templateFilename
+        ));
 
         $data['className'] = $className;
 
         return '<?php '.$this->parser->parse($this->template, $data, null);
+    }
+
+    protected function getBasePath($path = null)
+    {
+        if ($path) {
+            $path = DIRECTORY_SEPARATOR.$path;
+        }
+
+        return  APPPATH.'modules'.DIRECTORY_SEPARATOR.'streams_core'.$path;
     }
 
     /**
@@ -33,13 +46,11 @@ class EntryModelGenerator extends Generator
      */
     public function dataPath($path = null)
     {
-        $basePath = dirname(__FILE__);
-
         if ($path) {
             $path = DIRECTORY_SEPARATOR.$path;
         }
 
-        return $basePath.DIRECTORY_SEPARATOR.'Data'.$path;
+        return $this->getBasePath('models'.$path);
     }
 
     /**
@@ -48,7 +59,7 @@ class EntryModelGenerator extends Generator
      */
     public function siteRefPath($path = null)
     {
-        $basePath = dirname(__FILE__);
+        $basePath = $this->getBasePath();
 
         if ($path) {
             $path = DIRECTORY_SEPARATOR.$path;
@@ -59,11 +70,31 @@ class EntryModelGenerator extends Generator
 
     public function getPath($path)
     {
+
+
         if (! is_dir($this->siteRefPath())) {
             mkdir($this->siteRefPath(), 0777);
         }
 
-        return $this->siteRefPath($path);
+        $pyro = 'Pyro';
+
+        if (! is_dir($this->siteRefPath($pyro))) {
+            mkdir($this->siteRefPath($pyro), 0777);
+        }
+
+        $streams = $pyro.DIRECTORY_SEPARATOR.'Streams';
+
+        if (! is_dir($this->siteRefPath($streams))) {
+            mkdir($this->siteRefPath($streams), 0777);
+        }
+
+        $data = $streams.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR;
+
+        if (! is_dir($this->siteRefPath($data))) {
+            mkdir($this->siteRefPath($data), 0777);
+        }
+
+        return $this->siteRefPath($data.$path);
     }
 
     public function compile(StreamModel $stream)

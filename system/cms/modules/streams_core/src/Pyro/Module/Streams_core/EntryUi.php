@@ -58,7 +58,7 @@ class EntryUi extends AbstractUi
             $model = new $class;     
         }
 
-        if ( ! ($model instanceof EntryDataModel) and ! ($model instanceof EntryModel)) {
+        if (! ($model instanceof EntryModel)) {
             throw new ClassNotInstanceOfEntryException;
         }
 
