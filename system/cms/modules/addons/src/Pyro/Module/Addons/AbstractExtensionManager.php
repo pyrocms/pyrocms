@@ -78,9 +78,11 @@ abstract class AbstractExtensionManager
 			// This defaults to english.
 			$langs = ci()->config->item('supported_languages');
 
-			// Set the module and slug
+			// Set the module, slug, paths and extensions
 			static::$module[get_called_class()] = $module;
 			static::$slug[get_called_class()] = $slug;
+            static::$modulePaths[get_called_class()] = array();
+            static::$extensions[get_called_class()] = array();
 
 			// Needed for installer
 			if ( ! class_exists('Settings')) {

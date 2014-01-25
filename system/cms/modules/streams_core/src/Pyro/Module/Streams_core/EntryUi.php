@@ -95,7 +95,7 @@ class EntryUi extends AbstractUi
         // We pass the model to get access to its methods but you also can run query builder methods against it
         // Whatever you do on your closure, it must return an EntryBuilder instance
         if ($query = $this->fireOnQuery($this->model) and $query instanceof EntryQueryBuilder) {
-            $this->query = $query;
+            $this->model = $query;
         }
 
 /*        if (isset($this->view_options) and is_array($this->view_options)) {
