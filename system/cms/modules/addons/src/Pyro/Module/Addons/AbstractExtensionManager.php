@@ -338,10 +338,10 @@ abstract class AbstractExtensionManager
 
 		// Set asset paths
 		$instance->path = $path;
-        $instance->path_views = $path.'/views/';
-        $instance->path_img = $path.'/img/';
-		$instance->path_css = $path.'/css/';
-		$instance->path_js = $path.'/js/';
+        $instance->pathViews = $path.'/views/';
+        $instance->pathImg = $path.'/img/';
+		$instance->pathCss = $path.'/css/';
+		$instance->pathJs = $path.'/js/';
 
 		// -------------------------
 		// Load the language file
