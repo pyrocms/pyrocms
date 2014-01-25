@@ -1363,6 +1363,28 @@ class Asset
 		return $ret;
 	}
 
+    /**
+     * Locates the given image(s), and returns the resulting path
+     *
+     * @param string|array $images Image or images to print.
+     * @return string
+     */
+    public static function imgUrl($image)
+    {
+        if (strpos($image, '::') === false) {
+            $image = self::$default_path_key.'::'.$image;
+        }
+
+        $image_path = self::find_files($image, 'img');
+
+    
+        $remote = (strpos($image_path[0], '//') !== false);
+        $image_path = self::process_filepath($image_path[0], 'img', $remote);
+        $base = ($remote) ? '' : self::$asset_url;
+        
+        return $attr['src'] = $base.$image_path;
+    }
+
 	/**
 	 * Clears all cache files last modified before $before.
 	 *
