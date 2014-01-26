@@ -204,6 +204,15 @@ class File extends AbstractFieldType
     }
 
     /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
+
+    /**
 	 * Choose a folder to upload to.
 	 *
 	 * @param	[string - value]
