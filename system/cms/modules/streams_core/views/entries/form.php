@@ -35,8 +35,7 @@
 	<button type="submit" name="btnAction" value="exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
 	<?php endif; ?>
 
-
-	<a href="<?php echo site_url($uriCancel ?: 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+	<a href="<?php echo site_url($uriCancel ?: $redirectSave); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
 </div>
 
 
