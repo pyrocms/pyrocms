@@ -149,14 +149,14 @@ class User extends AbstractFieldType
 		return 'hello';
 	}
 
-	/**
+    /**
      * Get column name
      * @return string
      */
-	public function getColumnName()
-	{
-		return parent::getColumnName().'_id';
-	}
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
 
 	///////////////////////////////////////////////////////////////////////////////
 	// -------------------------	PARAMETERS 	  ------------------------------ //
