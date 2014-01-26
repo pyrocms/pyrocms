@@ -404,8 +404,8 @@ class EntryModel extends Eloquent
         // Insert data
         // -------------------------------------
 
-        // Is there any logic to complete before inserting?
-        //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
+        // Trigger save event
+        \Events::trigger($this->getStream()->stream_namespace.':'.$this->getStream()->stream_slug.'.save', $this);
 
         if ($saved = parent::save($options) and $this->search_index_template) {
             Search::indexEntry($this, $this->search_index_template);
@@ -425,10 +425,9 @@ class EntryModel extends Eloquent
                 }
             }
         }
-        // -------------------------------------
-        // Event: Post Insert Entry
-        // -------------------------------------
-
+        
+        // Trigger save event
+        \Events::trigger($this->getStream()->stream_namespace.':'.$this->getStream()->stream_slug.'.saved', $this);
         \Events::trigger('streams_post_insert_entry', $this);
 
         return $saved;
