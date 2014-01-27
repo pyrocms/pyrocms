@@ -13,6 +13,12 @@ use Pyro\Module\Addons\ExtensionManager;
 abstract class AbstractExtension extends Fluent 
 {
     /**
+     * Extension assets
+     * @var array
+     */
+    protected $assets = array();
+    
+    /**
      * Extension version
      * @var string
      */
@@ -26,7 +32,6 @@ abstract class AbstractExtension extends Fluent
     public function getDefaultAttributes()
     {
         $defaultAttributes = array(
-            'assets' => array(),
             'extension' => null,
         );
         
