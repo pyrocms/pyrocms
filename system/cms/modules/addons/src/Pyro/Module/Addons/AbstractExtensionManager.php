@@ -15,16 +15,16 @@ use Illuminate\Support\Str;
 abstract class AbstractExtensionManager
 {
 	/**
-	 * The module we're loading addons in regards to
+	 * The modules we're loading extensions from
 	 * @var string
 	 */
-	protected static $module = array();
+	protected static $modules = array();
 
 	/**
-	 * The slug of the addon extension being worked with
+	 * The slugs of extensions found
 	 * @var string
 	 */
-	protected static $slug = array();
+	protected static $slugs = array();
 
 	/**
 	 * Places where our extensions may be
@@ -70,6 +70,8 @@ abstract class AbstractExtensionManager
 	 */
 	public static function init($module, $slug, $preload = false)
 	{
+        $instance = new static;
+
 		if (! isset(static::$initiated[get_called_class()])) {
 			ci()->load->helper('directory');
 			ci()->load->language($module.'/'.$module);
@@ -79,10 +81,12 @@ abstract class AbstractExtensionManager
 			$langs = ci()->config->item('supported_languages');
 
 			// Set the module, slug, paths and extensions
-			static::$module[get_called_class()] = $module;
-			static::$slug[get_called_class()] = $slug;
+			static::$modules[get_called_class()] = $module;
+			static::$slugs[get_called_class()] = $slug;
             static::$modulePaths[get_called_class()] = array();
             static::$extensions[get_called_class()] = array();
+
+            $extensionPath = $instance::getExtensionPath($module, $slug);
 
 			// Needed for installer
 			if ( ! class_exists('Settings')) {
@@ -91,16 +95,16 @@ abstract class AbstractExtensionManager
 
 			// Set our addon paths
 			static::$addonPaths[get_called_class()] = array(
-				'addon' 		=> ADDONPATH.'extensions/'.$module.'/'.$slug.'/',
-				'addon_alt' 	=> SHARED_ADDONPATH.'extensions/'.$module.'/'.$slug.'/',
+				'addon' 		=> ADDONPATH.$extensionPath,
+				'addon_alt' 	=> SHARED_ADDONPATH.$extensionPath,
 			);
 
 			// Set module paths
 			$modules = new ModuleManager;
 
 			foreach ($modules->getAllEnabled() as $enabledModule) {
-                if (is_dir($enabledModule['path'].'/extensions/'.$module.'/'.$slug.'/')) {
-                    static::$modulePaths[get_called_class()][$enabledModule['slug']] = $enabledModule['path'].'/extensions/'.$module.'/'.$slug.'/';
+                if (is_dir($enabledModule['path'].'/'.$extensionPath)) {
+                    static::$modulePaths[get_called_class()][$enabledModule['slug']] = $enabledModule['path'].'/'.$extensionPath;
                 }
             }
 
@@ -112,6 +116,18 @@ abstract class AbstractExtensionManager
 
 		static::$initiated[get_called_class()] = true;
 	}
+
+    /**
+     * Get the extension path as it appears
+     * after the addon / module path
+     * @param  string $module
+     * @param  string $slug
+     * @return string
+     */
+    protected static function getExtensionPath($module, $slug)
+    {
+        return 'extensions/'.$module.'/'.$slug.'/';
+    }
 
 	/**
 	 * Set addon path
@@ -193,7 +209,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function registerFolderExtensions($folder, $extensions = array(), $preload = false)
 	{
-		static::init(static::$module[get_called_class()], static::$slug[get_called_class()]);
+		static::init(static::$modules[get_called_class()], static::$slugs[get_called_class()]);
 
 		if (is_string($extensions)) {
 			$extensions = array($extensions);
@@ -263,7 +279,7 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getClass($extension)
 	{
-		return 'Pyro\\Extension\\'.Str::studly(static::$module[get_called_class()]).'\\'.Str::studly(static::$slug[get_called_class()]).'\\'.Str::studly($extension);
+		return 'Pyro\\Extension\\'.Str::studly(static::$modules[get_called_class()]).'\\'.Str::studly(static::$slugs[get_called_class()]).'\\'.Str::studly($extension);
 	}
 
 	/**
@@ -328,15 +344,29 @@ abstract class AbstractExtensionManager
 
 		$instance = new $class;
 
-        $type = static::$slug[get_called_class()];
+        $type = static::$slugs[get_called_class()];
 
 		$reflection = new \ReflectionClass($instance);
 
 		// Field Extension class folder location
 		$class_path = dirname($reflection->getFileName());
 
-		// The root path of the extension
-		$path = str_replace(FCPATH, '', dirname(dirname(dirname(dirname(dirname($class_path))))));
+		/**
+         * Determine the root path for
+         * loading assets n what not
+         * We'll start here and walk backwards
+         */
+        $path = str_replace(FCPATH, '', dirname($class_path));
+
+        for ($x=1;$x<10;$x++) {
+            $parts = explode('/', $path);
+
+            if (end($parts) == $extension) {
+                break;
+            } else {
+                $path = dirname($path);
+            }
+        }
 
 		// Set asset paths
 		$instance->path = $path;
@@ -368,7 +398,7 @@ abstract class AbstractExtensionManager
 
 		// Extension name is languagized
 		if ( ! isset($instance->name)) {
-			$instance->name = lang_label('lang:'.$extension.':'.$type.'.name');
+            $instance->name = lang_label('lang:'.$extension.':'.$type.'.name');
 		}
 
         // Extension name (plural) is languagized
