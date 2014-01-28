@@ -86,6 +86,12 @@
 
 								foreach ($buttons as $button) {
 
+                                    // Html?
+                                    if (isset($button['html'])) {
+                                        $all_buttons[] = ci()->parser->parse_string($button['html'], $entry->toArray(), true);
+                                        continue;
+                                    }
+
 									// The second is kept for backwards compatibility
 									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
 									$url = str_replace('-entry_id-', $entry->getKey(), $url);
