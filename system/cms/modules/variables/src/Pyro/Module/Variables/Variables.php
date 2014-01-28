@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Variables;
 
+use Pyro\Module\Variables\Model\VariableEntryModel;
+
 /**
  * Variable Library
  *
@@ -45,7 +47,7 @@ class Variables {
 	{
 		// if $this->_vars is null then load them all as this is 
 		// the first time this library has been touched
-		$this->getAll();
+		$this->all();
 
 		$this->set($name, $value);
 	}
@@ -71,10 +73,12 @@ class Variables {
 	 */
 	public static function all()
 	{
+        $variables = new VariableEntryModel;
+
 		// the variables haven't been fetched yet, load them
 		if ( ! static::$_vars)
 		{
-			$entries = VariableEntryModel::setCacheMinutes(30)->get(array('name', 'data'));
+			$entries = $variables->setCacheMinutes(30)->get(array('name', 'data'));
 
 			foreach ($entries as $var)
 			{
