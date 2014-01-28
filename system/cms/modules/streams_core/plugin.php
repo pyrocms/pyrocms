@@ -527,7 +527,7 @@ class Plugin_Streams_core extends Plugin
 		 */
 
 		// Determine initial skips from the include / exclude params
-		$skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->getStream());
+        $skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->model->getStream());
 		
 		if (! empty($skips))
 			$form = $form->skips($skips);
@@ -548,23 +548,23 @@ class Plugin_Streams_core extends Plugin
 		else
 			$form = $form->redirectSave(ci()->uri->uri_string());
 
-		if ($parameters['redirect_exit'])
-			$form = $form->redirectExit($parameters['redirect_exit']);
+		/*if ($parameters['redirect_exit'])
+			$form = $form->redirectExit($parameters['redirect_exit']);*/
 
-		if ($parameters['redirect_continue'])
-			$form = $form->redirectContinue($parameters['redirect_continue']);
+		/*if ($parameters['redirect_continue'])
+			$form = $form->redirectContinue($parameters['redirect_continue']);*/
 
-		if ($parameters['redirect_create'])
-			$form = $form->redirectCreate($parameters['redirect_create']);
+		/*if ($parameters['redirect_create'])
+			$form = $form->redirectCreate($parameters['redirect_create']);*/
 
-		if ($parameters['uri_cancel'])
-			$form = $form->uriCancel($parameters['uri_cancel']);
+		/*if ($parameters['uri_cancel'])
+			$form = $form->uriCancel($parameters['uri_cancel']);*/
 
 		/**
 		 * Set success and error messages
 		 */
 
-		if (! $parameters['entry_id'])
+		/*if (! $parameters['entry_id'])
 			$form = $form->messages(array(
 				'success' => $parameters['save_message_success'],
 				'error' => $parameters['save_message_error'],
@@ -573,13 +573,13 @@ class Plugin_Streams_core extends Plugin
 			$form = $form->messages(array(
 				'success' => $parameters['update_message_success'],
 				'error' => $parameters['update_message_error'],
-			));
+			));*/
 
 		/**
 		 * DONE = Fetch the object
 		 */
 
-		$fields = $form->get()->fields->toArray();
+		$fields = $form->getUi()->fields->toArray();
 
 		/**
 		 * Override any labels
