@@ -21,17 +21,6 @@ abstract class Eloquent extends Model
 
     protected $cacheMinutes = false;
 
-    // --------------------------------------------------------------------------
-    // Runtime Cache
-    // --------------------------------------------------------------------------
-    // The runtime cache is based on how streams and fields use to do it by storing data in a static variable.
-    // We put it on this base Eloquent model to make it available to any that extend it.
-
-    /*
-     * The static runtime cache variables used to store results on each request
-     */
-    protected static $runtime_cache = array();
-
     /**
      * Skio validation
      * @var boolean
@@ -72,45 +61,6 @@ abstract class Eloquent extends Model
     }
 
     /**
-     * We can store data in the class at runtime so we don't have to keep hitting the database
-     *
-     * @param  string  $key The key that is going to be appended to the called model class
-     * @param mixed $value The value to be chached
-     * @return mixed
-     */
-    public static function setCache($key, $value)
-    {
-        return static::$runtime_cache[get_called_class()][$key] = $value;
-    }
-
-    /**
-     * Check if a key has being set in the runtime cache
-     *
-     * @param  string  $key The key that is going to be appended to the called model class
-     * @return bool
-     */
-    public static function isCache($key)
-    {
-        return isset(static::$runtime_cache[get_called_class()][$key]);
-    }
-
-    /**
-     * Get a runtime cache value by key
-     *
-     * @param  array  $options
-     * @return mixed
-     */
-    public static function getCache($key)
-    {
-        if (static::isCache($key))
-        {
-            return static::$runtime_cache[get_called_class()][$key];    
-        }
-
-        return false;
-    }
-
-    /**
      * Get a the entire runtime cache key - values
      *
      * @return array
@@ -135,8 +85,6 @@ abstract class Eloquent extends Model
                 unset($attributes[$key]);
             }
         }
-
-        $this->flushCacheCollection();
 
         return parent::update($attributes);
     }
