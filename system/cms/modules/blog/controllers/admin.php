@@ -113,7 +113,7 @@ class Admin extends Admin_Controller
          * - Autoindex this shit
          */
         
-/*        $this->_index_template = array(
+        $this->indexTemplate = array(
             'singular' => 'blog:post',
             'plural' => 'blog:posts',
             'title' => '{{ post:title }}',
@@ -123,11 +123,11 @@ class Admin extends Admin_Controller
             'cp_uri' => 'admin/blog/edit/{{ entry:id }}',
             'group_access' => null,
             'user_access' => null
-            );
+        );
 
 
 		// we need this for our manual view below
-		$this->_categories = $_categories;
+/*		$this->_categories = $_categories;
 		$this->_hours = $hours;
 		$this->_minutes = $minutes;*/
 	}
@@ -176,7 +176,30 @@ class Admin extends Admin_Controller
 			? $this->template->build('admin/tables/posts')
 			: $this->template->build('admin/index');*/
 
-		EntryUi::table('blog', 'blogs')->render();
+		EntryUi::table('Pyro\Module\Blog\BlogEntryModel')
+			->fields(array(
+				'title',
+				'category',
+				'created_at',
+				'status',
+				'author',
+			))
+			->buttons(array(
+				array(
+					'url'		=> '{{ url }}',
+					'label'		=> lang('global:view')
+				),
+				array(
+					'url'		=> 'admin/blog/edit/{{ id }}',
+					'label'		=> lang('global:edit')
+				),
+				array(
+					'url'		=> 'admin/blog/delete/{{ id }}',
+					'label'		=> lang('global:delete'),
+					'confirm'	=> true
+				)
+			))
+			->render();
 
 	}
 
@@ -216,7 +239,7 @@ class Admin extends Admin_Controller
 		}
 		//$this->form_validation->run()
 
-		if (true) {
+		//if (true) {
 
 			// Insert a new blog entry.
 			// These are the values that we don't pass through streams processing.
@@ -235,37 +258,37 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash
 			);*/
 
-			if (
+			//if (
 				//$id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra)
-				true) {
+			//	true) {
 				//$this->cache->forget('blog_m');
-				$this->session->set_flashdata('success', sprintf(lang('blog:post_add_success'), $this->input->post('title')));
+				//$this->session->set_flashdata('success', sprintf(lang('blog:post_add_success'), $this->input->post('title')));
 
 				// Blog article has been updated, may not be anything to do with publishing though
 				//Events::trigger('post_created', $id);
 
 				// They are trying to put this live
-				if ($this->input->post('status') == 'live') {
+				//if ($this->input->post('status') == 'live') {
 					// Fire an event, we're posting a new blog!
 				//	Events::trigger('post_published', $id);
-				}
-			} else {
+			//	}
+/*			} else {
 				$this->session->set_flashdata('error', lang('blog:post_add_error'));
 			}
-$id = null;
+$id = null;*/
 			// Redirect back to the form or main page
 			//($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
-		} else {
+		//} else {
 			// Go through all the known fields and get the post values
-			$post = new stdClass;
+/*			$post = new stdClass;
 			foreach ($this->validation_rules as $key => $field) {
 				$post->$field['field'] = set_value($field['field']);
 			}
 			$post->created_at = $created_at;
 		
 			// if it's a fresh new article lets show them the advanced editor
-			$post->type or $post->type = 'wysiwyg-advanced';
-		}
+			$post->type or $post->type = 'wysiwyg-advanced';*/
+		//}
 
 		// Set Values
 		//$values = $this->fields->set_values($stream_fields, null, 'new');
@@ -296,8 +319,11 @@ $id = null;
 		EntryUi::form('blog', 'blogs')
             ->tabs($tabs)
             ->onSaving(function($entry) {
-            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
+            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['blogs-blog-slug'];
             })
+            ->fields(array(
+            	'title'
+            ))
             ->enableSave($enableSave = true) // This enables the profile submittion only if the user was created successfully
             ->messages(array(
             	'success' => 'Post saved.'
@@ -326,7 +352,7 @@ $id = null;
 	{
 		$id or redirect('admin/blog');
 
-		$post = $this->blog_m->get($id);
+/*		$post = $this->blog_m->get($id);
 		
 		// They are trying to put this live
 		if ($post->status != 'live' and $this->input->post('status') == 'live') {
@@ -336,14 +362,14 @@ $id = null;
 		// If we have keywords before the update, we'll want to remove them from keywords_applied
 		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
 
-		$post->keywords = Keywords::get_string($post->keywords);
+		$post->keywords = Keywords::get_string($post->keywords);*/
 
 		// If we have a useful date, use it
-		if ($this->input->post('created_on')) {
+/*		if ($this->input->post('created_on')) {
 			$created_at = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		} else {
 			$created_at = $post->created_at;
-		}
+		}*/
 
 		// Load up streams
 		//$this->load->driver('Streams');
@@ -351,7 +377,7 @@ $id = null;
 		//$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
 
 		// Get the validation for our custom blog fields.
-		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
+		//$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
 
 		// Merge and set our validation rules
 		//$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
@@ -367,9 +393,7 @@ $id = null;
 			$hash = '';
 		}
 
-		$enableSave = false;
-
-		if ($this->form_validation->run()) {
+/*		if ($this->form_validation->run()) {
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$extra = array(
@@ -421,7 +445,7 @@ $id = null;
 		$values = $this->fields->set_values($stream_fields, $post, 'edit');
 
 		// Run stream field events
-		$this->fields->run_field_events($stream_fields, array(), $values);
+		$this->fields->run_field_events($stream_fields, array(), $values);*/
 
 
 		// Build out our form structure
@@ -429,31 +453,38 @@ $id = null;
             array(
                 'title'     => lang('blog:content_label'),
                 'id'        => 'blog-content-tab',
-                'content'    => $user_form = $this->load->view('admin/form/tabs/content', array('post' => $post), true),
+                'fields'    => array(
+                	'title',
+                	'slug',
+                	'status',
+                	'body'
+                ),
             ),
             array(
                 'title'     => lang('global:custom_fields'),
                 'id'        => 'profile-fields',
                 'fields'    => '*'
             ),
-            array(
+/*            array(
                 'title'     => lang('blog:options_label'),
                 'id'        => 'blog-options-tab',
-                'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
-            ),
+                'fields'	=> '*'
+                //'content'    => $user_form = $this->load->view('admin/form/tabs/options', array('post' => $post, 'categories' => $this->_categories, 'hours' => $this->_hours, 'minutes' => $this->_minutes), true),
+            ),*/
         );
 
 		EntryUi::form('blog', 'blogs', $id)
             ->tabs($tabs)
             ->onSaving(function($entry) {
-            	if ($_POST) $_POST['uri'] = 'blog/'.date('Y/m/', $entry->created_at).$_POST['slug'];
+            	if ($_POST and isset($_POST['blogs-blog-slug'])) {
+            		$_POST['uri'] = 'blog/'.$entry->created_at->format('Y/m/').$_POST['blogs-blog-slug'];
+            	}
             })
-            ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
             ->messages(array(
             	'success' => 'Post saved.'
             )) // @todo - language
             ->redirects('admin/blog')
-            ->index($this->_index_template)
+            ->index($this->indexTemplate)
             ->render();
 	}
 
