@@ -25,7 +25,9 @@
 			<fieldset>
 
 				<ul>
-
+				
+				<?php if (is_array($tab['fields'])): ?>
+					
 					<?php foreach ($tab['fields'] as $slug): ?>
 
 						<?php if ($field = $fields->findBySlug($slug)): ?>
@@ -35,6 +37,8 @@
 						<?php endif; ?>
 					
 					<?php endforeach; ?>
+
+				<?php endif; ?>
 
 				</ul>
 

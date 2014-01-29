@@ -59,12 +59,12 @@
 
 				<?php if ($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
 
-				<?php if (! $viewOptions->isEmpty()): foreach( $viewOptions as $viewOption ): ?>
+				<?php if (! empty($viewOptions)): foreach( $viewOptions as $viewOption ): ?>
 				<td>
 
 					<input type="hidden" name="action_to[]" value="<?php echo $entry->getKey();?>" />
 
-					<?php echo $entry->getFormatter()->getStringOutput($viewOption); ?> 
+					<?php echo $entry->{$viewOption}; ?> 
 
 				</td>
 				<?php endforeach; endif; ?>
@@ -79,7 +79,7 @@
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 								$class .= (isset($button['class']) and ! empty($button['class'])) ? ' '.$button['class'] : null;
 
-								$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+								$url = ci()->parser->parse_string($button['url'], $entry, true);
 
 								// This is kept for backwards compatibility
 								$url = str_replace('-entry_id-', $entry->getKey(), $url);
