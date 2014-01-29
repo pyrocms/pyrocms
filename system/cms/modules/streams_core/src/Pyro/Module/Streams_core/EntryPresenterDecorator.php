@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
-use McCool\LaravelAutoPresenter\PresenterDecorator;
+use Pyro\Support\PresenterDecorator;
 
 class EntryPresenterDecorator extends PresenterDecorator
 {
@@ -23,12 +23,11 @@ class EntryPresenterDecorator extends PresenterDecorator
      */
     protected function decorateAtom($atom)
     {
-
     	if ( ! $this->viewOptions instanceof EntryViewOptions) {
     		$this->viewOptions = new EntryViewOptions($atom, $this->viewOptions, $this->defaultFormat);
     	}
 
-        if ( ! isset($atom->presenter)) {
+        if ( ! isset($atom->presenterClass)) {
             return $atom;
         }
 
@@ -36,7 +35,7 @@ class EntryPresenterDecorator extends PresenterDecorator
             return $atom;
         }
 
-        $presenterClass = $atom->presenter;
+        $presenterClass = $atom->presenterClass;
 
         if ( ! class_exists($presenterClass)) {
             throw new PresenterNotFoundException($presenterClass);
