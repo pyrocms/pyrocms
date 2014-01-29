@@ -23,7 +23,7 @@ class User extends AbstractFieldType
 
 	public $version = '1.0.0';
 
-	protected $users;
+	protected $userOptions;
 
 	public $author = array(
 		'name'=>'Ryan Thompson - PyroCMS',
@@ -64,7 +64,7 @@ class User extends AbstractFieldType
 
 	public function getUserOptions()
 	{
-		return $this->users = $this->users ? $this->users : UserModel::getUserOptions();
+		return $this->userOptions = $this->userOptions ?: UserModel::getUserOptions();
 	}
 
 	/**
@@ -109,10 +109,8 @@ class User extends AbstractFieldType
 		{
 			return anchor('admin/users/edit/'.$user->id, $user->username);
 		}
-		else
-		{
-			return $this->value;
-		}
+
+		return null;
 	}
 
 	/**
@@ -125,28 +123,12 @@ class User extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ($entry = $this->getRelationResult())
+		if ($user = $this->getRelationResult())
 		{
-			return $entry->toArray();
+			return $user->getPresenter();
 		}
 
 		return null;
-	}
-
-	public function fieldAssignmentConstruct($schema)
-	{
-		$tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
-
-		$schema->table($tableName, function($table) {
-			$table->integer($this->field->field_slug.'_id')->nullable();
-		});
-	}
-
-	public function pluginTestOverride()
-	{
-		die('hello');
-
-		return 'hello';
 	}
 
     /**
@@ -179,44 +161,5 @@ class User extends AbstractFieldType
 		}
 
 		return form_dropdown('restrict_group', $groups, $value);
-	}
-
-	///////////////////////////////////////////////////////////////////////////
-	// -------------------------	AJAX 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////
-
-	public function ajaxSearch()
-	{
-		/**
-		 * Grab the stream namespace
-		 */
-		$stream_namespace = ci()->uri->segment(6);
-
-
-		/**
-		 * Determine our field / type
-		 */
-		$field = FieldModel::findBySlugAndNamespace(ci()->uri->segment(7), $stream_namespace);
-		$field_type = $field->getType(null);
-
-
-		/**
-		 * Get users
-		 */
-		$users = UserModel::getUserOptions($this->getParameter('restrict_group'), ci()->input->get('query'));
-
-		// Prep return
-		$results = array();
-
-		foreach ($users as $k => $username) {
-			$results[] = array(
-				'id' => $k,
-				'username' => $username,
-				);
-		}
-
-
-		header('Content-type: application/json');
-		echo json_encode(array('users' => $results));
 	}
 }
