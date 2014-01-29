@@ -5,81 +5,6 @@ use Pyro\Model\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {
-    protected $format = 'eloquent';
-
-    /**
-     * Set the active format of all models as original
-     * @return object
-     */
-    public function asOriginal()
-    {
-        $this->format = EntryModel::FORMAT_ORIGINAL;
-
-        return $this;
-    }
-
-    /**
-     * Set the active format of all models as eloquent
-     * @return object
-     */
-    public function asEloquent()
-    {
-        $this->format = EntryModel::FORMAT_ELOQUENT;
-
-        return $this;
-    }
-
-    /**
-     * Set the active format of all models as string
-     * @return object
-     */
-    public function asString()
-    {
-        $this->format = EntryModel::FORMAT_STRING;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asString();
-        }
-
-        return new static($entries);
-    }
-
-    /**
-     * Set the active format of all models as data
-     * @return object
-     */
-    public function asData()
-    {
-        $this->format = EntryModel::FORMAT_DATA;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asData();
-        }
-
-        return new static($entries);
-    }
-
-    /**
-     * Set the active format of all models as plugin
-     * @return object
-     */
-    public function asPlugin()
-    {
-        $this->format = EntryModel::FORMAT_PLUGIN;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asPlugin();
-        }
-
-        return new static($entries);
-    }
-
     /**
      * Get entry options
      * @param  string or null $attribute
@@ -119,28 +44,31 @@ class EntryCollection extends EloquentCollection
         return $options;
     }
 
-    /**
-     * To output array
-     * @return array
-     */
-    public function toOutputArray()
+    public function getPresenter($viewOptions = array(), $defaultFormat = null, $presenter = null)
     {
-        $output = array();
-
-        foreach ($this->items as $entry) {
-            $output[] = $entry->getFotmatter()->{'as'.Str::studly($this->format)}()->toOutputArray();
+        if ($presenter) {
+            $this->presenter = $presenter;
         }
 
-        return $output;
-    }
+        $decorator = new EntryPresenterDecorator;
 
+        return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
+    }
     /**
-     * To Json
-     * @param  integer $options
-     * @return string
-     */
-/*    public function toJson($options = 0)
+      * Get the collection of items as a plain array.
+      *
+      * @return array
+      */
+/*    public function toArray()
     {
-        return json_encode($this->toOutputArray(), $options);
+        return array_map(function($value) {
+           
+            if ($value instanceof EntryPresenter) {
+                return $value->getModel()->toArray();
+            }
+
+           return  ? $value->toArray() : $value;
+
+        }, $this->items);
     }*/
 }
