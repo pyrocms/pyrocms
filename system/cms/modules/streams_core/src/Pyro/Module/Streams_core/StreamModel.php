@@ -605,7 +605,7 @@ class StreamModel extends Eloquent
         // Check if the column does not exist already to avoid errors, specially on migrations
         // @todo - hasColunm() has a bug in illuminate/database where it does not apply the table prefix, we have to pass it ourselves
         // Remove the prefix as soon as the pull request / fix gets merged https://github.com/laravel/framework/pull/2070
-        if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug)) return false;
+        if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $type->getColumnName())) return false;
 
         $schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
 
@@ -634,9 +634,9 @@ class StreamModel extends Eloquent
 
             // Only the string method cares about a constraint
             if ($db_type_method === 'string') {
-                $col = $table->{$db_type_method}($field->field_slug, $constraint);
+                $col = $table->{$db_type_method}($type->getColumnName(), $constraint);
             } else {
-                $col = $table->{$db_type_method}($field->field_slug);
+                $col = $table->{$db_type_method}($type->getColumnName());
             }
 
             // -------------------------------------
