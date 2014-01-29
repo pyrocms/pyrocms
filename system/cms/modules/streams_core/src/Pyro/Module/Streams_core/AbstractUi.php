@@ -382,7 +382,7 @@ abstract class AbstractUi extends Fluent
 
         foreach ($this->getValidRedirects() as $name) {
             if ($action == Str::camel($name)) {
-                $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data->toArray(), true));
+                $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
             }
         }
 
