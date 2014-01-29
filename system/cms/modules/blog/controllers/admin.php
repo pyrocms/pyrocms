@@ -177,12 +177,18 @@ class Admin extends Admin_Controller
 			: $this->template->build('admin/index');*/
 
 		EntryUi::table('Pyro\Module\Blog\BlogEntryModel')
+			->with(array(
+				'author.profile', // eager load nested profile with author
+			))
 			->fields(array(
 				'title',
 				'category',
 				'created_at',
 				'status',
-				'author',
+				'author' => '<a href="admin/users/edit/{{ entry:author:id }}"> 
+					{{ entry:author:profile:first_name }} 
+					{{ entry:author:profile:last_name }}
+				</a>',
 			))
 			->buttons(array(
 				array(
