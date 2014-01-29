@@ -1439,7 +1439,7 @@ class Plugin_Streams_core extends Plugin
 			 * Get entries
 			 */
 			
-			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->asPlugin()->toArray();
+			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->getPresenter('plugin');
 			
 
 			/**
