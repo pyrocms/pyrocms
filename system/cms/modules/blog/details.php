@@ -146,7 +146,7 @@ class Module_Blog extends AbstractModule
 			'lang:blog:blog_title'
 		);
 
-		$this->addFields();
+		//$this->addFields();
 
 		// Add fields to streamsy table
 /*		$schema->table('blog', function($table) {
@@ -171,6 +171,14 @@ class Module_Blog extends AbstractModule
 
 	public function addFields()
 	{
+		SchemaUtility::destroyNamespace('blogs');
+
+		StreamModel::addStream(
+			'blog',
+			'blogs',
+			'lang:blog:blog_title'
+		);
+
 		FieldTypeManager::registerFolderFieldTypes(APPPATH.'/modules/streams_core/field_types/', true);
 		
 		$comments_enabled_options = array(
@@ -243,7 +251,7 @@ class Module_Blog extends AbstractModule
 			),
 			array(
 				'name'		=> 'lang:blog:author_label',
-				'slug'		=> 'author_id',
+				'slug'		=> 'author',
 				'type'		=> 'user',
 				'required'  => true,
 				'locked'	=> true,
@@ -277,7 +285,7 @@ class Module_Blog extends AbstractModule
 			),
 			array(
 				'name'		=> 'lang:blog:category_label',
-				'slug'		=> 'category_id',
+				'slug'		=> 'category',
 				'type'		=> 'relationship',
 				'required'	=> true,
 				'locked'	=> true,
