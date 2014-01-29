@@ -27,7 +27,7 @@ class EntryFormBuilder extends AbstractUi
     {
         $attributes = array();
 
-        if ($attributes['entry'] = $entry;) {
+        if ($attributes['entry'] = $entry) {
 
             $attributes['assignments'] = $entry->getAssignments();
 
