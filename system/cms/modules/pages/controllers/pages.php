@@ -248,7 +248,7 @@ class Pages extends Public_Controller
 
 		$attributes = $page->getAttributes();
 
-		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->getFormatter()->asPlugin()->getAttributes() : array());
+		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->getPresenter('plugin')->toArray() : array());
 
 		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $attributes), false);
 		
