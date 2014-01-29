@@ -150,7 +150,7 @@ class EntryFormBuilder extends AbstractUi
 
         //$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
 
-        $values = $this->getFormValues($this->assignments, $this->entry, $this->skips);
+        $values = $this->getFormValues($this->assignments, $this->entry);
 
         // -------------------------------------
         // Validation
@@ -159,10 +159,10 @@ class EntryFormBuilder extends AbstractUi
         $result_id = '';
 
         if ($_POST and $this->enableSave) {
-            if (empty($validation_rules) or ci()->form_validation->run()) {
+            //if (empty($validation_rules)) {
                 if ( ! $this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
-                    if ( ! $this->entry->save()) {
+                    if ( ! $this->entry->preSave($this->skips)) {
                         ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
@@ -182,7 +182,7 @@ class EntryFormBuilder extends AbstractUi
                         ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 } else { // edit
-                    if ( ! $this->entry->save() and $this->messageError) {
+                    if ( ! $this->entry->preSave($this->skips) and $this->messageError) {
                         ci()->session->set_flashdata('notice', lang_label($this->messageError));
                     } else {
                         $this->result = $this->entry;
@@ -202,7 +202,7 @@ class EntryFormBuilder extends AbstractUi
                         ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
                 }
-            }
+            //}
         }
 
         // -------------------------------------
@@ -315,8 +315,6 @@ class EntryFormBuilder extends AbstractUi
                 }
             }
         }
-
-        $entry->setSkipFieldSlugs($skips);
 
         return $values;
     }
