@@ -29,59 +29,16 @@ class EntryModel extends Eloquent
     protected $user_columns = array('id', 'username');
 
     /**
-     * Field type instances
-     * @var array
-     */
-    protected $field_type_instances = null;
-
-    /**
-     * Field maps
-     * @var array
-     */
-    protected $field_maps = array();
-
-    /**
-     * Format mode
-     * @var string
-     */
-    protected $format = 'eloquent';
-
-    /**
      * Search index template
      * @var mixed The configuration array or false
      */
     protected $search_index_template = false;
 
     /**
-     * View options
-     * @var array
-     */
-    protected $view_options = array('*');
-
-    /**
-     * Default view options
-     * @var array
-     */
-    protected $default_view_options = array('id', 'created_by');
-
-    /**
-     * Skip field slugs
-     * @var array
-     */
-    protected $skip_field_slugs = array();
-
-    /**
      * Process the model with field types
      */
     protected $streamProcess = false;
 
-    /**
-     * Disable pre save
-     * @var boolean
-     */
-    protected $disable_pre_save = false;
-
-    protected $disable_field_maps = false;
 
     /**
      * Stream data
@@ -96,6 +53,11 @@ class EntryModel extends Eloquent
     protected static $relationFieldsData = array();
 
     /**
+     * Presenter class
+     */ 
+    public $presenter = 'Pyro\Module\Streams_core\EntryPresenter';
+
+    /**
      * The name of the "created at" column.
      * @var string
      */
@@ -106,31 +68,16 @@ class EntryModel extends Eloquent
      */
     const FORMAT_ELOQUENT   = 'eloquent';
 
-    /**
-     * Format Original Constant
-     */
-    const FORMAT_ORIGINAL   = 'original';
-
-    /**
-     * Format Data Constant
-     */
-    const FORMAT_DATA       = 'data';
-
-    /**
-     * Format Plugin Constant
-     */
-    const FORMAT_PLUGIN     = 'plugin';
-
-    /**
-     * Format String Constant
-     */
-    const FORMAT_STRING     = 'string';
-
     public function setStreamProcess($streamProcess = false)
     {
         $this->streamProcess = $streamProcess;
 
         return $this;
+    }
+
+    public function getDefaultFields()
+    {
+        return array($this->getKeyName(), static::CREATED_AT, 'createdByUser');
     }
 
     /**
@@ -215,20 +162,6 @@ class EntryModel extends Eloquent
         return $this;
     }
 
-    public function setSkipFieldSlugs($skip_field_slugs = array())
-    {
-        $this->skip_field_slugs = $skip_field_slugs;
-
-        return $this;
-    }
-
-    public function disablePreSave($disable_pre_save = false)
-    {
-        $this->disable_pre_save = $disable_pre_save;
-
-        return $this;
-    }
-
     /**
      * Get assignments
      * @return [type] [description]
@@ -271,6 +204,17 @@ class EntryModel extends Eloquent
     public function getFieldSlugs()
     {
         return $this->getAssignments()->getFieldSlugs();
+    }
+
+    public function getPresenter($viewOptions = array(), $defaultFormat = null, $presenter = null)
+    {
+        if ($presenter) {
+            $this->presenter = $presenter;
+        }
+
+        $decorator = new EntryPresenterDecorator;
+
+        return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
     }
 
     /**
@@ -332,23 +276,29 @@ class EntryModel extends Eloquent
         ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
     }
 
-    public function getFormatter()
+    public function save(array $options = array())
     {
-        $formatter = new EntryFormatter;
+        if ($saved = parent::save($options) and $this->search_index_template) {
+            Search::indexEntry($saved, $this->search_index_template);
+        }
 
-        return $formatter->entry($this);
+        // -------------------------------------
+        // Event: Post Insert Entry
+        // -------------------------------------
+
+        \Events::trigger('streams_post_insert_entry', $saved);
+
+        return $saved;
     }
 
     /**
-     * Save the model to the database.
+     * Process data with field types before saving the model to the database.
      *
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = array())
+    public function preSave($skips = array(), array $options = array())
     {
-        $this->flushCacheCollection();
-
         $fields = $this->getAssignments();
 
         $insert_data = array();
@@ -377,61 +327,39 @@ class EntryModel extends Eloquent
 
         $this->setRawAttributes($attributes);
 
-        if ($this->streamProcess) {
-
-            if ( ! $fields->isEmpty() and ! $this->disable_pre_save) {
-                foreach ($fields as $field) {
-                    // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                    if ( ! in_array($field->field_slug, $this->skip_field_slugs)) {
-
-                        $type = $field->getType($this);
-                        $types[] = $type;
-
-                        // We don't process the alt process stuff.
-                        // This is for field types that store data outside of the
-                        // actual table
-                        if ($type->alt_process) {
-                            $alt_process[] = $field->field_slug;
-                        } else {
-                            $this->setAttribute($type->getColumnName(), $type->preSave());
-                        }
-                    }
-                }
-            }            
-        }
-
-        // -------------------------------------
-        // Insert data
-        // -------------------------------------
-
-        // Is there any logic to complete before inserting?
-        //if ( \Events::trigger('streams_pre_insert_entry', array('stream' => $this->stream, 'insert_data' => $this->getAttributes())) === false ) return false;
-
-        if ($saved = parent::save($options) and $this->search_index_template) {
-            Search::indexEntry($this, $this->search_index_template);
-        }
-
-        if ($this->streamProcess) {
-
-            // -------------------------------------
-            // Alt Processing
-            // -------------------------------------
+        if ( ! $fields->isEmpty()) {
             foreach ($fields as $field) {
-                if (! in_array($field->field_slug, $this->skip_field_slugs)) {
-                    if (in_array($field->field_slug, $alt_process)) {
-                        $type = $field->getType($this);
-                        $type->preSave();
+                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
+                if ( ! in_array($field->field_slug, $skips)) {
+
+                    $type = $field->getType($this);
+                    $types[] = $type;
+
+                    // We don't process the alt process stuff.
+                    // This is for field types that store data outside of the
+                    // actual table
+                    if ($type->alt_process) {
+                        $alt_process[] = $field->field_slug;
+                    } else {
+                        $this->setAttribute($type->getColumnName(), $type->preSave());
                     }
                 }
             }
+        }            
+
+        // -------------------------------------
+        // Alt Processing
+        // -------------------------------------
+        foreach ($fields as $field) {
+            if (! in_array($field->field_slug, $skips)) {
+                if (in_array($field->field_slug, $alt_process)) {
+                    $type = $field->getType($this);
+                    $type->preSave();
+                }
+            }
         }
-        // -------------------------------------
-        // Event: Post Insert Entry
-        // -------------------------------------
 
-        \Events::trigger('streams_post_insert_entry', $this);
-
-        return $saved;
+        return $this->save($options);
     }
 
     /**
