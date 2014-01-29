@@ -62,6 +62,8 @@ class EntryUi extends AbstractUi
             throw new ClassNotInstanceOfEntryException;
         }
 
+        $instance->fields = 'string';
+
         return $instance->model($model)->with($model->getRelationFieldsSlugs());
     }
 
@@ -72,9 +74,7 @@ class EntryUi extends AbstractUi
      */
     protected function triggerTable()
     {
-        $this->formatter($this->model->getFormatter());
-
-        $this->formatter->viewOptions($this->fields);
+        $viewOptions = new EntryViewOptions($this->model, $this->fields, 'string');
 
         $this
             ->assignments($this->model->getAssignments())
@@ -82,10 +82,10 @@ class EntryUi extends AbstractUi
             ->query($this->model->newQuery())
             
             ->stream($this->model->getStream())
+
+            ->viewOptions($viewOptions->getFieldSlugs())
             
-            ->viewOptions($this->formatter->getViewOptions())
-            
-            ->fieldNames($this->formatter->getViewOptionsFieldNames())
+            ->fieldNames($viewOptions->getFieldNames())
 
             ->searchId(isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null)
 
@@ -110,7 +110,8 @@ class EntryUi extends AbstractUi
             ->with((array) $this->with)
             ->take($this->limit)
             ->skip($this->offset)
-            ->get($this->select);
+            ->get($this->select)
+            ->getPresenter($viewOptions);
 
         if ($this->limit > 0) {
             $this->paginationTotalRecords($this->model->count());    
@@ -262,11 +263,14 @@ class EntryUi extends AbstractUi
             }
         }
 
-        foreach ($tabs as &$tab) {
-            if ( ! empty($tab['fields']) and $tab['fields'] === '*') {
-                $tab['fields'] = $available_fields;
+        $distributed = false;
 
-                break;
+        foreach ($tabs as &$tab) {
+            if ( ! empty($tab['fields']) and $tab['fields'] === '*' and ! $distributed) {
+                $tab['fields'] = $available_fields;
+                $distributed = true;
+            } else {
+                $tab['fields'] = array();
             }
         }
 
