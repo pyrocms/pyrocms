@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Pyro\FieldType\RelationshipInterface;
 use Pyro\Model\Eloquent;
 use Pyro\Module\Search\Model\Search;
 use Pyro\Module\Users\Model\User;
@@ -12,7 +13,7 @@ use Pyro\Module\Users\Model\User;
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Streams_core\Models
  */
-class EntryModel extends Eloquent
+class EntryModel extends Eloquent implements RelationshipInterface
 {
     protected $columns = array('*');
 
@@ -35,12 +36,6 @@ class EntryModel extends Eloquent
     protected $search_index_template = false;
 
     /**
-     * Process the model with field types
-     */
-    protected $streamProcess = false;
-
-
-    /**
      * Stream data
      * @var array/null
      */
@@ -55,7 +50,7 @@ class EntryModel extends Eloquent
     /**
      * Presenter class
      */ 
-    public $presenter = 'Pyro\Module\Streams_core\EntryPresenter';
+    public $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
 
     /**
      * The name of the "created at" column.
@@ -63,17 +58,6 @@ class EntryModel extends Eloquent
      */
     const CREATED_BY        = 'created_by';
 
-    /**
-     * Format Eloquent Constant
-     */
-    const FORMAT_ELOQUENT   = 'eloquent';
-
-    public function setStreamProcess($streamProcess = false)
-    {
-        $this->streamProcess = $streamProcess;
-
-        return $this;
-    }
 
     public function getDefaultFields()
     {
@@ -139,29 +123,6 @@ class EntryModel extends Eloquent
         return $this->getStream()->stream_namespace;
     }
 
-    public function getColumns()
-    {
-        return $this->columns;
-    }
-
-    public function setColumns($columns = array('*'))
-    {
-        $this->columns = $columns;
-
-        return $this;
-    }
-
-    /**
-     * Set fields
-     * @param array $fields
-     */
-    public function setFields($fields = array())
-    {
-        $this->fields = FieldCollection::make($fields);
-
-        return $this;
-    }
-
     /**
      * Get assignments
      * @return [type] [description]
@@ -198,6 +159,26 @@ class EntryModel extends Eloquent
     }
 
     /**
+     * Get the related model's title for the Relationship field type
+     * 
+     * @return string|integer
+     */ 
+    public function getFieldTypeRelationshipTitle()
+    {
+        return $this->getTitleColumnValue();
+    }
+
+    /**
+     * Get the related model's options for the Relationship field type
+     * 
+     * @return array
+     */ 
+    public function getFieldTypeRelationshipOptions()
+    {
+        return $this->lists($this->getTitleColumn(), 'id');
+    }
+
+    /**
      * Get field slugs
      * @return array
      */
@@ -206,12 +187,15 @@ class EntryModel extends Eloquent
         return $this->getAssignments()->getFieldSlugs();
     }
 
-    public function getPresenter($viewOptions = array(), $defaultFormat = null, $presenter = null)
+    /**
+     * Get the presenter object
+     * 
+     * @param array $viewOptions
+     * @param string $defaultFormat
+     * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
+     */ 
+    public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
-        if ($presenter) {
-            $this->presenter = $presenter;
-        }
-
         $decorator = new EntryPresenterDecorator;
 
         return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
@@ -666,39 +650,21 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Pass properties
-     * @param  object $instance
-     * @return object
-     */
-/*    public function passProperties(EntryModel $model = null)
-    {
-        $model
-            ->setViewOptions($this->view_options);
-
-        $model->exists = $model->getKey() ? true : false;
-
-        return $model;
-    }*/
-
-    /**
      * Handle dynamic method calls into the method.
      *
      * @param  string  $method
      * @param  array   $parameters
      * @return mixed
      */
-/*    public function __call($method, $parameters)
-    {
-        // Handle dynamic relation as join
-        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
-            return $this->relationAsJoin($matches[1]);
-        }
+    /*    public function __call($method, $parameters)
+        {
+            // Handle dynamic relation as join
+            if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
+                return $this->relationAsJoin($matches[1]);
+            }
 
-        return parent::__call($method, $parameters);
-    }
-*/
-/*    public function toJson($options = 0)
-    {
-        return json_encode($this->toOutputArray(), $options);
-    }*/
+            return parent::__call($method, $parameters);
+        }
+    */
+
 }
