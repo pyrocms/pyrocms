@@ -18,7 +18,11 @@ use Pyro\Module\Streams_core\EntryModel;
  */
 abstract class Eloquent extends Model
 {   
-
+    /**
+     * Cache minutes
+     * 
+     * @var integer|boolean
+     */ 
     protected $cacheMinutes = false;
 
     /**
@@ -33,6 +37,11 @@ abstract class Eloquent extends Model
      */
     protected $replicated = false;
 
+    /**
+     * Boot
+     * 
+     * @return void
+     */ 
     public static function boot()
     {
         parent::boot();
@@ -61,20 +70,21 @@ abstract class Eloquent extends Model
     }
 
     /**
-     * Get a the entire runtime cache key - values
-     *
+     * Get attribute keys
+     * 
      * @return array
-     */
-    public static function getRuntimeCache()
-    {
-        return static::$runtime_cache;
-    }
-
+     */ 
     public function getAttributeKeys()
     {
         return array_keys($this->getAttributes());
     }
 
+    /**
+     * Update
+     * 
+     * @param array $attributes
+     * @return Pyro\Model\Eloquent|boolean
+     */ 
     public function update(array $attributes = array())
     {
         // Remove any post values that do not correspond to existing columns
@@ -88,8 +98,6 @@ abstract class Eloquent extends Model
 
         return parent::update($attributes);
     }
-
-    // abstract public function validate();
 
     /**
      * Save the model to the database.
@@ -109,6 +117,11 @@ abstract class Eloquent extends Model
         return parent::save($options);
     }
 
+    /**
+     * Delete
+     * 
+     * @return boolean
+     */ 
     public function delete()
     {
         $this->flushCacheCollection();
@@ -116,15 +129,9 @@ abstract class Eloquent extends Model
         return parent::delete();
     }
 
-    public function flushCacheCollection()
-    {
-        ci()->cache->collection($this->getCacheCollectionKey())->flush();
-
-        return $this;
-    }
-
     /**
      * Replicate 
+     * 
      * @return object The model clone
      */
     public function replicate()
@@ -133,6 +140,30 @@ abstract class Eloquent extends Model
         $clone->skip_validation = true;
         $clone->replicated = true;
         return $clone;
+    }
+
+    /**
+     * Set presenter class
+     * 
+     * @return Pyro\Model\Eloquent
+     */ 
+    public function setPresenterClass($presenterClass = null)
+    {
+        $this->presenterClass = $presenterClass;
+
+        return $this;
+    }
+
+    /**
+     * Get presenter
+     * 
+     * @Return Pyro\Support\Presenter|Pyro\Model\Eloquent
+     */ 
+    public function getPresenter()
+    {
+        $decorator = new PresenterDecorator;
+
+        return $decorator->decorate($this);
     }
 
     /**
@@ -169,6 +200,18 @@ abstract class Eloquent extends Model
     }
 
     /**
+     * Flush cache collection
+     * 
+     * @return Pyro\Model\Eloquent
+     */ 
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey())->flush();
+
+        return $this;
+    }
+
+    /**
      * Get cache collection key
      * @return string
      */
@@ -187,13 +230,10 @@ abstract class Eloquent extends Model
     }
 
     /**
-     * Get the title column value
-     */
-    public function getTitleColumnValue()
-    {
-        return null;
-    }
-
+     * Get relation
+     * 
+     * @return Pyro\Model\Eloquent|Pyro\Model\EloquentCollection|null
+     */ 
     public function getRelation($attribute)
     {
         if (isset($this->relations[$attribute])) return $this->relations[$attribute];
