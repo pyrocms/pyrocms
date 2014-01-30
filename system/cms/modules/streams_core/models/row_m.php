@@ -436,7 +436,7 @@ class Row_m extends MY_Model {
 			if(strstr($exclude_by, ':')) {
 				list($exclude_type, $exclude_by) = explode(':', $exclude_by);
 				
-				if($exclude_type == 'keywords') 
+				if(strtolower($exclude_type) == 'keywords') 
 				{
 					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$exclude_by, true);
 					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);
@@ -470,7 +470,7 @@ class Row_m extends MY_Model {
 			if(strstr($include_by, ':')) {
 				list($include_type, $include_by) = explode(':', $include_by);
 				
-				if($include_type == 'keywords') 
+				if(strtolower($include_type) == 'keywords') 
 				{
 					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$include_by, true);
 					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);
