@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Pages\Model\Page;
+use Pyro\Module\Pages\Models\Page;
 
 /**
  * Pages Plugin

@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Blog;
 
-use Pyro\Model\Eloquent;
+use Pyro\Models\Eloquent;
 use Pyro\FieldType\RelationshipInterface;
 
 class BlogCategoryModel extends Eloquent implements RelationshipInterface

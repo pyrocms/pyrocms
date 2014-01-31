@@ -1,9 +1,9 @@
 <?php
 
-use Pyro\Module\Comments\Model\Comment;
+use Pyro\Module\Comments\Models\Comment;
 use Pyro\Module\Navigation;
-use Pyro\Module\Pages\Model\Page;
-use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Pages\Models\Page;
+use Pyro\Module\Pages\Models\PageType;
 use Pyro\Module\Users;
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\StreamModel;
@@ -341,7 +341,7 @@ class Admin extends Admin_Controller
                 if ( ! empty($input['navigation_group_id']) and is_array($input['navigation_group_id'])) {
                     foreach ($input['navigation_group_id'] as $group_id) {
 
-                        $link = Navigation\Model\Link::create(array(
+                        $link = Navigation\Models\Link::create(array(
                             'title'                 => $page->title,
                             'link_type'             => 'page',
                             'page_id'               => $page->id,
@@ -579,8 +579,8 @@ class Admin extends Admin_Controller
         $this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
         // Load navigation list
-        $this->form_data['navigation_groups'] = $this->template->navigation_groups = Navigation\Model\Group::getGroupOptions();
-        $this->form_data['group_options'] = $this->template->group_options = Users\Model\Group::getGroupOptions();
+        $this->form_data['navigation_groups'] = $this->template->navigation_groups = Navigation\Models\Group::getGroupOptions();
+        $this->form_data['group_options'] = $this->template->group_options = Users\Models\Group::getGroupOptions();
 
         $this->template
             ->append_js('jquery/jquery.tagsinput.js')

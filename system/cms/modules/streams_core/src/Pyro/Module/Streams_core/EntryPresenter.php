@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Pyro\Module\Users\Model\User;
+use Pyro\Module\Users\Models\User;
 use Pyro\Support\Presenter;
 
 class EntryPresenter extends Presenter

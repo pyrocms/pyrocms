@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Keywords\Model\Keyword;
+use Pyro\Module\Keywords\Models\Keyword;
 
 /**
  * Maintain a central list of keywords to label and organize your content.

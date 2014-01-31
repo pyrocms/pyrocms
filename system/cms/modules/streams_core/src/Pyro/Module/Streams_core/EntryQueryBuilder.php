@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Pyro\Model\EloquentQueryBuilder;
+use Pyro\Models\EloquentQueryBuilder;
 
 class EntryQueryBuilder extends EloquentQueryBuilder
 {

@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Files\Model\Folder;
-use Pyro\Module\Files\Model\File as FileModel;
+use Pyro\Module\Files\Models\Folder;
+use Pyro\Module\Files\Models\File as FileModel;
 use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**
@@ -64,7 +64,7 @@ class Image extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
+		return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Models\File'));
 	}
 
 	/**

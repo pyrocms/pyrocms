@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Keywords\Model\Keyword;
-use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Keywords\Models\Keyword;
+use Pyro\Module\Keywords\Models\Applied;
 
 /**
  * Keywords Library

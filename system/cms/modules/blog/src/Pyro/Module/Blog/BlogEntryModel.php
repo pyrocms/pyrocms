@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Blog;
 
-use Pyro\Streams\Model\BlogsBlogEntryModel;
+use Pyro\Streams\Models\BlogsBlogEntryModel;
 
 class BlogEntryModel extends BlogsBlogEntryModel
 {

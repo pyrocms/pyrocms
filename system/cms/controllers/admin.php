@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Users\Model\User;
+use Pyro\Module\Users\Models\User;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 
 /**

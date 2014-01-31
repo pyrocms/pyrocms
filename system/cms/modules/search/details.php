@@ -1,7 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Search\Models\Search;
 
 /**
  * Search module

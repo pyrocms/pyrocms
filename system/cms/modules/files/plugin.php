@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Files\Model\Folder;
-use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Models\Folder;
+use Pyro\Module\Files\Models\File;
 
 /**
  * Files Plugin
