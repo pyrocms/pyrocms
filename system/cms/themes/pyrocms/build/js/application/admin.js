@@ -87,11 +87,11 @@ Pyro.Initialize = function() {
 		// This is broken.. leave it for now
 		
 		// Empty it!
-		//$('#modal').html('');
+		$('#modal').html('');
 
 		// Fixes a bootstrap bug that prevents
 		// a modal from being reused
-		//$('#modal').load($(e.target).attr('href'));
+		$('#modal').load($(e.target).attr('href'));
 	});​
 
 
