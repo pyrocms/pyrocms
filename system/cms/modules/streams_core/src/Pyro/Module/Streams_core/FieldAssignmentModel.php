@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Illuminate\Database\Query\Expression as DBExpression;
-use Pyro\Model\Eloquent;
+use Pyro\Models\Eloquent;
 
 class FieldAssignmentModel extends FieldModel
 {
@@ -334,7 +334,7 @@ class FieldAssignmentModel extends FieldModel
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exception\FieldAssignmentModelNotFoundException;
+        throw new Exceptions\FieldAssignmentModelNotFoundException;
     }
 
     /**

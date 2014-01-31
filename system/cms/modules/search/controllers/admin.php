@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Search\Models\Search;
 
 /**
  * Admin controller for the search module

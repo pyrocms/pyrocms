@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Pages\Model\Page;
-use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Pages\Models\Page;
+use Pyro\Module\Pages\Models\PageType;
 use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\FieldUi;
 use Pyro\Module\Streams_core\StreamModel;
@@ -388,7 +388,7 @@ class Admin_types extends Admin_Controller
 		//$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
 		FieldUi::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
 			->title($stream->stream_name.' '.lang('global:fields'))
-			->uris(
+			->uris(array(
 				'add' => $page_type_uri.'/new_field'
 			))
 			->pagination(Settings::get('records_per_page'), $page_type_uri)

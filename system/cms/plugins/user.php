@@ -324,7 +324,7 @@ class Plugin_User extends Plugin
 		else
 		{
 			// We must have a user id at this point
-			$user = Users\Model\User::find($user_id);	
+			$user = Users\Models\User::find($user_id);	
 		}
 
 		
@@ -334,7 +334,7 @@ class Plugin_User extends Plugin
 		foreach ($user->profile->getModel()->getAllColumns() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
-					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getFormatter()->getPluginOutput($var);
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getPresenter('plugin')->{$var};
 				}
 
 				if ($user->$field_key) {
@@ -368,7 +368,7 @@ class Plugin_User extends Plugin
 	{
 		if ( ! isset($this->user_data[$user_id]))
 		{
-			$this->user_data[$user_id] = Users\Model\User::find($user_id);
+			$this->user_data[$user_id] = Users\Models\User::find($user_id);
 		}
 
 		if (in_array($var, $this->user_data[$user_id]->getHidden())) return null;
@@ -378,7 +378,7 @@ class Plugin_User extends Plugin
 			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
 		}
 
-		return isset($this->user_profile_data[$user_id]) ? $this->user_profile_data[$user_id]->getFormatter()->getPluginOutput($var) : null;
+		return isset($this->user_profile_data[$user_id]) ? $this->user_profile_data[$user_id]->getPresenter('plugin')->{$var} : null;
 	}
 
 	/**
@@ -394,7 +394,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		$user = new Users\Model\User;
+		$user = new Users\Models\User;
 
 		if (in_array($name, $user->getHidden())) return null;
 

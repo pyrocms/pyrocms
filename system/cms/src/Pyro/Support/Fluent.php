@@ -1,9 +1,9 @@
 <?php namespace Pyro\Support;
 
-use Illuminate\Support\Fluent as IlluminateFluent;
+use Illuminate\Support\Fluent as BaseFluent;
 use Illuminate\Support\Str;
 
-class Fluent extends IlluminateFluent
+class Fluent extends BaseFluent
 {
 	/**
 	 * Registered callbacks

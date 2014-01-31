@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Addons;
 
-use Pyro\Model\Eloquent;
+use Pyro\Models\Eloquent;
 
 /**
  * Theme Option Model

@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Templates\Model\EmailTemplate;
+use Pyro\Module\Templates\Models\EmailTemplate;
 
 /**
  * Email Template Events Class

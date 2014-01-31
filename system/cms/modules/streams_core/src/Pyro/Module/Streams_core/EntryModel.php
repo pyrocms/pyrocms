@@ -2,9 +2,10 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Pyro\Model\Eloquent;
-use Pyro\Module\Search\Model\Search;
-use Pyro\Module\Users\Model\User;
+use Pyro\FieldType\RelationshipInterface;
+use Pyro\Models\Eloquent;
+use Pyro\Module\Search\Models\Search;
+use Pyro\Module\Users\Models\User;
 
 /**
  * Entry model
@@ -12,7 +13,7 @@ use Pyro\Module\Users\Model\User;
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Streams_core\Models
  */
-class EntryModel extends Eloquent
+class EntryModel extends Eloquent implements RelationshipInterface
 {
     protected $columns = array('*');
 
@@ -29,59 +30,10 @@ class EntryModel extends Eloquent
     protected $user_columns = array('id', 'username');
 
     /**
-     * Field type instances
-     * @var array
-     */
-    protected $field_type_instances = null;
-
-    /**
-     * Field maps
-     * @var array
-     */
-    protected $field_maps = array();
-
-    /**
-     * Format mode
-     * @var string
-     */
-    protected $format = 'eloquent';
-
-    /**
      * Search index template
      * @var mixed The configuration array or false
      */
     protected $search_index_template = false;
-
-    /**
-     * View options
-     * @var array
-     */
-    protected $view_options = array('*');
-
-    /**
-     * Default view options
-     * @var array
-     */
-    protected $default_view_options = array('id', 'created_by');
-
-    /**
-     * Skip field slugs
-     * @var array
-     */
-    protected $skip_field_slugs = array();
-
-    /**
-     * Process the model with field types
-     */
-    protected $streamProcess = false;
-
-    /**
-     * Disable pre save
-     * @var boolean
-     */
-    protected $disable_pre_save = false;
-
-    protected $disable_field_maps = false;
 
     /**
      * Stream data
@@ -96,41 +48,20 @@ class EntryModel extends Eloquent
     protected static $relationFieldsData = array();
 
     /**
+     * Presenter class
+     */ 
+    public $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
+
+    /**
      * The name of the "created at" column.
      * @var string
      */
     const CREATED_BY        = 'created_by';
 
-    /**
-     * Format Eloquent Constant
-     */
-    const FORMAT_ELOQUENT   = 'eloquent';
 
-    /**
-     * Format Original Constant
-     */
-    const FORMAT_ORIGINAL   = 'original';
-
-    /**
-     * Format Data Constant
-     */
-    const FORMAT_DATA       = 'data';
-
-    /**
-     * Format Plugin Constant
-     */
-    const FORMAT_PLUGIN     = 'plugin';
-
-    /**
-     * Format String Constant
-     */
-    const FORMAT_STRING     = 'string';
-
-    public function setStreamProcess($streamProcess = false)
+    public function getDefaultFields()
     {
-        $this->streamProcess = $streamProcess;
-
-        return $this;
+        return array($this->getKeyName(), static::CREATED_AT, 'createdByUser');
     }
 
     /**
@@ -192,43 +123,6 @@ class EntryModel extends Eloquent
         return $this->getStream()->stream_namespace;
     }
 
-    public function getColumns()
-    {
-        return $this->columns;
-    }
-
-    public function setColumns($columns = array('*'))
-    {
-        $this->columns = $columns;
-
-        return $this;
-    }
-
-    /**
-     * Set fields
-     * @param array $fields
-     */
-    public function setFields($fields = array())
-    {
-        $this->fields = FieldCollection::make($fields);
-
-        return $this;
-    }
-
-    public function setSkipFieldSlugs($skip_field_slugs = array())
-    {
-        $this->skip_field_slugs = $skip_field_slugs;
-
-        return $this;
-    }
-
-    public function disablePreSave($disable_pre_save = false)
-    {
-        $this->disable_pre_save = $disable_pre_save;
-
-        return $this;
-    }
-
     /**
      * Get assignments
      * @return [type] [description]
@@ -265,12 +159,46 @@ class EntryModel extends Eloquent
     }
 
     /**
+     * Get the related model's title for the Relationship field type
+     * 
+     * @return string|integer
+     */ 
+    public function getFieldTypeRelationshipTitle()
+    {
+        return $this->getTitleColumnValue();
+    }
+
+    /**
+     * Get the related model's options for the Relationship field type
+     * 
+     * @return array
+     */ 
+    public function getFieldTypeRelationshipOptions()
+    {
+        return $this->lists($this->getTitleColumn(), 'id');
+    }
+
+    /**
      * Get field slugs
      * @return array
      */
     public function getFieldSlugs()
     {
         return $this->getAssignments()->getFieldSlugs();
+    }
+
+    /**
+     * Get the presenter object
+     * 
+     * @param array $viewOptions
+     * @param string $defaultFormat
+     * @return Pyro\Support\Presenter|Pyro\Models\Eloquent
+     */ 
+    public function getPresenter($viewOptions = array(), $defaultFormat = null)
+    {
+        $decorator = new EntryPresenterDecorator;
+
+        return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
     }
 
     /**
@@ -295,7 +223,7 @@ class EntryModel extends Eloquent
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exception\EntryModelNotFoundException;
+        throw new Exceptions\EntryModelNotFoundException;
     }
 
     /**
@@ -332,23 +260,29 @@ class EntryModel extends Eloquent
         ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
     }
 
-    public function getFormatter()
+    public function save(array $options = array())
     {
-        $formatter = new EntryFormatter;
+        if ($saved = parent::save($options) and $this->search_index_template) {
+            Search::indexEntry($saved, $this->search_index_template);
+        }
 
-        return $formatter->entry($this);
+        // -------------------------------------
+        // Event: Post Insert Entry
+        // -------------------------------------
+
+        \Events::trigger('streams_post_insert_entry', $saved);
+
+        return $saved;
     }
 
     /**
-     * Save the model to the database.
+     * Process data with field types before saving the model to the database.
      *
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = array())
+    public function preSave($skips = array(), array $options = array())
     {
-        $this->flushCacheCollection();
-
         $fields = $this->getAssignments();
 
         $insert_data = array();
@@ -377,60 +311,39 @@ class EntryModel extends Eloquent
 
         $this->setRawAttributes($attributes);
 
-        if ($this->streamProcess) {
-
-            if ( ! $fields->isEmpty() and ! $this->disable_pre_save) {
-                foreach ($fields as $field) {
-                    // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                    if ( ! in_array($field->field_slug, $this->skip_field_slugs)) {
-
-                        $type = $field->getType($this);
-                        $types[] = $type;
-
-                        // We don't process the alt process stuff.
-                        // This is for field types that store data outside of the
-                        // actual table
-                        if ($type->alt_process) {
-                            $alt_process[] = $field->field_slug;
-                        } else {
-                            $this->setAttribute($type->getColumnName(), $type->preSave());
-                        }
-                    }
-                }
-            }            
-        }
-
-        // -------------------------------------
-        // Insert data
-        // -------------------------------------
-
-        // Trigger save event
-        \Events::trigger($this->getStream()->stream_namespace.':'.$this->getStream()->stream_slug.'.save', $this);
-
-        if ($saved = parent::save($options) and $this->search_index_template) {
-            Search::indexEntry($this, $this->search_index_template);
-        }
-
-        if ($this->streamProcess) {
-
-            // -------------------------------------
-            // Alt Processing
-            // -------------------------------------
+        if ( ! $fields->isEmpty()) {
             foreach ($fields as $field) {
-                if (! in_array($field->field_slug, $this->skip_field_slugs)) {
-                    if (in_array($field->field_slug, $alt_process)) {
-                        $type = $field->getType($this);
-                        $type->preSave();
+                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
+                if ( ! in_array($field->field_slug, $skips)) {
+
+                    $type = $field->getType($this);
+                    $types[] = $type;
+
+                    // We don't process the alt process stuff.
+                    // This is for field types that store data outside of the
+                    // actual table
+                    if ($type->alt_process) {
+                        $alt_process[] = $field->field_slug;
+                    } else {
+                        $this->setAttribute($type->getColumnName(), $type->preSave());
                     }
                 }
             }
-        }
-        
-        // Trigger save event
-        \Events::trigger($this->getStream()->stream_namespace.':'.$this->getStream()->stream_slug.'.saved', $this);
-        \Events::trigger('streams_post_insert_entry', $this);
+        }            
 
-        return $saved;
+        // -------------------------------------
+        // Alt Processing
+        // -------------------------------------
+        foreach ($fields as $field) {
+            if (! in_array($field->field_slug, $skips)) {
+                if (in_array($field->field_slug, $alt_process)) {
+                    $type = $field->getType($this);
+                    $type->preSave();
+                }
+            }
+        }
+
+        return $this->save($options);
     }
 
     /**
@@ -618,7 +531,7 @@ class EntryModel extends Eloquent
             $column = $this->getTitleColumn();
         }
 
-        return $this->getAttribute($column);
+        return $this->getEloquentOutput($column);
     }
 
     /**
@@ -630,7 +543,7 @@ class EntryModel extends Eloquent
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if (! trim($title_column) or ! $this->getAttribute($title_column)) {
+        if (! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
             $title_column = $this->getKeyName();
         }
 
@@ -686,7 +599,7 @@ class EntryModel extends Eloquent
      */
     public function createdByUser()
     {
-        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
+        return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->user_columns);
     }
 
     /**
@@ -737,39 +650,21 @@ class EntryModel extends Eloquent
     }
 
     /**
-     * Pass properties
-     * @param  object $instance
-     * @return object
-     */
-/*    public function passProperties(EntryModel $model = null)
-    {
-        $model
-            ->setViewOptions($this->view_options);
-
-        $model->exists = $model->getKey() ? true : false;
-
-        return $model;
-    }*/
-
-    /**
      * Handle dynamic method calls into the method.
      *
      * @param  string  $method
      * @param  array   $parameters
      * @return mixed
      */
-/*    public function __call($method, $parameters)
-    {
-        // Handle dynamic relation as join
-        if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
-            return $this->relationAsJoin($matches[1]);
-        }
+    /*    public function __call($method, $parameters)
+        {
+            // Handle dynamic relation as join
+            if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
+                return $this->relationAsJoin($matches[1]);
+            }
 
-        return parent::__call($method, $parameters);
-    }
-*/
-/*    public function toJson($options = 0)
-    {
-        return json_encode($this->toOutputArray(), $options);
-    }*/
+            return parent::__call($method, $parameters);
+        }
+    */
+
 }

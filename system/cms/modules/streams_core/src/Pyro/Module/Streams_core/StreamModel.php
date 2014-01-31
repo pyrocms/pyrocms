@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Illuminate\Support\Str;
-use Pyro\Model\Eloquent;
+use Pyro\Models\Eloquent;
 
 class StreamModel extends Eloquent
 {
@@ -62,7 +62,7 @@ class StreamModel extends Eloquent
      */
     public static function getEntryModelNamespace()
     {
-        return 'Pyro\\Streams\\Model';
+        return 'Pyro\\Streams\\Models';
     }
 
     /**
@@ -85,17 +85,17 @@ class StreamModel extends Eloquent
 
         // Do we have a field slug?
         if( ! isset($stream_slug) or ! trim($stream_slug)) {
-            throw new Exception\EmptyFieldSlugException;
+            throw new Exceptions\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
         if( ! isset($stream_namespace) or ! trim($stream_namespace)) {
-            throw new Exception\EmptyFieldNamespaceException;
+            throw new Exceptions\EmptyFieldNamespaceException;
         }
 
         // Do we have a field name?
         if ( ! isset($stream_name) or ! trim($stream_name)) {
-            throw new Exception\EmptyFieldNameException;
+            throw new Exceptions\EmptyFieldNameException;
         }
 
         // -------------------------------------
@@ -131,7 +131,7 @@ class StreamModel extends Eloquent
     public static function getStream($stream_slug, $stream_namespace = null)
     {
         if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace)) {
-            throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
+            throw new Exceptions\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
         }
 
         return $stream;
@@ -261,7 +261,7 @@ class StreamModel extends Eloquent
     {
         if ( ! $stream instanceof static) {
             if ( ! $stream = static::findBySlugAndNamespace($stream, $namespace)) {
-                throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
+                throw new Exceptions\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
             }
         }
 
@@ -326,7 +326,7 @@ class StreamModel extends Eloquent
     {
         if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
 
-        throw new Exception\StreamModelNotFoundException;
+        throw new Exceptions\StreamModelNotFoundException;
     }
 
     /**
@@ -605,7 +605,7 @@ class StreamModel extends Eloquent
         // Check if the column does not exist already to avoid errors, specially on migrations
         // @todo - hasColunm() has a bug in illuminate/database where it does not apply the table prefix, we have to pass it ourselves
         // Remove the prefix as soon as the pull request / fix gets merged https://github.com/laravel/framework/pull/2070
-        if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $field->field_slug)) return false;
+        if ($schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $type->getColumnName())) return false;
 
         $schema->table($stream->stream_prefix.$stream->stream_slug, function($table) use ($type, $field) {
 
@@ -634,9 +634,9 @@ class StreamModel extends Eloquent
 
             // Only the string method cares about a constraint
             if ($db_type_method === 'string') {
-                $col = $table->{$db_type_method}($field->field_slug, $constraint);
+                $col = $table->{$db_type_method}($type->getColumnName(), $constraint);
             } else {
-                $col = $table->{$db_type_method}($field->field_slug);
+                $col = $table->{$db_type_method}($type->getColumnName());
             }
 
             // -------------------------------------
@@ -781,7 +781,7 @@ class StreamModel extends Eloquent
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exception\StreamNotFoundException;
+        throw new Exceptions\StreamNotFoundException;
     }
 
     /**

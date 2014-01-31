@@ -10,6 +10,8 @@
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
 
+use Illuminate\Support\Contracts\ArrayableInterface;
+
 class MY_Parser extends CI_Parser
 {
     /**
@@ -63,6 +65,8 @@ class MY_Parser extends CI_Parser
         ci()->benchmark->mark('parse_start');
 
         // Convert from object to array
+        $data = $this->toArray($data);
+        
         is_array($data) or $data = (array) $data;
 
         // Include cached vars too?
@@ -108,8 +112,8 @@ class MY_Parser extends CI_Parser
         $return_data = ci()->plugins->locate($plugin, $attributes, $content);
 
         if (is_array($return_data) && $return_data) {
-            if ( ! $this->_is_multi($return_data)) {
-                $return_data = $this->_make_multi($return_data);
+            if ( ! $this->isMulti($return_data)) {
+                $return_data = $this->makeMulti($return_data);
             }
 
             // $content = $data['content']; # TODO What was this doing other than throw warnings in 2.0?
@@ -138,7 +142,7 @@ class MY_Parser extends CI_Parser
      * @param	array
      * @return	 int
      */
-    private function _is_multi($array)
+    private function isMulti($array)
     {
         return (count($array) != count($array, 1));
     }
@@ -152,18 +156,46 @@ class MY_Parser extends CI_Parser
      * @param	int		Used for recursion
      * @return	array	The multi array
      */
-    private function _make_multi($flat, $i=0)
+    private function makeMulti($flat, $i=0)
     {
-        $multi = array();
         $return = array();
+     
         foreach ($flat as $item => $value) {
-            if (is_object($value)) {
+
+            if ($value instanceof ArrayableInterface) {
+                $return[$item] = $value->toArray();
+            }
+            elseif (is_object($value)) {
                 $return[$item] = (array) $value;
             } else {
                 $return[$i][$item] = $value;
             }
         }
         return $return;
+    }
+
+    /**
+     * toArray for output (recursively)
+     * @param  mixed $data 
+     * @return mixed        String or array
+     */
+    public function toArray($data)
+    {
+        if ($data instanceof ArrayableInterface) {
+            $data = $data->toArray();
+        }
+
+        // Objects to arrays
+        if (is_object($data) and ! $data instanceof MY_Controller) {
+            $data = get_object_vars($data);
+        }
+
+        if (is_array($data)) {
+            $data = array_change_key_case($data, CASE_LOWER);
+        }
+
+        // toArray the children!
+        return is_array($data) ? array_map(__METHOD__, $data) : $data;
     }
 }
 

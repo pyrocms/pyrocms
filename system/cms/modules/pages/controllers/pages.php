@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Pages\Model\Page;
-use Pyro\Module\Keywords\Model\Applied as AppliedKeywords;
+use Pyro\Module\Pages\Models\Page;
+use Pyro\Module\Keywords\Models\Applied as AppliedKeywords;
 
 /**
  * The public controller for the Pages module.
@@ -248,7 +248,7 @@ class Pages extends Public_Controller
 
 		$attributes = $page->getAttributes();
 
-		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->getFormatter()->asPlugin()->getAttributes() : array());
+		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->getPresenter('plugin')->toArray() : array());
 
 		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $attributes), false);
 		

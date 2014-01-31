@@ -1,7 +1,7 @@
 <?php 
 
-use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Blog\BlogsBlogModel;
+use Pyro\Module\Blog\BlogCategoryModel;
+use Pyro\Module\Blog\BlogEntryModel;
 
 /**
  * Public Blog module controller
@@ -50,7 +50,7 @@ class Blog extends Public_Controller
 	public function index()
 	{
 		// Total posts
-		$total = BlogsBlogModel::where('status', '=', 'live')->count();
+		$total = BlogEntryModel::where('status', '=', 'live')->count();
 
 		// Skip
 		if (ci()->input->get('page')) {
@@ -60,14 +60,13 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogsBlogModel::select('*')
+		$posts = BlogEntryModel::select('*')
             ->where('status', '=', 'live')
 			->orderBy('created_at', 'DESC')
 			->take(Settings::get('records_per_page'))
 			->skip($skip)
 			->get()
-            ->asPlugin()
-            ->toArray();
+            ->getPresenter();
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -109,10 +108,10 @@ class Blog extends Public_Controller
 		$slug or redirect('blog');
 
 		// Get category data
-		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
+		$category = BlogCategoryModel::where('slug', $slug)->first() OR show_404();
 
 		// Total posts
-		$total = BlogsBlogModel::where('status', '=', 'live')
+		$total = BlogEntryModel::where('status', '=', 'live')
 			->where('category_id', '=', $category->id)
 			->count();
 
@@ -124,15 +123,8 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogsBlogModel::select('*')
-            ->where('status', '=', 'live')
-			->where('category_id', '=', $category->id)
-			->orderBy('created_at', 'DESC')
-			->take(Settings::get('records_per_page'))
-			->skip($skip)
-			->get()
-			->asPlugin()
-			->toArray();
+		$posts = BlogEntryModel::findManyByCategoryId($category->id, Settings::get('records_per_page'), $skip)
+			->getPresenter();
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -173,7 +165,7 @@ class Blog extends Public_Controller
 		$month_date = new DateTime($year.'-'.$month.'-01');
 
 		// Total posts
-		$total = BlogsBlogModel::where('status', '=', 'live')
+		$total = BlogEntryModel::where('status', '=', 'live')
 			->whereYear('created_at', '=', $year)
 			->whereMonth('created_at', '=', $month)
 			->count();
@@ -186,7 +178,7 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogsBlogModel::select('*')
+		$posts = BlogEntryModel::select('*')
             ->where('status', '=', 'live')
 			->whereYear('created_at', '=', $year)
 			->whereMonth('created_at', '=', $month)
@@ -194,8 +186,7 @@ class Blog extends Public_Controller
 			->take(Settings::get('records_per_page'))
 			->skip($skip)
 			->get()
-			->asPlugin()
-			->toArray();
+			->getPresenter('string');
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -238,13 +229,13 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$post = BlogsBlogModel::select('*')->where('slug', '=', $slug)
-			->first()
-			->asPlugin()
-			->toArray();
+		$post = BlogEntryModel::where('slug', '=', $slug)
+			->first();
+
+		$postPresenter = $post->getPresenter();
 
         if (! is_object(ci()->current_user) or ! ci()->current_user->isSuperUser()) {
-            if (! $post or $post['status']['key'] !== 'live') {
+            if (! $post or $post['status'] !== 'live') {
                 redirect('blog');
             }
         }
@@ -304,7 +295,7 @@ class Blog extends Public_Controller
 		$tag = rawurldecode($tag) or redirect('blog');
 
 		// Total posts
-		$total = BlogsBlogModel::where('status', '=', 'live')
+		$total = BlogEntryModel::where('status', '=', 'live')
 			->where('keywords', 'LIKE', '%'.$tag.'%')
 			->count();
 
@@ -316,14 +307,14 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogsBlogModel::select('*')
+		$posts = BlogEntryModel::select('*')
             ->where('status', '=', 'live')
 			->where('keywords', 'LIKE', '%'.$tag.'%')
 			->orderBy('created_at', 'DESC')
 			->take(Settings::get('records_per_page'))
 			->skip($skip)
 			->get()
-			->asPlugin()
+			->getPresenter()
 			->toArray();
 
 		// Create pagination
@@ -373,12 +364,12 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				if (isset($post['category_id']['title']) and ! in_array($post['category_id']['title'], $keywords))
+				if (isset($post->category->title) and ! in_array($post->category->title, $keywords))
 				{
-					$keywords[] = $post['category_id']['title'];
+					$keywords[] = $post->category->title;
 				}
 
-				$description[] = $post['title'];
+				$description[] = $post->title;
 			}
 		}
 
@@ -408,20 +399,17 @@ class Blog extends Public_Controller
 		{
 			// Get the category. We'll just do it ourselves
 			// since we need an array.
-			if ($category = $this->db->limit(1)->where('id', $post['category_id'])->get('blog_categories')->row_array())
+			if ($category = $post->category)
 			{
-				$this->template->set_breadcrumb($category['title'], 'blog/category/'.$category['slug']);
+				$this->template->set_breadcrumb($category->title, 'blog/category/'.$category->slug);
 
 				// Set category OG metadata			
 				$this->template->set_metadata('article:section', $category['title'], 'og');
-
-				// Add to $post
-				$post['category'] = $category;
 			}
 		}
 
-		$post = self::processPosts(array($post));
-		$post = $post[0];
+/*		$post = self::processPosts(array($post));
+		$post = $post[0];*/
 
 		// Add in OG keywords
         foreach (explode(',', $post['keywords']) as $keyword)
@@ -443,8 +431,8 @@ class Blog extends Public_Controller
 
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
 			$this->template->set('form_display', (
-				$post['comments_enabled']['key'] === 'always' or
-					($post['comments_enabled']['key'] !== 'no' and time() < strtotime('+'.$post['comments_enabled']['key'], strtotime($post['created_at'])))
+				$post->comments_enabled === 'always' or
+					($post->comments_enabled !== 'no' and time() < strtotime('+'.$post->comments_enabled, strtotime($post->created_at)))
 			));
 		}
 
@@ -455,7 +443,7 @@ class Blog extends Public_Controller
 			->set_metadata('og:title', $post['title'], 'og')
 			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
 			->set_metadata('og:description', $post['intro'], 'og')
-			->set_metadata('article:published_time', date(DATE_ISO8601, strtotime($post['created_at'])), 'og')
+			->set_metadata('article:published_time', date(DATE_ISO8601, strtotime($post->created_at)), 'og')
 			->set_metadata('article:modified_time', date(DATE_ISO8601, strtotime($post['updated_at'])), 'og')
 			->set_metadata('description', strip_tags($post['intro']))
 			->set_metadata('keywords', $post['keywords'])
@@ -472,7 +460,7 @@ class Blog extends Public_Controller
 	protected static function processPosts($posts)
 	{
 		foreach ($posts as &$post) {
-			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
+			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post->created_at)).'/'.$post['slug']);
 		}
 
 		return $posts;

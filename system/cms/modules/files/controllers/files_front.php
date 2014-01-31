@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Files\Model\File;
-use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Models\File;
+use Pyro\Module\Files\Models\Folder;
 
 /**
  * Frontend controller for files and stuffs
