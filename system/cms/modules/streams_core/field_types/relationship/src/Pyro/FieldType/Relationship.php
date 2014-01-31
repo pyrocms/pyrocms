@@ -195,9 +195,14 @@ class Relationship extends AbstractFieldType
      */
     public function stringOutput()
     {
-        if ($entry = $this->getRelationResult()) {
+        if ($relatedModel = $this->getRelationResult()) {
 
-            return $entry->getTitleColumnValue();
+            if (! $relatedModel instanceof RelationshipInterface) {
+
+                throw new ClassNotInstanceOfRelationshipInterfaceException;
+            }
+
+            return $relatedModel->getFieldTypeRelationshipTitle();
         }
 
         return null;
@@ -209,8 +214,8 @@ class Relationship extends AbstractFieldType
      */
     public function pluginOutput()
     {
-        if ($entry = $this->getRelationResult()) {
-            return $entry->first()->asPlugin()->toArray();
+        if ($relatedModel = $this->getRelationResult()) {
+            return $relatedModel->getPresenter();
         }
 
         return null;
@@ -222,8 +227,8 @@ class Relationship extends AbstractFieldType
      */
     public function dataOutput()
     {
-        if ($entry = $this->getRelationResult()) {
-            return $entry->first();
+        if ($relatedModel = $this->getRelationResult()) {
+            return $relatedModel;
         }
 
         return null;
