@@ -13,6 +13,13 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
 	protected $table = 'blog_categories';
 
 	/**
+	 * Fillable attributes
+	 * 
+	 * @var array
+	 */
+	protected $fillable = array('title', 'slug');
+
+	/**
 	 * Enable timestamps
 	 * 
 	 * @var boolean
@@ -25,6 +32,14 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
      * @var int
      */
     public $cacheMinutes = 30;
+
+    public static function findMany($limit = null, $offset = null)
+    {
+		return static::orderBy('title')
+			->take($limit)
+			->offset($offset)
+			->get();
+    }
 
     /**
      * Get the title column value

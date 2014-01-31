@@ -90,19 +90,40 @@ class Keywords extends AbstractFieldType
 	}
 
 	/**
-	 * Pre output
+	 * String output
 	 * @return array|string
 	 */
 	public function stringOutput()
 	{
-		return $this->getKeywordsValue($this->getParameter('return_type'));
+		return $this->getKeywordsValue();
 	}
 
+	/**
+	 * Plugin output
+	 * @return array|string
+	 */
+	public function pluginOutput()
+	{
+		return $this->getKeywordsValue('array');
+	}
+
+	/**
+	 * Plugin format override
+	 * 
+	 * @param string $format
+	 * @return array|string
+	 */ 
 	public function pluginFormatOverride($format)
 	{
 		return $this->getKeywordsValue($format);
 	}
 
+	/**
+	 * Get keywords value
+	 * 
+	 * @param string $format
+	 * @return array|string
+	 */ 
 	public function getKeywordsValue($format = 'array')
 	{
 		if (! $this->value) return null;
