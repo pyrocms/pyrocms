@@ -64,7 +64,7 @@ class EntryUi extends AbstractUi
 
         $instance->fields = 'string';
 
-        return $instance->model($model)->with($model->getRelationFieldsSlugs());
+        return $instance->model($model)->with($model->getRelationFieldsMethods());
     }
 
 

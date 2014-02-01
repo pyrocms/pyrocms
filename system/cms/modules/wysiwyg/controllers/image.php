@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Models\Folder;
 
 /**
  * Manages image selection and insertion for WYSIWYG editors

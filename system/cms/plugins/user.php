@@ -324,7 +324,7 @@ class Plugin_User extends Plugin
 		else
 		{
 			// We must have a user id at this point
-			$user = Users\Model\User::find($user_id);	
+			$user = Users\Models\User::find($user_id);	
 		}
 
 		
@@ -368,7 +368,7 @@ class Plugin_User extends Plugin
 	{
 		if ( ! isset($this->user_data[$user_id]))
 		{
-			$this->user_data[$user_id] = Users\Model\User::find($user_id);
+			$this->user_data[$user_id] = Users\Models\User::find($user_id);
 		}
 
 		if (in_array($var, $this->user_data[$user_id]->getHidden())) return null;
@@ -394,7 +394,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		$user = new Users\Model\User;
+		$user = new Users\Models\User;
 
 		if (in_array($name, $user->getHidden())) return null;
 

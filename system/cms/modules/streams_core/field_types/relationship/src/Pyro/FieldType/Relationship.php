@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Model\Eloquent;
+use Pyro\Models\Eloquent;
 use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Streams_core\StreamModel;
 

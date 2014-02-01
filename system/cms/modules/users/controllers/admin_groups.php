@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Users\Model\Group;
+use Pyro\Module\Users\Models\Group;
 
 /**
  * Roles controller for the groups module

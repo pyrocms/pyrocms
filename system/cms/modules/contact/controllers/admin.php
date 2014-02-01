@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Contact\Model\ContactLog;
+use Pyro\Module\Contact\Models\ContactLog;
 
 /**
  * The admin controller for the Contact module.

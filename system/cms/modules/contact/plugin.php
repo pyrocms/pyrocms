@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Contact\Model\ContactLog;
-use Pyro\Module\Templates\Model\EmailTemplate;
+use Pyro\Module\Contact\Models\ContactLog;
+use Pyro\Module\Templates\Models\EmailTemplate;
 
 /**
  * Contact Plugin

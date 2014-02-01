@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Addons;
 
-use Pyro\Module\Users\Model\User;
+use Pyro\Module\Users\Models\User;
 
 /**
  * Module Manager

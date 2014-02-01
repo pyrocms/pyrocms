@@ -79,7 +79,7 @@ class MY_Controller extends MX_Controller
         // Map the streams model namespace to the site ref
         $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
 
-        $loader->add('Pyro\\Streams\\Model', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
+        $loader->add('Pyro\\Streams\\Models', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
         
         // activate the autoloader
         $loader->register();
@@ -414,7 +414,7 @@ class MY_Controller extends MX_Controller
         	// Array of overridden cookie settings...
         ),'pyro_user_cookie');
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-        $userClass = Settings::get('user_class') ?: 'Pyro\Module\Users\Model\User';
+        $userClass = Settings::get('user_class') ?: 'Pyro\Module\Users\Models\User';
         $userProvider = new Sentry\Users\Eloquent\Provider($hasher, $userClass);
         $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 

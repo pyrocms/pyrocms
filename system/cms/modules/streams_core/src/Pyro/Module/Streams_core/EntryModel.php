@@ -3,9 +3,9 @@
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Pyro\FieldType\RelationshipInterface;
-use Pyro\Model\Eloquent;
-use Pyro\Module\Search\Model\Search;
-use Pyro\Module\Users\Model\User;
+use Pyro\Models\Eloquent;
+use Pyro\Module\Search\Models\Search;
+use Pyro\Module\Users\Models\User;
 
 /**
  * Entry model
@@ -192,7 +192,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * 
      * @param array $viewOptions
      * @param string $defaultFormat
-     * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
+     * @return Pyro\Support\Presenter|Pyro\Models\Eloquent
      */ 
     public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
@@ -223,7 +223,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exception\EntryModelNotFoundException;
+        throw new Exceptions\EntryModelNotFoundException;
     }
 
     /**
@@ -531,7 +531,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             $column = $this->getTitleColumn();
         }
 
-        return $this->getEloquentOutput($column);
+        return $this->getAttribute($column);
     }
 
     /**
@@ -543,7 +543,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if (! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
+        if (! trim($title_column) or ! $this->getAttribute($title_column)) {
             $title_column = $this->getKeyName();
         }
 
@@ -580,6 +580,20 @@ class EntryModel extends Eloquent implements RelationshipInterface
     }
 
     /**
+     * Get relation field methods
+     */
+    public static function getRelationFieldsMethods()
+    {
+        $relationMethods = static::getRelationFieldsSlugs();
+
+        foreach ($relationMethods as $key => &$value) {
+            $value = Str::camel($value);
+        }
+
+        return $relationMethods;
+    }
+
+    /**
      * Get the dates the should use Carbon
      * @return array The array of date columns
      */
@@ -599,7 +613,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function createdByUser()
     {
-        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->user_columns);
+        return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->user_columns);
     }
 
     /**

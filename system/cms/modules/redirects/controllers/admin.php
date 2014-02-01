@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Redirects\Model\Redirect;
+use Pyro\Module\Redirects\Models\Redirect;
 
 /**
  * Cms controller for the redirects module

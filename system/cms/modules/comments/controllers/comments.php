@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Comments\Model\Comment;
-use Pyro\Module\Comments\Model\CommentBlacklist;
+use Pyro\Module\Comments\Models\Comment;
+use Pyro\Module\Comments\Models\CommentBlacklist;
 
 /**
  * Comments controller (frontend)

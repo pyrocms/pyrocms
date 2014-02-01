@@ -93,7 +93,7 @@ class Widget_Navigation extends WidgetAbstract
 		// Loop aroung them and add them in an array keyed by their abbreviated
 		// title.
 		$groups = array();
-		$_groups = Navigation\Model\Group::getGroupOptions();
+		$_groups = Navigation\Models\Group::getGroupOptions();
 		foreach ($_groups as $group) {
 			$groups[$group->abbrev] = $group->title;
 		}
@@ -119,7 +119,7 @@ class Widget_Navigation extends WidgetAbstract
 			'is_secure' => IS_SECURE,
 		);
 
-		$links = Navigation\Model\Links::getTreeByGroup($option['group'], $params);
+		$links = Navigation\Models\Links::getTreeByGroup($option['group'], $params);
 
 		// Shorter alias
 		$widget = &$options['widget'];
