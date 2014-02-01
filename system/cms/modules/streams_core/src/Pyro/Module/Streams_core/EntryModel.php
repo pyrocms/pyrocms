@@ -531,7 +531,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             $column = $this->getTitleColumn();
         }
 
-        return $this->getEloquentOutput($column);
+        return $this->getAttribute($column);
     }
 
     /**
@@ -543,7 +543,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $title_column = $this->getStream()->title_column;
 
         // Default to ID for title column
-        if (! trim($title_column) or ! $this->getEloquentOutput($title_column)) {
+        if (! trim($title_column) or ! $this->getAttribute($title_column)) {
             $title_column = $this->getKeyName();
         }
 
@@ -577,6 +577,20 @@ class EntryModel extends Eloquent implements RelationshipInterface
         if (empty($relationFields)) return null;
 
         return array_keys($relationFields);
+    }
+
+    /**
+     * Get relation field methods
+     */
+    public static function getRelationFieldsMethods()
+    {
+        $relationMethods = static::getRelationFieldsSlugs();
+
+        foreach ($relationMethods as $key => &$value) {
+            $value = lcfirst(Str::studly($value));
+        }
+
+        return $relationMethods;
     }
 
     /**
