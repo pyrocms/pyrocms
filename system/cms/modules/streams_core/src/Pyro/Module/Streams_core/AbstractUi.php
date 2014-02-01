@@ -31,6 +31,7 @@ abstract class AbstractUi extends Fluent
     {
         $defaultAttributes = array(
             'assignments' => array(),
+            'buttons' => null,
             'content' => null,
             'defaults' => array(),
             'disableFormOpen' => false,
@@ -404,6 +405,33 @@ abstract class AbstractUi extends Fluent
         }
 
         return $this;
+    }
+
+    /**
+     * Get buttons
+     * @return array|null
+     */
+    public function getButtons()
+    {
+        return $this->buttons;
+    }
+
+    /**
+     * Get fields
+     * @return array|null
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    /**
+     * Get filters
+     * @return array|null
+     */
+    public function getFilters()
+    {
+        return $this->filters;
     }
 
     /**
