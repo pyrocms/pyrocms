@@ -62,7 +62,7 @@ class EntryUi extends AbstractUi
             throw new ClassNotInstanceOfEntryException;
         }
 
-        $instance->fields = 'string';
+        $instance->format = 'string';
 
         return $instance->model($model)->with($model->getRelationFieldsMethods());
     }
@@ -74,7 +74,7 @@ class EntryUi extends AbstractUi
      */
     protected function triggerTable()
     {
-        $viewOptions = new EntryViewOptions($this->model, $this->fields, 'string');
+        $viewOptions = new EntryViewOptions($this->model, $this->getFields('string'), $this->format);
 
         $this
             ->assignments($this->model->getAssignments())
