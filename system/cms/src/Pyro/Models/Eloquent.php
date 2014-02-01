@@ -1,12 +1,9 @@
 <?php namespace Pyro\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Events\Dispatcher;
-use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Support\Contracts\ArrayableInterface;
+use Pyro\Support\PresenterDecorator;
 
 /**
  * Eloquent Model
@@ -16,7 +13,7 @@ use Pyro\Module\Streams_core\EntryModel;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Models\Eloquent
  */
-abstract class Eloquent extends Model
+abstract class Eloquent extends Model implements ArrayableInterface
 {   
     /**
      * Cache minutes
