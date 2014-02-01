@@ -587,7 +587,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $relationMethods = static::getRelationFieldsSlugs();
 
         foreach ($relationMethods as $key => &$value) {
-            $value = lcfirst(Str::studly($value));
+            $value = Str::camel($value);
         }
 
         return $relationMethods;
