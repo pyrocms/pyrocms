@@ -24,12 +24,13 @@ class BlogEntryModel extends BlogsBlogEntryModel
 	 * 
 	 * @return Pyro\Module\Streams_core\EntryCollection
 	 */ 
-	public static function findMany($take = null, $skip = null)
+	public static function findManyPosts($take = 0, $skip = null, $eager = array())
 	{
-		return static::where('status', '=', 'live')
-			->orderBy('created_at', 'DESC')
+		return static::eager($eager)
+			->where('status', 'live')
 			->take($take)
 			->skip($skip)
+			->orderBy('created_at', 'DESC')
 			->get();
 	}
 

@@ -50,7 +50,7 @@ class Blog extends Public_Controller
 	public function index()
 	{
 		// Total posts
-		$total = BlogEntryModel::where('status', '=', 'live')->count();
+		$total = BlogEntryModel::live()->count();
 
 		// Skip
 		if (ci()->input->get('page')) {
@@ -60,13 +60,8 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogEntryModel::select('*')
-            ->where('status', '=', 'live')
-			->orderBy('created_at', 'DESC')
-			->take(Settings::get('records_per_page'))
-			->skip($skip)
-			->get()
-            ->getPresenter();
+		$posts = BlogEntryModel::findManyPosts(Settings::get('records_per_page'), $skip, 'category')
+            ->getPresenter('plugin');
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -79,9 +74,6 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
-
-		// Process
-		$posts = self::processPosts($posts);
 
 		// Go!
 		$this->template
@@ -124,7 +116,7 @@ class Blog extends Public_Controller
 
 		// Get the latest blog posts
 		$posts = BlogEntryModel::findManyByCategoryId($category->id, Settings::get('records_per_page'), $skip)
-			->getPresenter();
+			->getPresenter('plugin');
 
 		// Create pagination
 		$pagination = create_pagination(
@@ -137,9 +129,6 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
-
-		// Process
-		$posts = self::processPosts($posts);
 
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title)
@@ -329,9 +318,6 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($posts);
 
-		// Process
-		$posts = self::processPosts($posts);
-
 		$name = str_replace('-', ' ', $tag);
 
 		// Build the page
@@ -395,7 +381,7 @@ class Blog extends Public_Controller
 
 		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
 
-		if ($post['category_id'] > 0)
+		if ($post->category_id > 0)
 		{
 			// Get the category. We'll just do it ourselves
 			// since we need an array.
@@ -404,12 +390,9 @@ class Blog extends Public_Controller
 				$this->template->set_breadcrumb($category->title, 'blog/category/'.$category->slug);
 
 				// Set category OG metadata			
-				$this->template->set_metadata('article:section', $category['title'], 'og');
+				$this->template->set_metadata('article:section', $category->title, 'og');
 			}
 		}
-
-/*		$post = self::processPosts(array($post));
-		$post = $post[0];*/
 
 		// Add in OG keywords
         foreach (explode(',', $post['keywords']) as $keyword)
@@ -450,19 +433,5 @@ class Blog extends Public_Controller
 			->set_breadcrumb($post['title'])
 			->set('post', array($post))
 			->build('view');
-	}
-
-	/**
-	 * Process posts
-	 * @param  array $posts by reference
-	 * @return void        
-	 */
-	protected static function processPosts($posts)
-	{
-		foreach ($posts as &$post) {
-			$post['url'] = site_url('blog/'.date('Y/m', strtotime($post->created_at)).'/'.$post['slug']);
-		}
-
-		return $posts;
 	}
 }

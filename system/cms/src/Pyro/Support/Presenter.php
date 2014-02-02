@@ -1,6 +1,6 @@
 <?php namespace Pyro\Support;
 
-use Illuminate\Support\Contracts\ArrayableInterface;
+use Pyro\Support\Contracts\ArrayableInterface;
 use McCool\LaravelAutoPresenter\BasePresenter;
 
 class Presenter extends BasePresenter implements ArrayableInterface
