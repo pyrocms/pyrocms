@@ -60,7 +60,7 @@ class Blog extends Public_Controller
 		}
 
 		// Get the latest blog posts
-		$posts = BlogEntryModel::findMany(Settings::get('records_per_page'), $skip)
+		$posts = BlogEntryModel::findManyPosts(Settings::get('records_per_page'), $skip, 'category')
             ->getPresenter('plugin');
 
 		// Create pagination
