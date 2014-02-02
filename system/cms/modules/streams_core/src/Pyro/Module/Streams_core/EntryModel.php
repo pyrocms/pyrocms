@@ -318,7 +318,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         $types = array();
 
-        $this->setEntryMeta()
+        $this->setEntryMeta();
 
         if ($this->replicated) {
             $attributes = array_except($this->getAttributes(), array($this->getKeyName()));
