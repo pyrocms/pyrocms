@@ -7,18 +7,13 @@ use Pyro\Support\Presenter;
 
 class EntryPresenter extends Presenter
 {
-	protected $viewOptions;
+	protected $entryViewOptions;
 
-	public function __construct(EntryModel $model, $viewOptions = array())
+	public function __construct(EntryModel $model, EntryViewOptions $entryViewOptions)
 	{
 		$this->resource = $model;
 
-		$this->viewOptions = $this->viewOptions($model, $viewOptions);
-	}
-
-	protected function viewOptions(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
-	{
-		return new EntryViewOptions($model, $viewOptions, $defaultFormat);
+		$this->entryViewOptions = $entryViewOptions;
 	}
 
     /**
@@ -30,7 +25,7 @@ class EntryPresenter extends Presenter
     {
     	$template = null;
 
-        if ($viewOption = $this->viewOptions->getBySlug($key)) {
+        if ($viewOption = $this->entryViewOptions->getBySlug($key)) {
             $template = $viewOption->getTemplate();
         }
 
@@ -86,7 +81,7 @@ class EntryPresenter extends Presenter
      */
     public function __get($key)
     {
-    	$viewOption = $this->viewOptions->getBySlug($key);
+    	$viewOption = $this->entryViewOptions->getBySlug($key);
 
         if ($viewOption and $callback = $viewOption->getCallback()) {
 

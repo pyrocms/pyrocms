@@ -27,13 +27,13 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * The array of user columns that will be selected
      * @var array
      */
-    protected $user_columns = array('id', 'username');
+    protected $createdByUserColumns = array('id', 'username');
 
     /**
      * Search index template
      * @var mixed The configuration array or false
      */
-    protected $search_index_template = false;
+    protected $searchIndexTemplate = false;
 
     /**
      * Stream data
@@ -48,16 +48,32 @@ class EntryModel extends Eloquent implements RelationshipInterface
     protected static $relationFieldsData = array();
 
     /**
+     * Custom Relation Methods 
+     * @var array
+     */
+    protected static $customRelationFieldsMethods = array();
+
+    /**
      * Presenter class
      */ 
     public $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
 
     /**
      * The name of the "created at" column.
+     * 
      * @var string
      */
     const CREATED_BY        = 'created_by';
 
+    public static function eager($relations)
+    {
+        if ($relations === true)
+        {
+            $relations = static::getRelationFieldsMethods();
+        }
+
+        return static::with($relations);
+    }
 
     public function getDefaultFields()
     {
@@ -198,7 +214,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
     {
         $decorator = new EntryPresenterDecorator;
 
-        return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
+        $viewOptions = EntryViewOptions::make($this, $viewOptions, $defaultFormat);
+
+        return $decorator->setViewOptions($viewOptions)->decorate($this);
     }
 
     /**
@@ -228,17 +246,18 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Set search index template
-     * @param mixed $search_index_template
+     * @param mixed $searchIndexTemplate
      */
-    public function setSearchIndexTemplate($search_index_template = false)
+    public function setSearchIndexTemplate($searchIndexTemplate = false)
     {
-        $this->search_index_template = $search_index_template;
+        $this->searchIndexTemplate = $searchIndexTemplate;
 
         return $this;
     }
 
     /**
      * Get cache collection key
+     * 
      * @return string
      */
     public function getCacheCollectionKey($suffix = 'entries')
@@ -248,6 +267,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get cache collection prefix
+     * 
      * @return string
      */
     public function getCacheCollectionPrefix()
@@ -255,6 +275,11 @@ class EntryModel extends Eloquent implements RelationshipInterface
         return 'streams.'.$this->getStream()->stream_slug.'.'.$this->getStream()->stream_namespace.'.';
     }
 
+    /**
+     * Flush cache collection
+     * 
+     * @return void
+     */
     public function flushCacheCollection()
     {
         ci()->cache->collection($this->getCacheCollectionKey('entries'))->flush();
@@ -262,15 +287,15 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     public function save(array $options = array())
     {
-        if ($saved = parent::save($options) and $this->search_index_template) {
-            Search::indexEntry($saved, $this->search_index_template);
+        if ($saved = parent::save($options) and $this->searchIndexTemplate) {
+            Search::indexEntry($this, $this->searchIndexTemplate);
         }
 
         // -------------------------------------
         // Event: Post Insert Entry
         // -------------------------------------
 
-        \Events::trigger('streams_post_insert_entry', $saved);
+        \Events::trigger('streams_post_insert_entry', $this);
 
         return $saved;
     }
@@ -574,8 +599,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
     {
         $relationFields = static::getRelationFields();
 
-        if (empty($relationFields)) return null;
-
         return array_keys($relationFields);
     }
 
@@ -590,7 +613,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             $value = Str::camel($value);
         }
 
-        return $relationMethods;
+        return array_merge($relationMethods, static::$customRelationFieldsMethods);
     }
 
     /**
@@ -613,7 +636,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function createdByUser()
     {
-        return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->user_columns);
+        return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->createdByUserColumns);
     }
 
     /**
@@ -638,7 +661,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function newCollection(array $entries = array())
     {
-        return new EntryCollection($entries);
+        return new EntryCollection($entries, $this);
     }
 
     /**

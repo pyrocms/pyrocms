@@ -4,8 +4,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCollection extends Collection
 {
-	protected $model;
-
 	public function findByAttribute($value = null, $attribute = null)
  	{	
  		foreach ($this->items as $model)

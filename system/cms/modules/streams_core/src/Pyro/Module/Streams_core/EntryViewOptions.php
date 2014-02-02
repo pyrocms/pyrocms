@@ -1,17 +1,27 @@
 <?php namespace Pyro\Module\Streams_core;
 
+use Illuminate\Support\Str;
 use Pyro\Support\Fluent;
 
 class EntryViewOptions extends Fluent
 {
     protected $fieldNames = array();
 
+    protected $model;
+
 	public function __construct(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
 	{
-        $this
-            ->model($model)
-            ->viewOptions($viewOptions, $defaultFormat);
+        $this->model = $model;
+        
+        $this->viewOptions($viewOptions, $defaultFormat);
 	}
+
+    public static function make(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
+    {
+        if ($viewOptions instanceof static) return $viewOptions;
+
+        return new static($model, $viewOptions, $defaultFormat);
+    }
 
     protected function getValidFormats()
     {
@@ -28,13 +38,6 @@ class EntryViewOptions extends Fluent
      */
     public function viewOptions($options = array(), $defaultFormat = null)
     {
-        if ($options instanceof static) {
-            
-            $this->attributes['viewOptions'] = $options->getViewOptions();
-            
-            return $this;
-        }
-
         $viewOptions = array();
 
         if (empty($options)) {
@@ -51,10 +54,18 @@ class EntryViewOptions extends Fluent
 
             foreach ($this->model->getFieldSlugs() as $slug) {
 
-                $viewOptions[$slug] = new Fluent(array(
+                $viewOption = new Fluent(array(
                     'slug' => $slug,
                     'format' => $format,
                 ));
+
+                $relationMethod = Str::camel($slug);
+
+                if ($this->model->hasRelationMethod($relationMethod)) {
+                    $viewOption->eager($relationMethod);
+                }
+                
+                $viewOptions[$slug] = $viewOption;
             }
 
         } else {
@@ -90,13 +101,19 @@ class EntryViewOptions extends Fluent
                     );
             
                 } else {
-            
+                
                     $attributes = array(
                         'slug' => $value
                     );
                 }
 
                 $attributes['format'] = isset($attributes['format']) ? $attributes['format'] : $defaultFormat;
+
+                $relationMethod = Str::camel($attributes['slug']);
+
+                if ($this->model->hasRelationMethod($relationMethod)) {
+                    $attributes['eager'] = isset($attributes['eager']) ? $attributes['eager'] : $relationMethod;
+                }
 
                 $viewOption = new Fluent($attributes);
 
@@ -109,6 +126,27 @@ class EntryViewOptions extends Fluent
         return $this;
     }
 
+    public function getEagerLoads()
+    {
+        $eagerLoads = array();
+
+        $addEagerLoads = $this->getAddEagerLoads();
+
+        foreach ($this->viewOptions as $key => $viewOption) {
+
+            if ($eager = $viewOption->getEager()) {
+                is_array($eager) or $eager = array($eager);
+
+                $eagerLoads = array_merge($eagerLoads, $eager);
+            }
+        }
+
+        if (is_array($addEagerLoads) and ! empty($addEagerLoads)) {
+            $eagerLoads = array_merge($eagerLoads, $addEagerLoads);
+        }
+
+        return $eagerLoads;
+    }
 
     /**
      * Get view options field names

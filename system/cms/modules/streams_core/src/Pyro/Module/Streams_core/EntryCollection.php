@@ -5,6 +5,15 @@ use Pyro\Models\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {
+    protected $model;
+
+    public function __construct(array $items = array(), EntryModel $model = null)
+    {
+      parent::__construct($items);
+
+      $this->model = $model;
+    }
+
     /**
      * Get entry options
      * @param  string or null $attribute
@@ -44,31 +53,19 @@ class EntryCollection extends EloquentCollection
         return $options;
     }
 
-    public function getPresenter($viewOptions = array(), $defaultFormat = null, $presenter = null)
+    /**
+     * Get the presenter object
+     * 
+     * @param array $viewOptions
+     * @param string $defaultFormat
+     * @return Pyro\Support\Presenter|Pyro\Models\Eloquent
+     */ 
+    public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
-        if ($presenter) {
-            $this->presenter = $presenter;
-        }
-
         $decorator = new EntryPresenterDecorator;
 
-        return $decorator->viewOptions($viewOptions, $defaultFormat)->decorate($this);
+        $viewOptions = EntryViewOptions::make($this->model, $viewOptions, $defaultFormat);
+
+        return $decorator->setViewOptions($viewOptions)->decorate($this);
     }
-    /**
-      * Get the collection of items as a plain array.
-      *
-      * @return array
-      */
-/*    public function toArray()
-    {
-        return array_map(function($value) {
-           
-            if ($value instanceof EntryPresenter) {
-                return $value->getModel()->toArray();
-            }
-
-           return  ? $value->toArray() : $value;
-
-        }, $this->items);
-    }*/
 }

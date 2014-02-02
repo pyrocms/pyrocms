@@ -4,13 +4,11 @@ use Pyro\Support\PresenterDecorator;
 
 class EntryPresenterDecorator extends PresenterDecorator
 {
-	protected $viewOptions = array();
+	protected $entryViewOptions;
 
-	public function viewOptions($viewOptions = array(), $defaultFormat = null)
+	public function setViewOptions(EntryViewOptions $entryViewOptions)
 	{
-		$this->viewOptions = $viewOptions;
-		
-		$this->defaultFormat = $defaultFormat;
+        $this->entryViewOptions = $entryViewOptions;
 
 		return $this;
 	}
@@ -23,10 +21,6 @@ class EntryPresenterDecorator extends PresenterDecorator
      */
     protected function decorateAtom($atom)
     {
-    	if ( ! $this->viewOptions instanceof EntryViewOptions) {
-    		$this->viewOptions = new EntryViewOptions($atom, $this->viewOptions, $this->defaultFormat);
-    	}
-
         if ( ! isset($atom->presenterClass)) {
             return $atom;
         }
@@ -45,7 +39,7 @@ class EntryPresenterDecorator extends PresenterDecorator
             $atom = $this->decorateRelations($atom);
         }
 
-        return new $presenterClass($atom, $this->viewOptions);
+        return new $presenterClass($atom, $this->entryViewOptions);
     }
 
 }
