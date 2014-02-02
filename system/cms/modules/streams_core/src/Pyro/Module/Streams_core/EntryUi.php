@@ -136,6 +136,14 @@ class EntryUi extends AbstractUi
             ci()->template->append_js('streams/entry_sorting.js');
         }
 
+        if ($this->getTitle() === null) {
+            $this->title(
+                $this->model->getStream()->stream_namespace
+                .':'.$this->model->getStream()->stream_slug
+                .'.table'
+                );
+        }
+
         $this->content = ci()->load->view('streams_core/entries/table', $this->attributes, true);
 
         return $this;
@@ -245,6 +253,14 @@ class EntryUi extends AbstractUi
             $this->tabs = $this->distributeFields($this->tabs, $this->fields->getFieldSlugs());
 
             $this->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->attributes, true);
+        }
+
+        if ($this->getTitle() === null) {
+            $this->title(
+                $this->model->getStream()->stream_namespace
+                .':'.$this->model->getStream()->stream_slug
+                .'.'.($this->model->getKey() ? 'edit' : 'create')
+                );
         }
 
         return $this;
