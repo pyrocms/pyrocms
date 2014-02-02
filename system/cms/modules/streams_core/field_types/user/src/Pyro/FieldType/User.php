@@ -68,37 +68,6 @@ class User extends AbstractFieldType
 	}
 
 	/**
-	 * Output filter input
-	 *
-	 * @param	array
-	 * @param	array
-	 * @return	string
-	 */
-	public function filterInput()
-	{
-		// Start the HTML
-		$html = form_dropdown(
-			$this->getFilterSlug('contains'),
-			array(),
-			null,
-			'id="'.$this->getFilterSlug('contains').'" class="skip" placeholder="'.$this->field->field_name.'"'
-			);
-
-		// Append our JS to the HTML since it's special
-		$html .= $this->view(
-			'fragments/user.js.php',
-			array(
-				'form_slug' => $this->form_slug,
-				'field_slug' => $this->field->field_slug,
-				'stream_namespace' => $this->entry->getStreamNamespace(),
-				),
-			false
-			);
-
-		return $html;
-	}
-
-	/**
 	 * Format the Admin output
 	 *
 	 * @return [type] [description]
@@ -125,7 +94,7 @@ class User extends AbstractFieldType
 	{
 		if ($user = $this->getRelationResult())
 		{
-			return $user->getPresenter();
+			return $user->getPresenter('plugin');
 		}
 
 		return null;
