@@ -103,6 +103,10 @@ if (!function_exists('index_uri')) {
      */
     function index_uri()
     {
-        return substr(uri_string(), 0, strpos(uri_string(), ci()->router->method));
+        if (strpos(uri_string(), ci()->router->method) !== false) {
+            return trim(substr(uri_string(), 0, strpos(uri_string(), ci()->router->method)), '/');
+        }
+
+        return uri_string();
     }
 }

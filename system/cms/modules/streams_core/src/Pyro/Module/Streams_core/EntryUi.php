@@ -64,7 +64,7 @@ class EntryUi extends AbstractUi
 
         $instance->format = 'string';
 
-        return $instance->model($model)->with($model->getRelationFieldsMethods());
+        return $instance->model($model);
     }
 
 
@@ -74,7 +74,7 @@ class EntryUi extends AbstractUi
      */
     protected function triggerTable()
     {
-        $viewOptions = new EntryViewOptions($this->model, $this->getFields('string'), $this->format);
+        $viewOptions = EntryViewOptions::make($this->model, $this->getFields('string'), $this->format);
 
         $this
             ->assignments($this->model->getAssignments())
@@ -106,8 +106,11 @@ class EntryUi extends AbstractUi
             $this->select = array_unique($this->select);
         }
 */
+
+        $viewOptions->addEagerLoads($this->eager);
+
         $this->entries = $this->model
-            ->with((array) $this->with)
+            ->with($viewOptions->getEagerLoads())
             ->take($this->limit)
             ->skip($this->offset)
             ->get($this->select)

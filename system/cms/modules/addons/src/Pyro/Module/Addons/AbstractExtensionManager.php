@@ -279,8 +279,46 @@ abstract class AbstractExtensionManager
 	 */
 	public static function getClass($extension)
 	{
-		return 'Pyro\\Extension\\'.Str::studly(static::$modules[get_called_class()]).'\\'.Str::studly(static::$slugs[get_called_class()]).'\\'.Str::studly($extension);
+		$class = static::getClassBase($extension);
+        $class .= static::getClassPath($extension);
+        $class .= '\\'.Str::studly($extension);
+        $class .= static::getClassSuffix($extension);
+
+        return $class;
 	}
+
+    /**
+     * Get base of class path
+     * @param  string $extension
+     * @return string
+     */
+    public static function getClassBase($extension)
+    {
+        return 'Pyro\\Extensions';
+    }
+
+    /**
+     * Get class path
+     * @param  string $extension
+     * @return string
+     */
+    public static function getClassPath($extension)
+    {
+        $path = '\\'.Str::studly(static::$modules[get_called_class()]);
+        $path .= '\\'.Str::studly(static::$slugs[get_called_class()]);
+
+        return $path;
+    }
+
+    /**
+     * Get class suffix
+     * @param  string $extension
+     * @return string
+     */
+    public static function getClassSuffix($extension)
+    {
+        return null;
+    }
 
 	/**
 	 * Get classes
@@ -391,24 +429,24 @@ abstract class AbstractExtensionManager
 				$lang = 'english';
 			}
 
-			ci()->lang->load($extension.'_'.$type.'_lang', $lang, false, false, $path.'/');
+			ci()->lang->load(static::getLangFilename($extension, $type), $lang, false, false, $path.'/');
 
 			unset($lang);
 		}
 
 		// Extension name is languagized
 		if ( ! isset($instance->name)) {
-            $instance->name = lang_label('lang:'.$extension.':'.$type.'.name');
+            $instance->name = lang_label('lang:'.static::getLangPrefix($extension).'.name');
 		}
 
         // Extension name (plural) is languagized
         if ( ! isset($instance->plural)) {
-            $instance->plural = lang_label('lang:'.$extension.':'.$type.'.plural');
+            $instance->plural = lang_label('lang:'.static::getLangPrefix($extension).'.plural');
         }
 
 		// Extension description is languagized
 		if ( ! isset($instance->description)) {
-			$instance->description = lang_label('lang:'.$extension.':'.$type.'.description');
+			$instance->description = lang_label('lang:'.static::getLangPrefix($extension).'.description');
 		}
 
 		if (isset(ci()->profiler)) {
@@ -429,4 +467,24 @@ abstract class AbstractExtensionManager
 
 		return static::$extensions[get_called_class()][$extension] = $instance;
 	}
+
+    /**
+     * Get the prefix string of the lang key
+     * @return string
+     */
+    public static function getLangPrefix($extension)
+    {
+        return $extension.':'.static::$slugs[get_called_class()];
+    }
+
+    /**
+     * Get the filename of the extensions lang file
+     * @param  string $extension
+     * @param  string $type
+     * @return string
+     */
+    public static function getLangFilename($extension, $type)
+    {
+        return $extension.'_lang';
+    }
 }

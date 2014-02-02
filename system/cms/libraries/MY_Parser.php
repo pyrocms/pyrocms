@@ -1,5 +1,7 @@
 <?php
 
+use Pyro\Support\Contracts\ArrayableInterface;
+
 /**
  * CodeIgniter Dwoo Parser Class
  *
@@ -9,11 +11,15 @@
  * @license	 http://philsturgeon.co.uk/code/dbad-license
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
-
-use Illuminate\Support\Contracts\ArrayableInterface;
-
 class MY_Parser extends CI_Parser
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->parser = new Lex\Parser;
+    }
+
     /**
      *  Parse a view file
      *
@@ -66,8 +72,6 @@ class MY_Parser extends CI_Parser
 
         // Convert from object to array
         $data = $this->toArray($data);
-        
-        is_array($data) or $data = (array) $data;
 
         // Include cached vars too?
         if ($include_cached_vars)
@@ -181,21 +185,7 @@ class MY_Parser extends CI_Parser
      */
     public function toArray($data)
     {
-        if ($data instanceof ArrayableInterface) {
-            $data = $data->toArray();
-        }
-
-        // Objects to arrays
-        if (is_object($data) and ! $data instanceof MY_Controller) {
-            $data = get_object_vars($data);
-        }
-
-        if (is_array($data)) {
-            $data = array_change_key_case($data, CASE_LOWER);
-        }
-
-        // toArray the children!
-        return is_array($data) ? array_map(__METHOD__, $data) : $data;
+        return $this->parser->toArray($data);
     }
 }
 
