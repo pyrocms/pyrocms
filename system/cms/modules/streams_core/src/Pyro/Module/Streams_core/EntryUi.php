@@ -137,11 +137,11 @@ class EntryUi extends AbstractUi
         }
 
         if ($this->getTitle() === null) {
-            $this->title(
+            $this->title(lang(
                 $this->model->getStream()->stream_namespace
                 .':'.$this->model->getStream()->stream_slug
                 .'.table'
-                );
+                ));
         }
 
         $this->content = ci()->load->view('streams_core/entries/table', $this->attributes, true);
@@ -256,11 +256,11 @@ class EntryUi extends AbstractUi
         }
 
         if ($this->getTitle() === null) {
-            $this->title(
+            $this->title(lang(
                 $this->model->getStream()->stream_namespace
                 .':'.$this->model->getStream()->stream_slug
                 .'.'.($this->model->getKey() ? 'edit' : 'create')
-                );
+                ));
         }
 
         return $this;
