@@ -1,6 +1,7 @@
 <?php namespace Pyro\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Events\Dispatcher;
 use Pyro\Support\Contracts\ArrayableInterface;
 use Pyro\Support\PresenterDecorator;
@@ -236,6 +237,15 @@ abstract class Eloquent extends Model implements ArrayableInterface
         if (isset($this->relations[$attribute])) return $this->relations[$attribute];
 
         return null;
+    }
+
+    public function hasRelationMethod($attribute)
+    {
+        if ( ! method_exists($this, $attribute)) return false;
+
+        $relation = $this->{$attribute}();
+
+        return ($relation instanceof Relation);
     }
 }
 
