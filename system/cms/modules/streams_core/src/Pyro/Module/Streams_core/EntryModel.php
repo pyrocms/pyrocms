@@ -262,6 +262,8 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     public function save(array $options = array())
     {
+        $this->setEntryMeta();
+
         if ($saved = parent::save($options) and $this->search_index_template) {
             Search::indexEntry($saved, $this->search_index_template);
         }
@@ -291,17 +293,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         $types = array();
 
-        // Set some values for a new entry
-        if ( ! $this->exists) {
-            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
-
-            $this->setAttribute('created_by', $created_by);
-            $this->setAttribute('updated_at', '0000-00-00 00:00:00');
-            $this->setAttribute('ordering_count', $this->count('id')+1);
-        } else {
-            $this->setAttribute('updated_at', time());
-        }
-
+        $this->setEntryMeta();
 
         if ($this->replicated) {
             $attributes = array_except($this->getAttributes(), array($this->getKeyName()));
@@ -312,12 +304,14 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $this->setRawAttributes($attributes);
 
         if ( ! $fields->isEmpty()) {
-            foreach ($fields as $field) {
-                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                if ( ! in_array($field->field_slug, $skips)) {
 
-                    $type = $field->getType($this);
-                    $types[] = $type;
+            // Run preSave on fields
+            foreach ($fields as $field) {
+                $type = $field->getType($this);
+                $types[] = $type;
+
+                // Do not process skips
+                if ( ! in_array($field->field_slug, $skips)) {
 
                     // We don't process the alt process stuff.
                     // This is for field types that store data outside of the
@@ -327,9 +321,16 @@ class EntryModel extends Eloquent implements RelationshipInterface
                     } else {
                         $this->setAttribute($type->getColumnName(), $type->preSave());
                     }
+
+                // Even if skipped, if there is a
+                // defualt value - use it if null otherwise
+                } else {
+                    if ($this->getAttribute($type->getColumnName()) === null) {
+                        $this->setAttribute($type->getColumnName(), $type->getDefault($field->field_slug));
+                    }
                 }
             }
-        }            
+        }
 
         // -------------------------------------
         // Alt Processing
@@ -614,6 +615,26 @@ class EntryModel extends Eloquent implements RelationshipInterface
     public function createdByUser()
     {
         return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->user_columns);
+    }
+
+    /**
+     * Set entry information that every record needs
+     * @return EntryModel
+     */
+    public function setEntryMeta()
+    {
+        // Set some values for a new entry
+        if ( ! $this->exists) {
+            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci()->current_user->id : null;
+
+            $this->setAttribute('created_by', $created_by);
+            $this->setAttribute('updated_at', '0000-00-00 00:00:00');
+            $this->setAttribute('ordering_count', $this->count('id')+1);
+        } else {
+            $this->setAttribute('updated_at', time());
+        }
+
+        return $this;
     }
 
     /**
