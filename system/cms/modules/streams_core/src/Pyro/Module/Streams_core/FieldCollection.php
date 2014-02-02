@@ -50,6 +50,15 @@ class FieldCollection extends EloquentCollection
     }
 
     /**
+     * Get associative field slugs
+     * @return array
+     */
+    public function getAssociativeFieldSlugs()
+    {
+        return $this->lists('field_slug', 'field_slug');
+    }
+
+    /**
      * Get field slugs
      * @param  array  $columns
      * @return array
