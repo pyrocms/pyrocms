@@ -54,6 +54,12 @@ class EntryModel extends Eloquent implements RelationshipInterface
     protected static $customRelationFieldsMethods = array();
 
     /**
+     * Collection class
+     * @var string
+     */
+    public $collectionClass = 'Pyro\Module\Streams_core\EntryCollection';
+
+    /**
      * Presenter class
      */ 
     public $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
@@ -673,7 +679,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function newCollection(array $entries = array())
     {
-        return new EntryCollection($entries, $this);
+        $collection = $this->collectionClass;
+
+        return new $collection($entries, $this);
     }
 
     /**
