@@ -250,7 +250,10 @@ class EntryUi extends AbstractUi
         if (empty($this->tabs)) {
             $this->content  = ci()->load->view($this->view ?: 'streams_core/entries/form', $this->attributes, true);
         } else {
-            $this->tabs = $this->distributeFields($this->tabs, $this->fields->getFieldSlugs());
+
+            $fieldGroupCollection = new FieldGroupCollection($this->tabs, $this->fields);
+
+            $this->tabs = $fieldGroupCollection->distribute()->toArray();
 
             $this->content  = ci()->load->view($this->view ?: 'streams_core/entries/tabbed_form', $this->attributes, true);
         }
@@ -266,35 +269,7 @@ class EntryUi extends AbstractUi
         return $this;
     }
 
-    /**
-     * Distribute fields across tabs
-     * @param  array  $tabs
-     * @param  array  $available_fields
-     * @return array
-     */
-    protected function distributeFields($tabs = array(), $available_fields = array())
-    {
-        foreach ($tabs as &$tab) {
-            if ( ! empty($tab['fields']) and is_array($tab['fields'])) {
-                foreach ($tab['fields'] as $field) {
-                    if (isset($available_fields[$field])) unset($available_fields[$field]);
-                }
-            }
-        }
 
-        $distributed = false;
-
-        foreach ($tabs as &$tab) {
-            if ( ! empty($tab['fields']) and $tab['fields'] === '*' and ! $distributed) {
-                $tab['fields'] = $available_fields;
-                $distributed = true;
-            } else {
-                $tab['fields'] = array();
-            }
-        }
-
-        return $tabs;
-    }
 
     /**
      * Add form

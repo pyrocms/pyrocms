@@ -41,7 +41,9 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
         //$columns = $this->prepareColumns($columns);
 
-        $this->applyFilters();
+        if (! $this->filterQuery()) {
+            return $this->model->newCollection();
+        }
 
         $this->entries = $this->getModels($columns);
 
@@ -190,177 +192,11 @@ class EntryQueryBuilder extends EloquentQueryBuilder
     }
 
 
-    protected function applyFilters()
+    protected function filterQuery()
     {
-        // -------------------------------------
-        // Filters (QueryString API)
-        // -------------------------------------
+        $filter = new EntryQueryFilter($this);
 
-        if (ci()->input->get('filter-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
-
-            // Get all URL variables
-            $query_string_variables = ci()->input->get();
-
-            // Loop and process!
-            foreach ($query_string_variables as $filter => $value) {
-
-                // Split into components
-                $commands = explode('-', $filter);
-
-                // Filter?
-                if ($commands[0] != 'f') continue;
-
-                // Only filter our current namespace / stream
-                if ($commands[1] != $this->model->getStream()->stream_namespace) continue;
-                if ($commands[2] != $this->model->getStream()->stream_slug) continue;
-
-                // Switch on the restriction
-                switch ($commands[4]) {
-
-                    /**
-                     * IS
-                     * results in: filter = value
-                     */
-                    case 'is':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '=', $value);
-                        break;
-
-
-                    /**
-                     * ISNOT
-                     * results in: filter != value
-                     */
-                    case 'isnot':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '!=', $value);
-                        break;
-
-
-                    /**
-                     * ISNOT
-                     * results in: filter != value
-                     */
-                    case 'isnot':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '!=', $value);
-                        break;
-
-
-                    /**
-                     * CONTAINS
-                     * results in: filter LIKE '%value%'
-                     */
-                    case 'contains':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', '%'.$value.'%');
-                        break;
-
-
-                    /**
-                     * DOESNOTCONTAIN
-                     * results in: filter NOT LIKE '%value%'
-                     */
-                    case 'doesnotcontain':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'NOT LIKE', '%'.$value.'%');
-                        break;
-
-
-                    /**
-                     * STARTSWITH
-                     * results in: filter LIKE 'value%'
-                     */
-                    case 'startswith':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', $value.'%');
-                        break;
-
-
-                    /**
-                     * ENDSWITH
-                     * results in: filter LIKE '%value'
-                     */
-                    case 'endswith':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', '%'.$value);
-                        break;
-
-
-                    /**
-                     * ISEMPTY
-                     * results in: (filter IS NULL OR filter = '')
-                     */
-                    case 'isempty':
-
-                        $this->where(function($query) use ($commands, $value) {
-                            $query->where($commands[3], 'IS', 'NULL');
-                            $query->orWhere($commands[3], '=', '');
-                        });
-                        break;
-
-
-                    /**
-                     * ISNOTEMPTY
-                     * results in: filter > '')
-                     */
-                    case 'isnotempty':
-
-                        $this->where($commands[3], '>', '');
-                        break;
-
-
-                    default: break;
-                }
-            }
-        }
-
-        // -------------------------------------
-        // Ordering / Sorting (QueryString API)
-        // -------------------------------------
-
-        if ($order_by = ci()->input->get('order-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
-            if ($sort_by = ci()->input->get('sort-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
-
-                if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation) {
-                    $order_by = $order_by_relation->getForeignKey();
-                }
-
-                $this->orderBy($order_by, $sort_by);
-            } else {
-                $this->orderBy($order_by, 'ASC');
-            }
-        }
-
-        return $this;
+        return $filter->query();
     }
 
     /**
@@ -370,7 +206,9 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function count($column = '*')
     {
-        $this->applyFilters();
+        if (! $this->filterQuery()) {
+            return 0;
+        }
 
         return parent::count($column);
     }
