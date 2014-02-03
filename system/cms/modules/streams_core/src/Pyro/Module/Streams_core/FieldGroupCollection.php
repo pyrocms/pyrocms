@@ -19,7 +19,7 @@ class FieldGroupCollection extends Collection
      *
      * @return array
      */
-    protected function distribute()
+    public function distribute()
     {
         $availableFields = $this->fieldCollection->getAssociativeFieldSlugs();
 
