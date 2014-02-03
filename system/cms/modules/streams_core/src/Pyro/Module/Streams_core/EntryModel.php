@@ -57,12 +57,12 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Collection class
      * @var string
      */
-    public $collectionClass = 'Pyro\Module\Streams_core\EntryCollection';
+    protected $collectionClass = 'Pyro\Module\Streams_core\EntryCollection';
 
     /**
      * Presenter class
      */ 
-    public $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
+    protected $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
 
     /**
      * The name of the "created at" column.
@@ -670,18 +670,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $reflection = new \ReflectionClass($subclass);
 
         return $reflection->isSubclassOf($class);
-    }
-
-    /**
-     * New collection instance
-     * @param  array  $entries
-     * @return object
-     */
-    public function newCollection(array $entries = array())
-    {
-        $collection = $this->collectionClass;
-
-        return new $collection($entries, $this);
     }
 
     /**
