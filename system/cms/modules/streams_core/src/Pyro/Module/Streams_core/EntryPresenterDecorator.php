@@ -21,7 +21,7 @@ class EntryPresenterDecorator extends PresenterDecorator
      */
     protected function decorateAtom($atom)
     {
-        if ( ! isset($atom->presenterClass)) {
+        if ( ! isset($atom->getPresenterClass())) {
             return $atom;
         }
 
@@ -29,7 +29,7 @@ class EntryPresenterDecorator extends PresenterDecorator
             return $atom;
         }
 
-        $presenterClass = $atom->presenterClass;
+        $presenterClass = $atom->getPresenterClass();
 
         if ( ! class_exists($presenterClass)) {
             throw new PresenterNotFoundException($presenterClass);
@@ -41,5 +41,4 @@ class EntryPresenterDecorator extends PresenterDecorator
 
         return new $presenterClass($atom, $this->entryViewOptions);
     }
-
 }

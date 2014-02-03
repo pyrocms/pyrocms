@@ -36,6 +36,17 @@ abstract class Eloquent extends Model implements ArrayableInterface
     protected $replicated = false;
 
     /**
+     * Collection class
+     * @var string
+     */
+    protected $collectionClass = 'Pyro\Models\EloquentCollection';
+
+    /**
+     * Presenter class
+     */ 
+    protected $presenterClass = 'Pyro\Support\Presenter';
+
+    /**
      * Boot
      * 
      * @return void
@@ -171,7 +182,9 @@ abstract class Eloquent extends Model implements ArrayableInterface
      */
     public function newCollection(array $models = array())
     {
-        return new EloquentCollection($models);
+        $collection = $this->collectionClass;
+
+        return new $collection($models, $this);
     }
 
     /**

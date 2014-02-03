@@ -13,7 +13,7 @@ class PresenterDecorator extends BasePresenterDecorator
      */
     protected function decorateAtom($atom)
     {
-        if ( ! isset($atom->presenterClass)) {
+        if ( ! $atom->getPresenterClass()) {
             return $atom;
         }
 
@@ -21,7 +21,7 @@ class PresenterDecorator extends BasePresenterDecorator
             return $atom;
         }
 
-        $presenterClass = $atom->presenterClass;
+        $presenterClass = $atom->getPresenterClass();
 
         if ( ! class_exists($presenterClass)) {
             throw new PresenterNotFoundException($presenterClass);
