@@ -166,12 +166,12 @@ class SchemaUtility
 
         // Get the stream
         if ( ! $stream = StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
-            throw new InvalidStreamModelException;
+            return false;
         }
 
         // Make sure this column actually exists.
         if ( ! $schema->hasColumn($stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
-            throw new ColumnDoesNotExistException;
+            return false;
         }
 
         // Maybe we already added this?
@@ -181,6 +181,8 @@ class SchemaUtility
             'type'          => $fieldType,
             'assign'        => $streamSlug,
             'extra'         => $extra,
-        ));
+        )));
 
         return $stream->assignField($field, $assignData, false);
+    }
+}

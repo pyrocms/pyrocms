@@ -64,9 +64,6 @@ class MY_Controller extends MX_Controller
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
 		}
 
-		// Set up the Illuminate\Database layer
-		ci()->pdb = self::setupDatabase();
-
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
@@ -75,6 +72,9 @@ class MY_Controller extends MX_Controller
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
         $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
+
+        // Set up the Illuminate\Database layer
+        ci()->pdb = self::setupDatabase();
 
         // Map the streams model namespace to the site ref
         $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
@@ -234,7 +234,7 @@ class MY_Controller extends MX_Controller
 
         include APPPATH.'config/database.php';
         include APPPATH.'config/cache.php';
-    
+            
         $config = $db[$active_group];
 
         // Is this a PDO connection?
@@ -247,6 +247,10 @@ class MY_Controller extends MX_Controller
             $config['database'] = $matches[3];
 
             unset($matches);
+        }
+
+        if (! in_array($config['dbdriver'], array('mysql', 'pgsql', 'sqlite'))) {
+            $config['dbdriver'] = 'mysql';
         }
 
         $capsule = new Capsule;
