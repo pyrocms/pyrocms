@@ -348,56 +348,58 @@ jQuery(function($) {
 	// Module must load jquery/jquery.ui.nestedSortable.js and jquery/jquery.cooki.js
 	pyro.sort_tree = function($item_list, $url, $cookie, data_callback, post_sort_callback, sortable_opts)
 	{
-		// set options or create a empty object to merge with defaults
+		// set options or create an empty object to merge with defaults
 		sortable_opts = sortable_opts || {};
-		
+
 		// collapse all ordered lists but the top level
-		$item_list.find('ul').children().hide();
+		$item_list.find('ul').children('li').hide();
+
+		// show the parents that were open on last visit
+		$($.cookie($cookie)).children('ul').children('li').show();
 
 		// this gets ran again after drop
 		var refresh_tree = function() {
 
-			// add the minus icon to all parent items that now have visible children
-			$item_list.find('li:has(li:visible)').removeClass().addClass('minus');
+			// add the minus icon to all parents with visible children and make sure to show the children's children to prevent trouble with dropping nested items.
+			$item_list.find('li').each(function(){ if($(this).children('ul').children('li:visible').length){ $(this).removeClass('minus plus').addClass('minus'); $(this).children('ul').children('li').show(); } });
 
-			// add the plus icon to all parent items with hidden children
-			$item_list.find('li:has(li:hidden)').removeClass().addClass('plus');
-			
-			// Remove any empty ul elements
-			$('.plus, .minus').find('ul').not(':has(li)').remove();
-			
-			// remove the class if the child was removed
-			$item_list.find("li:not(:has(ul li))").removeClass();
+			// add the plus icon to all parents with hidden children and make sure to hide the children's children to prevent trouble with dropping nested items.
+			$item_list.find('li').each(function(){ if($(this).children('ul').children('li:hidden').length){ $(this).removeClass('minus plus').addClass('plus'); $(this).children('ul').children('li').hide(); } });
+
+			// remove the icon class if the child was removed
+			$item_list.find('li').not(':has(li)').removeClass('minus plus');
+
+			// remove any empty ul elements
+			$item_list.find('ul').not(':has(li)').remove();
 
 			// call the post sort callback
 			post_sort_callback && post_sort_callback();
 		}
 		refresh_tree();
 
-		// set the icons properly on parents restored from cookie
-		$($.cookie($cookie)).has('ul').toggleClass('minus plus');
+		// updates the open parents in the cookie
+		var update_cookie = function() {
+			var items = [];
 
-		// show the parents that were open on last visit
-		$($.cookie($cookie)).children('ul').children().show();
+			// get all of the open parents, exclude the ones that have closed parents themselves
+			$item_list.find('li.minus:visible').each(function(){ if(!$(this).parents('li.plus').length) items.push('#' + this.id) });
+
+			// save open parents in the cookie
+			$.cookie($cookie, items.join(', '), { expires: 1 });
+		}
 
 		// show/hide the children when clicking on an <li>
 		$item_list.find('li').live('click', function()
 		{
-			$(this).children('ul').children().slideToggle('fast');
+			$(this).children('ul').children('li').slideToggle('fast');
 
 			$(this).has('ul').toggleClass('minus plus');
 
-			var items = [];
+			update_cookie();
 
-			// get all of the open parents
-			$item_list.find('li.minus:visible').each(function(){ items.push('#' + this.id) });
-
-			// save open parents in the cookie
-			$.cookie($cookie, items.join(', '), { expires: 1 });
-
-			 return false;
+			return false;
 		});
-		
+
 		// Defaults for nestedSortable
 		var default_opts = {
 			delay: 100,
@@ -423,8 +425,11 @@ jQuery(function($) {
 					post.data = data_callback(event, ui);
 				}
 
-				// Refresh UI (no more timeout needed)
+				// refresh UI
 				refresh_tree();
+
+				// update the cookie
+				update_cookie();
 
 				$.post(SITE_URL + $url, post );
 			}
