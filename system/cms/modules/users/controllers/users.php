@@ -5,8 +5,6 @@ use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Models;
 use Pyro\Module\Streams_core\EntryUi;
 
-use Pyro\Module\Streams_core\Data\UsersProfilesEntryModel;
-
 /**
  * User controller for the users module (frontend)
  *
@@ -80,7 +78,7 @@ class Users extends Public_Controller
 		
 		} else {
 			// Fine, just grab the user from the DB
-			$user = Model\User::findByUsername($username);
+			$user = Models\User::findByUsername($username);
 		}
 
 		// No user? Show a 404 error
@@ -130,7 +128,7 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
-			$user = Model\User::findByEmail($this->input->post('email'));
+			$user = Models\User::findByEmail($this->input->post('email'));
 
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login', $user->id);
@@ -208,7 +206,7 @@ class Users extends Public_Controller
 		}
 
         // Start a user model
-        $userModel = new UsersProfilesEntryModel;
+        $userModel = new Models\Profile;
 
 		// Validation rules
 		$validation = array(
@@ -356,7 +354,7 @@ class Users extends Public_Controller
 
 				// We are registering with a null group_id so we just
 				// use the default user ID in the settings.
-				$user = Model\User::create(
+				$user = Models\User::create(
 					array(
 						'username' => $username,
 						'password' => $password,
@@ -371,11 +369,11 @@ class Users extends Public_Controller
 
 					// Make a profile
 					$profile_data['user_id'] = $id;
-					Model\Profile::create($profile_data);
+					Models\Profile::create($profile_data);
 
 
 					// Assign to users
-					Model\User::assignGroupIdsToUser($user, array(2));
+					Models\User::assignGroupIdsToUser($user, array(2));
 
 					// trigger an event for third party devs
 					Events::trigger('post_user_register', $id);
@@ -462,7 +460,7 @@ class Users extends Public_Controller
 	{
 		// Get info from email
 		if ($this->input->post('email')) {
-			$this->template->activate_user = Model\User::findByEmail($this->input->post('email'));
+			$this->template->activate_user = Models\User::findByEmail($this->input->post('email'));
 			$id = $this->template->activate_user->id;
 		}
 
@@ -472,7 +470,7 @@ class Users extends Public_Controller
 		if ($id and $code) {
 
 			// Get the User
-			$user = Model\User::find($id);
+			$user = Models\User::find($id);
 
 			// Try to activate this user
 			if ($user->attemptActivation($code)) {
@@ -541,8 +539,8 @@ class Users extends Public_Controller
 					->build('reset_pass');
 			}
 
-			if (! ($user_meta = Model\User::findByEmail($email))) {
-				$user_meta = Model\User::findByUsername($email);
+			if (! ($user_meta = Models\User::findByEmail($email))) {
+				$user_meta = Models\User::findByUsername($email);
 			}
 
 			// have we found a user?
@@ -609,7 +607,7 @@ class Users extends Public_Controller
 	{
 		if ($this->current_user->isSuperUser() and $id > 0)
 		{
-			$user = Model\User::find($id);
+			$user = Models\User::find($id);
 
 			// invalide user? Show them their own profile
 			$user or redirect('edit-profile');
@@ -743,7 +741,7 @@ class Users extends Public_Controller
 		$password = $this->input->post('password');
 
 
-		if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = Model\User::findByEmail($email)) !== null) {
+		if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = Models\User::findByEmail($email)) !== null) {
 
             $user = $this->sentry->findUserById($user->id);
 
@@ -797,7 +795,7 @@ class Users extends Public_Controller
 	 */
 	public function _username_check($username)
 	{
-		if (Model\User::findByUsername($username)) {
+		if (Models\User::findByUsername($username)) {
 			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
@@ -814,7 +812,7 @@ class Users extends Public_Controller
 	 */
 	public function _email_check($email)
 	{
-		if (Model\User::findByEmail($email)) {
+		if (Models\User::findByEmail($email)) {
 			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}
