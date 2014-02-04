@@ -338,7 +338,7 @@ class FieldModel extends Eloquent
         $attributes = $this->getAttributes();
         
         // Load the type to see if there are other params
-        if ($type = FieldTypeManager::getType($this->field_type)) {
+        if ($type = $this->getType()) {
             $type->setPreSaveParameters($attributes);
 
             foreach ($type->getCustomParameters() as $param) {

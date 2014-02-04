@@ -99,6 +99,8 @@ class EntryModelGenerator extends Generator
 
     public function compile(StreamModel $stream)
     {
+        chmod($this->getBasePath('models/'), 0777);
+
         if ($stream and ! empty($stream->stream_slug) and ! empty($stream->stream_namespace)) {
             $className = Str::studly($stream->stream_namespace).Str::studly($stream->stream_slug);
 
