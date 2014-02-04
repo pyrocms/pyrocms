@@ -79,12 +79,17 @@ class MY_Controller extends MX_Controller
         // Map the streams model namespace to the site ref
         $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
 
-        $loader->add('Pyro\\Streams\\Models', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
-        
+        $streamsCorePath = realpath(APPPATH).'/modules/streams_core/';
+
+        $loader->add('Pyro\\Streams\\Models', $streamsCorePath.'models/'.$siteRef.'Site/');
+
         // activate the autoloader
         $loader->register();
-
-		// Add the site specific theme folder
+        
+        // Register core field types here so they are available for the migration
+        FieldTypeManager::registerFolderFieldTypes($streamsCorePath.'field_types/', true);
+		
+        // Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
