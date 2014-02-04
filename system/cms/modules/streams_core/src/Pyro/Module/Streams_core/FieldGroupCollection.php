@@ -36,7 +36,7 @@ class FieldGroupCollection extends Collection
                 $fieldGroup['fields'] = $availableFields;
             }
 
-            is_array($fieldGroup['fields']) or $fieldGroup['fields'] = array();
+            isset($fieldGroup['fields']) or $fieldGroup['fields'] = array();
         }
 
         return $this;
