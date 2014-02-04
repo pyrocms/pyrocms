@@ -350,6 +350,8 @@ class EntryModel extends Eloquent implements RelationshipInterface
                     } else {
                         $this->setAttribute($type->getColumnName(), $type->preSave());
                     }
+                } else {
+                    unset($this->{$field->getType()->getColumnName()});
                 }
             }
         }            
