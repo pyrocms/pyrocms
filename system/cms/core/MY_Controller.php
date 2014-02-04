@@ -64,9 +64,6 @@ class MY_Controller extends MX_Controller
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
 		}
 
-		// Set up the Illuminate\Database layer
-		ci()->pdb = self::setupDatabase();
-
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
@@ -76,15 +73,23 @@ class MY_Controller extends MX_Controller
         $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
 
+        // Set up the Illuminate\Database layer
+        ci()->pdb = self::setupDatabase();
+
         // Map the streams model namespace to the site ref
         $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
 
-        $loader->add('Pyro\\Streams\\Models', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
-        
+        $streamsCorePath = realpath(APPPATH).'/modules/streams_core/';
+
+        $loader->add('Pyro\\Streams\\Models', $streamsCorePath.'models/'.$siteRef.'Site/');
+
         // activate the autoloader
         $loader->register();
-
-		// Add the site specific theme folder
+        
+        // Register core field types here so they are available for the migration
+        FieldTypeManager::registerFolderFieldTypes($streamsCorePath.'field_types/', true);
+		
+        // Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
@@ -234,7 +239,7 @@ class MY_Controller extends MX_Controller
 
         include APPPATH.'config/database.php';
         include APPPATH.'config/cache.php';
-    
+            
         $config = $db[$active_group];
 
         // Is this a PDO connection?
@@ -247,6 +252,10 @@ class MY_Controller extends MX_Controller
             $config['database'] = $matches[3];
 
             unset($matches);
+        }
+
+        if (! in_array($config['dbdriver'], array('mysql', 'pgsql', 'sqlite'))) {
+            $config['dbdriver'] = 'mysql';
         }
 
         $capsule = new Capsule;
