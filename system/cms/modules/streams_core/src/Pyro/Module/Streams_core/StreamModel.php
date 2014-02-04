@@ -489,7 +489,7 @@ class StreamModel extends Eloquent
      * @param  mixed  $data
      * @return boolean
      */
-    public function assignField($field = null, $data = array())
+    public function assignField($field = null, $data = array(), $createColumn = true)
     {
         // TODO This whole method needs to be recoded to use Schema...
 
@@ -523,7 +523,7 @@ class StreamModel extends Eloquent
         // Create database column
         // -------------------------------------
 
-        if ($field_type->db_col_type !== false) {
+        if ($field_type->db_col_type !== false and $createColumn === true) {
             $this->schema_thing($this, $field_type, $field);
         }
 

@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
+use Pyro\Module\Streams_core\Exceptions\InvalidStreamModelException;
+
 /**
  * Streams Utilities Driver
  *
@@ -62,12 +64,12 @@ class SchemaUtility
      * @param	[array - view options]
      * @return	bool
      */
-    public static function convertTableToStream($stream_slug, $namespace, $stream_prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created_at'))
+    public static function convertTableToStream($streamSlug, $namespace, $stream_prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created_at'))
     {
         $schema = ci()->pdb->getSchemaBuilder();
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
-        $table = $prefix.$stream_prefix.$stream_slug;
+        $table = $prefix.$stream_prefix.$streamSlug;
 
         // ----------------------------
         // Table data checks
@@ -84,12 +86,7 @@ class SchemaUtility
 
         // Maybe this table already exsits in our streams table?
         // If so we can't have that.
-        if(ci()->pdb->table(STREAMS_TABLE)
-            ->where('stream_slug', $stream_slug)
-            ->where('stream_prefix', $stream_prefix)
-            ->where('stream_namespace', $namespace)
-            ->get())
-        {
+        if(StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
             return false;
         }
 
@@ -142,7 +139,7 @@ class SchemaUtility
             'stream_name'		=> $stream_name,
             'stream_namespace'	=> $namespace,
             'stream_prefix' 	=> $stream_prefix,
-            'stream_slug'		=> $stream_slug,
+            'stream_slug'		=> $streamSlug,
             'about'				=> $about,
             'title_column'		=> $title_column,
             'sorting'			=> 'title',
@@ -163,71 +160,27 @@ class SchemaUtility
      * @param	string - namespace
      * @return	bool
      */
-    public static function convertColumnToField($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
+    public static function convertColumnToField($streamSlug, $namespace, $fieldName, $fieldSlug, $fieldType, $extra = array(), $assignData = array())
     {
         $schema = ci()->pdb->getSchemaBuilder();
 
         // Get the stream
-        if ( ! $stream = $this->stream_obj($stream_slug, $namespace)) {
-            $this->log_error('invalid_stream', 'convert_column_to_field');
-            return false;
+        if ( ! $stream = StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
+            throw new InvalidStreamModelException;
         }
 
         // Make sure this column actually exists.
-        if ( ! $schema->hasColumn($stream->stream_prefix.$stream->stream_slug, $field_slug)) {
-            $this->log_error('no_column', 'convert_column_to_field');
-            return false;
+        if ( ! $schema->hasColumn($stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
+            throw new ColumnDoesNotExistException;
         }
 
         // Maybe we already added this?
-        if (ci()->pdb->table(FIELDS_TABLE)
-            ->where('field_slug', $field_slug)
-            ->where('field_namespace', $namespace)
-            ->take(1)
-            ->count() == 1)
-        {
-            return false;
-        }
+        if ($field = FieldModel::addField(array(
+            'field_name'          => 'lang:streams:column_data',
+            'slug'          => $fieldSlug,
+            'type'          => $fieldType,
+            'assign'        => $streamSlug,
+            'extra'         => $extra,
+        ));
 
-        // If it does, we are in business! Let's add the field
-        // metadata + the field assignment
-
-        // ----------------------------
-        // Add Field Metadata
-        // ----------------------------
-
-        if ( ! isset($extra) or ! is_array($extra)) $extra = array();
-
-        if ( ! ($field_id = ci()->fields_m->insert_field($field_name, $field_slug, $field_type, $namespace, $extra))) return false;
-
-        // ----------------------------
-        // Add Assignment
-        // ----------------------------
-
-        $data = array();
-        extract($assign_data);
-
-        // Title column
-        if (isset($title_column) and $title_column === true) {
-            $data['title_column'] = 'yes';
-        }
-
-        // Instructions
-        $data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
-
-        // Is Unique
-        if (isset($unique) and $unique === true) {
-            $data['is_unique'] = 'yes';
-        }
-
-        // Is Required
-        if (isset($required) and $required === true) {
-            $data['is_required'] = 'yes';
-        }
-
-        // Add actual assignment
-        // The 4th parameter is to stop the column from being
-        // created, since we already did that.
-        return ci()->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
-    }
-}
+        return $stream->assignField($field, $assignData, false);
