@@ -176,6 +176,15 @@ abstract class Eloquent extends Model implements ArrayableInterface
     }
 
     /**
+     * Get presenter class
+     * @return string
+     */
+    public function getPresenterClass()
+    {
+        return $this->presenterClass;
+    }
+
+    /**
      * New collection
      * @param  array  $models The array of models
      * @return object         The Collection object

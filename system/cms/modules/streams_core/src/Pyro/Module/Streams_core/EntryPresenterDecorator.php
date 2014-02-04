@@ -21,7 +21,7 @@ class EntryPresenterDecorator extends PresenterDecorator
      */
     protected function decorateAtom($atom)
     {
-        if ( ! isset($atom->getPresenterClass())) {
+        if ( ! $atom->getPresenterClass()) {
             return $atom;
         }
 
