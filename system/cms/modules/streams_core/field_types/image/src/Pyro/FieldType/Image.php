@@ -189,7 +189,7 @@ class Image extends AbstractFieldType
 		}
 	}
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Pre Output
@@ -413,4 +413,13 @@ class Image extends AbstractFieldType
 
 		return $image;
 	}
+
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
 }

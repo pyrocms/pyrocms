@@ -218,4 +218,13 @@ class File extends AbstractFieldType
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}
 
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
+
 }
