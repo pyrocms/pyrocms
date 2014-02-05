@@ -294,7 +294,7 @@ abstract class AbstractExtensionManager
      */
     public static function getClassBase($extension)
     {
-        return 'Pyro\\Extensions';
+        return 'Pyro\\Extension';
     }
 
     /**
