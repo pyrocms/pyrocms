@@ -17,7 +17,7 @@ class User extends AbstractFieldType
 {
 	public $field_type_slug = 'user';
 
-	public $db_col_type = false;
+	public $db_col_type = 'string';
 
 	public $custom_parameters = array('restrict_group');
 
