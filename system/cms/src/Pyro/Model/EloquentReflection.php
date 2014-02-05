@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Pyro\Models\Contracts\FilterableModelInterface;
+use Pyro\Model\Contracts\FilterableModelInterface;
 use ReflectionClass;
 
 class EloquentReflection extends ReflectionClass
