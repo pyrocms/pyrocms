@@ -157,7 +157,7 @@ class Plugin_Navigation extends Plugin
 		$group = $this->attribute('group');
 		
 		// TODO Cache me please
-		$links = Navigation\Models\Link::getTreeByGroup($group, array(
+		$links = Navigation\Model\Link::getTreeByGroup($group, array(
 
 			// TODO Rethink group logic for sentry
 			'user_groups' => isset($this->current_user->id) ? $this->current_user->groups->lists('id') : false,

@@ -68,7 +68,7 @@ class Admin_groups extends Admin_Controller
 		// Validate
 		if ($this->form_validation->run()) {
 			// Insert the new group
-			if ($group = Navigation\Models\Group::create(array(
+			if ($group = Navigation\Model\Group::create(array(
 					'title' => $this->input->post('title'),
 					'abbrev' => $this->input->post('abbrev')
 				)))
@@ -108,7 +108,7 @@ class Admin_groups extends Admin_Controller
 
 		// Delete one
 		if ($id) {
-			if ($group = Navigation\Models\Group::find($id)) {
+			if ($group = Navigation\Model\Group::find($id)) {
 				$deleted_ids[] = $id;
 				$group->links()->delete();
 				$group->delete();
@@ -118,7 +118,7 @@ class Admin_groups extends Admin_Controller
 		// Delete multiple
 		else {
 			foreach (array_keys($this->input->post('delete')) as $id) {
-				if ($group = Navigation\Models\Group::find($id)) {
+				if ($group = Navigation\Model\Group::find($id)) {
 					$deleted_ids[] = $id;
 					$group->links()->delete();
 					$group->delete();

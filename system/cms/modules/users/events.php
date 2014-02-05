@@ -22,7 +22,7 @@ class Events_Users {
 
 	/**
 	 * Send an activation code for the user
-	 * @param  Pyro\Module\Users\Models\User $user
+	 * @param  Pyro\Module\Users\Model\User $user
 	 * @return boolean
 	 */
 	public function send_activation_email($user)

@@ -3,15 +3,15 @@
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Pyro\FieldType\RelationshipInterface;
-use Pyro\Models\Eloquent;
-use Pyro\Module\Search\Models\Search;
-use Pyro\Module\Users\Models\User;
+use Pyro\Model\Eloquent;
+use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Users\Model\User;
 
 /**
  * Entry model
  *
  * @author   PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Streams_core\Models
+ * @package  PyroCMS\Core\Modules\Streams_core\Model
  */
 class EntryModel extends Eloquent implements RelationshipInterface
 {
@@ -214,7 +214,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * 
      * @param array $viewOptions
      * @param string $defaultFormat
-     * @return Pyro\Support\Presenter|Pyro\Models\Eloquent
+     * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
      */ 
     public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
@@ -656,7 +656,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function createdByUser()
     {
-        return $this->belongsTo('\Pyro\Module\Users\Models\User', 'created_by')->select($this->createdByUserColumns);
+        return $this->belongsTo('\Pyro\Module\Users\Model\User', 'created_by')->select($this->createdByUserColumns);
     }
 
     /**

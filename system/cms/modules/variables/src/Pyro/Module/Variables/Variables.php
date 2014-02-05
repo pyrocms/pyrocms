@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Variables;
 
-use Pyro\Module\Variables\Models\VariableEntryModel;
+use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
  * Variable Library

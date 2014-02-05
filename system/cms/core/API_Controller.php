@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Users\Models\User;
+use Pyro\Module\Users\Model\User;
 
 /**
  * Shared logic and data for all CMS controllers

@@ -88,7 +88,7 @@ class EntryModelGenerator extends Generator
             mkdir($this->siteRefPath($streams), 0777);
         }
 
-        $data = $streams.DIRECTORY_SEPARATOR.'Models'.DIRECTORY_SEPARATOR;
+        $data = $streams.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR;
 
         if (! is_dir($this->siteRefPath($data))) {
             mkdir($this->siteRefPath($data), 0777);

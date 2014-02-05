@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Illuminate\Support\Str;
-use Pyro\Models\Eloquent;
+use Pyro\Model\Eloquent;
 
 class StreamModel extends Eloquent
 {
@@ -62,7 +62,7 @@ class StreamModel extends Eloquent
      */
     public static function getEntryModelNamespace()
     {
-        return 'Pyro\\Streams\\Models';
+        return 'Pyro\\Streams\\Model';
     }
 
     /**
@@ -85,17 +85,17 @@ class StreamModel extends Eloquent
 
         // Do we have a field slug?
         if( ! isset($stream_slug) or ! trim($stream_slug)) {
-            throw new Exceptions\EmptyFieldSlugException;
+            throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
         if( ! isset($stream_namespace) or ! trim($stream_namespace)) {
-            throw new Exceptions\EmptyFieldNamespaceException;
+            throw new Exception\EmptyFieldNamespaceException;
         }
 
         // Do we have a field name?
         if ( ! isset($stream_name) or ! trim($stream_name)) {
-            throw new Exceptions\EmptyFieldNameException;
+            throw new Exception\EmptyFieldNameException;
         }
 
         // -------------------------------------
@@ -131,7 +131,7 @@ class StreamModel extends Eloquent
     public static function getStream($stream_slug, $stream_namespace = null)
     {
         if ( ! $stream = static::findBySlugAndNamespace($stream_slug, $stream_namespace)) {
-            throw new Exceptions\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
+            throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$stream_namespace.']');
         }
 
         return $stream;
@@ -261,7 +261,7 @@ class StreamModel extends Eloquent
     {
         if ( ! $stream instanceof static) {
             if ( ! $stream = static::findBySlugAndNamespace($stream, $namespace)) {
-                throw new Exceptions\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
+                throw new Exception\InvalidStreamModelException('Invalid stream. Attempted ['.$stream_slug.','.$namespace.']');
             }
         }
 
@@ -326,7 +326,7 @@ class StreamModel extends Eloquent
     {
         if ( ! is_null($model = static::findBySlugAndNamespace($stream_slug, $stream_namespace))) return $model;
 
-        throw new Exceptions\StreamModelNotFoundException;
+        throw new Exception\StreamModelNotFoundException;
     }
 
     /**
@@ -781,7 +781,7 @@ class StreamModel extends Eloquent
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exceptions\StreamNotFoundException;
+        throw new Exception\StreamNotFoundException;
     }
 
     /**

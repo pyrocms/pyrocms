@@ -1,7 +1,7 @@
 <?php
 
 use Pyro\Module\Addons\AbstractTheme;
-use Pyro\Module\Comments\Models\Comment;
+use Pyro\Module\Comments\Model\Comment;
 
 class Theme_Pyrocms extends AbstractTheme
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Files\Models\Folder as FolderModel;
+use Pyro\Module\Files\Model\Folder as FolderModel;
 
 /**
  * PyroCMS file Admin Controller

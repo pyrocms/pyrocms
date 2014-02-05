@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Maintenance\Models\Data;
+use Pyro\Module\Maintenance\Model\Data;
 
 /**
  * The Maintenance Module - currently only remove/empty cache folder(s)

@@ -4,7 +4,7 @@ use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\StreamModel;
-use Pyro\Module\Variables\Models\VariableEntryModel;
+use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -56,7 +56,7 @@ class Admin extends Admin_Controller
 
 		$form = $this->selectable_fields_form();
 
-		EntryUi::table('Pyro\Module\Variables\Models\VariableEntryModel')
+		EntryUi::table('Pyro\Module\Variables\Model\VariableEntryModel')
 			->fields(array(
 				'name',
 				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
@@ -86,7 +86,7 @@ class Admin extends Admin_Controller
 			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		EntryUi::form('Pyro\Module\Variables\Models\VariableEntryModel')
+		EntryUi::form('Pyro\Module\Variables\Model\VariableEntryModel')
 			->title(lang('variables:create_title').$form)
 			->defaults($defaults)
 			->skips(array('foo', 'bar'))

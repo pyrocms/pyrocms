@@ -1,8 +1,8 @@
 <?php namespace Pyro\FieldType;
 
 use Pyro\Module\Streams_core\AbstractFieldType;
-use Pyro\Module\Users\Models\User as UserModel;
-use Pyro\Module\Users\Models\Group as GroupModel;
+use Pyro\Module\Users\Model\User as UserModel;
+use Pyro\Module\Users\Model\Group as GroupModel;
 
 /**
  * PyroStreams User Field Type
@@ -36,7 +36,7 @@ class User extends AbstractFieldType
 	 */
 	public function relation()
 	{
-		return $this->belongsTo($this->getRelationClass('Pyro\Module\Users\Models\User'));
+		return $this->belongsTo($this->getRelationClass('Pyro\Module\Users\Model\User'));
 	}
 
 	/**

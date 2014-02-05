@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Search\Models\Search;
+use Pyro\Module\Search\Model\Search;
 
 /**
  * Admin controller for the search module

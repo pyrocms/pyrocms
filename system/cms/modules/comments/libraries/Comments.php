@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Comments\Models\Comment;
+use Pyro\Module\Comments\Model\Comment;
 
 /**
  * Comments library

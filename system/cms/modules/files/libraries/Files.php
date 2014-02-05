@@ -2,9 +2,9 @@
 
 use Cartalyst\Sentry\Users\Eloquent\User;
 
-use Pyro\Module\Files\Models\File;
-use Pyro\Module\Files\Models\Folder;
-use Pyro\Module\Keywords\Models\Applied;
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Keywords\Model\Applied;
 
 /**
  * PyroCMS File library.
