@@ -39,7 +39,7 @@ abstract class Eloquent extends Model implements ArrayableInterface
      * Collection class
      * @var string
      */
-    protected $collectionClass = 'Pyro\Models\EloquentCollection';
+    protected $collectionClass = 'Pyro\Model\EloquentCollection';
 
     /**
      * Presenter class
