@@ -416,6 +416,8 @@ abstract class AbstractExtensionManager
 		// -------------------------
 		// Load the language file
 		// -------------------------
+        $instance->langPrefix = static::getLangPrefix($extension);
+        
         if (is_dir($path) and is_dir($path.'/language')) {
             
 			$lang = ci()->config->item('language');
@@ -436,17 +438,17 @@ abstract class AbstractExtensionManager
 
 		// Extension name is languagized
 		if ( ! isset($instance->name)) {
-            $instance->name = lang_label('lang:'.static::getLangPrefix($extension).'.name');
+            $instance->name = lang_label('lang:'.$instance->langPrefix.'.name');
 		}
 
         // Extension name (plural) is languagized
         if ( ! isset($instance->plural)) {
-            $instance->plural = lang_label('lang:'.static::getLangPrefix($extension).'.plural');
+            $instance->plural = lang_label('lang:'.$instance->langPrefix.'.plural');
         }
 
 		// Extension description is languagized
 		if ( ! isset($instance->description)) {
-			$instance->description = lang_label('lang:'.static::getLangPrefix($extension).'.description');
+			$instance->description = lang_label('lang:'.$instance->langPrefix.'.description');
 		}
 
 		if (isset(ci()->profiler)) {
@@ -474,7 +476,7 @@ abstract class AbstractExtensionManager
      */
     public static function getLangPrefix($extension)
     {
-        return $extension.':'.static::$slugs[get_called_class()];
+        return static::$slugs[get_called_class()].':'.$extension;
     }
 
     /**
