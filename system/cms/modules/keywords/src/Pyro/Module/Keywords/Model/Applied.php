@@ -6,7 +6,7 @@ use Pyro\Model\Eloquent;
  * Applied Keyword model
  *
  * @author    PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Keywords\Models
+ * @package  PyroCMS\Core\Modules\Keywords\Model
  */
 class Applied extends Eloquent
 {

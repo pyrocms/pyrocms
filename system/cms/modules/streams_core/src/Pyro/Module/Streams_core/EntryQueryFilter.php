@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Illuminate\Database\Eloquent\Builder;
-use Pyro\Models\EloquentReflection;
+use Pyro\Model\EloquentReflection;
 
 class EntryQueryFilter
 {

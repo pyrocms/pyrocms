@@ -58,7 +58,7 @@ class EntryCollection extends EloquentCollection
      * 
      * @param array $viewOptions
      * @param string $defaultFormat
-     * @return Pyro\Support\Presenter|Pyro\Models\Eloquent
+     * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
      */ 
     public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {

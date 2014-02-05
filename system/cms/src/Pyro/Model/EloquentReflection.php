@@ -1,8 +1,8 @@
-<?php namespace Pyro\Models;
+<?php namespace Pyro\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Pyro\Models\Contracts\FilterableModelInterface;
+use Pyro\Model\Contracts\FilterableModelInterface;
 use ReflectionClass;
 
 class EloquentReflection extends ReflectionClass
