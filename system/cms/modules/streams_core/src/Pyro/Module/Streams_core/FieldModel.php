@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Streams_core;
 
-use Pyro\Models\Eloquent;
+use Pyro\Model\Eloquent;
 use Illuminate\Support\Str;
 
 class FieldModel extends Eloquent
@@ -51,27 +51,27 @@ class FieldModel extends Eloquent
 
         // Do we have a field name?
         if ( ! isset($name) or ! trim($name)) {
-            throw new Exceptions\EmptyFieldNameException;
+            throw new Exception\EmptyFieldNameException;
         }
 
         // Do we have a field slug?
         if( ! isset($slug) or ! trim($slug)) {
-            throw new Exceptions\EmptyFieldSlugException;
+            throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
         if( ! isset($namespace) or ! trim($namespace)) {
-            throw new Exceptions\EmptyFieldNamespaceException;
+            throw new Exception\EmptyFieldNamespaceException;
         }
 
         // Is this stream slug already available?
         if ($field = static::findBySlugAndNamespace($slug, $namespace)) {
-            throw new Exceptions\FieldSlugInUseException('The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
+            throw new Exception\FieldSlugInUseException('The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
         }
 
         // Is this a valid field type?
         if ( ! isset($type) or ! FieldTypeManager::getType($type)) {
-            throw new Exceptions\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
         }
 
         // Set locked
@@ -166,7 +166,7 @@ class FieldModel extends Eloquent
         // Validate Data
         // -------------------------------------
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
-            throw new Exceptions\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
+            throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
         if ($stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace)) {
@@ -199,11 +199,11 @@ class FieldModel extends Eloquent
         // -------------------------------------
 
         if ( ! $stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace)) {
-            throw new Exceptions\InvalidStreamModelException('Invalid stream slug. Attempted ['.$stream_slug.','.$namespace.']');
+            throw new Exception\InvalidStreamModelException('Invalid stream slug. Attempted ['.$stream_slug.','.$namespace.']');
         }
 
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
-            throw new Exceptions\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
+            throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
         // -------------------------------------
@@ -224,12 +224,12 @@ class FieldModel extends Eloquent
     {
         // Do we have a field slug?
         if( ! isset($field_slug) or ! trim($field_slug)) {
-            throw new Exceptions\EmptyFieldSlugException;
+            throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
         if( ! isset($namespace) or ! trim($namespace)) {
-            throw new Exceptions\EmptyFieldNamespaceException;
+            throw new Exception\EmptyFieldNamespaceException;
         }
 
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) return false;
@@ -248,12 +248,12 @@ class FieldModel extends Eloquent
     {
         // Do we have a field slug?
         if( ! isset($field_slug) or ! trim($field_slug)) {
-            throw new Exceptions\EmptyFieldSlugException;
+            throw new Exception\EmptyFieldSlugException;
         }
 
         // Do we have a namespace?
         if( ! isset($field_namespace) or ! trim($field_namespace)) {
-            throw new Exceptions\EmptyFieldNamespaceException;
+            throw new Exception\EmptyFieldNamespaceException;
         }
 
         // Find the field by slug and namespace or throw an exception
@@ -261,7 +261,7 @@ class FieldModel extends Eloquent
 
         // Is this a valid field type?
         if (isset($field_type) and ! FieldTypeManager::getType($field_type)) {
-            throw new Exceptions\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
+            throw new Exception\InvalidFieldTypeException('Invalid field type. Attempted ['.$type.']');
         }
 
         return $field->update($field_data);
@@ -279,7 +279,7 @@ class FieldModel extends Eloquent
     {
         // Do we have a field slug?
         if( ! isset($field_slug) or ! trim($field_slug)) {
-            throw new Exceptions\EmptyFieldSlugException;
+            throw new Exception\EmptyFieldSlugException;
         }
 
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) return false;
@@ -596,7 +596,7 @@ class FieldModel extends Eloquent
     {
         if ( ! is_null($model = static::findBySlugAndNamespace($field_slug, $field_namespace))) return $model;
 
-        throw new Exceptions\staticNotFoundException;
+        throw new Exception\staticNotFoundException;
     }
 
     /**
@@ -629,7 +629,7 @@ class FieldModel extends Eloquent
     {
         if ( ! is_null($model = static::find($id, $columns))) return $model;
 
-        throw new Exceptions\staticNotFoundException;
+        throw new Exception\staticNotFoundException;
     }
 
     public static function getFieldOptions($skips = array())

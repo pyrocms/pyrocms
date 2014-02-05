@@ -71,7 +71,7 @@ class Admin extends Admin_Controller
 
         if ($this->current_user->isSuperUser()) 
         {
-            $this->template->group_options = $this->form_data['group_options'] = Users\Models\Group::getGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGroupOptions();
         }  
         else
         {
@@ -82,7 +82,7 @@ class Admin extends Admin_Controller
                 'rules' => 'required|callback__group_check'
             );
 
-            $this->template->group_options = $this->form_data['group_options'] = Users\Models\Group::getGeneralGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGeneralGroupOptions();
         }
     }
 
@@ -131,7 +131,7 @@ class Admin extends Admin_Controller
 
 
         // Build out the UI with core
-        $table = EntryUi::table('Pyro\Module\Users\Models\Profile')
+        $table = EntryUi::table('Pyro\Module\Users\Model\Profile')
             ->title($this->module_details['name'])
             ->filters($filters)
             ->buttons($buttons)
@@ -243,11 +243,11 @@ class Admin extends Admin_Controller
                 Settings::temp('activation_email', false);
             }
 
-            //$group = Users\Models\Group::find($group_id);
+            //$group = Users\Model\Group::find($group_id);
 
             // Register the user (they are activated by default if an activation email isn't requested)
             //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($enable_entry_save = $user = Users\Models\User::create(array(
+            if ($enable_entry_save = $user = Users\Model\User::create(array(
                     'username' => $username,
                     'password' => $password,
                     'email' => $email,
@@ -259,7 +259,7 @@ class Admin extends Admin_Controller
                     //$this->ion_auth_model->deactivate($user_id);
                 //}
 
-                Users\Models\User::assignGroupIdsToUser($user, $this->input->post('groups'));
+                Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
                 // Fire an event. A new user has been created
                 Events::trigger('user_created', $user);
@@ -272,7 +272,7 @@ class Admin extends Admin_Controller
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
-            $user = new Users\Models\User;
+            $user = new Users\Model\User;
             $user->is_activated = false;
         }
 
@@ -323,7 +323,7 @@ class Admin extends Admin_Controller
     {
 
         // Get the user's data
-        if ( ! ($user = Users\Models\User::find($id)))
+        if ( ! ($user = Users\Model\User::find($id)))
         {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
@@ -361,7 +361,7 @@ class Admin extends Admin_Controller
             $user->email = $this->input->post('email');
             $user->username = $this->input->post('username');
 
-            Users\Models\User::assignGroupIdsToUser($user, $this->input->post('groups'));
+            Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
             //$user->groups = $this->input->post('groups');
 
@@ -447,7 +447,7 @@ class Admin extends Admin_Controller
      */
     public function preview($id = 0)
     {
-        $user = Users\Models\User::find($id);
+        $user = Users\Model\User::find($id);
 
         $this->template
             ->set_layout('modal', 'admin')
@@ -473,7 +473,7 @@ class Admin extends Admin_Controller
         $to_activate = 0;
         foreach ($ids as $id)
         {
-            $user = Users\Models\User::find($id);
+            $user = Users\Model\User::find($id);
             $user->is_activated    = true;
             $this->activated_at = new DateTime;
 
@@ -517,7 +517,7 @@ class Admin extends Admin_Controller
                     continue;
                 }
 
-                $user = Users\Models\User::find($id);
+                $user = Users\Model\User::find($id);
 
                 if ($user->delete())
                 {
@@ -558,7 +558,7 @@ class Admin extends Admin_Controller
      */
     public function _username_check()
     {
-        if (Users\Models\User::findByUsername($this->input->post('username')))
+        if (Users\Model\User::findByUsername($this->input->post('username')))
         {
             $this->form_validation->set_message('_username_check', lang('user:error_username'));
             return false;
@@ -577,7 +577,7 @@ class Admin extends Admin_Controller
      */
     public function _email_check()
     {
-        if (Users\Models\User::findByEmail($this->input->post('email')))
+        if (Users\Model\User::findByEmail($this->input->post('email')))
         {
             $this->form_validation->set_message('_email_check', lang('user:error_email'));
             return false;
@@ -597,7 +597,7 @@ class Admin extends Admin_Controller
      */
     public function _group_check($group_id)
     {
-        if ( ! Users\Models\Group::find($group_id))
+        if ( ! Users\Model\Group::find($group_id))
         {
             $this->form_validation->set_message('_group_check', lang('regex_match'));
             return false;

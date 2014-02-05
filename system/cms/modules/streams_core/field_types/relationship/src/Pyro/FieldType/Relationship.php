@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-use Pyro\Models\Eloquent;
+use Pyro\Model\Eloquent;
 use Pyro\Module\Streams_core\AbstractFieldType;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\FieldModel;

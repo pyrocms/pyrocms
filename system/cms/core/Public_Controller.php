@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Redirects\Models\Redirect;
+use Pyro\Module\Redirects\Model\Redirect;
 use Pyro\Module\Variables\VariableData;
 
 /**

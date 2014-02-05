@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Addons;
 
-use Pyro\Models\EloquentCollection;
+use Pyro\Model\EloquentCollection;
 
 class ExtensionCollection extends EloquentCollection
 {

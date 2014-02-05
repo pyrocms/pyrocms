@@ -100,8 +100,8 @@ class Admin extends Admin_Controller
 			->append_css('module::navigation.css');
 
 		// Get Navigation Groups
-		$this->template->groups 		= Navigation\Models\Group::all();
-		$this->template->groups_select 	= Navigation\Models\Group::getGroupOptions();
+		$this->template->groups 		= Navigation\Model\Group::all();
+		$this->template->groups_select 	= Navigation\Model\Group::getGroupOptions();
 		$all_modules = $this->moduleManager->getAll(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 
-		if ($pages = Pages\Models\Page::all()) {
+		if ($pages = Pages\Model\Page::all()) {
 			foreach ($pages as $page) {
 				$tree[$page->parent_id][] = $page;
 			}
@@ -138,7 +138,7 @@ class Admin extends Admin_Controller
 		// Go through all the groups
 		foreach ($this->template->groups as $group) {
 			//... and get navigation links for each one
-			$navigation[$group->id] = Navigation\Models\Link::getTreeByGroup($group->id);
+			$navigation[$group->id] = Navigation\Model\Link::getTreeByGroup($group->id);
 		}
 
 		// Create the layout
@@ -156,7 +156,7 @@ class Admin extends Admin_Controller
 		$order = $this->input->post('ids');
 		
 		if (is_array($order)) {
-			Navigation\Models\Link::setOrder($order, $group);
+			Navigation\Model\Link::setOrder($order, $group);
 
 			//@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
 			$this->cache->forget('navigation_m');
@@ -174,11 +174,11 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_link_details($link_id)
 	{
-		$link = Navigation\Models\Link::getUrl($link_id);
+		$link = Navigation\Model\Link::getUrl($link_id);
 
 		$ids = explode(',', $link->restricted_to);
 
-		$group_options = Users\Models\Group::findManyGroupOptionsInId($ids);
+		$group_options = Users\Model\Group::findManyGroupOptionsInId($ids);
 
 		$link->restricted_to = implode(', ', $group_options);
 
@@ -197,13 +197,13 @@ class Admin extends Admin_Controller
 	public function create($group_id = '')
 	{
 		// Set the options for restricted to
-		$this->template->group_options = Users\Models\Group::getGroupOptions();
+		$this->template->group_options = Users\Model\Group::getGroupOptions();
 
 		// Run if valid
 		if ($this->form_validation->run()) {
-			$last_position = Navigation\Models\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
+			$last_position = Navigation\Model\Link::findByGroupIdAndOrderByPosition($this->input->post('navigation_group_id'),'desc');
 
-			$link = Navigation\Models\Link::create(array(
+			$link = Navigation\Model\Link::create(array(
 				'title'                 => $this->input->post('title'),
 				'parent'                => $this->input->post('parent') ? $this->input->post('parent') : 0,
 				'link_type'             => $this->input->post('link_type'),
@@ -276,10 +276,10 @@ class Admin extends Admin_Controller
 		}
 
 		// Get the navigation item based on the ID
-		$link = Navigation\Models\Link::find($id);
+		$link = Navigation\Model\Link::find($id);
 
 		// Set the options for restricted to
-		$group_options = Users\Models\Group::getGroupOptions();
+		$group_options = Users\Model\Group::getGroupOptions();
 
 		if (! $link) {
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');
@@ -293,7 +293,7 @@ class Admin extends Admin_Controller
 			if ($this->input->post('current_group_id') != $this->input->post('navigation_group_id')) {
 				$link->parent = 0;
 
-				Navigation\Models\Link::resetChildByParentId($id);
+				Navigation\Model\Link::resetChildByParentId($id);
 			}
 
 			$link->title = $this->input->post('title');
@@ -355,7 +355,7 @@ class Admin extends Admin_Controller
 		// Loop through each item to delete
 		if (!empty($id_array)) {
 			foreach ($id_array as $id) {
-				Navigation\Models\Link::deleteLinkChildren($id);
+				Navigation\Model\Link::deleteLinkChildren($id);
 			}
 
 			Events::trigger('post_navigation_delete', $id_array);
@@ -390,7 +390,7 @@ class Admin extends Admin_Controller
 		extract($params);
 
 		if (! $tree) {
-			if ($pages = Pages\Models\Page::all()) {
+			if ($pages = Pages\Model\Page::all()) {
 				foreach ($pages as $page) {
 					$tree[$page->parent_id][] = $page;
 				}

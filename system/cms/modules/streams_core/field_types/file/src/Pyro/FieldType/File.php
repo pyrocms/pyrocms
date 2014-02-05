@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Files\Models\Folder;
-use Pyro\Module\Files\Models\File as FileModel;
+use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File as FileModel;
 use Pyro\Module\Streams_core\AbstractFieldType;
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Pages\Models\Page;
-use Pyro\Module\Pages\Models\PageType;
+use Pyro\Module\Pages\Model\Page;
+use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\FieldUi;
 use Pyro\Module\Streams_core\StreamModel;

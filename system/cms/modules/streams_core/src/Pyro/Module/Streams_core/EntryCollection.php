@@ -1,7 +1,7 @@
 <?php namespace Pyro\Module\Streams_core;
 
 use Illuminate\Support\Str;
-use Pyro\Models\EloquentCollection;
+use Pyro\Model\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {

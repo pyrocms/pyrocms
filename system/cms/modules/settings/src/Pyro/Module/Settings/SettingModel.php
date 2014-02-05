@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Settings;
 
-use Pyro\Models\Eloquent;
+use Pyro\Model\Eloquent;
 
 class SettingModel extends Eloquent
 {
