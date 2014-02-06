@@ -48,6 +48,7 @@ abstract class AbstractUi extends Fluent
             'formUrl' => null,
             'hidden' => array(),
             'index' => false,
+            'limit' => \Settings::get('records_per_page'),
             'messageError' => null,
             'messageSuccess' => null,
             'method' => 'new',
