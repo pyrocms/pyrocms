@@ -318,7 +318,7 @@ class Relationship extends AbstractFieldType
         if (method_exists($relatedModel, 'streamsRelationshipAjaxSearch')) {
             echo $relatedModel::streamsRelationshipAjaxSearch($fieldType);
         } else {
-            echo $relatedModel::select(explode('|', $fieldType->getParameter('select_fields', '*')))
+            echo $relatedModel::select(explode('|', $fieldType->getParameter('select_columns', '*')))
                 ->where($fieldType->getParameter('search_columns', 'id'), 'LIKE', '%'.$post['term'].'%')
                 ->take(10)
                 ->get();
