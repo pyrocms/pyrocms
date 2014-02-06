@@ -91,6 +91,11 @@ class EntryUi extends AbstractUi
 
             ->runFieldTypeFilterEvents();
 
+        // Build pagination if it's up to us
+        if ($this->offset == null) {
+            $this->pagination($this->limit, $this->paginationUri);
+        }
+
         // Allow to modify the query before we execute it
         // We pass the model to get access to its methods but you also can run query builder methods against it
         // Whatever you do on your closure, it must return an EntryBuilder instance
