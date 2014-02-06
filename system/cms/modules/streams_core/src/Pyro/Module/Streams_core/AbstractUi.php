@@ -388,10 +388,10 @@ abstract class AbstractUi extends Fluent
 
         foreach ($this->getValidRedirects() as $name) {
             if ($action == Str::camel($name)) {
-                echo $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
+                $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
             }
         }
-die;
+
         redirect($uri);
     }
 
