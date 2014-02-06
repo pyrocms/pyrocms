@@ -76,10 +76,11 @@ class EntryPresenter extends Presenter
     }
 
 	/**
-     * Magic Method access initially tries for local methods then, defers to
-     * the decorated object.
+     * Get presenter formatted attribute
+     * @param  string $key
+     * @return mixed
      */
-    public function __get($key)
+    public function getPresenterAttribute($key)
     {
     	$viewOption = $this->entryViewOptions->getBySlug($key);
 
@@ -90,8 +91,8 @@ class EntryPresenter extends Presenter
         } elseif ($viewOption and $format = $viewOption->getFormat()) {
 
         	$fieldTypeMethod = Str::studly($format).'Output';
-
-        	$method = 'get'.$fieldTypeMethod;
+            
+            $method = 'get'.$fieldTypeMethod;
 
         	if (method_exists($this, $method)) {
         		return $this->{$method}($key);
