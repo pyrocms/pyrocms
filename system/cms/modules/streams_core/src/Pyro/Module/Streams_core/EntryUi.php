@@ -74,6 +74,14 @@ class EntryUi extends AbstractUi
      */
     protected function triggerTable()
     {
+        if ($this->getTitle() === null) {
+            $this->title(lang(
+                $this->model->getStream()->stream_namespace
+                .':'.$this->model->getStream()->stream_slug
+                .'.table'
+                ));
+        }
+        
         $viewOptions = EntryViewOptions::make($this->model, $this->getFields('string'), $this->format);
 
         $this
@@ -139,14 +147,6 @@ class EntryUi extends AbstractUi
                 .'";</script>');
 
             ci()->template->append_js('streams/entry_sorting.js');
-        }
-
-        if ($this->getTitle() === null) {
-            $this->title(lang(
-                $this->model->getStream()->stream_namespace
-                .':'.$this->model->getStream()->stream_slug
-                .'.table'
-                ));
         }
 
         $this->content = ci()->load->view('streams_core/entries/table', $this->attributes, true);
