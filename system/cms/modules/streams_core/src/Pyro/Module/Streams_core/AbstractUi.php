@@ -62,6 +62,7 @@ abstract class AbstractUi extends Fluent
             'returnValidationRules' => false,
             'recaptcha' => false,
             'redirect' => uri_string(),
+            'redirectSave' => index_uri(),
             'result' => null,
             'select' => array('*'),
             'skips' => array(),
@@ -75,11 +76,12 @@ abstract class AbstractUi extends Fluent
         );
         
         // Set redirects to null
-        $redirects = $this->getValidRedirects();
+        //$redirects = $this->getValidRedirects();
 
-        foreach ($redirects as $key) {
+        // Why?
+        /*foreach ($redirects as $key) {
             $defaultAttributes['redirect'.Str::studly($key)] = null;
-        }
+        }*/
 
         return $defaultAttributes;
     }
@@ -386,10 +388,10 @@ abstract class AbstractUi extends Fluent
 
         foreach ($this->getValidRedirects() as $name) {
             if ($action == Str::camel($name)) {
-                $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
+                echo $uri = site_url(ci()->parser->parse_string($this->{'redirect'.Str::studly($name)}, $data, true));
             }
         }
-
+die;
         redirect($uri);
     }
 
