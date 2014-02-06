@@ -58,6 +58,7 @@ abstract class AbstractUi extends Fluent
             'orderBy' => null,
             'orderDirection' => 'asc',
             'pagination' => null,
+            'paginationUri' => index_uri(),
             'returnValidationRules' => false,
             'recaptcha' => false,
             'redirect' => uri_string(),
