@@ -42,16 +42,6 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             ));
             
             $fields = array(
-                // This will display the syntax in the admin using the Merge Tags field type
-                array(
-                    'name'          => 'lang:variables:syntax_label',
-                    'slug'          => 'syntax',
-                    'type'          => 'merge_tags',
-                    'namespace'     => 'variables',
-                    'assign'        => 'variables',
-                    'extra'         => 
-                        array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
-                ),
                 // A default set of selectable fields
                 array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
                 array('namespace' => 'variables','name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
