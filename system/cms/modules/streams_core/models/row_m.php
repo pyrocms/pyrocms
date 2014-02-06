@@ -431,11 +431,31 @@ class Row_m extends MY_Model {
 		if (isset($exclude) and $exclude)
 		{		
 			$exclusions = explode('|', $exclude);
+			$excludes = array();
 			
-			foreach ($exclusions as $exclude_id)
-			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($exclude_by).' !='.$this->db->escape($exclude_id);
+			if(strstr($exclude_by, ':')) {
+				list($exclude_type, $exclude_by) = explode(':', $exclude_by);
+				
+				if(strtolower($exclude_type) == 'keywords') 
+				{
+					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$exclude_by, true);
+					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);
+
+					$exclusions = array_map(array($this->db, 'escape'), $exclusions);
+					$excludes[] = $this->db->protect_identifiers('keywords.name').' IN ('.implode(',', $exclusions).')';
+				}
 			}
+			else
+			{
+				foreach ($exclusions as $exclude_id)
+				{
+					$operand = is_numeric($exclude_id) ? '!=' : ' NOT LIKE ';
+					$exclude_id = is_numeric($exclude_id) ? $exclude_id : '%'.$exclude_id.'%';
+					$excludes[] = $this->select_prefix.$this->db->protect_identifiers($exclude_by).$operand.$this->db->escape($exclude_id);
+				}
+			}
+
+			$this->sql['where'][] = '('.implode(' OR ', $excludes).')';
 		}
 
 		// -------------------------------------
@@ -446,10 +466,27 @@ class Row_m extends MY_Model {
 		{
 			$inclusions 	= explode('|', $include);
 			$includes 		= array();
-			
-			foreach ($inclusions as $include_id)
+
+			if(strstr($include_by, ':')) {
+				list($include_type, $include_by) = explode(':', $include_by);
+				
+				if(strtolower($include_type) == 'keywords') 
+				{
+					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$include_by, true);
+					$this->sql['join'][] = 'INNER JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);
+
+					$inclusions = array_map(array($this->db, 'escape'), $inclusions);
+					$includes[] = $this->db->protect_identifiers('keywords.name').' IN ('.implode(',', $inclusions).')';
+				}
+			}
+			else
 			{
-				$includes[] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
+				foreach ($inclusions as $include_id)
+				{
+					$operand = is_numeric($include_id) ? '=' : ' LIKE ';
+					$include_id = is_numeric($include_id) ? $include_id : '%'.$include_id.'%';
+					$includes[] = $this->select_prefix.$this->db->protect_identifiers($include_by).$operand.$this->db->escape($include_id);
+				}
 			}
 
 			$this->sql['where'][] = '('.implode(' OR ', $includes).')';
