@@ -122,8 +122,22 @@ class Plugin_Search extends Plugin
 		$segment = $this->attribute('page_segment', count(explode('/', $uri)) + 1);
 
 		// If it's POST, send it off to return as a GET
-		if ($this->input->post('q')) {
-			redirect($uri.'?q='.$this->input->post('q'));
+		if ($this->input->post('q'))
+		{
+			$uri .= "?q=".$this->input->post('q');
+			
+			//We need to check also the filter
+			if( $this->input->post('filter') )
+			{
+				$filter = $this->input->post('filter');
+
+				foreach( $filter as $key=>$value )
+				{
+					$uri .= "&filter[$key]=$value";
+				}								
+			}
+						
+			redirect($uri);
 		}
 
 		$query  = $this->input->get('q');
