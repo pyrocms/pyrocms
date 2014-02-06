@@ -124,6 +124,7 @@ class EntryUi extends AbstractUi
 
         $this->entries = $this->model
             ->with($viewOptions->getEagerLoads())
+            ->orderBy($this->orderBy, $this->sort)
             ->take($this->limit)
             ->skip($this->offset)
             ->get($this->select)
