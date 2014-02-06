@@ -2,6 +2,7 @@
 
 use Pyro\Module\Streams_core\StreamModel;
 use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\SchemaUtility;
 
 class Migration_Convert_variables_to_streams extends CI_Migration
@@ -10,6 +11,8 @@ class Migration_Convert_variables_to_streams extends CI_Migration
     {
         if ( ! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
         {
+            FieldTypeManager::registerFolderFieldTypes(realpath(APPPATH).'/modules/streams_core/field_types/', true);
+
             $schema = $this->pdb->getSchemaBuilder();
 
             // Convert Variables to a stream
@@ -42,16 +45,6 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             ));
             
             $fields = array(
-                // This will display the syntax in the admin using the Merge Tags field type
-                array(
-                    'name'          => 'lang:variables:syntax_label',
-                    'slug'          => 'syntax',
-                    'type'          => 'merge_tags',
-                    'namespace'     => 'variables',
-                    'assign'        => 'variables',
-                    'extra'         => 
-                        array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
-                ),
                 // A default set of selectable fields
                 array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
                 array('namespace' => 'variables','name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
