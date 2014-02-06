@@ -310,6 +310,9 @@ class Relationship extends AbstractFieldType
          * Get the relationClass
          */
         $relatedModel = $fieldType->getRelationClass();
+        $relatedModel = new $relatedModel;
+
+        $titleColumn = $relatedModel->getTitleColumn();
 
 
         /**
@@ -319,7 +322,7 @@ class Relationship extends AbstractFieldType
             echo $relatedModel::streamsRelationshipAjaxSearch($fieldType);
         } else {
             echo $relatedModel::select(explode('|', $fieldType->getParameter('select_columns', '*')))
-                ->where($fieldType->getParameter('search_columns', 'id'), 'LIKE', '%'.$post['term'].'%')
+                ->where($fieldType->getParameter('search_columns', $titleColumn), 'LIKE', '%'.$post['term'].'%')
                 ->take(10)
                 ->get();
         }
