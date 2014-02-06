@@ -43,11 +43,11 @@
 						if (isset($original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug]) and $original_query_string['order-'.$stream->stream_namespace.'-'.$stream->stream_slug] == $fieldSlug)
 							if (isset($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug]))
 								if ($original_query_string['sort-'.$stream->stream_namespace.'-'.$stream->stream_slug] == 'ASC')
-									$caret = 'fa fa-caret-up';
+									$caret = '<span class="fa fa-caret-up"></span>';
 								else
-									$caret = 'fa fa-caret-down';
+									$caret = '<span class="fa fa-caret-down"></span>';
 							else
-								$caret = 'fa fa-caret-up';
+								$caret = '<span class="fa fa-caret-up"></span>';
 
 						?>
 						<th>
