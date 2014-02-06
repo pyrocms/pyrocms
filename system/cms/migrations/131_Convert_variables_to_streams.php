@@ -2,6 +2,7 @@
 
 use Pyro\Module\Streams_core\StreamModel;
 use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\SchemaUtility;
 
 class Migration_Convert_variables_to_streams extends CI_Migration
@@ -10,6 +11,8 @@ class Migration_Convert_variables_to_streams extends CI_Migration
     {
         if ( ! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
         {
+            FieldTypeManager::registerFolderFieldTypes(realpath(APPPATH).'/modules/streams_core/field_types/', true);
+
             $schema = $this->pdb->getSchemaBuilder();
 
             // Convert Variables to a stream
