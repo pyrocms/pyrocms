@@ -69,7 +69,8 @@ class SchemaUtility
         $schema = ci()->pdb->getSchemaBuilder();
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
-        $table = $prefix.$stream_prefix.$streamSlug;
+        $table = $stream_prefix.$streamSlug;
+        $prefixedTable = $prefix.$stream_prefix.$streamSlug;
 
         // ----------------------------
         // Table data checks
@@ -92,7 +93,7 @@ class SchemaUtility
 
         // We need an ID field to be able to make
         // a table into a stream.
-        if ( ! $schema->hasColumn($table, 'id')) {
+        if ( ! $schema->hasColumn($prefixedTable, 'id')) {
             return false;
         }
 
@@ -100,36 +101,41 @@ class SchemaUtility
         // Add some fields to profiles
         // in prep for making it a stream
         // ----------------------------
-        $schema->table($table, function($table) use ($schema) {
+        $schema->table($table, function($table) use ($schema, $prefixedTable) {
             // Created Field
-            if ( ! $schema->hasColumn($table->getTable(), 'created_at')) {
-                $table->datetime('created_at')->nullable();
+            try {
+                if ( ! $schema->hasColumn($prefixedTable, 'created_at')) {
+                    $table->datetime('created_at')->nullable();
+                }
+
+                // Updated Field
+                if ( ! $schema->hasColumn($prefixedTable, 'updated_at')) {
+                    $table->datetime('updated_at')->nullable();
+                }
+
+                // Created_by Field
+                if ( ! $schema->hasColumn($prefixedTable, 'created_by')) {
+                    $table->integer('created_by')->nullable();
+                }
+
+                // Ordering count Field
+                if ( ! $schema->hasColumn($prefixedTable, 'ordering_count')) {
+                    $table->integer('ordering_count')->nullable();
+                }                
+            } catch (Exception $e) {
+                
             }
 
-            // Updated Field
-            if ( ! $schema->hasColumn($table->getTable(), 'created_at')) {
-                $table->datetime('updated_at')->nullable();
-            }
-
-            // Created_by Field
-            if ( ! $schema->hasColumn($table->getTable(), 'created_by')) {
-                $table->integer('created_by')->nullable();
-            }
-
-            // Ordering count Field
-            if ( ! $schema->hasColumn($table->getTable(), 'ordering_count')) {
-                $table->integer('ordering_count')->nullable();
-            }
         });
 
         // ----------------------------
         // Order The Columns
         // ----------------------------
 
-        ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created_at` DATETIME AFTER id");
-        ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `updated_at` DATETIME AFTER updated_at");
-        ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `created_by` INT(11) AFTER updated_at");
-        ci()->pdb->statement("ALTER TABLE `".$table."` MODIFY COLUMN `ordering_count` INT(11) AFTER created_by");
+        ci()->pdb->statement("ALTER TABLE `".$prefixedTable."` MODIFY COLUMN `created_at` DATETIME AFTER id");
+        ci()->pdb->statement("ALTER TABLE `".$prefixedTable."` MODIFY COLUMN `updated_at` DATETIME AFTER created_at");
+        ci()->pdb->statement("ALTER TABLE `".$prefixedTable."` MODIFY COLUMN `created_by` INT(11) AFTER updated_at");
+        ci()->pdb->statement("ALTER TABLE `".$prefixedTable."` MODIFY COLUMN `ordering_count` INT(11) AFTER created_by");
 
         // ----------------------------
         // Add to stream table

@@ -60,6 +60,70 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
+/*        foreach (StreamModel::all() as $stream) {
+            $stream->save();
+        }
+*/
+
+/*        $users = \Pyro\Module\Users\Model\User::with('profile')->get();
+        $user = \Pyro\Module\Users\Model\User::with('profile')->find(1);
+
+        echo ci()->parser->parse_string("
+            
+
+
+            {{ if false }}
+                YES
+            {{ else }}
+                NO
+            {{ endif }}
+
+            <ul>
+
+            {{ items }}
+                <li>
+                {{ if value == 'Bar' }}
+                    
+                {{ else }}
+                    Nothing {{ value }}
+                {{ endif }}
+                </li>
+            {{ /items }}
+
+            </ul>
+
+            {{ manyusers }}
+
+                {{ if email == 'obrignoni@gmail.com' }}
+                    {{ profile:first_name }} {{ profile:last_name }}
+                {{ else }}
+
+                {{ endif }}
+
+            {{ /manyusers }}
+
+            {{ if uri:segment_1 == 'admin' }}
+                Is admin
+            {{ endif }}
+
+        ", array(
+            'items' => array(
+                array(
+                    'value' => 'Baz'
+                ),
+                array(
+                    'value' => null
+                ),
+                array(
+                    'value' => 'Bar'
+                )
+            ),
+            'yes' => false,
+            'list' => array(),
+            'manyusers' => $users,
+            'oneuser' => $user
+        ), true) ; exit;*/
+
         $pages = Page::tree();
 
         $this->template

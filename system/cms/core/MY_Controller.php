@@ -249,6 +249,12 @@ class MY_Controller extends MX_Controller
             unset($matches);
         }
 
+        $supportedDrivers = array('mysql', 'pgsql', 'sqlite');
+
+        if (! in_array($config['dbdriver'], $supportedDrivers)) {
+            $config['dbdriver'] = 'mysql';
+        }
+
         $capsule = new Capsule;
 
         $capsule->addConnection(array(
