@@ -71,4 +71,7 @@ class BlogEntryModel extends BlogsBlogEntryModel
 			->skip($skip);
 	}
 
+    public function category() {
+        return $this->belongsTo('Pyro\Module\Blog\BlogCategoryModel');
+    }
 }
