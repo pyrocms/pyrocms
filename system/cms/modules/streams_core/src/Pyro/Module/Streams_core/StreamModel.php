@@ -710,17 +710,12 @@ class StreamModel extends Eloquent
             // -------------------------------------
             // Remove from db structure
             // -------------------------------------
-
-            try {
-                // Alternate method fields will not have a column, so we just
-                // check for it first
-                if ( ! $type->alt_process) {
-                    $schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($field) {
-                        $table->dropColumn($field->field_slug);
-                    });
-                }
-            } catch (Exception $e) {
-                // @todo - log error
+            if ( ! $type->alt_process) {
+                $schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($type) {                    
+                    if ($schema->hasColumn($table->getTable(), $type->getColumnName())) {
+                        $table->dropColumn($type->getColumnName());    
+                    }                        
+                });
             }
         }
 

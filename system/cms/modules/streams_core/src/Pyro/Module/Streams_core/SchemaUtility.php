@@ -64,13 +64,13 @@ class SchemaUtility
      * @param	[array - view options]
      * @return	bool
      */
-    public static function convertTableToStream($streamSlug, $namespace, $stream_prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created_at'))
+    public static function convertTableToStream($streamSlug, $namespace, $streamPrefix, $stream_name, $about = null, $titleColumn = null, $viewOptions = array('id', 'created_at'))
     {
         $schema = ci()->pdb->getSchemaBuilder();
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
-        $table = $stream_prefix.$streamSlug;
-        $prefixedTable = $prefix.$stream_prefix.$streamSlug;
+        $table = $streamPrefix.$streamSlug;
+        $prefixedTable = $prefix.$streamPrefix.$streamSlug;
 
         // ----------------------------
         // Table data checks
@@ -93,7 +93,7 @@ class SchemaUtility
 
         // We need an ID field to be able to make
         // a table into a stream.
-        if ( ! $schema->hasColumn($prefixedTable, 'id')) {
+        if (! $schema->hasColumn($table, 'id')) {
             return false;
         }
 
@@ -101,31 +101,27 @@ class SchemaUtility
         // Add some fields to profiles
         // in prep for making it a stream
         // ----------------------------
-        $schema->table($table, function($table) use ($schema, $prefixedTable) {
+        $schema->table($table, function($table) use ($schema) {
+
             // Created Field
-            try {
-                if ( ! $schema->hasColumn($prefixedTable, 'created_at')) {
-                    $table->datetime('created_at')->nullable();
-                }
-
-                // Updated Field
-                if ( ! $schema->hasColumn($prefixedTable, 'updated_at')) {
-                    $table->datetime('updated_at')->nullable();
-                }
-
-                // Created_by Field
-                if ( ! $schema->hasColumn($prefixedTable, 'created_by')) {
-                    $table->integer('created_by')->nullable();
-                }
-
-                // Ordering count Field
-                if ( ! $schema->hasColumn($prefixedTable, 'ordering_count')) {
-                    $table->integer('ordering_count')->nullable();
-                }                
-            } catch (Exception $e) {
-                
+            if (! $schema->hasColumn($table->getTable(), 'created_at')) {
+                $table->datetime('created_at')->nullable();
             }
 
+            // Updated Field
+            if (! $schema->hasColumn($table->getTable(), 'updated_at')) {
+                $table->datetime('updated_at')->nullable();
+            }
+
+            // Created_by Field
+            if (! $schema->hasColumn($table->getTable(), 'created_by')) {
+                $table->integer('created_by')->nullable();
+            }
+
+            // Ordering count Field
+            if (! $schema->hasColumn($table->getTable(), 'ordering_count')) {
+                $table->integer('ordering_count')->nullable();
+            }
         });
 
         // ----------------------------
@@ -144,12 +140,12 @@ class SchemaUtility
         $stream = array(
             'stream_name'		=> $stream_name,
             'stream_namespace'	=> $namespace,
-            'stream_prefix' 	=> $stream_prefix,
+            'stream_prefix' 	=> $streamPrefix,
             'stream_slug'		=> $streamSlug,
             'about'				=> $about,
-            'title_column'		=> $title_column,
+            'title_column'		=> $titleColumn,
             'sorting'			=> 'title',
-            'view_options'		=> $view_options
+            'view_options'		=> $viewOptions
         );
 
         return StreamModel::create($stream);
@@ -173,18 +169,18 @@ class SchemaUtility
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
 
         // Get the stream
-        if ( ! $stream = StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
+        if (! $stream = StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
             return false;
         }
 
         // Make sure this column actually exists.
-        if ( ! $schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
+        if (! $schema->hasColumn($stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
             return false;
         }
 
         // Maybe we already added this?
         if ($field = FieldModel::addField(array(
-            'field_name'          => 'lang:streams:column_data',
+            'name'          => 'lang:streams:column_data',
             'slug'          => $fieldSlug,
             'type'          => $fieldType,
             'assign'        => $streamSlug,
