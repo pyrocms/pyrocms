@@ -134,7 +134,7 @@ class Relationship extends AbstractFieldType
 	public function pluginOutput()
 	{
 		if ($relatedModel = $this->getRelationResult()) {
-			return $relatedModel->getPresenter();
+			return $relatedModel;
 		}
 
 		return null;

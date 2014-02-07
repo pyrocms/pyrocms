@@ -94,7 +94,7 @@ class User extends AbstractFieldType
 	{
 		if ($user = $this->getRelationResult())
 		{
-			return $user->getPresenter('plugin');
+			return $user;
 		}
 
 		return null;
