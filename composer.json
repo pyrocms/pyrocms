@@ -21,9 +21,9 @@
         "cartalyst/sentry": "2.0.*",
         "doctrine/dbal": "2.4.x",
         "dflydev/markdown": "1.0.*",
-        "illuminate/cache": "4.0.*",
-        "illuminate/database": "4.0.*",
-        "illuminate/filesystem": "4.0.*",
+        "illuminate/cache": "4.1.*",
+        "illuminate/database": "4.1.*",
+        "illuminate/filesystem": "4.1.*",
         "ircmaxell/password-compat": "1.0.*",
         "loic-sharma/profiler": "1.1.*",
         "mccool/laravel-auto-presenter": "*",
@@ -36,8 +36,8 @@
         "tijsverkoyen/akismet": "1.1.*"
     },
     "require-dev": {
-        "illuminate/encryption": "4.0.*",
-        "illuminate/redis": "4.0.*",
+        "illuminate/encryption": "4.1.*",
+        "illuminate/redis": "4.1.*",
         "phing/phing": "2.6.*"
     }
 }
