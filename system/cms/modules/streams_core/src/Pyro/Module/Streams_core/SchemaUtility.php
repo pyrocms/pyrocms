@@ -170,13 +170,15 @@ class SchemaUtility
     {
         $schema = ci()->pdb->getSchemaBuilder();
 
+        $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+
         // Get the stream
         if ( ! $stream = StreamModel::findBySlugAndNamespace($streamSlug, $namespace)) {
             return false;
         }
 
         // Make sure this column actually exists.
-        if ( ! $schema->hasColumn($stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
+        if ( ! $schema->hasColumn($prefix.$stream->stream_prefix.$stream->stream_slug, $fieldSlug)) {
             return false;
         }
 
