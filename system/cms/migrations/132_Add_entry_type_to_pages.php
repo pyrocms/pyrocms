@@ -1,5 +1,7 @@
 <?php
 
+use Pyro\Module\Streams_core\StreamModel;
+
 class Migration_Add_entry_type_to_pages extends CI_Migration
 {
     public function up()
@@ -21,24 +23,25 @@ class Migration_Add_entry_type_to_pages extends CI_Migration
 		// Update the pages entry types
 		foreach ($page_types as $type)
 		{
-			ci()->pdb->table('pages')
+			ci()->pdb
+                ->table('pages')
 				->where('type_id', $type->id)
-				->update(array('entry_type' => $type->stream_slug.'.'.$type->stream_namespace));
+				->update(array(
+                    'entry_type' => StreamModel::getEntryModelClass($type->stream_slug, $type->stream_namespace)
+                ));
 		}
 		
 		return true;
     }
 
     public function down()
-    {	    	
+    {
 		$schema = ci()->pdb->getSchemaBuilder();
 
-		$schema->table('pages', function($table) {
-
+		$schema->table('pages', function($table) use ($schema) {
 			if ($schema->hasColumn($table->getTable(), 'entry_type')) {
-				$table->dropColumn('entry_type'); 	
+				$table->dropColumn('entry_type');
 			}
-			
 		});
 
 		return true;
