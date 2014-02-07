@@ -100,20 +100,26 @@ class FieldAssignmentModel extends FieldModel
         $stream = $this->getAttribute('stream');
 
         if ($field = $this->getAttribute('field')) {
-            // Drop the column if it exists
-            if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug)) {
-                $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
 
-                    $table->dropColumn($field->field_slug);
-
-                });
-            }
-
-            // Run the destruct
+            // Do we have a destruct function
             if ($type = $field->getType()) {
-                $type->setStream($stream);
-                $type->fieldAssignmentDestruct($schema);
+
+                // @todo - also pass the schema builder
+                $type->setStream($this);
+                $type->fieldAssignmentDestruct();
+
+                // Drop the column if it exists
+                if ( ! $type->alt_process) {
+                    $schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($type) {                    
+                        if ($schema->hasColumn($table->getTable(), $type->getColumnName())) {
+                            $table->dropColumn($type->getColumnName());    
+                        }                        
+                    });
+                }
             }
+
+
+            $type->fieldAssignmentDestruct($schema);
 
             // Update that stream's view options
             $stream->removeViewOption($field->field_slug);

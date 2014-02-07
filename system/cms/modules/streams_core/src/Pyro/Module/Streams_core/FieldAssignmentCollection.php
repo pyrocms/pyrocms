@@ -23,7 +23,12 @@ class FieldAssignmentCollection extends FieldCollection
     public function getRelationFields()
     {
         return $this->filter(function($assignment) {
-            return $assignment->getType()->hasRelation();
+            
+            if ($type = $assignment->getType()) {
+                return $type->hasRelation();    
+            }
+            
+            return false;
         });
     }
 }

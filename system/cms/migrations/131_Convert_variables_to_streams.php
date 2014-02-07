@@ -9,11 +9,13 @@ class Migration_Convert_variables_to_streams extends CI_Migration
 {
     public function up()
     {
-        if ( ! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
+        if (! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
         {
             FieldTypeManager::registerFolderFieldTypes(realpath(APPPATH).'/modules/streams_core/field_types/', true);
 
             $schema = $this->pdb->getSchemaBuilder();
+
+            $prefixedTable = ci()->pdb->getQueryGrammar()->getTablePrefix().'variables';
 
             // Convert Variables to a stream
             SchemaUtility::convertTableToStream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
@@ -24,12 +26,14 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             // Convert data column to Field field - @todo - don't convert, add field, modify character limit and add data_field_slug
             SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
 
-            $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `name` `name` VARCHAR(100)");
-            $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `data` `data` TEXT");
+            $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `name` `name` VARCHAR(100)");
+            $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `data` `data` TEXT");
 
             // Add the data_field_slug column that the Field field type needs to store the field slug
-            $schema->table('variables', function($table) {
-                $table->string('data_field_slug', 100)->default('text');
+            $schema->table('variables', function($table) use ($schema, $prefixedTable) {
+                if (! $schema->hasColumn('variables', 'data_field_slug')) {
+                    $table->string('data_field_slug', 100)->default('text');    
+                }
             });
 
             // Create the Variables folder. For the image field
