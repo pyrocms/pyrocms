@@ -95,8 +95,6 @@ class EntryUi extends AbstractUi
             
             ->fieldNames($viewOptions->getFieldNames())
 
-            ->searchId(isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null)
-
             ->runFieldTypeFilterEvents();
 
         // Build pagination if it's up to us
