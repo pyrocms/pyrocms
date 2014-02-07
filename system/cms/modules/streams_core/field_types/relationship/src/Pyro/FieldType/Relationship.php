@@ -104,12 +104,18 @@ class Relationship extends AbstractFieldType
     {
         // Set the value
         $this->setValue(ci()->input->get($this->getFilterSlug('is')));
-        
+
         // Get related entries
         $relatedModel = $this->getRelationClass();
 
+        if (! $relatedModel) return;
+
+        $relatedModel = new $relatedModel;
+
         // Get it
-        $entry = $relatedModel::select('*')->find($this->getValue());
+        $entry = $relatedModel->find($this->getValue());
+
+        if (! method_exists($relatedModel, 'getStream')) return;
 
         // Basically the selectize config mkay?
         $this->appendMetadata(
