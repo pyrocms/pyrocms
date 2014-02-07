@@ -16,17 +16,26 @@ class Migration_Improve_search_index extends CI_Migration
 
 
         // Add the new fields for Sentry
-        $schema->table('search_index', function($table) {
+        $schema->table('search_index', function($table) use ($schema) {
             
             // Add permissions (JSON of IDs)
-            $table->text('group_access')->nullable();
-            $table->text('user_access')->nullable();
-
+            if (! $schema->hasColumn($table->getTable(), 'group_access')) {
+                $table->text('group_access')->nullable();
+            }
+            
+            if (! $schema->hasColumn($table->getTable(), 'user_access')) {
+                $table->text('user_access')->nullable();
+            }
+            
             // Add the scope
-            $table->string('scope')->after('module');
-
+            if (! $schema->hasColumn($table->getTable(), 'scope')) {
+                $table->string('scope')->after('module');
+            }
+            
             // Drop cp_delete_uri - aint nobody got time for that
-            $table->dropColumn('cp_delete_uri');
+            if ($schema->hasColumn($table->getTable(), 'cp_delete_uri')) {
+                $table->string('cp_delete_uri')->after('module');
+            }
 
         });
     }
