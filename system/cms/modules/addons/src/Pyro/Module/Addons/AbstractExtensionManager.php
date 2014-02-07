@@ -294,7 +294,7 @@ abstract class AbstractExtensionManager
      */
     public static function getClassBase($extension)
     {
-        return 'Pyro\\Extension';
+        return 'Pyro\\Module\\'.Str::studly(static::$modules[get_called_class()]).'\\Extension';
     }
 
     /**
@@ -304,8 +304,7 @@ abstract class AbstractExtensionManager
      */
     public static function getClassPath($extension)
     {
-        $path = '\\'.Str::studly(static::$modules[get_called_class()]);
-        $path .= '\\'.Str::studly(static::$slugs[get_called_class()]);
+        $path = '\\'.Str::studly(static::$slugs[get_called_class()]);
 
         return $path;
     }
@@ -419,7 +418,7 @@ abstract class AbstractExtensionManager
         $instance->langPrefix = static::getLangPrefix($extension);
         
         if (is_dir($path) and is_dir($path.'/language')) {
-            
+
 			$lang = ci()->config->item('language');
 
 			// Fallback on English.
@@ -487,6 +486,6 @@ abstract class AbstractExtensionManager
      */
     public static function getLangFilename($extension, $type)
     {
-        return $extension.'_lang';
+        return $extension.'_'.static::$slugs[get_called_class()].'_lang';
     }
 }
