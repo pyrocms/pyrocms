@@ -80,6 +80,15 @@ class Relationship extends AbstractFieldType
     public function fieldEvent()
     {
         // Get related entries
+        $relatedModel = $this->getRelationClass();
+
+        if (! $relatedModel) return;
+
+        $relatedModel = new $relatedModel;
+
+        if (! method_exists($relatedModel, 'getStream')) return;
+
+        // Get related entries
         $entry = $this->getRelationResult();
 
         // Basically the selectize config mkay?

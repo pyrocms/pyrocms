@@ -67,6 +67,7 @@ class FieldModel extends Eloquent
         // Is this stream slug already available?
         if ($field = static::findBySlugAndNamespace($slug, $namespace)) {
             log_message('debug', 'The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
+            return false;
         }
 
         // Is this a valid field type?
