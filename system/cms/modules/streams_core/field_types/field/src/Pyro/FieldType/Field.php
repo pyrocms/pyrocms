@@ -71,7 +71,7 @@ class Field extends AbstractFieldType
 
 	protected $selected_field = null;
 
-	protected $selected_type = null;
+	protected $selectedType = null;
 
 	protected $selected_stream = null;
 
@@ -90,9 +90,9 @@ class Field extends AbstractFieldType
 	 */
 	public function event()
 	{
-		if ($selected_type = $this->getSelectedFieldType())
+		if ($selectedType = $this->getSelectedFieldType())
 		{
-			$selected_type->event();
+			$selectedType->event();
 		}
 	}
 
@@ -110,13 +110,13 @@ class Field extends AbstractFieldType
 
     	$selectable_fields_namespace = $this->getParameter('namespace', $this->field->field_namespace);
 
-    	if ($selected_type = $this->getSelectedFieldType())
+    	if ($selectedType = $this->getSelectedFieldType())
     	{
-    		$selected_field = $selected_type->getField();
+    		$selected_field = $selectedType->getField();
 
 			// Build the selected field form
 			$form .= form_hidden($this->form_slug.'_field_slug', $selected_field->field_slug);
-    		$form .= $selected_type->formInput();
+    		$form .= $selectedType->formInput();
     	}
 		elseif($options = $this->getSelectableFields($selectable_fields_namespace) and ! empty($options))
 		{	
@@ -179,17 +179,16 @@ class Field extends AbstractFieldType
     public function preSave()
     {
     	// @todo - find a less hacky way of checking if it has been updated
-    	$method = strtotime($this->entry->getOriginal('updated')) > 0 ? 'edit' : 'new';
+    	$method = $this->entry->getOriginal('updated_at') != '0000-00-00 00:00:00' ? 'edit' : 'new';
 
-
-		if ($selected_type = $this->getSelectedFieldType())
+		if ($selectedType = $this->getSelectedFieldType())
 		{
-			$selected_field = $selected_type->getField();
+			$selected_field = $selectedType->getField();
 
 			// First update the the selected field slug
 			$this->entry->setAttribute($this->getFieldSlugColumn(), $this->getFieldSlugValue());
 
-			$this->entry->disablePreSave(true)->save();
+			$this->entry->save();
     		
 	    	if ($post = ci()->input->post())
 	    	{				
@@ -198,12 +197,12 @@ class Field extends AbstractFieldType
 				//
 				//and ($method == 'new' or ci()->form_validation->run() === true)
 				//
-				if ($this->getParameter('storage') != 'custom' and ! $selected_type->alt_process)
+				if ($this->getParameter('storage') != 'custom' and ! $selectedType->alt_process)
 				{
-					$this->entry->setAttribute($this->field->field_slug, $selected_type->preSave());
-			
+					$this->entry->setAttribute($this->field->field_slug, $selectedType->preSave());
+
 					// Save it
-					if ($this->entry->disablePreSave(true)->save())
+					if ($this->entry->save())
 					{
 						// Fire an event to after updating this entry
 						\Events::trigger('field_field_type_updated', array(
@@ -233,9 +232,9 @@ class Field extends AbstractFieldType
 	 */
 	public function stringOutput()
 	{
-		if ($selected_type = $this->getSelectedFieldType())
+		if ($selectedType = $this->getSelectedFieldType())
 		{
-			return $selected_type->stringOutput();
+			return $selectedType->stringOutput();
 		}
 
 		return null;
@@ -250,33 +249,28 @@ class Field extends AbstractFieldType
     */
     public function fieldAssignmentConstruct()
     {
-    	$max_length = $this->getParameter('max_length', 100);
-
+    	$maxLength = $this->getParameter('max_length', 100);
     	$schema = ci()->pdb->getSchemaBuilder();
-	
-		// We have to do this trick for PHP 5.3.7+
-		// Its no longer needed in PHP 5.4 as $this is available in closures
-		$self = $this;
+        $self = $this;
 
-		try {
+        $schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use (
+            $self,
+            $maxLength,
+            $schema
+        ) {
+            $field = $self->getField();
 
-			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $max_length) {
+            // Add a column to store the field slug
+            if (! $schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
+                $table->string($field->field_slug.'_field_slug', $maxLength)->default('text');
+            }
 
-				// Add a column to store the field slug
-				$table
-					->string($self->getField()->field_slug.'_field_slug', $max_length)
-					->default('text');
-
-				// Add a column to store the value if it doesn't use custom storage
-				if ($self->getParameter('storage') != 'custom')
-				{
-					$table->text($self->getField()->field_slug);
-				}
-			});
-
-		} catch (Exception $e) {
-				
-		}
+            // Add a column to store the value if it doesn't use custom storage
+            if ($this->getParameter('storage') != 'custom'
+                and ! $schema->hasColumn($table->getTable(), $field->field_slug)) {
+                $table->text($field->field_slug);
+            }
+        });
     }
 
     /**
@@ -291,25 +285,34 @@ class Field extends AbstractFieldType
     	$schema = ci()->pdb->getSchemaBuilder();
 
 		// We have to do this trick for PHP 5.3.7+
-		// Its no longer needed in PHP 5.4 as $this is available in closures
-    	$self = $this; 
+    	$self = $this;
 
-    	try {
+        $schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $schema) {
 
-			$schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self) {
+                $field = $self->getField();
+
 				// Drop the field slug column
-				$table->dropColumn($self->getField()->field_slug.'_field_slug');
+                if ($schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
+                    $table->dropColumn($field->field_slug.'_field_slug');
+                }
 
 				// Drop the value column if it doesn't use custom storage
-				if ($self->getParameter('storage') != 'custom')
-				{
-					$table->drop($self->getField()->field_slug);
+				if ($self->getParameter('storage') != 'custom'
+                    and $schema->hasColumn($table->getTable(), $field->field_slug)) {
+
+                    $table->dropColumn($field->field_slug);
 				}
 			});
+        }
+    }
 
-    	} catch (Exception $e) {
-    		
-    	}
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_field_slug';
     }
 
     /**
@@ -358,20 +361,20 @@ class Field extends AbstractFieldType
 
 	public function getSelectedField()
 	{
-		if ( ! $field_slug_value = $this->getDefault()) {
-			$field_slug_value = $this->getFieldSlugValue();
+		if ( ! $fieldSlugValue = $this->getDefault()) {
+			$fieldSlugValue = $this->getFieldSlugValue();
 		}
 
-		return FieldModel::findBySlugAndNamespace($field_slug_value, $this->getSelectableFieldNamespace());
+		return FieldModel::findBySlugAndNamespace($fieldSlugValue, $this->getSelectableFieldNamespace());
 	}
 
 	public function getSelectedFieldType()
 	{
-		if ($field = $this->getSelectedField() and $selected_type = $field->getType($this->entry))
+		if ($field = $this->getSelectedField() and $selectedType = $field->getType($this->entry))
 		{
-			$selected_type->setValueFieldSlugOverride($this->field->field_slug);
+			$selectedType->setValueFieldSlugOverride($this->field->field_slug);
 
-			return $selected_type;	
+			return $selectedType;	
 		}
 
 		return false;
@@ -379,11 +382,6 @@ class Field extends AbstractFieldType
 
 	public function getFieldSlugValue()
 	{
-		return $this->getFormValue($this->getFieldSlugColumn(), $this->getDefault($this->getFieldSlugColumn()));
-	}
-
-	public function getFieldSlugColumn()
-	{
-		return $this->field->field_slug.'_field_slug';
+		return $this->getFormValue($this->getColumnName(), $this->getDefault($this->getColumnName()));
 	}
 }
