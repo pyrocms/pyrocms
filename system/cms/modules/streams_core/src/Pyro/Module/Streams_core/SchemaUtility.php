@@ -29,9 +29,7 @@ class SchemaUtility
 
         $streams = StreamModel::findManyByNamespace($namespace);
 
-        $streams->each(function ($stream) {
-            $stream->delete();
-        });
+        $streams->delete();
 
         // Make sure that garbage is collected even it the stream is not present anymore
         FieldModel::where('field_namespace', '=', $namespace)->delete();
@@ -181,6 +179,7 @@ class SchemaUtility
         // Maybe we already added this?
         if ($field = FieldModel::addField(array(
             'name'          => 'lang:streams:column_data',
+            'namespace'     => $namespace,
             'slug'          => $fieldSlug,
             'type'          => $fieldType,
             'assign'        => $streamSlug,

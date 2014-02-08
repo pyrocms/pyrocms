@@ -66,7 +66,7 @@ class Migration_Convert_variables_to_streams extends CI_Migration
                 array('namespace' => 'variables','name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
             );
 
-            FieldModel::addFields($fields, 'variables', 'variables');
+            FieldModel::addFields($fields, null, 'variables');
 
             return true;
         }

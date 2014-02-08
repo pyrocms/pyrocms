@@ -33,7 +33,7 @@ class Migration_Improve_search_index extends CI_Migration
             }
             
             // Drop cp_delete_uri - aint nobody got time for that
-            if ($schema->hasColumn($table->getTable(), 'cp_delete_uri')) {
+            if (! $schema->hasColumn($table->getTable(), 'cp_delete_uri')) {
                 $table->string('cp_delete_uri')->after('module');
             }
 
