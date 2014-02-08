@@ -289,21 +289,20 @@ class Field extends AbstractFieldType
 
         $schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $schema) {
 
-                $field = $self->getField();
+            $field = $self->getField();
 
-				// Drop the field slug column
-                if ($schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
-                    $table->dropColumn($field->field_slug.'_field_slug');
-                }
+            // Drop the field slug column
+            if ($schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
+                $table->dropColumn($field->field_slug.'_field_slug');
+            }
 
-				// Drop the value column if it doesn't use custom storage
-				if ($self->getParameter('storage') != 'custom'
-                    and $schema->hasColumn($table->getTable(), $field->field_slug)) {
+            // Drop the value column if it doesn't use custom storage
+            if ($self->getParameter('storage') != 'custom'
+                and $schema->hasColumn($table->getTable(), $field->field_slug)) {
 
-                    $table->dropColumn($field->field_slug);
-				}
-			});
-        }
+                $table->dropColumn($field->field_slug);
+            }
+        });
     }
 
     /**
