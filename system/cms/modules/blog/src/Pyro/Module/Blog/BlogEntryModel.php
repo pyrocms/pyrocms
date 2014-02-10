@@ -5,17 +5,17 @@ use Pyro\Streams\Model\BlogsBlogEntryModel;
 class BlogEntryModel extends BlogsBlogEntryModel
 {
 
-    /*	public $searchIndexTemplate = array(
-            'singular' => 'blog:post',
-            'plural' => 'blog:posts',
-            'title' => '{{ entry:title }}',
-            'description' => '{{ entry:body }}',
-            'keywords' => '{{ post:meta_keywords }}',
-            'uri' => '{{ post:uri }}',
-            'cp_uri' => 'admin/blog/edit/{{ entry:id }}',
-            'group_access' => null,
-            'user_access' => null
-        );*/
+    public $searchIndexTemplate = array(
+        'singular'     => 'blog:post',
+        'plural'       => 'blog:posts',
+        'title'        => '{{ entry:title }}',
+        'description'  => '{{ entry:body }}',
+        'keywords'     => '{{ post:meta_keywords }}',
+        'uri'          => '{{ post:uri }}',
+        'cp_uri'       => 'admin/blog/edit/{{ entry:id }}',
+        'group_access' => null,
+        'user_access'  => null
+    );
 
     protected $appends = array('url');
 
