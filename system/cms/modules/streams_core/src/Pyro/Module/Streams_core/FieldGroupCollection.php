@@ -25,6 +25,7 @@ class FieldGroupCollection extends Collection
 
         foreach ($this->items as $fieldGroup) {
             if (! empty($fieldGroup['fields']) and is_array($fieldGroup['fields'])) {
+                $fieldGroup['title'] = ! empty($fieldGroup['title']) ? lang($fieldGroup['title']) : null;
                 foreach ($fieldGroup['fields'] as $slug) {
                     unset($availableFields[$slug]);
                 }
