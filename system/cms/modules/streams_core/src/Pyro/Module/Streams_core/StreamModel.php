@@ -343,7 +343,7 @@ class StreamModel extends Eloquent
     {
         $query = static::where('stream_namespace', '=', $stream_namespace);
 
-        if ($limit > 0) {
+        if ($take > 0) {
             $query = $query->take($take)->skip($skip);
         }
 
