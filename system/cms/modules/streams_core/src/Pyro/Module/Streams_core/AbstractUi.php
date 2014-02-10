@@ -193,7 +193,7 @@ abstract class AbstractUi extends Fluent
 
         if ($return) return $this->content;
 
-        ci()->template->build($this->get('viewWrapper', 'admin/partials/blank_section'), $this->attributes);
+        ci()->template->build($this->getViewWrapper('admin/partials/blank_section'), $this->attributes);
     }
 
     /**
