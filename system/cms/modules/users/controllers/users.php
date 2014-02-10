@@ -719,7 +719,9 @@ class Users extends Public_Controller
 			}
 		}
 
-        EntryUi::form($user->profile) // We can pass the profile model to generate the form
+        $ui = new EntryUi;
+
+        $ui->form($user->profile) // We can pass the profile model to generate the form
         	->title('Edit Profile')
             ->viewWrapper('users/profile/edit', array('_user' => $user))
             ->messages(array(
