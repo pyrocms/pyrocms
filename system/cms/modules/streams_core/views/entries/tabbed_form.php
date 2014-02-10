@@ -1,4 +1,4 @@
-<?php echo form_open_multipart($form_url, 'class="streams_form"'); ?>
+<?php echo form_open_multipart($formUrl, 'class="streams_form"'); ?>
 
 <div class="tabs">
 
@@ -15,16 +15,18 @@
 	<?php foreach($tabs as $tab): ?>
 
 	<div class="form_inputs" id="<?php echo $tab['id']; ?>">
-		
+
 		<?php if ( ! empty($tab['content']) and is_string($tab['content'])): ?>
 
 			<?php echo $tab['content']; ?>
 
 		<?php else: ?>
-		
+
 			<fieldset>
 
 				<ul>
+
+				<?php if (is_array($tab['fields'])): ?>
 
 					<?php foreach ($tab['fields'] as $slug): ?>
 
@@ -33,13 +35,15 @@
 								<?php echo $field->input_row; ?>
 							</li>
 						<?php endif; ?>
-					
+
 					<?php endforeach; ?>
+
+				<?php endif; ?>
 
 				</ul>
 
 			</fieldset>
-			
+
 		<?php endif; ?>
 
 	</div>
@@ -48,24 +52,24 @@
 
 </div>
 
-	<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
+	<?php if (!$new) { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 	<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
-		
-		<?php if (! empty($exit_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
+
+		<?php if (! empty($redirectCreate)): ?>
+		<button type="submit" name="btnAction" value="create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
 		<?php endif; ?>
 
-		<?php if (! empty($create_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
+		<?php if (! empty($redirectContinue)): ?>
+		<button type="submit" name="btnAction" value="continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
 		<?php endif; ?>
 
-		<?php if (! empty($continue_redirect)): ?>
-		<button type="submit" name="btnAction" value="save_continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
+		<?php if (! empty($redirectExit)): ?>
+		<button type="submit" name="btnAction" value="exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
 		<?php endif; ?>
 
-		<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+		<a href="<?php echo site_url($uriCancel ?: 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 
 <?php echo form_close();

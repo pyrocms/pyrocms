@@ -261,4 +261,26 @@ class User extends EloquentUser
     {
     	$this->attributes['created_on'] = time();
     }
+
+    /**
+     * Override sentry's method here - no activated, activated_on fields
+     * @param  string $activationCode
+     * @return boolean
+     */
+    public function attemptActivation($activationCode)
+	{
+		if ($this->is_activated)
+		{
+			throw new \Exception('Cannot attempt activation on an already activated user.');
+		}
+
+		if ($activationCode == $this->activation_code)
+		{
+			$this->activation_code = null;
+			$this->is_activated       = true;
+			return $this->save();
+		}
+
+		return false;
+	}
 }

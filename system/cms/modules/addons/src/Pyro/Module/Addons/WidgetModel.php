@@ -20,6 +20,12 @@ class WidgetModel extends Eloquent
     protected $table = 'widgets';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

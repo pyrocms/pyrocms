@@ -1,3 +1,4 @@
+<fieldset>
 <ul>
 	<li class="even">
 		<label for="email"><?php echo lang('global:email') ?> <span>*</span></label>
@@ -44,3 +45,4 @@
 		</div>
 	</li>
 </ul>
+</fieldset>

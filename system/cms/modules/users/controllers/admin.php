@@ -1,7 +1,11 @@
 <?php
 
+use Pyro\Module\Artists\Model\ProfileEntryModel;
 use Pyro\Module\Streams_core\EntryUi;
-use Pyro\Module\Users;
+use Pyro\Module\Users\Model\User;
+use Pyro\Module\Users\Model\Group;
+use Pyro\Module\Users\Model\Profile;
+use Pyro\Module\Users\Ui\ProfileEntryUi;
 
 /**
  * Admin controller for the users module
@@ -17,6 +21,13 @@ class Admin extends Admin_Controller
      * @var string
      */
     protected $section = 'users';
+
+    /**
+     * Profile Ui
+     *
+     * @var Pyro\Module\Users\Ui\ProfileEntryUi
+     */
+    protected $profilesUi;
 
     protected $form_data = null;
 
@@ -69,9 +80,13 @@ class Admin extends Admin_Controller
 
         $this->form_data['current_user'] = $this->current_user;
 
+        $this->profiles = new Profile;
+        $this->users = new User;
+        $this->profilesUi = new ProfileEntryUi;
+
         if ($this->current_user->isSuperUser()) 
         {
-            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Group::getGroupOptions();
         }  
         else
         {
@@ -82,7 +97,7 @@ class Admin extends Admin_Controller
                 'rules' => 'required|callback__group_check'
             );
 
-            $this->template->group_options = $this->form_data['group_options'] = Users\Model\Group::getGeneralGroupOptions();
+            $this->template->group_options = $this->form_data['group_options'] = Group::getGeneralGroupOptions();
         }
     }
 
@@ -91,46 +106,8 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
-        // ---------------------------
-        // User Filters
-        // ---------------------------
-
-        // Determine active param
-        $by_active = ((bool) $this->input->post('f_active')) ?: false;
-
-        // Determine group param
-        $by_group = $this->input->post('f_group');
-
-        // Keyphrase param
-        $keywords = $this->input->post('f_keywords');
-
-        // Create pagination links
-        // @TODO Create user pagination and reimplement filter
-        // $pagination = create_pagination('admin/users/index', User_m::($base_where));
-
-        // Using this data, get the relevant results
-        if ($this->current_user->isSuperUser()) {
-            $users = Users\Model\User::all();
-        } else {
-            $users = Users\Model\User::all();
-        }
-
-        // Unset the layout if we have an ajax request
-        if ($this->input->is_ajax_request()) {
-            $this->template->set_layout(false);
-        }
-
-        // Render the view
-        $this->template
-            ->title($this->module_details['name'])
-            // ->set('pagination', $pagination)
-            ->set('users', $users)
-            ->set_partial('filters', 'admin/users/partials/filters')
-            ->append_js('admin/filter.js');
-
-        $this->input->is_ajax_request()
-            ? $this->template->build('admin/users/tables/users') 
-            : $this->template->build('admin/users/index');
+        // Build the table with Streams_core
+        $this->profilesUi->table($this->profiles)->render();
     }
 
     /**
@@ -183,7 +160,7 @@ class Admin extends Admin_Controller
         $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
-        $enable_entry_save = false;
+        $enableSave = false;
 
         if (($this->form_validation->run() !== false)) {
             if ($activate === '2') {
@@ -194,11 +171,11 @@ class Admin extends Admin_Controller
                 Settings::temp('activation_email', false);
             }
 
-            //$group = Users\Model\Group::find($group_id);
+            //$group = Group::find($group_id);
 
             // Register the user (they are activated by default if an activation email isn't requested)
             //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($enable_entry_save = $user = Users\Model\User::create(array(
+            if ($enableSave = $user = User::create(array(
                     'username' => $username,
                     'password' => $password,
                     'email' => $email,
@@ -210,7 +187,7 @@ class Admin extends Admin_Controller
                     //$this->ion_auth_model->deactivate($user_id);
                 //}
 
-                Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
+                User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
                 // Fire an event. A new user has been created
                 Events::trigger('user_created', $user);
@@ -223,7 +200,7 @@ class Admin extends Admin_Controller
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
-            $user = new Users\Model\User;
+            $user = new User;
             $user->is_activated = false;
         }
 
@@ -252,15 +229,13 @@ class Admin extends Admin_Controller
             )
         );
 
-        EntryUi::form('profiles', 'users')
+        $this->profilesUi->form($this->profiles)
             ->tabs($tabs)
-            ->enablesave($enable_entry_save) // This enables the profile submittion only if the user was created successfully
+            ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
             ->onSaving(function($profile) use ($user)
             {
                 $profile->user_id = $user->id; // Set the profile user id before saving
             })
-            ->successMessage('User saved.') // @todo - language
-            ->redirect('admin/users')
             ->render();
     }
 
@@ -273,7 +248,7 @@ class Admin extends Admin_Controller
     {
 
         // Get the user's data
-        if ( ! ($user = Users\Model\User::find($id)))
+        if ( ! ($user = User::find($id)))
         {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
@@ -311,7 +286,7 @@ class Admin extends Admin_Controller
             $user->email = $this->input->post('email');
             $user->username = $this->input->post('username');
 
-            Users\Model\User::assignGroupIdsToUser($user, $this->input->post('groups'));
+            User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
             //$user->groups = $this->input->post('groups');
 
@@ -382,10 +357,11 @@ class Admin extends Admin_Controller
             )
         );
 
-        EntryUi::form($user->profile) // We can pass the profile model to generate the form
+        $this->profilesUi->form($user->profile) // We can pass the profile model to generate the form
             ->tabs($tabs)
-            ->successMessage('User saved.') // @todo - language
-            ->redirect('admin/users')
+            ->messages(array(
+                'success' => 'User saved.'
+            )) // @todo - language
             ->render();
     }
 
@@ -396,7 +372,7 @@ class Admin extends Admin_Controller
      */
     public function preview($id = 0)
     {
-        $user = Users\Model\User::find($id);
+        $user = User::find($id);
 
         $this->template
             ->set_layout('modal', 'admin')
@@ -422,7 +398,7 @@ class Admin extends Admin_Controller
         $to_activate = 0;
         foreach ($ids as $id)
         {
-            $user = Users\Model\User::find($id);
+            $user = User::find($id);
             $user->is_activated    = true;
             $this->activated_at = new DateTime;
 
@@ -466,7 +442,7 @@ class Admin extends Admin_Controller
                     continue;
                 }
 
-                $user = Users\Model\User::find($id);
+                $user = User::find($id);
 
                 if ($user->delete())
                 {
@@ -507,7 +483,7 @@ class Admin extends Admin_Controller
      */
     public function _username_check()
     {
-        if (Users\Model\User::findByUsername($this->input->post('username')))
+        if (User::findByUsername($this->input->post('username')))
         {
             $this->form_validation->set_message('_username_check', lang('user:error_username'));
             return false;
@@ -526,7 +502,7 @@ class Admin extends Admin_Controller
      */
     public function _email_check()
     {
-        if (Users\Model\User::findByEmail($this->input->post('email')))
+        if (User::findByEmail($this->input->post('email')))
         {
             $this->form_validation->set_message('_email_check', lang('user:error_email'));
             return false;
@@ -546,7 +522,7 @@ class Admin extends Admin_Controller
      */
     public function _group_check($group_id)
     {
-        if ( ! Users\Model\Group::find($group_id))
+        if ( ! Group::find($group_id))
         {
             $this->form_validation->set_message('_group_check', lang('regex_match'));
             return false;

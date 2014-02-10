@@ -213,6 +213,7 @@ class Installer_lib
 
         $container = $capsule->getContainer();
 
+        $container->offsetGet('config')->offsetSet('cache.enable', false);
         $container->offsetGet('config')->offsetSet('cache.driver', 'array');
         $container->offsetGet('config')->offsetSet('cache.prefix', 'pyrocms');
 

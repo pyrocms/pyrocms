@@ -39,6 +39,7 @@ class Integer extends AbstractFieldType
 		$options['name'] 	= $this->form_slug;
 		$options['id']		= $this->form_slug;
 		$options['value']	= $this->value;
+		$options['placeholder']	= lang_label($this->getParameter('placeholder'));
 		
 		// Max length
 		if ($max_length = $this->getParameter('max_length'))

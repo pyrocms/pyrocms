@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Settings\SettingModel;
+
 /**
  * PyroCMS Settings Library
  *
@@ -10,6 +13,12 @@
  */
 class Settings
 {
+    /**
+     * Settings model
+     * @var settingModel
+     */
+    protected $settingModel;
+
     /**
      * Settings cache
      *
@@ -32,10 +41,11 @@ class Settings
      */
     public function __construct()
     {
-        ci()->load->model('settings/setting_m');
+        $this->settingModel = new SettingModel;
+
         ci()->lang->load('settings/settings');
 
-        $settings = ci()->setting_m->getAll();
+        $settings = $this->settingModel->getAll(array('slug', 'value', 'default'));
 
         // Set them all
         foreach ($settings as $setting) {
@@ -49,6 +59,7 @@ class Settings
      * Gets the setting value requested
      *
      * @param	string	$key
+     * @return mixed
      */
     public function __get($key)
     {
@@ -83,15 +94,8 @@ class Settings
             return self::$cache[$key];
         }
 
-        $setting = ci()->setting_m->get($key);
-
-        // Setting doesn't exist, maybe it's a config option
-        $value = ! is_null($setting) ? ($setting->value ?: $setting->default) : config_item($key);
-
         // Store it for later
-        self::$cache[$key] = $value;
-
-        return $value;
+        return self::$cache[$key] = config_item($key);
     }
 
     /**
@@ -106,8 +110,8 @@ class Settings
     public static function set($key, $value)
     {
         if (is_string($key)) {
-            if (is_scalar($value)) {
-                $setting = ci()->setting_m->update($key, array('value' => $value));
+            if (is_scalar($value) and $setting = SettingModel::findBySlug($key)) {
+                $setting->where('slug', '=', $key)->update(array('value' => $value));
             }
 
             self::$cache[$key] = $value;
@@ -147,7 +151,7 @@ class Settings
             return self::$cache;
         }
 
-        $settings = ci()->setting_m->getAll();
+        $settings = $this->settingModel->getAll();
 
         foreach ($settings as $setting) {
             self::$cache[$setting['slug']] = $setting['value'];
@@ -169,7 +173,7 @@ class Settings
         if ( ! self::_check_format($setting)) {
             return false;
         }
-        return ci()->setting_m->insert($setting);
+        return $this->settingModel->create($setting);
     }
 
     /**
@@ -180,9 +184,13 @@ class Settings
      * @param	string	$key
      * @return	bool
      */
-    public static function delete($name)
+    public static function delete($key)
     {
-        return ci()->setting_m->delete($key);
+        if ($setting = $this->settingModel->findBuSlug($key)) {
+            return $setting->delete($key);
+        }
+
+        return false;
     }
 
     /**

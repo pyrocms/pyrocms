@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Variables\VariableData;
+use Pyro\Module\Variables\Variables;
 
 /**
  * Variable Plugin
@@ -27,9 +27,9 @@ class Plugin_Variables extends Plugin
 
 	public function __construct()
 	{
-		$this->variables = new VariableData;
+		$this->variables = new Variables;
 
-		$this->variables->getAll();
+		$this->variables->all();
 	}
 
 

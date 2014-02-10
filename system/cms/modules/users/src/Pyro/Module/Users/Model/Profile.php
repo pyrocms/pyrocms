@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Streams\Model\UsersProfilesEntryModel;
 
 /**
  * Profile model for the users module.
@@ -8,24 +8,18 @@ use Pyro\Module\Streams_core\EntryModel;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class Profile extends EntryModel
+class Profile extends UsersProfilesEntryModel
 {
     /**
-     * Define the table name
-     *
-     * @var string
+     * Cache minutes
+     * @var int
      */
-    protected $stream_slug = 'profiles';
+    public $cacheMinutes = 30;
 
-    protected $stream_namespace = 'users';
-
-    protected $table = 'profiles';
-
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-    }
-
+    /**
+     * User relation
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
     	return $this->belongsTo('Pyro\Module\Users\Model\User');

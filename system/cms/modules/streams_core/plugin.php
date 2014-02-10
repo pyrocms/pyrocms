@@ -71,6 +71,7 @@ class Plugin_Streams_core extends Plugin
 		'include'			=> null,
 		'exclude'			=> null,
 		'hidden'			=> null,
+		'order'				=> null,
 		'class'				=> null,
 		'redirect'			=> null,
 		'exit_redirect'		=> null,
@@ -484,9 +485,6 @@ class Plugin_Streams_core extends Plugin
 	 */
 	public function form()
 	{
-		// Load up things we'll need for the form
-		ci()->load->library(array('form_validation'));
-
 		// Load languages desired
 		self::loadLanguages();
 
@@ -529,7 +527,7 @@ class Plugin_Streams_core extends Plugin
 		 */
 
 		// Determine initial skips from the include / exclude params
-		$skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->getStream());
+        $skips = $this->getSkipsFromSkipsIncludeExclude($parameters['skips'], $parameters['include'], $parameters['exclude'], $form->model->getStream());
 		
 		if (! empty($skips))
 			$form = $form->skips($skips);
@@ -546,36 +544,42 @@ class Plugin_Streams_core extends Plugin
 		 */
 
 		if ($parameters['redirect'])
-			$form = $form->redirect($parameters['redirect']);
+			$form = $form->redirectSave($parameters['redirect']);
 		else
-			$form = $form->redirect(ci()->uri->uri_string());
+			$form = $form->redirectSave(ci()->uri->uri_string());
 
-		if ($parameters['exit_redirect'])
-			$form = $form->exitRedirect($parameters['exit_redirect']);
+		/*if ($parameters['redirect_exit'])
+			$form = $form->redirectExit($parameters['redirect_exit']);*/
 
-		if ($parameters['continue_redirect'])
-			$form = $form->continueRedirect($parameters['continue_redirect']);
+		/*if ($parameters['redirect_continue'])
+			$form = $form->redirectContinue($parameters['redirect_continue']);*/
 
-		if ($parameters['continue_redirect'])
-			$form = $form->continueRedirect($parameters['continue_redirect']);
+		/*if ($parameters['redirect_create'])
+			$form = $form->redirectCreate($parameters['redirect_create']);*/
 
-		if ($parameters['cancel_uri'])
-			$form = $form->cancelUri($parameters['cancel_uri']);
+		/*if ($parameters['uri_cancel'])
+			$form = $form->uriCancel($parameters['uri_cancel']);*/
 
 		/**
 		 * Set success and error messages
 		 */
 
-		if (! $parameters['entry_id'])
-			$form = $form->successMessage($parameters['save_success_message'])->errorMessage($parameters['save_error_message']);
+		/*if (! $parameters['entry_id'])
+			$form = $form->messages(array(
+				'success' => $parameters['save_message_success'],
+				'error' => $parameters['save_message_error'],
+			));
 		else
-			$form = $form->successMessage($parameters['update_success_message'])->errorMessage($parameters['update_error_message']);
+			$form = $form->messages(array(
+				'success' => $parameters['update_message_success'],
+				'error' => $parameters['update_message_error'],
+			));*/
 
 		/**
 		 * DONE = Fetch the object
 		 */
 
-		$fields = $form->get()->fields->toArray();
+		$fields = $form->getUi()->fields->toArray();
 
 		/**
 		 * Override any labels
@@ -584,6 +588,14 @@ class Plugin_Streams_core extends Plugin
 		foreach ($fields as $k => $field)
 			if (isset($parameters[$field['field']['field_slug'].'_label']))
 				$fields[$k]['field_name'] = $parameters[$field['field']['field_slug'].'_label'];
+
+		/**
+		 * Override form order
+		 */
+		
+		if ($parameters['order']) {
+			$fields = $this->reorderFormFields($fields, $parameters['order']);
+		}
 
 		/**
 		 * Build our return
@@ -601,7 +613,7 @@ class Plugin_Streams_core extends Plugin
 			$return[$field['field']['field_slug']] = $field;
 		}
 
-		// Return our sex
+		// Return our goodness
 		return array($return);
 	}
 
@@ -1413,12 +1425,21 @@ class Plugin_Streams_core extends Plugin
 
 			$entries->orderBy($parameters['order_by'], $parameters['sort']);
 
+
+			/**
+			 * Debug
+			 */
+
+			if ($parameters['debug'] == 'yes') {
+				echo $entries->toSql();
+			}
+
 			
 			/**
 			 * Get entries
 			 */
 			
-			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->asPlugin()->toArray();
+			$entries = $entries->enableAutoEagerLoading(true)->remember(10)->get()->getPresenter('plugin');
 			
 
 			/**
@@ -1472,7 +1493,7 @@ class Plugin_Streams_core extends Plugin
 		// Make sure these are arrays
 		$skips = is_string($skips) ? explode('|', $skips) : $skips;
 		$include = is_string($include) ? explode('|', $include) : $include;
-		$exlcude = is_string($exlcude) ? explode('|', $exlcude) : $exclude;
+		$exclude = is_string($exclude) ? explode('|', $exclude) : $exclude;
 
 		// Get the streams assignments first
 		$assignments = $stream->assignments->toArray();
@@ -1496,11 +1517,41 @@ class Plugin_Streams_core extends Plugin
 		}
 
 		// Skip excludes
-		foreach ($exlcude as $skip)
+		foreach ((array) $exclude as $skip)
 			$skips[] = $skip;
 
 		// Return unique
 		return array_unique($skips);
+	}
+
+	/**
+	 * Reorder the form inputs
+	 * @param  array $fields
+	 * @param  string $order Pipe delimited field slugs
+	 * @return array
+	 */
+	private function reorderFormFields($fields, $order)
+	{
+		$order = explode('|', $order);
+
+		$sorted = array();
+
+		// Loop and save fields as sorted
+		foreach ($order as $field_slug) {
+			foreach ($fields as $k => $field) {
+				if ($field['field']['field_slug'] == $field_slug) {
+					$sorted[] = $field;
+					unset($fields[$k]);
+				}
+			}
+		}
+
+		// Add the rest
+		foreach ($fields as $field) {
+			$sorted[] = $field;
+		}
+
+		return $sorted;
 	}
 
 	/**

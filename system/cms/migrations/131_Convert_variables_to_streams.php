@@ -2,15 +2,20 @@
 
 use Pyro\Module\Streams_core\StreamModel;
 use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\SchemaUtility;
 
 class Migration_Convert_variables_to_streams extends CI_Migration
 {
     public function up()
     {
-        if ( ! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
+        if (! $stream = StreamModel::findBySlugAndNamespace('variables', 'variables'))
         {
+            FieldTypeManager::registerFolderFieldTypes(realpath(APPPATH).'/modules/streams_core/field_types/', true);
+
             $schema = $this->pdb->getSchemaBuilder();
+
+            $prefixedTable = ci()->pdb->getQueryGrammar()->getTablePrefix().'variables';
 
             // Convert Variables to a stream
             SchemaUtility::convertTableToStream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
@@ -21,12 +26,14 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             // Convert data column to Field field - @todo - don't convert, add field, modify character limit and add data_field_slug
             SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
 
-            $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `name` `name` VARCHAR(100)");
-            $this->pdb->statement("ALTER TABLE `".ci()->db->dbprefix('variables')."` CHANGE COLUMN `data` `data` TEXT");
+            $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `name` `name` VARCHAR(100)");
+            $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `data` `data` TEXT");
 
             // Add the data_field_slug column that the Field field type needs to store the field slug
-            $schema->table('variables', function($table) {
-                $table->string('data_field_slug', 100)->default('text');
+            $schema->table('variables', function($table) use ($schema, $prefixedTable) {
+                if (! $schema->hasColumn('variables', 'data_field_slug')) {
+                    $table->string('data_field_slug', 100)->default('text');    
+                }
             });
 
             // Create the Variables folder. For the image field
@@ -42,16 +49,6 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             ));
             
             $fields = array(
-                // This will display the syntax in the admin using the Merge Tags field type
-                array(
-                    'name'          => 'lang:variables:syntax_label',
-                    'slug'          => 'syntax',
-                    'type'          => 'merge_tags',
-                    'namespace'     => 'variables',
-                    'assign'        => 'variables',
-                    'extra'         => 
-                        array('pattern' => '<span class="syntax">{{ noparse }} {{ {{ /noparse }} variables:{{ name }} {{ noparse }} }} {{ /noparse }}</span>'),
-                ),
                 // A default set of selectable fields
                 array('namespace' => 'variables','name' => 'lang:streams:country.name','slug' => 'country','type' => 'country'),
                 array('namespace' => 'variables','name' => 'lang:streams:datetime.name','slug' => 'datetime','type' => 'datetime', 'extra' => array('use_time' => 'no', 'storage' => 'datetime', 'input_type' => 'dropdown')),
@@ -69,7 +66,7 @@ class Migration_Convert_variables_to_streams extends CI_Migration
                 array('namespace' => 'variables','name' => 'lang:streams:wysiwyg.name','slug' => 'wysiwyg','type' => 'wysiwyg', 'extra' => array('editor_type' => 'advanced', 'allow_tags' => 'y')),
             );
 
-            FieldModel::addFields($fields, 'variables', 'variables');
+            FieldModel::addFields($fields, null, 'variables');
 
             return true;
         }

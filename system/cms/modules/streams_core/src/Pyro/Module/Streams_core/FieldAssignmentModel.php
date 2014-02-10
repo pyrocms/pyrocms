@@ -37,7 +37,6 @@ class FieldAssignmentModel extends FieldModel
         return static::where('field_id', $field_id)
             ->where('stream_id', $stream_id)
             ->take(1)
-            ->fresh($fresh)
             ->first();
     }
 
@@ -101,20 +100,26 @@ class FieldAssignmentModel extends FieldModel
         $stream = $this->getAttribute('stream');
 
         if ($field = $this->getAttribute('field')) {
-            // Drop the column if it exists
-            if ($schema->hasColumn($field->field_slug, $prefix.$stream->stream_prefix.$stream->stream_slug)) {
-                $schema->table($stream->stream_prefix.$stream->stream_slug, function ($table) use ($field, $stream, $prefix) {
 
-                    $table->dropColumn($field->field_slug);
-
-                });
-            }
-
-            // Run the destruct
+            // Do we have a destruct function
             if ($type = $field->getType()) {
-                $type->setStream($stream);
+
+                // @todo - also pass the schema builder
+                $type->setStream($this);
                 $type->fieldAssignmentDestruct();
+
+                // Drop the column if it exists
+                if ( ! $type->alt_process) {
+                    $schema->table($this->stream_prefix.$this->stream_slug, function ($table) use ($type) {                    
+                        if ($schema->hasColumn($table->getTable(), $type->getColumnName())) {
+                            $table->dropColumn($type->getColumnName());    
+                        }                        
+                    });
+                }
             }
+
+
+            $type->fieldAssignmentDestruct($schema);
 
             // Update that stream's view options
             $stream->removeViewOption($field->field_slug);
@@ -142,6 +147,21 @@ class FieldAssignmentModel extends FieldModel
         FieldModel::where('field_namespace', '=', $namespace)->delete();
 
         return parent::delete();
+    }
+
+    /**
+     * Save the model
+     * @param  array  $options
+     * @return boolean
+     */
+    public function save(array $options = array())
+    {
+        $success = parent::save($options);
+
+        // Save the stream so that the EntryModel gets recompiled
+        $this->stream->save();
+
+        return $success;
     }
 
     /**
@@ -209,6 +229,10 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldNameAttribute($field_name)
     {
+        if (! empty($field_name)) {
+            return $field_name;
+        }
+
         // This guarantees that the language will be loaded
         if ($this->field instanceof FieldModel) {
             FieldTypeManager::getType($this->field->field_type);
@@ -226,7 +250,11 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldSlugAttribute($field_slug)
     {
-        return $this->field->field_slug;
+        if ($this->field) {
+            return $this->field->field_slug;
+        }
+
+        return null;
     }
 
     /**
@@ -246,7 +274,11 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getFieldTypeAttribute($field_type)
     {
-        return $this->field->field_type;
+        if ($this->field) {
+            return $this->field->field_type;
+        }
+
+        return null;
     }
 
     /**
@@ -319,15 +351,6 @@ class FieldAssignmentModel extends FieldModel
     public function newCollection(array $models = array())
     {
         return new FieldAssignmentCollection($models);
-    }
-
-    /**
-     * Get stream
-     * @return object
-     */
-    public function getStream()
-    {
-        return StreamModel::find($this->stream_id);
     }
 
     /**

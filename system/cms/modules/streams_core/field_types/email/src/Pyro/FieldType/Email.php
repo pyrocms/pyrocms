@@ -81,4 +81,21 @@ class Email extends AbstractFieldType
 		return $choices;
 	}
 
+    // --------------------------------------------------------------------------
+
+    /**
+     * Process before outputting for PHP
+     *
+     * @return  object
+     */
+    public function dataOutput()
+    {
+        $data = new \stdClass;
+
+        $data->email_address       = $this->value;
+        $data->mailto_link         = mailto($this->value, $this->value);
+        $data->safe_mailto_link    = safe_mailto($this->value, $this->value);
+
+        return $data;
+    }
 }

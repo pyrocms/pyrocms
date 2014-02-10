@@ -66,7 +66,8 @@ class FieldModel extends Eloquent
 
         // Is this stream slug already available?
         if ($field = static::findBySlugAndNamespace($slug, $namespace)) {
-            throw new Exception\FieldSlugInUseException('The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
+            log_message('debug', 'The Field slug is already in use for this namespace. Attempted ['.$slug.','.$namespace.']');
+            return false;
         }
 
         // Is this a valid field type?
@@ -165,15 +166,11 @@ class FieldModel extends Eloquent
         // -------------------------------------
         // Validate Data
         // -------------------------------------
-
-        $stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace, true);
-
         if ( ! $field = static::findBySlugAndNamespace($field_slug, $namespace)) {
             throw new Exception\InvalidFieldModelException('Invalid field slug. Attempted ['.$field_slug.']');
         }
 
-        if ($stream) {
-
+        if ($stream = StreamModel::findBySlugAndNamespaceOrFail($stream_slug, $namespace)) {
             // -------------------------------------
             // Assign Field
             // -------------------------------------
@@ -337,12 +334,12 @@ class FieldModel extends Eloquent
      * @return  bool
      */
     // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
-    public static function create(array $attributes = array())
+    public function save(array $options = array())
     {
-        $instance = new static;
-
+        $attributes = $this->getAttributes();
+        
         // Load the type to see if there are other params
-        if ($type = FieldTypeManager::getType($attributes['field_type'])) {
+        if ($type = $this->getType()) {
             $type->setPreSaveParameters($attributes);
 
             foreach ($type->getCustomParameters() as $param) {
@@ -352,7 +349,7 @@ class FieldModel extends Eloquent
             }
         }
 
-        return parent::create($attributes);
+        return parent::save($options);
     }
 
     /**
@@ -371,7 +368,7 @@ class FieldModel extends Eloquent
      * @param  [type] $entry [description]
      * @return [type]        [description]
      */
-    public function getType(EntryModel $entry = null)
+    public function getType($entry = null)
     {
         // If no entry was passed at least instantiate an empty entry object
 
@@ -386,7 +383,7 @@ class FieldModel extends Eloquent
         if ($type) {
             $type->setField($this);
             $type->setEntry($entry);
-            $type->setStream($this->getStream());
+            $type->setStream($entry->getStream());
         }
 
         return $type;
@@ -712,7 +709,11 @@ class FieldModel extends Eloquent
      */
     public function setFieldDataAttribute($field_data)
     {
-        $this->attributes['field_data'] = serialize($field_data);
+        if (is_array($field_data)) {
+            $this->attributes['field_data'] = serialize($field_data);
+        } else {
+            $this->attributes['field_data'] = $field_data;
+        }
     }
 
     /**
@@ -722,7 +723,11 @@ class FieldModel extends Eloquent
      */
     public function getFieldDataAttribute($field_data)
     {
-        return unserialize($field_data);
+        if (is_string($field_data)) {
+            return unserialize($field_data);
+        }
+
+        return $field_data;
     }
 
     /**
@@ -732,7 +737,11 @@ class FieldModel extends Eloquent
      */
     public function getViewOptionsAttribute($view_options)
     {
-        return unserialize($view_options);
+        if (is_string($view_options)) {
+            return unserialize($view_options);
+        }
+
+        return $view_options;
     }
 
     /**
@@ -741,7 +750,11 @@ class FieldModel extends Eloquent
      */
     public function setViewOptionsAttribute($view_options)
     {
-        $this->attributes['view_options'] = serialize($view_options);
+        if (is_array($view_options)) {
+            $this->attributes['view_options'] = serialize($view_options);
+        } else {
+            $this->attributes['view_options'] = $view_options;    
+        }
     }
 
     /**

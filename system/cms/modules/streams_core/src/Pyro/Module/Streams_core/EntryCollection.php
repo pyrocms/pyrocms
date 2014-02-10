@@ -5,91 +5,30 @@ use Pyro\Model\EloquentCollection;
 
 class EntryCollection extends EloquentCollection
 {
-    protected $format = 'eloquent';
+    protected $model;
 
-    /**
-     * Set the active format of all models as original
-     * @return object
-     */
-    public function asOriginal()
+    public function __construct(array $items = array(), EntryModel $model = null)
     {
-        $this->format = EntryModel::FORMAT_ORIGINAL;
+      parent::__construct($items);
 
-        return $this;
-    }
-
-    /**
-     * Set the active format of all models as eloquent
-     * @return object
-     */
-    public function asEloquent()
-    {
-        $this->format = EntryModel::FORMAT_ELOQUENT;
-
-        return $this;
-    }
-
-    /**
-     * Set the active format of all models as string
-     * @return object
-     */
-    public function asString()
-    {
-        $this->format = EntryModel::FORMAT_STRING;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asString();
-        }
-
-        return new static($entries);
-    }
-
-    /**
-     * Set the active format of all models as data
-     * @return object
-     */
-    public function asData()
-    {
-        $this->format = EntryModel::FORMAT_DATA;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asData();
-        }
-
-        return new static($entries);
-    }
-
-    /**
-     * Set the active format of all models as plugin
-     * @return object
-     */
-    public function asPlugin()
-    {
-        $this->format = EntryModel::FORMAT_PLUGIN;
-
-        $entries = array();
-
-        foreach($this->items as $entry) {
-            $entries[] = $entry->asPlugin();
-        }
-
-        return new static($entries);
+      $this->model = $model;
     }
 
     /**
      * Get entry options
+     * @param  string or null $attribute
      * @return array
      */
-    public function getEntryOptions($title_column = null)
+    public function getEntryOptions($attribute = null)
     {
         $options = array();
 
         foreach($this->items as $entry) {
-            $options[$entry->getKey()] = $entry->getTitleColumnValue($title_column);
+            if ($attribute) {
+                $options[$entry->getKey()] = $entry->{$attribute};
+            } else {
+                $options[$entry->getKey()] = $entry->getTitleColumnValue();
+            }
         }
 
         return $options;
@@ -115,27 +54,18 @@ class EntryCollection extends EloquentCollection
     }
 
     /**
-     * To output array
-     * @return array
-     */
-    public function toOutputArray()
+     * Get the presenter object
+     * 
+     * @param array $viewOptions
+     * @param string $defaultFormat
+     * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
+     */ 
+    public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
-        $output = array();
+        $decorator = new EntryPresenterDecorator;
 
-        foreach ($this->items as $entry) {
-            $output[] = $entry->{'as'.Str::studly($this->format)}()->toOutputArray();
-        }
+        $viewOptions = EntryViewOptions::make($this->model, $viewOptions, $defaultFormat);
 
-        return $output;
-    }
-
-    /**
-     * To Json
-     * @param  integer $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toOutputArray(), $options);
+        return $decorator->setViewOptions($viewOptions)->decorate($this);
     }
 }

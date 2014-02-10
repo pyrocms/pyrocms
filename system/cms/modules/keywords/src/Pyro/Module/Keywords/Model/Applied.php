@@ -6,7 +6,7 @@ use Pyro\Model\Eloquent;
  * Applied Keyword model
  *
  * @author    PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Keywords\Models
+ * @package  PyroCMS\Core\Modules\Keywords\Model
  */
 class Applied extends Eloquent
 {
@@ -16,6 +16,12 @@ class Applied extends Eloquent
      * @var string
      */
     protected $table = 'keywords_applied';
+
+    /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
 
     /**
      * The attributes that aren't mass assignable

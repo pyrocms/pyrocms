@@ -72,9 +72,8 @@ class Admin_fields extends Admin_Controller
 	{
 		FieldUi::assignmentForm('blog', 'blogs')
 			->title(lang('streams:add_field'))
-			->redirect('admin/blog/fields')
-			->cancelUri('admin/blog/fields')
-			->allowSetColumnTitle(false)
+			->redirects('admin/blog/fields')
+			->enableSetColumnTitle(false)
 			->render();
 	}
 
@@ -124,9 +123,9 @@ class Admin_fields extends Admin_Controller
 
 		FieldUi::assignmentForm('blog', 'blogs', $this->uri->segment(5))
 			->title(lang('streams:edit_field'))
-			->redirect('admin/blog/fields')
+			->redirects('admin/blog/fields')
 			->cancelUri('admin/blog/fields')
-			->allowSetColumnTitle(false)
+			->enableSetColumnTitle(false)
 			->render();
 	}
 }

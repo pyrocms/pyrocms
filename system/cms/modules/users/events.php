@@ -14,43 +14,38 @@ use Pyro\Module\Streams_core\StreamModel;
  */
 class Events_Users {
 
-	public function __construct()
-	{
-		// Bind user profiles
-		//Events::register('admin_controller', array($this, 'attach_profile'));
-		//Events::register('attach_profile', array($this, 'attach_profile'));
-		Events::register('public_controller', array($this, 'attach_profile'));
+    public function __construct()
+    {
+		// Bind user profile
+		Events::register('send_activation_email', array($this, 'send_activation_email'));
 	}
 
 	/**
-	 *	Bind a users profile to current_user
-	 *
-	 *	params void
-	 *	return void
+	 * Send an activation code for the user
+	 * @param  Pyro\Module\Users\Model\User $user
+	 * @return boolean
 	 */
-	public function attach_profile()
+	public function send_activation_email($user)
 	{
-		// Got a user?
-		if (! isset(ci()->current_user->id)) return false;
+		if ($user) {
 
-		// Ajax?
-		if (ci()->input->is_ajax_request()) return false;
+			// This creates teh activation code in the DB too
+			$activation_code = $user->getActivationCode();
 
-		// Not already attached
-		if (isset(ci()->current_user->profile)) return false;
-
-		// Get the stream
-		$stream = StreamModel::findBySlugAndNamespace('profiles', 'users');
-
-		// Exists? Go for it!
-		if ($stream) {
-
-			// Get the profile
-			$profile = EntryModel::stream($stream)->select('*')->where('user_id', ci()->current_user->id)->first();
-
-			// If we have a result - use it
-			if ($profile)
-				ci()->current_user->profile = $profile;
+			// Add in some extra details
+			$data['subject']			= Settings::get('site_name') . ' - Account Activation';
+			$data['slug'] 				= 'activation';
+			$data['to'] 				= $user->email;
+			$data['from'] 				= Settings::get('server_email');
+			$data['name']				= Settings::get('site_name');
+			$data['reply-to']			= Settings::get('contact_email');
+			$data['activation_code']	= $activation_code;
+			$data['user']				= $user;
+			
+			// send the email using the template event found in system/cms/templates/
+			return (bool) Events::trigger('email', $data, 'array');
 		}
+
+		return false;
 	}
 }

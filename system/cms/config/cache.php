@@ -4,6 +4,31 @@ $cache = array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Enable cache
+	|--------------------------------------------------------------------------
+	|
+	| This option can be used to disable cache everywhere else. 
+	| It overrides every other option.
+	|
+	*/
+	'enable' => true,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Enable cache per environment
+	|--------------------------------------------------------------------------
+	|
+	| This option allows to enable or disable per environment.
+	|
+	*/
+	'environment' => array(
+		// PYRO_DEVELOPMENT => true,
+		// PYRO_STAGING => false,
+		// PYRO_PRODUCTION => true
+	),
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Default Cache Driver
 	|--------------------------------------------------------------------------
 	|
@@ -15,9 +40,9 @@ $cache = array(
 	|
 	*/
 
-	'driver' => 'file',
+    'driver' => 'file',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| File Cache Location
 	|--------------------------------------------------------------------------
@@ -28,7 +53,7 @@ $cache = array(
 	|
 	*/
 
-	'path' => APPPATH . 'cache/' . SITE_REF . '/laravel/',
+	'path' => APPPATH.'cache'.DIRECTORY_SEPARATOR.SITE_REF.DIRECTORY_SEPARATOR.'laravel',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -113,7 +138,7 @@ $cache = array(
 	'rss_cache' => 3600, // 1 hour TTL on blog rss caching
 
 	// Set the location for simplepie cache
-	'simplepie_cache_dir' => APPPATH . 'cache/' . SITE_REF . '/simplepie/'
+	'simplepie_cache_dir' => APPPATH.'cache'.DIRECTORY_SEPARATOR.SITE_REF.DIRECTORY_SEPARATOR.'simplepie'
 
 );
 

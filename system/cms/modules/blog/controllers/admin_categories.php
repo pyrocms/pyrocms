@@ -1,4 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Blog\BlogCategoryModel;
 /**
  * Admin Page Layouts controller for the Pages module
  *
@@ -38,7 +40,6 @@ class Admin_Categories extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('blog_categories_m');
 		$this->lang->load('categories');
 		$this->lang->load('blog');
 
@@ -52,18 +53,14 @@ class Admin_Categories extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->cache->forget('module_m');
+
 
 		// Create pagination links
-		$total_rows = $this->blog_categories_m->count_all();
+		$total_rows = BlogCategoryModel::count();
 		$pagination = create_pagination('admin/blog/categories/index', $total_rows, Settings::get('records_per_page'), 5);
 
 		// Using this data, get the relevant results
-		$categories = $this->blog_categories_m
-			->order_by('title')
-			->limit($pagination['limit'])
-			->offset($pagination['offset'])
-			->get_all();
+		$categories = BlogCategoryModel::findMany($pagination['limit'], $pagination['offset']);
 
 		$this->template
 			->title($this->module_details['name'], lang('cat:list_title'))
@@ -79,14 +76,21 @@ class Admin_Categories extends Admin_Controller
 	{
 		// Validate the data
 		if ($this->form_validation->run()) {
-			if ($id = $this->blog_categories_m->insert($this->input->post())) {
+			
+			if ($category = BlogCategoryModel::create(array(
+					'title' => $this->input->post('title'),
+					'slug'	=> $this->input->post('slug')
+				))) {
 
 				// Fire an event. A new blog category has been created.
-				Events::trigger('blog_category_created', $id);
+				Events::trigger('blog_category_created', $category);
 
-				$this->session->set_flashdata('success', sprintf(lang('cat:add_success'), $this->input->post('title')));
+				$this->session->set_flashdata('success', sprintf(lang('cat:add_success'), $category->title));
+			
 			} else {
+				
 				$this->session->set_flashdata('error', lang('cat:add_error'));
+			
 			}
 
 			redirect('admin/blog/categories');
@@ -94,7 +98,7 @@ class Admin_Categories extends Admin_Controller
 
 		if ($_POST) exit('GFG');
 
-		$category = new stdClass();
+		$category = new stdClass;
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule) {
@@ -117,7 +121,7 @@ class Admin_Categories extends Admin_Controller
 	public function edit($id = 0)
 	{
 		// Get the category
-		$category = $this->blog_categories_m->get($id);
+		$category = BlogCategoryModel::find($id);
 
 		// ID specified?
 		$category or redirect('admin/blog/categories/index');
@@ -126,9 +130,19 @@ class Admin_Categories extends Admin_Controller
 
 		// Validate the results
 		if ($this->form_validation->run()) {
-			$this->blog_categories_m->update($id, $this->input->post())
-				? $this->session->set_flashdata('success', sprintf(lang('cat:edit_success'), $this->input->post('title')))
-				: $this->session->set_flashdata('error', lang('cat:edit_error'));
+			
+			if ($category->update(array(
+				'title' => $this->input->post('title'),
+				'slug'	=> $this->input->post('slug')
+			))) {
+				
+				$this->session->set_flashdata('success', sprintf(lang('cat:edit_success'), $category->title));
+			
+			} else {
+			
+				$this->session->set_flashdata('error', lang('cat:edit_error'));
+			
+			}
 
 			// Fire an event. A blog category is being updated.
 			Events::trigger('blog_category_updated', $id);
@@ -166,7 +180,7 @@ class Admin_Categories extends Admin_Controller
 			$to_delete = 0;
 			$deleted_ids = array();
 			foreach ($id_array as $id) {
-				if ($this->blog_categories_m->delete($id)) {
+				if ($category = BlogCategoryModel::find($id) and $category->delete()) {
 					$deleted++;
 					$deleted_ids[] = $id;
 				} else {
@@ -207,18 +221,22 @@ class Admin_Categories extends Admin_Controller
 		);
 
 		if ($this->form_validation->run()) {
-			$id = $this->blog_categories_m->insert_ajax($this->input->post());
+			
+			$category = BlogCategoryModel::create(array(
+				'title' => $this->input->post('title'),
+				'slug'	=> $this->input->post('slug')
+			));
 
 			if ($id > 0) {
-				$message = sprintf(lang('cat:add_success'), $this->input->post('title', true));
+				$message = sprintf(lang('cat:add_success'), $category->title);
 			} else {
 				$message = lang('cat:add_error');
 			}
 
 			return $this->template->build_json(array(
 				'message' => $message,
-				'title' => $this->input->post('title'),
-				'category_id' => $id,
+				'title' => $category->title,
+				'category_id' => $category->id,
 				'status' => 'ok'
 			));
 		} else {

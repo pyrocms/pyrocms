@@ -4,28 +4,42 @@ use Illuminate\Database\Eloquent\Builder;
 
 class EloquentQueryBuilder extends Builder
 {
-    /**
-     * Execute the query as a "select" statement.
-     *
-     * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function get($columns = array('*'))
-    {
-		$this->rememberIndex();
+	/**
+	 * Get the hydrated models without eager loading.
+	 *
+	 * @param  array  $columns
+	 * @return array|static[]
+	 */
+	public function getModels($columns = array('*'))
+	{
+		// First, we will simply get the raw results from the query builders which we
+		// can use to populate an array with Eloquent models. We will pass columns
+		// that should be selected as well, which are typically just everything.
+		$results = array();
 
-		$models = $this->getModels($columns);
+        if (ci()->cache->isEnabled() and $this->model->getCacheMinutes()) {
+        	$this->rememberIndex();
+        	$results = $this->query->getCached($columns);
+        } else {
+        	$results = $this->query->getFresh($columns);
+        }
 
-		// If we actually found models we will also eager load any relationships that
-		// have been specified as needing to be eager loaded, which will solve the
-		// n+1 query issue for the developers to avoid running a lot of queries.
-		if (count($models) > 0)
+		$connection = $this->model->getConnectionName();
+
+		$models = array();
+
+		// Once we have the results, we can spin through them and instantiate a fresh
+		// model instance for each records we retrieved from the database. We will
+		// also set the proper connection name for the model after we create it.
+		foreach ($results as $result)
 		{
-			$models = $this->eagerLoadRelations($models);
+			$models[] = $model = $this->model->newFromBuilder($result);
+
+			$model->setConnection($connection);
 		}
 
-		return $this->model->newCollection($models);
-    }
+		return $models;
+	}
 
     public function rememberIndex()
     {
@@ -51,17 +65,33 @@ class EloquentQueryBuilder extends Builder
 		return $this;
 	}
 
-	/**
-	 * Get fresh models / disable cache
-	 * @param  boolean $fresh
-	 * @return object
-	 */
+    /**
+     * Get fresh models / disable cache
+     * @param  boolean $fresh
+     * @return object
+     */
     public function fresh($fresh = true)
     {
         if ($fresh) {
-            $this->model->setCacheMinutes(0);
+            $this->model->setCacheMinutes(false);
         }
 
+        return $this;
+    }
+
+	/**
+     * Indicate that the query results should be cached.
+     *
+     * @param  \Carbon\Carbon|\Datetime|int  $minutes
+     * @param  string  $key
+     * @return \Illuminate\Database\Query\Builder|static
+     */
+    public function remember($minutes, $key = null)
+    {   
+    	if (ci()->cache->isEnabled()) {
+    		return $this->query->remember($minutes, $key);
+    	}
+        
         return $this;
     }
 }

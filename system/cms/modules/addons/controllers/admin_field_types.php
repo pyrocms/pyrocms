@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Streams_core\FieldTypeManager;
+
 /**
  * Admin controller for field types.
  *
@@ -30,21 +32,25 @@ class Admin_field_types extends Admin_Controller
 	 */
 	public function index()
 	{
-		$data = array();
+		$modes = array();
 
 		$this->load->driver('Streams');
 
-		foreach ($this->type->types as $type) {
-			$data[$type->ft_mode][] = array(
+		$types = FieldTypeManager::getAllTypes();
+
+		foreach ($types as $type) {
+			$modes[$type->field_type_mode][] = array(
 				'name'		=> $type->field_type_name,
 				'version'	=> (isset($type->version)) ? $type->version : null
 			);
 		}
 
+		ksort($modes);
+
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/field_types/index', $data);
+			->build('admin/field_types/index', array('modes' => $modes));
 	}
 
 }

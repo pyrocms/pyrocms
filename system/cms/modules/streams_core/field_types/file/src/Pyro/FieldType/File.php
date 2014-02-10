@@ -62,7 +62,7 @@ class File extends AbstractFieldType
 		}
 
 		// Output the actual used value
-		$out .= form_hidden($this->form_slug, $this->getValue('dummy'));
+		$out .= form_hidden($this->form_slug, $this->value);
 
 		$options['name'] 	= $this->form_slug;
 		$options['name'] 	= $this->form_slug.'_file';
@@ -87,9 +87,9 @@ class File extends AbstractFieldType
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
-		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name']) {
-			if (ci()->input->post($field->field_slug)) {
-				return ci()->input->post($field->field_slug);
+		if (! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
+			if (ci()->input->post($this->form_slug)) {
+				return ci()->input->post($this->form_slug);
 			} else {
 				return null;
 			}
@@ -97,10 +97,7 @@ class File extends AbstractFieldType
 
 		ci()->load->library('files/files');
 
-		// If you don't set allowed types, we'll set it to allow all.
-		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
-
-		$return = \Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
+		$return = \Files::upload($this->getParameter('folder'), null, $this->form_slug.'_file', null, null, null, $this->getParameter('allowed_types', '*'));
 
 		if (! $return['status']) {
 
@@ -220,5 +217,14 @@ class File extends AbstractFieldType
 
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}
+
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
 
 }

@@ -17,6 +17,12 @@ class ContactLog extends Eloquent
 	protected $table = 'contact_log';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

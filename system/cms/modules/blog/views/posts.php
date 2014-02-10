@@ -30,9 +30,11 @@
 
 			</div>
 
+			{{ if intro }}
 			<div class="preview">
-			{{ preview }}
+				{{ intro }}
 			</div>
+			{{ endif }}
 
 			<p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
 

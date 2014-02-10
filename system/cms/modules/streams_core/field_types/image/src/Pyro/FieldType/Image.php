@@ -189,7 +189,7 @@ class Image extends AbstractFieldType
 		}
 	}
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Pre Output
@@ -205,8 +205,18 @@ class Image extends AbstractFieldType
 		// Get image data
 		$file = FileModel::find($this->value);
 
+        // Get folder
+        $folder = FileModel::find($file->folder);
+
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$this->value).'" alt="'.$this->obviousAlt($image).'" />';
+        if ($file->path) {
+            $attribtues = array(
+                'width' => '100',
+                'class' => 'img-thumbnail',
+                );
+
+            return img(ci()->parser->parse_string($file->path, $folder, true, false, null, false), $this->obviousAlt($file), $attribtues);
+        }
 	}
 
 	// --------------------------------------------------------------------------
@@ -226,24 +236,24 @@ class Image extends AbstractFieldType
 	 */
 	public function pluginOutput()
 	{
-		if ( ! $this->value or $this->value == 'dummy' ) return null;
-
-		$image = $this->getRelationResult();
-
-		if ($image) {
-			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
-			$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
-
-			// For <img> tags only
-			$alt = $this->obviousAlt($image);
-
-			$image->img = img(array('alt' => $alt, 'src' => $image->image));
-
-			$image->thumb = site_url('files/thumb/'.$this->value);
-			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$this->value)));
-		}
+		$image = $this->getImage();
 
 		return $image ? $image->toArray() : false;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Process before outputting for PHP
+	 *
+	 * @access	public
+	 * @return	File
+	 */
+	public function dataOutput()
+	{
+		$image = $this->getImage();
+
+		return $image ? $image : false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -381,4 +391,35 @@ class Image extends AbstractFieldType
 		}
 		return $image->name;
 	}
+
+	private function getImage()
+	{
+		if ( ! $this->value or $this->value == 'dummy' ) return null;
+
+		$image = $this->getRelation();
+
+		if ($image) {
+			$image->image = base_url(ci()->config->item('files:path').$image->filename);	
+			$image->image = str_replace('{{ url:site }}', base_url(), $image->path);
+
+			// For <img> tags only
+			$alt = $this->obviousAlt($image);
+
+			$image->img = img(array('alt' => $alt, 'src' => $image->image));
+
+			$image->thumb = site_url('files/thumb/'.$this->value);
+			$image->thumb_img = img(array('alt' => $alt, 'src'=> site_url('files/thumb/'.$this->value)));
+		}
+
+		return $image;
+	}
+
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return parent::getColumnName().'_id';
+    }
 }

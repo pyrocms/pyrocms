@@ -22,6 +22,8 @@ class Events_Templates
             'contact'	=> array('contact'	=> 'email/contact')
         );
 
+        ci()->load->library('email');
+
         //register the email event
         Events::register('email', array($this, 'send_email'));
 

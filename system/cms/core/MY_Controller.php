@@ -10,46 +10,45 @@ use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
 use Pyro\Module\Streams_core\FieldTypeManager;
-use Pyro\Module\Users\Model\User;
 
 /**
  * Code here is run before ALL controllers
  * 
- * @package 	PyroCMS\Core\Controllers
+ * @package     PyroCMS\Core\Controllers
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Controller extends MX_Controller
 {
-	/**
-	 * The name of the module that this controller instance actually belongs to.
-	 *
-	 * @var string 
-	 */
-	public $module;
+    /**
+     * The name of the module that this controller instance actually belongs to.
+     *
+     * @var string 
+     */
+    public $module;
 
-	/**
-	 * The name of the controller class for the current class instance.
-	 *
-	 * @var string
-	 */
-	public $controller;
+    /**
+     * The name of the controller class for the current class instance.
+     *
+     * @var string
+     */
+    public $controller;
 
-	/**
-	 * The name of the method for the current request.
-	 *
-	 * @var string 
-	 */
-	public $method;
+    /**
+     * The name of the method for the current request.
+     *
+     * @var string 
+     */
+    public $method;
 
-	/**
-	 * Load and set data for some common used libraries.
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Load and set data for some common used libraries.
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->benchmark->mark('my_controller_start');
+        $this->benchmark->mark('my_controller_start');
 
         // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
         // See https://github.com/loic-sharma/profiler        
@@ -58,86 +57,92 @@ class MY_Controller extends MX_Controller
 
         if ( ! defined('AUTO_LANGUAGE')) {
             $this->pickLanguage();
-		}
+        }
 
-		// No record? Probably DNS'ed but not added to multisite
-		if ( ! defined('SITE_REF')) {
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
-		}
+        // No record? Probably DNS'ed but not added to multisite
+        if ( ! defined('SITE_REF')) {
+            show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
+        }
 
-		// Set up the Illuminate\Database layer
-		ci()->pdb = self::setupDatabase();
+        // Set up the Illuminate\Database layer
+        ci()->pdb = self::setupDatabase();
 
         // Lets PSR-0 up our modules
         $loader = new ClassLoader;
 
         // Register module manager for usage everywhere, its handy
+        $loader->add('Pyro\\Module\\Settings', realpath(APPPATH).'/modules/settings/src/');
         $loader->add('Pyro\\Module\\Addons', realpath(APPPATH).'/modules/addons/src/');
         $loader->add('Pyro\\Module\\Streams_core', realpath(APPPATH).'/modules/streams_core/src/');
         $loader->add('Pyro\\Module\\Users', realpath(APPPATH).'/modules/users/src/');
+
+        // Map the streams model namespace to the site ref
+        $siteRef = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', SITE_REF)));
+
+        $loader->add('Pyro\\Streams\\Model', realpath(APPPATH).'/modules/streams_core/models/'.$siteRef.'Site/');
         
         // activate the autoloader
         $loader->register();
 
-		// Add the site specific theme folder
-		$this->template->add_theme_location(ADDONPATH.'themes/');
+        // Add the site specific theme folder
+        $this->template->add_theme_location(ADDONPATH.'themes/');
 
-		// Migration logic helps to make sure PyroCMS is running the latest changes
-		$this->load->library('migration');
-		
-		if ( ! ($schema_version = $this->migration->current())) {
-			show_error($this->migration->error_string());
+        // Migration logic helps to make sure PyroCMS is running the latest changes
+        $this->load->library('migration');
+        
+        if ( ! ($schema_version = $this->migration->current())) {
+            show_error($this->migration->error_string());
 
-		// Result of schema version migration
-		} elseif (is_numeric($schema_version)) {
-			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
-		}
+        // Result of schema version migration
+        } elseif (is_numeric($schema_version)) {
+            log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
+        }
 
-		// With that done, load settings
-		$this->load->library('settings/settings');
+        // With that done, load settings
+        $this->load->library('settings/settings');
 
-		// And session stuff too
-		$this->load->driver('session');
+        // And session stuff too
+        $this->load->driver('session');
 
-		// Lock front-end language
-		if ( ! ($this instanceof Admin_Controller and ($site_lang = AUTO_LANGUAGE))) {
-			$site_public_lang = explode(',', Settings::get('site_public_lang'));
+        // Lock front-end language
+        if ( ! ($this instanceof Admin_Controller and ($site_lang = AUTO_LANGUAGE))) {
+            $site_public_lang = explode(',', Settings::get('site_public_lang'));
 
-			$site_lang = in_array(AUTO_LANGUAGE, $site_public_lang) ? AUTO_LANGUAGE : Settings::get('site_lang');
-		}
+            $site_lang = in_array(AUTO_LANGUAGE, $site_public_lang) ? AUTO_LANGUAGE : Settings::get('site_lang');
+        }
 
-		// We can't have a blank language. If there happens
-		// to be a blank language, let's default to English.
-		if ( ! $site_lang) {
-			$site_lang = 'en';
-		}
+        // We can't have a blank language. If there happens
+        // to be a blank language, let's default to English.
+        if ( ! $site_lang) {
+            $site_lang = 'en';
+        }
 
-		// What language us being used
-		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
+        // What language us being used
+        defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
-		$langs = $this->config->item('supported_languages');
+        $langs = $this->config->item('supported_languages');
 
-		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
-		$pyro['lang']['code'] = CURRENT_LANGUAGE;
+        $pyro['lang'] = $langs[CURRENT_LANGUAGE];
+        $pyro['lang']['code'] = CURRENT_LANGUAGE;
 
-		$this->load->vars($pyro);
+        $this->load->vars($pyro);
 
-		// Set php locale time
-		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1) {
-			array_unshift($locale, LC_TIME);
-			call_user_func_array('setlocale', $locale);
-			unset($locale);
-		}
+        // Set php locale time
+        if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1) {
+            array_unshift($locale, LC_TIME);
+            call_user_func_array('setlocale', $locale);
+            unset($locale);
+        }
 
-		// Reload languages
-		if (AUTO_LANGUAGE !== CURRENT_LANGUAGE) {
-			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
-			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
-		
+        // Reload languages
+        if (AUTO_LANGUAGE !== CURRENT_LANGUAGE) {
+            $this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
+            $this->lang->is_loaded = array();
+            $this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
+        
         } else {
-			$this->lang->load(array('global', 'users/user', 'files/files'));
-		}
+            $this->lang->load(array('global', 'users/user', 'files/files'));
+        }
 
         // Work out module, controller and method and make them accessable throught the CI instance
         ci()->module = $this->module = $this->router->fetch_module();
@@ -188,31 +193,31 @@ class MY_Controller extends MX_Controller
             }
         }
 
-		if ($this->module) {
+        if ($this->module) {
             // If this a disabled module then show a 404
             if (empty($this->module_details['enabled'])) {
                 show_404();
             }
 
-    		if (empty($this->module_details['skip_xss'])) {
-    			$_POST = $this->security->xss_clean($_POST);
-    		}
+            if (empty($this->module_details['skip_xss'])) {
+                $_POST = $this->security->xss_clean($_POST);
+            }
 
-    		// Assign "This" module as its own namespace
-    		if (isset($this->module_details['path'])) {
-    			Asset::add_path('module', $this->module_details['path'].'/');
-    		}
+            // Assign "This" module as its own namespace
+            if (isset($this->module_details['path'])) {
+                Asset::add_path('module', $this->module_details['path'].'/');
+            }
         }
-		
-		$this->benchmark->mark('my_controller_end');
+        
+        $this->benchmark->mark('my_controller_end');
 
-		// Enable profiler on local box
-	    if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET)) {
-	    	$this->output->enable_profiler(true);
-	    }
-	}
+        // Enable profiler on local box
+        if ($this->current_user and $this->current_user->isSuperUser() and is_array($_GET) and array_key_exists('_debug', $_GET)) {
+            $this->output->enable_profiler(true);
+        }
+    }
 
-	public function setupDatabase()
+    public function setupDatabase()
     {
         // @TODO Get rid of this for 3.0
         if ( ! class_exists('CI_Model')) {
@@ -244,6 +249,12 @@ class MY_Controller extends MX_Controller
             unset($matches);
         }
 
+        $supportedDrivers = array('mysql', 'pgsql', 'sqlite');
+
+        if (! in_array($config['dbdriver'], $supportedDrivers)) {
+            $config['dbdriver'] = 'mysql';
+        }
+
         $capsule = new Capsule;
 
         $capsule->addConnection(array(
@@ -269,6 +280,13 @@ class MY_Controller extends MX_Controller
 
         $container = $capsule->getContainer();
 
+        if ($cache['enable']) {
+            if (isset($cache['environment'][ENVIRONMENT])) {
+                $cache['enable'] = $cache['environment'][ENVIRONMENT];
+            }
+        }
+
+        $container->offsetGet('config')->offsetSet('cache.enable', $cache['enable']);
         $container->offsetGet('config')->offsetSet('cache.driver', $cache['driver']);
         $container->offsetGet('config')->offsetSet('cache.prefix', $cache['prefix']);
 
@@ -399,10 +417,11 @@ class MY_Controller extends MX_Controller
         $hasher = new Sentry\Hashing\NativeHasher;
         $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user_session');
         $cookie = new Sentry\Cookies\CICookie(ci()->input, array(
-        	// Array of overridden cookie settings...
+            // Array of overridden cookie settings...
         ),'pyro_user_cookie');
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, 'Pyro\Module\Users\Model\User');
+        $userClass = Settings::get('user_class') ?: 'Pyro\Module\Users\Model\User';
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, $userClass);
         $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 
         $throttle->disable();
@@ -426,5 +445,5 @@ class MY_Controller extends MX_Controller
  */
 function ci()
 {
-	return get_instance();
+    return get_instance();
 }

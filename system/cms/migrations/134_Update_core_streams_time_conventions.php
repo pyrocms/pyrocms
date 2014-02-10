@@ -9,6 +9,8 @@ class Migration_Update_core_streams_time_conventions extends CI_Migration
         // Load our schema builder
         $schema = ci()->pdb->getSchemaBuilder();
 
+        $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
+        
         // Get all the streams
         $streams = StreamModel::all();
 
@@ -16,19 +18,21 @@ class Migration_Update_core_streams_time_conventions extends CI_Migration
         foreach ($streams as $slug => $stream) {
             
             // Build the table
-            $table = SITE_REF.'_'.$stream->stream_prefix.$stream->stream_slug;
+            $table = $stream->stream_prefix.$stream->stream_slug;
 
-            
             /**
              * First update the column names
              */
 
             // Rename created to created_at
-            ci()->pdb->statement('ALTER TABLE `'.$table.'` CHANGE `created` `created_at` DATETIME NOT NULL;');
-
+            if ($schema->hasColumn($table, 'created')) {
+                ci()->pdb->statement('ALTER TABLE `'.$prefix.$table.'` CHANGE `created` `created_at` DATETIME NOT NULL;');    
+            }
+            
             // Rename updated to updated_at
-            ci()->pdb->statement('ALTER TABLE `'.$table.'` CHANGE `updated` `updated_at` DATETIME NOT NULL;');
-
+            if ($schema->hasColumn($table, 'updated')) {
+                ci()->pdb->statement('ALTER TABLE `'.$prefix.$table.'` CHANGE `updated` `updated_at` DATETIME NOT NULL;');
+            }
 
             /**
              * Now loop through the streams in the db and update the view options

@@ -4,7 +4,7 @@ use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\StreamModel;
-use Pyro\Module\Variables\VariableEntryModel;
+use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
@@ -45,34 +45,27 @@ class Admin extends Admin_Controller
 		$buttons = array(
 			array(
 				'label' => lang('global:edit'),
-				'url'	=>'admin/variables/edit/-entry_id-'
+				'url'	=>'admin/variables/edit/{{ id }}'
 			),
 			array(
 				'label' => lang('global:delete'),
-				'url'	=>'admin/variables/delete/-entry_id-',
+				'url'	=>'admin/variables/delete/{{ id }}',
 				'confirm' => true
 			),
 		);
 
 		$form = $this->selectable_fields_form();
 
-/*		$extra['title'] = lang('variables:name').$form;
-
-		$extra['return'] = 'admin/variables';
-*/
-		EntryUi::table('Pyro\Module\Variables\VariableEntryModel')
+		EntryUi::table('Pyro\Module\Variables\Model\VariableEntryModel')
+			->fields(array(
+				'name',
+				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
+				'syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
+			))
 			->title(lang('variables:name').$form)
 			->buttons($buttons)
 			->filters(array('name'))
-			->fields(array(
-				'name',
-				'data' => array(
-					'format' => 'string',
-					'template' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>'
-				),
-				'lang:streams:column_syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
-			))
-			->redirect('admin/variables')
+			->pagination(Settings::get('records_per_page'), 'admin/variables')
 			->render();
 	}
 
@@ -93,11 +86,14 @@ class Admin extends Admin_Controller
 			$defaults['data_field_slug'] = $field_slug;
 		}
 
-		EntryUi::form('Pyro\Module\Variables\VariableEntryModel')
+		EntryUi::form('Pyro\Module\Variables\Model\VariableEntryModel')
 			->title(lang('variables:create_title').$form)
-			->successMessage(lang('variables:add_success'))
 			->defaults($defaults)
-			->redirect('admin/variables')
+			->skips(array('foo', 'bar'))
+			->messages(array(
+				'success' => lang('variables:add_success'),
+			))
+			->redirects('admin/variables')
 			->render();
 	}
 
@@ -117,8 +113,10 @@ class Admin extends Admin_Controller
 
 		EntryUi::form($variable)
 			->title('Edit '.$form)
-			->successMessage(sprintf(lang('variables:edit_success'), $variable->name))
-			->redirect('admin/variables')
+			->messages(array(
+				'success' => sprintf(lang('variables:edit_success'), $variable->name),
+			))
+			->redirects('admin/variables')
 			->render();
 	}
 
@@ -131,11 +129,9 @@ class Admin extends Admin_Controller
 	{
 		$variable = VariableEntryModel::find($id);
 
-		$name = $variable->name;
-
 		if ($variable and $variable->delete())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $name));
+			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $variable->name));
 
 			redirect('admin/variables');
 		}
@@ -146,7 +142,7 @@ class Admin extends Admin_Controller
 	 */
 	private function selectable_fields_form($field_slug = null)
 	{
-		$stream = StreamModel::findBySlugAndNamespace('variables', 'variables');
+		$stream = VariableEntryModel::getStream();
 
 		$field_type = FieldTypeManager::getType('field');
 

@@ -80,7 +80,7 @@ abstract class AbstractFieldType
     protected $value_field_slug_override = null;
 
     /**
-     * The relation model
+     * The relation class
      * @var [type]
      */
     protected $relation = null;
@@ -89,13 +89,7 @@ abstract class AbstractFieldType
      * The plugin object
      * @var boolean
      */
-    protected $plugin = false;
-
-    /**
-     * Remember stuff
-     * @var array
-     */
-    protected $runtime_cache = array();
+    protected $plugin = null;
 
     /**
      * Version
@@ -241,7 +235,7 @@ abstract class AbstractFieldType
      */
     public function getFormSlug($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         return $this->getFormSlugPrefix().$field_slug;
     }
@@ -257,7 +251,7 @@ abstract class AbstractFieldType
      */
     public function getFormSlugPrefix()
     {
-        return $this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
+        return $this->getStream()->stream_namespace.'-'.$this->getStream()->stream_slug.'-';
     }
 
     public function getFilterSlug($condition = 'contains', $field_slug = null)
@@ -273,7 +267,7 @@ abstract class AbstractFieldType
      */
     public function getFilterSlugPrefix()
     {
-        return 'f-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug.'-';
+        return 'f-'.$this->getStream()->stream_namespace.'-'.$this->getStream()->stream_slug.'-';
     }
 
     /**
@@ -329,7 +323,7 @@ abstract class AbstractFieldType
      * Set the defaults
      * @param array $defaults
      */
-    public function setDefaults(array $defaults = array())
+    public function setDefaults($defaults = array())
     {
         $this->defaults = $defaults;
     }
@@ -352,7 +346,7 @@ abstract class AbstractFieldType
      */
     public function getFormValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         if (ci()->input->post()) {
 
@@ -368,11 +362,11 @@ abstract class AbstractFieldType
 
     public function getPostValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
-        if ($value = ci()->input->post($this->getFormSlug($field_slug))) {
+        if ($value = ci()->input->post($this->getFormSlug())) {
             return $value;
-        } elseif ($value = ci()->input->post($this->getFormSlug($field_slug).'[]')) {
+        } elseif ($value = ci()->input->post($this->getFormSlug().'[]')) {
             return $value;
         }
 
@@ -405,6 +399,15 @@ abstract class AbstractFieldType
         $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
         return $this->entry->getOriginal($field_slug);
+    }
+
+    /**
+     * Get value
+     * @param mixed $value
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
@@ -529,6 +532,11 @@ abstract class AbstractFieldType
         return $this->view($this->getParameter('form_input_row', 'module::streams_core/fields/form_input_row'), array('field_type' => $this));
     }
 
+    public function getInput()
+    {
+        return defined('ADMIN_THEME') ? $this->formInput() : $this->publicFormInput();
+    }
+
     /**
      * Load a view from a field type
      *
@@ -585,99 +593,148 @@ abstract class AbstractFieldType
      * Get the results for the field type relation
      * @return mixed
      */
-    public function getRelationResult($field_slug = null)
+    public function getRelationResult($attribute = null)
     {
-        // Create the cache key
-        $key = $this->generateCacheKey();
+        $attribute = $attribute ? $attribute : $this->field->field_slug;
 
-        if (isset($this->runtime_cache[$key])) {
-            return $this->runtime_cache[$key];
-        }
+        return $this->entry->getAttribute($attribute);;
+    }
 
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
-
-        // Check if we have a parent foreing key value and avoid making queries with null values
-        $original = $this->getOriginalValue();
-
-        if ($this->hasLocalForeingKey() and empty($original)) return null;
-
-        // If the relation result exists, return it
-        if ($relation = $this->entry->getRelation($field_slug)) {
-
-            return $this->runtime_cache[$key] = $relation;
-
-        } elseif ($this->hasRelation()) {
-
-            return $this->runtime_cache[$key] = $this->relation()->getResults();
-
-        }
-
-        return null;
+    protected function getValidRelationMethods()
+    {
+        return array(
+            'hasOne',
+            'morphOne',
+            'belongsTo',
+            'morphTo',
+            'hasMany',
+            'morphMany',
+            'belongsToMany',
+        );
     }
 
     /**
-     * Check if the relation holds the foreing key on the parent table
-     * @return boolean
+     * Wrapper method for the Eloquent hasOne method
+     * @param  EntryModel  $related
+     * @param  string  $foreignKey 
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function hasLocalForeingKey()
+    public function hasOne($related, $foreignKey = null)
     {
-        return $this->relation() instanceof BelongsTo;
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+
+        return array(
+            'method' => 'hasOne',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
+    }
+
+    /**
+     * Wrapper method for the Eloquent morphOne method
+     * @param  EntryModel $related
+     * @param  string $name
+     * @param  string $type
+     * @param  string $id
+     * @return Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function morphOne($related, $name, $type = null, $id = null)
+    {
+        return array(
+            'method' => 'morphOne',
+            'related' => $related, 
+            'name' => $name,
+            'type' => $type,
+            'id' => $id,
+        );
     }
 
     /**
      * Wrapper method for the Eloquent belongsTo() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
+     * @param  EntryModel $related
+     * @param  string $foreignKey
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsTo($related, $foreign_key = null)
+    public function belongsTo($related, $foreignKey = null)
     {
-        $foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->belongsTo($related, $foreign_key);
+        return array(
+            'method' => 'belongsTo',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
     }
 
     /**
-     * Wrapper method for the Eloquent belongsToEntry() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
+     * Wrapper method for the Eloquent morphTo() method
+     * @param  string $name 
+     * @param  string $type 
+     * @param  string $id   
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongsToEntry($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $stream = null)
+    public function morphTo($name = null, $type = null, $id = null)
     {
-        $foreign_key = $foreign_key ? $foreign_key : $this->field->field_slug;
-
-        return $this->entry->belongsToEntry($related, $foreign_key, $this->getParameter('stream', $stream));
-    }
-
-    /**
-     * Wrapper method for the Eloquent belongsToManyEntries() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
-     */
-    public function belongsToManyEntries($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $other_key = null, $stream = null, $pivot_suffix = null)
-    {
-        $pivot_suffix = $pivot_suffix ? $pivot_suffix : $this->field->field_slug;
-
-        $foreign_key = $foreign_key ? $foreign_key : 'entry_id';
-
-        $other_key = $other_key ? $other_key : 'related_id';
-
-        return $this->entry->belongsToManyEntries($related, $foreign_key, $other_key, $this->getParameter('stream', $stream), $pivot_suffix);
+        return array(
+            'method' => 'morphTo',
+            'name' => $name, 
+            'type' => $type,
+            'id' => $id,
+        );
     }
 
     /**
      * Wrapper method for the Eloquent hasMany() method
-     * @param  [type] $related     [description]
-     * @param  [type] $foreign_key [description]
-     * @return [type]              [description]
+     * @param  EntryModel  $related    
+     * @param  string  $foreignKey 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function hasManyEntries($related = 'Pyro\Module\Streams_core\EntryModel', $foreign_key = null, $stream = null)
+    public function hasMany($related, $foreignKey = null)
     {
-        $foreign_key = $foreign_key ? $foreign_key : 'entry_id';
+        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
 
-        return $this->entry->hasManyEntries($related, $foreign_key, $this->getParameter('stream', $stream));
+        return array(
+            'method' => 'hasMany',
+            'related' => $related, 
+            'foreignKey' => $foreignKey,
+        );
+    }
+
+    /**
+     * Wrapper method for the Eloquent morphMany() method
+     * @param  EntryModel $related 
+     * @param  string $name    
+     * @param  string $type    
+     * @param  string $id      
+     * @return Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function morphMany($related, $name, $type = null, $id = null)
+    {
+        return array(
+            'method' => 'morphMany',
+            'name' => $name, 
+            'type' => $type,
+            'id' => $id,
+        );
+    }
+
+    /**
+     * Wrapper method for the Eloquent belongsTo() method
+     * @param  EntryModel $related    
+     * @param  string $table      
+     * @param  string $foreignKey 
+     * @param  string $otherKey   
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
+    {
+        return array(
+            'method' => 'belongsToMany',
+            'related' => $related, 
+            'table' => $table,
+            'foreignKey' => $foreignKey,
+            'otherKey' => $otherKey,
+        );
     }
 
     /**
@@ -686,7 +743,11 @@ abstract class AbstractFieldType
      */
     public function hasRelation()
     {
-        return ($this->relation() instanceof Relation);
+        $relationArray = $this->relation();
+
+        if (! is_array($relationArray) or empty($relationArray)) return false;
+
+        if (! empty($relationArray['method']) and in_array($relationArray['method'], $this->getValidRelationMethods())) return true;
     }
 
     /**
@@ -728,9 +789,26 @@ abstract class AbstractFieldType
      * Relation class
      * @return string
      */
-    public function getRelationClass()
+    public function getRelationClass($default = null)
     {
-        return $this->getParameter('relation_class', 'Pyro\Module\Streams_core\EntryModel');
+        // Fallack default
+        if (! $default and $this->getParameter('stream')) {
+            list($stream, $namespace) = explode('.', $this->getParameter('stream'));
+            if (isset($stream) and isset($namespace)) {
+                $default = StreamModel::getEntryModelClass($stream, $namespace);
+            }
+        }
+
+        return $this->getParameter('relation_class', $default);
+    }
+
+    /**
+     * Get column name
+     * @return string
+     */
+    public function getColumnName()
+    {
+        return $this->field->field_slug;
     }
 
     /**
@@ -828,7 +906,7 @@ abstract class AbstractFieldType
      */
     public function generateCacheKey()
     {
-        return md5(implode('-', $this->field->field_data).'-'.$this->field->field_type.'-'.$this->field->field_slug.'-'.$this->stream->stream_slug.'-'.$this->stream->stream_namespace.'-'.$this->entry->id);
+        return md5(implode('-', $this->field->field_data).'-'.$this->field->field_type.'-'.$this->field->field_slug.'-'.$this->getStream()->stream_slug.'-'.$this->getStream()->stream_namespace.'-'.$this->entry->id);
     }
 
     /**

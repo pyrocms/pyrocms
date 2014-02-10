@@ -171,7 +171,7 @@ class ModuleManager
      */
     public function getAllEnabled($params = null)
     {
-        return $this->getAll($params, false);
+        return $this->getAll($params, false, false);
     }
 
     /**
@@ -183,7 +183,7 @@ class ModuleManager
      * @param   bool    $return_disabled    Whether to return disabled modules
      * @return  array
      */
-    public function getAll($params = null, $return_disabled = true)
+    public function getAll($params = null, $return_disabled = true, $fresh = true)
     {
         // This is FUCKING BROKEN and I don't know why.. it returns em all
         $result = $this->modules->findWithFilter($params, $return_disabled);

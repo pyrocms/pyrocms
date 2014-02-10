@@ -125,9 +125,13 @@ class FieldTypeManager
      * @param  boolean $gather_types
      * @return object
      */
-    public static function getType($type = null)
+    public static function getType($type = null, $mode = null)
     {
-        return ( ! empty(static::$types[$type]) and is_object(static::$types[$type])) ? static::$types[$type] : static::loadType($type);
+        if (! empty(static::$types[$type]) and is_object(static::$types[$type])) {
+            return static::$types[$type];
+        } else {
+            return static::loadType($type, $mode);
+        }
     }
 
     /**
@@ -155,7 +159,7 @@ class FieldTypeManager
      * @param  boolean $preload
      * @return void
      */
-    public static function registerFolderFieldTypes($folder, $types = array(), $preload = false)
+    public static function registerFolderFieldTypes($folder, $types = array(), $preload = false, $mode = 'add_on')
     {
         static::init();
 
@@ -188,7 +192,7 @@ class FieldTypeManager
 
             if ($preload) {
                 foreach ($types as $type) {
-                    static::getType($type);
+                    static::getType($type, $mode);
                 }
             }
         }
@@ -202,6 +206,7 @@ class FieldTypeManager
     public static function registerAddonFieldTypes($preload = false)
     {
         foreach (static::getAddonPaths() as $key => $path) {
+
             static::registerFolderFieldTypes($path, true, $preload);
         }
     }
@@ -243,7 +248,7 @@ class FieldTypeManager
      */
     public static function preload()
     {
-        static::registerFolderFieldTypes(static::$core_addon_path.'field_types/', true, true);
+        static::registerFolderFieldTypes(static::$core_addon_path.'field_types/', true, true, 'core');
 
         static::registerAddonFieldTypes(true);
     }
@@ -259,7 +264,7 @@ class FieldTypeManager
      * @return	obj - the type obj
      */
     // $path, $file, $type, $mode
-    private static function loadType($type)
+    private static function loadType($type, $mode = 'add_on')
     {
         if (empty($type) or empty(static::$slug_classes[$type])) return null;
 
@@ -274,6 +279,10 @@ class FieldTypeManager
 
         // The root path of the field type
         $path = str_replace(FCPATH, '', dirname(dirname(dirname($class_path))));
+
+        if (! $instance->field_type_mode) {
+            $instance->field_type_mode = $mode;    
+        }
 
         // Set asset paths
         $instance->path = $path;

@@ -25,8 +25,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
 
     protected $columns = array('*');
 
-    protected $stream = null;
-
     protected $field_maps = array();
 
     /**
@@ -37,36 +35,22 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function get($columns = null, $exclude = false)
     {
-        $this->rememberIndex();
-
         // Get set up with our environment
-        $this->stream = $this->model->getStream();
+
         $this->table = $this->model->getTable();
 
-        $columns = $this->prepareColumns($columns);
+        //$columns = $this->prepareColumns($columns);
 
-        $this->applyFilters();
+        if (! $this->filterQuery()) {
+            return $this->model->newCollection();
+        }
 
         $this->entries = $this->getModels($columns);
-
-        foreach ($this->entries as $entry) {
-            // Pass our custom properties to the queried models
-            $this->model->passProperties($entry);
-        }
 
         // If we actually found models we will also eager load any relationships that
         // have been specified as needing to be eager loaded, which will solve the
         // n+1 query issue for the developers to avoid running a lot of queries.
         if (count($this->entries) > 0) {
-            if ($eager_loads = $this->getViewOptionRelations() and ! empty($eager_loads)) {
-                $eager_loads = array_merge($eager_loads, $this->eagerLoad);
-            }
-
-            if ( ! empty($eager_loads)) {
-
-                $this->with($eager_loads);
-            }
-
             $this->entries = $this->eagerLoadRelations($this->entries);
         }
 
@@ -96,7 +80,8 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         }
 
         // We need to return the models with their keys
-        return $this->requireColumns($columns);
+        //return $this->requireColumns($columns);
+        return $columns;
     }
 
     public function requireColumns($columns)
@@ -156,113 +141,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         return false;
     }
 
-    /**
-     * Get view option relations
-     * @return array
-     */
-    public function getViewOptionRelations()
-    {
-        $relations = array();
-
-        $view_options = $this->model->getColumns();
-
-        if ($this->isEnableAutoEagerLoading() and ! empty($view_options)) {
-            if (in_array('created_by', $view_options)) {
-                $relations[] = 'createdByUser';
-            }
-
-            foreach ($view_options as $column) {
-                $column = str_replace('relation:', '', $column);
-                if ($this->hasRelation($column)) {
-                    $relations[] = $column;
-                }
-            }
-        }
-
-        return array_unique($relations);
-    }
-
-    protected function parseColumnsAndFieldMaps($columns = array())
-    {
-        $field_maps = array();
-
-        $columns = array();
-
-        foreach ($this->model->getViewOptions() as $key => $value) {
-            if (is_numeric($key)) {
-
-                $columns[] = $value;
-
-            } else {
-
-                if ( ! Str::startsWith($key, 'lang:')) {
-                    $columns[] = $key;
-                }
-
-                $segments = explode(':', $key);
-
-                $key = $segments[count($segments)-1];
-
-                $field_maps[$key] = $value;
-            }
-        }
-
-        $this->model
-            ->setColumns($columns)
-            ->setFieldMaps($field_maps);
-    }
-
-    /**
-     * Get the relation instance for the given relation name.
-     *
-     * @param  string  $relation
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function getRelation($relation)
-    {
-        $me = $this;
-
-        // We want to run a relationship query without any constrains so that we will
-        // not have to remove these where clauses manually which gets really hacky
-        // and is error prone while we remove the developer's own where clauses.
-        $query = Relation::noConstraints(function() use ($me, $relation) {
-            return $me->model->getRelationAttribute($relation);
-        });
-
-        $nested = $this->nestedRelations($relation);
-
-        // If there are nested relationships set on the query, we will put those onto
-        // the query instances so that they can be handled after this relationship
-        // is loaded. In this way they will all trickle down as they are loaded.
-        if (count($nested) > 0) {
-            $query->getQuery()->with($nested);
-        }
-
-        return $query;
-    }
-
-    public function getRelationAttribute($attribute = null)
-    {
-        $attribute = camel_case($attribute);
-
-        if (method_exists($this->model, $attribute) and $relation = $this->model->$attribute() and ($relation instanceof Relation)) {
-
-            return $relation;
-
-        } elseif ($type = $this->model->getFieldType($attribute) and $type->hasRelation()) {
-
-            return $type->relation();
-
-        }
-
-        return null;
-    }
-
-    public function hasRelation($attribute = null)
-    {
-        return $this->model->getRelationAttribute($attribute) instanceof Relation;
-    }
-
     public function relationAsJoin($attribute)
     {
         $attribute = strtolower($attribute);
@@ -314,178 +192,11 @@ class EntryQueryBuilder extends EloquentQueryBuilder
     }
 
 
-    protected function applyFilters()
+    protected function filterQuery()
     {
-        // -------------------------------------
-        // Filters (QueryString API)
-        // -------------------------------------
-        $this->stream = $this->model->getStream();
+        $filter = new EntryQueryFilter($this);
 
-        if (ci()->input->get('filter-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-
-            // Get all URL variables
-            $query_string_variables = ci()->input->get();
-
-            // Loop and process!
-            foreach ($query_string_variables as $filter => $value) {
-
-                // Split into components
-                $commands = explode('-', $filter);
-
-                // Filter?
-                if ($commands[0] != 'f') continue;
-
-                // Only filter our current namespace / stream
-                if ($commands[1] != $this->stream->stream_namespace) continue;
-                if ($commands[2] != $this->stream->stream_slug) continue;
-
-                // Switch on the restriction
-                switch ($commands[4]) {
-
-                    /**
-                     * IS
-                     * results in: filter = value
-                     */
-                    case 'is':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '=', $value);
-                        break;
-
-
-                    /**
-                     * ISNOT
-                     * results in: filter != value
-                     */
-                    case 'isnot':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '!=', $value);
-                        break;
-
-
-                    /**
-                     * ISNOT
-                     * results in: filter != value
-                     */
-                    case 'isnot':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], '!=', $value);
-                        break;
-
-
-                    /**
-                     * CONTAINS
-                     * results in: filter LIKE '%value%'
-                     */
-                    case 'contains':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', '%'.$value.'%');
-                        break;
-
-
-                    /**
-                     * DOESNOTCONTAIN
-                     * results in: filter NOT LIKE '%value%'
-                     */
-                    case 'doesnotcontain':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'NOT LIKE', '%'.$value.'%');
-                        break;
-
-
-                    /**
-                     * STARTSWITH
-                     * results in: filter LIKE 'value%'
-                     */
-                    case 'startswith':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', $value.'%');
-                        break;
-
-
-                    /**
-                     * ENDSWITH
-                     * results in: filter LIKE '%value'
-                     */
-                    case 'endswith':
-
-                        // Gotta have a value for this one
-                        if (empty($value)) continue;
-
-                        // Do it
-                        $this->where($commands[3], 'LIKE', '%'.$value);
-                        break;
-
-
-                    /**
-                     * ISEMPTY
-                     * results in: (filter IS NULL OR filter = '')
-                     */
-                    case 'isempty':
-
-                        $this->where(function($query) use ($commands, $value) {
-                            $query->where($commands[3], 'IS', 'NULL');
-                            $query->orWhere($commands[3], '=', '');
-                        });
-                        break;
-
-
-                    /**
-                     * ISNOTEMPTY
-                     * results in: filter > '')
-                     */
-                    case 'isnotempty':
-
-                        $this->where($commands[3], '>', '');
-                        break;
-
-
-                    default: break;
-                }
-            }
-        }
-
-        // -------------------------------------
-        // Ordering / Sorting (QueryString API)
-        // -------------------------------------
-
-        if ($order_by = ci()->input->get('order-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-            if ($sort_by = ci()->input->get('sort-'.$this->stream->stream_namespace.'-'.$this->stream->stream_slug)) {
-
-                if ($order_by_relation = $this->model->getRelationAttribute($order_by) and $order_by_relation instanceof Relation) {
-                    $order_by = $order_by_relation->getForeignKey();
-                }
-
-                $this->orderBy($order_by, $sort_by);
-            } else {
-                $this->orderBy($order_by, 'ASC');
-            }
-        }
-
-        return $this;
+        return $filter->query();
     }
 
     /**
@@ -495,7 +206,9 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function count($column = '*')
     {
-        $this->applyFilters();
+        if (! $this->filterQuery()) {
+            return 0;
+        }
 
         return parent::count($column);
     }

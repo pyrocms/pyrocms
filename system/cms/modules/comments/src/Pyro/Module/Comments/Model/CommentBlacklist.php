@@ -18,6 +18,12 @@ class CommentBlacklist extends Eloquent
     protected $table = 'comment_blacklists';
 
     /**
+     * Cache minutes
+     * @var int
+     */
+    public $cacheMinutes = 30;
+
+    /**
      * The attributes that aren't mass assignable
      *
      * @var array

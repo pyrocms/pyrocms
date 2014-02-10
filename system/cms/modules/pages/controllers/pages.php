@@ -1,6 +1,7 @@
 <?php
 
 use Pyro\Module\Pages\Model\Page;
+use Pyro\Module\Keywords\Model\Applied as AppliedKeywords;
 
 /**
  * The public controller for the Pages module.
@@ -178,8 +179,9 @@ class Pages extends Public_Controller
 		$keyword_hash = $page->meta_keywords ?: $page->type->meta_keywords;
 
 		if ($keyword_hash) {
-			$meta_keywords = Keywords::get_string($page->meta_keywords);
-		}
+            $meta_keywords = implode(', ', AppliedKeywords::getNamesByHash($page->meta_keywords)->lists('name'));
+            $page->meta_keywords = $meta_keywords;
+        }
 
 		$meta_robots = $page->meta_robots_no_index ? 'noindex' : 'index';
 		$meta_robots .= $page->meta_robots_no_follow ? ',nofollow' : ',follow';
@@ -246,13 +248,13 @@ class Pages extends Public_Controller
 
 		$attributes = $page->getAttributes();
 
-		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->asPlugin()->getAttributes() : array());
+		$attributes = array_merge($attributes, ($page->entry and ! $_POST) ? $page->entry->getPresenter('plugin')->toArray() : array());
 
 		$html = $this->template->load_view('pages/page', array_merge(array('page' => $page), $attributes), false);
 		
 		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $page->type->stream->stream_slug,
-			'namespace' => $page->type->stream->stream_namespace,
+			'stream' => $page->entry ? $page->entry->getStreamSlug() : null,
+			'namespace' => $page->entry ? $page->entry->getStreamNamespace() : null,
 			'id_name' => 'entry_id'
 		));
 

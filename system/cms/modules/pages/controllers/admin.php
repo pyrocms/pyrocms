@@ -6,6 +6,7 @@ use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
 use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Pages controller
@@ -59,6 +60,70 @@ class Admin extends Admin_Controller
      */
     public function index()
     {
+/*        foreach (StreamModel::all() as $stream) {
+            $stream->save();
+        }
+*/
+
+/*        $users = \Pyro\Module\Users\Model\User::with('profile')->get();
+        $user = \Pyro\Module\Users\Model\User::with('profile')->find(1);
+
+        echo ci()->parser->parse_string("
+            
+
+
+            {{ if false }}
+                YES
+            {{ else }}
+                NO
+            {{ endif }}
+
+            <ul>
+
+            {{ items }}
+                <li>
+                {{ if value == 'Bar' }}
+                    
+                {{ else }}
+                    Nothing {{ value }}
+                {{ endif }}
+                </li>
+            {{ /items }}
+
+            </ul>
+
+            {{ manyusers }}
+
+                {{ if email == 'obrignoni@gmail.com' }}
+                    {{ profile:first_name }} {{ profile:last_name }}
+                {{ else }}
+
+                {{ endif }}
+
+            {{ /manyusers }}
+
+            {{ if uri:segment_1 == 'admin' }}
+                Is admin
+            {{ endif }}
+
+        ", array(
+            'items' => array(
+                array(
+                    'value' => 'Baz'
+                ),
+                array(
+                    'value' => null
+                ),
+                array(
+                    'value' => 'Bar'
+                )
+            ),
+            'yes' => false,
+            'list' => array(),
+            'manyusers' => $users,
+            'oneuser' => $user
+        ), true) ; exit;*/
+
         $pages = Page::tree();
 
         $this->template
@@ -289,10 +354,11 @@ class Admin extends Admin_Controller
         
         // Get the stream that we are using for this page type.
         $stream = $page_type->stream;
-
         //$stream_validation = $this->_setup_stream_fields($stream);
 
-        $enable_save = false;
+        $enableSave = false;
+
+        $entryModelClass = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
 
         if ($input = ci()->input->post()) {
 
@@ -307,7 +373,7 @@ class Admin extends Admin_Controller
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
             $page->parent_id        = isset($parent_id) ? (int) $parent_id : 0;
             $page->type_id          = (int) $page_type->id;
-            $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
+            $page->entry_type       = $entryModelClass;
             $page->css              = isset($input['css']) ? $input['css'] : null;
             $page->js               = isset($input['js']) ? $input['js'] : null;
             $page->meta_title       = isset($input['meta_title']) ? $input['meta_title'] : null;
@@ -323,7 +389,7 @@ class Admin extends Admin_Controller
             $page->order            = time();
 
             // Insert the page data, along with
-            if ($enable_save = $page->save())
+            if ($enableSave = $page->save())
             {
                 $page->buildLookup();
                 
@@ -372,8 +438,8 @@ class Admin extends Admin_Controller
 
         $this->form_data['parent_page'] = $parent_page;
 
-        EntryUi::form($stream->stream_slug, $stream->stream_namespace)
-            ->enableSave($enable_save) // This will interrupt submittion for the entry if the page was not created
+        EntryUi::form($entryModelClass)
+            ->enableSave($enableSave) // This will interrupt submittion for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
@@ -383,9 +449,13 @@ class Admin extends Admin_Controller
                 $page->save();
             })
             ->tabs($this->_tabs())
-            ->successMessage('Page saved.') // @todo - language
-            ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->messages(array(
+                'success' => 'Page saved.'
+            )) // @todo - language
+            ->redirects(array(
+                'save' => 'admin/pages',
+                'saveContinue' => 'admin/pages/edit/{{ url:segments segment="4" }}'
+            ))
             ->index($this->_index_template)
             ->render();
     }
@@ -424,7 +494,7 @@ class Admin extends Admin_Controller
         }
 
         $stream = $page->type->stream;
-        $page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
+        //$page->entry_type       = $stream->stream_slug.'.'.$stream->stream_namespace;
         //$stream_validation = $this->_setup_stream_fields($stream, 'edit', $page->entry_id);
 
         // If there's a keywords hash
@@ -531,9 +601,13 @@ class Admin extends Admin_Controller
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
-            ->successMessage('Page saved.') // @todo - language
-            ->redirect('admin/pages')
-            ->continueRedirect('admin/pages/edit/{{ url:segments segment="4" }}')
+            ->messages(array(
+                'success' => 'Page saved.'
+            )) // @todo - language
+            ->redirects(array(
+                'save' => 'admin/pages',
+                'continue' => uri_string(),
+            ))
             ->index($this->_index_template)
             ->render();
     }
