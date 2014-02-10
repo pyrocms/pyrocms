@@ -15,6 +15,9 @@ class Admin extends Admin_Controller
 	/** @var string The current active section */
 	protected $section = 'posts';
 
+    protected $posts;
+    protected $blogUi;
+
 	/** @var array The validation rules */
 	protected $validation_rules = array(
 		'title' => array(
@@ -86,8 +89,7 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
         $this->posts = new BlogEntryModel;
-		
-		$this->lang->load(array('blog', 'categories'));
+		$this->blogUi = new BlogEntryUi;
 	}
 
 	/**
@@ -96,7 +98,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
         // Build the table with Streams_core
-		BlogEntryUi::table($this->posts)->render();
+        $this->blogUi->table($this->posts)->render();
 	}
 
 	/**
@@ -114,7 +116,7 @@ class Admin extends Admin_Controller
 		}
 
         // Build the form with Streams_core
-		BlogEntryUi::form($this->posts)->render();
+        $this->blogUi->form($this->posts)->render();
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Admin extends Admin_Controller
 		}*/
 
         // Build the form with Streams_core
-		BlogEntryUi::form($this->posts, $id)->render();
+        $this->blogUi->form($this->posts, $id)->render();
 	}
 
 	/**

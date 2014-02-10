@@ -24,7 +24,7 @@
 </div>
 <!-- /.panel-body -->
 
-<?php if ($mode == 'edit') { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
+<?php if (!$new) { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 <?php if (!$disableFormOpen): ?>
 <div class="panel-footer">

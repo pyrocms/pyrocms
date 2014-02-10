@@ -28,7 +28,7 @@ class Fluent extends BaseFluent
 	 */ 
 	public function __construct(array $attributes = array())
 	{
-		parent::__construct(array_merge($this->getDefaultAttributes(), $attributes));
+		parent::__construct($attributes);
 
 		$this->boot();
 	}

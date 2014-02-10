@@ -22,6 +22,13 @@ class Admin extends Admin_Controller
      */
     protected $section = 'users';
 
+    /**
+     * Profile Ui
+     *
+     * @var Pyro\Module\Users\Ui\ProfileEntryUi
+     */
+    protected $profilesUi;
+
     protected $form_data = null;
 
     /**
@@ -73,8 +80,9 @@ class Admin extends Admin_Controller
 
         $this->form_data['current_user'] = $this->current_user;
 
-        $this->profiles = new Profile();
-        $this->users = new User();
+        $this->profiles = new Profile;
+        $this->users = new User;
+        $this->profilesUi = new ProfileEntryUi;
 
         if ($this->current_user->isSuperUser()) 
         {
@@ -99,7 +107,7 @@ class Admin extends Admin_Controller
     public function index()
     {
         // Build the table with Streams_core
-        ProfileEntryUi::table($this->profiles)->render();
+        $this->profilesUi->table($this->profiles)->render();
     }
 
     /**
@@ -221,12 +229,8 @@ class Admin extends Admin_Controller
             )
         );
 
-        EntryUi::form('profiles', 'users')
+        $this->profilesUi->form($this->profiles)
             ->tabs($tabs)
-            ->messages(array(
-                'success' => 'User saved.'
-            )) // @todo - language
-            ->redirects('admin/users')
             ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
             ->onSaving(function($profile) use ($user)
             {
@@ -353,12 +357,11 @@ class Admin extends Admin_Controller
             )
         );
 
-        EntryUi::form($user->profile) // We can pass the profile model to generate the form
+        $this->profilesUi->form($user->profile) // We can pass the profile model to generate the form
             ->tabs($tabs)
             ->messages(array(
                 'success' => 'User saved.'
             )) // @todo - language
-            ->redirects('admin/users')
             ->render();
     }
 
