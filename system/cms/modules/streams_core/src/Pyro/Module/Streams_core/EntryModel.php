@@ -87,47 +87,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
     }
 
     /**
-     * Get entry
-     * @param  string $stream_slug
-     * @param  string $stream_namespace
-     * @return object
-     */
-    public static function getEntry($stream_slug, $stream_namespace = null)
-    {
-        return static::stream($stream_slug, $stream_namespace)->find($id);
-    }
-
-    /**
-     * Delete an entry
-     * @param  string $stream_slug
-     * @param  string $stream_namespace
-     * @param  integer $id
-     * @return boolean
-     */
-    public static function deleteEntry($stream_slug, $stream_namespace = null, $id)
-    {
-        $entry = static::getEntry($stream_slug, $stream_namespace, $id);
-
-        return $entry->delete();
-    }
-
-   /**
-     * Get data from a stream.
-     *
-     * Only really shown on the back end.
-     *
-     * @param   obj
-     * @param   obj
-     * @param   int
-     * @param   int
-     * @return  obj
-     */
-    public function getEntries($limit = null, $offset = 0, $order = null, $filter_data = array())
-    {
-        return static::stream($stream_slug, $stream_namespace)->get();
-    }
-
-    /**
      * Get stream slug
      * @return mixed
      */
