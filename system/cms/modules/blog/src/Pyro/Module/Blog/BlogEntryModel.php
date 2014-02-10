@@ -26,12 +26,13 @@ class BlogEntryModel extends BlogsBlogEntryModel
 	 */ 
 	public static function findManyPosts($take = 0, $skip = null, $eager = array())
 	{
-		return static::eager($eager)
-			->where('status', 'live')
-			->take($take)
-			->skip($skip)
-			->orderBy('created_at', 'DESC')
-			->get();
+        $query = static::eager($eager)->live()->orderBy('created_at', 'DESC');
+
+        if ($take > 0) {
+            $query = $query->take($take)->skip($skip);
+        }
+
+		return $query->get();
 	}
 
 	public function findBySlug($slug)
@@ -63,12 +64,16 @@ class BlogEntryModel extends BlogsBlogEntryModel
 		return $query->where('status', 'live');
 	}
 
-	public function scopePublished($query, $take = null, $skip = null)
+	public function scopePublished($query, $take = 0, $skip = null)
 	{
-		return $query->live()
-			->orderBy('created_at', 'DESC')
-			->take($take)
-			->skip($skip);
+        $query = $query->live()->orderBy('created_at', 'DESC');
+
+        if ($take > 0) {
+            $query = $query->take($take)->skip($skip);
+        }
+
+		return $query;
+
 	}
 
     public function category() {
