@@ -507,7 +507,9 @@ class Plugin_Streams_core extends Plugin
 		// Fire up EntryUi
 		// -------------------------------------
 
-		$form = EntryUi::form($parameters['stream'], $parameters['namespace'], $parameters['entry_id']);
+        $form = new EntryUi;
+
+		$form = $form->form($parameters['stream'], $parameters['namespace'], $parameters['entry_id']);
 
 		/**
 		 * Set default values
