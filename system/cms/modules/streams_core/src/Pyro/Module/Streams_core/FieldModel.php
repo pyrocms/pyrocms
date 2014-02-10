@@ -608,7 +608,7 @@ class FieldModel extends Eloquent
      * @param  array $skips
      * @return array
      */
-    public static function findManyByNamespace($field_namespace = null, $limit = null, $offset = null, array $skips = null)
+    public static function findManyByNamespace($field_namespace = null, $limit = 0, $offset = null, array $skips = null)
     {
         $query = static::where('field_namespace', '=', $field_namespace);
 
@@ -616,7 +616,11 @@ class FieldModel extends Eloquent
             $query = $query->whereNotIn('field_slug', $skips);
         }
 
-        return $query->skip($offset)->take($limit)->get();
+        if ($limit > 0) {
+            $query = $query->take($limit)->skip($offset);
+        }
+
+        return $query->get();
     }
 
     /**
