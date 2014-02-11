@@ -110,10 +110,10 @@ class FieldModel extends Eloquent
             $data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
 
             // Is Unique
-            $data['is_unique'] = isset($unique) ? $unique : false;
+            $data['unique'] = isset($unique) ? $unique : false;
 
             // Is Required
-            $data['is_required'] = isset($required) ? $required : false;
+            $data['required'] = isset($required) ? $required : false;
 
             // Add actual assignment
             return $stream->assignField($field, $data);

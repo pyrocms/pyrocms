@@ -48,7 +48,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
     protected static $relationFieldsData = array();
 
     /**
-     * Custom Relation Methods 
+     * Custom Relation Methods
      * @var array
      */
     protected static $customRelationFieldsMethods = array();
@@ -61,12 +61,12 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Presenter class
-     */ 
+     */
     protected $presenterClass = 'Pyro\Module\Streams_core\EntryPresenter';
 
     /**
      * The name of the "created at" column.
-     * 
+     *
      * @var string
      */
     const CREATED_BY        = 'created_by';
@@ -141,9 +141,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get the related model's title for the Relationship field type
-     * 
+     *
      * @return string|integer
-     */ 
+     */
     public function getFieldTypeRelationshipTitle()
     {
         return $this->getTitleColumnValue();
@@ -151,9 +151,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get the related model's options for the Relationship field type
-     * 
+     *
      * @return array
-     */ 
+     */
     public function getFieldTypeRelationshipOptions()
     {
         return $this->lists($this->getTitleColumn(), 'id');
@@ -170,11 +170,11 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get the presenter object
-     * 
+     *
      * @param array $viewOptions
      * @param string $defaultFormat
      * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
-     */ 
+     */
     public function getPresenter($viewOptions = array(), $defaultFormat = null)
     {
         $decorator = new EntryPresenterDecorator;
@@ -222,7 +222,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get cache collection key
-     * 
+     *
      * @return string
      */
     public function getCacheCollectionKey($suffix = 'entries')
@@ -232,7 +232,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Get cache collection prefix
-     * 
+     *
      * @return string
      */
     public function getCacheCollectionPrefix()
@@ -242,7 +242,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Flush cache collection
-     * 
+     *
      * @return void
      */
     public function flushCacheCollection()
@@ -253,7 +253,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
     public function save(array $options = array())
     {
         $this->setEntryMeta();
-        
+
         if ($saved = parent::save($options) and $this->searchIndexTemplate) {
             Search::indexEntry($this, $this->searchIndexTemplate);
         }
@@ -313,7 +313,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
                     unset($this->{$field->getType()->getColumnName()});
                 }
             }
-        }            
+        }
 
         // -------------------------------------
         // Alt Processing

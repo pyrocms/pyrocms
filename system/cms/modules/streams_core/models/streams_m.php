@@ -752,13 +752,13 @@ class Streams_m extends CI_Model
 		$insert_data['sort_order'] = $top_num ? $top_num + 1 : 1;
 
 		// Is Required
-		if (isset($data['is_required']) and $data['is_required'] == 'yes') {
-			$insert_data['is_required'] = 'yes';
+		if (isset($data['required']) and $data['required'] == 'yes') {
+			$insert_data['required'] = 'yes';
 		}
 
 		// Unique
-		if (isset($data['is_unique']) and $data['is_unique'] == 'yes') {
-			$insert_data['is_unique'] = 'yes';
+		if (isset($data['unique']) and $data['unique'] == 'yes') {
+			$insert_data['unique'] = 'yes';
 		}
 
 		// Return the new ID or false

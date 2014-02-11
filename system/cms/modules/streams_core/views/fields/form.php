@@ -30,14 +30,14 @@
 
 
 			<li>
-				<label for="is_required"><?php echo lang('streams:label.field_required');?></label>
-				<div class="input"><?php echo form_checkbox('is_required', 'yes', isset($assignment) ? $assignment->is_required : false, 'id="is_required"');?></div>
+				<label for="required"><?php echo lang('streams:label.field_required');?></label>
+				<div class="input"><?php echo form_checkbox('required', 'yes', isset($assignment) ? $assignment->required : false, 'id="required"');?></div>
 			</li>
 
 
 			<li>
-				<label for="is_unique"><?php echo lang('streams:label.field_unique');?></label>
-				<div class="input"><?php echo form_checkbox('is_unique', 'yes', isset($assignment) ? $assignment->is_unique : false, 'id="is_unique"'); ?></div>
+				<label for="unique"><?php echo lang('streams:label.field_unique');?></label>
+				<div class="input"><?php echo form_checkbox('unique', 'yes', isset($assignment) ? $assignment->unique : false, 'id="unique"'); ?></div>
 			</li>
 
 			<li>

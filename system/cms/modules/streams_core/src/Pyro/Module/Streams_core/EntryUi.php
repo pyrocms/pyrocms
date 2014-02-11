@@ -6,43 +6,15 @@ class EntryUi extends AbstractUi
 {
     /**
      * The filter events that have run
-     *
      * @var array
      */
     public $fieldTypeFilterEventsRun = array();
 
     /**
-     * Entries Table
-     *
-     * Creates a table of entries.
-     *
-     * @param    string - the stream slug
-     * @param    string - the stream namespace slug
-     * @param    [mixed - pagination, either null for no pagination or a number for per page]
-     * @param    [null - pagination uri without offset]
-     * @param    [bool - setting this to true will take care of the $this->template business
-     * @param    [array - extra params (see below)]
-     *
-     * @return    mixed - void or string
-     *
-     * Extra parameters to pass in $extra array:
-     *
-     * title    - Title of the page header (if using view override)
-     *            $extra['title'] = 'Streams Sample';
-     *
-     * buttons    - an array of buttons (if using view override)
-     *            $extra['buttons'] = array(
-     *                'label'    => 'Delete',
-     *                'url'        => 'admin/streams_sample/delete/-entry_id-',
-     *                'confirm'    = true
-     *            );
-     * columns  - an array of field slugs to display. This overrides view options.
-     *            $extra['columns'] = array('field_one', 'field_two');
-     *
-     * sorting  - bool. Whether or not to turn on the drag/drop sorting of entries. This defaults
-     *            to the sorting option of the stream.
-     *
-     * see docs for more explanation
+     * Entries table
+     * @param $stream_slug
+     * @param null $stream_namespace
+     * @return \Pyro\Module\Streams_core\AbstractUi
      */
     public function table($stream_slug, $stream_namespace = null)
     {
@@ -62,19 +34,14 @@ class EntryUi extends AbstractUi
     }
 
     /**
-     * [form description]
-     *
-     * @param  string|Pyro\Module\Streams_core\EntryModel $mixed [description]
-     * @param  [type] $stream_namespace [description]
-     * @param  [type] $id               [description]
-     *
-     * @return [type]                   [description]
+     * Entries form
+     * @param $streamSlugOrClassOrModel
+     * @param null $streamNamespaceOrId
+     * @param null $id
+     * @return \Pyro\Module\Streams_core\AbstractUi
      */
     public function form($streamSlugOrClassOrModel, $streamNamespaceOrId = null, $id = null)
     {
-        // Load up things we'll need for the form
-        ci()->load->library(array('form_validation'));
-
         $this->triggerMethod(__FUNCTION__);
 
         $streamSlug      = null;
@@ -91,8 +58,8 @@ class EntryUi extends AbstractUi
             $model = $streamSlugOrClassOrModel;
         } elseif (is_string($streamSlugOrClassOrModel) and is_string($streamNamespace)) {
             $streamSlug = $streamSlugOrClassOrModel;
-            $class = $this->getEntryModelClass($streamSlug, $streamNamespace);
-            $model = new $class;
+            $class      = $this->getEntryModelClass($streamSlug, $streamNamespace);
+            $model      = new $class;
         } elseif (is_string($streamSlugOrClassOrModel) and !$streamSlug and !$streamNamespace) {
             $class = $streamSlugOrClassOrModel;
             $model = new $class;
@@ -108,10 +75,8 @@ class EntryUi extends AbstractUi
 
     /**
      * Add form
-     *
-     * @param  Pyro\Module\Streams_core\EntryUi
-     *
-     * @return Pyro\Module\Streams_core\EntryUi
+     * @param EntryUi $entryUi
+     * @return $this
      */
     public function addForm(EntryUi $entryUi)
     {
@@ -126,40 +91,9 @@ class EntryUi extends AbstractUi
         return $this;
     }
 
-
-    public function runFieldTypeFilterEvents()
-    {
-        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
-            return null;
-        }
-
-        foreach ($this->assignments as $field) {
-            // We need the slug to go on.
-            if (!$type = $field->getType($this->model)) {
-                continue;
-            }
-
-            $type->setStream($this->model->getStream());
-
-            if (!in_array($field->field_slug, $this->get('skips', array()))) {
-                // If we haven't called it (for dupes),
-                // then call it already.
-                if (!in_array($field->field_type, $this->fieldTypeFilterEventsRun)) {
-                    $type->filterEvent();
-                    $this->fieldTypeFilterEventsRun[] = $field->field_type;
-                }
-
-                // Field filter events run per field regardless of it the type
-                // event ran or not
-                $type->filterFieldEvent();
-            }
-        }
-    }
-
     /**
-     * trigger table
-     *
-     * @return void
+     * Trigger table
+     * @return $this
      */
     protected function triggerTable()
     {
@@ -240,9 +174,8 @@ class EntryUi extends AbstractUi
     }
 
     /**
-     * trigger the form
-     *
-     * @return string The triggered HTML
+     * Trigger form
+     * @return $this
      */
     protected function triggerForm()
     {
@@ -307,5 +240,38 @@ class EntryUi extends AbstractUi
         }
 
         return $this;
+    }
+
+    /**
+     * Run field type filter events
+     * @return null
+     */
+    public function runFieldTypeFilterEvents()
+    {
+        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
+            return null;
+        }
+
+        foreach ($this->assignments as $field) {
+            // We need the slug to go on.
+            if (!$type = $field->getType($this->model)) {
+                continue;
+            }
+
+            $type->setStream($this->model->getStream());
+
+            if (!in_array($field->field_slug, $this->get('skips', array()))) {
+                // If we haven't called it (for dupes),
+                // then call it already.
+                if (!in_array($field->field_type, $this->fieldTypeFilterEventsRun)) {
+                    $type->filterEvent();
+                    $this->fieldTypeFilterEventsRun[] = $field->field_type;
+                }
+
+                // Field filter events run per field regardless of it the type
+                // event ran or not
+                $type->filterFieldEvent();
+            }
+        }
     }
 }
