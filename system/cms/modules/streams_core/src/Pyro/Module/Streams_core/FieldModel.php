@@ -612,17 +612,12 @@ class FieldModel extends Eloquent
      * @param  array $skips
      * @return array
      */
-<<<<<<< HEAD
-    public static function findManyByNamespace($field_namespace = null, $limit = 0, $offset = null, array $skips = null)
-    {
-=======
     public static function findManyByNamespace(
         $field_namespace = null,
         $limit = null,
         $offset = null,
         array $skips = null
     ) {
->>>>>>> Some twerking
         $query = static::where('field_namespace', '=', $field_namespace);
 
         if (!empty($skips)) {
