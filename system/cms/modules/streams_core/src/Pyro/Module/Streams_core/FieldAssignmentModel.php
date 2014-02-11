@@ -376,7 +376,7 @@ class FieldAssignmentModel extends FieldModel
      * @param  string $required
      * @return boolean
      */
-    public function getIsRequiredAttribute($required = false)
+    public function getRequiredAttribute($required = false)
     {
         return $required;
     }
@@ -385,7 +385,7 @@ class FieldAssignmentModel extends FieldModel
      * Set is required attr
      * @param boolean $required
      */
-    public function setIsRequiredAttribute($required = false)
+    public function setRequiredAttribute($required = false)
     {
         $this->attributes['required'] = $required;
     }
@@ -395,7 +395,7 @@ class FieldAssignmentModel extends FieldModel
      * @param  string $unique
      * @return boolean
      */
-    public function getIsUniqueAttribute($unique = false)
+    public function getUniqueAttribute($unique = false)
     {
         return $unique;
     }
@@ -404,8 +404,8 @@ class FieldAssignmentModel extends FieldModel
      * Set is unique attr
      * @param boolean $unique
      */
-    public function setIsUniqueAttribute($unique = false)
+    public function setUniqueAttribute($unique = false)
     {
-        $this->attributes['unique'];
+        $this->attributes['unique'] = $unique;
     }
 }
