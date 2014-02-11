@@ -8,67 +8,6 @@ use Pyro\Support\Fluent;
 abstract class AbstractUi extends Fluent
 {
     /**
-     * Get default attributes
-     *
-     * @return array
-     */
-    public function boot()
-    {
-        ci()->load->language('streams_core/pyrostreams');
-        ci()->load->config('streams_core/streams');
-
-        // Load the language file
-        if (is_dir(APPPATH . 'libraries/Streams')) {
-            ci()->lang->load('streams_api', 'english', false, true, APPPATH . 'libraries/Streams/');
-        }
-
-        $this->assignments              = array();
-        $this->buttons                  = null;
-        $this->content                  = null;
-        $this->defaults                 = array();
-        $this->disableFormOpen          = false;
-        $this->enableNestedForm         = false;
-        $this->enableSetColumnTitle     = false;
-        $this->enableSave               = true;
-        $this->errorStart               = null;
-        $this->errorEnd                 = null;
-        $this->fieldTypeEventsRun       = array();
-        $this->fieldTypePublicEventsRun = array();
-        $this->fieldTypes               = array();
-        $this->fields                   = null;
-        $this->filters                  = array();
-        $this->formUrl                  = null;
-        $this->hidden                   = array();
-        $this->index                    = false;
-        $this->limit                    = \Settings::get('records_per_page');
-        $this->messageError             = 'There was an error.';
-        $this->messageSuccess           = 'Entry saved.';
-        $this->method                   = 'new';
-        $this->mode                     = 'new';
-        $this->new                      = true;
-        $this->noEntriesMessage         = null;
-        $this->noFieldsMessage          = null;
-        $this->orderBy                  = 'id';
-        $this->sort                     = 'desc';
-        $this->pagination               = null;
-        $this->paginationUri            = uri_string();
-        $this->returnValidationRules    = false;
-        $this->recaptcha                = false;
-        $this->redirect                 = uri_string();
-        $this->redirectSave             = index_uri();
-        $this->result                   = null;
-        $this->select                   = array('*');
-        $this->skips                    = array();
-        $this->stream                   = null;
-        $this->tabs                     = null;
-        $this->uriAdd                   = null;
-        $this->uriCancel                = index_uri();
-        $this->viewOverride             = false;
-        $this->formOverride             = false;
-        $this->values                   = array();
-    }
-
-    /**
      * Set the model
      *
      * @param Eloquent $model
@@ -82,6 +21,7 @@ abstract class AbstractUi extends Fluent
 
         return $this;
     }
+    
 
     /**
      * Get the model
@@ -321,6 +261,24 @@ abstract class AbstractUi extends Fluent
     }
 
     /**
+     * Uris
+     *
+     * @param array $uris
+     *
+     * @return Pyro\Module\Streams_core\AbstractUi
+     */
+    public function uris(array $uris = array())
+    {
+        if (is_array($uris)) {
+            foreach ($uris as $key => $value) {
+                $this->{'uri' . Str::studly($key)}($value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Set excluded types
      *
      * @param  array $exclude_types
@@ -365,24 +323,6 @@ abstract class AbstractUi extends Fluent
     }*/
 
     /**
-     * Uris
-     *
-     * @param array $uris
-     *
-     * @return Pyro\Module\Streams_core\AbstractUi
-     */
-    public function uris(array $uris = array())
-    {
-        if (is_array($uris)) {
-            foreach ($uris as $key => $value) {
-                $this->{'uri' . Str::studly($key)}($value);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Get buttons
      *
      * @return array|null
@@ -420,6 +360,67 @@ abstract class AbstractUi extends Fluent
     public function __toString()
     {
         return $this->render(true);
+    }
+
+    /**
+     * Get default attributes
+     *
+     * @return array
+     */
+    protected function boot()
+    {
+        ci()->load->language('streams_core/pyrostreams');
+        ci()->load->config('streams_core/streams');
+
+        // Load the language file
+        if (is_dir(APPPATH . 'libraries/Streams')) {
+            ci()->lang->load('streams_api', 'english', false, true, APPPATH . 'libraries/Streams/');
+        }
+
+        $this
+            ->assignments(array())
+            ->buttons(array())
+            ->content(null)
+            ->defaults(array())
+            ->disableFormOpen(false)
+            ->enableNestedForm(false)
+            ->enableSetColumnTitle(false)
+            ->enableSave(true)
+            ->errorStart(null)
+            ->errorEnd(null)
+            ->fieldTypeEventsRun(array())
+            ->fieldTypePublicEventsRun(array())
+            ->fieldTypes(array())
+            ->fields(null)
+            ->filters(array())
+            ->formUrl(null)
+            ->hidden(array())
+            ->index(false)
+            ->limit(\Settings::get('records_per_page'))
+            ->messageError('There was an error.')
+            ->messageSuccess('Entry saved.')
+            ->method('new')
+            ->mode('new')
+            ->new(true)
+            ->noEntriesMessage(null)
+            ->noFieldsMessage(null)
+            ->orderBy('id')
+            ->sort('desc')
+            ->paginationUri(uri_string())
+            ->returnValidationRules(false)
+            ->recaptcha(false)
+            ->redirect(uri_string())
+            ->redirectSave(index_uri())
+            ->result(null)
+            ->select(array('*'))
+            ->skips(array())
+            ->stream(null)
+            ->tabs(null)
+            ->uriAdd(null)
+            ->uriCancel(index_uri())
+            ->viewOverride(false)
+            ->formOverride(false)
+            ->values(array());
     }
 
     /**

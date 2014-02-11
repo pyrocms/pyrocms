@@ -9,31 +9,16 @@ class EntryViewOptions extends Fluent
 
     protected $model;
 
-	public function __construct(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
-	{
+    public function __construct(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
+    {
         $this->model = $model;
-        
+
         $this->viewOptions($viewOptions, $defaultFormat);
-	}
-
-    public static function make(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
-    {
-        if ($viewOptions instanceof static) return $viewOptions;
-
-        return new static($model, $viewOptions, $defaultFormat);
-    }
-
-    protected function getValidFormats()
-    {
-        return array(
-            'data',
-            'plugin',
-            'string',
-        );
     }
 
     /**
      * Get view options
+     *
      * @return array
      */
     public function viewOptions($options = array(), $defaultFormat = null)
@@ -55,7 +40,7 @@ class EntryViewOptions extends Fluent
             foreach ($this->model->getFieldSlugs() as $slug) {
 
                 $viewOption = new Fluent(array(
-                    'slug' => $slug,
+                    'slug'   => $slug,
                     'format' => $format,
                 ));
 
@@ -64,44 +49,45 @@ class EntryViewOptions extends Fluent
                 if ($this->model->hasRelationMethod($relationMethod)) {
                     $viewOption->eager($relationMethod);
                 }
-                
+
                 $viewOptions[$slug] = $viewOption;
             }
 
         } else {
 
             foreach ($options as $key => $value) {
-                
+
                 if (is_string($key) and is_callable($value)) {
-                    
+
                     $attributes = array(
-                        'slug' => $key,
+                        'slug'     => $key,
                         'callback' => $value,
-                    );                
-                }
-                elseif (is_string($key) and is_array($value)) {
+                    );
+                } elseif (is_string($key) and is_array($value)) {
 
                     $attributes = array_merge($value, array('slug' => $key));
-                
-                } elseif (is_string($key) and is_string($value) and 
-                    ! in_array($value, $this->getValidFormats())) {
+
+                } elseif (is_string($key) and is_string($value) and
+                    !in_array($value, $this->getValidFormats())
+                ) {
 
                     $attributes = array(
-                        'slug' => $key,
-                        'format' => 'string',
+                        'slug'     => $key,
+                        'format'   => 'string',
                         'template' => $value,
                     );
-            
-                } elseif (is_string($key) and is_string($value) and 
-                    in_array($value, $this->getValidFormats())) {
+
+                } elseif (is_string($key) and is_string($value) and
+                    in_array($value, $this->getValidFormats())
+                ) {
 
                     $attributes = array(
-                        'slug' => $key,
+                        'slug'   => $key,
                         'format' => $value,
                     );
-            
+
                 } else {
-                
+
                     $attributes = array(
                         'slug' => $value
                     );
@@ -118,12 +104,30 @@ class EntryViewOptions extends Fluent
                 $viewOption = new Fluent($attributes);
 
                 $viewOptions[$viewOption->getSlug()] = $viewOption;
-            }  
+            }
         }
 
         $this->attributes['viewOptions'] = $viewOptions;
 
         return $this;
+    }
+
+    protected function getValidFormats()
+    {
+        return array(
+            'data',
+            'plugin',
+            'string',
+        );
+    }
+
+    public static function make(EntryModel $model, $viewOptions = array(), $defaultFormat = null)
+    {
+        if ($viewOptions instanceof static) {
+            return $viewOptions;
+        }
+
+        return new static($model, $viewOptions, $defaultFormat);
     }
 
     public function getEagerLoads()
@@ -137,11 +141,15 @@ class EntryViewOptions extends Fluent
             if ($eager = $viewOption->getEager()) {
                 is_array($eager) or $eager = array($eager);
 
+                foreach($eager as &$eagerLoad) {
+                    $eagerLoad = Str::camel($eagerLoad);
+                }
+
                 $eagerLoads = array_merge($eagerLoads, $eager);
             }
         }
 
-        if (is_array($addEagerLoads) and ! empty($addEagerLoads)) {
+        if (is_array($addEagerLoads) and !empty($addEagerLoads)) {
             $eagerLoads = array_merge($eagerLoads, $addEagerLoads);
         }
 
@@ -150,20 +158,21 @@ class EntryViewOptions extends Fluent
 
     /**
      * Get view options field names
+     *
      * @return array
      */
     public function getFieldNames()
     {
-        if (! empty($this->fieldNames)) {
+        if (!empty($this->fieldNames)) {
             return $this->fieldNames;
         }
 
         foreach ($this->viewOptions as $key => $viewOption) {
 
             if ($viewOption->getName()) {
-                
+
                 $fieldName = lang_label($viewOption->getName());
-            
+
             } else {
 
                 $fieldSlug = $viewOption->getSlug();
@@ -171,10 +180,10 @@ class EntryViewOptions extends Fluent
                 if ($field = $this->model->getField($fieldSlug)) {
 
                     $fieldName = $field->field_name;
-                
+
                 } else {
-                
-                    $fieldName = lang_label('lang:streams:'.$fieldSlug.'.name');
+
+                    $fieldName = lang_label('lang:streams:' . $fieldSlug . '.name');
 
                 }
             }
@@ -187,6 +196,7 @@ class EntryViewOptions extends Fluent
 
     /**
      * Get view options field names
+     *
      * @return array
      */
     public function getFieldSlugs()

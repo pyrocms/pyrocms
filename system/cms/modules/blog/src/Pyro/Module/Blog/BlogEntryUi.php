@@ -24,9 +24,11 @@ class BlogEntryUi extends EntryUi
                 array(
                     'title',
                     'category',
-                    'created_by',
                     'created_at',
                     'status',
+                    'created_by_user' => array(  // @todo - this should be an editable field
+                        'name' => 'Written By' // @todo - language
+                    ),
                 )
             )
             // Buttons to display in our table

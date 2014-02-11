@@ -2,6 +2,7 @@
 
 use Cartalyst\Sentry\Sentry;
 use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
+use Pyro\Support\Contracts\ArrayableInterface;
 
 /**
  * User model for the users module.
@@ -9,7 +10,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as EloquentUser;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
-class User extends EloquentUser
+class User extends EloquentUser implements ArrayableInterface
 {
     /**
      * Define the table name

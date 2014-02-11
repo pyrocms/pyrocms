@@ -38,7 +38,7 @@ class Fluent extends BaseFluent
 	 * 
 	 * @return @void
 	 */
-	public function boot()
+	protected function boot()
 	{}
 
 	/**

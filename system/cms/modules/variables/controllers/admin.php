@@ -1,165 +1,188 @@
 <?php
 
-use Pyro\Module\Streams_core\FieldTypeManager;
-use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\EntryUi;
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
 use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
  * Admin controller for the variables module
  *
- * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Variables\Controllers
+ * @author        PyroCMS Dev Team
+ * @package       PyroCMS\Core\Modules\Variables\Controllers
  */
 class Admin extends Admin_Controller
 {
-	/**
-	 * Variable's ID
-	 *
-	 * @var		int
-	 */
-	public $id = 0;
+    /**
+     * Variable's ID
+     *
+     * @var        int
+     */
+    public $id = 0;
 
-	public $section = 'variables';
+    /**
+     * Section
+     *
+     * @var string
+     */
+    public $section = 'variables';
 
-	/**
-	 * Constructor method
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * @var Pyro\Module\Variables\Model\VariableEntryModel
+     */
+    protected $variables;
 
-		$this->lang->load('variables/variables');
+    /**
+     * @var Pyro\Module\Streams_core\EntryUi
+     */
+    protected $variablesUi;
 
-		$this->template->append_css('module::variables.css');
-		
-		$this->load->driver('Streams');
-	}
+    /**
+     * Constructor method
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-	/**
-	 * List all variables
-	 */
-	public function index()
-	{
-		$buttons = array(
-			array(
-				'label' => lang('global:edit'),
-				'url'	=>'admin/variables/edit/{{ id }}'
-			),
-			array(
-				'label' => lang('global:delete'),
-				'url'	=>'admin/variables/delete/{{ id }}',
-				'confirm' => true
-			),
-		);
+        $this->lang->load('variables/variables');
 
-		$form = $this->selectable_fields_form();
+        $this->template->append_css('module::variables.css');
 
-        $ui = new EntryUi();
-        $ui->table('Pyro\Module\Variables\Model\VariableEntryModel')
-			->fields(array(
-				'name',
-				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
-				'syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
-			))
-			->title(lang('variables:name').$form)
-			->buttons($buttons)
-			->filters(array('name'))
-			->pagination(Settings::get('records_per_page'), 'admin/variables')
-			->render();
-	}
+        $this->variables   = new VariableEntryModel;
+        $this->variablesUi = new EntryUi;
+    }
 
-	/**
-	 * Create a new variable
-	 */
-	public function create($field_slug = null)
-	{
-		$form = $this->selectable_fields_form($field_slug);
+    /**
+     * List all variables
+     */
+    public function index()
+    {
+        $buttons = array(
+            array(
+                'label' => lang('global:edit'),
+                'url'   => 'admin/variables/edit/{{ id }}'
+            ),
+            array(
+                'label'   => lang('global:delete'),
+                'url'     => 'admin/variables/delete/{{ id }}',
+                'confirm' => true
+            ),
+        );
 
-		$extra['return'] = $extra['cancel_uri'] = 'admin/variables/edit/-id-';
+        $form = $this->selectable_fields_form();
 
-		$defaults = array();
+        $this->variablesUi->table($this->variables)
+            ->fields(
+                array(
+                    'name',
+                    'data'   => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',
+                    'syntax' => '<span class="syntax">&#123;&#123; variables:{{ entry:name }} &#125;&#125;</span>'
+                )
+            )
+            ->title(lang('variables:name') . $form)
+            ->buttons($buttons)
+            ->filters(array('name'))
+            ->pagination(Settings::get('records_per_page'), 'admin/variables')
+            ->render();
+    }
 
-		// Override selected field
-		if (is_string($field_slug))
-		{
-			$defaults['data_field_slug'] = $field_slug;
-		}
+    /**
+     * Generate a selectable fields form
+     */
+    private function selectable_fields_form($field_slug = null)
+    {
+        $stream = $this->variables->getStream();
 
-		EntryUi::form('Pyro\Module\Variables\Model\VariableEntryModel')
-			->title(lang('variables:create_title').$form)
-			->defaults($defaults)
-			->skips(array('foo', 'bar'))
-			->messages(array(
-				'success' => lang('variables:add_success'),
-			))
-			->redirects('admin/variables')
-			->render();
-	}
+        $field_type = FieldTypeManager::getType('field');
 
-	/**
-	 * Edit an existing variable
-	 * 
-	 * @param	int $id The ID of the variable
-	 */
-	public function edit($id = null)
-	{
-		// From cancel_uri?
-		if ($id == '-id-') redirect(site_url('admin/variables'));
+        $field_type->setStream($stream);
 
-		$variable = VariableEntryModel::find($id);
+        $options = $field_type->getSelectableFields('variables');
 
-		$form = $this->selectable_fields_form($variable, '---', true);
+        if (!$field_slug) {
+            $unselected = array('---' => '---');
 
-		EntryUi::form($variable)
-			->title('Edit '.$form)
-			->messages(array(
-				'success' => sprintf(lang('variables:edit_success'), $variable->name),
-			))
-			->redirects('admin/variables')
-			->render();
-	}
+            $options = array_merge($unselected, $options);
+        }
 
-	/**
-	 * Delete an existing variable
-	 *
-	 * @param	int $id The ID of the variable
-	 */
-	public function delete($id = null)
-	{
-		$variable = VariableEntryModel::find($id);
+        $js = 'onchange="javascript:var field_slug = $(this).val(); if (field_slug != \'---\') { window.open(SITE_URL+\'admin/variables/create/\'+field_slug, \'_self\'); }"';
 
-		if ($variable and $variable->delete())
-		{
-			$this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $variable->name));
+        return '<span class="variables-selectable-fields-form">' . lang('streams:label.field') . ' ' . form_dropdown(
+            'data',
+            $options,
+            $field_slug,
+            $js
+        ) . '</span>';
+    }
 
-			redirect('admin/variables');
-		}
-	}
+    /**
+     * Create a new variable
+     */
+    public function create($field_slug = null)
+    {
+        $form = $this->selectable_fields_form($field_slug);
 
-		/**
-	 * Generate a selectable fields form
-	 */
-	private function selectable_fields_form($field_slug = null)
-	{
-		$stream = VariableEntryModel::getStream();
+        $extra['return'] = $extra['cancel_uri'] = 'admin/variables/edit/-id-';
 
-		$field_type = FieldTypeManager::getType('field');
+        $defaults = array();
 
-		$field_type->setStream($stream);
+        // Override selected field
+        if (is_string($field_slug)) {
+            $defaults['data_field_slug'] = $field_slug;
+        }
 
-		$options = $field_type->getSelectableFields('variables');
+        $this->variablesUi->form($this->variables)
+            ->title(lang('variables:create_title') . $form)
+            ->defaults($defaults)
+            ->skips(array('foo', 'bar'))
+            ->messages(
+                array(
+                    'success' => lang('variables:add_success'),
+                )
+            )
+            ->redirects('admin/variables')
+            ->render();
+    }
 
-		if ( ! $field_slug)
-		{
-			$unselected = array('---' => '---');
+    /**
+     * Edit an existing variable
+     *
+     * @param    int $id The ID of the variable
+     */
+    public function edit($id = null)
+    {
+        // From cancel_uri?
+        if ($id == '-id-') {
+            redirect(site_url('admin/variables'));
+        }
 
-			$options = array_merge($unselected, $options);
-		}
+        $variable = $this->variables->find($id);
 
-		$js = 'onchange="javascript:var field_slug = $(this).val(); if (field_slug != \'---\') { window.open(SITE_URL+\'admin/variables/create/\'+field_slug, \'_self\'); }"';
+        $form = $this->selectable_fields_form($variable, '---', true);
 
-		return '<span class="variables-selectable-fields-form">'.lang('streams:label.field').' '.form_dropdown('data', $options, $field_slug, $js).'</span>';
-	}
+        $this->variablesUi->form($variable)
+            ->title('Edit ' . $form)
+            ->messages(
+                array(
+                    'success' => sprintf(lang('variables:edit_success'), $variable->name),
+                )
+            )
+            ->redirects('admin/variables')
+            ->render();
+    }
+
+    /**
+     * Delete an existing variable
+     *
+     * @param    int $id The ID of the variable
+     */
+    public function delete($id = null)
+    {
+        $variable = $this->variables->find($id);
+
+        if ($variable and $variable->delete()) {
+            $this->session->set_flashdata('success', sprintf(lang('variables:delete_success'), $variable->name));
+
+            redirect('admin/variables');
+        }
+    }
 }

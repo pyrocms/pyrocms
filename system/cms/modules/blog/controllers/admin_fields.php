@@ -16,6 +16,7 @@ class Admin_fields extends Admin_Controller
 {
 	protected $section = 'fields';
 
+    protected $fieldsUi;
 	// --------------------------------------------------------------------------
 
 	public function __construct()
@@ -26,8 +27,8 @@ class Admin_fields extends Admin_Controller
 		// then they can't access anythere here.
 		role_or_die('users', 'admin_blog_fields');
 
-		$this->load->driver('streams');
 		$this->lang->load(array('blog', 'categories'));
+        $this->fieldsUi = new FieldUi;
 	}
 
 	// --------------------------------------------------------------------------
@@ -53,7 +54,7 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		FieldUi::assignmentsTable('blog', 'blogs')
+        $this->fieldsUi->assignmentsTable('blog', 'blogs')
 			->title(lang('global:custom_fields'))
 			->addUri('admin/blog/fields/create')
 			->pagination(Settings::get('records_per_page'), 'admin/blog/fields/index')
@@ -72,7 +73,7 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function create()
 	{
-		FieldUi::assignmentForm('blog', 'blogs')
+        $this->fieldsUi->assignmentForm('blog', 'blogs')
 			->title(lang('streams:add_field'))
 			->redirects('admin/blog/fields')
 			->enableSetColumnTitle(false)
@@ -123,7 +124,7 @@ class Admin_fields extends Admin_Controller
 			'cancel_uri'	=> 'admin/blog/fields'
 		);
 
-		FieldUi::assignmentForm('blog', 'blogs', $this->uri->segment(5))
+        $this->fieldsUi->assignmentForm('blog', 'blogs', $this->uri->segment(5))
 			->title(lang('streams:edit_field'))
 			->redirects('admin/blog/fields')
 			->cancelUri('admin/blog/fields')

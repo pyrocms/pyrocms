@@ -26,6 +26,7 @@ class EntryFormBuilder extends AbstractUi
         }
 
         ci()->load->helper(array('form', 'url'));
+        ci()->load->library('form_validation');
 
         $this->validator = new EntryValidator();
 
@@ -94,7 +95,7 @@ class EntryFormBuilder extends AbstractUi
         /**
          * Get validation
          */
-        //$validator = $this->validator->make($this->entry);
+        $validator = $this->validator->make($this->entry);
 
         // -------------------------------------
         // Set Error Delimns
@@ -132,7 +133,7 @@ class EntryFormBuilder extends AbstractUi
         $resultId = '';
 
         if ($_POST and $this->enableSave) {
-            if (true){//$validator->passes()) {
+            if ($validator->passes()) {
                 if (!$this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if (!$this->entry->preSave($this->skips)) {
@@ -550,7 +551,7 @@ class EntryFormBuilder extends AbstractUi
                 unset($this->assignments[$k]); // Get rid of it
             }
         }
-
+        
         // $stream_fields, $skips, $values
         $this->runFieldTypeEvents();
 
