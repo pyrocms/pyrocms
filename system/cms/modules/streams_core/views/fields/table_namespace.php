@@ -23,7 +23,7 @@
 
 						foreach ($buttons as $button) {
 							// don't render button if field is locked and $button['hide_locked'] is set to TRUE
-							if($field->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
+							if($field->locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 							$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 
 							$url = ci()->parser->parse_string($button['url'], $field->toArray(), true);
