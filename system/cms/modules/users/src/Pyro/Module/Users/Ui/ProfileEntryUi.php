@@ -14,14 +14,6 @@ class ProfileEntryUi extends EntryUi
 
         // Filters to display on our table
         $this
-            ->onQuery(
-                function ($query) {
-                    if ($user = ci()->input->get('user')) {
-                        return $query->join('users', 'profiles.user_id', '=', 'users.id')
-                            ->where('username', 'LIKE', '%Test%');
-                    }
-                }
-            )
             ->eager(
                 array(
                     'user',
