@@ -158,7 +158,7 @@ class Datetime extends AbstractFieldType
 
 			$months = array_combine($months = range(1, Carbon::MONTHS_PER_YEAR), $month_names);
 
-			if ( ! $this->field->is_required)
+			if ( ! $this->field->required)
 			{
 				$months = array('' => '---')+$months;
 			}
@@ -168,7 +168,7 @@ class Datetime extends AbstractFieldType
 			// Days
 			$days = array_combine($days = range(1, 31), $days);
 
-			if ( ! $this->field->is_required)
+			if ( ! $this->field->required)
 			{
 				$days = array('' => '---')+$days;
 			}
@@ -180,7 +180,7 @@ class Datetime extends AbstractFieldType
 
 	    	arsort($years, SORT_NUMERIC);
 
-			if ( ! $this->field->is_required)
+			if ( ! $this->field->required)
 			{
 				$years = array('' => '---')+$years;
 			}

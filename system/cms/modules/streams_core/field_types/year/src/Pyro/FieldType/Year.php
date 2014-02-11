@@ -45,7 +45,7 @@ class Year extends AbstractFieldType
 
 		// If this is not required, then
 		// let's allow a null option
-		if ($this->getParameter('is_required') == 'no') {
+		if ($this->getParameter('required') == 'no') {
 			$years[null] = ci()->config->item('dropdown_choose_null');
 		}
 
