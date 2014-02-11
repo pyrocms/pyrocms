@@ -296,9 +296,9 @@ class FieldAssignmentModel extends FieldModel
      * @param  string $field_namespace
      * @return boolean
      */
-    public function getIsLockedAttribute($is_locked)
+    public function getIsLockedAttribute($locked)
     {
-        return $this->field->is_locked;
+        return $this->field->locked;
     }
 
     /**

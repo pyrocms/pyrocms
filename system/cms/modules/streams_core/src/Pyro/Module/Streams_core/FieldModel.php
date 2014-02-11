@@ -91,7 +91,7 @@ class FieldModel extends Eloquent
             'field_type' => $type,
             'field_namespace' => $namespace,
             'field_data' => $extra,
-            'is_locked' => $locked
+            'locked' => $locked
         );
 
         if ( ! $field = static::create($attributes)) return false;
@@ -317,7 +317,7 @@ class FieldModel extends Eloquent
             $stream->removeFieldAssignment($field);
 
             // Remove the field only if unlocked and has no assingments
-            if ( ! $field->is_locked or $field->assignments->isEmpty() or $force_delete) {
+            if ( ! $field->locked or $field->assignments->isEmpty() or $force_delete) {
                 // Remove the field
                 return $field->delete();
             }
@@ -759,21 +759,21 @@ class FieldModel extends Eloquent
 
     /**
      * Get is locked attr
-     * @param  string $is_locked
+     * @param  string $locked
      * @return boolean
      */
-    public function getIsLockedAttribute($is_locked)
+    public function getIsLockedAttribute($locked)
     {
-        return $is_locked == 'yes' ? true : false;
+        return $locked == 'yes' ? true : false;
     }
 
     /**
      * Set is unlocked attr
-     * @param string $is_locked
+     * @param string $locked
      */
-    public function setIsLockedAttribute($is_locked)
+    public function setIsLockedAttribute($locked)
     {
-        $this->attributes['is_locked'] = ! $is_locked ? 'no' : 'yes';
+        $this->attributes['locked'] = ! $locked ? 'no' : 'yes';
     }
 
     /**

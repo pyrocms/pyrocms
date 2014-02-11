@@ -160,7 +160,7 @@ class Fields_m extends CI_Model
 			'field_slug'		=> $field_slug,
 			'field_namespace'	=> $field_namespace,
 			'field_type'		=> $field_type,
-			'is_locked'			=> $locked
+			'locked'			=> $locked
 		);
 
 		// Load the type to see if there are other fields
@@ -279,13 +279,13 @@ class Fields_m extends CI_Model
 		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
 		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
 
-		if (isset($data['is_locked'])) {
-			if (! $data['is_locked']) {
-				$data['is_locked'] = 'no';
+		if (isset($data['locked'])) {
+			if (! $data['locked']) {
+				$data['locked'] = 'no';
 			}
 
-			if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no') {
-				$data['is_locked'] = 'no';
+			if ($data['locked'] != 'yes' and $data['locked']!= 'no') {
+				$data['locked'] = 'no';
 			}
 		}
 
