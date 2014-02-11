@@ -2,114 +2,115 @@
 
 // The CP driver is broken down into more logical classes
 
-use Closure;
-
 class FieldUi extends AbstractUi
 {
     /**
-     * Set instance per stream and namespace
-     * @param  strign $stream_slug
-     * @param  string $namespace
-     * @return object
-     */
-    public static function assignmentsTable($stream_slug, $namespace = null)
-    {
-        $instance = new static;
-
-        $instance->triggerMethod(__FUNCTION__);
-
-        $instance->stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace);
-
-        $instance->namespace = $namespace;
-
-        return $instance;
-    }
-
-    /**
      * Set table for namespace
+     *
      * @param  string $namespace
+     *
      * @return object
      */
-    public static function namespaceTable($namespace = null)
+    public function namespaceTable($namespace = null)
     {
-        $instance = new static;
+        $this->triggerMethod(__FUNCTION__);
 
-        $instance->triggerMethod(__FUNCTION__);
+        $this->namespace = $namespace;
 
-        $instance->namespace = $namespace;
-
-        return $instance;
+        return $this;
     }
 
     /**
      * trigger assignment form
-     * @param  string $stream_slug
-     * @param  string $namespace
+     *
+     * @param  string  $stream_slug
+     * @param  string  $namespace
      * @param  integer $assignment_id
+     *
      * @return object
      */
-    public static function assignmentForm($stream_slug, $namespace, $assignment_id = null)
+    public function assignmentForm($stream_slug, $namespace, $assignment_id = null)
     {
-        // The triggerForm() method is shared with assignmentForm() and namespaceForm()
-        $instance = new static;
-
-        $instance
-            
+        $this
             ->triggerMethod('form')
-            
             ->stream(StreamModel::findBySlugAndNamespace($stream_slug, $namespace))
-            
             ->namespace($namespace)
-
             ->id($assignment_id);
 
         if (is_numeric($assignment_id)) {
-            
-            $instance
+
+            $this
                 // If we have no assignment, we can't continue
                 ->assignment(FieldAssignmentModel::findOrFail($assignment_id))
-
                 // Find the field now
-                ->currentField(FieldModel::findOrFail($instance->assignment->field_id));
-                
+                ->currentField(FieldModel::findOrFail($this->assignment->field_id));
+
         } else {
 
-            $instance
-
+            $this
                 ->assignment(new FieldAssignmentModel)
-
                 ->currentField(new FieldModel);
         }
 
-        return $instance;
+        return $this;
     }
 
     /**
      * trigger field form in namespace
-     * @param  string $namespace
+     *
+     * @param  string  $namespace
      * @param  integer $fieldId
+     *
      * @return object
      */
-    public static function namespaceForm($namespace, $fieldId = null)
+    public function namespaceForm($namespace, $fieldId = null)
     {
-        // The triggerForm() method is shared with assignmentForm() and namespaceForm()
-        $instance = new static;
-
-        $instance
+        $this
             ->triggerMethod('form')
-            
             ->namespace($namespace)
-            
             ->id($fieldId);
-            
+
         if (is_numeric($fieldId)) {
             // Find the field now
-            $instance->currentField(FieldModel::findOrFail($fieldId));
+            $this->currentField(FieldModel::findOrFail($fieldId));
         } else {
-            $instance->currentField(new FieldModel);
+            $this->currentField(new FieldModel);
         }
 
-        return $instance;
+        return $this;
+    }
+
+    /**
+     * Set instance per stream and namespace
+     *
+     * @param  strign $stream_slug
+     * @param  string $namespace
+     *
+     * @return object
+     */
+    public function assignmentsTable($stream_slug, $namespace = null)
+    {
+        $this->triggerMethod(__FUNCTION__);
+
+        $this->stream = StreamModel::findBySlugAndNamespace($stream_slug, $namespace);
+
+        $this->namespace = $namespace;
+
+        return $this;
+    }
+
+    /**
+     * Boot
+     *
+     * @return array|void
+     */
+    protected function boot()
+    {
+        $this->messages(
+            array(
+                'error' => lang('streams:save_field_error')
+            )
+        );
     }
 
     // --------------------------------------------------------------------------
@@ -127,21 +128,26 @@ class FieldUi extends AbstractUi
 
     /**
      * trigger assignments table
+     *
      * @return string
      */
     protected function triggerAssignmentsTable()
     {
-
         // -------------------------------------
         // Get fields and create pagination if necessary
         // -------------------------------------
-        $this->assignments = FieldAssignmentModel::findManyByStreamId($this->stream->id, $this->limit, $this->offset, $this->direction);
+        $this->assignments = FieldAssignmentModel::findManyByStreamId(
+            $this->stream->id,
+            $this->limit,
+            $this->offset,
+            $this->direction
+        );
 
         if ($this->limit > 0) {
             $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id));
         }
 
-        ci()->template->append_metadata('<script>var fields_offset='.$this->offset.';</script>');
+        ci()->template->append_metadata('<script>var fields_offset=' . $this->offset . ';</script>');
         ci()->template->append_js('streams/assignments.js');
 
         $this->content = ci()->load->view('streams_core/fields/table_assignments', $this->attributes, true);
@@ -151,6 +157,7 @@ class FieldUi extends AbstractUi
 
     /**
      * trigger namespace table
+     *
      * @return string
      */
     protected function triggerNamespaceTable()
@@ -180,20 +187,21 @@ class FieldUi extends AbstractUi
      * use to add new fields to a stream. This functions as the
      * form assignment as well.
      *
-     * @param	string - stream slug
-     * @param	string - namespace
-     * @param 	string - method - new or edit. defaults to new
-     * @param 	string - uri to return to after success/fail
-     * @param 	[int - the assignment id if we are editing]
-     * @param	[array - field types to include]
-     * @param	[bool - view override - setting this to true will build template]
-     * @param	[array - extra params (see below)]
-     * @return	mixed - void or string
+     * @param    string - stream slug
+     * @param    string - namespace
+     * @param    string - method - new or edit. defaults to new
+     * @param    string - uri to return to after success/fail
+     * @param    [int - the assignment id if we are editing]
+     * @param    [array - field types to include]
+     * @param    [bool - view override - setting this to true will build template]
+     * @param    [array - extra params (see below)]
+     *
+     * @return    mixed - void or string
      *
      * Extra parameters to pass in $extra array:
      *
-     * title	- Title of the form header (if using view override)
-     *			$extra['title'] = 'Streams Sample';
+     * title    - Title of the form header (if using view override)
+     *            $extra['title'] = 'Streams Sample';
      *
      * show_cancel - bool. Show the cancel button or not?
      * cancel_url - uri to link to for cancel button
@@ -221,28 +229,21 @@ class FieldUi extends AbstractUi
         // These are assets field types may
         // need when adding/editing fields
         // -------------------------------------
-           FieldTypeManager::loadFieldCrudAssets($types);
+        FieldTypeManager::loadFieldCrudAssets($types);
 
-        // -------------------------------------
-        // Get the field if we have the assignment
-        // -------------------------------------
-        // We'll always work off the assignment.
-        // -------------------------------------
-
-           $this->allow_title_column_set = $this->allow_title_column_set;
 
         // -------------------------------------
         // Cancel Button
         // -------------------------------------
 
-/*        $this->show_cancel = $this->show_cancel;
-        $this->cancel_uri = $this->cancel_uri;*/
+        /*        $this->show_cancel = $this->show_cancel;
+                $this->cancel_uri = $this->cancel_uri;*/
 
         // -------------------------------------
         // Validation & Setup
         // -------------------------------------
 
-        if ( ! $this->id) {
+        if (!$this->id) {
             //ci()->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug[new:'.$namespace.']';
 
             // ci()->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[new:'.$this->stream->stream_prefix.$this->stream->stream_slug.']';
@@ -255,19 +256,19 @@ class FieldUi extends AbstractUi
 
         $assign_validation = array(
             array(
-                'field'	=> 'required',
+                'field' => 'required',
                 'label' => 'Is Required', // @todo languagize
-                'rules'	=> 'trim'
+                'rules' => 'trim'
             ),
             array(
-                'field'	=> 'unique',
+                'field' => 'unique',
                 'label' => 'Is Unique', // @todo languagize
-                'rules'	=> 'trim'
+                'rules' => 'trim'
             ),
             array(
-                'field'	=> 'instructions',
+                'field' => 'instructions',
                 'label' => 'Instructions', // @todo languageize
-                'rules'	=> 'trim'
+                'rules' => 'trim'
             )
         );
 
@@ -278,22 +279,22 @@ class FieldUi extends AbstractUi
         // Check if $skips is set to bypass validation for specified field slugs
 
         // No point skipping field_name & field_type
-/*		$disallowed_skips = array('field_name', 'field_type');
+        /*		$disallowed_skips = array('field_name', 'field_type');
 
-        if (count($this->skips) > 0) {
-            foreach ($this->skips as $skip) {
-                // First check if the current skip is disallowed
-                if (in_array($skip['slug'], $disallowed_skips)) {
-                    continue;
-                }
+                if (count($this->skips) > 0) {
+                    foreach ($this->skips as $skip) {
+                        // First check if the current skip is disallowed
+                        if (in_array($skip['slug'], $disallowed_skips)) {
+                            continue;
+                        }
 
-                foreach ($validation as $key => $value) {
-                    if (in_array($value['field'], $skip)) {
-                        unset($validation[$key]);
+                        foreach ($validation as $key => $value) {
+                            if (in_array($value['field'], $skip)) {
+                                unset($validation[$key]);
+                            }
+                        }
                     }
-                }
-            }
-        }*/
+                }*/
 
         if (ci()->input->post('field_type')) {
             $field_type = ci()->input->post('field_type');
@@ -314,7 +315,7 @@ class FieldUi extends AbstractUi
         $this->title_column_status = false;
 
         if (isset($this->stream)) {
-            if ($this->allow_title_column_set and $this->currentField->getKey()) {
+            if ($this->enableSetColumnTitle and $this->currentField->getKey()) {
                 if ($this->stream->title_column) {
                     if ($this->stream->title_column == ci()->input->post('title_column')) {
                         $post_data['title_column'] = $this->currentField->field_slug;
@@ -324,7 +325,7 @@ class FieldUi extends AbstractUi
                 } elseif ($this->stream->title_column and $this->stream->title_column == $this->currentField->field_slug) {
                     $this->title_column_status = true;
                 }
-            } elseif ($this->allow_title_column_set and ! $this->currentField->getKey()) {
+            } elseif ($this->enableSetColumnTitle and !$this->currentField->getKey()) {
                 if (ci()->input->post('title_column')) {
                     $post_data['title_column'] = $this->currentField->field_slug;
 
@@ -340,15 +341,15 @@ class FieldUi extends AbstractUi
 
             // Set custom data from $skips param
             // @todo - fix this
-/*			if (count($this->skips) > 0) {
-                foreach ($this->skips as $skip) {
-                    if ($skip['slug'] == 'field_slug' && ( ! isset($skip['value']) || empty($skip['value']))) {
-                        show_error('Set a default value for field_slug in your $skips param.');
-                    } else {
-                        $post_data[$skip['slug']] = $skip['value'];
-                    }
-                }
-            }*/
+            /*			if (count($this->skips) > 0) {
+                            foreach ($this->skips as $skip) {
+                                if ($skip['slug'] == 'field_slug' && ( ! isset($skip['value']) || empty($skip['value']))) {
+                                    show_error('Set a default value for field_slug in your $skips param.');
+                                } else {
+                                    $post_data[$skip['slug']] = $skip['value'];
+                                }
+                            }
+                        }*/
 
             // Figure out where this is coming from - post or data
 
@@ -365,27 +366,29 @@ class FieldUi extends AbstractUi
                 }
             }
 
-            $this->currentField->fill(array(
-                'field_name' => $post_data['field_name'],
-                'field_slug' => $post_data['field_slug'],
-                'field_type' => $post_data['field_type'],
-                'field_namespace' => $this->namespace,
-                'field_data' => $field_data
-            ));
+            $this->currentField->fill(
+                array(
+                    'field_name'      => $post_data['field_name'],
+                    'field_slug'      => $post_data['field_slug'],
+                    'field_type'      => $post_data['field_type'],
+                    'field_namespace' => $this->namespace,
+                    'field_data'      => $field_data
+                )
+            );
 
-            if ( ! $this->currentField->save()) {
+            if (!$this->currentField->save()) {
                 ci()->session->set_flashdata('notice', lang('streams:save_field_error'));
             }
 
             if (isset($this->stream) and isset($this->assignment)) {
                 $post_data = array(
                     'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
-                    'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
-                    'required' => isset($post_data['required']) ? $post_data['required'] : false,
-                    'unique' => isset($post_data['unique']) ? $post_data['unique'] : false,
+                    'field_name'   => isset($post_data['field_name']) ? $post_data['field_name'] : null,
+                    'required'     => isset($post_data['required']) ? $post_data['required'] : false,
+                    'unique'       => isset($post_data['unique']) ? $post_data['unique'] : false,
                 );
 
-                if ( ! ($edit = $this->assignment->getKey())) {
+                if (!($edit = $this->assignment->getKey())) {
                     // Add the assignment
                     $success = $this->stream->assignField($this->currentField, $post_data);
                 } else {
@@ -393,12 +396,20 @@ class FieldUi extends AbstractUi
                     $success = $this->assignment->update($post_data);
                 }
 
-                if( ! $success) {
-                    ci()->session->set_flashdata('notice', $this->error_message ? lang_label($this->error_message) : lang('streams:save_field_error'));
+                if (!$success) {
+                    ci()->session->set_flashdata(
+                        'notice',
+                        lang_label($this->getMessageError())
+                    );
                 } else {
-                    $default_success_message = $edit ? lang('streams:field_update_success') : lang('streams:field_add_success');
+                    $default_messageSuccess = $edit ? lang('streams:field_update_success') : lang(
+                        'streams:field_add_success'
+                    );
 
-                    ci()->session->set_flashdata('success', $this->success_message ? lang_label($this->success_message) : $default_success_message);
+                    ci()->session->set_flashdata(
+                        'success',
+                        lang_label($this->getMessageSuccess())
+                    );
                 }
             }
 
@@ -415,7 +426,7 @@ class FieldUi extends AbstractUi
         // -------------------------------------
 
         foreach ($validation as $field) {
-            if ( ! isset($_POST[$field['field']]) and $this->id) {
+            if (!isset($_POST[$field['field']]) and $this->id) {
                 // We don't know where the value is. Hooray
                 if (isset($this->currentField->{$field['field']})) {
                     $this['field']->{$field['field']} = $this->currentField->{$field['field']};
@@ -440,8 +451,6 @@ class FieldUi extends AbstractUi
 
         // Set the cancel URI. If there is no cancel URI, then we won't
         // have a cancel button.
-        $this->cancel_uri = $this->cancel_uri;
-
         $this->content = ci()->load->view('streams_core/fields/form', $this->attributes, true);
 
         return $this;
@@ -449,6 +458,7 @@ class FieldUi extends AbstractUi
 
     /**
      * Get selected field types
+     *
      * @return array
      */
     public function getSelectableFieldTypes()
