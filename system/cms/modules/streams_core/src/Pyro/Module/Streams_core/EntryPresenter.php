@@ -3,7 +3,6 @@
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Pyro\Module\Users\Model\User;
-use Pyro\Support\Contracts\ArrayableInterface;
 use Pyro\Support\Presenter;
 
 class EntryPresenter extends Presenter
@@ -19,14 +18,20 @@ class EntryPresenter extends Presenter
         $this->entryViewOptions = $entryViewOptions;
     }
 
-    public function createdByUser()
+    /**
+     * Convert the object to an array
+     *
+     * @return array
+     */
+    public function toArray()
     {
-        return $this->getUserOutput($this->resource->createdByUser);
-    }
+        $presenterArray = $this->getAppendsAttributes();
 
-    protected function getUserOutput($value)
-    {
-        return ci()->parser->parse_string('<a href="admin/users/edit/{{ id }}">{{ username }}</a>', $value, true);
+        foreach ($this->resource->getAttributeKeys() as $key) {
+            $resourceArray[$key] = $this->getPresenterAttribute($key);
+        }
+
+        return array_merge($resourceArray, $presenterArray);
     }
 
     /**
@@ -66,6 +71,28 @@ class EntryPresenter extends Presenter
         }
 
         return $this->resource->$key;
+    }
+
+    /**
+     * Get created by user
+     *
+     * @return string
+     */
+    public function createdByUser()
+    {
+        return $this->getUserOutput($this->resource->createdByUser);
+    }
+
+    /**
+     * Get user output
+     *
+     * @param $value
+     *
+     * @return string
+     */
+    protected function getUserOutput($value)
+    {
+        return ci()->parser->parse_string('<a href="admin/users/edit/{{ id }}">{{ username }}</a>', $value, true);
     }
 
     /**
@@ -115,16 +142,36 @@ class EntryPresenter extends Presenter
         return $value;
     }
 
+    /**
+     * Its datetime object?
+     *
+     * @param null $value
+     *
+     * @return bool
+     */
     protected function isDate($value = null)
     {
         return $value instanceof Carbon;
     }
 
+    /**
+     * Get date output
+     *
+     * @param $value
+     *
+     * @return mixed
+     */
     protected function getDateOutput($value)
     {
         return $value->format(\Settings::get('date_format'));
     }
 
+    /**
+     * Its a User model?
+     * @param null $value
+     *
+     * @return bool
+     */
     protected function isUser($value = null)
     {
         return $value instanceof User;
