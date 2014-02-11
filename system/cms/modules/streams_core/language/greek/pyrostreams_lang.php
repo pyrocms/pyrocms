@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "Το πεδίο %s περιέχ
 $lang['streams:type_not_valid']							= "Παρακαλούμε επιλέξτε έναν έγκυρο τύπο πεδίου.";
 $lang['streams:stream_slug_not_unique']					= "Το σύντομο όνομα (slug) για αυτήν την ροή χρησιμοποιείται ήδη.";
 $lang['streams:field_unique']							= "Το πεδίο %s πρέπει να είναι μοναδικό.";
-$lang['streams:field_is_required']						= "Το πεδίο %s απαιτείται.";
+$lang['streams:field_required']						= "Το πεδίο %s απαιτείται.";
 $lang['streams:date_out_or_range']						= "Η ημερομηνία που επιλέξατε είναι εκτός της αποδεκτής περιόδου.";
 
 /* Field Labels */

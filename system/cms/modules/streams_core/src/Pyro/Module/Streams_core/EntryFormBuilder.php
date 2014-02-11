@@ -1,29 +1,18 @@
 <?php namespace Pyro\Module\Streams_core;
 
-/**
- * PyroStreams Core Fields Library
- *
- * Handles forms and other field form logic.
- *
- * @package        PyroCMS\Core\Modules\Streams Core\Libraries
- * @author         Parse19
- * @copyright      Copyright (c) 2011 - 2012, Parse19
- * @license        http://parse19.com/pyrostreams/docs/license
- * @link           http://parse19.com/pyrostreams
- */
+use Pyro\Module\Streams_core\EntryValidator;
+
 class EntryFormBuilder extends AbstractUi
 {
     /**
      * Field type events run
-     *
      * @var array
      */
     protected $fieldTypeEventsRun = array();
 
     /**
-     * Construct with the entry object optional
-     *
-     * @param object $entry
+     * Create a new EntryFormBuilder instance
+     * @param EntryModel $entry
      */
     public function __construct(EntryModel $entry = null)
     {
@@ -38,24 +27,22 @@ class EntryFormBuilder extends AbstractUi
 
         ci()->load->helper(array('form', 'url'));
 
+        $this->validator = new EntryValidator();
+
         parent::__construct($attributes);
     }
 
     /**
      * Run Field Events
-     *
      * Runs all the event() functions for some
      * stream fields. The event() functions usually
      * have field asset loads.
-     *
      * @access    public
-     *
      * @param    obj - stream fields
      * @param     [array - skips]
-     *
      * @return    array
      */
-    public static function runFieldSetupEvents($current_field = null)
+    /*public static function runFieldSetupEvents($current_field = null)
     {
         $types = FieldTypeManager::getAllTypes();
 
@@ -64,20 +51,19 @@ class EntryFormBuilder extends AbstractUi
                 $type->field_setup_event($current_field);
             }
         }
-    }
+    }*/
 
     /**
      * Boot
-     *
      * @return void
      */
     public function boot()
     {
         parent::boot();
 
-        // -------------------------------------
-        // Set default properties
-        // -------------------------------------
+        /**
+         * Set default properties
+         */
         $this->emailNotifications       = null;
         $this->fieldTypeEventsRun       = array();
         $this->fieldTypePublicEventsRun = array();
@@ -93,54 +79,22 @@ class EntryFormBuilder extends AbstractUi
     }
 
     /**
-     * Build the form validation rules and the actual output.
-     *
-     * Based on the type of application we need it for, it will
-     * either return a full form or an array of elements.
-     *
-     * @access    public
-     *
-     * @param    obj
-     * @param    string
-     * @param    mixed - false or row object
-     * @param    bool  - is this a plugin call?
-     * @param    bool  - are we using reCAPTCHA?
-     * @param    array - all the skips
-     * @param    array - extra data:
-     * @param    array - default values: Only used during new method.
-     *
-     * - email_notifications
-     * - return
-     * - messageSuccess
-     * - messageError
-     * - errorStart
-     * - errorEnd
-     * - outputRequired
-     *
-     * @return    array - fields
+     * Build form
+     * @return mixed|null
      */
     public function buildForm()
     {
-        // -------------------------------------
-        // Get Stream Fields
-        // -------------------------------------
+        /**
+         * Get Stream Fields
+         */
         if ($this->assignments->isEmpty()) {
             return null;
         }
 
-        // -------------------------------------
-        // Set Validation Rules
-        // -------------------------------------
-        // We will only set the rules if the
-        // data has been posted. This works hand
-        // in hand with checking the $_POST array
-        // as well as the data validation when
-        // we decide what to do with the form.
-        // -------------------------------------
-        ci()->form_validation->reset_validation();
-        $validation_rules = $this->setRules();
-        ci()->form_validation->set_rules($validation_rules);
-
+        /**
+         * Get validation
+         */
+        //$validator = $this->validator->make($this->entry);
 
         // -------------------------------------
         // Set Error Delimns
@@ -175,52 +129,52 @@ class EntryFormBuilder extends AbstractUi
         // Validation
         // -------------------------------------
 
-        $result_id = '';
+        $resultId = '';
 
         if ($_POST and $this->enableSave) {
-            //if (empty($validation_rules)) {
-            if (!$this->entry->getKey()) { // new
-                // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
-                if (!$this->entry->preSave($this->skips)) {
-                    ci()->session->set_flashdata('notice', lang_label($this->messageError));
-                } else {
-                    $this->result = $this->entry;
+            if (true){//$validator->passes()) {
+                if (!$this->entry->getKey()) { // new
+                    // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
+                    if (!$this->entry->preSave($this->skips)) {
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
+                    } else {
+                        $this->result = $this->entry;
 
-                    // -------------------------------------
-                    // Send Emails
-                    // -------------------------------------
+                        // -------------------------------------
+                        // Send Emails
+                        // -------------------------------------
 
-                    if (isset($this->emailNotifications) and $this->emailNotifications) {
-                        foreach ($this->emailNotifications as $notify) {
-                            $this->sendEmail($notify, $result_id, !$this->entry->getKey(), $stream);
+                        if (isset($this->emailNotifications) and $this->emailNotifications) {
+                            foreach ($this->emailNotifications as $notify) {
+                                $this->sendEmail($notify, $resultId, !$this->entry->getKey(), $stream);
+                            }
                         }
+
+                        // -------------------------------------
+
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
                     }
+                } else { // edit
+                    if (!$this->entry->preSave($this->skips) and $this->messageError) {
+                        ci()->session->set_flashdata('notice', lang_label($this->messageError));
+                    } else {
+                        $this->result = $this->entry;
 
-                    // -------------------------------------
+                        // -------------------------------------
+                        // Send Emails
+                        // -------------------------------------
 
-                    ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
-                }
-            } else { // edit
-                if (!$this->entry->preSave($this->skips) and $this->messageError) {
-                    ci()->session->set_flashdata('notice', lang_label($this->messageError));
-                } else {
-                    $this->result = $this->entry;
-
-                    // -------------------------------------
-                    // Send Emails
-                    // -------------------------------------
-
-                    if (isset($this->emailNotifications) and is_array($this->emailNotifications)) {
-                        foreach ($this->emailNotifications as $notify) {
-                            $this->sendEmail($notify, $result_id, $this->method = 'update', $stream);
+                        if (isset($this->emailNotifications) and is_array($this->emailNotifications)) {
+                            foreach ($this->emailNotifications as $notify) {
+                                $this->sendEmail($notify, $resultId, $this->method = 'update', $stream);
+                            }
                         }
-                    }
 
-                    // -------------------------------------
-                    ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
+                        // -------------------------------------
+                        ci()->session->set_flashdata('success', lang_label($this->messageSuccess));
+                    }
                 }
             }
-            //}
         }
 
         // -------------------------------------
@@ -243,16 +197,12 @@ class EntryFormBuilder extends AbstractUi
 
     /**
      * Run Field Setup Event Functions
-     *
      * This allows field types to add custom CSS/JS
      * to the field setup (edit/delete screen).
-     *
      * @access    public
-     *
      * @param     [obj - stream]
      * @param     [string - method - new or edit]
      * @param     [obj or null (for new fields) - field]
-     *
      * @return
      */
     public function setRules()
@@ -290,7 +240,7 @@ class EntryFormBuilder extends AbstractUi
                 // Set required if necessary
                 // -------------------------------------
 
-                if ($assignment->is_required == true) {
+                if ($assignment->required == true) {
                     if (isset($type->input_is_file) && $type->input_is_file === true) {
                         $rules[] = 'streams_file_required[' . $assignment->field_slug . ']';
                     } else {
@@ -314,7 +264,7 @@ class EntryFormBuilder extends AbstractUi
                 // Set unique if necessary
                 // -------------------------------------
 
-                /*if ($assignment->is_unique == true) {
+                /*if ($assignment->unique == true) {
                     $rules[] = 'streams_unique['.$assignment->field_slug.':'.$this->method.':'.$assignment->stream_id.':'.$this->entry->getKey().']';
                 }*/
 
@@ -527,19 +477,15 @@ class EntryFormBuilder extends AbstractUi
 
     /**
      * Build Fields
-     *
      * Builds fields (no validation)
-     *
+
      */
     // $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
     /**
      * Process an email address - if it is not
      * an email address, pull it from post data.
-     *
      * @access    private
-     *
      * @param    email
-     *
      * @return    string
      */
     private function processEmailAddress($email)
@@ -553,16 +499,13 @@ class EntryFormBuilder extends AbstractUi
 
     /**
      * Set Rules
-     *
      * Set the rules from the stream fields
-     *
      * @access    public
-     *
-     * @param    obj    - fields to set rules for
+     * @param    obj - fields to set rules for
      * @param    string - method - edit or new
-     * @param    array  - fields to skip
-     * @param    bool   - return the array or set the validation
-     * @param    mixed  - array or true
+     * @param    array - fields to skip
+     * @param    bool - return the array or set the validation
+     * @param    mixed - array or true
      */
     // $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
 
@@ -645,16 +588,12 @@ class EntryFormBuilder extends AbstractUi
 
     /**
      * Send Email
-     *
      * Sends emails for a single notify group.
-     *
      * @access    public
-     *
-     * @param    string $notify   a or b
-     * @param    int    $entry_id the entry id
-     * @param    string $this     ->method    edit or new
-     * @param    obj    $stream   the stream
-     *
+     * @param    string $notify a or b
+     * @param    int $entry_id the entry id
+     * @param    string $this ->method    edit or new
+     * @param    obj $stream the stream
      * @return    void
      */
     // $notify, $entry_id, $this->method, $stream
@@ -690,7 +629,6 @@ class EntryFormBuilder extends AbstractUi
 
     /**
      * Get field types available
-     *
      * @return array
      */
     public function getFieldTypes()

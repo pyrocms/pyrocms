@@ -28,7 +28,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'name',
 				'label' => lang('keywords:name'),
-				'rules' => 'trim|required|max_length[50]|strtolower|is_unique[keywords.name]'
+				'rules' => 'trim|required|max_length[50]|strtolower|unique[keywords.name]'
 			),
 		);
 	}

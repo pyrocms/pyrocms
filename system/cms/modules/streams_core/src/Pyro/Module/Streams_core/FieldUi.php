@@ -257,12 +257,12 @@ class FieldUi extends AbstractUi
 
         $assign_validation = array(
             array(
-                'field'	=> 'is_required',
+                'field'	=> 'required',
                 'label' => 'Is Required', // @todo languagize
                 'rules'	=> 'trim'
             ),
             array(
-                'field'	=> 'is_unique',
+                'field'	=> 'unique',
                 'label' => 'Is Unique', // @todo languagize
                 'rules'	=> 'trim'
             ),
@@ -383,8 +383,8 @@ class FieldUi extends AbstractUi
                 $post_data = array(
                     'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
                     'field_name' => isset($post_data['field_name']) ? $post_data['field_name'] : null,
-                    'is_required' => isset($post_data['is_required']) ? $post_data['is_required'] : false,
-                    'is_unique' => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
+                    'required' => isset($post_data['required']) ? $post_data['required'] : false,
+                    'unique' => isset($post_data['unique']) ? $post_data['unique'] : false,
                 );
 
                 if ( ! ($edit = $this->assignment->getKey())) {
@@ -432,7 +432,7 @@ class FieldUi extends AbstractUi
         // -------------------------------------
         // Run field setup events
         // -------------------------------------
-        EntryFormBuilder::runFieldSetupEvents($this->currentField);
+        /*EntryFormBuilder::runFieldSetupEvents($this->currentField);*/
 
         // -------------------------------------
         // Build page

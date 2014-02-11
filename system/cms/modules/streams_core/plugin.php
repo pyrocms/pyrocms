@@ -777,7 +777,7 @@ class Plugin_Streams_core extends Plugin
 
 			$vars[$field['input_slug']]['error_raw'] 		= $field['error_raw'];
 			$vars[$field['input_slug']]['error'] 			= $field['error'];
-			$vars[$field['input_slug']]['is_required'] 		= ($field['required']) ? true : false;
+			$vars[$field['input_slug']]['required'] 		= ($field['required']) ? true : false;
 			$vars[$field['input_slug']]['required'] 		= $field['required'];
 			$vars[$field['input_slug']]['odd_even'] 		= $field['odd_even'];
 		}

@@ -57,7 +57,7 @@ class Choice extends AbstractFieldType
 	 */
 	public function formInput()
 	{
-		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), ($this->field->is_required ? 'yes' : 'no'));
+		$choices = $this->_choicesToArray($this->getParameter('choice_data'), $this->getParameter('choice_type'), ($this->field->required ? 'yes' : 'no'));
 
 		// Only put in our brs for the admin
 		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
@@ -591,13 +591,13 @@ class Choice extends AbstractFieldType
 	 * @param	string - fied is required - yes or no
 	 * @return	array
 	 */
-	public function _choicesToArray($choices_raw, $type = 'dropdown', $is_required = 'no', $optgroups = true)
+	public function _choicesToArray($choices_raw, $type = 'dropdown', $required = 'no', $optgroups = true)
 	{
 		$lines = explode("\n", $choices_raw);
 
 		$placeholder = $this->getParameter('placeholder');
 		
-		if ($type == 'dropdown' and $is_required == 'no')
+		if ($type == 'dropdown' and $required == 'no')
 		{
 			$choices[null] = empty($placeholder) ? ci()->config->item('dropdown_choose_null') : '';
 		}

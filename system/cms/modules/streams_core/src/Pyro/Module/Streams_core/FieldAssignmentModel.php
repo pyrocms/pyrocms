@@ -296,9 +296,9 @@ class FieldAssignmentModel extends FieldModel
      * @param  string $field_namespace
      * @return boolean
      */
-    public function getIsLockedAttribute($is_locked)
+    public function getIsLockedAttribute($locked)
     {
-        return $this->field->is_locked;
+        return $this->field->locked;
     }
 
     /**
@@ -373,39 +373,39 @@ class FieldAssignmentModel extends FieldModel
 
     /**
      * Get is required attr
-     * @param  string $is_required
+     * @param  string $required
      * @return boolean
      */
-    public function getIsRequiredAttribute($is_required)
+    public function getRequiredAttribute($required = false)
     {
-        return $is_required == 'yes' ? true : false;
+        return $required;
     }
 
     /**
      * Set is required attr
-     * @param boolean $is_required
+     * @param boolean $required
      */
-    public function setIsRequiredAttribute($is_required)
+    public function setRequiredAttribute($required = false)
     {
-        $this->attributes['is_required'] = ! $is_required ? 'no' : 'yes';
+        $this->attributes['required'] = $required;
     }
 
     /**
      * Get is unique attr
-     * @param  string $is_required
+     * @param  string $unique
      * @return boolean
      */
-    public function getIsUniqueAttribute($is_unique)
+    public function getUniqueAttribute($unique = false)
     {
-        return $is_unique == 'yes' ? true : false;
+        return $unique;
     }
 
     /**
      * Set is unique attr
-     * @param boolean $is_required
+     * @param boolean $unique
      */
-    public function setIsUniqueAttribute($is_unique)
+    public function setUniqueAttribute($unique = false)
     {
-        $this->attributes['is_unique'] = ! $is_unique ? 'no' : 'yes';
+        $this->attributes['unique'] = $unique;
     }
 }

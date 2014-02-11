@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "%s 项包括非法字符。";
 $lang['streams:type_not_valid']							= "请选择一个有效的项目种类。";
 $lang['streams:stream_slug_not_unique']					= "此流标号已经存在。";
 $lang['streams:field_unique']							= "%s 项必须是唯一的。";
-$lang['streams:field_is_required']						= "%s 项是必填的。";
+$lang['streams:field_required']						= "%s 项是必填的。";
 $lang['streams:date_out_or_range']						= "您选择的日期在有效日期以外。";
 
 /* Field Labels */

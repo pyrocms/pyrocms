@@ -160,7 +160,7 @@ class Fields_m extends CI_Model
 			'field_slug'		=> $field_slug,
 			'field_namespace'	=> $field_namespace,
 			'field_type'		=> $field_type,
-			'is_locked'			=> $locked
+			'locked'			=> $locked
 		);
 
 		// Load the type to see if there are other fields
@@ -279,13 +279,13 @@ class Fields_m extends CI_Model
 		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
 		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
 
-		if (isset($data['is_locked'])) {
-			if (! $data['is_locked']) {
-				$data['is_locked'] = 'no';
+		if (isset($data['locked'])) {
+			if (! $data['locked']) {
+				$data['locked'] = 'no';
 			}
 
-			if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no') {
-				$data['is_locked'] = 'no';
+			if ($data['locked'] != 'yes' and $data['locked']!= 'no') {
+				$data['locked'] = 'no';
 			}
 		}
 
@@ -388,7 +388,7 @@ class Fields_m extends CI_Model
 	 */
 	public function get_assignments_for_stream($stream_id)
 	{
-		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
+		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.required, '.ASSIGN_TABLE.'.unique');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
 		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
 		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
@@ -627,24 +627,24 @@ class Fields_m extends CI_Model
 		}
 
 		// Is required
-		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
+		if( isset($data['required']) and $data['required'] == 'yes' ):
 
-			$update_data['is_required'] = 'yes';
+			$update_data['required'] = 'yes';
 
 		else:
 
-			$update_data['is_required'] = 'no';
+			$update_data['required'] = 'no';
 
 		endif;
 
 		// Is unique
-		if( isset($data['is_unique']) and $data['is_unique'] == 'yes' ):
+		if( isset($data['unique']) and $data['unique'] == 'yes' ):
 
-			$update_data['is_unique'] = 'yes';
+			$update_data['unique'] = 'yes';
 
 		else:
 
-			$update_data['is_unique'] = 'no';
+			$update_data['unique'] = 'no';
 
 		endif;
 

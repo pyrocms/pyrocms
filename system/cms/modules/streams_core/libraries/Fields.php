@@ -496,7 +496,7 @@ class Fields
 				}
 
 				// Set the required string
-				$fields[$count]['required'] = ($field->is_required == 'yes') ? $required : null;
+				$fields[$count]['required'] = ($field->required == 'yes') ? $required : null;
 
 				// Set even/odd
 				$fields[$count]['odd_even'] = (($count+1)%2 == 0) ? 'even' : 'odd';
@@ -559,7 +559,7 @@ class Fields
 				// Set required if necessary
 				// -------------------------------------
 							
-				if ($stream_field->is_required == 'yes')
+				if ($stream_field->required == 'yes')
 				{
 					if (isset($type->input_is_file) && $type->input_is_file === true)
 					{
@@ -588,7 +588,7 @@ class Fields
 				// Set unique if necessary
 				// -------------------------------------
 	
-				if ($stream_field->is_unique == 'yes')
+				if ($stream_field->unique == 'yes')
 				{
 					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.':'.$row_id.']';
 				}
