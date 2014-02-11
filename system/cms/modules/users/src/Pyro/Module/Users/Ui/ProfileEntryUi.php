@@ -6,7 +6,6 @@ class ProfileEntryUi extends EntryUi
 {
     /**
      * Get default attributes
-     *
      * @return array
      */
     public function boot()
@@ -15,6 +14,11 @@ class ProfileEntryUi extends EntryUi
 
         // Filters to display on our table
         $this
+            ->eager(
+                array(
+                    'user',
+                )
+            )
             ->filters(
                 array(
                     'user'         => array(
@@ -44,9 +48,18 @@ class ProfileEntryUi extends EntryUi
                 array(
                     'first_name',
                     'last_name',
-                    'lang:user:activated_account_title' => '{{ if entry:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
-                    'lang:global:user'                  => '{{ entry:username }}',
-                    'lang:global:email'                 => '{{ entry:email }}',
+                    'activated' => array(
+                        'name'     => 'lang:user:activated_account_title',
+                        'template' => '{{ if entry:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
+                    ),
+                    'user'      => array(
+                        'name'     => 'lang:global:user',
+                        'template' => '{{ entry:user:username }}',
+                    ),
+                    'email'     => array(
+                        'name'     => 'lang:global:email',
+                        'template' => '{{ entry:user:email }}',
+                    ),
                 )
             )
             // Buttons to display in our table
