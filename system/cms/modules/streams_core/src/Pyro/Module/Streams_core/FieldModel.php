@@ -762,18 +762,18 @@ class FieldModel extends Eloquent
      * @param  string $locked
      * @return boolean
      */
-    public function getIsLockedAttribute($locked)
+    public function getLockedAttribute($locked)
     {
-        return $locked == 'yes' ? true : false;
+        return $locked;
     }
 
     /**
      * Set is unlocked attr
      * @param string $locked
      */
-    public function setIsLockedAttribute($locked)
+    public function setLockedAttribute($locked)
     {
-        $this->attributes['locked'] = ! $locked ? 'no' : 'yes';
+        $this->attributes['locked'] = $locked;
     }
 
     /**
