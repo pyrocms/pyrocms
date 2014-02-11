@@ -43,9 +43,17 @@ class Admin_themes extends Admin_Controller
 	 */
 	public function index()
 	{
-		$themes = $this->themes->findGeneralThemes();
+		$themes = $this->themes->findAll();
 
-		foreach ($themes as &$theme) {
+		foreach ($themes as $key => &$theme) {
+			// Exclude admin themes
+			if($theme->type == 'admin')
+			{
+				unset($themes[$key]);
+				continue;
+			}
+
+			// @todo use getter of eloquent as getIsDefaultAttribute()
 			if ($theme->slug == Settings::get('default_theme')) {
 				$theme->is_default = true;
 			}
