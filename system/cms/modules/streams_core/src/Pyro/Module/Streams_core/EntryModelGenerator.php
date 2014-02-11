@@ -36,8 +36,10 @@ class EntryModelGenerator extends Generator
         if ($path) {
             $path = DIRECTORY_SEPARATOR.$path;
         }
+        
+        $app_path = realpath( "../system/cms/" );
 
-        return  APPPATH.'modules'.DIRECTORY_SEPARATOR.'streams_core'.$path;
+        return  $app_path.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARATOR.'streams_core'.$path;
     }
 
     /**
