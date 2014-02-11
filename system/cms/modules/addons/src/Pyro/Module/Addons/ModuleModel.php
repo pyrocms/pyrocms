@@ -111,6 +111,10 @@ class ModuleModel extends Eloquent
             return false;
         }
 
+        if (is_numeric($slug)) {
+            return false;
+        }
+
         return 1 === $this
             ->where('slug', $slug)
             ->take(1)
