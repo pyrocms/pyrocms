@@ -18,6 +18,7 @@ class EntryModelGenerator extends Generator
      */
     public function getPath($path)
     {
+
         if (!is_dir($this->siteRefPath())) {
             mkdir($this->siteRefPath(), 0777);
         }
@@ -62,10 +63,10 @@ class EntryModelGenerator extends Generator
     protected function getBasePath($path = null)
     {
         if ($path) {
-            $path = DIRECTORY_SEPARATOR . $path;
+            $path = '/' . $path;
         }
 
-        return realpath(APPPATH) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'streams_core' . $path;
+        return realpath('system/cms/modules/streams_core' . $path);
     }
 
     /**
@@ -123,7 +124,7 @@ class EntryModelGenerator extends Generator
      *
      * @return string
      */
-    public function compileStreamData(StreamModel $stream)
+    protected function compileStreamData(StreamModel $stream)
     {
         // Stream attributes array
         $string = 'array(';
@@ -201,7 +202,7 @@ class EntryModelGenerator extends Generator
      *
      * @return string
      */
-    public function compileUnserializable($key, $value, $numberSpaces = 4, $useKeys = true)
+    protected function compileUnserializable($key, $value, $numberSpaces = 4, $useKeys = true)
     {
         $string = '';
 
@@ -266,7 +267,7 @@ class EntryModelGenerator extends Generator
      *
      * @return mixed
      */
-    public function adjustValue($value, $escape = false)
+    protected function adjustValue($value, $escape = false)
     {
         if (is_null($value)) {
             $value = 'null';
@@ -401,7 +402,7 @@ class EntryModelGenerator extends Generator
      *
      * @return mixed
      */
-    public function getRelationFields(StreamModel $stream)
+    protected function getRelationFields(StreamModel $stream)
     {
         return $this->relationFields = $this->relationFields ? : $stream->assignments->getRelationFields();
     }
@@ -413,7 +414,7 @@ class EntryModelGenerator extends Generator
      *
      * @return string
      */
-    public function compileRelationFieldsData(StreamModel $stream)
+    protected function compileRelationFieldsData(StreamModel $stream)
     {
         $string = "array(";
 
@@ -453,13 +454,7 @@ class EntryModelGenerator extends Generator
     protected function getTemplate($className, $data = array())
     {
         $this->template = file_get_contents(
-            $this->getBasePath(
-                'src' . DIRECTORY_SEPARATOR .
-                'Pyro' . DIRECTORY_SEPARATOR .
-                'Module' . DIRECTORY_SEPARATOR .
-                'Streams_core' . DIRECTORY_SEPARATOR .
-                'templates' . DIRECTORY_SEPARATOR . $this->templateFilename
-            )
+            realpath($this->getBasePath('src/Pyro/Module/Streams_core/templates/' . $this->templateFilename))
         );
 
         $data['className'] = $className;
