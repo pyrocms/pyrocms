@@ -768,7 +768,7 @@ class FieldModel extends Eloquent
      */
     public function getLockedAttribute($locked)
     {
-        return $locked == 'yes' ? true : false;
+        return $locked;
     }
 
     /**
@@ -777,7 +777,7 @@ class FieldModel extends Eloquent
      */
     public function setLockedAttribute($locked)
     {
-        $this->attributes['locked'] = ! $locked ? 'no' : 'yes';
+        $this->attributes['locked'] = $locked;
     }
 
     /**
