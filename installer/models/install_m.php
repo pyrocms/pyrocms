@@ -215,7 +215,7 @@ class Install_m extends CI_Model
             $table->string('default', 255);
             $table->string('value', 255);
             $table->text('options');
-            $table->boolean('is_required');
+            $table->boolean('required');
             $table->integer('theme_id')->nullable();
         });
 
@@ -227,7 +227,7 @@ class Install_m extends CI_Model
 		    $table->text('default')->nullable();
 		    $table->text('value')->nullable();
 		    $table->string('options', 255)->nullable();
-		    $table->boolean('is_required')->default(false);
+		    $table->boolean('required')->default(false);
 		    $table->boolean('is_gui')->default(true);
 		    $table->string('module', 50)->nullable();
 		    $table->integer('order')->default(0);
@@ -276,7 +276,7 @@ class Install_m extends CI_Model
             $table->integer('sort_order');
             $table->integer('stream_id');
             $table->integer('field_id');
-            $table->enum('is_required', array('yes', 'no'))->default('no');
+            $table->enum('required', array('yes', 'no'))->default('no');
             $table->enum('is_unique', array('yes', 'no'))->default('no');
             $table->text('instructions')->nullable();
             $table->string('field_name', 60);
