@@ -33,7 +33,7 @@ class Settings
      */
     private static $columns = array(
         'slug', 'title', 'description', 'type', 'default', 'value',
-        'options', 'is_required', 'is_gui', 'module', 'order'
+        'options', 'required', 'is_gui', 'module', 'order'
     );
 
     /**

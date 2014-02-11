@@ -94,7 +94,7 @@ class Admin_themes extends Admin_Controller
 				$this->validation_rules[] = array(
 					'field' => $option->slug.(in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
 					'label' => $option->title,
-					'rules' => 'trim'.($option->is_required ? '|required' : '').'|max_length[255]'
+					'rules' => 'trim'.($option->required ? '|required' : '').'|max_length[255]'
 				);
 			}
 

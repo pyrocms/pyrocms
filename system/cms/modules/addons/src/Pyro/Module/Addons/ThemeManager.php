@@ -223,7 +223,7 @@ class ThemeManager
 		                'value'         => $option['default'],
 		                'type'          => $option['type'],
 		                'options'       => $option['options'],
-		                'is_required'   => $option['is_required'],
+		                'required'   => $option['required'],
 		            ));
 		        }
 	    	}    		
