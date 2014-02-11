@@ -31,6 +31,7 @@ class Presenter extends BasePresenter implements ArrayableInterface
      */
     public function getPresenterAttribute($key)
     {
+        $key = Str::camel($key);
         return $this->resource->$key;
     }
 
