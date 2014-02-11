@@ -56,7 +56,8 @@ class Admin extends Admin_Controller
 
 		$form = $this->selectable_fields_form();
 
-		EntryUi::table('Pyro\Module\Variables\Model\VariableEntryModel')
+        $ui = new EntryUi();
+        $ui->table('Pyro\Module\Variables\Model\VariableEntryModel')
 			->fields(array(
 				'name',
 				'data' => '{{ entry:data }} <span class="muted">{{ entry:data_field_slug }}</span>',

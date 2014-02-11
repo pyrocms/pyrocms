@@ -39,7 +39,7 @@ class Country extends AbstractFieldType
 			$value = $this->value;
 		}
 
-		$options = $this->getCountryOptions($this->field->is_required);
+		$options = $this->getCountryOptions($this->field->required);
 
 		return form_dropdown($this->form_slug, $options, $value, 'id="'.$this->form_slug.'"');
 	}
@@ -125,14 +125,14 @@ class Country extends AbstractFieldType
 	 *
 	 * Returns an array of country choices
 	 *
-	 * @param 	bool 	$is_required 	If set to true, it will add a null value to array
+	 * @param 	bool 	$required 	If set to true, it will add a null value to array
 	 * @return	array
 	 */
-	public function getCountryOptions($is_required = false)
+	public function getCountryOptions($required = false)
 	{
 		$choices = array();
 
-		if ($is_required == 'no') {
+		if ($required == 'no') {
 			$choices[null] = get_instance()->config->item('dropdown_choose_null');
 		}
 

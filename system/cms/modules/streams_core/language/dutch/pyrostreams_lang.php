@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']	= "Het %s veld bevat ongeldige charac
 $lang['streams:type_not_valid']							= "Selecteer een geldig veld type.";
 $lang['streams:stream_slug_not_unique']			= "Deze stream slug is al in gebruik.";
 $lang['streams:field_unique']							  = "Het %s veld moet uniek zijn.";
-$lang['streams:field_is_required']					= "Het %s veld is verplicht.";
+$lang['streams:field_required']					= "Het %s veld is verplicht.";
 $lang['streams:date_out_or_range']					= "De datum die u heeft gekozen is buiten het toegestaande bereik.";
 
 /* Field Labels */

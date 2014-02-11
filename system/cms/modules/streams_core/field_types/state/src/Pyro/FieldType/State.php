@@ -103,7 +103,7 @@ class State extends AbstractFieldType
 
 		return form_dropdown(
 			$this->form_slug, 
-			$this->states($field->is_required), 
+			$this->states($field->required), 
 			$this->getParameter('state_display', 'abbr'), 
 			$value, 
 			'id="'.$this->form_slug.'"'
@@ -192,13 +192,13 @@ class State extends AbstractFieldType
 	 *
 	 * @return	array
 	 */
-	private function states($is_required, $state_display = 'abbr')
+	private function states($required, $state_display = 'abbr')
 	{
 		if( $state_display != 'abbr' and $state_display != 'full') $state_display = 'abbr';
 
 		$choices = array();
 
-		if($is_required == 'no') $choices[null] = ci()->config->item('dropdown_choose_null');
+		if($required == 'no') $choices[null] = ci()->config->item('dropdown_choose_null');
 
 		$states = array();
 
