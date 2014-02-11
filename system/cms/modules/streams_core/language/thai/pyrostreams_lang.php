@@ -54,7 +54,7 @@ $lang['streams:not_mysql_safe_characters']				= "The %s field contains disallowe
 $lang['streams:type_not_valid']							= "Please select a valid field type."; #translate
 $lang['streams:stream_slug_not_unique']					= "This stream slug is already in use."; #translate
 $lang['streams:field_unique']							= "The %s field must be unique."; #translate
-$lang['streams:field_is_required']						= "The %s field is required."; #translate
+$lang['streams:field_required']						= "The %s field is required."; #translate
 $lang['streams:date_out_or_range']						= "The date you have chosen for %s is out of the acceptable range."; #translate
 
 /* Field Labels */

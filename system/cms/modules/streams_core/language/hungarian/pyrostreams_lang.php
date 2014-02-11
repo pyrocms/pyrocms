@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']       = 'A %s mező nem megengedett k
 $lang['streams:type_not_valid']                  = 'Kérlek válassz egy érvényes mezőtípust.';
 $lang['streams:stream_slug_not_unique']          = 'Az adatfolyamhoz megadott keresőbarát URL már létezik.';
 $lang['streams:field_unique']                    = 'A %s mezőnek egyedinek kell lennie.';
-$lang['streams:field_is_required']               = 'A %s mező kötelező.';
+$lang['streams:field_required']               = 'A %s mező kötelező.';
 $lang['streams:date_out_or_range']               = 'A dátum amit %s-hoz adtál meg, kívül esik az elfogadható intervallumon.';
 
 /* Field Labels */

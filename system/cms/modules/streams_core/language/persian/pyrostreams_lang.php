@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "فیلد %s شامل کاراک
 $lang['streams:type_not_valid']					= "لطفا یک نوع-فیلد قابل قبول انتخاب کنید.";
 $lang['streams:stream_slug_not_unique']				= "نام انگلیسی این استریم همینک وجود دارد.";
 $lang['streams:field_unique']					= "فیلد %s باید یکتا باشد.";
-$lang['streams:field_is_required']					= "فیلد %s اجباری است.";
+$lang['streams:field_required']					= "فیلد %s اجباری است.";
 $lang['streams:date_out_or_range']				= "تاریخی که برای %s انتخاب کرده اید در رنج قابل قبول نیست.";
 
 /* Field Labels */
