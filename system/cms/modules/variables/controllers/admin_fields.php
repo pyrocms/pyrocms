@@ -27,6 +27,8 @@ class Admin_fields extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('variables/variables');
+
+        $this->fieldsUi = new FieldUi;
 	}
 
 	/**
@@ -46,7 +48,7 @@ class Admin_fields extends Admin_Controller
 			)
 		);
 
-		FieldUi::namespaceTable('variables')
+        $this->fieldsUi->namespaceTable('variables')
 			->skips(array('name', 'syntax', 'data'))
 			->title(lang('variables:fields_title'))
 			->buttons($buttons)
@@ -68,7 +70,7 @@ class Admin_fields extends Admin_Controller
 			$title = lang('streams:add_field');
 		}
 
-		FieldUi::namespaceForm('variables', $id)->title($title)->render();
+        $this->fieldsUi->namespaceForm('variables', $id)->title($title)->render();
 	}
 
 	public function delete()
