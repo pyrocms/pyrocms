@@ -185,9 +185,11 @@ class EntryUi extends UiAbstract
 
         $viewOptions->addEagerLoads($this->eager);
 
-        $this->query
-            ->with($viewOptions->getEagerLoads())
-            ->orderBy($this->orderBy, $this->sort);
+        $this->query->with($viewOptions->getEagerLoads());
+
+        if ($this->orderBy) {
+            $this->query->orderBy($this->orderBy, $this->sort);
+        }
 
         if ($this->limit > 0) {
             $this->query = $this->query->take($this->limit)->skip($this->offset);
