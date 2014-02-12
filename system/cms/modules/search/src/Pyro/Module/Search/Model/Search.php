@@ -2,7 +2,10 @@
 
 use Pyro\Module\Addons\ModuleModel;
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams\EntryModel;
+use Pyro\Module\Search\Model\Exception\SearchPluralAttributeNotSetException;
+use Pyro\Module\Search\Model\Exception\SearchSingularAttributeNotSetException;
+use Pyro\Module\Search\Model\Exception\SearchTitleAttributeNotSetException;
+use Pyro\Module\Streams\Entry\EntryModel;
 
 /**
  * Search Index model
@@ -87,7 +90,7 @@ class Search extends Eloquent
 		// Hand over keywords without needing to look them up
 		if ( ! empty($keywords)) {
 			if (is_array($keywords)) {
-				$insert_data['keywords'] = impode(',', $keywords);
+				$insert_data['keywords'] = implode(',', $keywords);
 			} elseif (is_string($keywords)) {
 				$insert_data['keywords'] = $keywords;
 				$insert_data['keywords_hash'] = ci()->keywords->get_string($keywords);
@@ -109,7 +112,7 @@ class Search extends Eloquent
 		return static::insertGetId($insert_data);
 	}
 
-	public static function indexEntry($entry, $index_template = array())
+	public static function indexEntry(EntryModel $entry, $index_template = array())
 	{
 		if ( ! empty($index_template))
 		{
@@ -149,12 +152,12 @@ class Search extends Eloquent
 			
 			if ( ! $index_template['singular'])
 			{
-				throw new SearchEntrySingularAttributeNotSetException;
+				throw new SearchSingularAttributeNotSetException;
 			}
 
 			if ( ! $index_template['plural'])
 			{
-				throw new SearchEntryPluralAttributeNotSetException;
+                throw new SearchPluralAttributeNotSetException;
 			}
 
 			return static::index(

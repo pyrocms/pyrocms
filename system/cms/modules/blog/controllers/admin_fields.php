@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\FieldUi;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Ui\FieldUi;
 
 /**
  * Admin Blog Fields
@@ -114,20 +114,9 @@ class Admin_fields extends Admin_Controller
 	 */
 	public function edit()
 	{
-		if ( ! $assign_id = $this->uri->segment(5)) {
-			show_error(lang('streams:cannot_find_assign'));
-		}
-
-		$extra = array(
-			'title'			=> lang('streams:edit_field'),
-			'show_cancel'	=> true,
-			'cancel_uri'	=> 'admin/blog/fields'
-		);
-
         $this->fieldsUi->assignmentForm('blog', 'blogs', $this->uri->segment(5))
 			->title(lang('streams:edit_field'))
 			->redirects('admin/blog/fields')
-			->cancelUri('admin/blog/fields')
 			->enableSetColumnTitle(false)
 			->render();
 	}

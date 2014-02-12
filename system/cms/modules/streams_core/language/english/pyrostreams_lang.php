@@ -3,6 +3,7 @@
 /* Messages */
 
 $lang['streams:save_field_error'] 						= "There was a problem saving your field.";
+$lang['streams:field_save_success']						= "Field saved successfully.";
 $lang['streams:field_add_success']						= "Field added successfully.";
 $lang['streams:field_update_error']						= "There was a problem updating your field.";
 $lang['streams:field_update_success']					= "Field updated successfully.";

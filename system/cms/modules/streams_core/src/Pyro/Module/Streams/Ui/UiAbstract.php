@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Support\Str;
 use Pyro\Model\Eloquent;
+use Pyro\Module\Streams\Stream\StreamModel;
 use Pyro\Support\Fluent;
 
 abstract class UiAbstract extends Fluent
@@ -63,7 +64,7 @@ abstract class UiAbstract extends Fluent
      */
     public function getEntryModelClass($stream_slug, $stream_namespace)
     {
-        return \Pyro\Module\Streams\Stream\StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
+        return StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
     }
 
     /**
@@ -404,8 +405,8 @@ abstract class UiAbstract extends Fluent
             ->new(true)
             ->noEntriesMessage(null)
             ->noFieldsMessage(null)
-            ->orderBy('id')
-            ->sort('desc')
+            /*->orderBy('id')
+            ->sort('desc')*/
             ->paginationUri(uri_string())
             ->returnValidationRules(false)
             ->recaptcha(false)

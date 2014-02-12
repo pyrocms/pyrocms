@@ -1,6 +1,10 @@
 <?php namespace Pyro\Module\Streams\Ui;
 
+use Pyro\Module\Streams\Entry\EntryModel;
+use Pyro\Module\Streams\Entry\EntryQueryBuilder;
 use Pyro\Module\Streams\Entry\EntryViewOptions;
+use Pyro\Module\Streams\Field\FieldCollection;
+use Pyro\Module\Streams\Field\FieldGroupCollection;
 
 class EntryUi extends UiAbstract
 {
@@ -17,7 +21,7 @@ class EntryUi extends UiAbstract
      * @param      $stream_slug
      * @param null $stream_namespace
      *
-     * @return \Pyro\Module\Streams\AbstractUi
+     * @return \Pyro\Module\Streams\Ui\UiAbstract
      */
     public function table($stream_slug, $stream_namespace = null)
     {
@@ -43,7 +47,7 @@ class EntryUi extends UiAbstract
      * @param null $streamNamespaceOrId
      * @param null $id
      *
-     * @return \Pyro\Module\Streams\AbstractUi
+     * @return \Pyro\Module\Streams\Ui\UiAbstract
      */
     public function form($streamSlugOrClassOrModel, $streamNamespaceOrId = null, $id = null)
     {
@@ -59,7 +63,7 @@ class EntryUi extends UiAbstract
         }
 
         // Is this a model already?
-        if (is_object($streamSlugOrClassOrModel)) {
+        if ($streamSlugOrClassOrModel instanceof EntryModel) {
             $model = $streamSlugOrClassOrModel;
         } elseif (is_string($streamSlugOrClassOrModel) and is_string($streamNamespace)) {
             $streamSlug = $streamSlugOrClassOrModel;
@@ -181,9 +185,11 @@ class EntryUi extends UiAbstract
 
         $viewOptions->addEagerLoads($this->eager);
 
-        $this->query
-            ->with($viewOptions->getEagerLoads())
-            ->orderBy($this->orderBy, $this->sort);
+        $this->query->with($viewOptions->getEagerLoads());
+
+        if ($this->orderBy) {
+            $this->query->orderBy($this->orderBy, $this->sort);
+        }
 
         if ($this->limit > 0) {
             $this->query = $this->query->take($this->limit)->skip($this->offset);
@@ -261,7 +267,7 @@ class EntryUi extends UiAbstract
         } else {
 
 
-            $fieldGroupCollection = new \Pyro\Module\Streams\Field\FieldGroupCollection($this->tabs, $this->fields);
+            $fieldGroupCollection = new FieldGroupCollection($this->tabs, $this->fields);
 
             $this->tabs = $fieldGroupCollection->distribute()->toArray();
 

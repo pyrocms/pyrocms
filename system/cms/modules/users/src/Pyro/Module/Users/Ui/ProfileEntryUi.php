@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Ui;
 
-use Pyro\Module\Streams\EntryUi;
+use Pyro\Module\Streams\Ui\EntryUi;
 
 class ProfileEntryUi extends EntryUi
 {
