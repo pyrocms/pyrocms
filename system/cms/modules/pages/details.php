@@ -3,7 +3,7 @@
 use Pyro\Module\Addons\AbstractModule;
 use Pyro\Module\Streams\FieldModel;
 use Pyro\Module\Streams\SchemaUtility;
-use Pyro\Module\Streams\StreamModel;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
  * Pages Module
