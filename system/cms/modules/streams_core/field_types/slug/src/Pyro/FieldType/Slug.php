@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
-use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams\Field\FieldModel;
 
 /**
  * PyroStreams Slug Field Type
