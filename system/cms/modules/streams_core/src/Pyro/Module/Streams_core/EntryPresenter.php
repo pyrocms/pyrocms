@@ -45,15 +45,15 @@ class EntryPresenter extends Presenter
     {
         $method = Str::camel($key);
 
-        if (method_exists($this, $method)) {
-            return $this->{$method}();
-        }
-
         $viewOption = $this->entryViewOptions->getBySlug($key);
 
         if ($viewOption and $callback = $viewOption->getCallback()) {
 
             return call_user_func($callback, $this->resource);
+
+        } elseif (method_exists($this, $method)) {
+
+            return $this->{$method}();
 
         } elseif ($viewOption and $format = $viewOption->getFormat()) {
 
@@ -168,6 +168,7 @@ class EntryPresenter extends Presenter
 
     /**
      * Its a User model?
+     *
      * @param null $value
      *
      * @return bool
