@@ -5,8 +5,8 @@ use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Users;
-use Pyro\Module\Streams\EntryUi;
-use Pyro\Module\Streams\StreamModel;
+use Pyro\Module\Streams\Ui\EntryUi;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
  * Pages controller
