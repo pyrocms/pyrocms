@@ -2,6 +2,7 @@
 
 // The CP driver is broken down into more logical classes
 
+use Pyro\Module\Streams\Exception\FieldAssignmentModelNotFoundException;
 use Pyro\Module\Streams\Field\FieldAssignmentModel;
 use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\FieldType\FieldTypeManager;
@@ -44,11 +45,16 @@ class FieldUi extends UiAbstract
 
         if (is_numeric($assignment_id)) {
 
-            $this
-                // If we have no assignment, we can't continue
-                ->assignment(FieldAssignmentModel::findOrFail($assignment_id))
-                // Find the field now
-                ->currentField(FieldModel::findOrFail($this->assignment->field_id));
+            try {
+                $this
+                    // If we have no assignment, we can't continue
+                    ->assignment(FieldAssignmentModel::findOrFail($assignment_id))
+                    // Find the field now
+                    ->currentField(FieldModel::findOrFail($this->assignment->field_id));
+
+            } catch (FieldAssignmentModelNotFoundException $e) {
+                $this->abort(true);
+            }
 
         } else {
 
@@ -113,6 +119,7 @@ class FieldUi extends UiAbstract
     {
         $this->messages(
             array(
+                'success' => lang('streams:field_save_success'),
                 'error' => lang('streams:save_field_error')
             )
         );
@@ -185,9 +192,7 @@ class FieldUi extends UiAbstract
 
     /**
      * Custom Field Form
-     *
      * Creates a custom field form.
-     *
      * This allows you to easily create a form that users can
      * use to add new fields to a stream. This functions as the
      * form assignment as well.
@@ -202,19 +207,18 @@ class FieldUi extends UiAbstract
      * @param    [array - extra params (see below)]
      *
      * @return    mixed - void or string
-     *
      * Extra parameters to pass in $extra array:
-     *
      * title    - Title of the form header (if using view override)
      *            $extra['title'] = 'Streams Sample';
-     *
      * show_cancel - bool. Show the cancel button or not?
      * cancel_url - uri to link to for cancel button
-     *
      * see docs for more.
      */
     protected function triggerForm()
     {
+        if ($redirect = $this->getRedirectSave() and $this->getAbort()) {
+            redirect($redirect);
+        }
 
         if ($_POST and ci()->input->post('field_type')) {
             $this->currentField->field_type = ci()->input->post('field_type');
@@ -418,8 +422,8 @@ class FieldUi extends UiAbstract
                 }
             }
 
-            if ($this->return) {
-                redirect($this->return);
+            if ($redirect) {
+                redirect($redirect);
             }
         }
 
