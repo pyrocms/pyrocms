@@ -122,7 +122,8 @@ class EntryPresenter extends Presenter
                 array(
                     'stream'    => $this->resource->getStreamSlug(),
                     'namespace' => $this->resource->getStreamNamespace()
-                )
+                ),
+                false
             );
 
         } elseif ($type = $this->resource->getFieldType($key)) {
