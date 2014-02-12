@@ -261,7 +261,7 @@ class EntryUi extends UiAbstract
         } else {
 
 
-            $fieldGroupCollection = new FieldGroupCollection($this->tabs, $this->fields);
+            $fieldGroupCollection = new \Pyro\Module\Streams\Field\FieldGroupCollection($this->tabs, $this->fields);
 
             $this->tabs = $fieldGroupCollection->distribute()->toArray();
 

@@ -63,7 +63,7 @@ abstract class UiAbstract extends Fluent
      */
     public function getEntryModelClass($stream_slug, $stream_namespace)
     {
-        return StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
+        return \Pyro\Module\Streams\Stream\StreamModel::getEntryModelClass($stream_slug, $stream_namespace);
     }
 
     /**
