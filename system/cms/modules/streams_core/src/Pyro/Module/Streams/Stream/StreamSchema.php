@@ -1,4 +1,7 @@
-<?php namespace Pyro\Module\Streams;
+<?php namespace Pyro\Module\Streams\Stream;
+
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Field\FieldAssignmentModel;
 
 use Pyro\Module\Streams\Exceptions\InvalidStreamModelException;
 
@@ -11,7 +14,7 @@ use Pyro\Module\Streams\Exceptions\InvalidStreamModelException;
  * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */
 
-class SchemaUtility
+class StreamSchema
 {
     /**
      * Remove Namespace
