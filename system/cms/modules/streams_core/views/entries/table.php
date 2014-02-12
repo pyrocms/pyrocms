@@ -88,7 +88,7 @@
 
                                     // Html?
                                     if (isset($button['html'])) {
-                                        $all_buttons[] = ci()->parser->parse_string($button['html'], $entry->toArray(), true);
+                                        $all_buttons[] = ci()->parser->parse_string($button['html'], $entry->toArray(), true, false, false);
                                         continue;
                                     }
 
