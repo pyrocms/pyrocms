@@ -1,7 +1,7 @@
 <?php
 
 use Composer\Autoload\ClassLoader;
-use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams\FieldType\FieldTypeManager;
 
 include PYROPATH.'core/MY_Model.php';
 
@@ -51,6 +51,7 @@ class Module_import
 	{
 		$loader->add('Pyro\\Module\\Addons', $app_path.'/modules/addons/src/');
 		$loader->add('Pyro\\Module\\Streams_core', $app_path.'/modules/streams_core/src/');
+		$loader->add('Pyro\\Module\\Streams', $app_path.'/modules/streams_core/src/');
 
 		$slugs = array();
 
