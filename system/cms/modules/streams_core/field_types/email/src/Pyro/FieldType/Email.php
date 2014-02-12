@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
 /**
  * PyroStreams Email Field Type
@@ -11,7 +11,7 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Email extends AbstractFieldType
+class Email extends FieldTypeAbstract
 {
 	public $field_type_slug				= 'email';
 

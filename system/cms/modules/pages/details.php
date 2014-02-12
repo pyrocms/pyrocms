@@ -1,9 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\SchemaUtility;
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\SchemaUtility;
+use Pyro\Module\Streams\StreamModel;
 
 /**
  * Pages Module

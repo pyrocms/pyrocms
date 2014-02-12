@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 use Pyro\Module\Streams_core\FieldModel;
 
 /**
@@ -12,7 +12,7 @@ use Pyro\Module\Streams_core\FieldModel;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Slug extends AbstractFieldType
+class Slug extends FieldTypeAbstract
 {
 	public $field_type_slug			= 'slug';
 

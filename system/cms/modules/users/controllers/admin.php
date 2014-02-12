@@ -1,7 +1,7 @@
 <?php
 
 use Pyro\Module\Artists\Model\ProfileEntryModel;
-use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams\EntryUi;
 use Pyro\Module\Users\Model\User;
 use Pyro\Module\Users\Model\Group;
 use Pyro\Module\Users\Model\Profile;
@@ -353,7 +353,9 @@ class Admin extends Admin_Controller
             array(
                 'title'     => lang('user:profile_fields_label'),
                 'id'        => 'profile-fields',
-                'fields'    => '*'
+                'fields'    => array(
+                    'brother'
+                )
             )
         );
 

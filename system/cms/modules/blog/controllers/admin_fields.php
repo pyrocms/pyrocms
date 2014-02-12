@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\FieldUi;
+use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\FieldUi;
 
 /**
  * Admin Blog Fields

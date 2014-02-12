@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
 /**
  * PyroStreams Textarea Field Type
@@ -9,7 +9,7 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  * @author		Adam Fairholm
  * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
-class Textarea extends AbstractFieldType
+class Textarea extends FieldTypeAbstract
 {
 	public $field_type_slug = 'textarea';
 

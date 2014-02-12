@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\EntryModel;
+use Pyro\Module\Streams\StreamModel;
 
 /**
  * Users Events Class

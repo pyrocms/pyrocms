@@ -1,9 +1,9 @@
 <?php
 
-use Pyro\Module\Streams_core\StreamModel;
-use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\FieldTypeManager;
-use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams\StreamModel;
+use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\FieldTypeManager;
+use Pyro\Module\Streams\SchemaUtility;
 
 class Migration_Convert_variables_to_streams extends CI_Migration
 {

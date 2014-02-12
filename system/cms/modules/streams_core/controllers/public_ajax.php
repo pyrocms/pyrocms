@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams\FieldTypeManager;
 use Illuminate\Support\Str;
 
 /**

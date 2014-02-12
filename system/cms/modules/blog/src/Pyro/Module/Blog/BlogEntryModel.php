@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Blog;
 
-use Pyro\Streams\Model\BlogsBlogEntryModel;
+use Pyro\Module\Streams\Model\BlogsBlogEntryModel;
 
 class BlogEntryModel extends BlogsBlogEntryModel
 {
@@ -22,7 +22,7 @@ class BlogEntryModel extends BlogsBlogEntryModel
     /**
      * Find Many Blog Entries
      *
-     * @return Pyro\Module\Streams_core\EntryCollection
+     * @return Pyro\Module\Streams\Entry\EntryCollection
      */
     public static function findManyPosts($take = 0, $skip = null, $eager = array())
     {

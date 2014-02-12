@@ -11,7 +11,7 @@ $cache = array(
 	| It overrides every other option.
 	|
 	*/
-	'enable' => true,
+	'enable' => false,
 
 	/*
 	|--------------------------------------------------------------------------

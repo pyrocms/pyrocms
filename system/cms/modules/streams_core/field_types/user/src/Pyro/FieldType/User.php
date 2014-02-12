@@ -3,7 +3,7 @@
 use Pyro\Module\Streams_core\EntryUi;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 use Pyro\Module\Users\Model\User as UserModel;
 use Pyro\Module\Users\Model\Group as GroupModel;
 
@@ -16,7 +16,7 @@ use Pyro\Module\Users\Model\Group as GroupModel;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class User extends AbstractFieldType
+class User extends FieldTypeAbstract
 {
 	public $field_type_slug = 'user';
 

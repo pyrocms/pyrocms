@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 use Pyro\Module\Streams_core\EntryModel;
 use Pyro\Module\Streams_core\FieldModel;
 use Pyro\Module\Streams_core\StreamModel;
@@ -17,7 +17,7 @@ use Pyro\Module\Streams_core\StreamModel;
  * @license        http://parse19.com/pyrostreams/docs/license
  * @link        http://parse19.com/pyrostreams
  */
-class Relationship extends AbstractFieldType
+class Relationship extends FieldTypeAbstract
 {
     /**
      * Field type slug

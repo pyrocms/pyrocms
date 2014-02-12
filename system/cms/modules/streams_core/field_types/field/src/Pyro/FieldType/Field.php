@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
-use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
+use Pyro\Module\Streams\FieldModel;
 
 /**
  * Field Field Type
@@ -9,7 +9,7 @@ use Pyro\Module\Streams_core\FieldModel;
  * @author  Osvaldo Brignoni
  * @package PyroCMS\Addon\FieldType
  */
-class Field extends AbstractFieldType
+class Field extends FieldTypeAbstract
 {
 	/**
 	 * Field Type Name

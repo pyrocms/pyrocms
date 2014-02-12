@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\Data;
+use Pyro\Module\Streams\Data;
 
 /**
  * Entries Driver

@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
 /**
  * PyroCMS Language Field Type
@@ -13,7 +13,7 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  * @author		PyroCMS
  * @copyright	Copyright (c) 2011 - 2012, PyroCMS
  */
-class PyroLang extends AbstractFieldType
+class PyroLang extends FieldTypeAbstract
 {
 	public $field_type_slug			= 'pyro_lang';
 
