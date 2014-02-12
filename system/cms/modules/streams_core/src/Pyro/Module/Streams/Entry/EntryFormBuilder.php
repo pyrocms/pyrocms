@@ -140,7 +140,7 @@ class EntryFormBuilder extends UiAbstract
         $resultId = '';
 
         if ($_POST and $this->enableSave) {
-            if ($validator->passes()) {
+            if (true) {//$validator->passes()) {
                 if (!$this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if (!$this->entry->preSave($this->skips)) {
