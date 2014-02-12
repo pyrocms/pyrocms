@@ -1,5 +1,8 @@
 <?php namespace Pyro\FieldType;
 
+use Pyro\Module\Streams\Ui\EntryUi;
+use Pyro\Module\Streams\Entry\EntryModel;
+use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 use Pyro\Module\Users\Model\Group as GroupModel;
 use Pyro\Module\Users\Model\User as UserModel;
