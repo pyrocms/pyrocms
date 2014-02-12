@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Str;
-use Pyro\Module\Streams\FieldTypeManager;
-use Pyro\Module\Streams\StreamModel;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\EntryModel;
-use Pyro\Module\Streams\EntryUi;
+use Pyro\Module\Streams\Field\FieldTypeManager;
+use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Entry\EntryModel;
+use Pyro\Module\Streams\Ui\EntryUi;
 
 /**
  * Streams Plugin
