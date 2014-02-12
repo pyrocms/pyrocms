@@ -59,7 +59,7 @@ class EntryUi extends UiAbstract
         }
 
         // Is this a model already?
-        if ($streamSlugOrClassOrModel instanceof EntryModel) {
+        if (is_object($streamSlugOrClassOrModel)) {
             $model = $streamSlugOrClassOrModel;
         } elseif (is_string($streamSlugOrClassOrModel) and is_string($streamNamespace)) {
             $streamSlug = $streamSlugOrClassOrModel;
