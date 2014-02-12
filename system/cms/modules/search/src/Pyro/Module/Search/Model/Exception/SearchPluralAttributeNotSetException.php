@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Search\Model;
+<?php namespace Pyro\Module\Search\Model\Exception;
 
 class SearchPluralAttributeNotSetException extends \RuntimeException
 {
