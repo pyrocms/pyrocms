@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Ui;
 
-use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams\EntryUi;
 
 class ProfileEntryUi extends EntryUi
 {
@@ -14,11 +14,6 @@ class ProfileEntryUi extends EntryUi
 
         // Filters to display on our table
         $this
-            ->eager(
-                array(
-                    'user',
-                )
-            )
             ->filters(
                 array(
                     'user'         => array(

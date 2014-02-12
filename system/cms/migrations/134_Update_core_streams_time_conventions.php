@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\StreamModel;
 
 class Migration_Update_core_streams_time_conventions extends CI_Migration
 {

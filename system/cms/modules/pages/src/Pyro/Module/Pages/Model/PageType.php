@@ -58,7 +58,7 @@ class PageType extends Eloquent
      */
     public function stream()
     {
-        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel');
+        return $this->belongsTo('Pyro\Module\Streams\StreamModel');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Users\Model; 
 
-use Pyro\Streams\Model\UsersProfilesEntryModel;
+use Pyro\Module\Streams\Model\UsersProfilesEntryModel;
 
 /**
  * Profile model for the users module.

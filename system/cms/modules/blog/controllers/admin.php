@@ -2,7 +2,7 @@
 
 use Pyro\Module\Blog\BlogEntryUi;
 use Pyro\Module\Comments\Model\Comment;
-use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams\EntryUi;
 use Pyro\Module\Blog\BlogEntryModel;
 
 /**
@@ -97,6 +97,9 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+        foreach(\Pyro\Module\Streams\StreamModel::all() as $s) {
+            $s->save();
+        }
         // Build the table with Streams_core
         $this->blogUi->table($this->posts)->render();
 	}

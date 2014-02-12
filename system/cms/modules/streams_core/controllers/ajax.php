@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams_core\FieldAssignmentModel;
-use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams\FieldAssignmentModel;
+use Pyro\Module\Streams\FieldTypeManager;
 
 /**
  * PyroStreams AJAX Controller

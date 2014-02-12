@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Streams_core\EntryUi;
-use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams\EntryUi;
+use Pyro\Module\Streams\FieldTypeManager;
 use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**
@@ -32,7 +32,7 @@ class Admin extends Admin_Controller
     protected $variables;
 
     /**
-     * @var Pyro\Module\Streams_core\EntryUi
+     * @var Pyro\Module\Streams\EntryUi
      */
     protected $variablesUi;
 

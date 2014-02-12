@@ -2,7 +2,7 @@
 
 use Pyro\Module\Files\Model\Folder;
 use Pyro\Module\Files\Model\File as FileModel;
-use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
 /**
  * PyroStreams File Field Type
@@ -13,7 +13,7 @@ use Pyro\Module\Streams_core\AbstractFieldType;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class File extends AbstractFieldType
+class File extends FieldTypeAbstract
 {
 	public $field_type_slug = 'file';
 

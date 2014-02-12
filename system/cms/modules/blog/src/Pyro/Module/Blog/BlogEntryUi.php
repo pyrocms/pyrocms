@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Blog;
 
-use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams\EntryUi;
 
 class BlogEntryUi extends EntryUi
 {
@@ -19,6 +19,11 @@ class BlogEntryUi extends EntryUi
                     'status',
                 )
             )
+            ->eager(
+                array(
+                    'createdByUser.profile.brother'
+                )
+            )
             // Fields to display in our table
             ->fields(
                 array(
@@ -26,8 +31,11 @@ class BlogEntryUi extends EntryUi
                     'category',
                     'created_at',
                     'status',
-                    'created_by_user' => array(  // @todo - this should be an editable field
-                        'name' => 'Written By' // @todo - language
+                    'created_by_user' => array( // @todo - this should be an editable field
+                        'name'     => 'Written By', // @todo - language
+                        'callback' => function ($entry) {
+                                return $entry->createdByUser->profile->first_name;
+                            }
                     ),
                 )
             )

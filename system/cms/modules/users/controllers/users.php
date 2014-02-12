@@ -3,7 +3,7 @@
 use Cartalyst\Sentry\Sentry;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model;
-use Pyro\Module\Streams_core\EntryUi;
+use Pyro\Module\Streams\EntryUi;
 
 /**
  * User controller for the users module (frontend)

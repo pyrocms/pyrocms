@@ -2,7 +2,7 @@
 
 use Pyro\Module\Addons\ModuleModel;
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams\EntryModel;
 
 /**
  * Search Index model

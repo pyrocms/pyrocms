@@ -2,9 +2,9 @@
 
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
-use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\FieldUi;
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\FieldUi;
+use Pyro\Module\Streams\StreamModel;
 
 /**
  * Admin controller for the Page Types of the Pages module.

@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\StreamModel;
 
 class Migration_Add_entry_type_to_pages extends CI_Migration
 {
