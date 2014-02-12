@@ -4,9 +4,9 @@ use Illuminate\Support\Str;
 
 use Pyro\Model\Eloquent;
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
-use Pyro\Module\Streams_core\EntryModel;
-use Pyro\Module\Streams_core\FieldModel;
-use Pyro\Module\Streams_core\StreamModel;
+use Pyro\Module\Streams\Entry\EntryModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
  * PyroStreams Relationship Field Type
