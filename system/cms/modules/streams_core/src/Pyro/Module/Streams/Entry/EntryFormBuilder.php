@@ -1,5 +1,7 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
+use Pyro\Module\Streams\Ui\UiAbstract;
+
 class EntryFormBuilder extends UiAbstract
 {
     /**
