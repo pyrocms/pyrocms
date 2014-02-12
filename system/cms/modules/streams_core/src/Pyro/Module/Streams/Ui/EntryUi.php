@@ -1,19 +1,22 @@
-<?php namespace Pyro\Module\Streams\Entry;
+<?php namespace Pyro\Module\Streams\Ui;
 
-use Pyro\Module\Streams\Exception\ClassNotInstanceOfEntryException;
+use Pyro\Module\Streams\Entry\EntryViewOptions;
 
-class EntryUi extends AbstractUi
+class EntryUi extends UiAbstract
 {
     /**
      * The filter events that have run
+     *
      * @var array
      */
     public $fieldTypeFilterEventsRun = array();
 
     /**
      * Entries table
-     * @param $stream_slug
+     *
+     * @param      $stream_slug
      * @param null $stream_namespace
+     *
      * @return \Pyro\Module\Streams\AbstractUi
      */
     public function table($stream_slug, $stream_namespace = null)
@@ -35,9 +38,11 @@ class EntryUi extends AbstractUi
 
     /**
      * Entries form
-     * @param $streamSlugOrClassOrModel
+     *
+     * @param      $streamSlugOrClassOrModel
      * @param null $streamNamespaceOrId
      * @param null $id
+     *
      * @return \Pyro\Module\Streams\AbstractUi
      */
     public function form($streamSlugOrClassOrModel, $streamNamespaceOrId = null, $id = null)
@@ -75,7 +80,9 @@ class EntryUi extends AbstractUi
 
     /**
      * Add form
+     *
      * @param EntryUi $entryUi
+     *
      * @return $this
      */
     public function addForm(EntryUi $entryUi)
@@ -92,7 +99,42 @@ class EntryUi extends AbstractUi
     }
 
     /**
+     * Run field type filter events
+     *
+     * @return null
+     */
+    public function runFieldTypeFilterEvents()
+    {
+        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
+            return null;
+        }
+
+        foreach ($this->assignments as $field) {
+            // We need the slug to go on.
+            if (!$type = $field->getType($this->model)) {
+                continue;
+            }
+
+            $type->setStream($this->model->getStream());
+
+            if (!in_array($field->field_slug, $this->get('skips', array()))) {
+                // If we haven't called it (for dupes),
+                // then call it already.
+                if (!in_array($field->field_type, $this->fieldTypeFilterEventsRun)) {
+                    $type->filterEvent();
+                    $this->fieldTypeFilterEventsRun[] = $field->field_type;
+                }
+
+                // Field filter events run per field regardless of it the type
+                // event ran or not
+                $type->filterFieldEvent();
+            }
+        }
+    }
+
+    /**
      * Trigger table
+     *
      * @return $this
      */
     protected function triggerTable()
@@ -175,6 +217,7 @@ class EntryUi extends AbstractUi
 
     /**
      * Trigger form
+     *
      * @return $this
      */
     protected function triggerForm()
@@ -240,38 +283,5 @@ class EntryUi extends AbstractUi
         }
 
         return $this;
-    }
-
-    /**
-     * Run field type filter events
-     * @return null
-     */
-    public function runFieldTypeFilterEvents()
-    {
-        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
-            return null;
-        }
-
-        foreach ($this->assignments as $field) {
-            // We need the slug to go on.
-            if (!$type = $field->getType($this->model)) {
-                continue;
-            }
-
-            $type->setStream($this->model->getStream());
-
-            if (!in_array($field->field_slug, $this->get('skips', array()))) {
-                // If we haven't called it (for dupes),
-                // then call it already.
-                if (!in_array($field->field_type, $this->fieldTypeFilterEventsRun)) {
-                    $type->filterEvent();
-                    $this->fieldTypeFilterEventsRun[] = $field->field_type;
-                }
-
-                // Field filter events run per field regardless of it the type
-                // event ran or not
-                $type->filterFieldEvent();
-            }
-        }
     }
 }
