@@ -187,6 +187,8 @@ class EntryUi extends UiAbstract
 
         $this->query->with($viewOptions->getEagerLoads());
 
+        $this->paginationTotalRecords($this->model->count());
+
         if ($this->orderBy) {
             $this->query->orderBy($this->orderBy, $this->sort);
         }
@@ -196,8 +198,6 @@ class EntryUi extends UiAbstract
         }
 
         $this->entries = $this->query->get($this->select)->getPresenter($viewOptions);
-
-        $this->paginationTotalRecords($this->model->count());
 
         if ($this->get('sorting', $this->stream->sorting) == 'custom') {
             $this->stream->sorting = 'custom';
