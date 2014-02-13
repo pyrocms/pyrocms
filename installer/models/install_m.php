@@ -250,7 +250,7 @@ class Install_m extends CI_Model
             $table->string('title_column', 255)->nullable();
             $table->enum('sorting', array('title', 'custom'))->default('title');
             $table->text('permissions')->nullable();
-            $table->enum('is_hidden', array('yes','no'))->default('no');
+            $table->enum('hidden', array('yes','no'))->default('no');
             $table->string('menu_path', 255)->nullable();
         });
 
