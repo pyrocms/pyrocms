@@ -193,10 +193,11 @@ class EntryUi extends UiAbstract
 
         if ($this->limit > 0) {
             $this->query = $this->query->take($this->limit)->skip($this->offset);
-            $this->paginationTotalRecords($this->model->count());
         }
 
         $this->entries = $this->query->get($this->select)->getPresenter($viewOptions);
+
+        $this->paginationTotalRecords($this->model->count());
 
         if ($this->get('sorting', $this->stream->sorting) == 'custom') {
             $this->stream->sorting = 'custom';
