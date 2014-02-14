@@ -1,9 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\SchemaUtility;
-use Pyro\Module\Streams\StreamModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamSchema;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
  * Variables Module
@@ -108,7 +108,7 @@ class Module_Variables extends AbstractModule
 	public function install($pdb, $schema)
 	{
 		// Remove variables from streams
-		SchemaUtility::destroyNamespace('variables');
+		StreamSchema::destroyNamespace('variables');
 
 		ci()->lang->load('variables/variables');
 

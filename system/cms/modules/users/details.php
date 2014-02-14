@@ -1,9 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Stre\Streams\aUtility;
-use Pyro\Module\Streams\StreamModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamSchema;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
  * Users Module
@@ -249,7 +249,7 @@ class Module_Users extends AbstractModule
             ),
         ));
 
-        SchemaUtility::destroyNamespace('users');
+        StreamSchema::destroyNamespace('users');
 
         // Create the profiles stream
         if ( ! StreamModel::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(

@@ -1,8 +1,8 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\SchemaUtility;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamSchema;
 use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
@@ -206,7 +206,7 @@ class Module_Pages extends AbstractModule
         });
 
         // Remove pages namespace, just in case its a 2nd install
-        SchemaUtility::destroyNamespace('pages');
+        StreamSchema::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 

@@ -58,22 +58,16 @@ class EntryModelGenerator extends Generator
      */
     public function siteRefPath($path = null)
     {
-        $basePath = $this->getBasePath();
-
-        if ($path) {
-            $path = DIRECTORY_SEPARATOR . $path;
-        }
-
-        return $this->modelPath(Str::studly(SITE_REF) . 'Site' . $path);
+        return $this->modelPath($path);
     }
 
     protected function getBasePath($path = null)
     {
         if ($path) {
-            $path = '/' . $path;
+            $path = 'DIRECTORY_SEPARATOR' . $path;
         }
 
-        return realpath('system/cms/modules/streams_core' . $path);
+        return realpath('../system/cms/modules/streams_core') . $path;
     }
 
     /**

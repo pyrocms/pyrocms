@@ -1,10 +1,10 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\SchemaUtility;
-use Pyro\Module\Streams\StreamModel;
-use Pyro\Module\Streams\FieldTypeManager;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamSchema;
+use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams\FieldType\FieldTypeManager;
 
 /**
  * Blog module
@@ -138,7 +138,7 @@ class Module_Blog extends AbstractModule
 			$table->string('title', 100)->nullable()->unique();
 		});
 
-		SchemaUtility::destroyNamespace('blogs');
+		StreamSchema::destroyNamespace('blogs');
 
 		StreamModel::addStream(
 			'blog',
@@ -171,7 +171,7 @@ class Module_Blog extends AbstractModule
 
 	public function addFields()
 	{
-		SchemaUtility::destroyNamespace('blogs');
+		StreamSchema::destroyNamespace('blogs');
 
 		StreamModel::addStream(
 			'blog',
@@ -299,7 +299,7 @@ class Module_Blog extends AbstractModule
 
 	public function uninstall($pdb, $schema)
 	{
-		SchemaUtility::destroyNamespace('blogs');
+		StreamSchema::destroyNamespace('blogs');
 
 		// This is a core module, lets keep it around.
 		return true;
