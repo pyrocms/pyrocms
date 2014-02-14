@@ -127,6 +127,7 @@
 
                 <?php echo form_dropdown(null, array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100), ci()->input->get('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug) ?: Settings::get('records_per_page'), 'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-'.$stream->stream_namespace.'-'.$stream->stream_slug.'\').val($(this).val()).closest(\'form\').submit();"'); ?>
             <?php endif; ?>
+            <div class="clearfix"></div>
 		</div>
 
 	<?php else: ?>
