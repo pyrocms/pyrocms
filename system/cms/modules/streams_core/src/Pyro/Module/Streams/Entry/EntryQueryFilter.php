@@ -1,6 +1,8 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 use Pyro\Model\EloquentReflection;
 
 class EntryQueryFilter
@@ -119,18 +121,47 @@ class EntryQueryFilter
             'order-' . $stream->stream_namespace . '-' . $stream->stream_slug
         )
         ) {
-            if ($sortBy = ci()->input->get(
-                'sort-' . $stream->stream_namespace . '-' . $stream->stream_slug
-            )
-            ) {
 
-                if ($model->hasRelationMethod($orderBy) and $orderByRelation = $model->{$orderBy}()) {
-                    $orderBy = $orderByRelation->getForeignKey();
+            $sort = ci()->input->get(
+                'sort-' . $stream->stream_namespace . '-' . $stream->stream_slug,
+                'ASC'
+            );
+
+            $orderByRelationMethod = Str::camel($orderBy);
+
+            if ($model->hasRelationMethod($orderByRelationMethod)) {
+
+                $orderByRelation = $model->{$orderByRelationMethod}();
+
+                if ($orderByRelation instanceof BelongsTo) {
+                    $related = $orderByRelation->getRelated();
+
+                    // @todo - Untested, verify this actually works
+                    if ($related instanceof EntryModel) {
+                        $stream = $related->getStream();
+
+                        if (!empty($stream->title_column)) {
+                            $orderByColumn = $stream->title_column;
+                        }
+                    } else {
+                        $orderByColumn = $related->getOrderByColumn();
+                    }
+
+                    $joinColumn = $model->getTable() . '.' . $orderByRelation->getForeignKey();
+
+                    $query->join(
+                        $related->getTable(),
+                        $joinColumn,
+                        '=',
+                        $related->getTable() . '.' . $related->getKeyName()
+                    )->orderBy(
+                            $related->getTable() . '.' . $orderByColumn,
+                            $sort
+                        );
                 }
 
-                $query->orderBy($orderBy, $sortBy);
             } else {
-                $query->orderBy($orderBy, 'ASC');
+                $query->orderBy($orderBy, $sort);
             }
         }
 

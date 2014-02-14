@@ -801,6 +801,14 @@ class FieldModel extends Eloquent
     public function setFieldDataAttribute($field_data)
     {
         if (is_array($field_data)) {
+
+            /**
+             * Allow a chance to return values in Closures
+             */
+            foreach($field_data as &$value) {
+                $value = value($value);
+            }
+
             $this->attributes['field_data'] = serialize($field_data);
         } else {
             $this->attributes['field_data'] = $field_data;

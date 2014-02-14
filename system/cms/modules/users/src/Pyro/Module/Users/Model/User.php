@@ -13,25 +13,29 @@ use Pyro\Support\Contracts\ArrayableInterface;
 class User extends EloquentUser implements ArrayableInterface
 {
     /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
+    /**
      * Define the table name
      *
      * @var string
      */
     protected $table = 'users';
-
     /**
      * The attributes that aren't mass assignable
      *
      * @var array
      */
     protected $guarded = array();
-
     /**
-     * Disable updated_at and created_at on table
+     * Order by column
      *
-     * @var boolean
+     * @var string
      */
-    public $timestamps = false;
+    protected $orderByColumn = 'username';
 
     public function getDates()
     {

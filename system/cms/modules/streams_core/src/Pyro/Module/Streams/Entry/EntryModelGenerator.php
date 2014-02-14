@@ -19,7 +19,6 @@ class EntryModelGenerator extends Generator
      */
     public function getPath($path)
     {
-
         if (!is_dir($this->siteRefPath())) {
             mkdir($this->siteRefPath(), 0777);
         }
@@ -58,22 +57,26 @@ class EntryModelGenerator extends Generator
      */
     public function siteRefPath($path = null)
     {
-        $basePath = $this->getBasePath();
-
         if ($path) {
             $path = DIRECTORY_SEPARATOR . $path;
         }
 
-        return $this->modelPath(Str::studly(SITE_REF) . 'Site' . $path);
+        return $this->modelPath(Str::studly(SITE_REF).'Site'.$path);
     }
 
     protected function getBasePath($path = null)
     {
         if ($path) {
-            $path = '/' . $path;
+            $path = DIRECTORY_SEPARATOR . $path;
         }
 
-        return realpath('system/cms/modules/streams_core' . $path);
+        if (class_exists('MY_Controller')) {
+            $realpath = realpath('system/cms/modules/streams_core');
+        } else {
+            $realpath = realpath('../system/cms/modules/streams_core');
+        }
+
+        return $realpath . $path;
     }
 
     /**

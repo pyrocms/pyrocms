@@ -250,7 +250,7 @@ class Install_m extends CI_Model
             $table->string('title_column', 255)->nullable();
             $table->enum('sorting', array('title', 'custom'))->default('title');
             $table->text('permissions')->nullable();
-            $table->enum('is_hidden', array('yes','no'))->default('no');
+            $table->enum('hidden', array('yes','no'))->default('no');
             $table->string('menu_path', 255)->nullable();
         });
 
@@ -265,7 +265,7 @@ class Install_m extends CI_Model
             $table->string('field_type', 50);
             $table->binary('field_data')->nullable();
             $table->binary('view_options')->nullable();
-            $table->enum('is_locked', array('yes', 'no'))->default('no');
+            $table->enum('locked', array('yes', 'no'))->default('no');
         });
 
         // Assignments Table
@@ -277,7 +277,7 @@ class Install_m extends CI_Model
             $table->integer('stream_id');
             $table->integer('field_id');
             $table->enum('required', array('yes', 'no'))->default('no');
-            $table->enum('is_unique', array('yes', 'no'))->default('no');
+            $table->enum('unique', array('yes', 'no'))->default('no');
             $table->text('instructions')->nullable();
             $table->string('field_name', 60);
 

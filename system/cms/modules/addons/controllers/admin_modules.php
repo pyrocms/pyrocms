@@ -36,9 +36,7 @@ class Admin_modules extends Admin_Controller
 	 * @return void
 	 */
 	public function index()
-	{        foreach(\Pyro\Module\Streams\Stream\StreamModel::all() as $s) {
-        $s->save();
-    }
+	{
 		$this->moduleManager->registerUnavailableModules();
 
 		$all_modules = $this->moduleManager->getAll();
