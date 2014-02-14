@@ -51,6 +51,7 @@ if ( ! function_exists('create_pagination')) {
 			'total_pages' => ceil($total_rows/$limit),
 			'per_page' => $limit,
 			'limit' => $limit,
+            'total' => $total_rows,
 			'offset' => $offset,
 			'links' => $ci->pagination->create_links($full_tag_wrap)
 		);

@@ -1,6 +1,10 @@
 <section class="filters p m-t margin-bottom">
 
-	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
+	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline', 'id' => 'filters-'.$stream->stream_namespace.'-'.$stream->stream_slug), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
+
+    <div class="hidden">
+        <?php echo form_dropdown('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug, array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100), ci()->input->get('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug) ?: Settings::get('records_per_page'), 'class="skip" id="limit-'.$stream->stream_namespace.'-'.$stream->stream_slug.'"'); ?>
+    </div>
 
 		<?php foreach ($filters as $filter): ?>
 

@@ -165,6 +165,13 @@ class EntryQueryFilter
             }
         }
 
+        /**
+         * Limit API
+         */
+        if ($limit = ci()->input->get('limit-' . $stream->stream_namespace . '-' . $stream->stream_slug)) {
+            $query->take($limit);
+        }
+
         return $this;
     }
 
