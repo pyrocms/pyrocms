@@ -115,7 +115,7 @@ class Module_Blog extends AbstractModule
 					);
 			}
 		}
-        
+
 		return $info;
 	}
 
@@ -135,14 +135,6 @@ class Module_Blog extends AbstractModule
 			$table->string('slug', 100)->nullable()->unique();
 			$table->string('title', 100)->nullable()->unique();
 		});
-
-		StreamSchema::destroyNamespace('blogs');
-
-		StreamModel::addStream(
-			'blog',
-			'blogs',
-			'lang:blog:blog_title'
-		);
 
 		$this->addFields();
 

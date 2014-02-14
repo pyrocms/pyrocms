@@ -215,7 +215,7 @@ class Install_m extends CI_Model
             $table->string('default', 255);
             $table->string('value', 255);
             $table->text('options');
-            $table->boolean('required');
+            $table->boolean('required')->nullable();
             $table->integer('theme_id')->nullable();
         });
 
