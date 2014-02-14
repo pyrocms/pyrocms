@@ -115,9 +115,7 @@ class Module_Blog extends AbstractModule
 					);
 			}
 		}
-
-		//$this->addFields();
-
+        
 		return $info;
 	}
 
@@ -146,7 +144,7 @@ class Module_Blog extends AbstractModule
 			'lang:blog:blog_title'
 		);
 
-		//$this->addFields();
+		$this->addFields();
 
 		// Add fields to streamsy table
 /*		$schema->table('blog', function($table) {
@@ -234,7 +232,6 @@ class Module_Blog extends AbstractModule
 				'unique'	=> true,
 				'locked'	=> true,
 				'extra'		=> array('slug_field' => 'title'),
-				'locked'	=> true,
 			),
 			array(
 				'name'		=> 'lang:global:body',
