@@ -104,8 +104,14 @@
                     // Sucksess
                     success: function(results) {
 
+                        var json = $.parseJSON(results);
+
+                        if (json.length == 0) {
+                            alert('No results found!');
+                        }
+
                         // Return our results
-                        callback($.parseJSON(results));
+                        callback(json);
                     },
                 });
             },
