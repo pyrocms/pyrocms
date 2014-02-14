@@ -70,7 +70,13 @@ class EntryModelGenerator extends Generator
             $path = DIRECTORY_SEPARATOR . $path;
         }
 
-        return realpath('system/cms/modules/streams_core') . $path;
+        if (class_exists('MY_Controller')) {
+            $realpath = realpath('system/cms/modules/streams_core');
+        } else {
+            $realpath = realpath('../system/cms/modules/streams_core');
+        }
+
+        return $realpath . $path;
     }
 
     /**
