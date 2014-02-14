@@ -129,34 +129,36 @@ class EntryQueryFilter
 
             $orderByRelationMethod = Str::camel($orderBy);
 
-            if ($model->hasRelationMethod($orderByRelationMethod) and
-                $orderByRelation = $model->{$orderByRelationMethod}() and
-                $orderByRelation instanceof BelongsTo
-            ) {
-                $related = $orderByRelation->getRelated();
+            if ($model->hasRelationMethod($orderByRelationMethod)) {
 
-                // @todo - Untested, verify this actually works
-                if ($related instanceof EntryModel) {
-                    $stream = $related->getStream();
+                $orderByRelation = $model->{$orderByRelationMethod}();
 
-                    if (!empty($stream->title_column)) {
-                        $orderByColumn = $stream->title_column;
+                if ($orderByRelation instanceof BelongsTo) {
+                    $related = $orderByRelation->getRelated();
+
+                    // @todo - Untested, verify this actually works
+                    if ($related instanceof EntryModel) {
+                        $stream = $related->getStream();
+
+                        if (!empty($stream->title_column)) {
+                            $orderByColumn = $stream->title_column;
+                        }
+                    } else {
+                        $orderByColumn = $related->getOrderByColumn();
                     }
-                } else {
-                    $orderByColumn = $related->getOrderByColumn();
+
+                    $joinColumn = $model->getTable() . '.' . $orderByRelation->getForeignKey();
+
+                    $query->join(
+                        $related->getTable(),
+                        $joinColumn,
+                        '=',
+                        $related->getTable() . '.' . $related->getKeyName()
+                    )->orderBy(
+                            $related->getTable() . '.' . $orderByColumn,
+                            $sort
+                        );
                 }
-
-                $joinColumn = $model->getTable() . '.' . $orderByRelation->getForeignKey();
-
-                $query->join(
-                    $related->getTable(),
-                    $joinColumn,
-                    '=',
-                    $related->getTable() . '.' . $related->getKeyName()
-                )->orderBy(
-                        $related->getTable() . '.' . $orderByColumn,
-                        $sort
-                    );
 
             } else {
                 $query->orderBy($orderBy, $sort);
