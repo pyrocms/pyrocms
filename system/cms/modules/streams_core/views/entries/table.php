@@ -98,7 +98,7 @@
 		</tbody>
     </table>
 
-<?php if ($pagination): echo $pagination['links']; endif; ?>
+<?php if (isset($pagination)): echo $pagination['links']; endif; ?>
 
 <?php } else { ?>
 

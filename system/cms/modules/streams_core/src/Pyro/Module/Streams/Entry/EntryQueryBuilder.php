@@ -37,13 +37,9 @@ class EntryQueryBuilder extends EloquentQueryBuilder
     {
         // Get set up with our environment
 
-        $this->table = $this->model->getTable();
+        $this->filterQuery();
 
         //$columns = $this->prepareColumns($columns);
-
-        if (! $this->filterQuery()) {
-            return $this->model->newCollection();
-        }
 
         $this->entries = $this->getModels($columns);
 
@@ -141,35 +137,6 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         return false;
     }
 
-    public function relationAsJoin($attribute)
-    {
-        $attribute = strtolower($attribute);
-
-        if ($this->hasRelation($attribute)) {
-
-            $relation = $this->model->getRelationAttribute($attribute);
-
-            $related_table = $relation->getRelated()->getTable();
-
-            $related_key = $relation->getRelated()->getKeyName();
-
-            if ($relation instanceof BelongsTo) {
-
-                return $this->join($related_table, $related_table.'.'.$related_key, '=', $this->model->getTable().'.'.$relation->getForeignKey());
-
-            } elseif ($relation instanceof BelongsToMany) {
-
-                //
-
-            }
-
-        } else {
-
-            // Throw exception if its not an instance of Relation
-
-        }
-    }
-
     /**
      * Enable or disable automatic eager loading
      * @param boolean $format
@@ -182,21 +149,9 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         return $this;
     }
 
-    /**
-     * Is eager loading field relations enabled
-     * @return boolean
-     */
-    public function isEnableAutoEagerLoading()
-    {
-        return $this->enable_auto_eager_loading;
-    }
-
-
     protected function filterQuery()
     {
-        $filter = new EntryQueryFilter($this);
-
-        return $filter->query();
+        return new EntryQueryFilter($this);
     }
 
     /**
@@ -206,9 +161,7 @@ class EntryQueryBuilder extends EloquentQueryBuilder
      */
     public function count($column = '*')
     {
-        if (! $this->filterQuery()) {
-            return 0;
-        }
+        $this->filterQuery();
 
         return parent::count($column);
     }
