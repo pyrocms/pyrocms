@@ -33,6 +33,8 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
      */
     public $cacheMinutes = 30;
 
+    protected $orderByColumn = 'title';
+
     public static function findMany($limit = null, $offset = null)
     {
 		return static::orderBy('title')

@@ -47,6 +47,13 @@ abstract class Eloquent extends Model implements ArrayableInterface
     protected $presenterClass = 'Pyro\Support\Presenter';
 
     /**
+     * Order by column
+     *
+     * @var
+     */
+    protected $orderByColumn = 'id';
+
+    /**
      * Boot
      * 
      * @return void
@@ -56,6 +63,11 @@ abstract class Eloquent extends Model implements ArrayableInterface
         parent::boot();
 
         static::$dispatcher = new Dispatcher;
+    }
+
+    public function getOrderByColumn()
+    {
+        return $this->orderByColumn;
     }
 
     /**
