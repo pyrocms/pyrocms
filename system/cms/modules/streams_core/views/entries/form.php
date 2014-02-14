@@ -30,15 +30,15 @@
 <div class="panel-footer">
 	<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 	
-	<?php if (! empty($exitRedirect)): ?>
+	<?php if (! empty($redirectExit)): ?>
 	<button type="submit" name="btnAction" value="save_exit" class="btn btn-success"><?php echo lang('buttons:save_exit'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($createRedirect)): ?>
+	<?php if (! empty($redirectCreate)): ?>
 	<button type="submit" name="btnAction" value="save_create" class="btn btn-info"><?php echo lang('buttons:save_create'); ?></button>
 	<?php endif; ?>
 
-	<?php if (! empty($continueRedirect)): ?>
+	<?php if (! empty($redirectContinue)): ?>
 	<button type="submit" name="btnAction" value="save_continue" class="btn btn-info"><?php echo lang('buttons:save_continue'); ?></button>
 	<?php endif; ?>
 
