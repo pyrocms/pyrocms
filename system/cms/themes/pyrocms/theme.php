@@ -19,7 +19,7 @@ class Theme_Pyrocms extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => true
+			'required'   => true
 		),
 
 		'pyrocms_news_feed' => 	array(
@@ -28,7 +28,7 @@ class Theme_Pyrocms extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => true
+			'required'   => true
 		),
 
 		'pyrocms_quick_links' => array(
@@ -37,7 +37,7 @@ class Theme_Pyrocms extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => true
+			'required'   => true
 		),
 
 		'pyrocms_analytics_graph' => array(
@@ -46,7 +46,7 @@ class Theme_Pyrocms extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => true
+			'required'   => true
 		),
 	);
 
