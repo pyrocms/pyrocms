@@ -174,27 +174,25 @@ class EntryUi extends UiAbstract
             $this->query = $query;
         }
 
-        /*        if (isset($this->view_options) and is_array($this->view_options)) {
-                    $this->select = array_unique(array_merge($this->view_options, array('id')));
-                    $this->select = array_unique(array_merge($this->view_options, $this->select));
-                }
-                if (is_array($this->select)) {
-                    $this->select = array_unique($this->select);
-                }
-        */
-
         $viewOptions->addEagerLoads($this->eager);
 
         $this->query->with($viewOptions->getEagerLoads());
 
-        $this->paginationTotalRecords($this->model->count());
+        /**
+         * Lets clone the query to a countQuery after doing ->onQuery()
+         * and before we do ->take()->skip() so that the count does not break.
+         * On the EntryQueryBuilder, ->filterQuery() will apply to both ->get() and ->count()
+         * respectively, so that we have the relevant "wheres" applied
+         */
+        $this->countQuery = clone $this->query;
 
         if ($this->orderBy) {
             $this->query->orderBy($this->orderBy, $this->sort);
         }
 
         if ($this->limit > 0) {
-            $this->query = $this->query->take($this->limit)->skip($this->offset);
+            $this->query->take($this->limit)->skip($this->offset);
+            $this->paginationTotalRecords($this->countQuery->count());
         }
 
         $this->entries = $this->query->get($this->select)->getPresenter($viewOptions);

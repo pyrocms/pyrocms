@@ -11,20 +11,19 @@ class EntryQueryFilter
 
     public function __construct(EntryQueryBuilder $query)
     {
-        $this->query = $query;
-
-        $this->model = $query->getModel();
+        $this->filterQuery($query);
     }
 
-    public function query()
+    protected function filterQuery($query)
     {
         // -------------------------------------
         // Filters (QueryString API)
         // -------------------------------------
+        $model = $query->getModel();
 
-        $hasResults = true;
+        $stream = $model->getStream();
 
-        if (ci()->input->get('filter-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
+        if (ci()->input->get('filter-' . $stream->stream_namespace . '-' . $stream->stream_slug)) {
 
             $hasResults = false;
 
@@ -39,8 +38,9 @@ class EntryQueryFilter
 
                 // Filter? namespace ? stream ?
                 if ($commands[0] != 'f' or
-                    $commands[1] != $this->model->getStream()->stream_namespace or
-                    $commands[2] != $this->model->getStream()->stream_slug) {
+                    $commands[1] != $stream->stream_namespace or
+                    $commands[2] != $stream->stream_slug
+                ) {
                     continue;
                 }
 
@@ -50,45 +50,53 @@ class EntryQueryFilter
 
                 $fieldSlug = array_shift($fieldSlugSegments);
 
-                if ($relation = $this->reflection($this->model)->getRelationClass($fieldSlug)) {
+                if ($relation = $this->reflection($model)->getRelationClass($fieldSlug)) {
 
                     $filterByColumns = explode('|', $commands[4]);
 
                     $foreignKey = $relation->getForeignKey();
 
-                    if (! empty($fieldSlugSegments)) {
+                    if (!empty($fieldSlugSegments)) {
                         // Loop through to get the depest relation
                         foreach ($fieldSlugSegments as $nestedRelationSlug) {
-                            
+
                             $relatedModel = $relation->getRelated();
 
-                            if ($nestedRelation = $this->reflection($relatedModel)->getRelationClass($nestedRelationSlug)) {
+                            if ($nestedRelation = $this->reflection($relatedModel)->getRelationClass(
+                                $nestedRelationSlug
+                            )
+                            ) {
                                 $relation = $nestedRelation;
                             }
                         }
 
                         $otherKey = explode('.', $relation->getForeignKey());
-                        $otherKey =  array_pop($otherKey);
-                    
+                        $otherKey = array_pop($otherKey);
+
                     } else {
-                    
+
                         $otherKey = $relation->getParent()->getKeyName();
-                    
+
                     }
 
-                    if (! empty($filterByColumns) and count($commands) == 6) {
+                    if (!empty($filterByColumns) and count($commands) == 6) {
 
                         $constraintType = $commands[5];
 
                         foreach ($filterByColumns as $filterBy) {
-                            $query = $this->constrains($relation->getRelated()->newQuery(), $constraintType, $filterBy, $value);
+                            $query = $this->constrains(
+                                $relation->getRelated()->newQuery(),
+                                $constraintType,
+                                $filterBy,
+                                $value
+                            );
                         }
 
                         $relatedModelResults = $query->get();
 
-                        if (! $relatedModelResults->isEmpty()) {
+                        if (!$relatedModelResults->isEmpty()) {
 
-                            $this->query->whereIn($foreignKey, array_values($relatedModelResults->lists($otherKey)));
+                            $query->whereIn($foreignKey, array_values($relatedModelResults->lists($otherKey)));
 
                             $hasResults = true;
                         }
@@ -98,9 +106,7 @@ class EntryQueryFilter
 
                     $constraintType = $commands[4];
 
-                    $this->query = $this->constrains($this->query, $constraintType, $fieldSlug, $value);
-
-                    $hasResults = true;
+                    $query = $this->constrains($query, $constraintType, $fieldSlug, $value);
                 }
             }
         }
@@ -109,20 +115,31 @@ class EntryQueryFilter
         // Ordering / Sorting (QueryString API)
         // -------------------------------------
 
-        if ($orderBy = ci()->input->get('order-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
-            if ($sortBy = ci()->input->get('sort-'.$this->model->getStream()->stream_namespace.'-'.$this->model->getStream()->stream_slug)) {
+        if ($orderBy = ci()->input->get(
+            'order-' . $stream->stream_namespace . '-' . $stream->stream_slug
+        )
+        ) {
+            if ($sortBy = ci()->input->get(
+                'sort-' . $stream->stream_namespace . '-' . $stream->stream_slug
+            )
+            ) {
 
-                if ($this->model->hasRelationMethod($orderBy) and $orderByRelation = $this->model->{$orderBy}()) {
+                if ($model->hasRelationMethod($orderBy) and $orderByRelation = $model->{$orderBy}()) {
                     $orderBy = $orderByRelation->getForeignKey();
                 }
 
-                $this->query->orderBy($orderBy, $sortBy);
+                $query->orderBy($orderBy, $sortBy);
             } else {
-                $this->query->orderBy($orderBy, 'ASC');
+                $query->orderBy($orderBy, 'ASC');
             }
         }
 
-        return $hasResults;
+        return $this;
+    }
+
+    protected function reflection($model)
+    {
+        return new EloquentReflection($model);
     }
 
     protected function constrains(Builder $query, $constraintType, $filterByColumn, $value)
@@ -190,7 +207,7 @@ class EntryQueryFilter
                 }
 
                 // Do it
-                $query->where($filterByColumn, 'LIKE', '%'.$value.'%');
+                $query->where($filterByColumn, 'LIKE', '%' . $value . '%');
                 break;
 
 
@@ -206,7 +223,7 @@ class EntryQueryFilter
                 }
 
                 // Do it
-                $query->where($filterByColumn, 'NOT LIKE', '%'.$value.'%');
+                $query->where($filterByColumn, 'NOT LIKE', '%' . $value . '%');
                 break;
 
 
@@ -222,7 +239,7 @@ class EntryQueryFilter
                 }
 
                 // Do it
-                $query->where($filterByColumn, 'LIKE', $value.'%');
+                $query->where($filterByColumn, 'LIKE', $value . '%');
                 break;
 
 
@@ -238,7 +255,7 @@ class EntryQueryFilter
                 }
 
                 // Do it
-                $query->where($filterByColumn, 'LIKE', '%'.$value);
+                $query->where($filterByColumn, 'LIKE', '%' . $value);
                 break;
 
 
@@ -248,10 +265,12 @@ class EntryQueryFilter
              */
             case 'isempty':
 
-                $query->where(function ($query) use ($commands, $value) {
-                    $query->where($filterByColumn, 'IS', 'NULL');
-                    $query->orWhere($filterByColumn, '=', '');
-                });
+                $query->where(
+                    function ($query) use ($commands, $value) {
+                        $query->where($filterByColumn, 'IS', 'NULL');
+                        $query->orWhere($filterByColumn, '=', '');
+                    }
+                );
                 break;
 
 
@@ -269,10 +288,5 @@ class EntryQueryFilter
         }
 
         return $query;
-    }
-
-    protected function reflection($model)
-    {
-        return new EloquentReflection($model);
     }
 }
