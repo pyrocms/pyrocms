@@ -1,33 +1,45 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 use Pyro\Model\EloquentReflection;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 class EntryQueryFilter
 {
+    /**
+     * The query builder instance
+     *
+     * @var EntryQueryBuilder
+     */
     protected $query;
 
+    /**
+     * The parent model
+     *
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     protected $model;
 
-    public function __construct(EntryQueryBuilder $query)
+    /**
+     * The stream
+     *
+     * @var StreamModel
+     */
+    protected $stream;
+
+    public function __construct(Builder $query)
     {
-        $this->filterQuery($query);
+        $this->query = $query;
+        $this->model = $query->getModel();
+        $this->stream = $this->model->getStream();
     }
 
-    protected function filterQuery($query)
+    public function getQuery()
     {
         // -------------------------------------
         // Filters (QueryString API)
         // -------------------------------------
-        $model = $query->getModel();
-
-        $stream = $model->getStream();
-
-        if (ci()->input->get('filter-' . $stream->stream_namespace . '-' . $stream->stream_slug)) {
-
-            $hasResults = false;
+        if (ci()->input->get('filter-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug)) {
 
             // Get all URL variables
             $queryStringVariables = ci()->input->get();
@@ -40,75 +52,41 @@ class EntryQueryFilter
 
                 // Filter? namespace ? stream ?
                 if ($commands[0] != 'f' or
-                    $commands[1] != $stream->stream_namespace or
-                    $commands[2] != $stream->stream_slug
+                    $commands[1] != $this->stream->stream_namespace or
+                    $commands[2] != $this->stream->stream_slug
                 ) {
                     continue;
                 }
 
                 $fieldSlug = $commands[3];
 
-                $fieldSlugSegments = explode('|', $fieldSlug);
 
-                $fieldSlug = array_shift($fieldSlugSegments);
+                /** @var $constraintType string */
+                $constraintType = $commands[4];
 
-                if ($relation = $this->reflection($model)->getRelationClass($fieldSlug)) {
+                /** @var $filterBy array */
+                $filterBy = explode('|', $fieldSlug);
 
-                    $filterByColumns = explode('|', $commands[4]);
+                /**
+                 * @var $fieldSlug array
+                 */
+                $fieldSlug = array_shift($filterBy);
 
-                    $foreignKey = $relation->getForeignKey();
+                if ($relation = $this->reflection($this->model)->getRelationClass($fieldSlug)) {
 
-                    if (!empty($fieldSlugSegments)) {
-                        // Loop through to get the depest relation
-                        foreach ($fieldSlugSegments as $nestedRelationSlug) {
-
-                            $relatedModel = $relation->getRelated();
-
-                            if ($nestedRelation = $this->reflection($relatedModel)->getRelationClass(
-                                $nestedRelationSlug
-                            )
-                            ) {
-                                $relation = $nestedRelation;
+                    $this->query->whereHas(
+                        'category',
+                        function ($query) use ($filterBy, $constraintType, $value) {
+                            foreach ($filterBy as $column) {
+                                $this->constrain($query, $constraintType, $column, $value);
                             }
                         }
-
-                        $otherKey = explode('.', $relation->getForeignKey());
-                        $otherKey = array_pop($otherKey);
-
-                    } else {
-
-                        $otherKey = $relation->getParent()->getKeyName();
-
-                    }
-
-                    if (!empty($filterByColumns) and count($commands) == 6) {
-
-                        $constraintType = $commands[5];
-
-                        foreach ($filterByColumns as $filterBy) {
-                            $query = $this->constrains(
-                                $relation->getRelated()->newQuery(),
-                                $constraintType,
-                                $filterBy,
-                                $value
-                            );
-                        }
-
-                        $relatedModelResults = $query->get();
-
-                        if (!$relatedModelResults->isEmpty()) {
-
-                            $query->whereIn($foreignKey, array_values($relatedModelResults->lists($otherKey)));
-
-                            $hasResults = true;
-                        }
-                    }
+                    );
 
                 } else {
 
-                    $constraintType = $commands[4];
+                    $this->constrain($this->query, $constraintType, $fieldSlug, $value);
 
-                    $query = $this->constrains($query, $constraintType, $fieldSlug, $value);
                 }
             }
         }
@@ -118,206 +96,63 @@ class EntryQueryFilter
         // -------------------------------------
 
         if ($orderBy = ci()->input->get(
-            'order-' . $stream->stream_namespace . '-' . $stream->stream_slug
+            'order-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug
         )
         ) {
 
             $sort = ci()->input->get(
-                'sort-' . $stream->stream_namespace . '-' . $stream->stream_slug,
+                'sort-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug,
                 'ASC'
             );
 
-            $orderByRelationMethod = Str::camel($orderBy);
-
-            if ($model->hasRelationMethod($orderByRelationMethod)) {
-
-                $orderByRelation = $model->{$orderByRelationMethod}();
-
-                if ($orderByRelation instanceof BelongsTo) {
-                    $related = $orderByRelation->getRelated();
-
-                    // @todo - Untested, verify this actually works
-                    if ($related instanceof EntryModel) {
-                        $stream = $related->getStream();
-
-                        if (!empty($stream->title_column)) {
-                            $orderByColumn = $stream->title_column;
-                        }
-                    } else {
-                        $orderByColumn = $related->getOrderByColumn();
-                    }
-
-                    $joinColumn = $model->getTable() . '.' . $orderByRelation->getForeignKey();
-
-                    $query->join(
-                        $related->getTable(),
-                        $joinColumn,
-                        '=',
-                        $related->getTable() . '.' . $related->getKeyName()
-                    )->orderBy(
-                            $related->getTable() . '.' . $orderByColumn,
-                            $sort
-                        );
-                }
-
-            } else {
-                $query->orderBy($orderBy, $sort);
-            }
+            $this->order($this->query, $orderBy, $sort);
         }
 
-        return $this;
+        return $this->query;
     }
 
+    /**
+     * Get a new EloquentReflection object
+     *
+     * @param $model
+     *
+     * @return EloquentReflection
+     */
     protected function reflection($model)
     {
         return new EloquentReflection($model);
     }
 
-    protected function constrains(Builder $query, $constraintType, $filterByColumn, $value)
+    /**
+     * Constraint
+     *
+     * @param Builder $query
+     * @param         $constraintType
+     * @param         $filterByColumn
+     * @param         $value
+     *
+     * @return Builder
+     */
+    protected function constrain(Builder $query, $constraintType, $filterByColumn, $value)
     {
-        // Switch on the restriction
-        switch ($constraintType) {
+        $constraint = new EntryQueryFilterConstraint($query, $constraintType, $filterByColumn, $value);
 
-            /**
-             * IS
-             * results in: filter = value
-             */
-            case 'is':
+        return $constraint->getQuery();
+    }
 
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
+    /**
+     * Order
+     *
+     * @param Builder $query
+     * @param                   $orderBy
+     * @param                   $order
+     *
+     * @return Builder
+     */
+    public function order(Builder $query, $orderBy, $order)
+    {
+        $order = new EntryQuerySorter($query, $orderBy, $order);
 
-                // Do it
-                $query->where($filterByColumn, '=', $value);
-                break;
-
-
-            /**
-             * ISNOT
-             * results in: filter != value
-             */
-            case 'isnot':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, '!=', $value);
-                break;
-
-
-            /**
-             * ISNOT
-             * results in: filter != value
-             */
-            case 'isnot':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, '!=', $value);
-                break;
-
-
-            /**
-             * CONTAINS
-             * results in: filter LIKE '%value%'
-             */
-            case 'contains':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, 'LIKE', '%' . $value . '%');
-                break;
-
-
-            /**
-             * DOESNOTCONTAIN
-             * results in: filter NOT LIKE '%value%'
-             */
-            case 'doesnotcontain':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, 'NOT LIKE', '%' . $value . '%');
-                break;
-
-
-            /**
-             * STARTSWITH
-             * results in: filter LIKE 'value%'
-             */
-            case 'startswith':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, 'LIKE', $value . '%');
-                break;
-
-
-            /**
-             * ENDSWITH
-             * results in: filter LIKE '%value'
-             */
-            case 'endswith':
-
-                // Gotta have a value for this one
-                if (empty($value)) {
-                    continue;
-                }
-
-                // Do it
-                $query->where($filterByColumn, 'LIKE', '%' . $value);
-                break;
-
-
-            /**
-             * ISEMPTY
-             * results in: (filter IS NULL OR filter = '')
-             */
-            case 'isempty':
-
-                $query->where(
-                    function ($query) use ($commands, $value) {
-                        $query->where($filterByColumn, 'IS', 'NULL');
-                        $query->orWhere($filterByColumn, '=', '');
-                    }
-                );
-                break;
-
-
-            /**
-             * ISNOTEMPTY
-             * results in: filter > '')
-             */
-            case 'isnotempty':
-
-                $query->where($filterByColumn, '>', '');
-                break;
-
-            default:
-                break;
-        }
-
-        return $query;
+        return $order->getQuery();
     }
 }

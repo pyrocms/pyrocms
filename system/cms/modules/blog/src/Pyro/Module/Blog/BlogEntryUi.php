@@ -68,6 +68,10 @@ class BlogEntryUi extends EntryUi
                         'fields' => '*'
                     ),
                 )
-            );
+            ); /*->onQuery(function($model) {
+                    return $model->whereHas('category', function($q) {
+                            $q->where('slug', 'like', 'two%');
+                        });
+                });*/
     }
 }

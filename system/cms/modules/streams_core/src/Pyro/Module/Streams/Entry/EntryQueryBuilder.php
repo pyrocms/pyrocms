@@ -149,9 +149,15 @@ class EntryQueryBuilder extends EloquentQueryBuilder
         return $this;
     }
 
+    /**
+     * Filter the query
+     *
+     * @return EntryQueryBuilder
+     */
     protected function filterQuery()
     {
-        return new EntryQueryFilter($this);
+        $filter = new EntryQueryFilter($this);
+        return $filter->getQuery();
     }
 
     /**
