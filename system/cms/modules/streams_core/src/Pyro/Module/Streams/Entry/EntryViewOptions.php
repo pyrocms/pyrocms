@@ -132,7 +132,7 @@ class EntryViewOptions extends Fluent
 
     public function getEagerLoads()
     {
-        $eagerLoads = array();
+        $eagerLoads = array('createdByUser');
 
         $addEagerLoads = $this->getAddEagerLoads();
 
