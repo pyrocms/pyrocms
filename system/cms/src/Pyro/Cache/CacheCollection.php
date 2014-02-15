@@ -58,7 +58,7 @@ class CacheCollection extends Collection
 		$self = $this;
 
 		ci()->cache->rememberForever($this->collectionKey, function() use ($self) {
-			return $self->items;
+			return $self->all();
 		});
 
 		return $this;
