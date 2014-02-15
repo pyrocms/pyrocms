@@ -1,33 +1,45 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 use Pyro\Model\EloquentReflection;
+use Pyro\Module\Streams\Stream\StreamModel;
 
 class EntryQueryFilter
 {
+    /**
+     * The query builder instance
+     *
+     * @var EntryQueryBuilder
+     */
     protected $query;
 
+    /**
+     * The parent model
+     *
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     protected $model;
 
-    public function __construct(EntryQueryBuilder $query)
+    /**
+     * The stream
+     *
+     * @var StreamModel
+     */
+    protected $stream;
+
+    public function __construct(Builder $query)
     {
-        $this->filterQuery($query);
+        $this->query = $query;
+        $this->model = $query->getModel();
+        $this->stream = $this->model->getStream();
     }
 
-    protected function filterQuery($query)
+    public function getQuery()
     {
-
-
         // -------------------------------------
         // Filters (QueryString API)
         // -------------------------------------
-        $model = $query->getModel();
-
-        $stream = $model->getStream();
-
-        if (ci()->input->get('filter-' . $stream->stream_namespace . '-' . $stream->stream_slug)) {
+        if (ci()->input->get('filter-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug)) {
 
             // Get all URL variables
             $queryStringVariables = ci()->input->get();
@@ -40,23 +52,29 @@ class EntryQueryFilter
 
                 // Filter? namespace ? stream ?
                 if ($commands[0] != 'f' or
-                    $commands[1] != $stream->stream_namespace or
-                    $commands[2] != $stream->stream_slug
+                    $commands[1] != $this->stream->stream_namespace or
+                    $commands[2] != $this->stream->stream_slug
                 ) {
                     continue;
                 }
 
                 $fieldSlug = $commands[3];
 
+
+                /** @var $constraintType string */
                 $constraintType = $commands[4];
 
+                /** @var $filterBy array */
                 $filterBy = explode('|', $fieldSlug);
 
+                /**
+                 * @var $fieldSlug array
+                 */
                 $fieldSlug = array_shift($filterBy);
 
-                if ($relation = $this->reflection($model)->getRelationClass($fieldSlug)) {
+                if ($relation = $this->reflection($this->model)->getRelationClass($fieldSlug)) {
 
-                    $query->whereHas(
+                    $this->query->whereHas(
                         'category',
                         function ($query) use ($filterBy, $constraintType, $value) {
                             foreach ($filterBy as $column) {
@@ -67,7 +85,7 @@ class EntryQueryFilter
 
                 } else {
 
-                    $query = $this->constrain($query, $constraintType, $fieldSlug, $value);
+                    $this->constrain($this->query, $constraintType, $fieldSlug, $value);
 
                 }
             }
@@ -78,19 +96,19 @@ class EntryQueryFilter
         // -------------------------------------
 
         if ($orderBy = ci()->input->get(
-            'order-' . $stream->stream_namespace . '-' . $stream->stream_slug
+            'order-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug
         )
         ) {
 
             $sort = ci()->input->get(
-                'sort-' . $stream->stream_namespace . '-' . $stream->stream_slug,
+                'sort-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug,
                 'ASC'
             );
 
-            $this->order($query, $orderBy, $sort);
+            $this->order($this->query, $orderBy, $sort);
         }
 
-        return $this;
+        return $this->query;
     }
 
     /**
@@ -113,7 +131,7 @@ class EntryQueryFilter
      * @param         $filterByColumn
      * @param         $value
      *
-     * @return Builder|EntryFormBuilder
+     * @return Builder
      */
     protected function constrain(Builder $query, $constraintType, $filterByColumn, $value)
     {
@@ -125,13 +143,13 @@ class EntryQueryFilter
     /**
      * Order
      *
-     * @param EntryQueryBuilder $query
+     * @param Builder $query
      * @param                   $orderBy
      * @param                   $order
      *
-     * @return EntryQueryBuilder
+     * @return Builder
      */
-    public function order(EntryQueryBuilder $query, $orderBy, $order)
+    public function order(Builder $query, $orderBy, $order)
     {
         $order = new EntryQuerySorter($query, $orderBy, $order);
 

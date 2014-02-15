@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class EntryQuerySorter
@@ -29,11 +30,11 @@ class EntryQuerySorter
     /**
      * Construct
      *
-     * @param EntryQueryBuilder $query
+     * @param Builder $query
      * @param                   $orderBy
      * @param                   $sort
      */
-    public function __construct(EntryQueryBuilder $query, $orderBy, $sort)
+    public function __construct(Builder $query, $orderBy, $sort)
     {
         $this->query                 = $query;
         $this->model                 = $query->getModel();
@@ -57,10 +58,9 @@ class EntryQuerySorter
 
                 $related = $orderByRelation->getRelated();
 
-                // @todo - Untested, verify this actually works
-
                 $this->orderBy = $related->getTable() . '.' . $related->getOrderByColumn();
 
+                // @todo - Untested, verify this actually works
                 if (!$this->orderBy and $related instanceof EntryModel) {
 
                     $stream = $related->getStream();
