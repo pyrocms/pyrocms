@@ -7,9 +7,41 @@ use Pyro\Support\Presenter;
 
 class EntryPresenter extends Presenter
 {
+    /**
+     * Entry view options
+     * @var EntryViewOptions
+     */
     protected $entryViewOptions;
 
-    protected $appends = array('createdByUser');
+    /**
+     * Appends
+     * @var array
+     */
+    protected $appends = array(
+        'createdByUser',
+        'linkEdit',
+        'linkDetails',
+    );
+
+    /**
+     * Link edit template
+     * @var string
+     */
+    protected $linkEditTemplate = '
+        <a href="{{ url:site }}admin/{{ stream:stream_namespace }}/{{ stream:stream_slug }}/edit/{{ entry:id }}" class="link">
+            {{ title_column_value }}
+        </a>
+        ';
+
+    /**
+     * Link details template
+     * @var string
+     */
+    protected $linkDetailsTemplate = '
+        <a href="{{ url:site }}admin/{{ stream:stream_namespace }}/{{ stream:stream_slug }}/details/{{ entry:id }}" class="link">
+            {{ title_column_value }}
+        </a>
+        ';
 
     public function __construct(EntryModel $model, EntryViewOptions $entryViewOptions)
     {
@@ -51,6 +83,19 @@ class EntryPresenter extends Presenter
 
             return call_user_func($callback, $this->resource);
 
+        } elseif ($viewOption and $template = $viewOption->getTemplate()) {
+
+            $fieldTypeMethod = Str::studly($viewOption->getFormat()) . 'Output';
+
+            $method = 'get' . $fieldTypeMethod;
+
+            if (method_exists($this, $method)) {
+                return $this->{$method}($key);
+            }
+
+            if ($fieldType = $this->resource->getFieldType($key)) {
+                return $fieldType->{$fieldTypeMethod}();
+            }
         } elseif (method_exists($this, $method)) {
 
             return $this->{$method}();
@@ -93,6 +138,36 @@ class EntryPresenter extends Presenter
     protected function getUserOutput($value)
     {
         return ci()->parser->parse_string('<a href="admin/users/edit/{{ id }}">{{ username }}</a>', $value, true);
+    }
+
+    /**
+     * Link edit
+     * @return string
+     */
+    public function linkEdit()
+    {
+        $data = array(
+            'entry' => $this->resource->toArray(),
+            'stream' => $this->resource->getStream()->toArray(),
+            'title_column_value' => $this->resource->getTitleColumnValue(),
+        );
+
+        return ci()->parser->parse_string($this->linkEditTemplate, $data, true, false, false, false);
+    }
+
+    /**
+     * Link details
+     * @return string
+     */
+    public function linkDetails()
+    {
+        $data = array(
+            'entry' => $this->resource->toArray(),
+            'stream' => $this->resource->getStream()->toArray(),
+            'title_column_value' => $this->resource->getTitleColumnValue(),
+        );
+
+        return ci()->parser->parse_string($this->linkDetailsTemplate, $data, true, false, false, false);
     }
 
     /**
