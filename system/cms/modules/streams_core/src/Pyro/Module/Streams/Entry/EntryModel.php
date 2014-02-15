@@ -129,7 +129,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     /**
      * Run fields through their pre-process
-     *
      * Just used for updating right now
      *
      * @access  public
@@ -212,7 +211,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public static function isSubclassOfEntryModel($subclass, $class = 'Pyro\Module\Streams\Entry\EntryModel')
     {
-        if (!is_string($class) or !class_exists($subclass)) return false;
+        if (!is_string($class) or !class_exists($subclass)) {
+            return false;
+        }
 
         $reflection = new \ReflectionClass($subclass);
 
@@ -693,24 +694,4 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         return $builder;
     }
-
-    /**
-     * Handle dynamic method calls into the method.
-     *
-     * @param  string $method
-     * @param  array  $parameters
-     *
-     * @return mixed
-     */
-    /*    public function __call($method, $parameters)
-        {
-            // Handle dynamic relation as join
-            if (preg_match('/^join([A-Z][a-z]+)$/', $method, $matches)) {
-                return $this->relationAsJoin($matches[1]);
-            }
-
-            return parent::__call($method, $parameters);
-        }
-    */
-
 }
