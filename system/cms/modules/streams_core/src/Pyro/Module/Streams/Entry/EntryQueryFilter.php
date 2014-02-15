@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Pyro\Model\EloquentReflection;
 use Pyro\Module\Streams\Stream\StreamModel;
 
@@ -58,34 +59,42 @@ class EntryQueryFilter
                     continue;
                 }
 
+                // Get the original fieldSlug
                 $fieldSlug = $commands[3];
 
-
-                /** @var $constraintType string */
-                $constraintType = $commands[4];
-
-                /** @var $filterBy array */
+                // Get the filterBy array
                 $filterBy = explode('|', $fieldSlug);
 
-                /**
-                 * @var $fieldSlug array
-                 */
+                // The first item in the array is the qualified fieldSlug
                 $fieldSlug = array_shift($filterBy);
 
-                if ($relation = $this->reflection($this->model)->getRelationClass($fieldSlug)) {
+                // Get the camel case relation method from the fieldSlug
+                $relationMethod = Str::camel($fieldSlug);
+
+                // Get the constraint type string
+                $constraintType = $commands[4];
+
+                // Enable whereHas logic only if the slug is a relation
+                if ($relation = $this->reflection($this->model)->getRelationClass($relationMethod)) {
 
                     $this->query->whereHas(
-                        'category',
+                        $relationMethod,
                         function ($query) use ($filterBy, $constraintType, $value) {
+                            // Do a constraint for each column from the related model
                             foreach ($filterBy as $column) {
-                                $this->constrain($query, $constraintType, $column, $value);
+                                /**
+                                 * @todo - Here is an opportunity to override the constraint
+                                 * by parsing each column string. Revisit to implement this feature.
+                                 */
+                                $this->constraint($query, $constraintType, $column, $value);
                             }
                         }
                     );
 
                 } else {
 
-                    $this->constrain($this->query, $constraintType, $fieldSlug, $value);
+                    // Do a normal constraint
+                    $this->constraint($this->query, $constraintType, $fieldSlug, $value);
 
                 }
             }
@@ -133,7 +142,7 @@ class EntryQueryFilter
      *
      * @return Builder
      */
-    protected function constrain(Builder $query, $constraintType, $filterByColumn, $value)
+    protected function constraint(Builder $query, $constraintType, $filterByColumn, $value)
     {
         $constraint = new EntryQueryFilterConstraint($query, $constraintType, $filterByColumn, $value);
 
