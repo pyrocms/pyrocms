@@ -1413,6 +1413,11 @@ section.item {
 	color: #ffffff;
 }
 
+#logo img {
+  height:30px;
+  width:19px;
+}
+
 #content-body {
 	top: 135px;
 	position: relative;
