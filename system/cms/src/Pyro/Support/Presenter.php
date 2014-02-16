@@ -1,5 +1,6 @@
 <?php namespace Pyro\Support;
 
+use Illuminate\Support\Str;
 use McCool\LaravelAutoPresenter\BasePresenter;
 use Pyro\Support\Contracts\ArrayableInterface;
 
@@ -19,13 +20,25 @@ class Presenter extends BasePresenter implements ArrayableInterface
      */
     public function toArray()
     {
-        $presenterArray = $this->getAppendsAttributes();
+        return $this->getResourceArray();
+    }
+
+    /**
+     * Get resource array
+     *
+     * @return array
+     */
+    public function getResourceArray()
+    {
+        $resourceArray = array();
 
         if (!$this->resource instanceof ArrayableInterface) {
-            return array_merge($this->resource->toArray(), $presenterArray);
+            $resourceArray = $this->resource->toArray();
         }
 
-        return array();
+        $resourceArray = array_merge($resourceArray, $this->getAppendsAttributes());
+
+        return $resourceArray;
     }
 
     /**
@@ -38,7 +51,7 @@ class Presenter extends BasePresenter implements ArrayableInterface
         $presenterArray = array();
 
         foreach ($this->appends as $method) {
-            $presenterArray[$method] = $this->{$method}();
+            $presenterArray[Str::snake($method)] = $this->{$method}();
         }
 
         return $presenterArray;
