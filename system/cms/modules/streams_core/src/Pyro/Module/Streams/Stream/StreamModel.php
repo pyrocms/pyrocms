@@ -954,6 +954,15 @@ class StreamModel extends Eloquent
     }
 
     /**
+     * Get table name
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->stream_prefix.$this->stream_slug;
+    }
+
+    /**
      * Span new class
      * @return object
      */
