@@ -402,13 +402,14 @@ Pyro.Loading = function(loading) {
  */
 
 Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_dashes) {
-	
+
 	var slug, value;
 
 	$(document).on('keyup', input_form, function(){
 		value = $(input_form).val();
 
-		if ( ! value.length ) return;
+		if (value == '') return;
+
 		space_character = space_character || '-';
 		disallow_dashes = disallow_dashes || false;
 		var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
@@ -425,16 +426,16 @@ Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_
 		} else {
 			value = $.trim(value);
 
-			for (var i = chars.length - 1; i >= 0; i--) {
-				// Remove backslash from string
-				search = chars[i].search.replace(new RegExp('/', 'g'), '');
-				replace = chars[i].replace;
+            if (chars !== undefined) {
+                for (var i = chars.length - 1; i >= 0; i--) {
+                    // Remove backslash from string
+                    search = chars[i].search.replace(new RegExp('/', 'g'), '');
+                    replace = chars[i].replace;
 
-				// create regex from string and replace with normal string
-				value = value.replace(new RegExp(search, 'g'), replace);
-			};
-
-
+                    // create regex from string and replace with normal string
+                    value = value.replace(new RegExp(search, 'g'), replace);
+                };
+            }
 
 			slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
 						.replace(/[\s\.:;=+]+/g, space_character)
