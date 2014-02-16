@@ -9,12 +9,14 @@ class EntryPresenter extends Presenter
 {
     /**
      * Entry view options
+     *
      * @var EntryViewOptions
      */
     protected $entryViewOptions;
 
     /**
-     * Appends
+     * Appends to array
+     *
      * @var array
      */
     protected $appends = array(
@@ -25,6 +27,7 @@ class EntryPresenter extends Presenter
 
     /**
      * Link edit template
+     *
      * @var string
      */
     protected $linkEditTemplate = '
@@ -35,6 +38,7 @@ class EntryPresenter extends Presenter
 
     /**
      * Link details template
+     *
      * @var string
      */
     protected $linkDetailsTemplate = '
@@ -57,13 +61,13 @@ class EntryPresenter extends Presenter
      */
     public function toArray()
     {
-        $presenterArray = $this->getAppendsAttributes();
+        $resourceArray = $this->getResourceArray();
 
-        foreach ($this->resource->getAttributeKeys() as $key) {
-            $resourceArray[$key] = $this->getPresenterAttribute($key);
+        foreach (array_keys($resourceArray) as $key) {
+            $resourceArray[Str::snake($key)] = $this->getPresenterAttribute($key);
         }
 
-        return array_merge($resourceArray, $presenterArray);
+        return $resourceArray;
     }
 
     /**
@@ -75,6 +79,8 @@ class EntryPresenter extends Presenter
      */
     public function getPresenterAttribute($key)
     {
+        $resource = $this->getResourceArray();
+
         $method = Str::camel($key);
 
         $viewOption = $this->entryViewOptions->getBySlug($key);
@@ -85,17 +91,18 @@ class EntryPresenter extends Presenter
 
         } elseif ($viewOption and $template = $viewOption->getTemplate()) {
 
-            $fieldTypeMethod = Str::studly($viewOption->getFormat()) . 'Output';
+            return ci()->parser->parse_string(
+                $template,
+                array('entry' => $resource),
+                true,
+                false,
+                array(
+                    'stream'    => $this->resource->getStreamSlug(),
+                    'namespace' => $this->resource->getStreamNamespace()
+                ),
+                false
+            );
 
-            $method = 'get' . $fieldTypeMethod;
-
-            if (method_exists($this, $method)) {
-                return $this->{$method}($key);
-            }
-
-            if ($fieldType = $this->resource->getFieldType($key)) {
-                return $fieldType->{$fieldTypeMethod}();
-            }
         } elseif (method_exists($this, $method)) {
 
             return $this->{$method}();
@@ -142,13 +149,14 @@ class EntryPresenter extends Presenter
 
     /**
      * Link edit
+     *
      * @return string
      */
     public function linkEdit()
     {
         $data = array(
-            'entry' => $this->resource->toArray(),
-            'stream' => $this->resource->getStream()->toArray(),
+            'entry'              => $this->resource->toArray(),
+            'stream'             => $this->resource->getStream()->toArray(),
             'title_column_value' => $this->resource->getTitleColumnValue(),
         );
 
@@ -157,13 +165,14 @@ class EntryPresenter extends Presenter
 
     /**
      * Link details
+     *
      * @return string
      */
     public function linkDetails()
     {
         $data = array(
-            'entry' => $this->resource->toArray(),
-            'stream' => $this->resource->getStream()->toArray(),
+            'entry'              => $this->resource->toArray(),
+            'stream'             => $this->resource->getStream()->toArray(),
             'title_column_value' => $this->resource->getTitleColumnValue(),
         );
 
@@ -179,29 +188,9 @@ class EntryPresenter extends Presenter
      */
     protected function getStringOutput($key = null)
     {
-        $template = null;
-
-        if ($viewOption = $this->entryViewOptions->getBySlug($key)) {
-            $template = $viewOption->getTemplate();
-        }
-
         $value = $this->resource->getAttribute($key);
 
-        if ($template) {
-
-            return ci()->parser->parse_string(
-                $template,
-                array('entry' => $this->resource),
-                true,
-                false,
-                array(
-                    'stream'    => $this->resource->getStreamSlug(),
-                    'namespace' => $this->resource->getStreamNamespace()
-                ),
-                false
-            );
-
-        } elseif ($type = $this->resource->getFieldType($key)) {
+        if ($type = $this->resource->getFieldType($key)) {
 
             return $type->stringOutput();
 
