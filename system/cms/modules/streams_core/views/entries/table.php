@@ -88,12 +88,12 @@
 
                                     // Html?
                                     if (isset($button['html'])) {
-                                        $all_buttons[] = ci()->parser->parse_string($button['html'], $entry->toArray(), true, false, false);
+                                        $all_buttons[] = ci()->parser->parse_string($button['html'], $entry->getAttributes(), true, false, false);
                                         continue;
                                     }
 
 									// The second is kept for backwards compatibility
-									$url = ci()->parser->parse_string($button['url'], $entry->toArray(), true);
+									$url = ci()->parser->parse_string($button['url'], $entry->getAttributes(), true, false, false);
 									$url = str_replace('-entry_id-', $entry->getKey(), $url);
 
 									// Label
