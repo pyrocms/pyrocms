@@ -32,13 +32,11 @@ class Presenter extends BasePresenter implements ArrayableInterface
     {
         $resourceArray = array();
 
-        if (!$this->resource instanceof ArrayableInterface) {
+        if ($this->resource instanceof ArrayableInterface) {
             $resourceArray = $this->resource->toArray();
         }
 
-        $resourceArray = array_merge($resourceArray, $this->getAppendsAttributes());
-
-        return $resourceArray;
+        return array_merge($resourceArray, $this->getAppendsAttributes());
     }
 
     /**
