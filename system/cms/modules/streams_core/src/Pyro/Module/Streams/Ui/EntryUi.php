@@ -190,10 +190,6 @@ class EntryUi extends UiAbstract
             $this->query->orderBy($this->orderBy, $this->sort);
         }
 
-        if ($limit = ci()->input->get('limit-' . $this->model->getStream()->stream_namespace . '-' . $this->model->getStream()->stream_slug)) {
-            $this->limit = $limit;
-        }
-
         if ($this->limit > 0) {
             $this->query->take($this->limit)->skip($this->offset);
             $this->paginationTotalRecords($this->countQuery->count());

@@ -16,6 +16,11 @@ class EntryValidator
      */
     protected $model = null;
 
+    public function __construct()
+    {
+        ci()->load->library('form_validation');
+    }
+
     /**
      * Make validator
      * @param $model

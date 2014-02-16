@@ -446,7 +446,7 @@ abstract class FieldTypeAbstract
         $options['name']         = $this->form_slug;
         $options['id']           = $this->form_slug;
         $options['value']        = $this->value;
-        $options['class']        = 'form-control';
+        $options['autocomplete'] = 'off';
         $options['placeholder']  = lang_label($this->getParameter('placeholder'));
 
         if ($max_length = $this->getParameter('max_length') and is_numeric($max_length)) {
