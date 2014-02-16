@@ -1403,7 +1403,7 @@ section.item {
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: -18px 12px 0 3px;
+	margin: 10px 12px 0 0;
 	padding: 0;
 	float: left;
 }
