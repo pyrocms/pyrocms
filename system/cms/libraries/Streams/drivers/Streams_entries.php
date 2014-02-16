@@ -1,251 +1,283 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Illuminate\Support\Str;
 use Pyro\Module\Streams\Data;
+use Pyro\Module\Streams\Entry\EntryModel;
 
 /**
  * Entries Driver
- *
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @author    Parse19
+ * @package    PyroCMS\Core\Libraries\Streams\Drivers
  */
-
 class Streams_entries extends CI_Driver
 {
-	/**
-	 * Available entry parameters
-	 * and their defaults.
-	 *
-	 * @var		array
-	 */
-	public $entries_params = array(
-			'stream'			=> null,
-			'namespace'			=> null,
-			'limit'				=> null,
-			'offset'			=> 0,
-			'single'			=> 'no',
-			'id'				=> null,
-			'date_by'			=> 'created_at',
-			'year'				=> null,
-			'month'				=> null,
-			'day'				=> null,
-			'show_upcoming'		=> 'yes',
-			'show_past'			=> 'yes',
-			'restrict_user'		=> 'no',
-			'where'				=> null,
-			'exclude'			=> null,
-			'exclude_by'		=> 'id',
-			'include'			=> null,
-			'include_by'		=> 'id',
-			'disable'			=> null,
-			'order_by'			=> 'created_at',
-			'sort'				=> 'desc',
-			'exclude_called'	=> 'no',
-			'paginate'			=> 'no',
-			'pag_method'		=> 'offset', 	// 'offset' or 'page'
-			'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
-			'pag_segment'		=> 2,
-			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
-			'pag_base'			=> null, 		// If null, this is automatically set
-			'partial'			=> null,
-			'site_ref'			=> SITE_REF
-	);
+    /**
+     * Available entry parameters
+     * and their defaults.
+     * @var        array
+     */
+    public $entries_params = array(
+        'stream'         => null,
+        'namespace'      => null,
+        'limit'          => null,
+        'offset'         => 0,
+        'single'         => 'no',
+        'id'             => null,
+        'date_by'        => 'created',
+        'year'           => null,
+        'month'          => null,
+        'day'            => null,
+        'show_upcoming'  => 'yes',
+        'show_past'      => 'yes',
+        'restrict_user'  => 'no',
+        'where'          => null,
+        'exclude'        => null,
+        'exclude_by'     => 'id',
+        'include'        => null,
+        'include_by'     => 'id',
+        'disable'        => null,
+        'order_by'       => 'created',
+        'sort'           => 'desc',
+        'exclude_called' => 'no',
+        'paginate'       => 'no',
+        'pag_method'     => 'offset', // 'offset' or 'page'
+        'pag_uri_method' => 'segment', // 'segment' or 'query_string'
+        'pag_segment'    => 2,
+        'pag_query_var'  => 'page', // Only used if 'pag_uri_method' is query_string
+        'pag_base'       => null, // If null, this is automatically set
+        'partial'        => null,
+        'site_ref'       => SITE_REF
+    );
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Pagination Config
-	 *
-	 * These are the available pagination config variables
-	 * that are available to override.
-	 *
-	 * @var 	array
-	 */
-	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close', 'suffix', 'first_url',  'reuse_query_string');
+    /**
+     * Pagination Config
+     * These are the available pagination config variables
+     * that are available to override.
+     * @var    array
+     */
+    public $pag_config = array(
+        'num_links',
+        'full_tag_open',
+        'full_tag_close',
+        'first_link',
+        'first_tag_open',
+        'first_tag_close',
+        'prev_link',
+        'prev_tag_open',
+        'prev_tag_close',
+        'cur_tag_open',
+        'cur_tag_close',
+        'num_tag_open',
+        'num_tag_close',
+        'next_link',
+        'next_tag_open',
+        'next_tag_close',
+        'last_link',
+        'last_tag_open',
+        'last_tag_close',
+        'suffix',
+        'first_url',
+        'reuse_query_string'
+    );
 
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Get entries for a stream.
-	 *
-	 * @param	array - parameters
-	 * @param	[array - pagination config]
-	 * @param	[bool - should we not do param defaults? Use with caution.]
-	 * @return	array
-	 */
-	public function get_entries($params, $pagination_config = array(), $skip_params = false)
-	{
+    /**
+     * Get entries for a stream.
+     * @param    array - parameters
+     * @param    [array - pagination config]
+     * @param    [bool - should we not do param defaults? Use with caution.]
+     * @return    array
+     */
+    public function get_entries($params, $pagination_config = array(), $skip_params = false)
+    {
 
-		$return = array();
+        $return = array();
 
-		$CI = get_instance();
+        $CI = get_instance();
 
-		// -------------------------------------
-		// Set Parameters
-		// -------------------------------------
+        // -------------------------------------
+        // Set Parameters
+        // -------------------------------------
 
-		if (! $skip_params) {
-			foreach ($this->entries_params as $param => $default) {
-				if ( ! isset($params[$param]) and ! is_null($this->entries_params[$param])) $params[$param] = $default;
-			}
-		}
+        if (!$skip_params) {
+            foreach ($this->entries_params as $param => $default) {
+                if (!isset($params[$param]) and !is_null($this->entries_params[$param])) {
+                    $params[$param] = $default;
+                }
+            }
+        }
 
-		// -------------------------------------
-		// Stream Data Check
-		// -------------------------------------
+        // -------------------------------------
+        // Stream Data Check
+        // -------------------------------------
 
-		if ( ! isset($params['stream'])) $this->log_error('no_stream_provided', 'get_entries');
+        if (!isset($params['stream'])) {
+            $this->log_error('no_stream_provided', 'get_entries');
+        }
 
-		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
+        if (!isset($params['namespace'])) {
+            $this->log_error('no_namespace_provided', 'get_entries');
+        }
 
-		$stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
+        $stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
 
-		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
+        if (!$stream) {
+            $this->log_error('invalid_stream', 'get_entries');
+        }
 
-		// -------------------------------------
-		// Allow 'yes'/'no' fields to be bool
-		// -------------------------------------
-		// Inputs are yes/no because that's what
-		// the row parser expects them to be. This
-		// is because early on the row parser JUST took
-		// inputs from the streams plugin and param
-		// values could not be bool. So this should
-		// definitely be changed in the future. This is
-		// a workaround so devs can use true/false
-		// instead of having to use 'yes'/'no' like
-		// common savages.
-		// -------------------------------------
+        // -------------------------------------
+        // Allow 'yes'/'no' fields to be bool
+        // -------------------------------------
+        // Inputs are yes/no because that's what
+        // the row parser expects them to be. This
+        // is because early on the row parser JUST took
+        // inputs from the streams plugin and param
+        // values could not be bool. So this should
+        // definitely be changed in the future. This is
+        // a workaround so devs can use true/false
+        // instead of having to use 'yes'/'no' like
+        // common savages.
+        // -------------------------------------
 
-		$bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
+        $bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
 
-		foreach ($bool_inputs as $input) {
-			if (isset($params[$input])) {
-				if ($params[$input] === true) {
-					$params[$input] = 'yes';
-				} elseif ($params[$input] === false) {
-					$params[$input] = 'no';
-				}
-			}
-		}
+        foreach ($bool_inputs as $input) {
+            if (isset($params[$input])) {
+                if ($params[$input] === true) {
+                    $params[$input] = 'yes';
+                } elseif ($params[$input] === false) {
+                    $params[$input] = 'no';
+                }
+            }
+        }
 
-		// -------------------------------------
-		// Pagination Limit
-		// -------------------------------------
+        // -------------------------------------
+        // Pagination Limit
+        // -------------------------------------
 
-		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
+        if ($params['paginate'] == 'yes' and (!isset($params['limit']) or !is_numeric(
+                    $params['limit']
+                ))
+        ) {
+            $params['limit'] = 25;
+        }
 
-		// -------------------------------------
-		// Get Rows
-		// -------------------------------------
+        // -------------------------------------
+        // Get Rows
+        // -------------------------------------
 
-		$rows = $CI->row_m->get_rows($params, null, $stream);
+        $rows = $CI->row_m->get_rows($params, null, $stream);
 
-		$return['entries'] = $rows['rows'];
+        $return['entries'] = $rows['rows'];
 
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
+        // -------------------------------------
+        // Pagination
+        // -------------------------------------
 
-		if ($params['paginate'] == 'yes') {
-			$return['total'] 	= $rows['pag_count'];
+        if ($params['paginate'] == 'yes') {
+            $return['total'] = $rows['pag_count'];
 
-			$params['pag_base'] = (isset($params['pag_base'])) ? $params['pag_base'] : null;
+            $params['pag_base'] = (isset($params['pag_base'])) ? $params['pag_base'] : null;
 
-			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config, $params['pag_base']);
-		} else {
-			$return['pagination'] 	= null;
-			$return['total'] 		= count($return['entries']);
-		}
+            $return['pagination'] = $CI->row_m->build_pagination(
+                $params['pag_segment'],
+                $params['limit'],
+                $return['total'],
+                $pagination_config,
+                $params['pag_base']
+            );
+        } else {
+            $return['pagination'] = null;
+            $return['total']      = count($return['entries']);
+        }
 
-		// -------------------------------------
+        // -------------------------------------
 
-		return $return;
-	}
+        return $return;
+    }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Get a single entry
-	 *
-	 * @param	int - entry id
-	 * @param	stream - int, slug, or obj
-	 * @param	bool - format results?
-	 * @return	object
-	 */
-	public function get_entry($entry_id, $stream, $namespace, $format = true, $plugin_call = true)
-	{
-		return Data\Entries::getEntry($entry_id, $stream, $namespace, $format, $plugin_call);
+    /**
+     * Get a single entry
+     * @param    int - entry id
+     * @param    stream - int, slug, or obj
+     * @param    bool - format results?
+     * @return    object
+     */
+    public function get_entry($entry_id, $stream, $namespace, $format = true, $plugin_call = true)
+    {
+        return Data\Entries::getEntry($entry_id, $stream, $namespace, $format, $plugin_call);
 
-		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format, $plugin_call);
-	}
+        return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format, $plugin_call);
+    }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Delete an entry
-	 *
-	 * @param	int - entry id
-	 * @param	stream - int, slug, or obj
-	 * @return	object
-	 */
-	public function delete_entry($entry_id, $stream, $namespace)
-	{
-		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
-	}
+    /**
+     * Delete an entry
+     * @param    int - entry id
+     * @param    stream - int, slug, or obj
+     * @return    object
+     */
+    public function delete_entry($entry_id, $stream, $namespace)
+    {
+        $model = 'Pyro\Module\Streams\Model\\' . Str::studly($namespace . '_' . $stream . '_entry_model');
+        $model = new $model;
 
-	// --------------------------------------------------------------------------
+        return $model->whereId($entry_id)->delete();
+    }
 
-	/**
-	 * Insert an entry
-	 *
-	 * This will be run through the streams data
-	 * processing.
-	 *
-	 * @param	array - entry data
-	 * @param	stream - int, slug, or obj
-	 * @param 	string - namespace
-	 * @param 	array - field slugs to skip
-	 * @param 	array - extra data to add in
-	 * @return	object
-	 */
-	public function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
-	{
-		$str_obj = $this->stream_obj($stream, $namespace);
+    // --------------------------------------------------------------------------
 
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'insert_entry');
+    /**
+     * Insert an entry
+     * This will be run through the streams data
+     * processing.
+     * @param    array - entry data
+     * @param    stream - int, slug, or obj
+     * @param    string - namespace
+     * @param    array - field slugs to skip
+     * @param    array - extra data to add in
+     * @return    object
+     */
+    public function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
+    {
+        $model = 'Pyro\Module\Streams\Model\\' . Str::studly($namespace . '_' . $stream . '_entry_model');
+        $model = new $model;
 
-		$CI = get_instance();
+        return $model->create($entry_data);
+    }
 
-		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
+    // --------------------------------------------------------------------------
 
-		return $CI->row_m->insert_entry($entry_data, $stream_fields, $str_obj, $skips, $extra);
-	}
+    /**
+     * Update an entry
+     * @param    int - entry id
+     * @param    array - entry data
+     * @param    stream - int, slug, or obj
+     * @param    string - namespace
+     * @param    array - field slugs to skip
+     * @param    array - assoc array of extra data to add
+     * @param    bool - update only the passed values?
+     * @return    object
+     */
+    public function update_entry(
+        $entry_id,
+        $entry_data,
+        $stream,
+        $namespace,
+        $skips = array(),
+        $extra = array(),
+        $include_only_passed = true
+    ) {
+        $model = 'Pyro\Module\Streams\Model\\' . Str::studly($namespace . '_' . $stream . '_entry_model');
+        $model = new $model;
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Update an entry
-	 *
-	 * @param	int - entry id
-	 * @param	array - entry data
-	 * @param	stream - int, slug, or obj
-	 * @param 	string - namespace
-	 * @param 	array - field slugs to skip
-	 * @param 	array - assoc array of extra data to add
-	 * @param 	bool - update only the passed values?
-	 * @return	object
-	 */
-	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = true)
-	{
-		$str_obj = $this->stream_obj($stream, $namespace);
-
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'update_entry');
-
-		$CI = get_instance();
-
-		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
-
-		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips, $extra, $include_only_passed);
-	}
-
+        return $model->whereId($entry_id)->update($entry_data);
+    }
 }

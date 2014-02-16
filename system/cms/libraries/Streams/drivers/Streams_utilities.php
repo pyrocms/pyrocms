@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Streams\Stream\StreamSchema;
+
 /**
  * Streams Utilities Driver
  *
@@ -21,21 +24,7 @@ class Streams_utilities extends CI_Driver
 	 */
 	public function remove_namespace($namespace)
 	{
-		// Some field destructs use stream data from the cache,
-		// so let's make sure that the slug cache has run.
-		ci()->streams_m->run_slug_cache();
-
-		// Get all the streams in this namespace and remove each one:
-		$streams = ci()->streams_m->get_streams($namespace);
-
-		if ( ! $streams) return null;
-
-		foreach ($streams as $stream) {
-			ci()->streams_m->delete_stream($stream);
-		}
-
-		// Remove all fields in namespace
-		ci()->pdb->table(FIELDS_TABLE)->where('field_namespace', $namespace)->delete();
+        return StreamSchema::destroyNamespace($namespace);
 	}
 
 	// --------------------------------------------------------------------------
