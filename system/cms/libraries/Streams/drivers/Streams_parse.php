@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 use Pyro\Module\Streams\FieldType\FieldTypeManager;
 use Pyro\Module\Streams\Entry\EntryModel;

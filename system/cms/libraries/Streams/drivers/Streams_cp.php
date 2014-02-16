@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 use Pyro\Module\Streams\EntryUi;
 
@@ -67,247 +67,33 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
-		$legacy = array(
-			'buttons'
-		);
+        // New instance
+        $ui = new EntryUi();
 
-		foreach ($legacy as $key)
-		{
-			$extra[$key] = isset($extra[$key]) ? $extra[$key] : null;
-		}
+        // Table
+        $table = $ui->table($stream_slug, $namespace_slug);
 
-		return EntryUi::table($stream_slug, $namespace_slug)
-			->buttons($extra['buttons'])
-			->render();
+        // Buttons
+        if (isset($extra['buttons'])) {
+            $table->buttons($extra['buttons']);
+        }
 
-		$CI = get_instance();
-		
-		// Get stream
-		$stream = $this->stream_obj($stream_slug, $namespace_slug);
-		if ( ! $stream) $this->log_error('invalid_stream', 'entries_table');
+        // Buttons
+        if (isset($extra['pagination'])) {
+            $table->pagination($extra['pagination']);
+        }
 
- 		// -------------------------------------
-		// Get Header Fields
-		// -------------------------------------
-		
- 		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
+        // Filters
+        if (isset($extra['filters'])) {
+            $table->filters($extra['filters']);
+        }
 
- 		// We need to make sure that stream_fields is 
- 		// at least an empty object.
- 		if ( ! is_object($stream_fields))
- 		{
- 			$stream_fields = new stdClass;
- 		}
+        // Fields
+        if (isset($extra['columns'])) {
+            $table->fields($extra['columns']);
+        }
 
- 		$stream_fields->id = new stdClass;
-  		$stream_fields->created = new stdClass;
- 		$stream_fields->updated = new stdClass;
- 		$stream_fields->created_by = new stdClass;
-
-  		$stream_fields->id->field_name 				= lang('streams:id');
-		$stream_fields->created->field_name 		= lang('streams:created_date');
- 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams:created_by');
-
- 		// -------------------------------------
-		// Find offset URI from array
-		// -------------------------------------
-		
-		if (is_numeric($pagination))
-		{
-			$segs = explode('/', $pagination_uri);
-			$offset_uri = count($segs)+1;
-	
-	 		$offset = $CI->uri->segment($offset_uri, 0);
-
-			// Calculate actual offset if not first page
-			if ( $offset > 0 )
-			{
-				$offset = ($offset - 1) * $pagination;
-			}
-  		}
-  		else
-  		{
-  			$offset_uri = null;
-  			$offset = 0;
-  		}
-
-  		// -------------------------------------
-		// Sorting
-		// @since 2.1.5
-		// -------------------------------------
-
-		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
-		{
-			$stream->sorting = 'custom';
-
-			// As an added measure of obsurity, we are going to encrypt the
-			// slug of the module so it isn't easily changed.
-			$CI->load->library('encrypt');
-
-			// We need some variables to use in the sort.
-			$CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.'; var stream_offset='.$offset.'; var streams_module="'.$CI->encrypt->encode($CI->module_details['slug']).'";
-				</script>');
-			$CI->template->append_js('streams/entry_sorting.js');
-		}
-  
-  		$data = array(
-  			'stream'		=> $stream,
-  			'stream_fields'	=> $stream_fields,
-  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : null,
-  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
-  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
-  		);
- 
-  		// -------------------------------------
-		// Columns
-		// @since 2.1.5
-		// -------------------------------------
-
-		if (isset($extra['columns']) and is_array($extra['columns']))
-		{
-			$stream->view_options = $extra['columns'];
-		}
-
- 		// -------------------------------------
-		// Filter API
-		// -------------------------------------
-
-		if ($CI->input->get('filter-'.$stream->stream_slug))
-		{
-			// Get all URL variables
-			$url_variables = $CI->input->get();
-
-			$processed = array();
-
-			// Loop and process
-			foreach ($url_variables as $filter => $value)
-			{
-				// -------------------------------------
-				// Filter API Params
-				// -------------------------------------
-				// They all start with f-
-				// No value? No soup for you!
-				// -------------------------------------
-
-				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
-
-				if (strlen($value) == 0) continue;				// No value.. boo
-
-				$filter = substr($filter, 2);					// Remove identifier
-
-
-				// -------------------------------------
-				// Not
-				// -------------------------------------
-				// Default: false
-				// -------------------------------------
-
-				$not = substr($filter, 0, 4) == 'not-';
-
-				if ($not) $filter = substr($filter, 4);			// Remove identifier
-
-
-				// -------------------------------------
-				// Exact
-				// -------------------------------------
-				// Default: false
-				// -------------------------------------
-
-				$exact = substr($filter, 0, 6) == 'exact-';
-
-				if ($exact) $filter = substr($filter, 6);		// Remove identifier
-
-
-				// -------------------------------------
-				// Construct the where segment
-				// -------------------------------------
-
-				if ($exact)
-				{
-					if ($not)
-					{
-						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' != "'.urldecode($value).'"';
-					}
-					else
-					{
-						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' = "'.urldecode($value).'"';
-					}
-				}
-				else
-				{
-					if ($not)
-					{
-						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' NOT LIKE "%'.urldecode($value).'%"';
-					}
-					else
-					{
-						$this->where[] = $stream->stream_prefix.$stream->stream_slug.'.'.$filter.' LIKE "%'.urldecode($value).'%"';
-					}
-				}
-			}
-		}
-
-		$filter_data = $this->where;
-
- 		// -------------------------------------
-		// Get Entries
-		// -------------------------------------
-		
-		$limit = ($pagination) ? $pagination : null;
-	
-		$data['entries'] = $CI->streams_m->get_stream_data(
-														$stream,
-														$stream_fields, 
-														$limit,
-														$offset,
-														$filter_data);
-
-
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
-
-		foreach ($filter_data as $filter)
-		{
-			$CI->db->where($filter, null, false);
-		}
-
-		$data['pagination'] = create_pagination(
-									$pagination_uri,
-									$CI->db->select('id')->count_all_results($stream->stream_prefix.$stream->stream_slug),
-									$pagination,
-									$offset_uri
-								);
-		
-		// -------------------------------------
-		// Build Pages
-		// -------------------------------------
-		
-		// Set title
-		if (isset($extra['title']))
-		{
-			$CI->template->title(lang_label($extra['title']));
-		}
-
-		// Set custom no data message
-		if (isset($extra['no_entries_message']))
-		{
-			$data['no_entries_message'] = $extra['no_entries_message'];
-		}
-		
-		$table = $CI->load->view('admin/partials/streams/entries', $data, true);
-		
-		if ($view_override)
-		{
-			// Hooray, we are building the template ourself.
-			$CI->template->build('admin/partials/blank_section', array('content' => $table));
-		}
-		else
-		{
-			// Otherwise, we are returning the table
-			return $table;
-		}
+        return $table->render($view_override);
 	}
 
 	// --------------------------------------------------------------------------
@@ -342,32 +128,11 @@ class Streams_cp extends CI_Driver {
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
-		return EntryUi::form($stream_slug, $namespace_slug, $entry_id)
-			//->fields(array('name', 'data'))
-			->render();
+        // New instance
+        $ui = new EntryUi();
 
-		$CI = get_instance();
-
-		$stream = $this->stream_obj($stream_slug, $namespace_slug);
-		if ( ! $stream) $this->log_error('invalid_stream', 'form');
-
-		// Load up things we'll need for the form
-		$CI->load->library(array('form_validation', 'streams_core/Fields'));
-	
-		if ($mode == 'edit')
-		{
-			if( ! $entry = $CI->row_m->get_row($entry_id, $stream, false))
-			{
-				$this->log_error('invalid_row', 'form');
-			}
-		}
-		else
-		{
-			$entry = null;
-		}
-
-		// Get our field form elements.
-		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra, $defaults);
+        // Form
+        $form = $ui->form($stream_slug, $namespace_slug, $entry_id);
 
 		$data = array(
 					'fields' 	=> $fields,
@@ -381,44 +146,22 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$CI->template->title($extra['title']);
+            $form->title($extra['title']);
 		}
+
 		// Set return uri
 		if (isset($extra['return']))
 		{
-			$data['return'] = $extra['return'];
+			$form->redirect($extra['return']);
 		}
 
-		// Set the no fields mesage. This has a lang default.
-		if (isset($extra['no_fields_message']))
-		{
-			$data['no_fields_message'] = $extra['no_fields_message'];
-		}
+        // Tabs
+        if (isset($extra['tabs']))
+        {
+            $form->tabs($extra['tabs']);
+        }
 		
-		if ($data['tabs'] === false)
-		{
-			$form = $CI->load->view('admin/partials/streams/form', $data, true);
-		}
-		else
-		{
-			// Make the fields keys the input_slug. This will make it easier to build tabs. Less looping.
-			foreach ( $data['fields'] as $k => $v ){
-				$data['fields'][$v['input_slug']] = $v;
-				unset($data['fields'][$k]);
-			}
-
-			$form = $CI->load->view('admin/partials/streams/tabbed_form', $data, true);
-		}
-		
-		if ($view_override === false) return $form;
-		
-		$data['content'] = $form;
-		//$CI->data->content = $form;
-
-		$CI->data = new stdClass;
-		$CI->data->content = $form;
-		
-		$CI->template->build('admin/partials/blank_section', $data);
+		return $form->render($view_override);
 	}
 
 	// --------------------------------------------------------------------------
