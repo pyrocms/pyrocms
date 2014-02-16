@@ -160,7 +160,7 @@ class Admin extends Admin_Controller
      */
     public function preview($id = 0)
     {
-        $this->posts->find($id);
+        $post = $this->posts->find($id);
 
         $this->template
             ->set_layout('modal', 'admin')
