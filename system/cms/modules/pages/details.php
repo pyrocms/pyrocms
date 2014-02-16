@@ -236,6 +236,8 @@ class Module_Pages extends AbstractModule
             'updated_on' => time()
         ));
 
+        $pageEntryModel = $stream->getEntryModelClass('def_page_fields', 'pages');
+
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
             'home' => array(
@@ -244,7 +246,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'home',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => 'Pyro\Streams\Model\PagesDefPageFieldsEntryModel',
+                'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -257,7 +259,7 @@ class Module_Pages extends AbstractModule
                 'uri' => 'contact',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => 'Pyro\Streams\Model\PagesDefPageFieldsEntryModel',
+                'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
@@ -270,7 +272,7 @@ class Module_Pages extends AbstractModule
                 'uri' => '404',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => 'Pyro\Streams\Model\PagesDefPageFieldsEntryModel',
+                'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
                 'created_on' => time(),
