@@ -2,6 +2,7 @@
 
 use Pyro\Module\Streams\Entry\EntryModel;
 use Pyro\Module\Streams\Entry\EntryQueryBuilder;
+use Pyro\Module\Streams\Entry\EntryQueryFilter;
 use Pyro\Module\Streams\Entry\EntryViewOptions;
 use Pyro\Module\Streams\Field\FieldCollection;
 use Pyro\Module\Streams\Field\FieldGroupCollection;
@@ -10,17 +11,14 @@ class EntryUi extends UiAbstract
 {
     /**
      * The filter events that have run
-     *
      * @var array
      */
     public $fieldTypeFilterEventsRun = array();
 
     /**
      * Entries table
-     *
      * @param      $stream_slug
      * @param null $stream_namespace
-     *
      * @return \Pyro\Module\Streams\Ui\UiAbstract
      */
     public function table($stream_slug, $stream_namespace = null)
@@ -42,11 +40,9 @@ class EntryUi extends UiAbstract
 
     /**
      * Entries form
-     *
      * @param      $streamSlugOrClassOrModel
      * @param null $streamNamespaceOrId
      * @param null $id
-     *
      * @return \Pyro\Module\Streams\Ui\UiAbstract
      */
     public function form($streamSlugOrClassOrModel, $streamNamespaceOrId = null, $id = null)
@@ -84,9 +80,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Add form
-     *
      * @param EntryUi $entryUi
-     *
      * @return $this
      */
     public function addForm(EntryUi $entryUi)
@@ -104,7 +98,6 @@ class EntryUi extends UiAbstract
 
     /**
      * Run field type filter events
-     *
      * @return null
      */
     public function runFieldTypeFilterEvents()
@@ -138,7 +131,6 @@ class EntryUi extends UiAbstract
 
     /**
      * Trigger table
-     *
      * @return $this
      */
     protected function triggerTable()
@@ -186,7 +178,7 @@ class EntryUi extends UiAbstract
          */
         $this->countQuery = clone $this->query;
 
-        if ($this->orderBy) {
+        if ($this->orderBy and !$this->isOrderOverride()) {
             $this->query->orderBy($this->orderBy, $this->sort);
         }
 
@@ -222,7 +214,6 @@ class EntryUi extends UiAbstract
 
     /**
      * Trigger form
-     *
      * @return $this
      */
     protected function triggerForm()
@@ -288,5 +279,17 @@ class EntryUi extends UiAbstract
         }
 
         return $this;
+    }
+
+    /**
+     * Is order override
+     * @return bool
+     */
+    public function isOrderOverride()
+    {
+        $stream = $this->model->getStream();
+        $key    = 'order-' . $stream->stream_namespace . '-' . $stream->stream_slug;
+
+        return (ci()->input->get($key));
     }
 }
