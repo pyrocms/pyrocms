@@ -22,7 +22,7 @@ class BlogEntryModel extends BlogsBlogEntryModel
     /**
      * Find Many Blog Entries
      *
-     * @return Pyro\Module\Streams\Entry\EntryCollection
+     * @return \Pyro\Module\Streams\Entry\EntryCollection
      */
     public static function findManyPosts($take = 0, $skip = null, $eager = array())
     {
