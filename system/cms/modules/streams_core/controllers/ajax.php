@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Illuminate\Support\Str;
 use Pyro\Module\Streams\Field\FieldAssignmentModel;
 use Pyro\Module\Streams\FieldType\FieldTypeManager;
 
@@ -12,7 +13,7 @@ use Pyro\Module\Streams\FieldType\FieldTypeManager;
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Ajax extends MY_Controller
+class Ajax extends Admin_Controller
 {
     public function __construct()
     {
@@ -28,10 +29,7 @@ class Ajax extends MY_Controller
         // the Type library __construct
         $this->load->library('streams_core/Type');
 
-        // Only AJAX gets through!
-		if ( ! $this->input->is_ajax_request()) die($this->error_message);
-
-       	// You also need to be logged in
+        // You also need to be logged in
        	if ( ! is_logged_in()) die($this->error_message);
     }
 
@@ -152,4 +150,39 @@ class Ajax extends MY_Controller
 		}
 	}
 
+    /**
+     * Fieldtype AJAX Function
+     *
+     * Accessed via AJAX
+     *
+     * @return	void
+     */
+    public function field()
+    {
+        $segments = $this->uri->segment_array();
+
+        if ( ! isset($segments[4]) or ! isset($segments[5])) {
+            exit('Field class or method not found.');
+        }
+
+        $field_type 	= $segments[4];
+        $method 		= $segments[5];
+        $params			= array_slice($segments, 5);
+
+        // Is this a valid field type?
+        if ( ! $type = FieldTypeManager::getType($field_type))
+        {
+            exit('Invalid Field Type.');
+        }
+
+        // We prefix all ajax functions with ajax_
+        $method = Str::studly('ajax_'.$method);
+
+        // Does the method exist?
+        if (method_exists($type, $method)) {
+            exit(call_user_func_array(array($type, $method), $params));
+        }
+
+        exit("Method '{$method}' not found.");
+    }
 }
