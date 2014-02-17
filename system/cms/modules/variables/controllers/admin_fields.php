@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Streams\FieldUi;
+use Pyro\Module\Streams\Ui\FieldUi;
 
 /**
  * Admin fields controller for the variables module
