@@ -12,132 +12,63 @@ use Pyro\Module\Streams\Stream\StreamModel;
  * PyroStreams Relationship Field Type
  *
  * @package        PyroCMS\Core\Modules\Streams Core\Field Types
- * @author        Parse19
- * @copyright    Copyright (c) 2011 - 2012, Parse19
+ * @author         Parse19
+ * @copyright      Copyright (c) 2011 - 2012, Parse19
  * @license        http://parse19.com/pyrostreams/docs/license
- * @link        http://parse19.com/pyrostreams
+ * @link           http://parse19.com/pyrostreams
  */
 class Relationship extends FieldTypeAbstract
 {
     /**
      * Field type slug
+     *
      * @var string
      */
     public $field_type_slug = 'relationship';
 
     /**
      * DB column type
+     *
      * @var string
      */
-    public $db_col_type = false;
+    public $db_col_type = 'integer';
 
     /**
      * Custom parameters
+     *
      * @var array
      */
     public $custom_parameters = array(
         'stream',
-        'method',
-        'search_columns',
-        'placeholder',
-        'option_format',
-        'item_format',
         'relation_class',
-        );
+        'scope',
+    );
 
     /**
      * Version
+     *
      * @var string
      */
     public $version = '2.0';
 
     /**
      * Author
+     *
      * @var  array
      */
     public $author = array(
         'name' => 'Ryan Thompson - PyroCMS',
-        'url' => 'http://pyrocms.com/'
-        );
-
-    ///////////////////////////////////////////////////////////////////////////////
-    // -------------------------    METHODS       ------------------------------ //
-    ///////////////////////////////////////////////////////////////////////////////
+        'url'  => 'http://pyrocms.com/'
+    );
 
     /**
      * Relation
+     *
      * @return object The relation object
      */
     public function relation()
     {
         return $this->belongsTo($this->getRelationClass());
-    }
-
-    /**
-     * Fired when form is built per field
-     * @return void
-     */
-    public function fieldEvent()
-    {
-        // Get related entries
-        $relatedModel = $this->getRelationClass();
-
-        if (! $relatedModel) return;
-
-        $relatedModel = new $relatedModel;
-
-        if (! method_exists($relatedModel, 'getStream')) return;
-
-        // Get related entries
-        $entry = $this->getRelationResult();
-
-        // Basically the selectize config mkay?
-        $this->appendMetadata(
-            $this->view(
-                'data/relationship.js.php',
-                array(
-                    'relatedModel' => $this->getRelationClass(),
-                    'fieldType' => $this,
-                    'entry' => $entry,
-                    ),
-                true
-                )
-            );
-    }
-
-    /**
-     * Fired when filters are built per field
-     * @return void
-     */
-    public function filterFieldEvent()
-    {
-        // Set the value
-        $this->setValue(ci()->input->get($this->getFilterSlug('is')));
-
-        // Get related entries
-        $relatedModel = $this->getRelationClass();
-
-        if (! $relatedModel) return;
-
-        $relatedModel = new $relatedModel;
-
-        // Get it
-        $entry = $relatedModel->find($this->getValue());
-
-        if (! method_exists($relatedModel, 'getStream')) return;
-
-        // Basically the selectize config mkay?
-        $this->appendMetadata(
-            $this->view(
-                'data/relationship.js.php',
-                array(
-                    'relatedModel' => $this->getRelationClass(),
-                    'fieldType' => $this,
-                    'entry' => $entry,
-                    ),
-                true
-                )
-            );
     }
 
     /**
@@ -148,35 +79,23 @@ class Relationship extends FieldTypeAbstract
      */
     public function formInput()
     {
-        // Attribtues
-        $attributes = array(
-            'class' => $this->form_slug.'-selectize skip',
-            'placeholder' => lang_label($this->getParameter('placeholder', $this->field->field_name)),
-            );
+        // Attributes
+        $attributes = 'placeholder="' . lang_label($this->getPlaceholder) . '"';
 
-        // String em up
-        $attribute_string = '';
+        $options = $this->getOptions();
 
-        foreach ($attributes as $attribute => $value) {
-            $attribute_string .= $attribute.'="'.$value.'" ';
-        }
-
-        // Return an HTML dropdown
-        return form_dropdown($this->form_slug, array(), null, $attribute_string);
+        // Return an HTML drop down
+        return form_dropdown($this->form_slug, $options, $this->value, $attributes);
     }
 
     /**
      * Output the form input for frontend use
-     * @return string 
+     *
+     * @return string
      */
     public function publicFormInput()
     {
-        // Is this a small enough dataset?
-        if ($this->totalOptions() < 1000) {
-            return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
-        } else {
-            return form_input($this->form_slug, $this->value);
-        }
+        return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
     }
 
     /**
@@ -187,33 +106,26 @@ class Relationship extends FieldTypeAbstract
      */
     public function filterInput()
     {
-        // Attribtues
-        $attributes = array(
-            'class' => $this->form_slug.'-selectize skip',
-            'placeholder' => $this->getParameter('placeholder', $this->field->field_name),
-            );
+        // Attributes
+        $attributes = 'placeholder="' . lang_label($this->getPlaceholder()) . '"';
 
-        // String em up
-        $attribute_string = '';
+        $options = $this->getOptions();
 
-        foreach ($attributes as $attribute => $value) {
-            $attribute_string .= $attribute.'="'.$value.'" ';
-        }
+        $value = ci()->input->get($this->getFilterSlug('is'));
 
-        // Return an HTML dropdown
-        return form_dropdown($this->getFilterSlug('is'), array(), null, $attribute_string);
+        // Return an HTML drop down
+        return form_dropdown($this->getFilterSlug('is'), $options, $value, $attributes);
     }
 
     /**
-     * Pre Ouput
+     * String output
+     *
      * @return  mixed   null or string
      */
     public function stringOutput()
     {
         if ($relatedModel = $this->getRelationResult()) {
-
-            if (! $relatedModel instanceof RelationshipInterface) {
-
+            if (!$relatedModel instanceof RelationshipInterface) {
                 throw new ClassNotInstanceOfRelationshipInterfaceException;
             }
 
@@ -224,7 +136,8 @@ class Relationship extends FieldTypeAbstract
     }
 
     /**
-     * Pre Ouput Plugin
+     * Plugin output
+     *
      * @return array
      */
     public function pluginOutput()
@@ -237,38 +150,22 @@ class Relationship extends FieldTypeAbstract
     }
 
     /**
-     * Pre Ouput Data
+     * Data output
+     *
      * @return RelationClassModel
      */
     public function dataOutput()
     {
-        if ($relatedModel = $this->getRelationResult()) {
-            return $relatedModel;
-        }
-
-        return null;
-    }
-
-    /**
-     * Overide the column name like field_slug_id
-     * @param  Illuminate\Database\Schema   $schema
-     * @return void
-     */
-    public function fieldAssignmentConstruct($schema)
-    {
-        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
-
-        $schema->table($tableName, function($table) {
-            $table->integer($this->field->field_slug.'_id')->nullable();
-        });
+        return $this->pluginOutput();
     }
 
     /**
      * Choose a stream to relate to.. or remote source
+     *
      * @param  mixed $value
      * @return string
      */
-    public function paramStream($value = '')
+    public function paramStream($value = null)
     {
         $options = StreamModel::getStreamAssociativeOptions();
 
@@ -276,77 +173,39 @@ class Relationship extends FieldTypeAbstract
     }
 
     /**
-     * Option format
-     * @param  string $value
-     * @return html
+     * Options
+     *
+     * @return array
      */
-    public function paramOptionFormat($value = '')
+    public function getOptions()
     {
-        return form_input('option_format', $value);
-    }
+        if ($relatedClass = $this->getRelationClass()) {
 
-    /**
-     * Label format
-     * @param  string $value
-     * @return html
-     */
-    public function paramLabelFormat($value = '')
-    {
-        return form_input('label_format', $value);
+            $relatedModel = new $relatedClass;
+
+            if (!$relatedModel instanceof RelationshipInterface) {
+                throw new ClassNotInstanceOfRelationshipInterfaceException;
+            }
+
+            return $relatedModel->getFieldTypeRelationshipOptions($relatedModel->getTitleColumn());
+        }
+
+        return array();
     }
 
     /**
      * Get column name
+     *
      * @return string
      */
     public function getColumnName()
     {
-        return parent::getColumnName().'_id';
-    }
-
-    /**
-     * Search for entries!
-     * @return string JSON
-     */
-    public function ajaxSearch()
-    {
-        // Get the post data
-        $post = ci()->input->post();
-
-
-        /**
-         * Get THIS field and type
-         */
-        $field = FieldModel::findBySlugAndNamespace($post['field_slug'], $post['stream_namespace']);
-        $fieldType = $field->getType(null);
-
-        
-        /**
-         * Get the relationClass
-         */
-        $relatedModel = $fieldType->getRelationClass();
-        $relatedModel = new $relatedModel;
-
-        $titleColumn = $relatedModel->getTitleColumn();
-
-
-        /**
-         * Search for RELATED entries
-         */
-        if (method_exists($relatedModel, 'streamsRelationshipAjaxSearch')) {
-            echo $relatedModel::streamsRelationshipAjaxSearch($fieldType);
-        } else {
-            echo $relatedModel::select(explode('|', $fieldType->getParameter('select_columns', '*')))
-                ->where($fieldType->getParameter('search_columns', $titleColumn), 'LIKE', '%'.$post['term'].'%')
-                ->take(10)
-                ->get();
-        }
-
-        exit;
+        return parent::getColumnName() . '_id';
     }
 
     /**
      * Get filter slug
+     *
      * @param  string $condition
      * @param  string $field_slug
      * @return string
@@ -355,6 +214,15 @@ class Relationship extends FieldTypeAbstract
     {
         $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
 
-        return $this->getFilterSlugPrefix().$field_slug.'_id-'.$condition;
+        return $this->getFilterSlugPrefix() . $field_slug . '_id-' . $condition;
+    }
+
+    /**
+     * Get placeholder
+     * @return string
+     */
+    protected function getPlaceholder()
+    {
+        return $this->getParameter('placeholder', $this->field->field_name);
     }
 }
