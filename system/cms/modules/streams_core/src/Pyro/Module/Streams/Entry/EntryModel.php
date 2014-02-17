@@ -326,14 +326,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function getTitleColumn()
     {
-        $title_column = $this->getStream()->title_column;
+        $titleColumn = $this->getStream()->title_column;
 
-        // Default to ID for title column
-        if (!trim($title_column) or !$this->getAttribute($title_column)) {
-            $title_column = $this->getKeyName();
-        }
-
-        return $title_column;
+        return $titleColumn;
     }
 
     /**
@@ -341,9 +336,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @return array
      */
-    public function getFieldTypeRelationshipOptions()
+    public function getFieldTypeRelationshipOptions($column = null)
     {
-        return $this->lists($this->getTitleColumn(), 'id');
+        return $this->take(1000)->lists($column ?: $this->getTitleColumn());
     }
 
     /**
