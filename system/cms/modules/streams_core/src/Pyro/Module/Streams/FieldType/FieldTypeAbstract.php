@@ -206,7 +206,6 @@ abstract class FieldTypeAbstract
      *
      * @param  [type] $name    [description]
      * @param  [type] $default [description]
-     *
      * @return [type]          [description]
      */
     public function getPreSaveParameter($name = null, $default = null)
@@ -369,7 +368,6 @@ abstract class FieldTypeAbstract
      * Get the default
      *
      * @param  string $key
-     *
      * @return mixed
      */
     public function getDefault($field_slug = null, $default = null)
@@ -393,7 +391,6 @@ abstract class FieldTypeAbstract
      * Get the original value
      *
      * @param  boolean $plugin
-     *
      * @return mixed
      */
     public function getOriginalValue($field_slug = null)
@@ -417,7 +414,6 @@ abstract class FieldTypeAbstract
      * Get form
      *
      * @param  boolean
-     *
      * @return string|boolean
      */
     public function getForm($plugin = false)
@@ -438,7 +434,6 @@ abstract class FieldTypeAbstract
      *
      * @param    array
      * @param    array
-     *
      * @return    string
      */
     public function formInput()
@@ -446,6 +441,7 @@ abstract class FieldTypeAbstract
         $options['name']         = $this->form_slug;
         $options['id']           = $this->form_slug;
         $options['value']        = $this->value;
+        $options['class']        = 'form-control';
         $options['autocomplete'] = 'off';
         $options['placeholder']  = lang_label($this->getParameter('placeholder'));
 
@@ -607,13 +603,10 @@ abstract class FieldTypeAbstract
 
     /**
      * Object to Array
-     *
      * Takes an object as input and converts the class variables to array key/vals
-     *
      * From CodeIgniter's Loader class - moved over here since it was protected.
      *
      * @param    object
-     *
      * @return    array
      */
     protected function objectToArray($object)
@@ -631,7 +624,6 @@ abstract class FieldTypeAbstract
      *
      * @param    array
      * @param    array
-     *
      * @return    string
      */
     public function publicFormInput()
@@ -656,7 +648,6 @@ abstract class FieldTypeAbstract
      *
      * @param  EntryModel $related
      * @param  string     $foreignKey
-     *
      * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function hasOne($related, $foreignKey = null)
@@ -677,7 +668,6 @@ abstract class FieldTypeAbstract
      * @param  string     $name
      * @param  string     $type
      * @param  string     $id
-     *
      * @return Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function morphOne($related, $name, $type = null, $id = null)
@@ -696,7 +686,6 @@ abstract class FieldTypeAbstract
      *
      * @param  EntryModel $related
      * @param  string     $foreignKey
-     *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function belongsTo($related, $foreignKey = null)
@@ -716,7 +705,6 @@ abstract class FieldTypeAbstract
      * @param  string $name
      * @param  string $type
      * @param  string $id
-     *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function morphTo($name = null, $type = null, $id = null)
@@ -734,7 +722,6 @@ abstract class FieldTypeAbstract
      *
      * @param  EntryModel $related
      * @param  string     $foreignKey
-     *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function hasMany($related, $foreignKey = null)
@@ -755,7 +742,6 @@ abstract class FieldTypeAbstract
      * @param  string     $name
      * @param  string     $type
      * @param  string     $id
-     *
      * @return Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function morphMany($related, $name, $type = null, $id = null)
@@ -775,7 +761,6 @@ abstract class FieldTypeAbstract
      * @param  string     $table
      * @param  string     $foreignKey
      * @param  string     $otherKey
-     *
      * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
@@ -985,7 +970,6 @@ abstract class FieldTypeAbstract
      *
      * @param  array  $method
      * @param  string $arguments
-     *
      * @return mixed
      */
     public function __call($method, $arguments)
@@ -1003,7 +987,6 @@ abstract class FieldTypeAbstract
      * Get dynamic property
      *
      * @param  string
-     *
      * @return mixed
      */
     public function __get($key)
