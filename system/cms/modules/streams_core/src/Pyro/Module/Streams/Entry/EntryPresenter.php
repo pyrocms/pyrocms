@@ -64,7 +64,7 @@ class EntryPresenter extends Presenter
         $resourceArray = $this->getResourceArray();
 
         foreach (array_keys($resourceArray) as $key) {
-            $resourceArray[Str::snake($key)] = $this->getPresenterAttribute($key);
+            $resourceArray[Str::snake($key)] = $this->getPresenterAttribute($key, $resourceArray);
         }
 
         return $resourceArray;
@@ -77,10 +77,8 @@ class EntryPresenter extends Presenter
      *
      * @return mixed
      */
-    public function getPresenterAttribute($key)
+    public function getPresenterAttribute($key, $resourceArray = null)
     {
-        $resource = $this->getResourceArray();
-
         $method = Str::camel($key);
 
         $viewOption = $this->entryViewOptions->getBySlug($key);
@@ -93,7 +91,7 @@ class EntryPresenter extends Presenter
 
             return ci()->parser->parse_string(
                 $template,
-                array('entry' => $resource),
+                array('entry' => $resourceArray),
                 true,
                 false,
                 array(
