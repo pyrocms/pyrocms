@@ -46,14 +46,7 @@ class EmailTemplate extends Eloquent
      */
     public static function findBySlug($slug)
     {
-        $templates = static::where('slug', '=', $slug)->get();
-        
-        $data = array();
-        foreach ($templates as $template) {
-            $data[$template->lang] = $template;
-        }
-
-        return $data;
+        return static::where('slug', '=', $slug)->get();
     }
 
     /**

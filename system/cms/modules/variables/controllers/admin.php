@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Streams\EntryUi;
-use Pyro\Module\Streams\FieldTypeManager;
+use Pyro\Module\Streams\Ui\EntryUi;
+use Pyro\Module\Streams\FieldType\FieldTypeManager;
 use Pyro\Module\Variables\Model\VariableEntryModel;
 
 /**

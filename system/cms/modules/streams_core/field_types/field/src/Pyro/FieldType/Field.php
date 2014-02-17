@@ -1,7 +1,7 @@
 <?php namespace Pyro\FieldType;
 
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
-use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\Field\FieldModel;
 
 /**
  * Field Field Type
