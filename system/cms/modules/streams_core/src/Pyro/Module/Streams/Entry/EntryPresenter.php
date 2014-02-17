@@ -120,7 +120,7 @@ class EntryPresenter extends Presenter
             }
         }
 
-        return $this->resource->{$key};
+        return $this->resource->getAttribute($key);
     }
 
     /**
