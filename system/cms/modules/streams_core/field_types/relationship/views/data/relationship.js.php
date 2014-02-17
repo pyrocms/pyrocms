@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-    
+
     // Ready
     $(document).ready(function() {
 
@@ -130,7 +130,7 @@
         });
 
         // Inject our loader
-        $select.parent('div').find('.selectize-control').append('<?php echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');
+        /*$select.parent('div').find('.selectize-control').append('<?php //echo Asset::img('loaders/808080.png', null, array('class' => 'animated spin spinner')); ?>');*/
 
     });
 
