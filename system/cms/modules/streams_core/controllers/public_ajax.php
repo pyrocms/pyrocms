@@ -21,11 +21,6 @@ class Public_ajax extends Public_Controller
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
-
-        // Only AJAX gets through!
-       	if ( ! $this->input->is_ajax_request()) {
-       		die('Must be an ajax request.');
-       	}
     }
 
 	// --------------------------------------------------------------------------
