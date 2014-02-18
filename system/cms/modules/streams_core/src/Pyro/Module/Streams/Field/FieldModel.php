@@ -93,7 +93,7 @@ class FieldModel extends Eloquent
 
         // Do we have a field name?
         if (!isset($name) or !trim($name)) {
-            throw new EmptyFieldNameException;
+            $name = "{$namespace}.field.{$slug}.name";
         }
 
         // Do we have a field slug?

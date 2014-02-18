@@ -17,30 +17,35 @@ class StreamModel extends Eloquent
 
     /**
      * Disable updated_at and created_at on table
+     *
      * @var boolean
      */
     public $timestamps = false;
 
     /**
      * Define the table name
+     *
      * @var string
      */
     protected $table = 'data_streams';
 
     /**
      * Cache minutes
+     *
      * @var boolean/int
      */
     protected $cacheMinutes = false;
 
     /**
      * The attributes that aren't mass assignable
+     *
      * @var array
      */
     protected $guarded = array();
 
     /**
      * Get entry model class
+     *
      * @param $stream_slug
      * @param $stream_namespace
      * @return string
@@ -54,6 +59,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get entry model namespace
+     *
      * @return string
      */
     public static function getEntryModelNamespace()
@@ -63,6 +69,7 @@ class StreamModel extends Eloquent
 
     /**
      * Add a Stream.
+     *
      * @access    public
      * @param    string - stream name
      * @param    string - stream slug
@@ -125,6 +132,7 @@ class StreamModel extends Eloquent
 
     /**
      * Create
+     *
      * @param  array $attributes
      * @return boolean
      */
@@ -140,7 +148,7 @@ class StreamModel extends Eloquent
             return false;
         }
 
-        $attributes['hidden']    = isset($attributes['hidden']) ? $attributes['hidden'] : false;
+        $attributes['hidden']       = isset($attributes['hidden']) ? $attributes['hidden'] : false;
         $attributes['sorting']      = isset($attributes['sorting']) ? $attributes['sorting'] : 'title';
         $attributes['view_options'] = isset($attributes['view_options']) ? $attributes['view_options'] : array(
             'id',
@@ -171,6 +179,7 @@ class StreamModel extends Eloquent
     /**
      * This returns a consistent Eloquent
      * model from either the cache or a new query
+     *
      * @param  string $stream_slug
      * @param  string $stream_namespace
      * @return object
@@ -189,8 +198,9 @@ class StreamModel extends Eloquent
 
     /**
      * Delete a stream
+     *
      * @access    public
-     * @param    mixed $stream object, int or string stream
+     * @param    mixed  $stream           object, int or string stream
      * @param    string $stream_namespace namespace if first param is string
      * @return    object
      */
@@ -205,8 +215,9 @@ class StreamModel extends Eloquent
 
     /**
      * Get Stream
+     *
      * @access    public
-     * @param    mixed $stream object, int or string stream
+     * @param    mixed  $stream           object, int or string stream
      * @param    string $stream_namespace namespace if first param is string
      * @return    object
      */
@@ -223,10 +234,11 @@ class StreamModel extends Eloquent
 
     /**
      * Update a stream
+     *
      * @access    public
-     * @param    mixed $stream object, int or string stream
+     * @param    mixed  $stream           object, int or string stream
      * @param    string $stream_namespace namespace if first param is string
-     * @param    array $data associative array of new data
+     * @param    array  $data             associative array of new data
      * @return    object
      */
     public static function updateStream($stream_slug, $stream_namespace = null, $data = array())
@@ -238,8 +250,9 @@ class StreamModel extends Eloquent
 
     /**
      * Get stream field assignments
+     *
      * @access    public
-     * @param    mixed $stream object, int or string stream
+     * @param    mixed  $stream           object, int or string stream
      * @param    string $stream_namespace namespace if first param is string
      * @return    object
      */
@@ -262,8 +275,9 @@ class StreamModel extends Eloquent
      * entries_count    Number of the entries in the stream
      * fields_count    Number of fields assigned to the stream
      * last_updated        Unix timestamp of when the stream was last updated
+     *
      * @access    public
-     * @param    mixed $stream object, int or string stream
+     * @param    mixed  $stream           object, int or string stream
      * @param    string $stream_namespace namespace if first param is string
      * @return    object
      */
@@ -309,8 +323,9 @@ class StreamModel extends Eloquent
     /**
      * This returns a consistent Eloquent
      * Collection from either the cache or a new query
-     * @param  string $stream_namespace
-     * @param  string $limit
+     *
+     * @param  string  $stream_namespace
+     * @param  string  $limit
      * @param  integer $offset
      * @return object
      */
@@ -327,6 +342,7 @@ class StreamModel extends Eloquent
 
     /**
      * Find a model by slug and namespace or throw an exception.
+     *
      * @param  mixed $id
      * @param  array $columns
      * @return \Pyro\Module\Streams\StreamModel|Collection|static
@@ -342,6 +358,7 @@ class StreamModel extends Eloquent
 
     /**
      * Find by slug
+     *
      * @param  string $stream_slug
      * @return object
      */
@@ -352,6 +369,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get ID from slug and namespace
+     *
      * @param  string $stream_slug
      * @param  string $stream_namespace
      * @return mixed
@@ -367,7 +385,8 @@ class StreamModel extends Eloquent
 
     /**
      * Update title column by stream IDs
-     * @param  array $stream_ids
+     *
+     * @param  array   $stream_ids
      * @param  integer $from
      * @param  integer $to
      * @return object
@@ -393,6 +412,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get Stream options
+     *
      * @return array The array of Stream options indexed by id
      */
     public static function getStreamOptions()
@@ -402,6 +422,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get Stream associative options
+     *
      * @return array The array of Stream options indexed by "stream_slug.stream_namespace"
      */
     public static function getStreamAssociativeOptions()
@@ -411,6 +432,7 @@ class StreamModel extends Eloquent
 
     /**
      * Check if table exists
+     *
      * @param  string $stream
      * @param  string $prefix
      * @return boolean
@@ -430,6 +452,7 @@ class StreamModel extends Eloquent
 
     /**
      * Find a model by its primary key or throw an exception.
+     *
      * @param  mixed $id
      * @param  array $columns
      * @return \Pyro\Module\Streams\StreamModel|Collection|static
@@ -458,6 +481,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get stream model object from stream data array
+     *
      * @param  array $streamData
      * @return Pyro\Module\Streams\StreamModel
      */
@@ -507,6 +531,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get stream cache name
+     *
      * @param  string $stream_slug
      * @param  string $stream_namespace
      * @return object
@@ -546,6 +571,7 @@ class StreamModel extends Eloquent
 
     /**
      * New stream collection
+     *
      * @param  array $models
      * @return object
      */
@@ -556,6 +582,7 @@ class StreamModel extends Eloquent
 
     /**
      * Delete
+     *
      * @return boolean
      */
     public function delete()
@@ -585,13 +612,17 @@ class StreamModel extends Eloquent
 
     /**
      * Assign field
+     *
      * @param  string $field
-     * @param  mixed $data
+     * @param  mixed  $data
      * @return boolean
      */
     public function assignField($field = null, $data = array(), $createColumn = true)
     {
         // TODO This whole method needs to be recoded to use Schema...
+
+        $stream_namespace = $this->stream_namespace;
+        $stream_slug      = $this->stream_slug;
 
         // -------------------------------------
         // Get the field data
@@ -650,7 +681,11 @@ class StreamModel extends Eloquent
         $assignment->stream_id = $this->getKey();
         $assignment->field_id  = $field->getKey();
 
-        $assignment->instructions = isset($data['instructions']) ? $data['instructions'] : null;
+        if (isset($data['instructions'])) {
+            $assignment->instructions = $data['instructions'];
+        } else {
+            $assignment->instructions = "{$stream_namespace}.{$stream_slug}.{$field->field_slug}.instructions";
+        }
 
         // First one! Make it 1
         $assignment->sort_order = FieldAssignmentModel::getIncrementalSortNumber($this->getKey());
@@ -667,6 +702,7 @@ class StreamModel extends Eloquent
 
     /**
      * Schema thing..
+     *
      * @param  object $stream
      * @param  object $type
      * @param  object $field
@@ -744,6 +780,7 @@ class StreamModel extends Eloquent
 
     /**
      * Update Stream
+     *
      * @param    int
      * @param    array - attributes
      * @return    bool
@@ -775,6 +812,7 @@ class StreamModel extends Eloquent
 
     /**
      * Add view option
+     *
      * @param string $field_slug
      * @return bool
      */
@@ -802,6 +840,7 @@ class StreamModel extends Eloquent
 
     /**
      * Compile entry model
+     *
      * @return [type] [description]
      */
     public function compileEntryModel()
@@ -813,6 +852,7 @@ class StreamModel extends Eloquent
 
     /**
      * Remove a field assignment
+     *
      * @param    object
      * @param    object
      * @param    object
@@ -868,6 +908,7 @@ class StreamModel extends Eloquent
 
     /**
      * Remove view option
+     *
      * @param string $field_slug
      * @return bool
      */
@@ -894,6 +935,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get is hidden attr
+     *
      * @param  string $hidden
      * @return boolean
      */
@@ -904,6 +946,7 @@ class StreamModel extends Eloquent
 
     /**
      * Set is hidden attr
+     *
      * @param boolean $hidden
      */
     public function setHiddenAttribute($hidden)
@@ -913,6 +956,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get view options
+     *
      * @param  string $view_options
      * @return array
      */
@@ -927,6 +971,7 @@ class StreamModel extends Eloquent
 
     /**
      * Set view options
+     *
      * @param array $view_options
      */
     public function setViewOptionsAttribute($view_options)
@@ -936,6 +981,7 @@ class StreamModel extends Eloquent
 
     /**
      * Get permissions attribute
+     *
      * @param  string $permissions
      * @return array
      */
@@ -946,6 +992,7 @@ class StreamModel extends Eloquent
 
     /**
      * Set permissions
+     *
      * @param array $permissions
      */
     public function setPermissionsAttribute($permissions)
@@ -955,15 +1002,17 @@ class StreamModel extends Eloquent
 
     /**
      * Get table name
+     *
      * @return string
      */
     public function getTableName()
     {
-        return $this->stream_prefix.$this->stream_slug;
+        return $this->stream_prefix . $this->stream_slug;
     }
 
     /**
      * Span new class
+     *
      * @return object
      */
     public function assignments()
