@@ -110,3 +110,15 @@ if (!function_exists('index_uri')) {
         return uri_string();
     }
 }
+
+if (!function_exists('referer')) {
+
+    /**
+     * Return the HTTP_REFERER
+     * @return string
+     */
+    function referer()
+    {
+        return $_SERVER['HTTP_REFERER'];
+    }
+}
