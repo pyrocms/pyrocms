@@ -26,16 +26,18 @@ class EntryValidator
      * @param $model
      * @return $this
      */
-    public function make($model)
+    public function make($model, $skips = array())
     {
         $this->setModel($model);
 
         foreach ($this->model->getAssignments() as $field) {
-            $this->setRequiredRule($field);
-            $this->setUniqueRule($field);
-            $this->setSameRule($field);
-            $this->setMinRule($field);
-            $this->setMaxRule($field);
+            if (!in_array($field->field_slug, $skips)) {
+                $this->setRequiredRule($field);
+                $this->setUniqueRule($field);
+                $this->setSameRule($field);
+                $this->setMinRule($field);
+                $this->setMaxRule($field);
+            }
         }
 
         ci()->form_validation->set_rules($this->rules);
