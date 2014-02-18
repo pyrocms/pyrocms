@@ -11,12 +11,14 @@ class EntryUi extends UiAbstract
 {
     /**
      * The filter events that have run
+     *
      * @var array
      */
     public $fieldTypeFilterEventsRun = array();
 
     /**
      * Entries table
+     *
      * @param      $stream_slug
      * @param null $stream_namespace
      * @return \Pyro\Module\Streams\Ui\UiAbstract
@@ -40,6 +42,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Entries form
+     *
      * @param      $streamSlugOrClassOrModel
      * @param null $streamNamespaceOrId
      * @param null $id
@@ -80,6 +83,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Add form
+     *
      * @param EntryUi $entryUi
      * @return $this
      */
@@ -98,6 +102,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Run field type filter events
+     *
      * @return null
      */
     public function runFieldTypeFilterEvents()
@@ -131,6 +136,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Trigger table
+     *
      * @return $this
      */
     protected function triggerTable()
@@ -214,11 +220,14 @@ class EntryUi extends UiAbstract
 
     /**
      * Trigger form
+     *
      * @return $this
      */
     protected function triggerForm()
     {
-        $this->fireOnSaving($this->model);
+        if ($model = $this->fireOnSaving($this->model) and $model instanceof EntryModel) {
+            $this->model = $model;
+        }
 
         // Automatically index in search?
         if ($this->index) {
@@ -283,6 +292,7 @@ class EntryUi extends UiAbstract
 
     /**
      * Is order override
+     *
      * @return bool
      */
     public function isOrderOverride()
