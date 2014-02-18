@@ -222,7 +222,7 @@ class Datetime extends FieldTypeAbstract
             );
 
 
-            $date_input .= '<div class="col-lg-3 input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>' . form_input(
+            $date_input .= '<div class="col-lg-3 input-group n-p-l"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>' . form_input(
                     $options
                 ) . '</div>';
 
