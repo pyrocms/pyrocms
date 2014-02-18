@@ -368,7 +368,13 @@ Pyro.Initialize = function() {
 	 * Datepicker
 	 */
 	
-	$('[data-toggle^="datepicker"]').datepicker();
+	$('[data-toggle^="datepicker"]').each(function(){
+        $(this).datepicker({
+            autoclose: true
+        });
+
+        $(this).datepicker('update', $(this).data('date'));
+    });
 
 
 	/**
