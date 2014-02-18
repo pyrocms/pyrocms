@@ -104,7 +104,7 @@ class EntryFormBuilder extends UiAbstract
         /**
          * Get validation
          */
-        $validator = $this->validator->make($this->entry);
+        $validator = $this->validator->make($this->entry, $this->skips);
 
         // -------------------------------------
         // Set Error Delimns
