@@ -117,8 +117,10 @@ if (!function_exists('referer')) {
      * Return the HTTP_REFERER
      * @return string
      */
-    function referer()
+    function referer($fallback = null)
     {
-        return $_SERVER['HTTP_REFERER'];
+        if (!$fallback) $fallback = index_uri();
+
+        return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $fallback;
     }
 }
