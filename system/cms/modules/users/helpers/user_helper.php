@@ -45,14 +45,22 @@ function group_has_role($module, $role)
  * @param string $message (default: '') Message to display if no access
  * @return mixed
  */
-function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
+function role_or_die($module, $role, $redirect_to = 'admin', $message = null)
 {
+    if (!$message) {
+        $message = lang_label('lang:'.$module.'.role_'.$role.'.denied');
+
+        if (empty($message)) {
+            $message = lang('cp:access_denied');
+        }
+    }
+
 	if (ci()->input->is_ajax_request() and ! group_has_role($module, $role)) {
-		echo json_encode(array('error' => ($message ?: lang('cp:access_denied')) ));
+		echo json_encode(array('error' => $message));
 		return false;
 
 	} elseif ( ! group_has_role($module, $role)) {
-		ci()->session->set_flashdata('error', ($message ?: lang('cp:access_denied')) );
+		ci()->session->set_flashdata('error', $message);
 		redirect($redirect_to);
 	}
 	return true;
