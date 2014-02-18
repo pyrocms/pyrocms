@@ -621,9 +621,6 @@ class StreamModel extends Eloquent
     {
         // TODO This whole method needs to be recoded to use Schema...
 
-        $stream_namespace = $this->stream_namespace;
-        $stream_slug      = $this->stream_slug;
-
         // -------------------------------------
         // Get the field data
         // -------------------------------------
@@ -684,7 +681,7 @@ class StreamModel extends Eloquent
         if (isset($data['instructions'])) {
             $assignment->instructions = $data['instructions'];
         } else {
-            $assignment->instructions = "{$stream_namespace}.{$stream_slug}.{$field->field_slug}.instructions";
+            $assignment->instructions = "{$this->stream_namespace}.field.{$field->field_slug}.instructions";
         }
 
         // First one! Make it 1
