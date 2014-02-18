@@ -79,13 +79,10 @@ class Relationship extends FieldTypeAbstract
      */
     public function formInput()
     {
-        // Attributes
-        $attributes = 'placeholder="' . lang_label($this->getPlaceholder) . '"';
-
-        $options = $this->getOptions();
+        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
         // Return an HTML drop down
-        return form_dropdown($this->form_slug, $options, $this->value, $attributes);
+        return form_dropdown($this->form_slug, $options, $this->value);
     }
 
     /**
@@ -106,15 +103,12 @@ class Relationship extends FieldTypeAbstract
      */
     public function filterInput()
     {
-        // Attributes
-        $attributes = 'placeholder="' . lang_label($this->getPlaceholder()) . '"';
-
-        $options = $this->getOptions();
+        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
         $value = ci()->input->get($this->getFilterSlug('is'));
 
         // Return an HTML drop down
-        return form_dropdown($this->getFilterSlug('is'), $options, $value, $attributes);
+        return form_dropdown($this->getFilterSlug('is'), $options, $value);
     }
 
     /**
