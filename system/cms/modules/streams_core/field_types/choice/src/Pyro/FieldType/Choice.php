@@ -334,7 +334,7 @@ class Choice extends FieldTypeAbstract
             $this->getFilterSlug('is'),
             array(null => '- ' . $this->field->field_name . ' -') + $choices,
             $value,
-            'id="' . $this->form_slug . '" class="skip form-control"'
+            'id="' . $this->form_slug . '" class="form-control"'
         );
     }
 
