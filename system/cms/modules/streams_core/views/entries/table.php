@@ -1,6 +1,3 @@
-<!-- .panel-body -->
-<!--<div class="panel-body">-->
-
 <?php if (!empty($filters)): ?>
     <?php $this->load->view('streams_core/entries/filters'); ?>
 <?php endif; ?>
@@ -184,12 +181,11 @@
 
 <?php endif; ?>
 
-<!--</div>-->
-<!-- /.panel-body -->
-
+<?php if (isset($pagination)): ?>
 <div class="stats" style="margin-bottom: -45px;">
     <small class="c-gray m-l" style="line-height: 40px;">
         Showing
         results <?php echo ($pagination['offset'] + 1) . ' - ' . ($pagination['current_page'] * $pagination['per_page']) . ' of ' . $pagination['total']; ?>
     </small>
 </div>
+<?php endif; ?>
