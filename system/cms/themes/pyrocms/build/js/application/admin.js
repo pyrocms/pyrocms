@@ -92,7 +92,7 @@ Pyro.Initialize = function() {
 		// Fixes a bootstrap bug that prevents
 		// a modal from being reused
 		$('#modal').load($(e.target).attr('href'));
-	});​
+	});
 
 
 	/**
@@ -102,7 +102,7 @@ Pyro.Initialize = function() {
 	$('.sortable').nestable({
 		group: $(this).attr('id'),
 		maxDepth: $(this).attr('data-max-depth') == undefined ? 5 : $(this).attr('data-max-depth'),
-		listNodeName:'ul',
+		listNodeName:'ul'
 	});
 
 	$(document).on('change', '.sortable', function(e) {
@@ -474,7 +474,7 @@ Pyro.Search = function() {
 		url: BASE_URL + 'admin/search/results',
 		data: {
 			'terms': $('#search input.search-terms').val(),
-			'csrf_hash_name': $.cookie(Pyro.csrf_cookie_name),
+			'csrf_hash_name': $.cookie(Pyro.csrf_cookie_name)
 		},
 		dataType: 'JSON',
 		success: function(json) {
