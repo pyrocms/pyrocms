@@ -119,6 +119,6 @@ if (!function_exists('referer')) {
      */
     function referer()
     {
-        return $_SERVER['HTTP_REFERER'];
+        return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : index_uri();
     }
 }
