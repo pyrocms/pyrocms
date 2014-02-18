@@ -423,10 +423,6 @@ class EntryFormBuilder extends UiAbstract
                 $field->form_input = $type->getInput();
                 $field->input_row  = $type->formInputRow();
 
-                // Translate the instructions
-                $field->instructions = lang_label($field->instructions);
-                $field->placeholder  = lang_label($field->getParameter('placeholder'));
-
                 // Set even/odd
                 $field->odd_even = (($k + 1) % 2 == 0) ? 'even' : 'odd';
             } else {

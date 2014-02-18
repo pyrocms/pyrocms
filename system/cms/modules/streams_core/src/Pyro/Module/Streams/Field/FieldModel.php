@@ -784,13 +784,13 @@ class FieldModel extends Eloquent
         // This guarantees that the language will be loaded
         FieldTypeManager::getType($this->getAttribute('field_type'));
 
-        $fieldName = lang_label($field_name);
+        $name = lang($field_name);
 
-        if (empty($fieldName)) {
-            $fieldName = ' ' . $field_name; // This preserves the key so devs can spot it
+        if (empty($name)) {
+            $name = lang_label($field_name);
         }
 
-        return $fieldName;
+        return $name;
     }
 
     /**
