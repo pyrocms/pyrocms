@@ -115,7 +115,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @param  mixed $id
      * @param  array $columns
-     *
      * @return \Pyro\Module\Streams\Entry\EntryModel|Collection|static
      */
     public static function findOrFail($id, $columns = array('*'))
@@ -132,7 +131,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Just used for updating right now
      *
      * @access  public
-     *
      * @param   obj
      * @param   string
      * @param   int
@@ -140,7 +138,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * @param   skips   - optional array of skips
      * @param   bool    - set_missing_to_null. Should we set missing pieces of data to null
      *                  for the database?
-     *
      * @return  bool
      */
     public static function runFieldPreProcesses(
@@ -206,7 +203,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @param  string $subclass
      * @param  string $class
-     *
      * @return boolean
      */
     public static function isSubclassOfEntryModel($subclass, $class = 'Pyro\Module\Streams\Entry\EntryModel')
@@ -259,12 +255,13 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Get entry type
      *
      * @param  string $field_slug
-     *
      * @return object
      */
     public function getFieldType($field_slug = '')
     {
-        if (!$field = $this->getField($field_slug)) return null;
+        if (!$field = $this->getField($field_slug)) {
+            return null;
+        }
 
         $type = $field->getType($this);
 
@@ -277,7 +274,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Get field
      *
      * @param  string $field_slug
-     *
      * @return object
      */
     public function getField($field_slug = '')
@@ -338,7 +334,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function getFieldTypeRelationshipOptions($column = null)
     {
-        return $this->take(1000)->lists($column ?: $this->getTitleColumn());
+        return $this->take(1000)->lists($column ? : $this->getTitleColumn());
     }
 
     /**
@@ -346,7 +342,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @param array  $viewOptions
      * @param string $defaultFormat
-     *
      * @return Pyro\Support\Presenter|Pyro\Model\Eloquent
      */
     public function getPresenter($viewOptions = array(), $defaultFormat = null)
@@ -416,7 +411,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Process data with field types before saving the model to the database.
      *
      * @param  array $options
-     *
      * @return bool
      */
     public function preSave($skips = array(), array $options = array())
@@ -442,9 +436,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
         if (!$fields->isEmpty()) {
             foreach ($fields as $field) {
                 // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
-                if (!in_array($field->field_slug, $skips)) {
+                $type = $field->getType($this);
 
-                    $type    = $field->getType($this);
+                if (!in_array($field->field_slug, $skips)) {
                     $types[] = $type;
 
                     // We don't process the alt process stuff.
@@ -455,6 +449,8 @@ class EntryModel extends Eloquent implements RelationshipInterface
                     } else {
                         $this->setAttribute($type->getColumnName(), $type->preSave());
                     }
+                } elseif ($default = $type->getDefault() and !$type->alt_process) {
+                    $this->setAttribute($type->getColumnName(), $default);
                 } else {
                     unset($this->{$field->getType()->getColumnName()});
                 }
@@ -592,7 +588,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Update ordering count
      *
      * @param  int $ordering_count
-     *
      * @return boolean
      */
     public function updateOrderingCount($ordering_count = null)
@@ -604,7 +599,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Get columns exluding
      *
      * @param  array $columns [description]
-     *
      * @return array
      */
     public function getAllColumnsExclude()
@@ -671,7 +665,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * Get a new query builder for the model's table.
      *
      * @param  bool $excludeDeleted
-     *
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
     public function newQuery($excludeDeleted = true)
