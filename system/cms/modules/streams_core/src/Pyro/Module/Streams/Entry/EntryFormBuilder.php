@@ -131,7 +131,7 @@ class EntryFormBuilder extends UiAbstract
         // Set Values
         // -------------------------------------
 
-        //$stream_fields, $row, $this->method, $skips, $defaults, $this->key_check
+        $this->setDefaults();
 
         $values = $this->getFormValues($this->assignments, $this->entry);
 
@@ -660,6 +660,24 @@ class EntryFormBuilder extends UiAbstract
         }
 
         return $this->fieldTypes;
+    }
+
+    /**
+     * Set defaults
+     */
+    protected function setDefaults()
+    {
+        $defaults = array();
+
+        foreach ($this->defaults as $key => $default) {
+            $defaults[$key] = value($default);
+        }
+
+        foreach ($this->assignments as $k => &$field) {
+            if ($type = $this->entry->getFieldType($field->field_slug)) {
+                $type->setDefaults($defaults);
+            }
+        }
     }
 
     public function render($return = false)
