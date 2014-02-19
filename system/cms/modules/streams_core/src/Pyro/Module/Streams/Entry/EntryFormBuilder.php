@@ -42,10 +42,8 @@ class EntryFormBuilder extends UiAbstract
      * have field asset loads.
      *
      * @access    public
-     *
      * @param    obj - stream fields
      * @param     [array - skips]
-     *
      * @return    array
      */
     /*public static function runFieldSetupEvents($current_field = null)
@@ -80,7 +78,6 @@ class EntryFormBuilder extends UiAbstract
         );
         $this->returnValidationRules    = false;
         $this->recaptcha                = false;
-        $this->redirect                 = current_url();
         $this->outputRequired           = '<span>*</span>';
         $this->values                   = array();
     }
@@ -101,10 +98,6 @@ class EntryFormBuilder extends UiAbstract
             return null;
         }
 
-        /**
-         * Get validation
-         */
-        $validator = $this->validator->make($this->entry, $this->skips);
 
         // -------------------------------------
         // Set Error Delimns
@@ -135,14 +128,32 @@ class EntryFormBuilder extends UiAbstract
 
         $values = $this->getFormValues($this->assignments, $this->entry);
 
+        /**
+         * Get validation
+         */
+        $this->validator->setModel($this->entry, $this->skips);
+
         // -------------------------------------
         // Validation
         // -------------------------------------
 
+        // -------------------------------------
+        // Run Type Events
+        // -------------------------------------
+        // No matter what, we'll need these
+        // events run for field type assets
+        // and other processes.
+        // -------------------------------------
+
+        $fields = $this->buildFields();
+
         $resultId = '';
 
-        if ($_POST and $this->enableSave) {
-            if ($validator->passes()) {
+        if ($input = ci()->input->post() and $this->enableSave) {
+
+            $validate = $this->getSkipValidation() ? : $this->validator->validate();
+
+            if ($validate) {
                 if (!$this->entry->getKey()) { // new
                     // ci()->row_m->insert_entry($_POST, $stream_fields, $stream, $skips);
                     if (!$this->entry->preSave($this->skips)) {
@@ -187,15 +198,6 @@ class EntryFormBuilder extends UiAbstract
             }
         }
 
-        // -------------------------------------
-        // Run Type Events
-        // -------------------------------------
-        // No matter what, we'll need these
-        // events run for field type assets
-        // and other processes.
-        // -------------------------------------
-
-        $fields = $this->buildFields();
 
         // -------------------------------------
         // Set Fields & Return Them
@@ -203,6 +205,24 @@ class EntryFormBuilder extends UiAbstract
 
         // $stream_fields, $values, $row, $this->method, $skips, $extra['required']
         return $fields;
+    }
+
+    /**
+     * Set defaults
+     */
+    protected function setDefaults()
+    {
+        $defaults = array();
+
+        foreach ($this->defaults as $key => $default) {
+            $defaults[$key] = value($default);
+        }
+
+        foreach ($this->assignments as $k => &$field) {
+            if ($type = $this->entry->getFieldType($field->field_slug)) {
+                $type->setDefaults($defaults);
+            }
+        }
     }
 
     public static function getFormValues($fields = array(), EntryModel $entry = null, $skips = array())
@@ -224,6 +244,99 @@ class EntryFormBuilder extends UiAbstract
         return $values;
     }
 
+
+    public function buildFields()
+    {
+        foreach ($this->assignments as $k => &$field) {
+            if ($type = $this->entry->getFieldType($field->field_slug) and !in_array(
+                    $field->field_slug,
+                    $this->getSkips(array())
+                )
+            ) {
+
+                // Set defaults
+                $type->setDefaults($this->defaults);
+
+                // Set the error if there is one
+                /*                $field->error = ci()->form_validation->error($field->form_slug);
+
+                                // Determine the value
+                                if ($field->error) {
+                                    ci()->form_validation->set_value($field->form_slug);
+                                } else {
+                                    $field->value = $type->value = $this->entry->{$type->getColumnName()};
+                                }*/
+
+                // Get some general info
+                $field->form_slug  = $type->getFormSlug();
+                $field->field_slug = $field->field_slug;
+                $field->is_hidden  = (bool)in_array($field->field_slug, $this->get('hidden', array()));
+
+                // Get the form input flavors
+                $field->form_input = $type->getInput();
+                $field->input_row  = $type->formInputRow();
+
+                // Set even/odd
+                $field->odd_even = (($k + 1) % 2 == 0) ? 'even' : 'odd';
+            } else {
+                unset($this->assignments[$k]); // Get rid of it
+            }
+        }
+
+        // $stream_fields, $skips, $values
+        $this->runFieldTypeEvents();
+
+        return $this->assignments;
+    }
+
+    /**
+     * Build Fields
+     * Builds fields (no validation)
+
+     */
+    // $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
+
+    public function runFieldTypeEvents()
+    {
+        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
+            return null;
+        }
+
+        foreach ($this->assignments as $field) {
+            // We need the slug to go on.
+            if (!$type = $field->getType($this->entry)) {
+                continue;
+            }
+
+            if (!in_array($field->field_slug, $this->getSkips(array()))) {
+
+                // If we haven't called it (for dupes),
+                // then call it already.
+                if (!in_array($field->field_type, $this->fieldTypeEventsRun)) {
+                    $type->event();
+
+                    $this->fieldTypeEventsRun[] = $field->field_type;
+                }
+
+                // Run field events per field regardless if the type
+                // event has been ran yet
+                $type->fieldEvent();
+            }
+        }
+    }
+
+    /**
+     * Set Rules
+     * Set the rules from the stream fields
+     *
+     * @access    public
+     * @param    obj    - fields to set rules for
+     * @param    string - method - edit or new
+     * @param    array  - fields to skip
+     * @param    bool   - return the array or set the validation
+     * @param    mixed  - array or true
+     */
+    // $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
     public function sendEmail()
     {
         extract($notify);
@@ -370,9 +483,7 @@ class EntryFormBuilder extends UiAbstract
      * an email address, pull it from post data.
      *
      * @access    private
-     *
      * @param    email
-     *
      * @return    string
      */
     private function processEmailAddress($email)
@@ -385,110 +496,26 @@ class EntryFormBuilder extends UiAbstract
     }
 
     /**
-     * Build Fields
-     * Builds fields (no validation)
-
-     */
-    // $stream_fields, $values = array(), $row = null, $this->method = 'new', $skips = array(), $required = '<span>*</span>'
-
-
-    public function buildFields()
-    {
-        foreach ($this->assignments as $k => &$field) {
-            if ($type = $this->entry->getFieldType($field->field_slug) and !in_array(
-                    $field->field_slug,
-                    $this->getSkips(array())
-                )
-            ) {
-
-                // Set defaults
-                $type->setDefaults($this->defaults);
-
-                // Set the error if there is one
-                $field->error = ci()->form_validation->error($field->form_slug);
-
-                // Determine the value
-                if ($field->error) {
-                    ci()->form_validation->set_value($field->form_slug);
-                } else {
-                    $field->value = $type->value = $this->entry->{$type->getColumnName()};
-                }
-
-                // Get some general info
-                $field->form_slug  = $type->getFormSlug();
-                $field->field_slug = $field->field_slug;
-                $field->is_hidden  = (bool)in_array($field->field_slug, $this->get('hidden', array()));
-
-                // Get the form input flavors
-                $field->form_input = $type->getInput();
-                $field->input_row  = $type->formInputRow();
-
-                // Set even/odd
-                $field->odd_even = (($k + 1) % 2 == 0) ? 'even' : 'odd';
-            } else {
-                unset($this->assignments[$k]); // Get rid of it
-            }
-        }
-
-        // $stream_fields, $skips, $values
-        $this->runFieldTypeEvents();
-
-        return $this->assignments;
-    }
-
-    /**
-     * Set Rules
-     * Set the rules from the stream fields
+     * Send Email
+     * Sends emails for a single notify group.
      *
      * @access    public
-     *
-     * @param    obj    - fields to set rules for
-     * @param    string - method - edit or new
-     * @param    array  - fields to skip
-     * @param    bool   - return the array or set the validation
-     * @param    mixed  - array or true
+     * @param    string $notify   a or b
+     * @param    int    $entry_id the entry id
+     * @param    string $this     ->method    edit or new
+     * @param    obj    $stream   the stream
+     * @return    void
      */
-    // $stream_fields, $method, $skips = array(), $return_array = false, $row_id = null
-    public function runFieldTypeEvents()
-    {
-        if (!$this->assignments or (!is_array($this->assignments) and !is_object($this->assignments))) {
-            return null;
-        }
-
-        foreach ($this->assignments as $field) {
-            // We need the slug to go on.
-            if (!$type = $field->getType($this->entry)) {
-                continue;
-            }
-
-            if (!in_array($field->field_slug, $this->getSkips(array()))) {
-
-                // If we haven't called it (for dupes),
-                // then call it already.
-                if (!in_array($field->field_type, $this->fieldTypeEventsRun)) {
-                    $type->event();
-
-                    $this->fieldTypeEventsRun[] = $field->field_type;
-                }
-
-                // Run field events per field regardless if the type
-                // event has been ran yet
-                $type->fieldEvent();
-            }
-        }
-    }
-
+    // $notify, $entry_id, $this->method, $stream
     /**
      * Run Field Setup Event Functions
      * This allows field types to add custom CSS/JS
      * to the field setup (edit/delete screen).
      *
      * @access    public
-     *
      * @param     [obj - stream]
      * @param     [string - method - new or edit]
      * @param     [obj or null (for new fields) - field]
-     *
      * @return
      */
     public function setRules()
@@ -600,21 +627,6 @@ class EntryFormBuilder extends UiAbstract
         return $validation_rules;
     }
 
-    /**
-     * Send Email
-     * Sends emails for a single notify group.
-     *
-     * @access    public
-     *
-     * @param    string $notify   a or b
-     * @param    int    $entry_id the entry id
-     * @param    string $this     ->method    edit or new
-     * @param    obj    $stream   the stream
-     *
-     * @return    void
-     */
-    // $notify, $entry_id, $this->method, $stream
-
 
     public function runFieldTypePublicEvents()
     {
@@ -660,24 +672,6 @@ class EntryFormBuilder extends UiAbstract
         }
 
         return $this->fieldTypes;
-    }
-
-    /**
-     * Set defaults
-     */
-    protected function setDefaults()
-    {
-        $defaults = array();
-
-        foreach ($this->defaults as $key => $default) {
-            $defaults[$key] = value($default);
-        }
-
-        foreach ($this->assignments as $k => &$field) {
-            if ($type = $this->entry->getFieldType($field->field_slug)) {
-                $type->setDefaults($defaults);
-            }
-        }
     }
 
     public function render($return = false)
