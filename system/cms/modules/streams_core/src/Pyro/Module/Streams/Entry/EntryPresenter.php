@@ -155,7 +155,7 @@ class EntryPresenter extends Presenter
         $data = array(
             'entry'              => $this->resource->toArray(),
             'stream'             => $this->resource->getStream()->toArray(),
-            'title_column_value' => $this->resource->getTitleColumnValue(),
+            'title_column_value' => $this->getResourceTitle(),
         );
 
         return ci()->parser->parse_string($this->linkEditTemplate, $data, true, false, false, false);
@@ -171,7 +171,7 @@ class EntryPresenter extends Presenter
         $data = array(
             'entry'              => $this->resource->toArray(),
             'stream'             => $this->resource->getStream()->toArray(),
-            'title_column_value' => $this->resource->getTitleColumnValue(),
+            'title_column_value' => $this->getResourceTitle(),
         );
 
         return ci()->parser->parse_string($this->linkDetailsTemplate, $data, true, false, false, false);
@@ -186,13 +186,11 @@ class EntryPresenter extends Presenter
      */
     protected function getStringOutput($key = null)
     {
-        $value = $this->resource->getAttribute($key);
-
         if ($type = $this->resource->getFieldType($key)) {
 
             return $type->stringOutput();
 
-        } elseif ($this->isDate($value)) {
+        } elseif ($this->isDate($value = $this->resource->getAttribute($key))) {
 
             return $this->getDateOutput($value);
 
@@ -239,5 +237,14 @@ class EntryPresenter extends Presenter
     protected function isUser($value = null)
     {
         return $value instanceof User;
+    }
+
+    public function getResourceTitle()
+    {
+        if (method_exists($this->resource, 'getTitleColumnValue')) {
+            return $this->resource->getTitleColumnValue();
+        }
+
+        return null;
     }
 }
