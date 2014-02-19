@@ -857,7 +857,7 @@ abstract class FieldTypeAbstract
      */
     public function getRelationClass($default = null)
     {
-        // Fallack default
+        // Fallback default
         if (!$default and $this->getParameter('stream')) {
             list($stream, $namespace) = explode('.', $this->getParameter('stream'));
             if (isset($stream) and isset($namespace)) {
