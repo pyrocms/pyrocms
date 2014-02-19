@@ -1,6 +1,7 @@
 <?php namespace Pyro\Module\Streams\Entry;
 
 use Illuminate\Support\Str;
+use Pyro\Module\Streams\Field\FieldModel;
 
 class EntryValidator
 {
@@ -12,26 +13,53 @@ class EntryValidator
 
     /**
      * Model
-     * @var null
+     * @var EntryModel|null
      */
     protected $model = null;
 
-    public function __construct()
+    protected $data = array();
+
+    public function __construct(EntryModel $model = null, $skips = array())
     {
         ci()->load->library('form_validation');
+
+        if ($model) {
+            $this->setModel($model, $skips);
+        }
+    }
+
+    public function validate($data = array())
+    {
+        // If no input is passed use the model data
+        if (empty($data)) {
+            $data = $this->data;
+        }
+
+        ci()->form_validation->reset_validation();
+        ci()->form_validation->set_data($data);
+        ci()->form_validation->set_rules($this->rules);
+        return ci()->form_validation->run();
     }
 
     /**
-     * Make validator
-     * @param $model
-     * @return $this
+     * Set model
+     * @param null $model
      */
-    public function make($model, $skips = array())
+    public function setModel(EntryModel $model, $skips = array())
     {
-        $this->setModel($model);
+        $this->model = $model;
 
+        $stream = $this->model->getStream();
+
+        $attributes = $this->model->getAttributes();
+
+        // Get non-relation attributes
         foreach ($this->model->getAssignments() as $field) {
-            if (!in_array($field->field_slug, $skips)) {
+
+            $type = $field->getType();
+
+            if (!in_array($field->slug, $skips) and !$type->alt_process) {
+                $this->data[$type->setStream($stream)->getFormSlug()] = isset($attributes[$type->getColumnName()]) ? $attributes[$type->getColumnName()] : null;
                 $this->setRequiredRule($field);
                 $this->setUniqueRule($field);
                 $this->setSameRule($field);
@@ -40,8 +68,6 @@ class EntryValidator
             }
         }
 
-        ci()->form_validation->set_rules($this->rules);
-
         return $this;
     }
 
@@ -49,7 +75,7 @@ class EntryValidator
      * Set required rule
      * @param $field
      */
-    protected function setRequiredRule($field)
+    protected function setRequiredRule(FieldModel $field)
     {
         if ($field->required) {
             $this->addRule($field, 'required');
@@ -60,9 +86,9 @@ class EntryValidator
      * Set unique rule
      * @param $field
      */
-    protected function setUniqueRule($field)
+    protected function setUniqueRule(FieldModel $field)
     {
-        if ($field->unique) {
+        if ($field->unique and !$this->model->getKey()) {
             $table  = $this->model->getTable();
             $column = $field->getType()->getColumnName();
 
@@ -74,7 +100,7 @@ class EntryValidator
      * Set same rule
      * @param $field
      */
-    protected function setSameRule($field)
+    protected function setSameRule(FieldModel $field)
     {
         if ($same = $field->getParameter('same')) {
             $this->addRule($field, 'matches[' . $same . ']'); // CI matches[field]
@@ -85,7 +111,7 @@ class EntryValidator
      * Set min rule
      * @param $field
      */
-    protected function setMinRule($field)
+    protected function setMinRule(FieldModel $field)
     {
         if ($min = $field->getParameter('min')) {
             $this->addRule($field, 'greater_than[' . $min . ']'); // CI greater_than[value]
@@ -96,7 +122,7 @@ class EntryValidator
      * Set max rule
      * @param $field
      */
-    protected function setMaxRule($field)
+    protected function setMaxRule(FieldModel $field)
     {
         if ($max = $field->getParameter('max')) {
             $this->addRule($field, 'less_than[' . $max . ']'); // CI less_than[value]
@@ -108,7 +134,7 @@ class EntryValidator
      * @param $field
      * @param $rule
      */
-    protected function addRule($field, $rule)
+    protected function addRule(FieldModel $field, $rule)
     {
         if (!isset($this->rules[$field->field_slug]) and $type = $field->getType()) {
             $this->rules[$field->field_slug] = array(
@@ -123,32 +149,5 @@ class EntryValidator
         }
 
         $this->rules[$field->field_slug]['rules'] .= $rule;
-    }
-
-    /**
-     * Passes
-     * @return bool
-     */
-    public function passes()
-    {
-        return ci()->form_validation->run();
-    }
-
-    /**
-     * Fails
-     * @return bool
-     */
-    public function fails()
-    {
-        return !ci()->form_validation->run();
-    }
-
-    /**
-     * Set model
-     * @param null $model
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
     }
 }

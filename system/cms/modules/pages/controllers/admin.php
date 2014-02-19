@@ -4,6 +4,7 @@ use Pyro\Module\Comments\Model\Comment;
 use Pyro\Module\Navigation;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
+use Pyro\Module\Pages\Validator\PageEntryValidator;
 use Pyro\Module\Users;
 use Pyro\Module\Streams\Ui\EntryUi;
 use Pyro\Module\Streams\Stream\StreamModel;
@@ -53,6 +54,8 @@ class Admin extends Admin_Controller
             'group_access' => null,
             'user_access' => null
             );
+
+        $this->validator = new PageEntryValidator;
     }
 
     /**
@@ -355,8 +358,11 @@ class Admin extends Admin_Controller
             $page->is_home          = ! empty($input['is_home']);
             $page->order            = time();
 
+            // Validate both the Page and the entry model
+            $this->validator->setModel(new $entryModelClass);
+
             // Insert the page data, along with
-            if ($enableSave = $page->save())
+            if ($this->validator->validate($input) and $enableSave = $page->save())
             {
                 $page->buildLookup();
                 
@@ -393,6 +399,8 @@ class Admin extends Admin_Controller
 
                 Events::trigger('page_created', $page);
             }
+        } else {
+            $page->restricted_to = $page->restricted_to ?: 0;
         }
 
         // Run stream field events
@@ -408,7 +416,8 @@ class Admin extends Admin_Controller
         $ui = new EntryUi;
 
         $ui->form($entryModelClass)
-            ->enableSave($enableSave) // This will interrupt submittion for the entry if the page was not created
+            ->skipValidation(true) // Skips internal validation because we are doing it outside
+            ->enableSave($enableSave) // This will interrupt submission for the entry if the page was not created
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
@@ -422,8 +431,9 @@ class Admin extends Admin_Controller
                 'success' => 'Page saved.'
             )) // @todo - language
             ->redirects(array(
+                'create' => 'admin/pages',
                 'save' => 'admin/pages',
-                'saveContinue' => 'admin/pages/edit/{{ url:segments segment="4" }}'
+                'continue' => 'admin/pages/edit/{{ url:segments segment="4" }}'
             ))
             ->index($this->_index_template)
             ->render();
@@ -475,7 +485,7 @@ class Admin extends Admin_Controller
 
         // Turn the CSV list back to an array
         $page->restricted_to = explode(',', $page->restricted_to);
-
+        $enableSave = false;
         // Did they even submit?
         if (($input = $this->input->post())) {
 
@@ -517,8 +527,14 @@ class Admin extends Admin_Controller
 
             if (isset($page->is_home)) unset($page->is_home);
 
+            $stream = $page->type->stream;
+
+            $entryModelClass = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
+
+            $this->validator->setModel(new $entryModelClass);
+
             // validate and insert
-            if ($page->save())
+            if ($this->validator->validate($input) and $enableSave = $page->save())
             {    
                 $page->buildLookup();
                 
@@ -569,6 +585,8 @@ class Admin extends Admin_Controller
         }
 
         $ui->tabs($this->_tabs())
+            ->enableSave($enableSave)
+            ->skipValidation(true)
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })

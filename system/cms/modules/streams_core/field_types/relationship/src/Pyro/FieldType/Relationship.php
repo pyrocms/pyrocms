@@ -181,7 +181,7 @@ class Relationship extends FieldTypeAbstract
                 throw new ClassNotInstanceOfRelationshipInterfaceException;
             }
 
-            return $relatedModel->getFieldTypeRelationshipOptions($relatedModel->getTitleColumn());
+            return $relatedModel->getFieldTypeRelationshipOptions($this);
         }
 
         return array();
