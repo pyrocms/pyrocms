@@ -332,7 +332,7 @@ class Choice extends FieldTypeAbstract
 
         return form_dropdown(
             $this->getFilterSlug('is'),
-            array(null => '- ' . $this->field->field_name . ' -') + $choices,
+            array(null => $this->field->field_name) + $choices,
             $value,
             'id="' . $this->form_slug . '"'
         );
