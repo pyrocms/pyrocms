@@ -32,7 +32,7 @@
 					<div class="tab-content panel-body">
 					<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 						<div class="tab-pane <?php echo array_search($section_name, array_values($setting_sections)) == 0 ? 'active' : null; ?>" id="<?php echo $section_slug;?>">
-							<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
+							<?php $section_count = 1; foreach ($settingsArray[$section_slug] as $setting): ?>
 								<div class="form-group">
 								<div class="row">
 									

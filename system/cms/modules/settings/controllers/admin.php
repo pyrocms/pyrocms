@@ -40,6 +40,7 @@ class Admin extends Admin_Controller
         $setting_language = array();
         $setting_sections = array();
         $settings = $this->setting_m->getGui();
+        $settingsArray = array();
 
         // Loop through each setting
         foreach ($settings as $key => $setting) {
@@ -93,7 +94,7 @@ class Admin extends Admin_Controller
                 $setting->{$key} = ${$key};
             }
 
-            $settings[$setting->module][] = $setting;
+            $settingsArray[$setting->module][] = $setting;
 
             unset($settings[$key]);
         }
@@ -101,7 +102,7 @@ class Admin extends Admin_Controller
         // Render the layout
         $this->template
             ->title($this->module_details['name'])
-            ->build('admin/index', compact('setting_sections', 'settings'));
+            ->build('admin/index', compact('setting_sections', 'settingsArray'));
     }
 
     /**
