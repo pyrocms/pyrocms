@@ -1,4 +1,4 @@
-<?php if ($showTableFilters): ?>
+<?php if ($showFilters): ?>
     <?php $this->load->view('streams_core/entries/filters'); ?>
 <?php endif; ?>
 
@@ -110,7 +110,7 @@
         </tbody>
     </table>
 
-    <?php if ($showTableFooter): ?>
+    <?php if ($showFooter): ?>
         <?php if (isset($pagination)): echo $pagination['links']; endif; ?>
     <?php endif; ?>
 
