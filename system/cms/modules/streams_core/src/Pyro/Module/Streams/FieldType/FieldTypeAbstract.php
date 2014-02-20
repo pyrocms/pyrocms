@@ -517,7 +517,7 @@ abstract class FieldTypeAbstract
      */
     public function getFilterSlug($constraint = 'contains', $fieldSlug = null)
     {
-        $fieldSlug = $fieldSlug ? $fieldSlug : $this->field->field_slug;
+        $fieldSlug = $fieldSlug ? $fieldSlug : $this->getColumnName();
 
         return $this->getFilterSlugPrefix() . $fieldSlug . '-' . $constraint;
     }
@@ -530,7 +530,7 @@ abstract class FieldTypeAbstract
      */
     public function getFilterValue($constraint = 'contains', $fieldSlug = null)
     {
-        $fieldSlug = $fieldSlug ? $fieldSlug : $this->field->field_slug;
+        $fieldSlug = $fieldSlug ? $fieldSlug : $this->getColumnName();
 
         if (isset($this->appliedFilters[$fieldSlug . '-' . $constraint])) {
             return $this->appliedFilters[$fieldSlug . '-' . $constraint];
