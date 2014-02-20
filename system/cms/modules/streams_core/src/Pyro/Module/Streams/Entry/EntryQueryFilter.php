@@ -30,9 +30,25 @@ class EntryQueryFilter
 
     public function __construct(Builder $query)
     {
-        $this->query = $query;
-        $this->model = $query->getModel();
+        $this->query  = $query;
+        $this->model  = $query->getModel();
         $this->stream = $this->model->getStream();
+    }
+
+    /**
+     * Make filters
+     */
+    public function make()
+    {
+        if (($action = ci()->input->post($this->getPostTrigger())) == 'apply') {
+            $this->applyFilters();
+
+            redirect(uri_string());
+        } elseif ($action == 'clear') {
+            $this->clearFilters();
+
+            redirect(uri_string());
+        }
     }
 
     public function getQuery()
@@ -40,27 +56,16 @@ class EntryQueryFilter
         // -------------------------------------
         // Filters (QueryString API)
         // -------------------------------------
-        if (ci()->input->get('filter-' . $this->stream->stream_namespace . '-' . $this->stream->stream_slug)) {
-
-            // Get all URL variables
-            $queryStringVariables = ci()->input->get();
+        if ($filters = $this->getAppliedFilters()) {
 
             // Loop and process!
-            foreach ($queryStringVariables as $filter => $value) {
+            foreach ($filters as $filter => $value) {
 
                 // Split into components
                 $commands = explode('-', $filter);
 
-                // Filter? namespace ? stream ?
-                if ($commands[0] != 'f' or
-                    $commands[1] != $this->stream->stream_namespace or
-                    $commands[2] != $this->stream->stream_slug
-                ) {
-                    continue;
-                }
-
                 // Get the original fieldSlug
-                $fieldSlug = $commands[3];
+                $fieldSlug = $commands[0];
 
                 // Get the filterBy array
                 $filterBy = explode('|', $fieldSlug);
@@ -72,7 +77,7 @@ class EntryQueryFilter
                 $relationMethod = Str::camel($fieldSlug);
 
                 // Get the constraint type string
-                $constraintType = $commands[4];
+                $constraintType = $commands[1];
 
                 // Enable whereHas logic only if the slug is a relation
                 if ($relation = $this->reflection($this->model)->getRelationClass($relationMethod)) {
@@ -124,12 +129,81 @@ class EntryQueryFilter
      * Get a new EloquentReflection object
      *
      * @param $model
-     *
      * @return EloquentReflection
      */
     protected function reflection($model)
     {
         return new EloquentReflection($model);
+    }
+
+    /**
+     * Get stream string
+     *
+     * @return string
+     */
+    protected function getStreamString()
+    {
+        return $this->stream->stream_namespace . '-' . $this->stream->stream_slug;
+    }
+
+    /**
+     * Get post trigger
+     *
+     * @return string
+     */
+    protected function getPostTrigger()
+    {
+        return 'filter-' . $this->getStreamString();
+    }
+
+    /**
+     * Get post data
+     *
+     * @return mixed
+     */
+    protected function getPostData()
+    {
+        $post = ci()->input->post();
+
+        unset($post[$this->getPostTrigger()]);
+
+        foreach ($post as $key => $value) {
+            if ($value == null) {
+                unset($post[$key]);
+            } else {
+                $post[str_replace('f-' . $this->getStreamString() . '-', '', $key)] = $value;
+
+                unset($post[$key]);
+            }
+        }
+
+        return $post;
+    }
+
+    /**
+     * Apply filters
+     */
+    protected function applyFilters()
+    {
+        ci()->session->set_userdata($this->getFilterKey(), $this->getPostData());
+    }
+
+    /**
+     * Clear filters
+     */
+    protected function clearFilters()
+    {
+        ci()->session->unset_userdata($this->getFilterKey());
+    }
+
+    /**
+     * Get filters
+     *
+     * @return mixed
+     */
+    public function getAppliedFilters()
+    {
+        return ci()->session->userdata($this->getStreamString());
     }
 
     /**
@@ -139,7 +213,6 @@ class EntryQueryFilter
      * @param         $constraintType
      * @param         $filterByColumn
      * @param         $value
-     *
      * @return Builder
      */
     protected function constraint(Builder $query, $constraintType, $filterByColumn, $value)
@@ -152,10 +225,9 @@ class EntryQueryFilter
     /**
      * Order
      *
-     * @param Builder $query
+     * @param Builder           $query
      * @param                   $orderBy
      * @param                   $order
-     *
      * @return Builder
      */
     public function order(Builder $query, $orderBy, $order)
