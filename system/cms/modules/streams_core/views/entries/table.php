@@ -1,5 +1,7 @@
-<?php if (!empty($filters)): ?>
-    <?php $this->load->view('streams_core/entries/filters'); ?>
+<?php if ($showTableFilters): ?>
+    <?php if (!empty($filters)): ?>
+        <?php $this->load->view('streams_core/entries/filters'); ?>
+    <?php endif; ?>
 <?php endif; ?>
 
 
@@ -148,22 +150,35 @@
         </table>
     </section>
 
-    <div class="panel-footer">
+    <?php if ($showTableFooter): ?>
+        <div class="panel-footer">
 
-        <?php if ($pagination): ?>
-            <?php echo $pagination['links']; ?>
+            <?php if ($pagination): ?>
+                <?php echo $pagination['links']; ?>
 
-            <?php echo form_dropdown(
-                null,
-                array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
-                ci()->input->get('limit-' . $stream->stream_namespace . '-' . $stream->stream_slug) ? : Settings::get(
-                    'records_per_page'
-                ),
-                'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').submit();"'
-            ); ?>
+                <?php echo form_dropdown(
+                    null,
+                    array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
+                    ci()->input->get(
+                        'limit-' . $stream->stream_namespace . '-' . $stream->stream_slug
+                    ) ? : Settings::get(
+                        'records_per_page'
+                    ),
+                    'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').submit();"'
+                ); ?>
+            <?php endif; ?>
+            <div class="clearfix"></div>
+        </div>
+
+        <?php if (isset($pagination)): ?>
+            <div class="stats" style="margin-bottom: -45px;">
+                <small class="c-gray m-l" style="line-height: 40px;">
+                    Showing
+                    results <?php echo ($pagination['offset'] + 1) . ' - ' . ($pagination['current_page'] * $pagination['per_page']) . ' of ' . $pagination['total']; ?>
+                </small>
+            </div>
         <?php endif; ?>
-        <div class="clearfix"></div>
-    </div>
+    <?php endif; ?>
 
 <?php else: ?>
 
@@ -179,13 +194,4 @@
         ?>
     </div><!--.no_data-->
 
-<?php endif; ?>
-
-<?php if (isset($pagination)): ?>
-<div class="stats" style="margin-bottom: -45px;">
-    <small class="c-gray m-l" style="line-height: 40px;">
-        Showing
-        results <?php echo ($pagination['offset'] + 1) . ' - ' . ($pagination['current_page'] * $pagination['per_page']) . ' of ' . $pagination['total']; ?>
-    </small>
-</div>
 <?php endif; ?>
