@@ -338,7 +338,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function getFieldTypeRelationshipOptions($fieldType = null)
     {
-        return $this->take(1000)->lists($this->getTitleColumn());
+        return $this->take(1000)
+            ->orderBy($this->getTitleColumn(), 'asc')
+            ->lists($this->getTitleColumn(), 'id');
     }
 
     /**
