@@ -196,20 +196,6 @@ class Relationship extends FieldTypeAbstract
     }
 
     /**
-     * Get filter slug
-     *
-     * @param  string $condition
-     * @param  string $field_slug
-     * @return string
-     */
-    public function getFilterSlug($condition = 'contains', $field_slug = null)
-    {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
-
-        return $this->getFilterSlugPrefix() . $field_slug . '_id-' . $condition;
-    }
-
-    /**
      * Get placeholder
      * @return string
      */
