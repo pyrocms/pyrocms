@@ -1,4 +1,4 @@
-<?php if ($showTableFilters): ?>
+<?php if ($showFilters): ?>
     <?php if (!empty($filters)): ?>
         <?php $this->load->view('streams_core/entries/filters'); ?>
     <?php endif; ?>
@@ -150,7 +150,7 @@
         </table>
     </section>
 
-    <?php if ($showTableFooter): ?>
+    <?php if ($showFooter): ?>
         <div class="panel-footer">
 
             <?php if ($pagination): ?>

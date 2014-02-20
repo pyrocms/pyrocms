@@ -640,7 +640,7 @@ abstract class FieldTypeAbstract
     {
         $attribute = $attribute ? $attribute : $this->field->field_slug;
 
-        return $this->entry->getAttribute($attribute);;
+        return $this->entry->getAttribute($attribute);
     }
 
     /**
