@@ -414,6 +414,8 @@ abstract class UiAbstract extends Fluent
             ->redirectSave(index_uri())
             ->result(null)
             ->select(array('*'))
+            ->showTableFooter(true)
+            ->showTableFilters(true)
             ->skips(array())
             ->stream(null)
             ->tabs(null)
