@@ -172,6 +172,9 @@ class EntryUi extends UiAbstract
             $this->query = $query;
         }
 
+        /**
+         * Auto eager load relations
+         */
         $viewOptions->addEagerLoads($this->eager);
 
         $this->query->with($viewOptions->getEagerLoads());
@@ -184,17 +187,37 @@ class EntryUi extends UiAbstract
          */
         $this->countQuery = clone $this->query;
 
+        /**
+         * Order by or allow override here
+         */
         if ($this->orderBy and !$this->isOrderOverride()) {
             $this->query->orderBy($this->orderBy, $this->sort);
         }
 
+        /**
+         * Limit and make pagination
+         */
         if ($this->limit > 0) {
             $this->query->take($this->limit)->skip($this->offset);
             $this->paginationTotalRecords($this->countQuery->count());
         }
 
+        /**
+         * Get filters applied
+         */
+        $filter = new EntryQueryFilter($this->query);
+
+        $this->appliedFilters = $filter->getAppliedFilters();
+
+        /**
+         * Get actual entries
+         */
         $this->entries = $this->query->get($this->select)->getPresenter($viewOptions);
 
+        /**
+         * Check for custom sorting
+         * @todo - this probably needs to be touched on
+         */
         if ($this->get('sorting', $this->stream->sorting) == 'custom') {
             $this->stream->sorting = 'custom';
 

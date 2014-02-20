@@ -327,13 +327,10 @@ class Choice extends FieldTypeAbstract
 
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
-        // If this is a new input, we need to use the default value or go null
-        $value = ci()->input->get($this->getFilterSlug('is'));
-
         return form_dropdown(
             $this->getFilterSlug('is'),
             array(null => $this->field->field_name) + $choices,
-            $value,
+            $this->getFilterValue('is'),
             'id="' . $this->form_slug . '"'
         );
     }

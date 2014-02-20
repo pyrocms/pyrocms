@@ -99,6 +99,13 @@ abstract class FieldTypeAbstract
      */
     protected $plugin = null;
 
+    /**
+     * Applied filters
+     *
+     * @var null
+     */
+    protected $appliedFilters = null;
+
     public function pluginOutput()
     {
         return $this->stringOutput();
@@ -153,6 +160,13 @@ abstract class FieldTypeAbstract
     public function setValueFieldSlugOverride($value_field_slug_override = null)
     {
         $this->value_field_slug_override = $value_field_slug_override;
+
+        return $this;
+    }
+
+    public function setAppliedFilters($filters = null)
+    {
+        $this->appliedFilters = $filters;
 
         return $this;
     }
@@ -296,9 +310,17 @@ abstract class FieldTypeAbstract
         return $this;
     }
 
+    /**
+     * Set form value
+     *
+     * @param      $key
+     * @param null $value
+     */
     public function setFormValue($key, $value = null)
     {
         $this->form_values[$key] = $value;
+
+        return $this;
     }
 
     /**
@@ -309,8 +331,15 @@ abstract class FieldTypeAbstract
     public function setDefaults($defaults = array())
     {
         $this->defaults = $defaults;
+
+        return $this;
     }
 
+    /**
+     * Get form values property
+     *
+     * @return array
+     */
     public function getFormValuesProperty()
     {
         $form_values = array();
@@ -469,16 +498,45 @@ abstract class FieldTypeAbstract
      */
     public function filterInput()
     {
-        return '<input type="text" name="' . $this->getFilterSlug('contains') . '" value="' . ci()->input->get(
-            $this->getFilterSlug('contains')
-        ) . '" class="form-control" placeholder="' . $this->field->field_name . '">';
+        $data = array(
+            'name'        => $this->getFilterSlug('contains'),
+            'value'       => $this->getFilterValue('contains'),
+            'class'       => 'form-control',
+            'placeholder' => $this->field->field_name,
+        );
+
+        return form_input($data);
     }
 
-    public function getFilterSlug($condition = 'contains', $field_slug = null)
+    /**
+     * Get filter slug
+     *
+     * @param string $condition
+     * @param null   $field_slug
+     * @return string
+     */
+    public function getFilterSlug($constraint = 'contains', $fieldSlug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $fieldSlug = $fieldSlug ? $fieldSlug : $this->field->field_slug;
 
-        return $this->getFilterSlugPrefix() . $field_slug . '-' . $condition;
+        return $this->getFilterSlugPrefix() . $fieldSlug . '-' . $constraint;
+    }
+
+    /**
+     * Get filter value
+     *
+     * @param string $constraint
+     * @param null   $fieldSlug
+     */
+    public function getFilterValue($constraint = 'contains', $fieldSlug = null)
+    {
+        $fieldSlug = $fieldSlug ? $fieldSlug : $this->field->field_slug;
+
+        if (isset($this->appliedFilters[$fieldSlug . '-' . $constraint])) {
+            return $this->appliedFilters[$fieldSlug . '-' . $constraint];
+        }
+
+        return null;
     }
 
     /**
