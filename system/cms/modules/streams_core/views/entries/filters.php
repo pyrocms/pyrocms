@@ -5,7 +5,7 @@
 
         <?php foreach ($filters as $filter): ?>
             <?php if ($field = $assignments->findBySlug($filter)): ?>
-                <?php echo $field->getType()->setStream($stream)->filterInput(); ?>
+                <?php echo $field->getType()->setStream($stream)->setAppliedFilters($appliedFilters)->filterInput(); ?>
             <?php endif; ?>
         <?php endforeach; ?>
 
@@ -16,11 +16,13 @@
             <?php echo lang('buttons:filter'); ?>
         </button>
 
+        <?php if ($appliedFilters): ?>
         <button class="button" type="submit"
                 name="<?php echo 'filter-' . $stream->stream_namespace . '-' . $stream->stream_slug; ?>"
                 value="clear">
             <?php echo lang('buttons:clear'); ?>
         </button>
+        <?php endif; ?>
 
         <br/><br/>
 
