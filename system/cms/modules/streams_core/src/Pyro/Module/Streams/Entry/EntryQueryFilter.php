@@ -137,11 +137,11 @@ class EntryQueryFilter
     }
 
     /**
-     * Get stream string
+     * Get filter key
      *
      * @return string
      */
-    protected function getStreamString()
+    protected function getFilterKey()
     {
         return $this->stream->stream_namespace . '-' . $this->stream->stream_slug;
     }
@@ -153,7 +153,7 @@ class EntryQueryFilter
      */
     protected function getPostTrigger()
     {
-        return 'filter-' . $this->getStreamString();
+        return 'filter-' . $this->getFilterKey();
     }
 
     /**
@@ -171,7 +171,7 @@ class EntryQueryFilter
             if ($value == null) {
                 unset($post[$key]);
             } else {
-                $post[str_replace('f-' . $this->getStreamString() . '-', '', $key)] = $value;
+                $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
 
                 unset($post[$key]);
             }
@@ -203,7 +203,7 @@ class EntryQueryFilter
      */
     public function getAppliedFilters()
     {
-        return ci()->session->userdata($this->getStreamString());
+        return ci()->session->userdata($this->getFilterKey());
     }
 
     /**
