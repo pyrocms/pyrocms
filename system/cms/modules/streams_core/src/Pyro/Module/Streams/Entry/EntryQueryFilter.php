@@ -77,30 +77,33 @@ class EntryQueryFilter
                 $relationMethod = Str::camel($fieldSlug);
 
                 // Get the constraint type string
-                $constraintType = $commands[1];
+                if (isset($commands[1])) {
+                    $constraintType = $commands[1];
+                } else {
+                    continue;
+                }
 
                 // Enable whereHas logic only if the slug is a relation
-                if ($relation = $this->reflection($this->model)->getRelationClass($relationMethod)) {
-
-                    $this->query->whereHas(
-                        $relationMethod,
-                        function ($query) use ($filterBy, $constraintType, $value) {
-                            // Do a constraint for each column from the related model
-                            foreach ($filterBy as $column) {
-                                /**
-                                 * @todo - Here is an opportunity to override the constraint
-                                 * by parsing each column string. Revisit to implement this feature.
-                                 */
-                                $this->constraint($query, $constraintType, $column, $value);
+                if ($value != null) {
+                    if ($relation = $this->reflection($this->model)->getRelationClass($relationMethod)) {
+                        $this->query->whereHas(
+                            $relationMethod,
+                            function ($query) use ($filterBy, $constraintType, $value) {
+                                // Do a constraint for each column from the related model
+                                foreach ($filterBy as $column) {
+                                    /**
+                                     * @todo - Here is an opportunity to override the constraint
+                                     * by parsing each column string. Revisit to implement this feature.
+                                     */
+                                    $this->constraint($query, $constraintType, $column, $value);
+                                }
                             }
-                        }
-                    );
+                        );
+                    } else {
 
-                } else {
-
-                    // Do a normal constraint
-                    $this->constraint($this->query, $constraintType, $fieldSlug, $value);
-
+                        // Do a normal constraint
+                        $this->constraint($this->query, $constraintType, $fieldSlug, $value);
+                    }
                 }
             }
         }
@@ -171,9 +174,13 @@ class EntryQueryFilter
             if ($value == null) {
                 unset($post[$key]);
             } else {
-                $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
 
-                unset($post[$key]);
+                // Clean core filters
+                if (strpos($key, 'f-') !== false) {
+                    $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
+
+                    unset($post[$key]);
+                }
             }
         }
 
