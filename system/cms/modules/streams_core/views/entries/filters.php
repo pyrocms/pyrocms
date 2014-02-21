@@ -11,10 +11,10 @@
 			<div class="form-group">
                 <?php if (is_array($filter)): ?>
                     <?php if (! isset($filter['type']) or $filter['type'] == 'text'): ?>
-                        <?php echo form_input($filter['slug'], ci()->input->get($filter['slug']), 'placeholder="'.lang_label($filter['title']).'" class="form-control"'); ?>
+                        <?php echo form_input($filter['slug'], isset($appliedFilters[$filter['slug']]) ? $appliedFilters[$filter['slug']] : null, 'placeholder="'.lang_label($filter['title']).'" class="form-control"'); ?>
                     <?php endif; ?>
                     <?php if ($filter['type'] == 'select'): ?>
-                        <?php echo form_dropdown($filter['slug'], $filter['options'], ci()->input->get($filter['slug']), 'class=""'); ?>
+                        <?php echo form_dropdown($filter['slug'], $filter['options'], isset($appliedFilters[$filter['slug']]) ? $appliedFilters[$filter['slug']] : null, 'class=""'); ?>
                     <?php endif; ?>
                 <?php else: ?>
     				<?php if ($assignments->findBySlug($filter)): ?>
@@ -26,7 +26,7 @@
 			</div>
 
 		<?php endforeach; ?>
-		
+
 		<div class="form-group">
 
             <button class="btn btn-success" type="submit"
