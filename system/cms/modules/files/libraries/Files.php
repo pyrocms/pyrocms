@@ -946,8 +946,8 @@ class Files
 		return array_map(function($role) use ($user) {
 
 			// build a simplified permission list for use in this module
-			if ($user->hasAccess("files.{$value}")) {
-				return $value;
+			if ($user->hasAccess("files.{$role}")) {
+				return $role;
 			}
 			
 		}, ci()->moduleManager->roles('files'));
