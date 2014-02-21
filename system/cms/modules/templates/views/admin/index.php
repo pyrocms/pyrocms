@@ -95,7 +95,6 @@
 										<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons:preview'), 'class="btn btn-xs btn-default" data-toggle="modal" data-target="#modal"') ?>
 										<?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons:edit'), 'class="btn btn-xs btn-warning"') ?>
 										<?php echo anchor('admin/templates/delete/' . $template->id, lang('buttons:delete'), 'class="btn btn-xs btn-danger confirm"') ?>
-									</div>
 					                </td>
 					            </tr>
 					    <?php endforeach ?>
