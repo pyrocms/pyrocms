@@ -1,6 +1,4 @@
-<div class="p n-p-b">
-	<?php file_partial('notices'); ?>
-</div>
+<?php file_partial('notices'); ?>
 
 <div class="p">
 
