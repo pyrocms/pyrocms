@@ -77,7 +77,11 @@ class EntryQueryFilter
                 $relationMethod = Str::camel($fieldSlug);
 
                 // Get the constraint type string
-                $constraintType = $commands[1];
+                if (isset($commands[1])) {
+                    $constraintType = $commands[1];
+                } else {
+                    continue;
+                }
 
                 // Enable whereHas logic only if the slug is a relation
                 if ($value != null) {
@@ -170,9 +174,13 @@ class EntryQueryFilter
             if ($value == null) {
                 unset($post[$key]);
             } else {
-                $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
 
-                unset($post[$key]);
+                // Clean core filters
+                if (strpos($key, 'f-') !== false) {
+                    $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
+
+                    unset($post[$key]);
+                }
             }
         }
 
