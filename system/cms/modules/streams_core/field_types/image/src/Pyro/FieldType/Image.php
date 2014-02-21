@@ -184,6 +184,8 @@ class Image extends FieldTypeAbstract
 		}
 		else
 		{
+			// Trigger event file_uploaded
+			Events::trigger('file_uploaded', $return  );
 			// Return the ID of the file DB entry
 			return $return['data']['id'];
 		}
