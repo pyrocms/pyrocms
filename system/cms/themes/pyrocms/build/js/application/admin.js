@@ -382,6 +382,14 @@ Pyro.Initialize = function() {
 	 */
 	
 	$('[data-toggle^="timepicker"]').timepicker({ template: false, minuteStep: 5, defaultTime: false });
+
+    /**
+     * Nowrap table cols with overflow-ellipsis
+     */
+
+    $('table td.overflow-ellipsis').each(function(){
+        $(this).css('max-width', '1px');
+    });
 }
 
 
