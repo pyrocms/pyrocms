@@ -145,8 +145,8 @@ class EntryUi extends UiAbstract
             $this->title(
                 lang(
                     $this->model->getStream()->stream_namespace
-                    . ':' . $this->model->getStream()->stream_slug
-                    . '.table'
+                    . '.stream.' . $this->model->getStream()->stream_slug
+                    . '.name'
                 )
             );
         }
