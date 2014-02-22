@@ -512,7 +512,10 @@ class EntryModel extends Eloquent implements RelationshipInterface
         // Event: Post Insert Entry
         // -------------------------------------
 
+        $stream = $this->getStream();
+
         \Events::trigger('streams_post_insert_entry', $this);
+        \Events::trigger($stream->stream_namespace.'.'.$stream->stream_slug.'.saved', $this);
 
         return $saved;
     }
