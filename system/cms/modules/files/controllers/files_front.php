@@ -204,10 +204,14 @@ class Files_front extends Public_Controller
 			exit;
 		}
 
-		header('Content-type: ' . $file->mimetype);
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
-		ob_clean();
-		readfile($thumb_filename);
+		 $filename = end(explode('/',$thumb_filename));
+	        chmod($thumb_filename,777);
+        	if(preg_match('/^system\/cms/', $thumb_filename))
+                	redirect('/uploads/image_files/'.$filename);
+	        else
+        	        redirect('/uploads/default/files/'.$filename);
+		exit;
+
 	}
 
 	public function large($id)
