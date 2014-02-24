@@ -470,7 +470,7 @@ abstract class AbstractExtensionManager
      */
     public static function getLangPrefix($extension)
     {
-        return static::$slugs[get_called_class()].':'.$extension;
+        return 'extension.'.static::$slugs[get_called_class()].'.'.$extension;
     }
 
     /**
