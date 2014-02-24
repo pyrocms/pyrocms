@@ -2,5 +2,5 @@
 
 class SearchPluralAttributeNotSetException extends \RuntimeException
 {
-	protected $message = 'The plural attribute is not set.';
+    protected $message = 'The plural attribute is not set.';
 }

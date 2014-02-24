@@ -1,7 +1,7 @@
 <?php
 
 $lang['addons:modules'] 				= 'ماژول ها';
-$lang['addons:admin_themes'] 			= 'قالب های ادمین'; 
+$lang['addons:admin_themes'] 			= 'قالب های ادمین';
 $lang['addons:themes'] 				= 'قالب ها';
 $lang['addons:widgets']                           = 'ویجت ها';
 

@@ -3,5 +3,5 @@
 
 class ClassNotInstanceOfRelationshipInterfaceException extends \RuntimeException
 {
-	protected $message = 'The related model is not instanceof Pyro\FieldType\Relationship\RelationshipInterface.';
+    protected $message = 'The related model is not instanceof Pyro\FieldType\Relationship\RelationshipInterface.';
 }

@@ -23,47 +23,46 @@ class Public_ajax extends Public_Controller
         $this->load->library('Type');
 
         // Only AJAX gets through!
-       	if ( ! $this->input->is_ajax_request()) {
-       		die('Must be an ajax request.');
-       	}
+           if ( ! $this->input->is_ajax_request()) {
+               die('Must be an ajax request.');
+           }
     }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Fieldtype AJAX Function
-	 *
-	 * Accessed via AJAX
-	 *
-	 * @return	void
-	 */
-	public function field()
-	{
-		$segments = $this->uri->segment_array();
+    /**
+     * Fieldtype AJAX Function
+     *
+     * Accessed via AJAX
+     *
+     * @return	void
+     */
+    public function field()
+    {
+        $segments = $this->uri->segment_array();
 
-		if ( ! isset($segments[4]) or ! isset($segments[5])) {
-			exit('Field class or method not found.');
-		}
+        if ( ! isset($segments[4]) or ! isset($segments[5])) {
+            exit('Field class or method not found.');
+        }
 
-		$field_type 	= $segments[4];
-		$method 		= $segments[5];
-		$params			= array_slice($segments, 5);
+        $field_type 	= $segments[4];
+        $method 		= $segments[5];
+        $params			= array_slice($segments, 5);
 
-		// Is this a valid field type?
-		if ( ! $type = FieldTypeManager::getType($field_type))
-		{
-			exit('Invalid Field Type.');
-		}
+        // Is this a valid field type?
+        if ( ! $type = FieldTypeManager::getType($field_type)) {
+            exit('Invalid Field Type.');
+        }
 
-		// We prefix all ajax functions with ajax_
-		$method = Str::studly('ajax_'.$method);
+        // We prefix all ajax functions with ajax_
+        $method = Str::studly('ajax_'.$method);
 
-		// Does the method exist?
-		if (method_exists($type, $method)) {
-			exit(call_user_func_array(array($type, $method), $params));
-		}
+        // Does the method exist?
+        if (method_exists($type, $method)) {
+            exit(call_user_func_array(array($type, $method), $params));
+        }
 
-		exit("Method '{$method}' not found.");
-	}
+        exit("Method '{$method}' not found.");
+    }
 
 }

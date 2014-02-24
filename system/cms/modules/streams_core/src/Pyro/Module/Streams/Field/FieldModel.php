@@ -35,7 +35,7 @@ class FieldModel extends Eloquent
      * @var array
      */
     protected $guarded = array();
-    
+
     /**
      * Stream
      *

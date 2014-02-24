@@ -4,38 +4,38 @@
 
 <div class="form_inputs">
 
-	<ul>
+    <ul>
 
-	<?php foreach ($fields as $field) { ?>
+    <?php foreach ($fields as $field) { ?>
 
-		<li class="<?php  echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
-			<?php echo $field['input_row']; ?>
-		</li>
+        <li class="<?php  echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
+            <?php echo $field['input_row']; ?>
+        </li>
 
-	<?php } ?>
+    <?php } ?>
 
-	</ul>
+    </ul>
 
 </div>
 
 <?php if (!$new) { ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 <div class="float-right buttons">
-	<button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
-	
-	<?php if (! empty($redirectCreate)): ?>
-	<button type="submit" name="btnAction" value="create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
-	<?php endif; ?>
+    <button type="submit" name="btnAction" value="save" class="btn green"><?php echo lang('buttons:save'); ?></button>
 
-	<?php if (! empty($redirectContinue)): ?>
-	<button type="submit" name="btnAction" value="continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
-	<?php endif; ?>
+    <?php if (! empty($redirectCreate)): ?>
+    <button type="submit" name="btnAction" value="create" class="btn green"><?php echo lang('buttons:save_create'); ?></button>
+    <?php endif; ?>
 
-	<?php if (! empty($redirectExit)): ?>
-	<button type="submit" name="btnAction" value="exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
-	<?php endif; ?>
+    <?php if (! empty($redirectContinue)): ?>
+    <button type="submit" name="btnAction" value="continue" class="btn green"><?php echo lang('buttons:save_continue'); ?></button>
+    <?php endif; ?>
 
-	<a href="<?php echo site_url($uriCancel ?: $redirectSave); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>		
+    <?php if (! empty($redirectExit)): ?>
+    <button type="submit" name="btnAction" value="exit" class="btn green"><?php echo lang('buttons:save_exit'); ?></button>
+    <?php endif; ?>
+
+    <a href="<?php echo site_url($uriCancel ?: $redirectSave); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 </div>
 
 
@@ -44,15 +44,15 @@
 <?php else: ?>
 
 <div class="no_data">
-	<?php
+    <?php
 
-		if (isset($noFieldsMessage) and $noFieldsMessage) {
-			echo lang_label($noFieldsMessage);
-		} else {
-			echo lang('streams:no_fields_msg_first');
-		}
+        if (isset($noFieldsMessage) and $noFieldsMessage) {
+            echo lang_label($noFieldsMessage);
+        } else {
+            echo lang('streams:no_fields_msg_first');
+        }
 
-	?>
+    ?>
 </div><!--.no_data-->
 
 <?php endif;

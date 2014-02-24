@@ -496,7 +496,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         // Set some values for a new entry
         if (!$this->exists) {
             $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
-                ? ci()->current_user->id 
+                ? ci()->current_user->id
                 : null;
 
             $this->setAttribute('created_by', $created_by);

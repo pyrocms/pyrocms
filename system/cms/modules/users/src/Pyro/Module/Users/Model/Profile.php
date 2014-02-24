@@ -1,10 +1,10 @@
-<?php namespace Pyro\Module\Users\Model; 
+<?php namespace Pyro\Module\Users\Model;
 
 use Pyro\Module\Streams\Model\UsersProfilesEntryModel;
 
 /**
  * Profile model for the users module.
- * 
+ *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\User\Models
  */
@@ -22,6 +22,6 @@ class Profile extends UsersProfilesEntryModel
      */
     public function user()
     {
-    	return $this->belongsTo('Pyro\Module\Users\Model\User');
+        return $this->belongsTo('Pyro\Module\Users\Model\User');
     }
 }

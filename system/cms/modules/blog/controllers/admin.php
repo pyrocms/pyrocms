@@ -144,8 +144,7 @@ class Admin extends Admin_Controller
             $hash = $this->preview_hash();
         }
         //it is going to be published we don't need the hash
-        elseif ($this->input->post('status') == 'live')
-        {
+        elseif ($this->input->post('status') == 'live') {
             $hash = '';
         }*/
 

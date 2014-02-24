@@ -115,11 +115,11 @@ class Comment extends Eloquent
     public static function countWithFilter($filter)
     {
         $query = static::where('is_active', $filter['is_active']);
-        
+
         if (isset($filter['module'])) {
             $query->where('module', $filter['module']);
         }
-    
+
         return $query->count();
     }
 

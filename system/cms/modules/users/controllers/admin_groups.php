@@ -69,7 +69,7 @@ class Admin_groups extends Admin_Controller
             $this->form_validation->set_rules($this->validation_rules);
 
             if ($this->form_validation->run()) {
-                
+
                 $group->name = $this->input->post('name');
                 $group->description = $this->input->post('description');
 
@@ -78,19 +78,13 @@ class Admin_groups extends Admin_Controller
                 $new_perms = array();
                 $roles = $this->input->post('module_roles');
 
-                if ($modules = $this->input->post('modules'))
-                {
-                    foreach ($this->input->post('modules') as $module)
-                    {
-                        if (isset($roles[$module]) and is_array($roles[$module]))
-                        {
-                            foreach ($roles[$module] as $role)
-                            {
+                if ($modules = $this->input->post('modules')) {
+                    foreach ($this->input->post('modules') as $module) {
+                        if (isset($roles[$module]) and is_array($roles[$module])) {
+                            foreach ($roles[$module] as $role) {
                                 $new_perms["{$module}.{$role}"] = 1;
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $new_perms["{$module}.general"] = 1;
                         }
                     }
@@ -141,7 +135,7 @@ class Admin_groups extends Admin_Controller
             $this->form_validation->set_rules($this->validation_rules);
 
             if ($this->form_validation->run()) {
-    
+
                 if (! in_array($group->name, array('admin', 'user'))) {
                     $group->name = $this->input->post('name');
                 }
@@ -151,19 +145,13 @@ class Admin_groups extends Admin_Controller
                 $new_perms = array();
                 $roles = $this->input->post('module_roles');
 
-                if ($modules = $this->input->post('modules'))
-                {
-                    foreach ($this->input->post('modules') as $module)
-                    {
-                        if (isset($roles[$module]) and is_array($roles[$module]))
-                        {
-                            foreach ($roles[$module] as $role)
-                            {
+                if ($modules = $this->input->post('modules')) {
+                    foreach ($this->input->post('modules') as $module) {
+                        if (isset($roles[$module]) and is_array($roles[$module])) {
+                            foreach ($roles[$module] as $role) {
                                 $new_perms["{$module}.{$role}"] = 1;
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $new_perms["{$module}.general"] = 1;
                         }
                     }
@@ -218,8 +206,7 @@ class Admin_groups extends Admin_Controller
     {
         $modules = $this->moduleManager->getAll(array('is_backend' => true, 'installed' => true));
 
-        foreach ($modules as &$module)
-        {
+        foreach ($modules as &$module) {
             $module['roles'] = $this->moduleManager->roles($module['slug']);
         }
 

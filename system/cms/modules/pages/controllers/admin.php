@@ -37,12 +37,12 @@ class Admin extends Admin_Controller
         $this->lang->load('pages');
         $this->lang->load('page_types');
         $this->load->library('keywords/keywords');
-        
+
         /**
          * Search Index Template
          * - Autoindex this shit
          */
-        
+
         $this->_index_template = array(
             'singular' => 'pages:page',
             'plural' => 'pages:pages',
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
         $user = \Pyro\Module\Users\Model\User::with('profile')->find(1);
 
         echo ci()->parser->parse_string("
-            
+
 
 
             {{ if false }}
@@ -86,7 +86,7 @@ class Admin extends Admin_Controller
             {{ items }}
                 <li>
                 {{ if value == 'Bar' }}
-                    
+
                 {{ else }}
                     Nothing {{ value }}
                 {{ endif }}
@@ -204,21 +204,18 @@ class Admin extends Admin_Controller
             //reset all parent > child relations
             Page::resetParentByIds($root_pages);
 
-            foreach ($order as $i => $page)
-            {
+            foreach ($order as $i => $page) {
                 $id = str_replace('page_', '', $page['id']);
 
-                if (is_integer($i))
-                {
+                if (is_integer($i)) {
                     //set the order of the root pages
                     $model = Page::find($id);
                     $model->skip_validation = true;
                     $model->order = $i;
-                    
+
                     $model->save();
 
-                    if ($model->entry)
-                    {
+                    if ($model->entry) {
                         $model->entry->updateOrderingCount($i);
                     }
                 }
@@ -282,12 +279,9 @@ class Admin extends Admin_Controller
             // Turn "Foo" into "Foo 2"
             $duplicate_page->title = increment_string($duplicate_page->title, ' ', 2);
 
-            if ($parent)
-            {
+            if ($parent) {
                 $duplicate_page->uri = $parent->uri.'/'.$duplicate_page->slug;
-            }
-            else
-            {
+            } else {
                 $duplicate_page->uri = increment_string($duplicate_page->uri, '-', 2);
             }
 
@@ -299,29 +293,26 @@ class Admin extends Admin_Controller
 
         } while ($has_dupes === true);
 
-        if ($parent)
-        {
+        if ($parent) {
             $duplicate_page->parent()->associate($parent);
         }
 
         // $duplicate_page->restricted_to = null;
         //$duplicate_page->navigation_group_id = 0;
 
-        if ($page->entry)
-        {
+        if ($page->entry) {
             $duplicate_entry = $page->entry->replicate();
             $duplicate_entry->save();
 
             $duplicate_page->entry()->associate($duplicate_entry);
         }
-        
+
         $duplicate_page->index($this->_index_template)->save();
 
         // TODO Make this bit into page->children()->create($datastuff);
         // $this->streams_m->get_stream($duplicate_page['stream_id']);
 
-        foreach ($duplicate_page->children as $child)
-        {
+        foreach ($duplicate_page->children as $child) {
             $this->duplicate($child->id, $duplicate_page);
         }
 
@@ -342,11 +333,10 @@ class Admin extends Admin_Controller
 
         // What type of page are we creating?
         $page_type = PageType::find($this->input->get('page_type'));
-        
+
         $parent_page = null;
 
-        if ($parent_id = $this->input->get('parent'))
-        {
+        if ($parent_id = $this->input->get('parent')) {
             $parent_page = Page::find($parent_id);
         }
 
@@ -354,7 +344,7 @@ class Admin extends Admin_Controller
         if ( ! $page_type) {
             redirect('admin/pages/choose_type');
         }
-        
+
         // Get the stream that we are using for this page type.
         $stream = $page_type->stream;
         //$stream_validation = $this->_setup_stream_fields($stream);
@@ -370,7 +360,7 @@ class Admin extends Admin_Controller
                 role_or_die('pages', 'put_live');
             }
 
-            // 
+            //
             $page->slug             = $input['slug'];
             $page->title            = $input['title'];
             $page->uri              = isset($input['slug']) ? $input['slug'] : null;
@@ -394,12 +384,10 @@ class Admin extends Admin_Controller
             $this->validator->setModel(new $entryModelClass);
 
             // Insert the page data, along with
-            if ($this->validator->validate($input) and $enableSave = $page->save())
-            {
+            if ($this->validator->validate($input) and $enableSave = $page->save()) {
                 $page->buildLookup();
-                
-                if ( ! empty($input['is_home']))
-                {
+
+                if ( ! empty($input['is_home'])) {
                     $page->setHomePage();
                 }
 
@@ -453,8 +441,7 @@ class Admin extends Admin_Controller
             ->onSaving(function($entry) use ($page) {
                 if ($_POST) $_POST['full_uri'] = $page->uri;
             })
-            ->onSaved(function($entry) use ($page)
-            {
+            ->onSaved(function($entry) use ($page) {
                 $page->entry()->associate($entry); // Save the relation Eloquent style
                 $page->save();
             })
@@ -569,7 +556,7 @@ class Admin extends Admin_Controller
             // validate and insert
             if ($this->validator->validate($input) and $enableSave = $page->save()) {
                 $page->buildLookup();
-                
+
                 Events::trigger('page_updated', $page);
 
                 //$this->cache->forget('page_m');
@@ -605,8 +592,7 @@ class Admin extends Admin_Controller
         // If for some reason the page does not have an entry, lets give it a chance to get a new one
         } else {
             $ui = $ui->form($stream->stream_slug, $stream->stream_namespace)
-                ->onSaved(function($entry) use ($page)
-                {
+                ->onSaved(function($entry) use ($page) {
                     $page->entry()->associate($entry); // Save the relation Eloquent style
                     $page->save();
                 });

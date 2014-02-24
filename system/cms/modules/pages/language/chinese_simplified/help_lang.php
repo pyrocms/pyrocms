@@ -49,7 +49,7 @@ Meta描述的是一个页面的简短描述，可用于搜索片段，如果搜�
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-	{{ widgets:instance id=&quot;1&quot; }}
+    {{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 <p>现在，你可以应用CSS样式\"my-twitter-widget\" 类在CSS标签。</p>";

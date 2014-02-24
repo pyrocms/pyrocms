@@ -45,7 +45,7 @@ class ModuleManager
     public function __construct(User $user = null)
     {
         $this->modules = new ModuleModel;
-        
+
         $this->user = $user;
     }
 
@@ -111,8 +111,7 @@ class ModuleManager
         // Fetch the actual module record
         if (isset($this->loaded_modules[$slug])) {
             $record = $this->loaded_modules[$slug];
-        }
-        elseif ((! $record = $this->modules->findBySlug($slug))) {
+        } elseif ((! $record = $this->modules->findBySlug($slug))) {
             return false;
         }
 
@@ -234,7 +233,7 @@ class ModuleManager
             $this->exists[$record->slug] = true;
             $this->enabled[$record->slug] = $record->enabled;
             $this->installed[$record->slug] = $record->installed;
-            
+
             if ( ! empty($params['is_backend'])) {
                 // This user has no permissions for this module
                 if (( ! $this->user->hasAccess($record->slug.'.*'))) {
@@ -418,9 +417,9 @@ class ModuleManager
     /**
      * Discover Nonexistant Modules
      *
-     * Go through the list of modules in the file system and see 
+     * Go through the list of modules in the file system and see
      * if they exist in the database
-     * 
+     *
      * @return  bool
      */
     public function registerUnavailableModules()

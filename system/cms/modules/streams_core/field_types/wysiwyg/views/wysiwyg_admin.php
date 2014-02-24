@@ -3,22 +3,22 @@
 
 <script type="text/javascript">
 
-	var instance;
+    var instance;
 
-	function update_instance()
-	{
-		instance = CKEDITOR.currentInstance;
-	}
+    function update_instance()
+    {
+        instance = CKEDITOR.currentInstance;
+    }
 
-	(function($) {
-		$(function(){
+    (function($) {
+        $(function(){
 
-			pyro.init_ckeditor = function(){
-				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, true) ?>
-				pyro.init_ckeditor_maximize();
-			};
-			pyro.init_ckeditor();
+            pyro.init_ckeditor = function(){
+                <?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, true) ?>
+                pyro.init_ckeditor_maximize();
+            };
+            pyro.init_ckeditor();
 
-		});
-	})(jQuery);
+        });
+    })(jQuery);
 </script>

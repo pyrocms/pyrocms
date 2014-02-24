@@ -83,7 +83,7 @@ class WidgetInstanceModel extends Eloquent
                 'rules' => 'trim|numeric|required',
             ),
         ));
-        
+
         ci()->form_validation->set_data($this->toArray());
 
         return ci()->form_validation->run();

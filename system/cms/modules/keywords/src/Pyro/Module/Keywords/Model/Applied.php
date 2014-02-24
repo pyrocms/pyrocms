@@ -58,9 +58,9 @@ class Applied extends Eloquent
     public static function getNamesByHash($hash)
     {
         $keyword_ids = static::where('hash', $hash)->lists('keyword_id');
-        
+
         if ( ! $keyword_ids) {
-            return array();    
+            return array();
         }
 
         return Keyword::select('name')

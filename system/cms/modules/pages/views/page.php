@@ -4,16 +4,16 @@
 
 <div id="comments">
 
-	<div id="existing-comments">
+    <div id="existing-comments">
 
-		<h4><?php echo lang('comments:title') ?></h4>
+        <h4><?php echo lang('comments:title') ?></h4>
 
-		<?php echo $this->comments->display() ?>
+        <?php echo $this->comments->display() ?>
 
-	</div>
+    </div>
 
-	<?php echo $this->comments->form() ?>
+    <?php echo $this->comments->form() ?>
 
 </div>
 
-<?php endif ?>
+<?php endif

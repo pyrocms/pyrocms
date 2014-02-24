@@ -129,7 +129,7 @@ class Admin extends Admin_Controller
             }
 
             if ($this->input->is_ajax_request()) {
-                
+
                 $data = array();
                 if ($status === 'success') {
                     $data['messages'][$status] = $message;

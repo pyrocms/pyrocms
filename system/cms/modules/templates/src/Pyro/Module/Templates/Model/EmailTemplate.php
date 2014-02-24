@@ -65,20 +65,20 @@ class EmailTemplate extends Eloquent
      * Find email template by slug and language
      *
      * @param string $slug The slug of the email template
-	 * @param string $language The language of the email template
+     * @param string $language The language of the email template
      *
      * @return void
      */
     public static function findBySlugAndLanguage($slug, $language)
     {
         $tpl = static::where('slug', '=', $slug)
-			->where('lang', '=', $language)
-        	->first();
+            ->where('lang', '=', $language)
+            ->first();
 
-		return (null != $tpl)
-			? $tpl
-			: static::where('slug', '=', $slug)
-				->where('lang', '=', 'en')
-	        	->first();
+        return (null != $tpl)
+            ? $tpl
+            : static::where('slug', '=', $slug)
+                ->where('lang', '=', 'en')
+                ->first();
     }
 }

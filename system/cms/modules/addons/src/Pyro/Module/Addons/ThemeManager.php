@@ -144,9 +144,9 @@ class ThemeManager
     /**
      * Discover Unavailable Themes
      *
-     * Go through the list of themes in the file system and see 
+     * Go through the list of themes in the file system and see
      * if they exist in the database
-     * 
+     *
      * @return  bool
      */
     public function registerUnavailableThemes()
@@ -162,7 +162,7 @@ class ThemeManager
                 $known_mtime[$item->slug] = $item;
             }
         }
-    
+
         foreach ($this->locations as $location) {
             // some servers return false instead of an empty array
             if (( ! $temp_themes = glob($location.'*', GLOB_ONLYDIR))) {
@@ -190,14 +190,14 @@ class ThemeManager
      * Register
      *
      * Read a theme from the file system and save it to the DB
-     * 
+     *
      * @param AbstractTheme $theme Theme info instance
      * @param string $slug The folder name of the theme
      *
      * @return  Pyro\Addons\ThemeModel
      */
-    public function register(AbstractTheme $theme, $slug) {
-
+    public function register(AbstractTheme $theme, $slug)
+    {
         $record = false;
 
         if (! $this->themes->findBySlug($slug)) {
@@ -227,7 +227,7 @@ class ThemeManager
                         'required'   => $option['required'],
                     ));
                 }
-            }           
+            }
         }
 
         return $record;
