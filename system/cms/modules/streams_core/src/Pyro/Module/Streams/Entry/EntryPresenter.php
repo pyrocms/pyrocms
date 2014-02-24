@@ -26,27 +26,11 @@ class EntryPresenter extends Presenter
     );
 
     /**
-     * Link edit template
+     * Create a new EntryPresenter instance
      *
-     * @var string
+     * @param EntryModel       $model
+     * @param EntryViewOptions $entryViewOptions
      */
-    protected $linkEditTemplate = '
-        <a href="{{ url:site }}admin/{{ stream:stream_namespace }}/{{ stream:stream_slug }}/edit/{{ entry:id }}" class="link">
-            {{ title_column_value }}
-        </a>
-        ';
-
-    /**
-     * Link details template
-     *
-     * @var string
-     */
-    protected $linkDetailsTemplate = '
-        <a href="{{ url:site }}admin/{{ stream:stream_namespace }}/{{ stream:stream_slug }}/details/{{ entry:id }}" class="link">
-            {{ title_column_value }}
-        </a>
-        ';
-
     public function __construct(EntryModel $model, EntryViewOptions $entryViewOptions)
     {
         $this->resource = $model;
@@ -74,7 +58,6 @@ class EntryPresenter extends Presenter
      * Get presenter formatted attribute
      *
      * @param  string $key
-     *
      * @return mixed
      */
     public function getPresenterAttribute($key, $resourceArray = null)
@@ -137,7 +120,6 @@ class EntryPresenter extends Presenter
      * Get user output
      *
      * @param $value
-     *
      * @return string
      */
     protected function getUserOutput($value)
@@ -152,13 +134,14 @@ class EntryPresenter extends Presenter
      */
     public function linkEdit()
     {
-        $data = array(
-            'entry'              => $this->resource->toArray(),
-            'stream'             => $this->resource->getStream()->toArray(),
-            'title_column_value' => $this->getResourceTitle(),
-        );
+        $stream = $this->resource->getStream();
+        $entry  = $this->resource;
 
-        return ci()->parser->parse_string($this->linkEditTemplate, $data, true, false, false, false);
+        return anchor(
+            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/edit/' . $this->resource->id,
+            $this->resource->getTitleColumnValue(),
+            'class="link"'
+        );
     }
 
     /**
@@ -168,20 +151,20 @@ class EntryPresenter extends Presenter
      */
     public function linkDetails()
     {
-        $data = array(
-            'entry'              => $this->resource->toArray(),
-            'stream'             => $this->resource->getStream()->toArray(),
-            'title_column_value' => $this->getResourceTitle(),
-        );
+        $stream = $this->resource->getStream();
+        $entry  = $this->resource;
 
-        return ci()->parser->parse_string($this->linkDetailsTemplate, $data, true, false, false, false);
+        return anchor(
+            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $this->resource->id,
+            $this->resource->getTitleColumnValue(),
+            'class="link"'
+        );
     }
 
     /**
      * String output
      *
      * @param  string
-     *
      * @return string
      */
     protected function getStringOutput($key = null)
@@ -207,7 +190,6 @@ class EntryPresenter extends Presenter
      * Its datetime object?
      *
      * @param null $value
-     *
      * @return bool
      */
     protected function isDate($value = null)
@@ -219,7 +201,6 @@ class EntryPresenter extends Presenter
      * Get date output
      *
      * @param $value
-     *
      * @return mixed
      */
     protected function getDateOutput($value)
@@ -231,7 +212,6 @@ class EntryPresenter extends Presenter
      * Its a User model?
      *
      * @param null $value
-     *
      * @return bool
      */
     protected function isUser($value = null)
