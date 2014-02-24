@@ -89,7 +89,10 @@ class Slug extends FieldTypeAbstract
         $options['autocomplete'] = 'off';
         $jquery                  = null;
 
-        if ($slug_field = FieldModel::find($this->getParameter('slug_field'))) {
+        $namespace = $this->field->field_namespace;
+        $slug_field = FieldModel::findBySlugAndNamespace($this->getParameter('slug_field'), $namespace);
+
+        if ($slug_field) {
             $field_type = $slug_field->getType($this->entry);
 
             $jquery = "<script>(function($) {
