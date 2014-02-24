@@ -165,7 +165,7 @@ class StreamModel extends Eloquent
                 function ($table) {
                     $table->increments('id');
                     $table->datetime('created_at');
-                    $table->datetime('updated_at');
+                    $table->datetime('updated_at')->nullable();
                     $table->integer('created_by')->nullable();
                     $table->integer('ordering_count')->nullable();
                 }
