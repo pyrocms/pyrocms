@@ -8,19 +8,20 @@
                         <div class="method">
                             <h1><?php echo $plugin['slug'].':'.$method ?></h1>
                             <p><?php echo htmlentities(isset($doc['description'][CURRENT_LANGUAGE]) ? $doc['description'][CURRENT_LANGUAGE] : isset($doc['description']['en']) ? $doc['description']['en'] : '') ?></p>
-<pre>
-<code>
-<?php if (isset($doc['single']) and $doc['single']) {: ?>{ <?php echo $plugin['slug'].':'.$method ?> }}
+                            <pre>
+                                <code>
+                                <?php if (isset($doc['single']) and $doc['single']): ?>
+                                    {{ <?php echo $plugin['slug'].':'.$method ?> }}
+                                <?php endif ?>
+                                <?php if (isset($doc['double']) and $doc['double']): ?>
 
-<?php endif ?>
-<?php if (isset($doc['double']) and $doc['double']): ?>
-
-{{ <?php echo $plugin['slug'].':'.$method ?> }}
-    <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
-{{ /<?php echo $plugin['slug'].':'.$method ?> }}
-<?php endif; ?>
-</code>
-</pre>
+                                {{ <?php echo $plugin['slug'].':'.$method ?> }}
+                                    <?php echo (strpos($doc['variables'], '|') !== false ? '{{ '.str_replace('|', " }}\n    {{ ", $doc['variables']).' }}': $doc['variables'])."\n" ?>
+                                {{ /<?php echo $plugin['slug'].':'.$method ?> }}
+                                <?php endif; ?>
+                                </code>
+                            </pre>
+                            
                             <?php if (isset($doc['attributes']) and $doc['attributes']): ?>
                                 <table cellpadding="0" cellspacing="0">
                                     <tbody>

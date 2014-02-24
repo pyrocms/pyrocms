@@ -2,9 +2,9 @@
 
     <thead>
         <tr>
-            <th><?php echo lang('name_label');?></th>
-            <th class="collapse"><span><?php echo lang('desc_label');?></span></th>
-            <th><?php echo lang('version_label');?></th>
+            <th><?php echo lang('name_label') ?></th>
+            <th class="collapse"><span><?php echo lang('desc_label') ?></span></th>
+            <th><?php echo lang('version_label') ?></th>
             <th></th>
         </tr>
         </thead>
