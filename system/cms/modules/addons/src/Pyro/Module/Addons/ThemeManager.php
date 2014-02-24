@@ -12,134 +12,134 @@ use Pyro\Module\Addons\AbstractTheme;
  */
 class ThemeManager
 {
-	/**
-	 * Available Themes
-	 *
-	 * @var array
-	 */
-	protected $exists = array();
+    /**
+     * Available Themes
+     *
+     * @var array
+     */
+    protected $exists = array();
 
-	/**
-	 * Theme Locations
-	 *
-	 * @var array
-	 */
-	protected $locations = array();
+    /**
+     * Theme Locations
+     *
+     * @var array
+     */
+    protected $locations = array();
 
-	/**
-	 * Constructor
-	 */
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->themes = new ThemeModel;
     }
 
-	/**
-	 * Set Locations
-	 */
-	public function setLocations(array $locations)
-	{
-		$this->locations = $locations;
-	}
+    /**
+     * Set Locations
+     */
+    public function setLocations(array $locations)
+    {
+        $this->locations = $locations;
+    }
 
-	/**
-	 * Get Module
-	 *
-	 * @return Pyro\Module\Addons\ThemeModel
-	 */
-	public function getModel()
-	{
-		return $this->themes;
-	}
+    /**
+     * Get Module
+     *
+     * @return Pyro\Module\Addons\ThemeModel
+     */
+    public function getModel()
+    {
+        return $this->themes;
+    }
 
-	/**
-	 * Locate
-	 *
-	 * @param string $slug
-	 *
-	 * @return bool|object
-	 */
-	public function locate($slug)
-	{
-		if (count($this->locations) === 0) {
-			throw new Exception('No locations have been set, so how can anything be found?');
-		}
+    /**
+     * Locate
+     *
+     * @param string $slug
+     *
+     * @return bool|object
+     */
+    public function locate($slug)
+    {
+        if (count($this->locations) === 0) {
+            throw new Exception('No locations have been set, so how can anything be found?');
+        }
 
-		foreach ($this->locations as $location) {
-			if (is_dir($location.$slug)) {
-				$theme = $this->readDetails($location, $slug);
+        foreach ($this->locations as $location) {
+            if (is_dir($location.$slug)) {
+                $theme = $this->readDetails($location, $slug);
 
-				if ($theme !== false) {
-					return $theme;
-				}
-			}
-		}
+                if ($theme !== false) {
+                    return $theme;
+                }
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * Get details about a theme
-	 *
-	 * @param $location
-	 * @param $slug
-	 *
-	 * @return array
-	 */
-	protected function readDetails($location, $slug)
-	{
-		// If it exists already, use it
-		if ( ! empty($this->exists[$slug])) {
-			return $this->exists[$slug];
-		}
+    /**
+     * Get details about a theme
+     *
+     * @param $location
+     * @param $slug
+     *
+     * @return array
+     */
+    protected function readDetails($location, $slug)
+    {
+        // If it exists already, use it
+        if (! empty($this->exists[$slug])) {
+            return $this->exists[$slug];
+        }
 
-		if ( ! (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))) {
-			return false;
-		}
+        if (! (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))) {
+            return false;
+        }
 
-		//path to theme
-		$web_path = $location.$slug;
+        //path to theme
+        $web_path = $location.$slug;
 
-		//load the theme details.php file
-		$theme = $this->spawnClass($location, $slug);
+        //load the theme details.php file
+        $theme = $this->spawnClass($location, $slug);
 
-		if (( ! $model = $this->themes->findBySlug($slug))) {
-			throw new \Exception("Theme '{$slug}' does not exist!");
-		}
+        if (( ! $model = $this->themes->findBySlug($slug))) {
+            throw new \Exception("Theme '{$slug}' does not exist!");
+        }
 
-		// Add some extra bits, that aren't in the DB
-		$theme->model      = $model;
-		$theme->path       = $path;
-		$theme->web_path   = $web_path;
-		$theme->screenshot = $web_path.'/screenshot.png';
+        // Add some extra bits, that aren't in the DB
+        $theme->model      = $model;
+        $theme->path       = $path;
+        $theme->web_path   = $web_path;
+        $theme->screenshot = $web_path.'/screenshot.png';
 
-		return $theme;
-	}
+        return $theme;
+    }
 
-	/**
-	 * Spawn Class
-	 *
-	 * Checks to see if a details.php exists and returns a class
-	 *
+    /**
+     * Spawn Class
+     *
+     * Checks to see if a details.php exists and returns a class
+     *
      * @param string $path The location of the theme (APPPATH, SHARED_PATH, etc)
-	 * @param string $slug The folder name of the theme
-	 *
-	 * @return array
-	 */
-	private function spawnClass($path, $slug)
-	{
-		// Before we can install anything we need to know some details about the theme
-		$details_file = "{$path}{$slug}/theme.php";
+     * @param string $slug The folder name of the theme
+     *
+     * @return array
+     */
+    private function spawnClass($path, $slug)
+    {
+        // Before we can install anything we need to know some details about the theme
+        $details_file = "{$path}{$slug}/theme.php";
 
-		// Sweet, include the file
-		require_once $details_file;
+        // Sweet, include the file
+        require_once $details_file;
 
-		// Now call the details class
-		$class = 'Theme_'.ucfirst(strtolower($slug));
+        // Now call the details class
+        $class = 'Theme_'.ucfirst(strtolower($slug));
 
-		// Now we need to talk to it
-		return new $class;
-	}
+        // Now we need to talk to it
+        return new $class;
+    }
 
     /**
      * Discover Unavailable Themes
@@ -153,7 +153,7 @@ class ThemeManager
     {
         $known = $this->themes->findAll();
 
-        $known_array = array();
+        $known_mtime = array();
 
         // Loop through the known array and assign it to a single dimension because
         // in_array can not search a multi array.
@@ -162,7 +162,7 @@ class ThemeManager
                 $known_mtime[$item->slug] = $item;
             }
         }
-	
+    
         foreach ($this->locations as $location) {
             // some servers return false instead of an empty array
             if (( ! $temp_themes = glob($location.'*', GLOB_ONLYDIR))) {
@@ -177,7 +177,7 @@ class ThemeManager
                 // This didnt work out right at all. Bail on this one theme.
                 if ($theme_class === false or ! ($theme_class instanceof AbstractTheme)) {
                     continue;
-                }	
+                }
 
                 $this->register($theme_class, $slug);
             }
@@ -187,7 +187,7 @@ class ThemeManager
     }
 
     /**
-     * Register 
+     * Register
      *
      * Read a theme from the file system and save it to the DB
      * 
@@ -198,36 +198,37 @@ class ThemeManager
      */
     public function register(AbstractTheme $theme, $slug) {
 
-    	$record = false;
+        $record = false;
 
-    	if (! $this->themes->findBySlug($slug)) {
-	        // Looks like it installed ok, add a record
-	        $record = $this->themes->create(array(
-	            'slug'              => $slug,
-	            'name'              => $theme->name,
-	            'author'            => $theme->author,
-	            'author_website'    => $theme->author_website,
-	            'website'           => $theme->website,
-	            'description'       => $theme->description,
-	            'version'           => $theme->version,
-	            'type'		=> $theme->type,
-	        ));
+        if (! $this->themes->findBySlug($slug)) {
+            // Looks like it installed ok, add a record
+            $record = $this->themes->create(array(
+                'slug'              => $slug,
+                'name'              => $theme->name,
+                'author'            => $theme->author,
+                'author_website'    => $theme->author_website,
+                'website'           => $theme->website,
+                'description'       => $theme->description,
+                'version'           => $theme->version,
+                'type'              => $theme->type,
+                'created_at'        => $theme->created_at ?: date('Y-m-d H:i:s'),
+            ));
 
-	        if (is_array($theme->options)) {
-		        foreach ($theme->options as $key => $option) {
-		            $record->options()->create(array(
-		                'slug'          => $key,
-		                'title'         => $option['title'],
-		                'description'   => $option['description'],
-		                'default'       => $option['default'],
-		                'value'         => $option['default'],
-		                'type'          => $option['type'],
-		                'options'       => $option['options'],
-		                'required'   => $option['required'],
-		            ));
-		        }
-	    	}    		
-    	}
+            if (is_array($theme->options)) {
+                foreach ($theme->options as $key => $option) {
+                    $record->options()->create(array(
+                        'slug'          => $key,
+                        'title'         => $option['title'],
+                        'description'   => $option['description'],
+                        'default'       => $option['default'],
+                        'value'         => $option['default'],
+                        'type'          => $option['type'],
+                        'options'       => $option['options'],
+                        'required'   => $option['required'],
+                    ));
+                }
+            }           
+        }
 
         return $record;
     }

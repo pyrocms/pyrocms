@@ -58,7 +58,7 @@ class Search extends Eloquent
      *     $post->title,
      *     $post->intro,
      *     'keywords'       => $post->keywords,
-          *     'blog/'.date('Y/m/', $post->created_on).$post->slug,
+          *     'blog/'.date('Y/m/', $post->created_at).$post->slug,
      *     'cp_edit_uri'    => 'admin/blog/edit/'.$id,
      *     'cp_delete_uri'  => 'admin/blog/delete/'.$id,
      *     'group_access'	=> json_encode($ids),

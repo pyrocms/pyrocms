@@ -80,7 +80,6 @@ class Comments extends Public_Controller
 			'comment' 		=> $this->input->post('comment'),
 			'is_active' 	=> (bool) (($this->current_user and $this->current_user->isSuperUser()) or ! Settings::get('moderate_comments')),
 			'ip_address'    => $this->input->ip_address(),
-			'created_on'    => time(),
 		);
 
 		// Logged in? in which case, we already know their name and email

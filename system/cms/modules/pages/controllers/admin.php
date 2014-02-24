@@ -385,7 +385,6 @@ class Admin extends Admin_Controller
             $page->rss_enabled      = ! empty($input['rss_enabled']);
             $page->comments_enabled = ! empty($input['comments_enabled']);
             $page->status           = $input['status'];
-            $page->created_on       = time();
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : 0;
             $page->strict_uri       = ! empty($input['strict_uri']);
             $page->is_home          = ! empty($input['is_home']);
@@ -554,11 +553,12 @@ class Admin extends Admin_Controller
             $page->rss_enabled      = ! empty($input['rss_enabled']);
             $page->comments_enabled = ! empty($input['comments_enabled']);
             $page->status           = $input['status'];
-            $page->updated_on       = time();
             $page->restricted_to    = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
             $page->strict_uri       = ! empty($input['strict_uri']);
 
-            if (isset($page->is_home)) unset($page->is_home);
+            if (isset($page->is_home)) {
+                unset($page->is_home);
+            }
 
             $stream = $page->type->stream;
 
@@ -567,8 +567,7 @@ class Admin extends Admin_Controller
             $this->validator->setModel(new $entryModelClass);
 
             // validate and insert
-            if ($this->validator->validate($input) and $enableSave = $page->save())
-            {    
+            if ($this->validator->validate($input) and $enableSave = $page->save()) {
                 $page->buildLookup();
                 
                 Events::trigger('page_updated', $page);
@@ -577,9 +576,7 @@ class Admin extends Admin_Controller
                 //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
                 // $this->cache->forget('navigation_m');
             }
-        }
-        else
-        {
+        } else {
             // Save the entry type if it was not set
             $page->setEntryType()->save();
         }
@@ -601,14 +598,12 @@ class Admin extends Admin_Controller
 
         $ui = new EntryUi;
 
-        if ($page->entry)
-        {
+        if ($page->entry) {
             // We can pass the page model to generate the form
             $ui = $ui->form($page->entry);
-        }
+
         // If for some reason the page does not have an entry, lets give it a chance to get a new one
-        else
-        {
+        } else {
             $ui = $ui->form($stream->stream_slug, $stream->stream_namespace)
                 ->onSaved(function($entry) use ($page)
                 {
@@ -716,7 +711,7 @@ class Admin extends Admin_Controller
             ),
         );
 
-        return $tabs;  
+        return $tabs;
     }
 
     /**
@@ -733,12 +728,12 @@ class Admin extends Admin_Controller
         $ids = ($id) ? array($id) : $this->input->post('action_to');
 
         // Go through the array of slugs to delete
-        if ( ! empty($ids)) {
+        if (! empty($ids)) {
 
             foreach ($ids as $id) {
 
                 if ($id !== 1) {
-                    if ( ! $page = Page::find($id)) {
+                    if (! $page = Page::find($id)) {
                         continue;
                     }
 
@@ -747,7 +742,9 @@ class Admin extends Admin_Controller
                     $deleted_ids = $id;
 
                     // Delete any page comments for this entry
-                    $comments = Comment::where('module','=','pages')->where('entry_id','=',$id)->delete();
+                    Comment::where('module', '=', 'pages')
+                        ->where('entry_id', '=', $id)
+                        ->delete();
 
                     // Wipe cache for this model, the content has changd
                     $this->cache->forget('page_m');
@@ -760,11 +757,11 @@ class Admin extends Admin_Controller
             }
 
             // Some pages have been deleted
-            if ( ! empty($deleted_ids)) {
+            if (! empty($deleted_ids)) {
                 Events::trigger('page_deleted', $deleted_ids);
 
                 // Only deleting one page
-                if ( count($deleted_ids) == 1 ) {
+                if (count($deleted_ids) === 1) {
                     $this->session->set_flashdata('success', sprintf(lang('pages:delete_success'), $deleted_ids[0]));
 
                 // Deleting multiple pages
@@ -780,5 +777,4 @@ class Admin extends Admin_Controller
 
         redirect('admin/pages');
     }
-
 }

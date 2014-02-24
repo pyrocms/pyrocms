@@ -49,7 +49,7 @@
 
 					</td>
 
-					<td><?php echo format_date($comment->created_on) ?></td>
+					<td><?php echo format_date($comment->created_at) ?></td>
 
 					<td class="align-center buttons buttons-small">
 						<?php if (Settings::get('moderate_comments')): ?>

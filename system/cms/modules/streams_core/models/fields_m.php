@@ -627,26 +627,10 @@ class Fields_m extends CI_Model
 		}
 
 		// Is required
-		if( isset($data['required']) and $data['required'] == 'yes' ):
-
-			$update_data['required'] = 'yes';
-
-		else:
-
-			$update_data['required'] = 'no';
-
-		endif;
+		$update_data['required'] = (isset($data['required']) and $data['required'] === 'yes') ? 'yes' : 'no';
 
 		// Is unique
-		if( isset($data['unique']) and $data['unique'] == 'yes' ):
-
-			$update_data['unique'] = 'yes';
-
-		else:
-
-			$update_data['unique'] = 'no';
-
-		endif;
+		$update_data['unique'] = (isset($data['unique']) and $data['unique'] === 'yes') ? 'yes' : 'no';
 
 		// Add in instructions
 		$update_data['instructions'] = $data['instructions'];

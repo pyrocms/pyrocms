@@ -10,7 +10,7 @@
 
 		<div class="date">
 			{{ helper:lang line="blog:posted_label" }}
-			<span>{{ helper:date timestamp=created_on }}</span>
+			<span>{{ helper:date timestamp=created_at }}</span>
 		</div>
 
 		<div class="author">

@@ -417,7 +417,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getRequiredAttribute($required = false)
     {
-        return $required;
+        return $required === 'yes';
     }
 
     /**
@@ -427,7 +427,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public function setRequiredAttribute($required = false)
     {
-        $this->attributes['required'] = $required;
+        $this->attributes['required'] = $required ? 'yes' : 'no';
     }
 
     /**
@@ -439,7 +439,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public function getUniqueAttribute($unique = false)
     {
-        return $unique;
+        return $unique === 'yes';
     }
 
     /**
@@ -449,6 +449,6 @@ class FieldAssignmentModel extends FieldModel
      */
     public function setUniqueAttribute($unique = false)
     {
-        $this->attributes['unique'] = $unique;
+        $this->attributes['unique'] = $unique ? 'yes' : 'no';
     }
 }

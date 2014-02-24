@@ -15,7 +15,7 @@
 					<?php endif ?>
 				</div>
 				<div class="date">
-					<p><?php echo format_date($item->created_on) ?></p>
+					<p><?php echo format_date($item->created_at) ?></p>
 				</div>
 				<div class="content">
 					<?php if (Settings::get('comment_markdown') and $item->parsed): ?>

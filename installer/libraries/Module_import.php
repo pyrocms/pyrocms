@@ -153,7 +153,8 @@ class Module_import
 				'menu' => ! empty($module['menu']) ? $module['menu'] : false,
 				'enabled' => (bool) $module['enabled'],
 				'installed' => (bool) $module['installed'],
-				'is_core' => (bool) $module['is_core']
+				'is_core' => (bool) $module['is_core'],
+				'created_at' => date('Y-m-d H:i:s'),
 			)
 		);
 	}
@@ -204,6 +205,7 @@ class Module_import
 				'last_name'     => $user['lastname'],
 				'display_name'  => $user['firstname'].' '.$user['lastname'],
 				'lang'          => 'en',
+				'created_at' => date('Y-m-d H:i:s'),
 			));
 
 		// After modules are imported we need to modify the settings table

@@ -37,7 +37,7 @@ class Plugin_Blog extends Plugin
 				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
-				'variables' => 'category_title|category_slug|author_name|title|slug|url|category_id|intro|body|parsed|created_on|updated_on|count',// the variables available inside the double tags
+				'variables' => 'category_title|category_slug|author_name|title|slug|url|category_id|intro|body|parsed|created_at|updated_on|count',// the variables available inside the double tags
 				'attributes' => array(// an array of all attributes
 					'category' => array(// the attribute name. If the attribute name is used give most common values as separate attributes
 						'type' => 'slug',// Can be: slug, number, flag, text, any. A flag is a predefined value.
@@ -60,7 +60,7 @@ class Plugin_Blog extends Plugin
 					'order-by' => array(
 						'type' => 'column',
 						'flags' => '',
-						'default' => 'created_on',
+						'default' => 'created_at',
 						'required' => false,
 						),
 					'order-dir' => array(
@@ -179,10 +179,10 @@ class Plugin_Blog extends Plugin
 			'stream'		=> 'blog',
 			'namespace'		=> 'blogs',
 			'where'			=> array("`status` = 'live'"),
-			'order_by'		=> 'created_on',
+			'order_by'		=> 'created_at',
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
-			'date_by'		=> 'created_on',
+			'date_by'		=> 'created_at',
 			'limit'			=> $this->attribute('limit', null),
 			'offset'		=> $this->attribute('offset')
 		);
@@ -253,7 +253,7 @@ class Plugin_Blog extends Plugin
 				$post['keywords_arr'] = $keywords_arr;
 
 				// Full URL for convenience.
-				$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+				$post['url'] = site_url('blog/'.date('Y/m', $post['created_at']).'/'.$post['slug']);
 			
 				// What is the preview? If there is a field called intro,
 				// we will use that, otherwise we will cut down the blog post itself.

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Keywords\Model\Applied as AppliedKeywords;
 
@@ -316,7 +317,6 @@ class Pages extends Public_Controller
 
 			foreach ($children as &$row) {
 				$row->link = $row->uri ?: $row->slug;
-				$row->created_on = date(DATE_RSS, $row->created_on);
 
 				$data['rss']['items'][] = array(
 					//'author' => $row->author,
@@ -324,7 +324,7 @@ class Pages extends Public_Controller
 					'link' => $row->link,
 					'guid' => $row->link,
 					'description' => $row->meta_description,
-					'date' => $row->created_on
+					'date' => Carbon::parse($row->created_at)->toRSSString(),
 				);
 			}
 		}

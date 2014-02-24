@@ -428,7 +428,7 @@ class Installer extends CI_Controller
 			// Let's try to install the system with this new PDO instance
 			try {
 				$pdb = $this->installer_lib->install($user, $db_config);
-			} catch (Exception $e) {
+			} catch (InstallerException $e) {
 
 				$this->_render_view('step_4', array(
 					'messages' => array(

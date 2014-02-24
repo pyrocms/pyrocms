@@ -86,7 +86,7 @@ class Admin extends Admin_Controller
 		// Add "limit" and "offset"
 		$filter += $pagination;
 
-		$filter['order-by'] = 'created_on';
+		$filter['order-by'] = 'created_at';
 		$filter['order-dir'] = 'desc';
 
 		$comments = Comment::findWithFilter($filter);

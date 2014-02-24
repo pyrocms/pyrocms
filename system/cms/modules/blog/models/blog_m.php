@@ -15,7 +15,7 @@ class Blog_m extends MY_Model
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
 			->join('users', 'blog.author_id = users.id', 'left')
-			->order_by('created_on', 'DESC');
+			->order_by('created_at', 'DESC');
 
 		return $this->db->get('blog')->result();
 	}
@@ -58,11 +58,11 @@ class Blog_m extends MY_Model
 		}
 
 		if ( ! empty($params['month'])) {
-			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
+			$this->db->where('MONTH('.$this->db->dbprefix('blog').'.created_at)', $params['month']);
 		}
 
 		if ( ! empty($params['year'])) {
-			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
+			$this->db->where('YEAR('.$this->db->dbprefix('blog').'.created_at)', $params['year']);
 		}
 
 		if ( ! empty($params['keywords'])) {
@@ -87,7 +87,7 @@ class Blog_m extends MY_Model
 
 		// By default, dont show future posts
 		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == false)) {
-			$this->db->where('blog.created_on <=', now());
+			$this->db->where('blog.created_at <=', date('Y-m-d H:i:s'));
 		}
 
 		// Limit the results based on 1 number or 2 (2nd is offset)
@@ -140,11 +140,11 @@ class Blog_m extends MY_Model
 		}
 
 		if ( ! empty($params['month'])) {
-			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
+			$this->db->where('MONTH('.$this->db->dbprefix('blog').'.created_at)', $params['month']);
 		}
 
 		if ( ! empty($params['year'])) {
-			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
+			$this->db->where('YEAR('.$this->db->dbprefix('blog').'.created_at)', $params['year']);
 		}
 
 		if ( ! empty($params['keywords'])) {
@@ -189,20 +189,20 @@ class Blog_m extends MY_Model
 
 	public function get_archive_months()
 	{
-		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', false);
+		$this->db->select('DATE_FORMAT(t1.created_at), "%Y-%m-02") AS `date`', false);
 		$this->db->from('blog t1');
 		$this->db->distinct();
 		$this->db->select('(SELECT count(id) FROM '.$this->db->dbprefix('blog').' t2
-							WHERE MONTH(FROM_UNIXTIME(t1.created_on)) = MONTH(FROM_UNIXTIME(t2.created_on))
-								AND YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on))
+							WHERE MONTH(t1.created_at) = MONTH(t2.created_at)
+								AND YEAR(t1.created_at) = YEAR(t2.created_at)
 								AND status = "live"
-								AND created_on <= '.now().'
+								AND created_at <= NOW()
 							) as post_count');
 
 		$this->db->where('status', 'live');
-		$this->db->where('created_on <=', now());
+		$this->db->where('created_at <=', now());
 		$this->db->having('post_count >', 0);
-		$this->db->order_by('t1.created_on DESC');
+		$this->db->order_by('t1.created_at DESC');
 		$query = $this->db->get();
 
 		return $query->result();

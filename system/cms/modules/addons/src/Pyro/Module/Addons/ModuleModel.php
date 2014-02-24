@@ -37,7 +37,7 @@ class ModuleModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * Find All

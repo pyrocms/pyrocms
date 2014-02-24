@@ -51,8 +51,8 @@ class Module_Search extends AbstractModule
             $table->increments('id');
             $table->string('title', 255)->fulltext();
             $table->text('description')->fulltext();
-            $table->text('keywords')->fulltext();
-            $table->text('keywords_hash');
+            $table->text('keywords')->fulltext()->nullable();
+            $table->text('keywords_hash')->nullable();
             $table->string('module', 40);
             $table->string('scope', 100);
             $table->string('entry_singular', 100);
@@ -93,7 +93,7 @@ class Module_Search extends AbstractModule
 	    			$cp_uri = 'admin/pages/edit/'.$page->id,
 	    			$group_access = null,
 	    			$user_access = null
-	    			);
+	    		);
 	    	}
 		}
 

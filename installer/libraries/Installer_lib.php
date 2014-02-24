@@ -169,7 +169,19 @@ class Installer_lib
 	 */
 	public function create_db(PDO $conn, $database)
 	{
-		return $conn->query("CREATE DATABASE {$database}");
+		try {
+			return $conn->query("CREATE DATABASE {$database}");
+		} catch (PDOException $e) {
+
+			// PostgreSQL says this is a duplicate database
+			if ($e->getCode() === '42P04') {
+				// If this table already exists then great, our work here is done
+				return true;
+			} else {
+				// Unkown issue creating the table
+				throw new InstallerException("Unkown issue creating the database: ".$e->getMessage());
+			}
+		}
 	}
 
 	/**

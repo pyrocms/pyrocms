@@ -156,7 +156,7 @@ class ModuleManager
             'current_version' => $this->version($record->slug),
             'path' => $location,
             'field_types' => ! empty($info['field_types']) ? $info['field_types'] : false,
-            'updated_on' => $record->updated_on
+            'updated_at' => $record->updated_at
         );
     }
 
@@ -227,7 +227,7 @@ class ModuleManager
                 'current_version' => $this->version($record->slug),
                 'path'            => $location,
                 'field_types'     => ! empty($info['field_types']) ? $info['field_types'] : false,
-                'updated_on'      => $record->updated_on
+                'updated_at'      => $record->updated_at
             );
 
             // store these
@@ -473,7 +473,7 @@ class ModuleManager
                             'is_backend'  => ! empty($input['backend']),
                             'skip_xss'    => ! empty($input['skip_xss']),
                             'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
-                            'updated_on'  => time()
+                            'updated_at'  => date('Y-m-d H:i:s')
                         ));
 
                         log_message('debug', sprintf('The information of the module "%s" has been updated', $slug));

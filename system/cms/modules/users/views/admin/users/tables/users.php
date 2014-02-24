@@ -38,7 +38,7 @@
 						</ul>
 					</td>
 					<td class="collapse"><?php echo $member->isActivated() ? lang('global:yes') : lang('global:no')  ?></td>
-					<td class="collapse"><?php echo format_date($member->created_on) ?></td>
+					<td class="collapse"><?php echo format_date($member->created_at) ?></td>
 					<td class="collapse"><?php echo ($member->last_login ? format_date($member->last_login) : lang('user:never_label')) ?></td>
 					<td class="actions">
 						<?php echo anchor('admin/users/edit/' . $member->id, lang('global:edit'), array('class'=>'button edit')) ?>

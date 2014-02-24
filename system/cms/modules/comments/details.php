@@ -95,7 +95,7 @@ class Module_Comments extends AbstractModule
 			$table->string('entry_plural', 100);
 			$table->string('uri', 255)->nullable();
 			$table->string('cp_uri', 255)->nullable();
-			$table->integer('created_on')->nullable();
+			$table->dateTime('created_at');
 			$table->integer('ip_address')->nullable();
 		});
 

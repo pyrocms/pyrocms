@@ -59,7 +59,7 @@ class Plugin_Pages extends Plugin
 				),
 				'single' => true,
 				'double' => true,
-				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_at|updated_at|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
 				'attributes' => array(
 					'id' => array(
 						'type' => 'number',
@@ -81,7 +81,7 @@ class Plugin_Pages extends Plugin
 				),
 				'single' => false,
 				'double' => true,
-				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_on|updated_on|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
+				'variables' => 'title|slug|uri|parent_id|type_id|entry_id|css|js|meta_title|meta_keywords|meta_description|rss_enabled|comments_enabled|status|created_at|updated_at|restricted_to|is_home|strict_uri|page_type_slug|page_type_title|custom_fields }}{{ field }}{{ /custom_fields',
 				'attributes' => array(
 					'id' => array(
 						'type' => 'number',
@@ -97,7 +97,7 @@ class Plugin_Pages extends Plugin
 					),
 					'order-by' => array(
 						'type' => 'flag',
-						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
+						'flags' => 'title|slug|uri|parent_id|status|created_at|updated_at|order|page_type_slug|page_type_title',
 						'default' => 'order',
 						'required' => false,
 					),
@@ -155,7 +155,7 @@ class Plugin_Pages extends Plugin
 					),
 					'order-by' => array(
 						'type' => 'flag',
-						'flags' => 'title|slug|uri|parent_id|status|created_on|updated_on|order|page_type_slug|page_type_title',
+						'flags' => 'title|slug|uri|parent_id|status|created_at|updated_at|order|page_type_slug|page_type_title',
 						'default' => 'order',
 						'required' => false,
 					),

@@ -160,10 +160,11 @@ class Module_Pages extends AbstractModule
             $table->text('css')->nullable();
             $table->text('js')->nullable();
             $table->string('theme_layout', 100)->default('default');
-            $table->integer('updated_on');
             $table->string('save_as_files', 1)->default('n');
             $table->string('content_label', 60)->nullable();
             $table->string('title_label', 100)->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
         });
 
         // Pages Schema ----
@@ -198,8 +199,8 @@ class Module_Pages extends AbstractModule
             $table->boolean('is_home')->default(false);
             $table->boolean('strict_uri')->default(true);
             $table->integer('order')->default(0);
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
 
             $table->index('slug');
             $table->index('parent_id');
@@ -233,7 +234,7 @@ class Module_Pages extends AbstractModule
             'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
             'css' => '',
             'js' => '',
-            'updated_on' => time()
+            'created_at' => date('Y-m-d H:i:s'),
         ));
 
         $pageEntryModel = $stream->getEntryModelClass('def_page_fields', 'pages');
@@ -249,8 +250,8 @@ class Module_Pages extends AbstractModule
                 'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => time(),
-                'is_home' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'is_home' => true,
                 'order' => time()
             ),
             'contact' => array(
@@ -262,8 +263,8 @@ class Module_Pages extends AbstractModule
                 'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => time(),
-                'is_home' => 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'is_home' => false,
                 'order' => time()
             ),
             'fourohfour' => array(
@@ -275,7 +276,7 @@ class Module_Pages extends AbstractModule
                 'entry_type' => $pageEntryModel,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => time(),
+                'created_at' => date('Y-m-d H:i:s'),
                 'is_home' => 0,
                 'order' => time()
             )

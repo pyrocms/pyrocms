@@ -157,7 +157,6 @@ class Admin extends Admin_Controller
         $email = strtolower($this->input->post('email'));
         $password = $this->input->post('password');
         $username = $this->input->post('username');
-        $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
         $enableSave = false;
@@ -180,7 +179,6 @@ class Admin extends Admin_Controller
                     'password' => $password,
                     'email' => $email,
                     'is_activated' => $activate,
-                    'created_on' => time()
                 ))) {
                 //if ($activate === '0') {
                     // admin selected Inactive
@@ -207,8 +205,7 @@ class Admin extends Admin_Controller
 
 
         // Loop through each validation rule
-        foreach ($this->validation_rules as $rule)
-        {
+        foreach ($this->validation_rules as $rule) {
             $user->{$rule['field']} = set_value($rule['field']);
         }
 
@@ -232,8 +229,7 @@ class Admin extends Admin_Controller
         $this->profilesUi->form($this->profiles)
             ->tabs($tabs)
             ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
-            ->onSaving(function($profile) use ($user)
-            {
+            ->onSaving(function ($profile) use ($user) {
                 $profile->user_id = $user->id; // Set the profile user id before saving
             })
             ->render();

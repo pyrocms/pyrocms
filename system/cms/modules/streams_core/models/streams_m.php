@@ -752,14 +752,10 @@ class Streams_m extends CI_Model
 		$insert_data['sort_order'] = $top_num ? $top_num + 1 : 1;
 
 		// Is Required
-		if (isset($data['required']) and $data['required'] == 'yes') {
-			$insert_data['required'] = 'yes';
-		}
+		$insert_data['required'] = (isset($data['required']) and $data['required'] == 'yes') ? 'yes' : 'no';
 
 		// Unique
-		if (isset($data['unique']) and $data['unique'] == 'yes') {
-			$insert_data['unique'] = 'yes';
-		}
+		$insert_data['unique'] = (isset($data['unique']) and $data['unique'] == 'yes') ? 'yes' : 'no';
 
 		// Return the new ID or false
 		return ci()->pdb->table(ASSIGN_TABLE)->insertGetId($insert_data) ?: false;

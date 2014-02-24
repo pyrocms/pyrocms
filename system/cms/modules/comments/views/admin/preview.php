@@ -1,7 +1,7 @@
 <div id="comment-preview">
 
 	<p class="width-two-thirds float-left spacer-bottom-half">
-		<strong><?php echo lang('comments:posted_label') ?>:</strong> <?php echo format_date($comment->created_on)?><br/>
+		<strong><?php echo lang('comments:posted_label') ?>:</strong> <?php echo format_date($comment->created_at) ?><br/>
 		<strong><?php echo lang('comments:from_label') ?>:</strong> <?php echo $comment->user_name ?>
 	</p>
 
