@@ -440,12 +440,7 @@ abstract class AbstractExtensionManager
             $instance->name = lang_label('lang:'.$instance->langPrefix.'.name');
 		}
 
-        // Extension name (plural) is languagized
-        if ( ! isset($instance->plural)) {
-            $instance->plural = lang_label('lang:'.$instance->langPrefix.'.plural');
-        }
-
-		// Extension description is languagized
+        // Extension description is languagized
 		if ( ! isset($instance->description)) {
 			$instance->description = lang_label('lang:'.$instance->langPrefix.'.description');
 		}
