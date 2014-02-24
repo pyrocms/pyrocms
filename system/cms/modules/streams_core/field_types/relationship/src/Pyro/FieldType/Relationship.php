@@ -31,7 +31,7 @@ class Relationship extends FieldTypeAbstract
      *
      * @var string
      */
-    public $db_col_type = 'integer';
+    public $db_col_type = 'string';
 
     /**
      * Custom parameters

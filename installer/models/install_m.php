@@ -246,7 +246,7 @@ class Install_m extends CI_Model
             $table->string('stream_namespace', 60)->nullable();
             $table->string('stream_prefix', 60)->nullable();
             $table->string('about', 255)->nullable();
-            $table->binary('view_options');
+            $table->text('view_options');
             $table->string('title_column', 255)->nullable();
             $table->enum('sorting', array('title', 'custom'))->default('title');
             $table->text('permissions')->nullable();
@@ -263,8 +263,8 @@ class Install_m extends CI_Model
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
             $table->string('field_type', 50);
-            $table->binary('field_data')->nullable();
-            $table->binary('view_options')->nullable();
+            $table->text('field_data')->nullable();
+            $table->text('view_options')->nullable();
             $table->enum('locked', array('yes', 'no'))->default('no');
         });
 
