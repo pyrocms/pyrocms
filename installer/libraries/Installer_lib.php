@@ -10,7 +10,7 @@ use Pyro\Cache\CacheManager;
 class Installer_lib
 {
 	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
-	const MIN_PHP_VERSION = '5.3.7';
+	const MIN_PHP_VERSION = '5.3.9';
 
 	/** @var string The GD extension version */
 	public $gd_version;
