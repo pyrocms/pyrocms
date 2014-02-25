@@ -68,65 +68,6 @@ class Admin extends Admin_Controller
         }
 */
 
-/*        $users = \Pyro\Module\Users\Model\User::with('profile')->get();
-        $user = \Pyro\Module\Users\Model\User::with('profile')->find(1);
-
-        echo ci()->parser->parse_string("
-
-
-
-            {{ if false }}
-                YES
-            {{ else }}
-                NO
-            {{ endif }}
-
-            <ul>
-
-            {{ items }}
-                <li>
-                {{ if value == 'Bar' }}
-
-                {{ else }}
-                    Nothing {{ value }}
-                {{ endif }}
-                </li>
-            {{ /items }}
-
-            </ul>
-
-            {{ manyusers }}
-
-                {{ if email == 'obrignoni@gmail.com' }}
-                    {{ profile:first_name }} {{ profile:last_name }}
-                {{ else }}
-
-                {{ endif }}
-
-            {{ /manyusers }}
-
-            {{ if uri:segment_1 == 'admin' }}
-                Is admin
-            {{ endif }}
-
-        ", array(
-            'items' => array(
-                array(
-                    'value' => 'Baz'
-                ),
-                array(
-                    'value' => null
-                ),
-                array(
-                    'value' => 'Bar'
-                )
-            ),
-            'yes' => false,
-            'list' => array(),
-            'manyusers' => $users,
-            'oneuser' => $user
-        ), true) ; exit;*/
-
         $pages = Page::tree();
 
         $this->template
@@ -289,7 +230,7 @@ class Admin extends Admin_Controller
             $duplicate_page->slug = increment_string($duplicate_page->slug, '-', 2);
 
             // Find if this already exists in this level
-            $has_dupes = Page::isUniqueSlug($duplicate_page->slug, $duplicate_page->parent_id, $duplicate_page->id);
+            $has_dupes = Page::isUniqueSlug($duplicate_page->slug, $duplicate_page->parent_id);
 
         } while ($has_dupes === true);
 
@@ -297,20 +238,14 @@ class Admin extends Admin_Controller
             $duplicate_page->parent()->associate($parent);
         }
 
-        // $duplicate_page->restricted_to = null;
+        //$duplicate_page->restricted_to = null;
         //$duplicate_page->navigation_group_id = 0;
 
         if ($page->entry) {
             $duplicate_entry = $page->entry->replicate();
-            $duplicate_entry->save();
-
-            $duplicate_page->entry()->associate($duplicate_entry);
+            $duplicate_entry->setSearchIndexTemplate($this->_index_template)->save();
+            $duplicate_page->entry()->associate($duplicate_entry)->save();
         }
-
-        $duplicate_page->index($this->_index_template)->save();
-
-        // TODO Make this bit into page->children()->create($datastuff);
-        // $this->streams_m->get_stream($duplicate_page['stream_id']);
 
         foreach ($duplicate_page->children as $child) {
             $this->duplicate($child->id, $duplicate_page);
@@ -407,15 +342,10 @@ class Admin extends Admin_Controller
 
                         if ($link) {
 
-                            //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-                            $this->cache->forget('navigation_m');
-
                             Events::trigger('post_navigation_create', $link);
                         }
                     }
                 }
-
-                //$this->cache->forget('page_m');
 
                 Events::trigger('page_created', $page);
             }
