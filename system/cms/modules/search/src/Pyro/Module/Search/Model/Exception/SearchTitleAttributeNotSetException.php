@@ -2,5 +2,5 @@
 
 class SearchTitleAttributeNotSetException extends \RuntimeException
 {
-	protected $message = 'The title attribute is not set.';
+    protected $message = 'The title attribute is not set.';
 }

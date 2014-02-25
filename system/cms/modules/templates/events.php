@@ -48,16 +48,16 @@ class Events_Templates
         $slug = $data['slug'];
         unset($data['slug']);
 
-		// Get all email templates
-		$templates = EmailTemplate::findBySlug($slug);
+        // Get all email templates
+        $templates = EmailTemplate::findBySlug($slug);
 
         // Make sure we have something to work with
         if ($templates) {
-			$lang	   = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
-			$from	   = isset($data['from']) ? $data['from'] : Settings::get('server_email');
+            $lang	   = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
+            $from	   = isset($data['from']) ? $data['from'] : Settings::get('server_email');
             $from_name = isset($data['name']) ? $data['name'] : null;
-			$reply_to  = isset($data['reply-to']) ? $data['reply-to'] : $from;
-			$to		   = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
+            $reply_to  = isset($data['reply-to']) ? $data['reply-to'] : $from;
+            $to		   = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
 
             // perhaps they've passed a pipe separated string, let's switch it to commas for CodeIgniter
             if ( ! is_array($to)) $to = str_replace('|', ',', $to);
@@ -75,16 +75,16 @@ class Events_Templates
                 ->subject($subject)
                 ->message($body);
 
-			// To send attachments simply pass an array of file paths in Events::trigger('email')
-			// $data['attach'][] = /path/to/file.jpg
-			// $data['attach'][] = /path/to/file.zip
-			if (isset($data['attach'])) {
-				foreach ($data['attach'] AS $attachment) {
-					ci()->email->attach($attachment);
-				}
-			}
+            // To send attachments simply pass an array of file paths in Events::trigger('email')
+            // $data['attach'][] = /path/to/file.jpg
+            // $data['attach'][] = /path/to/file.zip
+            if (isset($data['attach'])) {
+                foreach ($data['attach'] AS $attachment) {
+                    ci()->email->attach($attachment);
+                }
+            }
 
-			return (bool) ci()->email->send();
+            return (bool) ci()->email->send();
         }
 
         //return false if we can't find the necessary templates

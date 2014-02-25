@@ -21,6 +21,14 @@ class EntryModel extends Eloquent implements RelationshipInterface
      * @var string
      */
     const CREATED_BY = 'created_by';
+
+    /**
+     * Allow timestamp fields to be populated automatically
+     *
+     * @var string
+     */
+    public $timestamps = true;
+
     /**
      * Stream data
      *
@@ -487,8 +495,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
     {
         // Set some values for a new entry
         if (!$this->exists) {
-            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id)) ? ci(
-            )->current_user->id : null;
+            $created_by = (isset(ci()->current_user->id) and is_numeric(ci()->current_user->id))
+                ? ci()->current_user->id
+                : null;
 
             $this->setAttribute('created_by', $created_by);
             $this->setAttribute('updated_at', '0000-00-00 00:00:00');

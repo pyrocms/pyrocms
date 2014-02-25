@@ -13,158 +13,157 @@ use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
  */
 class Keywords extends FieldTypeAbstract
 {
-	/**
-	 * Field type slug
-	 * @var string
-	 */
-	public $field_type_slug    = 'keywords';
+    /**
+     * Field type slug
+     * @var string
+     */
+    public $field_type_slug    = 'keywords';
 
-	/**
-	 * DB column type
-	 * @var string
-	 */
-	public $db_col_type        = 'string';
+    /**
+     * DB column type
+     * @var string
+     */
+    public $db_col_type        = 'string';
 
-	/**
-	 * Version
-	 * @var string
-	 */
-	public $version            = '1.1.0';
+    /**
+     * Version
+     * @var string
+     */
+    public $version            = '1.1.0';
 
-	/**
-	 * Author
-	 */
-	public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
+    /**
+     * Author
+     */
+    public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
 
-	/**
-	 * Custom parameters
-	 * @var array
-	 */
-	public $custom_parameters  = array('return_type');
+    /**
+     * Custom parameters
+     * @var array
+     */
+    public $custom_parameters  = array('return_type');
 
-	/**
-	 * Construct
-	 */
-	public function __construct()
-	{
-		ci()->load->library('keywords/keywords');
-	}
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        ci()->load->library('keywords/keywords');
+    }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Output form input
-	 *
-	 * @param	array
-	 * @param	array
-	 * @return	string
-	 */
-	public function formInput()
-	{
-		$options['name'] 	= $this->form_slug;
-		$options['id']		= 'id_'.rand(100, 10000);
-		$options['class']	= 'keywords_input';
-		$options['value']	= \Keywords::get_string($this->value);
+    /**
+     * Output form input
+     *
+     * @param	array
+     * @param	array
+     * @return	string
+     */
+    public function formInput()
+    {
+        $options['name'] 	= $this->form_slug;
+        $options['id']		= 'id_'.rand(100, 10000);
+        $options['class']	= 'keywords_input';
+        $options['value']	= \Keywords::get_string($this->value);
 
-		return form_input($options);
-	}
+        return form_input($options);
+    }
 
-	/**
-	 * Event
-	 * @return void
-	 */
-	public function event()
-	{
-		ci()->template->append_css('jquery/jquery.tagsinput.css');
-		ci()->template->append_js('jquery/jquery.tagsinput.js');
-		$this->js('keywords.js');
-	}
+    /**
+     * Event
+     * @return void
+     */
+    public function event()
+    {
+        ci()->template->append_css('jquery/jquery.tagsinput.css');
+        ci()->template->append_js('jquery/jquery.tagsinput.js');
+        $this->js('keywords.js');
+    }
 
-	/**
-	 * Pre save
-	 * @return string
-	 */
-	public function preSave()
-	{
-		return \Keywords::process($this->value);
-	}
+    /**
+     * Pre save
+     * @return string
+     */
+    public function preSave()
+    {
+        return \Keywords::process($this->value);
+    }
 
-	/**
-	 * String output
-	 * @return array|string
-	 */
-	public function stringOutput()
-	{
-		return $this->getKeywordsValue();
-	}
+    /**
+     * String output
+     * @return array|string
+     */
+    public function stringOutput()
+    {
+        return $this->getKeywordsValue();
+    }
 
-	/**
-	 * Plugin output
-	 * @return array|string
-	 */
-	public function pluginOutput()
-	{
-		return $this->getKeywordsValue('array');
-	}
+    /**
+     * Plugin output
+     * @return array|string
+     */
+    public function pluginOutput()
+    {
+        return $this->getKeywordsValue('array');
+    }
 
-	/**
-	 * Plugin format override
-	 * 
-	 * @param string $format
-	 * @return array|string
-	 */ 
-	public function pluginFormatOverride($format)
-	{
-		return $this->getKeywordsValue($format);
-	}
+    /**
+     * Plugin format override
+     *
+     * @param string $format
+     * @return array|string
+     */
+    public function pluginFormatOverride($format)
+    {
+        return $this->getKeywordsValue($format);
+    }
 
-	/**
-	 * Get keywords value
-	 * 
-	 * @param string $format
-	 * @return array|string
-	 */ 
-	public function getKeywordsValue($format = 'array')
-	{
-		if (! $this->value) return null;
+    /**
+     * Get keywords value
+     *
+     * @param string $format
+     * @return array|string
+     */
+    public function getKeywordsValue($format = 'array')
+    {
+        if (! $this->value) return null;
 
-		// if we want an array, format it correctly
-		if ($format === 'array')
-		{
-			$keyword_array = \Keywords::get_array($this->value);
-			$keywords = array();
-			$total = count($keyword_array);
+        // if we want an array, format it correctly
+        if ($format === 'array') {
+            $keyword_array = \Keywords::get_array($this->value);
+            $keywords = array();
+            $total = count($keyword_array);
 
-			foreach ($keyword_array as $key => $value) {
-				$keywords[] = array(
-					'count' => $key,
-					'total' => $total,
-					'is_first' => $key == 0,
-					'is_last' => $key == ($total - 1),
-					'keyword' => $value
-				);
-			}
+            foreach ($keyword_array as $key => $value) {
+                $keywords[] = array(
+                    'count' => $key,
+                    'total' => $total,
+                    'is_first' => $key == 0,
+                    'is_last' => $key == ($total - 1),
+                    'keyword' => $value
+                );
+            }
 
-			return $keywords;
-		}
+            return $keywords;
+        }
 
-		// otherwise return it as a string
-		return \Keywords::get_string($this->value);
-	}
+        // otherwise return it as a string
+        return \Keywords::get_string($this->value);
+    }
 
-	/**
-	 * Return type parameter
-	 * @param  string $value
-	 * @return array
-	 */
-	public function paramReturnType($value = 'array')
-	{
-		return array(
-			'instructions' => lang('streams:keywords.return_type.instructions'),
-			'input' =>
-				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
-				// String gets set as default for backwards compat
-				.'<label>' . form_radio('return_type', 'string', $value !== 'array') . ' String </label> '
-		);
-	}
+    /**
+     * Return type parameter
+     * @param  string $value
+     * @return array
+     */
+    public function paramReturnType($value = 'array')
+    {
+        return array(
+            'instructions' => lang('streams:keywords.return_type.instructions'),
+            'input' =>
+                '<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
+                // String gets set as default for backwards compat
+                .'<label>' . form_radio('return_type', 'string', $value !== 'array') . ' String </label> '
+        );
+    }
 }

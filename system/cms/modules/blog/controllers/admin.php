@@ -54,17 +54,17 @@ class Admin extends Admin_Controller
             'rules' => 'trim|alpha'
         ),
         array(
-            'field' => 'created_on',
+            'field' => 'created_at',
             'label' => 'lang:blog:date_label',
             'rules' => 'trim|required'
         ),
         array(
-            'field' => 'created_on_hour',
+            'field' => 'created_at_hour',
             'label' => 'lang:blog:created_hour',
             'rules' => 'trim|numeric|required'
         ),
         array(
-            'field' => 'created_on_minute',
+            'field' => 'created_at_minute',
             'label' => 'lang:blog:created_minute',
             'rules' => 'trim|numeric|required'
         ),
@@ -144,8 +144,7 @@ class Admin extends Admin_Controller
             $hash = $this->preview_hash();
         }
         //it is going to be published we don't need the hash
-        elseif ($this->input->post('status') == 'live')
-        {
+        elseif ($this->input->post('status') == 'live') {
             $hash = '';
         }*/
 

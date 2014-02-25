@@ -43,7 +43,7 @@ F.eks.: Hvis du vil have en twitter feed widget vist i bunden af hver side kan d
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-	{{ widgets:instance id=&quot;1&quot; }}
+    {{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 Nu kan du tilføje css styling til \"min-twitter-widget\" klassen i CSS fanebladet</p>";

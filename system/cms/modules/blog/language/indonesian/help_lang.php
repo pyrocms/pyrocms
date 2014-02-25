@@ -5,13 +5,13 @@ $lang['help_body'] = "
 
 <h4>Ikhtisar</h4>
 <p>
-	Modul Blog adalah alat sederhana untuk penerbitan entri blog.
+    Modul Blog adalah alat sederhana untuk penerbitan entri blog.
 </p>
 
 <h4> Kategori </h4>
 <p>
-	Anda dapat membuat kategori sebanyak yang Anda ingin untuk mengatur posting Anda. Jika Anda ingin pengunjung Anda
-	dapat menelusuri menurut kategori cukup pasang widget Blog Kategori di halaman depan.
+    Anda dapat membuat kategori sebanyak yang Anda ingin untuk mengatur posting Anda. Jika Anda ingin pengunjung Anda
+    dapat menelusuri menurut kategori cukup pasang widget Blog Kategori di halaman depan.
 </p>
 
 <h4> Tulisan </h4>

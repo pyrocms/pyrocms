@@ -13,54 +13,54 @@ use Pyro\Module\Streams\FieldTypeManager;
  */
 class Field_asset extends Public_Controller
 {
-	/**
-	 * The field type for the
-	 * field asset.
-	 *
-	 * @var		object
-	 */
-	public $field_type;
+    /**
+     * The field type for the
+     * field asset.
+     *
+     * @var		object
+     */
+    public $field_type;
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		// Turn off the OP for these assets.
-		$this->output->enable_profiler(false);
+        // Turn off the OP for these assets.
+        $this->output->enable_profiler(false);
 
-		$this->load->helper('file');
-	}
+        $this->load->helper('file');
+    }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	/**
-	 * Remap based on URL call
-	 */
-	public function _remap($method)
-	{
-		// Check the type
-		$type = $this->uri->segment(4);
+    /**
+     * Remap based on URL call
+     */
+    public function _remap($method)
+    {
+        // Check the type
+        $type = $this->uri->segment(4);
 
-		$this->field_type = FieldTypeManager::getType($type);
+        $this->field_type = FieldTypeManager::getType($type);
 
-		// Check the file
-		$file = $this->uri->segment(5);
+        // Check the file
+        $file = $this->uri->segment(5);
 
-		if (trim($file) == '') return null;
+        if (trim($file) == '') return null;
 
-		$file = $this->security->sanitize_filename($file);
+        $file = $this->security->sanitize_filename($file);
 
-		// Call the method
-		if ($method == 'css') {
-			$this->_css($file);
-		} elseif ($method == 'js') {
-			$this->_js($file);
-		}
-	}
+        // Call the method
+        if ($method == 'css') {
+            $this->_css($file);
+        } elseif ($method == 'js') {
+            $this->_js($file);
+        }
+    }
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
     /**
      * Pull CSS
@@ -70,16 +70,16 @@ class Field_asset extends Public_Controller
      */
     private function _css($file)
     {
-    	header("Content-Type: text/css");
+        header("Content-Type: text/css");
 
-    	$file = $this->field_type->path_css.$file;
+        $file = $this->field_type->path_css.$file;
 
-   	 	if ( ! is_file($file)) return null;
+            if ( ! is_file($file)) return null;
 
-		echo read_file($file);
+        echo read_file($file);
     }
 
-  	// --------------------------------------------------------------------------
+      // --------------------------------------------------------------------------
 
     /**
      * Pull JS
@@ -89,13 +89,13 @@ class Field_asset extends Public_Controller
      */
     private function _js($file)
     {
-    	header("Content-Type: text/javascript");
+        header("Content-Type: text/javascript");
 
-    	$file = $this->field_type->path_js.$file;
+        $file = $this->field_type->path_js.$file;
 
-   	 	if ( ! is_file($file)) return null;
+            if ( ! is_file($file)) return null;
 
-		echo read_file($file);
+        echo read_file($file);
     }
 
 }

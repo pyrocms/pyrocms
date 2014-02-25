@@ -49,7 +49,7 @@ Por ejemplo: Si usted tiene un widget de Twitter que desea mostrar en la parte i
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-	{{ widgets:instance id=&quot;1&quot; }}
+    {{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 <p>Ahora usted puede aplicar un estilo CSS a la clase \"my-twitter-widget\" en la pestaña de CSS.</p>";

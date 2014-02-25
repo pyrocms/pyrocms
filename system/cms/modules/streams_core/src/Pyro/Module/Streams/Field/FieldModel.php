@@ -20,19 +20,22 @@ class FieldModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = false;
+    public $timestamps = true;
+
     /**
      * Define the table name
      *
      * @var string
      */
     protected $table = 'data_fields';
+
     /**
      * The attributes that aren't mass assignable
      *
      * @var array
      */
     protected $guarded = array();
+
     /**
      * Stream
      *

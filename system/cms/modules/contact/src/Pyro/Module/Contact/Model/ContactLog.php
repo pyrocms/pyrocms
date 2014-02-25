@@ -9,12 +9,12 @@ use Pyro\Model\Eloquent;
  */
 class ContactLog extends Eloquent
 {
-	/**
-	 * Define the table name
-	 *
-	 * @var string
-	 */
-	protected $table = 'contact_log';
+    /**
+     * Define the table name
+     *
+     * @var string
+     */
+    protected $table = 'contact_log';
 
     /**
      * Cache minutes
@@ -29,22 +29,22 @@ class ContactLog extends Eloquent
      */
     protected $guarded = array();
 
-	/**
-	 * Disable updated_at and created_at on table
-	 *
-	 * @var boolean
-	 */
-	public $timestamps = false;
+    /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
 
-	/**
-	 * Get all contact logs ordered by name
-	 *
-	 * @param string $direction The direction to sort results
-	 * @return void
-	 */
-	public static function findAndSortByDate($direction = 'desc')
-	{
-		return static::orderBy('sent_at', $direction)->get();
-	}
+    /**
+     * Get all contact logs ordered by name
+     *
+     * @param string $direction The direction to sort results
+     * @return void
+     */
+    public static function findAndSortByDate($direction = 'desc')
+    {
+        return static::orderBy('sent_at', $direction)->get();
+    }
 
 }

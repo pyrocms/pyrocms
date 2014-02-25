@@ -9,124 +9,124 @@
  */
 class Plugin_Widgets extends Plugin
 {
-	public $version = '1.0.0';
+    public $version = '1.0.0';
 
-	public $name = array(
-		'en' => 'Widgets',
-		'ar' => 'الودجتس',
+    public $name = array(
+        'en' => 'Widgets',
+        'ar' => 'الودجتس',
         'fa' => 'ویجت ها',
-	);
+    );
 
-	public $description = array(
-		'en' => 'Display widgets by widget area or individually.',
-		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
+    public $description = array(
+        'en' => 'Display widgets by widget area or individually.',
+        'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
         'fa' => 'نمایش دادن ویجت ها با استفاده از مکان ها و یا به صورتی تکی',
-		'it' => 'Mostra singolarmente o a gruppi i Widget',
-	);
+        'it' => 'Mostra singolarmente o a gruppi i Widget',
+    );
 
-	/**
-	 * Returns a PluginDoc array that PyroCMS uses
-	 * to build the reference in the admin panel
-	 *
-	 * @return array
-	 */
-	public function _self_doc()
-	{
-		$info = array(
-			'area' => array(
-				'description' => array(
-					'en' => 'Render a widget area specified by either its slug or the number of a uri segment that holds its slug.',
-					'ar' => 'عرض مساحة ودجت بتحديد اسمها المختر أو جزء العنوان الذي يحتوي اسمها المختصر',
-				),
-				'single' => true,
-				'double' => false,
-				'variables' => '',
-				'attributes' => array(
-					'slug' => array(
-						'type' => 'text',
-						'flags' => '',
-						'default' => '',
-						'required' => false,
-					),
-					'slug_segment' => array(
-						'type' => 'number',
-						'flags' => '',
-						'default' => '',
-						'required' => false,
-					),
-				),
-			),// end first method
-			'instance' => array(
-				'description' => array(
-					'en' => 'Render a widget specified by its id.',
-					'ar' => 'عرض ودجت بتحديد id الخاص بها',
-				),
-				'single' => true,
-				'double' => false,
-				'variables' => '',
-				'attributes' => array(
-					'id' => array(
-						'type' => 'number',
-						'flags' => '',
-						'default' => '',
-						'required' => true,
-					),
-				),
-			), // end first method
-		);
+    /**
+     * Returns a PluginDoc array that PyroCMS uses
+     * to build the reference in the admin panel
+     *
+     * @return array
+     */
+    public function _self_doc()
+    {
+        $info = array(
+            'area' => array(
+                'description' => array(
+                    'en' => 'Render a widget area specified by either its slug or the number of a uri segment that holds its slug.',
+                    'ar' => 'عرض مساحة ودجت بتحديد اسمها المختر أو جزء العنوان الذي يحتوي اسمها المختصر',
+                ),
+                'single' => true,
+                'double' => false,
+                'variables' => '',
+                'attributes' => array(
+                    'slug' => array(
+                        'type' => 'text',
+                        'flags' => '',
+                        'default' => '',
+                        'required' => false,
+                    ),
+                    'slug_segment' => array(
+                        'type' => 'number',
+                        'flags' => '',
+                        'default' => '',
+                        'required' => false,
+                    ),
+                ),
+            ),// end first method
+            'instance' => array(
+                'description' => array(
+                    'en' => 'Render a widget specified by its id.',
+                    'ar' => 'عرض ودجت بتحديد id الخاص بها',
+                ),
+                'single' => true,
+                'double' => false,
+                'variables' => '',
+                'attributes' => array(
+                    'id' => array(
+                        'type' => 'number',
+                        'flags' => '',
+                        'default' => '',
+                        'required' => true,
+                    ),
+                ),
+            ), // end first method
+        );
 
-		return $info;
-	}
+        return $info;
+    }
 
-	/**
-	 * Area
-	 *
-	 * Display all widgets in a widget area
-	 *
-	 * Usage:
-	 * {{ widgets:area slug="sidebar" }}
-	 *
-	 * @param array
-	 * @return array
-	 */
-	public function area()
-	{
-		$slug         = $this->attribute('slug');
-		$slug_segment = $this->attribute('slug_segment');
+    /**
+     * Area
+     *
+     * Display all widgets in a widget area
+     *
+     * Usage:
+     * {{ widgets:area slug="sidebar" }}
+     *
+     * @param array
+     * @return array
+     */
+    public function area()
+    {
+        $slug         = $this->attribute('slug');
+        $slug_segment = $this->attribute('slug_segment');
 
-		is_numeric($slug_segment) ? $slug = ci()->uri->segment($slug_segment) : null ;
+        is_numeric($slug_segment) ? $slug = ci()->uri->segment($slug_segment) : null ;
 
-		return ci()->widgetManager->renderArea($slug);
-	}
+        return ci()->widgetManager->renderArea($slug);
+    }
 
-	/**
-	 * Instance
-	 *
-	 * Show one specific widget instance
-	 *
-	 * Usage:
-	 * {{ widgets:instance id="8" }}
-	 *
-	 * @param array
-	 * @return array
-	 */
-	public function instance()
-	{
-		$id = $this->attribute('id');
-		$instance = ci()->widgetManager->getInstanceModel()->find($id);
-		
-		if (! $instance) {
-			return;
-		}
-		
-		$widget = ci()->widgetManager->get($instance->widget->slug);
+    /**
+     * Instance
+     *
+     * Show one specific widget instance
+     *
+     * Usage:
+     * {{ widgets:instance id="8" }}
+     *
+     * @param array
+     * @return array
+     */
+    public function instance()
+    {
+        $id = $this->attribute('id');
+        $instance = ci()->widgetManager->getInstanceModel()->find($id);
 
-		if (! $widget) {
-			return;
-		}
+        if (! $instance) {
+            return;
+        }
 
-		return $this->widgetManager->render($widget, $instance);
-	}
+        $widget = ci()->widgetManager->get($instance->widget->slug);
+
+        if (! $widget) {
+            return;
+        }
+
+        return $this->widgetManager->render($widget, $instance);
+    }
 }
 
 /* End of file plugin.php */

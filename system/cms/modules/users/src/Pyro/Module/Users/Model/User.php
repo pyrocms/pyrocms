@@ -16,7 +16,7 @@ class User extends EloquentUser implements ArrayableInterface
      *
      * @var boolean
      */
-    public $timestamps = false;
+    public $timestamps = true;
     /**
      * Define the table name
      *
@@ -110,7 +110,7 @@ class User extends EloquentUser implements ArrayableInterface
 
     public function getDates()
     {
-        return array('created_on');
+        return array('created_at');
     }
 
     /**
@@ -198,7 +198,7 @@ class User extends EloquentUser implements ArrayableInterface
     public function getRecent()
     {
         return $this
-            ->orderBy('created_on', 'desc')
+            ->orderBy('created_at', 'desc')
             ->all();
     }
 
@@ -268,11 +268,6 @@ class User extends EloquentUser implements ArrayableInterface
         }
 
         return parent::delete();
-    }
-
-    public function setCreatedOnAttribute()
-    {
-        $this->attributes['created_on'] = time();
     }
 
     /**

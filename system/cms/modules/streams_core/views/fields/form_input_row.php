@@ -1,10 +1,10 @@
 <label for="<?php echo $field_type->form_slug;?>"><?php echo lang_label($field_type->getField()->field_name);?>
 
-	<?php if($field_type->getField()->required): ?><span class="required">*</span><?php endif; ?>
+    <?php if($field_type->getField()->required): ?><span class="required">*</span><?php endif; ?>
 
-	<?php if( ! empty($field_type->getField()->instructions)): ?>
-		<br /><small><?php echo lang_label($field_type->getField()->instructions); ?></small>
-	<?php endif; ?>
+    <?php if( ! empty($field_type->getField()->instructions)): ?>
+        <br /><small><?php echo lang_label($field_type->getField()->instructions); ?></small>
+    <?php endif; ?>
 
 </label>
 

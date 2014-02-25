@@ -106,8 +106,8 @@ class Module_Widgets extends AbstractModule
             $table->integer('widget_area_id')->nullable();
             $table->text('options');
             $table->integer('order')->default(0);
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
 
             $table->index('widget_id');
             $table->index('widget_area_id');
@@ -125,8 +125,8 @@ class Module_Widgets extends AbstractModule
             $table->string('version')->default('1.0.0');
             $table->boolean('enabled')->default(true);
             $table->integer('order')->default(0);
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
         });
 
         // Add the default data

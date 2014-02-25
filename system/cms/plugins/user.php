@@ -230,7 +230,7 @@ class Plugin_User extends Plugin
 		);
 
 		$plugin_data[] = array(
-			'value' => $profile_data['created_on']->format(Settings::get('date_format')),
+			'value' => $profile_data['created_at']->format(Settings::get('date_format')),
 			'name'  => lang('user:profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
