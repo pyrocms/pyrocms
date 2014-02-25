@@ -65,7 +65,7 @@ class WidgetAreaModel extends Eloquent
                 'rules' => 'trim|required|alpha_dash|max_length[100]'
             )
         );
-        
+
         ci()->form_validation->set_rules($rules);
         ci()->form_validation->set_data($this->toArray());
 

@@ -7,36 +7,36 @@
  */
 class Ajax extends MY_Controller
 {
-	/**
-	 * Update the order of the widgets
-	 *
-	 * @return void
-	 */
-	public function widget_update_order($to = 'instance')
-	{
-		// Load the required classes
-		$this->load->library('widgets');
-		$this->lang->load('widgets');
+    /**
+     * Update the order of the widgets
+     *
+     * @return void
+     */
+    public function widget_update_order($to = 'instance')
+    {
+        // Load the required classes
+        $this->load->library('widgets');
+        $this->lang->load('widgets');
 
-		$ids = explode(',', $this->input->post('order'));
+        $ids = explode(',', $this->input->post('order'));
 
-		$i = 0;
+        $i = 0;
 
-		switch ($to) {
-			case 'instance':
-				foreach ($ids as $id) {
-					$id = str_replace('instance-', '', $id);
-					$this->widgets->update_instance_order($id, ++$i);
-				}
-				break;
+        switch ($to) {
+            case 'instance':
+                foreach ($ids as $id) {
+                    $id = str_replace('instance-', '', $id);
+                    $this->widgets->update_instance_order($id, ++$i);
+                }
+                break;
 
-			case 'widget':
-				foreach ($ids as $id) {
-					$this->widgets->update_widget_order($id, ++$i);
-				}
-				break;
-		}
+            case 'widget':
+                foreach ($ids as $id) {
+                    $this->widgets->update_widget_order($id, ++$i);
+                }
+                break;
+        }
 
-		$this->cache->forget('widget_m');
-	}
+        $this->cache->forget('widget_m');
+    }
 }

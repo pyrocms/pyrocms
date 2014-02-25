@@ -44,7 +44,7 @@ Por exemplo: Se tem um widget de feed do Twitter que deseja mostrar na parte inf
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-	{{ widgets:instance id=&quot;1&quot; }}
+    {{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 Agora  pode aplicar uma estilização CSS para a classe "meu-widget-do-twitter" na aba CSS.</p>';

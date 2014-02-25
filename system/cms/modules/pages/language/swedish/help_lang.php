@@ -51,7 +51,7 @@ Till exempel: Om du har en "Twitter feed widget" som du vill visa l√§ngst ned p√
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-	{{ widgets:instance id=&quot;1&quot; }}
+    {{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 Nu kan du applicera en CSS-stil till \ "my-twitter-widget \" klassen i CSS-fliken. </ P>';

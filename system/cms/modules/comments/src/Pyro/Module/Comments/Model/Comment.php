@@ -36,7 +36,7 @@ class Comment extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * Returns the relationship between comments and users
@@ -64,7 +64,7 @@ class Comment extends Eloquent
             ->where('entry_id', $entry_id)
             ->where('entry_key', $entry_key)
             ->where('is_active', $is_active)
-            ->orderBy('created_on', Settings::get('comment_order'))
+            ->orderBy('created_at', Settings::get('comment_order'))
             ->get();
     }
 
@@ -81,7 +81,7 @@ class Comment extends Eloquent
         return static::with('user', 'user.profile')
             ->where('is_active', $is_active)
             ->take($limit)
-            ->orderBy('created_on', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -115,11 +115,11 @@ class Comment extends Eloquent
     public static function countWithFilter($filter)
     {
         $query = static::where('is_active', $filter['is_active']);
-        
+
         if (isset($filter['module'])) {
             $query->where('module', $filter['module']);
         }
-    
+
         return $query->count();
     }
 

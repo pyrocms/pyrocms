@@ -30,4 +30,4 @@
         <?php if (! $this->input->is_ajax_request()): ?>
         </div>
     </section>
-<?php endif ?>
+<?php endif

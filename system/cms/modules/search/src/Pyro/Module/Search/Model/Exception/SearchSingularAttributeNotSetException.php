@@ -2,5 +2,5 @@
 
 class SearchSingularAttributeNotSetException extends \RuntimeException
 {
-	protected $message = 'The singular attribute is not set.';
+    protected $message = 'The singular attribute is not set.';
 }

@@ -49,7 +49,7 @@ class Link extends Eloquent
     {
         return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent');
     }
-    
+
     /**
      * Relationship: Page
      *
@@ -179,7 +179,7 @@ class Link extends Eloquent
     {
         if (isset($link['children'])) {
             foreach ($link['children'] as $i => $child) {
-                
+
                 ci()->pdb
                     ->table('navigation_links')
                     ->where('id', str_replace('link_', '', $child['id']))
@@ -307,7 +307,7 @@ class Link extends Eloquent
     public static function makeUrlArray($links, $user_groups = false, $front_end = false)
     {
         foreach ($links as $key => &$row) {
-            
+
             // Looks like it's restricted. Let's find out who
             if ($row->restricted_to and $front_end) {
 
@@ -363,7 +363,7 @@ class Link extends Eloquent
                     }
                     break;
             }
-            
+
             // Process all the little children
             $row->children = self::makeUrlArray($row->children, $user_groups, $front_end);
         }

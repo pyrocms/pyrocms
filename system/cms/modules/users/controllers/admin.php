@@ -84,12 +84,9 @@ class Admin extends Admin_Controller
         $this->users = new User;
         $this->profilesUi = new ProfileEntryUi;
 
-        if ($this->current_user->isSuperUser()) 
-        {
+        if ($this->current_user->isSuperUser()) {
             $this->template->group_options = $this->form_data['group_options'] = Group::getGroupOptions();
-        }  
-        else
-        {
+        } else {
             // Require for non super users
             $this->validation[] =   array(
                 'field' => 'groups[]',
@@ -116,15 +113,13 @@ class Admin extends Admin_Controller
     public function action()
     {
         // Pyro demo version restrction
-        if (PYRO_DEMO)
-        {
+        if (PYRO_DEMO) {
             $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
             redirect('admin/users');
         }
 
         // Determine the type of action
-        switch ($this->input->post('btnAction'))
-        {
+        switch ($this->input->post('btnAction')) {
             case 'activate':
                 $this->activate();
                 break;
@@ -157,7 +152,6 @@ class Admin extends Admin_Controller
         $email = strtolower($this->input->post('email'));
         $password = $this->input->post('password');
         $username = $this->input->post('username');
-        $group_id = $this->input->post('group_id');
         $activate = $this->input->post('active');
 
         $enableSave = false;
@@ -180,7 +174,6 @@ class Admin extends Admin_Controller
                     'password' => $password,
                     'email' => $email,
                     'is_activated' => $activate,
-                    'created_on' => time()
                 ))) {
                 //if ($activate === '0') {
                     // admin selected Inactive
@@ -207,8 +200,7 @@ class Admin extends Admin_Controller
 
 
         // Loop through each validation rule
-        foreach ($this->validation_rules as $rule)
-        {
+        foreach ($this->validation_rules as $rule) {
             $user->{$rule['field']} = set_value($rule['field']);
         }
 
@@ -232,8 +224,7 @@ class Admin extends Admin_Controller
         $this->profilesUi->form($this->profiles)
             ->tabs($tabs)
             ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
-            ->onSaving(function($profile) use ($user)
-            {
+            ->onSaving(function ($profile) use ($user) {
                 $profile->user_id = $user->id; // Set the profile user id before saving
             })
             ->render();
@@ -248,21 +239,18 @@ class Admin extends Admin_Controller
     {
 
         // Get the user's data
-        if ( ! ($user = User::find($id)))
-        {
+        if ( ! ($user = User::find($id))) {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
         }
 
         // Check to see if we are changing usernames
-        if ($user->username != $this->input->post('username'))
-        {
+        if ($user->username != $this->input->post('username')) {
             $this->validation_rules['username']['rules'] .= '|callback__username_check';
         }
 
         // Check to see if we are changing emails
-        if ($user->email != $this->input->post('email'))
-        {
+        if ($user->email != $this->input->post('email')) {
             $this->validation_rules['email']['rules'] .= '|callback__email_check';
         }
 
@@ -274,10 +262,8 @@ class Admin extends Admin_Controller
         $this->form_validation->set_rules($this->validation_rules);
 
 
-        if (true and ci()->input->post())
-        {
-            if (PYRO_DEMO)
-            {
+        if (true and ci()->input->post()) {
+            if (PYRO_DEMO) {
                 $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
                 redirect('admin/users');
             }
@@ -306,36 +292,29 @@ class Admin extends Admin_Controller
             // }
 
             // Only update is_active if it was posted
-            if ($this->input->post('active'))
-            {
+            if ($this->input->post('active')) {
                 $user->is_activated = $this->input->post('active');;
             }
 
             // Password provided, hash it for storage
-            if ($this->input->post('password'))
-            {
+            if ($this->input->post('password')) {
                 $user->password = $this->input->post('password');
             }
 
-            if ($user->save())
-            {
-                // Fire an event. A user has been updated. 
+            if ($user->save()) {
+                // Fire an event. A user has been updated.
                 Events::trigger('user_updated', $user);
 
                 //$this->session->set_flashdata('success', 'User saved.'); // @todo - language
-            }
-            else
-            {
+            } else {
                 $this->session->set_flashdata('error', $this->ion_auth->errors());
             }
 
         }
 
 /*        // Loop through each validation rule
-        foreach ($this->validation_rules as $rule)
-        {
-            if ($this->input->post($rule['field']) !== null)
-            {
+        foreach ($this->validation_rules as $rule) {
+            if ($this->input->post($rule['field']) !== null) {
                 $user->{$rule['field']} = set_value($rule['field']);
             }
         }*/
@@ -390,22 +369,19 @@ class Admin extends Admin_Controller
     public function activate()
     {
         // Activate multiple
-        if ( ! ($ids = $this->input->post('action_to')))
-        {
+        if ( ! ($ids = $this->input->post('action_to'))) {
             $this->session->set_flashdata('error', lang('user:activate_error'));
             redirect('admin/users');
         }
 
         $activated = 0;
         $to_activate = 0;
-        foreach ($ids as $id)
-        {
+        foreach ($ids as $id) {
             $user = User::find($id);
             $user->is_activated    = true;
             $this->activated_at = new DateTime;
 
-            if ($user->save())
-            {
+            if ($user->save()) {
                 $activated++;
             }
             $to_activate++;
@@ -422,41 +398,35 @@ class Admin extends Admin_Controller
      */
     public function delete($id = 0)
     {
-        if (PYRO_DEMO)
-        {
+        if (PYRO_DEMO) {
             $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
             redirect('admin/users');
         }
 
         $ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
-        if ( ! empty($ids))
-        {
+        if ( ! empty($ids)) {
             $deleted = 0;
             $to_delete = 0;
             $deleted_users = array();
-            foreach ($ids as $id)
-            {
+            foreach ($ids as $id) {
                 // Make sure the admin is not trying to delete themself
-                if ($this->current_user->id == $id)
-                {
+                if ($this->current_user->id == $id) {
                     $this->session->set_flashdata('notice', lang('user:delete_self_error'));
                     continue;
                 }
 
                 $user = User::find($id);
 
-                if ($user->delete())
-                {
+                if ($user->delete()) {
                     $deleted_users[] = $user;
                     $deleted++;
                 }
                 $to_delete++;
             }
 
-            if ($to_delete > 0)
-            {
-                // Fire an event. One or more users have been deleted. 
+            if ($to_delete > 0) {
+                // Fire an event. One or more users have been deleted.
                 Events::trigger('user_deleted', $deleted_users);
 
                 // Delet the profile
@@ -466,8 +436,7 @@ class Admin extends Admin_Controller
             }
         }
         // The array of id's to delete is empty
-        else
-        {
+        else {
             $this->session->set_flashdata('error', lang('user:mass_delete_error'));
         }
 
@@ -485,8 +454,7 @@ class Admin extends Admin_Controller
      */
     public function _username_check()
     {
-        if (User::findByUsername($this->input->post('username')))
-        {
+        if (User::findByUsername($this->input->post('username'))) {
             $this->form_validation->set_message('_username_check', lang('user:error_username'));
             return false;
         }
@@ -504,8 +472,7 @@ class Admin extends Admin_Controller
      */
     public function _email_check()
     {
-        if (User::findByEmail($this->input->post('email')))
-        {
+        if (User::findByEmail($this->input->post('email'))) {
             $this->form_validation->set_message('_email_check', lang('user:error_email'));
             return false;
         }
@@ -524,8 +491,7 @@ class Admin extends Admin_Controller
      */
     public function _group_check($group_id)
     {
-        if ( ! Group::find($group_id))
-        {
+        if ( ! Group::find($group_id)) {
             $this->form_validation->set_message('_group_check', lang('regex_match'));
             return false;
         }

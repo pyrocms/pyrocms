@@ -11,61 +11,61 @@ use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
  */
 class MergeTags extends FieldTypeAbstract
 {
-	public $field_type_name 		= 'Merge Tags';
-	
-	public $field_type_slug			= 'merge_tags';
-	
-	public $db_col_type				= 'string';
+    public $field_type_name 		= 'Merge Tags';
 
-	public $custom_parameters		= array('pattern');
+    public $field_type_slug			= 'merge_tags';
 
-	public $version					= '1.1';
+    public $db_col_type				= 'string';
 
-	public $author					= array('name' => 'Ryan Thompson', 'url' => 'http://www.aiwebsystems.com/');
-	
-	///////////////////////////////////////////////////////////////////////////////
-	// -------------------------	Methods 	  ------------------------------ //
-	///////////////////////////////////////////////////////////////////////////////
+    public $custom_parameters		= array('pattern');
 
-	/**
-	 * Input for form
-	 *
-	 * @access 	public
-	 * @return	string
-	 */
-	public function formInput()
-	{
-		return $this->value;
-	}
+    public $version					= '1.1';
 
-	/**
-	 * Output for string use
-	 * @return string
-	 */
-	public function stringOutput()
-	{
-		return $this->value;
-	}
+    public $author					= array('name' => 'Ryan Thompson', 'url' => 'http://www.aiwebsystems.com/');
 
-	/**
-	 * Pre save
-	 * @return string The parsed string
-	 */
-	public function preSave()
-	{
-		return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_values, true);
-	}
+    ///////////////////////////////////////////////////////////////////////////////
+    // -------------------------	Methods 	  ------------------------------ //
+    ///////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Pattern parameter
-	 * @param  string $value The saved value or null
-	 * @return array        The form array
-	 */
-	public function paramPattern($value = null)
-	{
-		return array(
-			'input' 		=> form_textarea('pattern', $value),
-			'instructions'	=> lang('streams:merge_tags.pattern.instructions')
-		);
-	}
+    /**
+     * Input for form
+     *
+     * @access 	public
+     * @return	string
+     */
+    public function formInput()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Output for string use
+     * @return string
+     */
+    public function stringOutput()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Pre save
+     * @return string The parsed string
+     */
+    public function preSave()
+    {
+        return ci()->parser->parse_string($this->getParameter('pattern'), $this->form_values, true);
+    }
+
+    /**
+     * Pattern parameter
+     * @param  string $value The saved value or null
+     * @return array        The form array
+     */
+    public function paramPattern($value = null)
+    {
+        return array(
+            'input' 		=> form_textarea('pattern', $value),
+            'instructions'	=> lang('streams:merge_tags.pattern.instructions')
+        );
+    }
 }

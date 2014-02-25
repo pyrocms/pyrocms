@@ -138,7 +138,7 @@ class Module_Users extends AbstractModule
     {
         $schema->dropIfExists('permissions');
 
-        $schema->create('permissions', function($table) {
+        $schema->create('permissions', function ($table) {
             $table->increments('id');
             $table->integer('group_id');
             $table->string('module');
@@ -149,12 +149,13 @@ class Module_Users extends AbstractModule
 
         $schema->dropIfExists('groups');
 
-        $schema->create('groups', function($table) {
+        $schema->create('groups', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->text('permissions')->nullable();
-            $table->timestamps();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
 
             $table->unique('name');
         });
@@ -164,11 +165,13 @@ class Module_Users extends AbstractModule
                 'name' => 'admin',
                 'description' => 'Administrator',
                 'permissions' => json_encode(array('admin' => 1)),
+                'created_at' => date('Y-m-d H:i:s')
             ),
             array(
                 'name' => 'user',
                 'description' => 'User',
                 'permissions' => null,
+                'created_at' => date('Y-m-d H:i:s')
             ),
         ));
 
@@ -258,7 +261,7 @@ class Module_Users extends AbstractModule
         StreamSchema::destroyNamespace('users');
 
         // Create the profiles stream
-        if ( ! StreamModel::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
+        if (! StreamModel::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
                 'title_column' => 'display_name',
                 'view_options' => array('display_name')
             )))
@@ -267,7 +270,7 @@ class Module_Users extends AbstractModule
         }
 
          // Index user_id
-        $schema->table('profiles', function($table) {
+        $schema->table('profiles', function ($table) {
             $table->integer('user_id');
             $table->index('user_id');
         });

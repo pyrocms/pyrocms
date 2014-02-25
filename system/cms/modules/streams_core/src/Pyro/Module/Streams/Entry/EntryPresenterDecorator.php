@@ -4,14 +4,14 @@ use Pyro\Support\PresenterDecorator;
 
 class EntryPresenterDecorator extends PresenterDecorator
 {
-	protected $entryViewOptions;
+    protected $entryViewOptions;
 
-	public function setViewOptions(EntryViewOptions $entryViewOptions)
-	{
+    public function setViewOptions(EntryViewOptions $entryViewOptions)
+    {
         $this->entryViewOptions = $entryViewOptions;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * decorate an individual class

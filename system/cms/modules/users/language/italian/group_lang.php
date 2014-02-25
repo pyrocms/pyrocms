@@ -21,4 +21,3 @@ $lang['users:groups:delete_error']            = 'Si è verificato un errore nel 
 $lang['users:groups:already_exist_error']		= 'Esiste già un gruppo chiamato "%s".';
 
 /* End of file group_lang.php */
-
