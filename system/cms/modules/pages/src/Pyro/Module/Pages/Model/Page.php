@@ -566,10 +566,9 @@ class Page extends Eloquent
      *
      * @return bool
     */
-    public static function isUniqueSlug($slug, $parent_id, $id = 0)
+    public static function isUniqueSlug($slug, $parent_id)
     {
-        return (bool) static::whereNotIn('id', array($id))
-            ->where('slug', $slug)
+        return (bool) static::where('slug', $slug)
             ->where('parent_id', $parent_id)
             ->count() > 0;
     }
