@@ -515,7 +515,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         $stream = $this->getStream();
 
         \Events::trigger('streams_post_insert_entry', $this);
-        \Events::trigger($stream->stream_namespace.'.'.$stream->stream_slug.'.saved', $this);
+        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.saved', $this);
 
         return $saved;
     }
@@ -527,9 +527,11 @@ class EntryModel extends Eloquent implements RelationshipInterface
      */
     public function delete()
     {
+        $stream = $this->getStream();
+
         // Delete index automatically per SAPI conventions
         if (!$search_index_module = $this->getModuleSlug()) {
-            $search_index_module = $this->getStream()->stream_namespace;
+            $search_index_module = $stream->stream_namespace;
         }
 
         $search_index_scope = $this->getStreamTypeSlug();
@@ -546,11 +548,13 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         // Fire before deleting an entry
         \Events::trigger('streams_pre_delete_entry', $this);
+        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.deleting', $this);
 
         $deleted = parent::delete();
 
         // Fire after deleting an entry
         \Events::trigger('streams_post_delete_entry', $this->id);
+        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.deleted', $this);
 
         return $deleted;
     }
