@@ -511,7 +511,18 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
     public function save(array $options = array())
     {
+        $new    = (!isset($this->id));
+        $stream = $this->getStream();
+
         $this->setEntryMeta();
+
+        if ($new) {
+            \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.creating', $this);
+        } else {
+            \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.editing', $this);
+        }
+
+        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.saving', $this);
 
         if ($saved = parent::save($options) and $this->searchIndexTemplate) {
             Search::indexEntry($this, $this->searchIndexTemplate);
@@ -523,8 +534,16 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         $stream = $this->getStream();
 
+        // @todo Deprecate this
         \Events::trigger('streams_post_insert_entry', $this);
-        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.saved', $this);
+
+        if ($new) {
+            \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.created', $this);
+        } else {
+            \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.edited', $this);
+        }
+
+        \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.saved', $this);
 
         return $saved;
     }
