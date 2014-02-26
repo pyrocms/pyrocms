@@ -576,12 +576,14 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         // Fire before deleting an entry
         \Events::trigger('streams_pre_delete_entry', $this);
+        \Events::trigger('streams.entry.deleting', $this);
         \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.deleting', $this);
 
         $deleted = parent::delete();
 
         // Fire after deleting an entry
         \Events::trigger('streams_post_delete_entry', $this->id);
+        \Events::trigger('streams.entry.deleted', $this);
         \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.deleted', $this);
 
         return $deleted;
