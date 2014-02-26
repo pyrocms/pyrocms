@@ -332,8 +332,12 @@ abstract class AbstractExtensionManager
      * Get all extensions
      * @return array
      */
-    public static function getAllExtensions()
+    public static function getAllExtensions($module = null, $extension = null)
     {
+        if ($module and $extension) {
+            static::init($module, $extension, true);
+        }
+
         static::preload();
 
         return new \Pyro\Module\Addons\ExtensionCollection(static::$extensions[get_called_class()]);
