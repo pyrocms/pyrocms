@@ -523,6 +523,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         }
 
         \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.saving', $this);
+        \Events::trigger('streams.entry.saving', $this);
 
         if ($saved = parent::save($options) and $this->searchIndexTemplate) {
             Search::indexEntry($this, $this->searchIndexTemplate);
@@ -544,6 +545,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
         }
 
         \Events::trigger($stream->stream_namespace . '.' . $stream->stream_slug . '.entry.saved', $this);
+        \Events::trigger('streams.entry.saved', $this);
 
         return $saved;
     }
