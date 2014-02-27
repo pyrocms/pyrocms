@@ -284,6 +284,16 @@ class EntryUi extends UiAbstract
 
         $this->formUrl = $_SERVER['QUERY_STRING'] ? uri_string() . '?' . $_SERVER['QUERY_STRING'] : uri_string();
 
+        if ($this->getTitle() === null) {
+            $this->title(
+                lang(
+                    $this->model->getStream()->stream_namespace
+                    . '.stream.' . $this->model->getStream()->stream_slug
+                    . '.' . ($this->model->getKey() ? 'edit' : 'create')
+                )
+            );
+        }
+        
         if (empty($this->tabs)) {
             $this->content = ci()->load->view($this->view ? : 'streams_core/entries/form', $this->attributes, true);
         } else {
@@ -297,16 +307,6 @@ class EntryUi extends UiAbstract
                 $this->view ? : 'streams_core/entries/tabbed_form',
                 $this->attributes,
                 true
-            );
-        }
-
-        if ($this->getTitle() === null) {
-            $this->title(
-                lang(
-                    $this->model->getStream()->stream_namespace
-                    . ':' . $this->model->getStream()->stream_slug
-                    . '.' . ($this->model->getKey() ? 'edit' : 'create')
-                )
             );
         }
 
