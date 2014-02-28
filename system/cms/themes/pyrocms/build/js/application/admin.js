@@ -390,6 +390,12 @@ Pyro.Initialize = function() {
     $('table td.overflow-ellipsis').each(function(){
         $(this).css('max-width', '1px');
     });
+
+    /**
+     * Autosize textarea
+     */
+
+    $('textarea.autosize').autosize();
 }
 
 
