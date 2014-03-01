@@ -9,13 +9,10 @@ use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\Stream\StreamModel;
 
 /**
- * PyroStreams Relationship Field Type
+ * Class Relationship
  *
- * @package        PyroCMS\Core\Modules\Streams Core\Field Types
- * @author         Parse19
- * @copyright      Copyright (c) 2011 - 2012, Parse19
- * @license        http://parse19.com/pyrostreams/docs/license
- * @link           http://parse19.com/pyrostreams
+ * @package Pyro\FieldType
+ * @author  PyroCMS - Ryan Thompson
  */
 class Relationship extends FieldTypeAbstract
 {
@@ -40,8 +37,8 @@ class Relationship extends FieldTypeAbstract
      */
     public $custom_parameters = array(
         'stream',
+        'input_method',
         'relation_class',
-        'scope',
     );
 
     /**
@@ -58,17 +55,40 @@ class Relationship extends FieldTypeAbstract
      */
     public $author = array(
         'name' => 'Ryan Thompson - PyroCMS',
-        'url'  => 'http://pyrocms.com/'
+        'url'  => 'https://www.pyrocms.com/about/the-team'
     );
 
     /**
      * Relation
      *
-     * @return object The relation object
+     * @return null|\Pyro\Module\Streams\FieldType\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function relation()
     {
         return $this->belongsTo($this->getRelationClass());
+    }
+
+    /**
+     * Field event
+     */
+    public function fieldEvent()
+    {
+        if ($this->getParameter('use_ajax')) {
+            $class = $this->getRelationClass();
+            $model = new $class;
+
+            $data = array(
+                'value'          => null,
+                'jquerySelector' => $this->form_slug . '-selectize',
+                'valueField'     => $model->getFieldTypeRelationshipValueField(),
+                'searchFields'   => $model->getFieldTypeRelationshipSearchFields(),
+                'itemTemplate'   => $model->getPresenter()->getFieldTypeRelationshipItemTemplate(),
+                'optionTemplate' => $model->getPresenter()->getFieldTypeRelationshipOptionTemplate(),
+                'relationClass'  => $this->getRelationClass(),
+            );
+
+            $this->appendMetadata($this->view('fragments/relationship.js.php', $data, true));
+        }
     }
 
     /**
@@ -81,8 +101,13 @@ class Relationship extends FieldTypeAbstract
     {
         $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
-        // Return an HTML drop down
-        return form_dropdown($this->form_slug, $options, $this->value);
+        if (!$this->getParameter('use_ajax')) {
+            $attributes = '';
+        } else {
+            $attributes = 'class="' . $this->form_slug . '-selectize skip"';
+        }
+
+        return form_dropdown($this->form_slug, $options, $this->value, $attributes);
     }
 
     /**
@@ -170,15 +195,17 @@ class Relationship extends FieldTypeAbstract
      */
     public function getOptions()
     {
-        if ($relatedClass = $this->getRelationClass()) {
+        if (!$this->getParameter('use_ajax')) {
+            if ($relatedClass = $this->getRelationClass()) {
 
-            $relatedModel = new $relatedClass;
+                $relatedModel = new $relatedClass;
 
-            if (!$relatedModel instanceof RelationshipInterface) {
-                throw new ClassNotInstanceOfRelationshipInterfaceException;
+                if (!$relatedModel instanceof RelationshipInterface) {
+                    throw new ClassNotInstanceOfRelationshipInterfaceException;
+                }
+
+                return $relatedModel->getFieldTypeRelationshipOptions($this);
             }
-
-            return $relatedModel->getFieldTypeRelationshipOptions($this);
         }
 
         return array();
@@ -196,10 +223,31 @@ class Relationship extends FieldTypeAbstract
 
     /**
      * Get placeholder
+     *
      * @return string
      */
     protected function getPlaceholder()
     {
-        return $this->getParameter('placeholder', $this->field->field_name);
+        if ($this->getParameter('use_ajax')) {
+            $placeholder = lang('streams.relationship.placeholder');
+        } else {
+            $placeholder = $this->field->field_name;
+        }
+
+        return $this->getParameter('placeholder', $placeholder);
+    }
+
+    /**
+     * Search
+     *
+     * @return string
+     */
+    public function ajaxSearch()
+    {
+        $class = ci()->input->post('relation_class');
+        $model = new $class;
+        $term  = urldecode(ci()->input->post('term'));
+
+        echo $model->getFieldTypeRelationshipResults($term);
     }
 }

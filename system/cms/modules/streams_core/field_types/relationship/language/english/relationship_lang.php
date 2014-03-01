@@ -1,8 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 $lang['streams:relationship.name'] 				= 'Relationship';
 $lang['streams:relationship.choose_stream'] 	= 'Relationship Stream';
 $lang['streams:relationship.doesnt_exist']		= 'Related stream does not exist.';
 
 // Placeholders
-$lang['streams:relationship.placeholder']		= 'Type to search...';
+$lang['streams.relationship.placeholder']		= 'Type to search...';
