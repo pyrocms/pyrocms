@@ -310,6 +310,37 @@ class EntryModel extends Eloquent implements RelationshipInterface
     }
 
     /**
+     * Get field type relationship results
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function getFieldTypeRelationshipResults($query)
+    {
+        echo $this->limit(10)->where($this->getTitleColumn(), 'LIKE', '%' . $query . '%')->get();
+    }
+
+    /**
+     * Get field type relationship value field
+     *
+     * @return string
+     */
+    public function getFieldTypeRelationshipValueField()
+    {
+        return $this->getKeyName();
+    }
+
+    /**
+     * Get field type relationship search field
+     *
+     * @return string
+     */
+    public function getFieldTypeRelationshipSearchFields()
+    {
+        return (array)$this->getTitleColumn();
+    }
+
+    /**
      * Get title column value
      *
      * @return mixed The title column value or model key
@@ -344,7 +375,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @return array
      */
-    public function getFieldTypeRelationshipOptions($fieldType = null)
+    public function getFieldTypeRelationshipOptions()
     {
         return $this->take(1000)
             ->orderBy($this->getTitleColumn(), 'asc')
