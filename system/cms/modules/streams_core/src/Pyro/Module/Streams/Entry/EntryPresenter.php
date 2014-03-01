@@ -227,4 +227,24 @@ class EntryPresenter extends Presenter
 
         return null;
     }
+
+    /**
+     * Get field type relationship item template
+     *
+     * @return string
+     */
+    public function getFieldTypeRelationshipItemTemplate()
+    {
+        return "'<div>' + item.{$this->resource->getTitleColumn()} + '</div>'";
+    }
+
+    /**
+     * Get field type relationship option template
+     *
+     * @return string
+     */
+    public function getFieldTypeRelationshipOptionTemplate()
+    {
+        return "'<div>' + item.{$this->resource->getTitleColumn()} + '</div>'";
+    }
 }
