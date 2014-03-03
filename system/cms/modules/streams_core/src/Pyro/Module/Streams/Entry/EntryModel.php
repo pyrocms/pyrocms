@@ -502,6 +502,8 @@ class EntryModel extends Eloquent implements RelationshipInterface
             }
         }
 
+        $saved = $this->save($options);
+
         // -------------------------------------
         // Alt Processing
         // -------------------------------------
@@ -514,7 +516,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             }
         }
 
-        return $this->save($options);
+        return $saved;
     }
 
     /**
