@@ -7,19 +7,21 @@ class EntryValidator
 {
     /**
      * Rules
+     *
      * @var array
      */
     protected $rules = array();
 
     /**
      * Model
+     *
      * @var EntryModel|null
      */
     protected $model = null;
 
     protected $data = array();
 
-    public function __construct(EntryModel $model = null, $skips = array())
+    public function __construct(EntryModel $model = null)
     {
         ci()->load->library('form_validation');
 
@@ -43,6 +45,7 @@ class EntryValidator
 
     /**
      * Set model
+     *
      * @param null $model
      */
     public function setModel(EntryModel $model, $skips = array())
@@ -58,8 +61,9 @@ class EntryValidator
 
             $type = $field->getType();
 
-            if (!in_array($field->slug, $skips) and !$type->alt_process) {
-                $this->data[$type->setStream($stream)->getFormSlug()] = isset($attributes[$type->getColumnName()]) ? $attributes[$type->getColumnName()] : null;
+            if (!in_array($field->field_slug, $skips) and !$type->alt_process) {
+                $this->data[$type->setStream($stream)->getFormSlug()] = isset($attributes[$type->getColumnName(
+                )]) ? $attributes[$type->getColumnName()] : null;
                 $this->setRequiredRule($field);
                 $this->setUniqueRule($field);
                 $this->setSameRule($field);
@@ -73,6 +77,7 @@ class EntryValidator
 
     /**
      * Set required rule
+     *
      * @param $field
      */
     protected function setRequiredRule(FieldModel $field)
@@ -84,6 +89,7 @@ class EntryValidator
 
     /**
      * Set unique rule
+     *
      * @param $field
      */
     protected function setUniqueRule(FieldModel $field)
@@ -98,6 +104,7 @@ class EntryValidator
 
     /**
      * Set same rule
+     *
      * @param $field
      */
     protected function setSameRule(FieldModel $field)
@@ -109,6 +116,7 @@ class EntryValidator
 
     /**
      * Set min rule
+     *
      * @param $field
      */
     protected function setMinRule(FieldModel $field)
@@ -120,6 +128,7 @@ class EntryValidator
 
     /**
      * Set max rule
+     *
      * @param $field
      */
     protected function setMaxRule(FieldModel $field)
@@ -131,6 +140,7 @@ class EntryValidator
 
     /**
      * Add a validation rule for a field
+     *
      * @param $field
      * @param $rule
      */
