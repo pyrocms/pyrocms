@@ -6,8 +6,8 @@ $lang['permissions:module']                      = 'Module'; #translate
 $lang['permissions:edit']				= 'Editar permissões';
 
 $lang['permissions:introduction'] 		= 'Você pode criar permissões personalidadas para usuários diferentes
-    atribuindo-lhes a grupos de usuários - Gerenciar usuários. Então você poderá editar as permissões de cada
-    grupo e controlar quais módulos e "funções" um grupo pode ter.';
+	atribuindo-lhes a grupos de usuários - Gerenciar usuários. Então você poderá editar as permissões de cada
+	grupo e controlar quais módulos e "funções" um grupo pode ter.';
 
 $lang['permissions:message_group_saved_success'] = 'As permissões para este grupo foram salvas.';
 $lang['permissions:message_group_saved_error']    = 'Sorry, the permissions for this group could not be saved.'; #translate

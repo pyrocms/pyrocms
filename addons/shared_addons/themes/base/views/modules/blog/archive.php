@@ -9,7 +9,7 @@
 			<div class="post_date">
 				<span class="date">
 					{{ theme:image file="date.png" }}
-					About {{ helper:timespan timestamp=created_at }} ago.
+					About {{ helper:timespan timestamp=created_on }} ago.
 				</span>
 			</div>
 			

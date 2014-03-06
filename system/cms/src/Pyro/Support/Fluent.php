@@ -1,9 +1,9 @@
 <?php namespace Pyro\Support;
 
-use Illuminate\Support\Fluent as BaseFluent;
+use Illuminate\Support\Fluent as IlluminateFluent;
 use Illuminate\Support\Str;
 
-class Fluent extends BaseFluent
+class Fluent extends IlluminateFluent
 {
 	/**
 	 * Registered callbacks
@@ -28,7 +28,7 @@ class Fluent extends BaseFluent
 	 */ 
 	public function __construct(array $attributes = array())
 	{
-		parent::__construct($attributes);
+		parent::__construct(array_merge($this->getDefaultAttributes(), $attributes));
 
 		$this->boot();
 	}
@@ -38,7 +38,7 @@ class Fluent extends BaseFluent
 	 * 
 	 * @return @void
 	 */
-	protected function boot()
+	public function boot()
 	{}
 
 	/**
@@ -89,14 +89,6 @@ class Fluent extends BaseFluent
         {
         	$this->callbacks[camel_case(static::CALLBACK_TRIGGER_PREFIX.$method_name)] = \Closure::bind($method_callable, $this, get_class());
         }
-    }
-
-    /**
-     * Reinitialize
-     */
-    public function clear()
-    {
-        self::__construct();
     }
  
  	/**

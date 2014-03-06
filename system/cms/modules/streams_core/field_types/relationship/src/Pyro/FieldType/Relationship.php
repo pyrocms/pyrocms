@@ -1,206 +1,190 @@
 <?php namespace Pyro\FieldType;
 
-use Illuminate\Support\Str;
-
 use Pyro\Model\Eloquent;
-use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
-use Pyro\Module\Streams\Entry\EntryModel;
-use Pyro\Module\Streams\Field\FieldModel;
-use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams_core\AbstractFieldType;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * PyroStreams Relationship Field Type
  *
- * @package        PyroCMS\Core\Modules\Streams Core\Field Types
- * @author         Parse19
- * @copyright      Copyright (c) 2011 - 2012, Parse19
- * @license        http://parse19.com/pyrostreams/docs/license
- * @link           http://parse19.com/pyrostreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Field Types
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
+ * @link		http://parse19.com/pyrostreams
  */
-class Relationship extends FieldTypeAbstract
+class Relationship extends AbstractFieldType
 {
-    /**
-     * Field type slug
-     *
-     * @var string
-     */
-    public $field_type_slug = 'relationship';
+	/**
+	 * Field type slug
+	 * @var string
+	 */
+	public $field_type_slug = 'relationship';
 
-    /**
-     * DB column type
-     *
-     * @var string
-     */
-    public $db_col_type = 'string';
+	/**
+	 * DB column type
+	 * @var string
+	 */
+	public $db_col_type = 'integer';
 
-    /**
-     * Custom parameters
-     *
-     * @var array
-     */
-    public $custom_parameters = array(
-        'stream',
-        'relation_class',
-        'scope',
-    );
+	/**
+	 * Custom parameters
+	 * @var array
+	 */
+	public $custom_parameters = array(
+		'stream',
+		'placeholder',
+		'value_field',
+		'title_field',
+		'option_format',
+		'template',
+		'module_slug',
+		'relation_class',
+		);
 
-    /**
-     * Version
-     *
-     * @var string
-     */
-    public $version = '2.0';
+	/**
+	 * Version
+	 * @var string
+	 */
+	public $version = '2.0';
 
-    /**
-     * Author
-     *
-     * @var  array
-     */
-    public $author = array(
-        'name' => 'Ryan Thompson - PyroCMS',
-        'url'  => 'http://pyrocms.com/'
-    );
+	/**
+	 * Author
+	 * @var  array
+	 */
+	public $author = array(
+		'name' => 'Ryan Thompson - PyroCMS',
+		'url' => 'http://pyrocms.com/'
+		);
 
-    /**
-     * Relation
-     *
-     * @return object The relation object
-     */
-    public function relation()
-    {
-        return $this->belongsTo($this->getRelationClass());
-    }
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	METHODS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Output form input
-     *
-     * @access     public
-     * @return    string
-     */
-    public function formInput()
-    {
-        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
+	/**
+	 * Relation
+	 * @return object The relation object
+	 */
+	public function relation()
+	{
+		return $this->belongsTo($this->getRelationClass('Pyro\Module\Streams_core\EntryModel'));
+	}
 
-        // Return an HTML drop down
-        return form_dropdown($this->form_slug, $options, $this->value);
-    }
+	/**
+	 * Output form input
+	 *
+	 * @access 	public
+	 * @return	string
+	 */
+	public function formInput()
+	{
+		$data = array(
+			'form_slug' => $this->form_slug,
+			'id' => $this->value,
+			'options' => $this->getOptions()
+		);
 
-    /**
-     * Output the form input for frontend use
-     *
-     * @return string
-     */
-    public function publicFormInput()
-    {
-        return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
-    }
+		return $this->view($this->getParameter('form_input_view', 'form_input'), $data);
+	}
 
-    /**
-     * Output filter input
-     *
-     * @access     public
-     * @return    string
-     */
-    public function filterInput()
-    {
-        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
+	/**
+	 * Output filter input
+	 *
+	 * @access 	public
+	 * @return	string
+	 */
+	public function filterInput()
+	{
+		return form_dropdown($this->form_slug, $this->getOptions(), ci()->input->get($this->getFilterSlug('is')));
+	}
 
-        // Return an HTML drop down
-        return form_dropdown($this->getFilterSlug('is'), $options, $this->getFilterValue('is'));
-    }
+	/**
+	 * Pre Ouput
+	 *
+	 * Process before outputting on the CP. Since
+	 * there is less need for performance on the back end,
+	 * this is accomplished via just grabbing the title column
+	 * and the id and displaying a link (ie, no joins here).
+	 *
+	 * @return	mixed 	null or string
+	 */
+	public function stringOutput()
+	{
+		if ($entry = $this->getRelationResult()) {
+			return $entry->getTitleColumnValue();
+		}
 
-    /**
-     * String output
-     *
-     * @return  mixed   null or string
-     */
-    public function stringOutput()
-    {
-        if ($relatedModel = $this->getRelationResult()) {
-            if (!$relatedModel instanceof RelationshipInterface) {
-                throw new ClassNotInstanceOfRelationshipInterfaceException;
-            }
+		return null;
+	}
 
-            return $relatedModel->getFieldTypeRelationshipTitle();
-        }
+	/**
+	 * Pre Ouput Plugin
+	 * 
+	 * This takes the data from the join array
+	 * and formats it using the row parser.
+	 * 
+	 * @return array
+	 */
+	public function pluginOutput()
+	{
+		if ($entry = $this->getRelationResult()) {
+			return $entry->asPlugin()->toArray();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Plugin output
-     *
-     * @return array
-     */
-    public function pluginOutput()
-    {
-        if ($relatedModel = $this->getRelationResult()) {
-            return $relatedModel;
-        }
+	/**
+	 * Pre Ouput Data
+	 * 
+	 * @return array
+	 */
+	public function dataOutput()
+	{
+		if ($entry = $this->getRelationResult()) {
+			return $entry;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Data output
-     *
-     * @return RelationClassModel
-     */
-    public function dataOutput()
-    {
-        return $this->pluginOutput();
-    }
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	PARAMETERS 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Choose a stream to relate to.. or remote source
-     *
-     * @param  mixed $value
-     * @return string
-     */
-    public function paramStream($value = null)
-    {
-        $options = StreamModel::getStreamAssociativeOptions();
+	/**
+	 * Choose a stream to relate to.. or remote source
+	 * @param  mixed $value
+	 * @return string
+	 */
+	public function paramStream($value = '')
+	{
+		$options = StreamModel::getStreamAssociativeOptions();
 
-        return form_dropdown('stream', $options, $value);
-    }
+		return form_dropdown('stream', $options, $value);
+	}
 
-    /**
-     * Options
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        if ($relatedClass = $this->getRelationClass()) {
+	/**
+	 * Option format
+	 * @param  string $value
+	 * @return html
+	 */
+	public function paramOptionFormat($value = '')
+	{
+		return form_input('option_format', $value);
+	}
 
-            $relatedModel = new $relatedClass;
+	///////////////////////////////////////////////////////////////////////////////
+	// -------------------------	UTILITIES 	  ------------------------------ //
+	///////////////////////////////////////////////////////////////////////////////
 
-            if (!$relatedModel instanceof RelationshipInterface) {
-                throw new ClassNotInstanceOfRelationshipInterfaceException;
-            }
-
-            return $relatedModel->getFieldTypeRelationshipOptions($this);
-        }
-
-        return array();
-    }
-
-    /**
-     * Get column name
-     *
-     * @return string
-     */
-    public function getColumnName()
-    {
-        return parent::getColumnName() . '_id';
-    }
-
-    /**
-     * Get placeholder
-     * @return string
-     */
-    protected function getPlaceholder()
-    {
-        return $this->getParameter('placeholder', $this->field->field_name);
-    }
+	/**
+	 * Options
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		// Boom
+		return array();
+	}
 }

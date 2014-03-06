@@ -17,7 +17,7 @@ class Theme_Base extends AbstractTheme
 			'default'       => 'fabric',
 			'type'          => 'select',
 			'options'       => 'black=Black|fabric=Fabric|graph=Graph|leather=Leather|noise=Noise|texture=Texture',
-			'required'   => true
+			'is_required'   => true
 		),
 		'slider' => array(
 			'title'         => 'Slider',
@@ -25,7 +25,7 @@ class Theme_Base extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'required'   => true
+			'is_required'   => true
 		),
 		'color' => array(
 			'title'         => 'Default Theme Color',
@@ -33,7 +33,7 @@ class Theme_Base extends AbstractTheme
 			'default'       => 'pink',
 			'type'          => 'select',
 			'options'       => 'red=Red|orange=Orange|yellow=Yellow|green=Green|blue=Blue|pink=Pink',
-			'required'   => true
+			'is_required'   => true
 		),
 		'show_breadcrumbs' 	=> array(
 			'title'         => 'Do you want to show breadcrumbs?',
@@ -41,7 +41,7 @@ class Theme_Base extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'required'   => true
+			'is_required'   => true
 		),
 	);
 }

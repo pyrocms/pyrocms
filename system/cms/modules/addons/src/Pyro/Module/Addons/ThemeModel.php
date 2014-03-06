@@ -112,7 +112,7 @@ class ThemeModel extends Eloquent
     /**
      * Find All Themes
      *
-     * Return all known (installed) themes as ThemeModel objects
+     * Return all known (installed) themes as ThemeModel objects 
      *
      * @return  Illuminate\Database\Eloquent\Collection
      */

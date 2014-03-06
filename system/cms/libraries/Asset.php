@@ -1,5 +1,4 @@
 <?php
-use Pyro\Module\Addons\ModuleManager;
 
 /**
  * Asset: Convenient asset library
@@ -248,17 +247,6 @@ class Asset
 		self::$asset_paths[$path_key] = $path_val;
 	}
 
-    /**
-     * Add module path
-     *
-     * @param $slug
-     */
-    public static function add_module_path($slug)
-    {
-        $module = ModuleManager::spawnClass($slug);
-
-        self::add_path($slug, $module[1] . '/');
-    }
 
 	/**
 	 * Set the current default path

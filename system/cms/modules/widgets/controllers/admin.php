@@ -109,6 +109,7 @@ class Admin extends Admin_Controller
             $instance->name           = $this->input->post('name');
             $instance->widget_id      = $this->input->post('widget_id');
             $instance->widget_area_id = $this->input->post('widget_area_id');
+            $instance->created_on     = time();
 
             $options = $this->input->post();
             unset($options['name'], $options['widget_id'], $options['widget_area_id']);
@@ -129,7 +130,7 @@ class Admin extends Admin_Controller
             }
 
             if ($this->input->is_ajax_request()) {
-
+                
                 $data = array();
                 if ($status === 'success') {
                     $data['messages'][$status] = $message;

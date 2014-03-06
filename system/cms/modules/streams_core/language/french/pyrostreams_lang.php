@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters'] = "Le Champ %s contient des caractèr
 $lang['streams:type_not_valid'] = "Merci de choisir un type de Champ valide.";
 $lang['streams:stream_slug_not_unique'] = "Ce slug de Flux est déjà utilisé.";
 $lang['streams:field_unique'] = "Le Champ %s doit être unique.";
-$lang['streams:field_required'] = "Le Champ %s est requis.";
+$lang['streams:field_is_required'] = "Le Champ %s est requis.";
 $lang['streams:date_out_or_range'] = "La date que vous avez sélectionnée est en dehors de l\intervalle de temps acceptable.";
 
 /* Field Labels */

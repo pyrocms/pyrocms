@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "%s kenttä sisältää ei-salli
 $lang['streams:type_not_valid']							= "Valitse oikean tyyppinen kenttä.";
 $lang['streams:stream_slug_not_unique']					= "Tämän striimin polkutunnus on jo käytössä.";
 $lang['streams:field_unique']							= "%s kentän tulee olla yksilöllinen.";
-$lang['streams:field_required']						= "%s kenttä on pakollinen.";
+$lang['streams:field_is_required']						= "%s kenttä on pakollinen.";
 $lang['streams:date_out_or_range']						= "Valittu päiväys ei täsmää sallitun aikajanan kanssa.";
 
 /* Field Labels */

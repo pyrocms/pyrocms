@@ -50,7 +50,7 @@ For example: If you have a twitter feed widget that you want to display at the b
 {{ page:body }}
 
 &lt;div class=&quot;my-twitter-widget&quot;&gt;
-    {{ widgets:instance id=&quot;1&quot; }}
+	{{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 <p>Now you can apply css styling to the &quot;my-twitter-widget&quot; class in the CSS tab.</p>";

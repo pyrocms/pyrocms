@@ -12,58 +12,58 @@
  */
 abstract class AbstractTheme
 {
-    /**
-     * @var theme name
-     */
-    public $name;
+	/**
+	 * @var theme name
+	 */
+	public $name;
 
-    /**
-     * @var author name
-     */
-    public $author;
+	/**
+	 * @var author name
+	 */
+	public $author;
 
-    /**
-     * @var authors website
-     */
-    public $author_website;
+	/**
+	 * @var authors website
+	 */
+	public $author_website;
 
-    /**
-     * @var theme website
-     */
-    public $website;
+	/**
+	 * @var theme website
+	 */
+	public $website;
 
-    /**
-     * @var theme description
-     */
-    public $description;
+	/**
+	 * @var theme description
+	 */
+	public $description;
 
-    /**
-     * @var The version of the theme.
-     */
-    public $version;
+	/**
+	 * @var The version of the theme.
+	 */
+	public $version;
 
-    /**
-     * @var Front-end or back-end.
-     */
-    public $type = null;
+	/**
+	 * @var Front-end or back-end.
+	 */
+	public $type = null;
 
-    /**
-     * @var Designer defined options.
-     */
-    public $options;
+	/**
+	 * @var Designer defined options.
+	 */
+	public $options;
 
-    /**
-     * __get
-     *
-     * Allows this class and classes that extend this to use $this-> just like
-     * you were in a controller.
-     *
-     * @return	mixed
-     */
-    public function __get($var)
-    {
-        return ci()->{$var};
-    }
+	/**
+	 * __get
+	 *
+	 * Allows this class and classes that extend this to use $this-> just like
+	 * you were in a controller.
+	 *
+	 * @return	mixed
+	 */
+	public function __get($var)
+	{
+		return ci()->{$var};
+	}
 }
 
 /* End of file AbstractTheme.php */

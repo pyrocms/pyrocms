@@ -13,79 +13,80 @@ use Pyro\Module\Variables\Variables;
 class Plugin_Variables extends Plugin
 {
 
-    public $version = '1.0.0';
-    public $name = array(
-        'en' => 'Variables',
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Variables',
             'fa' => 'متغییر ها',
-    );
-    public $description = array(
-        'en' => 'Set and retrieve variable data.',
+	);
+	public $description = array(
+		'en' => 'Set and retrieve variable data.',
             'fa' => 'ایجاد و نمایش متغییر ها',
-    );
+	);
 
-    protected $variables;
+	protected $variables;
 
-    public function __construct()
-    {
-        $this->variables = new Variables;
+	public function __construct()
+	{
+		$this->variables = new Variables;
 
-        $this->variables->all();
-    }
+		$this->variables->all();
+	}
 
 
-    /**
-     * Returns a PluginDoc array that PyroCMS uses
-     * to build the reference in the admin panel
-     *
-     * @return array
-     */
-    public function _self_doc()
-    {
-        $info = array();
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array();
 
-        // dynamically build the array for the magic method __call
-        ksort($variables);
+		// dynamically build the array for the magic method __call
+		ksort($variables);
 
-        foreach ($variables as $slug => $value) {
-            $info[$slug]['description'] = array(
-                'en' => 'Retrieve the value for variable '.$slug.'.'
-            );
-            $info[$slug]['single'] = true;
-            $info[$slug]['double'] = false;
-            $info[$slug]['variables'] = '';
-            $info[$slug]['params'] = array();
-        }
+		foreach ($variables as $slug => $value)
+		{
+			$info[$slug]['description'] = array(
+				'en' => 'Retrieve the value for variable '.$slug.'.'
+			);
+			$info[$slug]['single'] = true;
+			$info[$slug]['double'] = false;
+			$info[$slug]['variables'] = '';
+			$info[$slug]['params'] = array();
+		}
 
-        return $info;
-    }
+		return $info;
+	}
 
-    /**
-     * Load a variable
-     *
-     * Magic method to get the variable.
-     *
-     * @param string $name
-     * @param string $arguments
-     * @return string
-     */
-    public function __call($name, $arguments)
-    {
-        return $this->variables->{$name};
-    }
-
-    /**
-     * Load a variable
-     *
-     * Magic method to get the variable.
-     *
-     * @param string
-     * @param string
-     * @return string
-     */
-    public function set()
-    {
-        $this->variables->{$this->attribute('name')} = $this->attribute('value');
-    }
+	/**
+	 * Load a variable
+	 *
+	 * Magic method to get the variable.
+	 *
+	 * @param string $name
+	 * @param string $arguments
+	 * @return string
+	 */
+	public function __call($name, $arguments)
+	{
+		return $this->variables->{$name};
+	}
+	
+	/**
+	 * Load a variable
+	 *
+	 * Magic method to get the variable.
+	 *
+	 * @param string
+	 * @param string
+	 * @return string
+	 */
+	public function set()
+	{
+		$this->variables->{$this->attribute('name')} = $this->attribute('value');
+	}
 }
 
 /* End of file plugin.php */

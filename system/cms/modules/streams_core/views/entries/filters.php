@@ -1,32 +1,21 @@
-<?php if (!empty($filters)): ?>
-    <section id="filters">
+<?php if (! empty($filters)): ?>
+<section id="filters">
 
-        <?php echo form_open(null, array('method' => 'post', 'class' => 'form-inline')); ?>
+	<?php echo form_open(null, array('method' => 'get', 'class' => 'form-inline'), array('filter-'.$stream->stream_namespace.'-'.$stream->stream_slug => 'y')); ?>
 
-        <?php foreach ($filters as $filter): ?>
-            <?php if ($field = $assignments->findBySlug($filter)): ?>
-                <?php echo $field->getType()->setStream($stream)->setAppliedFilters($appliedFilters)->filterInput(); ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
+		<?php foreach ($filters as $filter): ?>
 
+			<?php if ($field = $assignments->findBySlug($filter)) echo $field->getType()->setStream($stream)->filterInput(); ?>
 
-        <button class="button green" type="submit"
-                name="<?php echo 'filter-' . $stream->stream_namespace . '-' . $stream->stream_slug; ?>"
-                value="apply">
-            <?php echo lang('buttons:filter'); ?>
-        </button>
+		<?php endforeach; ?>
+		
+		
+		<button class="button green"><?php echo lang('buttons:filter'); ?></button>
+		<a class="button" href="<?php echo site_url(uri_string()); ?>"><?php echo lang('buttons:clear'); ?></a>
 
-        <?php if ($appliedFilters): ?>
-        <button class="button" type="submit"
-                name="<?php echo 'filter-' . $stream->stream_namespace . '-' . $stream->stream_slug; ?>"
-                value="clear">
-            <?php echo lang('buttons:clear'); ?>
-        </button>
-        <?php endif; ?>
+		<br/><br/>
 
-        <br/><br/>
+	<?php echo form_close(); ?>
 
-        <?php echo form_close(); ?>
-
-    </section>
-<?php endif;
+</section>
+<?php endif; ?>

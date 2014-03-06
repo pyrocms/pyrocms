@@ -5,7 +5,7 @@ $lang['help_body'] = "
 
 <h4>Général</h4>
 <p>
-    Le Module Blog est outils simple permettant de publier des articles (posts).
+	Le Module Blog est outils simple permettant de publier des articles (posts).
 </p>
 
 <h4>Catégories</h4>
@@ -17,7 +17,7 @@ naviguer dans votre site par catégories, intégrez le Widget Catégories du Blo
 <h4>Actualités</h4>
 <p>
         Choississez un bon titre pour vos articles, il seront affichés dans la page principale du Blog (Titre de l'article + Introduction)
-    et seront également utilisé comme titre par les moteurs de recherche. Après avoir créé un post vous pouvez le sauvegarder pour venir le finaliser plus tard ou le publié en passant sont statut à Live.
+	et seront également utilisé comme titre par les moteurs de recherche. Après avoir créé un post vous pouvez le sauvegarder pour venir le finaliser plus tard ou le publié en passant sont statut à Live.
         Vous pouvez également le sauvegarde avec le statut Live et définir une date de publication dans le futur. Cet article ne sera affiché que lorsque la date sera atteinte.
 </p>
 

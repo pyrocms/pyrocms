@@ -1,9 +1,9 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-use Pyro\Module\Streams\FieldType\FieldTypeManager;
-use Pyro\Module\Streams\Entry\EntryModel;
-use Pyro\Module\Streams\Field\FieldModel;
-use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams_core\FieldTypeManager;
+use Pyro\Module\Streams_core\EntryModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Streams Parse Driver

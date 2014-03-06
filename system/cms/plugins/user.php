@@ -230,7 +230,7 @@ class Plugin_User extends Plugin
 		);
 
 		$plugin_data[] = array(
-			'value' => $profile_data['created_at']->format(Settings::get('date_format')),
+			'value' => $profile_data['created_on']->format(Settings::get('date_format')),
 			'name'  => lang('user:profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
@@ -334,7 +334,7 @@ class Plugin_User extends Plugin
 		foreach ($user->profile->getModel()->getAllColumns() as $field_key => $field_data) {
 			if ($plugin_call) {
 				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key}) {
-					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getPresenter('plugin')->{$var};
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $user->profile->getFormatter()->getPluginOutput($var);
 				}
 
 				if ($user->$field_key) {
@@ -378,7 +378,7 @@ class Plugin_User extends Plugin
 			$this->user_profile_data[$user_id] = $this->user_data[$user_id]->profile;	
 		}
 
-		return isset($this->user_profile_data[$user_id]) ? $this->user_profile_data[$user_id]->getPresenter('plugin')->{$var} : null;
+		return isset($this->user_profile_data[$user_id]) ? $this->user_profile_data[$user_id]->getFormatter()->getPluginOutput($var) : null;
 	}
 
 	/**

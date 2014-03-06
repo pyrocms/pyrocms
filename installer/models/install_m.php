@@ -64,8 +64,8 @@ class Install_m extends CI_Model
 		    $table->string('ref', 20);
 		    $table->string('domain', 100);
 		    $table->boolean('is_activated')->default(true);
-		    $table->dateTime('created_at');
-		    $table->dateTime('updated_at')->nullable();
+		    $table->integer('created_on');
+		    $table->integer('updated_on')->nullable();
 
 		    $table->unique('ref');
 		    $table->unique('domain');
@@ -85,9 +85,9 @@ class Install_m extends CI_Model
 		    $table->string('activation_code')->nullable();
 		    $table->string('persist_code')->nullable();
 		    $table->string('reset_password_code')->nullable();
-		    $table->dateTime('created_at');
-		    $table->dateTime('updated_at')->nullable();
-		    $table->dateTime('last_login')->nullable();
+		    $table->integer('created_on');
+		    $table->integer('updated_on')->nullable();
+		    $table->integer('last_login')->nullable();
 
 		    $table->unique('email');
 		    $table->unique('username');
@@ -105,7 +105,7 @@ class Install_m extends CI_Model
 			'password'    => $password,
 			'ip_address'  => $this->input->ip_address(),
 			'is_activated'=> true,
-			'created_at'  => date('Y-m-d H:i:s'),
+			'created_on'  => time(),
 		);
 
 		// Create User tables
@@ -177,8 +177,7 @@ class Install_m extends CI_Model
 		    $table->boolean('enabled');
 		    $table->boolean('installed');
 		    $table->boolean('is_core');
-		    $table->dateTime('created_at');
-		    $table->dateTime('updated_at')->nullable();
+		    $table->integer('updated_on')->nullable();
 
 		    $table->unique('slug');
 		    $table->index('enabled');
@@ -201,8 +200,8 @@ class Install_m extends CI_Model
             $table->string('type')->nullable();
             $table->boolean('enabled')->default(true);
             $table->integer('order')->default(0);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
         });
 
         $schema->dropIfExists('theme_options');
@@ -216,7 +215,7 @@ class Install_m extends CI_Model
             $table->string('default', 255);
             $table->string('value', 255);
             $table->text('options');
-            $table->boolean('required')->nullable();
+            $table->boolean('is_required');
             $table->integer('theme_id')->nullable();
         });
 
@@ -228,7 +227,7 @@ class Install_m extends CI_Model
 		    $table->text('default')->nullable();
 		    $table->text('value')->nullable();
 		    $table->string('options', 255)->nullable();
-		    $table->boolean('required')->default(false);
+		    $table->boolean('is_required')->default(false);
 		    $table->boolean('is_gui')->default(true);
 		    $table->string('module', 50)->nullable();
 		    $table->integer('order')->default(0);
@@ -247,11 +246,11 @@ class Install_m extends CI_Model
             $table->string('stream_namespace', 60)->nullable();
             $table->string('stream_prefix', 60)->nullable();
             $table->string('about', 255)->nullable();
-            $table->text('view_options');
+            $table->binary('view_options');
             $table->string('title_column', 255)->nullable();
             $table->enum('sorting', array('title', 'custom'))->default('title');
             $table->text('permissions')->nullable();
-            $table->enum('hidden', array('yes','no'))->default('no');
+            $table->enum('is_hidden', array('yes','no'))->default('no');
             $table->string('menu_path', 255)->nullable();
         });
 
@@ -264,11 +263,9 @@ class Install_m extends CI_Model
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
             $table->string('field_type', 50);
-            $table->text('field_data')->nullable();
-            $table->text('view_options')->nullable();
-            $table->enum('locked', array('yes', 'no'))->default('no');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->binary('field_data')->nullable();
+            $table->binary('view_options')->nullable();
+            $table->enum('is_locked', array('yes', 'no'))->default('no');
         });
 
         // Assignments Table
@@ -279,10 +276,10 @@ class Install_m extends CI_Model
             $table->integer('sort_order');
             $table->integer('stream_id');
             $table->integer('field_id');
-            $table->enum('required', array('yes', 'no'))->default('no');
-            $table->enum('unique', array('yes', 'no'))->default('no');
+            $table->enum('is_required', array('yes', 'no'))->default('no');
+            $table->enum('is_unique', array('yes', 'no'))->default('no');
             $table->text('instructions')->nullable();
-            $table->string('field_name', 60)->nullable();
+            $table->string('field_name', 60);
 
             // $table->foreign('stream_id'); //TODO Set up foreign keys
             // $table->foreign('field_id'); //TODO Set up foreign keys

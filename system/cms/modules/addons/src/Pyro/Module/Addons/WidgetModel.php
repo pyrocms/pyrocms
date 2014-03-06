@@ -37,7 +37,7 @@ class WidgetModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Find By Slug
@@ -66,7 +66,7 @@ class WidgetModel extends Eloquent
             ->whereIn('id', $ids)
             ->get();
     }
-
+    
     /**
      * Find All Installed
      *
@@ -103,63 +103,63 @@ class WidgetModel extends Eloquent
         return $this->save();
     }
 
-    /**
-     * Disable
-     *
-     * Disabling stops the widget from being used.
-     *
-     * @return bool
-     */
-    public function disable()
-    {
+	/**
+	 * Disable
+	 *
+	 * Disabling stops the widget from being used.
+	 *
+	 * @return bool
+	 */
+	public function disable()
+	{
         $this->enabled = false;
-        return $this->save();
-    }
+		return $this->save();
+	}
 
-    /**
-     * Set Name Attribute
-     *
-     * @return void
-     */
-    protected function setNameAttribute($value)
-    {
-        $this->attributes['name'] = serialize($value);
-    }
+	/**
+	 * Set Name Attribute
+	 *
+	 * @return void
+	 */
+	protected function setNameAttribute($value)
+	{
+		$this->attributes['name'] = serialize($value);
+	}
 
-    /**
-     * Get Name Attribute
-     *
-     * @return array
-     */
-    protected function getNameAttribute($value)
-    {
-        $names = unserialize($value);
-
+	/**
+	 * Get Name Attribute
+	 *
+	 * @return array
+	 */
+	protected function getNameAttribute($value)
+	{
+		$names = unserialize($value);
+        
         if (is_string($names)) {
             return $names;
         }
-
+        
         return ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
-    }
+	}
 
-    /**
-     * Set Description Attribute
-     *
-     * @return void
-     */
-    protected function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = serialize($value);
-    }
+	/**
+	 * Set Description Attribute
+	 *
+	 * @return void
+	 */
+	protected function setDescriptionAttribute($value)
+	{
+		$this->attributes['description'] = serialize($value);
+	}
 
-    /**
-     * Get Description Attribute
-     *
-     * @return array
-     */
-    protected function getDescriptionAttribute($value)
-    {
+	/**
+	 * Get Description Attribute
+	 *
+	 * @return array
+	 */
+	protected function getDescriptionAttribute($value)
+	{
         $descriptions = unserialize($value);
         return ! isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
-    }
+	}
 }

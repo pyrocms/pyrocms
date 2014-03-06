@@ -1,1 +1,1 @@
-<?php echo form_dropdown($form_slug, $options, $id);
+<?php echo form_dropdown($form_slug, $options, $id); ?>

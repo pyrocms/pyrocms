@@ -11,16 +11,16 @@ use Pyro\Module\Contact\Model\ContactLog;
 class Admin extends Admin_Controller
 {
 
-    /**
-     * Shows the contact messages list.
-     */
-    public function index()
-    {
-        $this->load->language('contact');
+	/**
+	 * Shows the contact messages list.
+	 */
+	public function index()
+	{
+		$this->load->language('contact');
 
-        $this->template
-            ->set('contact_log', ContactLog::findAndSortByDate('desc'))
-            ->build('index');
-    }
+		$this->template
+			->set('contact_log', ContactLog::findAndSortByDate('desc'))
+			->build('index');
+	}
 
 }

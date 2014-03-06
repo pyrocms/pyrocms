@@ -4,7 +4,7 @@ $lang['user:add_field']                         = 'فیلد جدید برای پ
 $lang['user:profile_delete_success']            = 'فیلد پروفایل حذف شد';
 $lang['user:profile_delete_failure']            = 'حذف کردن فیلد پروفایل با خطا همراه بود';
 $lang['user:profile_user_basic_data_label']     = 'اطلاعات پایه';
-$lang['user:profile_company']                   = 'شرکت';
+$lang['user:profile_company']                   = 'شرکت'; 
 $lang['user:profile_updated_on']                = 'تاریخ ویرایش';
 $lang['user:profile_fields_label']              = 'فیلد های پروفایل';
 

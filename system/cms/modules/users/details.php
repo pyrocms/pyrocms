@@ -1,9 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\Field\FieldModel;
-use Pyro\Module\Streams\Stream\StreamSchema;
-use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Users Module
@@ -43,6 +43,7 @@ class Module_Users extends AbstractModule
                 'hu' => 'Felhasználók',
                 'th' => 'ผู้ใช้งาน',
                 'se' => 'Användare',
+                'km' => '',
             ),
             'description' => array(
                 'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -69,6 +70,7 @@ class Module_Users extends AbstractModule
                 'th' => 'ให้ผู้ใช้ลงทะเบียนและเข้าสู่เว็บไซต์และจัดการกับพวกเขาผ่านทางแผงควบคุม',
                 'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
                 'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.',
+                'km' => 'អនុញ្ញាតឱ្យអ្នកប្រើចុះឈ្មោះនិងចូលទៅតំបន់បណ្ដាញក្នុង និងគ្រប់គ្រងពួកគេតាមរយៈផ្ទាំងបញ្ជា។',
             ),
             'frontend'  => false,
             'backend'   => true,
@@ -132,7 +134,7 @@ class Module_Users extends AbstractModule
     {
         $schema->dropIfExists('permissions');
 
-        $schema->create('permissions', function ($table) {
+        $schema->create('permissions', function($table) {
             $table->increments('id');
             $table->integer('group_id');
             $table->string('module');
@@ -143,13 +145,12 @@ class Module_Users extends AbstractModule
 
         $schema->dropIfExists('groups');
 
-        $schema->create('groups', function ($table) {
+        $schema->create('groups', function($table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->text('permissions')->nullable();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
 
             $table->unique('name');
         });
@@ -159,13 +160,11 @@ class Module_Users extends AbstractModule
                 'name' => 'admin',
                 'description' => 'Administrator',
                 'permissions' => json_encode(array('admin' => 1)),
-                'created_at' => date('Y-m-d H:i:s')
             ),
             array(
                 'name' => 'user',
                 'description' => 'User',
                 'permissions' => null,
-                'created_at' => date('Y-m-d H:i:s')
             ),
         ));
 
@@ -180,7 +179,7 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'required' => false,
+                'is_required' => false,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 964,
@@ -193,7 +192,7 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'required' => true,
+                'is_required' => true,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 963,
@@ -206,7 +205,7 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '1=Required|0=Optional',
-                'required' => true,
+                'is_required' => true,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 962,
@@ -219,7 +218,7 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '0=activate_by_admin|1=activate_by_email|2=no_activation',
-                'required' => false,
+                'is_required' => false,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 961,
@@ -232,7 +231,7 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'required' => false,
+                'is_required' => false,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 960,
@@ -245,17 +244,17 @@ class Module_Users extends AbstractModule
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'required' => false,
+                'is_required' => false,
                 'is_gui' => true,
                 'module' => 'users',
                 'order' => 959,
             ),
         ));
 
-        StreamSchema::destroyNamespace('users');
+        SchemaUtility::destroyNamespace('users');
 
         // Create the profiles stream
-        if (! StreamModel::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
+        if ( ! StreamModel::addStream('profiles', 'users', 'lang:user_profile_fields_label', null, 'Profiles for users module', array(
                 'title_column' => 'display_name',
                 'view_options' => array('display_name')
             )))
@@ -264,7 +263,7 @@ class Module_Users extends AbstractModule
         }
 
          // Index user_id
-        $schema->table('profiles', function ($table) {
+        $schema->table('profiles', function($table) {
             $table->integer('user_id');
             $table->index('user_id');
         });

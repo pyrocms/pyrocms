@@ -1,10 +1,12 @@
 <?php namespace Pyro\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Events\Dispatcher;
-use Pyro\Support\Contracts\ArrayableInterface;
-use Pyro\Support\PresenterDecorator;
+use Pyro\Module\Streams_core\EntryModel;
 
 /**
  * Eloquent Model
@@ -14,14 +16,21 @@ use Pyro\Support\PresenterDecorator;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Model\Eloquent
  */
-abstract class Eloquent extends Model implements ArrayableInterface
+abstract class Eloquent extends Model
 {   
-    /**
-     * Cache minutes
-     * 
-     * @var integer|boolean
-     */ 
+
     protected $cacheMinutes = false;
+
+    // --------------------------------------------------------------------------
+    // Runtime Cache
+    // --------------------------------------------------------------------------
+    // The runtime cache is based on how streams and fields use to do it by storing data in a static variable.
+    // We put it on this base Eloquent model to make it available to any that extend it.
+
+    /*
+     * The static runtime cache variables used to store results on each request
+     */
+    protected static $runtime_cache = array();
 
     /**
      * Skio validation
@@ -35,39 +44,11 @@ abstract class Eloquent extends Model implements ArrayableInterface
      */
     protected $replicated = false;
 
-    /**
-     * Collection class
-     * @var string
-     */
-    protected $collectionClass = 'Pyro\Model\EloquentCollection';
-
-    /**
-     * Presenter class
-     */ 
-    protected $presenterClass = 'Pyro\Support\Presenter';
-
-    /**
-     * Order by column
-     *
-     * @var
-     */
-    protected $orderByColumn = 'id';
-
-    /**
-     * Boot
-     * 
-     * @return void
-     */ 
     public static function boot()
     {
         parent::boot();
 
         static::$dispatcher = new Dispatcher;
-    }
-
-    public function getOrderByColumn()
-    {
-        return $this->orderByColumn;
     }
 
     /**
@@ -91,21 +72,59 @@ abstract class Eloquent extends Model implements ArrayableInterface
     }
 
     /**
-     * Get attribute keys
-     * 
+     * We can store data in the class at runtime so we don't have to keep hitting the database
+     *
+     * @param  string  $key The key that is going to be appended to the called model class
+     * @param mixed $value The value to be chached
+     * @return mixed
+     */
+    public static function setCache($key, $value)
+    {
+        return static::$runtime_cache[get_called_class()][$key] = $value;
+    }
+
+    /**
+     * Check if a key has being set in the runtime cache
+     *
+     * @param  string  $key The key that is going to be appended to the called model class
+     * @return bool
+     */
+    public static function isCache($key)
+    {
+        return isset(static::$runtime_cache[get_called_class()][$key]);
+    }
+
+    /**
+     * Get a runtime cache value by key
+     *
+     * @param  array  $options
+     * @return mixed
+     */
+    public static function getCache($key)
+    {
+        if (static::isCache($key))
+        {
+            return static::$runtime_cache[get_called_class()][$key];    
+        }
+
+        return false;
+    }
+
+    /**
+     * Get a the entire runtime cache key - values
+     *
      * @return array
-     */ 
+     */
+    public static function getRuntimeCache()
+    {
+        return static::$runtime_cache;
+    }
+
     public function getAttributeKeys()
     {
         return array_keys($this->getAttributes());
     }
 
-    /**
-     * Update
-     * 
-     * @param array $attributes
-     * @return \Pyro\Model\Eloquent|boolean
-     */ 
     public function update(array $attributes = array())
     {
         // Remove any post values that do not correspond to existing columns
@@ -117,8 +136,12 @@ abstract class Eloquent extends Model implements ArrayableInterface
             }
         }
 
+        $this->flushCacheCollection();
+
         return parent::update($attributes);
     }
+
+    // abstract public function validate();
 
     /**
      * Save the model to the database.
@@ -138,11 +161,6 @@ abstract class Eloquent extends Model implements ArrayableInterface
         return parent::save($options);
     }
 
-    /**
-     * Delete
-     * 
-     * @return boolean
-     */ 
     public function delete()
     {
         $this->flushCacheCollection();
@@ -150,9 +168,15 @@ abstract class Eloquent extends Model implements ArrayableInterface
         return parent::delete();
     }
 
+    public function flushCacheCollection()
+    {
+        ci()->cache->collection($this->getCacheCollectionKey())->flush();
+
+        return $this;
+    }
+
     /**
      * Replicate 
-     * 
      * @return object The model clone
      */
     public function replicate()
@@ -164,48 +188,13 @@ abstract class Eloquent extends Model implements ArrayableInterface
     }
 
     /**
-     * Set presenter class
-     * 
-     * @return Pyro\Model\Eloquent
-     */ 
-    public function setPresenterClass($presenterClass = null)
-    {
-        $this->presenterClass = $presenterClass;
-
-        return $this;
-    }
-
-    /**
-     * Get presenter
-     * 
-     * @Return Pyro\Support\Presenter|Pyro\Model\Eloquent
-     */ 
-    public function getPresenter()
-    {
-        $decorator = new PresenterDecorator;
-
-        return $decorator->decorate($this);
-    }
-
-    /**
-     * Get presenter class
-     * @return string
-     */
-    public function getPresenterClass()
-    {
-        return $this->presenterClass;
-    }
-
-    /**
      * New collection
      * @param  array  $models The array of models
      * @return object         The Collection object
      */
     public function newCollection(array $models = array())
     {
-        $collection = $this->collectionClass;
-
-        return new $collection($models, $this);
+        return new EloquentCollection($models);
     }
 
     /**
@@ -232,18 +221,6 @@ abstract class Eloquent extends Model implements ArrayableInterface
     }
 
     /**
-     * Flush cache collection
-     * 
-     * @return Pyro\Model\Eloquent
-     */ 
-    public function flushCacheCollection()
-    {
-        ci()->cache->collection($this->getCacheCollectionKey())->flush();
-
-        return $this;
-    }
-
-    /**
      * Get cache collection key
      * @return string
      */
@@ -262,24 +239,18 @@ abstract class Eloquent extends Model implements ArrayableInterface
     }
 
     /**
-     * Get relation
-     * 
-     * @return \Pyro\Model\Eloquent|\Pyro\Model\EloquentCollection|null
-     */ 
+     * Get the title column value
+     */
+    public function getTitleColumnValue()
+    {
+        return null;
+    }
+
     public function getRelation($attribute)
     {
         if (isset($this->relations[$attribute])) return $this->relations[$attribute];
 
         return null;
-    }
-
-    public function hasRelationMethod($attribute)
-    {
-        if ( ! method_exists($this, $attribute)) return false;
-
-        $relation = $this->{$attribute}();
-
-        return ($relation instanceof Relation);
     }
 }
 

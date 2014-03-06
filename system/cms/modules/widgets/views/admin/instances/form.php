@@ -5,7 +5,7 @@
     <?php if ($instance): ?>
         <?php echo form_hidden('id', $instance->id) ?>
     <?php endif ?>
-
+    
     <?php echo form_hidden('widget_id', $widget->id) ?>
 
     <?php if (! empty($error)) echo $error ?>
@@ -35,4 +35,4 @@
         <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))) ?>
     </div>
 
-<?php echo form_close()
+<?php echo form_close() ?>

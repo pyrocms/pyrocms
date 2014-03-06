@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "فیلد %s شامل کاراک
 $lang['streams:type_not_valid']					= "لطفا یک نوع-فیلد قابل قبول انتخاب کنید.";
 $lang['streams:stream_slug_not_unique']				= "نام انگلیسی این استریم همینک وجود دارد.";
 $lang['streams:field_unique']					= "فیلد %s باید یکتا باشد.";
-$lang['streams:field_required']					= "فیلد %s اجباری است.";
+$lang['streams:field_is_required']					= "فیلد %s اجباری است.";
 $lang['streams:date_out_or_range']				= "تاریخی که برای %s انتخاب کرده اید در رنج قابل قبول نیست.";
 
 /* Field Labels */
@@ -135,7 +135,7 @@ $lang['streams:start.create_field_here']				= "یک فیلد ایجاد کنید
 $lang['streams:start.no_streams']					= "هیچ استریمی وجود ندارد";
 $lang['streams:start.no_streams_yet']				= "استریمی وجود ندارد";
 $lang['streams:start.adding_one']					= "در حال اضافه کردن";
-$lang['streams:start.no_fields_to_add']				= "فیلدی برای اضافه کردن وجود ندارد";
+$lang['streams:start.no_fields_to_add']				= "فیلدی برای اضافه کردن وجود ندارد";		
 $lang['streams:start.no_fields_msg']				= "هیچ فیلدی برای اضافه کردن به این استریم وجود ندارد.";
 $lang['streams:start.adding_a_field_here']				= "اضافه کردن یک فیلد";
 $lang['streams:start.no_entries']					= "هیچ اطلاعاتی برای <strong>%s</strong> هنوز به عنوان ورودی ها اضافه نشده است.";

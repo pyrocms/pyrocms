@@ -6,7 +6,7 @@ use Pyro\Model\Eloquent;
  * Applied Keyword model
  *
  * @author    PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Keywords\Model
+ * @package  PyroCMS\Core\Modules\Keywords\Models
  */
 class Applied extends Eloquent
 {
@@ -58,9 +58,9 @@ class Applied extends Eloquent
     public static function getNamesByHash($hash)
     {
         $keyword_ids = static::where('hash', $hash)->lists('keyword_id');
-
+        
         if ( ! $keyword_ids) {
-            return array();
+            return array();    
         }
 
         return Keyword::select('name')

@@ -13,52 +13,54 @@ use Pyro\Module\Addons\AbstractModule;
  */
 class Module_Streams_core extends AbstractModule
 {
-    public $version = '1.3.0';
+	public $version = '1.3.0';
 
-    /**
-     * Module Info
-     *
-     * @return array
-     */
-    public function info()
-    {
-        return array(
-            'name' => array(
-                'en' => 'Streams Core',
-                'pt' => 'Núcleo Fluxos',
-                'el' => 'Πυρήνας Ροών',
-                'fa' => 'هسته استریم ها',
-                'fr' => 'Noyau Flux',
-                'fi' => 'Striimit ydin',
-                'se' => 'Streams grundmodul',
-                'tw' => 'Streams 核心',
-                'cn' => 'Streams 核心',
-                'ar' => 'الجداول الأساسية',
-                'it' => 'Streams Core',
-            ),
-            'description' => array(
-                'en' => 'Core data module for streams.',
-                'pt' => 'Módulo central de dados para fluxos.',
-                'fa' => 'ماژول مرکزی برای استریم ها',
-                'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
-                'fr' => 'Noyau de données pour les Flux.',
-                'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
-                'se' => 'Streams grundmodul för enklare hantering av data.',
-                'tw' => 'Streams 核心資料模組。',
-                'cn' => 'Streams 核心资料模组。',
-                'ar' => 'وحدة البيانات الأساسية للجداول',
-                'it' => 'Core dello Stream',
-            ),
-            'frontend' => false,
-            'backend' => false,
-            'skip_xss' => true,
-            'author' => 'PyroCMS Dev Team',
-            // Register field types with the autoloader
-            'field_types' => true
-        );
-    }
+	/**
+	 * Module Info
+	 *
+	 * @return array
+	 */
+	public function info()
+	{
+		return array(
+			'name' => array(
+				'en' => 'Streams Core',
+				'pt' => 'Núcleo Fluxos',
+				'el' => 'Πυρήνας Ροών',
+                                'fa' => 'هسته استریم ها',
+                                'fr' => 'Noyau Flux',
+                                'fi' => 'Striimit ydin',
+				'se' => 'Streams grundmodul',
+				'tw' => 'Streams 核心',
+				'cn' => 'Streams 核心',
+				'ar' => 'الجداول الأساسية',
+				'it' => 'Streams Core',
+                                'km' => '',
+			),
+			'description' => array(
+				'en' => 'Core data module for streams.',
+				'pt' => 'Módulo central de dados para fluxos.',
+                                'fa' => 'ماژول مرکزی برای استریم ها',
+                                'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
+				'fr' => 'Noyau de données pour les Flux.',
+				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
+				'se' => 'Streams grundmodul för enklare hantering av data.',
+				'tw' => 'Streams 核心資料模組。',
+				'cn' => 'Streams 核心资料模组。',
+				'ar' => 'وحدة البيانات الأساسية للجداول',
+				'it' => 'Core dello Stream',
+                                'km' => '',
+			),
+			'frontend' => false,
+			'backend' => false,
+			'skip_xss' => true,
+			'author' => 'PyroCMS Dev Team',
+			// Register field types with the autoloader
+			'field_types' => true
+		);
+	}
 
-    /**
+	/**
      * Install
      *
      * This function is run to install the module
@@ -66,41 +68,41 @@ class Module_Streams_core extends AbstractModule
      * @return bool
      */
     public function install($pdb, $schema)
-    {
-        return true;
-    }
+	{
+		return true;
+	}
 
-    /**
-     * Uninstall Streams Core
-     *
-     * This is a very dangerous function. It removes the core streams tables so
-     * watch out.
-     *
-     * @return bool
-     */
-    public function uninstall($pdb, $schema)
-    {
-        return true;
-    }
+	/**
+	 * Uninstall Streams Core
+	 *
+	 * This is a very dangerous function. It removes the core streams tables so
+	 * watch out.
+	 *
+	 * @return bool
+	 */
+	public function uninstall($pdb, $schema)
+	{
+		return true;
+	}
 
-    public function upgrade($old_version)
-    {
-        return true;
-    }
+	public function upgrade($old_version)
+	{
+		return true;
+	}
 
-    /**
-     * Manually load config that has all of our streams table data.
-     *
-     * @return mixed False or the config array
-     */
-    private function loadConfig()
-    {
-        if (defined('PYROPATH')) {
-            require_once(PYROPATH.'modules/streams_core/config/streams.php');
-        } elseif (defined('APPPATH')) {
-            require_once(APPPATH.'modules/streams_core/config/streams.php');
-        }
+	/**
+	 * Manually load config that has all of our streams table data.
+	 *
+	 * @return mixed False or the config array
+	 */
+	private function loadConfig()
+	{
+		if (defined('PYROPATH')) {
+			require_once(PYROPATH.'modules/streams_core/config/streams.php');
+		} elseif (defined('APPPATH')) {
+			require_once(APPPATH.'modules/streams_core/config/streams.php');
+		}
 
-        return (isset($config)) ? $config : false;
-    }
+		return (isset($config)) ? $config : false;
+	}
 }

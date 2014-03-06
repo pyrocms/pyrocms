@@ -37,7 +37,7 @@ class ModuleModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Find All
@@ -58,7 +58,7 @@ class ModuleModel extends Eloquent
     /**
      * Find All Modules
      *
-     * Return all known (installed) modules as ModuleModel objects
+     * Return all known (installed) modules as ModuleModel objects 
      *
      * @return  Illuminate\Database\Eloquent\Collection
      */
@@ -81,7 +81,7 @@ class ModuleModel extends Eloquent
         $modules = array();
 
         // For each param, filter key => val
-        if (is_array($params)) {
+        if (is_array($params)) { 
             foreach ($params as $field => $value) {
                 if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core'))) {
                     $this->where($field, '=', $value);
@@ -108,10 +108,6 @@ class ModuleModel extends Eloquent
     public function moduleExists($slug)
     {
         if (( ! $slug)) {
-            return false;
-        }
-
-        if (is_numeric($slug)) {
             return false;
         }
 

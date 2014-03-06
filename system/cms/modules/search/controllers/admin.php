@@ -10,53 +10,53 @@ use Pyro\Module\Search\Model\Search;
  */
 class Admin extends Admin_Controller
 {
-    /**
-     * Constructor method
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	/**
+	 * Constructor method
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    /**
-     * List all redirects
-     */
-    public function ajax_autocomplete()
-    {
-        $query = $this->input->get('term');
+	/**
+	 * List all redirects
+	 */
+	public function ajax_autocomplete()
+	{
+		$query = $this->input->get('term');
 
-        $results = Search::getResults(array($query));
+		$results = Search::getResults(array($query));
+		
+		// Remember which modules have been loaded
+		static $modules = array();
 
-        // Remember which modules have been loaded
-        static $modules = array();
+		$output = array();
 
-        $output = array();
+		// Loop through found results to find extra information
+		foreach ($results as $row) {
+			// We only want to load a lang file once
+			if ( ! isset($modules[$row->module])) {
 
-        // Loop through found results to find extra information
-        foreach ($results as $row) {
-            // We only want to load a lang file once
-            if ( ! isset($modules[$row->module])) {
+				if ($this->moduleManager->moduleExists($row->module)) {
+					$this->lang->load("{$row->module}/{$row->module}");
 
-                if ($this->moduleManager->moduleExists($row->module)) {
-                    $this->lang->load("{$row->module}/{$row->module}");
+					$modules[$row->module] = true;
+				}
+				// If module doesn't exist (for whatever reason) then sssh!
+				else {
+					$modules[$row->module] = false;
+				}
+			}
 
-                    $modules[$row->module] = true;
-                }
-                // If module doesn't exist (for whatever reason) then sssh!
-                else {
-                    $modules[$row->module] = false;
-                }
-            }
+			$output[] = array(
+				'title' => $row->title,
+				'keywords' => (string) $row->keywords,
+				'url' => site_url($row->cp_uri),
+				'singular' => lang($row->entry_singular) ? lang($row->entry_singular) : $row->entry_singular,
+			);
+		}
 
-            $output[] = array(
-                'title' => $row->title,
-                'keywords' => (string) $row->keywords,
-                'url' => site_url($row->cp_uri),
-                'singular' => lang($row->entry_singular) ? lang($row->entry_singular) : $row->entry_singular,
-            );
-        }
-
-        header('Content-Type: application/json');
-        exit(json_encode(array('results' => $output)));
+		header('Content-Type: application/json');
+		exit(json_encode(array('results' => $output)));
     }
 }

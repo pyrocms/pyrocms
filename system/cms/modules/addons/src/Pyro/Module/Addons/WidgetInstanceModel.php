@@ -30,14 +30,14 @@ class WidgetInstanceModel extends Eloquent
      *
      * @var array
      */
-    protected $guarded = array('id', 'options', 'order', 'created_at', 'updated_at');
+    protected $guarded = array('id', 'options', 'order', 'created_on', 'updated_on');
 
     /**
      * Disable updated_at and created_at on table
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Relationship: Options
@@ -83,25 +83,25 @@ class WidgetInstanceModel extends Eloquent
                 'rules' => 'trim|numeric|required',
             ),
         ));
-
+        
         ci()->form_validation->set_data($this->toArray());
 
         return ci()->form_validation->run();
     }
 
-    protected function setOptionsAttribute($value)
-    {
-        $this->attributes['options'] = serialize((array) $value);
-    }
+	protected function setOptionsAttribute($value)
+	{
+		$this->attributes['options'] = serialize((array) $value);
+	}
 
-    protected function getOptionsAttribute($options)
-    {
-        $options = (array) unserialize($options);
+	protected function getOptionsAttribute($options)
+	{
+		$options = (array) unserialize($options);
 
-        if (! isset($options['show_title'])) {
-            $options['show_title'] = false;
-        }
+		if ( ! isset($options['show_title'])) {
+			$options['show_title'] = false;
+		}
 
-        return $options;
-    }
+		return $options;
+	}
 }

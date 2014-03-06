@@ -153,14 +153,14 @@ class WidgetManager
 
     /**
      * Read a theme from the file system and save it to the DB
-     *
+     * 
      * @param WidgetAbstract $theme Theme info instance
      * @param string $slug The folder name of the theme
      *
      * @return  Pyro\Addons\WidgetModel
      */
-    public function register(WidgetAbstract $widget, $slug)
-    {
+    public function register(WidgetAbstract $widget, $slug) {
+
         return $this->widgets->create(array(
             'slug'              => $slug,
             // Title is deprecated, remove in 3.0. Name is new
@@ -174,7 +174,7 @@ class WidgetManager
     }
 
     /**
-     * Spawn a widget and get some basic information back, such as the module
+     * Spawn a widget and get some basic information back, such as the module 
      * and wether its an addon or not
      *
      * <code>
@@ -186,7 +186,7 @@ class WidgetManager
      */
     public function get($slug)
     {
-        foreach ($this->locations as $location) {
+        foreach ($this->locations as $location) {           
             $widget = $this->spawnClass($location, $slug);
 
             if ($widget !== false and $widget instanceof WidgetAbstract) {
@@ -316,13 +316,13 @@ class WidgetManager
 
         $output = '';
         foreach ($area->instances as $instance) {
-
+      
             // If this widget is disabled then skip it
             if ( ! $instance->widget->enabled) {
                 continue;
             }
 
-            // Widget
+            // Widget 
             $widget_class = $this->get($instance->widget->slug);
 
             if ($widget_class === false) {
@@ -335,8 +335,8 @@ class WidgetManager
             ci()->load->set_view_path($path);
 
             $output .= ci()->load->_ci_load(array(
-                '_ci_view' => $view,
-                '_ci_vars' => compact('widget_class', 'instance'),
+                '_ci_view' => $view, 
+                '_ci_vars' => compact('widget_class', 'instance'), 
                 '_ci_return' => true
             ))."\n";
 
@@ -412,7 +412,7 @@ class WidgetManager
             // throw new Exception("Widget {$slug} does not exist in {$location}.");
             return false;
         }
-
+    
         require_once $class_path;
         $class_name = 'Widget_'.ucfirst(strtolower($slug));
 

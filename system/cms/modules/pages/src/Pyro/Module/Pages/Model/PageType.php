@@ -58,7 +58,7 @@ class PageType extends Eloquent
      */
     public function stream()
     {
-        return $this->belongsTo('Pyro\Module\Streams\Stream\StreamModel');
+        return $this->belongsTo('Pyro\Module\Streams_core\StreamModel');
     }
 
     /**
@@ -66,7 +66,8 @@ class PageType extends Eloquent
      */
     public static function slugExists($slug)
     {
-        if ($exists = static::where('slug', $slug)->first()) {
+        if ($exists = static::where('slug', $slug)->first())
+        {
             ci()->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
         }
 
@@ -185,7 +186,8 @@ class PageType extends Eloquent
     public function delete($delete_stream = false)
     {
         // Are we going to delete the stream?
-        if ($delete_stream and $this->stream) {
+        if ($delete_stream and $this->stream)
+        {
             $this->stream->delete();
         }
 

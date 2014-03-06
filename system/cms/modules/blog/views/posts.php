@@ -1,51 +1,49 @@
 {{ if posts }}
 
-    {{ posts }}
+	{{ posts }}
 
-        <div class="post">
+		<div class="post">
 
-            <h3><a href="{{ url }}">{{ title }}</a></h3>
+			<h3><a href="{{ url }}">{{ title }}</a></h3>
 
-            <div class="meta">
+			<div class="meta">
 
-            <div class="date">
-                {{ helper:lang line="blog:posted_label" }}
-                <span>{{ helper:date timestamp=created_at }}</span>
-            </div>
+			<div class="date">
+				{{ helper:lang line="blog:posted_label" }}
+				<span>{{ helper:date timestamp=created_on }}</span>
+			</div>
 
-            {{ if category }}
-            <div class="category">
-                {{ helper:lang line="blog:category_label" }}
-                <span><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
-            </div>
-            {{ endif }}
+			{{ if category }}
+			<div class="category">
+				{{ helper:lang line="blog:category_label" }}
+				<span><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
+			</div>
+			{{ endif }}
 
-            {{ if keywords }}
-            <div class="keywords">
-                {{ keywords }}
-                    <span><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
-                {{ /keywords }}
-            </div>
-            {{ endif }}
+			{{ if keywords }}
+			<div class="keywords">
+				{{ keywords }}
+					<span><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
+				{{ /keywords }}
+			</div>
+			{{ endif }}
 
-            </div>
+			</div>
 
-            {{ if intro }}
-            <div class="preview">
-                {{ intro }}
-            </div>
-            {{ endif }}
+			<div class="preview">
+			{{ preview }}
+			</div>
 
-            <p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
+			<p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
 
-        </div>
+		</div>
 
-    {{ /posts }}
+	{{ /posts }}
 
-    {{ pagination }}
+	{{ pagination }}
 
 {{ else }}
 
-    {{ helper:lang line="blog:currently_no_posts" }}
+	{{ helper:lang line="blog:currently_no_posts" }}
 
 {{ endif }}

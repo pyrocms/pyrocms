@@ -1,9 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
-use Pyro\Module\Streams\Field\FieldModel;
-use Pyro\Module\Streams\Stream\StreamSchema;
-use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams_core\FieldModel;
+use Pyro\Module\Streams_core\SchemaUtility;
+use Pyro\Module\Streams_core\StreamModel;
 
 /**
  * Pages Module
@@ -43,6 +43,7 @@ class Module_Pages extends AbstractModule
                 'hu' => 'Oldalak',
                 'th' => 'หน้าเพจ',
                 'se' => 'Sidor',
+                'km' => 'ទំព័រ',
             ),
             'description' => array(
                 'en' => 'Add custom pages to the site with any content you want.',
@@ -69,6 +70,7 @@ class Module_Pages extends AbstractModule
                 'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
                 'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
                 'se' => 'Lägg till egna sidor till webbplatsen.',
+                'km' => 'បន្ថែមទំព័រផ្ទាល់ខ្លួនទៅតំបន់បណ្តាញជាមួយនឹងមាតិកាណាមួយដែលអ្នកចង់បាន។',
             ),
             'frontend' => true,
             'backend'  => true,
@@ -160,11 +162,10 @@ class Module_Pages extends AbstractModule
             $table->text('css')->nullable();
             $table->text('js')->nullable();
             $table->string('theme_layout', 100)->default('default');
+            $table->integer('updated_on');
             $table->string('save_as_files', 1)->default('n');
             $table->string('content_label', 60)->nullable();
             $table->string('title_label', 100)->nullable();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
         });
 
         // Pages Schema ----
@@ -199,15 +200,15 @@ class Module_Pages extends AbstractModule
             $table->boolean('is_home')->default(false);
             $table->boolean('strict_uri')->default(true);
             $table->integer('order')->default(0);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
 
             $table->index('slug');
             $table->index('parent_id');
         });
 
         // Remove pages namespace, just in case its a 2nd install
-        StreamSchema::destroyNamespace('pages');
+        SchemaUtility::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
 
@@ -234,10 +235,8 @@ class Module_Pages extends AbstractModule
             'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
             'css' => '',
             'js' => '',
-            'created_at' => date('Y-m-d H:i:s'),
+            'updated_on' => time()
         ));
-
-        $pageEntryModel = $stream->getEntryModelClass('def_page_fields', 'pages');
 
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
@@ -247,11 +246,11 @@ class Module_Pages extends AbstractModule
                 'uri' => 'home',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
-                'is_home' => true,
+                'created_on' => time(),
+                'is_home' => 1,
                 'order' => time()
             ),
             'contact' => array(
@@ -260,11 +259,11 @@ class Module_Pages extends AbstractModule
                 'uri' => 'contact',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
-                'is_home' => false,
+                'created_on' => time(),
+                'is_home' => 0,
                 'order' => time()
             ),
             'fourohfour' => array(
@@ -273,10 +272,10 @@ class Module_Pages extends AbstractModule
                 'uri' => '404',
                 'parent_id' => 0,
                 'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
+                'entry_type' => 'def_page_fields.pages',
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_on' => time(),
                 'is_home' => 0,
                 'order' => time()
             )

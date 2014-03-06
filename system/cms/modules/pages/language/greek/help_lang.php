@@ -50,7 +50,7 @@ $lang['help_body'] = "
 {{ page:body }}
 
 &lt;div class=\"my-twitter-widget\"&gt;
-    {{ widgets:instance id=\"1\" }}
+	{{ widgets:instance id=\"1\" }}
 &lt;/div&gt;
 </code></pre>
 <p>Πλέον μπορείτε να εφαρμόσετε κανόνες CSS στο class \"my-twitter-widget\" στην καρτέλα CSS.</p>";

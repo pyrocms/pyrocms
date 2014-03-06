@@ -15,7 +15,7 @@
  */
 function module_directories()
 {
-    return array_keys(Modules::$locations);
+	return array_keys(Modules::$locations);
 }
 
 /**
@@ -27,10 +27,10 @@ function module_directories()
  */
 function module_array()
 {
-    $modules = ci()->module_m->get_all();
-    asort($modules);
+	$modules = ci()->module_m->get_all();
+	asort($modules);
 
-    return $modules;
+	return $modules;
 }
 
 /**
@@ -45,7 +45,7 @@ function module_array()
 
 function module_exists($slug)
 {
-    return ci()->moduleManager->moduleExists($slug);
+	return ci()->moduleManager->moduleExists($slug);
 }
 
 /**
@@ -60,7 +60,7 @@ function module_exists($slug)
 
 function module_enabled($slug)
 {
-    return ci()->moduleManager->moduleEnabled($slug);
+	return ci()->moduleManager->moduleEnabled($slug);
 }
 
 /**
@@ -75,7 +75,7 @@ function module_enabled($slug)
 
 function module_installed($slug)
 {
-    return ci()->moduleManager->moduleInstalled($slug);
+	return ci()->moduleManager->moduleInstalled($slug);
 }
 
 /**
@@ -89,94 +89,94 @@ function module_installed($slug)
  */
 function module_controller($controller, $module)
 {
-    if (!$controller) {
-        return false;
-    }
+	if (!$controller) {
+		return false;
+	}
 
-    $ci =& get_instance();
+	$ci =& get_instance();
 
-    $controllers = $ci->module_m->get_module_controllers($module);
+	$controllers = $ci->module_m->get_module_controllers($module);
 
-    return isset($controllers[$controller]);
+	return isset($controllers[$controller]);
 }
 
 // will that your place is here? or maybe should it exists?
 // if yes.. help to document it.. else.. move it, delete, etc, you can do best..
 function reload_module_details($slug = '')
 {
-    if (! $slug) {
-        return false;
-    }
+	if (! $slug) {
+		return false;
+	}
 
-    if (is_array($slug)) {
-        foreach ($slug as $_slug) {
-            if ( ! reload_module_details($_slug)) {
-                return false;
-            }
-        }
-        return true;
-    }
+	if (is_array($slug)) {
+		foreach ($slug as $_slug) {
+			if ( ! reload_module_details($_slug)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    $ci =& get_instance();
+	$ci =& get_instance();
 
-    // Loop through directories that hold modules
-    $is_core = true;
+	// Loop through directories that hold modules
+	$is_core = true;
 
-    foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory) {
-        // Loop through modules
-        foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name) {
-            $slug = basename($module_name);
+	foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory) {
+		// Loop through modules
+		foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name) {
+			$slug = basename($module_name);
 
-            //$this->_output .=  'Re-indexing new module: <strong>' . $slug .'</strong>.<br/>';
+			//$this->_output .=  'Re-indexing new module: <strong>' . $slug .'</strong>.<br/>';
 
-            // Before we can install anything we need to know some details about the module
-            $details_file = $directory . 'modules/' . $slug . '/details.php';
+			// Before we can install anything we need to know some details about the module
+			$details_file = $directory . 'modules/' . $slug . '/details.php';
 
-            // Check the details file exists
-            if ( ! is_file($details_file)) {
-                $details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details.php';
+			// Check the details file exists
+			if ( ! is_file($details_file)) {
+				$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details.php';
 
-                if ( ! is_file($details_file)) {
-                    //$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
-                    continue;
-                }
-            }
+				if ( ! is_file($details_file)) {
+					//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
+					continue;
+				}
+			}
 
-            // Sweet, include the file
-            include_once $details_file;
+			// Sweet, include the file
+			include_once $details_file;
 
-            // Now call the details class
-            $class_name = 'Module_'.ucfirst(strtolower($slug));
+			// Now call the details class
+			$class_name = 'Module_'.ucfirst(strtolower($slug));
 
-            if ( ! class_exists($class_name)) {
-                //$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: Class '.$class_name.' does not exist in file '.$details_file.'.</span><br/>';
-                continue;
-            }
+			if ( ! class_exists($class_name)) {
+				//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: Class '.$class_name.' does not exist in file '.$details_file.'.</span><br/>';
+				continue;
+			}
 
-            $details_class = new $class_name;
+			$details_class = new $class_name;
 
-            // Get some basic info
-            $module = $details_class->info();
+			// Get some basic info
+			$module = $details_class->info();
 
-            // Looks like it installed ok, add a record
-            $ci->db->where('slug', $slug)->update('modules', array(
-                'name'				=> serialize($module['name']),
-                'slug'				=> $slug,
-                'version'			=> $details_class->version,
-                'description'		=> serialize($module['description']),
-                'skip_xss'			=> ! empty($module['skip_xss']),
-                'is_frontend'		=> ! empty($module['frontend']),
-                'is_backend'		=> ! empty($module['backend']),
-                'menu'				=> ! empty($module['menu']) ? $module['menu'] : false,
-                'enabled'			=> true,
-                'installed'			=> true,
-                'is_core'			=> $is_core
-            ));
-        }
+			// Looks like it installed ok, add a record
+			$ci->db->where('slug', $slug)->update('modules', array(
+				'name'				=> serialize($module['name']),
+				'slug'				=> $slug,
+				'version'			=> $details_class->version,
+				'description'		=> serialize($module['description']),
+				'skip_xss'			=> ! empty($module['skip_xss']),
+				'is_frontend'		=> ! empty($module['frontend']),
+				'is_backend'		=> ! empty($module['backend']),
+				'menu'				=> ! empty($module['menu']) ? $module['menu'] : false,
+				'enabled'			=> true,
+				'installed'			=> true,
+				'is_core'			=> $is_core
+			));
+		}
 
-        // Going back around, 2nd time is addons
-        $is_core = false;
-    }
+		// Going back around, 2nd time is addons
+		$is_core = false;
+	}
 
-    return true;
+	return true;
 }

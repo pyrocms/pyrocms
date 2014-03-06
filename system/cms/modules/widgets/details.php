@@ -39,6 +39,7 @@ class Module_Widgets extends AbstractModule
                 'th' => 'วิดเจ็ต',
                 'se' => 'Widgetar',
                 'ar' => 'الودجتس',
+                'km' => 'មុខងារតូចៗ',
             ),
             'description' => array(
                 'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -64,6 +65,7 @@ class Module_Widgets extends AbstractModule
                 'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.',
                 'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
                 'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.',
+                'km' => 'គ្រប់គ្រងផ្នែកតូចមួយនៃតក្កដោយខ្លួនឯងដែលមាននៅក្នុងប្លុកឬ "មុខងារតូច" ។',
             ),
             'frontend' => false,
             'backend' => true,
@@ -106,8 +108,8 @@ class Module_Widgets extends AbstractModule
             $table->integer('widget_area_id')->nullable();
             $table->text('options');
             $table->integer('order')->default(0);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
 
             $table->index('widget_id');
             $table->index('widget_area_id');
@@ -125,8 +127,8 @@ class Module_Widgets extends AbstractModule
             $table->string('version')->default('1.0.0');
             $table->boolean('enabled')->default(true);
             $table->integer('order')->default(0);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
         });
 
         // Add the default data

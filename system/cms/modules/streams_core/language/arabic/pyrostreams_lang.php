@@ -55,7 +55,7 @@ $lang['streams:not_mysql_safe_characters']				= "الحقل %s يحتوي حرو
 $lang['streams:type_not_valid']							= "رجاءً اختر نوع حقل صحيح.";
 $lang['streams:stream_slug_not_unique']					= "الاسم المختصر لهذا الجدول مستخدم مسبقاً.";
 $lang['streams:field_unique']							= "قيمة الحقل %s يجب أن تكون مميّزة.";
-$lang['streams:field_required']						= "الحقل %s مطلوب.";
+$lang['streams:field_is_required']						= "الحقل %s مطلوب.";
 $lang['streams:date_out_or_range']						= "التاريخ الذي أدخلته ليس ضمن النطاق المقبول.";
 
 /* Field Labels */

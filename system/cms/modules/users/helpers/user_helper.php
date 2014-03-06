@@ -11,17 +11,17 @@
 
 /**
  * Checks to see if a user is logged in or not.
- *
+ * 
  * @return bool
  */
 function is_logged_in()
 {
-    return (isset(ci()->current_user));
+    return (isset(ci()->current_user)); 
 }
 
 /**
  * Checks if a group has access to module or role
- *
+ * 
  * @param string $module sameple: pages
  * @param string $role sample: put_live
  * @return bool
@@ -29,41 +29,33 @@ function is_logged_in()
  */
 function group_has_role($module, $role)
 {
-    if ( ! is_logged_in()) {
-        return false;
-    }
+	if ( ! is_logged_in()) {
+		return false;
+	}
 
-    return ci()->current_user->hasAccess("{$module}.{$role}");
+	return ci()->current_user->hasAccess("{$module}.{$role}");
 }
 
 /**
- * Checks if role has access to module or returns error
- *
+ * Checks if role has access to module or returns error 
+ * 
  * @param string $module sample: pages
  * @param string $role sample: edit_live
  * @param string $redirect_to (default: 'admin') Url to redirect to if no access
  * @param string $message (default: '') Message to display if no access
  * @return mixed
  */
-function role_or_die($module, $role, $redirect_to = 'admin', $message = null)
+function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 {
-    if (!$message) {
-        $message = lang_label('lang:'.$module.'.role_'.$role.'.denied');
+	if (ci()->input->is_ajax_request() and ! group_has_role($module, $role)) {
+		echo json_encode(array('error' => ($message ?: lang('cp:access_denied')) ));
+		return false;
 
-        if (empty($message)) {
-            $message = lang('cp:access_denied');
-        }
-    }
-
-    if (ci()->input->is_ajax_request() and ! group_has_role($module, $role)) {
-        echo json_encode(array('error' => $message));
-        return false;
-
-    } elseif ( ! group_has_role($module, $role)) {
-        ci()->session->set_flashdata('error', $message);
-        redirect($redirect_to);
-    }
-    return true;
+	} elseif ( ! group_has_role($module, $role)) {
+		ci()->session->set_flashdata('error', ($message ?: lang('cp:access_denied')) );
+		redirect($redirect_to);
+	}
+	return true;
 }
 
 /**
@@ -72,8 +64,8 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = null)
  * @param int    $identity  The users identity
  * @param string $password  The password provided to attempt a login
  * @return  string
- * @deprecated
- * Nobody gets to make fun of me for this. We're deleting Ion Auth and
+ * @deprecated 
+ * Nobody gets to make fun of me for this. We're deleting Ion Auth and 
  * had to keep the logic around for the lifetime of 2.3. When upgrading to 3.0
  * this will go away and users STILL using old-style passwords will need to do
  *  a "Forgot Password" to get in. More on this later. Phil
