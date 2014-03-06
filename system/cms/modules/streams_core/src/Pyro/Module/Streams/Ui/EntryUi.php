@@ -205,7 +205,7 @@ class EntryUi extends UiAbstract
         /**
          * Get filters applied
          */
-        $filter = new EntryQueryFilter($this->query);
+        $this->filterClass = $filter = new EntryQueryFilter($this->query);
 
         $this->appliedFilters = $filter->getAppliedFilters();
 
