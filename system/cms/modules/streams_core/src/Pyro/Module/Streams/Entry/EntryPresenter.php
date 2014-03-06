@@ -74,7 +74,7 @@ class EntryPresenter extends Presenter
 
             return ci()->parser->parse_string(
                 $template,
-                array('entry' => $resourceArray),
+                array('entry' => $resourceArray ?: $this->getResourceArray()),
                 true,
                 false,
                 array(

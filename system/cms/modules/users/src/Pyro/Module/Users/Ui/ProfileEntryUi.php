@@ -15,6 +15,7 @@ class ProfileEntryUi extends EntryUi
 
         // Filters to display on our table
         $this
+            ->with(array('user'))
             ->filters(
                 array(
                     'user|username',
