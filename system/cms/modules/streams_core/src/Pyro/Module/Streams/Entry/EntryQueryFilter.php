@@ -177,7 +177,7 @@ class EntryQueryFilter
 
                 // Clean core filters
                 if (strpos($key, 'f-') !== false) {
-                    $post[str_replace('f-' . $this->getFilterKey() . '-', '', $key)] = $value;
+                    $post[$this->getPostDataFilterKey($key)] = $value;
 
                     unset($post[$key]);
                 }
@@ -185,6 +185,16 @@ class EntryQueryFilter
         }
 
         return $post;
+    }
+
+    /**
+     * Get post data filter key
+     *
+     * @param $key
+     */
+    public function getPostDataFilterKey($key)
+    {
+        return str_replace('f-' . $this->getFilterKey() . '-', '', $key);
     }
 
     /**

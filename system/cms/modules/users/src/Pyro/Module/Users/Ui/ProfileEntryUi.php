@@ -6,6 +6,7 @@ class ProfileEntryUi extends EntryUi
 {
     /**
      * Get default attributes
+     *
      * @return array
      */
     public function boot()
@@ -16,17 +17,9 @@ class ProfileEntryUi extends EntryUi
         $this
             ->filters(
                 array(
-                    'user'         => array(
-                        'type'  => 'text',
-                        'title' => 'lang:global:user',
-                        'slug'  => 'user',
-                    ),
-                    'email'        => array(
-                        'type'  => 'text',
-                        'title' => 'lang:global:email',
-                        'slug'  => 'email',
-                    ),
-                    'is_activated' => array(
+                    'user|username',
+                    'user|email',
+                    'is_activated'  => array(
                         'type'    => 'select',
                         'title'   => 'lang:user:active',
                         'slug'    => 'is_activated',
