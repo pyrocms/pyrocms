@@ -171,7 +171,7 @@ class EntryQueryFilter
         unset($post[$this->getPostTrigger()]);
 
         foreach ($post as $key => $value) {
-            if ($value == null) {
+            if ($value == null or $value == '-----') {
                 unset($post[$key]);
             } else {
 
