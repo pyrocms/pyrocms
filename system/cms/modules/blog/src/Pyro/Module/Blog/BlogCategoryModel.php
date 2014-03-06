@@ -58,7 +58,7 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
      *
      * @return array
      */
-    public function getFieldTypeRelationshipOptions()
+    public function getFieldTypeRelationshipOptions($type)
     {
         return $this->get(array('id', 'title'))->lists('title', 'id');
     }
