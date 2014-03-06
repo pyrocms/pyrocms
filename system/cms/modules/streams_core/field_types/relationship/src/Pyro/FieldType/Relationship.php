@@ -103,7 +103,7 @@ class Relationship extends FieldTypeAbstract
      */
     public function filterInput()
     {
-        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
+        $options = $this->getOptions();
 
         // Return an HTML drop down
         return form_dropdown($this->getFilterSlug('is'), $options, $this->getFilterValue('is'));
