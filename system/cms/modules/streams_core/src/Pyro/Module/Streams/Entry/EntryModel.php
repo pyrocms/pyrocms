@@ -375,13 +375,17 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @return array
      */
-    public function getFieldTypeRelationshipOptions()
+    public function getFieldTypeRelationshipOptions($type)
     {
         $options = $this->take(1000)
             ->orderBy($this->getTitleColumn(), 'asc')
             ->lists($this->getTitleColumn(), 'id');
 
-        $placeholder = array('-----' => lang('global:select-any'));
+        if ($placeholder = $type->getParameter('filter_placeholder')) {
+            $placeholder = array('-----' => lang_label($placeholder));
+        } else {
+            $placeholder = array('-----' => lang('global:select-any'));
+        }
 
         return $placeholder + $options;
     }

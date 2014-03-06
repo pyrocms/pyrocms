@@ -328,7 +328,7 @@ class Choice extends FieldTypeAbstract
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
         if ($placeholder = $this->getParameter('filter_placeholder')) {
-            $placeholder = array('-----' => $this->getParameter('filter_placeholder'));
+            $placeholder = array('-----' => lang_label($placeholder));
         } else {
             $placeholder = array('-----' => lang('global:select-any'));
         }

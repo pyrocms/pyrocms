@@ -3,7 +3,7 @@
 
 interface RelationshipInterface
 {
-    public function getFieldTypeRelationshipOptions();
+    public function getFieldTypeRelationshipOptions($type);
 
     public function getFieldTypeRelationshipResults($query);
 
