@@ -11,16 +11,16 @@
 			<div class="form-group">
                 <?php if (is_array($filter)): ?>
                     <?php if (! isset($filter['type']) or $filter['type'] == 'text'): ?>
-                        <?php echo form_input($filter['slug'], isset($appliedFilters[$filter['slug']]) ? $appliedFilters[$filter['slug']] : null, 'placeholder="'.lang_label($filter['title']).'" class="form-control"'); ?>
+                        <?php echo form_input($filter['slug'], isset($appliedFilters[$filterClass->getPostDataFilterKey($filter['slug'])]) ? $appliedFilters[$filterClass->getPostDataFilterKey($filter['slug'])] : null, 'placeholder="'.lang_label($filter['title']).'" class="form-control"'); ?>
                     <?php endif; ?>
                     <?php if ($filter['type'] == 'select'): ?>
-                        <?php echo form_dropdown($filter['slug'], $filter['options'], isset($appliedFilters[$filter['slug']]) ? $appliedFilters[$filter['slug']] : null, 'class=""'); ?>
+                        <?php echo form_dropdown($filter['slug'], $filter['options'], isset($appliedFilters[$filterClass->getPostDataFilterKey($filter['slug'])]) ? $appliedFilters[$filterClass->getPostDataFilterKey($filter['slug'])] : null, 'class=""'); ?>
                     <?php endif; ?>
                 <?php else: ?>
     				<?php if ($assignments->findBySlug($filter)): ?>
     					<?php echo $assignments->findBySlug($filter)->getType()->setStream($stream)->setAppliedFilters($appliedFilters)->filterInput(); ?>
     				<?php else: ?>
-    					<input type="text" name="f-<?php echo $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'; ?>" value="<?php echo ci()->input->get('f-'.$stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'); ?>" class="form-control" placeholder="<?php echo humanize($filter); ?>">
+                        <input type="text" name="f-<?php echo $stream->stream_namespace.'-'.$stream->stream_slug.'-'.$filter.'-contains'; ?>" value="<?php echo isset($appliedFilters[$filterClass->getPostDataFilterKey($filter).'-contains']) ? $appliedFilters[$filterClass->getPostDataFilterKey($filter).'-contains'] : null; ?>" class="form-control" placeholder="<?php echo humanize($filter); ?>">
     				<?php endif; ?>
                 <?php endif; ?>
 			</div>
