@@ -21,17 +21,12 @@
 	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
 	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
 
-	<!-- metadata needs to load before some stuff -->
-	<?php file_partial('metadata'); ?>
-</head>
-<body>
-	
-	<?php $this->load->view('admin/partials/notices') ?>
-	
-	<?php echo $template['body']; ?>
-
     <script type="text/javascript">
         Pyro = { 'lang': {}, Module: {} };
+
+        <?php if (isset($module_details['slug'])): ?>
+        Pyro.Module.<?php echo ucfirst($module_details['slug']); ?> = {};
+        <?php endif; ?>
 
         var APPPATH_URI					= "<?php echo APPPATH_URI;?>";
         var SITE_URL					= "<?php echo rtrim(site_url(), '/').'/';?>";
@@ -47,6 +42,15 @@
         Pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
         Pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
     </script>
+
+	<!-- metadata needs to load before some stuff -->
+	<?php file_partial('metadata'); ?>
+</head>
+<body>
+	
+	<?php $this->load->view('admin/partials/notices') ?>
+	
+	<?php echo $template['body']; ?>
 
 	<?php Asset::js('build.min.js', null, 'deferred'); ?>
 
