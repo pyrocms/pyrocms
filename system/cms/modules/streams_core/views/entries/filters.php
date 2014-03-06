@@ -3,7 +3,7 @@
 	<?php echo form_open(null, array('method' => 'post', 'class' => 'form-inline', 'id' => 'filters-'.$stream->stream_namespace.'-'.$stream->stream_slug)); ?>
 
     <div class="hidden">
-        <?php echo form_dropdown('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug, array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100), ci()->input->get('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug) ?: Settings::get('records_per_page'), 'class="skip" id="limit-'.$stream->stream_namespace.'-'.$stream->stream_slug.'"'); ?>
+        <?php echo form_dropdown('limit-'.$stream->stream_namespace.'-'.$stream->stream_slug, array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100), isset($appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug]) ? $appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug] : Settings::get('records_per_page'), 'class="skip" id="limit-'.$stream->stream_namespace.'-'.$stream->stream_slug.'"'); ?>
     </div>
 
 		<?php foreach ($filters as $filter): ?>
