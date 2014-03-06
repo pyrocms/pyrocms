@@ -82,7 +82,7 @@
 	<div class="modal fade" id="modal"></div>
 
 	<script type="text/javascript">
-		Pyro = { 'lang': {} };
+		Pyro = { 'lang': {}, Module: {} };
 
 		var APPPATH_URI					= "<?php echo APPPATH_URI;?>";
 		var SITE_URL					= "<?php echo rtrim(site_url(), '/').'/';?>";
