@@ -195,19 +195,24 @@ class EntryUi extends UiAbstract
         }
 
         /**
+         * Get filters applied
+         */
+        $this->filterClass = $filter = new EntryQueryFilter($this->query);
+
+        $this->appliedFilters = $filter->getAppliedFilters();
+
+        // Override limit
+        if ($limit = $filter->getLimit()) {
+            $this->limit($limit);
+        }
+
+        /**
          * Limit and make pagination
          */
         if ($this->limit > 0) {
             $this->query->take($this->limit)->skip($this->offset);
             $this->paginationTotalRecords($this->countQuery->count());
         }
-
-        /**
-         * Get filters applied
-         */
-        $this->filterClass = $filter = new EntryQueryFilter($this->query);
-
-        $this->appliedFilters = $filter->getAppliedFilters();
 
         /**
          * Get actual entries
