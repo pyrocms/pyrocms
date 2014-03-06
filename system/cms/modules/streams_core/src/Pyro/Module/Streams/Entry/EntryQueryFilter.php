@@ -224,6 +224,22 @@ class EntryQueryFilter
     }
 
     /**
+     * Get limit
+     * 
+     * @return null
+     */
+    public function getLimit()
+    {
+        $appliedFilters = $this->getAppliedFilters();
+
+        if (isset($appliedFilters['limit-'.$this->getFilterKey()])) {
+            return $appliedFilters['limit-'.$this->getFilterKey()];
+        }
+
+        return null;
+    }
+
+    /**
      * Constraint
      *
      * @param Builder $query
