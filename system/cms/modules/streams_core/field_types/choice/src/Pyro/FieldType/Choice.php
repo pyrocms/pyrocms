@@ -327,9 +327,15 @@ class Choice extends FieldTypeAbstract
 
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
+        if ($placeholder = $this->getParameter('filter_placeholder')) {
+            $placeholder = array('-----' => $this->getParameter('filter_placeholder'));
+        } else {
+            $placeholder = array('-----' => lang('global:select-any'));
+        }
+
         return form_dropdown(
             $this->getFilterSlug('is'),
-            array(null => $this->field->field_name) + $choices,
+            $placeholder + $choices,
             $this->getFilterValue('is'),
             'id="' . $this->form_slug . '"'
         );
