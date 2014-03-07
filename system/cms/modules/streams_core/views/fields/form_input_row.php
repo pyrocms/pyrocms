@@ -7,7 +7,7 @@
 
     <?php if ($field_type->getField()->instructions != null): ?>
         <p class="help-block c-gray-light">
-            <?php echo lang($field_type->getField()->instructions); ?>
+            <?php echo lang_label($field_type->getField()->instructions); ?>
         </p>
     <?php endif; ?>
 </label>
