@@ -3,46 +3,37 @@
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
 <h6>ទិដ្ឋភាពទូទៅ</h6><hr>
-<p>ឯកសារ module គឺជាវិធីដ៏ល្អសម្រាប់អ្នកគ្រប់គ្រងវែបសាយត៍ដើម្បីគ្រប់គ្រងឯកសារនៅក្នុងការប្រើប្រាស់នៅលើតំបន់បណ្ដាញនេះ។​ រូបភាពឬឯកសារទាំងអស់ដែលត្រូវបានបញ្ចូលទៅក្នុងទំព័ររូបភាព ឬ Blog post ត្រូវបានរក្សាទុកនៅទីនេះ។ សម្រាប់រូបភាពទំព័រមាតិការបស់ពួកគេដែលអាចផ្ទុកឡើងដោយផ្ទាល់ពីកម្មវិធី WYSIWYG ឬពួកវាអាចផ្ទុកឡើងនៅទីនេះ ហើយគ្រាន់តែពួកគេការបញ្ចូលតាមរយៈកម្មវិធី WYSIWYG</p>
-<p>រូបរាងឯកសារធ្វើការច្រើនដូចទៅនឹងប្រព័ន្ធឯកសារក្នុងម៉ាស៊ីន: វាប្រើការចុចខាងស្ដាំដើម្បីបង្ហាញម៉ឺនុយបរិបទ។ អ្វីគ្រប់យ៉ាងនៅក្នុងស្លាបព្រិលកណ្តាលគឺអាចចុចបាន។</p>
+<p>ឯកសារ ម៉ូឌុល គឺជាវិធីដ៏ល្អសម្រាប់អ្នកគ្រប់គ្រងវែបសាយត៍ដើម្បីគ្រប់គ្រងឯកសារនៅក្នុងការប្រើប្រាស់នៅលើតំបន់បណ្ដាញនេះ។​ រូបភាពឬឯកសារទាំងអស់ដែលត្រូវបានបញ្ចូលទៅក្នុងទំព័ររូបភាព ឬ ការប្រកាសកំណត់ហេតុ ត្រូវបានរក្សាទុកនៅទីនេះ។ សម្រាប់រូបភាពទំព័រមាតិការបស់ពួកគេដែលអាចផ្ទុកឡើងដោយផ្ទាល់ពីកម្មវិធី WYSIWYG ឬពួកវាអាចផ្ទុកឡើងនៅទីនេះ ហើយគ្រាន់តែពួកគេការបញ្ចូលតាមរយៈកម្មវិធី WYSIWYG</p>
+<p>ទ្រង់ទ្រាយឯកសារច្រើនធ្វើការដូចប្រព័ន្ធឯកសារមូលដ្ឋាន: វាប្រើការចុចកណ្ដុរខាងស្ដាំដើម្បីបង្ហាញម៉ឺនុយបរិបទ។អ្វីគ្រប់យ៉ាងនៅ ក្នុងផ្ទាំង គឺអាចចុចបាន។</p>
 
 <h6>គ្រប់គ្រងថត</h6>
-<p>After you create the top level folder or folders you may create as many subfolders as you need such as blog/images/screenshots/ or pages/audio/.
-The folder names are for your use only, the name is not displayed in the download link on the front end.
-To manage a folder either right click on it and select an action from the resulting menu or double click on the folder to open it.
-You can also click on folders in the left column to open them.</p>
-<p>If cloud providers are enabled you will be able to set the location of the folder by right clicking on the folder and then selecting Details.
-You can then select a location (for example \"Amazon S3\") and put in the name of your remote bucket or container. If the bucket or container does
-not exist it will be created when you click Save. Note that you can only change the location of an empty folder.</p>
+<p>បន្ទាប់ពីអ្នកបង្កើតថតឬថតកម្រិតកំពូលអ្នកអាចបង្កើតថតរងបានច្រើនតាមដែលអ្នកត្រូវការដូចជា blog/images/screenshots/ or pages/audio/.
+ឈ្មោះថតត្រូវបានសម្រាប់ការប្រើប្រាស់របស់អ្នកតែឈ្មោះនេះមិនត្រូវបានបង្ហាញក្នុងតំណទាញយកនៅខាងមុខ។
+ដើម្បីគ្រប់គ្រងថតណាមួយចុចកណ្ដុរខាងស្ដាំនៅលើវាហើយជ្រើសសកម្មភាពពីម៉ឺនុយដែលជាលទ្ធផលឬចុចទ្វេរដងលើថតដើម្បីបើកវា។
+អ្នកក៏អាចចុចលើថតក្នុងជួរឈរឆ្វេងដើម្បីបើកពួកវា។</p>
+<p>ប្រសិនបើអ្នកផ្តល់សេវាពពកត្រូវបានបើកអ្នកនឹងអាចកំណត់ទីតាំងនៃថតដោយចុចកណ្ដុរខាងស្ដាំលើថតហើយបន្ទាប់មកជ្រើសសេចក្ដីលម្អិត។
+បន្ទាប់មកអ្នកអាចជ្រើសទីតាំងមួយ (ឧទាហរណ៍ \"Amazon S3\") 
+ហើយដាក់នៅក្នុងឈ្មោះរបស់ដាក់ធុងឬឧបករណ៍ផ្ទុកពីចម្ងាយរបស់អ្នក។ ប្រសិនបើដាក់ធុងឬធុងធ្វើ មិនមានវានឹងត្រូវបានបង្កើតនៅពេលដែលអ្នកចុចរក្សាទុក។ ចំណាំថាអ្នកអាចផ្លាស់ប្តូរបានតែទីតាំងនៃថតទទេមួយ។</p>
 
-<h6>Managing Files</h6>
-<p>To manage files navigate to the folder using the folder tree in the left column or by clicking on the folder in the center pane.
-Once you are viewing the files you may edit them by right clicking on them. You can also order them by dragging them into position. Note
-that if you have folders and files in the same parent folder the folders will always be displayed first followed by the files.</p>
+<h6>គ្រប់គ្រងឯកសារ</h6>
+<p>ដើម្បីគ្រប់គ្រងឯកសាររុករកថតដោយប្រើមែកធាងថតនៅក្នុងជួរឈរខាងឆ្វេងឬដោយចុចលើថតក្នុង​ផ្ទាំងកណ្តាលនេះ។
+ពេលដែលអ្នកកំពុងមើលឯកសារដែលអ្នកអាចកែសម្រួលពួកវាដោយចុចកណ្ដុរខាងស្ដាំនៅលើពួកវា។ អ្នកក៏អាចបញ្ជាឱ្យពួកគេដោយអូសពួកវាទៅក្នុងទីតាំង។ ចំណាំថាប្រសិនបើអ្នកមានថតនិងឯកសារនៅក្នុងថតមេដូចគ្នាថតនឹងត្រូវបានបង្ហាញជាលើកដំបូងតែងតែអមដោយឯកសារ។</p>
 
-<h6>Uploading Files</h6>
-<p>After right clicking the desired folder an upload window will appear.
-You may add files by either dropping them in the Upload Files box or by clicking in the box and choosing the files from your standard file dialog.
-You can select multiple files by holding your Control/Command or Shift key while clicking them. The selected files will display in a list at the bottom of the screen.
-You may then either delete unnecessary files from the list or if satisfied click Upload to start the upload process.</p>
-<p>If you get a warning about the files size being too large be advised that many hosts do not allow file uploads over 2MB.
-Many modern cameras produce images in exess of 5MB so it is very common to run into this issue.
-To remedy this limitation you may either ask your host to change the upload limit or you may wish to resize your images before uploading.
-Resizing has the added advantage of faster upload times. You may change the upload limit in
-CP > Files > Settings also but it is secondary to the host's limitation. For example if the host allows a 50MB upload you can still limit the size
-of the upload by setting a maximum of \"20\" (for example) in CP > Files > Settings.</p>
+<h6>ផ្ទុកឯកសារឡើង</h6>
+<p>បន្ទាប់ពីចុចកណ្ដុរស្ដាំលើថតដែលចង់បានបង្អួចផ្ទុកឡើងមួយនឹងបង្ហាញឡើង។
+អ្នកអាចបន្ថែមឯកសារដោយទម្លាក់ពួកគេនៅក្នុងប្រអប់ឯកសារផ្ទុកឡើងឬដោយចុចនៅក្នុងប្រអប់ហើយជ្រើសឯកសារពីប្រអប់ឯកសារស្ដង់ដាររបស់អ្នក។
+អ្នកអាចជ្រើសឯកសារជាច្រើនដោយសង្កត់បញ្ជា / ពាក្យបញ្ជារបស់អ្នកឬប្ដូរគ្រាប់ចុចខណៈពេលចុចពួកគេ។ ឯកសារដែលបានជ្រើសនឹងបង្ហាញនៅក្នុងបញ្ជីមួយនៅផ្នែកខាងក្រោមនៃអេក្រង់។
+បន្ទាប់មកអ្នកអាចលុបឯកសារដែលមិនចាំបាច់ទាំងពីបញ្ជីឬប្រសិនបើចុចផ្ទុកឡើងពេញចិត្តក្នុងការចាប់ផ្តើមដំណើរការផ្ទុកឡើង។</p>
+<p>ប្រសិនបើអ្នកទទួលបានការព្រមានអំពីឯកសារដែលមានទំហំធំពេកដែលត្រូវបានណែនាំថាម៉ាស៊ីនជាច្រើនមិនអនុញ្ញាតឱ្យផ្ទុកឡើងឯកសារនៅលើ 2MB ។
+កាមេរ៉ាទំនើបជាច្រើននៅក្នុងការផលិតរូបភាព exess នៃ 5MB ដូច្នេះវាជារឿងធម្មតាណាស់ក្នុងការរត់ចូលទៅក្នុងបញ្ហានេះ។
+ដើម្បីដោះស្រាយការកំណត់នេះអ្នកអាចស្នើសុំម៉ាស៊ីនរបស់អ្នកដើម្បីផ្លាស់ប្តូរការកំណត់ការផ្ទុកឡើងឬអ្នកអាចផ្លាស់ប្តូរទំហំរូបភាពមានបំណងរបស់អ្នកមុនពេលផ្ទុកឡើង។
+ផ្លាស់ប្តូរទំហំមានអត្ថប្រយោជន៍បន្ថែមទៀតនៃការផ្ទុកឡើងដងលឿនជាងមុន។អ្នកអាចផ្លាស់ប្តូរការកំណត់ការផ្ទុកឡើងនៅក្នុង
+CP > Files > Settings ផងដែរ ប៉ុន្តែវាជារឿងបន្ទាប់បន្សំសំរាប់ការកំនត់របស់ហោះ។ ឧទាហរណ៍ប្រសិនបើម៉ាស៊ីនអនុញ្ញាតឱ្យផ្ទុកឡើង 50MB មួយអ្នកនៅតែអាចកំណត់ទំហំ
+នៃការផ្ទុកឡើងដោយកំណត់អតិបរមានៃមួយ \"20\" (ឧទាហរណ៍) in CP > Files > Settings.</p>
 
-<h6>Synchronizing Files</h6>
-<p>If you are storing files with a cloud provider you may want to use the Synchronize function. This allows you to \"refresh\"
-your database of files to keep it up to date with the remote storage location. For example if you have another service
-that dumps files into a folder on Amazon that you want to display in your weekly blog post you can simply go to your folder
-that is linked to that bucket and click Synchronize. This will pull down all the available information from Amazon and
-store it in the database as if the file was uploaded via the Files interface. The files are now available to be inserted into page content,
-your blog post, or etc. If files have been deleted from the remote bucket since your last Synchronize they will now be removed from
-the database also.</p>
+<h6>ធ្វើសមកាលកម្មឯកសារ</h6>
+<p>ប្រសិនបើអ្នកត្រូវបានរក្សាទុកឯកសារដែលមានផ្តល់សេវាពពកអ្នកប្រហែលជាចង់ប្រើមុខងារធ្វើសមកាលកម្ម។ នេះអនុញ្ញាតឱ្យអ្នក \"ធ្វើឱ្យស្រស់\"
+មូលដ្ឋានទិន្នន័យឯកសាររបស់អ្នកដើម្បីរក្សាវាឱ្យទាន់សម័យជាមួយនឹងទីតាំងផ្ទុកពីចម្ងាយ។ </p>
 
-<h6>Search</h6>
-<p>You may search all of your files and folders by typing a search term in the right column and then hitting Enter. The first
-5 folder matches and the first 5 file matches will be returned. When you click on an item its containing folder will be displayed
-and the items that match your search will be highlighted. Items are searched using the folder name, file name, extension,
-location, and remote container name.</p>";
+<h6>ស្វែងរក</h6>
+<p>អ្នកអាចស្វែងរកទាំងអស់នៃឯកសារនិងថតរបស់អ្នកដោយវាយពាក្យស្វែងរកមួយនៅក្នុងជួរឈរខាងស្តាំហើយបន្ទាប់មកគ្រាន់តែចុច Key Enter។</p>";
