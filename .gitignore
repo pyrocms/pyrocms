@@ -59,3 +59,4 @@ addons/shared_addons/field_types/*
 !addons/shared_addons/field_types/index.html
 system/cms/config/config.php
 system/cms/modules/streams_core/models/*
+/cloud_cache/
