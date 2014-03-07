@@ -221,6 +221,7 @@ class EntryUi extends UiAbstract
 
         /**
          * Check for custom sorting
+         *
          * @todo - this probably needs to be touched on
          */
         if ($this->get('sorting', $this->stream->sorting) == 'custom') {
@@ -298,7 +299,7 @@ class EntryUi extends UiAbstract
                 )
             );
         }
-        
+
         if (empty($this->tabs)) {
             $this->content = ci()->load->view($this->view ? : 'streams_core/entries/form', $this->attributes, true);
         } else {

@@ -6,16 +6,14 @@ class ExtensionCollection extends EloquentCollection
 {
     /**
      * By slug
+     *
      * @var array
      */
     protected $by_slug = null;
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // -------------------------	  METHODS 	  ------------------------------ //
-    ///////////////////////////////////////////////////////////////////////////////
-
     /**
      * Construct
+     *
      * @param array $extensions
      */
     public function  __construct($extensions = array())
@@ -24,13 +22,15 @@ class ExtensionCollection extends EloquentCollection
 
         foreach ($extensions as $extension) {
             // Index by slug
-            if (isset($extension->slug))
+            if (isset($extension->slug)) {
                 $this->by_slug[$extension->slug] = $extension;
+            }
         }
     }
 
     /**
      * Find extension by slug
+     *
      * @param  string $slug
      * @return object
      */
@@ -41,25 +41,63 @@ class ExtensionCollection extends EloquentCollection
 
     /**
      * Test if includes
-     * @param  array  $include
+     *
+     * @param  array $include
      * @return boolean
      */
     public function includes($include = array())
     {
-        $this->filter(function($extension) use ($include) {
-            return in_array($extension->slug, $include);
-        });
+        $this->filter(
+            function ($extension) use ($include) {
+                return in_array($extension->slug, $include);
+            }
+        );
     }
 
     /**
      * Test if excludes
-     * @param  array  $exclude
+     *
+     * @param  array $exclude
      * @return boolean
      */
     public function excludes($exclude = array())
     {
-        $this->filter(function($extension) use ($exclude) {
-            return ! in_array($extension->slug, $exclude);
-        });
+        $this->filter(
+            function ($extension) use ($exclude) {
+                return !in_array($extension->slug, $exclude);
+            }
+        );
+    }
+
+    /**
+     * Enabled
+     *
+     * @param $extensions
+     * @return mixed
+     */
+    public function enabled()
+    {
+        $extensions = array();
+
+        foreach ($this->items as $extension) {
+
+            // Remove where dependent module is not installed
+            if ($extension->module and module_installed($extension->module)) {
+                if (ci()->current_user->hasAccess($extension->module . '.*')) {
+                    $extensions[] = $extension;
+                }
+            }
+
+            // Remove where user does not have permission
+            if ($extension->role and $permission = ci()->module_details['slug'] . '.' . $extension->role) {
+                if (ci()->current_user->hasAccess($permission)) {
+                    $extensions[] = $extension;
+                }
+            } else {
+                $extensions[] = $extension;
+            }
+        }
+
+        return new ExtensionCollection($extensions);
     }
 }

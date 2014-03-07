@@ -7,22 +7,60 @@ use Pyro\Module\Addons\ExtensionManager;
 /**
  * Abstract Extension
  * A great start to all your custom classes and extensions
- * @author Ryan Thompson - AI Web Systems, Inc. <support@aiwebsystems.com>
+ *
+ * @author  Ryan Thompson - AI Web Systems, Inc. <support@aiwebsystems.com>
  * @package Pyro\Module\Addons
  */
 abstract class AbstractExtension extends Fluent
 {
     /**
+     * Language
+     *
+     * @var null
+     */
+    public $language = null;
+
+    /**
+     * Module
+     *
+     * @var string
+     */
+    public $module = null;
+
+    /**
+     * Role
+     *
+     * @var string
+     */
+    public $role = null;
+
+    /**
      * Extension assets
+     *
      * @var array
      */
     protected $assets = array();
 
     /**
      * Extension version
+     *
      * @var string
      */
     public $version = '1.0.0';
+
+    /**
+     * Create a new AbstractExtension instance
+     *
+     * @param array $attributes
+     */
+    public function __construct($attributes = array())
+    {
+        parent::__construct();
+
+        if ($this->language) {
+            ci()->lang->load($this->language);
+        }
+    }
 
     /**
      * Get default attributes
@@ -45,7 +83,7 @@ abstract class AbstractExtension extends Fluent
     {
         $extension = $extension ? $extension : $this;
 
-        $html = '<link href="'.base_url($extension->pathCss.$file).'" type="text/css" rel="stylesheet" />';
+        $html = '<link href="' . base_url($extension->pathCss . $file) . '" type="text/css" rel="stylesheet" />';
 
         ci()->template->append_metadata($html);
 
@@ -59,7 +97,7 @@ abstract class AbstractExtension extends Fluent
     {
         $extension = $extension ? $extension : $this;
 
-        $html = '<script type="text/javascript" src="'.base_url($extension->pathJs.$file).'"></script>';
+        $html = '<script type="text/javascript" src="' . base_url($extension->pathJs . $file) . '"></script>';
 
         ci()->template->append_metadata($html);
 
@@ -79,9 +117,9 @@ abstract class AbstractExtension extends Fluent
     /**
      * Load an extension view
      *
-     * @param	string
-     * @param	string
-     * @param	bool
+     * @param    string
+     * @param    string
+     * @param    bool
      */
     public function view($viewName, $data = array(), $extension = null)
     {
@@ -105,8 +143,39 @@ abstract class AbstractExtension extends Fluent
     }
 
     /**
+     * Get class
+     *
+     * @param $type
+     * @return mixed|string
+     */
+    protected function getClass($type)
+    {
+        $calledClass = explode('\\', get_called_class());
+        $class       = Str::camel($type) . 'Class';
+
+        if ($this->{$class}) {
+            $class = $this->{$class};
+        } else {
+            $class = 'Pyro\Module\Tasks\Extension\\' . Str::studly($this->type) . '\\' . end(
+                    $calledClass
+                ) . Str::studly($type);
+        }
+
+        $class = new $class;
+
+        if ($class instanceof Fluent) {
+            $class->extension($this);
+        } elseif (method_exists($class, 'setExtension')) {
+            $class->setExtension($this);
+        }
+
+        return $class;
+    }
+
+    /**
      * Called just before loadExtension()
      * is finished in the manager
+     *
      * @return void
      */
     public function loaded()
