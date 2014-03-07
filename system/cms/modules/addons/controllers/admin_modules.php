@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+use Pyro\Module\Streams\Stream\StreamModel;
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Modules controller, lists all installed modules
  *
@@ -266,6 +269,18 @@ class Admin_modules extends Admin_Controller
         // If upgrade failed
         else {
             $this->session->set_flashdata('error', sprintf(lang('addons:modules:upgrade_error'), $module->name));
+        }
+
+        redirect('admin/addons/modules');
+    }
+
+    /**
+     * Recompile
+     */
+    public function recompile()
+    {
+        foreach (StreamModel::all() as $stream) {
+            $stream->save();
         }
 
         redirect('admin/addons/modules');
