@@ -99,6 +99,8 @@ class Relationship extends FieldTypeAbstract
      */
     public function formInput()
     {
+        $this->isFilter = false;
+
         $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
         if (!$this->getParameter('use_ajax')) {
@@ -117,6 +119,8 @@ class Relationship extends FieldTypeAbstract
      */
     public function publicFormInput()
     {
+        $this->isFilter = false;
+
         return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
     }
 
@@ -128,6 +132,8 @@ class Relationship extends FieldTypeAbstract
      */
     public function filterInput()
     {
+        $this->isFilter = true;
+
         $options = $this->getOptions();
 
         return form_dropdown($this->getFilterSlug('is'), $options, $this->getFilterValue('is'));

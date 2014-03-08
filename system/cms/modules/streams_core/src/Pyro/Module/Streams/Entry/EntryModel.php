@@ -381,10 +381,14 @@ class EntryModel extends Eloquent implements RelationshipInterface
             ->orderBy($this->getTitleColumn(), 'asc')
             ->lists($this->getTitleColumn(), 'id');
 
-        if ($placeholder = $type->getParameter('filter_placeholder')) {
+        if ($type->isFilter) {
+            if ($placeholder = $type->getPrameter('filter_placeholder')) {
+                $placeholder = array('-----' => lang_label($placeholder));
+            } else {
+                $placeholder = array('-----' => lang('global:select-any'));
+            }
+        } elseif (!$type->getField()->is_required and $placeholder = $type->getParameter('placeholder')) {
             $placeholder = array('-----' => lang_label($placeholder));
-        } else {
-            $placeholder = array('-----' => lang('global:select-any'));
         }
 
         return $placeholder + $options;
