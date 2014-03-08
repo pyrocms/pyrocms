@@ -79,7 +79,7 @@ class Relationship extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $this->filter = false;
+        $this->isFilter = false;
 
         $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
@@ -94,7 +94,7 @@ class Relationship extends FieldTypeAbstract
      */
     public function publicFormInput()
     {
-        $this->filter = false;
+        $this->isFilter = false;
 
         return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
     }
@@ -107,7 +107,7 @@ class Relationship extends FieldTypeAbstract
      */
     public function filterInput()
     {
-        $this->filter = true;
+        $this->isFilter = true;
 
         $options = $this->getOptions();
 

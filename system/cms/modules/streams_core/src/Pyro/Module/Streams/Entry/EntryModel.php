@@ -381,7 +381,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             ->orderBy($this->getTitleColumn(), 'asc')
             ->lists($this->getTitleColumn(), 'id');
 
-        if ($type->filter) {
+        if ($type->isFilter) {
             if ($placeholder = $type->getPrameter('filter_placeholder')) {
                 $placeholder = array('-----' => lang_label($placeholder));
             } else {
