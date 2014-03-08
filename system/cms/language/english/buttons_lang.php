@@ -33,6 +33,7 @@ $lang['buttons:activate']   = 'Activate';
 $lang['buttons:deactivate'] = 'Deactivate';
 $lang['buttons:preview']	= 'Preview';
 $lang['buttons:close']		= 'Close';
+$lang['buttons:back']		= 'Back';
 $lang['buttons:edit']		= 'Edit';
 $lang['buttons:clone']		= 'Clone';
 $lang['buttons:re-index']	= 'Re-index';
