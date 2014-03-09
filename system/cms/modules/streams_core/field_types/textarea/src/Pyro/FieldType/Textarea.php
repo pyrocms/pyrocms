@@ -39,23 +39,10 @@ class Textarea extends FieldTypeAbstract
 	 */
 	public function formInput()
 	{
-		// Value
-		// We only use the default value if this is a new entry
-		if ( ! $this->entry->getKey())
-		{
-			// If we still don't have a default value, maybe we have it in
-			// the old default value string. So backwards compat.
-			$value = $this->getParameter('default_value');
-		}
-		else
-		{
-			$value = $this->value;
-		}
-
 		return form_textarea(array(
 			'name' => $this->form_slug,
 			'id' => $this->form_slug,
-			'value' => $value,
+			'value' => $this->value,
 			'class' => 'form-control',
 			'placeholder' => lang_label($this->getParameter('placeholder')),
 		));
