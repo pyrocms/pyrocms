@@ -152,6 +152,7 @@ class EntryPresenter extends Presenter
     public function linkDetails()
     {
         $entry  = $this->resource;
+        $stream = $this->resource->getStream();
         $key    = $this->resource->getKey();
         $url    = site_url('admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key);
         $string = $this->resource->getTitleColumnValue();

@@ -681,7 +681,7 @@ class StreamModel extends Eloquent
         if (isset($data['instructions'])) {
             $assignment->instructions = $data['instructions'];
         } else {
-            $assignment->instructions = "{$this->stream_namespace}.field.{$field->field_slug}.instructions";
+            $assignment->instructions = "lang:{$this->stream_namespace}.field.{$field->field_slug}.instructions";
         }
 
         // First one! Make it 1
