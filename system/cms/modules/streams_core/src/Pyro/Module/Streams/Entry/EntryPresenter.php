@@ -151,7 +151,6 @@ class EntryPresenter extends Presenter
      */
     public function linkDetails()
     {
-        $stream = $this->resource->getStream();
         $entry  = $this->resource;
         $url    = $this->getLinkDetailsUrl();
         $string = $this->resource->getTitleColumnValue();
@@ -161,13 +160,14 @@ class EntryPresenter extends Presenter
 
     /**
      * Get link details URL
-     * 
+     *
      * @return string
      */
     public function getLinkDetailsUrl()
     {
-        $key = $this->resource->getKey();
-        $uri = 'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key;
+        $key    = $this->resource->getKey();
+        $stream = $this->resource->getStream();
+        $uri    = 'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key;
         return site_url($key);
     }
 
