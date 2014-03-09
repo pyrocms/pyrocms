@@ -74,7 +74,7 @@ class EntryPresenter extends Presenter
 
             return ci()->parser->parse_string(
                 $template,
-                array('entry' => $resourceArray ?: $this->getResourceArray()),
+                array('entry' => $resourceArray ? : $this->getResourceArray()),
                 true,
                 false,
                 array(
@@ -138,7 +138,7 @@ class EntryPresenter extends Presenter
         $entry  = $this->resource;
 
         return anchor(
-            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/edit/' . $this->resource->id,
+            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/edit/' . $this->resource->getKey(),
             $this->resource->getTitleColumnValue(),
             'class="link"'
         );
@@ -153,12 +153,22 @@ class EntryPresenter extends Presenter
     {
         $stream = $this->resource->getStream();
         $entry  = $this->resource;
+        $url    = $this->getLinkDetailsUrl();
+        $string = $this->resource->getTitleColumnValue();
 
-        return anchor(
-            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $this->resource->id,
-            $this->resource->getTitleColumnValue(),
-            'class="link"'
-        );
+        return anchor($url, $string, 'class="link"');
+    }
+
+    /**
+     * Get link details URL
+     * 
+     * @return string
+     */
+    public function getLinkDetailsUrl()
+    {
+        $key = $this->resource->getKey();
+        $uri = 'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key;
+        return site_url($key);
     }
 
     /**
