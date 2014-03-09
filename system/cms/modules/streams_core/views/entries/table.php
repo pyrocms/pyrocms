@@ -167,19 +167,23 @@
         <div class="panel-footer">
 
             <?php if ($pagination): ?>
-                <?php echo $pagination['links']; ?>
+                <?php if ($showPagination): ?>
+                    <?php echo $pagination['links']; ?>
+                <?php endif; ?>
 
-                <?php echo form_dropdown(
-                    null,
-                    array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
-                    isset($appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug]) ? $appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug] : Settings::get('records_per_page'),
-                    'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').find(\'button.btn-success\').click();"'
-                ); ?>
+                <?php if ($showLimitDropdown): ?>
+                    <?php echo form_dropdown(
+                        null,
+                        array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
+                        isset($appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug]) ? $appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug] : Settings::get('records_per_page'),
+                        'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').find(\'button.btn-success\').click();"'
+                    ); ?>
+                <?php endif; ?>
             <?php endif; ?>
             <div class="clearfix"></div>
         </div>
 
-        <?php if (isset($pagination)): ?>
+        <?php if (isset($pagination) and $showResultsCount): ?>
             <div class="stats" style="margin-bottom: -45px;">
                 <small class="c-gray m-l" style="line-height: 40px;">
                     Showing
