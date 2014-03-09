@@ -8,7 +8,8 @@
 <?php if ($entries->count() > 0): ?>
 
     <section class="table-responsive">
-        <table class="table table-hover n-m">
+        <table class="<?php echo $tableClass; ?>">
+            <?php if ($showColumnHeaders): ?>
             <thead>
             <tr>
                 <?php if ($stream->sorting == 'custom'): ?>
@@ -69,6 +70,7 @@
                 <th></th>
             </tr>
             </thead>
+            <?php endif; ?>
             <tbody>
             <?php foreach ($entries as $entry) { ?>
 
