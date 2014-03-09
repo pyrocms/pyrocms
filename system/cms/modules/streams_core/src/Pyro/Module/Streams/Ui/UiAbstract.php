@@ -421,6 +421,7 @@ abstract class UiAbstract extends Fluent
             ->stream(null)
             ->tabs(null)
             ->tableClass('table table-hover n-m')
+            ->tableRowClass(null)
             ->uriAdd(null)
             ->uriCancel(index_uri())
             ->viewOverride(false)
