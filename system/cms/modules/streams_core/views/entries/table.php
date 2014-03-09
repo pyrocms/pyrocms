@@ -74,7 +74,16 @@
             <tbody>
             <?php foreach ($entries as $entry) { ?>
 
-                <tr>
+            <?php $tableRowClass = ci()->parser->parse_string(
+                    $tableRowClass,
+                    $entry->getAttributes(),
+                    true,
+                    false,
+                    false,
+                    false
+                ); ?>
+
+                <tr class="<?php echo $tableRowClass; ?>">
 
                     <?php if ($stream->sorting == 'custom'): ?>
                         <td width="30" class="handle"><?php echo Asset::img(
