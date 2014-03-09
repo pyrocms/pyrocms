@@ -79,7 +79,7 @@
 
             <?php $rowClass = ci()->parser->parse_string(
                     $tableRowClass,
-                    $entry->getAttributes(),
+                    $entry,
                     true,
                     false,
                     false
@@ -119,7 +119,7 @@
                                 if (isset($button['html'])) {
                                     $all_buttons[] = ci()->parser->parse_string(
                                         $button['html'],
-                                        $entry->getAttributes(),
+                                        $entry,
                                         true,
                                         false,
                                         false
@@ -130,7 +130,7 @@
                                 // The second is kept for backwards compatibility
                                 $url = ci()->parser->parse_string(
                                     $button['url'],
-                                    $entry->getAttributes(),
+                                    $entry,
                                     true,
                                     false,
                                     false
