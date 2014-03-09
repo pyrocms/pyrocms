@@ -22,6 +22,9 @@
                     // Replace relation: from Cp voodoo
                     $fieldSlug = str_replace('relation:', '', $fieldSlug);
 
+                    // Use the given slug if any
+                    $fieldSlug = isset($fields[$fieldSlug]['slug']) ? $fields[$fieldSlug]['slug'] : $fieldSlug;
+
                     // Get our query string
                     $query_string = array();
 
