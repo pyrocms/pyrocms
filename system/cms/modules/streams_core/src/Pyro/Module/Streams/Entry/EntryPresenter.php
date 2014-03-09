@@ -152,23 +152,11 @@ class EntryPresenter extends Presenter
     public function linkDetails()
     {
         $entry  = $this->resource;
-        $url    = $this->getLinkDetailsUrl();
+        $key    = $this->resource->getKey();
+        $url    = site_url('admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key);
         $string = $this->resource->getTitleColumnValue();
 
         return anchor($url, $string, 'class="link"');
-    }
-
-    /**
-     * Get link details URL
-     *
-     * @return string
-     */
-    public function getLinkDetailsUrl()
-    {
-        $key    = $this->resource->getKey();
-        $stream = $this->resource->getStream();
-        $uri    = 'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key;
-        return site_url($key);
     }
 
     /**
