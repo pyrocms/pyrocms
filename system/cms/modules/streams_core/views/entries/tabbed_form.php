@@ -78,7 +78,7 @@
 		<button type="submit" name="btnAction" value="save_continue" class="btn btn-info"><?php echo lang('buttons:save_continue'); ?></button>
 		<?php endif; ?>
 
-		<a href="<?php echo site_url(isset($cancel_uri) ? $cancel_uri : $redirectSave); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>		
+		<a href="<?php echo site_url(isset($uriCancel) ? $uriCancel : $redirectSave); ?>" class="btn btn-default"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 	<?php endif; ?>
 
