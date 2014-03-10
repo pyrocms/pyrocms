@@ -79,22 +79,22 @@ class ExtensionCollection extends EloquentCollection
     {
         $extensions = array();
 
-        foreach ($this->items as $extension) {
+        foreach ($this->items as $slug => $extension) {
 
             // Remove where dependent module is not installed
             if ($extension->module and module_installed($extension->module)) {
                 if (ci()->current_user->hasAccess($extension->module . '.*')) {
-                    $extensions[] = $extension;
+                    $extensions[$slug] = $extension;
                 }
             }
 
             // Remove where user does not have permission
             if ($extension->role and $permission = ci()->module_details['slug'] . '.' . $extension->role) {
                 if (ci()->current_user->hasAccess($permission)) {
-                    $extensions[] = $extension;
+                    $extensions[$slug] = $extension;
                 }
             } else {
-                $extensions[] = $extension;
+                $extensions[$slug] = $extension;
             }
         }
 
