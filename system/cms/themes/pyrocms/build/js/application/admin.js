@@ -39,7 +39,7 @@ Pyro.Initialize = function() {
 	
 	Pyro.Loading();
 
-	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.ignore-loading):not(.ajax)', function(e) {
+	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.double-confirm):not(.ignore-loading):not(.ajax)', function(e) {
 		
 		// Could be opening in a new window
 		if (e.ctrlKey) return true;
@@ -219,6 +219,25 @@ Pyro.Initialize = function() {
 			return false;
 		}
 	});
+
+    $(document).on('click', '.double-confirm', function(e){
+
+        var href = $(this).attr('href');
+        var removemsg = $(this).attr('title');
+        var secondremovemsg = $(this).attr('alt');
+
+        if (confirm(removemsg || Pyro.lang.dialog_message) && confirm(secondremovemsg || Pyro.lang.dialog_message)) {
+            $(this).trigger('click-confirmed');
+
+            if ($.data(this, 'stop-click')){
+                $.data(this, 'stop-click', false);
+                return;
+            }
+        } else {
+            e.preventDefault();
+            return false;
+        }
+    });
 
 
 	/**
