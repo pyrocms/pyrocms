@@ -70,7 +70,9 @@
                     </th>
 
                 <?php endforeach; ?>
+                <?php if ($buttons): ?>
                 <th></th>
+                <?php endif; ?>
             </tr>
             </thead>
             <?php endif; ?>
@@ -106,6 +108,7 @@
                             </td>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                    <?php if ($buttons): ?>
                     <td class="text-right">
 
                         <?php
@@ -157,6 +160,7 @@
 
                         ?>
                     </td>
+                    <?php endif; ?>
                 </tr>
             <?php } ?>
             </tbody>
