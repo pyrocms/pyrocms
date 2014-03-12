@@ -185,7 +185,7 @@
 <?php if ($showFooter): ?>
     <div class="panel-footer">
 
-        <?php if ($pagination): ?>
+        <?php if (isset($pagination) and $pagination): ?>
             <?php if ($showPagination): ?>
                 <?php echo $pagination['links']; ?>
             <?php endif; ?>
