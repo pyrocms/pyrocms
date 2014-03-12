@@ -4,12 +4,9 @@
     <?php endif; ?>
 <?php endif; ?>
 
-
-<?php if ($entries->count() > 0): ?>
-
-    <section class="table-responsive">
-        <table class="<?php echo $tableClass; ?>">
-            <?php if ($showColumnHeaders): ?>
+<section class="table-responsive">
+    <table class="<?php echo $tableClass; ?>">
+        <?php if ($showColumnHeaders): ?>
             <thead>
             <tr>
                 <?php if ($stream->sorting == 'custom'): ?>
@@ -71,15 +68,16 @@
 
                 <?php endforeach; ?>
                 <?php if ($buttons): ?>
-                <th></th>
+                    <th></th>
                 <?php endif; ?>
             </tr>
             </thead>
-            <?php endif; ?>
-            <tbody>
+        <?php endif; ?>
+        <tbody>
+        <?php if ($entries->count() > 0): ?>
             <?php foreach ($entries as $entry) { ?>
 
-            <?php $rowClass = ci()->parser->parse_string(
+                <?php $rowClass = ci()->parser->parse_string(
                     $tableRowClass,
                     $entry,
                     true,
@@ -109,106 +107,109 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                     <?php if ($buttons): ?>
-                    <td class="text-right">
+                        <td class="text-right">
 
-                        <?php
+                            <?php
 
-                        if (isset($buttons)) {
-                            $all_buttons = array();
+                            if (isset($buttons)) {
+                                $all_buttons = array();
 
-                            foreach ($buttons as $button) {
+                                foreach ($buttons as $button) {
 
-                                // Html?
-                                if (isset($button['html'])) {
-                                    $all_buttons[] = ci()->parser->parse_string(
-                                        $button['html'],
+                                    // Html?
+                                    if (isset($button['html'])) {
+                                        $all_buttons[] = ci()->parser->parse_string(
+                                            $button['html'],
+                                            $entry,
+                                            true,
+                                            false,
+                                            false
+                                        );
+                                        continue;
+                                    }
+
+                                    // The second is kept for backwards compatibility
+                                    $url = ci()->parser->parse_string(
+                                        $button['url'],
                                         $entry,
                                         true,
                                         false,
                                         false
                                     );
-                                    continue;
+                                    $url = str_replace('-entry_id-', $entry->getKey(), $url);
+
+                                    // Label
+                                    $label = lang_label($button['label']);
+
+                                    // Remove URL
+                                    unset($button['url'], $button['label']);
+
+                                    // Parse variables in attributes
+                                    foreach ($button as $key => &$value) {
+                                        $value = ci()->parser->parse_string($value, $entry->toArray(), true);
+                                    }
+
+                                    $all_buttons[] = anchor($url, $label, $button);
                                 }
 
-                                // The second is kept for backwards compatibility
-                                $url = ci()->parser->parse_string(
-                                    $button['url'],
-                                    $entry,
-                                    true,
-                                    false,
-                                    false
-                                );
-                                $url = str_replace('-entry_id-', $entry->getKey(), $url);
-
-                                // Label
-                                $label = lang_label($button['label']);
-
-                                // Remove URL
-                                unset($button['url'], $button['label']);
-
-                                // Parse variables in attributes
-                                foreach ($button as $key => &$value) {
-                                    $value = ci()->parser->parse_string($value, $entry->toArray(), true);
-                                }
-
-                                $all_buttons[] = anchor($url, $label, $button);
+                                echo implode('&nbsp;', $all_buttons);
+                                unset($all_buttons);
                             }
 
-                            echo implode('&nbsp;', $all_buttons);
-                            unset($all_buttons);
-                        }
-
-                        ?>
-                    </td>
+                            ?>
+                        </td>
                     <?php endif; ?>
                 </tr>
             <?php } ?>
-            </tbody>
-        </table>
-    </section>
+        <?php else: ?>
+            <tr>
+                <td colspan="<?php echo count($fieldNames); ?>">
+                    <div class="alert alert-info m">
+                        <?php
 
-    <?php if ($showFooter): ?>
-        <div class="panel-footer">
+                        if (isset($no_entries_message) and $no_entries_message) {
+                            echo lang_label($no_entries_message);
+                        } else {
+                            echo lang('streams:no_entries');
+                        }
 
-            <?php if ($pagination): ?>
-                <?php if ($showPagination): ?>
-                    <?php echo $pagination['links']; ?>
-                <?php endif; ?>
-
-                <?php if ($showLimitDropdown): ?>
-                    <?php echo form_dropdown(
-                        null,
-                        array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
-                        isset($appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug]) ? $appliedFilters['limit-'.$stream->stream_namespace.'-'.$stream->stream_slug] : Settings::get('records_per_page'),
-                        'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').find(\'button.btn-success\').click();"'
-                    ); ?>
-                <?php endif; ?>
-            <?php endif; ?>
-            <div class="clearfix"></div>
-        </div>
-
-        <?php if (isset($pagination) and $showResultsCount): ?>
-            <div class="stats" style="margin-bottom: -45px;">
-                <small class="c-gray m-l" style="line-height: 40px;">
-                    Showing
-                    results <?php echo ($pagination['offset'] + 1) . ' - ' . ($pagination['current_page'] * $pagination['per_page']) . ' of ' . $pagination['total']; ?>
-                </small>
-            </div>
+                        ?>
+                    </div><!--.no_data-->
+                </td>
+            </tr>
         <?php endif; ?>
+        </tbody>
+    </table>
+</section>
+
+<?php if ($showFooter): ?>
+    <div class="panel-footer">
+
+        <?php if ($pagination): ?>
+            <?php if ($showPagination): ?>
+                <?php echo $pagination['links']; ?>
+            <?php endif; ?>
+
+            <?php if ($showLimitDropdown): ?>
+                <?php echo form_dropdown(
+                    null,
+                    array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100),
+                    isset($appliedFilters['limit-' . $stream->stream_namespace . '-' . $stream->stream_slug]) ? $appliedFilters['limit-' . $stream->stream_namespace . '-' . $stream->stream_slug] : Settings::get(
+                        'records_per_page'
+                    ),
+                    'class="pull-right" style="width: 100px;" onchange="$(\'select#limit-' . $stream->stream_namespace . '-' . $stream->stream_slug . '\').val($(this).val()).closest(\'form\').find(\'button.btn-success\').click();"'
+                ); ?>
+            <?php endif; ?>
+        <?php endif; ?>
+        <div class="clearfix"></div>
+    </div>
+
+    <?php if (isset($pagination) and $showResultsCount): ?>
+        <div class="stats" style="margin-bottom: -45px;">
+            <small class="c-gray m-l" style="line-height: 40px;">
+                Showing
+                results <?php echo ($pagination['offset'] + 1) . ' - ' . ($pagination['current_page'] * $pagination['per_page']) . ' of ' . $pagination['total']; ?>
+            </small>
+        </div>
     <?php endif; ?>
-
-<?php else: ?>
-
-    <div class="alert alert-info m">
-        <?php
-
-        if (isset($no_entries_message) and $no_entries_message) {
-            echo lang_label($no_entries_message);
-        } else {
-            echo lang('streams:no_entries');
-        }
-
-        ?>
-    </div><!--.no_data-->
-
 <?php endif; ?>
