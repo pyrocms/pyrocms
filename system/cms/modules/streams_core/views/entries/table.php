@@ -1,4 +1,4 @@
-<?php if ($showFilters): ?>
+<?php if ($showFilters and !$disableFilters): ?>
     <?php if (!empty($filters)): ?>
         <?php $this->load->view('streams_core/entries/filters'); ?>
     <?php endif; ?>

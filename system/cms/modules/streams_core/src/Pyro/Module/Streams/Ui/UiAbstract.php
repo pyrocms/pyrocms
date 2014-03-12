@@ -383,6 +383,7 @@ abstract class UiAbstract extends Fluent
             ->buttons(array())
             ->content(null)
             ->defaults(array())
+            ->disableFilters(false)
             ->disableFormOpen(false)
             ->enableNestedForm(false)
             ->enableSetColumnTitle(false)

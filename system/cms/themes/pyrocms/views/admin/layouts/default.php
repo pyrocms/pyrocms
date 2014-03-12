@@ -68,7 +68,7 @@
 			<section class="vertical-box">
 
 				<!-- Actions Bar -->
-				<section id="actions" class="nav-bar animated-zing fadeInDown" data-exit-animation="fadeOutUp">
+				<section id="actions" class="nav-bar">
 					
 					<div class="row-fluid">
 
@@ -85,7 +85,7 @@
 
 
 				<!-- Body Content -->
-				<section class="scrollable" id="body" data-exit-animation="fadeOut">
+				<section class="scrollable" id="body">
 					
 					<?php echo $template['body']; ?>
 
