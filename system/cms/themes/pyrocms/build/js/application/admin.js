@@ -9,20 +9,19 @@
  * Overload the json converter to avoid error when json is null or empty.
  */
 $.ajaxSetup({
-	//allowEmpty: true,
-	converters: {
-		'text json': function(text) {
-			var json = jQuery.parseJSON(text);
-			if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
-			{
-				jQuery.error('The server is not responding correctly, please try again later.');
-			}
-			return json;
-		}
-	},
-	data: {
-		csrf_hash_name: $.cookie(Pyro.csrf_cookie_name)
-	}
+    //allowEmpty: true,
+    converters: {
+        'text json': function (text) {
+            var json = jQuery.parseJSON(text);
+            if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json))) {
+                jQuery.error('The server is not responding correctly, please try again later.');
+            }
+            return json;
+        }
+    },
+    data: {
+        csrf_hash_name: $.cookie(Pyro.csrf_cookie_name)
+    }
 });
 
 
@@ -31,196 +30,209 @@ $.ajaxSetup({
  * - Set up listeners, etc
  */
 
-Pyro.Initialize = function() {
+Pyro.Initialize = function () {
 
-	/**
-	 * We're loading
-	 */
-	
-	Pyro.Loading();
+    /**
+     * We're loading
+     */
 
-	$(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.double-confirm):not(.ignore-loading):not(.ajax)', function(e) {
-		
-		// Could be opening in a new window
-		if (e.ctrlKey) return true;
-		if (e.altKey) return true;
-		if (e.metaKey) return true;
+    Pyro.Loading();
 
-		// Ya.. we're loading..
-		Pyro.Loading();
+    $(document).on('click', 'a[href^="http"][target!="_blank"]:not([data-toggle="modal"]):not(.confirm):not(.double-confirm):not(.ignore-loading):not(.ajax)', function (e) {
 
-		// Automate exist
-		$('[data-exit-animation]').each(function() {
-			$(this).addClass('animated-zing').addClass($(this).attr('data-exit-animation'));
-		});
-	});
+        // Could be opening in a new window
+        if (e.ctrlKey) return true;
+        if (e.altKey) return true;
+        if (e.metaKey) return true;
 
+        // Ya.. we're loading..
+        Pyro.Loading();
 
-	/**
-	 * Mobile Detection
-	 */
-	
-	Pyro.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-	// For development
-	//Pyro.isMobile = true;
+        // Automate exist
+        $('[data-exit-animation]').each(function () {
+            $(this).addClass('animated-zing').addClass($(this).attr('data-exit-animation'));
+        });
+    });
 
 
-	/**
-	 * Collapse Tabs
-	 * - For mobiles, collapse tabs to accordian
-	 */
-	
-	if (Pyro.isMobile) {
-		$('.nav.nav-tabs').tabCollapse();
-		$('.nav.nav-tabs').remove(); // This prevents WYSIWYG errors
-		$('.tab-content').remove(); // This prevents WYSIWYG errors
-	}
+    /**
+     * Mobile Detection
+     */
+
+    Pyro.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    // For development
+    //Pyro.isMobile = true;
 
 
-	/**
-	 * Clean modals after hiding because we recycle it
-	 */
-	
-	$(document).on('click', 'a[data-toggle="modal"][data-target="#modal"]', function(e) {
+    /**
+     * Collapse Tabs
+     * - For mobiles, collapse tabs to accordian
+     */
 
-		// This is broken.. leave it for now
-		
-		// Empty it!
-		$('#modal').html('');
+    if (Pyro.isMobile) {
+        $('.nav.nav-tabs').tabCollapse();
+        $('.nav.nav-tabs').remove(); // This prevents WYSIWYG errors
+        $('.tab-content').remove(); // This prevents WYSIWYG errors
+    }
 
-		// Fixes a bootstrap bug that prevents
-		// a modal from being reused
-		$('#modal').load($(e.target).attr('href'));
-	});
+    /**
+     * Persistent Tabs
+     */
+    $('.nav-tabs').on('click', 'a', function (e) {
+        e.preventDefault();
+        window.location.hash = $(this).attr('href');
+        $(this).tab('show');
+    });
 
+    if (window.location.hash) {
+        $('.nav-tabs').find('a[href="' + window.location.hash + '"]').tab('show');
+    }
 
-	/**
-	 * Sortable Lists
-	 */
-	
-	$('.sortable').nestable({
-		group: $(this).attr('id'),
-		maxDepth: $(this).attr('data-max-depth') == undefined ? 5 : $(this).attr('data-max-depth'),
-		listNodeName:'ul'
-	});
+    /**
+     * Clean modals after hiding because we recycle it
+     */
+    $(document).on('click', 'a[data-toggle="modal"][data-target="#modal"]', function (e) {
 
-	$(document).on('change', '.sortable', function(e) {
-		$.ajax({
-			type: 'POST',
-			url: $(e.target).attr('data-order-url'),
-			dataType: 'json',
-			data: {
-				'ids': $(e.target).nestable('serialize')
-			},
-			success: function(data) {
-				alert(data);
-			}
-		});
-	});
+        // This is broken.. leave it for now
+
+        // Empty it!
+        $('#modal').html('');
+
+        // Fixes a bootstrap bug that prevents
+        // a modal from being reused
+        $('#modal').load($(e.target).attr('href'));
+    });
 
 
-	/**
-	 * Just in case there's a form - focus on the fist input
-	 */
-	
-	$(document).ready(function() {
-		$('.input :input:visible:first').focus();
-	});
+    /**
+     * Sortable Lists
+     */
+
+    $('.sortable').nestable({
+        group: $(this).attr('id'),
+        maxDepth: $(this).attr('data-max-depth') == undefined ? 5 : $(this).attr('data-max-depth'),
+        listNodeName: 'ul'
+    });
+
+    $(document).on('change', '.sortable', function (e) {
+        $.ajax({
+            type: 'POST',
+            url: $(e.target).attr('data-order-url'),
+            dataType: 'json',
+            data: {
+                'ids': $(e.target).nestable('serialize')
+            },
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
 
 
-	/**
-	 * Toggle Classes
-	 */
+    /**
+     * Just in case there's a form - focus on the fist input
+     */
 
-	$(document).on('click', '[data-toggle^="class:"]', function(e) {
-
-		e.preventDefault();
-		$($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
-
-		// Save persistent state
-		if ($(this).attr('data-persistent') !== undefined)
-			$.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
-	});
+    $(document).ready(function () {
+        $('.input :input:visible:first').focus();
+    });
 
 
-	/**
-	 * Selectize
-	 */
-	
-	$('select:not(.skip):not(.selectized)').selectize();
-	$('input[type="text"].tags').selectize({
-		delimiter: ',',
-		create: function(input) {
-			return {
-				value: input,
-				text: input
-			}
-		}
-	});
+    /**
+     * Toggle Classes
+     */
+
+    $(document).on('click', '[data-toggle^="class:"]', function (e) {
+
+        e.preventDefault();
+        $($(this).attr('data-target')).toggleClass($(this).attr('data-toggle').replace('class:', ''));
+
+        // Save persistent state
+        if ($(this).attr('data-persistent') !== undefined)
+            $.cookie('persistent_' + $(this).attr('data-persistent'), $($(this).attr('data-target')).hasClass($(this).attr('data-toggle').replace('class:', '')), { path: '/' });
+    });
 
 
-	/**
-	 * Zen Inputs
-	 */
-	$('textarea[class="zen"]').each(function(){
-		var random = Math.floor(Math.random()*111) + '_zen';
-		$(this).zenForm().addClass(random).before('<a href="#" data-toggle="zen-mode" data-target=".' + random + '">Test</a>');
-	});
+    /**
+     * Selectize
+     */
 
-	$(document).on('click', '[data-toggle^="zen-mode"]', function(e) {
-		e.preventDefault();
-		$($(e.target).attr('data-target')).trigger('init');
-	});
-
-
-	/**
-	 * Select All Actions
-	 */
-	
-	$(document).on('click', 'input[type="checkbox"].check-all', function(e) {
-		$(e.target).closest('table').find('input[type="checkbox"][name="action_to[]"]').prop('checked', $(e.target).prop('checked'));
-	});
+    $('select:not(.skip):not(.selectized)').selectize();
+    $('input[type="text"].tags').selectize({
+        delimiter: ',',
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    });
 
 
-	/**
-	 * Tooltips
-	 */
-	
-	$('[data-toggle="tooltip"]').tooltip();
+    /**
+     * Zen Inputs
+     */
+    $('textarea[class="zen"]').each(function () {
+        var random = Math.floor(Math.random() * 111) + '_zen';
+        $(this).zenForm().addClass(random).before('<a href="#" data-toggle="zen-mode" data-target=".' + random + '">Test</a>');
+    });
+
+    $(document).on('click', '[data-toggle^="zen-mode"]', function (e) {
+        e.preventDefault();
+        $($(e.target).attr('data-target')).trigger('init');
+    });
 
 
-	/**
-	 * Popovers
-	 */
-	
-	$(document).on('click', '[data-toggle="popover"]', function(e){e.preventDefault();});
-	$('[data-toggle="popover"]').popover();
+    /**
+     * Select All Actions
+     */
+
+    $(document).on('click', 'input[type="checkbox"].check-all', function (e) {
+        $(e.target).closest('table').find('input[type="checkbox"][name="action_to[]"]').prop('checked', $(e.target).prop('checked'));
+    });
 
 
-	/**
-	 * Confirmation Trigger
-	 */
-	
-	$(document).on('click', '.confirm', function(e){
-		
-		var href = $(this).attr('href');
-		var removemsg = $(this).attr('title');
+    /**
+     * Tooltips
+     */
 
-		if (confirm(removemsg || Pyro.lang.dialog_message)) {
-			$(this).trigger('click-confirmed');
+    $('[data-toggle="tooltip"]').tooltip();
 
-			if ($.data(this, 'stop-click')){
-				$.data(this, 'stop-click', false);
-				return;
-			}
-		} else {
-			e.preventDefault();
-			return false;
-		}
-	});
 
-    $(document).on('click', '.double-confirm', function(e){
+    /**
+     * Popovers
+     */
+
+    $(document).on('click', '[data-toggle="popover"]', function (e) {
+        e.preventDefault();
+    });
+    $('[data-toggle="popover"]').popover();
+
+
+    /**
+     * Confirmation Trigger
+     */
+
+    $(document).on('click', '.confirm', function (e) {
+
+        var href = $(this).attr('href');
+        var removemsg = $(this).attr('title');
+
+        if (confirm(removemsg || Pyro.lang.dialog_message)) {
+            $(this).trigger('click-confirmed');
+
+            if ($.data(this, 'stop-click')) {
+                $.data(this, 'stop-click', false);
+                return;
+            }
+        } else {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    $(document).on('click', '.double-confirm', function (e) {
 
         var href = $(this).attr('href');
         var removemsg = $(this).attr('title');
@@ -229,7 +241,7 @@ Pyro.Initialize = function() {
         if (confirm(removemsg || Pyro.lang.dialog_message) && confirm(secondremovemsg || Pyro.lang.dialog_message)) {
             $(this).trigger('click-confirmed');
 
-            if ($.data(this, 'stop-click')){
+            if ($.data(this, 'stop-click')) {
                 $.data(this, 'stop-click', false);
                 return;
             }
@@ -240,154 +252,158 @@ Pyro.Initialize = function() {
     });
 
 
-	/**
-	 * Register Hot-Keys
-	 */
-	
-	$(document).on('keyup', function(e) {
-		
-		// Ignore if we're typing or selecting something
-		if ($('input, textarea, select').is(':focus')) { return true; }
-		if (window.getSelection() != '') { return true; }
+    /**
+     * Register Hot-Keys
+     */
 
-		// Get the character key
-		var key = String.fromCharCode(e.which).toLowerCase();
+    $(document).on('keyup', function (e) {
 
-		//alert(e.which);
+        // Ignore if we're typing or selecting something
+        if ($('input, textarea, select').is(':focus')) {
+            return true;
+        }
+        if (window.getSelection() != '') {
+            return true;
+        }
 
-		// Catch some funky ones
-		if (e.which == 186) key = ':';
-		if (e.which == 191) key = '/';
+        // Get the character key
+        var key = String.fromCharCode(e.which).toLowerCase();
 
-		// Detect special keys
-		if (e.which == 13) key = 'enter';
+        //alert(e.which);
 
-		// Shift?
-		if (e.shiftKey) key = 'shift+' + key;
+        // Catch some funky ones
+        if (e.which == 186) key = ':';
+        if (e.which == 191) key = '/';
 
-		// Shift?
-		if (e.ctrlKey) key = 'ctrl+' + key;
+        // Detect special keys
+        if (e.which == 13) key = 'enter';
 
-		// Gotta exist
-		if ($('[data-hotkey^="' + key + '"]').length == 0) return true;
+        // Shift?
+        if (e.shiftKey) key = 'shift+' + key;
 
-		// If it has a click event - trigger it
-		if($('[data-hotkey^="' + key + '"]').attr('data-follow') == 'yes') {
-			Pyro.Loading();
-			window.location = $('[data-hotkey="' + key + '"]').attr('href');
-		} else {
-			$('[data-hotkey^="' + key + '"]').trigger('click');
-		}
-	});
+        // Shift?
+        if (e.ctrlKey) key = 'ctrl+' + key;
 
+        // Gotta exist
+        if ($('[data-hotkey^="' + key + '"]').length == 0) return true;
 
-	/**
-	 * Search stuff
-	 */
-	
-	$('#search .search-terms').selectize({
-		delimiter: '|',
-		create: function(input) {
-			return {
-				value: input,
-				text: input
-			}
-		}
-	});
-	
-	$(document).on('click', '[data-toggle^="global-search"]', function(e) {
-		e.preventDefault();
-		if ($('body').hasClass('search-off-screen')) return false;
-		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
-		$('#actions').toggleClass('scrollable');
-		$('#search .search-terms').val('');
-		$('#search .selectize-input input').focus();
-	});
-
-	$(document).on('click', '[data-toggle^="module-search"]', function(e) {
-		e.preventDefault();
-		$('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
-		$('#search .selectize-input input').val(Pyro.current_module + ':').focus();
-
-		// Spoof a keypress
-		var e = $.event('keydown');
-
-		// (enter)
-		e.which = 13;
-
-		// Trigger it
-		$('#search .selectize-input input').trigger(e);
-	});
-
-	$('#search .search-terms').on('change', function(e) {
-		if ($(e.target).val().length != 0) {
-			Pyro.Search();
-		}
-	});
-
-	$(document).on('click', '[data-dismiss^="global-search"]', function(e) {
-		e.preventDefault();
-		if ($('body').hasClass('search-off-screen'))
-			$('body').removeClass('search-off-screen');
-	});
-
-	$(document).on('keydown', function(e) {
-		if ($('body').hasClass('search-off-screen') && e.which == 27)
-			$('body').removeClass('search-off-screen');
-	});
+        // If it has a click event - trigger it
+        if ($('[data-hotkey^="' + key + '"]').attr('data-follow') == 'yes') {
+            Pyro.Loading();
+            window.location = $('[data-hotkey="' + key + '"]').attr('href');
+        } else {
+            $('[data-hotkey^="' + key + '"]').trigger('click');
+        }
+    });
 
 
-	/**
-	 * Code Editors
-	 */
-	
-	$('[data-editor]').each(function() {
+    /**
+     * Search stuff
+     */
 
-		// The thing
-		var editor_input = $(this);
+    $('#search .search-terms').selectize({
+        delimiter: '|',
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    });
 
-		// Spawn an ID
-		var id = Math.floor(Math.random()*111) + '_' + editor_input.attr('data-editor') + '_editor';
+    $(document).on('click', '[data-toggle^="global-search"]', function (e) {
+        e.preventDefault();
+        if ($('body').hasClass('search-off-screen')) return false;
+        $('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
+        $('#actions').toggleClass('scrollable');
+        $('#search .search-terms').val('');
+        $('#search .selectize-input input').focus();
+    });
 
-		// Get the language
-		var language = $(this).attr('data-editor');
+    $(document).on('click', '[data-toggle^="module-search"]', function (e) {
+        e.preventDefault();
+        $('body').removeClass('nav-off-screen').toggleClass('search-off-screen');
+        $('#search .selectize-input input').val(Pyro.current_module + ':').focus();
 
-		// Add the ID
-		editor_input.attr('data-editor', id).hide().after('<div id="' + id + '" class="editor" style="height: 500px;"></div>');
+        // Spoof a keypress
+        var e = $.event('keydown');
 
-		// Span an editor
-		var editor = ace.edit(id);
+        // (enter)
+        e.which = 13;
 
-		ace.config.set('basePath', 'system/cms/themes/pyrocms/build/js/plugins/ace/');
-		editor.setTheme('ace/theme/xcode');
-		editor.getSession().setMode('ace/mode/' + language);
+        // Trigger it
+        $('#search .selectize-input input').trigger(e);
+    });
 
-		// Set the current value
-		editor.setValue(editor_input.val());
+    $('#search .search-terms').on('change', function (e) {
+        if ($(e.target).val().length != 0) {
+            Pyro.Search();
+        }
+    });
 
-		// Listen for submission
-		if (editor_input.is('textarea')) {
-			editor_input.closest('form').on('submit', function() {
-				editor_input.val(editor.getValue());
-			});
-		}
-	});
+    $(document).on('click', '[data-dismiss^="global-search"]', function (e) {
+        e.preventDefault();
+        if ($('body').hasClass('search-off-screen'))
+            $('body').removeClass('search-off-screen');
+    });
 
-
-	/**
-	 * Input Masks
-	 */
-	
-	$('input[data-mask]').each(function() {
-		$(this).mask($(this).attr('data-mask'));
-	});
+    $(document).on('keydown', function (e) {
+        if ($('body').hasClass('search-off-screen') && e.which == 27)
+            $('body').removeClass('search-off-screen');
+    });
 
 
-	/**
-	 * Datepicker
-	 */
-	
-	$('[data-toggle^="datepicker"]').each(function(){
+    /**
+     * Code Editors
+     */
+
+    $('[data-editor]').each(function () {
+
+        // The thing
+        var editor_input = $(this);
+
+        // Spawn an ID
+        var id = Math.floor(Math.random() * 111) + '_' + editor_input.attr('data-editor') + '_editor';
+
+        // Get the language
+        var language = $(this).attr('data-editor');
+
+        // Add the ID
+        editor_input.attr('data-editor', id).hide().after('<div id="' + id + '" class="editor" style="height: 500px;"></div>');
+
+        // Span an editor
+        var editor = ace.edit(id);
+
+        ace.config.set('basePath', 'system/cms/themes/pyrocms/build/js/plugins/ace/');
+        editor.setTheme('ace/theme/xcode');
+        editor.getSession().setMode('ace/mode/' + language);
+
+        // Set the current value
+        editor.setValue(editor_input.val());
+
+        // Listen for submission
+        if (editor_input.is('textarea')) {
+            editor_input.closest('form').on('submit', function () {
+                editor_input.val(editor.getValue());
+            });
+        }
+    });
+
+
+    /**
+     * Input Masks
+     */
+
+    $('input[data-mask]').each(function () {
+        $(this).mask($(this).attr('data-mask'));
+    });
+
+
+    /**
+     * Datepicker
+     */
+
+    $('[data-toggle^="datepicker"]').each(function () {
         $(this).datepicker({
             autoclose: true
         });
@@ -396,17 +412,17 @@ Pyro.Initialize = function() {
     });
 
 
-	/**
-	 * Timepicker
-	 */
-	
-	$('[data-toggle^="timepicker"]').timepicker({ template: false, minuteStep: 5, defaultTime: false });
+    /**
+     * Timepicker
+     */
+
+    $('[data-toggle^="timepicker"]').timepicker({ template: false, minuteStep: 5, defaultTime: false });
 
     /**
      * Nowrap table cols with overflow-ellipsis
      */
 
-    $('table td.overflow-ellipsis').each(function(){
+    $('table td.overflow-ellipsis').each(function () {
         $(this).css('max-width', '1px');
     });
 
@@ -424,15 +440,15 @@ Pyro.Initialize = function() {
  * - Prevents clicking
  */
 
-Pyro.Loading = function(loading) {
+Pyro.Loading = function (loading) {
 
-	// Catch default
-	if (loading == undefined) loading = true;
+    // Catch default
+    if (loading == undefined) loading = true;
 
-	if (loading)
-		$('#loading').addClass('animated-fast pulse').fadeIn(200);
-	else
-		$('#loading').removeClass().fadeOut(200);
+    if (loading)
+        $('#loading').addClass('animated-fast pulse').fadeIn(200);
+    else
+        $('#loading').removeClass().fadeOut(200);
 }
 
 
@@ -440,30 +456,30 @@ Pyro.Loading = function(loading) {
  * Generate a slug from text
  */
 
-Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_dashes) {
+Pyro.GenerateSlug = function (input_form, output_form, space_character, disallow_dashes) {
 
-	var slug, value;
+    var slug, value;
 
-	$(document).on('keyup', input_form, function(){
-		value = $(input_form).val();
+    $(document).on('keyup', input_form, function () {
+        value = $(input_form).val();
 
-		if (value == '') return;
+        if (value == '') return;
 
-		space_character = space_character || '-';
-		disallow_dashes = disallow_dashes || false;
-		var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
-			value = value.toLowerCase(),
-			chars = Pyro.foreign_characters,
-			space_regex = new RegExp('[' + space_character + ']+','g'),
-			space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
-			search, replace;
-		
+        space_character = space_character || '-';
+        disallow_dashes = disallow_dashes || false;
+        var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
+            value = value.toLowerCase(),
+            chars = Pyro.foreign_characters,
+            space_regex = new RegExp('[' + space_character + ']+', 'g'),
+            space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$', 'g'),
+            search, replace;
 
-		// If already a slug then no need to process any further
-		if (!rx.test(value)) {
-			slug = value;
-		} else {
-			value = $.trim(value);
+
+        // If already a slug then no need to process any further
+        if (!rx.test(value)) {
+            slug = value;
+        } else {
+            value = $.trim(value);
 
             if (chars !== undefined) {
                 for (var i = chars.length - 1; i >= 0; i--) {
@@ -473,24 +489,24 @@ Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_
 
                     // create regex from string and replace with normal string
                     value = value.replace(new RegExp(search, 'g'), replace);
-                };
+                }
+                ;
             }
 
-			slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-						.replace(/[\s\.:;=+]+/g, space_character)
-						.replace(space_regex, space_character)
-						.replace(space_regex_trim, '');
+            slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
+                .replace(/[\s\.:;=+]+/g, space_character)
+                .replace(space_regex, space_character)
+                .replace(space_regex_trim, '');
 
-			// Remove the dashes if they are
-			// not allowed.
-			if (disallow_dashes)
-			{
-				slug = slug.replace(/-+/g, '_');
-			}
-		}
+            // Remove the dashes if they are
+            // not allowed.
+            if (disallow_dashes) {
+                slug = slug.replace(/-+/g, '_');
+            }
+        }
 
-		$(output_form).val(slug);
-	});
+        $(output_form).val(slug);
+    });
 }
 
 
@@ -498,45 +514,45 @@ Pyro.GenerateSlug = function(input_form, output_form, space_character, disallow_
  * Search
  */
 
-Pyro.Search = function() {
+Pyro.Search = function () {
 
-	Pyro.Loading(true);
+    Pyro.Loading(true);
 
-	$.ajax({
-		type: 'POST',
-		url: BASE_URL + 'admin/search/results',
-		data: {
-			'terms': $('#search input.search-terms').val(),
-			'csrf_hash_name': $.cookie(Pyro.csrf_cookie_name)
-		},
-		dataType: 'JSON',
-		success: function(json) {
-			
-			var results = $('#search-results');
-				
-			results.html('');
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'admin/search/results',
+        data: {
+            'terms': $('#search input.search-terms').val(),
+            'csrf_hash_name': $.cookie(Pyro.csrf_cookie_name)
+        },
+        dataType: 'JSON',
+        success: function (json) {
 
-			if (json.length != 0) {
-				$.each(json.results, function(i, result) {
-					var template =  '<ul>' +
-							'<li>' +
-								'<h3><a href="' + BASE_URL + result.cp_uri + '">' + result.module + ' > ' + result.entry_singular + ' > ' + result.title + '</a></h3>' +
-								'<p>' + result.description + '</p>' +
-								'<a href="' + BASE_URL + result.cp_uri + '" class="btn btn-xs btn-warning">Admin URL</a> ' +
-								'<a href="' + BASE_URL + result.uri + '" class="btn btn-xs btn-success" target="_blank">Public URL</a>' +
-							'</li>' +
-						'</ul>';
-					results.append(template);
-				});
-			}
+            var results = $('#search-results');
 
-			Pyro.Loading(false);
-		},
-		error: function function_name () {
-			Pyro.Loading(false);
-		}
+            results.html('');
 
-	});
+            if (json.length != 0) {
+                $.each(json.results, function (i, result) {
+                    var template = '<ul>' +
+                        '<li>' +
+                        '<h3><a href="' + BASE_URL + result.cp_uri + '">' + result.module + ' > ' + result.entry_singular + ' > ' + result.title + '</a></h3>' +
+                        '<p>' + result.description + '</p>' +
+                        '<a href="' + BASE_URL + result.cp_uri + '" class="btn btn-xs btn-warning">Admin URL</a> ' +
+                        '<a href="' + BASE_URL + result.uri + '" class="btn btn-xs btn-success" target="_blank">Public URL</a>' +
+                        '</li>' +
+                        '</ul>';
+                    results.append(template);
+                });
+            }
+
+            Pyro.Loading(false);
+        },
+        error: function function_name() {
+            Pyro.Loading(false);
+        }
+
+    });
 }
 
 
@@ -544,6 +560,6 @@ Pyro.Search = function() {
 Pyro.Initialize();
 
 
-$(document).ready(function() {
-	Pyro.Loading(false);
+$(document).ready(function () {
+    Pyro.Loading(false);
 });
