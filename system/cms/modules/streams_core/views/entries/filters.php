@@ -1,4 +1,4 @@
-<section class="filters p m-t margin-bottom">
+<section class="filters p margin-bottom">
 
 	<?php echo form_open(null, array('method' => 'post', 'class' => 'form-inline', 'id' => 'filters-'.$stream->stream_namespace.'-'.$stream->stream_slug)); ?>
 
