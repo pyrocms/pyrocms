@@ -57,7 +57,7 @@ abstract class AbstractExtension extends Fluent
     {
         parent::__construct();
 
-        if ($this->language) {
+        if ($this->language and $this->module and module_installed($this->module)) {
             ci()->lang->load($this->language);
         }
     }
