@@ -385,6 +385,10 @@ abstract class AbstractExtensionManager
 
         $instance = new $class;
 
+        if ($instance->module and !module_installed($instance->module)) {
+            return false;
+        }
+
         $type = static::$slugs[get_called_class()];
 
         $reflection = new \ReflectionClass($instance);
