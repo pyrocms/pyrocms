@@ -107,6 +107,7 @@ class File extends FieldTypeAbstract
             return null;
         } else {
             // Return the ID of the file DB entry
+            Events::trigger('file_uploaded', $return);
             return $return['data']['id'];
         }
     }
