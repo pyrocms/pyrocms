@@ -381,10 +381,10 @@ class ModuleManager
      * @param   string  $slug   The module slug
      * @return  bool
      */
-    public function upgrade($slug)
+    public function upgrade($slug, $is_core = false)
     {
         // Get info on the new module
-        if (( ! $located = $this->spawnClass($slug, true) or $located = $this->spawnClass($slug, false))) {
+        if (( ! $located = $this->spawnClass($slug, $is_core))) {
             return false;
         }
 
