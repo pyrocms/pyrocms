@@ -41,6 +41,7 @@ class Module_Addons extends AbstractModule
                 'hu' => 'Bővítmények',
                 'th' => 'ส่วนเสริม',
                 'se' => 'Tillägg',
+                'km' => 'បន្ថែមលើ',
             ),
             'description' => array(
                 'en' => 'Allows admins to see a list of currently installed modules.',
@@ -68,6 +69,7 @@ class Module_Addons extends AbstractModule
                 'hu' => 'Lehetővé teszi az adminoknak, hogy lássák a telepített modulok listáját.',
                 'th' => 'ช่วยให้ผู้ดูแลระบบดูรายการของโมดูลที่ติดตั้งในปัจจุบัน',
                 'se' => 'Gör det möjligt för administratören att se installerade mouler.',
+                'km' => 'អនុញ្ញាតឲ្យអ្នកគ្រប់គ្រង់មើលតារាងម៉ូឌុលដែលបានដំឡើង។',
             ),
             'frontend' => false,
             'backend' => true,

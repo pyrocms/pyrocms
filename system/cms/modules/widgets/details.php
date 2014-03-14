@@ -39,6 +39,7 @@ class Module_Widgets extends AbstractModule
                 'th' => 'วิดเจ็ต',
                 'se' => 'Widgetar',
                 'ar' => 'الودجتس',
+                'km' => 'មុខងារតូចៗ',
             ),
             'description' => array(
                 'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -64,6 +65,7 @@ class Module_Widgets extends AbstractModule
                 'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.',
                 'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
                 'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.',
+                'km' => 'គ្រប់គ្រងផ្នែកតូចមួយនៃតក្កដោយខ្លួនឯងដែលមាននៅក្នុងប្លុកឬ "មុខងារតូច" ។',
             ),
             'frontend' => false,
             'backend' => true,
