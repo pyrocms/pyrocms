@@ -46,6 +46,11 @@ class Admin_themes extends Admin_Controller
         $themes = $this->themes->findGeneralThemes();
 
         foreach ($themes as &$theme) {
+            if ($theme->type == 'admin') {
+                unset($theme);
+                continue;
+            }
+
             if ($theme->slug == Settings::get('default_theme')) {
                 $theme->is_default = true;
             }

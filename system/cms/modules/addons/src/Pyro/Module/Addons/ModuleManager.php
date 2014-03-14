@@ -603,8 +603,8 @@ class ModuleManager
     public function help($slug)
     {
         foreach (array(false, true) as $is_core) {
-            $languages = $this->config->item('supported_languages');
-            $default = $languages[$this->config->item('default_language')]['folder'];
+            $languages = ci()->config->item('supported_languages');
+            $default = $languages[ci()->config->item('default_language')]['folder'];
 
             //first try it as a core module
             if ($located = $this->spawnClass($slug, $is_core)) {
@@ -612,7 +612,7 @@ class ModuleManager
 
                 // Check for a hep language file, if not show the default help text from the details.php file
                 if (file_exists($location.'/language/'.$default.'/help_lang.php')) {
-                    $this->lang->load($slug.'/help');
+                    ci()->lang->load($slug.'/help');
 
                     if (lang('help_body')) {
                         return lang('help_body');

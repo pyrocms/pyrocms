@@ -130,6 +130,7 @@ class File extends FieldTypeAbstract
 			ci()->session->set_flashdata('warning', $return['message']);
 			return null;
 		} else {
+            Events::trigger('file_uploaded', $return);
 			return $return['data']['id'];
 		}
 	}
