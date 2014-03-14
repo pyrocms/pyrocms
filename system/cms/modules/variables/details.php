@@ -44,6 +44,7 @@ class Module_Variables extends AbstractModule
                 'th' => 'ตัวแปร',
                 'se' => 'Variabler',
                 'hu' => 'Változók',
+                'km' => 'អថេរ',
             ),
             'description' => array(
                 'en' => 'Manage global variables that can be accessed from anywhere. ',
@@ -71,6 +72,7 @@ class Module_Variables extends AbstractModule
                 'cn' => '管理此网站内可存取的全局变数。',
                 'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
                 'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
+                'km' => 'គ្រប់គ្រងអថេរសកលដែលអាចដំណើរការបានគ្រប់ទីកន្លែង។',
 
             ),
             'frontend'	=> false,

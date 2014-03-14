@@ -33,6 +33,7 @@ class Module_Keywords extends AbstractModule
                 'sl' => 'Ključne besede',
                 'th' => 'คำค้น',
                 'se' => 'Nyckelord',
+                'km' => 'ពាក្យគន្លឹះ',
             ),
             'description' => array(
                 'en' => 'Maintain a central list of keywords to label and organize your content.',
@@ -50,6 +51,7 @@ class Module_Keywords extends AbstractModule
                 'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
                 'th' => 'ศูนย์กลางการปรับปรุงคำค้นในการติดฉลากและจัดระเบียบเนื้อหาของคุณ',
                 'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.',
+                'km' => 'រក្សាបញ្ជីកណ្តាលនៃពាក្យគន្លឹះទៅនឹងស្លាកនិងរៀបចំមាតិការបស់អ្នក។',
             ),
             'frontend' => false,
             'backend'  => true,
