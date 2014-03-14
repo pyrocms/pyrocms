@@ -148,15 +148,21 @@ abstract class AbstractExtension extends Fluent
      * @param $type
      * @return mixed|string
      */
-    protected function getClass($type)
+    public function getClass($type)
     {
         $calledClass = explode('\\', get_called_class());
         $class       = Str::camel($type) . 'Class';
 
+        if ($namespace = get_called_class()) {
+            $namespace = explode('\\', $namespace);
+            array_pop($namespace);
+            $namespace = implode('\\', $namespace);
+        }
+
         if ($this->{$class}) {
             $class = $this->{$class};
         } else {
-            $class = 'Pyro\Module\Tasks\Extension\\' . Str::studly($this->type) . '\\' . end(
+            $class = $namespace . '\\' . end(
                     $calledClass
                 ) . Str::studly($type);
         }
