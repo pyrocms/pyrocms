@@ -403,8 +403,8 @@ class Admin_themes extends Admin_Controller
         if ($options) {
             foreach ($options as $option) {
                 $pieces = explode('=', $option);
-				$value = array_shift($pieces);
-				$name = implode('=', $pieces);
+		$value = array_shift($pieces);
+		$name = implode('=', $pieces);
 				
                 // todo: Maybe we should remove the trim()'s
                 // since this will affect only people who have had the base
