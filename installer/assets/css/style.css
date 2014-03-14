@@ -1463,9 +1463,22 @@ footer p {
 }
 
 .db-selection {
-  width: 29%;
+  width: 30.3%;
   float: left;
-  margin-right: 2%;
+  margin: 0 1% 0 0;
+  text-align: center;
+}
+
+.db-selection.last {
+  float: left;
+  margin-right:0;
+}
+
+.db-selection img {
+  border:solid 20px #ffffff;
+  border-radius: 5px;
+  height:80px;
+  width:auto;
 }
 
 /*
