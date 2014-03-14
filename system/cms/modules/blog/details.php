@@ -226,7 +226,7 @@ class Module_Blog extends AbstractModule
                 'extra'		=> array('slug_field' => 'title'),
             ),
             array(
-                'name'		=> 'lang:global:body',
+                'name'		=> 'lang:blog:body_label',
                 'slug'		=> 'body',
                 'type'		=> 'wysiwyg',
                 'required'	=> true,
