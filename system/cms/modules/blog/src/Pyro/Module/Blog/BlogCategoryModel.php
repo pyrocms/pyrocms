@@ -69,6 +69,11 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
             ->published($take, $skip);
     }
 
+    public function getFieldTypeRelationshipResults($query)
+    {
+        return $this->where('title', 'LIKE', '%' . $query . '%');
+    }
+
     public function getFieldTypeRelationshipSearchFields()
     {
         return array('title');
