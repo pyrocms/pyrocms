@@ -163,7 +163,7 @@
             <?php } ?>
         <?php else: ?>
             <tr>
-                <td colspan="<?php echo count($fieldNames); ?>">
+                <td colspan="<?php echo count($fieldNames) + (empty($buttons) ? 0 : 1); ?>">
                     <div class="alert alert-info m">
                         <?php
 
