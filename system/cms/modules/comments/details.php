@@ -41,6 +41,7 @@ class Module_Comments extends AbstractModule
                 'hu' => 'Hozzászólások',
                 'th' => 'ความคิดเห็น',
                 'se' => 'Kommentarer',
+                'km' => 'មតិយោបល់',
             ),
             'description' => array(
                 'en' => 'Users and guests can write comments for content like blog, pages and photos.',
@@ -68,6 +69,7 @@ class Module_Comments extends AbstractModule
                 'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
                 'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
                 'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
+                'km' => 'អ្នកប្រើ និងអ្នកទស្សនាអាចបញ្ចេញមតិយោបល់សំរាប់ព័ត៌មានដូចជា blog ទំព័រ និង​រូបភាព។',
             ),
             'frontend' => false,
             'backend' => true,

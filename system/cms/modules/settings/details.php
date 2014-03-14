@@ -39,6 +39,7 @@ class Module_Settings extends AbstractModule
                 'hu' => 'Beállítások',
                 'th' => 'ตั้งค่า',
                 'se' => 'Inställningar',
+                'km' => 'ការកំណត់',
             ),
             'description' => array(
                 'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -64,6 +65,7 @@ class Module_Settings extends AbstractModule
                 'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...',
                 'th' => 'ให้ผู้ดูแลระบบสามารถปรับปรุงการตั้งค่าเช่นชื่อเว็บไซต์ ข้อความและอีเมล์เป็นต้น',
                 'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.',
+                'km' => 'អនុញ្ញាតឱ្យអ្នកគ្រប់គ្រងធ្វើឱ្យទាន់សម័យនូវការកំណត់ដូចជាឈ្មោះគេហទំព័រ សារ និងអ៊ីម៉ែល។',
             ),
             'frontend' => false,
             'backend'  => true,

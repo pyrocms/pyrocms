@@ -40,6 +40,7 @@ class Module_Files extends AbstractModule
                 'hu' => 'Fájlok',
                 'th' => 'ไฟล์',
                 'se' => 'Filer',
+                'km' => 'ឯកសារ',
             ),
             'description' => array(
                 'en' => 'Manages files and folders for your site.',
@@ -66,6 +67,7 @@ class Module_Files extends AbstractModule
                 'hu' => 'Fájlok és mappák kezelése az oldalon.',
                 'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
                 'se' => 'Hanterar filer och mappar för din webbplats.',
+                'km' => 'គ្រប់គ្រង់ឯកសារ និងថតនៅលើគេហទំព័ររបស់អ្នក។',
             ),
             'frontend' => false,
             'backend' => true,

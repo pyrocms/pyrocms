@@ -28,6 +28,7 @@ class Module_Search extends AbstractModule
                 'it' => 'Ricerca',
                 'fa' => 'جستجو',
                 'fi' => 'Etsi',
+                'km' => 'ស្វែងរក',
             ),
             'description' => array(
                 'en' => 'Search through various types of content with this modular search system.',
@@ -39,6 +40,7 @@ class Module_Search extends AbstractModule
                 'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
                 'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
                 'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
+                'km' => 'ស្វែងរកតាមប្រភេទផ្សេងគ្នានៃមាតិកាជាមួយនឹងប្រព័ន្ធការស្វែងរកម៉ូឌុលនេះ។',
             ),
         );
     }

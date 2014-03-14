@@ -36,6 +36,7 @@ class Module_Sitemap extends AbstractModule
                 'th' => 'ไซต์แมพ',
                 'hu' => 'Oldaltérkép',
                 'se' => 'Sajtkarta',
+                'km' => 'ផែនទីទំព័រ',
             ),
             'description' => array(
                 'en' => 'The sitemap module creates an index of all pages and an XML sitemap for search engines.',
@@ -59,6 +60,7 @@ class Module_Sitemap extends AbstractModule
                 'th' => 'โมดูลไซต์แมพสามารถสร้างดัชนีของหน้าเว็บทั้งหมดสำหรับเครื่องมือค้นหา.',
                 'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
                 'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.',
+                'km' => 'ម៉ូឌុលផែនទីទំព័រនេះបង្កើត index នៃទំព័រទាំងអស់ និងផែនទី XML មួយសម្រាប់ search engines។',
             ),
             'frontend' => true,
             'backend' => false,

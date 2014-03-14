@@ -43,6 +43,7 @@ class Module_Pages extends AbstractModule
                 'hu' => 'Oldalak',
                 'th' => 'หน้าเพจ',
                 'se' => 'Sidor',
+                'km' => 'ទំព័រ',
             ),
             'description' => array(
                 'en' => 'Add custom pages to the site with any content you want.',
@@ -69,6 +70,7 @@ class Module_Pages extends AbstractModule
                 'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
                 'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
                 'se' => 'Lägg till egna sidor till webbplatsen.',
+                'km' => 'បន្ថែមទំព័រផ្ទាល់ខ្លួនទៅតំបន់បណ្តាញជាមួយនឹងមាតិកាណាមួយដែលអ្នកចង់បាន។',
             ),
             'frontend' => true,
             'backend'  => true,

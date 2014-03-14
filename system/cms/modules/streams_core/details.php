@@ -35,6 +35,7 @@ class Module_Streams_core extends AbstractModule
                 'cn' => 'Streams 核心',
                 'ar' => 'الجداول الأساسية',
                 'it' => 'Streams Core',
+                'km' => 'ស្ទ្រីមស្នូល',
             ),
             'description' => array(
                 'en' => 'Core data module for streams.',
@@ -48,6 +49,7 @@ class Module_Streams_core extends AbstractModule
                 'cn' => 'Streams 核心资料模组。',
                 'ar' => 'وحدة البيانات الأساسية للجداول',
                 'it' => 'Core dello Stream',
+                'km' => 'ម៉ូឌុលទិន្នន័យស្នូលសម្រាប់ស្ទ្រីម។',
             ),
             'frontend' => false,
             'backend' => false,
