@@ -23,6 +23,7 @@ $lang['blog:options_label']                  = 'Options';
 $lang['blog:title_label']                    = 'Title';
 $lang['blog:intro_label']                    = 'Introduction';
 $lang['blog:body_label']                     = 'Body';
+$lang['blog:category_label']                 = 'Category';
 $lang['blog:author_label']                   = 'Author';
 $lang['blog:comments_enabled']               = 'Comments Enabled';
 $lang['blog:preview_hash']                   = 'Preview Hash';

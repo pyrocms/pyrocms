@@ -23,7 +23,10 @@ class BlogEntryUi extends EntryUi
             ->fields(
                 array(
                     'title',
-                    'category',
+                    'category' => array(
+                        'name' => lang('blog:category_label'),
+                        'template' => '{{ entry:category:title }}',
+                    ),
                     'created_at',
                     'status',
                     'created_by_user' => array( // @todo - this should be an editable field
