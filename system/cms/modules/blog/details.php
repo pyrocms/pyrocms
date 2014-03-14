@@ -37,6 +37,7 @@ class Module_Blog extends AbstractModule
                 'fi' => 'Blogi',
                 'th' => 'บล็อก',
                 'se' => 'Blogg',
+                'km' => 'Blog',
             ),
             'description' => array(
                 'en' => 'Post blog entries.',
@@ -64,6 +65,7 @@ class Module_Blog extends AbstractModule
                 'th' => 'โพสต์รายการบล็อก',
                 'hu' => 'Blog bejegyzések létrehozása.',
                 'se' => 'Inlägg i bloggen.',
+                'km' => 'ប្រកាសធាតុ blog',
             ),
             'frontend' => true,
             'backend' => true,

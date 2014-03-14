@@ -40,6 +40,7 @@ class Module_Redirects extends AbstractModule
                 'pl' => 'Przekierowania',
                 'th' => 'เปลี่ยนเส้นทาง',
                 'se' => 'Omdirigeringar',
+                'km' => 'ទិសដៅ',
             ),
             'description' => array(
                 'en' => 'Redirect from one URL to another.',
@@ -66,6 +67,7 @@ class Module_Redirects extends AbstractModule
                 'pl' => 'Przekierowanie z jednego adresu URL na inny.',
                 'th' => 'เปลี่ยนเส้นทางจากที่หนึ่งไปยังอีกที่หนึ่ง',
                 'se' => 'Omdirigera från en URL till en annan.',
+                'km' => 'ការប្តូរទិសដៅពីមួយ URL ទៅមួយទៀត។',
             ),
             'frontend' => false,
             'backend'  => true,

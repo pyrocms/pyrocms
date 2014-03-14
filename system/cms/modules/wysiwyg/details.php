@@ -24,6 +24,7 @@ class Module_WYSIWYG extends AbstractModule
                 'cn' => 'WYSIWYG',
                 'ar' => 'المحرر الرسومي',
                 'it' => 'WYSIWYG',
+                'km' => 'WYSIWYG',
             ),
             'description' => array(
                 'en' => 'Provides the WYSIWYG editor for PyroCMS powered by CKEditor.',
@@ -35,6 +36,7 @@ class Module_WYSIWYG extends AbstractModule
                 'cn' => '提供 PyroCMS 所见即所得（WYSIWYG）编辑器，由 CKEditor 技术提供。',
                 'ar' => 'توفر المُحرّر الرسومي لـPyroCMS من خلال CKEditor.',
                 'it' => 'Fornisce l\'editor WYSIWYG per PtroCMS creato con CKEditor',
+                'km' => 'ផ្តល់នូវកម្មវិធី WYSIWYG សម្រាប់ PyroCMS បំពាក់ដោយ CKEditor។',
             ),
             'frontend' => false,
             'backend' => false,

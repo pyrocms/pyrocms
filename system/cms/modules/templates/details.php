@@ -37,6 +37,7 @@ class Module_Templates extends AbstractModule
                 'fi' => 'Sähköposti viestipohjat',
                 'th' => 'แม่แบบอีเมล',
                 'se' => 'E-postmallar',
+                'km' => 'ពុម្ពអ៊ីម៉ែល',
             ),
             'description' => array(
                 'en' => 'Create, edit, and save dynamic email templates',
@@ -60,6 +61,7 @@ class Module_Templates extends AbstractModule
                 'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
                 'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
                 'se' => 'Skapa, redigera och spara dynamiska E-postmallar.',
+                'km' => 'បង្កើត កែសម្រួល និងរក្សាទុកពុម្ពអ៊ីម៉ែលថាមវន្ត',
             ),
             'frontend' => false,
             'backend' => true,

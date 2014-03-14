@@ -31,6 +31,7 @@ class Module_Maintenance extends AbstractModule
                 'th' => 'การบำรุงรักษา',
                 'tw' => '維護',
                 'cn' => '维护',
+                'km' => 'ការថែទាំ',
             ),
             'description' => array(
                 'en' => 'Manage the site cache and export information from the database.',
@@ -48,6 +49,7 @@ class Module_Maintenance extends AbstractModule
                 'th' => 'การจัดการแคชเว็บไซต์และข้อมูลการส่งออกจากฐานข้อมูล',
                 'tw' => '經由管理介面手動刪除暫存資料。',
                 'cn' => '经由管理介面手动删除暂存资料。',
+                'km' => 'គ្រប់គ្រងឃ្លាំងសម្ងាត់តំបន់បណ្តាញពត៌មាននិងនាំចេញពីមូលដ្ឋានទិន្នន័យ។',
             ),
             'frontend' => false,
             'backend' => true,

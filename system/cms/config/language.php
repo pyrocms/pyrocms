@@ -190,6 +190,13 @@ $config['supported_languages'] = array(
         'direction'    => 'ltr',
         'codes'        => array('th', 'thai', 'th_TH'),
         'ckeditor'    => null
+    ),
+    'km' => array(
+        'name'        => 'ខ្មែរ',
+        'folder'    => 'khmer',
+        'direction'    => 'ltr',
+        'codes'        => array('km', 'khmer', 'km_KM'),
+        'ckeditor'    => null
     )
 );
 

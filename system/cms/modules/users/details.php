@@ -43,6 +43,7 @@ class Module_Users extends AbstractModule
                 'hu' => 'Felhasználók',
                 'th' => 'ผู้ใช้งาน',
                 'se' => 'Användare',
+                'km' => 'អ្នកប្រើ',
             ),
             'description' => array(
                 'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -69,6 +70,7 @@ class Module_Users extends AbstractModule
                 'th' => 'ให้ผู้ใช้ลงทะเบียนและเข้าสู่เว็บไซต์และจัดการกับพวกเขาผ่านทางแผงควบคุม',
                 'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
                 'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.',
+                'km' => 'អនុញ្ញាតឱ្យអ្នកប្រើចុះឈ្មោះនិងចូលទៅតំបន់បណ្ដាញក្នុង និងគ្រប់គ្រងពួកគេតាមរយៈផ្ទាំងបញ្ជា។',
             ),
             'frontend'  => false,
             'backend'   => true,

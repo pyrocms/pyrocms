@@ -41,6 +41,7 @@ class Module_Contact extends AbstractModule
                 'hu' => 'Kapcsolat',
                 'th' => 'ติดต่อ',
                 'se' => 'Kontakt',
+                'km' => 'ទំនាក់ទំនង់',
             ),
             'description' => array(
                 'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -68,6 +69,7 @@ class Module_Contact extends AbstractModule
                 'th' => 'เพิ่มแบบฟอร์มในเว็บไซต์ของคุณ ช่วยให้ผู้เยี่ยมชมสามารถส่งอีเมลถึงคุณโดยไม่ต้องเปิดเผยที่อยู่อีเมลของพวกเขา',
                 'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
                 'se' => 'Lägger till ett kontaktformulär till din webbplats.',
+                'km' => 'បង្កើតទំរង់សំរាប់គេហទំព័ររបស់អ្នកដែលអនុញ្ញាតឲ្យអ្នកទស្សនាផ្ញើរអ៊ីម៉ែលទៅអ្នកដោយមិនចាំបាច់បង្ហាញអ៊ីម៉ែលពួកគេ។',
             ),
             'frontend' => false,
             'backend' => false,

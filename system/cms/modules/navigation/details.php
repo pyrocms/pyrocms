@@ -41,6 +41,7 @@ class Module_Navigation extends AbstractModule
                 'th' => 'ตัวช่วยนำทาง',
                 'hu' => 'Navigáció',
                 'se' => 'Navigation',
+                'km' => 'Navigation',
             ),
             'description' => array(
                 'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -68,6 +69,7 @@ class Module_Navigation extends AbstractModule
                 'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
                 'se' => 'Hantera länkar och länkgrupper.',
                 'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
+                'km' => 'គ្រប់គ្រងតំណភ្ជាប់នៅលើម៉ឺនុយ navigation និងក្រុម navigation ទាំងអស់ដែលពួកគេជាកម្មសិទ្ធិរបស់។',
             ),
             'frontend' => false,
             'backend'  => true,
