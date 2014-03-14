@@ -260,7 +260,7 @@ class Admin_modules extends Admin_Controller
         $module = $this->modules->findBySlug($slug);
 
         // If upgrade succeeded
-        if ($module->upgrade()) {
+        if ($module and $this->moduleManager->upgrade($slug)) {
             // Fire an event. A module has been upgraded.
             Events::trigger('module_upgraded', $module);
 
