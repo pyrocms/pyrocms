@@ -211,7 +211,7 @@ class ThemeManager
                 'description'       => $theme->description,
                 'version'           => $theme->version,
                 'type'              => $theme->type,
-                'created_at'        => $theme->created_at ?: date('Y-m-d H:i:s'),
+                'created_at'        => isset($theme->created_at) ? $theme->created_at : date('Y-m-d H:i:s'),
             ));
 
             if (is_array($theme->options)) {

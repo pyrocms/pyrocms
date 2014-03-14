@@ -105,7 +105,6 @@ class ThemeModel extends Eloquent
     {
         return $this
             ->with('options')
-            ->where('type', '!=', 'admin')
             ->get();
     }
 

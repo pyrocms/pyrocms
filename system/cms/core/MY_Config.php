@@ -7,7 +7,7 @@
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package   	PyroCMS\Core\Libraries
  */
-class MY_Config extends CI_Config
+class MY_Config extends MX_Config
 {
 	/**
 	 * Modified CI_Config::site_ul() to stop double extensions eg: .rss.html
