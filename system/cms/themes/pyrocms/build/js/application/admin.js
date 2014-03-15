@@ -405,7 +405,8 @@ Pyro.Initialize = function () {
 
     $('[data-toggle^="datepicker"]').each(function () {
         $(this).datepicker({
-            autoclose: true
+            autoclose: true,
+            todayHighlight: true
         });
 
         $(this).datepicker('update', $(this).data('date'));
