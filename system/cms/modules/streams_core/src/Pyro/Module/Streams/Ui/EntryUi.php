@@ -141,6 +141,8 @@ class EntryUi extends UiAbstract
      */
     protected function triggerTable()
     {
+        $this->fireOnTable();
+
         if ($this->getTitle() === null) {
             $this->title(
                 lang(

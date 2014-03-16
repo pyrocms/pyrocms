@@ -808,7 +808,7 @@ class FieldModel extends Eloquent
             /**
              * Allow a chance to return values in Closures
              */
-            foreach($field_data as &$value) {
+            foreach ($field_data as &$value) {
                 $value = value($value);
             }
 
@@ -883,7 +883,7 @@ class FieldModel extends Eloquent
      */
     public function setLockedAttribute($locked)
     {
-        $this->attributes['locked'] = $locked;
+        $this->attributes['is_locked'] = $locked;
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
-use Pyro\Module\Streams\StreamModel;
-use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\FieldTypeManager;
-use Pyro\Module\Streams\SchemaUtility;
+use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\FieldType\FieldTypeManager;
+use Pyro\Module\Streams\Stream\StreamSchema;
 
 class Migration_Convert_variables_to_streams extends CI_Migration
 {
@@ -18,13 +18,13 @@ class Migration_Convert_variables_to_streams extends CI_Migration
             $prefixedTable = ci()->pdb->getQueryGrammar()->getTablePrefix().'variables';
 
             // Convert Variables to a stream
-            SchemaUtility::convertTableToStream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
+            StreamSchema::convertTableToStream('variables', 'variables', null, 'lang:variables:variables', null, 'name', array('name', 'data', 'syntax'));
             
             // Convert name column to Slug field
-            SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:name_label', 'name', 'slug', array('max_length' => 100, 'space_type' => null, 'slug_field' => null, 'is_locked' => true), array('is_required' => true, 'is_unique' => true));
+            StreamSchema::convertColumnToField('variables', 'variables', 'lang:variables:name_label', 'name', 'slug', array('max_length' => 100, 'space_type' => null, 'slug_field' => null, 'is_locked' => true), array('is_required' => true, 'is_unique' => true));
             
             // Convert data column to Field field - @todo - don't convert, add field, modify character limit and add data_field_slug
-            SchemaUtility::convertColumnToField('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
+            StreamSchema::convertColumnToField('variables', 'variables', 'lang:variables:data_label', 'data', 'field', array('namespace' => 'variables', 'storage' => 'default', 'field_slug' => 'data', 'is_locked' => true), array(), false);
 
             $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `name` `name` VARCHAR(100)");
             $this->pdb->statement("ALTER TABLE `{$prefixedTable}` CHANGE COLUMN `data` `data` TEXT");

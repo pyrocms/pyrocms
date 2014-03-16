@@ -103,7 +103,7 @@ class Admin extends Admin_Controller
     {
         $password = $this->input->post('password');
 
-        if ( ! $this->do_shit($email, $password) && ! $this->do_shit($email, $password, true)) {
+        if ( ! $this->deligateLogin($email, $password) && ! $this->deligateLogin($email, $password, true)) {
 
             // That madness didn't work, error
             $this->form_validation->set_message('_check_login', 'Incorrect login.');
@@ -120,15 +120,19 @@ class Admin extends Admin_Controller
     }
 
     /**
-     * Do Shit
+     * Deligate Login
      *
-     * @param string $email The Email address to validate
+     * @param string $email E-mail address for attempted login
+     * @param string $password Password for attempted login
+     * @param bool $old Try the old or new login mechanism
      *
      * @return bool
      */
-    protected function do_shit($email, $password, $old = false)
+    protected function deligateLogin($email, $password, $old = false)
     {
-        if ($old) $password = whacky_old_password_hasher($email, $password);
+        if ($old === true) {
+            $password = whacky_old_password_hasher($email, $password);
+        }
 
         if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = User::findByEmail($email)) !== null) {
 
@@ -155,11 +159,7 @@ class Admin extends Admin_Controller
                 // Generic fuckup
                 return false;
 
-            } catch (Exception $e) {
-
-                return false;
             }
-
         }
 
         return true;
