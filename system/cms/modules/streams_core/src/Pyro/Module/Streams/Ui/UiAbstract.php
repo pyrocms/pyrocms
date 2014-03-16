@@ -141,6 +141,34 @@ abstract class UiAbstract extends Fluent
     }
 
     /**
+     * On form callback
+     *
+     * @param  function $callback
+     *
+     * @return Pyro\Module\Streams\AbstractUi
+     */
+    public function onForm(Closure $callback = null)
+    {
+        $this->addCallback(__FUNCTION__, $callback);
+
+        return $this;
+    }
+
+    /**
+     * On table callback
+     *
+     * @param  function $callback
+     *
+     * @return Pyro\Module\Streams\AbstractUi
+     */
+    public function onTable(Closure $callback = null)
+    {
+        $this->addCallback(__FUNCTION__, $callback);
+
+        return $this;
+    }
+
+    /**
      * On query callback
      *
      * @param  function $callback

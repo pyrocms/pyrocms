@@ -472,7 +472,6 @@ class Streams_m extends CI_Model
         }
 
         if (is_resource($stream->view_options)) {
-            var_dump($stream->view_options);
             throw new Exception('Why the hell is this a resource?');
         }
 

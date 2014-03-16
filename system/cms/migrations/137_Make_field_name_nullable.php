@@ -6,7 +6,7 @@ class Migration_Make_field_name_nullable extends CI_Migration
     {
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
         
-        ci()->pdb->statement("ALTER TABLE `" . $prefix . "_data_field_assignments` MODIFY `field_name` VARCHAR(60);");
+        ci()->pdb->statement("ALTER TABLE `" . $prefix . "data_field_assignments` MODIFY `field_name` VARCHAR(60);");
 
         return true;
     }
