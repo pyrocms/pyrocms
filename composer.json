@@ -18,7 +18,7 @@
     },
 
     "require": {
-        "cartalyst/sentry": "2.0.*",
+        "cartalyst/sentry": "2.1.*",
         "doctrine/dbal": "2.4.x",
         "dflydev/markdown": "1.0.*",
         "illuminate/cache": "4.1.*",
