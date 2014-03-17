@@ -212,7 +212,7 @@ class Users extends Public_Controller
             array(
                 'field' => 'password',
                 'label' => lang('global:password'),
-                'rules' => 'required|min_length[5]|max_length[20]'
+                'rules' => 'required|min_length[6]|max_length[50]'
             ),
             array(
                 'field' => 'email',
