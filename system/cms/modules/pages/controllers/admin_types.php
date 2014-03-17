@@ -3,7 +3,7 @@
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Streams\FieldModel;
-use Pyro\Module\Streams\FieldUi;
+use Pyro\Module\Streams\Ui\FieldUi;
 use Pyro\Module\Streams\Stream\StreamModel;
 
 /**

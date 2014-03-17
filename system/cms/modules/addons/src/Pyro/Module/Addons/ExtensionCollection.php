@@ -70,12 +70,12 @@ class ExtensionCollection extends EloquentCollection
     }
 
     /**
-     * Enabled
+     * Available
      *
      * @param $extensions
      * @return mixed
      */
-    public function enabled()
+    public function available()
     {
         $extensions = array();
 
