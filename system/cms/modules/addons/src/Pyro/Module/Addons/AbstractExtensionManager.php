@@ -183,10 +183,21 @@ abstract class AbstractExtensionManager
     public static function getExtension($extension = null)
     {
         if (! empty(static::$extensions[get_called_class()][$extension]) and is_object(static::$extensions[get_called_class()][$extension])) {
-            return static::$extensions[get_called_class()][$extension];
+            $extension = static::$extensions[get_called_class()][$extension];
         } else {
-            return static::loadExtension($extension);
+            $extension = static::loadExtension($extension);
         }
+
+        // Remove where user does not have permission
+        if ($extension and $extension->role and $permission = ci()->module_details['slug'] . '.' . $extension->role) {
+            if (ci()->current_user->hasAccess($permission)) {
+                return $extension;
+            }
+        } else {
+            return $extension;
+        }
+
+        return null;
     }
 
     /**
