@@ -883,7 +883,7 @@ class FieldModel extends Eloquent
      */
     public function setLockedAttribute($locked)
     {
-        $this->attributes['is_locked'] = $locked;
+        $this->attributes['locked'] = $locked;
     }
 
     /**
