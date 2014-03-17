@@ -65,6 +65,13 @@ abstract class AbstractExtensionManager
     protected static $initiated = array();
 
     /**
+     * Collection class
+     *
+     * @var string
+     */
+    protected static $collectionClass = 'Pyro\Module\Addons\ExtensionCollection';
+
+    /**
      * Get instance (singleton)
      * @return [extension] [description]
      */
@@ -340,7 +347,7 @@ abstract class AbstractExtensionManager
 
         static::preload();
 
-        return new \Pyro\Module\Addons\ExtensionCollection(static::$extensions[get_called_class()]);
+        return new static::$collectionClass(static::$extensions[get_called_class()]);
     }
 
     /**
@@ -349,7 +356,7 @@ abstract class AbstractExtensionManager
      */
     public static function getRegisteredExtensions()
     {
-        return new \Pyro\Module\Addons\ExtensionCollection(static::$extensions[get_called_class()]);
+        return new static::$collectionClass(static::$extensions[get_called_class()]);
     }
 
     /**
