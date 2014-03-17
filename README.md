@@ -90,3 +90,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
 * [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)
 * [huglester](http://webas.lt/) Lithuanian
+* [Chanthoeun Kim] (http://pyrocms-cambodia.com/) Cambodia (Khmer)
