@@ -134,14 +134,22 @@ class EntryPresenter extends Presenter
      */
     public function linkEdit()
     {
-        $stream = $this->resource->getStream();
-        $entry  = $this->resource;
+        $url    = $this->urlEdit();
+        $string = $this->resource->getTitleColumnValue();
 
-        return anchor(
-            'admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/edit/' . $this->resource->getKey(),
-            $this->resource->getTitleColumnValue(),
-            'class="link"'
-        );
+        return anchor($url, $string, 'class="link"');
+    }
+
+    /**
+     * Url edit
+     *
+     * @return string
+     */
+    public function urlEdit()
+    {
+        $stream = $this->resource->getStream();
+        $key    = $this->resource->getKey();
+        return site_url('admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/edit/' . $key);
     }
 
     /**
@@ -151,13 +159,22 @@ class EntryPresenter extends Presenter
      */
     public function linkDetails()
     {
-        $entry  = $this->resource;
-        $stream = $this->resource->getStream();
-        $key    = $this->resource->getKey();
-        $url    = site_url('admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key);
+        $url    = $this->urlDetails();
         $string = $this->resource->getTitleColumnValue();
 
         return anchor($url, $string, 'class="link"');
+    }
+
+    /**
+     * Url details
+     *
+     * @return string
+     */
+    public function urlDetails()
+    {
+        $stream = $this->resource->getStream();
+        $key    = $this->resource->getKey();
+        return site_url('admin/' . $stream->stream_namespace . '/' . $stream->stream_slug . '/details/' . $key);
     }
 
     /**
