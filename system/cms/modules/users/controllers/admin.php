@@ -47,7 +47,7 @@ class Admin extends Admin_Controller
         'password' => array(
             'field' => 'password',
             'label' => 'lang:global:password',
-            'rules' => 'min_length[6]|max_length[20]'
+            'rules' => 'min_length[6]|max_length[50]'
         ),
         'username' => array(
             'field' => 'username',
