@@ -59,7 +59,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
      *
      * @var array
      */
-    protected $createdByUserColumns = array('id', 'username');
+    protected $createdByUserColumns = array('id', 'username', 'email');
     /**
      * Search index template
      *
