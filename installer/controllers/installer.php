@@ -399,7 +399,7 @@ class Installer extends CI_Controller
             array(
                 'field' => 'user[password]',
                 'label' => 'lang:password',
-                'rules' => 'trim|min_length[6]|max_length[20]|required'
+                'rules' => 'trim|min_length[6]|max_length[50]|required'
             ),
         ));
 
