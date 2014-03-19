@@ -141,10 +141,11 @@ class Installer extends CI_Controller
         // TODO No idea why this is here. Potentially lazy passing of data to ajax.php
         $this->session->set_userdata('http_server', $this->input->post('http_server'));
 
+        $driver    = $this->input->post('db_driver');
+        $port      = $this->input->post('port');
+
         if ($_POST) {
 
-            $driver    = $this->input->post('db_driver');
-            $port      = $this->input->post('port');
 
             // Set rules
             $this->form_validation->set_rules(array(
@@ -405,10 +406,9 @@ class Installer extends CI_Controller
         // If the form validation failed (or did not run)
         if ($this->form_validation->run() == false) {
             $this->_render_view('step_4');
-        }
 
         // If the form validation passed
-        else {
+        } else {
             // Grab the connection config from the session
             $db_config = $this->session->userdata('db_config');
 
@@ -421,18 +421,20 @@ class Installer extends CI_Controller
                 'password' => $this->input->post('user_password'),
             );
 
-            // Create the database if that is what they asked us to do
-            if ( ! empty($db_config['create_db'])) {
-                // Create an PDO connection and instance
-                $pdo = $this->installer_lib->create_connection($db_config);
-
-                // Make the database
-                $this->installer_lib->create_db($pdo, $db_config['database']);
-            }
-
             // Let's try to install the system with this new PDO instance
             try {
+
+                // Create the database if that is what they asked us to do
+                if (! empty($db_config['create_db'])) {
+                    // Create an PDO connection and instance
+                    $pdo = $this->installer_lib->create_connection($db_config);
+
+                    // Make the database
+                    $this->installer_lib->create_db($pdo, $db_config['database']);
+                }
+
                 $pdb = $this->installer_lib->install($user, $db_config);
+
             } catch (InstallerException $e) {
 
                 $this->_render_view('step_4', array(
