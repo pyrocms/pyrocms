@@ -35,7 +35,6 @@
         "thepixeldeveloper/sitemap": "2.0.*",
         "tijsverkoyen/akismet": "1.1.*",
         "mtdowling/cron-expression": "1.0.*",
-        "qafoolabs/daemon": "dev-master",
         "omnipay/omnipay": "~2.0"
     },
     "require-dev": {
