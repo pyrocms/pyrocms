@@ -173,10 +173,15 @@ class Installer_lib
             return $conn->query("CREATE DATABASE {$database}");
         } catch (PDOException $e) {
 
+            // MySQL says this is a duplicate database
+            if ($e->getCode() === 'HY000') {
+                return true;
+
             // PostgreSQL says this is a duplicate database
-            if ($e->getCode() === '42P04') {
+            } elseif ($e->getCode() === '42P04') {
                 // If this table already exists then great, our work here is done
                 return true;
+                
             } else {
                 // Unkown issue creating the table
                 throw new InstallerException("Unkown issue creating the database: ".$e->getMessage());
