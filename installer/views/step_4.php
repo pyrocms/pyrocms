@@ -13,24 +13,24 @@
 <section class="item">
 	<div class="input">
 		<label for="username">{username}</label>
-		<?php echo form_input(array('id' => 'username', 'name' => 'user[username]'),set_value('user[username]')) ?>
+		<?php echo form_input(array('id' => 'username', 'name' => 'user_username'), set_value('user_username')) ?>
 	</div>
 	<div class="input">
 		<label for="firstname">{firstname}</label>
-		<?php echo form_input(array('id' => 'firstname', 'name' => 'user[firstname]'), set_value('user[firstname]')) ?>
+		<?php echo form_input(array('id' => 'firstname', 'name' => 'user_firstname'), set_value('user_firstname')) ?>
 	</div>
 	<div class="input">
 		<label for="lastname">{lastname}</label>
-		<?php echo form_input(array('id' => 'lastname', 'name' => 'user[lastname]'), set_value('user[lastname]')) ?>
+		<?php echo form_input(array('id' => 'lastname', 'name' => 'user_lastname'), set_value('user_lastname')) ?>
 	</div>
 	<div class="input">
 		<label for="email">{email}</label>
-		<?php echo form_input(array('id' => 'email', 'name' => 'user[email]'), set_value('user[email]')) ?>
+		<?php echo form_input(array('id' => 'email', 'name' => 'user_email'), set_value('user_email')) ?>
 	</div>
 	<div class="input">
 		<label for="password">{password}</label>
 		<div class="password-wrapper">
-			<?php echo form_password(array('id' => 'user_password', 'name' => 'user[password]', 'value' => set_value('user[password]'))) ?>
+			<?php echo form_password(array('id' => 'user_password', 'name' => 'user_password', 'value' => set_value('user_password'))) ?>
 			<div id="progressbar"><div id="progress"></div></div>
 			<div id="status"><div><span id="complexity">0% Complex</span></div></div>
 		</div>
