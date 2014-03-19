@@ -90,7 +90,7 @@
                 </li>
 
                 <li class="show-data">
-                    <button><?php echo lang('files:toggle_data_display') ?></button>
+                    <button class="btn green"><?php echo lang('files:toggle_data_display') ?></button>
                 </li>
             </ul>
 
