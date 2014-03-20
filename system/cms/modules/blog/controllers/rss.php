@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Blog\BlogCategoryModel;
+use Pyro\Module\Blog\BlogEntryModel;
+
 /**
  * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Blog\Controllers
@@ -12,111 +15,91 @@ class Rss extends Public_Controller
      */
     protected $categories = array();
 
+    /**
+     * Construct
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('blog_m');
-        $this->load->helper('xml');
-        $this->load->helper('date');
         $this->lang->load('blog');
-        $this->load->driver('Streams');
 
-        // We are going to get all the categories so we can
-        // easily access them later when processing posts.
-        $cates = $this->db->get('blog_categories')->result_array();
-        foreach ($cates as $cate)
-        {
-            $this->categories[$cate['id']] = $cate;
-        }
+        $this->blogs = new BlogEntryModel;
+        $this->categories = new BlogCategoryModel;
 
         // Set the output content type
         $this->output->set_content_type('application/rss+xml');
     }
 
+    /**
+     * Index
+     * Show recent posts for all categories
+     *
+     * @return void
+     */
     public function index()
     {
-        $posts = $this->streams->entries->get_entries(array(
-            'stream'        => 'blog',
-            'namespace'     => 'blogs',
-            'limit'         => Settings::get('rss_feed_items'),
-            'where'         => "`status` = 'live'",
-        ));
+        $posts = $this->blogs->findManyPosts(Settings::get('records_per_page'), 0, 'category');
 
-        $html = $this->load->view('rss', $this->_build_feed($posts, $this->lang->line('blog:rss_name_suffix')), true);
+        $rss = $this->buildFeed($posts, $this->lang->line('blog:rss_name_suffix'));
 
-        echo $this->parser->parse_string($html, $posts);
+        $this->load->view('rss', array('rss' => $rss));
     }
 
+    /**
+     * Category
+     * Show recent posts for all categories
+     *
+     * @param string $slug Category slug
+     * @return void
+     */
     public function category($slug = '')
     {
-        $this->load->model('blog_categories_m');
+        $category = $this->categories->findBySlug($slug);
 
-        if ( ! $category = $this->blog_categories_m->get_by('slug', $slug))
-        {
-            redirect('blog/rss/all.rss');
+        if (! $category) {
+            show_404();
         }
 
-        $posts = $this->streams->entries->get_entries(array(
-            'stream'        => 'blog',
-            'namespace'     => 'blogs',
-            'limit'         => Settings::get('rss_feed_items'),
-            'where'         => "`status` = 'live' AND `category_id` = '{$category->id}'",
-        ));
+        $posts = $category->publishedPosts;
 
-        $html = $this->load->view('rss', $this->_build_feed($posts, $category->title.$this->lang->line('blog:rss_category_suffix')), true);
+        $rss = $this->buildFeed($posts, $category->title.$this->lang->line('blog:rss_category_suffix'));
 
-        echo $this->parser->parse_string($html, $posts);
+        $this->load->view('rss', array('rss' => $rss));
     }
 
-    public function _build_feed($posts = array(), $suffix = '')
+    protected function buildFeed($posts = array(), $suffix = '')
     {
-        $entries = $posts['entries'];
+        $rss = new stdClass();
 
-        $data = new stdClass();
-        $data->rss = new stdClass();
+        $rss->encoding = $this->config->item('charset');
+        $rss->feed_name = Settings::get('site_name').' '.$suffix;
+        $rss->feed_url = base_url();
+        $rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), Settings::get('site_name'));
+        $rss->page_language = 'en-gb';
+        $rss->creator_email = Settings::get('contact_email');
 
-        $data->rss->encoding = $this->config->item('charset');
-        $data->rss->feed_name = Settings::get('site_name').' '.$suffix;
-        $data->rss->feed_url = base_url();
-        $data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), Settings::get('site_name'));
-        $data->rss->page_language = 'en-gb';
-        $data->rss->creator_email = Settings::get('contact_email');
+        if (! empty($posts)) {
 
-        if ( ! empty($entries))
-        {
-            foreach ($entries as $row)
-            {
-                $row = (object) $row;
-                $row->created_at = human_to_unix($row->created_at);
-                $row->link = site_url('blog/'.date('Y/m', $row->created_at).'/'.$row->slug);
-                $row->created_at = date(DATE_RSS, $row->created_at);
+            $items = array();
+            foreach ($posts as $post) {
+                $post->link = site_url('blog/'.($post->created_at->format('Y/m')).'/'.$post->slug);
 
-                $intro = (isset($row->intro)) ? $row->intro : $row->body;
+                $intro = $post->intro ?: $post->body;
 
-                $item = array(
-                    //'author' => $row->author,
-                    'title' => xml_convert($row->title),
-                    'link' => $row->link,
-                    'guid' => $row->link,
+                $items[] = (object) array(
+                    //'author' => $post->author,
+                    'title' => htmlentities($post->title),
+                    'link' => $post->link,
+                    'guid' => $post->link,
                     'description' => $intro,
-                    'date' => $row->created_at,
-                    'category' => ''
+                    'date' => $post->created_at,
+                    'category' => $post->category ? $post->category->title : '',
                 );
-
-                // Set the category if it exists
-                if (isset($this->categories[$row->category_id]))
-                {
-                    $item['category'] = $this->categories[$row->category_id]['title'];
-                }
-                else
-                {
-                    log_message('debug', 'A blog category with the ID `'. $row->category_id .'` doesn\'t exist for post `'. $row->id . '`');
-                }
-
-                $data->rss->items[] = (object)$item;
             }
+
+            $rss->items = $items;
         }
 
-        return $data;
+        return $rss;
     }
 }

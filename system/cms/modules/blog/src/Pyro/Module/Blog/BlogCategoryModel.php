@@ -35,6 +35,16 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
 
     protected $orderByColumn = 'title';
 
+    /**
+     * Find a category based on the slug value
+     *
+     * @return string
+     */
+    public function findBySlug($slug)
+    {
+        return $this->where('slug', '=', $slug)->first();
+    }
+
     public static function findMany($limit = null, $offset = null)
     {
         return static::orderBy('title')
@@ -63,7 +73,12 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
         return $this->get(array('id', 'title'))->lists('title', 'id');
     }
 
-    public function posts($take = null, $skip = null)
+    public function posts()
+    {
+        return $this->hasMany('Pyro\Module\Blog\BlogEntryModel', 'category_id');
+    }
+
+    public function publishedPosts($take = null, $skip = null)
     {
         return $this->hasMany('Pyro\Module\Blog\BlogEntryModel', 'category_id')
             ->published($take, $skip);
