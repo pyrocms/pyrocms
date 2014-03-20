@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Blog\BlogEntryModel;
 use Sitemap\Collection as SitemapCollection;
 use Sitemap\Sitemap\SitemapEntry;
 use Sitemap\Formatter\XML\URLSet;
@@ -15,9 +16,9 @@ class Sitemap extends Public_Controller
      */
     public function xml()
     {
-        $this->load->model('blog_m');
+        $blogModel = new BlogEntryModel;
 
-        $articles = $this->blog_m->get_many_by(array('status', 'live'));
+        $articles = $blogModel->live()->get();
 
         $collection = new SitemapCollection;
         $collection->setFormatter(new URLSet);
@@ -26,10 +27,10 @@ class Sitemap extends Public_Controller
         foreach ($articles as $article) {
             $entry = new SitemapEntry;
 
-            $loc = site_url('blog/'.date('Y/m/', $article->created_at).$article->slug);
+            $loc = site_url('blog/'.$article->created_at->format('Y/m/d').$article->slug);
 
             $entry->setLocation($loc);
-            $entry->setLastMod(date(DATE_W3C, $article->updated_at ?: $article->created_at));
+            $entry->setLastMod($article->updated_at ?: $article->created_at);
 
             $collection->addSitemap($entry);
         }
