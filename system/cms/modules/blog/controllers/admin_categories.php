@@ -53,14 +53,22 @@ class Admin_Categories extends Admin_Controller
      */
     public function index()
     {
-
-
         // Create pagination links
         $total_rows = BlogCategoryModel::count();
-        $pagination = create_pagination('admin/blog/categories/index', $total_rows, Settings::get('records_per_page'), 5);
+
+        $pagination = array(
+            'limit' => 0,
+            'offset' => null,
+        );
+
+        if ($total_rows > 0) {
+            $pagination = create_pagination('admin/blog/categories/index', $total_rows, Settings::get('records_per_page'), 5);
+        }
+
+        $pagination['offset'] = $pagination['offset'] ?: null;
 
         // Using this data, get the relevant results
-        $categories = BlogCategoryModel::findMany($pagination['limit'], $pagination['offset']);
+        $categories = BlogCategoryModel::findMany($pagination['limit'], $pagination['offset'], true);
 
         $this->template
             ->title($this->module_details['name'], lang('cat:list_title'))

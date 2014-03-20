@@ -5,7 +5,7 @@
 <section class="item">
     <div class="content">
 
-    <?php if ($categories): ?>
+    <?php if (!$categories->isEmpty()): ?>
 
         <?php echo form_open('admin/blog/categories/delete') ?>
 
