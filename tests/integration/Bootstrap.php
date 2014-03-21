@@ -2,11 +2,19 @@
 // Errors on full!
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
-require 'goutte.phar';
-/**
-* Travis doesn't give access to local socket (localhost), so this is a 
-* quick switch to run the tests locally, 127.0.0.1 should run on travis
-* and localhost should run locally (depending on your config)
-**/
-define('PYRO_DB_HOST',isset($_SERVER['PYRO_DB_HOST']) ? $_SERVER['PYRO_DB_HOST'] : 'localhost');
-define('PYRO_HOST', isset($_SERVER['PYRO_TEST_HOST']) ? $_SERVER['PYRO_TEST_HOST'] : 'localhost');
+require __DIR__.'/../../system/vendor/autoload.php';
+
+if (! isset($_SERVER['PYRO_WEB_HOST'])) {
+    throw new Exception('Missing PYRO_WEB_HOST env variable!');
+}
+if (! isset($_SERVER['PYRO_DB_HOST'])) {
+    throw new Exception('Missing PYRO_DB_HOST env variable!');
+}
+
+define('PYRO_WEB_HOST', $_SERVER['PYRO_WEB_HOST']);
+
+define('PYRO_DB_HOST', $_SERVER['PYRO_DB_HOST']);
+define('PYRO_DB_PORT', isset($_SERVER['PYRO_DB_PORT']) ? $_SERVER['PYRO_DB_PORT'] : '3306');
+define('PYRO_DB_USER', isset($_SERVER['PYRO_DB_USER']) ? $_SERVER['PYRO_DB_USER'] : 'pyrocms');
+define('PYRO_DB_PASS', isset($_SERVER['PYRO_DB_PASS']) ? $_SERVER['PYRO_DB_PASS'] : 'password');
+define('PYRO_DB_NAME', isset($_SERVER['PYRO_DB_NAME']) ? $_SERVER['PYRO_DB_NAME'] : 'pyrocms');

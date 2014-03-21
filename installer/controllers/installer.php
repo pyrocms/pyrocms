@@ -74,6 +74,7 @@ class Installer extends CI_Controller
         if ($this->session->userdata('language')) {
             $this->config->set_item('language', $this->session->userdata('language'));
         }
+        
         $current_language = $this->config->item('language');
 
         // Load the global installer language file
@@ -141,65 +142,64 @@ class Installer extends CI_Controller
         $this->session->set_userdata('http_server', $this->input->post('http_server'));
 
         $driver    = $this->input->post('db_driver');
-        $hostname  = $this->input->post('hostname');
-        $location  = $this->input->post('location');
-        $username  = $this->input->post('username');
-        $password  = $this->input->post('password');
         $port      = $this->input->post('port');
-        $database  = $this->input->post('database');
 
-        // Set rules
-        $this->form_validation->set_rules(array(
-            array(
-                'field' => 'db_driver',
-                'label' => 'lang:db_driver',
-                'rules' => 'trim|required'
-            ),
-            array(
-                'field' => 'hostname',
-                'label'	=> 'lang:server',
-                'rules'	=> 'trim|required|callback_test_db_connection'
-            ),
-            array(
-                'field' => 'location',
-                'label' => 'lang:location',
-                'rules' => 'trim'.(in_array($driver, array('sqlite')) ? '|required' : ''),
-            ),
-            array(
-                'field' => 'username',
-                'label'	=> 'lang:username',
-                'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
-            ),
-            array(
-                'field' => 'password',
-                'label'	=> 'lang:password',
-                'rules'	=> 'trim'
-            ),
-            array(
-                'field' => 'port',
-                'label' => 'lang:port',
-                'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
-            ),
-            array(
-                'field' => 'database',
-                'label' => 'lang:server_settings',
-                'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : ''),
-            ),
-            array(
-                'field' => 'http_server',
-                'label'	=> 'lang:server_settings',
-                'rules'	=> 'trim|required'
-            ),
-        ));
+        if ($_POST) {
 
-        // If the form validation passed
-        if ($this->form_validation->run()) {
-            // Set the flashdata message
-            $this->session->set_flashdata('success', lang('db_success'));
 
-            // Redirect to the second step
-            $this->session->set_userdata('step_1_passed', TRUE);
-            redirect('installer/step_2');
+            // Set rules
+            $this->form_validation->set_rules(array(
+                array(
+                    'field' => 'db_driver',
+                    'label' => 'lang:db_driver',
+                    'rules' => 'trim|required'
+                ),
+                array(
+                    'field' => 'hostname',
+                    'label'	=> 'lang:server',
+                    'rules'	=> 'trim|required|callback_test_db_connection'
+                ),
+                array(
+                    'field' => 'location',
+                    'label' => 'lang:location',
+                    'rules' => 'trim'.(in_array($driver, array('sqlite')) ? '|required' : ''),
+                ),
+                array(
+                    'field' => 'username',
+                    'label'	=> 'lang:username',
+                    'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+                ),
+                array(
+                    'field' => 'password',
+                    'label'	=> 'lang:password',
+                    'rules'	=> 'trim'
+                ),
+                array(
+                    'field' => 'port',
+                    'label' => 'lang:port',
+                    'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+                ),
+                array(
+                    'field' => 'database',
+                    'label' => 'lang:db_database',
+                    'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : ''),
+                ),
+                array(
+                    'field' => 'http_server',
+                    'label'	=> 'lang:server_settings',
+                    'rules'	=> 'trim|required'
+                ),
+            ));
+
+            // If the form validation passed
+            if ($this->form_validation->run()) {
+                // Set the flashdata message
+                $this->session->set_flashdata('success', lang('db_success'));
+
+                // Redirect to the second step
+                $this->session->set_userdata('step_1_passed', true);
+                redirect('installer/step_2');
+            }
         }
 
         // Get supported servers
@@ -377,27 +377,27 @@ class Installer extends CI_Controller
         // Set rules
         $this->form_validation->set_rules(array(
             array(
-                'field' => 'user[username]',
+                'field' => 'user_username',
                 'label' => 'lang:user_name',
                 'rules' => 'trim|required'
             ),
             array(
-                'field' => 'user[firstname]',
+                'field' => 'user_firstname',
                 'label' => 'lang:first_name',
                 'rules' => 'trim|required'
             ),
             array(
-                'field' => 'user[lastname]',
+                'field' => 'user_lastname',
                 'label' => 'lang:last_name',
                 'rules' => 'trim|required'
             ),
             array(
-                'field' => 'user[email]',
+                'field' => 'user_email',
                 'label' => 'lang:email',
                 'rules' => 'trim|required|valid_email'
             ),
             array(
-                'field' => 'user[password]',
+                'field' => 'user_password',
                 'label' => 'lang:password',
                 'rules' => 'trim|min_length[6]|max_length[50]|required'
             ),
@@ -406,28 +406,35 @@ class Installer extends CI_Controller
         // If the form validation failed (or did not run)
         if ($this->form_validation->run() == false) {
             $this->_render_view('step_4');
-        }
 
         // If the form validation passed
-        else {
+        } else {
             // Grab the connection config from the session
             $db_config = $this->session->userdata('db_config');
 
             // First User details
-            $user = $this->input->post('user');
-
-            // Create the database if that is what they asked us to do
-            if ( ! empty($db_config['create_db'])) {
-                // Create an PDO connection and instance
-                $pdo = $this->installer_lib->create_connection($db_config);
-
-                // Make the database
-                $this->installer_lib->create_db($pdo, $db_config['database']);
-            }
+            $user = array(
+                'username' => $this->input->post('user_username'),
+                'firstname' => $this->input->post('user_firstname'),
+                'lastname' => $this->input->post('user_lastname'),
+                'email' => $this->input->post('user_email'),
+                'password' => $this->input->post('user_password'),
+            );
 
             // Let's try to install the system with this new PDO instance
             try {
+
+                // Create the database if that is what they asked us to do
+                if (! empty($db_config['create_db'])) {
+                    // Create an PDO connection and instance
+                    $pdo = $this->installer_lib->create_connection($db_config);
+
+                    // Make the database
+                    $this->installer_lib->create_db($pdo, $db_config['database']);
+                }
+
                 $pdb = $this->installer_lib->install($user, $db_config);
+
             } catch (InstallerException $e) {
 
                 $this->_render_view('step_4', array(
