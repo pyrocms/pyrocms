@@ -39,15 +39,19 @@ class Textarea extends FieldTypeAbstract
      */
     public function formInput()
     {
-        return form_textarea(
-            array(
-                'name'        => $this->form_slug,
-                'id'          => $this->form_slug,
-                'value'       => addslashes($this->value),
-                'class'       => 'form-control',
-                'placeholder' => lang_label($this->getParameter('placeholder')),
-            )
+        $options = array(
+            'name'        => $this->form_slug,
+            'id'          => $this->form_slug,
+            'value'       => addslashes($this->value),
+            'class'       => 'form-control',
+            'placeholder' => lang_label($this->getParameter('placeholder')),
         );
+
+        if ($this->getParameter('content_type', 'html')) {
+            $options['data-editor'] = 'html';
+        }
+
+        return form_textarea($options);
     }
 
     /**
