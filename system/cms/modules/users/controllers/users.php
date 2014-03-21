@@ -22,6 +22,7 @@ class Users extends Public_Controller
         parent::__construct();
 
         // Load the required classes
+        $this->load->helper('inflector');
         $this->load->helper('user');
         $this->lang->load('user');
         $this->load->library('form_validation');
