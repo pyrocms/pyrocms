@@ -13,7 +13,6 @@ class ProfileEntryUi extends EntryUi
     {
         parent::boot();
 
-        // Filters to display on our table
         $this
             ->with(array('user'))
             ->filters(
