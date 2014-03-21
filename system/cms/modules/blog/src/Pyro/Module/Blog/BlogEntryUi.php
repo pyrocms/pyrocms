@@ -40,7 +40,7 @@ class BlogEntryUi extends EntryUi
                     array(
                         'url'   => '{{ url }}',
                         'label' => lang('global:view'),
-                        'class' => 'btn-sm btn-default',
+                        'class' => 'btn-sm btn-info',
                     ),
                     array(
                         'url'   => 'admin/blog/edit/{{ id }}',
