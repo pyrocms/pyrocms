@@ -23,14 +23,14 @@ class BlogEntryUi extends EntryUi
             ->fields(
                 array(
                     'title',
-                    'category' => array(
-                        'name' => lang('blog:category_label'),
+                    'category'        => array(
+                        'name'     => lang('blog:category_label'),
                         'template' => '{{ entry:category:title }}',
                     ),
                     'created_at',
                     'status',
                     'created_by_user' => array( // @todo - this should be an editable field
-                        'name'     => 'Written By', // @todo - language
+                        'name' => 'Written By', // @todo - language
                     ),
                 )
             )
@@ -39,16 +39,19 @@ class BlogEntryUi extends EntryUi
                 array(
                     array(
                         'url'   => '{{ url }}',
-                        'label' => lang('global:view')
+                        'label' => lang('global:view'),
+                        'class' => 'btn-sm btn-default',
                     ),
                     array(
                         'url'   => 'admin/blog/edit/{{ id }}',
-                        'label' => lang('global:edit')
+                        'label' => lang('global:edit'),
+                        'class' => 'btn-sm btn-warning',
                     ),
                     array(
                         'url'     => 'admin/blog/delete/{{ id }}',
                         'label'   => lang('global:delete'),
-                        'confirm' => true
+                        'class'   => 'btn-sm btn-danger',
+                        'confirm' => true,
                     )
                 )
             )
