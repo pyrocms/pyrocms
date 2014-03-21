@@ -47,7 +47,7 @@ class Textarea extends FieldTypeAbstract
             'placeholder' => lang_label($this->getParameter('placeholder')),
         );
 
-        if ($this->getParameter('content_type', 'html')) {
+        if ($this->getParameter('content_type') == 'html') {
             $options['data-editor'] = 'html';
         }
 
