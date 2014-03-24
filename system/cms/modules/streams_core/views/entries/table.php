@@ -91,7 +91,7 @@
                             $class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
                             $class .= (isset($button['class']) and !empty($button['class'])) ? ' ' . $button['class'] : null;
 
-                            $url = ci()->parser->parse_string($button['url'], $entry, true);
+                            $url = ci()->parser->parse_string($button['url'], $entry->getPresenter('plugin')->toArray(), true);
 
                             // This is kept for backwards compatibility
                             $url = str_replace('-entry_id-', $entry->getKey(), $url);
