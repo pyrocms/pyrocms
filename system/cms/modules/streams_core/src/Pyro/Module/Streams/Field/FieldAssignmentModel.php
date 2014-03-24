@@ -409,25 +409,25 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get is required attr
+     * Get is_required attr
      *
-     * @param  string $required
+     * @param  string $isRequired
      *
      * @return boolean
      */
-    public function getRequiredAttribute($required = false)
+    public function getIsRequiredAttribute($isRequired = false)
     {
-        return $required === 'yes';
+        return $isRequired === 'yes';
     }
 
     /**
-     * Set is required attr
+     * Set is_required attr
      *
-     * @param boolean $required
+     * @param boolean $isRequired
      */
-    public function setRequiredAttribute($required = false)
+    public function setIsRequiredAttribute($isRequired = false)
     {
-        $this->attributes['required'] = $required ? 'yes' : 'no';
+        $this->attributes['is_required'] = $isRequired ? 'yes' : 'no';
     }
 
     /**

@@ -82,7 +82,7 @@ class EntryValidator
      */
     protected function setRequiredRule(FieldModel $field)
     {
-        if ($field->required) {
+        if ($field->is_required) {
             $this->addRule($field, 'required');
         }
     }

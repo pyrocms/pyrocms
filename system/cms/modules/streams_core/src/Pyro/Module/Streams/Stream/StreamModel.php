@@ -688,7 +688,7 @@ class StreamModel extends Eloquent
         $assignment->sort_order = FieldAssignmentModel::getIncrementalSortNumber($this->getKey());
 
         // Is Required
-        $assignment->required = isset($data['required']) ? $data['required'] : false;
+        $assignment->is_required = isset($data['is_required']) ? $data['is_required'] : false;
 
         // Unique
         $assignment->unique = isset($data['unique']) ? $data['unique'] : false;

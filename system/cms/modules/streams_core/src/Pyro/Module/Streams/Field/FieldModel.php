@@ -20,7 +20,7 @@ class FieldModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Define the table name
@@ -169,7 +169,7 @@ class FieldModel extends Eloquent
             $data['unique'] = isset($unique) ? $unique : false;
 
             // Is Required
-            $data['required'] = isset($required) ? $required : false;
+            $data['is_required'] = isset($is_required) ? $is_required : false;
 
             // Add actual assignment
             return $stream->assignField($field, $data);
