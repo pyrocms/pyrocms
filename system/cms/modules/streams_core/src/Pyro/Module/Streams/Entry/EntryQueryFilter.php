@@ -202,7 +202,7 @@ class EntryQueryFilter
      */
     protected function applyFilters()
     {
-        ci()->session->set_userdata($this->getFilterKey(), $this->getPostData());
+        ci()->session->set_userdata(uri_string().$this->getFilterKey(), $this->getPostData());
     }
 
     /**
@@ -220,7 +220,7 @@ class EntryQueryFilter
      */
     public function getAppliedFilters()
     {
-        return ci()->session->userdata($this->getFilterKey());
+        return ci()->session->userdata(uri_string().$this->getFilterKey());
     }
 
     /**
