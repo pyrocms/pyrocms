@@ -17,10 +17,16 @@
 
         $my_groups = array();
 
-        foreach($this->current_user->groups as $group)
+        $groups = $this->current_user->groups;
+
+        if(count((array)$groups) > 0) {
+
+            foreach($this->current_user->groups as $group)
             {
                 $groups[] = $group->description;
             }
+        }
+
 
         ?>
 
