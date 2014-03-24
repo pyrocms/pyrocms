@@ -260,12 +260,12 @@ class FieldUi extends UiAbstract
 
         $assign_validation = array(
             array(
-                'field' => 'required',
+                'field' => 'is_required',
                 'label' => 'Is Required', // @todo languagize
                 'rules' => 'trim'
             ),
             array(
-                'field' => 'unique',
+                'field' => 'is_unique',
                 'label' => 'Is Unique', // @todo languagize
                 'rules' => 'trim'
             ),
@@ -389,7 +389,7 @@ class FieldUi extends UiAbstract
                     'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
                     'field_name'   => isset($post_data['field_name']) ? $post_data['field_name'] : null,
                     'is_required'  => isset($post_data['is_required']) ? $post_data['is_required'] : false,
-                    'unique'       => isset($post_data['unique']) ? $post_data['unique'] : false,
+                    'is_unique'    => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
                 );
 
                 if (!($edit = $this->assignment->getKey())) {

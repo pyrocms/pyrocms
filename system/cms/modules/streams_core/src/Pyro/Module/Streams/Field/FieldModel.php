@@ -166,7 +166,7 @@ class FieldModel extends Eloquent
             $data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
 
             // Is Unique
-            $data['unique'] = isset($unique) ? $unique : false;
+            $data['is_unique'] = isset($is_unique) ? $is_unique : false;
 
             // Is Required
             $data['is_required'] = isset($is_required) ? $is_required : false;

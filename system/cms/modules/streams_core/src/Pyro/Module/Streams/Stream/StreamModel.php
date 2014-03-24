@@ -690,8 +690,8 @@ class StreamModel extends Eloquent
         // Is Required
         $assignment->is_required = isset($data['is_required']) ? $data['is_required'] : false;
 
-        // Unique
-        $assignment->unique = isset($data['unique']) ? $data['unique'] : false;
+        // Is unique
+        $assignment->is_unique = isset($data['is_unique']) ? $data['is_unique'] : false;
 
         // Return the field assignment or false
         return $assignment->save();

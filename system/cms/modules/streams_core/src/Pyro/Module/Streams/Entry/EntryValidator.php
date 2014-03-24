@@ -94,7 +94,7 @@ class EntryValidator
      */
     protected function setUniqueRule(FieldModel $field)
     {
-        if ($field->unique and !$this->model->getKey()) {
+        if ($field->is_unique and !$this->model->getKey()) {
             $table  = $this->model->getTable();
             $column = $field->getType()->getColumnName();
 

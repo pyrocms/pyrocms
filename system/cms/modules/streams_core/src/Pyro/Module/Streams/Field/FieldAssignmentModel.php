@@ -431,24 +431,24 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get is unique attr
+     * Get is_unique attr
      *
-     * @param  string $unique
+     * @param  string $isUnique
      *
      * @return boolean
      */
-    public function getUniqueAttribute($unique = false)
+    public function getIsUniqueAttribute($isUnique = false)
     {
-        return $unique === 'yes';
+        return $isUnique === 'yes';
     }
 
     /**
-     * Set is unique attr
+     * Set is_unique attr
      *
-     * @param boolean $unique
+     * @param boolean $isUnique
      */
-    public function setUniqueAttribute($unique = false)
+    public function setIsUniqueAttribute($isUnique = false)
     {
-        $this->attributes['unique'] = $unique ? 'yes' : 'no';
+        $this->attributes['is_unique'] = $isUnique ? 'yes' : 'no';
     }
 }
