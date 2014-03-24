@@ -124,7 +124,7 @@ class StreamModel extends Eloquent
         $stream['title_column'] = isset($extra['title_column']) ? $extra['title_column'] : null;
         $stream['sorting']      = isset($extra['sorting']) ? $extra['sorting'] : 'title';
         $stream['permissions']  = isset($extra['permissions']) ? $extra['permissions'] : null;
-        $stream['hidden']       = isset($extra['hidden']) ? $extra['hidden'] : false;
+        $stream['is_hidden']    = isset($extra['is_hidden']) ? $extra['is_hidden'] : false;
         $stream['menu_path']    = isset($extra['menu_path']) ? $extra['menu_path'] : null;
 
         return static::create($stream);
@@ -148,7 +148,7 @@ class StreamModel extends Eloquent
             return false;
         }
 
-        $attributes['hidden']       = isset($attributes['hidden']) ? $attributes['hidden'] : false;
+        $attributes['is_hidden']    = isset($attributes['is_hidden']) ? $attributes['is_hidden'] : false;
         $attributes['sorting']      = isset($attributes['sorting']) ? $attributes['sorting'] : 'title';
         $attributes['view_options'] = isset($attributes['view_options']) ? $attributes['view_options'] : array(
             'id',
@@ -688,10 +688,10 @@ class StreamModel extends Eloquent
         $assignment->sort_order = FieldAssignmentModel::getIncrementalSortNumber($this->getKey());
 
         // Is Required
-        $assignment->required = isset($data['required']) ? $data['required'] : false;
+        $assignment->is_required = isset($data['is_required']) ? $data['is_required'] : false;
 
-        // Unique
-        $assignment->unique = isset($data['unique']) ? $data['unique'] : false;
+        // Is unique
+        $assignment->is_unique = isset($data['is_unique']) ? $data['is_unique'] : false;
 
         // Return the field assignment or false
         return $assignment->save();
@@ -931,24 +931,24 @@ class StreamModel extends Eloquent
     }
 
     /**
-     * Get is hidden attr
+     * Get is is_hidden attr
      *
-     * @param  string $hidden
+     * @param  string $isHidden
      * @return boolean
      */
-    public function getHiddenAttribute($hidden)
+    public function getIsHiddenAttribute($isHidden)
     {
-        return $hidden == 'yes' ? true : false;
+        return $isHidden == 'yes' ? true : false;
     }
 
     /**
-     * Set is hidden attr
+     * Set is_hidden attr
      *
-     * @param boolean $hidden
+     * @param boolean $isHidden
      */
-    public function setHiddenAttribute($hidden)
+    public function setIsHiddenAttribute($isHidden)
     {
-        $this->attributes['hidden'] = !$hidden ? 'no' : 'yes';
+        $this->attributes['is_hidden'] = !$isHidden ? 'no' : 'yes';
     }
 
     /**

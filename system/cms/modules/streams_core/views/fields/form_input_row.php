@@ -1,7 +1,7 @@
 <label class="col-lg-2 control-label" for="<?php echo $field_type->form_slug; ?>">
     <?php echo $field_type->getField()->field_name; ?>
 
-    <?php if ($field_type->getField()->required): ?>
+    <?php if ($field_type->getField()->is_required): ?>
         <span class="required">*</span>
     <?php endif; ?>
 
