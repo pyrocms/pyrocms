@@ -331,9 +331,7 @@ class Admin extends Admin_Controller
             array(
                 'title'     => lang('user:profile_fields_label'),
                 'id'        => 'profile-fields',
-                'fields'    => array(
-                    'brother'
-                )
+                'fields'    => '*'
             )
         );
 
