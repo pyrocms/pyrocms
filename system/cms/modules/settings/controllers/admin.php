@@ -95,6 +95,10 @@ class Admin extends Admin_Controller
                 $setting->{$key} = ${$key};
             }
 
+            if (isset($settings[$setting->module]) and !is_array($settings[$setting->module])) {
+                $settings[$setting->module] = array();
+            }
+
             $settings[$setting->module][] = $setting;
 
             unset($settings[$key]);
