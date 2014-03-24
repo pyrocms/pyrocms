@@ -23,14 +23,14 @@
 
             foreach($this->current_user->groups as $group)
             {
-                $groups[] = $group->description;
+                $my_groups[] = $group->description;
             }
         }
 
 
         ?>
 
-        <?php echo '<span class="c-gray italic  ">'.implode(', ',$groups).'</span>'; ?>
+        <?php echo '<span class="c-gray italic  ">'.implode(', ',$my_groups).'</span>'; ?>
 
     </div>
 
