@@ -237,9 +237,6 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-        // Get the user ID from the profile ID
-        $id = $this->profiles->find($id)->id;
-
         // Get the user's data
         if ( ! ($user = User::find($id))) {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
