@@ -210,7 +210,7 @@ class EntryQueryFilter
      */
     protected function clearFilters()
     {
-        ci()->session->unset_userdata($this->getFilterKey());
+        ci()->session->unset_userdata(uri_string().$this->getFilterKey());
     }
 
     /**
