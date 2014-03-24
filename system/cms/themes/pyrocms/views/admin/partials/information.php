@@ -5,6 +5,30 @@
 -->	
 <nav class="navbar-right" id="information">
 
+    <div class="pull-left">
+
+        <span>
+            <?php echo $this->current_user->contact->first_name; ?>&nbsp;
+            <?php echo $this->current_user->contact->last_name; ?> |
+            <?php echo $this->current_user->email; ?><br>
+        </span>
+
+        <?php
+
+        $my_groups = array();
+
+        foreach($this->current_user->groups as $group)
+            {
+                $groups[] = $group->description;
+            }
+
+        ?>
+
+        <?php echo '<span class="c-gray italic  ">'.implode(', ',$groups).'</span>'; ?>
+
+    </div>
+
+
 	<ul class="nav navbar-nav">
 
 		<li>
@@ -18,9 +42,10 @@
 		</li>
 		<?php endif; ?>
 
+
 		<li class="dropdown-submenu">
 			<a href="#" class="dropdown-submenu user" data-toggle="dropdown">
-				<img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
+                <img src="https://gravatar.com/avatar/<?php echo md5($this->current_user->email); ?>" class="avatar-sm"/>
 			</a>
 
 			<ul class="dropdown-menu animated fadeInTop">
