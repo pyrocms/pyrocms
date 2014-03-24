@@ -365,15 +365,15 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get is locked attribute
+     * Get is_locked attribute
      *
      * @param  string $field_namespace
      *
      * @return boolean
      */
-    public function getLockedAttribute($locked)
+    public function getIsLockedAttribute($isLocked)
     {
-        return $this->field->locked;
+        return $this->field->is_locked;
     }
 
     /**
@@ -409,46 +409,46 @@ class FieldAssignmentModel extends FieldModel
     }
 
     /**
-     * Get is required attr
+     * Get is_required attr
      *
-     * @param  string $required
-     *
-     * @return boolean
-     */
-    public function getRequiredAttribute($required = false)
-    {
-        return $required === 'yes';
-    }
-
-    /**
-     * Set is required attr
-     *
-     * @param boolean $required
-     */
-    public function setRequiredAttribute($required = false)
-    {
-        $this->attributes['required'] = $required ? 'yes' : 'no';
-    }
-
-    /**
-     * Get is unique attr
-     *
-     * @param  string $unique
+     * @param  string $isRequired
      *
      * @return boolean
      */
-    public function getUniqueAttribute($unique = false)
+    public function getIsRequiredAttribute($isRequired = false)
     {
-        return $unique === 'yes';
+        return $isRequired === 'yes';
     }
 
     /**
-     * Set is unique attr
+     * Set is_required attr
      *
-     * @param boolean $unique
+     * @param boolean $isRequired
      */
-    public function setUniqueAttribute($unique = false)
+    public function setIsRequiredAttribute($isRequired = false)
     {
-        $this->attributes['unique'] = $unique ? 'yes' : 'no';
+        $this->attributes['is_required'] = $isRequired ? 'yes' : 'no';
+    }
+
+    /**
+     * Get is_unique attr
+     *
+     * @param  string $isUnique
+     *
+     * @return boolean
+     */
+    public function getIsUniqueAttribute($isUnique = false)
+    {
+        return $isUnique === 'yes';
+    }
+
+    /**
+     * Set is_unique attr
+     *
+     * @param boolean $isUnique
+     */
+    public function setIsUniqueAttribute($isUnique = false)
+    {
+        $this->attributes['is_unique'] = $isUnique ? 'yes' : 'no';
     }
 }
