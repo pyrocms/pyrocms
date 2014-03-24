@@ -20,7 +20,7 @@ class FieldModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Define the table name
@@ -51,7 +51,6 @@ class FieldModel extends Eloquent
      * @param array  $fields             The array of fields
      * @param string $assign_stream_slug The optional stream slug to assign all fields. Avoids the need to add it individually.
      * @param string $namespace          The optional namespace for all fields. Avoids the need to add it individually.
-     *
      * @return bool
      */
     public static function addFields($fields = array(), $assign_stream_slug = null, $namespace = null)
@@ -83,7 +82,6 @@ class FieldModel extends Eloquent
      * Add field
      *
      * @param   array - field_data
-     *
      * @return  object|bool
      */
     public static function addField($field)
@@ -124,8 +122,8 @@ class FieldModel extends Eloquent
             throw new InvalidFieldTypeException('Invalid field type. Attempted [' . $type . ']');
         }
 
-        // Set locked
-        $locked = (isset($locked) and $locked === true) ? 'yes' : 'no';
+        // Set is_locked
+        $isLocked = (isset($is_locked) and $is_locked === true) ? 'yes' : 'no';
 
         // Set extra
         if (!isset($extra) or !is_array($extra)) {
@@ -142,7 +140,7 @@ class FieldModel extends Eloquent
             'field_type'      => $type,
             'field_namespace' => $namespace,
             'field_data'      => $extra,
-            'locked'          => $locked
+            'is_locked'       => $isLocked
         );
 
         if (!$field = static::create($attributes)) {
@@ -168,10 +166,10 @@ class FieldModel extends Eloquent
             $data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
 
             // Is Unique
-            $data['unique'] = isset($unique) ? $unique : false;
+            $data['is_unique'] = isset($is_unique) ? $is_unique : false;
 
             // Is Required
-            $data['required'] = isset($required) ? $required : false;
+            $data['is_required'] = isset($is_required) ? $is_required : false;
 
             // Add actual assignment
             return $stream->assignField($field, $data);
@@ -185,7 +183,6 @@ class FieldModel extends Eloquent
      *
      * @param   string field slug
      * @param   string field namespace
-     *
      * @return  object
      */
     public static function findBySlugAndNamespace($field_slug = null, $field_namespace = null)
@@ -203,7 +200,6 @@ class FieldModel extends Eloquent
      * @param   string - stream slug
      * @param   string - field slug
      * @param   array  - assign data
-     *
      * @return  mixed - false or assignment ID
      */
     public static function assignField($stream_slug, $namespace, $field_slug, $assign_data = array())
@@ -235,7 +231,6 @@ class FieldModel extends Eloquent
      * @param   string - namespace
      * @param   string - stream slug
      * @param   string - field slug
-     *
      * @return  bool
      */
     public static function deassignField($namespace, $stream_slug, $field_slug)
@@ -264,7 +259,6 @@ class FieldModel extends Eloquent
      *
      * @param   string - field slug
      * @param   string - field namespace
-     *
      * @return  bool
      */
     public static function deleteField($field_slug, $namespace)
@@ -291,7 +285,6 @@ class FieldModel extends Eloquent
      *
      * @param   string - slug
      * @param   array  - new data
-     *
      * @return  bool
      */
     public static function updateField(
@@ -330,7 +323,6 @@ class FieldModel extends Eloquent
      *
      * @param   string - field slug
      * @param   string - namespace
-     *
      * @return  object
      */
     public static function getFieldAssignments($field_slug, $namespace)
@@ -354,10 +346,9 @@ class FieldModel extends Eloquent
      * @param   string - the field slug
      * @param   string - the field type
      * @param   [array - any extra data]
-     *
      * @return  bool
      */
-    // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no'
+    // $field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $isLocked = 'no'
     /**
      * Tear down assignment + field combo
      * Usually we'd just delete the assignment,
@@ -366,7 +357,6 @@ class FieldModel extends Eloquent
      *
      * @param   int  - assignment id
      * @param   bool - force delete field, even if it is shared with multiple streams
-     *
      * @return  bool - success/fail
      */
     public static function teardownFieldAssignment($assign_id, $force_delete = false)
@@ -387,7 +377,7 @@ class FieldModel extends Eloquent
             $stream->removeFieldAssignment($field);
 
             // Remove the field only if unlocked and has no assingments
-            if (!$field->locked or $field->assignments->isEmpty() or $force_delete) {
+            if (!$field->is_locked or $field->assignments->isEmpty() or $force_delete) {
                 // Remove the field
                 return $field->delete();
             }
@@ -428,7 +418,6 @@ class FieldModel extends Eloquent
      * Delete fields by namespace
      *
      * @param  string $namespace
-     *
      * @return object
      */
     public static function deleteByNamespace($namespace)
@@ -441,7 +430,6 @@ class FieldModel extends Eloquent
      *
      * @param  string $field_slug
      * @param  string $field_namespace
-     *
      * @return mixed                  Object or false if none found
      */
     public static function findBySlugAndNamespaceOrFail($field_slug = null, $field_namespace = null)
@@ -460,7 +448,6 @@ class FieldModel extends Eloquent
      * @param  integer $limit
      * @param  integer $offset
      * @param  array   $skips
-     *
      * @return array
      */
     public static function findManyByNamespace(
@@ -487,7 +474,6 @@ class FieldModel extends Eloquent
      *
      * @param  mixed $id
      * @param  array $columns
-     *
      * @return \Pyro\Module\Streams\static|Collection|static
      */
     public static function findOrFail($id, $columns = array('*'))
@@ -549,7 +535,6 @@ class FieldModel extends Eloquent
      * Get the corresponding field type instance
      *
      * @param  [type] $entry [description]
-     *
      * @return [type]        [description]
      */
     public function getType($entry = null)
@@ -712,7 +697,6 @@ class FieldModel extends Eloquent
      * Delete a field
      *
      * @param   int
-     *
      * @return  bool
      */
     public function delete()
@@ -757,7 +741,6 @@ class FieldModel extends Eloquent
      * New collection instance
      *
      * @param  array $models
-     *
      * @return object
      */
     public function newCollection(array $models = array())
@@ -779,7 +762,6 @@ class FieldModel extends Eloquent
      * Get field name attr
      *
      * @param  strign $field_name
-     *
      * @return string
      */
     public function getFieldNameAttribute($field_name)
@@ -822,7 +804,6 @@ class FieldModel extends Eloquent
      * Get field data attr
      *
      * @param  string $field_data
-     *
      * @return array
      */
     public function getFieldDataAttribute($field_data)
@@ -838,7 +819,6 @@ class FieldModel extends Eloquent
      * Get view options attr
      *
      * @param  string $view_options
-     *
      * @return array
      */
     public function getViewOptionsAttribute($view_options)
@@ -865,25 +845,24 @@ class FieldModel extends Eloquent
     }
 
     /**
-     * Get is locked attr
+     * Get is is_locked attr
      *
-     * @param  string $locked
-     *
+     * @param  string $isLocked
      * @return boolean
      */
-    public function getLockedAttribute($locked)
+    public function getIsLockedAttribute($isLocked)
     {
-        return $locked;
+        return $isLocked;
     }
 
     /**
-     * Set is unlocked attr
+     * Set is_unlocked attr
      *
-     * @param string $locked
+     * @param string $isLocked
      */
-    public function setLockedAttribute($locked)
+    public function setIsLockedAttribute($isLocked)
     {
-        $this->attributes['locked'] = $locked;
+        $this->attributes['is_locked'] = $isLocked;
     }
 
     /**

@@ -120,7 +120,7 @@
                                     if (isset($button['html'])) {
                                         $all_buttons[] = ci()->parser->parse_string(
                                             $button['html'],
-                                            $entry,
+                                            $entry->getPresenter('plugin')->toArray(),
                                             true,
                                             false,
                                             false

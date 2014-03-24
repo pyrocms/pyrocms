@@ -14,7 +14,6 @@ class FieldUi extends UiAbstract
      * Set table for namespace
      *
      * @param  string $namespace
-     *
      * @return object
      */
     public function namespaceTable($namespace = null)
@@ -32,7 +31,6 @@ class FieldUi extends UiAbstract
      * @param  string  $stream_slug
      * @param  string  $namespace
      * @param  integer $assignment_id
-     *
      * @return object
      */
     public function assignmentForm($stream_slug, $namespace, $assignment_id = null)
@@ -71,7 +69,6 @@ class FieldUi extends UiAbstract
      *
      * @param  string  $namespace
      * @param  integer $fieldId
-     *
      * @return object
      */
     public function namespaceForm($namespace, $fieldId = null)
@@ -96,7 +93,6 @@ class FieldUi extends UiAbstract
      *
      * @param  strign $stream_slug
      * @param  string $namespace
-     *
      * @return object
      */
     public function assignmentsTable($stream_slug, $namespace = null)
@@ -120,7 +116,7 @@ class FieldUi extends UiAbstract
         $this->messages(
             array(
                 'success' => lang('streams:field_save_success'),
-                'error' => lang('streams:save_field_error')
+                'error'   => lang('streams:save_field_error')
             )
         );
     }
@@ -205,14 +201,13 @@ class FieldUi extends UiAbstract
      * @param    [array - field types to include]
      * @param    [bool - view override - setting this to true will build template]
      * @param    [array - extra params (see below)]
-     *
      * @return    mixed - void or string
-     * Extra parameters to pass in $extra array:
-     * title    - Title of the form header (if using view override)
-     *            $extra['title'] = 'Streams Sample';
-     * show_cancel - bool. Show the cancel button or not?
-     * cancel_url - uri to link to for cancel button
-     * see docs for more.
+     *                  Extra parameters to pass in $extra array:
+     *                  title    - Title of the form header (if using view override)
+     *                  $extra['title'] = 'Streams Sample';
+     *                  show_cancel - bool. Show the cancel button or not?
+     *                  cancel_url - uri to link to for cancel button
+     *                  see docs for more.
      */
     protected function triggerForm()
     {
@@ -265,12 +260,12 @@ class FieldUi extends UiAbstract
 
         $assign_validation = array(
             array(
-                'field' => 'required',
+                'field' => 'is_required',
                 'label' => 'Is Required', // @todo languagize
                 'rules' => 'trim'
             ),
             array(
-                'field' => 'unique',
+                'field' => 'is_unique',
                 'label' => 'Is Unique', // @todo languagize
                 'rules' => 'trim'
             ),
@@ -393,8 +388,8 @@ class FieldUi extends UiAbstract
                 $post_data = array(
                     'instructions' => isset($post_data['instructions']) ? $post_data['instructions'] : null,
                     'field_name'   => isset($post_data['field_name']) ? $post_data['field_name'] : null,
-                    'required'     => isset($post_data['required']) ? $post_data['required'] : false,
-                    'unique'       => isset($post_data['unique']) ? $post_data['unique'] : false,
+                    'is_required'  => isset($post_data['is_required']) ? $post_data['is_required'] : false,
+                    'is_unique'    => isset($post_data['is_unique']) ? $post_data['is_unique'] : false,
                 );
 
                 if (!($edit = $this->assignment->getKey())) {
