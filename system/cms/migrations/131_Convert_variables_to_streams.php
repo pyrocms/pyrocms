@@ -45,7 +45,7 @@ class Migration_Convert_variables_to_streams extends CI_Migration
                 'remote_container' => '',
                 'date_added' => time(),
                 'sort' => time(),
-                'hidden' => 1,
+                'is_hidden' => 1,
             ));
             
             $fields = array(
