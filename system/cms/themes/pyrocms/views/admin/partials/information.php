@@ -17,9 +17,9 @@
 
         $my_groups = array();
 
-        $groups = $this->current_user->groups;
+        $available_groups = $this->current_user->groups;
 
-        if(count((array)$groups) > 0) {
+        if(count((array)$available_groups) > 0) {
 
             foreach($this->current_user->groups as $group)
             {
