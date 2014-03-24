@@ -125,13 +125,13 @@ class Users extends Public_Controller
         // If the validation worked, or the user is already logged in
         if ($this->form_validation->run() or $this->sentry->check()) {
 
-            // Kill the session
-            $this->session->unset_userdata('redirect_to');
-
             $user = Model\User::findByEmail($this->input->post('email'));
 
             // trigger a post login event for third party devs
             Events::trigger('post_user_login', $user->id);
+            
+            // Kill the session
+            $this->session->unset_userdata('redirect_to');
 
             if ($this->input->is_ajax_request()) {
 
