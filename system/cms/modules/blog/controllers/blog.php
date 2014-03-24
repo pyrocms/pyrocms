@@ -22,21 +22,11 @@ class Blog extends Public_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('blog_m');
-        $this->load->model('blog_categories_m');
         $this->load->library(array('keywords/keywords'));
         $this->lang->load('blog');
 
-        $this->load->driver('Streams');
-
-        // We are going to get all the categories so we can
-        // easily access them later when processing posts.
-        $cates = $this->db->get('blog_categories')->result_array();
-        $this->categories = array();
-
-        foreach ($cates as $cate) {
-            $this->categories[$cate['id']] = $cate;
-        }
+        $this->blogs = new BlogEntryModel;
+        $this->categories = new BlogCategoryModel;
     }
 
     /**
@@ -49,17 +39,18 @@ class Blog extends Public_Controller
     public function index()
     {
         // Total posts
-        $total = BlogEntryModel::live()->count();
+        $total = $this->blogs->live()->count();
 
         // Skip
         if (ci()->input->get('page')) {
-            $skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+            $skip = (ci()->input->get('page') - 1) * Settings::get('records_per_page');
         } else {
             $skip = 0;
         }
 
         // Get the latest blog posts
-        $posts = BlogEntryModel::findManyPosts(Settings::get('records_per_page'), $skip, 'category')
+        $posts = $this->blogs
+            ->findManyPosts(Settings::get('records_per_page'), $skip, 'category')
             ->getPresenter('plugin');
 
         // Create pagination
@@ -68,8 +59,6 @@ class Blog extends Public_Controller
             $total,
             Settings::get('records_per_page')
         );
-
-        $pagination['links'] = str_replace('-1', '1', $pagination['links']);
 
         // Set meta description based on post titles
         $meta = $this->_posts_metadata($posts);

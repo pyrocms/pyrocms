@@ -24,7 +24,7 @@ class BlogEntryModel extends BlogsBlogEntryModel
      *
      * @return \Pyro\Module\Streams\Entry\EntryCollection
      */
-    public static function findManyPosts($take = 0, $skip = null, $eager = array())
+    public function findManyPosts($take = 0, $skip = null, $eager = array())
     {
         $query = static::eager($eager)->live()->orderBy('created_at', 'DESC');
 
