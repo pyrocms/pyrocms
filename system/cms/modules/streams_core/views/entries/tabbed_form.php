@@ -67,7 +67,7 @@
 		<button type="submit" name="btnAction" value="save" class="btn btn-success"><?php echo lang('buttons:save'); ?></button>
 		
 		<?php if (! empty($exitRedirect)): ?>
-		<button type="submit" name="btnAction" value="exit" class="btn btn-success"><?php echo lang('buttons:save_exit'); ?></button>
+		<button type="submit" name="btnAction" value="exit" class="btn btn-info"><?php echo lang('buttons:save_exit'); ?></button>
 		<?php endif; ?>
 
 		<?php if (! empty($createRedirect)): ?>
