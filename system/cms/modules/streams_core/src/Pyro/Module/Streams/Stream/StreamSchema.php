@@ -65,7 +65,7 @@ class StreamSchema
      * @param	[array - view options]
      * @return	bool
      */
-    public static function convertTableToStream($streamSlug, $namespace, $streamPrefix, $stream_name, $about = null, $titleColumn = null, $viewOptions = array('id', 'created_at'))
+    public static function convertTableToStream($streamSlug, $namespace, $streamPrefix, $streamName, $about = null, $titleColumn = null, $viewOptions = array('id', 'created_at'))
     {
         $schema = ci()->pdb->getSchemaBuilder();
         $prefix = ci()->pdb->getQueryGrammar()->getTablePrefix();
@@ -139,7 +139,7 @@ class StreamSchema
         // ----------------------------
 
         $stream = array(
-            'stream_name'		=> $stream_name,
+            'stream_name'		=> $streamName,
             'stream_namespace'	=> $namespace,
             'stream_prefix' 	=> $streamPrefix,
             'stream_slug'		=> $streamSlug,
