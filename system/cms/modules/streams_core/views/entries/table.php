@@ -131,7 +131,7 @@
                                     // The second is kept for backwards compatibility
                                     $url = ci()->parser->parse_string(
                                         $button['url'],
-                                        $entry,
+                                        $entry->getPresenter('plugin')->toArray(),
                                         true,
                                         false,
                                         false
