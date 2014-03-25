@@ -10,9 +10,6 @@
     </div>
     <?php endif;?>
 
-
-        <?php if ($fields): ?>
-
         <?php echo form_open_multipart('', 'class="streams_form"'); ?>
 
         <div class="form_inputs">
@@ -90,21 +87,5 @@
     
         <?php echo form_submit('', lang('user:profile_save_btn')) ?>
         <?php echo form_close() ?>
-
-        <?php else: ?>
-
-        <div class="no_data">
-            <?php
-
-                if (isset($noFieldsMessage) and $noFieldsMessage) {
-                    echo lang_label($noFieldsMessage);
-                } else {
-                    echo lang('streams:no_fields_msg_first');
-                }
-
-            ?>
-        </div><!--.no_data-->
-
-        <?php endif;?>
 
 </div>
