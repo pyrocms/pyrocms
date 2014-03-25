@@ -40,7 +40,12 @@ class EntryValidator
         ci()->form_validation->reset_validation();
         ci()->form_validation->set_data($data);
         ci()->form_validation->set_rules($this->rules);
-        return ci()->form_validation->run();
+
+        if ($this->rules) {
+            return ci()->form_validation->run();
+        } else {
+            return true;
+        }
     }
 
     /**
