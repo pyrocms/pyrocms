@@ -1035,6 +1035,7 @@ a.btn:hover {
   font-size: 11px;
 }
 
+.button.disabled,
 .btn.disabled,
 .btn:disabled {
   cursor: not-allowed;

@@ -11,6 +11,11 @@
  * @version		1.1
  */
 
+// Streams
+$lang['templates.stream.templates.name']   = 'Templates';
+$lang['templates.stream.templates.create'] = 'Create Template';
+$lang['templates.stream.templates.edit']   = 'Edit Template';
+
 // Labels
 $lang['templates:language_label']			= '語言';
 $lang['templates:choose_lang_label']		= '選擇語言';

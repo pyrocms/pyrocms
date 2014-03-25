@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+// Streams
+$lang['templates.stream.templates.name']   = 'Templates';
+$lang['templates.stream.templates.create'] = 'Create Template';
+$lang['templates.stream.templates.edit']   = 'Edit Template';
+
 // Labels
 $lang['templates:language_label']			= 'שפה';
 $lang['templates:choose_lang_label']		= 'בחר שפה';
