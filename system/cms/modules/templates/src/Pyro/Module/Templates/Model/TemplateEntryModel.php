@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Templates\Model;
 
-use Pyro\Model\Eloquent;
+use Pyro\Module\Streams\Model\TemplatesTemplatesEntryModel;
 
 /**
  * Email Template model
@@ -8,34 +8,14 @@ use Pyro\Model\Eloquent;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Templates\Models
  */
-class EmailTemplate extends Eloquent
+class TemplateEntryModel extends TemplatesTemplatesEntryModel
 {
     /**
-     * Define the table name
+     * Presenter class
      *
      * @var string
      */
-    protected $table = 'email_templates';
-
-    /**
-     * Cache minutes
-     * @var int
-     */
-    public $cacheMinutes = 30;
-
-    /**
-     * The attributes that aren't mass assignable
-     *
-     * @var array
-     */
-    protected $guarded = array();
-
-    /**
-     * Disable updated_at and created_at on table
-     *
-     * @var boolean
-     */
-    public $timestamps = false;
+    protected $presenterClass = 'Pyro\Module\Templates\Presenter\TemplateEntryPresenter';
 
     /**
      * Find email template by slug
