@@ -181,7 +181,7 @@ class StreamSchema
 
         // Maybe we already added this?
         if ($field = FieldModel::addField(array(
-            'name'          => 'lang:streams:column_data',
+            'name'          => $fieldName,
             'namespace'     => $namespace,
             'slug'          => $fieldSlug,
             'type'          => $fieldType,
