@@ -142,6 +142,8 @@ class Files
     **/
     public static function folderContents($parent = 0)
     {
+        ci()->load->library('keywords/Keywords');
+
         // they can also pass a url hash such as #foo/bar/some-other-folder-slug
         if ( ! is_numeric($parent)) {
             $segment = explode('/', trim($parent, '/#'));
@@ -166,7 +168,7 @@ class Files
         if ($files) {
             foreach ($files as &$file) {
                 $file['keywords_hash'] = $file->keywords;
-                $file['keywords'] = Keywords::get_string($file->keywords);
+                $file['keywords'] = ci()->keywords->get_string($file->keywords);
                 $file['formatted_date'] = format_date($file->date_added);
             }
         }
