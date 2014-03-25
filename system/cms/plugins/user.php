@@ -224,7 +224,7 @@ class Plugin_User extends Plugin
 		);
 
 		$plugin_data[] = array(
-			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
+			'value' => date(Settings::get('date_format'), strtotime($profile_data['last_login'])),
 			'name'  => lang('user:profile_last_login_label'),
 			'slug'  => 'last_login'
 		);
@@ -242,7 +242,7 @@ class Plugin_User extends Plugin
 			'slug'  => 'display_name'
 		);
 		$plugin_data[] = array(
-			'value' => date(Settings::get('date_format'), $profile_data['updated_on']),
+			'value' => date(Settings::get('date_format'), strtotime($profile_data['updated_on'])),
 			'name'  => lang('user:profile_updated_on'),
 			'slug'  => 'updated_on'
 		);
