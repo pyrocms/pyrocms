@@ -10,6 +10,11 @@
 * Description:  Vietnamese language file
 *
 */
+// Streams
+$lang['redirects.stream.redirects.name']   = 'Redirects';
+$lang['redirects.stream.redirects.create'] = 'Create Redirect';
+$lang['redirects.stream.redirects.edit']   = 'Edit Redirect';
+
 // labels
 $lang['redirects:from']                      = 'Từ';
 $lang['redirects:to']                        = 'Đến';

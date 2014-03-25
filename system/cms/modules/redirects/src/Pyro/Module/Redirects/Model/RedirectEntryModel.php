@@ -1,6 +1,6 @@
 <?php namespace Pyro\Module\Redirects\Model;
 
-use Pyro\Model\Eloquent;
+use Pyro\Module\Streams\Model\RedirectsRedirectsEntryModel;
 
 /**
  * Redirect model
@@ -8,35 +8,8 @@ use Pyro\Model\Eloquent;
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Redirects\Models
  */
-class Redirect extends Eloquent
+class RedirectEntryModel extends RedirectsRedirectsEntryModel
 {
-    /**
-     * Define the table name
-     *
-     * @var string
-     */
-    protected $table = 'redirects';
-
-    /**
-     * Cache minutes
-     * @var int
-     */
-    public $cacheMinutes = 30;
-
-    /**
-     * The attributes that aren't mass assignable
-     *
-     * @var array
-     */
-    protected $guarded = array();
-
-    /**
-     * Disable updated_at and created_at on table
-     *
-     * @var boolean
-     */
-    public $timestamps = false;
-
     /**
      * Find redirect by URI
      *

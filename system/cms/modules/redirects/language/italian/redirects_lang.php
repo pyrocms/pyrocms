@@ -2,6 +2,11 @@
 /* Translation made Nicola Tudino and Christian Giupponi */
 /* Date 09/11/2010 updated 05/04/2012 */
 
+// Streams
+$lang['redirects.stream.redirects.name']   = 'Redirects';
+$lang['redirects.stream.redirects.create'] = 'Create Redirect';
+$lang['redirects.stream.redirects.edit']   = 'Edit Redirect';
+
 // labels
 $lang['redirects:from'] 			    = 'Da';
 $lang['redirects:to']					= 'A';
