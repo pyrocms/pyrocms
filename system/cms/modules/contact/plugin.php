@@ -1,7 +1,7 @@
 <?php
 
 use Pyro\Module\Contact\Model\ContactLog;
-use Pyro\Module\Templates\Model\EmailTemplate;
+use Pyro\Module\Templates\Model\TemplateEntryModel;
 
 /**
  * Contact Plugin
@@ -416,7 +416,7 @@ class Plugin_Contact extends Plugin
                 }
 
                 // Fetch the email template so we can parse the subject & body before we create a db entry
-                $template = EmailTemplate::findBySlugAndLanguage($template, $lang);
+                $template = TemplateEntryModel::findBySlugAndLanguage($template, $lang);
 
                 // We won't be able to store a log entry or send a mail if the template is missing
                 if (null === $template) {

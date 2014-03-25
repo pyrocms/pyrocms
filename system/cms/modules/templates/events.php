@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Templates\Model\EmailTemplate;
+use Pyro\Module\Templates\Model\TemplateEntryModel;
 
 /**
  * Email Template Events Class
@@ -49,7 +49,7 @@ class Events_Templates
         unset($data['slug']);
 
         // Get all email templates
-        $templates = EmailTemplate::findBySlug($slug);
+        $templates = TemplateEntryModel::findBySlug($slug);
 
         // Make sure we have something to work with
         if ($templates) {
@@ -91,5 +91,3 @@ class Events_Templates
         return false;
     }
 }
-
-/* End of file events.php */

@@ -10,6 +10,11 @@
 * Description:  Vietnamese language file
 *
 */
+// Streams
+$lang['templates.stream.templates.name']   = 'Templates';
+$lang['templates.stream.templates.create'] = 'Create Template';
+$lang['templates.stream.templates.edit']   = 'Edit Template';
+
 // Labels
 $lang['templates:language_label']			= 'Ngôn ngữ';
 $lang['templates:choose_lang_label']		= 'Chọn ngôn ngữ';
