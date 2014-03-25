@@ -13,7 +13,7 @@ class TemplateEntryPresenter extends EntryPresenter
     {
         $uri        = 'admin/templates/preview/' . $this->resource->id;
         $string     = $this->resource->name;
-        $attributes = 'class="modal"';
+        $attributes = 'class="link" data-toggle="modal" data-target="#modal"';
 
         return anchor($uri, $string, $attributes);
     }
@@ -27,18 +27,18 @@ class TemplateEntryPresenter extends EntryPresenter
     {
         $uri     = 'admin/templates/edit/' . $this->resource->id;
         $string  = lang('global:edit');
-        $class   = 'button btn-warning';
+        $class   = 'btn-sm btn-warning';
         $buttons = '<a href="' . $uri . '" class="' . $class . '">' . $string . '</a>';
 
         if (!$this->resource->is_default) {
             $uri     = 'admin/templates/delete/' . $this->resource->id;
             $string  = lang('global:delete');
-            $class   = 'button btn-danger confirm';
+            $class   = 'btn-sm btn-danger confirm';
             $buttons = '<a href="' . $uri . '" class="' . $class . '">' . $string . '</a> ' . $buttons;
         } else {
             $uri     = '#';
             $string  = lang('global:delete');
-            $class   = 'button disabled';
+            $class   = 'btn-sm btn-default';
             $buttons = '<a onclick="return false;" href="' . $uri . '" class="' . $class . '">' . $string . '</a> ' . $buttons;
         }
 
