@@ -54,8 +54,7 @@ class Migration_Convert_templates_to_streams extends CI_Migration
                     'slug_field' => 'name'
                 ),
                 $assignData = array(
-                    'is_required' => true,
-                    'is_unique'   => true
+                    'is_required' => true
                 )
             );
 
