@@ -16,6 +16,8 @@ class TemplateEntryUi extends EntryUi
         // Filters to display on our table
         $this
             ->limit(100)
+            ->orderBy('name')
+            ->sort('asc')
             ->filters(
                 array(
                     'name',
@@ -41,11 +43,6 @@ class TemplateEntryUi extends EntryUi
             )
             ->redirects(
                 'admin/templates'
-            )
-            ->onQuery(
-                function ($query) {
-                    return $query->orderBy('is_default', 'desc')->orderBy('name', 'asc');
-                }
             );
     }
 }
