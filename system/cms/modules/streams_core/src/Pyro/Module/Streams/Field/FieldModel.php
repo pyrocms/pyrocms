@@ -16,13 +16,6 @@ use Pyro\Module\Streams\Stream\StreamModel;
 class FieldModel extends Eloquent
 {
     /**
-     * Disable updated_at and created_at on table
-     *
-     * @var boolean
-     */
-    public $timestamps = false;
-
-    /**
      * Define the table name
      *
      * @var string
