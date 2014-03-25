@@ -57,13 +57,23 @@
                 </th>
 
             <?php endforeach; ?>
-            <th></th>
+            <?php if (isset($buttons) and !empty($buttons)) { ?>
+                <th></th>
+            <?php } ?>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($entries as $entry) { ?>
 
-            <tr>
+            <?php $rowClass = ci()->parser->parse_string(
+                $tableRowClass,
+                $entry,
+                true,
+                false,
+                false
+            ); ?>
+
+            <tr class="<?php echo $rowClass; ?>">
 
                 <?php if ($stream->sorting == 'custom'): ?>
                     <td width="30" class="handle"><?php echo Asset::img(
@@ -72,7 +82,9 @@
                     ); ?></td><?php endif; ?>
 
                 <?php if (!empty($viewOptions)): foreach ($viewOptions as $viewOption): ?>
-                    <td>
+
+                    <?php $class = isset($fields[$viewOption]['class']) ? $fields[$viewOption]['class'] : null; ?>
+                    <td class="<?php echo $class; ?>">
 
                         <input type="hidden" name="action_to[]" value="<?php echo $entry->getKey(); ?>"/>
 
@@ -80,18 +92,22 @@
 
                     </td>
                 <?php endforeach; endif; ?>
-                <td class="actions">
+                <?php if (isset($buttons) and !empty($buttons)) { ?>
+                    <td class="actions">
 
-                    <?php
+                        <?php
 
-                    if (isset($buttons)) {
                         $all_buttons = array();
 
                         foreach ($buttons as $button) {
                             $class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
                             $class .= (isset($button['class']) and !empty($button['class'])) ? ' ' . $button['class'] : null;
 
-                            $url = ci()->parser->parse_string($button['url'], $entry->getPresenter('plugin')->toArray(), true);
+                            $url = ci()->parser->parse_string(
+                                $button['url'],
+                                $entry->getPresenter('plugin')->toArray(),
+                                true
+                            );
 
                             // This is kept for backwards compatibility
                             $url = str_replace('-entry_id-', $entry->getKey(), $url);
@@ -101,10 +117,9 @@
 
                         echo implode('&nbsp;', $all_buttons);
                         unset($all_buttons);
-                    }
-
-                    ?>
-                </td>
+                        ?>
+                    </td>
+                <?php } ?>
             </tr>
         <?php } ?>
         </tbody>
@@ -128,4 +143,5 @@
         ?>
     </div><!--.no_data-->
 
-<?php }
+<?php
+}
