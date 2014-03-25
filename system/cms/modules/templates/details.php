@@ -170,7 +170,7 @@ class Module_Templates extends AbstractModule
         // Add all the fields
         FieldModel::addFields($fields, null, 'templates');
 
-        // Items assignments
+        // Templates assignments
         FieldModel::assignField('templates', 'templates', 'name', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'slug', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'language', array('required' => true));

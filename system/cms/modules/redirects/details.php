@@ -5,7 +5,7 @@ use Pyro\Module\Addons\AbstractModule;
 /**
  * Redirects module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Redirects
  */
 class Module_Redirects extends AbstractModule
@@ -15,7 +15,7 @@ class Module_Redirects extends AbstractModule
     public function info()
     {
         return array(
-            'name' => array(
+            'name'        => array(
                 'en' => 'Redirects',
                 'ar' => 'التوجيهات',
                 'br' => 'Redirecionamentos',
@@ -24,7 +24,7 @@ class Module_Redirects extends AbstractModule
                 'da' => 'Omadressering',
                 'el' => 'Ανακατευθύνσεις',
                 'es' => 'Redirecciones',
-                            'fa' => 'انتقال ها',
+                'fa' => 'انتقال ها',
                 'fi' => 'Uudelleenohjaukset',
                 'fr' => 'Redirections',
                 'he' => 'הפניות',
@@ -51,7 +51,7 @@ class Module_Redirects extends AbstractModule
                 'da' => 'Omadresser fra en URL til en anden.',
                 'el' => 'Ανακατευθείνετε μια διεύθυνση URL σε μια άλλη',
                 'es' => 'Redireccionar desde una URL a otra',
-                            'fa' => 'انتقال دادن یک صفحه به یک آدرس دیگر',
+                'fa' => 'انتقال دادن یک صفحه به یک آدرس دیگر',
                 'fi' => 'Uudelleenohjaa käyttäjän paikasta toiseen.',
                 'fr' => 'Redirection d\'une URL à un autre.',
                 'he' => 'הפניות מכתובת אחת לאחרת',
@@ -69,45 +69,106 @@ class Module_Redirects extends AbstractModule
                 'se' => 'Omdirigera från en URL till en annan.',
                 'km' => 'ការប្តូរទិសដៅពីមួយ URL ទៅមួយទៀត។',
             ),
-            'frontend' => false,
-            'backend'  => true,
-            'menu'	  => 'structure',
-
-            'shortcuts' => array(
+            'frontend'    => false,
+            'backend'     => true,
+            'menu'        => 'structure',
+            'shortcuts'   => array(
                 array(
-                    'name' => 'redirects:add_title',
-                    'uri' => 'admin/redirects/add',
+                    'name'  => 'redirects:add_title',
+                    'uri'   => 'admin/redirects/add',
                     'class' => 'add',
                 ),
             ),
         );
     }
 
+    /**
+     * Install
+     *
+     * @param $pdb
+     * @param $schema
+     * @return bool
+     */
     public function install($pdb, $schema)
     {
-        $schema->dropIfExists('redirects');
+        // Uninstall first to make sure we're clean
+        self::uninstall($pdb, $schema);
 
-        $schema->create('redirects', function($table) {
-            $table->increments('id');
-            $table->string('from', 250);
-            $table->string('to', 250);
-            $table->integer('type')->default(302);
+        // Add redirects
+        StreamModel::addStream(
+            $slug = 'redirects',
+            $namespace = 'redirects',
+            $name = 'Email Templates',
+            $prefix = 'email_',
+            $about = null,
+            $extra = array(
+                'title_column' => 'name',
+            )
+        );
 
-            $table->index('from', 'request');
-        });
+        // Build the fields
+        $fields = array(
+            array(
+                'name'      => 'lang:redirects:from',
+                'slug'      => 'from',
+                'namespace' => 'redirects',
+                'locked'    => true,
+                'type'      => 'url',
+            ),
+            array(
+                'name'      => 'lang:redirects:to',
+                'slug'      => 'to',
+                'namespace' => 'redirects',
+                'locked'    => true,
+                'type'      => 'url',
+            ),
+            array(
+                'name'      => 'lang:redirects:type',
+                'slug'      => 'type',
+                'namespace' => 'redirects',
+                'locked'    => true,
+                'type'      => 'choice',
+                'extra'     => array(
+                    'choice_type'   => 'dropdown',
+                    'choice_data'   => '301 : lang:redirects:301' . "\n"
+                        . '302 : lang:redirects:302',
+                    'default_value' => '301',
+                ),
+            ),
+        );
+
+        // Add all the fields
+        FieldModel::addFields($fields, null, 'redirects');
+
+        // Redirects assignments
+        FieldModel::assignField('redirects', 'redirects', 'from', array('required' => true));
+        FieldModel::assignField('redirects', 'redirects', 'to', array('required' => true));
+        FieldModel::assignField('redirects', 'redirects', 'type', array('required' => true));
 
         return true;
     }
 
+    /**
+     * Uninstall
+     *
+     * @param $pdb
+     * @param $schema
+     * @return bool
+     */
     public function uninstall($pdb, $schema)
     {
         // This is a core module, lets keep it around.
         return false;
     }
 
-    public function upgrade($old_version)
+    /**
+     * Upgrade
+     *
+     * @param string $oldVersion
+     * @return bool
+     */
+    public function upgrade($oldVersion)
     {
         return true;
     }
-
 }
