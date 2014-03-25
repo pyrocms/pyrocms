@@ -544,6 +544,7 @@ class Files
                 $filename = $file_slug.$file->extension;
 
                 // create a unique filename if the target already exists
+                $i = 0;
                 while (file_exists(self::$path.$filename)) {
                     // Example: test-image2.jpg
                     $filename = $file_slug.$i.$file->extension;
