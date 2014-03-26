@@ -28,6 +28,7 @@ $lang['user:first_name_label']                 = 'Keresztnév';
 $lang['user:last_name_label']                  = 'Vezetéknév';
 $lang['user:group_label']                      = 'Csoport';
 $lang['user:activate_label']                   = 'Aktivál';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'Jelszó';
 $lang['user:password_confirm_label']           = 'Jelszó megerősítése';
 $lang['user:name_label']                       = 'Név';
@@ -46,6 +47,8 @@ $lang['indicates_required']                    = 'Jelezze a kötelező mezőket'
 
 $lang['user:send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'Regisztráció';
 $lang['user:activate_account_title']           = 'Fiók aktiválása';
 $lang['user:activate_label']                   = 'Aktiválás';

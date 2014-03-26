@@ -28,6 +28,7 @@ $lang['user:first_name_label']                 = 'Vardas';
 $lang['user:last_name_label']                  = 'Pavardė';
 $lang['user:group_label']                      = 'Grupė';
 $lang['user:activate_label']                   = 'Aktyvinti';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'Slaptažodis';
 $lang['user:password_confirm_label']           = 'Patvortinti spaltažodį';
 $lang['user:name_label']                       = 'Vardas';
@@ -46,6 +47,8 @@ $lang['indicates_required']                    = 'Rodomi privalomi laukai';
 
 $lang['user:send_activation_email']            = 'Išsiųsti aktyvavimo e.laišką';
 $lang['user:do_not_activate']                  = 'Neaktyvuotas';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'Registruotis';
 $lang['user:activate_account_title']           = 'Aktyvios paskyros';
 $lang['user:activate_label']                   = 'Aktyvinti';

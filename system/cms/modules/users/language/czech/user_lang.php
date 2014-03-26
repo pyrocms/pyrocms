@@ -28,6 +28,7 @@ $lang['user:first_name_label'] 			= 'Křestní jméno';
 $lang['user:last_name_label'] 			= 'Příjmení';
 $lang['user:group_label'] 				= 'Skupina';
 $lang['user:activate_label'] 			= 'Aktivace';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label'] 			= 'Heslo';
 $lang['user:password_confirm_label'] 	= 'Potvrdit heslo';
 $lang['user:name_label'] 				= 'Jméno';
@@ -46,6 +47,8 @@ $lang['indicates_required'] 			= 'Značí povinná pole.';
 
 $lang['user:send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title'] 			= 'Registrovat';
 $lang['user:activate_account_title'] 	= 'Aktivovat účet';
 $lang['user:activate_label'] 			= 'Aktivovat';

@@ -64,6 +64,7 @@ class Install_m extends CI_Model
 		    $table->string('ref', 20);
 		    $table->string('domain', 100);
 		    $table->boolean('is_activated')->default(true);
+            $table->boolean('is_blocked')->default(false);
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at')->nullable();
 
