@@ -26,10 +26,18 @@
         <?php endif; ?>
 
         <li class="even">
-            <label for="active"><?php echo lang('user:activate_label') ?></label>
+            <label for="active"><?php echo lang('user:activate_label') ?> <span>*</span></label>
             <div class="input">
                 <?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
                 <?php echo form_dropdown('active', $options, $member->is_activated, 'id="active"') ?>
+            </div>
+        </li>
+
+        <li class="even">
+            <label for="active"><?php echo lang('user:blocked_label') ?> <span>*</span></label>
+            <div class="input">
+                <?php $options = array(0 => lang('user:do_not_block'), 1 => lang('user:blocked')) ?>
+                <?php echo form_dropdown('blocked', $options, $member->is_blocked, 'id="blocked"') ?>
             </div>
         </li>
 

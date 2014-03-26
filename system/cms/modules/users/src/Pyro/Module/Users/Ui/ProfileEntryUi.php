@@ -20,14 +20,24 @@ class ProfileEntryUi extends EntryUi
                 array(
                     'user|username',
                     'user|email',
-                    'is_activated'  => array(
+                    'is_activated' => array(
                         'type'    => 'select',
                         'title'   => 'lang:user:active',
                         'slug'    => 'is_activated',
                         'options' => array(
                             null => '-- ' . lang('user:active') . ' --',
-                            '1'  => lang('global:yes'),
-                            '0'  => lang('global:no'),
+                            'yes'  => lang('global:yes'),
+                            'no'  => lang('global:no'),
+                        ),
+                    ),
+                    'is_blocked'   => array(
+                        'type'    => 'select',
+                        'title'   => 'lang:user:blocked',
+                        'slug'    => 'is_blocked',
+                        'options' => array(
+                            null => '-- ' . lang('user:blocked') . ' --',
+                            'yes'  => lang('global:yes'),
+                            'no'  => lang('global:no'),
                         ),
                     ),
                 )
