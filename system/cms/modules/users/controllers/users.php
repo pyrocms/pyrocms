@@ -127,6 +127,11 @@ class Users extends Public_Controller
 
             $user = Model\User::findByEmail($this->input->post('email'));
 
+            if ($user->is_blocked) {
+                $this->sentry->logout($user);
+                throw new \Exception('Your account has been blocked.');
+            }
+
             // trigger a post login event for third party devs
             Events::trigger('post_user_login', $user->id);
             

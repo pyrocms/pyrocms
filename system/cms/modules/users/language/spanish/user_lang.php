@@ -28,6 +28,7 @@ $lang['user:first_name_label']				= 'Nombre';
 $lang['user:last_name_label']				= 'Apellido';
 $lang['user:group_label']					= 'Grupo';
 $lang['user:activate_label'] 				= 'Activar';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label'] 				= 'Contraseña';
 $lang['user:password_confirm_label']		= 'Confirmar contraseña';
 $lang['user:name_label']					= 'Nombre';
@@ -44,6 +45,8 @@ $lang['indicates_required'] 				= 'Indica campos necesarios';
 
 $lang['user:send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']				= 'Registrar';
 $lang['user:activate_account_title']		= 'Activar cuenta';
 $lang['user:activate_label']				= 'Activar';

@@ -28,6 +28,7 @@ $lang['user:first_name_label'] 			= '大名';
 $lang['user:last_name_label'] 			= '姓氏';
 $lang['user:group_label'] 				= '群組';
 $lang['user:activate_label'] 			= '啟動';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label'] 			= '密碼';
 $lang['user:password_confirm_label'] 	= '再次確認密碼';
 $lang['user:name_label'] 				= '名稱';
@@ -46,6 +47,8 @@ $lang['indicates_required'] 			= '代表必填欄位';
 
 $lang['user:send_activation_email']     = '寄送啟動信件';
 $lang['user:do_not_activate']           = '未啟動';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title'] 			= '註冊';
 $lang['user:activate_account_title'] 	= '啟動帳號';
 $lang['user:activate_label'] 			= '啟動';
