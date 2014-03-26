@@ -33,6 +33,7 @@ $lang['user:first_name_label']                 = 'Etunimi';
 $lang['user:last_name_label']                  = 'Sukunimi';
 $lang['user:group_label']                      = 'Ryhmä';
 $lang['user:activate_label']                   = 'Aktivoi';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'Salasana';
 $lang['user:password_confirm_label']           = 'Vahvista salasana';
 $lang['user:name_label']                       = 'Nimi';
@@ -51,6 +52,8 @@ $lang['indicates_required']                    = 'Merkitsee pakolliset kentät';
 
 $lang['user:send_activation_email']            = 'Lähetä aktivointi sähköposti';
 $lang['user:do_not_activate']                  = 'Älä aktivoi';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'Rekisteröityminen';
 $lang['user:activate_account_title']           = 'Aktivoi tili';
 $lang['user:activate_label']                   = 'Aktivoi';

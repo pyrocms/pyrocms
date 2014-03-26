@@ -28,6 +28,7 @@ $lang['user:first_name_label']                 = 'Όνομα';
 $lang['user:last_name_label']                  = 'Επώνυμο';
 $lang['user:group_label']                      = 'Ομάδα';
 $lang['user:activate_label']                   = 'Ενεργοποίηση';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'Συνθηματικό';
 $lang['user:password_confirm_label']           = 'Επανάληψη Συνθηματικού';
 $lang['user:name_label']                       = 'Όνομα';
@@ -46,6 +47,8 @@ $lang['indicates_required']                    = 'Ενδειξη των απαι
 
 $lang['user:send_activation_email']            = 'Αποστολή E-mail Ενεργοποίησης';
 $lang['user:do_not_activate']                  = 'Ανενεργός';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'Εγγραφή';
 $lang['user:activate_account_title']           = 'Ενεργοποίηση Λογαριασμού';
 $lang['user:activate_label']                   = 'Ενεργοποίηση';

@@ -46,7 +46,7 @@
 	<div class="form-group">
 	<div class="row">
 		
-		<label class="col-lg-2" for="active"><?php echo lang('user:activate_label') ?></label>
+		<label class="col-lg-2" for="active"><?php echo lang('user:activate_label') ?> <span>*</span></label>
 	
 		<div  class="col-lg-10">
 			<?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
@@ -55,6 +55,19 @@
 
 	</div>
 	</div>
+
+    <div class="form-group">
+        <div class="row">
+
+            <label class="col-lg-2" for="blocked"><?php echo lang('user:blocked_label') ?> <span>*</span></label>
+
+            <div  class="col-lg-10">
+                <?php $options = array(0 => lang('user:do_not_block'), 1 => lang('user:blocked')) ?>
+                <?php echo form_dropdown('blocked', $options, $member->is_blocked, 'id="blocked"') ?>
+            </div>
+
+        </div>
+    </div>
 	
 <?php endif; ?>
 

@@ -28,6 +28,7 @@ $lang['user:first_name_label']                 = 'Nama Depan';
 $lang['user:last_name_label']                  = 'Nama Belakang';
 $lang['user:group_label']                      = 'Grup';
 $lang['user:activate_label']                   = 'Aktifkan';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'Password';
 $lang['user:password_confirm_label']           = 'Ulangi Password';
 $lang['user:name_label']                       = 'Nama';
@@ -46,6 +47,8 @@ $lang['indicates_required']                    = 'Indikasi kolom harus diisi';
 
 $lang['user:send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'Registrasi';
 $lang['user:activate_account_title']           = 'Aktifkan Akun';
 $lang['user:activate_label']                   = 'Aktifkan';

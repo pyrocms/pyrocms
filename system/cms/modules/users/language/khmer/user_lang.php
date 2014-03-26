@@ -29,6 +29,7 @@ $lang['user:first_name_label']                 = 'ឈ្មោះដំបូង
 $lang['user:last_name_label']                  = 'ឈ្មោះចុងក្រោយ';
 $lang['user:group_label']                      = 'ក្រុម';
 $lang['user:activate_label']                   = 'ធ្វើឱ្យសកម្ម';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'ពាក្យសម្ងាត់';
 $lang['user:password_confirm_label']           = 'បញ្ជាក់ពាក្យសម្ងាត់';
 $lang['user:name_label']                       = 'ឈ្មោះ';
@@ -47,6 +48,8 @@ $lang['indicates_required']                    = 'បង្ហាញពីវា
 
 $lang['user:send_activation_email']            = 'ផ្ញើអ៊ីម៉ែលការធ្វើឱ្យសកម្ម';
 $lang['user:do_not_activate']                  = 'អសកម្ម';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'ចុះឈ្មោះ';
 $lang['user:activate_account_title']           = 'ធ្វើឱ្យសកម្មគណនី';
 $lang['user:activate_label']                   = 'ធ្វើឱ្យសកម្ម';

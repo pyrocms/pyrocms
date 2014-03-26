@@ -28,6 +28,7 @@ $lang['user:first_name_label']                 = 'نام';
 $lang['user:last_name_label']                  = 'نام خانوادگی';
 $lang['user:group_label']                      = 'گروه';
 $lang['user:activate_label']                   = 'فعالسازی';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']                   = 'پسورد';
 $lang['user:password_confirm_label']           = 'تایید پسورد';
 $lang['user:name_label']                       = 'نام';
@@ -46,6 +47,8 @@ $lang['indicates_required']                    = 'نشان دهنده ی فیل�
 
 $lang['user:send_activation_email']            = 'ارسال ایمیل فعالسازی';
 $lang['user:do_not_activate']                  = 'غیر فعال';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']                   = 'ثبت نام';
 $lang['user:activate_account_title']           = 'فعالسازی حساب';
 $lang['user:activate_label']                   = 'فعالسازی';
