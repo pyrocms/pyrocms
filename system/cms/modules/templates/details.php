@@ -120,14 +120,14 @@ class Module_Templates extends AbstractModule
                 'name'      => 'lang:name_label',
                 'slug'      => 'name',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'text',
             ),
             array(
                 'name'      => 'lang:global:slug',
                 'slug'      => 'slug',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'slug',
                 'extra'     => array(
                     'slug_field' => 'name',
@@ -137,21 +137,21 @@ class Module_Templates extends AbstractModule
                 'name'      => 'lang:desc_label',
                 'slug'      => 'description',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'text',
             ),
             array(
                 'name'      => 'lang:templates:subject_label',
                 'slug'      => 'subject',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'text',
             ),
             array(
                 'name'      => 'lang:templates:body_label',
                 'slug'      => 'body',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'wysiwyg',
                 'extra'     => array(
                     'editor_type' => 'advanced',
@@ -162,7 +162,7 @@ class Module_Templates extends AbstractModule
                 'name'      => 'templates:language_label',
                 'slug'      => 'lang',
                 'namespace' => 'templates',
-                'locked'    => true,
+                'is_locked'    => true,
                 'type'      => 'pyro_lang',
             ),
         );
@@ -173,7 +173,7 @@ class Module_Templates extends AbstractModule
         // Templates assignments
         FieldModel::assignField('templates', 'templates', 'name', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'slug', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'language', array('required' => true));
+        FieldModel::assignField('templates', 'templates', 'lang', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'description', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'subject', array('required' => true));
         FieldModel::assignField('templates', 'templates', 'body', array('required' => true));
