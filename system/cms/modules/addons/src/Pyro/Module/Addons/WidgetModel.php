@@ -37,7 +37,7 @@ class WidgetModel extends Eloquent
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Find By Slug

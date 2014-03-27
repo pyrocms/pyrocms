@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use \Pyro\Module\Addons\WidgetModel;
+
 /**
  * Ajax controller for the widgets module
  *
@@ -17,9 +20,9 @@ class Ajax extends MY_Controller
         // Call the parent's constructor method
         parent::__construct();
 
-        // Load the required classes
-        $this->load->library('widgets');
         $this->lang->load('widgets');
+
+        $this->widgets = new WidgetModel();
     }
 
     /**
@@ -37,7 +40,7 @@ class Ajax extends MY_Controller
             case 'instance':
                 foreach ($ids as $id) {
                     $id = str_replace('instance-', '', $id);
-                    $this->widgets->update_instance_order($id, ++$i);
+                    $this->widgets->whereId($id)->update(array('order' => $i++));
                 }
                 break;
 

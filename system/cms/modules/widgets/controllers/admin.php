@@ -7,7 +7,6 @@ use Pyro\Module\Addons\WidgetInstanceModel;
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Widgets\Controllers
- *
  */
 class Admin extends Admin_Controller
 {
@@ -29,8 +28,8 @@ class Admin extends Admin_Controller
 
         $this->lang->load('widgets');
 
-        $this->widgets = $this->widgetManager->getModel();
-        $this->widgetAreas = $this->widgetManager->getAreaModel();
+        $this->widgets         = $this->widgetManager->getModel();
+        $this->widgetAreas     = $this->widgetManager->getAreaModel();
         $this->widgetInstances = $this->widgetManager->getInstanceModel();
 
         if ($this->input->is_ajax_request()) {
@@ -70,7 +69,7 @@ class Admin extends Admin_Controller
      */
     public function ajax_instances($slug = null)
     {
-        if (! $slug) {
+        if (!$slug) {
             set_status_header(404);
             return;
         }
@@ -87,14 +86,14 @@ class Admin extends Admin_Controller
      */
     public function create($slug = '')
     {
-        if (! $slug) {
+        if (!$slug) {
             set_status_header(404);
             return;
         }
 
         $widget = $this->widgetManager->get($slug);
 
-        if (! $widget) {
+        if (!$widget) {
             set_status_header(404);
             return;
         }
@@ -120,12 +119,12 @@ class Admin extends Admin_Controller
                 // Pass the widget instance to the widget_instance_created event
                 Events::trigger('widget_instance_created', $instance);
 
-                $status     = 'success';
-                $message    = lang('success_label');
+                $status  = 'success';
+                $message = lang('success_label');
 
             } else {
-                $status     = 'error';
-                $message    = $result['error'];
+                $status  = 'error';
+                $message = lang('error_label');
             }
 
             if ($this->input->is_ajax_request()) {
@@ -137,11 +136,13 @@ class Admin extends Admin_Controller
 
                 $message = $this->load->view('admin/partials/notices', $data, true);
 
-                return $this->template->build_json(array(
-                    'status'    => $status,
-                    'message'   => $message,
-                    'active'    => ($instance->area ? '#area-' . $instance->area->slug . ' header' : false)
-                ));
+                return $this->template->build_json(
+                    array(
+                        'status'  => $status,
+                        'message' => $message,
+                        'active'  => ($instance->area ? '#area-' . $instance->area->slug . ' header' : false)
+                    )
+                );
             }
 
             if ($status === 'success') {
@@ -173,7 +174,7 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-        if ( ! ($id and $widget = $this->widgets->find($id))) {
+        if (!($id and $widget = $this->widgets->find($id))) {
             // @todo: set error
             return false;
         }
@@ -181,26 +182,34 @@ class Admin extends Admin_Controller
         $data = array();
 
         if ($input = $this->input->post()) {
-            $name          = $input['name'];
-            $widget_id      = $input['widget_id'];
-            $widget_area_id = $input['widget_area_id'];
-            $instance_id    = $input['widget_instance_id'];
 
-            unset($input['name'], $input['widget_id'], $input['widget_area_id'], $input['widget_instance_id']);
+            $id        = $input['id'];
+            $name      = $input['name'];
+            $widget_id = $input['widget_id'];
 
-            $result = $this->widgets->edit_instance($instance_id, $name, $widget_area_id, $input);
+            unset($input['id'], $input['name'], $input['widget_id']);
 
-            if ($result['status'] === 'success') {
+            $result = $this->widgetInstances
+                ->whereId($id)
+                ->update(
+                    array(
+                        'name'    => $name,
+                        'options' => serialize($input),
+                    )
+                );
+
+            if ($result) {
                 // Fire an event. A widget instance has been updated pass the widget instance id.
-                Events::trigger('widget_instance_updated', $instance_id);
+                Events::trigger('widget_instance_updated', $id);
 
-                $status     = 'success';
-                $message    = lang('success_label');
+                $status  = 'success';
+                $message = lang('success_label');
 
-                $area = $this->widgets->get_area($widget_area_id);
+                $widget = $this->widgets->find($id);
+                $area   = $this->widgetAreas->find($widget->widget_area_id);
             } else {
-                $status     = 'error';
-                $message    = $result['error'];
+                $status  = 'error';
+                $message = $result['error'];
             }
 
             if ($this->input->is_ajax_request()) {
@@ -209,11 +218,13 @@ class Admin extends Admin_Controller
                 $status === 'success' AND $data['messages'][$status] = $message;
                 $message = $this->load->view('admin/partials/notices', $data, true);
 
-                return $this->template->build_json(array(
-                    'status'    => $status,
-                    'message'   => $message,
-                    'active'    => (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
-                ));
+                return $this->template->build_json(
+                    array(
+                        'status'  => $status,
+                        'message' => $message,
+                        'active'  => (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
+                    )
+                );
             }
 
             if ($status === 'success') {
@@ -227,11 +238,12 @@ class Admin extends Admin_Controller
 
         $this->db->order_by('`name`');
 
-        $areas = $this->widgets->list_areas();
+        $areas = $this->widgetAreas->findAll()->toArray();
         $areas = array_for_select($areas, 'id', 'name');
 
         $data['widget'] = $widget;
-        $data['form']   = $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
+        $data['instance'] = $instance = $this->widgetInstances->find($id);
+        $data['form']   = $this->widgetManager->renderBackend($this->widgetManager->get($widget->slug), $instance);
 
         $this->template->build('admin/instances/form', $data);
     }
@@ -250,21 +262,23 @@ class Admin extends Admin_Controller
             // Fire an event. A widget instance has been deleted.
             Events::trigger('widget_instance_deleted', $id);
 
-            $status = 'success';
+            $status  = 'success';
             $message = lang('success_label');
         } else {
-            $status = 'error';
+            $status  = 'error';
             $message = lang('general_error_label');
         }
 
         if ($this->input->is_ajax_request()) {
-            $data = array('messages' => array($status => $message));
+            $data    = array('messages' => array($status => $message));
             $message = $this->load->view('admin/partials/notices', $data, true);
 
-            return $this->template->build_json(array(
-                'status'    => $status,
-                'message'   => $message
-            ));
+            return $this->template->build_json(
+                array(
+                    'status'  => $status,
+                    'message' => $message
+                )
+            );
         }
 
         $this->session->set_flashdata($status, $message);
