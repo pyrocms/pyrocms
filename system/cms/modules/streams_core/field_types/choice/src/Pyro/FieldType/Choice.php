@@ -177,14 +177,16 @@ class Choice extends FieldTypeAbstract
         }
 
         foreach ($lines as $line) {
-            $bits = explode(' : ', $line, 2);
+            if ($line) {
+                $bits = explode(' : ', $line, 2);
 
-            $key_bit = trim($bits[0]);
+                $key_bit = trim($bits[0]);
 
-            if (count($bits) == 1) {
-                $choices[$key_bit] = lang_label($key_bit);
-            } else {
-                $choices[$key_bit] = lang_label(trim($bits[1]));
+                if (count($bits) == 1) {
+                    $choices[$key_bit] = lang_label($key_bit);
+                } else {
+                    $choices[$key_bit] = lang_label(trim($bits[1]));
+                }
             }
         }
 
@@ -318,7 +320,8 @@ class Choice extends FieldTypeAbstract
     {
         $choices = $this->_choicesToArray(
             $this->getParameter('choice_data'),
-            $this->getParameter('choice_type')
+            $this->getParameter('choice_type'),
+            'yes'
         );
 
         // Only put in our brs for the admin
