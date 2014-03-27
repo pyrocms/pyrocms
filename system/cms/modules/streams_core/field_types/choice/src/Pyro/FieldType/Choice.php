@@ -318,8 +318,7 @@ class Choice extends FieldTypeAbstract
     {
         $choices = $this->_choicesToArray(
             $this->getParameter('choice_data'),
-            $this->getParameter('choice_type'),
-            'yes'
+            $this->getParameter('choice_type')
         );
 
         // Only put in our brs for the admin
