@@ -186,9 +186,9 @@ class Admin_areas extends Admin_Controller
      */
     public function delete($id = 0)
     {
-        $widget = $this->widgets->find($id);
+        $area = $this->widgetAreas->find($id);
 
-        if ($widget->delete()) {
+        if ($area->delete()) {
             // Fire an event. A widget area has been deleted.
             Events::trigger('widget_area_deleted', $id);
 
