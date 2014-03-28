@@ -58,7 +58,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',// Can be: slug, number, flag, text, array, any.
 						'flags' => '',// flags are predefined values like this.
 						'default' => '',// attribute defaults to this if no value is given
-						'required' => true,// is this attribute required?
+						'is_required' => true,// is this attribute required?
 					),
 				),
 			),// end partial method
@@ -74,13 +74,13 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 					'value' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 				),
 			),// end variables method
@@ -96,31 +96,31 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'favicon.ico',
-						'required' => false,
+						'is_required' => false,
 					),
 					'rel' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'shortcut icon',
-						'required' => false,
+						'is_required' => false,
 					),
 					'sizes' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 					'type' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'image/x-icon',
-						'required' => false,
+						'is_required' => false,
 					),
 					'xhtml' => array(
 						'type' => 'flag',
 						'flags' => 'Y|N',
 						'default' => 'N',
-						'required' => false,
+						'is_required' => false,
 					),
 				),
 			),// end favicon method
@@ -136,19 +136,19 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 					'line' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 					'default' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 				),
 			),// end lang method
@@ -164,31 +164,31 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 					'title' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 					'media' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 					'type' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'text/css',
-						'required' => false,
+						'is_required' => false,
 					),
 					'rel' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'stylesheet',
-						'required' => false,
+						'is_required' => false,
 					),
 				),
 			),// end css method
@@ -204,7 +204,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end css_path method
@@ -220,7 +220,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end css_url method
@@ -236,19 +236,19 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 					'alt' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => 'the file name',
-						'required' => false,
+						'is_required' => false,
 					),
 					'any' => array(
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => false,
+						'is_required' => false,
 					),
 				),
 			),// end image method
@@ -264,7 +264,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end image_path method
@@ -280,7 +280,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end image_url method
@@ -296,7 +296,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end js method
@@ -312,7 +312,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end js_path method
@@ -328,7 +328,7 @@ class Plugin_Theme extends Plugin
 						'type' => 'text',
 						'flags' => '',
 						'default' => '',
-						'required' => true,
+						'is_required' => true,
 					),
 				),
 			),// end js_url method

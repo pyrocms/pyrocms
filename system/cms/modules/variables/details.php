@@ -136,7 +136,7 @@ class Module_Variables extends AbstractModule
                     'slug'			=> 'name',
                     'type'			=> 'slug',
                     'title_column'	=> true,
-                    'required'		=> true,
+                    'is_required'		=> true,
                     'unique'		=> true,
                     'assign'		=> 'variables',
                     'extra'			=> array(
@@ -147,7 +147,7 @@ class Module_Variables extends AbstractModule
                     'name'			=> 'lang:streams:column_data',
                     'slug'			=> 'data',
                     'type'			=> 'field',
-                    'required'		=> true,
+                    'is_required'		=> true,
                     'assign'		=> 'variables',
                     'extra'			=> array(
                         'max_length' => 100,
