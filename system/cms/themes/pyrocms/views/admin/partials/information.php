@@ -8,9 +8,9 @@
     <div class="pull-left">
 
         <span>
-            <?php echo ci()->current_user->contact->first_name; ?>&nbsp;
-            <?php echo ci()->current_user->contact->last_name; ?> |
-            <?php echo ci()->current_user->email; ?><br>
+            <?php echo (isset(ci()->current_user->contact->first_name)) ? ci()->current_user->contact->first_name : ''; ?>&nbsp;
+            <?php echo (isset(ci()->current_user->contact->last_name)) ? ci()->current_user->contact->last_name : ''; ?> |
+            <?php echo (isset(ci()->current_user->email)) ? ci()->current_user->email : ''; ?><br>
         </span>
 
         <?php
