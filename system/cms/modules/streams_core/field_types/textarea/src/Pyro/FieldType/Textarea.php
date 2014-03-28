@@ -73,7 +73,7 @@ class Textarea extends FieldTypeAbstract
         // If this isn't the admin and we want to allow tags,
         // let it through. Otherwise we will escape them.
         if ($parse_tags == 'y') {
-            $content = ci()->parser->parse_string($this->value, array(), true);
+            $content = ci()->parser->parse_string($this->value, ci(), true, false, false);
         } else {
             ci()->load->helper('text');
             $content = escape_tags($this->value);
