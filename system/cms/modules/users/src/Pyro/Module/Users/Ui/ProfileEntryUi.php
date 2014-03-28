@@ -13,6 +13,8 @@ class ProfileEntryUi extends EntryUi
     {
         parent::boot();
 
+
+
         $this
             ->with(array('user'))
             ->filters(
@@ -46,18 +48,20 @@ class ProfileEntryUi extends EntryUi
                 array(
                     'first_name',
                     'last_name',
-                    'activated' => array(
-                        'name'     => 'lang:user:activated_account_title',
-                        'template' => '{{ if entry:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
+                    'email'     => array(
+                        'name'     => 'lang:global:email',
+                        'template' => '{{ entry:user:email }}',
                     ),
                     'user'      => array(
                         'name'     => 'lang:global:user',
                         'template' => '{{ entry:user:username }}',
                     ),
-                    'email'     => array(
-                        'name'     => 'lang:global:email',
-                        'template' => '{{ entry:user:email }}',
+                    'user_is_activated' => array(
+                        'name'     => 'lang:user:activated',
                     ),
+                    'user_is_blocked' => array(
+                        'name'     => 'lang:user:blocked',
+                    )
                 )
             )
             // Buttons to display in our table
