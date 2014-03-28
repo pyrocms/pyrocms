@@ -71,4 +71,20 @@ class EntryCollection extends EloquentCollection
 
         return $decorator->setViewOptions($viewOptions)->decorate($this);
     }
+
+    /**
+     * To array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        foreach ($array as $k => &$v) {
+            $v['_count'] = $k;
+        }
+
+        return $array;
+    }
 }
