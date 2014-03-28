@@ -115,4 +115,6 @@ $lang['global:plugin']					= 'Plugin';
 $lang['global:options']					= 'Options';
 $lang['global:plain-text']				= 'Plain Text';
 
+$lang['global:unauthorized']			= 'Unauthorized Access';
+
 /* End of file global_lang.php */
