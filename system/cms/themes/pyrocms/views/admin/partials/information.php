@@ -8,20 +8,20 @@
     <div class="pull-left">
 
         <span>
-            <?php echo $this->current_user->contact->first_name; ?>&nbsp;
-            <?php echo $this->current_user->contact->last_name; ?> |
-            <?php echo $this->current_user->email; ?><br>
+            <?php echo ci()->current_user->contact->first_name; ?>&nbsp;
+            <?php echo ci()->current_user->contact->last_name; ?> |
+            <?php echo ci()->current_user->email; ?><br>
         </span>
 
         <?php
 
         $my_groups = array();
 
-        $available_groups = $this->current_user->groups;
+        $available_groups = ci()->current_user->groups;
 
         if(count((array)$available_groups) > 0) {
 
-            foreach($this->current_user->groups as $group)
+            foreach(ci()->current_user->groups as $group)
             {
                 $my_groups[] = $group->description;
             }
