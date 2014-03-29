@@ -10,67 +10,82 @@
     </div>
     <?php endif;?>
 
-    <?php echo form_open_multipart('', array('id'=>'user_edit'));?>
+        <?php echo form_open_multipart('', 'class="streams_form"'); ?>
 
-    <fieldset id="profile_fields">
-        <?php echo $content; ?>
-    </fieldset>
+        <div class="form_inputs">
 
-    <fieldset id="user_names">
-        <legend><?php echo lang('global:email') ?></legend>
-        <ul>
-            <li>
-                <label for="email"><?php echo lang('global:email') ?></label>
-                <div class="input">
-                    <?php echo form_input('email', $_user->email) ?>
-                </div>
-            </li>
-        </ul>
-    </fieldset>
+           <fieldset id="profile_fields">
+            <ul>
 
-    <fieldset id="user_password">
-        <legend><?php echo lang('user:password_section') ?></legend>
-        <ul>
-            <li class="float-left spacer-right">
-                <label for="password"><?php echo lang('global:password') ?></label><br/>
-                <?php echo form_password('password', '', 'autocomplete="off"') ?>
-            </li>
-        </ul>
-    </fieldset>
+            <?php foreach ($fields as $field) { ?>
 
-    <?php if (Settings::get('api_enabled') and Settings::get('api_user_keys')): ?>
+                <li class="<?php  echo in_array(str_replace($stream->stream_slug.'-'.$stream->stream_namespace.'-', '', $field['input_slug']), $hidden) ? 'hidden' : null;  ?>">
+                    <?php echo $field['input_row']; ?>
+                </li>
 
-    <script>
-    jQuery(function($) {
+            <?php } ?>
 
-        $('input#generate_api_key').click(function(){
+            </ul>
+            </fieldset>
 
-            var url = "<?php echo site_url('api/ajax/generate_key') ?>",
-                $button = $(this);
+            <fieldset id="user_names">
+                <legend><?php echo lang('global:email') ?></legend>
+                <ul>
+                    <li>
+                        <label for="email"><?php echo lang('global:email') ?></label>
+                        <div class="input">
+                            <?php echo form_input('email', $_user->email) ?>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
 
-            $.post(url, function(data) {
-                $button.prop('disabled', true);
-                $('span#api_key').text(data.api_key).parent('li').show();
-            }, 'json');
+            <fieldset id="user_password">
+                <legend><?php echo lang('user:password_section') ?></legend>
+                <ul>
+                    <li class="float-left spacer-right">
+                        <label for="password"><?php echo lang('global:password') ?></label><br/>
+                        <?php echo form_password('password', '', 'autocomplete="off"') ?>
+                    </li>
+                </ul>
+            </fieldset>
 
-        });
+            <?php if (Settings::get('api_enabled') and Settings::get('api_user_keys')): ?>
 
-    });
-    </script>
+            <script>
+            jQuery(function($) {
 
-    <fieldset>
-        <legend><?php echo lang('user:profile_api_section') ?></legend>
+                $('input#generate_api_key').click(function(){
 
-        <ul>
-            <li <?php $api_key or print('style="display:none"') ?>><?php echo sprintf(lang('api:key_message'), '<span id="api_key">'.$api_key.'</span>') ?></li>
-            <li>
-                <input type="button" id="generate_api_key" value="<?php echo lang('api:generate_key') ?>" />
-            </li>
-        </ul>
+                    var url = "<?php echo site_url('api/ajax/generate_key') ?>",
+                        $button = $(this);
 
-    </fieldset>
-    <?php endif ?>
+                    $.post(url, function(data) {
+                        $button.prop('disabled', true);
+                        $('span#api_key').text(data.api_key).parent('li').show();
+                    }, 'json');
 
-    <?php echo form_submit('', lang('user:profile_save_btn')) ?>
-    <?php echo form_close() ?>
+                });
+
+            });
+            </script>
+
+            <fieldset>
+                <legend><?php echo lang('user:profile_api_section') ?></legend>
+
+                <ul>
+                    <li <?php $api_key or print('style="display:none"') ?>><?php echo sprintf(lang('api:key_message'), '<span id="api_key">'.$api_key.'</span>') ?></li>
+                    <li>
+                        <input type="button" id="generate_api_key" value="<?php echo lang('api:generate_key') ?>" />
+                    </li>
+                </ul>
+
+            </fieldset>
+            <?php endif ?>
+
+        </div>
+    
+        <?php echo form_submit('', lang('user:profile_save_btn')) ?>
+        <?php echo form_close() ?>
+
 </div>
