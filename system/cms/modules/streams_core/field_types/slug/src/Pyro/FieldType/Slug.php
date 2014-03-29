@@ -83,8 +83,8 @@ class Slug extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $options['name']         = $this->form_slug;
-        $options['id']           = $this->form_slug;
+        $options['name']         = $this->getFormSlug();
+        $options['id']           = $this->getFormSlug();
         $options['value']        = $this->value;
         $options['autocomplete'] = 'off';
         $jquery                  = null;
@@ -98,7 +98,7 @@ class Slug extends FieldTypeAbstract
             $jquery = "<script>(function($) {
                 $(function(){
                         pyro.generate_slug('#{$field_type->getFormSlug(
-            )}', '#{$this->form_slug}', '{$this->getParameter('space_type')}');
+            )}', '#{$this->getFormSlug()}', '{$this->getParameter('space_type')}');
                 });
             })(jQuery);
             </script>";

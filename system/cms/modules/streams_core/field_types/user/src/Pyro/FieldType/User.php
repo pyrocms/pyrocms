@@ -61,7 +61,7 @@ class User extends FieldTypeAbstract
             $id = $this->getDefault();
         }
 
-        return form_dropdown($this->form_slug, $this->getUserOptions(), $id);
+        return form_dropdown($this->getFormSlug(), $this->getUserOptions(), $id);
     }
 
     public function getUserOptions()

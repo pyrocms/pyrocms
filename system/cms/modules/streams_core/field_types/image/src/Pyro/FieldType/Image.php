@@ -85,18 +85,20 @@ class Image extends FieldTypeAbstract
 
             $file = FileModel::find($this->value);
 
-            $out .= '<span class="image_remove">X</span><a class="image_link" href="'.$file->path.'" target="_break"><img src="'.$file->path.'" /></a><br />';
-            $out .= form_hidden($this->form_slug, $this->value);
+            $file->path= str_replace('{{ url:site }}', base_url(), $file->path);
+
+            $out .= '<span class="image_remove">X</span><a class="image_link" href="'.$file->path.'" target="_break"><img src="'.site_url('files/thumb/'.$this->value).'" /></a><br />';
+            $out .= form_hidden($this->getFormSlug(), $this->value);
 
         } else {
 
             $file = null;
 
-            $out .= form_hidden($this->form_slug, 'dummy');
+            $out .= form_hidden($this->getFormSlug(), 'dummy');
 
         }
 
-        $options['name'] 	= $this->form_slug.'_file';
+        $options['name'] 	= $this->getFormSlug().'_file';
 
         $out .= '
                 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -105,12 +107,11 @@ class Image extends FieldTypeAbstract
                             <i class="glyphicon glyphicon-file fileinput-exists"></i>
                             <span class="fileinput-filename">'.($file ? $file->name : null).'</span>
                         </div>
-                        <span class="input-group-addon btn btn-default btn-file">
+                        <span class="input-group-addon btn-file">
                             <span class="fileinput-new">'.lang('streams:image.select_file').'</span>
                             <span class="fileinput-exists">'.lang('streams:image.change').'</span>
                             '.form_upload($options).'
                         </span>
-                        <a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times-circle"></i></a>
                     </div>
                 </div>';
 
@@ -137,10 +138,10 @@ class Image extends FieldTypeAbstract
             $file = null;
 
         // Build the input's options
-        $options['name'] = $this->form_slug.'_file';
+        $options['name'] = $this->getFormSlug().'_file';
 
         // GO!
-        return form_upload($options).form_hidden($this->form_slug, $this->value);
+        return form_upload($options).form_hidden($this->getFormSlug(), $this->value);
     }
 
     /**
@@ -156,7 +157,7 @@ class Image extends FieldTypeAbstract
         // If we do not have a file that is being submitted. If we do not,
         // it could be the case that we already have one, in which case just
         // return the numeric file record value.
-        if ( ! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
+        if ( ! isset($_FILES[$this->getFormSlug().'_file']['name']) or ! $_FILES[$this->getFormSlug().'_file']['name']) {
             // return what we got
             return $this->value;
         }
@@ -167,7 +168,7 @@ class Image extends FieldTypeAbstract
         $return = \Files::upload(
             $this->getParameter('folder'),
             null,
-            $this->form_slug.'_file',
+            $this->getFormSlug().'_file',
             $this->getParameter('resize_width', null),
             $this->getParameter('resize_height', null),
             $this->getParameter('keep_ratio', false),
@@ -181,7 +182,7 @@ class Image extends FieldTypeAbstract
             return null;
         } else {
             // Return the ID of the file DB entry
-            Events::trigger('file_uploaded', $return);
+            \Events::trigger('file_uploaded', $return);
             return $return['data']['id'];
         }
     }

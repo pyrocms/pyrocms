@@ -45,8 +45,8 @@ class Textarea extends FieldTypeAbstract
 
         return form_textarea(
             array(
-                'name'  => $this->form_slug,
-                'id'    => $this->form_slug,
+                'name'  => $this->getFormSlug(),
+                'id'    => $this->getFormSlug(),
                 'value' => $value
             )
         );

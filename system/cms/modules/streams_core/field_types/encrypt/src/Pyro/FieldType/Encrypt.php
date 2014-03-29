@@ -68,8 +68,8 @@ class Encrypt extends FieldTypeAbstract
     {
         ci()->load->library('encrypt');
 
-        $options['name'] 	= $this->form_slug;
-        $options['id']		= $this->form_slug;
+        $options['name'] 	= $this->getFormSlug();
+        $options['id']		= $this->getFormSlug();
 
         // If we have post data and are returning form
         // values (because of most likely a form validation error),
