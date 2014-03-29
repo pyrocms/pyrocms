@@ -4,6 +4,10 @@ h4 .variables-selectable-fields-form {
 	float: right;
 }
 
+h4 .variables-selectable-fields-form span{
+	vertical-align:super;
+}
+
 h4 .variables-selectable-fields-form ul li {
 	display: block !important;
 }

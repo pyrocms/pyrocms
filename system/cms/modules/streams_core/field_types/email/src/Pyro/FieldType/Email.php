@@ -34,8 +34,8 @@ class Email extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $options['name'] 	= $this->form_slug;
-        $options['id']		= $this->form_slug;
+        $options['name'] 	= $this->getFormSlug();
+        $options['id']		= $this->getFormSlug();
         $options['value']	= $this->value;
 
         return form_input($options);

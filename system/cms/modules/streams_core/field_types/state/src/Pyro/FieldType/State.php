@@ -103,11 +103,11 @@ class State extends FieldTypeAbstract
         }
 
         return form_dropdown(
-            $this->form_slug,
+            $this->getFormSlug(),
             $this->states($field->required),
             $this->getParameter('state_display', 'abbr'),
             $value,
-            'id="' . $this->form_slug . '"'
+            'id="' . $this->getFormSlug() . '"'
         );
     }
 

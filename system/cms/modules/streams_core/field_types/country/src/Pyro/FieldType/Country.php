@@ -41,7 +41,7 @@ class Country extends FieldTypeAbstract
 
         $options = $this->getCountryOptions($this->field->required);
 
-        return form_dropdown($this->form_slug, $options, $value, 'id="' . $this->form_slug . '"');
+        return form_dropdown($this->getFormSlug(), $options, $value, 'id="' . $this->getFormSlug() . '"');
     }
 
     // --------------------------------------------------------------------------

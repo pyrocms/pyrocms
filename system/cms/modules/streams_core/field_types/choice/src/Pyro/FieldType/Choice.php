@@ -81,10 +81,10 @@ class Choice extends FieldTypeAbstract
             // are just in an array from the field.
             // -------------------------------
             return form_dropdown(
-                $this->form_slug,
+                $this->getFormSlug(),
                 $choices,
                 $value,
-                'id="' . $this->form_slug . '" placeholder="' . lang_label($this->getParameter('placeholder')) . '"'
+                'id="' . $this->getFormSlug() . '" placeholder="' . lang_label($this->getParameter('placeholder')) . '"'
             );
         } else {
             // -------------------------------
@@ -115,10 +115,10 @@ class Choice extends FieldTypeAbstract
                 //If It's a multiselect, then we can go out now.
                 if ($choice_type == 'multiselect') {
                     return form_multiselect(
-                        $this->form_slug . '[]',
+                        $this->getFormSlug() . '[]',
                         $choices,
                         $values,
-                        'id="' . $this->form_slug . '"'
+                        'id="' . $this->getFormSlug() . '"'
                     );
                 }
             }
@@ -132,7 +132,7 @@ class Choice extends FieldTypeAbstract
                     $selected = ($value == $choice_key) ? true : false;
 
                     $return .= '<label class="radio">' . form_radio(
-                            $this->form_slug,
+                            $this->getFormSlug(),
                             $this->formatChoice($choice_key),
                             $selected,
                             $this->activeState($choice)
@@ -141,7 +141,7 @@ class Choice extends FieldTypeAbstract
                     $selected = (in_array($choice_key, $values)) ? true : false;
 
                     $return .= '<label class="checkbox">' . form_checkbox(
-                            $this->form_slug . '[]',
+                            $this->getFormSlug() . '[]',
                             $this->formatChoice($choice_key),
                             $selected,
                             'id="' . $this->formatChoice($choice_key) . '" ' . $this->activeState($choice)
@@ -331,7 +331,7 @@ class Choice extends FieldTypeAbstract
             $this->getFilterSlug('is'),
             array(null => '- ' . $this->field->field_name . ' -') + $choices,
             $this->getFilterValue('is'),
-            'id="' . $this->form_slug . '" class="form-control"'
+            'id="' . $this->getFormSlug() . '" class="form-control"'
         );
     }
 

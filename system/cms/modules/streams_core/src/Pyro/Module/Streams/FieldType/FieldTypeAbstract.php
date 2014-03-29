@@ -401,7 +401,7 @@ abstract class FieldTypeAbstract
      */
     public function getDefault($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         return isset($this->defaults[$field_slug]) ? $this->defaults[$field_slug] : $default;
     }
@@ -424,7 +424,7 @@ abstract class FieldTypeAbstract
      */
     public function getOriginalValue($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
         return $this->entry->getOriginal($field_slug);
     }
@@ -467,8 +467,8 @@ abstract class FieldTypeAbstract
      */
     public function formInput()
     {
-        $options['name']         = $this->form_slug;
-        $options['id']           = $this->form_slug;
+        $options['name']         = $this->getFormSlug();
+        $options['id']           = $this->getFormSlug();
         $options['value']        = $this->value;
         $options['class']        = 'form-control';
         $options['autocomplete'] = 'off';
@@ -696,7 +696,7 @@ abstract class FieldTypeAbstract
      */
     public function getRelationResult($attribute = null)
     {
-        $attribute = $attribute ? $attribute : $this->field->field_slug;
+        $attribute = $attribute ? $attribute : $this->getColumnName();
 
         return $this->entry->getAttribute($attribute);
     }
@@ -710,7 +710,7 @@ abstract class FieldTypeAbstract
      */
     public function hasOne($related, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+        $foreignKey = $foreignKey ? $foreignKey : $this->getColumnName();
 
         return array(
             'method'     => 'hasOne',
@@ -748,7 +748,7 @@ abstract class FieldTypeAbstract
      */
     public function belongsTo($related, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+        $foreignKey = $foreignKey ? $foreignKey : $this->getColumnName();
 
         return array(
             'method'     => 'belongsTo',
@@ -784,7 +784,7 @@ abstract class FieldTypeAbstract
      */
     public function hasMany($related, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
+        $foreignKey = $foreignKey ? $foreignKey : $this->getColumnName();
 
         return array(
             'method'     => 'hasMany',
@@ -1018,7 +1018,7 @@ abstract class FieldTypeAbstract
             implode(
                 '-',
                 $this->field->field_data
-            ) . '-' . $this->field->field_type . '-' . $this->field->field_slug . '-' . $this->getStream(
+            ) . '-' . $this->field->field_type . '-' . $this->getColumnName() . '-' . $this->getStream(
             )->stream_slug . '-' . $this->getStream()->stream_namespace . '-' . $this->entry->id
         );
     }
@@ -1035,7 +1035,7 @@ abstract class FieldTypeAbstract
         if (preg_match('/^get(.+)Value$/', $method, $matches)) {
             $default = isset($arguments[0]) ? $arguments[0] : null;
 
-            return $this->getPostValue($this->field->field_slug . '_' . Str::snake($matches[1]), $default);
+            return $this->getPostValue($this->getColumnName() . '_' . Str::snake($matches[1]), $default);
         }
 
         return null;
