@@ -22,7 +22,7 @@ class Applied extends Eloquent
      *
      * @var int
      */
-    public $cacheMinutes = 30;
+    public $cacheMinutes = 0;
 
     /**
      * The attributes that aren't mass assignable

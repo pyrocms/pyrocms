@@ -143,7 +143,7 @@ class Keywords extends FieldTypeAbstract
 
         // if we want an array, format it correctly
         if ($format === 'array') {
-            $keyword_array = \Keywords::get_array($this->value);
+            //$keyword_array = \Keywords::get_array($this->value);
             $keywords = array();
             $total = $this->entry->keywords->count();
 
