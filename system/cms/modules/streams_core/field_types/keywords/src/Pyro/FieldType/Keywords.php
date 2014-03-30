@@ -23,7 +23,15 @@ class Keywords extends FieldTypeAbstract
      * DB column type
      * @var string
      */
-    public $db_col_type        = 'string';
+    public $db_col_type        = false;
+
+    /**
+     * Use alternative processing
+     *
+     * @todo  Do we need this anymore?
+     * @var boolean
+     */
+    public $alt_process = true;
 
     /**
      * Version
@@ -50,7 +58,10 @@ class Keywords extends FieldTypeAbstract
         ci()->load->library('keywords/keywords');
     }
 
-    // --------------------------------------------------------------------------
+    public function relation()
+    {
+        return $this->morphToMany('Pyro\Module\Keywords\Model\Keyword', 'entry', 'keywords_applied');
+    }
 
     /**
      * Output form input
@@ -61,10 +72,12 @@ class Keywords extends FieldTypeAbstract
      */
     public function formInput()
     {
+        $names = implode(',', $this->entry->keywords->lists('name', 'id'));
+
         $options['name'] 	= $this->form_slug;
         $options['id']		= 'id_'.rand(100, 10000);
         $options['class']	= 'keywords_input';
-        $options['value']	= \Keywords::get_string($this->value);
+        $options['value']	= $names;
 
         return form_input($options);
     }
@@ -86,7 +99,7 @@ class Keywords extends FieldTypeAbstract
      */
     public function preSave()
     {
-        return \Keywords::process($this->value);
+        return \Keywords::process($this->value, $this->entry);
     }
 
     /**
@@ -132,15 +145,15 @@ class Keywords extends FieldTypeAbstract
         if ($format === 'array') {
             $keyword_array = \Keywords::get_array($this->value);
             $keywords = array();
-            $total = count($keyword_array);
+            $total = $this->entry->keywords->count();
 
-            foreach ($keyword_array as $key => $value) {
+            foreach ($this->entry->keywords as $key => $keyword) {
                 $keywords[] = array(
                     'count' => $key,
                     'total' => $total,
                     'is_first' => $key == 0,
                     'is_last' => $key == ($total - 1),
-                    'keyword' => $value
+                    'keyword' => $keyword->name
                 );
             }
 
@@ -148,7 +161,7 @@ class Keywords extends FieldTypeAbstract
         }
 
         // otherwise return it as a string
-        return \Keywords::get_string($this->value);
+        return implode(',', $this->entry->keywords->lists('name', 'id'));
     }
 
     /**

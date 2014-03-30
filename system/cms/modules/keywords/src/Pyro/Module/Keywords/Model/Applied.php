@@ -6,7 +6,7 @@ use Pyro\Model\Eloquent;
  * Applied Keyword model
  *
  * @author    PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Keywords\Model
+ * @package   PyroCMS\Core\Modules\Keywords\Model
  */
 class Applied extends Eloquent
 {
@@ -19,6 +19,7 @@ class Applied extends Eloquent
 
     /**
      * Cache minutes
+     *
      * @var int
      */
     public $cacheMinutes = 30;
@@ -48,51 +49,31 @@ class Applied extends Eloquent
     }
 
     /**
-     * Get applied names
-     *
-     * Gets only the name of applied keywords, just like the old method
-     *
-     * @param  string $hash The hash stored for an entry
-     * @return array
-     */
-    public static function getNamesByHash($hash)
-    {
-        $keyword_ids = static::where('hash', $hash)->lists('keyword_id');
-
-        if ( ! $keyword_ids) {
-            return array();
-        }
-
-        return Keyword::select('name')
-            ->whereIn('id', $keyword_ids)
-            ->get();
-    }
-
-    /**
      * Apply a unique hash to a keyword
      *
      * @param  string $hash The unique hash
      * @param  int    $id   Keyword ID
      * @return object
      */
-    public static function add($hash, $keyword_id)
+    public static function add($keyword_id, $object_id, $object_type)
     {
-        return static::create(array(
-            'hash' => $hash,
-            'keyword_id' => $keyword_id
-        ));
+        return static::create(
+            array(
+                'keyword_id' => $keyword_id,
+                'model_id'   => $object_id,
+                'model_type' => $object_type
+            )
+        );
     }
 
     /**
-     * Delete applied
+     * Delete by entry id
      *
-     * Deletes all the keywords applied by hash
-     *
-     * @param  string $hash The unique hash stored for an entry
-     * @return int
+     * @param $entryId
+     * @return mixed
      */
-    public static function deleteByHash($hash)
+    public static function deleteByEntryIdAndEntryType($entryId, $entryType)
     {
-        return static::where('hash', '=', $hash)->delete();
+        return static::where('entry_id', $entryId)->where('entry_type', $entryType)->delete();
     }
 }
