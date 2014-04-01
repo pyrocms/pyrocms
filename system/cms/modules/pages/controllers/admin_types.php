@@ -2,7 +2,7 @@
 
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
-use Pyro\Module\Streams\FieldModel;
+use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\Ui\FieldUi;
 use Pyro\Module\Streams\Stream\StreamModel;
 
@@ -107,6 +107,8 @@ class Admin_types extends Admin_Controller
         $this->load->library('form_validation');
 
         $this->load->driver('Streams');
+
+        $this->fieldUi = new FieldUi();
     }
 
     // --------------------------------------------------------------------------
@@ -384,7 +386,7 @@ class Admin_types extends Admin_Controller
 
         // Show our fields list.
         //$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, Settings::get('records_per_page'), 'admin/pages/types/fields/'.$page_type->id, true, $extra);
-        FieldUi::assignmentsTable($stream->stream_slug, $stream->stream_namespace)
+       $this->fieldUi->assignmentsTable($stream->stream_slug, $stream->stream_namespace)
             ->title($stream->stream_name.' '.lang('global:fields'))
             ->uris(array(
                 'add' => $page_type_uri.'/new_field'
@@ -466,7 +468,7 @@ class Admin_types extends Admin_Controller
     private function _new_field($stream, $page_type, $page_type_uri = null)
     {
         //$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
-        FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace)
+        $this->fieldUi->assignmentForm($stream->stream_slug, $stream->stream_namespace)
             ->title($stream->stream_name.' : '.lang('streams:new_field'))
             ->skips(array('chunks'))
             ->redirects($page_type_uri)
@@ -483,7 +485,7 @@ class Admin_types extends Admin_Controller
     private function _edit_field($stream, $page_type, $page_type_uri)
     {
         //$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
-        FieldUi::assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
+        $this->fieldUi->assignmentForm($stream->stream_slug, $stream->stream_namespace, $this->uri->segment(7))
             ->title($stream->stream_name.' : '.lang('streams:edit_field'))
             ->skips(array('chunks'))
             ->redirects($page_type_uri)
