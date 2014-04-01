@@ -27,7 +27,7 @@ $lang['buttons:uninstall']	= 'Desinstalar';
 $lang['buttons:enable']		= 'Ativar';
 $lang['buttons:disable'] 	= 'Desativar';
 $lang['buttons:yes']		= 'Sim';
-$lang['buttons:no']			= 'Não';
+$lang['buttons:no']		= 'Não';
 $lang['buttons:activate']	= 'Ativar';
 $lang['buttons:deactivate']	= 'Desativar';
 $lang['buttons:preview']	= 'Visualizar';
@@ -36,7 +36,7 @@ $lang['buttons:edit']		= 'Editar';
 $lang['buttons:clone']		= 'Clonar';
 $lang['buttons:re-index']	= 'Reindexar';
 $lang['buttons:copy']		= 'Copiar';
-$lang['buttons:filter']		= 'Filter'; #translate
-$lang['buttons:clear']		= 'Clear'; #translate
+$lang['buttons:filter']		= 'Filtro';
+$lang['buttons:clear']		= 'Limpar';
 
 /* End of file buttons_lang.php */
