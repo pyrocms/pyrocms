@@ -930,7 +930,7 @@ class Template
 
             foreach ($theme_views as $theme_view) {
                 if (file_exists($location . $theme_view . self::_ext($theme_view))) {
-                    return self::_load_view($theme_view, $this->_data + $data, $parse_view, $location);
+                    return self::_load_view($theme_view, array_merge($this->_data, $data), $parse_view, $location);
                 }
             }
         }
