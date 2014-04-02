@@ -40,6 +40,15 @@ class File extends FieldTypeAbstract
     }
 
     /**
+     * The field type relation
+     * @return object
+     */
+    public function relation()
+    {
+        return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
+    }
+
+    /**
      * Output form input
      *
      * @param	array
