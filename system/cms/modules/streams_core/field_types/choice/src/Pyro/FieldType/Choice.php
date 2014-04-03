@@ -180,7 +180,7 @@ class Choice extends FieldTypeAbstract
             $choices[null] = empty($placeholder) ? ci()->config->item('dropdown_choose_null') : '';
         }
 
-        foreach ($lines as $line) {
+        foreach ((array)$lines as $line) {
             if ($line) {
                 $bits = explode(' : ', $line, 2);
 
