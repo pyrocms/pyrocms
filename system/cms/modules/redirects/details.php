@@ -1,6 +1,9 @@
 <?php
 
 use Pyro\Module\Addons\AbstractModule;
+use Pyro\Module\Streams\Stream\StreamModel;
+use Pyro\Module\Streams\Field\FieldModel;
+use Pyro\Module\Streams\Stream\StreamSchema;
 
 /**
  * Redirects module
@@ -141,9 +144,9 @@ class Module_Redirects extends AbstractModule
         FieldModel::addFields($fields, null, 'redirects');
 
         // Redirects assignments
-        FieldModel::assignField('redirects', 'redirects', 'from', array('required' => true));
-        FieldModel::assignField('redirects', 'redirects', 'to', array('required' => true));
-        FieldModel::assignField('redirects', 'redirects', 'type', array('required' => true));
+        FieldModel::assignField('redirects', 'redirects', 'from', array('is_required' => true));
+        FieldModel::assignField('redirects', 'redirects', 'to', array('is_required' => true));
+        FieldModel::assignField('redirects', 'redirects', 'type', array('is_required' => true));
 
         return true;
     }

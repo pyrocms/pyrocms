@@ -224,7 +224,7 @@ class ThemeManager
                         'value'         => $option['default'],
                         'type'          => $option['type'],
                         'options'       => $option['options'],
-                        'required'   => $option['required'],
+                        'is_required'   => $option['is_required'],
                     ));
                 }
             }

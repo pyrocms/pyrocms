@@ -171,12 +171,12 @@ class Module_Templates extends AbstractModule
         FieldModel::addFields($fields, null, 'templates');
 
         // Templates assignments
-        FieldModel::assignField('templates', 'templates', 'name', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'slug', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'lang', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'description', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'subject', array('required' => true));
-        FieldModel::assignField('templates', 'templates', 'body', array('required' => true));
+        FieldModel::assignField('templates', 'templates', 'name', array('is_required' => true));
+        FieldModel::assignField('templates', 'templates', 'slug', array('is_required' => true));
+        FieldModel::assignField('templates', 'templates', 'lang', array('is_required' => true));
+        FieldModel::assignField('templates', 'templates', 'description', array('is_required' => true));
+        FieldModel::assignField('templates', 'templates', 'subject', array('is_required' => true));
+        FieldModel::assignField('templates', 'templates', 'body', array('is_required' => true));
 
         // Non streams stuff
         $schema->table(

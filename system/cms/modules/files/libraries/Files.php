@@ -349,7 +349,7 @@ class Files
                     'folder_id'		=> (int) $folder_id,
                     'user_id'		=> (int) ci()->current_user->id,
                     'type'			=> self::$_type,
-                    'name'			=> $replace_file ? $replace_file->name : $name ? $name : $file['orig_name'],
+                    'name'			=> $replace_file ? $replace_file->name : $name ? $name : $upload_config['file_name'],
                     'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
                     'description'	=> $replace_file ? $replace_file->description : '',
                     'alt_attribute'	=> trim($replace_file ? $replace_file->alt_attribute : $alt),
@@ -1065,7 +1065,7 @@ class Files
                 if (in_array(strtolower($ext), $ext_arr)) {
                     self::$_type		= $type;
                     self::$_ext			= implode('|', $ext_arr);
-                    self::$_filename	= slugify($_FILES[$field]['name']);
+                    self::$_filename	= $_FILES[$field]['name'];
 
                     break;
                 }
