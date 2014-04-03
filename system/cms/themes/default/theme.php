@@ -18,7 +18,7 @@ class Theme_Default extends AbstractTheme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'required'   => true
+			'is_required'   => true
 		),
 		'layout' => array(
 			'title' => 'Layout',
@@ -26,7 +26,7 @@ class Theme_Default extends AbstractTheme
 			'default'       => '2 column',
 			'type'          => 'select',
 			'options'       => '2 column=Two Column|full-width=Full Width|full-width-home=Full Width Home Page',
-			'required'   => true
+			'is_required'   => true
 		),
 	);
 }

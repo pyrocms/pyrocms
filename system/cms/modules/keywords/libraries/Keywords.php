@@ -73,7 +73,7 @@ class Keywords
      */
     public static function add($keyword)
     {
-        return Keyword::add(static::prep($keyword))->id;
+        return Keyword::add(static::prep($keyword));
     }
 
     /**
@@ -104,13 +104,8 @@ class Keywords
      *
      * @return	string
      */
-    public static function process($keywords, $old_hash = null)
+    public static function process($keywords, $model)
     {
-        // Remove the old keyword assignments if we're updating
-        if ($old_hash !== null) {
-            Applied::deleteByHash($old_hash);
-        }
-
         // No keywords? Let's not bother then
         if ( ! ($keywords = trim($keywords))) {
             return '';
@@ -118,23 +113,22 @@ class Keywords
 
         $assignment_hash = md5(microtime().mt_rand());
 
+        Applied::deleteByEntryIdAndEntryType($model->getKey(), get_class($model));
+
+        $keywordIds = $model->keywords->modelKeys();
+
         // Split em up and prep away
         $keywords = explode(',', $keywords);
+
         foreach ($keywords as &$keyword) {
             $keyword = self::prep($keyword);
 
             // Keyword already exists
-            if (($row = Keyword::findByName($keyword))) {
-                $keyword_id = $row->id;
+            if (! ($row = Keyword::findByName($keyword))) {
+                $row = self::add($keyword);
             }
 
-            // Create it, and keep the record
-            else {
-                $keyword_id = self::add($keyword);
-            }
-
-            // Create assignment record
-            Applied::add($assignment_hash, $keyword_id);
+            $model->keywords()->save($row);
         }
 
         return $assignment_hash;
