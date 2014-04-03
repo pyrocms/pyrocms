@@ -214,7 +214,7 @@ class Admin extends Admin_Controller
     {
         $page = Page::find($id);
 
-        $page->meta_keywords = Keywords::get_string($page->meta_keywords);
+        $page->meta_keywords = array();//Keywords::get_string($page->meta_keywords);
 
         $this->load->view('admin/ajax/page_details', compact('page'));
     }

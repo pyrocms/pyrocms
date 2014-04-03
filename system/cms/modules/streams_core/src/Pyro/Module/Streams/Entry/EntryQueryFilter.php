@@ -220,7 +220,11 @@ class EntryQueryFilter
      */
     public function getAppliedFilters()
     {
-        return ci()->session->userdata(uri_string().$this->getFilterKey());
+        if (isset(ci()->session)) {
+            return ci()->session->userdata(uri_string().$this->getFilterKey());
+        }
+
+        return array();
     }
 
     /**

@@ -179,14 +179,14 @@ class FieldAssignmentModel extends FieldModel
             if ($type = $field->getType()) {
 
                 // @todo - also pass the schema builder
-                $type->setStream($this);
+                $type->setStream($stream);
                 $type->fieldAssignmentDestruct();
 
                 // Drop the column if it exists
                 if (!$type->alt_process) {
                     $schema->table(
                         $this->stream_prefix . $this->stream_slug,
-                        function ($table) use ($type) {
+                        function ($table) use ($type, $schema) {
                             if ($schema->hasColumn($table->getTable(), $type->getColumnName())) {
                                 $table->dropColumn($type->getColumnName());
                             }
@@ -220,7 +220,7 @@ class FieldAssignmentModel extends FieldModel
         }
 
         // Make sure that garbage is collected even it the stream is not present anymore
-        FieldModel::where('field_namespace', '=', $namespace)->delete();
+        FieldModel::deleteByNamespace($stream->stream_namespace);
 
         return parent::delete();
     }

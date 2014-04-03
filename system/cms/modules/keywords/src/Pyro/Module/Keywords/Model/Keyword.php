@@ -21,7 +21,7 @@ class Keyword extends Eloquent
      * Cache minutes
      * @var int
      */
-    public $cacheMinutes = 30;
+    public $cacheMinutes = 0;
 
     /**
      * The attributes that aren't mass assignable

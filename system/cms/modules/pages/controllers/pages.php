@@ -180,7 +180,7 @@ class Pages extends Public_Controller
         $keyword_hash = $page->meta_keywords ?: $page->type->meta_keywords;
 
         if ($keyword_hash) {
-            $meta_keywords = implode(', ', AppliedKeywords::getNamesByHash($page->meta_keywords)->lists('name'));
+            $meta_keywords = '';//implode(', ', AppliedKeywords::getNamesByHash($page->meta_keywords)->lists('name'));
             $page->meta_keywords = $meta_keywords;
         }
 

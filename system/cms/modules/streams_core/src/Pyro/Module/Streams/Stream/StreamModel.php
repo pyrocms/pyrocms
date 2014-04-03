@@ -876,7 +876,7 @@ class StreamModel extends Eloquent
             if (!$type->alt_process) {
                 $schema->table(
                     $this->stream_prefix . $this->stream_slug,
-                    function ($table) use ($type) {
+                    function ($table) use ($type, $schema) {
                         if ($schema->hasColumn($table->getTable(), $type->getColumnName())) {
                             $table->dropColumn($type->getColumnName());
                         }

@@ -15,181 +15,157 @@ use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
  */
 class File extends FieldTypeAbstract
 {
-    /**
-     * Field type slug
-     * @var string
-     */
-	public $field_type_slug = 'file';
+    public $field_type_slug = 'file';
 
-    /**
-     * No column - we'll make our own below
-     * @var boolean
-     */
-	public $db_col_type = false;
-	
-    /**
-     * Custom field type parameters
-     * @var array
-     */
-	public $custom_parameters = array(
-		'folder',
-		'on_entry_destruct',
-		'allowed_types',
-		);
+    // Files are saved as 15 character strings.
+    public $db_col_type = 'string';
 
-    /**
-     * Field type version
-     * @var string
-     */
-	public $version = '1.2.0';
-
-    /**
-     * Who made it?
-     * @var array
-     */
-	public $author = array(
-        'name '=> 'Ryan Thompson - PyroCMS',
-        'url' => 'http://www.pyrocms.com/'
+    public $custom_parameters = array(
+        'folder',
+        'on_entry_destruct',
+        'allowed_types',
         );
 
-    /**
-     * Construct
-     */
+    public $version = '1.2.0';
+
+    public $author = array('name'=>'Parse19', 'url'=>'http://parse19.com');
+
+    public $input_is_file = true;
+
+    // --------------------------------------------------------------------------
+
     public function __construct()
-	{
-		ci()->load->config('files/files');
-	}
+    {
+        ci()->load->config('files/files');
+    }
 
     /**
      * The field type relation
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return object
      */
     public function relation()
     {
-        return $this->belongsTo($this->getRelationClass('Pyro\Module\Files\Model\File'));
+        return $this->belongsTo($this->getParameter('relation_class', 'Pyro\Module\Files\Model\File'));
     }
 
-	/**
-	 * Output form input
-	 *
-	 * @param	array
-	 * @param	array
-	 * @return	string
-	 */
-	public function formInput()
-	{
-		// Get the file
-		if ($this->value) {
-			$file = FileModel::find($this->value);
-		} else {
-			$file = null;
-		}
+    /**
+     * Output form input
+     *
+     * @param	array
+     * @param	array
+     * @return	string
+     */
+    public function formInput()
+    {
+        // Get the file
+        if ($this->value) {
+            $file = FileModel::find($this->value);
+        } else {
+            $file = null;
+        }
 
-		$out = '';
+        $out = '';
 
-		if ($file) {
-			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$file->id).'">'.$file->name.'</a></div>';
-		}
+        if ($file) {
+            $out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$file->id).'">'.$file->name.'</a></div>';
+        }
 
-		// Output the actual used value
-		$out .= form_hidden($this->form_slug.'_id', $this->value);
+        // Output the actual used value
+        $out .= form_hidden($this->form_slug, $this->value);
 
-		$options['name'] 	= $this->form_slug.'_file';
+        $options['name'] 	= $this->form_slug;
+        $options['name'] 	= $this->form_slug.'_file';
 
-		$this->js('filefield.js');
-		$this->css('filefield.css');
+        $this->js('filefield.js');
+        $this->css('filefield.css');
 
-		return $out .= form_upload($options);
-	}
+        return $out .= form_upload($options);
+    }
 
-	/**
-	 * Process before saving to database
-	 *
-	 * @param	array
-	 * @param	obj
-	 * @return	string
-	 */
-	public function preSave()
-	{
-		// If we do not have a file that is being submitted. If we do not,
-		// it could be the case that we already have one, in which case just
-		// return the numeric file record value.
-		if (! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
-			if (ci()->input->post($this->form_slug.'_id')) {
-				return ci()->input->post($this->form_slug.'_id');
-			} else {
-				return null;
-			}
-		}
+    // --------------------------------------------------------------------------
 
-		ci()->load->library('files/files');
+    /**
+     * Process before saving to database
+     *
+     * @param	array
+     * @param	obj
+     * @return	string
+     */
+    public function preSave()
+    {
+        // If we do not have a file that is being submitted. If we do not,
+        // it could be the case that we already have one, in which case just
+        // return the numeric file record value.
+        if (! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
+            if (ci()->input->post($this->form_slug)) {
+                return ci()->input->post($this->form_slug);
+            } else {
+                return null;
+            }
+        }
 
-		$return = \Files::upload($this->getParameter('folder'), null, $this->form_slug.'_file', null, null, null, $this->getParameter('allowed_types', '*'));
+        ci()->load->library('files/files');
 
-		if (! $return['status']) {
-			ci()->session->set_flashdata('warning', $return['message']);
-			return null;
-		} else {
+        $return = \Files::upload($this->getParameter('folder'), null, $this->form_slug.'_file', null, null, null, $this->getParameter('allowed_types', '*'));
+
+        if (! $return['status']) {
+
+            // What happened now??
+            ci()->session->set_flashdata('warning', $return['message']);
+
+            return null;
+        } else {
+            // Return the ID of the file DB entry
             Events::trigger('file_uploaded', $return);
-			return $return['data']['id'];
-		}
-	}
+            return $return['data']['id'];
+        }
+    }
 
-	/**
-     * Format the Admin output
-     * 
-     * @return [type] [description]
+    // --------------------------------------------------------------------------
+
+    /**
+     * Process before outputting
+     *
+     * @param	array
+     * @return	mixed - null or string
      */
     public function stringOutput()
     {
-        if ($file = $this->getRelationResult()) {
-            return '<a href="'.base_url('files/download/'.$file->id).'">'.$file->name.'</a>';
+        if ( ! $input) return null;
+
+        ci()->load->config('files/files');
+
+        $file = FileModel::find($input);
+
+        if ($file) {
+            return '<a href="'.base_url('files/download/'.$input).'">'.$file->name.'</a>';
         }
     }
 
+    // --------------------------------------------------------------------------
+
     /**
-     * Pre Ouput Plugin
-     * 
-     * This takes the data from the join array
-     * and formats it using the row parser.
-     * 
-     * @return array
+     * Process before outputting for the plugin
+     *
+     * This creates an array of data to be merged with the
+     * tag array so relationship data can be called with
+     * a {field.column} syntax
+     *
+     * @param	string
+     * @param	string
+     * @param	array
+     * @return	mixed - null or array
      */
     public function pluginOutput()
     {
-        if ($file = $this->getRelationResult()) {
-            return $file->toArray();
-        }
+        if ( ! $this->value) return null;
 
-        return null;
+        $file = FileModel::find($this->value);
+
+        return $file ? $file : false;
     }
 
-    /**
-     * Pre Ouput Data 
-     * @return array
-     */
-    public function dataOutput()
-    {
-        if ($file = $this->getRelationResult()) {
-            return $file;
-        }
-
-        return null;
-    }
-
-    /**
-     * Overide the column name like field_slug_id
-     * @param  Illuminate\Database\Schema   $schema
-     * @return void
-     */
-    public function fieldAssignmentConstruct($schema)
-    {
-        $tableName = $this->getStream()->stream_prefix.$this->getStream()->stream_slug;
-
-        $schema->table($tableName, function($table) {
-            $table->string($this->field->field_slug.'_id')->nullable();
-        });
-    }
+    // --------------------------------------------------------------------------
 
     /**
      * Ran when the entry is deleted
@@ -198,10 +174,58 @@ class File extends FieldTypeAbstract
     public function entryDestruct()
     {
         if ($this->getParameter('on_entry_destruct', 'keep') == 'delete') {
-            
+
             // Delete that file
             \Files::deleteFile($this->value);
         }
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Choose a folder to upload to.
+     *
+     * @param	[string - value]
+     * @return	string
+     */
+    public function paramFolder($value = null)
+    {
+        ci()->load->library('files/files');
+
+        // Get the folders
+        $tree = (array) \Files::folderTreeRecursive();
+
+        if (! $tree) {
+            return '<em>'.lang('streams:file.folder_notice').'</em>';
+        }
+
+        $choices = array();
+
+        foreach ($tree as $tree_item) {
+            // We are doing this to be backwards compat
+            // with PyroStreams 1.1 and below where
+            // This is an array, not an object
+            $tree_item = (object) $tree_item;
+
+            $choices[$tree_item->id] = $tree_item->name;
+        }
+
+        return form_dropdown('folder', $choices, $value);
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Param Allowed Types
+     *
+     * @param	[string - value]
+     * @return	string
+     */
+    public function paramAllowedTypes($value = null)
+    {
+        $instructions = '<p class="note">'.lang('streams:file.allowed_types_instructions').'</p>';
+
+        return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
     }
 
     /**
@@ -213,47 +237,4 @@ class File extends FieldTypeAbstract
         return parent::getColumnName().'_id';
     }
 
-    /**
-	 * Choose a folder to upload to.
-	 *
-	 * @param	[string - value]
-	 * @return	string
-	 */
-	public function paramFolder($value = null)
-	{
-		ci()->load->library('files/files');
-
-		// Get the folders
-		$tree = (array) \Files::folderTreeRecursive();
-
-		if (! $tree) {
-			return '<em>'.lang('streams:file.folder_notice').'</em>';
-		}
-
-		$choices = array();
-
-		foreach ($tree as $tree_item) {
-			// We are doing this to be backwards compat
-			// with PyroStreams 1.1 and below where
-			// This is an array, not an object
-			$tree_item = (object) $tree_item;
-
-			$choices[$tree_item->id] = $tree_item->name;
-		}
-
-		return form_dropdown('folder', $choices, $value);
-	}
-
-	/**
-	 * Param Allowed Types
-	 *
-	 * @param	[string - value]
-	 * @return	string
-	 */
-	public function paramAllowedTypes($value = null)
-	{
-		$instructions = '<p class="note">'.lang('streams:file.allowed_types_instructions').'</p>';
-
-		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
-	}
 }
