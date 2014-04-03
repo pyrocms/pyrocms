@@ -58,7 +58,7 @@ class Choice extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $choices = $this->_choicesToArray(
+        $choices = $this->choicesToArray(
             $this->getParameter('choice_data'),
             $this->getParameter('choice_type'),
             ($this->field->required ? 'yes' : 'no')
@@ -166,7 +166,7 @@ class Choice extends FieldTypeAbstract
      *
      * @return    array
      */
-    public function _choicesToArray($choices_raw, $type = 'dropdown', $required = 'no', $optgroups = true)
+    public function choicesToArray($choices_raw, $type = 'dropdown', $required = 'no', $optgroups = true)
     {
         $lines = explode("\n", $choices_raw);
 
@@ -318,7 +318,7 @@ class Choice extends FieldTypeAbstract
      */
     public function filterInput()
     {
-        $choices = $this->_choicesToArray(
+        $choices = $this->choicesToArray(
             $this->getParameter('choice_data'),
             $this->getParameter('choice_type'),
             'yes'
@@ -354,7 +354,7 @@ class Choice extends FieldTypeAbstract
      */
     public function stringOutput()
     {
-        $choices = $this->_choicesToArray(
+        $choices = $this->choicesToArray(
             $this->getParameter('choice_data'),
             $this->getParameter('choice_type'),
             'no',
@@ -548,7 +548,7 @@ class Choice extends FieldTypeAbstract
      */
     public function pluginOutput()
     {
-        $options = $this->_choicesToArray(
+        $options = $this->choicesToArray(
             $this->getParameter('choice_data'),
             $this->getParameter('choice_type'),
             'no',
