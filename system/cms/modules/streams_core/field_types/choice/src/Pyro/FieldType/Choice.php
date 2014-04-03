@@ -171,7 +171,7 @@ class Choice extends FieldTypeAbstract
         if ($choicesRaw) {
             $lines = explode("\n", $choicesRaw);
         } else {
-            $lines = $this->getParameter('choice_data');
+            $lines = explode("\n", $this->getParameter('choice_data'));
         }
 
         $placeholder = $this->getParameter('placeholder');
@@ -180,7 +180,7 @@ class Choice extends FieldTypeAbstract
             $choices[null] = empty($placeholder) ? ci()->config->item('dropdown_choose_null') : '';
         }
 
-        foreach ((array)$lines as $line) {
+        foreach ($lines as $line) {
             if ($line) {
                 $bits = explode(' : ', $line, 2);
 
