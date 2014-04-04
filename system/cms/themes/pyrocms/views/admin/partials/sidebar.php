@@ -13,7 +13,7 @@
 
 				<!-- Icon -->
 				<span class="icon">
-					<?php echo Asset::img('icon-logo-white.png', 'PyroCMS', array('height' => '24px', 'id' => 'brand-icon')); ?>
+					<?php echo Asset::img('logo-white.png', 'PyroCMS', array('height' => '24px', 'id' => 'brand-icon')); ?>
 				</span>
 
 			</a>
