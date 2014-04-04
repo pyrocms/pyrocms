@@ -95,7 +95,7 @@
                     </td>
                     <td>
                         <label class="inline" for="dashboard">
-                            <?php echo lang('global:dashboard') ?>
+                            <?php echo lang('cp:admin_title') ?>
                         </label>
                     </td>
                     <td>
