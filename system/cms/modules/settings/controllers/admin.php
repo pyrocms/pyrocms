@@ -106,7 +106,7 @@ class Admin extends Admin_Controller
         // Render the layout
         $this->template
             ->title($this->module_details['name'])
-            ->build('admin/index', compact('setting_sections', 'settingsArray'));
+            ->build('admin/index', compact('setting_sections', 'settings'));
     }
 
     /**
