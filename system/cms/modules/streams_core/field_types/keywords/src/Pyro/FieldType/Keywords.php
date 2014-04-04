@@ -76,7 +76,7 @@ class Keywords extends FieldTypeAbstract
 	 */
 	public function preSave()
 	{
-		return \Keywords::process($this->value);
+		return null;//\Keywords::process($this->value);
 	}
 
 	/**
