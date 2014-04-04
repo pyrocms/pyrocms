@@ -106,7 +106,7 @@
                 <?php foreach ($modules as $module): ?>
 
                     <tr>
-                        <td style="width: 30px">
+                        <td style="width: 50px">
                             <?php echo form_checkbox(
                                 array(
                                     'value'   => $module['slug'],
