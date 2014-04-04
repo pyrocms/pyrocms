@@ -204,7 +204,7 @@ class EntryUi extends UiAbstract
         $this->appliedFilters = $filter->getAppliedFilters();
 
         // Override limit
-        if ($limit = $this->getLimit()) {
+        if ($limit = $filter->getLimit()) {
             $this->limit($limit);
         }
 
