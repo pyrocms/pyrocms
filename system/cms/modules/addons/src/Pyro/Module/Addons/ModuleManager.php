@@ -92,7 +92,7 @@ class ModuleManager
 
         // Now we need to talk to it
         if ( ! class_exists($module_class)) {
-            throw new Exception("Module $slug has an incorrect details.php class. It should be called '$module_class'.");
+            throw new \Exception("Module $slug has an incorrect details.php class. It should be called '$module_class'.");
         }
 
         return array(new $module_class, dirname($details_file));
