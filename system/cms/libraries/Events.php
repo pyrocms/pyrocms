@@ -138,7 +138,15 @@ class Events
         if (self::has_listeners($event)) {
             foreach (self::$_listeners[$event] as $listener) {
                 if (is_callable($listener)) {
-                    $calls[] = call_user_func($listener, $data);
+                    $calls[] = call_user_func($listener, $data, $event);
+                }
+            }
+        }
+
+        if (self::has_listeners('*')) {
+            foreach (self::$_listeners['*'] as $listener) {
+                if (is_callable($listener)) {
+                    $calls[] = call_user_func($listener, $data, $event);
                 }
             }
         }
