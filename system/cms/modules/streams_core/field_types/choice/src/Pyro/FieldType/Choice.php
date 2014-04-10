@@ -279,7 +279,7 @@ class Choice extends FieldTypeAbstract
      */
     private function formatChoice($line)
     {
-        if ($line{0} == '^') {
+        if ($line and $line{0} == '^') {
             return substr($line, 1);
         } else {
             return $line;

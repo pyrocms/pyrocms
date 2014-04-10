@@ -648,7 +648,7 @@ class Admin extends Admin_Controller
         $form_options       = ci()->load->view('admin/pages/partials/form_options', $this->form_data, true);
 
         $tabs = array(
-            array(
+/*            array(
                 'title'     => 'Details',
                 'id'        => 'page-details',
                 'content'    => $form_details
@@ -657,13 +657,13 @@ class Admin extends Admin_Controller
                 'title'     => 'Metadata',
                 'id'        => 'page-meta',
                 'content'    => $form_meta
-            ),
+            ),*/
             array(
                 'title'     => 'Content',
                 'id'        => 'page-fields',
                 'fields'    => '*'
             ),
-            array(
+/*            array(
                 'title'     => 'Design',
                 'id'        => 'page-design',
                 'content'    => $form_css
@@ -677,7 +677,7 @@ class Admin extends Admin_Controller
                 'title'     => 'Options',
                 'id'        => 'page-options',
                 'content'    => $form_options
-            ),
+            ),*/
         );
 
         return $tabs;  
