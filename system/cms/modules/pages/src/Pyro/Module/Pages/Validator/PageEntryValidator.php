@@ -6,7 +6,7 @@ use Pyro\Module\Streams\Entry\EntryValidator;
 
 class PageEntryValidator extends EntryValidator
 {
-    protected $rules = array(
+/*    protected $rules = array(
         array(
             'field' => 'title',
             'label'	=> 'lang:global:title',
@@ -77,5 +77,5 @@ class PageEntryValidator extends EntryValidator
             'label' => 'lang:pages:navigation_label',
             'rules' => 'numeric'
         )
-    );
+    );*/
 }

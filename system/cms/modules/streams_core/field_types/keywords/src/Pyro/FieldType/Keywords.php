@@ -1,5 +1,8 @@
 <?php namespace Pyro\FieldType;
 
+use Illuminate\Support\Str;
+use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Keywords\Model\Keyword;
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
 /**
@@ -72,7 +75,11 @@ class Keywords extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $names = implode(',', $this->entry->keywords->lists('name', 'id'));
+        $names = '';
+
+        if ($keywords = $this->getRelationResult()) {
+            $names = implode(',', $keywords->lists('name', 'id'));
+        }
 
         $options['name'] 	= $this->form_slug;
         $options['id']		= 'id_'.rand(100, 10000);
@@ -99,7 +106,7 @@ class Keywords extends FieldTypeAbstract
      */
     public function preSave()
     {
-        return \Keywords::process($this->value, $this->entry);
+        return Keyword::sync($this->value, $this->entry, Str::camel($this->field->field_slug));
     }
 
     /**
@@ -141,27 +148,38 @@ class Keywords extends FieldTypeAbstract
     {
         if (! $this->value) return null;
 
+        $relationMethod = Str::camel($this->field->field_slug);
+
+        $total = 0;
+        if ($result = $this->getRelationResult()) {
+            $total = $result->count();
+        }
+
         // if we want an array, format it correctly
         if ($format === 'array') {
             //$keyword_array = \Keywords::get_array($this->value);
             $keywords = array();
-            $total = $this->entry->keywords->count();
 
-            foreach ($this->entry->keywords as $key => $keyword) {
-                $keywords[] = array(
-                    'count' => $key,
-                    'total' => $total,
-                    'is_first' => $key == 0,
-                    'is_last' => $key == ($total - 1),
-                    'keyword' => $keyword->name
-                );
+            if ($total > 0) {
+                foreach ($result as $key => $keyword) {
+                    $keywords[] = array(
+                        'count' => $key,
+                        'total' => $total,
+                        'is_first' => $key == 0,
+                        'is_last' => $key == ($total - 1),
+                        'keyword' => $keyword->name
+                    );
+                }
             }
 
             return $keywords;
         }
 
+        if ($result) {
+            return implode(',', $this->entry->{$relationMethod}->lists('name', 'id'));
+        }
         // otherwise return it as a string
-        return implode(',', $this->entry->keywords->lists('name', 'id'));
+        return null;
     }
 
     /**
@@ -179,4 +197,5 @@ class Keywords extends FieldTypeAbstract
                 .'<label>' . form_radio('return_type', 'string', $value !== 'array') . ' String </label> '
         );
     }
+
 }
