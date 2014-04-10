@@ -1,5 +1,7 @@
 <?php
 
+use Composer\Autoload\ClassLoader;
+use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Streams\Field\FieldAssignmentModel;
 use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\FieldType\FieldTypeManager;
@@ -13,6 +15,14 @@ class Migration_Polymorphic_keywords extends CI_Migration
 
         $schema = $this->pdb->getSchemaBuilder();
 
+        $loader = new ClassLoader();
+
+        // Register module manager for usage everywhere, its handy
+        $loader->add('Pyro\\Module\\Pages', realpath(APPPATH) . '/modules/pages/src/');
+        $loader->add('Pyro\\Module\\Keywords', realpath(APPPATH) . '/modules/keywords/src/');
+
+        $loader->register();
+
         // Add the new columns needed for the polymorphic relation
         $schema->table(
             'keywords_applied',
@@ -25,6 +35,19 @@ class Migration_Polymorphic_keywords extends CI_Migration
                 }
             }
         );
+
+        $pageModel = new Page;
+
+        $pages = $pageModel->whereNotNull('meta_keywords')->get();
+
+        foreach ($pages as $page) {
+            $this->pdb->table('keywords_applied')->where('hash', $page->entry->meta_keywords)->update(
+                array(
+                    'entry_id'   => $page->entry->getKey(),
+                    'entry_type' => get_class($page->entry)
+                )
+            );
+        }
 
         // Get the field keys that are of type keywords
         $fieldsKeys = FieldModel::where('field_type', 'keywords')->get()->modelKeys();
