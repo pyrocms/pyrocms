@@ -167,6 +167,10 @@ abstract class AbstractExtension extends Fluent
                 ) . Str::studly($type);
         }
 
+        if (!class_exists($class)) {
+            return false;
+        }
+
         $class = new $class;
 
         if ($class instanceof Fluent) {
