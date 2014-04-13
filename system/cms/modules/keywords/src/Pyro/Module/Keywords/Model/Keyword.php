@@ -129,7 +129,9 @@ class Keyword extends Eloquent
                 $row = Keyword::add($keyword);
             }
 
-            $model->{$relationMethod}->save($row);
+            if ($model->{$relationMethod}) {
+                $model->{$relationMethod}->save($row);
+            }
         }
 
         return $keywords;
