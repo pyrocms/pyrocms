@@ -17,7 +17,7 @@
     </p>
     <p>
         <strong><?php echo lang('pages:type_id_label') ?>:</strong>
-        <?php echo $page->page_type_title; ?>
+        <?php echo $page->type->title; ?>
     </p>
 </fieldset>
 
