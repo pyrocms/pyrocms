@@ -30,6 +30,11 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
 
         foreach ($pages as $page) {
 
+            // Check for dirtiness
+            if (!$page->entry) {
+                continue;
+            }
+
             $stream = $page->entry->getStream();
 
             $fields = array(
@@ -187,6 +192,23 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
                 FieldModel::addFields($fields, $stream->stream_slug, $stream->stream_namespace);
             }
 
+            FieldModel::assignField($stream->stream_slug, 'pages', 'title', array('is_required' => true));
+            FieldModel::assignField($stream->stream_slug, 'pages', 'slug', array('is_required' => true));
+            FieldModel::assignField($stream->stream_slug, 'pages', 'class', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'css', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'js', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'meta_title', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'meta_keywords', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'meta_description', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'meta_robots_no_index', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'meta_robots_no_follow', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'rss_enabled', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'rss_enabled', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'comments_enabled', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'status', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'is_home', array());
+            FieldModel::assignField($stream->stream_slug, 'pages', 'strict_uri', array());
+
             $page->entry->title      = $page->title;
             $page->entry->slug       = $page->slug;
             $page->entry->class      = $page->class;
@@ -205,8 +227,9 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
             $page->entry->is_home               = $page->is_home;
             $page->entry->strict_uri            = $page->strict_uri;
 
-            if (! empty($page->restricted_to)) {
-                $page->entry->restrictedTo()->attach($page->restricted_to);
+            if ($page->restricted_to) {
+                // @todo - broken here..
+                //$page->entry->restrictedTo()->attach($page->restricted_to);
             }
 
             $page->entry->skip_validation = true;
@@ -214,7 +237,7 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
             $page->entry->save();
         }
 
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             // Add the new columns needed for the polymorphic relation
             $schema->table(
                 'pages',
