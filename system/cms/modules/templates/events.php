@@ -48,14 +48,8 @@ class Events_Templates
         $slug = $data['slug'];
         unset($data['slug']);
 
-        // Get all email templates by slug
-        $find_templates = TemplateEntryModel::findBySlug($slug);
-
-        //MK- Added because code below looks for language slug as array key
-        $templates = array();
-        foreach($find_templates as $template) {
-            $templates[$template['lang']] = $template;
-        }
+        // Get all email templates
+        $templates = TemplateEntryModel::findBySlug($slug);
 
         // Make sure we have something to work with
         if ($templates) {
