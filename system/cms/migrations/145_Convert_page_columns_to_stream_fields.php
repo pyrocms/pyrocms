@@ -242,22 +242,13 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
             $schema->table(
                 'pages',
                 function ($table) use ($schema, $field) {
-                    if ($schema->hasColumn('pages', $field['slug'])) {
+                    $skips = array('is_home');
+                    if ($schema->hasColumn('pages', $field['slug']) and !in_array($field['slug'], $skips)) {
                         $table->dropColumn($field['slug']);
                     }
                 }
             );
         }
-
-        // Drop the pages order column
-        $schema->table(
-            'pages',
-            function ($table) use ($schema) {
-                if ($schema->hasColumn('pages', 'order')) {
-                    $table->dropColumn('order');
-                }
-            }
-        );
 
         // Convert pages to a stream
         StreamSchema::convertTableToStream('pages', 'pages', null, 'lang:pages:pages');
