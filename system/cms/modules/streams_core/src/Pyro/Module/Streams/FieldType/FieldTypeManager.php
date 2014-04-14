@@ -160,8 +160,8 @@ class FieldTypeManager
             $loader->register();
 
             if ($preload) {
-                foreach ($types as $type) {
-                    static::getType($type, $mode);
+                foreach ($types as $_type) {
+                    static::getType($_type, $mode);
                 }
             }
         }
