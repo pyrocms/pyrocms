@@ -24,9 +24,12 @@ class Keywords
     {
         $keywords = array();
 
-        /*foreach (Applied::getNamesByHash($hash) as $keyword) {
+        // @todo - This needs refactoring
+        return null;
+
+        foreach (Applied::getNamesByHash($hash) as $keyword) {
             $keywords[] = $keyword->name;
-        }*/
+        }
 
         return implode(', ', $keywords);
     }
@@ -43,9 +46,9 @@ class Keywords
     {
         $keywords = array();
 
-        /*foreach (Applied::getNamesByHash($hash) as $keyword) {
+        foreach (Applied::getNamesByHash($hash) as $keyword) {
             $keywords[] = $keyword->name;
-        }*/
+        }
 
         return $keywords;
     }

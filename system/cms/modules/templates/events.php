@@ -68,10 +68,10 @@ class Events_Templates
             // perhaps they've passed a pipe separated string, let's switch it to commas for CodeIgniter
             if ( ! is_array($to)) $to = str_replace('|', ',', $to);
 
-            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
+            $subject = $templates->findByLang($lang)->subject;
             $subject = ci()->parser->parse_string($subject, $data, true);
 
-            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
+            $body = $templates->findByLang($lang)->body ;
             $body = ci()->parser->parse_string($body, $data, true);
 
             ci()->email

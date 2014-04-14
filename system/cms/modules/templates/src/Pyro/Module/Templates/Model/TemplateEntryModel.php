@@ -18,10 +18,16 @@ class TemplateEntryModel extends TemplatesTemplatesEntryModel
     protected $presenterClass = 'Pyro\Module\Templates\Presenter\TemplateEntryPresenter';
 
     /**
+     * Collection class
+     *
+     * @var string
+     */
+    protected $collectionClass = 'Pyro\Module\Templates\Collection\TemplateEntryCollection';
+
+    /**
      * Find email template by slug
      *
      * @param string $slug The slug of the email template
-     *
      * @return void
      */
     public static function findBySlug($slug)
@@ -33,7 +39,6 @@ class TemplateEntryModel extends TemplatesTemplatesEntryModel
      * Find email template by is_default
      *
      * @param bool $default
-     *
      * @return void
      */
     public static function findByIsDefault($default)
@@ -44,9 +49,8 @@ class TemplateEntryModel extends TemplatesTemplatesEntryModel
     /**
      * Find email template by slug and language
      *
-     * @param string $slug The slug of the email template
+     * @param string $slug     The slug of the email template
      * @param string $language The language of the email template
-     *
      * @return void
      */
     public static function findBySlugAndLanguage($slug, $language)
