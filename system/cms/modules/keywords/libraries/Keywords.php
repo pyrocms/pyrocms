@@ -46,6 +46,9 @@ class Keywords
     {
         $keywords = array();
 
+        // @todo - This needs refactoring
+        return array();
+
         foreach (Applied::getNamesByHash($hash) as $keyword) {
             $keywords[] = $keyword->name;
         }
