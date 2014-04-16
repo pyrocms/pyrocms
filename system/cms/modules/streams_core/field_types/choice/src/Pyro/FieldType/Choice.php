@@ -64,9 +64,6 @@ class Choice extends FieldTypeAbstract
             ($this->field->required ? 'yes' : 'no')
         );
 
-        // Only put in our brs for the admin
-        $line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
-
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
         // If this is a new input, we need to use the default value or go null
@@ -136,7 +133,7 @@ class Choice extends FieldTypeAbstract
                             $this->formatChoice($choice_key),
                             $selected,
                             $this->activeState($choice)
-                        ) . '&nbsp;' . $this->formatChoice($choice) . '</label>' . $line_end;
+                        ) . '&nbsp;' . $this->formatChoice($choice) . '</label>';
                 } else {
                     $selected = (in_array($choice_key, $values)) ? true : false;
 
@@ -145,7 +142,7 @@ class Choice extends FieldTypeAbstract
                             $this->formatChoice($choice_key),
                             $selected,
                             'id="' . $this->formatChoice($choice_key) . '" ' . $this->activeState($choice)
-                        ) . '&nbsp;' . $this->formatChoice($choice) . '</label>' . $line_end;
+                        ) . '&nbsp;' . $this->formatChoice($choice) . '</label>';
                 }
             }
         }
@@ -327,9 +324,6 @@ class Choice extends FieldTypeAbstract
             $this->getParameter('choice_data'),
             'yes'
         );
-
-        // Only put in our brs for the admin
-        $line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
