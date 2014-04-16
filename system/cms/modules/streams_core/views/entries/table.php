@@ -58,12 +58,16 @@
 
                     ?>
                     <th class="<?php echo $class; ?>">
-                        <a href="<?php echo site_url(uri_string()) . '?' . http_build_query($query_string); ?>">
+                        <?php if ($enableSortableHeaders): ?>
+                            <a href="<?php echo site_url(uri_string()) . '?' . http_build_query($query_string); ?>">
+                                <?php echo $fieldName; ?>
+                                <?php if ($caret) {
+                                    echo $caret;
+                                } ?>
+                            </a>
+                        <?php else: ?>
                             <?php echo $fieldName; ?>
-                            <?php if ($caret) {
-                                echo $caret;
-                            } ?>
-                        </a>
+                        <?php endif; ?>
                     </th>
 
                 <?php endforeach; ?>
@@ -174,7 +178,8 @@
                         }
 
                         ?>
-                    </div><!--.no_data-->
+                    </div>
+                    <!--.no_data-->
                 </td>
             </tr>
         <?php endif; ?>

@@ -22,7 +22,7 @@
         "doctrine/dbal": "2.4.x",
         "dflydev/markdown": "1.0.*",
         "illuminate/cache": "4.1.*",
-        "illuminate/database": "4.1.*",
+        "illuminate/database": "4.1.*@dev",
         "illuminate/filesystem": "4.1.*",
         "ircmaxell/password-compat": "1.0.*",
         "loic-sharma/profiler": "1.1.*",
