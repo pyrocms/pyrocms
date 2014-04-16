@@ -122,14 +122,20 @@ class Users extends Public_Controller
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->validation_rules);
 
+        $user = Model\User::findByEmail($this->input->post('email'));
+
+        if ($user and !$user->is_activated) {
+            ci()->session->set_flashdata('error', lang('user:inactive'));
+            redirect('users/login');
+        }
+
         // If the validation worked, or the user is already logged in
         if ($this->form_validation->run() or $this->sentry->check()) {
 
-            $user = Model\User::findByEmail($this->input->post('email'));
-
             if ($user->is_blocked) {
                 $this->sentry->logout($user);
-                throw new \Exception('Your account has been blocked.');
+                ci()->session->set_flashdata('error', 'Your account has been blocked.');
+                redirect('users/login');
             }
 
             // trigger a post login event for third party devs

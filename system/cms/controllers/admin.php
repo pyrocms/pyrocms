@@ -149,23 +149,28 @@ class Admin extends Admin_Controller
 
         } else {
 
-            try {
+            if ($user = User::findByEmail($email)) {
 
-                $this->sentry->authenticate(array(
-                    'email' => $email,
-                    'password' => $password,
-                ), (bool) $this->input->post('remember'));
+                if (!$user->is_activated) {
+                    ci()->session->set_flashdata('error', lang('user:inactive'));
+                    redirect('admin/login');
+                }
 
-            } catch (WrongPasswordException $e) {
+                try {
 
-                // This'll happen for all old logins
-                return false;
+                    $this->sentry->authenticate(array(
+                            'email' => $email,
+                            'password' => $password,
+                        ), (bool) $this->input->post('remember'));
+                } catch (WrongPasswordException $e) {
 
-            } catch (UserNotFoundException $e) {
+                    // This'll happen for all old logins
+                    return false;
+                } catch (UserNotFoundException $e) {
 
-                // Generic fuckup
-                return false;
-
+                    // Generic fuckup
+                    return false;
+                }
             }
         }
 
