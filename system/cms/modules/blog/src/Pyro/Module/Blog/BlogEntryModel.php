@@ -20,6 +20,26 @@ class BlogEntryModel extends BlogsBlogEntryModel
     protected $appends = array('url');
 
     /**
+     * Find an entry based on the preview hash
+     *
+     * @return string
+     */
+    public function findByPreviewHash($hash)
+    {
+        return $this->where('preview_hash', '=', $hash)->first();
+    }
+
+    /**
+     * Find an entry based on the slug value
+     *
+     * @return string
+     */
+    public function findBySlug($slug)
+    {
+        return $this->where('slug', '=', $slug)->first();
+    }
+
+    /**
      * Find Many Blog Entries
      *
      * @return \Pyro\Module\Streams\Entry\EntryCollection
@@ -49,11 +69,6 @@ class BlogEntryModel extends BlogsBlogEntryModel
         return static::published($take, $skip)
             ->where('category_id', '=', $categoryId)
             ->get();
-    }
-
-    public function findBySlug($slug)
-    {
-
     }
 
     public function getUrlAttribute()

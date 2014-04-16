@@ -11,8 +11,6 @@ use Pyro\Module\Blog\BlogEntryModel;
  */
 class Blog extends Public_Controller
 {
-    public $stream;
-
     /**
      * Every time this controller is called should:
      * - load the blog and blog_categories models.
@@ -61,7 +59,7 @@ class Blog extends Public_Controller
         );
 
         // Set meta description based on post titles
-        $meta = $this->_posts_metadata($posts);
+        $meta = $this->postsMetadata($posts);
 
         // Go!
         $this->template
@@ -88,22 +86,29 @@ class Blog extends Public_Controller
         $slug or redirect('blog');
 
         // Get category data
-        $category = BlogCategoryModel::where('slug', $slug)->first() OR show_404();
+        $category = $this->categories->findBySlug($slug);
+
+        if (! $category) {
+            show_404();
+        }
 
         // Total posts
-        $total = BlogEntryModel::where('status', '=', 'live')
+        $total = $this->blogs
+            ->where('status', '=', 'live')
             ->where('category_id', '=', $category->id)
             ->count();
 
         // Skip
         if (ci()->input->get('page')) {
-            $skip = (ci()->input->get('page')-1)*Settings::get('records_per_page');
+            $skip = (ci()->input->get('page')-1) * Settings::get('records_per_page');
         } else {
             $skip = 0;
         }
 
         // Get the latest blog posts
-        $posts = BlogEntryModel::findManyByCategoryId($category->id, Settings::get('records_per_page'), $skip)
+        $posts = $category
+            ->publishedPosts(Settings::get('records_per_page'), $skip)
+            ->get()
             ->getPresenter('plugin');
 
         // Create pagination
@@ -113,10 +118,8 @@ class Blog extends Public_Controller
             Settings::get('records_per_page')
         );
 
-        $pagination['links'] = str_replace('-1', '1', $pagination['links']);
-
         // Set meta description based on post titles
-        $meta = $this->_posts_metadata($posts);
+        $meta = $this->postsMetadata($posts);
 
         // Build the page
         $this->template->title($this->module_details['name'], $category->title)
@@ -142,7 +145,8 @@ class Blog extends Public_Controller
         $month_date = new DateTime($year.'-'.$month.'-01');
 
         // Total posts
-        $total = BlogEntryModel::where('status', '=', 'live')
+        $total = $this->blogs
+            ->where('status', '=', 'live')
             ->whereYear('created_at', '=', $year)
             ->whereMonth('created_at', '=', $month)
             ->count();
@@ -155,7 +159,7 @@ class Blog extends Public_Controller
         }
 
         // Get the latest blog posts
-        $posts = BlogEntryModel::select('*')
+        $posts = $this->blogs
             ->where('status', '=', 'live')
             ->whereYear('created_at', '=', $year)
             ->whereMonth('created_at', '=', $month)
@@ -172,13 +176,11 @@ class Blog extends Public_Controller
             Settings::get('records_per_page')
         );
 
-        $pagination['links'] = str_replace('-1', '1', $pagination['links']);
-
         // Set meta description based on post titles
-        $meta = $this->_posts_metadata($posts);
+        $meta = $this->postsMetadata($posts);
 
         // Process
-        $posts = self::processPosts($posts);
+        $posts = $this->processPosts($posts);
 
         $this->template
             ->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
@@ -197,18 +199,15 @@ class Blog extends Public_Controller
      *
      * @param string $slug The slug of the blog post.
      */
-    public function view($slug = '')
+    public function view($slug)
     {
         // We need a slug to make this work.
-        if ( ! $slug) {
+        if (! $slug) {
             redirect('blog');
         }
 
         // Get the latest blog posts
-        $post = BlogEntryModel::where('slug', '=', $slug)
-            ->first();
-
-        $postPresenter = $post->getPresenter();
+        $post = $this->blogs->findBySlug($slug);
 
         if (! is_object(ci()->current_user) or ! ci()->current_user->isSuperUser()) {
             if (! $post or $post['status'] !== 'live') {
@@ -216,7 +215,7 @@ class Blog extends Public_Controller
             }
         }
 
-        $this->_single_view($post);
+        $this->singleView($post);
     }
 
     /**
@@ -226,32 +225,24 @@ class Blog extends Public_Controller
      */
     public function preview($hash = '')
     {
-        if ( ! $hash) {
+        if (! $hash) {
             redirect('blog');
         }
 
-        $params = array(
-            'stream'		=> 'blog',
-            'namespace'		=> 'blogs',
-            'limit'			=> 1,
-            'order_by'		=> "created_at",
-            'where'			=> "`preview_hash` = '{$hash}'"
-        );
-        $data = $this->streams->entries->get_entries($params);
-        $post = (isset($data['entries'][0])) ? $data['entries'][0] : null;
-
-        if ( ! $post) {
+        $post = $this->blogs->findByPreviewHash($hash);
+       
+        if (! $post) {
             redirect('blog');
         }
 
-        if ($post['status'] === 'live') {
-            redirect('blog/'.date('Y/m', strtotime($post['created_at'])).'/'.$post['slug']);
+        if ($post->status === 'live') {
+            redirect('blog/'.($post->created_at->format('Y/m')).'/'.$post->slug);
         }
 
         // Set index nofollow to attempt to avoid search engine indexing
         $this->template->set_metadata('index', 'nofollow');
 
-        $this->_single_view($post);
+        $this->singleView($post);
     }
 
     /**
@@ -268,7 +259,8 @@ class Blog extends Public_Controller
         $tag = rawurldecode($tag) or redirect('blog');
 
         // Total posts
-        $total = BlogEntryModel::where('status', '=', 'live')
+        $total = $this->blogs
+            ->where('status', '=', 'live')
             ->where('keywords', 'LIKE', '%'.$tag.'%')
             ->count();
 
@@ -280,15 +272,14 @@ class Blog extends Public_Controller
         }
 
         // Get the latest blog posts
-        $posts = BlogEntryModel::select('*')
+        $posts = $this->blogs
             ->where('status', '=', 'live')
             ->where('keywords', 'LIKE', '%'.$tag.'%')
             ->orderBy('created_at', 'DESC')
             ->take(Settings::get('records_per_page'))
             ->skip($skip)
             ->get()
-            ->getPresenter()
-            ->toArray();
+            ->getPresenter();
 
         // Create pagination
         $pagination = create_pagination(
@@ -300,7 +291,7 @@ class Blog extends Public_Controller
         $pagination['links'] = str_replace('-1', '1', $pagination['links']);
 
         // Set meta description based on post titles
-        $meta = $this->_posts_metadata($posts);
+        $meta = $this->postsMetadata($posts);
 
         $name = str_replace('-', ' ', $tag);
 
@@ -324,14 +315,14 @@ class Blog extends Public_Controller
      *
      * @return array keywords and description
      */
-    private function _posts_metadata(&$posts = array())
+    protected function postsMetadata($posts = array())
     {
         $keywords = array();
         $description = array();
 
         // Loop through posts and use titles for meta description
-        if ( ! empty($posts)) {
-            foreach ($posts as &$post) {
+        if (! empty($posts)) {
+            foreach ($posts as $post) {
                 if (isset($post->category->title) and ! in_array($post->category->title, $keywords)) {
                     $keywords[] = $post->category->title;
                 }
@@ -352,11 +343,10 @@ class Blog extends Public_Controller
      * Generate a page for viewing a single
      * blog post.
      *
-     * @access 	private
      * @param 	array $post The post to view
      * @return 	void
      */
-    private function _single_view($post)
+    protected function singleView($post)
     {
         $this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
