@@ -78,11 +78,10 @@ class Module_Keywords extends AbstractModule
         $schema->dropIfExists('keywords_applied');
 
         $schema->create('keywords_applied', function($table) {
-            $table->increments('id');
-            $table->string('hash', 32)->default('');
             $table->integer('keyword_id');
-
-            // $table->foreign('keyword_id')->references('id')->on('keywords');
+            $table->integer('entry_id');
+            $table->string('entry_type', 250);
+            $table->string('module', 50);
         });
 
         return true;

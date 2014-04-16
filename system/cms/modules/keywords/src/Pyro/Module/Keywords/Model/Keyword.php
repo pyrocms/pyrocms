@@ -1,12 +1,13 @@
 <?php namespace Pyro\Module\Keywords\Model;
 
+use Illuminate\Database\Eloquent\Model;
 use Pyro\Model\Eloquent;
 
 /**
  * Keyword model
  *
- * @author	  PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Keywords\Models
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Modules\Keywords\Models
  */
 class Keyword extends Eloquent
 {
@@ -19,9 +20,10 @@ class Keyword extends Eloquent
 
     /**
      * Cache minutes
+     *
      * @var int
      */
-    public $cacheMinutes = 30;
+    public $cacheMinutes = 0;
 
     /**
      * The attributes that aren't mass assignable
@@ -36,6 +38,7 @@ class Keyword extends Eloquent
      * @var boolean
      */
     public $timestamps = false;
+
 
     /**
      * Define the relationship
@@ -55,7 +58,7 @@ class Keyword extends Eloquent
      */
     public static function findByName($name)
     {
-        return static::where('name', '=', $name)->first();
+        return static::where('name', '=', static::prep($name))->first();
     }
 
     /**
@@ -78,8 +81,8 @@ class Keyword extends Eloquent
     public static function findLikeTerm($term)
     {
         return static::select('name AS value')
-                    ->where('name', 'like', '%'.$term.'%')
-                    ->get();
+            ->where('name', 'like', '%' . $term . '%')
+            ->get();
     }
 
     /**
@@ -89,6 +92,49 @@ class Keyword extends Eloquent
      */
     public static function add($keyword)
     {
-        return static::create(array('name' => $keyword));
+        return static::create(array('name' => static::prep($keyword)));
     }
+
+    /**
+     * Prepare Keyword
+     * Gets a keyword ready to be saved
+     *
+     * @param    string $keyword
+     * @return    string
+     */
+    public static function prep($keyword)
+    {
+        if (function_exists('mb_strtolower')) {
+            return mb_strtolower(trim($keyword));
+        } else {
+            return strtolower(trim($keyword));
+        }
+    }
+
+    public static function sync($keywords, Model $model, $relationMethod)
+    {
+        if (!($keywords = trim($keywords))) {
+            return '';
+        }
+
+        Applied::deleteByEntryIdAndEntryType($model->getKey(), get_class($model));
+
+        // Split em up and prep away
+        $keywords = explode(',', $keywords);
+
+        foreach ($keywords as &$keyword) {
+
+            // Keyword already exists
+            if (!($row = Keyword::findByName($keyword))) {
+                $row = Keyword::add($keyword);
+            }
+
+            if ($model->{$relationMethod}) {
+                $model->{$relationMethod}->save($row);
+            }
+        }
+
+        return $keywords;
+    }
+
 }

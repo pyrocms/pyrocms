@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Streams
+$lang['redirects.stream.redirects.name']   = 'Redirects';
+$lang['redirects.stream.redirects.create'] = 'Create Redirect';
+$lang['redirects.stream.redirects.edit']   = 'Edit Redirect';
+
 // labels
 $lang['redirects:from'] 				= '來源網址';
 $lang['redirects:to']					= '目標網址';

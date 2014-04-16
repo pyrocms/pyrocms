@@ -40,7 +40,12 @@ class EntryValidator
         ci()->form_validation->reset_validation();
         ci()->form_validation->set_data($data);
         ci()->form_validation->set_rules($this->rules);
-        return ci()->form_validation->run();
+
+        if ($this->rules) {
+            return ci()->form_validation->run();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -82,7 +87,7 @@ class EntryValidator
      */
     protected function setRequiredRule(FieldModel $field)
     {
-        if ($field->required) {
+        if ($field->is_required) {
             $this->addRule($field, 'required');
         }
     }
@@ -94,7 +99,7 @@ class EntryValidator
      */
     protected function setUniqueRule(FieldModel $field)
     {
-        if ($field->unique and !$this->model->getKey()) {
+        if ($field->is_unique and !$this->model->getKey()) {
             $table  = $this->model->getTable();
             $column = $field->getType()->getColumnName();
 

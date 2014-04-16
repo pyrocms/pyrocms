@@ -1,6 +1,6 @@
 <?php
 
-use Pyro\Module\Redirects\Model\Redirect;
+use Pyro\Module\Redirects\Model\RedirectEntryModel;
 use Pyro\Module\Variables\VariableData;
 
 /**
@@ -26,7 +26,7 @@ class Public_Controller extends MY_Controller
 		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET') {
 			$uri = trim(uri_string(), '/');
 
-			if ($uri and $redirect = Redirect::findByUri($uri)) {
+			if ($uri and $redirect = RedirectEntryModel::findByUri($uri)) {
 				// Check if it was direct match
 				if ($redirect->from == $uri) {
 					redirect($redirect->to, 'location', $redirect->type);

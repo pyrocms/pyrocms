@@ -333,7 +333,7 @@ class Link extends Eloquent
                     break;
                 case 'page':
 
-                    if ($row->page->status == 'live') {
+                    if ($row->page and $row->page->status == 'live') {
                         $page = $row->page;
                     } else {
                         $page = false;

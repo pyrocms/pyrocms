@@ -20,14 +20,24 @@ class ProfileEntryUi extends EntryUi
                 array(
                     'user|username',
                     'user|email',
-                    'is_activated'  => array(
+                    'is_activated' => array(
                         'type'    => 'select',
                         'title'   => 'lang:user:active',
                         'slug'    => 'is_activated',
                         'options' => array(
                             null => '-- ' . lang('user:active') . ' --',
-                            '1'  => lang('global:yes'),
-                            '0'  => lang('global:no'),
+                            'yes'  => lang('global:yes'),
+                            'no'  => lang('global:no'),
+                        ),
+                    ),
+                    'is_blocked'   => array(
+                        'type'    => 'select',
+                        'title'   => 'lang:user:blocked',
+                        'slug'    => 'is_blocked',
+                        'options' => array(
+                            null => '-- ' . lang('user:blocked') . ' --',
+                            'yes'  => lang('global:yes'),
+                            'no'  => lang('global:no'),
                         ),
                     ),
                 )
@@ -56,12 +66,12 @@ class ProfileEntryUi extends EntryUi
                 array(
                     array(
                         'label' => lang('global:edit'),
-                        'url'   => 'admin/users/edit/{{ id }}',
+                        'url'   => 'admin/users/edit/{{ user:id }}',
                         'class' => 'btn-sm btn-warning',
                     ),
                     array(
                         'label' => lang('global:delete'),
-                        'url'   => 'admin/users/delete/{{ id }}',
+                        'url'   => 'admin/users/delete/{{ user:id }}',
                         'class' => 'btn-sm btn-danger confirm',
                     ),
                 )

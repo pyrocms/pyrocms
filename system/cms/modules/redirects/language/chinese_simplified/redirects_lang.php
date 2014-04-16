@@ -12,6 +12,11 @@
  * @version		1.0
  */
 
+// Streams
+$lang['redirects.stream.redirects.name']   = 'Redirects';
+$lang['redirects.stream.redirects.create'] = 'Create Redirect';
+$lang['redirects.stream.redirects.edit']   = 'Edit Redirect';
+
 // labels
 $lang['redirects:from'] 				= '來源网址';
 $lang['redirects:to']					= '目標网址';

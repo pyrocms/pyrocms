@@ -21,6 +21,7 @@ class Page extends Eloquent
 
     /**
      * Cache minutes
+     *
      * @var int
      */
     public $cacheMinutes = 30;
@@ -51,23 +52,23 @@ class Page extends Eloquent
         $rules = array(
             array(
                 'field' => 'title',
-                'label'	=> 'lang:global:title',
-                'rules'	=> 'trim|required|max_length[250]'
+                'label' => 'lang:global:title',
+                'rules' => 'trim|required|max_length[250]'
             ),
             'slug' => array(
                 'field' => 'slug',
-                'label'	=> 'lang:global:slug',
-                'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]',//|callback__check_slug'
+                'label' => 'lang:global:slug',
+                'rules' => 'trim|required|alpha_dot_dash|max_length[250]', //|callback__check_slug'
             ),
             array(
-                'field'	=> 'css',
-                'label'	=> 'lang:pages:css_label',
-                'rules'	=> 'trim'
+                'field' => 'css',
+                'label' => 'lang:pages:css_label',
+                'rules' => 'trim'
             ),
             array(
-                'field'	=> 'js',
-                'label'	=> 'lang:pages:js_label',
-                'rules'	=> 'trim'
+                'field' => 'js',
+                'label' => 'lang:pages:js_label',
+                'rules' => 'trim'
             ),
             array(
                 'field' => 'meta_title',
@@ -75,44 +76,44 @@ class Page extends Eloquent
                 'rules' => 'trim|max_length[250]'
             ),
             array(
-                'field'	=> 'meta_keywords',
+                'field' => 'meta_keywords',
                 'label' => 'lang:pages:meta_keywords_label',
                 'rules' => 'trim|max_length[250]'
             ),
             array(
-                'field'	=> 'meta_description',
-                'label'	=> 'lang:pages:meta_description_label',
-                'rules'	=> 'trim'
+                'field' => 'meta_description',
+                'label' => 'lang:pages:meta_description_label',
+                'rules' => 'trim'
             ),
             array(
                 'field' => 'restricted_to[]',
-                'label'	=> 'lang:pages:access_label',
-                'rules'	=> 'trim|required'
+                'label' => 'lang:pages:access_label',
+                'rules' => 'trim|required'
             ),
             array(
                 'field' => 'rss_enabled',
-                'label'	=> 'lang:pages:rss_enabled_label',
-                'rules'	=> 'trim'
+                'label' => 'lang:pages:rss_enabled_label',
+                'rules' => 'trim'
             ),
             array(
                 'field' => 'comments_enabled',
-                'label'	=> 'lang:pages:comments_enabled_label',
-                'rules'	=> 'trim'
+                'label' => 'lang:pages:comments_enabled_label',
+                'rules' => 'trim'
             ),
             array(
                 'field' => 'is_home',
-                'label'	=> 'lang:pages:is_home_label',
-                'rules'	=> 'trim'
+                'label' => 'lang:pages:is_home_label',
+                'rules' => 'trim'
             ),
             array(
                 'field' => 'strict_uri',
-                'label'	=> 'lang:pages:strict_uri_label',
-                'rules'	=> 'trim'
+                'label' => 'lang:pages:strict_uri_label',
+                'rules' => 'trim'
             ),
             array(
-                'field'	=> 'status',
-                'label'	=> 'lang:pages:status_label',
-                'rules'	=> 'trim|alpha|required'
+                'field' => 'status',
+                'label' => 'lang:pages:status_label',
+                'rules' => 'trim|alpha|required'
             ),
             array(
                 'field' => 'navigation_group_id[]',
@@ -129,17 +130,18 @@ class Page extends Eloquent
 
     /**
      * Get all pages their children
+     *
      * @return [type] [description]
      */
-    public static function tree(array $columns = array('*'))
+    public function tree(array $columns = array('*'))
     {
-        return static::with('children')->orderBy('order')->get($columns)->tree();
+        return $this->with(array('children', 'entry'))->orderBy('order')->get($columns)->tree();
     }
 
     /**
      * Relationship: Type
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {
@@ -149,7 +151,7 @@ class Page extends Eloquent
     /**
      * Relationship: Parent
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
     {
@@ -159,7 +161,7 @@ class Page extends Eloquent
     /**
      * Relationship: Children
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children()
     {
@@ -170,7 +172,6 @@ class Page extends Eloquent
      * Find page by id and status
      *
      * @param string $status Live or draft?
-     *
      * @return Page
      */
     public static function findStatus($status)
@@ -181,9 +182,8 @@ class Page extends Eloquent
     /**
      * Find page by id and status
      *
-     * @param int $id The id of the page.
+     * @param int    $id     The id of the page.
      * @param string $status Live or draft?
-     *
      * @return Page
      */
     public static function findByIdAndStatus($id, $status)
@@ -196,9 +196,8 @@ class Page extends Eloquent
     /**
      * Find page by id and status
      *
-     * @param int $id The id of the page.
+     * @param int    $id     The id of the page.
      * @param string $status Live or draft?
-     *
      * @return Page
      */
     public static function findManyByParentAndStatus($parent_id, $status)
@@ -216,9 +215,8 @@ class Page extends Eloquent
     /**
      * Find a page by its URI
      *
-     * @param string $uri The uri of the page.
-     * @param bool $is_request Is this an http request or called from a plugin
-     *
+     * @param string $uri        The uri of the page.
+     * @param bool   $is_request Is this an http request or called from a plugin
      * @return Page
      */
     public static function findByUri($uri, $is_request = false)
@@ -238,10 +236,10 @@ class Page extends Eloquent
 
             // $uri gets shortened so we save the original
             $original_uri = $uri;
-            $page = false;
-            $i = 0;
+            $page         = false;
+            $i            = 0;
 
-            while ( ! $page and $uri and $i < 15) { /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
+            while (!$page and $uri and $i < 15) { /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
                 $page = static::where('uri', '=', $uri)
                     ->with('type')
                     ->take(1)
@@ -249,17 +247,16 @@ class Page extends Eloquent
 
                 // if it's not a normal page load (plugin or etc. that is not cached)
                 // then we won't do our recursive search
-                if (! $is_request) {
+                if (!$is_request) {
                     break;
                 }
 
                 // if we didn't find a page with that exact uri AND there's more than one segment
-                if ( ! $page and strpos($uri, '/') !== false) {
+                if (!$page and strpos($uri, '/') !== false) {
                     // pop the last segment off and we'll try again
                     $uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
-                }
-                // we didn't find a page and there's only one segment; it's going to 404
-                elseif (! $page) {
+                } // we didn't find a page and there's only one segment; it's going to 404
+                elseif (!$page) {
                     break;
                 }
                 ++$i;
@@ -268,7 +265,7 @@ class Page extends Eloquent
             if ($page) {
                 // so we found a page but if strict uri matching is required and the unmodified
                 // uri doesn't match the page we fetched then we pretend it didn't happen
-                if ($is_request and (bool) $page->strict_uri and $original_uri !== $uri) {
+                if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri) {
                     return false;
                 }
 
@@ -278,7 +275,7 @@ class Page extends Eloquent
         }
 
         // looks like we have a 404
-        if (! $page) {
+        if (!$page) {
             return false;
         }
 
@@ -308,11 +305,11 @@ class Page extends Eloquent
         // Update the pages entry types
         foreach ($page_types as $type) {
             static::where('type_id', $type->id)
-                ->update(array('entry_type' => $type->stream_slug.'.'.$type->stream_namespace));
+                ->update(array('entry_type' => $type->stream_slug . '.' . $type->stream_namespace));
         }
     }
 
- //    // --------------------------------------------------------------------------
+    //    // --------------------------------------------------------------------------
 
     // /**
     //  * Get a page from the database.
@@ -380,20 +377,20 @@ class Page extends Eloquent
     {
         if (isset($page['children'])) {
             foreach ($page['children'] as $i => $child) {
-                $child_id = (int) str_replace('page_', '', $child['id']);
-                $page_id = (int) str_replace('page_', '', $page['id']);
+                $child_id = (int)str_replace('page_', '', $child['id']);
+                $page_id  = (int)str_replace('page_', '', $page['id']);
 
                 // Since we are skipping validation on the model we are doing a little validation of our own
                 if (is_numeric($child_id) and is_numeric($page_id)) {
-                    $model = static::find($child_id);
+                    $model                  = static::find($child_id);
                     $model->skip_validation = true;
-                    $model->parent_id = $page_id;
-                    $model->order = $i;
+                    $model->parent_id       = $page_id;
+                    $model->order           = $i;
                     $model->save();
                 }
 
                 //repeat as long as there are children
-                if ( ! empty($child['children'])) {
+                if (!empty($child['children'])) {
                     static::setChildren($child);
                 }
             }
@@ -404,7 +401,6 @@ class Page extends Eloquent
      * Does the page have children?
      *
      * @param int $parent_id The ID of the parent page
-     *
      * @return bool
      */
     public function has_children($parent_id)
@@ -415,9 +411,8 @@ class Page extends Eloquent
     /**
      * Get the child IDs
      *
-     * @param int $id The ID of the page?
+     * @param int   $id       The ID of the page?
      * @param array $id_array ?
-     *
      * @return array
      */
     public static function getDescendantIds($id, $id_array = array(), array $columns = array('id'))
@@ -427,7 +422,7 @@ class Page extends Eloquent
         $children = static::where('parent_id', '=', $id)
             ->get($columns);
 
-        if ( ! $children->isEmpty()) {
+        if (!$children->isEmpty()) {
             // Loop through all of the children and run this function again
             foreach ($children as $child) {
                 $id_array = static::getDescendantIds($child->id, $id_array);
@@ -439,10 +434,10 @@ class Page extends Eloquent
 
     public function setEntryType($always = false)
     {
-        if (( ! $this->entry_type and $this->type_id) or $always) {
+        if ((!$this->entry_type and $this->type_id) or $always) {
             $page_type = PageType::find($this->type_id);
 
-            $this->entry_type = $page_type->stream->stream_slug.'.'.$page_type->stream->stream_namespace;
+            $this->entry_type = $page_type->stream->stream_slug . '.' . $page_type->stream->stream_namespace;
         }
 
         return $this;
@@ -454,13 +449,12 @@ class Page extends Eloquent
      * Build a lookup
      *
      * @param int $id The id of the page to build the lookup for.
-     *
      * @return array
      */
     public function buildLookup($id = null)
     {
         // Either its THIS page, or one we said
-        $current_id = $id ?: $this->id;
+        $current_id = $id ? : $this->id;
 
         if ($current_page = static::find($current_id)) {
             $current_page->skip_validation = true;
@@ -500,7 +494,6 @@ class Page extends Eloquent
 
     /**
      * Update lookup.
-     *
      * Updates lookup for entire page tree used to update
      * page uri after ajax sort.
      *
@@ -535,7 +528,7 @@ class Page extends Eloquent
         $children = $this->whereIn('parent_id', $children_ids)
             ->get(array('id', 'entry_type', 'entry_id'));
 
-        if ( ! $children->isEmpty()) {
+        if (!$children->isEmpty()) {
             foreach ($children as $page) {
                 $page->entry()->delete();
 
@@ -557,18 +550,16 @@ class Page extends Eloquent
 
     /**
      * Check Slug for Uniqueness
-     *
      * Slugs should be unique among sibling pages.
      *
-     * @param string $slug The slug to check for.
-     * @param int $parent_id The parent_id if any.
-     * @param int $id The id of the page.
-     *
+     * @param string $slug      The slug to check for.
+     * @param int    $parent_id The parent_id if any.
+     * @param int    $id        The id of the page.
      * @return bool
-    */
+     */
     public static function isUniqueSlug($slug, $parent_id)
     {
-        return (bool) static::where('slug', $slug)
+        return (bool)static::where('slug', $slug)
             ->where('parent_id', $parent_id)
             ->count() > 0;
     }
@@ -578,28 +569,30 @@ class Page extends Eloquent
     /**
      * Callback to check uniqueness of slug + parent
      *
-     *
      * @param $slug slug to check
      * @return bool
      */
-     public function _check_slug($slug)
-     {
-         $page_id = ci()->uri->segment(4);
+    public function _check_slug($slug)
+    {
+        $page_id = ci()->uri->segment(4);
 
-         $instance = new static;
+        $instance = new static;
 
-        if ($instance->isUniqueSlug($slug, ci()->input->post('parent_id'), (int) $page_id)) {
+        if ($instance->isUniqueSlug($slug, ci()->input->post('parent_id'), (int)$page_id)) {
             if (ci()->input->post('parent_id') == 0) {
                 $parent_folder = lang('pages:root_folder');
-                $url = '/'.$slug;
+                $url           = '/' . $slug;
             } else {
-                $page_obj = $this->find($page_id);
-                $url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-                $page_obj = $this->get(ci()->input->post('parent_id'));
+                $page_obj      = $this->find($page_id);
+                $url           = '/' . trim(dirname($page_obj->uri), '.') . $slug;
+                $page_obj      = $this->get(ci()->input->post('parent_id'));
                 $parent_folder = $page_obj->title;
             }
 
-            ci()->form_validation->set_message('_check_slug', sprintf(lang('pages:page_already_exist_error'),$url, $parent_folder));
+            ci()->form_validation->set_message(
+                '_check_slug',
+                sprintf(lang('pages:page_already_exist_error'), $url, $parent_folder)
+            );
             return false;
         }
 

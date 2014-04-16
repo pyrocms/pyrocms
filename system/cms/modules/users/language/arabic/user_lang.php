@@ -28,6 +28,7 @@ $lang['user:first_name_label'] 			= 'الإسم الأول';
 $lang['user:last_name_label'] 			= 'الإسم الأخير';
 $lang['user:group_label'] 				= 'المجموعة';
 $lang['user:activate_label'] 			= 'تفعيل';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label'] 			= 'كلمة السرّ';
 $lang['user:password_confirm_label'] 	= 'تأكيد كلمة السرّ';
 $lang['user:name_label'] 				= 'الإسم';
@@ -46,6 +47,8 @@ $lang['indicates_required'] 			= 'تشير إلى الحقول المطلوبة'
 
 $lang['user:send_activation_email']            = 'إرسال رسالة التفعيل';
 $lang['user:do_not_activate']                  = 'غير مُفعل';
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title'] 			= 'تسجيل';
 $lang['user:activate_account_title'] 	= 'تفعيل الحساب';
 $lang['user:activate_label'] 			= 'تفعيل';

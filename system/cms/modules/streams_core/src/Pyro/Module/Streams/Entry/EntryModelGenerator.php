@@ -281,6 +281,14 @@ class EntryModelGenerator extends Generator
     {
         if (is_null($value)) {
             $value = 'null';
+        } elseif (is_bool($value)) {
+
+            if ($value) {
+                $value = 'true';
+            } else {
+                $value = 'false';
+            }
+
         } elseif (!is_numeric($value) and !is_bool($value)) {
 
             if ($escape) {
@@ -317,81 +325,11 @@ class EntryModelGenerator extends Generator
 
             $relationString .= "\n{$this->s(8)}return \$this->{$relationMethod}(";
 
-            if ($relationMethod == 'hasOne'
-                or $relationMethod == 'belongsTo'
-                or $relationMethod == 'hasMany'
-            ) {
-
-                if (empty($relationArray['related'])) {
-                    return null;
-                }
-
-                // @todo - throw exception if related class is Pyro\Module\Streams\Entry\EntryModel
-                // or not compile the relation at all?
-
-                $relationString .= $this->adjustValue($relationArray['related']);
-
-                if (!empty($relationArray['foreingKey'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['foreingKey']);
-                }
-
-            } elseif ($relationMethod == 'morphOne') {
-
-                if (empty($relationArray['related'])) {
-                    return null;
-                }
-
-                $relationString .= $this->adjustValue($relationArray['related']);
-
-                if (!empty($relationArray['name'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['name']);
-                }
-
-                if (!empty($relationArray['type'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['type']);
-                }
-
-                if (!empty($relationArray['id'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['id']);
-                }
-
-            } elseif ($relationMethod == 'morphTo'
-                or $relationMethod == 'morphMany'
-            ) {
-
-                if (!empty($relationArray['name'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['name']);
-                }
-
-                if (!empty($relationArray['type'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['type']);
-                }
-
-                if (!empty($relationArray['id'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['id']);
-                }
-
-            } elseif ($relationMethod == 'belongsToMany') {
-
-                if (empty($relationArray['related'])) {
-                    return null;
-                }
-
-                $relationString .= $this->adjustValue($relationArray['related']);
-
-                if (!empty($relationArray['table'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['table']);
-                }
-
-                if (!empty($relationArray['foreignKey'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['foreignKey']);
-                }
-
-                if (!empty($relationArray['otherKey'])) {
-                    $relationString .= ', ' . $this->adjustValue($relationArray['otherKey']);
-                }
-
+            foreach($relationArray['arguments'] as &$argument) {
+                $argument = $this->adjustValue($argument);
             }
+
+            $relationString .= implode(', ', $relationArray['arguments']);
 
             $relationString .= ");";
 
@@ -430,22 +368,13 @@ class EntryModelGenerator extends Generator
 
         foreach ($this->getRelationFields($stream) as $assignment) {
 
+            $relationArray = $assignment->getType()->relation();
+
             $key = $this->adjustValue($assignment->fieldSlug);
 
-            $string .= "\n{$this->s(8)}{$key} => array(";
+            $value = $this->adjustValue($relationArray['method']);
 
-            $type = $assignment->getType();
-
-            $type->setStream($stream);
-
-            foreach ($type->relation() as $key => $value) {
-
-                $value = $this->adjustValue($value);
-
-                $string .= "\n{$this->s(12)}'{$key}' => {$value},";
-            }
-
-            $string .= "\n{$this->s(8)}),";
+            $string .= "\n{$this->s(8)}{$key} => {$value},";
         }
 
         $string .= "\n{$this->s(4)})";

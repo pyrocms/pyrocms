@@ -708,14 +708,11 @@ abstract class FieldTypeAbstract
      * @param  string     $foreignKey
      * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function hasOne($related, $foreignKey = null)
+    public function hasOne($related, $foreignKey = null, $localKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
-
         return array(
-            'method'     => 'hasOne',
-            'related'    => $related,
-            'foreignKey' => $foreignKey,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -728,14 +725,11 @@ abstract class FieldTypeAbstract
      * @param  string     $id
      * @return Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function morphOne($related, $name, $type = null, $id = null)
+    public function morphOne($related, $name, $type = null, $id = null, $localKey = null)
     {
         return array(
-            'method'  => 'morphOne',
-            'related' => $related,
-            'name'    => $name,
-            'type'    => $type,
-            'id'      => $id,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -748,12 +742,9 @@ abstract class FieldTypeAbstract
      */
     public function belongsTo($related, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
-
         return array(
-            'method'     => 'belongsTo',
-            'related'    => $related,
-            'foreignKey' => $foreignKey,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -768,10 +759,8 @@ abstract class FieldTypeAbstract
     public function morphTo($name = null, $type = null, $id = null)
     {
         return array(
-            'method' => 'morphTo',
-            'name'   => $name,
-            'type'   => $type,
-            'id'     => $id,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -784,12 +773,9 @@ abstract class FieldTypeAbstract
      */
     public function hasMany($related, $foreignKey = null)
     {
-        $foreignKey = $foreignKey ? $foreignKey : $this->field->field_slug;
-
         return array(
-            'method'     => 'hasMany',
-            'related'    => $related,
-            'foreignKey' => $foreignKey,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -802,13 +788,11 @@ abstract class FieldTypeAbstract
      * @param  string     $id
      * @return Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function morphMany($related, $name, $type = null, $id = null)
+    public function morphMany($related, $name, $type = null, $id = null, $localKey = null)
     {
         return array(
-            'method' => 'morphMany',
-            'name'   => $name,
-            'type'   => $type,
-            'id'     => $id,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -824,11 +808,27 @@ abstract class FieldTypeAbstract
     public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
     {
         return array(
-            'method'     => 'belongsToMany',
-            'related'    => $related,
-            'table'      => $table,
-            'foreignKey' => $foreignKey,
-            'otherKey'   => $otherKey,
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
+        );
+    }
+
+    /**
+     * Define a polymorphic many-to-many relationship.
+     *
+     * @param  string $related
+     * @param  string $name
+     * @param  string $table
+     * @param  string $foreignKey
+     * @param  string $otherKey
+     * @param  bool   $inverse
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false)
+    {
+        return array(
+            'method'     => __FUNCTION__,
+            'arguments' => func_get_args(),
         );
     }
 
@@ -869,6 +869,7 @@ abstract class FieldTypeAbstract
             'hasMany',
             'morphMany',
             'belongsToMany',
+            'morphToMany',
         );
     }
 

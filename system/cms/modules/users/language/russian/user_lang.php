@@ -36,6 +36,7 @@ $lang['user:first_name_label']							= 'Имя';
 $lang['user:last_name_label']								= 'Фамилия';
 $lang['user:group_label']										= 'Группа';
 $lang['user:activate_label']								= 'Активировать';
+$lang['user:blocked_label']                    = 'Blocked';
 $lang['user:password_label']								= 'Пароль';
 $lang['user:password_confirm_label']				= 'Подтверждение пароля';
 $lang['user:name_label']										= 'Имя';
@@ -54,6 +55,8 @@ $lang['indicates_required']									= 'указывают поля, необхо
 
 $lang['user:send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:do_not_block']                     = 'Not Blocked';
+$lang['user:blocked']                          = 'Blocked';
 $lang['user:register_title']								= 'Регистрация';
 $lang['user:activate_account_title']				= 'Активация учётной записи';
 $lang['user:activate_label']								= 'Активен';

@@ -153,6 +153,7 @@ class Admin extends Admin_Controller
         $password = $this->input->post('password');
         $username = $this->input->post('username');
         $activate = $this->input->post('active');
+        $blocked = $this->input->post('blocked');
 
         $enableSave = false;
 
@@ -174,6 +175,7 @@ class Admin extends Admin_Controller
                     'password' => $password,
                     'email' => $email,
                     'is_activated' => $activate,
+                    'is_blocked' => $blocked,
                 ))) {
                 //if ($activate === '0') {
                     // admin selected Inactive
@@ -237,7 +239,6 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-
         // Get the user's data
         if ( ! ($user = User::find($id))) {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
@@ -293,8 +294,10 @@ class Admin extends Admin_Controller
 
             // Only update is_active if it was posted
             if ($this->input->post('active')) {
-                $user->is_activated = $this->input->post('active');;
+                $user->is_activated = $this->input->post('active');
             }
+
+            $user->is_blocked = $this->input->post('blocked');
 
             // Password provided, hash it for storage
             if ($this->input->post('password')) {
@@ -309,7 +312,6 @@ class Admin extends Admin_Controller
             } else {
                 $this->session->set_flashdata('error', $this->ion_auth->errors());
             }
-
         }
 
 /*        // Loop through each validation rule
@@ -332,9 +334,7 @@ class Admin extends Admin_Controller
             array(
                 'title'     => lang('user:profile_fields_label'),
                 'id'        => 'profile-fields',
-                'fields'    => array(
-                    'brother'
-                )
+                'fields'    => '*'
             )
         );
 

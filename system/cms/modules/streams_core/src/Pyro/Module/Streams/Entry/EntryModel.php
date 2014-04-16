@@ -382,7 +382,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
             ->lists($this->getTitleColumn(), 'id');
 
         if ($type->isFilter) {
-            if ($placeholder = $type->getPrameter('filter_placeholder')) {
+            if ($placeholder = $type->getParameter('filter_placeholder')) {
                 $options = array('-----' => lang_label($placeholder)) + $options;
             } else {
                 $options = array('-----' => lang('global:select-any')) + $options;

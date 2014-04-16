@@ -95,6 +95,10 @@ class Admin extends Admin_Controller
                 $setting->{$key} = ${$key};
             }
 
+            if (isset($settings[$setting->module]) and !is_array($settings[$setting->module])) {
+                $settings[$setting->module] = array();
+            }
+
             $settings[$setting->module][] = $setting;
 
             unset($settings[$key]);
@@ -125,7 +129,7 @@ class Admin extends Admin_Controller
             $this->validation_rules[] = array(
                 'field' => $setting->slug.(in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
                 'label' => 'lang:settings:'.$setting->slug,
-                'rules' => 'trim'.($setting->required ? '|required' : '').($setting->type !== 'textarea' ? '|max_length[255]' : '')
+                'rules' => 'trim'.($setting->is_required ? '|required' : '').($setting->type !== 'textarea' ? '|max_length[255]' : '')
             );
         }
 

@@ -142,6 +142,8 @@ class Files
     **/
     public static function folderContents($parent = 0)
     {
+        ci()->load->library('keywords/Keywords');
+
         // they can also pass a url hash such as #foo/bar/some-other-folder-slug
         if ( ! is_numeric($parent)) {
             $segment = explode('/', trim($parent, '/#'));
@@ -166,7 +168,7 @@ class Files
         if ($files) {
             foreach ($files as &$file) {
                 $file['keywords_hash'] = $file->keywords;
-                $file['keywords'] = Keywords::get_string($file->keywords);
+                $file['keywords'] = ci()->keywords->get_string($file->keywords);
                 $file['formatted_date'] = format_date($file->date_added);
             }
         }
@@ -347,7 +349,7 @@ class Files
                     'folder_id'		=> (int) $folder_id,
                     'user_id'		=> (int) ci()->current_user->id,
                     'type'			=> self::$_type,
-                    'name'			=> $replace_file ? $replace_file->name : $name ? $name : $file['orig_name'],
+                    'name'			=> $replace_file ? $replace_file->name : $name ? $name : $upload_config['file_name'],
                     'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
                     'description'	=> $replace_file ? $replace_file->description : '',
                     'alt_attribute'	=> trim($replace_file ? $replace_file->alt_attribute : $alt),
@@ -542,6 +544,7 @@ class Files
                 $filename = $file_slug.$file->extension;
 
                 // create a unique filename if the target already exists
+                $i = 0;
                 while (file_exists(self::$path.$filename)) {
                     // Example: test-image2.jpg
                     $filename = $file_slug.$i.$file->extension;
@@ -1062,7 +1065,7 @@ class Files
                 if (in_array(strtolower($ext), $ext_arr)) {
                     self::$_type		= $type;
                     self::$_ext			= implode('|', $ext_arr);
-                    self::$_filename	= slugify($_FILES[$field]['name']);
+                    self::$_filename	= $_FILES[$field]['name'];
 
                     break;
                 }

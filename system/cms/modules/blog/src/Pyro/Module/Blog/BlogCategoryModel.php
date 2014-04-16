@@ -35,6 +35,7 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
 
     protected $orderByColumn = 'title';
 
+
     /**
      * Find a category based on the slug value
      *
@@ -45,12 +46,17 @@ class BlogCategoryModel extends Eloquent implements RelationshipInterface
         return $this->where('slug', '=', $slug)->first();
     }
 
-    public static function findMany($limit = null, $offset = null)
+    public static function findMany($limit = 0, $offset = null, $fresh = false)
     {
-        return static::orderBy('title')
-            ->take($limit)
-            ->offset($offset)
-            ->get();
+        $query = static::orderBy('title');
+
+        if ($limit) {
+            $query
+                ->take($limit)
+                ->offset($offset);
+        }
+
+        return $query->fresh($fresh)->get();
     }
 
     /**
