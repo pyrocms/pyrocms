@@ -107,7 +107,7 @@ $lang['settings:profile_visibility']            = 'عرض الملف الشخص�
 $lang['settings:profile_visibility_desc']       = 'حدد من يمكنه عرض ملفات المستخدمين الشخصية على صفحات الموقع العامة.';
 
 $lang['settings:cdn_domain']                    = 'نطاق شبكة CDN';
-$lang['settings:cdn_domain_desc']               = 'نطاقات CDN يمكنك من استضافة المحتوى الثابت على خادمات سريعة، مثل Amazon CloudFront أو MaxCDN.';
+$lang['settings:cdn_domain_desc']               = 'نطاقات CDN يمكنك من استضافة المحتوى الثابت على خادمات سريعة، مثل Amazon CloudFront أو MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Purchase a CDN domain from MaxCDN.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'عام';

@@ -93,7 +93,7 @@ $lang['settings:enable_registration_desc'] = 'tillåter att besökare registrera
 $lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 $lang['settings:cdn_domain'] = 'CDN Domän';
-$lang['settings:cdn_domain_desc'] = 'CDN domän tillåter att du kan använda statiskt innehåll från olika servertjänster som Amazon CloudFront eller MaxCDN.';
+$lang['settings:cdn_domain_desc'] = 'CDN domän tillåter att du kan använda statiskt innehåll från olika servertjänster som Amazon CloudFront eller MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Purchase a CDN domain from MaxCDN.</a>'; #translate
 $lang['settings:section_general'] = 'Allmän';
 $lang['settings:section_integration'] = 'Integration';
 $lang['settings:section_comments'] = 'Kommentarer';
