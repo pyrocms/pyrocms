@@ -202,7 +202,7 @@ class EntryQueryFilter
      */
     protected function applyFilters()
     {
-        ci()->session->set_userdata(uri_string().$this->getFilterKey(), $this->getPostData());
+        ci()->session->set_userdata($this->getFilterKey(), $this->getPostData());
     }
 
     /**
@@ -210,7 +210,7 @@ class EntryQueryFilter
      */
     protected function clearFilters()
     {
-        ci()->session->unset_userdata(uri_string().$this->getFilterKey());
+        ci()->session->unset_userdata($this->getFilterKey());
     }
 
     /**
@@ -221,7 +221,7 @@ class EntryQueryFilter
     public function getAppliedFilters()
     {
         if (isset(ci()->session)) {
-            return ci()->session->userdata(uri_string().$this->getFilterKey());
+            return ci()->session->userdata($this->getFilterKey());
         }
 
         return array();
