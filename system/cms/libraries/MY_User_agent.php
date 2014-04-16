@@ -3,8 +3,10 @@
 # If the user is viewing the mobile site and is requesting to view the full site
 # We will set a cookie here and then redirect them to the page they were requesting
 if(strpos($_SERVER['REQUEST_URI'], 'mobile_override') !== false) {
+	// Generate the hostname to be used for the cookie
+	$host = (isset($_SERVER['HTTP_HOST']))? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
 	// first set the mobile_override cookie
-	setcookie('mobile_override', true, 0, '/', '.control4.com');	
+	setcookie('mobile_override', true, 0, '/', $host);
 	// remove the mobile override get parameter
 	$new_uri = str_replace('mobile_override', '', $_SERVER['REQUEST_URI']);
 	$new_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}{$new_uri}";
