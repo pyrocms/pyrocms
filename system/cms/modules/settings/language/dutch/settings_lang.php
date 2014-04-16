@@ -126,7 +126,7 @@ $lang['settings:profile_visibility']            = 'Zichtbaarheid profiel';
 $lang['settings:profile_visibility_desc']       = 'Bepaal wie de gebruikersprofielen kan zien op de publieke site.';
 
 $lang['settings:cdn_domain']                    = 'CDN Domein';
-$lang['settings:cdn_domain_desc']               = 'CDN domain kan bestanden plaatsen naar verschillende servers, zoals Amazon CloudFront or MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Purchase a CDN domain from MaxCDN.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN domain kan bestanden plaatsen naar verschillende servers, zoals Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'Algemeen';

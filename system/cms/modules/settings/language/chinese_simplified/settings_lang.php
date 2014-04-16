@@ -138,7 +138,7 @@ $lang['settings:profile_visibility']            = 'Profile Visibility'; #transla
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings:cdn_domain']                    = 'CDN 域名'; 
-$lang['settings:cdn_domain_desc']               = 'CDN 域名允许你卸载各种边缘服务器的静态内容, 像Amazon CloudFront或 MaxCDN一样. <a href="http://maxcdn.com/pyrocms" target="_blank">Purchase a CDN domain from MaxCDN.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN 域名允许你卸载各种边缘服务器的静态内容, 像Amazon CloudFront或 MaxCDN一样. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= '一般';

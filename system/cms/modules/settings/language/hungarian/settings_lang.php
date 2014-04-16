@@ -126,7 +126,7 @@ $lang['settings:profile_visibility']            = 'Profile Visibility'; #transla
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings:cdn_domain']                        = 'CDN domain';
-$lang['settings:cdn_domain_desc']                   = 'A CDN domainek lehetővé teszik hogy kiszervezz statikus tartalmakat különböző "edge" szerverekre mint pl. Amazon CloudFront vagy MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Purchase a CDN domain from MaxCDN.</a>'; #translate
+$lang['settings:cdn_domain_desc']                   = 'A CDN domainek lehetővé teszik hogy kiszervezz statikus tartalmakat különböző "edge" szerverekre mint pl. Amazon CloudFront vagy MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
 
 # section titles
 $lang['settings:section_general']                   = 'Általános';
