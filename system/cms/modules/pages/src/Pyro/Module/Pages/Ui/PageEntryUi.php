@@ -18,12 +18,12 @@ class PageEntryUi extends EntryUi
                 array(
                     'title'  => 'Details',
                     'id'     => 'page-details',
-                    'fields' => array('css'),
-                ),
-                array(
-                    'title'  => 'Metadata',
-                    'id'     => 'page-meta',
-                    'fields' => array('css'),
+                    'fields' => array(
+                        'title',
+                        'slug',
+                        'status',
+                        'class',
+                    ),
                 ),
                 array(
                     'title'  => 'Content',
@@ -31,19 +31,40 @@ class PageEntryUi extends EntryUi
                     'fields' => '*',
                 ),
                 array(
+                    'title'  => 'Metadata',
+                    'id'     => 'page-meta',
+                    'fields' => array(
+                        'meta_title',
+                        'meta_keywords',
+                        'meta_description',
+                    ),
+                ),
+                array(
                     'title'  => 'Design',
                     'id'     => 'page-design',
-                    'fields' => array('css'),
+                    'fields' => array(
+                        'css'
+                    ),
                 ),
                 array(
                     'title'  => 'Script',
                     'id'     => 'page-script',
-                    'fields' => array('js'),
+                    'fields' => array(
+                        'js'
+                    ),
                 ),
                 array(
                     'title'  => 'Options',
                     'id'     => 'page-options',
-                    'fields' => array('css'),
+                    'fields' => array(
+                        'restricted_to',
+                        'comments_enabled',
+                        'rss_enabled',
+                        'is_home',
+                        'strict_uri',
+                        'meta_robots_no_index',
+                        'meta_robots_no_follow',
+                    ),
                 ),
             )
         );
