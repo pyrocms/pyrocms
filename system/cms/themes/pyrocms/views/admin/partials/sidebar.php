@@ -26,7 +26,7 @@
 		</header>
 
 
-		<section>
+		<section class="scrollable">
 
 			<?php file_partial('navigation'); ?>
 
