@@ -416,6 +416,7 @@ abstract class UiAbstract extends Fluent
             ->enableNestedForm(false)
             ->enableSetColumnTitle(false)
             ->enableSave(true)
+            ->enableSortableHeaders(true)
             ->errorStart(null)
             ->errorEnd(null)
             ->fieldTypeEventsRun(array())
