@@ -418,7 +418,7 @@ abstract class UiAbstract extends Fluent
             ->enableSave(true)
             ->enableSortableHeaders(true)
             ->errorStart(null)
-            ->errorEnd(null)
+            ->errorEnd('<br>')
             ->fieldTypeEventsRun(array())
             ->fieldTypePublicEventsRun(array())
             ->fieldTypes(array())
