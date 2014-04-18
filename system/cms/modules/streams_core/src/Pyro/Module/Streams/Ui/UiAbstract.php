@@ -407,6 +407,7 @@ abstract class UiAbstract extends Fluent
         }
 
         $this
+            ->allowLimitOverride(true)
             ->assignments(array())
             ->buttons(array())
             ->content(null)
