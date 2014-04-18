@@ -211,3 +211,16 @@ $config['supported_languages'] = array(
 |
 */
 $config['default_language'] = 'en';
+
+/*
+|--------------------------------------------------------------------------
+| Default Language
+|--------------------------------------------------------------------------
+|
+| Whether or not to take into account the Accept-Language client header
+|
+| Only turn it on for admin panel:
+| 	$config['check_http_accept_language'] = (bool) preg_match('@\/admin(\/.+)?$@', $_SERVER['REQUEST_URI']);
+|
+*/
+$config['check_http_accept_language'] = TRUE;
