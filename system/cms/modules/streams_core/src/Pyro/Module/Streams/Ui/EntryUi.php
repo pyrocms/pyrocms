@@ -204,8 +204,10 @@ class EntryUi extends UiAbstract
         $this->appliedFilters = $filter->getAppliedFilters();
 
         // Override limit
-        if ($limit = $this->getLimit() and $this->allowLimitOverride) {
+        if ($limit = $filter->getLimit() and !$this->limit) {
             $this->limit($limit);
+        } elseif (!$this->limit) {
+            $this->limit(\Settings::get('records_per_page'));
         }
 
         /**
