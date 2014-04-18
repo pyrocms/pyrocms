@@ -139,7 +139,7 @@ class Users extends Public_Controller
             }
 
             // trigger a post login event for third party devs
-            Events::trigger('post_user_login', $user->id);
+            Events::trigger('post_user_login', $user);
             
             // Kill the session
             $this->session->unset_userdata('redirect_to');
