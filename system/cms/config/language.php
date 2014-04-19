@@ -214,7 +214,7 @@ $config['default_language'] = 'en';
 
 /*
 |--------------------------------------------------------------------------
-| Default Language
+| Detect language using Accept-Language
 |--------------------------------------------------------------------------
 |
 | Whether or not to take into account the Accept-Language client header
