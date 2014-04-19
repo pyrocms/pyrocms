@@ -99,7 +99,12 @@ class Module_Pages extends AbstractModule
 
             // Do we have more than one page type? If we don't, no need to have a modal
             // ask them to choose a page type.
-            if (ci()->pdb->table('page_types')->count() > 1) {
+            if (!$pageTypesCount = ci()->cache->get('pageTypesCount')) {
+                $pageTypesCount = ci()->pdb->table('page_types')->count();
+                ci()->cache->put('pageTypesCount', $pageTypesCount, 30);
+            }
+
+            if ($pageTypesCount > 1) {
                 $info['sections']['pages']['shortcuts'] = array(
                     array(
                         'name' => 'pages:create_title',
