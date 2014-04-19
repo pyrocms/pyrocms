@@ -36,7 +36,7 @@
 				<span class="divider">&nbsp; | &nbsp;</span>
 				<?php echo $module_details['description'] ?>
 				<span class="divider">&nbsp; | &nbsp;</span>
-				<?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => $module_details['name'].'&nbsp;'.lang('help_label'), 'class' => 'modal')); ?>
+				<?php echo anchor('admin/help/core/'.$module_details['slug'], lang('help_label'), array('title' => $module_details['name'].'&nbsp;'.lang('help_label'), 'class' => 'modal')); ?>
 			</small>
 
 			<?php else: ?>
