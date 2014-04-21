@@ -271,7 +271,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
             return null;
         }
 
-        $type = $field->getType($this);
+        if (!$type = $field->getType($this)) {
+            return null;
+        }
 
         $type->setStream($this->getStream());
 
