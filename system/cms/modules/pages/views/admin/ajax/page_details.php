@@ -54,7 +54,7 @@
         }
 
     ?>
-    <?php echo anchor('admin/pages/duplicate/'.$page->id, lang('pages:duplicate_label'), 'class="button"') ?>
-    <?php echo anchor('admin/pages/edit/'.$page->id, lang('global:edit'), 'class="button"') ?>
-    <?php echo anchor('admin/pages/delete/'.$page->id, lang('global:delete'), 'class="confirm button"') ?>
+    <?php echo anchor('admin/pages/duplicate/'.$page->id, lang('pages:duplicate_label'), 'class="btn btn-sm btn-warning"') ?>
+    <?php echo anchor('admin/pages/edit/'.$page->id, lang('global:edit'), 'class="btn btn-sm btn-warning"') ?>
+    <?php echo anchor('admin/pages/delete/'.$page->id, lang('global:delete'), 'class="confirm btn btn-sm btn-danger"') ?>
 </div>

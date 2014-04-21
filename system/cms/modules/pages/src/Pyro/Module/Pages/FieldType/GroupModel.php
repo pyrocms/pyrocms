@@ -11,6 +11,11 @@ class GroupModel extends Group implements RelationshipInterface
         return array();
     }
 
+    public function getFieldTypeRelationshipResults($query)
+    {
+
+    }
+
     public function getFieldTypeRelationshipTitle()
     {
         // TODO: Implement getFieldTypeRelationshipTitle() method.

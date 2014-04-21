@@ -135,7 +135,7 @@ class Page extends Eloquent
      */
     public function tree(array $columns = array('*'))
     {
-        return $this->with(array('children', 'entry'))->orderBy('order')->get($columns)->tree();
+        return $this->with(array('children.entry', 'entry'))->orderBy('order')->get($columns)->tree();
     }
 
     /**
