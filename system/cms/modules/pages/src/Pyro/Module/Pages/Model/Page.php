@@ -131,7 +131,8 @@ class Page extends Eloquent
     /**
      * Get all pages their children
      *
-     * @return [type] [description]
+     * @param array $columns
+     * @return mixed
      */
     public function tree(array $columns = array('*'))
     {
