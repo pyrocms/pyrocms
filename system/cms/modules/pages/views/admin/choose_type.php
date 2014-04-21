@@ -11,16 +11,16 @@
                 <th width="20%"></th>
             </thead>
             <tbody>
-                <?php foreach ($page_types as $pt): ?>
+                <?php foreach ($types as $type): ?>
                 <tr>
                     <td>
-                        <?php echo anchor('admin/pages/create?page_type='.$pt->id.$parent, $pt->title);?>
+                        <?php echo anchor('admin/pages/create?page_type='.$type->id.$parent, $type->title);?>
                     </td>
                     <td>
-                        <?php echo $pt->description;?>
+                        <?php echo $type->description;?>
                     </td>
                     <td class="actions">
-                        <?php echo anchor('admin/pages/create?page_type='.$pt->id.$parent, Lang('pages:create_title'), array('class'=>'button'));?>
+                        <?php echo anchor('admin/pages/create?page_type='.$type->id.$parent, Lang('pages:create_title'), array('class'=>'button'));?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
