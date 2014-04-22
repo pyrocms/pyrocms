@@ -1,19 +1,22 @@
+<label class="col-lg-2 control-label" for="<?php echo $field_type->form_slug; ?>">
+    <?php echo $field_type->getField()->field_name; ?>
 
-<!-- @todo - Ryan Thompson, do your thang. -->
-<label for="pages-def_page_fields-slug"><?php echo lang('global:slug') ?>  <span>*</span>
+    <?php if ($field_type->getField()->is_required): ?>
+        <span class="required">*</span>
+    <?php endif; ?>
 
-    <br><small></small>
-
+    <?php if ($field_type->getField()->instructions != null): ?>
+        <p class="help-block c-gray-light">
+            <?php echo lang_label($field_type->getField()->instructions); ?>
+        </p>
+    <?php endif; ?>
 </label>
 
-<div class="input">
-    http://2.3.dev/index.php/
-
-    <input type="hidden" name="pages-def_page_fields-old_slug" value="home">
-
-
-    <input type="hidden" name="pages-def_page_fields-slug" value="home">
-    <input type="text" value="home" id="pages-def_page_fields-slug" size="20" disabled="disabled">
-
-
+<div class="col-lg-10">
+    <div class="d-inline-block">
+        <?php echo site_url(); ?>/
+    </div>
+    <div class="d-inline-block">
+        <?php echo $field_type->getInput(); ?>
+    </div>
 </div>

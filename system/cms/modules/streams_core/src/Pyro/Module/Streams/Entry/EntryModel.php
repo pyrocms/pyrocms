@@ -271,7 +271,9 @@ class EntryModel extends Eloquent implements RelationshipInterface
             return null;
         }
 
-        $type = $field->getType($this);
+        if (!$type = $field->getType($this)) {
+            return null;
+        }
 
         $type->setStream($this->getStream());
 
@@ -492,7 +494,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
 
         if (!$fields->isEmpty()) {
             foreach ($fields as $field) {
-                // or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug]))
                 $type = $field->getType($this);
 
                 if (!in_array($field->field_slug, $skips)) {
@@ -508,10 +509,13 @@ class EntryModel extends Eloquent implements RelationshipInterface
                     }
                 } elseif ($default = $type->getDefault() and !$type->alt_process) {
                     $this->setAttribute($type->getColumnName(), $default);
-                } else {
-                    unset($this->{$field->getType()->getColumnName()});
                 }
             }
+        }
+
+        foreach ($skips as $skip) {
+            unset($this->{$skip});
+            unset($this->{$skip . '_id'});
         }
 
         $saved = $this->save($options);

@@ -626,7 +626,7 @@ class StreamModel extends Eloquent
         // -------------------------------------
 
         if (is_numeric($field)) {
-            $field = FieldModel::findOrFail($field_id);
+            $field = FieldModel::findOrFail($field);
         }
 
         if (!$field instanceof FieldModel) {
