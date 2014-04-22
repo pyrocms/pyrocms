@@ -131,11 +131,22 @@ class Page extends Eloquent
     /**
      * Get all pages their children
      *
-     * @return [type] [description]
+     * @param array $columns
+     * @return mixed
      */
     public function tree(array $columns = array('*'))
     {
-        return $this->with(array('children.entry', 'entry'))->orderBy('order')->get($columns)->tree();
+        return $this
+            ->with(
+                array(
+                    'children.entry',
+                    'entry'
+                )
+            )
+            ->where('entry_id', '>', '')
+            ->orderBy('order')
+            ->get($columns)
+            ->tree();
     }
 
     /**
