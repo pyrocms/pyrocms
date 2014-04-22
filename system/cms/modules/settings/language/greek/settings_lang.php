@@ -126,7 +126,7 @@ $lang['settings:enable_registration_desc']      = 'Να επιτρέπεται �
 //$lang['settings:profile_visibility_desc']        = 'Προσδιορίστε ποιοι μπορούν να δουν τα προφίλ χρηστών στον ιστότοπο.';
 
 $lang['settings:cdn_domain']                    = 'CDN Domain';
-$lang['settings:cdn_domain_desc']               = 'Τα CDN σας επιτρέπουν αποφορτίζετε τον διακομιστή σας από την ευθύνη δεδομένων που είναι δεν είναι δυναμικά αλλά στατικά (εικόνες, αρχεία πολυμέσων, έγγραφα κτλ). Μπορείτε να χρησιμοποιήσετε υπηρεσίες όπως τα Amazon CloudFront ή MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'Τα CDN σας επιτρέπουν αποφορτίζετε τον διακομιστή σας από την ευθύνη δεδομένων που είναι δεν είναι δυναμικά αλλά στατικά (εικόνες, αρχεία πολυμέσων, έγγραφα κτλ). Μπορείτε να χρησιμοποιήσετε υπηρεσίες όπως τα Amazon CloudFront ή MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']		= 'Γενικά';

@@ -104,7 +104,7 @@ $lang['settings:profile_visibility']            = 'Profilio matomumas';
 $lang['settings:profile_visibility_desc']       = 'Nurodyti, kas gali peržiūrėti vartotojo profilį viešai';
 
 $lang['settings:cdn_domain']                    = 'CDN domenas';
-$lang['settings:cdn_domain_desc']               = 'CDN domenas leidžia jums nuimti (statinių nuotraukų, css, js skriptų) apkrovimą nuo pagrindinio serverio. Pvz naudojant providerius tokius kaip Amazon CloudFront arba MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN domenas leidžia jums nuimti (statinių nuotraukų, css, js skriptų) apkrovimą nuo pagrindinio serverio. Pvz naudojant providerius tokius kaip Amazon CloudFront arba MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']                = 'Bendri';

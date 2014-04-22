@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
 * Author: Thanh Nguyen
 * 		  nguyenhuuthanh@gmail.com
@@ -10,6 +11,7 @@
 * Description:  Vietnamese language file
 *
 */
+
 #section settings
 $lang['settings:site_name']						= 'Tên site';
 $lang['settings:site_name_desc']				= 'Tên của website sử dụng cho tiêu đề trang và trong các thành phần khác.';
@@ -115,7 +117,7 @@ $lang['settings:profile_visibility']            = 'Profile Visibility'; #transla
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'Thông tin chung';
@@ -140,5 +142,3 @@ $lang['settings:edit_title']					= 'Sửa thiết lập';
 // messages
 $lang['settings:no_settings']					= 'Không có thiết lập nào.';
 $lang['settings:save_success']					= 'Các thiết lập của bạn đã được lưu';
-
-/* End of file settings_lang.php */
