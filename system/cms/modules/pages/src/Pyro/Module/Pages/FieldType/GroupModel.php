@@ -5,29 +5,54 @@ use Pyro\Module\Users\Model\Group;
 
 class GroupModel extends Group implements RelationshipInterface
 {
+    /**
+     * Get field type relationship options
+     *
+     * @param $type
+     * @return array
+     */
     public function getFieldTypeRelationshipOptions($type)
     {
-        // @todo - Ryan Thompson, do your thang.
-        return array();
+        return $this->get()->lists('description','id');
     }
 
+    /**
+     * Get field type relationship results
+     *
+     * @param $query
+     */
     public function getFieldTypeRelationshipResults($query)
     {
 
     }
 
+    /**
+     * Get field type relationship title
+     *
+     * @return string
+     */
     public function getFieldTypeRelationshipTitle()
     {
-        // TODO: Implement getFieldTypeRelationshipTitle() method.
+        return 'title';
     }
 
+    /**
+     * Get field type relationship value field
+     *
+     * @return string
+     */
     public function getFieldTypeRelationshipValueField()
     {
-        // TODO: Implement getFieldTypeRelationshipValueField() method.
+        return $this->getKeyName();
     }
 
+    /**
+     * Get field type relationship search fields
+     *
+     * @return array
+     */
     public function getFieldTypeRelationshipSearchFields()
     {
-        // TODO: Implement getFieldTypeRelationshipSearchFields() method.
+        return array('description');
     }
 }

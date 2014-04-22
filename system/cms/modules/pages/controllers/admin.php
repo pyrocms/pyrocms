@@ -1,4 +1,5 @@
 <?php
+
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Pages\Ui\PageEntryUi;
@@ -7,13 +8,12 @@ use Pyro\Module\Streams\Stream\StreamModel;
 /**
  * Pages controller
  *
- * @author      PyroCMS Dev Team
- * @package     PyroCMS\Core\Modules\Pages\Controllers
+ * @author      Ryan Thompson - PyroCMS Development Team
  */
 class Admin extends Admin_Controller
 {
     /**
-     * The current active section
+     * Section
      *
      * @var string
      */
@@ -31,8 +31,8 @@ class Admin extends Admin_Controller
         $this->load->library('keywords/keywords');
 
         $this->ui        = new PageEntryUi();
-        $this->pageTypes = new PageType();
         $this->pages     = new Page();
+        $this->pageTypes = new PageType();
     }
 
     /**
@@ -76,7 +76,7 @@ class Admin extends Admin_Controller
 
             foreach ($types as $pt) {
                 $html .= '<li><a href="' . site_url(
-                        'admin/pages/create?pageType=' . $pt->id . $parent
+                        'admin/pages/create?page_type=' . $pt->id . $parent
                     ) . '"><strong>' . $pt->title . '</strong>';
 
                 if (trim($pt->description)) {
@@ -95,13 +95,12 @@ class Admin extends Admin_Controller
         // display an entire page.
         $this->template
             ->set('parent', $parent)
-            ->set('pageTypes', $types)
+            ->set('types', $types)
             ->build('admin/choose_type');
     }
 
     /**
-     * Order the pages and record their children
-     * Grabs `order` and `data` from the POST data.
+     * Update page order
      */
     public function order()
     {
@@ -146,9 +145,9 @@ class Admin extends Admin_Controller
     }
 
     /**
-     * Get the details of a page.
+     * Ajax page details
      *
-     * @param int $id The id of the page.
+     * @param $id
      */
     public function ajax_page_details($id)
     {
@@ -223,32 +222,29 @@ class Admin extends Admin_Controller
     }
 
     /**
-     * Create a new page
-     *
-     * @param int $parentId The id of the parent page.
+     * Create
      */
     public function create()
     {
-        // What type of page are we creating?
-        $pageType = $this->pageTypes->find($this->input->get('pageType'));
-
-        $parentPage = null;
-
-        if ($parentId = $this->input->get('parent')) {
-            $parentPage = Page::find($parentId);
-        }
-
-        // Redirect to the page type selection menu if no page type was specified
-        if (!$pageType) {
+        if (!$pageType = $this->pageTypes->find($this->input->get('page_type'))) {
             redirect('admin/pages/choose_type');
         }
 
-        // Get the stream that we are using for this page type.
-        $stream = $pageType->stream;
+        if ($parentId = $this->input->get('parent')) {
+            $parentPage = Page::find($parentId);
+        } else {
+            $parentPage = null;
+        }
 
-        $entryModelClass = StreamModel::getEntryModelClass($stream->stream_slug, $stream->stream_namespace);
+        $entryModelClass = StreamModel::getEntryModelClass(
+            $pageType->stream->stream_slug,
+            $pageType->stream->stream_namespace
+        );
 
-        $this->ui->form($entryModelClass)->render();
+        $this->ui
+            ->title(lang('pages:create_title'))
+            ->form($entryModelClass)
+            ->render();
     }
 
     /**
@@ -262,20 +258,21 @@ class Admin extends Admin_Controller
 
         $page = $this->pages->with('type')->find($id);
 
-        $this->ui->form($page->entry_type, $page->entry_id)->render();
+        $this->ui
+            ->title(sprintf(lang('pages:edit_title'), $page->entry->title))
+            ->form($page->entry_type, $page->entry_id)
+            ->render();
     }
 
     /**
-     * Delete a page.
+     * Delete
      *
-     * @param int $id The id of the page to delete.
+     * @param $id
      */
-    public function delete($id = 0)
+    public function delete($id)
     {
-        // The user needs to be able to delete pages.
         role_or_die('pages', 'delete_live');
 
-        // @todo Error of no selection not handled yet.
         $ids = ($id) ? array($id) : $this->input->post('action_to');
 
         // Go through the array of slugs to delete
