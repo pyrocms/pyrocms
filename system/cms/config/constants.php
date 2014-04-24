@@ -159,7 +159,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CDN_OFFER_URL', 'http://tracking.maxcdn.com/c/89350/3982/378?u=http%3A%2F%2Fwww.maxcdn.com%2Fpyrocms')
+define('CDN_OFFER_URL', 'http://tracking.maxcdn.com/c/89350/3982/378?u=http%3A%2F%2Fwww.maxcdn.com%2Fpyrocms');
 
 /*
 |--------------------------------------------------------------------------
