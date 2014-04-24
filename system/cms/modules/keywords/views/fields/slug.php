@@ -1,19 +1,14 @@
+<label for="<?php echo $field_type->form_slug; ?>"><?php echo lang_label($field_type->getField()->field_name); ?>
 
-<!-- @todo - Ryan Thompson, do your thang. -->
-<label for="pages-def_page_fields-slug"><?php echo lang('global:slug') ?>  <span>*</span>
+    <?php if ($field_type->getField()->is_required): ?><span class="required">*</span><?php endif; ?>
 
-    <br><small></small>
+    <?php if (!empty($field_type->getField()->instructions)): ?>
+        <br/>
+        <small><?php echo lang_label($field_type->getField()->instructions); ?></small>
+    <?php endif; ?>
 
 </label>
 
 <div class="input">
-    http://2.3.dev/index.php/
-
-    <input type="hidden" name="pages-def_page_fields-old_slug" value="home">
-
-
-    <input type="hidden" name="pages-def_page_fields-slug" value="home">
-    <input type="text" value="home" id="pages-def_page_fields-slug" size="20" disabled="disabled">
-
-
+    <?php echo site_url(); ?>/<?php echo $field_type->getInput(); ?>
 </div>
