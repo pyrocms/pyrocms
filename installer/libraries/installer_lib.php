@@ -356,13 +356,21 @@ class Installer_lib
 	 */
 	function write_config_file()
 	{
+		$this->ci->load->library('encrypt');
+
 		$server_name = $this->ci->session->userdata('http_server');
 		$supported_servers = $this->ci->config->item('supported_servers');
-
+		
 		// Able to use clean URLs?
 		$index_page = ($supported_servers[$server_name]['rewrite_support'] !== false) ? '' : 'index.php';
+		
+		// Make some sort of random key to encrypt sessions, cookies, etc
+		$encryption_key = substr($this->ci->encrypt->encode(str_shuffle(md5(time())), mt_rand()), 0, 42);
 
-		return $this->_write_file_vars('../system/cms/config/config.php', './assets/config/config.php', array('__INDEX__' => $index_page));
+		return $this->_write_file_vars('../system/cms/config/config.php', './assets/config/config.php', array(
+			'__INDEX__' => $index_page,
+			'__ENCRYPTION_KEY__' => $encryption_key,
+		));
 	}
 
 	/**
