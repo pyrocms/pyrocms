@@ -2,6 +2,8 @@
 
 use Pyro\Module\Blog\BlogCategoryModel;
 use Pyro\Module\Blog\BlogEntryModel;
+use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Keywords\Model\Keyword;
 
 /**
  * Public Blog module controller
@@ -258,11 +260,12 @@ class Blog extends Public_Controller
         // decode encoded cyrillic characters
         $tag = rawurldecode($tag) or redirect('blog');
 
+        $tag = Keyword::whereName($tag)->first();
+        $ids = Applied::whereEntryType(get_class($this->blogs))->get()->lists('entry_id');
+        $ids = $ids + array(0);
+
         // Total posts
-        $total = $this->blogs
-            ->where('status', '=', 'live')
-            ->where('keywords', 'LIKE', '%'.$tag.'%')
-            ->count();
+        $total = $this->blogs->whereIn('id', $ids)->count();
 
         // Skip
         if (ci()->input->get('page')) {
@@ -274,7 +277,7 @@ class Blog extends Public_Controller
         // Get the latest blog posts
         $posts = $this->blogs
             ->where('status', '=', 'live')
-            ->where('keywords', 'LIKE', '%'.$tag.'%')
+            ->whereIn('id', $ids)
             ->orderBy('created_at', 'DESC')
             ->take(Settings::get('records_per_page'))
             ->skip($skip)
@@ -293,7 +296,12 @@ class Blog extends Public_Controller
         // Set meta description based on post titles
         $meta = $this->postsMetadata($posts);
 
-        $name = str_replace('-', ' ', $tag);
+        if ($tag) {
+            $name = $tag->name;
+        } else {
+            $name = '';
+        }
+
 
         // Build the page
         $this->template
