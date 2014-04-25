@@ -204,6 +204,12 @@ class Admin_Controller extends MY_Controller {
 				return true;
 			}
 
+            //if we are trying to search the admin area
+            if ($current_page == 'admin/search' && $this->permissions)
+            {
+                return true;
+            }
+
 			// Check if the current user can view that page
 			return array_key_exists($this->module, $this->permissions);
 		}
