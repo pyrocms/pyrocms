@@ -92,3 +92,14 @@ unset($base_uri, $base_url);
 */
 
 define('CMS_VERSION', '2.2.0-rc1');
+
+/*
+|--------------------------------------------------------------------------
+| CDN Offer URL
+|--------------------------------------------------------------------------
+|
+| We have a link in the settings page to MaxCDN and our landing page
+|
+*/
+
+define('CDN_OFFER_URL', 'http://tracking.maxcdn.com/c/89350/3982/378?u=http%3A%2F%2Fwww.maxcdn.com%2Fpyrocms');
