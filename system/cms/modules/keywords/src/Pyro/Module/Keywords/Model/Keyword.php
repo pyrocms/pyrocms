@@ -114,6 +114,7 @@ class Keyword extends Eloquent
     public static function sync($keywords, Model $model, $relationMethod)
     {
         if (!($keywords = trim($keywords))) {
+
             return '';
         }
 
@@ -128,9 +129,9 @@ class Keyword extends Eloquent
             if (!($row = Keyword::findByName($keyword))) {
                 $row = Keyword::add($keyword);
             }
-
-            if ($model->{$relationMethod}) {
-                $model->{$relationMethod}->save($row);
+            
+            if (method_exists($model, $relationMethod)) {
+                $model->{$relationMethod}()->save($row);
             }
         }
 
