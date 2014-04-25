@@ -195,6 +195,8 @@ class PageType extends Eloquent
         // layout files to keep things tidy.
         $instance->removePageLayoutFiles($this->slug, true);
 
+        $instance->flushCacheCollection();
+
         // Delete the actual page entry.
         return parent::delete();
     }
