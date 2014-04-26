@@ -41,7 +41,6 @@ script: phpunit -c tests/integration
 
 branches:
   exclude:
+    - 2.0/master
     - 2.1/develop
     - 2.1/master
-    - 2.0/develop
-    - 2.0/master
