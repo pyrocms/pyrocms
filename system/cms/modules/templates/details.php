@@ -3,7 +3,6 @@
 use Pyro\Module\Addons\AbstractModule;
 use Pyro\Module\Streams\Field\FieldModel;
 use Pyro\Module\Streams\Stream\StreamModel;
-use Pyro\Module\Streams\Stream\StreamSchema;
 
 /**
  * Templates Module
@@ -99,8 +98,7 @@ class Module_Templates extends AbstractModule
      */
     public function install($pdb, $schema)
     {
-        // Uninstall first to make sure we're clean
-        self::uninstall($pdb, $schema);
+        $schema->dropIfExists('email_templates');
 
         // Add templates
         StreamModel::addStream(
@@ -327,7 +325,7 @@ class Module_Templates extends AbstractModule
     /**
      * Upgrade
      *
-     * @param string $old_version
+     * @param  string $old_version
      * @return bool
      */
     public function upgrade($oldVersion)
