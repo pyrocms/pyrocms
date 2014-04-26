@@ -170,7 +170,7 @@ define('CDN_OFFER_URL', 'http://tracking.maxcdn.com/c/89350/3982/378?u=http%3A%2
 |
 */
 
-define('CMS_VERSION', '2.2.2');
+define('CMS_VERSION', '2.2.3');
 
 /*
 |--------------------------------------------------------------------------
@@ -192,6 +192,6 @@ define('CMS_EDITION', 'Community');
 |
 */
 
-define('CMS_DATE', '08/06/2013');
+define('CMS_DATE', '08/13/2013');
 
 /* End of file constants.php */
