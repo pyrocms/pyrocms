@@ -57,7 +57,7 @@ class ValidInstallTest extends PHPUnit_Framework_Testcase
 
         // submit user forms
         $crawler = $this->client->submit($form, array(
-            'user_username'   => 'admin',
+            'user_name'   => 'admin',
             'user_firstname'  => 'Pyro',
             'user_lastname'   => 'Admin',
             'user_email'      => 'admin@admin.com',
