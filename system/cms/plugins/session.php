@@ -132,8 +132,19 @@ class Plugin_Session extends Plugin
 		// value provided! We are setting to the name
 		if ($value !== null)
 		{
+			if (in_array($name, array('session_id', 'ip_address', 'id', 
+				'user_id', 'group_id', 'group', 'username', 'email')))
+			{
+				return;
+			}
+
 			$this->session->set_userdata($name, $value);
 
+			return;
+		}
+
+		if ($name == 'session_id')
+		{
 			return;
 		}
 

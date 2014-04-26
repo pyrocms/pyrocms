@@ -181,6 +181,12 @@ class Plugin_Global extends Plugin
 	 */
 	public function __call($name, $data)
 	{
+		// only allow access to documented globals
+		if ( ! array_key_exists($name, $this->_self_doc()))
+		{
+			return;
+		}
+
 		// A constant
 		if (defined(strtoupper($name)))
 		{
