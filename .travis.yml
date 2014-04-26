@@ -12,6 +12,7 @@ matrix:
     - php: hhvm
 
 before_script:
+  - phpenv rehash
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   # enable php-fpm
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
@@ -26,6 +27,7 @@ before_script:
   - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to 'pyrocms'@'127.0.0.1' IDENTIFIED BY 'password'"
   - export PYRO_DB_HOST=127.0.0.1
   - export PYRO_WEB_HOST=127.0.0.1
+  - export PYRO_DB_CREATE=0
   - chmod -R 777 system/cms/cache
   - chmod -R 777 system/cms/config
   - chmod -R 777 addons

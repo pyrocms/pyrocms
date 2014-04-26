@@ -86,18 +86,18 @@ class Installer_lib
 			$password = $this->ci->session->userdata('password');
 
 			// Connect to MySQL
-			if ($db = @mysql_connect($server, $username, $password))
+			if ($db = mysql_connect($server, $username, $password))
 			{
 				$this->mysql_server_version = preg_replace('/^.*?([4-8]\.[0-9]).*?$/', '$1', @mysql_get_server_info($db));
 
 				// Close the connection
-				@mysql_close($db);
+				mysql_close($db);
 
 				// MySQL server version should be at least version 5
 				return ($this->mysql_server_version >= 5);
 			}
 
-			@mysql_close($db);
+			mysql_close($db);
 			return false;
 		}
 
@@ -212,7 +212,7 @@ class Installer_lib
 		$password = $this->ci->session->userdata('password');
 		$port	  = $this->ci->session->userdata('port');
 
-		return $this->mysql_available() && @mysql_connect("$hostname:$port", $username, $password);
+		return $this->mysql_available() && mysql_connect("$hostname:$port", $username, $password);
 	}
 
 	/**
@@ -238,14 +238,14 @@ class Installer_lib
 		include '../system/cms/config/migration.php';
 
 		// Create a connection
-		if ( ! $this->db = @mysql_connect($server, $username, $password))
+		if ( ! $this->db = mysql_connect($server, $username, $password))
 		{
 			return array('status' => false,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 
 		if ($this->mysql_server_version >= '5.0.7')
 		{
-			@mysql_set_charset('utf8', $this->db);
+			mysql_set_charset('utf8', $this->db);
 		}
 
 		// Get the SQL for the default data and parse it
@@ -264,7 +264,7 @@ class Installer_lib
 		// Select the database we created before
 		if ( ! mysql_select_db($database, $this->db) )
 		{
-			return array('status' => false, 'message' => '', 'code' => 101);
+			return array('status' => false, 'message' => 'DB '.$database.' is missing: '. mysql_error($this->db), 'code' => 101);
 		}
 
 		if ( ! $this->_process_schema($user_sql, false))

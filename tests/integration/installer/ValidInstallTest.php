@@ -42,7 +42,7 @@ class ValidInstallTest extends PHPUnit_Framework_Testcase
             'username'  => PYRO_DB_USER,
             'password'  => PYRO_DB_PASS,
             'database'  => PYRO_DB_NAME,
-            'create_db' => true,
+            'create_db' => PYRO_DB_CREATE === "1",
         ));
 
         // If there is an error, show it and fail. There should be 0 errors
