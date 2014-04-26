@@ -44,3 +44,7 @@ branches:
     - 2.0/master
     - 2.1/develop
     - 2.1/master
+
+cache:
+  directories:
+    - vendor
