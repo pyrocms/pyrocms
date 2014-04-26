@@ -19,6 +19,10 @@
 	background:url(../img/off.png) no-repeat left;
 }
 
+#page-list a.draft {
+	font-style: italic;
+}
+
 #page-list a:hover {
 	text-decoration:underline;
 }

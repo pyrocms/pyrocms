@@ -1,3 +1,5 @@
+
+
 {{ post }}
 
 <div class="post">
@@ -13,20 +15,20 @@
 
 		<div class="author">
 			{{ helper:lang line="blog:written_by_label" }}
-			<span><a href="{{ user:username user_id=created_by }}">{{ user:display_name user_id=created_by }}</a></span>
+			<span><a href="{{ url:site }}user/{{ created_by:user_id }}">{{ created_by:display_name }}</a></span>
 		</div>
 
 		{{ if category }}
 		<div class="category">
 			{{ helper:lang line="blog:category_label" }}
-			<span><a href="blog/category/{{ category:slug }}">{{ category:title }}</a></span>
+			<span><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
 		</div>
 		{{ endif }}
 
 		{{ if keywords }}
 		<div class="keywords">
 			{{ keywords }}
-				<span><a href="blog/tagged/{{ name }}">{{ name }}</a></span>
+				<span><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
 			{{ /keywords }}
 		</div>
 		{{ endif }}
@@ -53,7 +55,7 @@
 	<?php if ($form_display): ?>
 		<?php echo $this->comments->form() ?>
 	<?php else: ?>
-	<?php echo sprintf(lang('blog:disabled_after'), strtolower(lang('global:duration:'.str_replace(' ', '-', $post->comments_enabled)))) ?>
+	<?php echo sprintf(lang('blog:disabled_after'), strtolower(lang('global:duration:'.str_replace(' ', '-', $post[0]['comments_enabled'])))) ?>
 	<?php endif ?>
 </div>
 

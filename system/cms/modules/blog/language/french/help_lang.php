@@ -5,7 +5,7 @@ $lang['help_body'] = "
 
 <h4>Général</h4>
 <p>
-	Le Module Blog est outils simple permettant de publier des posts (articles).
+	Le Module Blog est outils simple permettant de publier des articles (posts).
 </p>
 
 <h4>Catégories</h4>
@@ -14,7 +14,7 @@ Vous pouvez créer autant de catégories que vous le souhaitez pour organiser vo
 naviguer dans votre site par catégories, intégrez le Widget Catégories du Blog sur votre site dans Panneau d'administration > Contenus > Widgets.
 </p>
 
-<h4>Posts</h4>
+<h4>Actualités</h4>
 <p>
         Choississez un bon titre pour vos articles, il seront affichés dans la page principale du Blog (Titre de l'article + Introduction)
 	et seront également utilisé comme titre par les moteurs de recherche. Après avoir créé un post vous pouvez le sauvegarder pour venir le finaliser plus tard ou le publié en passant sont statut à Live.

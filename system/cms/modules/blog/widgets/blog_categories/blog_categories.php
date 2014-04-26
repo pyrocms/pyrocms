@@ -23,6 +23,7 @@ class Widget_Blog_categories extends Widgets
 		'fr' => 'Catégories du Blog',
 		'ru' => 'Категории Блога',
 		'id' => 'Kateori Blog',
+            'fa' => 'مجموعه های بلاگ',
 	);
 
 	public $description = array(
@@ -33,6 +34,7 @@ class Widget_Blog_categories extends Widgets
 		'fr' => 'Permet d\'afficher la liste de Catégories du Blog',
 		'ru' => 'Выводит список категорий блога',
 		'id' => 'Menampilkan daftar kategori tulisan',
+            'fa' => 'نمایش لیستی از مجموعه های بلاگ',
 	);
 
 	public function run()

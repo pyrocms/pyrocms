@@ -11,6 +11,9 @@
 		Asset::css('admin/basic_layout.css'); 
 		echo Asset::render();
 	?>
+	
+	<!-- metadata needs to load before some stuff -->
+	<?php file_partial('metadata'); ?>
 
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>

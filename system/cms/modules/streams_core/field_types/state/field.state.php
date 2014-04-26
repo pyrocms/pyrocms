@@ -3,8 +3,9 @@
 /**
  * PyroStreams US State Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Adam Fairholm
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_state
 {

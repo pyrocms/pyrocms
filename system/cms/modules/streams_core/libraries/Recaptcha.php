@@ -50,8 +50,10 @@ class Recaptcha
   
   function __construct() 
   {
-	$this->_CI =& get_instance();
+    $this->_CI =& get_instance();
     
+    $this->_CI->load->config('streams_core/recaptcha');
+
     $this->_rConfig = $this->_CI->config->item('recaptcha');
     
     log_message('info',$this->_CI->lang->line('recaptcha_class_initialized'));

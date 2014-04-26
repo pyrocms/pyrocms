@@ -6,10 +6,10 @@ $lang['intro_text']		=	'Zanim sprawdzimy bazę danych, musimy wiedzieć gdzie on
 
 $lang['db_settings']		=	'Konfiguracja bazy danych';
 $lang['db_text']		=	'Instalator potrzebuje nazwy serwera bazy danych MySQL, nazwę użytkownika i hasło. Dane te będą wykorzystane do zainstalowania PyroCMS.';
-$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
-$lang['db_create']		=	'Create Database'; #translate
-$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
-$lang['database']		=	'MySQL Database'; #translate
+$lang['db_missing']		=	'Nie znaleziono sterownika bazy danych, instalacja nie może być kontynuowana. Poproś firmę hostingową lub administratora serwera, aby go zainstalował.';
+$lang['db_create']		=	'Utwórz bazę danych';
+$lang['db_notice']		=	'Być może trzeba to zrobić samemu za pomocą panelu administracyjnego firmy hostingowej';
+$lang['database']		=	'Baza danych MySQL';
 
 $lang['server']			=	'Serwer';
 $lang['username']		=	'Użytkownik';

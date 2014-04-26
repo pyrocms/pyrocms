@@ -8,19 +8,19 @@
 		var open_sections = $.cookie('nav_groups');
 		
 		if (open_sections) {
-			$('section[rel="'+open_sections+'"] .item').slideDown(600).removeClass('collapsed');
+			$('section[rel="'+open_sections+'"] .item').slideDown(200).removeClass('collapsed');
 		} else {
 			// show the first box with js to get around page jump
-			$('.box .item:first').slideDown(600).removeClass('collapsed');			
+			$('.box .item:first').slideDown(200).removeClass('collapsed');			
 		}
 		
 		// show and hide the sections
 		$('.box .title').click(function(){
 			window.scrollTo(0, 0);
 			if ($(this).next('section.item').hasClass('collapsed')) {
-				$('.box .item').slideUp(600).addClass('collapsed');
-				$.cookie('nav_groups', $(this).parent('.box').attr('rel'), { expires: 1 });
-				$(this).next('section.collapsed').slideDown(600).removeClass('collapsed');
+				$('.box .item').slideUp(200).addClass('collapsed');
+				$.cookie('nav_groups', $(this).parents('.box').attr('rel'), { expires: 1, path: window.location.pathname });
+				$(this).next('section.collapsed').slideDown(200).removeClass('collapsed');
 			}
 		});
 

@@ -3,11 +3,9 @@
 /**
  * PyroStreams Keywords Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_keywords
 {
@@ -37,7 +35,8 @@ class Field_keywords
 	public function form_output($data)
 	{
 		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
+		$options['id']		= 'id_'.rand(100, 10000);
+		$options['class']	= 'keywords_input';
 		$options['value']	= Keywords::get_string($data['value']);
 
 		return form_input($options);
@@ -48,16 +47,21 @@ class Field_keywords
 		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
 		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
 		$this->CI->type->add_js('keywords', 'keywords.js');
-		$this->CI->type->add_misc(
-			'<script type="text/javascript">
-				jQuery(document).ready(function(){pyro.field_tags_input("'.$field->field_slug.'");});
-			</script>'
-		);
 	}
 
 
-	public function pre_save($input)
+	public function pre_save($input, $field=null, $stream=null, $row_id=null)
 	{
+		// Remove any existing applied keywords
+		if (!empty($row_id) and !empty($stream))
+		{
+			$this->CI->load->model(array('keywords/keyword_m', 'streams_core/row_m'));
+
+			$row = $this->CI->row_m->get_row($row_id, $stream, false);
+			$keyword_hash = $row->keywords;
+			$this->CI->keyword_m->delete_applied($keyword_hash);
+		}
+
 		return Keywords::process($input);
 	}
 

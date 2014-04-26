@@ -4,3 +4,8 @@
 $lang['pages:role_put_live']    = 'Publikovat stránky';
 $lang['pages:role_edit_live']   = 'Upravovat publikované stránky';
 $lang['pages:role_delete_live'] = 'Mazat publikované stránky';
+
+// Page Type Permissions
+$lang['pages:role_create_types'] = 'Create Types'; #translate
+$lang['pages:role_edit_types']   = 'Edit Types'; #translate
+$lang['pages:role_delete_types'] = 'Delete Types'; #translate

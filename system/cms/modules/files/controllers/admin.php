@@ -23,12 +23,11 @@ class Admin extends Admin_Controller {
 		$this->config->load('files');
 		$this->lang->load('files');
 		$this->load->library('files/files');
-
-		$allowed_extensions = '';
-
+		
+		$allowed_extensions = array();
 		foreach (config_item('files:allowed_file_ext') as $type) 
 		{
-			$allowed_extensions .= implode('|', $type).'|';
+			$allowed_extensions = array_merge($allowed_extensions, $type);
 		}
 
 		$this->template->append_metadata(
@@ -48,7 +47,7 @@ class Admin extends Admin_Controller {
 				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
 				pyro.files.max_size_possible = '".Files::$max_size_possible."';
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
-				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
+				pyro.files.valid_extensions = '".implode('|', $allowed_extensions)."';
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
 				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
@@ -107,6 +106,7 @@ class Admin extends Admin_Controller {
 
 		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
 
+		ob_end_flush();
 		echo json_encode($result);
 	}
 
@@ -133,6 +133,7 @@ class Admin extends Admin_Controller {
 	{
 		$parent = $this->input->post('parent');
 
+		ob_end_clean();
 		echo json_encode(Files::folder_contents($parent));
 	}
 
@@ -197,6 +198,7 @@ class Admin extends Admin_Controller {
 			
 			$result['status'] AND Events::trigger('file_folder_updated', $id);
 
+			ob_end_flush();
 			echo json_encode($result);
 		}
 	}
@@ -241,7 +243,7 @@ class Admin extends Admin_Controller {
 
 		if($input['replace_id'] > 0)
 		{
-			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
+			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_replaced', $result['data']);
 		}
 		elseif ($input['folder_id'] and $input['name'])
@@ -250,6 +252,7 @@ class Admin extends Admin_Controller {
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
 
+		ob_end_flush();
 		echo json_encode($result);		
 	}
 

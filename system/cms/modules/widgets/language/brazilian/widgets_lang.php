@@ -5,6 +5,10 @@ $lang['widgets:available_title']			= 'Widgets disponíveis';
 $lang['widgets:widget_area_wrapper']		= 'Áreas disponíveis';
 $lang['widgets:instructions']				= 'Arraste para instalar o widget';
 
+
+$lang['widgets:instances']                  = 'Instâncias';
+$lang['widgets:areas']            		    = 'Áreas';
+
 // Widgets
 $lang['widgets:widget']						= 'Widget';
 $lang['widgets:widget_author']				= 'Autor';
@@ -25,10 +29,10 @@ $lang['widgets:widget_area'] 				= 'Área';
 $lang['widgets:widget_area_title'] 			= 'Nome da área';
 $lang['widgets:widget_area_slug'] 			= 'Apelido da área';
 
-$lang['widgets:view_code']				= 'View Code'; #translate
+$lang['widgets:view_code']				    = 'Ver código';
 
 $lang['widgets:instance_title']				= 'Título';
-$lang['widgets:show_title']				= 'Display Widget Title?'; #translate
+$lang['widgets:show_title']				    = 'Mostrar título do Widget?';
 $lang['widgets:tag_title']					= 'Tag';
 
 $lang['widgets:no_available_widgets']		= 'Não há widgets disponíveis.';

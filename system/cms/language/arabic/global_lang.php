@@ -113,5 +113,6 @@ $lang['global:plugins']					= 'الإضافات';
 $lang['global:plugin']					= 'الإضافة';
 
 $lang['global:options']					= 'خيارات';
+$lang['global:plain-text']				= 'نص مجرد';
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

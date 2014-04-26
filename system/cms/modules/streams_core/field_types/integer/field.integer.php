@@ -3,11 +3,9 @@
 /**
  * PyroStreams Integer Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright © 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_integer
 {
@@ -38,6 +36,9 @@ class Field_integer
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
+		// Max length
+		$max_length = (isset($data['max_length']) and $data['max_length']) ? $options['maxlength'] = $data['max_length'] : null;
+
 		return form_input($options);
 	}
 	

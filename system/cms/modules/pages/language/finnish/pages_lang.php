@@ -4,7 +4,7 @@ $lang['pages:page']                     = 'Sivu';
 $lang['pages:pages']                    = 'Sivut';
 
 // tabs
-$lang['pages:details_label']            = 'Page Details'; #translate
+$lang['pages:details_label']            = 'Sivun tiedot';
 $lang['pages:content_label']            = 'Sivun sisältö';
 $lang['pages:meta_label']               = 'Meta-tiedot';
 $lang['pages:design_label']             = 'Muotoilu';
@@ -18,10 +18,12 @@ $lang['pages:page_chunk']               = 'Sivun Pala';
 $lang['pages:language_label']           = 'Kieli';
 $lang['pages:updated_label']            = 'Päivitetty';
 $lang['pages:unknown_label']            = 'Tuntematon';
-$lang['pages:navigation_label']         = 'Add to Navigation'; #translate
+$lang['pages:navigation_label']         = 'Lisää navigointiin';
 $lang['pages:body_label']               = 'Sivun leipäteksti';
 $lang['pages:meta_title_label']         = 'Meta otsikko';
 $lang['pages:meta_keywords_label']      = 'Meta hakusanat';
+$lang['pages:meta_robots_no_index_label']	= 'Robots: Don\'t index this page:'; #translate
+$lang['pages:meta_robots_no_follow_label']	= 'Robots: Don\'t follow links on this page:'; #translate
 $lang['pages:meta_desc_label']          = 'Meta kuvaus';
 $lang['pages:type_id_label']            = 'Sivun sivupohja';
 $lang['pages:css_label']                = 'CSS';

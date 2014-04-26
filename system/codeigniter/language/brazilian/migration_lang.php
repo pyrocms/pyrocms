@@ -1,7 +1,7 @@
 <?php
 
 $lang['migration_none_found']			= "Nenhuma migração foi encontrada.";
-$lang['migration_not_found']			= "Esta migração não pôde ser encontrada.";
+$lang['migration_not_found']			= "Esta migração não pôde ser encontrada: %d.";
 $lang['migration_multiple_version']		= "Há migrações múltiplas com o mesmo número de versão: %d.";
 $lang['migration_class_doesnt_exist']	= "A classe de migração \"%s\" não foi encontrada.";
 $lang['migration_missing_up_method']	= "A classe de migração \"%s\" não possui o método 'up'.";

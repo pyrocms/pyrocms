@@ -3,11 +3,9 @@
 /**
  * PyroStreams AJAX Controller
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Controllers
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Ajax extends MY_Controller {
 
@@ -103,6 +101,7 @@ class Ajax extends MY_Controller {
 			
 			$data['input_slug'] = $field;
 		
+			ob_get_level() and ob_end_clean();
 			echo $this->load->view('extra_field', $data, true);
 			
 			$data['count']++;

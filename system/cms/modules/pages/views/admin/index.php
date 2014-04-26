@@ -8,7 +8,7 @@
 			<div class="content">
 				<div id="page-list">
 				<ul class="sortable">
-					<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
+					<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" class="{{ status }}" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
 				</ul>
 				</div>
 			</div>

@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				                  = 'Struktura';
 $lang['cp:nav_content']					                  = 'Zawartość';
 $lang['cp:nav_misc']					                    = 'Różne';
 
+$lang['cp:search']                      = 'Search'; #translate
+
 $lang['cp:must_login']	 				                  = 'Musisz być zalogowany, żeby zobaczyć tę stronę.';
 $lang['cp:access_denied'] 			                  = 'Nie posiadasz wystarczających uprawnień, żeby zobaczyć tą stronę.';
 $lang['cp:delete_installer_message']              = 'Katalog instalacyjny wciąż jest obecny na serwerze! Proszę go usunąć! Pozostawienie go może spowodować utratę kontroli nad stroną i przejęcie jej przez kogoś innego.';

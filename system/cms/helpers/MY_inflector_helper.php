@@ -46,3 +46,24 @@ if(!function_exists('slugify'))
 		return $string;
 	}
 }
+
+if(!function_exists('rand_string'))
+{
+	/**
+	 * Create a random hash string based on microtime
+	 * @param 	int $length
+	 * @return 	string
+	*/
+	function rand_string($length = 10)
+	{
+		$chars = 'ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz';
+		$max = strlen($chars)-1;
+		$string = '';
+		mt_srand((double)microtime() * 1000000);
+		while (strlen($string) < $length)
+		{
+			$string .= $chars{mt_rand(0, $max)};
+		}
+		return $string;
+	}
+}

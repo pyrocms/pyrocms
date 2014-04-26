@@ -36,44 +36,21 @@ class File_m extends MY_Model {
 	 */
 	public function get_tagged($tags)
 	{
-		$return_files = array();
-		$hashes = array();
-
-		// while not as nice as straight queries this allows devs to select
-		// files using their own complex where clauses and we then filter from there.
-		$files = $this->get_all();
-
+		// Make sure we have an array
 		if (is_string($tags))
 		{
 			$tags = array_map('trim', explode('|', $tags));
 		}
 
-		$this->db->select('keywords_applied.hash')
-			->join('keywords_applied', 'keywords.id = keywords_applied.keyword_id');
+        // join keywords, filter by tags
+        // group_by files.id to avoid duplicates files
+		$this->db
+			->join('keywords_applied', 'keywords_applied.hash = files.keywords')
+			->join('keywords', 'keywords.id = keywords_applied.keyword_id')
+			->where_in('keywords.name', $tags)
+			->group_by('files.id');
 
-		foreach ($tags as $tag)
-		{
-			$this->db->or_where('name', $tag);
-		}
-
-		$keywords = $this->db->get('keywords')
-			->result();
-
-		foreach ($keywords as $keyword)
-		{
-			$hashes[] = $keyword->hash;
-		}
-
-		// select the files
-		foreach ($files as $file)
-		{
-			if (in_array($file->keywords, $hashes))
-			{
-				$return_files[] = $file;
-			}
-		}
-
-		return $return_files;
+		return $this->get_all();
 	}
 }
 

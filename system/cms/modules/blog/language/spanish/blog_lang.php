@@ -39,7 +39,7 @@ $lang['blog:edit_title'] 					= 'Editar artículo "%s"';
 $lang['blog:archive_title'] 				= 'Archivo';
 $lang['blog:posts_title'] 					= 'Artículos';
 $lang['blog:rss_posts_title'] 				= 'Artículo Blog de %s';
-$lang['blog:blog:title'] 					= 'Noticias';
+$lang['blog:blog_title'] 					= 'Noticias';
 $lang['blog:list_title'] 					= 'Lista de artículos';
 
 // messages

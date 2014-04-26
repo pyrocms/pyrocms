@@ -25,6 +25,7 @@ class Widget_Navigation extends Widgets
 		'id' => 'Navigasi',
 		'fi' => 'Navigaatio',
 		'fr' => 'Navigation',
+            'fa' => 'منوها',
 	);
 
 	/**
@@ -42,6 +43,7 @@ class Widget_Navigation extends Widgets
 		'id' => 'Menampilkan grup navigasi menggunakan widget',
 		'fi' => 'Näytä widgetillä navigaatio ryhmä',
 		'fr' => 'Affichez un groupe de navigation dans un widget',
+            'fa' => 'نمایش گروهی از منوها با استفاده از ویجت',
 	);
 
 	/**

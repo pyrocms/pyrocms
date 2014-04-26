@@ -24,8 +24,8 @@ class MY_Email extends CI_Email {
         //set a few config items (duh)
         $config['mailtype']	= "html";
         $config['charset']	= "utf-8";
-        $config['crlf']		= PHP_EOL;
-        $config['newline']	= PHP_EOL;
+        $config['crlf']		= Settings::get('mail_line_endings') ? "\r\n" : PHP_EOL;
+        $config['newline']	= Settings::get('mail_line_endings') ? "\r\n" : PHP_EOL;
 
         //sendmail options
         if (Settings::get('mail_protocol') == 'sendmail')

@@ -5,7 +5,7 @@ $lang['redirects:from'] 			    = 'De';
 $lang['redirects:to']					= 'Para';
 $lang['redirects:edit']					= 'Editar';
 $lang['redirects:delete']				= 'Remover';
-$lang['redirects:type']					= 'Type'; #translate
+$lang['redirects:type']					= 'Tipo';
 
 // redirect types
 $lang['redirects:301']					= '301 - Moved Permanently'; #translate

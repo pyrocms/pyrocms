@@ -100,6 +100,7 @@ class Admin extends Admin_Controller {
     			$html .= '</a></li>';
     		}
     		
+    		ob_end_clean();
     		echo $html .= '</ul>';
             return;
         }
@@ -184,7 +185,27 @@ class Admin extends Admin_Controller {
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = (array)$this->page_m->get($id);
+		// We are going to get the page in a stripped down way since
+		// we need to only get what is in the database, in order
+		// to be able to duplicate it.
+		$page_raw = $this->db
+						->select('pages.*, page_types.stream_id as pt_stream_id')
+						->join('page_types', 'page_types.id = pages.type_id')
+						->limit(1)->where('pages.id', $id)->get('pages')->row_array();
+
+		$stream = $this->streams_m->get_stream($page_raw['pt_stream_id']);
+
+		// Get entry
+		$entry = $this->db->limit(1)
+						->where('id', $page_raw['entry_id'])
+						->get($stream->stream_prefix.$stream->stream_slug)->row_array();
+
+		unset($page_raw['pt_stream_id']);
+		unset($page_raw['entry_id']);
+
+		// We can merge because there are rules in place so no stream slugs
+		// are the same as slugs in the pages table.
+		$page = $page_raw + $entry;
 
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
@@ -219,8 +240,9 @@ class Admin extends Admin_Controller {
 
 		$page['restricted_to'] = null;
 		$page['navigation_group_id'] = 0;
+		$page['is_home'] = false;
 
-		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
+		$new_page = $this->page_m->create($page, $stream);
 
 		foreach ($children as $child)
 		{
@@ -338,8 +360,13 @@ class Admin extends Admin_Controller {
 			}
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$parent_page = new stdClass;
 
@@ -358,7 +385,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], lang('pages:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values))
 			->set('parent_page', $parent_page)
 			->set('page_type', $page_type)
 			->build('admin/form');
@@ -496,8 +523,13 @@ class Admin extends Admin_Controller {
 			}	
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $page_stream_entry_raw, 'edit');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		// If this page has a parent.
 		if ($page->parent_id > 0)
@@ -516,7 +548,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
 			->append_css('module::page-edit.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $values, $page->entry_id))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
 			->set('page_type', $page_type)

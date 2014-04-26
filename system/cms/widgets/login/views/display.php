@@ -1,4 +1,4 @@
-<?php echo form_open('users/login', null, array('redirect_to' => $redirect_to)); ?>
+<?php echo form_open('users/login', '', array('redirect_to' => current_url())); ?>
 
 <ul>
     <li>

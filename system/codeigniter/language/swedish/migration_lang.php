@@ -11,7 +11,7 @@
  */
 
 $lang['migration_none_found'] = 'Inga migreringar hittades.';
-$lang['migration_not_found'] = 'Denna migrering kunde inte hittas.';
+$lang['migration_not_found'] = 'Denna migrering kunde inte hittas: %d.';
 $lang['migration_multiple_version'] = 'Detta är flera migreringar med samma versionsnummer: %d.';
 $lang['migration_class_doesnt_exist'] = 'Migrationsklassen "%s" kunde inte hittas.';
 $lang['migration_missing_up_method'] = 'Migrationsklassen "%s" saknar en "up"-metod.';

@@ -1,19 +1,19 @@
 # PyroCMS Community Edition
 
-[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.2/develop)](https://travis-ci.org/pyrocms/pyrocms)
+[![Build Status](https://travis-ci.org/pyrocms/pyrocms.png?branch=2.2/master)](https://travis-ci.org/pyrocms/pyrocms)
 
-* [Website](http://pyrocms.com/)
-* [Documentation](https://www.pyrocms.com/support/documentation)
+* [Website](https://www.pyrocms.com/)
+* [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
-* [Forums](http://pyrocms.com/forums)
-* Version: 2.2.0-rc1
+* [Forums](http://forum.pyrocms.com)
+* Version: 2.2.4
 
 ## Team
 
-* [Adam Fairholm](http://parse19.com/)
-* [Jerel Unruh](http://unruhdesigns.com/)
+* [Jerel Unruh](http://jerel.co/)
+* [Ryan Thompson](http://aiwebsystems.com)
+* [Osvaldo Brignoni](http://aiwebsystems.com)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Joshua Pekera](http://joshuapekera.com/)
 
 ## Description
 
@@ -22,20 +22,18 @@ it was built with modularity in mind. Lightweight, themeable and dynamic.
 
 PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 
-
 ## Installation
 
 Run http://example.com/installer to run the web-based installation script.
 
-
 ## Upgrading
 
-* [Upgrading v2.1.x to v2.2.x](http://docs.pyrocms.com/2.2/manual/setup/upgrade-guides/upgrade-2-1-to-2-2-0)
+* [Upgrading v2.1.x to v2.2.x](http://docs.pyrocms.com/2.2/manual/reference/upgrade-guides/upgrade-2-1-to-2-2-0)
 
 ## Bugs & Feature Requests
 
-[Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://www.pyrocms.com/forums)
+* [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
+* [Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
@@ -51,16 +49,20 @@ It's strongly recommended that you download the [git-flow client](https://github
 
 ### Contributors
 
-* [Lee Tengum](http://twitter.com/thatleeguy)
+* [Adam Fairholm](http://adamfairholm.com/)
+* [Andrew Smith](http://silentworks.co.uk)
+* [Ben Edmunds](http://benedmunds.com/)
 * [BenneX](http://github.com/BenneX)
 * [Colin Williams](http://williamsconcepts.com/)
-* [Yorick Peterse](http://www.yorickpeterse.com/)
 * [Dan Horrigan](http://dhorrigan.com/)
-* [Ben Edmunds](http://benedmunds.com/)
 * [Eric Barnes](http://ericlbarnes.com/)
-* [Stephen Cozart](http://twitter.com/stephencozart)
+* [Lee Tengum](http://twitter.com/thatleeguy)
 * [Matt Frost](http://shortwhitebaldguy.com)
 * [Ryan Thompson](http://aiwebsystems.com)
+* [Stephen Cozart](http://twitter.com/stephencozart)
+* [Steve Williamson](http://sjdub.com)
+* [Steven Seeley](https://github.com/net-ninja)
+* [Yorick Peterse](http://www.yorickpeterse.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 
@@ -85,3 +87,5 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
+* [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)
+* [huglester](http://webas.lt/) Lithuanian

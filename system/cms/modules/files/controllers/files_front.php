@@ -2,7 +2,6 @@
 /**
  * Frontend controller for files and stuffs
  * 
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
@@ -232,13 +231,13 @@ class Files_front extends Public_Controller
 			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
 		{
 			// Send 304 back to browser if file has not beeb changed
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $time).' GMT', true, 304);
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $thumb_modified).' GMT', true, 304);
 			exit;
 		}
 
 		header('Content-type: ' . $file->mimetype);
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
-		ob_clean();
+		ob_end_clean();
 		readfile($thumb_filename);
 	}
 
@@ -271,6 +270,7 @@ class Files_front extends Public_Controller
 				exit();
 			}
 
+			ob_end_clean();
 			header('Content-type: ' . $file->mimetype);
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
 			readfile($thumb_filename);

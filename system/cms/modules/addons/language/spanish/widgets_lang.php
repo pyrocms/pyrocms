@@ -9,10 +9,10 @@ $lang['widgets:widget']					= 'Widget';
 $lang['widgets:widget_author']			= 'Autor';
 $lang['widgets:widget_short_name']		= 'Nombre corto';
 $lang['widgets:widget_version']			= 'Versión';
-$lang['widgets:status_label']			= 'Status'; #translate
+$lang['widgets:status_label']			= 'Estado';
 
-$lang['widgets:inactive_title'] 		= 'Widgets disabled'; #translate
-$lang['widgets:active_title'] 			= 'Widgets enabled'; #translate
+$lang['widgets:inactive_title'] 		= 'Widgets deshabilitados';
+$lang['widgets:active_title'] 			= 'Widgets habilitados';
 
 # Widget area titles
 $lang['widgets:add_area']				= 'Agregar área de widget';
@@ -24,10 +24,10 @@ $lang['widgets:widget_area']			= 'Área';
 $lang['widgets:widget_area_title']		= 'Nombre de área';
 $lang['widgets:widget_area_slug']		= 'Nombre corto del área';
 
-$lang['widgets:view_code']				= 'View Code'; #translate
+$lang['widgets:view_code']				= 'Ver código';
 
 $lang['widgets:instance_title']			= 'Título';
-$lang['widgets:show_title']				= 'Display Widget Title?'; #translate
+$lang['widgets:show_title']				= 'Mostrar título del widget?';
 $lang['widgets:tag_title']				= 'Etiqueta';
 
 $lang['widgets:no_available_widgets']	= 'No hay widgets disponibles.';

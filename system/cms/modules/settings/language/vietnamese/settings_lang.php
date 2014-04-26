@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
 * Author: Thanh Nguyen
 * 		  nguyenhuuthanh@gmail.com
@@ -10,6 +11,7 @@
 * Description:  Vietnamese language file
 *
 */
+
 #section settings
 $lang['settings:site_name']						= 'Tên site';
 $lang['settings:site_name_desc']				= 'Tên của website sử dụng cho tiêu đề trang và trong các thành phần khác.';
@@ -77,8 +79,6 @@ $lang['settings:records_per_page_desc']			= 'Bao nhiêu bản ghi hiển thị t
 $lang['settings:rss_feed_items']				= 'Đếm bài Feed';
 $lang['settings:rss_feed_items_desc']			= 'Bao nhiêu bài viết hiển thị trong RSS/blog feeds?';
 
-$lang['settings:require_lastname']				= 'Yêu cầu tên họ (last name)?';
-$lang['settings:require_lastname_desc']			= 'Trong một vài tình huống, tên họ (last name) không cần phải bắt buộc.  Bạn có muốn yêu cầu người dùng phải nhập?';
 
 $lang['settings:enable_profiles']				= 'Kích hoạt hồ sơ cá nhân';
 $lang['settings:enable_profiles_desc']			= 'Cho phép người dùng thêm và sửa hồ sơ cá nhân.';
@@ -94,15 +94,6 @@ $lang['settings:ga_profile_desc']				= 'Profile ID cho website này trong Google
 
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'Điền Google Analytic Tracking Code để kích hoạt  Google Analytics thu thập dữ liệu. E.g: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Tên đăng nhập';
-$lang['settings:twitter_username_desc']			= 'Tên đăng nhập Twitter.';
-
-$lang['settings:twitter_feed_count']			= 'Đếm Feed';
-$lang['settings:twitter_feed_count_desc']		= 'Bao nhiêu tweets hiển thị trên ô Twitter feed?';
-
-$lang['settings:twitter_cache']					= 'Thời gian lưu cache';
-$lang['settings:twitter_cache_desc']			= 'Tweets sẽ được lưu trong bao nhiêu phút?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet là chương trình ngăn spam phát triển bởi WordPress. Chúng giúp chặn spam mà không yêu cầu người dùng sử dụng CAPTCHA.';
@@ -126,7 +117,7 @@ $lang['settings:profile_visibility']            = 'Profile Visibility'; #transla
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'Thông tin chung';
@@ -134,7 +125,6 @@ $lang['settings:section_integration']			= 'Tích hợp';
 $lang['settings:section_comments']				= 'Phản hồi';
 $lang['settings:section_users']					= 'Người dùng';
 $lang['settings:section_statistics']			= 'Thống kê';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'Mở';
@@ -152,5 +142,3 @@ $lang['settings:edit_title']					= 'Sửa thiết lập';
 // messages
 $lang['settings:no_settings']					= 'Không có thiết lập nào.';
 $lang['settings:save_success']					= 'Các thiết lập của bạn đã được lưu';
-
-/* End of file settings_lang.php */

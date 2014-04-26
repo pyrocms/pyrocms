@@ -3,11 +3,9 @@
 /**
  * PyroStreams Core Module
  *
- * @package        PyroCMS\Core\Modules\Streams Core
- * @author         Parse19
- * @copyright      Copyright (c) 2011 - 2012, Parse19
- * @license        http://parse19.com/pyrostreams/docs/license
- * @link           http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Module_Streams_core extends Module
 {
@@ -31,7 +29,9 @@ class Module_Streams_core extends Module
 				'tw' => 'Streams 核心',
 				'cn' => 'Streams 核心',
 				'ar' => 'الجداول الأساسية',
-				'it' => 'Streams Core'
+				'it' => 'Streams Core',
+                            'fa' => 'هسته استریم ها',
+				'fi' => 'Striimit ydin',
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
@@ -43,6 +43,8 @@ class Module_Streams_core extends Module
 				'cn' => 'Streams 核心资料模组。',
 				'ar' => 'وحدة البيانات الأساسية للجداول',
 				'it' => 'Core dello Stream',
+                            'fa' => 'ماژول مرکزی برای استریم ها',
+				'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
 			),
 			'frontend' => false,
 			'backend' => false,

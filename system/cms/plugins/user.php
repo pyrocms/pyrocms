@@ -17,7 +17,9 @@ class Plugin_User extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
+		'br' => 'Acessa variáveis e configurações do perfil do usuário atual.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
+            'fa' => 'دسترسی به پروفایل کاربر حاضر و تنظیمات',
 		'fr' => 'Accéder aux données de l\'utilisateur courant.',
 		'it' => 'Accedi alle variabili del profilo e alle impostazioni dell\'utente corrente'
 	);
@@ -47,7 +49,8 @@ class Plugin_User extends Plugin
 			if (in_array($key, array('password', 'salt'))) continue;
 
 			$info[$key]['description'] = array(
-				'en' => 'Displays the '.$key.' for the current user.'
+				'en' => 'Displays the '.$key.' for the current user.',
+				'br' => 'Exibe o campo "'.$key.'" do usuário atual.'
 			);
 			$info[$key]['single'] = true;
 			$info[$key]['double'] = (is_array($value) ? true : false);

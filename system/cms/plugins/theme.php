@@ -11,13 +11,15 @@
 class Plugin_Theme extends Plugin
 {
 
-	public $version = '1.0.0';
+	public $version = '1.1.0';
 	public $name = array(
 		'en' => 'Theme',
 	);
 	public $description = array(
 		'en' => 'Load and display theme assets.',
+		'br' => 'Carrega e exibe recursos do tema.',
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
+            'fa' => 'بارگزاری و نمایش asset های قالب ها',
 		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.',
 		'it' => 'Carica e mostra gli asset del tema'
 	);
@@ -36,32 +38,318 @@ class Plugin_Theme extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'path' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Outputs the path to the theme relative to the web root.',
+					'br' => 'Exibe o caminho para o tema relativo à raiz web.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(),
+			),// end path method
+			'partial' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Outputs a theme partial file at the location of this tag (usually in your layout file).',
+					'br' => 'Exibe um arquivo partial do tema no local desta tag (geralmente em seu arquivo de layout).'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
 				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'name' => array(// this is the order-dir="asc" attribute
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
 					),
-					'limit' => array(
-						'type' => 'number',
+				),
+			),// end partial method
+			'variables' => array(
+				'description' => array(
+					'en' => 'Set and display temporary variables.',
+					'br' => 'Define e exibe variáveis temporárias.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
 						'flags' => '',
-						'default' => '20',
+						'default' => '',
+						'required' => true,
+					),
+					'value' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end variables method
+			'favicon' => array(
+				'description' => array(
+					'en' => 'Display a favicon for your site.',
+					'br' => 'Exibe um favicon para seu site.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'favicon.ico',
+						'required' => false,
+					),
+					'rel' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'shortcut icon',
+						'required' => false,
+					),
+					'sizes' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'type' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'image/x-icon',
+						'required' => false,
+					),
+					'xhtml' => array(
+						'type' => 'flag',
+						'flags' => 'Y|N',
+						'default' => 'N',
+						'required' => false,
+					),
+				),
+			),// end favicon method
+			'lang' => array(
+				'description' => array(
+					'en' => 'Output a translated string from the language file specified by [lang]. Use [default] to output a fallback string.',
+					'br' => 'Exibe uma string traduzida do arquivo de idioma especificad por [lang]. use [default] para retornar uma string fallback.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'lang' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'line' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'default' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end lang method
+			'css' => array(
+				'description' => array(
+					'en' => 'Load a CSS file from the theme\'s css folder.',
+					'br' => 'Carrega um arquivo CSS da pasta css do tema.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'title' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'media' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'type' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'text/css',
+						'required' => false,
+					),
+					'rel' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'stylesheet',
+						'required' => false,
+					),
+				),
+			),// end css method
+			'css_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified CSS file.',
+					'br' => 'Exibe o caminho de arquivo para o arquivo CSS especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end css_path method
+			'css_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified CSS file.',
+					'br' => 'Exibe a URL para o arquivo CSS especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end css_url method
+			'image' => array(
+				'description' => array(
+					'en' => 'Output a theme image from the theme\'s img folder. Extra attributes can be used to set the class or etc.',
+					'br' => 'Exibe uma imagem da pasta img do tema. Atributos extras podem ser usados para definir a classe ou outros.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'alt' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'the file name',
+						'required' => false,
+					),
+					'any' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end image method
+			'image_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified image file.',
+					'br' => 'Exibe o caminho do arquivo para o arquivo de imagem especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image_path method
+			'image_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified image file.',
+					'br' => 'Exibe a URL para o arquivo de imagem especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end image_url method
+			'js' => array(
+				'description' => array(
+					'en' => 'Include a JavaScript file from the theme\'s js folder.',
+					'br' => 'Inclui um arquivo JavaScript da pasta js do tema.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js method
+			'js_path' => array(
+				'description' => array(
+					'en' => 'Output the filesystem path to the specified js file.',
+					'br' => 'Exibe o caminho de arquivo para o arquivo js especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js_path method
+			'js_url' => array(
+				'description' => array(
+					'en' => 'Output the url to the specified js file.',
+					'br' => 'Exibe a URL para o arquivo JS especificado.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end js_url method
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**
@@ -71,16 +359,23 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ theme:partial name="header" }}
+	 *     {{ theme:partial name="header" any_random_data="foo" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
 	{
-		$name = $this->attribute('name');
+		$attributes = $this->attributes();
+
+		if (empty($attributes['name'])) {
+			throw new Exception('Attributes must have a name="" attribute.');
+		}
+
+		$name = $attributes['name'];
+		unset($attributes['name']);
 
 		$path = $this->load->get_var('template_views');
-		$data = $this->load->get_vars();
+		$data = array_merge($this->load->get_vars(), $attributes);
 
 		$string = $this->load->file($path . 'partials/' . $name . '.html', true);
 
@@ -330,10 +625,14 @@ class Plugin_Theme extends Plugin
 	 * Theme Favicon
 	 *
 	 * Insert a link tag for favicon from your theme
-	 *
+     *
+     * Specs:
+     *
+     *     http://www.w3.org/TR/html5/links.html#rel-icon
+     *
 	 * Usage:
 	 *
-	 *     {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
+	 *     {{ theme:favicon file="" [rel="foo"] [type="bar"] [sizes="16x16 72x72 …"] }}
 	 *
 	 * @return string The link HTML tag for the favicon.
 	 */
@@ -343,12 +642,14 @@ class Plugin_Theme extends Plugin
 		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
 		$rel      = $this->attribute('rel', 'shortcut icon');
+		$sizes    = $this->attribute('sizes', '');
 		$type     = $this->attribute('type', 'image/x-icon');
 		$is_xhtml = str_to_bool($this->attribute('xhtml', true));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';
 		$link .= 'rel="' . $rel . '" ';
+		$link .= $sizes ? 'sizes="' . $sizes . '" ' : '';
 		$link .= 'type="' . $type . '" ';
 		$link .= ($is_xhtml ? '/' : '') . '>';
 

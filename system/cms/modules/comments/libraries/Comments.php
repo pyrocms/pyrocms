@@ -59,6 +59,15 @@ class Comments
 	protected $entry_hash;
 
 	/**
+	 * Comment Count
+	 *
+	 * Setting to 0 by default.
+	 *
+	 * @var 	int
+	 */
+	protected $count = 0;
+
+	/**
 	 * Function to display a comment
 	 *
 	 * Reference is a actually an object reference, a.k.a. categorization of the comments table rows.
@@ -127,7 +136,7 @@ class Comments
 	 */
 	public function count()
 	{
-		return (int) $this->db->where(array(
+		return (int) ci()->db->where(array(
 			'module'	=> $this->module,
 			'entry_key'	=> $this->singular,
 			'entry_id'	=> $this->entry_id,
@@ -140,9 +149,21 @@ class Comments
 	 *
 	 * @return	string 	Language string with the total in it
 	 */
-	public function count_string()
+	public function count_string($comment_count = null)
 	{
-		$total = $this->count();
+		$total = ($comment_count) ? $comment_count : $this->count;
+
+		switch ($total)
+		{
+			case 0:
+				$line = 'none';
+				break;
+			case 1:
+				$line = 'singular';
+				break;
+			default:
+				$line = 'plural';
+		}
 
 		return sprintf(lang('comments:counter_'.$line.'_label'), $total);
 	}

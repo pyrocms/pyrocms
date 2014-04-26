@@ -32,6 +32,7 @@ $config['allowed_functions']	=	array(
 	'preg_replace',
 	'rtrim',
 	'safe_mailto',
+	'slugify',
 	'sprintf',
 	'str_replace',
 	'str_word_count',
@@ -46,6 +47,7 @@ $config['allowed_functions']	=	array(
 	'word_censor',
 	'word_limiter',
 	'word_wrap',
+	'alternator'
 	);
 
 /* End of file parser.php */

@@ -97,7 +97,7 @@ class Field_chunks
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save($input, $field, $stream, $row_id, $input)
+	public function pre_save($raw_input, $field, $stream, $row_id, $input)
 	{
 		$this->CI->load->model('page_chunk_m');
 
@@ -114,7 +114,7 @@ class Field_chunks
 		$chunk_types 	= $input['chunk_type'] ? array_values($input['chunk_type']) : array();
 
 		$chunks = array();
-		
+
 		$chunk_bodies_count = count($chunk_bodies);
 		
 		for ($i = 0; $i < $chunk_bodies_count; $i++)

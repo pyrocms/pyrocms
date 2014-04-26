@@ -17,21 +17,27 @@ class Module_Search extends Module
 		return array(
 			'name' => array(
 				'en' => 'Search',
+				'br' => 'Procura',
 				'fr' => 'Recherche',
 				'se' => 'Sök',
 				'ar' => 'البحث',
 				'tw' => '搜尋',
 				'cn' => '搜寻',
 				'it' => 'Ricerca',
+                            'fa' => 'جستجو',
+				'fi' => 'Etsi',
 			),
 			'description' => array(
 				'en' => 'Search through various types of content with this modular search system.',
+				'br' => 'Procure por vários tipos de conteúdo com este sistema de busca modular.',
 				'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.',
 				'se' => 'Sök igenom olika typer av innehåll',
 				'ar' => 'ابحث في أنواع مختلفة من المحتوى باستخدام نظام البحث هذا.',
 				'tw' => '此模組可用以搜尋網站中不同類型的資料內容。',
 				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。',
 				'it' => 'Cerca tra diversi tipi di contenuti con il sistema di reicerca modulare',
+                            'fa' => 'توسط این ماژول می توانید در محتواهای مختلف وبسایت جستجو نمایید.',
+				'fi' => 'Etsi eri tyypistä sisältöä tällä modulaarisella hakujärjestelmällä.',
 			),
 			'frontend' => false,
 			'backend' => false,
@@ -58,7 +64,7 @@ class Module_Search extends Module
 		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`(190)) USING BTREE,
+		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`(190)),
 		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");

@@ -10,7 +10,7 @@ $lang['user:profile_delete_success']           	= 'Käyttäjäprofiilikenttä po
 $lang['user:profile_delete_failure']            = 'Ongelma käyttäjäprofiilikentän poistamisessa';
 $lang['profile_user_basic_data_label']  		= 'Perustiedot';
 $lang['profile_company']         	  			= 'Yritys';
-$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['profile_updated_on']           			= 'Päivitetty';
 $lang['user:profile_fields_label']	 		 	= 'Profiilikentät';
 
 $lang['user:register_header']                  = 'Rekisteröityminen';
@@ -49,8 +49,8 @@ $lang['indicates_required']                    = 'Merkitsee pakolliset kentät';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user:send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:send_activation_email']            = 'Lähetä aktivointi sähköposti';
+$lang['user:do_not_activate']                  = 'Älä aktivoi';
 $lang['user:register_title']                   = 'Rekisteröityminen';
 $lang['user:activate_account_title']           = 'Aktivoi tili';
 $lang['user:activate_label']                   = 'Aktivoi';

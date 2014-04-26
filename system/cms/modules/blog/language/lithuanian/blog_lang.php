@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                          = 'Įrašas';
+$lang['blog:posts']                         = 'Įrašai';
 
 // labels
 $lang['blog:posted_label']                  = 'Paskelbta';
@@ -46,7 +46,7 @@ $lang['blog:blog_title']                    = 'Naujiena';
 $lang['blog:list_title']                    = 'Įrašų sąrašas';
 
 // messages
-$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
+$lang['blog:disabled_after'] 				= 'Paskelbti komentarai po %s buvo atjungti.';
 $lang['blog:no_posts']                      = 'Nėra įrašų.';
 $lang['blog:subscripe_to_rss_desc']         = 'Gaukite žinutes iš karto prenumeruodami į RSS kanalą. Jūs galite tai padaryti per populiariausias elektroninio pašto paskyras, arba bandykite <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']            = 'Šiuo metu nėra įrašų.';

@@ -45,10 +45,6 @@ class CI_DB_pdo_odbc_driver extends CI_DB_pdo_driver {
 	// The character used for escaping - not used in ODBC
 	protected $_escape_char = '';
 
-	// clause and character used for LIKE escape sequences
-	protected $_like_escape_chr = '!';
-	protected $_like_escape_str = " {escape '%s'} ";
-
 	protected $_random_keyword = ' RAND()';
 
 	/**

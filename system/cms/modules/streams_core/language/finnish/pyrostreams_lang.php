@@ -2,196 +2,196 @@
 
 /* Messages */
 
-$lang['streams:save_field_error'] 						= "There was a problem saving your field."; #translate
-$lang['streams:field_add_success']						= "Field added successfully."; #translate
-$lang['streams:field_update_error']						= "There was a problem updating your field."; #translate
-$lang['streams:field_update_success']					= "Field updated successfully."; #translate
-$lang['streams:field_delete_error']						= "There was a problem deleting this field."; #translate
-$lang['streams:field_delete_success']					= "Field deleted successfully."; #translate
-$lang['streams:view_options_update_error']				= "There was a problem updating the view options."; #translate
-$lang['streams:view_options_update_success']			= "View options successfully updated."; #translate
-$lang['streams:remove_field_error']						= "There was a problem removing this field."; #translate
-$lang['streams:remove_field_success']					= "Field successfully removed."; #translate
-$lang['streams:create_stream_error']					= "There was a problem creating your stream."; #translate
-$lang['streams:create_stream_success']					= "Stream created successfully."; #translate
-$lang['streams:stream_update_error']					= "There was a problem updating this stream."; #translate
-$lang['streams:stream_update_success']					= "Stream updated successfully."; #translate
-$lang['streams:stream_delete_error']					= "There was a problem with deleting this stream."; #translate
-$lang['streams:stream_delete_success']					= "Stream deleted successfully."; #translate
-$lang['streams:stream_field_ass_add_error']				= "There was a problem adding this field to this stream."; #translate
-$lang['streams:stream_field_ass_add_success']			= "Field added to stream successfully."; #translate
-$lang['streams:stream_field_ass_upd_error']				= "There was a problem updating this field assignment."; #translate
-$lang['streams:stream_field_ass_upd_success']			= "Field assignment updated successfully."; #translate
-$lang['streams:delete_entry_error']						= "There was a problem deleting this entry."; #translate
-$lang['streams:delete_entry_success']					= "Entry deleted successfully."; #translate
-$lang['streams:new_entry_error']						= "There was a problem adding this entry."; #translate
-$lang['streams:new_entry_success']						= "Entry added successfully."; #translate
-$lang['streams:edit_entry_error']						= "There was a problem updating this entry."; #translate
-$lang['streams:edit_entry_success']						= "Entry updated successfully."; #translate
-$lang['streams:delete_summary']							= "Are you sure you want to delete the <strong>%s</strong> stream? This will <strong>delete %s %s</strong> permanently."; #translate
+$lang['streams:save_field_error'] 						= "Kentän tallentamisessa tapahtui virhe.";
+$lang['streams:field_add_success']						= "Kenttä lisätty onnistuneesti.";
+$lang['streams:field_update_error']						= "Kentän päivittämisessä tapahtui virhe.";
+$lang['streams:field_update_success']					= "Kenttä päivitetty onnistuneesti.";
+$lang['streams:field_delete_error']						= "Kentän poistamisessa tapahtui virhe.";
+$lang['streams:field_delete_success']					= "Kenttä poistettiin onnistuneesti.";
+$lang['streams:view_options_update_error']				= "Näkyvyyden valintojen päivittämisessä tapahtui virhe.";
+$lang['streams:view_options_update_success']			= "Näkyvyyksien valinnat päivitettiin onnistuneesti.";
+$lang['streams:remove_field_error']						= "Kentän poistamisessa tapahtui virhe.";
+$lang['streams:remove_field_success']					= "Kenttä poistettu onnistuneesti.";
+$lang['streams:create_stream_error']					= "Striimin luomisessa tapahtui virhe.";
+$lang['streams:create_stream_success']					= "Striimi luotiin onnistuneesti.";
+$lang['streams:stream_update_error']					= "Striimin päivittämisessä tapahtui virhe.";
+$lang['streams:stream_update_success']					= "Striimi päivitettiin onnistuneesti.";
+$lang['streams:stream_delete_error']					= "Striimin poistamisessa tapahtui virhe.";
+$lang['streams:stream_delete_success']					= "Striimi poistettiin onnistuneesti.";
+$lang['streams:stream_field_ass_add_error']				= "Kentän lisäämisessä tapahtui virhe.";
+$lang['streams:stream_field_ass_add_success']			= "Kenttä lisättiin onnistuneesti.";
+$lang['streams:stream_field_ass_upd_error']				= "Kentän liittämisessä tapahtui virhe.";
+$lang['streams:stream_field_ass_upd_success']			= "Kentän liittäminen onnistui.";
+$lang['streams:delete_entry_error']						= "Tämän merkinnän poistamisessa tapahtui virhe.";
+$lang['streams:delete_entry_success']					= "Merkintä poistettiin onnistuneesti.";
+$lang['streams:new_entry_error']						= "Merkinnän lisäämisessä tapahtui virhe.";
+$lang['streams:new_entry_success']						= "Merkintä lisättiin onnistuneesti.";
+$lang['streams:edit_entry_error']						= "Tämän merkinnän muokkaamisessa tapahtui virhe.";
+$lang['streams:edit_entry_success']						= "Merkinnän muokkaaminen onnistui.";
+$lang['streams:delete_summary']							= "Oletko varma, että haluat poistaa <strong>%s</strong> striimin? Tämä <strong>poistaa %s %s</strong> pysyvästi.";
 
 /* Misc Errors */
 
-$lang['streams:no_stream_provided']						= "No stream was provided."; #translate
-$lang['streams:invalid_stream']							= "Invalid stream."; #translate
-$lang['streams:not_valid_stream']						= "is not a valid stream."; #translate
-$lang['streams:invalid_stream_id']						= "Invalid stream ID."; #translate
-$lang['streams:invalid_row']							= "Invalid row."; #translate
-$lang['streams:invalid_id']								= "Invalid ID."; #translate
-$lang['streams:cannot_find_assign']						= "Cannot find field assignment."; #translate
-$lang['streams:cannot_find_pyrostreams']				= "Cannot find PyroStreams."; #translate
-$lang['streams:table_exists']							= "A table with the slug %s already exists."; #translate
-$lang['streams:no_results']								= "No results"; #translate
-$lang['streams:no_entry']								= "Unable to find entry."; #translate
-$lang['streams:invalid_search_type']					= "is not a valid search type."; #translate
+$lang['streams:no_stream_provided']						= "Striimiä ei toimitettu.";
+$lang['streams:invalid_stream']							= "Striimi ei kelpaa.";
+$lang['streams:not_valid_stream']						= "striimi ei kelpaa.";
+$lang['streams:invalid_stream_id']						= "Virheellinen striimin ID.";
+$lang['streams:invalid_row']							= "Virheellinen rivi.";
+$lang['streams:invalid_id']								= "Virheellinen ID.";
+$lang['streams:cannot_find_assign']						= "Ei löytynyt kentän liitoksia.";
+$lang['streams:cannot_find_pyrostreams']				= "PyroStreams ei löytynyt.";
+$lang['streams:table_exists']							= "Taulu nimipolulla %s on jo olemassa.";
+$lang['streams:no_results']								= "Ei tuloksia";
+$lang['streams:no_entry']								= "Ei voitu löytää merkintää.";
+$lang['streams:invalid_search_type']					= "hakutyyppi ei kelpaa.";
 $lang['streams:search_not_found']						= "Search not found."; #translate
 
 /* Validation Messages */
 
-$lang['streams:field_slug_not_unique']					= "This field slug is already in use."; #translate
-$lang['streams:not_mysql_safe_word']					= "The %s field is a MySQL reserved word."; #translate
-$lang['streams:not_mysql_safe_characters']				= "The %s field contains disallowed characters."; #translate
-$lang['streams:type_not_valid']							= "Please select a valid field type."; #translate
-$lang['streams:stream_slug_not_unique']					= "This stream slug is already in use."; #translate
-$lang['streams:field_unique']							= "The %s field must be unique."; #translate
-$lang['streams:field_is_required']						= "The %s field is required."; #translate
-$lang['streams:date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
+$lang['streams:field_slug_not_unique']					= "Tämän kentän polkutunnus on jo käytössä.";
+$lang['streams:not_mysql_safe_word']					= "%s kenttä on MySQL varattu sana.";
+$lang['streams:not_mysql_safe_characters']				= "%s kenttä sisältää ei-sallittuja merkkejä.";
+$lang['streams:type_not_valid']							= "Valitse oikean tyyppinen kenttä.";
+$lang['streams:stream_slug_not_unique']					= "Tämän striimin polkutunnus on jo käytössä.";
+$lang['streams:field_unique']							= "%s kentän tulee olla yksilöllinen.";
+$lang['streams:field_is_required']						= "%s kenttä on pakollinen.";
+$lang['streams:date_out_or_range']						= "Valittu päiväys ei täsmää sallitun aikajanan kanssa.";
 
 /* Field Labels */
 
-$lang['streams:label.field']							= "Field"; #translate
-$lang['streams:label.field_required']					= "Field is Required"; #translate
-$lang['streams:label.field_unique']						= "Field is Unique"; #translate
-$lang['streams:label.field_instructions']				= "Field Instructions"; #translate
-$lang['streams:label.make_field_title_column']			= "Make field the title column"; #translate
-$lang['streams:label.field_name']						= "Field Name"; #translate
-$lang['streams:label.field_slug']						= "Field Slug"; #translate
-$lang['streams:label.field_type']						= "Field Type"; #translate
-$lang['streams:id']										= "ID"; #translate
-$lang['streams:created_by']								= "Created By"; #translate
-$lang['streams:created_date']							= "Created Date"; #translate
-$lang['streams:updated_date']							= "Updated Date"; #translate
-$lang['streams:value']									= "Value"; #translate
-$lang['streams:manage']									= "Manage"; #translate
-$lang['streams:search']									= "Search"; #translate
-$lang['streams:stream_prefix']							= "Stream Prefix"; #translate
+$lang['streams:label.field']							= "Kenttä";
+$lang['streams:label.field_required']					= "Pakollinen kenttä";
+$lang['streams:label.field_unique']						= "Yksilöllinen kenttä";
+$lang['streams:label.field_instructions']				= "Kentän ohjeistus";
+$lang['streams:label.make_field_title_column']			= "Tee kentästä otsikko sarake";
+$lang['streams:label.field_name']						= "Kentän nimi";
+$lang['streams:label.field_slug']						= "Kentän polkutunnus";
+$lang['streams:label.field_type']						= "Kentän tyyppi";
+$lang['streams:id']										= "ID";
+$lang['streams:created_by']								= "Luonut";
+$lang['streams:created_date']							= "Luotu";
+$lang['streams:updated_date']							= "Päivitetty";
+$lang['streams:value']									= "Arvo";
+$lang['streams:manage']									= "Hallinnoi";
+$lang['streams:search']									= "Hae";
+$lang['streams:stream_prefix']							= "Striimin etuliite";
 
 /* Field Instructions */
 
-$lang['streams:instr.field_instructions']				= "Displayed on form when entering or editing data."; #translate
-$lang['streams:instr.stream_full_name']					= "Full name for your stream."; #translate
-$lang['streams:instr.slug']								= "Lowercase, just letters and underscores."; #translate
+$lang['streams:instr.field_instructions']				= "Näytetään lomakkeella kun käyttäjä täyttää tietoja.";
+$lang['streams:instr.stream_full_name']					= "Striimin koko nimi.";
+$lang['streams:instr.slug']								= "Pienillä kirjaimilla, vain kirjaimia ja alaviivoja.";
 
 /* Titles */
 
-$lang['streams:assign_field']							= "Assign Field to Stream"; #translate
-$lang['streams:edit_assign']							= "Edit Stream Assignment"; #translate
-$lang['streams:add_field']								= "Create Field"; #translate
-$lang['streams:edit_field']								= "Edit Field"; #translate
-$lang['streams:fields']									= "Fields"; #translate
-$lang['streams:streams']								= "Streams"; #translate
-$lang['streams:list_fields']							= "List Fields"; #translate
-$lang['streams:new_entry']								= "New Entry"; #translate
-$lang['streams:stream_entries']							= "Stream Entries"; #translate
-$lang['streams:entries']								= "Entries"; #translate
-$lang['streams:stream_admin']							= "Stream Admin"; #translate
-$lang['streams:list_streams']							= "List Streams"; #translate
-$lang['streams:sure']									= "Are You Sure?"; #translate
-$lang['streams:field_assignments'] 						= "Stream Field Assignments"; #translate
-$lang['streams:new_field_assign']						= "New Field Assignment"; #translate
-$lang['streams:stream_name']							= "Stream Name"; #translate
-$lang['streams:stream_slug']							= "Stream Slug"; #translate
-$lang['streams:about']									= "About"; #translate
-$lang['streams:total_entries']							= "Total Entries"; #translate
-$lang['streams:add_stream']								= "New Stream"; #translate
-$lang['streams:edit_stream']							= "Edit Stream"; #translate
-$lang['streams:about_stream']							= "About This Stream"; #translate
-$lang['streams:title_column']							= "Title Column"; #translate
-$lang['streams:sort_method']							= "Sort Method"; #translate
-$lang['streams:add_entry']								= "Add Entry"; #translate
-$lang['streams:edit_entry']								= "Edit Entry"; #translate
-$lang['streams:view_options']							= "View Options"; #translate
-$lang['streams:stream_view_options']					= "Stream View Options"; #translate
-$lang['streams:backup_table']							= "Backup Stream Table"; #translate
-$lang['streams:delete_stream']							= "Delete Stream"; #translate
-$lang['streams:entry']									= "Entry"; #translate
-$lang['streams:field_types']							= "Field Types"; #translate
-$lang['streams:field_type']								= "Field Type"; #translate
-$lang['streams:database_table']							= "Database Table"; #translate
-$lang['streams:size']									= "Size"; #translate
-$lang['streams:num_of_entries']							= "Number of Entries"; #translate
-$lang['streams:num_of_fields']							= "Number of Fields"; #translate
-$lang['streams:last_updated']							= "Last Updated"; #translate
-$lang['streams:export_schema']							= "Export Schema"; #translate
+$lang['streams:assign_field']							= "Liitä kenttä striimiin";
+$lang['streams:edit_assign']							= "Muokkaa striimin liitoksia";
+$lang['streams:add_field']								= "Luo kenttä";
+$lang['streams:edit_field']								= "Muokkaa kenttää";
+$lang['streams:fields']									= "Kentät";
+$lang['streams:streams']								= "Striimit";
+$lang['streams:list_fields']							= "Listaa kentät";
+$lang['streams:new_entry']								= "Uusi merkintä";
+$lang['streams:stream_entries']							= "Striimin merkinnät";
+$lang['streams:entries']								= "Merkinnät";
+$lang['streams:stream_admin']							= "Striimin ylläpitäjä";
+$lang['streams:list_streams']							= "Listaa striimit";
+$lang['streams:sure']									= "Oletko varma?";
+$lang['streams:field_assignments'] 						= "Striimi kentän liitokset";
+$lang['streams:new_field_assign']						= "Uusi kenttäliitos";
+$lang['streams:stream_name']							= "Striimin nimi";
+$lang['streams:stream_slug']							= "Striimin polkutunnus";
+$lang['streams:about']									= "Lisätietoja";
+$lang['streams:total_entries']							= "Merkintöjä yhteensä";
+$lang['streams:add_stream']								= "Uusi striimi";
+$lang['streams:edit_stream']							= "Muokkaa striimiä";
+$lang['streams:about_stream']							= "Lisätietoja tästä striimistä";
+$lang['streams:title_column']							= "Otsikko sarake";
+$lang['streams:sort_method']							= "Järjestä";
+$lang['streams:add_entry']								= "Lisää merkintä";
+$lang['streams:edit_entry']								= "Muokkaa merkintää";
+$lang['streams:view_options']							= "Näkvyys valinnat";
+$lang['streams:stream_view_options']					= "Striimin näkyvyys valinnat";
+$lang['streams:backup_table']							= "Varmuuskopioi striimin taulu";
+$lang['streams:delete_stream']							= "Poista striimi";
+$lang['streams:entry']									= "Merkintä";
+$lang['streams:field_types']							= "Kenttätyypit";
+$lang['streams:field_type']								= "Kentän tyyppi";
+$lang['streams:database_table']							= "Tietokanta taulu";
+$lang['streams:size']									= "Koko";
+$lang['streams:num_of_entries']							= "Merkintöjen määrä";
+$lang['streams:num_of_fields']							= "Kenttien määrä";
+$lang['streams:last_updated']							= "Päivitetty";
+$lang['streams:export_schema']							= "Vie schema";
 
 /* Startup */
 
-$lang['streams:start.add_one']							= "add one here"; #translate
-$lang['streams:start.no_fields']						= "You have not created any fields yet. To start, you can"; #translate
-$lang['streams:start.no_assign'] 						= "Looks like there are no fields yet for this stream. To start, you can"; #translate
-$lang['streams:start.add_field_here']					= "add a field here"; #translate
-$lang['streams:start.create_field_here']				= "create a field here"; #translate
-$lang['streams:start.no_streams']						= "There are no streams yet, but can start by"; #translate
-$lang['streams:start.no_streams_yet']					= "There are no streams yet."; #translate
-$lang['streams:start.adding_one']						= "adding one"; #translate
-$lang['streams:start.no_fields_to_add']					= "No Fields to Add";		 #translate
-$lang['streams:start.no_fields_msg']					= "There are no fields to add to this stream. In PyroStreams, field types can be shared between streams and must be created before being added to a stream. You can start by"; #translate
-$lang['streams:start.adding_a_field_here']				= "adding a field here"; #translate
-$lang['streams:start.no_entries']						= "There are no entries yet for <strong>%s</strong>. To start, you can"; #translate
-$lang['streams:add_fields']								= "assign fields"; #translate
-$lang['streams:no_entries']								= 'No entries'; #translate
-$lang['streams:add_an_entry']							= "add an entry"; #translate
-$lang['streams:to_this_stream_or']						= "to this stream or"; #translate
-$lang['streams:no_field_assign']						= "No Field Assignments"; #translate
-$lang['streams:no_fields_msg_first']					= "Looks like there are no fields yet for this stream."; #translate
-$lang['streams:no_field_assign_msg']					= "Before you start entering data, you need to"; #translate
-$lang['streams:add_some_fields']						= "assign some fields"; #translate
-$lang['streams:start.before_assign']					= "Before assigning fields to a stream, you need to create a field. You can"; #translate
-$lang['streams:start.no_fields_to_assign']				= "Looks like there are no fields available to be assigned. Before you can assign a field you must "; #translate
+$lang['streams:start.add_one']							= "lisää tästä";
+$lang['streams:start.no_fields']						= "Et ole vielä luonut kenttiä. Aloittaaksesi, voit";
+$lang['streams:start.no_assign'] 						= "Näyttää siltä, että tähän striimiin ei ole määritetty kenttiä. Aloittaaksesi, voit";
+$lang['streams:start.add_field_here']					= "lisää kentän tästä";
+$lang['streams:start.create_field_here']				= "luoda kentän täältä";
+$lang['streams:start.no_streams']						= "Striimejä ei ole vielä, mutta voit aloittaa";
+$lang['streams:start.no_streams_yet']					= "Striimejä ei ole vielä.";
+$lang['streams:start.adding_one']						= "lisäämällä yhden";
+$lang['streams:start.no_fields_to_add']					= "Lisättäviä kenttiä ei ole";
+$lang['streams:start.no_fields_msg']					= "Kenttiä ei ole saatavilla tähän striimiin. PyroStreamsissä, kentän tyypit voidaan jakaa eri striimien kesken ja niiden tulee luoda ensin, jotta ne voidaan liittää striimeihin. Voit aloittaa";
+$lang['streams:start.adding_a_field_here']				= "luomalla kentän täältä";
+$lang['streams:start.no_entries']						= "<strong>%s</strong>:lle ei ole vielä merkintöjä. Aloittaaksesi, voit";
+$lang['streams:add_fields']								= "liittää kenttiä";
+$lang['streams:no_entries']								= 'Ei merkintöjä';
+$lang['streams:add_an_entry']							= "lisää merkintä";
+$lang['streams:to_this_stream_or']						= "tähän striimiin tai";
+$lang['streams:no_field_assign']						= "Ei liitettyjä kenttiä";
+$lang['streams:no_fields_msg_first']					= "Näyttää siltä, että kenttiä ei ole liitetty tähän striimiin.";
+$lang['streams:no_field_assign_msg']					= "Ennen kuin aloitat tietojen syöttämisen, sinun tulee";
+$lang['streams:add_some_fields']						= "liittää kenttiä";
+$lang['streams:start.before_assign']					= "Ennen kentän liittämistä striimiin, sinun tulee luoda kenttiä. Voit";
+$lang['streams:start.no_fields_to_assign']				= "Näyttää siltä, että kenttiä ei ole saatavilla liitettäväksi. Ennen kun voit liittää kenttiä, sinun tulee ";
 
 /* Buttons */
 
-$lang['streams:yes_delete']								= "Yes, Delete"; #translate
-$lang['streams:no_thanks']								= "No Thanks"; #translate
-$lang['streams:new_field']								= "New Field"; #translate
-$lang['streams:edit']									= "Edit"; #translate
-$lang['streams:delete']									= "Delete"; #translate
-$lang['streams:remove']									= "Remove"; #translate
-$lang['streams:reset']									= "Reset"; #translate
+$lang['streams:yes_delete']								= "Kyllä, poista";
+$lang['streams:no_thanks']								= "Ei kiitos";
+$lang['streams:new_field']								= "Uusi kenttä";
+$lang['streams:edit']									= "Muokkaa";
+$lang['streams:delete']									= "Poista";
+$lang['streams:remove']									= "Poista";
+$lang['streams:reset']									= "Nollaa";
 
 /* Misc */
 
-$lang['streams:field_singular']							= "field"; #translate
-$lang['streams:field_plural']							= "fields"; #translate
-$lang['streams:by_title_column']						= "By Title Column"; #translate
-$lang['streams:manual_order']							= "Manual Order"; #translate
-$lang['streams:stream_data_line']						= "Edit basic stream data."; #translate
-$lang['streams:view_options_line'] 						= "Choose which columns should be visible on the list data page."; #translate
-$lang['streams:backup_line']							= "Backup and download stream table into a zip file."; #translate
-$lang['streams:permanent_delete_line']					= "Permanently delete a stream and all stream data."; #translate
-$lang['streams:choose_a_field_type']					= "Choose a field type"; #translate
-$lang['streams:choose_a_field']							= "Choose a field"; #translate
+$lang['streams:field_singular']							= "kenttä";
+$lang['streams:field_plural']							= "kentät";
+$lang['streams:by_title_column']						= "Otsikon mukaan";
+$lang['streams:manual_order']							= "Manuaalinen järjestys";
+$lang['streams:stream_data_line']						= "Muokkaa perus striimin dataa.";
+$lang['streams:view_options_line'] 						= "Valitse, mitkä sarakkeet tulisi näkyä sisältö listauksissa.";
+$lang['streams:backup_line']							= "Varmuuskopioi ja lataa striimin taulun zip paketissa.";
+$lang['streams:permanent_delete_line']					= "Poista striimi ja sen sisältö pysyvästi.";
+$lang['streams:choose_a_field_type']					= "Valitse kentän tyyppi";
+$lang['streams:choose_a_field']							= "Valitse kenttä";
 
 /* reCAPTCHA */
 
-$lang['recaptcha_class_initialized'] 					= "reCaptcha Library Initialized"; #translate
-$lang['recaptcha_no_private_key']						= "You did not supply an API key for Recaptcha"; #translate
+$lang['recaptcha_class_initialized'] 					= "reCaptcha kirjasto käynnistetty";
+$lang['recaptcha_no_private_key']						= "Et toimittanut API avainta Recaptchaa varten";
 $lang['recaptcha_no_remoteip'] 							= "For security reasons, you must pass the remote ip to reCAPTCHA"; #translate
 $lang['recaptcha_socket_fail'] 							= "Could not open socket"; #translate
 $lang['recaptcha_incorrect_response'] 					= "Incorrect Security Image Response"; #translate
-$lang['recaptcha_field_name'] 							= "Security Image"; #translate
-$lang['recaptcha_html_error'] 							= "Error loading security image.  Please try again later"; #translate
+$lang['recaptcha_field_name'] 							= "Turvallisuus kuva";
+$lang['recaptcha_html_error'] 							= "Truvallisuus kuvan latauksessa tapahtui virhe. Yritä myöhemmin uudelleen";
 
 /* Default Parameter Fields */
 
-$lang['streams:max_length'] 							= "Max Length"; #translate
-$lang['streams:upload_location'] 						= "Upload Location"; #translate
-$lang['streams:default_value'] 							= "Default Value"; #translate
+$lang['streams:max_length'] 							= "Enimmäispituus";
+$lang['streams:upload_location'] 						= "Latauskansio";
+$lang['streams:default_value'] 							= "Oletusarvo";
 
-$lang['streams:menu_path']								= 'Menu Path'; #translate
-$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
-$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
-$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
-$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
+$lang['streams:menu_path']								= 'Valikkopolku';
+$lang['streams:about_instructions']						= 'Lyhyt kuvaus striimistäsi.';
+$lang['streams:slug_instructions']						= 'Tämä tulee olemaan myös tietokanta taulu striimillesi.';
+$lang['streams:prefix_instructions']					= 'Jos käytössä, niin tämä asettaa etuliitteen taululle tietokannassa. Kätevä tapa välttää nimi konfliktit.';
+$lang['streams:menu_path_instructions']					= 'Missä osiossa ja alaosiossa tämän striimin tulisi olla. Erottele "/" merkillä. Esimerkki: <strong>Pääosio / Alaosio</strong>.';
 
 /* End of file pyrostreams_lang.php */

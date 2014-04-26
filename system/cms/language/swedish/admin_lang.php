@@ -47,12 +47,14 @@ $lang['cp:nav_structure'] = 'Struktur';
 $lang['cp:nav_content'] = 'Innehåll';
 $lang['cp:nav_misc'] = 'Övrigt';
 
+$lang['cp:search']                      = 'Sök';
+
 $lang['cp:must_login'] = 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp:access_denied'] = 'Du har inte rättigheter att se sidan.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'Installationsfilerna existerar fortfarande! Vänligen ta bort filerna från din server! Obehöriga kan ta kontroll över denna webbplats om filerna finns kvar.';
+$lang['cp:delete_installer']					 = 'Ta bort installationsfilerna';
+$lang['cp:delete_installer_successfully_message'] = 'Installationsfilerna har tagits bort.';
+$lang['cp:delete_installer_manually_message']     = 'Installationsfilerna kunde inte tas bort. <strong>Ta bort dem manuellt!</strong>';
 $lang['cp:upgrade_message'] = 'Du använder version %s, men din databas använder %s. Vänligen <a href="%s" title="Uppgradera">klicka här</a> för att uppgradera databasen.';
 $lang['cp:google_analytics_missing'] = 'Inställningar för Google Analytics saknas. Lägg till dem till %s eller kontakta din administratör.';
 $lang['cp:google_analytics_no_connect'] = 'Kunde inte ansulta till Google Analytics. Kontrollera %s.';

@@ -3,11 +3,9 @@
 /**
  * PyroStreams Fields Model
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Models
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Fields_m extends CI_Model {
 
@@ -21,17 +19,17 @@ class Fields_m extends CI_Model {
 	public $fields_validation = array(
 		array(
 			'field'	=> 'field_name',
-			'label' => 'lang:streams.label.field_name',
+			'label' => 'lang:streams:label.field_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'field_slug',
-			'label' => 'lang:streams.label.field_slug',
+			'label' => 'lang:streams:label.field_slug',
 			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
-			'label' => 'lang:streams.label.field_type',
+			'label' => 'lang:streams:label.field_type',
 			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);
@@ -499,6 +497,22 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
+    /**
+     * Count assignments for a stream
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments_for_stream($stream_id)
+	{
+		if ( ! $stream_id) return 0;
+
+		return $this->db
+				->where('stream_id', $stream_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
+	}
+
 	// --------------------------------------------------------------------------
 	
 	/**
@@ -569,6 +583,19 @@ class Fields_m extends CI_Model {
 		if ( ! $field = $this->get_field($field_id))
 		{
 			return false;
+		}
+		
+		// Remove from cache
+		if (isset($this->fields_cache['by_id'][$field_id]))
+		{
+			unset($this->fields_cache['by_id'][$field_id]);
+		}
+
+		$namespace_key = $field->field_namespace.':'.$field->field_slug;
+		
+		if (isset($this->fields_cache['by_slug'][$namespace_key]))
+		{
+			unset($this->fields_cache['by_slug'][$namespace_key]);
 		}
 	
 		// Find assignments, and delete rows from table

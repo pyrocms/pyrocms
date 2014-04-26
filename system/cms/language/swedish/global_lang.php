@@ -62,8 +62,8 @@ $lang['general_error_label'] = 'Fel';
 $lang['required_error_label'] = 'Obligatoriskt fält saknas';
 $lang['note_label'] = 'Info';
 $lang['success_label'] = 'Ok';
-$lang['global:fields']					= 'Fields'; #translate
-$lang['global:custom_fields']			= 'Custom Fields'; #translate
+$lang['global:fields'] = 'Fält';
+$lang['global:custom_fields'] = 'Anpassade fält';
 
 $lang['login_title'] = 'Log In';
 $lang['global:fatal_error'] = 'Kritiskt fel, är CMS installerat?';
@@ -107,7 +107,7 @@ $lang['global:preview'] = 'Förhandsgranska';
 $lang['global:add'] = 'Lägg till';
 $lang['global:edit'] = 'Redigera';
 $lang['global:empty'] = 'Tom';
-$lang['global:delete']					= 'Delete'; #translate
+$lang['global:delete'] = 'Ta bort';
 $lang['global:remove'] = 'Ta bort';
 
 $lang['global:keywords'] = 'Nyckelord';
@@ -116,12 +116,13 @@ $lang['global:or'] = 'eller';
 $lang['global:and'] = 'och';
 $lang['global:at'] = 'vid';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']	= 'Widgets';
+$lang['global:themes'] = 'Teman';
+$lang['global:field_types'] = 'Fälttyper';
+$lang['global:plugins'] = 'Plugins';
+$lang['global:plugin'] = 'Plugin';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options'] = 'Alternativ';
+$lang['global:plain-text'] = 'Oformaterad text';
 
-/* End of file main_lang.php */
+/* End of file global_lang.php */

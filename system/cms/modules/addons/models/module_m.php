@@ -63,13 +63,16 @@ class Module_m extends MY_Model
 			->get($this->_table)
 			->row();
 		
-		// store these
-		$this->_module_exists[$slug] = count($row) > 0;
-		$this->_module_enabled[$slug] = $row->enabled;
-		$this->_module_installed[$slug] = $row->installed;
+
 
 		if ($row)
 		{
+
+            // store these
+            $this->_module_exists[$slug] = count($row) > 0;
+            $this->_module_enabled[$slug] = $row->enabled;
+            $this->_module_installed[$slug] = $row->installed;
+
 			// Let's get REAL
 			if ( ! $module = $this->_spawn_class($slug, $row->is_core))
 			{
@@ -106,7 +109,12 @@ class Module_m extends MY_Model
 				'path' => $location,
 				'updated_on' => $row->updated_on
 			);
-		}
+		} else {
+            // store these, all are false, since we couldn't find a module entry
+            $this->_module_exists[$slug] = false;
+            $this->_module_enabled[$slug] = false;
+            $this->_module_installed[$slug] = false;
+        }
 
 		return $null_array;
 	}

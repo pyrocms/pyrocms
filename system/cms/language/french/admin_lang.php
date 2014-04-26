@@ -37,6 +37,8 @@ $lang['cp:nav_structure'] = 'Structure';
 $lang['cp:nav_content'] = 'Contenu';
 $lang['cp:nav_misc'] = 'Divers';
 
+$lang['cp:search'] = 'Recherche';
+
 $lang['cp:must_login'] = 'Vous devez être identifié pour voir cette page.';
 $lang['cp:access_denied'] = 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 

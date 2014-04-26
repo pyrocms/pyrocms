@@ -3,11 +3,9 @@
 /**
  * PyroStreams WYSIWYG Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_wysiwyg
 {
@@ -60,13 +58,13 @@ class Field_wysiwyg
 		// that I'm sure a few sites are utilizing.
 		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
 
-		$parse_tags = ( ! isset($params['allow_tags'])) ? 'y' : $params['allow_tags'];
+		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
 		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
 		{
-			return $input;
+			return $this->CI->parser->parse_string($input, array(), true);
 		}
 		else
 		{
@@ -99,7 +97,7 @@ class Field_wysiwyg
 	
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['value']	= html_entity_decode($data['value'], null, 'UTF-8');
 		
 		return form_textarea($options);
 	}
@@ -131,10 +129,13 @@ class Field_wysiwyg
 	public function param_allow_tags($value = null)
 	{
 		$options = array(
-			'y'	=> lang('global:yes'),
-			'n'	=> lang('global:no')
+			'n'	=> lang('global:no'),
+			'y'	=> lang('global:yes')
 		);
 	
+		// Defaults to No
+		$value = ($value) ? $value : 'n';
+
 		return form_dropdown('allow_tags', $options, $value);
 	}	
 

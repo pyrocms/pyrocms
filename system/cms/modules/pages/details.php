@@ -23,6 +23,7 @@ class Module_Pages extends Module
 				'de' => 'Seiten',
 				'el' => 'Σελίδες',
 				'es' => 'Páginas',
+                            'fa' => 'صفحه ها ',
 				'fi' => 'Sivut',
 				'fr' => 'Pages',
 				'he' => 'דפים',
@@ -49,6 +50,7 @@ class Module_Pages extends Module
 				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
 				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
 				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
+                            'fa' => 'ایحاد صفحات جدید و دلخواه با هر محتوایی که دوست دارید',
 				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
 				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
 				'he' => 'ניהול דפי תוכן האתר',
@@ -71,7 +73,8 @@ class Module_Pages extends Module
 			'menu'	  => 'content',
 
 			'roles' => array(
-				'put_live', 'edit_live', 'delete_live'
+				'put_live', 'edit_live', 'delete_live',
+                'create_types', 'edit_types', 'delete_types'
 			),
 
 			'sections' => array(
@@ -203,6 +206,8 @@ class Module_Pages extends Module
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+				'meta_robots_no_index' => array('type' => 'TINYINT', 'constraint' => 1, 'null' => true),
+				'meta_robots_no_follow' => array('type' => 'TINYINT', 'constraint' => 1, 'null' => true),
 				'meta_description' => array('type' => 'TEXT', 'null' => true),
 				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
 				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
@@ -228,7 +233,7 @@ class Module_Pages extends Module
 			'def_page_fields',
 			'pages',
 			null,
-			'A basic page type to get you started adding content.'
+			'A simple page type with a WYSIWYG editor that will get you started adding content.'
 		);
 	
 		// add the fields to the streams
@@ -239,6 +244,7 @@ class Module_Pages extends Module
 			'id' => 1,
 			'title' => 'Default',
 			'slug' => 'default',
+			'description' => 'A simple page type with a WYSIWYG editor that will get you started adding content.',
 			'stream_id' => $stream_id,
 			'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
 			'css' => '',

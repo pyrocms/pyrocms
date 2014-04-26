@@ -25,6 +25,7 @@ class Widget_Google_maps extends Widgets
 		'id' => 'Google Maps',
 		'fi' => 'Google Maps',
 		'fr' => 'Google Maps',
+            'fa' => 'نقشه گوگل',
 	);
 
 	/**
@@ -42,6 +43,7 @@ class Widget_Google_maps extends Widgets
 		'id' => 'Menampilkan Google Maps di Situs Anda',
 		'fi' => 'Näytä Google Maps kartta sivustollasi',
 		'fr' => 'Publiez un plan Google Maps sur votre site',
+            'fa' => 'نمایش داده نقشه گوگل بر روی سایت ',
 	);
 
 	/**

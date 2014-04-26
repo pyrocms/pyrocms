@@ -33,7 +33,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-class MX_Config extends CI_Config 
+class MX_Config extends MY_Config 
 {	
 	public function load($file = 'config', $use_sections = false, $fail_gracefully = false, $_module = '') {
 		

@@ -23,6 +23,13 @@ $config['supported_languages'] = array(
         'codes'        => array('en', 'english', 'en_US'),
         'ckeditor'    => null
     ),
+    'fa' => array(
+        'name'        => 'پارسی',
+        'folder'    => 'persian',
+        'direction'    => 'rtl',
+        'codes'        => array('fa', 'persian', 'fa_IR'),
+        'ckeditor'    => null
+    ),
     'de' => array(
         'name'        => 'Deutsch',
         'folder'    => 'german',
@@ -183,6 +190,13 @@ $config['supported_languages'] = array(
         'direction'    => 'ltr',
         'codes'        => array('th', 'thai', 'th_TH'),
         'ckeditor'    => null
+    ),
+    'hi' => array(
+        'name'  =>  'हिन्दी',
+        'folder'    =>  'hindi',
+        'direction' =>  'ltr',
+        'codes' =>  array('hi', 'hindi', 'hi_IN'),
+        'ckeditor'  =>  null
     )
 );
 

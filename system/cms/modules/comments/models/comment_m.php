@@ -87,8 +87,8 @@ class Comment_m extends MY_Model
 	{	
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
-			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
-			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					: '',
+			'user_name'		=> isset($input['user_name'])	&& !isset($input['user_id'])	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
+			'user_email'	=> isset($input['user_email'])	&& !isset($input['user_id']) 	? 	strtolower($input['user_email']) 					: '',
 			'user_website'	=> isset($input['user_website']) ? 	prep_url(strip_tags($input['user_website'])) 		: '',
 			'is_active'		=> ! empty($input['is_active']),
 			'comment'		=> htmlspecialchars($input['comment'], null, false),

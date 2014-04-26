@@ -1,0 +1,23 @@
+.image_remove {
+  font-weight: bold;
+  position: relative;
+  top: -32px;
+  border: 1px solid #a51214;
+  color: #FFF;
+  padding: 2px 5px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  left: 110px;
+  background: #D51616;
+  background: -moz-linear-gradient(top,  #D51616 0%, #BA1517 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D51616), color-stop(100%,#BA1517)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #D51616 0%,#BA1517 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #D51616 0%,#BA1517 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #D51616 0%,#BA1517 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #D51616 0%,#BA1517 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D51616', endColorstr='#BA1517',GradientType=0 ); /* IE6-9 */
+
+}

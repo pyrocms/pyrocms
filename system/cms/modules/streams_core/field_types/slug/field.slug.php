@@ -3,11 +3,9 @@
 /**
  * PyroStreams Slug Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_slug
 {
@@ -39,6 +37,36 @@ class Field_slug
 		}
 	}
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Save
+	 *
+	 * No PyroCMS tags in slug fields.
+	 *
+	 * @return string
+	 */
+	public function pre_save($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output
+	 *
+	 * No PyroCMS tags in slugs.
+	 *
+	 * @return string
+	 */
+	public function pre_output($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**

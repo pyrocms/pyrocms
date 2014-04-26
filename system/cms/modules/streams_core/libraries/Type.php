@@ -3,11 +3,9 @@
 /**
  * PyroStreams Core Field Type Library
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Libraries
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Type
 {
@@ -153,20 +151,24 @@ class Type
 
 		foreach ($types_files as $type)
 		{
-			// Is this a directory w/ a field type?
-			if (is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php'))
+			// Check if we've already loaded this field type
+			if ( ! property_exists($this->types, $type))
 			{
-				$this->types->$type = $this->_load_type($addon_path, 
-									$addon_path.$type.'/field.'.$type.'.php',
-									$type,
-									$mode);
-			}			
-			elseif (is_file($addon_path.'field.'.$type.'.php'))
-			{
-				$this->types->$type = $this->_load_type($addon_path, 
-									$addon_path.'field.'.$type.'.php',
-									$type,
-									$mode);												
+				// Is this a directory w/ a field type?
+				if (is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php'))
+				{
+					$this->types->$type = $this->_load_type($addon_path, 
+										$addon_path.$type.'/field.'.$type.'.php',
+										$type,
+										$mode);
+				}			
+				elseif (is_file($addon_path.'field.'.$type.'.php'))
+				{
+					$this->types->$type = $this->_load_type($addon_path, 
+										$addon_path.'field.'.$type.'.php',
+										$type,
+										$mode);												
+				}
 			}
 		}
 	}
@@ -182,23 +184,31 @@ class Type
 	 */	
 	public function load_single_type($type)
 	{
-		foreach ($this->addon_paths as $mode => $path)
+		// Check if we've already loaded this field type
+		if ( ! property_exists($this->types, $type))
 		{
-			// Is this a directory w/ a field type?
-			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php'))
+			foreach ($this->addon_paths as $mode => $path)
 			{
-				return $this->_load_type($path, 
-									$path.$type.'/field.'.$type.'.php',
-									$type,
-									$mode);		
+				// Is this a directory w/ a field type?
+				if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php'))
+				{
+					return $this->_load_type($path, 
+										$path.$type.'/field.'.$type.'.php',
+										$type,
+										$mode);		
+				}
+				elseif (is_file($path.'field.'.$type.'.php'))
+				{
+					return $this->_load_type($path, 
+										$path.'field.'.$type.'.php',
+										$type,
+										$mode);
+				}					
 			}
-			elseif (is_file($path.'field.'.$type.'.php'))
-			{
-				return $this->_load_type($path, 
-									$path.'field.'.$type.'.php',
-									$type,
-									$mode);
-			}					
+		}
+		else
+		{
+			return $this->types->$type;
 		}
 		
 		return null;
@@ -227,8 +237,14 @@ class Type
 		{
 			$lang = $this->CI->config->item('language');
 
-			// Fallback on English
-			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
+			// Fallback on English.
+			if ( ! $lang) {
+				$lang = 'english';
+			}
+
+			if ( ! is_dir($path.$type.'/language/'.$lang)) {
+				$lang = 'english';
+			}
 
 			$this->CI->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
 			

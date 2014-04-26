@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['keywords:name']				    = 'Nome';
+$lang['keywords:name']				     = 'Nome';
 
 // titles
-$lang['keywords:index_title']            = 'Listar de palavras-chave';
+$lang['keywords:index_title']            = 'Lista de palavras-chave';
 $lang['keywords:add_title']              = 'Adicionar palavra-chave';
 $lang['keywords:edit_title']             = 'Editando a palavra-chave "%s"';
 

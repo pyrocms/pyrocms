@@ -31,7 +31,7 @@ $lang['forgot_password_unsuccessful'] 	 	 = 'Não foi possível criar uma nova s
 // Activation
 $lang['activate_successful'] 		  	 = 'Conta ativada';
 $lang['activate_unsuccessful'] 		 	 = 'Não foi possível ativar a conta';
-$lang['deactivate_successful'] 		  	 = 'Conta desactivada';
+$lang['deactivate_successful'] 		  	 = 'Conta desativada';
 $lang['deactivate_unsuccessful'] 	  	 = 'Não foi possível desativar a conta';
 $lang['activation_email_successful'] 	  	 = 'E-mail de ativação enviado';
 $lang['activation_email_unsuccessful']   	 = 'Não foi possível enviar o e-mail de ativação';
@@ -44,7 +44,7 @@ $lang['logout_successful'] 		 	 = 'Sessão finalizada com sucesso';
 // Account Changes
 $lang['update_successful'] 		 	 = 'Informação da conta atualizada com sucesso';
 $lang['update_unsuccessful'] 		 	 = 'Não foi possível atualizar a informação da conta';
-$lang['delete_successful'] 		 	 = 'Utilizador removido';
-$lang['delete_unsuccessful'] 		 	 = 'Não foi possível remover o utilizador';
+$lang['delete_successful'] 		 	 = 'Usuário excluído';
+$lang['delete_unsuccessful'] 		 	 = 'Não foi possível excluir o usuário';
 
 /* End of file ion_auth_lang.php */

@@ -5,7 +5,7 @@
 		<ul>
 			<li class="">
         		<label for="f_status"><?php echo lang('blog:status_label') ?></label>
-        		<?php echo form_dropdown('f_status', array(0 => lang('global:select-all'), 'draft'=>lang('blog_draft_label'), 'live'=>lang('blog_live_label'))) ?>
+        		<?php echo form_dropdown('f_status', array(0 => lang('global:select-all'), 'draft'=>lang('blog:draft_label'), 'live'=>lang('blog:live_label'))) ?>
     		</li>
 
 			<li class="">

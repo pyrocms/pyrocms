@@ -7,9 +7,9 @@
  * can filter them by available languages for the
  * current thtme.
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		PyroCMS
- * @copyright	Copyright (c) 2011 - 2012, PyroCMS
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_pyro_lang
 {

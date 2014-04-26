@@ -213,6 +213,10 @@ class Modules
 				{
 					return array(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
 				}
+				elseif (defined('MSMPATH') and is_file(MSMPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(MSMPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
 			}
 			else {
 				if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);

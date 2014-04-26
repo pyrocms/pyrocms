@@ -4,8 +4,9 @@
  *
  * Functions to help out with common utility tasks.
  * 
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
  
 class Streams_utilities extends CI_Driver {

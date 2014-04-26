@@ -1,0 +1,144 @@
+* {
+    font-family: "tahoma", Helvetica, Arial, sans-serif;
+    text-align: right;
+    direction:rtl;
+}
+.topbar-search {
+    left: 0;
+    right:auto !important;
+}
+.topbar nav {
+    float: right;
+}
+.topbar ul li {
+    float: right;
+}
+.topbar ul li ul {
+    text-align: right;
+}
+.topbar ul li a.menu:after {
+    margin-left: 0;
+    margin-right: 4px;
+}
+.topbar-search .search-query {
+    font-family: "tahoma", Helvetica, Arial, sans-serif;
+}
+#logo {
+    float: right;
+    margin: 0 0px 3px 15px;
+}
+#shortcuts {
+    left: 0;
+    right: auto;
+}
+#shortcuts li a {
+    font: bold 12px 'tahoma', Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+.alert .close {
+    margin-right: 0;
+    margin-left: -10px;
+    padding: 8px 12px;
+    float: left;
+}
+button#remove_installer_directory {
+    margin-right: 0px;
+    margin-left: 10px;
+}
+a.toggle {
+    float: left;
+    padding: 0;
+    margin-left: 16px;
+}
+#quick_links ul li {
+    margin: 0 0 10px 10px;
+}
+.ui-tabs-nav li {
+    float: right;
+    margin: 4px 0 0 2px;
+}
+.form_inputs fieldset > ul > li > label, .form_inputs fieldset > ul > div > li > label, .form_inputs > ul > div > li > label, .form_inputs > ul > li > label, .form_inputs fieldset > ul > li .label, .form_inputs > ul > li .label {
+    margin: 0 0 0 3%;
+    padding: 8px 0 8px 8px;
+    text-align: right;
+}
+
+.form_inputs .input.small-side {
+    margin-right: 0;
+    margin-left: 10px;
+    right: auto !important;
+    left:0 !important;
+}
+div.tagsinput div {
+    float: right !important;
+}
+div.tagsinput span.tag {
+    float: right !important;
+}
+table th, table td {
+    text-align: right;
+}
+table .actions {
+    text-align: left !important;
+}
+.one_full {
+    float: right;
+}
+
+.one_half {
+    float: right !important;
+    margin-right: 0 !important;
+    margin-left: 10px !important;
+}
+.one_full .one_half:last-child {
+    float: left !important;
+}
+
+.sortable li {
+    padding-right: 20px !important;
+    padding-left:0 !important;
+}
+.minus {
+    background-position: 100% 7px !important;
+}
+.sortable li div {
+    background-position: 5px 5px !important;
+}
+#page-list a,#link-list a {
+    padding: 1px 25px 1px 1px !important;
+    background-position: 89% 5px !important;
+}
+.widget-area-content .area-buttons {
+    left: 0 !important;
+    right:auto !important;
+    padding-right: 0px !important;
+    padding-left:10px !important;
+}
+.widget-instance form.crud label {
+    text-align: right !important;
+}
+label {
+    margin: 0 0 0 3% !important;
+}
+section.title li .button {
+    float: left !important;
+    margin: 0 0 0 10px !important;
+}
+
+#details-container {
+    padding: 0px 10px 0px 0px!important;
+    margin: -16px 0px -16px 0px !important;
+    border-right: 1px solid #f1f1f1 !important;
+    border-left:none !important;
+}
+span.move-handle {
+    position: absolute !important;
+    left:0 !important;
+    right: auto  !important;
+    margin-left: 6px !important;
+    margin-right: 0 !important;
+    
+
+}
+footer p.credits {
+    text-align: left !important;
+}

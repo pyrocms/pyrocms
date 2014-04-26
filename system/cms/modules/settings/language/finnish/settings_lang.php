@@ -74,8 +74,6 @@ $lang['settings:records_per_page_desc']			= 'Monta riviä haluat näytettävän 
 $lang['settings:rss_feed_items']				= 'Syötteen lukumäärä';
 $lang['settings:rss_feed_items_desc']			= 'Monta artikkelia haluat näyttää RSS/uutis syötteissä?';
 
-$lang['settings:require_lastname']				= 'Vaadi sukunimet?';
-$lang['settings:require_lastname_desc']			= 'Tietyissä tilanteissa sukunimi ei ole pakollinen. Haluatko vaatia käyttäjiltä sukunimeä?';
 
 $lang['settings:enable_profiles']				= 'Profiili ominaisuus';
 $lang['settings:enable_profiles_desc']			= 'Anna käyttäjille mahdollisuus muokata profiilia.';
@@ -91,15 +89,6 @@ $lang['settings:ga_profile_desc']				= 'Google Analyticsin profiilin ID.';
 
 $lang['settings:ga_tracking']					= 'Google Tracking koodi';
 $lang['settings:ga_tracking_desc']				= 'Syötä Google Analyticsin seuranta koodi, joka on muotoa: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'Käyttäjätunnus';
-$lang['settings:twitter_username_desc']			= 'Twitterin käyttäjätunnus.';
-
-$lang['settings:twitter_feed_count']			= 'Syöte lukumäärä';
-$lang['settings:twitter_feed_count_desc']		= 'Monta Twitterin syötteitä haluat näyttää lohkossa?';
-
-$lang['settings:twitter_cache']					= 'Välimuistin aika';
-$lang['settings:twitter_cache_desc']			= 'Monen minuutin välimuistitusta haluat käyttää Twitterin viesteihin?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API avain';
 $lang['settings:akismet_api_key_desc']			= 'Akismet on roskapostin suodattaja WordPressin tekjöiltä. Se suojaa roskapostilta ilman, että käyttäjät joutuvat syöttämään kuvatunnisteen kirjaimia.';
@@ -140,11 +129,11 @@ $lang['settings:ckeditor_config_desc']          = 'Löydät listan CKEDitorin ke
 $lang['settings:enable_registration']           = 'Käyttäjien rekisteröityminen';
 $lang['settings:enable_registration_desc']      = 'Salli käyttäjien rekisteröityä sivustolle.';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Profiilin näkyvyys';
+$lang['settings:profile_visibility_desc']       = 'Määritä ketkä näkevät profiilit.';
 
-$lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings:cdn_domain']                    = 'CDN verkkotunnus';
+$lang['settings:cdn_domain_desc']               = 'CDN verkkotunnukset mahdollistaa staattisten tiedostojen ulkoistamisen useisiin palvelimiin, kuten Amazon CloudFront tai MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'Yleistä';
@@ -152,7 +141,6 @@ $lang['settings:section_integration']			= 'Integrointi';
 $lang['settings:section_comments']				= 'Kommentit';
 $lang['settings:section_users']					= 'Käyttäjät';
 $lang['settings:section_statistics']			= 'Statistiikat';
-$lang['settings:section_twitter']				= 'Twitter';
 $lang['settings:section_files']					= 'Tiedostot';
 
 #checkbox and radio options
@@ -168,13 +156,13 @@ $lang['settings:form_option_Text Only']			= 'Vain Teksti';
 $lang['settings:form_option_Allow Markdown']	= 'Salli Markdown';
 $lang['settings:form_option_Yes']				= 'Kyllä';
 $lang['settings:form_option_No']				= 'Ei';
-$lang['settings:form_option_profile_public']	= 'Visible to everybody'; #translate
-$lang['settings:form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
-$lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
-$lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
-$lang['settings:form_option_activate_by_email']        	= 'Activate by email'; #translate
-$lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_profile_public']	= 'Näkyy kaikille';
+$lang['settings:form_option_profile_owner']		= 'Näkyy vain profiilin omistajalle';
+$lang['settings:form_option_profile_hidden']	= 'Ei näkyvillä';
+$lang['settings:form_option_profile_member']	= 'Näkyy kirjautuneille käyttäjille';
+$lang['settings:form_option_activate_by_email']	= 'Aktivoi sähköpostitse';
+$lang['settings:form_option_activate_by_admin']	= 'Aktivoi ylläpitäjien toimesta';
+$lang['settings:form_option_no_activation']		= 'Ei aktivointia';
 
 // titles
 $lang['settings:edit_title']					= 'Muokkaa asetuksia';

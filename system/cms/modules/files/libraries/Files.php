@@ -69,7 +69,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
+	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '', $hidden = 0)
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
@@ -90,7 +90,8 @@ class Files
 						'location' => $location,
 						'remote_container' => $remote_container,
 						'date_added' => now(), 
-						'sort' => now()
+						'sort' => now(),
+						'hidden' => $hidden,
 						);
 
 		$id = ci()->file_folders_m->insert($insert);
@@ -152,6 +153,7 @@ class Files
 		}
 
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->where('hidden', 0)
 			->order_by('sort')
 			->get_all();
 
@@ -203,7 +205,7 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		ci()->db->select('id, parent_id, slug, name')->where('hidden', 0)->order_by('sort');
 		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
@@ -354,6 +356,8 @@ class Files
 
 		if ($folder)
 		{
+			ci()->load->library('upload');
+
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
@@ -365,7 +369,7 @@ class Files
 			// current file's type.
 			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
 
-			ci()->load->library('upload', $upload_config);
+			ci()->upload->initialize($upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{
@@ -375,9 +379,10 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name ? $name : $file['orig_name'],
+					'name'			=> $replace_file ? $replace_file->name : $name ? $name : $file['orig_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
-					'description'	=> '',
+					'description'	=> $replace_file ? $replace_file->description : '',
+					'alt_attribute'	=> trim($replace_file ? $replace_file->alt_attribute : $alt),
 					'filename'		=> $file['file_name'],
 					'extension'		=> $file['file_ext'],
 					'mimetype'		=> $file['file_type'],
@@ -405,11 +410,6 @@ class Files
 					$data['height'] = ci()->image_lib->height;					
 				}
 
-				if ($file['is_image'])
-				{
-					$data['alt_attribute'] = $alt ? $alt : '';
-				}
-
 				if($replace_file)
 				{
 					$file_id = $replace_file->id;
@@ -417,7 +417,12 @@ class Files
 				}
 				else
 				{
-					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
+					$data['id'] = substr(md5(microtime() . $data['filename']), 0, 15);
+					$i = 0;
+					while(ci()->file_m->exists($data['id']))
+					{
+					    $data['id'] = substr(md5(microtime() . $data['filename'] . $i++), 0, 15);
+					}
 					$file_id = $data['id'];
 					ci()->file_m->insert($data);
 				}
@@ -845,7 +850,7 @@ class Files
 				if ( ! array_key_exists($file['filename'], $known))
 				{
 					$insert = array(
-						'id' 			=> substr(md5(microtime()+$data['filename']), 0, 15),
+						'id' 			=> substr(md5(microtime() . $data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
 						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],
@@ -913,7 +918,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
+	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt_attribute = NULL)
 	{
 		if ($file_to_replace = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')
@@ -1020,7 +1025,12 @@ class Files
 		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
-		if ($results['file'] or $results['folder'])
+		// search for file by tagged keyword
+		$results['tagged'] = ci()->file_m->select('files.*')
+			->limit($limit)
+			->get_tagged($search);
+
+		if ($results['file'] or $results['folder'] or $results['tagged'])
 		{
 			return self::result(true, null, null, $results);
 		}

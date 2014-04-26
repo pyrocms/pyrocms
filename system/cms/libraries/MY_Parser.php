@@ -92,8 +92,13 @@ class MY_Parser extends CI_Parser {
 
 		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
 		{
+			// In some very rare cases (mainly in the pages module), we need to
+			// change the field that is being passed to plugin_override() as row_id.
+			// This is where that happens.
+			$id_name = (isset($streams_parse['id_name']) and $streams_parse['id_name']) ? $streams_parse['id_name'] : 'id';
+
 			$this->_ci->load->driver('Streams');
-			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace']);
+			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace'], false, null, $id_name);
 		}
 		else
 		{

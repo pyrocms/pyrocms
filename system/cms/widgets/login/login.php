@@ -24,6 +24,7 @@ class Widget_Login extends Widgets
 		'id' => 'Login',
 		'fi' => 'Kirjautuminen',
 		'fr' => 'Connexion',
+            'fa' => 'لاگین',
 	);
 
 	/**
@@ -41,6 +42,7 @@ class Widget_Login extends Widgets
 		'id' => 'Menampilkan form login sederhana',
 		'fi' => 'Näytä yksinkertainen kirjautumislomake missä vain',
 		'fr' => 'Affichez un formulaire de connexion où vous souhaitez',
+            'fa' => 'نمایش یک لاگین ساده در هر قسمتی از سایت',
 	);
 
 	/**

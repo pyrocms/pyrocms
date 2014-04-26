@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp:admin_title'] 				= 'Hallintapaneeli';
-$lang['global:dashboard'] 			= 'Dashboard';
+$lang['global:dashboard'] 				= 'Dashboard';
 $lang['cp:admin_quick_links']			= 'Pikalinkit';
 
 $lang['cp:welcome_title'] 				= 'Tervetuloa';
@@ -32,22 +32,24 @@ $lang['cp:nav_settings']				= 'Asetukset';
 $lang['cp:nav_addons']					= 'Lisäosat';
 $lang['cp:nav_modules']					= 'Moduulit';
 $lang['cp:nav_users']					= 'Käyttäjät';
-$lang['cp:nav_data']					= 'Data'; #translate
-$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_data']					= 'Data';
+$lang['cp:nav_structure']				= 'Rakenne';
 $lang['cp:nav_content']					= 'Sisältö';
-$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_misc']					= 'Sekalaiset';
 
-$lang['cp:must_login']	 				= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';
-$lang['cp:access_denied'] 				= 'Sinulla ei ole oikeuksia selataksesi tätä sivua.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
-$lang['cp:upgrade_message']				= 'Käytät tällä hetkellä versiota %s, mutta tietokantasi versio on %s. <a href="%s" title="Upgrade">Klikkaa tästä</a> päivittääksesi tietokannan.';
-$lang['cp:google_analytics_missing']	= 'Google Analytics asetukset puuttuvat. Vaihda asetukset paikasta "%s" tai ota yhteyttä järjestelmänvalvojaan.';
-$lang['cp:google_analytics_no_connect']	= 'Google Analyticsiin ei saatu yhteyttä. Tarkista "%s".';
+$lang['cp:search']                      = 'Etsi';
 
-$lang['required_label'] 				= 'Pakollinen';
-$lang['sb_recent_users'] 				= 'Uusimmat käyttäjät';
+$lang['cp:must_login']								= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';
+$lang['cp:access_denied']							= 'Sinulla ei ole oikeuksia selataksesi tätä sivua.';
+$lang['cp:delete_installer_message']				= 'Asennuskansiota ei ole poistettu! Se tulee poistaa asennuksen jälkeen! Mikäli jätät sen poistamatta, niin annat julkisen pääsyn sivuston hallintaan.';
+$lang['cp:delete_installer']						= 'Poista Asentaja';
+$lang['cp:delete_installer_successfully_message']	= 'Asennuskansio on poistettu onnistuneesti.';
+$lang['cp:delete_installer_manually_message']		= 'Asennuskansiota ei voitu poistaa. <strong>Poista se manuaalisesti!</strong>';
+$lang['cp:upgrade_message']							= 'Käytät tällä hetkellä versiota %s, mutta tietokantasi versio on %s. <a href="%s" title="Upgrade">Klikkaa tästä</a> päivittääksesi tietokannan.';
+$lang['cp:google_analytics_missing']				= 'Google Analytics asetukset puuttuvat. Vaihda asetukset paikasta "%s" tai ota yhteyttä järjestelmänvalvojaan.';
+$lang['cp:google_analytics_no_connect']				= 'Google Analyticsiin ei saatu yhteyttä. Tarkista "%s".';
+
+$lang['required_label']		= 'Pakollinen';
+$lang['sb_recent_users']	= 'Uusimmat käyttäjät';
 
 /* End of file admin_lang.php */

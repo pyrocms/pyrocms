@@ -28,15 +28,22 @@ abstract class Plugin
 	 */
 	public function set_data($content, $attributes)
 	{
-		$content AND $this->content = $content;
+		$content and $this->content = $content;
 
 		if ($attributes)
 		{
-			// Let's get parse_params first since it
-			// dictates how we handle all tags
-			if ( ! isset($attributes['parse_params'])) $attributes['parse_params'] = true;
+			// Let's get parse-params first since it dictates how we handle all tags
+			// Default: true
+			$parse_params = true;
+			$set = false;
+			foreach (array('parse_params','parse-params') as $attr) {
+				if (isset($attributes[$attr]) and ! $set) {
+					$parse_params = str_to_bool($attributes[$attr]);
+					$set = true;
+				}
+			}
 			
-			if (str_to_bool($attributes['parse_params']))
+			if ($parse_params)
 			{
 				// For each attribute, let's see if we need to parse it.
 				foreach ($attributes as $key => $attr)
@@ -176,7 +183,7 @@ abstract class Plugin
 		// add this view location to the array
 		$this->load->set_view_path($path);
 
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => TRUE));
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);

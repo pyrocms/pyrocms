@@ -3,11 +3,9 @@
 /**
  * PyroStreams Text Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_text
 {
@@ -43,5 +41,19 @@ class Field_text
 		
 		return form_input($options);
 	}
-	
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output
+	 *
+	 * No PyroCMS tags in text input fields.
+	 *
+	 * @return string
+	 */
+	public function pre_output($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
 }

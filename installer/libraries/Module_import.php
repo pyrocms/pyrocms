@@ -153,7 +153,7 @@ class Module_import
 		$session = "
 			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
 			 `session_id` varchar(40) DEFAULT '0' NOT NULL,
-			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
+			 `ip_address` varchar(45) DEFAULT '0' NOT NULL,
 			 `user_agent` varchar(120) NOT NULL,
 			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
 			 `user_data` text NULL,
@@ -171,10 +171,11 @@ class Module_import
 		$this->ci->dbforge->drop_table('data_fields');
 		$this->ci->dbforge->drop_table('data_field_assignments');
 
-		// Install settings and streams core first. Other modules may need them.
+		// Install settings, streams core and email templates first. Other modules may need them.
 		$this->install('settings', true);
 		$this->ci->load->library('settings/settings');
 		$this->install('streams_core', true);
+		$this->install('templates', true);
 
 		// Are there any modules to install on this path?
 		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
@@ -184,7 +185,7 @@ class Module_import
 			{
 				$slug = basename($module_name);
 
-				if ($slug == 'streams_core' or $slug == 'settings')
+				if ($slug == 'streams_core' or $slug == 'settings' or $slug == 'templates')
 				{
 					continue;
 				}

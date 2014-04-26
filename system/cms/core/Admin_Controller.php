@@ -119,17 +119,6 @@ class Admin_Controller extends MY_Controller {
 				'lang:cp:logout_label'				=> 'admin/logout'
 			);
 
-			// Trigger an event so modules can mess with the
-			// menu items array via the events structure. 
-			$event_output = Events::trigger('admin_menu', $menu_items);
-
-			// If we get an array, we assume they have altered the menu items
-			// and are returning them to us to use.
-			if (is_array($event_output))
-			{
-				$menu_items = $event_output;
-			}
-
 			// Order the menu items. We go by our menu_order array.
 			$ordered_menu = array();
 
@@ -214,6 +203,12 @@ class Admin_Controller extends MY_Controller {
 			{
 				return true;
 			}
+
+            //if we are trying to search the admin area
+            if ($current_page == 'admin/search' && $this->permissions)
+            {
+                return true;
+            }
 
 			// Check if the current user can view that page
 			return array_key_exists($this->module, $this->permissions);

@@ -160,7 +160,7 @@ class Page_type_m extends MY_Model
         }
         else
         {
-            if ( ! mkdir($folder, 0777)) return false;
+            if ( ! mkdir($folder, 0777, true)) return false;
         }
 
         $this->load->helper('file');

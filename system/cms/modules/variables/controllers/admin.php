@@ -61,14 +61,20 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-
 		// Create pagination links
 		$this->template->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
+
+		// Offset
+		$page = $this->uri->segment(4);
+		if ( ! $page or ! is_numeric($page)) {
+			$page = 1;
+		}
+		$offset = ($page-1)*Settings::get('records_per_page');
 
 		// Using this data, get the relevant results
 		$this->template->variables = $this->variables_m
 			->order_by('name')
-			->limit($this->template->pagination['limit'])
+			->limit($this->template->pagination['limit'], $offset)
 			->get_all();
 
 		$this->template

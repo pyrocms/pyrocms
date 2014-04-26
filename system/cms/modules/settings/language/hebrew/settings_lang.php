@@ -66,8 +66,6 @@ $lang['settings:records_per_page_desc']			= 'כמה שיאים אנחנו צרי
 $lang['settings:rss_feed_items']				= 'מספר פריטי RSS';
 $lang['settings:rss_feed_items_desc']			= 'כמה פריטי RSS או בלוג להראות?';
 
-$lang['settings:require_lastname']				= 'לדרוש שם משפחה?';
-$lang['settings:require_lastname_desc']			= 'במצבים מסוימים, שם משפחה לא ייתכן שיידרש. האם אתה רוצה לאלץ משתמשים להזין שם משפחה או לא?';
 
 $lang['settings:enable_profiles']				= 'אפשר פרופילים';
 $lang['settings:enable_profiles_desc']			= 'לאפשר למשתמשים להוסיף ולערוך פרופילים.';
@@ -83,15 +81,6 @@ $lang['settings:ga_profile_desc']				= 'פרופיל מזהה באתר אינט�
 
 $lang['settings:ga_tracking']					= 'Google Tracking Code';
 $lang['settings:ga_tracking_desc']				= 'טראקינג קוד של גוגל אנליטיקס. E.g: UA-19483569-6';
-
-$lang['settings:twitter_username']				= 'שם משתמש';
-$lang['settings:twitter_username_desc']			= 'Twitter username.';
-
-$lang['settings:twitter_feed_count']			= 'Feed Count';
-$lang['settings:twitter_feed_count_desc']		= 'כמה טוויטים יש להחזיר לTwitter feed block?';
-
-$lang['settings:twitter_cache']					= 'Cache time';
-$lang['settings:twitter_cache_desc']			= 'How many minutes should your Tweets be temporairily stored for?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';
@@ -115,7 +104,7 @@ $lang['settings:profile_visibility']            = 'Profile Visibility'; #transla
 $lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings:cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 #section titles
 $lang['settings:section_general']				= 'כללי';
@@ -123,7 +112,6 @@ $lang['settings:section_integration']			= 'השתלבות';
 $lang['settings:section_comments']				= 'תגובות';
 $lang['settings:section_users']					= 'משתמשים';
 $lang['settings:section_statistics']			= 'סטטיסטיקה';
-$lang['settings:section_twitter']				= 'Twitter';
 
 #checkbox and radio options
 $lang['settings:form_option_Open']				= 'פתוח';

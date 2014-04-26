@@ -17,7 +17,9 @@ class Plugin_Helper extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access helper functions and other helpful items.',
+		'br' => 'Acessa funções auxiliares (helpers) e outros itens úteis.',
 		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
+            'fa' => 'دسترسی به توابع هلپر ها و برخی موارد مفید دیگر',
 		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.',
 		'it' => 'Accedi alle funzioni di aiuto e ad altre cose utili',
 	);
@@ -36,32 +38,178 @@ class Plugin_Helper extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
+			'lang' => array(// the name of the method you are documenting
 				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+					'en' => 'Retrieve a translated string from a language file.',
+					'br' => 'Recupera uma string traduzida de um arquivo de idioma.'
 				),
 				'single' => true,// will it work as a single tag?
 				'double' => false,// how about as a double tag?
 				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
+					'line' => array(// this is the order-dir="asc" attribute
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
+					),
+				),
+			),// end lang method
+			'config' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Retrieve a config item from a configuration file.',
+					'br' => 'Recupera um item de configuração.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'item' => array(// this is the order-dir="asc" attribute
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => '',// attribute defaults to this if no value is given
+						'required' => true,// is this attribute required?
+					),
+				),
+			),// end config method
+			'date' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Format a date for any timestamp. Defaults to the CMS format and the current timestamp.',
+					'br' => 'Formata a data para qualquer timestamp. O padrão é o formato do CMS e o timestamp atual.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'format' => array(// this is the order-dir="asc" attribute
+						'type' => 'text',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => Settings::get('date_format'),// attribute defaults to this if no value is given
 						'required' => false,// is this attribute required?
 					),
-					'limit' => array(
+					'timestamp' => array(// this is the order-dir="asc" attribute
+						'type' => 'number',// Can be: slug, number, flag, text, array, any.
+						'flags' => '',// flags are predefined values like this.
+						'default' => now(),// attribute defaults to this if no value is given
+						'required' => false,// is this attribute required?
+					),
+				),
+			),// end date method
+			'gravatar' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Output a Gravatar avatar based on the email provided.',
+					'br' => 'Exibe um avatar do Gravatar baseado no e-mail fornecido.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'email' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'size' => array(
 						'type' => 'number',
 						'flags' => '',
-						'default' => '20',
+						'default' => '50',
+						'required' => false,
+					),
+					'rating' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'g',
+						'required' => false,
+					),
+					'url-only' => array(
+						'type' => 'flag',
+						'flags' => 'Y|N',
+						'default' => 'N',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),// end gravatar method
+			'strip' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Strip whitespace from content and replace it with the specified characters.',
+					'br' => 'Remove espaços em branco do conteúdo e os substitui pelos caracteres especificados.'
+				),
+				'single' => false,// will it work as a single tag?
+				'double' => true,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'replace' => array(// this is the order-dir="asc" attribute
+						'type' => 'any',
+						'flags' => '',
+						'default' => 'a single space',
+						'required' => false,
+					),
+				),
+			),// end strip method
+			'count' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Count loops of a double tag and optionally output the count.',
+					'br' => 'Conta os loops de uma tag dupla e, opcionalmente, exibe o valor.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'identifier' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'default',
+						'required' => false,
+					),
+					'start' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '1',
+						'required' => false,
+					),
+					'mode' => array(
+						'type' => 'flag',
+						'flags' => 'add|subtract',
+						'default' => 'add',
+						'required' => false,
+					),
+					'return' => array(
+						'type' => 'flag',
+						'flags' => 'true',
+						'default' => 'false',
+						'required' => false,
+					),
+				),
+			),// end count method
+			'show_count' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Use to output the count from the {{ helper:count }} method elsewhere on the page.',
+					'br' => 'Usado para exibir o conteúdo do método {{ helper:count }} em qualquer lugar na página.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(),
+			),// end show_count method
 		);
-	
-		//return $info;
-		return array();
+
+		$this->config->load('parser');
+		$allowed = config_item('allowed_functions');
+		sort($allowed);
+
+		foreach ($allowed as $function)
+		{
+			$info[$function] = array(
+				'description' => array(
+					'en' => 'Call the PHP function '.$function.'(). Any attribute values provided will be passed as arguments.',
+					'br' => 'Chama a função '.$function.'() do PHP. Qualquer valor de atributo fornecido será passado como argumentos.'
+				),
+				'single' => true,
+			);
+		}
+
+		return $info;
 	}
 
 	/** @var boolean A flag for the counter functions for loops. */
@@ -128,6 +276,25 @@ class Plugin_Helper extends Plugin
 		$timestamp = $this->attribute('timestamp', now());
 
 		return format_date($timestamp, $format);
+	}
+	
+	/**
+	 * Timespan
+	 *
+	 * Gets the timespan from the timestamp passed to it.
+	 *
+	 * Usage:
+	 *
+	 *     {{ helper:timespan timestamp="xyz" }}
+	 *
+	 * @return string the timespan string.
+	 */
+	
+	public function timespan()
+	{
+		$timespan = date($this->attribute('timestamp', now())); 
+		
+		return timespan($timespan, time());
 	}
 
 	/**

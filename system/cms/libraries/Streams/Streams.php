@@ -3,8 +3,9 @@
 /**
  * PyroStreams API Library
  *
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
 class Streams extends CI_Driver_Library {
 
