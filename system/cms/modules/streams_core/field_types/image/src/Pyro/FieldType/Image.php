@@ -28,13 +28,6 @@ class Image extends FieldTypeAbstract
 	public $db_col_type = false;
 
     /**
-     * Alternative processing
-     * Because field_slug != column
-     * @var boolean
-     */
-    public $alt_process = true;
-
-    /**
      * Custom field type options
      * @var array
      */
