@@ -85,7 +85,6 @@
 		<?php echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"'); ?>
 	</div>
 
-	<input type="hidden" name="installation_step" value="step_1"/>
 	<input type="submit" id="next_step" value="{step2}" class="btn orange"/>
 </section>
 

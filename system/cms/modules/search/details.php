@@ -2,6 +2,7 @@
 
 use Pyro\Module\Addons\AbstractModule;
 use Pyro\Module\Search\Model\Search;
+use Pyro\Module\Pages\Model\Page as PageModel;
 
 /**
  * Search module
@@ -49,7 +50,7 @@ class Module_Search extends AbstractModule
     {
         $schema->dropIfExists('search_index');
 
-        $schema->create('search_index', function($table) {
+        $schema->create('search_index', function ($table) {
             $table->increments('id');
             $table->string('title', 255)->fulltext();
             $table->text('description')->fulltext();
@@ -72,15 +73,12 @@ class Module_Search extends AbstractModule
 
         ci()->load->library('keywords/keywords');
 
-        foreach (ci()->pdb->table('pages')->get() as $page) {
+        foreach (PageModel::all() as $page) {
+
             // Only index live articles
             if ($page->status === 'live') {
-                $hash = ci()->keywords->process($page->meta_keywords);
 
-                $pdb
-                    ->table('pages')
-                    ->where('id', $page->id)
-                    ->update(array('meta_keywords' => $hash));
+                $hash = ci()->keywords->process($page->meta_keywords, $page);
 
                 Search::index(
                     $module = 'pages',
@@ -90,7 +88,7 @@ class Module_Search extends AbstractModule
                     $entry_id = $page->id,
                     $title = $page->title,
                     $description = $page->meta_description,
-                    $keywords = $page->meta_keywords,
+                    $keywords = $hash,
                     $uri = $page->uri,
                     $cp_uri = 'admin/pages/edit/'.$page->id,
                     $group_access = null,

@@ -30,18 +30,25 @@ class ValidInstallTest extends PHPUnit_Framework_Testcase
         $crawler = $this->client->request('GET', 'http://'.PYRO_WEB_HOST);
         $this->assertEquals($crawler->filter('title')->text(), 'PyroCMS Installer');
 
-        // Try submitting crappy details
-        $form = $crawler->filter('#next_step')->form();
-        $crawler = $this->client->submit($form, array(
-            'http_server' => 'apache_wo',
-            'db_driver' => 'mysql',
-            'hostname'  => PYRO_DB_HOST,
-            'port'      => PYRO_DB_PORT,
-            'username'  => PYRO_DB_USER,
-            'password'  => PYRO_DB_PASS,
-            'database'  => PYRO_DB_NAME,
-            'create_db' => 1,
-        ));
+        try {
+            // Try submitting correct details
+            $form = $crawler->filter('#next_step')->form();
+            $crawler = $this->client->submit($form, array(
+                'http_server' => 'apache_wo',
+                'db_driver' => 'mysql',
+                'hostname'  => PYRO_DB_HOST,
+                'port'      => PYRO_DB_PORT,
+                'username'  => PYRO_DB_USER,
+                'password'  => PYRO_DB_PASS,
+                'database'  => PYRO_DB_NAME,
+                'create_db' => PYRO_DB_CREATE === "1",
+            ));
+
+        } catch (Exception $e) {
+            var_dump($e);
+            echo "--------- HTML ---------\n\n";
+            echo $crawler->html();
+        }
 
         // If there is an error, show it and fail. There should be 0 errors
         $errorNode = $crawler->filter('.error');
