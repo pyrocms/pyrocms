@@ -63,6 +63,7 @@ class InvalidDbCredsTest extends PHPUnit_Framework_Testcase
             'username'  => PYRO_DB_USER,
             'password'  => PYRO_DB_PASS,
         ));
+        
         $this->assertContains('The Database Name field is required', $crawler->filter('.error')->text());
     }
 
