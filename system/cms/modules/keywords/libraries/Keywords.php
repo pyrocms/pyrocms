@@ -1,7 +1,7 @@
 <?php
 
-use Pyro\Module\Keywords\Model\Keyword;
-use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Keywords\Model\Keyword as KeywordModel;
+use Pyro\Module\Keywords\Model\Applied as AppliedModel;
 
 /**
  * Keywords Library
@@ -17,8 +17,8 @@ class Keywords
      *
      * Gets all the keywords as a comma-delimited string
      *
-     * @param	string	$hash	The unique hash stored for a entry
-     * @return	string
+     * @param  string $hash The unique hash stored for a entry
+     * @return string
      */
     public static function get_string($hash)
     {
@@ -27,7 +27,7 @@ class Keywords
         // @todo - This needs refactoring
         return null;
 
-        foreach (Applied::getNamesByHash($hash) as $keyword) {
+        foreach (AppliedModel::getNamesByHash($hash) as $keyword) {
             $keywords[] = $keyword->name;
         }
 
@@ -39,8 +39,8 @@ class Keywords
      *
      * Gets just the keywords, no other data
      *
-     * @param	string	$hash	The unique hash stored for a entry
-     * @return	array
+     * @param  string $hash The unique hash stored for a entry
+     * @return array
      */
     public static function get_array($hash)
     {
@@ -61,12 +61,12 @@ class Keywords
      *
      * Returns keywords with all data
      *
-     * @param	string	$hash	The unique hash stored for a entry
-     * @return	array
+     * @param  string $hash The unique hash stored for a entry
+     * @return array
      */
     public static function get($hash)
     {
-        return Applied::getNamesByHash($hash);
+        return AppliedModel::getNamesByHash($hash);
     }
 
     /**
@@ -74,12 +74,12 @@ class Keywords
      *
      * Adds a new keyword to the database
      *
-     * @param	array	$keyword
-     * @return	int
+     * @param  array $keyword
+     * @return int
      */
     public static function add($keyword)
     {
-        return Keyword::add(static::prep($keyword));
+        return KeywordModel::add(static::prep($keyword));
     }
 
     /**
@@ -87,16 +87,16 @@ class Keywords
      *
      * Gets a keyword ready to be saved
      *
-     * @param	string	$keyword
-     * @return	string
+     * @param  string $keyword
+     * @return string
      */
     public static function prep($keyword)
     {
         if (function_exists('mb_strtolower')) {
             return mb_strtolower(trim($keyword));
-        } else {
-            return strtolower(trim($keyword));
         }
+
+        return strtolower(trim($keyword));
     }
 
     /**
@@ -104,24 +104,21 @@ class Keywords
      *
      * Process a posted list of keywords into the db
      *
-     * @param	string	$group	Arbitrary string to "namespace" unique requests
-     * @param	string	$keywords	String containing unprocessed list of keywords
-     * @param	string	$old_hash	If running an update, provide the old hash so we can remove it
+     * @param string $keywords  String containing unprocessed list of keywords
+     * @param string $model     @TODO
      *
-     * @return	string
+     * @return string
      */
     public static function process($keywords, $model)
     {
         // No keywords? Let's not bother then
-        if ( ! ($keywords = trim($keywords))) {
+        if (! ($keywords = trim($keywords))) {
             return '';
         }
 
-        $assignment_hash = md5(microtime().mt_rand());
+        $assignmenHash = md5(microtime().mt_rand());
 
-        Applied::deleteByEntryIdAndEntryType($model->getKey(), get_class($model));
-
-        $keywordIds = $model->keywords->modelKeys();
+        AppliedModel::deleteByEntryIdAndEntryType($model->getKey(), get_class($model));
 
         // Split em up and prep away
         $keywords = explode(',', $keywords);
@@ -130,16 +127,13 @@ class Keywords
             $keyword = self::prep($keyword);
 
             // Keyword already exists
-            if (! ($row = Keyword::findByName($keyword))) {
-                $row = self::add($keyword);
+            if (! ($row = KeywordModel::findByName($keyword))) {
+                $row = static::add($keyword);
             }
 
             $model->keywords()->save($row);
         }
 
-        return $assignment_hash;
+        return $assignmenHash;
     }
-
 }
-
-/* End of file Keywords.php */

@@ -18,3 +18,4 @@ define('PYRO_DB_PORT', isset($_SERVER['PYRO_DB_PORT']) ? $_SERVER['PYRO_DB_PORT'
 define('PYRO_DB_USER', isset($_SERVER['PYRO_DB_USER']) ? $_SERVER['PYRO_DB_USER'] : 'pyrocms');
 define('PYRO_DB_PASS', isset($_SERVER['PYRO_DB_PASS']) ? $_SERVER['PYRO_DB_PASS'] : 'password');
 define('PYRO_DB_NAME', isset($_SERVER['PYRO_DB_NAME']) ? $_SERVER['PYRO_DB_NAME'] : 'pyrocms');
+define('PYRO_DB_CREATE', isset($_SERVER['PYRO_DB_CREATE']) ? (string) $_SERVER['PYRO_DB_CREATE'] : '0');

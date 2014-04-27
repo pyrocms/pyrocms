@@ -5,7 +5,7 @@
 	<p>{step4_intro_text}</p>
 </section>
 
-<?php echo form_open(uri_string(), 'id="install_frm"') ?>
+<?php echo form_open(site_url(uri_string()), 'id="install_frm"') ?>
 
 <section class="title">
 	<h3>{default_user}</h3>
