@@ -11,6 +11,11 @@ matrix:
   allow_failures:
     - php: hhvm
 
+cache:
+  directories:
+    - build/cache
+    - systen/vendor
+
 before_script:
   - composer self-update
   - composer install
@@ -44,7 +49,3 @@ branches:
     - 2.0/master
     - 2.1/develop
     - 2.1/master
-
-cache:
-  directories:
-    - vendor

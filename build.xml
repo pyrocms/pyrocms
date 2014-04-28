@@ -2,6 +2,7 @@
 <project name="PyroCMS" default="dist" basedir="." description="Create download ZIP and TAR from PyroCMS source code">
 
     <property name="sourcedir" value="./build/source" override="true" />
+    <property name="cachedir" value="./build/cache" override="true" />
 
     <!-- Fileset for all files -->
     <fileset dir="." id="allfiles">
@@ -19,6 +20,13 @@
         <exclude name="system/cms/config/database.php" />
     </fileset>
 
+    <!-- Fileset for php files -->
+    <fileset dir="." id="phpfiles">
+        <include name="**/*.php" />
+        <include name="index.php" />
+        <exclude name="system/vendor/**" />
+    </fileset>
+
     <!-- ============================================  -->
     <!-- Target: integration-test                      -->
     <!-- ============================================  -->
@@ -34,10 +42,20 @@
     </target>
 
     <!-- ============================================  -->
+    <!-- Target: link                                  -->
+    <!-- ============================================  -->
+    <target name="lint" description="Perform syntax check of .php files">
+        <phplint cachefile="${cachedir}/phplint">
+            <fileset refid="phpfiles" />
+        </phplint>
+    </target>
+
+    <!-- ============================================  -->
     <!-- Target: full-test                             -->
     <!-- ============================================  -->
     <target name="full-test">
-        <echo msg="Testing everything!!1" />
+        <echo msg="Testing everything!" />
+        <phingcall target="lint" />
         <phingcall target="integration-test" />
     </target>
 

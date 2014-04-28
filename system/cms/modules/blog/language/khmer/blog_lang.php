@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['blog:post']                 = 'ប្រកាស';
 $lang['blog:posts']                   = 'រាល់ប្រកាស';
@@ -38,18 +38,18 @@ $lang['blog:comments_enabled_label']         = 'យោបល់បានអន�
 $lang['blog:create_title']                   = 'បន្ថែមប្រកាស';
 $lang['blog:edit_title']                     = 'កែប្រកាស "%s"';
 $lang['blog:archive_title']                  = 'ថតចម្លង';
-$lang['blog:posts_title']		​​​​     = 'ប្រកាស';
-$lang['blog:rss_posts_title']		     = 'Blog ប្រកាសសំរាប់ %s';
-$lang['blog:blog_title']		     = 'Blog';
-$lang['blog:list_title']		     = 'តារាងប្រកាស';
+$lang['blog:posts_title']					 = 'ប្រកាស';
+$lang['blog:rss_posts_title']		         = 'Blog ប្រកាសសំរាប់ %s';
+$lang['blog:blog_title']		     		 = 'Blog';
+$lang['blog:list_title']		     		 = 'តារាងប្រកាស';
 
 // messages
-$lang['blog:disabled_after'] 		​     = 'ការប្រកាសមតិយោបល់បន្ទាប់ពី %s ត្រូវបានបិទ។';
+$lang['blog:disabled_after']				 = 'ការប្រកាសមតិយោបល់បន្ទាប់ពី %s ត្រូវបានបិទ។';
 $lang['blog:no_posts']                       = 'មិនមានប្រកាស។';
 $lang['blog:subscripe_to_rss_desc']          = 'ទទួលបានរាល់ប្រកាសតាមការជាវ RSS feed​ របស់យើង។ អ្នកអាចធ្វើតាមរយៈអ៊ីមែលភ្ញៀវដែលមានប្រជាប្រិយភាពបំផុត ឫ ព្យាយាម <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog:currently_no_posts']          = 'មិនមានការប្រកាសតែនៅពេលនេះ។';
-$lang['blog:post_add_success']            = 'ប្រកាស "%s" ត្រូវបានបន្ថែម។';
-$lang['blog:post_add_error']              = 'កំហុសបានកើតឡើង។';
+$lang['blog:currently_no_posts']          	 = 'មិនមានការប្រកាសតែនៅពេលនេះ។';
+$lang['blog:post_add_success']            	 = 'ប្រកាស "%s" ត្រូវបានបន្ថែម។';
+$lang['blog:post_add_error']              	 = 'កំហុសបានកើតឡើង។';
 $lang['blog:edit_success']                   = 'ប្រកាស "%s" ត្រូវបានធ្វើឲ្យប្រសើរ។';
 $lang['blog:edit_error']                     = 'កំហុសបានកើតឡើង។';
 $lang['blog:publish_success']                = 'ប្រកាស "%s" ត្រូវបានផ្សាយ។';
@@ -64,4 +64,4 @@ $lang['blog:twitter_posted']                 = 'បានប្រកាស "%s"
 $lang['blog:twitter_error']                  = 'កំហុស Twitter';
 
 // date
-$lang['blog:archive_date_format']		= "%B %Y";
+$lang['blog:archive_date_format']			 = "%B %Y";
