@@ -279,7 +279,7 @@ class Users extends Public_Controller
 			{
 				if (isset($_POST[$assign->field_slug]))
 				{
-					$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+					$profile_data[$assign->field_slug] = escape_tags($this->input->post($assign->field_slug));
 				}
 			}
 		}
@@ -294,7 +294,7 @@ class Users extends Public_Controller
 		// Set default values as empty or POST values
 		foreach ($validation as $rule)
 		{
-			$user->{$rule['field']} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
+			$user->{$rule['field']} = $this->input->post($rule['field']) ? escape_tags($this->input->post($rule['field'])) : null;
 		}
 
 		// Are they TRYing to submit?
@@ -304,14 +304,14 @@ class Users extends Public_Controller
 			{
 				// Check for a bot usin' the old fashioned
 				// don't fill this input in trick.
-				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+				if (escape_tags($this->input->post('d0ntf1llth1s1n')) !== ' ')
 				{
 					$this->session->set_flashdata('error', lang('user:register_error'));
 					redirect(current_url());
 				}
 
-				$email = $this->input->post('email');
-				$password = $this->input->post('password');
+				$email = escape_tags($this->input->post('email'));
+				$password = escape_tags($this->input->post('password'));
 
 				// --------------------------------
 				// Auto-Username
@@ -327,13 +327,13 @@ class Users extends Public_Controller
 					if ($this->input->post('first_name') and $this->input->post('last_name'))
 					{
 						$this->load->helper('url');
-						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
+						$username = url_title(escape_tags($this->input->post('first_name')).'.'.escape_tags($this->input->post('last_name')), '-', true);
 
 						// do they have a long first name + last name combo?
 						if (strlen($username) > 19)
 						{
 							// try only the last name
-							$username = url_title($this->input->post('last_name'), '-', true);
+							$username = url_title(escape_tags($this->input->post('last_name')), '-', true);
 
 							if (strlen($username) > 19)
 							{
@@ -368,7 +368,7 @@ class Users extends Public_Controller
 				else
 				{
 					// The user specified a username, so let's use that.
-					$username = $this->input->post('username');
+					$username = escape_tags($this->input->post('username'));
 				}
 
 				// --------------------------------
@@ -422,7 +422,7 @@ class Users extends Public_Controller
 					{
 						$this->ion_auth->activate($id, false);
 
-						$this->ion_auth->login($this->input->post('email'), $this->input->post('password'));
+						$this->ion_auth->login(escape_tags($this->input->post('email')), escape_tags($this->input->post('password')));
 						redirect($this->config->item('register_redirect', 'ion_auth'));
 					}
 					else
@@ -712,6 +712,10 @@ class Users extends Public_Controller
 
 			// Get our secure post
 			$secure_post = $this->input->post();
+
+            foreach ($secure_post as &$post) {
+                $post = escape_tags($post);
+            }
 
 			$user_data = array(); // Data for our user table
 			$profile_data = array(); // Data for our profile table
