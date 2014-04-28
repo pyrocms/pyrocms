@@ -19,7 +19,7 @@
 
     <li>
         <label for="activation_code"><?php echo lang('user:activation_code') ?></label>
-        <?php echo form_input('activation_code', '', 'maxlength="40"');?>
+        <?php echo form_input('activation_code', '');?>
     </li>
 
     <li>
