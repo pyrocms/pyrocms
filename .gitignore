@@ -5,7 +5,6 @@
 .idea
 build/
 
-composer.lock
 assets/cache/*
 assets/page_types/*
 !assets/page_types/.htaccess
