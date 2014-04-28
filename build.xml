@@ -3,15 +3,6 @@
 
     <property name="sourcedir" value="./build/source" override="true" />
 
-    <!-- ============================================  -->
-    <!-- Target: prepare                               -->
-    <!-- ============================================  -->
-    <target name="prepare">
-        <echo msg="Making directory ./build" />
-        <mkdir dir="./build" />
-        <mkdir dir="${sourcedir}" />
-    </target>
-
     <!-- Fileset for all files -->
     <fileset dir="." id="allfiles">
         <include name="addons/**" />
@@ -24,12 +15,35 @@
         <include name="LICENSE" />
         <include name="*.md" />
         <exclude name=".DS_Store" />
+        <exclude name="system/cms/config/config.php" />
+        <exclude name="system/cms/config/database.php" />
     </fileset>
+
+    <!-- ============================================  -->
+    <!-- Target: integration-test                      -->
+    <!-- ============================================  -->
+    <target name="integration-test">
+        <echo msg="Testing source code can install and run." />        
+        <delete file="system/cms/config/config.php" quiet="true" />
+        <delete file="system/cms/config/database.php" quiet="true" />
+        <phpunit configuration="tests/integration/phpunit.xml" bootstrap="Bootstrap.php" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: full-test                             -->
+    <!-- ============================================  -->
+    <target name="full-test">
+        <echo msg="Testing everything!!1" />
+        <phingcall target="integration-test" />
+    </target>
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->
     <!-- ============================================  -->
-    <target name="build" depends="prepare">
+    <target name="build" depends="full-test">
+        <echo msg="Making directory ./build" />
+        <mkdir dir="./build" />
+        <mkdir dir="${sourcedir}" />
 		<copy todir="${sourcedir}">
             <fileset refid="allfiles" />
         </copy>
@@ -38,7 +52,7 @@
     <!-- ============================================  -->
     <!-- Target: Rebuild                               -->
     <!-- ============================================  -->
-    <target name="rebuild" description="rebuilds this package">
+    <target name="rebuild" description="Rebuilds this package">
         <delete dir="${sourcedir}" />
         <phingcall target="build" />
     </target>
