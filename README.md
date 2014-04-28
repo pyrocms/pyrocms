@@ -58,6 +58,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Lee Tengum](http://twitter.com/thatleeguy)
 * [Matt Frost](http://shortwhitebaldguy.com)
+* [Matiss Janis](http://www.mja.lv)
 * [Ryan Thompson](http://aiwebsystems.com)
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Steve Williamson](http://sjdub.com)
