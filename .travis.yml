@@ -37,7 +37,7 @@ before_script:
   - chmod -R 777 uploads
   - chmod 777 system/cms/modules/streams_core/models
 
-script: phpunit -c tests/integration
+script: ./system/vendor/bin/phing full-test
 
 branches:
   exclude:

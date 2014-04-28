@@ -38,6 +38,8 @@
     "require-dev": {
         "illuminate/encryption": "4.1.*",
         "illuminate/redis": "4.1.*",
-        "fabpot/goutte": "1.*"
+        "fabpot/goutte": "1.*",
+        "phing/phing": "2.*",
+        "phpunit/phpunit": "4.*"
     }
 }

@@ -2,7 +2,7 @@
 
 use Goutte\Client;
 
-class ValidInstallTest extends PHPUnit_Framework_Testcase
+class ValidInstallTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @group installer

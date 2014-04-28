@@ -26,7 +26,11 @@
         <echo msg="Testing source code can install and run." />        
         <delete file="system/cms/config/config.php" quiet="true" />
         <delete file="system/cms/config/database.php" quiet="true" />
-        <phpunit configuration="tests/integration/phpunit.xml" bootstrap="Bootstrap.php" />
+        <!-- <phpunit configuration="tests/integration/phpunit.xml" bootstrap="Bootstrap.php" /> -->
+        <exec executable="system/vendor/bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="-c" />
+            <arg value="tests/integration" />
+        </exec>
     </target>
 
     <!-- ============================================  -->
