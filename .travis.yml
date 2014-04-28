@@ -30,12 +30,12 @@ before_script:
   - export PYRO_DB_USER=travis
   - export PYRO_DB_PASS=
   - export PYRO_WEB_HOST=127.0.0.1
+  - chmod 777 system/cms/config
   - chmod -R 777 system/cms/cache
-  - chmod -R 777 system/cms/config
   - chmod -R 777 addons
   - chmod -R 777 assets/cache
   - chmod -R 777 uploads
-  - chmod -R 777 system/cms/modules/streams_core/models
+  - chmod 777 system/cms/modules/streams_core/models
 
 script: phpunit -c tests/integration
 
