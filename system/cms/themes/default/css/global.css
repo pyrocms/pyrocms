@@ -38,6 +38,8 @@ nav ul#head-nav li a, ul#head-nav li a:visited{ font-size: 12px; font-weight: bo
 nav ul#head-nav li a:hover, ul#head-nav a:visited:hover { color: #ff6900; text-decoration: none; }
 nav ul#head-nav li a:active, ul#head-nav li a:visited:active { color: #ffffff; }
 nav ul#head-nav li.has_current > a { color: #4d4d4d; }
+nav ul#head-nav li.rss{float: right;margin: 0;}
+nav ul#head-nav li.rss img{width: 30px;margin-top: -5px;}
 
 /* Header Menu second level */
 nav ul#head-nav li:hover ul { visibility: visible; }/*make 2 visible when hovering on 1*/
