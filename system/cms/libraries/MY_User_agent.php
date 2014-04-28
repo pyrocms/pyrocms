@@ -42,18 +42,7 @@ class MY_User_agent extends CI_User_agent
 			return FALSE;
 		}
 
-		if ( ! $this->is_mobile)
-		{
-			return FALSE;
-		}
-
-		// No need to be specific, it's a mobile
-		if ($key === NULL)
-		{
-			return TRUE;
-		}
-
-		// Check for a specific robot
-		return (isset($this->mobiles[$key]) && $this->mobile === $this->mobiles[$key]);
+		// If the mobile override cookie is not set then we will return to the standard is_mobile function
+		return parent::is_mobile($key);
 	}
 }
