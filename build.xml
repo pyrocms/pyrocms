@@ -45,6 +45,7 @@
     <!-- Target: link                                  -->
     <!-- ============================================  -->
     <target name="lint" description="Perform syntax check of .php files">
+        <mkdir dir="${cachedir}" />
         <phplint cachefile="${cachedir}/phplint">
             <fileset refid="phpfiles" />
         </phplint>
