@@ -68,4 +68,7 @@ $lang['addons:themes:no_themes_installed'] = 'Il n\'y a aucun thème installé.'
 $lang['addons:plugins:add_on_plugins'] = 'Plugins Additionnels';
 $lang['addons:plugins:core_plugins'] = 'Plugins Système';
 
+$lang['addons:plugins:add_on_field_types']		= 'Champs personnalisés additionnels';
+$lang['addons:plugins:core_field_types']		= 'Champs personnalisés système';
+
 /* End of file addons_lang.php */

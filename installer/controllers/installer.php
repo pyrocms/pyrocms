@@ -1,6 +1,5 @@
 <?php
 
-use Pyro\Cache\CacheManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
 
@@ -28,7 +27,7 @@ function ci()
  * @property Module_import      $module_import
  * @property Installer_lib      $installer_lib
  */
-class Installer extends CI_Controller
+class installer extends CI_Controller
 {
     /** @var array Languages supported by the installer */
     private $languages = array();
@@ -41,11 +40,6 @@ class Installer extends CI_Controller
         'assets/cache',
         'uploads',
         'system/cms/modules/streams_core/models',
-    );
-
-    /** @var array Files that need to be writable */
-    private $writable_files = array(
-        'system/cms/config/config.php'
     );
 
     /** @var string The translations directory */
@@ -74,7 +68,7 @@ class Installer extends CI_Controller
         if ($this->session->userdata('language')) {
             $this->config->set_item('language', $this->session->userdata('language'));
         }
-        
+
         $current_language = $this->config->item('language');
 
         // Load the global installer language file
@@ -260,6 +254,7 @@ class Installer extends CI_Controller
             $this->installer_lib->create_connection($db_config);
         } catch (Exception $e) {
             $this->form_validation->set_message('test_db_connection', lang('db_failure').$e->getMessage());
+
             return false;
         }
 
@@ -341,14 +336,9 @@ class Installer extends CI_Controller
             $permissions['directories'][$dir] = is_really_writable('../'.$dir);
         }
 
-        foreach ($this->writable_files as $file) {
-            @chmod('../'.$file, 0666);
-            $permissions['files'][$file] = is_really_writable('../'.$file);
-        }
-
         $data = array();
         // If all permissions are TRUE, go ahead
-        $data['step_passed'] = ! in_array(false, $permissions['directories']) && !in_array(false, $permissions['files']);
+        $data['step_passed'] = ! in_array(false, $permissions['directories'], true);
         $this->session->set_userdata('step_3_passed', $data['step_passed']);
 
         // Skip Step 2 if it passes
@@ -369,7 +359,7 @@ class Installer extends CI_Controller
      */
     public function step_4()
     {
-        if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed')) {
+        if (! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed')) {
             // Redirect the user back to step 2
             redirect('installer/step_2');
         }
@@ -479,7 +469,6 @@ class Installer extends CI_Controller
         }
     }
 
-
     /**
      * We're done, thank god for that
      */
@@ -512,7 +501,7 @@ class Installer extends CI_Controller
      * @author    jeroenvdgulik
      * @since     0.9.8.1
      *
-     * @param    string $language
+     * @param string $language
      */
     public function change($language)
     {
@@ -553,8 +542,8 @@ class Installer extends CI_Controller
     /**
      * Parse the view replacing the variables found in it.
      *
-     * @param string $view The name of the view.
-     * @param array $any,... optional, Unlimited number of variables to merge with the standard controller view variables.
+     * @param string $view    The name of the view.
+     * @param array  $any,... optional, Unlimited number of variables to merge with the standard controller view variables.
      *
      * @return string|void
      */
