@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['streams:user.name']                    = 'Utilisateur';
 $lang['user:add_field']                = 'Ajouter un champ de profil utilisateur';
 $lang['user:profile_delete_success']   = 'Champ de profil utilisateur supprimé avec succès';
 $lang['user:profile_delete_failure']   = 'Il y a eu un problème lors de la suppresion du champ de profil utilisateur';
@@ -47,8 +48,8 @@ $lang['indicates_required'] = 'Désignez les champs obligatoires';
 
 $lang['user:send_activation_email']            = 'Envoyer un Email d\'activation';
 $lang['user:do_not_activate']                  = 'Inactif';
-$lang['user:do_not_block']                     = 'Not Blocked';
-$lang['user:blocked']                          = 'Blocked';
+$lang['user:do_not_block']                     = 'Non bloqué';
+$lang['user:blocked']                          = 'Bloqué';
 $lang['user:register_title']          = 'Enregistrez-vous';
 $lang['user:activate_account_title']  = 'Activez le compte';
 $lang['user:activate_label']          = 'Activez';

@@ -19,4 +19,4 @@
         <?php echo form_checkbox('remember', '1', false) ?><span><?php echo lang('user:remember')?></span>
     </li>
 </ul>
-<?php echo form_close()
+<?php echo form_close() ?>
