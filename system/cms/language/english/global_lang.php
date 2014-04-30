@@ -115,6 +115,7 @@ $lang['global:plugin']					= 'Plugin';
 $lang['global:options']					= 'Options';
 $lang['global:plain-text']				= 'Plain Text';
 
-$lang['global:class']                   = 'Class';
+$lang['global:unauthorized']			= 'Unauthorized Access';
+$lang['global:invalid_resource']	    = 'This is not a valid resource.';
 
 /* End of file global_lang.php */

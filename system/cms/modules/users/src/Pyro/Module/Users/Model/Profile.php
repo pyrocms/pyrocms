@@ -10,6 +10,13 @@ use Pyro\Module\Streams\Model\UsersProfilesEntryModel;
  */
 class Profile extends UsersProfilesEntryModel
 {
+
+    /**
+     * Presenter Class
+     * @var string
+     */
+    public $presenterClass = 'Pyro\Module\Users\Presenter\ProfileEntryPresenter';
+
     /**
      * Cache minutes
      * @var int
