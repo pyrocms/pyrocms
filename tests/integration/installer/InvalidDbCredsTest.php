@@ -2,7 +2,7 @@
 
 use Goutte\Client;
 
-class InvalidDbCredsTest extends PHPUnit_Framework_Testcase
+class InvalidDbCredsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @group installer

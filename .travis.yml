@@ -11,6 +11,11 @@ matrix:
   allow_failures:
     - php: hhvm
 
+cache:
+  directories:
+    - build/cache
+    - systen/vendor
+
 before_script:
   - composer self-update
   - composer install
@@ -37,14 +42,10 @@ before_script:
   - chmod -R 777 uploads
   - chmod 777 system/cms/modules/streams_core/models
 
-script: phpunit -c tests/integration
+script: ./system/vendor/bin/phing full-test
 
 branches:
   exclude:
     - 2.0/master
     - 2.1/develop
     - 2.1/master
-
-cache:
-  directories:
-    - vendor
