@@ -360,7 +360,7 @@ abstract class FieldTypeAbstract
     {
         $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
-        if (ci()->input->post()) {
+        if (ci()->input->post() and ci()->input->post() !== null) {
 
             return $this->getPostValue($field_slug);
 
