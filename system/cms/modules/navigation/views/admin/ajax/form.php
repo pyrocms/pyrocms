@@ -79,7 +79,7 @@
 
 			<li class="<?php echo alternator('even', '') ?>">
 				<label for="restricted_to[]"><?php echo lang('nav:restricted_to');?></label>
-				<?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $link->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?>
+				<?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, (strpos($link->restricted_to, ",") ? explode(",", $link->restricted_to) : $link->restricted_to), 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?>
 			</li>
 	
 			<li class="<?php echo alternator('', 'even') ?>">
