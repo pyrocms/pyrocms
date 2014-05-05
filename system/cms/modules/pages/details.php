@@ -8,7 +8,7 @@ use Pyro\Module\Streams\Stream\StreamModel;
 /**
  * Pages Module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Pages
  */
 class Module_Pages extends AbstractModule
@@ -18,7 +18,7 @@ class Module_Pages extends AbstractModule
     public function info()
     {
         $info = array(
-            'name' => array(
+            'name'        => array(
                 'en' => 'Pages',
                 'ar' => 'الصفحات',
                 'br' => 'Páginas',
@@ -72,23 +72,23 @@ class Module_Pages extends AbstractModule
                 'se' => 'Lägg till egna sidor till webbplatsen.',
                 'km' => 'បន្ថែមទំព័រផ្ទាល់ខ្លួនទៅតំបន់បណ្តាញជាមួយនឹងមាតិកាណាមួយដែលអ្នកចង់បាន។',
             ),
-            'frontend' => true,
-            'backend'  => true,
-            'skip_xss' => true,
-            'menu'    => 'content',
-
-            'roles' => array(
-                'put_live', 'edit_live', 'delete_live'
+            'frontend'    => true,
+            'backend'     => true,
+            'skip_xss'    => true,
+            'menu'        => 'content',
+            'roles'       => array(
+                'put_live',
+                'edit_live',
+                'delete_live'
             ),
-
-            'sections' => array(
+            'sections'    => array(
                 'pages' => array(
                     'name' => 'pages:list_title',
-                    'uri' => 'admin/pages',
+                    'uri'  => 'admin/pages',
                 ),
                 'types' => array(
                     'name' => 'page_types:list_title',
-                    'uri' => 'admin/pages/types'
+                    'uri'  => 'admin/pages/types'
                 ),
             ),
         );
@@ -107,8 +107,8 @@ class Module_Pages extends AbstractModule
             if ($pageTypesCount > 1) {
                 $info['sections']['pages']['shortcuts'] = array(
                     array(
-                        'name' => 'pages:create_title',
-                        'uri' => 'admin/pages/choose_type',
+                        'name'  => 'pages:create_title',
+                        'uri'   => 'admin/pages/choose_type',
                         'class' => 'add modal'
                     )
                 );
@@ -119,8 +119,8 @@ class Module_Pages extends AbstractModule
                 if ($page_type) {
                     $info['sections']['pages']['shortcuts'] = array(
                         array(
-                            'name' => 'pages:create_title',
-                            'uri' => 'admin/pages/create?page_type='.$page_type->id,
+                            'name'  => 'pages:create_title',
+                            'uri'   => 'admin/pages/create?page_type=' . $page_type->id,
                             'class' => 'add'
                         )
                     );
@@ -132,16 +132,16 @@ class Module_Pages extends AbstractModule
         if (ci()->uri->segment(4) == 'fields' and ci()->uri->segment(5)) {
             $info['sections']['types']['shortcuts'] = array(
                 array(
-                    'name' => 'streams:new_field',
-                    'uri' => 'admin/pages/types/fields/'.ci()->uri->segment(5).'/new_field',
+                    'name'  => 'streams:new_field',
+                    'uri'   => 'admin/pages/types/fields/' . ci()->uri->segment(5) . '/new_field',
                     'class' => 'add'
                 )
             );
         } else {
             $info['sections']['types']['shortcuts'] = array(
                 array(
-                    'name' => 'pages:types_create_title',
-                    'uri' => 'admin/pages/types/create',
+                    'name'  => 'pages:types_create_title',
+                    'uri'   => 'admin/pages/types/create',
                     'class' => 'add'
                 )
             );
@@ -154,25 +154,28 @@ class Module_Pages extends AbstractModule
     {
         $schema->dropIfExists('page_types');
 
-        $schema->create('page_types', function($table) {
-            $table->increments('id');
-            $table->string('slug', 255);
-            $table->string('title', 60);
-            $table->text('description')->nullable();
-            $table->integer('stream_id');
-            $table->string('meta_title', 255)->nullable();
-            $table->string('meta_keywords', 32)->nullable();
-            $table->text('meta_description')->nullable();
-            $table->text('body');
-            $table->text('css')->nullable();
-            $table->text('js')->nullable();
-            $table->string('theme_layout', 100)->default('default');
-            $table->string('save_as_files', 1)->default('n');
-            $table->string('content_label', 60)->nullable();
-            $table->string('title_label', 100)->nullable();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
-        });
+        $schema->create(
+            'page_types',
+            function ($table) {
+                $table->increments('id');
+                $table->string('slug', 255);
+                $table->string('title', 60);
+                $table->text('description')->nullable();
+                $table->integer('stream_id');
+                $table->string('meta_title', 255)->nullable();
+                $table->string('meta_keywords', 32)->nullable();
+                $table->text('meta_description')->nullable();
+                $table->text('body');
+                $table->text('css')->nullable();
+                $table->text('js')->nullable();
+                $table->string('theme_layout', 100)->default('default');
+                $table->string('save_as_files', 1)->default('n');
+                $table->string('content_label', 60)->nullable();
+                $table->string('title_label', 100)->nullable();
+                $table->dateTime('created_at');
+                $table->dateTime('updated_at')->nullable();
+            }
+        );
 
         // Pages Schema ----
         $schema->dropIfExists('pages');
@@ -182,44 +185,41 @@ class Module_Pages extends AbstractModule
         $schema->dropIfExists('page_chunks');
 
         $schema->create('pages', function($table) {
-            $table->increments('id');
+                $table->increments('id');
 
-            $table->string('slug', 255)->nullable();
-            $table->string('class', 255)->nullable();
-            $table->string('title', 255)->nullable();
-            $table->text('uri')->nullable();
-            $table->integer('parent_id');
-            $table->string('type_id', 255);
-            $table->string('entry_id', 255)->nullable();
-            $table->string('entry_type', 122);
-            $table->text('css')->nullable();
-            $table->text('js')->nullable();
-            $table->string('meta_title', 255)->nullable();
-            $table->string('meta_keywords', 32)->nullable();
-            $table->text('meta_description')->nullable();
-            $table->boolean('meta_robots_no_index')->nullable();
-            $table->boolean('meta_robots_no_follow')->nullable();
-            $table->integer('rss_enabled')->default(false);
-            $table->integer('comments_enabled')->default(false);
-            $table->enum('status', array('draft', 'live'))->default('draft');
-            $table->string('restricted_to', 255)->nullable();
-            $table->boolean('is_home')->default(false);
-            $table->boolean('strict_uri')->default(true);
-            $table->integer('order')->default(0);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at')->nullable();
+                $table->string('slug', 255)->nullable();
+                $table->string('class', 255)->nullable();
+                $table->string('title', 255)->nullable();
+                $table->text('uri')->nullable();
+                $table->integer('parent_id');
+                $table->string('type_id', 255);
+                $table->string('entry_id', 255)->nullable();
+                $table->string('entry_type', 122);
+                $table->text('css')->nullable();
+                $table->text('js')->nullable();
+                $table->string('meta_title', 255)->nullable();
+                $table->string('meta_keywords', 32)->nullable();
+                $table->text('meta_description')->nullable();
+                $table->boolean('meta_robots_no_index')->nullable();
+                $table->boolean('meta_robots_no_follow')->nullable();
+                $table->integer('rss_enabled')->default(false);
+                $table->integer('comments_enabled')->default(false);
+                $table->enum('status', array('draft', 'live'))->default('draft');
+                $table->string('restricted_to', 255)->nullable();
+                $table->boolean('is_home')->default(false);
+                $table->boolean('strict_uri')->default(true);
+                $table->integer('order')->default(0);
+                $table->dateTime('created_at');
+                $table->dateTime('updated_at')->nullable();
 
-            $table->index('slug');
-            $table->index('parent_id');
-        });
+                $table->index('slug');
+                $table->index('parent_id');
+            });
 
         // Remove pages namespace, just in case its a 2nd install
         StreamSchema::destroyNamespace('pages');
 
         ci()->load->config('pages/pages');
-
-        // Def Page Fields Schema
-        $schema->dropIfExists('def_page_fields');
 
         $stream = StreamModel::addStream(
             'def_page_fields',
@@ -229,63 +229,280 @@ class Module_Pages extends AbstractModule
             'A basic page type to get you started adding content.' // @todo - language
         );
 
-        // add the fields to the streams
-        FieldModel::addFields(config_item('pages:default_fields'), 'def_page_fields', 'pages');
+        $fields = array(
+            /*array(
+                'name'        => 'lang:pages:uri',
+                'slug'        => 'uri',
+                'type'        => 'text',
+                'is_required' => true,
+                'locked'      => true,
+            ),
+            array(
+                'name'        => 'lang:pages:parent_id',
+                'slug'        => 'parent_id',
+                'type'        => 'relationship',
+                'is_required' => true,
+                'locked'      => true,
+                'extra'       => array(
+                    'relation_class' => 'Pyro\Module\Pages\Model\Page',
+                )
+            ),
+            array(
+                'name'        => 'lang:pages:type_id',
+                'slug'        => 'type_id',
+                'type'        => 'relationship',
+                'is_required' => true,
+                'locked'      => true,
+                'extra'       => array(
+                    'relation_class' => 'Pyro\Module\Pages\Model\PageType',
+                )
+            ),
+            array(
+                'name'        => 'lang:pages:entry',
+                'slug'        => 'entry',
+                'type'        => 'polymorphic',
+                'is_required' => true,
+                'locked'      => true,
+            ),*/
+            array(
+                'name'         => 'lang:pages:body_label',
+                'slug'         => 'body',
+                'type'         => 'wysiwyg',
+                'locked'       => true,
+                'extra'        => array(
+                    'editor_type' => 'advanced',
+                ),
+            ),
+            array(
+                'name'         => 'lang:global:title',
+                'slug'         => 'title',
+                'type'         => 'text',
+                'title_column' => true,
+                'is_required'  => true,
+                'locked'       => true,
+                'extra'        => array(
+                    'max_length' => 255
+                ),
+            ),
+            array(
+                'name'        => 'lang:global:slug',
+                'slug'        => 'slug',
+                'type'        => 'slug',
+                'is_required' => true,
+                'locked'      => true,
+                'extra'       => array(
+                    'max_length'     => 255,
+                    'namespace'      => 'pages',
+                    'slug_field'     => 'title',
+                    'form_input_row' => 'module::pages/fields/slug'
+                ),
+            ),
+            array(
+                'name'  => 'lang:global:class',
+                'slug'  => 'class',
+                'type'  => 'text',
+                'extra' => array(
+                    'max_length' => 255
+                ),
+            ),
+            array(
+                'name'   => 'lang:pages:css_label',
+                'slug'   => 'css',
+                'type'   => 'textarea',
+                'locked' => true,
+            ),
+            array(
+                'name'   => 'lang:pages:js_label',
+                'slug'   => 'js',
+                'type'   => 'textarea',
+                'locked' => true,
+            ),
+            array(
+                'name'   => 'lang:pages:meta_title_label',
+                'slug'   => 'meta_title',
+                'type'   => 'text',
+                'locked' => true,
+            ),
+            array(
+                'name'   => 'lang:pages:meta_keywords_label',
+                'slug'   => 'meta_keywords',
+                'type'   => 'keywords',
+                'locked' => true,
+            ),
+            array(
+                'name'   => 'lang:pages:meta_desc_label',
+                'slug'   => 'meta_description',
+                'type'   => 'textarea',
+                'locked' => true,
+            ),
+            array(
+                'name'   => 'lang:pages:meta_robots_no_index_label',
+                'slug'   => 'meta_robots_no_index',
+                'type'   => 'choice',
+                'locked' => true,
+                'extra'  => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'   => 'lang:pages:meta_robots_no_follow_label',
+                'slug'   => 'meta_robots_no_follow',
+                'type'   => 'choice',
+                'locked' => true,
+                'extra'  => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'   => 'lang:pages:rss_enabled_label',
+                'slug'   => 'rss_enabled',
+                'type'   => 'choice',
+                'locked' => true,
+                'extra'  => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'    => 'lang:pages:comments_enabled_label',
+                'slug'    => 'comments_enabled',
+                'type'    => 'choice',
+                'default' => 0,
+                'locked'  => true,
+                'extra'   => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'    => 'lang:pages:status_label',
+                'slug'    => 'status',
+                'type'    => 'choice',
+                'locked'  => true,
+                'default' => 'draft',
+                'extra'   => array(
+                    'choice_data' => "draft : lang:pages:draft_label\n
+                                        live : lang:pages:live_label\n"
+                ),
+            ),
+            array(
+                'name'    => 'lang:pages:is_home_label',
+                'slug'    => 'is_home',
+                'type'    => 'choice',
+                'default' => 0,
+                'locked'  => true,
+                'extra'   => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'    => 'lang:pages:strict_uri_label',
+                'slug'    => 'strict_uri',
+                'type'    => 'choice',
+                'default' => 1,
+                'locked'  => true,
+                'extra'   => array(
+                    'choice_data' => '1 :  ',
+                    'choice_type' => 'checkboxes'
+                ),
+            ),
+            array(
+                'name'   => 'lang:pages:access_label',
+                'slug'   => 'restricted_to',
+                'type'   => 'multiple',
+                'locked' => true,
+                'extra'  => array(
+                    'relation_class' => 'Pyro\Module\Pages\FieldType\GroupModel'
+                ),
+            ),
+        );
+
+        FieldModel::addFields($fields, null, 'pages');
+
+        /*FieldModel::assignField('pages', 'pages', 'uri', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'parent_id', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'type_id', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'entry', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'is_home', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'ordering_count', array('is_required' => true));*/
+
+        FieldModel::assignField('def_page_fields', 'pages', 'body', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'title', array('is_required' => true));
+        FieldModel::assignField('def_page_fields', 'pages', 'slug', array('is_required' => true));
+        FieldModel::assignField('def_page_fields', 'pages', 'class', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'css', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'js', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'meta_title', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'meta_keywords', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'meta_description', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'meta_robots_no_index', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'meta_robots_no_follow', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'rss_enabled', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'rss_enabled', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'comments_enabled', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'status', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'is_home', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'strict_uri', array());
 
         // Insert the page type structures
-        $def_page_type_id = $pdb->table('page_types')->insertGetId(array(
-            'id' => 1,
-            'title' => 'Default',
-            'slug' => 'default',
-            'stream_id' => $stream->id,
-            'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
-            'css' => '',
-            'js' => '',
-            'created_at' => date('Y-m-d H:i:s'),
-        ));
+        $def_page_type_id = $pdb->table('page_types')->insertGetId(
+            array(
+                'id'         => 1,
+                'title'      => 'Default',
+                'slug'       => 'default',
+                'stream_id'  => $stream->id,
+                'body'       => '<h2>{{ page:title }}</h2>' . "\n\n" . '{{ body }}',
+                'css'        => '',
+                'js'         => '',
+                'created_at' => date('Y-m-d H:i:s'),
+            )
+        );
 
         $pageEntryModel = $stream->getEntryModelClass('def_page_fields', 'pages');
 
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
-            'home' => array(
-                'slug' => 'home',
-                'title' => 'Home',
-                'uri' => 'home',
-                'parent_id' => 0,
-                'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
-                'status' => 'live',
+            'home'       => array(
+                'slug'          => 'home',
+                'title'         => 'Home',
+                'uri'           => 'home',
+                'parent_id'     => 0,
+                'type_id'       => $def_page_type_id,
+                'entry_type'    => $pageEntryModel,
+                'status'        => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
-                'is_home' => true,
-                'order' => time()
+                'created_at'    => date('Y-m-d H:i:s'),
+                'is_home'       => true,
+                'order'         => time()
             ),
-            'contact' => array(
-                'slug' => 'contact',
-                'title' => 'Contact',
-                'uri' => 'contact',
-                'parent_id' => 0,
-                'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
-                'status' => 'live',
+            'contact'    => array(
+                'slug'          => 'contact',
+                'title'         => 'Contact',
+                'uri'           => 'contact',
+                'parent_id'     => 0,
+                'type_id'       => $def_page_type_id,
+                'entry_type'    => $pageEntryModel,
+                'status'        => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
-                'is_home' => false,
-                'order' => time()
+                'created_at'    => date('Y-m-d H:i:s'),
+                'is_home'       => false,
+                'order'         => time()
             ),
             'fourohfour' => array(
-                'slug' => '404',
-                'title' => 'Page missing',
-                'uri' => '404',
-                'parent_id' => 0,
-                'type_id' => $def_page_type_id,
-                'entry_type' => $pageEntryModel,
-                'status' => 'live',
+                'slug'          => '404',
+                'title'         => 'Page missing',
+                'uri'           => '404',
+                'parent_id'     => 0,
+                'type_id'       => $def_page_type_id,
+                'entry_type'    => $pageEntryModel,
+                'status'        => 'live',
                 'restricted_to' => '',
-                'created_at' => date('Y-m-d H:i:s'),
-                'is_home' => 0,
-                'order' => time()
+                'created_at'    => date('Y-m-d H:i:s'),
+                'is_home'       => 0,
+                'order'         => time()
             )
         );
 
