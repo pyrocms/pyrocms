@@ -463,6 +463,9 @@ class Module_Pages extends AbstractModule
 
         $pageEntryModel = $stream->getEntryModelClass('def_page_fields', 'pages');
 
+        /**
+         * Insert default page types
+         */
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
             'home'       => array(
