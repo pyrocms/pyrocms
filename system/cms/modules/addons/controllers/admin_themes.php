@@ -407,7 +407,10 @@ class Admin_themes extends Admin_Controller
 
         if ($options) {
             foreach ($options as $option) {
-                list($value, $name) = explode('=', $option);
+                $pieces = explode('=', $option);
+		$value = array_shift($pieces);
+		$name = implode('=', $pieces);
+				
                 // todo: Maybe we should remove the trim()'s
                 // since this will affect only people who have had the base
                 // theme installed in the past.
