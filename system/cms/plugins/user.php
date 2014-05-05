@@ -296,6 +296,7 @@ class Plugin_User extends Plugin
 		// Nobody needs these as profile fields.
 		unset($user['password']);
 		unset($user['salt']);
+		unset($user['remember_code']);
 
 		// Got through each stream field and see if we need to format it
 		// for plugin return (ie if we haven't already done that).
@@ -385,7 +386,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt')))
+		if (in_array($name, array('password', 'salt', 'remember_code')))
 		{
 			return;
 		}

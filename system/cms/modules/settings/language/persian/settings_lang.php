@@ -126,7 +126,7 @@ $lang['settings:profile_visibility']            = 'قابل مشاهده بود�
 $lang['settings:profile_visibility_desc']       = 'مشخص کنید که چه کسی میتواند پروفایل کاربران در سایت را ماهده نماید.';
 
 $lang['settings:cdn_domain']                    = 'دامنه CDN';
-$lang['settings:cdn_domain_desc']               = 'استفاده از سرور های ابری نگهداری فایل مانند Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="http://maxcdn.com/pyrocms" target="_blank">Sign up and save 25%.</a>'; #translate
+$lang['settings:cdn_domain_desc']               = 'استفاده از سرور های ابری نگهداری فایل مانند Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>'; #translate
 
 # section titles
 $lang['settings:section_general']				= 'عمومی';

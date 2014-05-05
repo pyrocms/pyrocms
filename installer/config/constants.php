@@ -91,4 +91,15 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.2.0-rc1');
+define('CMS_VERSION', '2.2.4');
+
+/*
+|--------------------------------------------------------------------------
+| CDN Offer URL
+|--------------------------------------------------------------------------
+|
+| We have a link in the settings page to MaxCDN and our landing page
+|
+*/
+
+define('CDN_OFFER_URL', '');

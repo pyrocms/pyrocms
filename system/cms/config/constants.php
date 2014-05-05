@@ -152,6 +152,17 @@ unset($base_uri, $base_url);
 
 /*
 |--------------------------------------------------------------------------
+| CDN Offer URL
+|--------------------------------------------------------------------------
+|
+| We have a link in the settings page to MaxCDN and our landing page
+|
+*/
+
+define('CDN_OFFER_URL', 'http://tracking.maxcdn.com/c/89350/3982/378?u=http%3A%2F%2Fwww.maxcdn.com%2Fpyrocms');
+
+/*
+|--------------------------------------------------------------------------
 | PyroCMS Version
 |--------------------------------------------------------------------------
 |
@@ -159,7 +170,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.2.2');
+define('CMS_VERSION', '2.2.4');
 
 /*
 |--------------------------------------------------------------------------
@@ -181,6 +192,6 @@ define('CMS_EDITION', 'Community');
 |
 */
 
-define('CMS_DATE', '08/06/2013');
+define('CMS_DATE', '04/26/2014');
 
 /* End of file constants.php */
