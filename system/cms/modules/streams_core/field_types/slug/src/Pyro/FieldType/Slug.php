@@ -77,6 +77,7 @@ class Slug extends FieldTypeAbstract
         $options['value']        = $this->value;
         $options['autocomplete'] = 'off';
         $options['class']        = 'form-control';
+        $options['placeholder']  = $this->getPlaceholder();
         $jquery                  = null;
 
         $stream    = $this->entry->getStream();

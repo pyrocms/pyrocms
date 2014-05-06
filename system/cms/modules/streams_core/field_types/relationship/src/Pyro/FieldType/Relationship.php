@@ -228,22 +228,6 @@ class Relationship extends FieldTypeAbstract
     }
 
     /**
-     * Get placeholder
-     *
-     * @return string
-     */
-    protected function getPlaceholder()
-    {
-        if ($this->getParameter('use_ajax')) {
-            $placeholder = lang('streams.relationship.placeholder');
-        } else {
-            $placeholder = $this->field->field_name;
-        }
-
-        return $this->getParameter('placeholder', $placeholder);
-    }
-
-    /**
      * Search
      *
      * @return string

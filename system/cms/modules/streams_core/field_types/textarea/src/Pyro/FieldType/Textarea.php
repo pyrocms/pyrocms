@@ -44,7 +44,7 @@ class Textarea extends FieldTypeAbstract
             'id'          => $this->form_slug,
             'value'       => addslashes($this->value),
             'class'       => 'form-control',
-            'placeholder' => lang_label($this->getParameter('placeholder')),
+            'placeholder' => $this->getPlaceholder(),
         );
 
         if ($this->getParameter('content_type') == 'html') {
