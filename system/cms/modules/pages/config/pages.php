@@ -1,14 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-// define all custom fields that a new installation should have
-$config['pages:default_fields']	= array(
-    array(
-        'name'          => 'lang:pages:body_label',
-        'slug'          => 'body',
-        'type'          => 'wysiwyg',
-        'extra'			=> array('editor_type' => 'advanced', 'allow_tags' => 'y'),
-    )
-);
+<?php
 
 // and now the content for the pages
 $config['pages:default_page_content'] = array(
@@ -16,6 +6,11 @@ $config['pages:default_page_content'] = array(
         'home' => array(
             'created_at' => date('Y-m-d H:i:s'),
             'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+            'slug'          => 'home',
+            'title'         => 'Home',
+            'status'        => 'live',
+            'created_at'    => date('Y-m-d H:i:s'),
+            'is_home'       => true,
             'created_by' => 1
         ),
         /* The contact page data. */
@@ -29,7 +24,12 @@ $config['pages:default_page_content'] = array(
                     <div><label for="message">Message:</label>{{ message }}</div>
                     <div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
                 {{ /contact:form }}',
-            'created_by' => 1
+            'created_by' => 1,
+            'slug'          => 'contact',
+            'title'         => 'Contact',
+            'status'        => 'live',
+            'created_at'    => date('Y-m-d H:i:s'),
+            'is_home'       => false,
         ),
         /* The search page data. */
         'search' => array(
@@ -46,6 +46,11 @@ $config['pages:default_page_content'] = array(
         'fourohfour' => array(
             'created_at' => date('Y-m-d H:i:s'),
             'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
-            'created_by' => 1
+            'created_by' => 1,
+            'slug'          => '404',
+            'title'         => 'Page missing',
+            'status'        => 'live',
+            'created_at'    => date('Y-m-d H:i:s'),
+            'is_home'       => 0,
         )
 );

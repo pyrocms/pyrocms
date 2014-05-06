@@ -472,7 +472,7 @@ abstract class FieldTypeAbstract
         $options['value']        = $this->value;
         $options['class']        = 'form-control';
         $options['autocomplete'] = 'off';
-        $options['placeholder']  = lang_label($this->getParameter('placeholder'));
+        $options['placeholder']  = $this->getPlaceholder();
 
         if ($max_length = $this->getParameter('max_length') and is_numeric($max_length)) {
             $options['max_length'] = $max_length;
@@ -502,7 +502,7 @@ abstract class FieldTypeAbstract
             'name'        => $this->getFilterSlug('contains'),
             'value'       => $this->getFilterValue('contains'),
             'class'       => 'form-control',
-            'placeholder' => $this->field->field_name,
+            'placeholder' => $this->getPlaceholder(null, $this->field->field_name),
         );
 
         return form_input($data);
@@ -711,7 +711,7 @@ abstract class FieldTypeAbstract
     public function hasOne($related, $foreignKey = null, $localKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -728,7 +728,7 @@ abstract class FieldTypeAbstract
     public function morphOne($related, $name, $type = null, $id = null, $localKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -743,7 +743,7 @@ abstract class FieldTypeAbstract
     public function belongsTo($related, $foreignKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -759,7 +759,7 @@ abstract class FieldTypeAbstract
     public function morphTo($name = null, $type = null, $id = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -774,7 +774,7 @@ abstract class FieldTypeAbstract
     public function hasMany($related, $foreignKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -791,7 +791,7 @@ abstract class FieldTypeAbstract
     public function morphMany($related, $name, $type = null, $id = null, $localKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -808,7 +808,7 @@ abstract class FieldTypeAbstract
     public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -827,7 +827,7 @@ abstract class FieldTypeAbstract
     public function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false)
     {
         return array(
-            'method'     => __FUNCTION__,
+            'method'    => __FUNCTION__,
             'arguments' => func_get_args(),
         );
     }
@@ -1022,6 +1022,25 @@ abstract class FieldTypeAbstract
             ) . '-' . $this->field->field_type . '-' . $this->field->field_slug . '-' . $this->getStream(
             )->stream_slug . '-' . $this->getStream()->stream_namespace . '-' . $this->entry->id
         );
+    }
+
+    /**
+     * Get the placeholder.
+     *
+     * @param null $type
+     * @return string
+     */
+    public function getPlaceholder($type = null, $default = null)
+    {
+        if (!$default) {
+            $default = lang_label($this->getParameter('placeholder'));
+        }
+
+        return lang(
+            $this->getStream()->stream_namespace .
+            '.field.' . $this->field->field_slug .
+            ($type ? $type . '_' : null) . '.placeholder'
+        ) ?: $default;
     }
 
     /**
