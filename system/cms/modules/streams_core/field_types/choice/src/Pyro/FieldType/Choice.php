@@ -81,7 +81,7 @@ class Choice extends FieldTypeAbstract
                 $this->form_slug,
                 $choices,
                 $value,
-                'id="' . $this->form_slug . '" placeholder="' . lang_label($this->getParameter('placeholder')) . '"'
+                'id="' . $this->form_slug . '" placeholder="' . $this->getPlaceholder() . '"'
             );
         } else {
             // -------------------------------
@@ -327,7 +327,7 @@ class Choice extends FieldTypeAbstract
 
         $choice_type = $this->validateInputType($this->getParameter('choice_type'));
 
-        if ($placeholder = $this->getParameter('filter_placeholder')) {
+        if ($placeholder = $this->getPlaceholder('filter')) {
             $placeholder = array('-----' => lang_label($placeholder));
         } else {
             $placeholder = array('-----' => lang('global:select-any'));
