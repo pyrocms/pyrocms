@@ -202,7 +202,13 @@ class EntryQueryFilter
      */
     protected function applyFilters()
     {
-        ci()->session->set_userdata(ci()->module_details['slug'] . '_' . $this->getFilterKey(), $this->getPostData());
+        if (isset(ci()->module_details['slug'])) {
+            $prefix = ci()->module_details['slug'] . '_';
+        } else {
+            $prefix = null;
+        }
+
+        ci()->session->set_userdata($prefix . $this->getFilterKey(), $this->getPostData());
     }
 
     /**
@@ -210,7 +216,13 @@ class EntryQueryFilter
      */
     protected function clearFilters()
     {
-        ci()->session->unset_userdata(ci()->module_details['slug'] . '_' . $this->getFilterKey());
+        if (isset(ci()->module_details['slug'])) {
+            $prefix = ci()->module_details['slug'] . '_';
+        } else {
+            $prefix = null;
+        }
+        
+        ci()->session->unset_userdata($prefix . $this->getFilterKey());
     }
 
     /**
@@ -220,8 +232,14 @@ class EntryQueryFilter
      */
     public function getAppliedFilters()
     {
+        if (isset(ci()->module_details['slug'])) {
+            $prefix = ci()->module_details['slug'] . '_';
+        } else {
+            $prefix = null;
+        }
+
         if (isset(ci()->session)) {
-            return ci()->session->userdata(ci()->module_details['slug'] . '_' . $this->getFilterKey());
+            return ci()->session->userdata($prefix . $this->getFilterKey());
         }
 
         return array();

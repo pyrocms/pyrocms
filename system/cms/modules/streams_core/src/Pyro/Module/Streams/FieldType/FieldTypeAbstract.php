@@ -1039,7 +1039,7 @@ abstract class FieldTypeAbstract
         return lang(
             $this->getStream()->stream_namespace .
             '.field.' . $this->field->field_slug .
-            ($type ? $type . '_' : null) . '.placeholder'
+            '.' . ($type ? $type . '_' : null) . 'placeholder'
         ) ?: $default;
     }
 
