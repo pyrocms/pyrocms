@@ -205,7 +205,7 @@ class Relationship extends FieldTypeAbstract
      * Get placeholder
      * @return string
      */
-    protected function getPlaceholder()
+    public function getPlaceholder($type = null, $default = null)
     {
         return $this->getParameter('placeholder', $this->field->field_name);
     }

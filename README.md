@@ -29,7 +29,8 @@ PyroCMS Community Edition is free to use, redistribute and/or modify for any pur
 
 ## Upgrading
 
-* [Upgrading v2.1.x to v2.2.x](http://docs.pyrocms.com/2.2/manual/reference/upgrade-guides/upgrade-2-1-to-2-2-0)
+* [Upgrading v2.2.x to v2.3.0](http://docs.pyrocms.com/2.2/manual/reference/upgrade-guides/upgrade-2-2-to-2-3-0)
+* [Upgrading v2.1.x to v2.2.0](http://docs.pyrocms.com/2.2/manual/reference/upgrade-guides/upgrade-2-1-to-2-2-0)
 
 ## Bugs & Feature Requests
 
@@ -90,4 +91,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
 * [Alireza Jahandideh (Yohan)](http://twitter.com/AlirezaJahandid) Persian(Farsi)
 * [huglester](http://webas.lt/) Lithuanian
-* [Chanthoeun Kim] (http://pyrocms-cambodia.com/) Cambodia (Khmer)
+* [Chanthoeun Kim](http://pyrocms-cambodia.com/) Cambodia (Khmer)
