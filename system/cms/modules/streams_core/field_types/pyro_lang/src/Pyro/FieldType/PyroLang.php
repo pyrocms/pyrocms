@@ -56,7 +56,7 @@ class PyroLang extends FieldTypeAbstract
             }
         }
 
-        return form_dropdown($this->form_slug, $languages, $this->value);
+        return form_dropdown($this->getFormSlug(), $languages, $this->value);
     }
 
     // --------------------------------------------------------------------------

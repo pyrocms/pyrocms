@@ -113,10 +113,10 @@ class Field extends FieldTypeAbstract
             $selected_field = $selectedType->getField();
 
             // Build the selected field form
-            $form .= form_hidden($this->form_slug.'_field_slug', $selected_field->field_slug);
+            $form .= form_hidden($this->getFormSlug(), $selected_field->field_slug);
             $form .= $selectedType->formInput();
         } elseif($options = $this->getSelectableFields($selectable_fields_namespace) and ! empty($options)) {
-            $form = form_dropdown($this->form_slug, $options, $this->getFieldSlugValue());
+            $form = form_dropdown($this->getFormSlug(), $options, $this->getFieldSlugValue());
         } else {
             $form = lang('streams:field.must_add_fields');
         }
@@ -175,7 +175,7 @@ class Field extends FieldTypeAbstract
             $selected_field = $selectedType->getField();
 
             // First update the the selected field slug
-            $this->entry->setAttribute($this->getFieldSlugColumn(), $this->getFieldSlugValue());
+            $this->entry->setAttribute($this->getColumnName(), $this->getFieldSlugValue());
 
             $this->entry->save();
 

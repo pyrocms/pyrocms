@@ -71,10 +71,10 @@ class File extends FieldTypeAbstract
         }
 
         // Output the actual used value
-        $out .= form_hidden($this->form_slug, $this->value);
+        $out .= form_hidden($this->getFormSlug(), $this->value);
 
-        $options['name'] 	= $this->form_slug;
-        $options['name'] 	= $this->form_slug.'_file';
+        $options['name'] 	= $this->getFormSlug();
+        $options['name'] 	= $this->getFormSlug().'_file';
 
         $this->js('filefield.js');
         $this->css('filefield.css');
@@ -96,9 +96,9 @@ class File extends FieldTypeAbstract
         // If we do not have a file that is being submitted. If we do not,
         // it could be the case that we already have one, in which case just
         // return the numeric file record value.
-        if (! isset($_FILES[$this->form_slug.'_file']['name']) or ! $_FILES[$this->form_slug.'_file']['name']) {
-            if (ci()->input->post($this->form_slug)) {
-                return ci()->input->post($this->form_slug);
+        if (! isset($_FILES[$this->getFormSlug().'_file']['name']) or ! $_FILES[$this->getFormSlug().'_file']['name']) {
+            if (ci()->input->post($this->getFormSlug())) {
+                return ci()->input->post($this->getFormSlug());
             } else {
                 return null;
             }
@@ -106,7 +106,7 @@ class File extends FieldTypeAbstract
 
         ci()->load->library('files/files');
 
-        $return = \Files::upload($this->getParameter('folder'), null, $this->form_slug.'_file', null, null, null, $this->getParameter('allowed_types', '*'));
+        $return = \Files::upload($this->getParameter('folder'), null, $this->getFormSlug().'_file', null, null, null, $this->getParameter('allowed_types', '*'));
 
         if (! $return['status']) {
 

@@ -75,11 +75,11 @@ class Datetime extends FieldTypeAbstract
 
         $datetime = false;
 
-        if (ci()->input->post($this->form_slug)) {
+        if (ci()->input->post($this->getFormSlug())) {
 
             // Make some safety catches
-            $time = ci()->input->post($this->form_slug.'_time');
-            $date = ci()->input->post($this->form_slug);
+            $time = ci()->input->post($this->getFormSlug().'_time');
+            $date = ci()->input->post($this->getFormSlug());
 
             // So we have a post value - grab it
             if (! isset($this->value) or $this->value == null or $this->value == $this->zero_datetime or $this->value == $this->zero_time) {
@@ -120,8 +120,8 @@ class Datetime extends FieldTypeAbstract
 
             // Input options
             $options = array(
-                'name' => $this->form_slug,
-                'id' => $this->form_slug,
+                'name' => $this->getFormSlug(),
+                'id' => $this->getFormSlug(),
                 'value' => $datetime ? $datetime->format($this->datepicker_date_format[1]) : null,
                 'class' => 'form-control',
                 'data-toggle' => 'datepicker',
@@ -160,7 +160,7 @@ class Datetime extends FieldTypeAbstract
                 $months = array('' => '---')+$months;
             }
 
-            $date_input .= form_dropdown($this->form_slug.'_month', $months, $month);
+            $date_input .= form_dropdown($this->getFormSlug().'_month', $months, $month);
 
             // Days
             $days = array_combine($days = range(1, 31), $days);
@@ -169,7 +169,7 @@ class Datetime extends FieldTypeAbstract
                 $days = array('' => '---')+$days;
             }
 
-            $date_input .= form_dropdown($this->form_slug.'_day', $days, $day, 'style="min-width: 100px; width:100px;"');
+            $date_input .= form_dropdown($this->getFormSlug().'_day', $days, $day, 'style="min-width: 100px; width:100px;"');
 
             // Find the end year
             $years = array_combine($years = range($start_datetime->year, $end_datetime->year), $years);
@@ -180,7 +180,7 @@ class Datetime extends FieldTypeAbstract
                 $years = array('' => '---')+$years;
             }
 
-            $date_input .= form_dropdown($this->form_slug.'_year', $years, $year, 'style="min-width: 100px; width:100px;"');
+            $date_input .= form_dropdown($this->getFormSlug().'_year', $years, $year, 'style="min-width: 100px; width:100px;"');
         }
 
         // -------------------------------------
@@ -189,8 +189,8 @@ class Datetime extends FieldTypeAbstract
         if ($this->getParameter('use_time') == 'yes') {
             // Input options
             $options = array(
-                'name' => $this->form_slug.'_time',
-                'id' => $this->form_slug.'_time',
+                'name' => $this->getFormSlug().'_time',
+                'id' => $this->getFormSlug().'_time',
                 'value' => $datetime ? $datetime->format($this->timepicker_time_format) : null,
                 'class' => 'form-control',
                 'data-toggle' => 'timepicker',
@@ -206,7 +206,7 @@ class Datetime extends FieldTypeAbstract
         if ($input_type == 'dropdown') {
             // We always set this to 1 because we are performing
             // the required check in the validate function.
-            $date_input .= form_hidden($this->form_slug, '1');
+            $date_input .= form_hidden($this->getFormSlug(), '1');
         }
 
         return '<div>'.$date_input.'</div>';
@@ -223,12 +223,12 @@ class Datetime extends FieldTypeAbstract
     public function preSave()
     {
         // Make some safety catches
-        $time = ci()->input->post($this->form_slug.'_time');
-        $date = ci()->input->post($this->form_slug);
+        $time = ci()->input->post($this->getFormSlug().'_time');
+        $date = ci()->input->post($this->getFormSlug());
 
-        $month = ci()->input->post($this->form_slug.'_month');
-        $day = ci()->input->post($this->form_slug.'_day');
-        $year = ci()->input->post($this->form_slug.'_year');
+        $month = ci()->input->post($this->getFormSlug().'_month');
+        $day = ci()->input->post($this->getFormSlug().'_day');
+        $year = ci()->input->post($this->getFormSlug().'_year');
 
         // Are we using a datepicker?
         if ($this->getParameter('input_type', 'datepicker') == 'datepicker') {
