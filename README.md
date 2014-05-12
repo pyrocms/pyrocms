@@ -51,6 +51,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 
 ### Contributors
 
+* [Matiss Janis Aboltins](http://www.mja.lv/)
 * [Lee Tengum](http://twitter.com/thatleeguy)
 * [BenneX](http://github.com/BenneX)
 * [Colin Williams](http://williamsconcepts.com/)
