@@ -244,7 +244,7 @@ class Multiple extends FieldTypeAbstract
      */
     public function getColumnName()
     {
-        return parent::getColumnName() . '_id';
+        return $this->getColumnName() . '_id';
     }
 
     /**
@@ -252,7 +252,7 @@ class Multiple extends FieldTypeAbstract
      *
      * @return string
      */
-    protected function getPlaceholder()
+    public function getPlaceholder($type = null, $default = null)
     {
         if ($this->getParameter('use_ajax')) {
             $placeholder = lang('streams.multiple.placeholder');

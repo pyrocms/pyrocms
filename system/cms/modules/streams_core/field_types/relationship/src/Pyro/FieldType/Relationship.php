@@ -84,7 +84,7 @@ class Relationship extends FieldTypeAbstract
         $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
 
         // Return an HTML drop down
-        return form_dropdown($this->form_slug, $options, $this->value);
+        return form_dropdown($this->getFormSlug(), $options, $this->value);
     }
 
     /**
@@ -96,7 +96,7 @@ class Relationship extends FieldTypeAbstract
     {
         $this->isFilter = false;
 
-        return form_dropdown($this->form_slug, $this->getOptions(), $this->value);
+        return form_dropdown($this->getFormSlug(), $this->getOptions(), $this->value);
     }
 
     /**
@@ -205,7 +205,7 @@ class Relationship extends FieldTypeAbstract
      * Get placeholder
      * @return string
      */
-    protected function getPlaceholder()
+    public function getPlaceholder($type = null, $default = null)
     {
         return $this->getParameter('placeholder', $this->field->field_name);
     }

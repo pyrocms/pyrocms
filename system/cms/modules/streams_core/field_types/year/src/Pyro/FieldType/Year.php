@@ -65,7 +65,7 @@ class Year extends FieldTypeAbstract
             $value = $this->value;
         }
 
-        return form_dropdown($this->form_slug, $years, $value);
+        return form_dropdown($this->getFormSlug(), $years, $value);
     }
 
     // --------------------------------------------------------------------------

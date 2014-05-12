@@ -81,10 +81,10 @@ class Keywords extends FieldTypeAbstract
             $names = implode(',', $keywords->lists('name', 'id'));
         }
 
-        $options['name'] 	= $this->form_slug;
+        $options['name'] 	= $this->getFormSlug();
+        $options['value']   = $names;
         $options['id']		= 'id_'.rand(100, 10000);
         $options['class']	= 'keywords_input';
-        $options['value']	= $names;
 
         return form_input($options);
     }

@@ -36,8 +36,8 @@ class Integer extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $options['name'] 	= $this->form_slug;
-        $options['id']		= $this->form_slug;
+        $options['name'] 	= $this->getFormSlug();
+        $options['id']		= $this->getFormSlug();
         $options['value']	= $this->value;
         $options['placeholder']	= lang_label($this->getParameter('placeholder'));
 

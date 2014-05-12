@@ -106,7 +106,7 @@ class Admin extends Admin_Controller
 
         $js = 'onchange="javascript:var field_slug = $(this).val(); if (field_slug != \'---\') { window.open(SITE_URL+\'admin/variables/create/\'+field_slug, \'_self\'); }"';
 
-        return '<span class="variables-selectable-fields-form">' . lang('streams:label.field') . ' ' . form_dropdown(
+        return '<span class="variables-selectable-fields-form"><span>' . lang('streams:label.field') . '</span> ' . form_dropdown(
             'data',
             $options,
             $field_slug,
@@ -157,7 +157,7 @@ class Admin extends Admin_Controller
 
         $variable = $this->variables->find($id);
 
-        $form = $this->selectable_fields_form($variable, '---', true);
+        $form = $this->selectable_fields_form($variable->data_field_slug, '---', true);
 
         $this->variablesUi->form($variable)
             ->title('Edit ' . $form)

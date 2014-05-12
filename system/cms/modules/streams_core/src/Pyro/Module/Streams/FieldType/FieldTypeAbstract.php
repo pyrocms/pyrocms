@@ -200,7 +200,7 @@ abstract class FieldTypeAbstract
 
     public function fieldSlug()
     {
-        return $this->field->field_slug;
+        return $this->getColumnName();
     }
 
     /**
@@ -239,7 +239,7 @@ abstract class FieldTypeAbstract
      */
     public function getFormSlug($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
+        $field_slug = $field_slug ?: $this->getColumnName();
 
         return $this->getFormSlugPrefix() . $field_slug;
     }
@@ -358,7 +358,7 @@ abstract class FieldTypeAbstract
      */
     public function getFormValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
+        $field_slug = $field_slug ?: $this->getColumnName();
 
         if (isset($_POST[$this->getFormSlug()])) {
 
@@ -374,7 +374,7 @@ abstract class FieldTypeAbstract
 
     public function getPostValue($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->getColumnName();
+        $field_slug = $field_slug ?: $this->getColumnName();
 
         if (($value = ci()->input->post($this->getFormSlug())) !== false) {
             return $value;
@@ -401,7 +401,7 @@ abstract class FieldTypeAbstract
      */
     public function getDefault($field_slug = null, $default = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ?: $this->getColumnName();
 
         return isset($this->defaults[$field_slug]) ? $this->defaults[$field_slug] : $default;
     }
@@ -424,7 +424,7 @@ abstract class FieldTypeAbstract
      */
     public function getOriginalValue($field_slug = null)
     {
-        $field_slug = $field_slug ? $field_slug : $this->field->field_slug;
+        $field_slug = $field_slug ?: $this->getColumnName();
 
         return $this->entry->getOriginal($field_slug);
     }
@@ -467,8 +467,8 @@ abstract class FieldTypeAbstract
      */
     public function formInput()
     {
-        $options['name']         = $this->form_slug;
-        $options['id']           = $this->form_slug;
+        $options['name']         = $this->getFormSlug();
+        $options['id']           = $this->getFormSlug();
         $options['value']        = $this->value;
         $options['class']        = 'form-control';
         $options['autocomplete'] = 'off';
@@ -517,7 +517,7 @@ abstract class FieldTypeAbstract
      */
     public function getFilterSlug($constraint = 'contains', $fieldSlug = null)
     {
-        $fieldSlug = $fieldSlug ? $fieldSlug : $this->getColumnName();
+        $fieldSlug = $fieldSlug ?: $this->getColumnName();
 
         return $this->getFilterSlugPrefix() . $fieldSlug . '-' . $constraint;
     }
@@ -530,7 +530,7 @@ abstract class FieldTypeAbstract
      */
     public function getFilterValue($constraint = 'contains', $fieldSlug = null)
     {
-        $fieldSlug = $fieldSlug ? $fieldSlug : $this->getColumnName();
+        $fieldSlug = $fieldSlug ?: $this->getColumnName();
 
         if (isset($this->appliedFilters[$fieldSlug . '-' . $constraint])) {
             return $this->appliedFilters[$fieldSlug . '-' . $constraint];
@@ -564,7 +564,7 @@ abstract class FieldTypeAbstract
      */
     public function css($file, $field_type = null)
     {
-        $field_type = $field_type ? $field_type : $this->field_type_slug;
+        $field_type = $field_type ?: $this->field_type_slug;
 
         $html = '<link href="' . base_url($this->path_css . $file) . '" type="text/css" rel="stylesheet" />';
 
@@ -578,7 +578,7 @@ abstract class FieldTypeAbstract
      */
     public function js($file, $field_type = null)
     {
-        $field_type = $field_type ? $field_type : $this->field_type_slug;
+        $field_type = $field_type ?: $this->field_type_slug;
 
         $html = '<script type="text/javascript" src="' . base_url($this->path_js . $file) . '"></script>';
 
@@ -614,7 +614,7 @@ abstract class FieldTypeAbstract
      */
     public function view($view_slug, $data = array(), $field_type = null)
     {
-        $field_type = $field_type ? $field_type : $this->field_type_slug;
+        $field_type = $field_type ?: $this->field_type_slug;
 
         $view_path = '';
 
@@ -696,7 +696,7 @@ abstract class FieldTypeAbstract
      */
     public function getRelationResult($attribute = null)
     {
-        $attribute = $attribute ? $attribute : $this->field->field_slug;
+        $attribute = $attribute ?: $this->getColumnName();
 
         return $this->entry->getAttribute($attribute);
     }
@@ -1019,7 +1019,7 @@ abstract class FieldTypeAbstract
             implode(
                 '-',
                 $this->field->field_data
-            ) . '-' . $this->field->field_type . '-' . $this->field->field_slug . '-' . $this->getStream(
+            ) . '-' . $this->field->field_type . '-' . $this->getColumnName() . '-' . $this->getStream(
             )->stream_slug . '-' . $this->getStream()->stream_namespace . '-' . $this->entry->id
         );
     }
@@ -1038,7 +1038,7 @@ abstract class FieldTypeAbstract
 
         return lang(
             $this->getStream()->stream_namespace .
-            '.field.' . $this->field->field_slug .
+            '.field.' . $this->getColumnName() .
             '.' . ($type ? $type . '_' : null) . 'placeholder'
         ) ?: $default;
     }
@@ -1055,7 +1055,7 @@ abstract class FieldTypeAbstract
         if (preg_match('/^get(.+)Value$/', $method, $matches)) {
             $default = isset($arguments[0]) ? $arguments[0] : null;
 
-            return $this->getPostValue($this->field->field_slug . '_' . Str::snake($matches[1]), $default);
+            return $this->getPostValue($this->getColumnName() . '_' . Str::snake($matches[1]), $default);
         }
 
         return null;
