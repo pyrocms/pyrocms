@@ -427,7 +427,7 @@ abstract class UiAbstract extends Fluent
             ->formUrl(null)
             ->hidden(array())
             ->index(false)
-            ->limit(null)
+            ->limit(\Settings::get('records_per_page'))
             ->messageError('There was an error.')
             ->messageSuccess('Entry saved.')
             ->method('new')
