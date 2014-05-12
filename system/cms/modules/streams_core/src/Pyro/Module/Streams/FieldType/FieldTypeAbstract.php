@@ -360,11 +360,11 @@ abstract class FieldTypeAbstract
     {
         $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
-        if (ci()->input->post() and ci()->input->post() !== null) {
+        if (isset($_POST[$this->getFormSlug()])) {
 
             return $this->getPostValue($field_slug);
 
-        } elseif ($value = $this->entry->getOriginal($field_slug)) {
+        } elseif (($value = $this->entry->getOriginal($field_slug)) !== null) {
 
             return $value;
         }
@@ -376,7 +376,7 @@ abstract class FieldTypeAbstract
     {
         $field_slug = $field_slug ? $field_slug : $this->getColumnName();
 
-        if ($value = ci()->input->post($this->getFormSlug())) {
+        if (($value = ci()->input->post($this->getFormSlug())) !== false) {
             return $value;
         } elseif ($value = ci()->input->post($this->getFormSlug() . '[]')) {
             return $value;
