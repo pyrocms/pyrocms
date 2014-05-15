@@ -251,7 +251,7 @@ class Field extends FieldTypeAbstract
             // Add a column to store the value if it doesn't use custom storage
             if ($self->getParameter('storage') != 'custom'
                 and ! $schema->hasColumn($table->getTable(), $field->field_slug)) {
-                $table->text($field->field_slug);
+                $table->text($field->field_slug)->default('');
             }
         });
     }

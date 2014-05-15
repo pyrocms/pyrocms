@@ -59,7 +59,7 @@ class ValidInstallTest extends PHPUnit_Framework_TestCase
 
         // If there is an error, show it and fail. There should be 0 errors
         $errorNode = $crawler->filter('.error');
-        $this->assertEquals(0, count($errorNode), count($errorNode) ? $errorNode->text() : '');
+        $this->assertEquals(0, count($errorNode), count($errorNode) ? 'Unexpected install error: '.$errorNode->text() : '');
 
         // Made it past Step 3 and onto Step 4
         $this->assertContains('Step 4:', $crawler->filter('.title h3')->text());
