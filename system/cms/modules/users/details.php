@@ -266,7 +266,9 @@ class Module_Users extends AbstractModule
 
          // Index user_id
         $schema->table('profiles', function ($table) {
-            $table->integer('user_id');
+            // SQLite required the nullable(), it can be removed later if anyone remembers or cares but 
+            // it shouldnt matter. Phil
+            $table->integer('user_id')->nullable();
             $table->index('user_id');
         });
 

@@ -233,7 +233,7 @@ class Module_Templates extends AbstractModule
                 {{ email }}',
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'pages'
+                'module'      => 'pages',
                 'created_at'  => date('Y-m-d H:i:s'),
             )
         );
@@ -252,7 +252,7 @@ class Module_Templates extends AbstractModule
                 </p>',
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'users'
+                'module'      => 'users',
                 'created_at'  => date('Y-m-d H:i:s'),
             )
         );
@@ -273,7 +273,7 @@ class Module_Templates extends AbstractModule
                 <p><strong>Activation Code:</strong> {{ activation_code }}</p>',
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'users'
+                'module'      => 'users',
                 'created_at'  => date('Y-m-d H:i:s'),
             )
         );
@@ -290,7 +290,7 @@ class Module_Templates extends AbstractModule
                 <p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'users'
+                'module'      => 'users',
                 'created_at'  => date('Y-m-d H:i:s'),
             )
         );
@@ -307,7 +307,7 @@ class Module_Templates extends AbstractModule
                 <p>After logging in you may change your password by visiting <a href="{{ url:site }}edit-profile">{{ url:site }}edit-profile</a></p>',
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'users'
+                'module'      => 'users',
                 'created_at'  => date('Y-m-d H:i:s'),
             )
         );
