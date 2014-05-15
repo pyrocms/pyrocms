@@ -20,7 +20,6 @@ class ValidInstallTest extends PHPUnit_Framework_TestCase
     }
    
     /**
-     * Given a fresh Pyro install
      * When a user provides valid db auth credentials
      * Then the install should authenticate that db user and continue
      */
