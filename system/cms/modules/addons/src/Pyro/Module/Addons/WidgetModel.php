@@ -33,13 +33,6 @@ class WidgetModel extends Eloquent
     protected $guarded = array();
 
     /**
-     * Disable updated_at and created_at on table
-     *
-     * @var boolean
-     */
-    public $timestamps = false;
-
-    /**
      * Find By Slug
      *
      * @param  string $slug
