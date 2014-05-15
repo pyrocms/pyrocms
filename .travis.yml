@@ -45,6 +45,7 @@ before_script:
   - export PYRO_DB_HOST=127.0.0.1
   - export PYRO_WEB_HOST=127.0.0.1
   # Read in platform specific env config
+  - echo build/travis/$DB.env
   - source build/travis/$DB.env
 
 script: ./system/vendor/bin/phing integration-test
