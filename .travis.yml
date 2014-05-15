@@ -51,9 +51,3 @@ before_script:
 
 script:
   - ./system/vendor/bin/phing integration-test
-
-branches:
-  exclude:
-    - 2.0/master
-    - 2.1/develop
-    - 2.1/master

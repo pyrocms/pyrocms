@@ -756,6 +756,12 @@ class StreamModel extends Eloquent
                 }
 
                 // -------------------------------------
+                // Default to allow null
+                // -------------------------------------
+
+                $col->nullable();
+
+                // -------------------------------------
                 // Default
                 // -------------------------------------
                 if (!empty($field->field_data['default_value']) and !in_array(
@@ -765,12 +771,6 @@ class StreamModel extends Eloquent
                 ) {
                     $col->default($field->field_data['default_value']);
                 }
-
-                // -------------------------------------
-                // Default to allow null
-                // -------------------------------------
-
-                $col->nullable();
             }
         );
     }
