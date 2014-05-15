@@ -189,7 +189,13 @@ abstract class AbstractExtensionManager
         }
 
         // Remove where user does not have permission
-        if ($extension and $extension->role and $permission = ci()->module_details['slug'] . '.' . $extension->role) {
+        if ($extension->module) {
+            $permissionModule = $extension->module;
+        } else {
+            $permissionModule = isset(ci()->module_details['slug']) ? ci()->module_details['slug'] : null;
+        }
+
+        if ($extension and $extension->role and $permission = $permissionModule . '.' . $extension->role) {
             if (ci()->current_user->hasAccess($permission)) {
                 return $extension;
             }
