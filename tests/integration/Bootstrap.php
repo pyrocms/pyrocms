@@ -17,7 +17,7 @@ define('PYRO_DB_DRIVER', isset($_SERVER['PYRO_DB_DRIVER']) ? $_SERVER['PYRO_DB_D
 define('PYRO_DB_HOST', $_SERVER['PYRO_DB_HOST']); // Optional. required for MySQL / PGSQL
 define('PYRO_DB_LOCATION', isset($_SERVER['PYRO_DB_LOCATION']) ? $_SERVER['PYRO_DB_LOCATION'] : realpath(__DIR__.'/../../build/test.sqlite'));
 define('PYRO_DB_PORT', isset($_SERVER['PYRO_DB_PORT']) ? $_SERVER['PYRO_DB_PORT'] : '3306');
+define('PYRO_DB_NAME', isset($_SERVER['PYRO_DB_NAME']) ? $_SERVER['PYRO_DB_NAME'] : 'pyrocms');
 define('PYRO_DB_USER', isset($_SERVER['PYRO_DB_USER']) ? $_SERVER['PYRO_DB_USER'] : 'pyrocms');
 define('PYRO_DB_PASS', isset($_SERVER['PYRO_DB_PASS']) ? $_SERVER['PYRO_DB_PASS'] : '');
-define('PYRO_DB_NAME', isset($_SERVER['PYRO_DB_NAME']) ? $_SERVER['PYRO_DB_NAME'] : 'pyrocms');
 define('PYRO_DB_CREATE', isset($_SERVER['PYRO_DB_CREATE']) ? (string) $_SERVER['PYRO_DB_CREATE'] : '0');

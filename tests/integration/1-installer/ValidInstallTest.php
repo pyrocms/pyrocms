@@ -32,12 +32,7 @@ class ValidInstallTest extends PHPUnit_Framework_TestCase
 
         $payload = array(
             'http_server' => 'apache_wo',
-            'db_driver' => 'mysql',
-            'hostname'  => PYRO_DB_HOST,
-            'port'      => PYRO_DB_PORT,
-            'username'  => PYRO_DB_USER,
-            'password'  => PYRO_DB_PASS,
-            'database'  => PYRO_DB_NAME,
+            'db_driver' => PYRO_DB_DRIVER,
             'create_db' => PYRO_DB_CREATE === "1",
         );
 
@@ -47,12 +42,14 @@ class ValidInstallTest extends PHPUnit_Framework_TestCase
             case 'pgsql':
                 $payload['hostname']  = PYRO_DB_HOST;
                 $payload['port']      = PYRO_DB_PORT;
+                $payload['database']  = PYRO_DB_NAME;
                 $payload['username']  = PYRO_DB_USER;
                 $payload['password']  = PYRO_DB_PASS;
                 break;
 
             case 'sqlite':
                 $payload['location']  = PYRO_DB_LOCATION;
+                $payload['password']  = PYRO_DB_PASS;
                 break;
         }
 

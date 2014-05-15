@@ -37,6 +37,7 @@ class InvalidDbCredsTest extends PHPUnit_Framework_TestCase
             'hostname' => 'fake-domain',
             'username' => 'test',
             'password' => 'test',
+            'port' => '3306',
             'database' => 'nope',
         ));
         $this->assertContains('Problem connecting to', $crawler->filter('.error')->text());
