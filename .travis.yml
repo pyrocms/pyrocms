@@ -38,8 +38,8 @@ before_script:
   - chmod -R 777 uploads
   - chmod 777 system/cms/modules/streams_core/models
   # DB driver specific setup
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database pyrocms;'; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database pyrocms;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'drop database if exists pyrocms; create database pyrocms;'; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'drop database if exists pyrocms; create database pyrocms;' -U postgres; fi"
   - sh -c "if [ '$DB' = 'sqlite' ]; then touch build/test.sqlite; fi"
   - sh -c "if [ '$DB' = 'sqlite' ]; then chmod 666 build/test.sqlite; fi"
   - export PYRO_DB_HOST=127.0.0.1
