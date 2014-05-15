@@ -2,10 +2,10 @@ language: php
 
 php:
   - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - hhvm
+#  - 5.4
+#  - 5.5
+#  - 5.6
+#  - hhvm
 
 matrix:
   allow_failures:
@@ -31,24 +31,6 @@ before_script:
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
 
-  # MySQL specific
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database pyrocms;'; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then export PYRO_DB_USER=travis; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then export PYRO_DB_DRIVER=mysql; fi"
-
-  # PostgreSQL specific
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database pyrocms;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then export PYRO_DB_USER=postgres; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then export PYRO_DB_DRIVER=pgsql; fi"
-
-  # SQLite specific
-  - sh -c "if [ '$DB' = 'sqlite' ]; then touch build/test.sqlite; fi"
-  - sh -c "if [ '$DB' = 'sqlite' ]; then chmod 666 build/test.sqlite; fi"
-  - sh -c "if [ '$DB' = 'sqlite' ]; then export PYRO_DB_DRIVER=sqlite; fi"
-
-  - export PYRO_DB_HOST=127.0.0.1
-  - export PYRO_DB_PASS=
-  - export PYRO_WEB_HOST=127.0.0.1
   - chmod 777 system/cms/config
   - chmod -R 777 system/cms/cache
   - chmod -R 777 addons
@@ -56,7 +38,26 @@ before_script:
   - chmod -R 777 uploads
   - chmod 777 system/cms/modules/streams_core/models
 
-script: ./system/vendor/bin/phing full-test
+  # MySQL specific
+  - mysql -e 'create database pyrocms;'
+
+  # PostgreSQL specific
+  - psql -c 'create database pyrocms;' -U postgres; fi"
+  - export PYRO_DB_USER=postgres; fi"
+  - export PYRO_DB_DRIVER=pgsql; fi"
+
+  # SQLite specific
+  - touch build/test.sqlite
+  - chmod 666 build/test.sqlite
+
+  # Generic DB Settings
+  - export PYRO_DB_HOST=127.0.0.1
+  - export PYRO_WEB_HOST=127.0.0.1
+
+script:
+  - PYRO_DB_DRIVER=sqlite ./system/vendor/bin/phing integration-test
+  - PYRO_DB_DRIVER=mysql PYRO_DB_USER=travis ./system/vendor/bin/phing integration-test
+  - PYRO_DB_DRIVER=pgsql PYRO_DB_USER=postgres ./system/vendor/bin/phing integration-test
 
 branches:
   exclude:
