@@ -9,8 +9,9 @@ php:
 
 matrix:
   allow_failures:
-    - php: hhvm
-
+    - php:
+      - hhvm
+      - 5.6
 env:
   - DB=mysql
   - DB=pgsql
