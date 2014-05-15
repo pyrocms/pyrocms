@@ -9,9 +9,18 @@
 	stopOnSkipped="false">
     testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
     <testsuites>
-        <testsuite name="installer">
-            <directory>installer</directory>
-            <files>*.php</files>
+        <testsuite name="all">
+
+	        <testsuite name="installer">
+	            <directory>1-installer</directory>
+	            <files>*.php</files>
+	        </testsuite>
+
+	        <testsuite name="cp">
+	            <directory>2-cp</directory>
+	            <files>*.php</files>
+	        </testsuite>
+
         </testsuite>
     </testsuites>
 </phpunit>

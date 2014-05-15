@@ -2,11 +2,11 @@
 
 use Goutte\Client;
 
-class ValidInstallTest extends PHPUnit_Framework_TestCase
+class DashboardTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group installer
      * @group all
+     * @group cp
      */
     public function setUp()
     {
@@ -24,11 +24,14 @@ class ValidInstallTest extends PHPUnit_Framework_TestCase
      * When a user provides valid db auth credentials
      * Then the install should authenticate that db user and continue
      */
-    public function testInstallWithValidCreds()
+    public function testLogin()
     {
+        $this->assertTrue(true);
+        return;
+        
         // Check that loading root redirects to installer
         $crawler = $this->client->request('GET', 'http://'.PYRO_WEB_HOST);
-        $this->assertEquals($crawler->filter('title')->text(), 'PyroCMS Installer');
+        $this->assertEquals($crawler->filter('title')->text(), 'Login');
 
         // Try submitting crappy details
         $form = $crawler->filter('#next_step')->form();

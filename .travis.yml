@@ -11,14 +11,14 @@ matrix:
   allow_failures:
     - php: hhvm
 
-cache:
-  directories:
-    - build/cache
-    - systen/vendor
+env:
+  - DB=mysql
+  - DB=pgsql
+  - DB=sqlite
 
 before_script:
   - composer self-update
-  - composer install
+  - composer install --no-progress
   - phpenv rehash
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   # enable php-fpm
@@ -30,9 +30,23 @@ before_script:
   - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
-  - mysql -e 'create database IF NOT EXISTS pyrocms;'
+
+  # MySQL specific
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database pyrocms;'; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then export PYRO_DB_USER=travis; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then export PYRO_DB_DRIVER=mysql; fi"
+
+  # PostgreSQL specific
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database pyrocms;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then export PYRO_DB_USER=postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then export PYRO_DB_DRIVER=pgsql; fi"
+
+  # SQLite specific
+  - sh -c "if [ '$DB' = 'sqlite' ]; then touch build/test.sqlite; fi"
+  - sh -c "if [ '$DB' = 'sqlite' ]; then chmod 666 build/test.sqlite; fi"
+  - sh -c "if [ '$DB' = 'sqlite' ]; then export PYRO_DB_DRIVER=sqlite; fi"
+
   - export PYRO_DB_HOST=127.0.0.1
-  - export PYRO_DB_USER=travis
   - export PYRO_DB_PASS=
   - export PYRO_WEB_HOST=127.0.0.1
   - chmod 777 system/cms/config

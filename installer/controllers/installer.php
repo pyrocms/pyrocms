@@ -27,7 +27,7 @@ function ci()
  * @property Module_import      $module_import
  * @property Installer_lib      $installer_lib
  */
-class installer extends CI_Controller
+class Installer extends CI_Controller
 {
     /** @var array Languages supported by the installer */
     private $languages = array();
@@ -151,7 +151,7 @@ class installer extends CI_Controller
                 array(
                     'field' => 'hostname',
                     'label'	=> 'lang:server',
-                    'rules'	=> 'trim|required|callback_test_db_connection'
+                    'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
                 ),
                 array(
                     'field' => 'location',
@@ -180,19 +180,29 @@ class installer extends CI_Controller
                 ),
                 array(
                     'field' => 'http_server',
-                    'label'	=> 'lang:server_settings',
-                    'rules'	=> 'trim|required'
+                    'label' => 'lang:server_settings',
+                    'rules' => 'trim|required'
                 ),
             ));
 
             // If the form validation passed
             if ($this->form_validation->run()) {
-                // Set the flashdata message
-                $this->session->set_flashdata('success', lang('db_success'));
 
-                // Redirect to the second step
-                $this->session->set_userdata('step_1_passed', true);
-                redirect('installer/step_2');
+                try {
+
+                    // Might go horribly wrong
+                    $this->test_db_connection();
+
+                    // Set the flashdata message
+                    $this->session->set_flashdata('success', lang('db_success'));
+
+                    // Redirect to the second step
+                    $this->session->set_userdata('step_1_passed', true);
+                    redirect('installer/step_2');
+
+                } catch (InstallerException $e) {
+                    $data->messages = array('error' => $e->getMessage());
+                }
             }
         }
 
@@ -232,7 +242,7 @@ class installer extends CI_Controller
      *
      * @return bool
      */
-    public function test_db_connection()
+    protected function test_db_connection()
     {
         $db_config = array(
             'driver'    => $this->input->post('db_driver'),
@@ -253,9 +263,7 @@ class installer extends CI_Controller
             // Create a connection to see if data is correct
             $this->installer_lib->create_connection($db_config);
         } catch (Exception $e) {
-            $this->form_validation->set_message('test_db_connection', lang('db_failure').$e->getMessage());
-
-            return false;
+            throw new InstallerException(lang('db_failure').$e->getMessage());
         }
 
         return true;
@@ -267,7 +275,7 @@ class installer extends CI_Controller
     public function step_2()
     {
         // Did the user enter the DB settings ?
-        if ( ! $this->session->userdata('step_1_passed')) {
+        if (! $this->session->userdata('step_1_passed')) {
             // Set the flashdata message
             $this->session->set_flashdata('message', lang('step1_failure'));
             $this->session->set_flashdata('message_type', 'failure');

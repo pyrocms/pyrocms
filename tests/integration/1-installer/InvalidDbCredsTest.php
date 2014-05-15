@@ -5,8 +5,8 @@ use Goutte\Client;
 class InvalidDbCredsTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group installer
      * @group all
+     * @group installer
      */
     public function setUp()
     {
@@ -33,7 +33,7 @@ class InvalidDbCredsTest extends PHPUnit_Framework_TestCase
         $form = $crawler->filter('#next_step')->form();
         $crawler = $this->client->submit($form, array(
             'http_server' => 'apache_wo',
-            'db_driver' => 'mysql',
+            'db_driver' => PYRO_DB_DRIVER,
             'hostname' => 'fake-domain',
             'username' => 'test',
             'password' => 'test',
@@ -55,17 +55,35 @@ class InvalidDbCredsTest extends PHPUnit_Framework_TestCase
 
         // Try submitting crappy details
         $form = $crawler->filter('#next_step')->form();
-        $crawler = $this->client->submit($form, array(
+
+        $payload = array(
             'http_server' => 'apache_wo',
-            'db_driver' => 'mysql',
-            'hostname'  => PYRO_DB_HOST,
-            'port'      => PYRO_DB_PORT,
-            'username'  => PYRO_DB_USER,
-            'password'  => PYRO_DB_PASS,
-        ));
-        
-        $this->assertContains('The Database Name field is required', $crawler->filter('.error')->text());
+            'db_driver' => PYRO_DB_DRIVER,
+        );
+
+        switch (PYRO_DB_DRIVER)
+        {
+            case 'mysql':
+            case 'pgsql':
+                $payload['hostname']  = PYRO_DB_HOST;
+                $payload['port']      = PYRO_DB_PORT;
+                $payload['username']  = PYRO_DB_USER;
+                $payload['password']  = PYRO_DB_PASS;
+            
+                $expectedError = 'The Database Name field is required';
+                break;
+
+            case 'sqlite':
+                $payload['location']  = '';
+
+                $expectedError = 'The location field is required.';
+                break;
+
+            default:
+                throw new Exception('Invalid PYRO_DB_DRIVER');
+        }
+
+        $crawler = $this->client->submit($form, $payload);
+        $this->assertContains($expectedError, $crawler->filter('.error')->text());
     }
-
-
 }
