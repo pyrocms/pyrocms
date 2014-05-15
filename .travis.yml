@@ -30,34 +30,24 @@ before_script:
   - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
-
+  # Set PyroCMS folder structure config
   - chmod 777 system/cms/config
   - chmod -R 777 system/cms/cache
   - chmod -R 777 addons
   - chmod -R 777 assets/cache
   - chmod -R 777 uploads
   - chmod 777 system/cms/modules/streams_core/models
-
-  # MySQL specific
-  - mysql -e 'create database pyrocms;'
-
-  # PostgreSQL specific
-  - psql -c 'create database pyrocms;' -U postgres; fi"
-  - export PYRO_DB_USER=postgres; fi"
-  - export PYRO_DB_DRIVER=pgsql; fi"
-
-  # SQLite specific
-  - touch build/test.sqlite
-  - chmod 666 build/test.sqlite
-
-  # Generic DB Settings
+  # DB driver specific setup
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database pyrocms;'; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database pyrocms;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'sqlite' ]; then touch build/test.sqlite; fi"
+  - sh -c "if [ '$DB' = 'sqlite' ]; then chmod 666 build/test.sqlite; fi"
   - export PYRO_DB_HOST=127.0.0.1
   - export PYRO_WEB_HOST=127.0.0.1
+  # Read in platform specific env config
+  - source build/travis/$DB.env
 
-script:
-  - PYRO_DB_DRIVER=sqlite ./system/vendor/bin/phing integration-test
-  - PYRO_DB_DRIVER=mysql PYRO_DB_USER=travis ./system/vendor/bin/phing integration-test
-  - PYRO_DB_DRIVER=pgsql PYRO_DB_USER=postgres ./system/vendor/bin/phing integration-test
+script: ./system/vendor/bin/phing integration-test
 
 branches:
   exclude:
