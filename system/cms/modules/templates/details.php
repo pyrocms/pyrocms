@@ -208,7 +208,8 @@ class Module_Templates extends AbstractModule
                 <p>View Comment: {{ redirect_url }}</p>",
                 'lang'        => 'en',
                 'is_default'  => true,
-                'module'      => 'comments'
+                'module'      => 'comments',
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
@@ -233,6 +234,7 @@ class Module_Templates extends AbstractModule
                 'lang'        => 'en',
                 'is_default'  => true,
                 'module'      => 'pages'
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
@@ -251,6 +253,7 @@ class Module_Templates extends AbstractModule
                 'lang'        => 'en',
                 'is_default'  => true,
                 'module'      => 'users'
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
@@ -271,6 +274,7 @@ class Module_Templates extends AbstractModule
                 'lang'        => 'en',
                 'is_default'  => true,
                 'module'      => 'users'
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
@@ -287,6 +291,7 @@ class Module_Templates extends AbstractModule
                 'lang'        => 'en',
                 'is_default'  => true,
                 'module'      => 'users'
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
@@ -303,6 +308,7 @@ class Module_Templates extends AbstractModule
                 'lang'        => 'en',
                 'is_default'  => true,
                 'module'      => 'users'
+                'created_at'  => date('Y-m-d H:i:s'),
             )
         );
 
