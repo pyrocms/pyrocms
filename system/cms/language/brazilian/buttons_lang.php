@@ -38,5 +38,3 @@ $lang['buttons:re-index']	= 'Reindexar';
 $lang['buttons:copy']		= 'Copiar';
 $lang['buttons:filter']		= 'Filtrar';
 $lang['buttons:clear']		= 'Limpar';
-
-/* End of file buttons_lang.php */

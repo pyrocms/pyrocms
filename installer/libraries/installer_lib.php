@@ -264,7 +264,7 @@ class Installer_lib
 		// Select the database we created before
 		if ( ! mysql_select_db($database, $this->db) )
 		{
-			return array('status' => false, 'message' => '', 'code' => 101);
+			return array('status' => false, 'message' => mysql_error($this->db), 'code' => 101);
 		}
 
 		if ( ! $this->_process_schema($user_sql, false))

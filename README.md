@@ -6,12 +6,13 @@
 * [Documentation](https://www.pyrocms.com/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://forum.pyrocms.com)
-* Version: 2.2.2
+* Version: 2.2.4
 
 ## Team
 
-* [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://jerel.co/)
+* [Ryan Thompson](http://aiwebsystems.com)
+* [Osvaldo Brignoni](http://aiwebsystems.com)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 
 ## Description
@@ -48,18 +49,21 @@ It's strongly recommended that you download the [git-flow client](https://github
 
 ### Contributors
 
-* [Lee Tengum](http://twitter.com/thatleeguy)
+* [Adam Fairholm](http://adamfairholm.com/)
+* [Andrew Smith](http://silentworks.co.uk)
+* [Ben Edmunds](http://benedmunds.com/)
 * [BenneX](http://github.com/BenneX)
 * [Colin Williams](http://williamsconcepts.com/)
-* [Yorick Peterse](http://www.yorickpeterse.com/)
 * [Dan Horrigan](http://dhorrigan.com/)
-* [Ben Edmunds](http://benedmunds.com/)
 * [Eric Barnes](http://ericlbarnes.com/)
-* [Stephen Cozart](http://twitter.com/stephencozart)
+* [Lee Tengum](http://twitter.com/thatleeguy)
 * [Matt Frost](http://shortwhitebaldguy.com)
+* [Matiss Janis](http://www.mja.lv)
 * [Ryan Thompson](http://aiwebsystems.com)
+* [Stephen Cozart](http://twitter.com/stephencozart)
 * [Steve Williamson](http://sjdub.com)
-* [Andrew Smith](http://silentworks.co.uk)
+* [Steven Seeley](https://github.com/net-ninja)
+* [Yorick Peterse](http://www.yorickpeterse.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 

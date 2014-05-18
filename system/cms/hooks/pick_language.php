@@ -57,7 +57,7 @@ function pick_language()
 	}
 
 	// Still no Lang. Lets try some browser detection then
-	elseif ( ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+	elseif ( $config['check_http_accept_language'] and ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 	{
 		// explode languages into array
 		$accept_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);

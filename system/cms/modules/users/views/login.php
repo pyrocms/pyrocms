@@ -10,7 +10,7 @@
 <ul>
 	<li>
 		<label for="email"><?php echo lang('global:email') ?></label>
-		<?php echo form_input('email', $this->input->post('email') ? $this->input->post('email') : '')?>
+		<?php echo form_input('email', $this->input->post('email') ? escape_tags($this->input->post('email')) : '')?>
 	</li>
 	<li>
 		<label for="password"><?php echo lang('global:password') ?></label>
