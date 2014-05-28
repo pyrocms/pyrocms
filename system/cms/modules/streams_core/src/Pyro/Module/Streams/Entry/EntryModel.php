@@ -389,8 +389,6 @@ class EntryModel extends Eloquent implements RelationshipInterface
             } else {
                 $options = array('-----' => lang('global:select-any')) + $options;
             }
-        } elseif (!$type->getField()->is_required and $placeholder = $type->getParameter('placeholder')) {
-            $options = array('-----' => lang_label($placeholder)) + $options;
         }
 
         return $options;
