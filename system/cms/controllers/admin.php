@@ -20,6 +20,8 @@ class Admin extends Admin_Controller
         parent::__construct();
 
         $this->load->helper('users/user');
+
+        $this->users = new User();
     }
 
     /**
@@ -114,7 +116,7 @@ class Admin extends Admin_Controller
             return false;
         }
 
-        $user = User::findByEmail($this->input->post('email'));
+        $user = $this->users->findByLogin($this->input->post('email'));
 
         if ($user->is_blocked) {
             $this->sentry->logout($user);
@@ -141,7 +143,7 @@ class Admin extends Admin_Controller
             $password = whacky_old_password_hasher($email, $password);
         }
 
-        if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = User::findByEmail($email)) !== null) {
+        if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = $this->users->findByLogin($email)) !== null) {
 
             $user = $this->sentry->findUserById($user->id);
 
@@ -150,6 +152,11 @@ class Admin extends Admin_Controller
         } else {
 
             try {
+
+                // Try finding the user by the username / email
+                if ($user = $this->users->findByLogin($email)) {
+                    $email = $user->email;
+                }
 
                 $this->sentry->authenticate(array(
                     'email' => $email,

@@ -26,6 +26,8 @@ class Users extends Public_Controller
         $this->load->helper('user');
         $this->lang->load('user');
         $this->load->library('form_validation');
+
+        $this->users = new Model\User();
     }
 
     /**
@@ -125,7 +127,7 @@ class Users extends Public_Controller
         // If the validation worked, or the user is already logged in
         if ($this->form_validation->run() or $this->sentry->check()) {
 
-            $user = Model\User::findByEmail($this->input->post('email'));
+            $user = $this->users->findByLogin($this->input->post('email'));
 
             if ($user->is_blocked) {
                 $this->sentry->logout($user);
@@ -747,7 +749,7 @@ class Users extends Public_Controller
         $password = $this->input->post('password');
 
 
-        if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = Model\User::findByEmail($email)) !== null) {
+        if ((Events::trigger('authenticate_user', array('email' => $email, 'password' => $password))) == true and ($user = $this->users->findByLogin($email)) !== null) {
 
             $user = $this->sentry->findUserById($user->id);
 
@@ -756,6 +758,11 @@ class Users extends Public_Controller
         } else {
 
             try {
+
+                // Try finding the user by the username / email
+                if ($user = $this->users->findByLogin($email)) {
+                    $email = $user->email;
+                }
 
                 $this->sentry->authenticate(array(
                     'email' => $email,
