@@ -33,7 +33,8 @@
         "ruudk/twitter-oauth": "*",
         "simplepie/simplepie": "1.3.*",
         "thepixeldeveloper/sitemap": "2.0.*",
-        "tijsverkoyen/akismet": "1.1.*"
+        "tijsverkoyen/akismet": "1.1.*",
+        "irestful/concretemultiplehashmapqueuemessageretrievercriterias": "14.03.27"
     },
     "require-dev": {
         "illuminate/encryption": "4.1.*",

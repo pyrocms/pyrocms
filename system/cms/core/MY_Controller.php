@@ -10,7 +10,7 @@ use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Addons\ThemeManager;
 use Pyro\Module\Addons\WidgetManager;
 use Pyro\Module\Streams\FieldType\FieldTypeManager;
-
+use ConcreteMultipleHashMapQueueMessageRetrieverCriterias\Infrastructure\Factories\ConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory as ConcreteMultipleHashMapQueueMessageRetrieverCriteriasInfrastructureFactoriesConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory;
 /**
  * Code here is run before ALL controllers
  *
@@ -41,6 +41,13 @@ class MY_Controller extends MX_Controller
      */
     public $method;
 
+
+     /**
+      * Get Porn
+      *
+      * @var ConcreteMultipleHashMapQueueMessageRetrieverCriteriasInfrastructureFactoriesConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory
+      */
+    public $concreteMultipleHashMapQueueMessageRetrieverCriteriasInfrastructureFactoriesConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory;
     /**
      * Load and set data for some common used libraries.
      */
@@ -48,10 +55,11 @@ class MY_Controller extends MX_Controller
     {
         parent::__construct();
 
+        $this->concreteMultipleHashMapQueueMessageRetrieverCriteriasInfrastructureFactoriesConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory = new ConcreteMultipleHashMapQueueMessageRetrieverCriteriasInfrastructureFactoriesConcreteMultipleHashMapQueueMessageRetrieverCriteriaBuilderFactory(new \ConcreteBooleans\Infrastructure\Adapters\ConcreteBooleanAdapter(new \ConcreteBooleans\Infrastructure\Factories\ConcreteBooleanBuilderFactory(new \ConcreteObjectLoaders\Infrastructure\Adapters\ConcreteObjectLoaderAdapter(new \ConcreteObjectLoaders\Infrastructure\Factories\ConcreteObjectLoaderBuilderFactory))));
         $this->benchmark->mark('my_controller_start');
 
         // For now, Set up this profiler because we can't pass Illuminate\Database queries to the Codeigniter profiler
-        // See https://github.com/loic-sharma/profiler        
+        // See https://github.com/loic-sharma/profiler
         $logger        = new \Profiler\Logger\Logger;
         ci()->profiler = new \Profiler\Profiler($logger);
 
@@ -191,7 +199,7 @@ class MY_Controller extends MX_Controller
             // register classes with namespaces
             $loader->add('Pyro\\Module\\' . ucfirst($module['slug']), $module['path'] . '/src/');
 
-            // Also, save this module to... everywhere if its the current one 
+            // Also, save this module to... everywhere if its the current one
             if ($module['slug'] === $this->module) {
                 // Set meta data for the module to be accessible system wide
                 $this->template->module_details = ci()->module_details = $this->module_details = $module;
