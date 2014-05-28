@@ -283,6 +283,7 @@ class Module_Blog extends AbstractModule
                 'extra'		=> array(
                     'title_field' => 'title',
                     'relation_class' => 'Pyro\Module\Blog\BlogCategoryModel',
+                    'form_input_row' => 'module::fields/category'
                 ),
             ),
         ), 'blog', 'blogs');
