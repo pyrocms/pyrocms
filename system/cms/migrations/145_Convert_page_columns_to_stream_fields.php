@@ -59,7 +59,7 @@ class Migration_Convert_page_columns_to_stream_fields extends CI_Migration
                         'max_length'     => 255,
                         'namespace'      => $stream->stream_namespace,
                         'slug_field'     => 'title',
-                        'form_input_row' => 'module::keywords/fields/slug'
+                        'form_input_row' => 'module::fields/slug'
                     ),
                 ),
                 array(
