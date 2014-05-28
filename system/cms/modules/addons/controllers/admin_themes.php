@@ -147,10 +147,11 @@ class Admin_themes extends Admin_Controller
 		$data->options_array = $all_options;
 		$data->controller = &$this;
 
-		$this->template->append_js('module::jquery.minicolors.min.js');
-		$this->template->append_css('module::jquery.minicolors.css');
-
-		$this->template->build('admin/themes/options', $data);
+		$this->template
+			->append_js('module::jquery.minicolors.min.js')
+			->append_css('module::jquery.minicolors.css')
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
+			->build('admin/themes/options', $data);
 	}
 
 	/**
@@ -432,6 +433,15 @@ class Admin_themes extends Admin_Controller
 					'name' => $option->slug,
 					'value' => $option->value,
 					'class' => 'text width-20 colour-picker'
+				));
+				break;
+
+			case 'wysiwyg':
+				$form_control = form_textarea(array(
+					'id' => $option->slug,
+					'name' => $option->slug,
+					'value' => $option->value,
+					'class' => 'wysiwyg-advanced'
 				));
 				break;
 		}
