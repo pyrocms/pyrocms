@@ -89,6 +89,8 @@ class Admin extends Admin_Controller
 
         $this->posts = new BlogEntryModel;
         $this->blogUi = new BlogEntryUi;
+
+        $this->template->append_js('module::blog_form.js');
     }
 
     /**

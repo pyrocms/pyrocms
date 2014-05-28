@@ -8,8 +8,8 @@
 
 </label>
 
-<div class="input">
+<div class="input" id="category">
     <?php echo $field_type->getInput(); ?>
 
-    [ <?php echo anchor('admin/blog/categories/create_ajax', lang('blog:new_category_label'), 'target="_blank" class="modal category-shortcut"') ?> ]
+    [ <?php echo anchor('admin/blog/categories/create_ajax', lang('blog:new_category_label'), 'target="_blank" id="category-shortcut"') ?> ]
 </div>

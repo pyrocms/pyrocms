@@ -234,7 +234,7 @@ class Admin_Categories extends Admin_Controller
                 'slug'	=> $this->input->post('slug')
             ));
 
-            if ($id > 0) {
+            if ($category->id > 0) {
                 $message = sprintf(lang('cat:add_success'), $category->title);
             } else {
                 $message = lang('cat:add_error');
