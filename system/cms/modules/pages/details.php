@@ -219,6 +219,8 @@ class Module_Pages extends AbstractModule
         // Remove pages namespace, just in case its a 2nd install
         StreamSchema::destroyNamespace('pages');
 
+        $schema->dropIfExists('def_page_fields');
+
         ci()->load->config('pages/pages');
 
         $stream = StreamModel::addStream(

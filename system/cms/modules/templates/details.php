@@ -101,7 +101,7 @@ class Module_Templates extends AbstractModule
     {
         StreamSchema::destroyNamespace('templates');
 
-        $schema->drop('email_templates');
+        $schema->dropIfExists('email_templates');
 
         // Add templates
         StreamModel::addStream(
