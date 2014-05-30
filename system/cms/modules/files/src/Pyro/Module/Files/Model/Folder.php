@@ -20,6 +20,7 @@ class Folder extends Eloquent
 
     /**
      * Cache minutes
+     *
      * @var int
      */
     public $cacheMinutes = 30;
@@ -37,6 +38,27 @@ class Folder extends Eloquent
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Relationship to child folders
+     *
+     * @return object
+     */
+    public function folders()
+    {
+        return $this->hasMany('Pyro\Module\Files\Model\Folder', 'parent_id');
+    }
+
+    /**
+     * Find a child folder by slug
+     *
+     * @param $slug
+     * @return object
+     */
+    public function findChildBySlug($slug)
+    {
+        return $this->hasMany('Pyro\Module\Files\Model\Folder', 'parent_id')->whereSlug($slug)->first();
+    }
 
     /**
      * Relationship to File
@@ -68,7 +90,7 @@ class Folder extends Eloquent
     public static function findBySlugAndNotId($slug, $id)
     {
         return static::where('slug', '=', $slug)
-            ->where('id','!=',$id)
+            ->where('id', '!=', $id)
             ->get();
     }
 
@@ -97,7 +119,7 @@ class Folder extends Eloquent
     /**
      * Get Folders by parent
      *
-     * @param  int  $parent_id
+     * @param  int $parent_id
      * @return void
      */
     public static function findByParent($parent_id = 0)
@@ -108,23 +130,23 @@ class Folder extends Eloquent
     /**
      * Get Folders by parent
      *
-     * @param  int  $parent_id
+     * @param  int $parent_id
      * @return void
      */
     public static function findByParentAndSortByName($parent_id = 0)
     {
-        return static::where('parent_id','=',$parent_id)->orderBy('name')->get();
+        return static::where('parent_id', '=', $parent_id)->orderBy('name')->get();
     }
 
     /**
      * Get Folders by parent ordered by sort
      *
-     * @param  int  $parent_id
+     * @param  int $parent_id
      * @return void
      */
     public static function findByParentBySort($parent_id = 0)
     {
-        return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
+        return static::where('parent_id', '=', $parent_id)->orderBy('sort')->get();
     }
 
     /**
@@ -133,15 +155,19 @@ class Folder extends Eloquent
      * @param  string $path
      * @return folder object
      */
-    public function findByPath($path)
+    public static function findByPath($path)
     {
-        if (is_array($path)) {
-            $path = implode('/', $path);
+        $path = explode('/', trim($path, '/'));
+
+        // Get the root folder
+        $folder = self::with('folders')->whereSlug(array_shift($path))->whereParentId(0)->first();
+
+        // Cycle and find by slug within parent
+        foreach ($path as $slug) {
+            $folder = $folder->findChildBySlug($slug);
         }
 
-        $path = trim($path, '/');
-
-        return static::where('virtual_path', $path)->get();
+        return $folder;
     }
 
     /**
@@ -149,7 +175,6 @@ class Folder extends Eloquent
      *
      * @param array   $search
      * @param integer $limit
-     *
      * @return void
      */
     public static function findByKeywords($search, $limit = 5)
@@ -160,11 +185,13 @@ class Folder extends Eloquent
         foreach ($search as $match) {
             $match = trim($match);
 
-            Static::where(function($query) {
-                $query->orWhere('name','like',$match);
-                $query->orWhere('location','like',$match);
-                $query->orWhere('remote_container','like',$match);
-            });
+            Static::where(
+                function ($query) {
+                    $query->orWhere('name', 'like', $match);
+                    $query->orWhere('location', 'like', $match);
+                    $query->orWhere('remote_container', 'like', $match);
+                }
+            );
         }
 
         return static::take($limit)->get();
