@@ -34,7 +34,7 @@
                 <strong><?php echo lang('pages:meta_title_label') ?>:</strong> <?php echo $page->entry->meta_title ?>
             </p>
         <?php endif ?>
-        <?php if ($page->entry->meta_keywords): ?>
+        <?php if ($page->entry->meta_keywords->toArray()): ?>
             <p>
                 <strong><?php echo lang('pages:meta_keywords_label') ?>:</strong> <?php echo implode(
                     ', ',
