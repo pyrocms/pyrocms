@@ -109,6 +109,8 @@ class Admin_types extends Admin_Controller
         $this->load->driver('Streams');
 
         $this->fieldUi = new FieldUi();
+
+        $this->pageType = new PageType();
     }
 
     // --------------------------------------------------------------------------
@@ -227,6 +229,8 @@ class Admin_types extends Admin_Controller
                 $this->session->set_flashdata('success', lang('page_types:create_success'));
 
                 $this->cache->forget('page_m');
+
+                ci()->cache->collection($this->pageType->getCacheCollectionKey())->flush();
 
                 // Event: page_type_created
                 Events::trigger('page_type_created', $id);
