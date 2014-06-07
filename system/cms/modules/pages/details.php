@@ -184,7 +184,9 @@ class Module_Pages extends AbstractModule
         // definiitely should not have a page_chunks table.
         $schema->dropIfExists('page_chunks');
 
-        $schema->create('pages', function($table) {
+        $schema->create(
+            'pages',
+            function ($table) {
                 $table->increments('id');
 
                 $table->string('slug', 255)->nullable();
@@ -214,7 +216,8 @@ class Module_Pages extends AbstractModule
 
                 $table->index('slug');
                 $table->index('parent_id');
-            });
+            }
+        );
 
         // Remove pages namespace, just in case its a 2nd install
         StreamSchema::destroyNamespace('pages');
@@ -237,14 +240,14 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'uri',
                 'type'        => 'text',
                 'is_required' => true,
-                'locked'      => true,
+                'is_locked'      => true,
             ),
             array(
                 'name'        => 'lang:pages:parent_id',
                 'slug'        => 'parent_id',
                 'type'        => 'relationship',
                 'is_required' => true,
-                'locked'      => true,
+                'is_locked'      => true,
                 'extra'       => array(
                     'relation_class' => 'Pyro\Module\Pages\Model\Page',
                 )
@@ -254,7 +257,7 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'type_id',
                 'type'        => 'relationship',
                 'is_required' => true,
-                'locked'      => true,
+                'is_locked'      => true,
                 'extra'       => array(
                     'relation_class' => 'Pyro\Module\Pages\Model\PageType',
                 )
@@ -264,14 +267,14 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'entry',
                 'type'        => 'polymorphic',
                 'is_required' => true,
-                'locked'      => true,
+                'is_locked'      => true,
             ),*/
             array(
-                'name'         => 'lang:pages:body_label',
-                'slug'         => 'body',
-                'type'         => 'wysiwyg',
-                'locked'       => true,
-                'extra'        => array(
+                'name'      => 'lang:pages:body_label',
+                'slug'      => 'body',
+                'type'      => 'wysiwyg',
+                'is_locked' => true,
+                'extra'     => array(
                     'editor_type' => 'advanced',
                 ),
             ),
@@ -281,7 +284,7 @@ class Module_Pages extends AbstractModule
                 'type'         => 'text',
                 'title_column' => true,
                 'is_required'  => true,
-                'locked'       => true,
+                'is_locked'    => true,
                 'extra'        => array(
                     'max_length' => 255
                 ),
@@ -291,7 +294,7 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'slug',
                 'type'        => 'slug',
                 'is_required' => true,
-                'locked'      => true,
+                'is_locked'   => true,
                 'extra'       => array(
                     'max_length'     => 255,
                     'namespace'      => 'pages',
@@ -300,123 +303,124 @@ class Module_Pages extends AbstractModule
                 ),
             ),
             array(
-                'name'  => 'lang:global:class',
-                'slug'  => 'class',
-                'type'  => 'text',
-                'extra' => array(
+                'name'      => 'lang:global:class',
+                'slug'      => 'class',
+                'type'      => 'text',
+                'is_locked' => true,
+                'extra'     => array(
                     'max_length' => 255
                 ),
             ),
             array(
-                'name'   => 'lang:pages:css_label',
-                'slug'   => 'css',
-                'type'   => 'textarea',
-                'locked' => true,
+                'name'      => 'lang:pages:css_label',
+                'slug'      => 'css',
+                'type'      => 'textarea',
+                'is_locked' => true,
             ),
             array(
-                'name'   => 'lang:pages:js_label',
-                'slug'   => 'js',
-                'type'   => 'textarea',
-                'locked' => true,
+                'name'      => 'lang:pages:js_label',
+                'slug'      => 'js',
+                'type'      => 'textarea',
+                'is_locked' => true,
             ),
             array(
-                'name'   => 'lang:pages:meta_title_label',
-                'slug'   => 'meta_title',
-                'type'   => 'text',
-                'locked' => true,
+                'name'      => 'lang:pages:meta_title_label',
+                'slug'      => 'meta_title',
+                'type'      => 'text',
+                'is_locked' => true,
             ),
             array(
-                'name'   => 'lang:pages:meta_keywords_label',
-                'slug'   => 'meta_keywords',
-                'type'   => 'keywords',
-                'locked' => true,
+                'name'      => 'lang:pages:meta_keywords_label',
+                'slug'      => 'meta_keywords',
+                'type'      => 'keywords',
+                'is_locked' => true,
             ),
             array(
-                'name'   => 'lang:pages:meta_desc_label',
-                'slug'   => 'meta_description',
-                'type'   => 'textarea',
-                'locked' => true,
+                'name'      => 'lang:pages:meta_desc_label',
+                'slug'      => 'meta_description',
+                'type'      => 'textarea',
+                'is_locked' => true,
             ),
             array(
-                'name'   => 'lang:pages:meta_robots_no_index_label',
-                'slug'   => 'meta_robots_no_index',
-                'type'   => 'choice',
-                'locked' => true,
-                'extra'  => array(
+                'name'      => 'lang:pages:meta_robots_no_index_label',
+                'slug'      => 'meta_robots_no_index',
+                'type'      => 'choice',
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'   => 'lang:pages:meta_robots_no_follow_label',
-                'slug'   => 'meta_robots_no_follow',
-                'type'   => 'choice',
-                'locked' => true,
-                'extra'  => array(
+                'name'      => 'lang:pages:meta_robots_no_follow_label',
+                'slug'      => 'meta_robots_no_follow',
+                'type'      => 'choice',
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'   => 'lang:pages:rss_enabled_label',
-                'slug'   => 'rss_enabled',
-                'type'   => 'choice',
-                'locked' => true,
-                'extra'  => array(
+                'name'      => 'lang:pages:rss_enabled_label',
+                'slug'      => 'rss_enabled',
+                'type'      => 'choice',
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'    => 'lang:pages:comments_enabled_label',
-                'slug'    => 'comments_enabled',
-                'type'    => 'choice',
-                'default' => 0,
-                'locked'  => true,
-                'extra'   => array(
+                'name'      => 'lang:pages:comments_enabled_label',
+                'slug'      => 'comments_enabled',
+                'type'      => 'choice',
+                'default'   => 0,
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'    => 'lang:pages:status_label',
-                'slug'    => 'status',
-                'type'    => 'choice',
-                'locked'  => true,
-                'default' => 'draft',
-                'extra'   => array(
+                'name'      => 'lang:pages:status_label',
+                'slug'      => 'status',
+                'type'      => 'choice',
+                'is_locked' => true,
+                'default'   => 'draft',
+                'extra'     => array(
                     'choice_data' => "draft : lang:pages:draft_label\n
                                         live : lang:pages:live_label\n"
                 ),
             ),
             array(
-                'name'    => 'lang:pages:is_home_label',
-                'slug'    => 'is_home',
-                'type'    => 'choice',
-                'default' => 0,
-                'locked'  => true,
-                'extra'   => array(
+                'name'      => 'lang:pages:is_home_label',
+                'slug'      => 'is_home',
+                'type'      => 'choice',
+                'default'   => 0,
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'    => 'lang:pages:strict_uri_label',
-                'slug'    => 'strict_uri',
-                'type'    => 'choice',
-                'default' => 1,
-                'locked'  => true,
-                'extra'   => array(
+                'name'      => 'lang:pages:strict_uri_label',
+                'slug'      => 'strict_uri',
+                'type'      => 'choice',
+                'default'   => 1,
+                'is_locked' => true,
+                'extra'     => array(
                     'choice_data' => '1 :  ',
                     'choice_type' => 'checkboxes'
                 ),
             ),
             array(
-                'name'   => 'lang:pages:access_label',
-                'slug'   => 'restricted_to',
-                'type'   => 'multiple',
-                'locked' => true,
-                'extra'  => array(
+                'name'      => 'lang:pages:access_label',
+                'slug'      => 'restricted_to',
+                'type'      => 'multiple',
+                'is_locked' => true,
+                'extra'     => array(
                     'relation_class' => 'Pyro\Module\Pages\FieldType\GroupModel'
                 ),
             ),
