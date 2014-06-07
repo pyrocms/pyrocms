@@ -151,6 +151,12 @@ class FieldUi extends UiAbstract
             $this->direction
         );
 
+        foreach ($this->assignments as $k => $assignment) {
+            if ($assignment->field->is_locked == 'yes') {
+                unset($this->assignments[$k]);
+            }
+        }
+
         if ($this->limit > 0) {
             $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id));
         }
@@ -225,7 +231,7 @@ class FieldUi extends UiAbstract
         $types = $this->getSelectableFieldTypes();
 
         // Get our list of available fields
-        $this->field_types = $types->getOptions();
+        $this->field_types = array(null => '-----') + $types->getOptions();
 
         // -------------------------------------
         // Field Type Assets
