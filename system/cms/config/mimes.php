@@ -135,6 +135,7 @@ return array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhex'
 				'ac3'   =>	'audio/ac3',
 				'flac'  =>	'audio/x-flac',
 				'ogg'   =>	'audio/ogg',
+				'ogv' => 'application/ogg',
 				'pages' =>      'application/zip',
 				'numbers' =>    'application/zip',
 				'svg'  =>	'image/svg+xml',
