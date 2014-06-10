@@ -29,6 +29,7 @@ $lang['pages:type_id_label']            = 'Page Type';
 $lang['pages:css_label']                = 'CSS';
 $lang['pages:js_label']                 = 'JavaScript';
 $lang['pages:access_label']             = 'Access';
+$lang['pages:restrict_editing']         = 'Editing Access';
 $lang['pages:rss_enabled_label']        = 'RSS enabled?';
 $lang['pages:comments_enabled_label']   = 'Comments enabled?';
 $lang['pages:is_home_label']            = 'Is default (home) page?';
@@ -58,6 +59,7 @@ $lang['pages:no_pages']                 = 'There are no pages.';
 $lang['pages:create_success']           = 'The page was created.';
 $lang['pages:create_error']             = 'That page has not been created.';
 $lang['pages:page_not_found_error']     = 'That page does not exist.';
+$lang['pages:no_access_error']    		= 'You do not have access to edit this page.';
 $lang['pages:edit_success']             = 'The page "%s" was saved.';
 $lang['pages:delete_home_error']        = 'You can not delete the home page!';
 $lang['pages:delete_success']           = 'Page #%s has been deleted.';
@@ -67,6 +69,7 @@ $lang['pages:page_already_exist_error'] = 'A page with the URL "%s" already exis
 $lang['pages:parent_not_exist_error']   = 'The parent page you have selected does not exist.';
 $lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.';
 $lang['pages:root_folder']              = 'the top level';
+
 
 $lang['pages:tree_explanation_title']   = 'Explanation';
 $lang['pages:tree_explanation']         = 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';
