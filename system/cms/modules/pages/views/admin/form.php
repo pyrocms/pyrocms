@@ -182,6 +182,10 @@
 						<label for="restricted_to[]"><?php echo lang('pages:access_label') ?></label>
 						<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
 					</li>
+					<li>
+						<label for="restrict_editing[]"><?php echo lang('pages:restrict_editing') ?></label>
+						<div class="input"><?php echo form_multiselect('restrict_editing[]', array(0 => lang('global:select-any')) + $group_options, $page->restrict_editing, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"') ?></div>
+					</li>
 									
 					<?php if ( ! module_enabled('comments')): ?>
 						<?php echo form_hidden('comments_enabled'); ?>

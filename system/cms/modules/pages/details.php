@@ -215,6 +215,7 @@ class Module_Pages extends Module
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'restrict_editing' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
 				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
@@ -269,6 +270,7 @@ class Module_Pages extends Module
 				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
+				'restrict_editing' => '',
 				'created_on' => now(),
 				'is_home' => true,
 				'order' => now()
@@ -281,6 +283,7 @@ class Module_Pages extends Module
 				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
+				'restrict_editing' => '',
 				'created_on' => now(),
 				'is_home' => false,
 				'order' => now()
@@ -293,6 +296,7 @@ class Module_Pages extends Module
 				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
+				'restrict_editing' => '',
 				'created_on' => now(),
 				'is_home' => false,
 				'order' => now()
@@ -305,6 +309,7 @@ class Module_Pages extends Module
 				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
+				'restrict_editing' => '',
 				'created_on' => now(),
 				'is_home' => false,
 				'strict_uri' => false,
@@ -318,6 +323,7 @@ class Module_Pages extends Module
 				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
+				'restrict_editing' => '',
 				'created_on' => now(),
 				'is_home' => false,
 				'order' => now()

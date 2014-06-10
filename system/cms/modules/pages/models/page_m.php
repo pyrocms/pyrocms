@@ -68,6 +68,11 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|required'
 		),
 		array(
+			'field' => 'restrict_editing[]',
+			'label'	=> 'lang:pages:restrict_editing',
+			'rules'	=> 'trim|required'
+		),
+		array(
 			'field' => 'rss_enabled',
 			'label'	=> 'lang:pages:rss_enabled_label',
 			'rules'	=> 'trim'
@@ -628,6 +633,7 @@ class Page_m extends MY_Model
 			'status'			=> $input['status'],
 			'created_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
+			'restrict_editing'	=> isset($input['restrict_editing']) ? implode(',', $input['restrict_editing']) : '0',
 			'strict_uri'		=> ! empty($input['strict_uri']),
 			'is_home'			=> ! empty($input['is_home']),
 			'order'				=> now()
@@ -727,6 +733,7 @@ class Page_m extends MY_Model
 			'status'			=> $input['status'],
 			'updated_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
+			'restrict_editing'	=> isset($input['restrict_editing']) ? implode(',', $input['restrict_editing']) : '0',
 			'strict_uri'		=> ! empty($input['strict_uri']),
 			'is_home'			=> ! empty($input['is_home'])
 		));

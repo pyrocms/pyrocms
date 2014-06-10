@@ -239,6 +239,7 @@ class Admin extends Admin_Controller {
 		}
 
 		$page['restricted_to'] = null;
+		$page['restrict_editing'] = null;
 		$page['navigation_group_id'] = 0;
 		$page['is_home'] = false;
 
@@ -328,6 +329,10 @@ class Admin extends Admin_Controller {
 		{
 			switch ($field)
 			{
+				case 'restrict_editing[]':
+					$page->restrict_editing = set_value($field, array('0'));
+					break;
+
 				case 'restricted_to[]':
 					$page->restricted_to = set_value($field, array('0'));
 					break;
@@ -419,7 +424,18 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
 			redirect('admin/pages/choose_type');
 		}
+		if ($page->restrict_editing) {
+			$page->restrict_editing = (array)explode(',', $page->restrict_editing);
 
+			// Are they logged in and an admin or a member of the correct group?
+			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restrict_editing)))
+			{
+				// send them to page directory with error 
+				$this->session->set_flashdata('error', lang('pages:no_access_error'));
+				redirect('admin/pages');
+				
+			}
+		}
 		// Note: we don't need to get the page type
 		// from the URL since it is present in the $page data
 
@@ -438,7 +454,6 @@ class Admin extends Admin_Controller {
 			$old_keywords_hash = $page->meta_keywords;
 			$page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
 		}
-
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
 
@@ -496,6 +511,14 @@ class Admin extends Admin_Controller {
 			{
 				$page->restricted_to = set_value($field, $page->restricted_to);
 				$page->restricted_to[0] = ($page->restricted_to[0] == '') ? '0' : $page->restricted_to[0];
+				continue;
+			}
+
+			// Translate the data of restrict_editing to something we can use in the form.
+			if ($field === 'restrict_editing[]')
+			{
+				$page->restrict_editing = set_value($field, $page->restrict_editing);
+				$page->restrict_editing[0] = ($page->restrict_editing[0] == '') ? '0' : $page->restrict_editing[0];
 				continue;
 			}
 
