@@ -6,8 +6,7 @@
 	stopOnError="false"
 	stopOnFailure="false"
 	stopOnIncomplete="false"
-	stopOnSkipped="false"
-	testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+	stopOnSkipped="false">
     <testsuites>
         <testsuite name="all">
 
