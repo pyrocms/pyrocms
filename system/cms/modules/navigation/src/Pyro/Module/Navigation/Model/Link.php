@@ -315,7 +315,7 @@ class Link extends Eloquent
                 $row->restricted_to = (array) explode(',', $row->restricted_to);
 
                 // Get the similarities
-                $matches = array_intersect($row->restricted_to, $user_groups);
+                $matches = $user_groups != false ? array_intersect($row->restricted_to, $user_groups) : $row->restricted_to;
 
                 // Test it..
                 if (empty($user_groups) or (in_array(1, $user_groups) == false and empty($matches))) {
