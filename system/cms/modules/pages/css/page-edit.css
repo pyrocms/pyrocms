@@ -6,3 +6,7 @@ span.sort-handle { width: 21px; height: 19px; background: url("../img/sort-handl
 .sort-placeholder {background-color: #eee;border:1px solid #DCDCDC; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px;}
 
 #slug.disabled { opacity: 0.5; }
+
+.parent-count { color: #888; font-weight: bold; }
+.count-green { color: #9EC451; }
+.count-red { color: #d54e53; }

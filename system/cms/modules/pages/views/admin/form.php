@@ -129,6 +129,8 @@
 					<li>
 						<label for="meta_description"><?php echo lang('pages:meta_desc_label') ?></label>
 						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)) ?>
+						<div class="clearfix"></div>
+						<p><span class="parent-count">0</span></p>
 					</li>
 				</ul>
 				
