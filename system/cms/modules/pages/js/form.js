@@ -103,6 +103,18 @@
 			pyro.init_ckeditor();
 		});
 
+		$('textarea[name="meta_description"]').on('input', function(){
+			var $count = $(this).parent().find('.parent-count')
+			if (this.value.length > 160) {
+				$count.removeClass('count-green').addClass('count-red');
+			} else if (this.value.length > 20) {
+				$count.removeClass('count-red').addClass('count-green');
+			} else {
+				$count.removeClass('count-red count-green');
+			}
+			$count.text(this.value.length);
+		});
+
 	});
 
 })(jQuery);
