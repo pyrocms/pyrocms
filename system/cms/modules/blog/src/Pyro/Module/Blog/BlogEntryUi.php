@@ -23,14 +23,14 @@ class BlogEntryUi extends EntryUi
             ->fields(
                 array(
                     'title',
-                    'category' => array(
-                        'name' => lang('blog:category_label'),
+                    'category'        => array(
+                        'name'     => lang('blog:category_label'),
                         'template' => '{{ entry:category:title }}',
                     ),
                     'created_at',
                     'status',
                     'created_by_user' => array( // @todo - this should be an editable field
-                        'name'     => 'Written By', // @todo - language
+                        'name' => 'Written By', // @todo - language
                     ),
                 )
             )
@@ -42,8 +42,8 @@ class BlogEntryUi extends EntryUi
                         'label' => lang('global:view')
                     ),
                     array(
-                        'url'   => 'admin/blog/edit/{{ id }}',
-                        'label' => lang('global:edit')
+                        'url'    => 'admin/blog/edit/{{ id }}',
+                        'label'  => lang('global:edit')
                     ),
                     array(
                         'url'     => 'admin/blog/delete/{{ id }}',
@@ -70,6 +70,16 @@ class BlogEntryUi extends EntryUi
                         'id'     => 'profile-fields',
                         'fields' => '*'
                     ),
+                )
+            )
+            ->defaults(
+                array(
+                    'preview_hash' => rand_string(20)
+                )
+            )
+            ->hidden(
+                array(
+                    'preview_hash'
                 )
             ); /*->onQuery(function($model) {
                     return $model->whereHas('category', function($q) {
