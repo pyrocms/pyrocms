@@ -83,6 +83,7 @@ class Install_m extends CI_Model
 		    $table->string('salt', 6)->nullable();
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
+            $table->boolean('is_blocked')->default(false);
 		    $table->string('activation_code')->nullable();
 		    $table->string('persist_code')->nullable();
 		    $table->string('reset_password_code')->nullable();
