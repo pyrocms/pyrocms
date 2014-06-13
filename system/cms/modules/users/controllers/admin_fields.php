@@ -87,14 +87,14 @@ class Admin_fields extends Admin_Controller
      *
      * @return    void
      */
-    public function delete()
+    public function delete($id = null)
     {
-        if (!$assign_id = $this->uri->segment(5)) {
+        if (!$id) {
             show_error(lang('streams:cannot_find_assign'));
         }
 
         // Tear down the assignment
-        if (!FieldModel::teardownFieldAssignment($assign_id)) {
+        if (!FieldModel::teardownFieldAssignment($id)) {
             $this->session->set_flashdata('notice', lang('user:profile_delete_failure'));
         } else {
             $this->session->set_flashdata('success', lang('user:profile_delete_success'));
