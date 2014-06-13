@@ -613,6 +613,10 @@ class Page extends Eloquent
 
     public function createFromEntry($entry, $typeId = 1, $parentId = 0)
     {
+        if ($parentId == null) {
+            $parentId = 0;
+        }
+
         $page = array(
             'type_id'    => $typeId,
             'parent_id'  => $parentId,
