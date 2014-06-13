@@ -73,7 +73,11 @@ class BlogEntryModel extends BlogsBlogEntryModel
 
     public function getUrlAttribute()
     {
-        return site_url('blog/' . date('Y/m', strtotime($this->created_at)) . '/' . $this->slug);
+        if ($this->status === 'live') {
+            return site_url('blog/' . date('Y/m', strtotime($this->created_at)) . '/' . $this->slug);
+        } else {
+            return site_url('blog/preview/' . $this->preview_hash);
+        }
     }
 
     public function scopeLive($query)
