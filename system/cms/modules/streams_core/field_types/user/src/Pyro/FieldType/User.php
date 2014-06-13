@@ -53,8 +53,8 @@ class User extends FieldTypeAbstract
     {
         $id = null;
 
-        if ($user = $this->getRelationResult()) {
-            $id = $user->id;
+        if ($id = $this->getRelationResult()) {
+            $id = $id;
         } elseif ($this->getParameter('default_to_current_user') == 'yes') {
             $id = ci()->current_user->id;
         } elseif ($this->getDefault()) {
