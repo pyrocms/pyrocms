@@ -441,6 +441,7 @@ class Module_Pages extends AbstractModule
         FieldModel::assignField('def_page_fields', 'pages', 'class', array());
         FieldModel::assignField('def_page_fields', 'pages', 'css', array());
         FieldModel::assignField('def_page_fields', 'pages', 'js', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'restricted_to', array());
         FieldModel::assignField('def_page_fields', 'pages', 'meta_title', array());
         FieldModel::assignField('def_page_fields', 'pages', 'meta_keywords', array());
         FieldModel::assignField('def_page_fields', 'pages', 'meta_description', array());
