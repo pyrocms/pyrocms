@@ -49,7 +49,7 @@ class ProfileEntryUi extends EntryUi
                     'last_name',
                     'activated' => array(
                         'name'     => 'lang:user:activated_account_title',
-                        'template' => '{{ if entry:is_activated }}{{ helper:lang line="global:yes" }}{{ else }}{{ helper:lang line="global:no" }}{{ endif }}',
+                        'template' => '{{ entry:is_activated_lang }}',
                     ),
                     'user'      => array(
                         'name'     => 'lang:global:user',
