@@ -16,6 +16,8 @@ class Profile extends UsersProfilesEntryModel
      */
     public $cacheMinutes = 30;
 
+    public $presenterClass = 'Pyro\Module\Users\Presenter\ProfilePresenter';
+
     /**
      * User relation
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
