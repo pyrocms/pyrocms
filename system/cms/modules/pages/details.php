@@ -262,6 +262,7 @@ class Module_Pages extends AbstractModule
                 'is_locked' => true,
                 'extra'     => array(
                     'editor_type' => 'advanced',
+                    'allow_tags'  => 'y',
                 ),
             ),
             array(
@@ -462,34 +463,34 @@ class Module_Pages extends AbstractModule
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
             'home'       => array(
-                'title'         => 'Home',
-                'uri'           => 'home',
-                'parent_id'     => 0,
-                'type_id'       => $def_page_type_id,
-                'entry_type'    => $pageEntryModel,
-                'status'        => 'live',
-                'is_home'       => true,
-                'order'         => time()
+                'title'      => 'Home',
+                'uri'        => 'home',
+                'parent_id'  => 0,
+                'type_id'    => $def_page_type_id,
+                'entry_type' => $pageEntryModel,
+                'status'     => 'live',
+                'is_home'    => true,
+                'order'      => time()
             ),
             'contact'    => array(
-                'title'         => 'Contact',
-                'uri'           => 'contact',
-                'parent_id'     => 0,
-                'type_id'       => $def_page_type_id,
-                'entry_type'    => $pageEntryModel,
-                'status'        => 'live',
-                'is_home'       => false,
-                'order'         => time()
+                'title'      => 'Contact',
+                'uri'        => 'contact',
+                'parent_id'  => 0,
+                'type_id'    => $def_page_type_id,
+                'entry_type' => $pageEntryModel,
+                'status'     => 'live',
+                'is_home'    => false,
+                'order'      => time()
             ),
             'fourohfour' => array(
-                'title'         => 'Page missing',
-                'uri'           => '404',
-                'parent_id'     => 0,
-                'type_id'       => $def_page_type_id,
-                'entry_type'    => $pageEntryModel,
-                'status'        => 'live',
-                'is_home'       => 0,
-                'order'         => time()
+                'title'      => 'Page missing',
+                'uri'        => '404',
+                'parent_id'  => 0,
+                'type_id'    => $def_page_type_id,
+                'entry_type' => $pageEntryModel,
+                'status'     => 'live',
+                'is_home'    => 0,
+                'order'      => time()
             )
         );
 
