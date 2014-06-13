@@ -293,7 +293,7 @@ class Admin extends Admin_Controller
             // }
 
             // Only update is_active if it was posted
-            if ($this->input->post('active')) {
+            if ($this->input->post('active') !== false) {
                 $user->is_activated = $this->input->post('active');
             }
 
