@@ -132,6 +132,7 @@ class Module_Templates extends AbstractModule
                 'type'      => 'slug',
                 'extra'     => array(
                     'slug_field' => 'name',
+                    'max_length' => 100,
                 ),
             ),
             array(
@@ -165,6 +166,9 @@ class Module_Templates extends AbstractModule
                 'namespace' => 'templates',
                 'is_locked'    => true,
                 'type'      => 'pyro_lang',
+                'extra'     => array(
+                    'max_length' => 2,
+                ),
             ),
         );
 
