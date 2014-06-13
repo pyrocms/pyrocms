@@ -547,7 +547,7 @@ class EntryModel extends Eloquent implements RelationshipInterface
                 : null;
 
             $this->setAttribute('created_by', $created_by);
-            $this->setAttribute('updated_at', '0000-00-00 00:00:00');
+            $this->setAttribute('updated_at', null);
             $this->setAttribute('ordering_count', $this->count('id') + 1);
         } else {
             $this->setAttribute('updated_at', time());
