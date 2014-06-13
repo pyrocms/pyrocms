@@ -190,29 +190,15 @@ class Module_Pages extends AbstractModule
                 $table->increments('id');
 
                 $table->string('slug', 255)->nullable();
-                $table->string('class', 255)->nullable();
                 $table->string('title', 255)->nullable();
                 $table->text('uri')->nullable();
                 $table->integer('parent_id');
                 $table->string('type_id', 255);
                 $table->string('entry_id', 255)->nullable();
                 $table->string('entry_type', 122);
-                $table->text('css')->nullable();
-                $table->text('js')->nullable();
-                $table->string('meta_title', 255)->nullable();
-                $table->string('meta_keywords', 32)->nullable();
-                $table->text('meta_description')->nullable();
-                $table->boolean('meta_robots_no_index')->nullable();
-                $table->boolean('meta_robots_no_follow')->nullable();
-                $table->integer('rss_enabled')->default(false);
-                $table->integer('comments_enabled')->default(false);
-                $table->enum('status', array('draft', 'live'))->default('draft');
-                $table->string('restricted_to', 255)->nullable();
                 $table->boolean('is_home')->default(false);
-                $table->boolean('strict_uri')->default(true);
                 $table->integer('order')->default(0);
-                $table->dateTime('created_at');
-                $table->dateTime('updated_at')->nullable();
+                $table->enum('status', array('draft', 'live'))->default('draft');
 
                 $table->index('slug');
                 $table->index('parent_id');
@@ -240,24 +226,24 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'uri',
                 'type'        => 'text',
                 'is_required' => true,
-                'is_locked'      => true,
+                'is_locked'   => true,
             ),
             array(
                 'name'        => 'lang:pages:parent_id',
-                'slug'        => 'parent_id',
+                'slug'        => 'parent',
                 'type'        => 'relationship',
                 'is_required' => true,
-                'is_locked'      => true,
+                'is_locked'   => true,
                 'extra'       => array(
                     'relation_class' => 'Pyro\Module\Pages\Model\Page',
                 )
             ),
             array(
                 'name'        => 'lang:pages:type_id',
-                'slug'        => 'type_id',
+                'slug'        => 'type',
                 'type'        => 'relationship',
                 'is_required' => true,
-                'is_locked'      => true,
+                'is_locked'   => true,
                 'extra'       => array(
                     'relation_class' => 'Pyro\Module\Pages\Model\PageType',
                 )
@@ -267,7 +253,7 @@ class Module_Pages extends AbstractModule
                 'slug'        => 'entry',
                 'type'        => 'polymorphic',
                 'is_required' => true,
-                'is_locked'      => true,
+                'is_locked'   => true,
             ),*/
             array(
                 'name'      => 'lang:pages:body_label',
@@ -428,12 +414,12 @@ class Module_Pages extends AbstractModule
 
         FieldModel::addFields($fields, null, 'pages');
 
-        /*FieldModel::assignField('pages', 'pages', 'uri', array('is_required' => true));
-        FieldModel::assignField('pages', 'pages', 'parent_id', array('is_required' => true));
-        FieldModel::assignField('pages', 'pages', 'type_id', array('is_required' => true));
+        /*FieldModel::assignField('pages', 'pages', 'slug', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'uri', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'parent', array('is_required' => true));
+        FieldModel::assignField('pages', 'pages', 'type', array('is_required' => true));
         FieldModel::assignField('pages', 'pages', 'entry', array('is_required' => true));
-        FieldModel::assignField('pages', 'pages', 'is_home', array('is_required' => true));
-        FieldModel::assignField('pages', 'pages', 'ordering_count', array('is_required' => true));*/
+        FieldModel::assignField('pages', 'pages', 'is_home', array('is_required' => true));*/
 
         FieldModel::assignField('def_page_fields', 'pages', 'body', array());
         FieldModel::assignField('def_page_fields', 'pages', 'title', array('is_required' => true));
@@ -450,7 +436,7 @@ class Module_Pages extends AbstractModule
         FieldModel::assignField('def_page_fields', 'pages', 'rss_enabled', array());
         FieldModel::assignField('def_page_fields', 'pages', 'rss_enabled', array());
         FieldModel::assignField('def_page_fields', 'pages', 'comments_enabled', array());
-        FieldModel::assignField('def_page_fields', 'pages', 'status', array());
+        FieldModel::assignField('def_page_fields', 'pages', 'status', array('is_required' => true));
         FieldModel::assignField('def_page_fields', 'pages', 'is_home', array());
         FieldModel::assignField('def_page_fields', 'pages', 'strict_uri', array());
 
@@ -476,41 +462,32 @@ class Module_Pages extends AbstractModule
         $page_content = config_item('pages:default_page_content');
         $page_entries = array(
             'home'       => array(
-                'slug'          => 'home',
                 'title'         => 'Home',
                 'uri'           => 'home',
                 'parent_id'     => 0,
                 'type_id'       => $def_page_type_id,
                 'entry_type'    => $pageEntryModel,
                 'status'        => 'live',
-                'restricted_to' => '',
-                'created_at'    => date('Y-m-d H:i:s'),
                 'is_home'       => true,
                 'order'         => time()
             ),
             'contact'    => array(
-                'slug'          => 'contact',
                 'title'         => 'Contact',
                 'uri'           => 'contact',
                 'parent_id'     => 0,
                 'type_id'       => $def_page_type_id,
                 'entry_type'    => $pageEntryModel,
                 'status'        => 'live',
-                'restricted_to' => '',
-                'created_at'    => date('Y-m-d H:i:s'),
                 'is_home'       => false,
                 'order'         => time()
             ),
             'fourohfour' => array(
-                'slug'          => '404',
                 'title'         => 'Page missing',
                 'uri'           => '404',
                 'parent_id'     => 0,
                 'type_id'       => $def_page_type_id,
                 'entry_type'    => $pageEntryModel,
                 'status'        => 'live',
-                'restricted_to' => '',
-                'created_at'    => date('Y-m-d H:i:s'),
                 'is_home'       => 0,
                 'order'         => time()
             )
