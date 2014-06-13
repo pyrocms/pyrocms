@@ -237,8 +237,8 @@ class Admin extends Admin_Controller
             $deleted_ids = array();
             foreach ($ids as $id) {
                 // Get the current page so we can grab the id too
-                if ($post = $this->blog_m->get($id)) {
-                    if ($this->blog_m->delete($id)) {
+                if ($post = $this->posts->find($id)) {
+                    if ($post->delete($id)) {
                         // Delete any blog comments for this entry
                         $comments = Comment::findManyByModuleAndEntryId('blog', $id);
                         $comments->delete();
