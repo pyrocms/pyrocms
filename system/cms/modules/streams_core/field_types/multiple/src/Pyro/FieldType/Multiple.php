@@ -100,7 +100,7 @@ class Multiple extends FieldTypeAbstract
      */
     public function formInput()
     {
-        $options = array(null => lang_label($this->getPlaceholder())) + $this->getOptions();
+        $table = $this->getTableName();
 
         if (!$this->getParameter('use_ajax')) {
             $attributes = '';
@@ -108,7 +108,14 @@ class Multiple extends FieldTypeAbstract
             $attributes = 'class="' . $this->form_slug . '-selectize skip"';
         }
 
-        return form_multiselect($this->form_slug.'[]', $options, $this->value, $attributes);
+        $attributes .= ' placeholder="' . lang_label($this->getPlaceholder()) . '"';
+
+        $values = ci()->pdb
+            ->table($table)
+            ->whereEntryId(isset($this->entry->id) ? $this->entry->id : 0)
+            ->lists('related_id');
+
+        return form_multiselect($this->form_slug . '[]', $this->getOptions(), $values, $attributes);
     }
 
     /**
@@ -244,7 +251,7 @@ class Multiple extends FieldTypeAbstract
      */
     public function getColumnName()
     {
-        return $this->getColumnName() . '_id';
+        return parent::getColumnName() . '_id';
     }
 
     /**
