@@ -21,7 +21,15 @@ var char_map = {
 		'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ő': 'o', 'ø': 'o', 'ù': 'u', 'ú': 'u',
 		'û': 'u', 'ü': 'u', 'ű': 'u', 'ý': 'y', 'þ': 'th', 'ÿ': 'y',
 
-		//Greek
+    //Arabic - s
+    'أ':'2', 'ا':'a', 'ب':'b', 'ت':'t', 'ث':'th', 'ج':'g', 'ح':'h', 'خ':'kh', 'د':'d',
+    'ذ':'z', 'ر':'r', 'ز':'z', 'س':'s', 'ش':'sh', 'ص':'s', 'ض':'d', 'ط':'t',
+    'ظ':'z', 'ع':'a', 'غ':'gh', 'ف':'f', 'ق':'q', 'ك':'k', 'ل':'l', 'م':'m', 'ن':'n',
+    'ه':'h', 'و':'o', 'ي':'e', 'ة':'t',
+
+
+
+    //Greek
 		'α':'a', 'β':'b', 'γ':'g', 'δ':'d', 'ε':'e', 'ζ':'z', 'η':'h', 'θ':'8',
 		'ι':'i', 'κ':'k', 'λ':'l', 'μ':'m', 'ν':'n', 'ξ':'3', 'ο':'o', 'π':'p',
 		'ρ':'r', 'σ':'s', 'τ':'t', 'υ':'y', 'φ':'f', 'χ':'x', 'ψ':'ps', 'ω':'w',
@@ -73,7 +81,7 @@ var char_map = {
 		'Ū':'U', 'Ž':'Z',
 
 		//Currency
-		'€': 'euro', '₢': 'cruzeiro', '₣': 'french franc', '£': 'pound', 
+		'€': 'euro', '₢': 'cruzeiro', '₣': 'french franc', '£': 'pound',
 		'₤': 'lira', '₥': 'mill', '₦': 'naira', '₧': 'peseta', '₨': 'rupee',
 		'₩': 'won', '₪': 'new shequel', '₫': 'dong', '₭': 'kip', '₮': 'tugrik',
 		'₯': 'drachma', '₰': 'penny', '₱': 'peso', '₲': 'guarani', '₳': 'austral',
@@ -82,15 +90,15 @@ var char_map = {
 
 		//Symbols
 		'©':'(c)', 'œ': 'oe', 'Œ': 'OE', '∑': 'sum', '®': '(r)', '†': '+',
-		'“': '"', '”': '"', '‘': "'", '’': "'", '∂': 'd', 'ƒ': 'f', '™': 'tm', 
-		'℠': 'sm', '…': '...', '˚': 'o', 'º': 'o', 'ª': 'a', '•': '*', 
+		'“': '"', '”': '"', '‘': "'", '’': "'", '∂': 'd', 'ƒ': 'f', '™': 'tm',
+		'℠': 'sm', '…': '...', '˚': 'o', 'º': 'o', 'ª': 'a', '•': '*',
 		'∆': 'delta', '∞': 'infinity', '♥': 'love', '&': 'and'
 	};
 
 	var Slugify = function(e, cfg)
 	{
 		this.cfg = cfg || {};
-		
+
 		if (typeof this.cfg.slug == 'undefined')
 		{
 			console.log('Error no slug field');
@@ -99,7 +107,7 @@ var char_map = {
 		this.type   = this.cfg.type||'_';
 		this.$slug  = $(this.cfg.slug);
 		this.$title = $(e);
-		
+
 		this.register_events();
 	};
 
@@ -115,13 +123,13 @@ var char_map = {
 				{
 					slug += (char_map[str.charAt(i)]) ? char_map[str.charAt(i)] : str.charAt(i);
 				}
-				
+
 				return slug.toLowerCase().replace(/-+/g, '').replace(/\s+/g, this.type).replace(/[^a-z0-9_\-]/g, '');
 			}
 		},
 		register_events: function(){
 			var me = this, $title = this.$title, $slug = this.$slug;
-			
+
 			// Check if the	 field is a text field or undefined (select)
 			if ($title.attr('type') == 'text')
 			{
