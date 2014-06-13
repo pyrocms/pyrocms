@@ -110,7 +110,7 @@ class Pages extends Public_Controller
         elseif ($page->restricted_to) {
 
             // My favorite.. EXPLODE
-            $page->restricted_to = (array) explode(',', $page->restricted_to);
+            $page->restricted_to = (array) explode(',', $page->entry->restricted_to->lists('id'));
 
             // Grab user group IDs
             $user_groups = isset($this->current_user->id) ? $this->current_user->groups->lists('id') : array();
