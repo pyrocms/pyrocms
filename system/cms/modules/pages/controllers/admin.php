@@ -241,9 +241,16 @@ class Admin extends Admin_Controller
             $pageType->stream->stream_namespace
         );
 
+        $pages = $this->pages;
+
         $this->ui
             ->title(lang('pages:create_title'))
             ->form($entryModelClass)
+            ->onSaved(
+                function ($entry) use ($pages) {
+                    $pages->createFromEntry($entry, ci()->input->get('page_type'), ci()->input->get('parent'));
+                }
+            )
             ->render();
     }
 
@@ -258,9 +265,16 @@ class Admin extends Admin_Controller
 
         $page = $this->pages->with('type')->find($id);
 
+        $pages = $this->pages;
+
         $this->ui
             ->title(sprintf(lang('pages:edit_title'), $page->entry->title))
             ->form($page->entry_type, $page->entry_id)
+            ->onSaved(
+                function ($entry) use ($pages) {
+                    $pages->updateFromEntry($entry);
+                }
+            )
             ->render();
     }
 
