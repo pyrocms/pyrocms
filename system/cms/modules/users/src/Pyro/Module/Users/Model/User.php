@@ -157,13 +157,7 @@ class User extends EloquentUser implements ArrayableInterface
      */
     public function findByLogin($login)
     {
-        $user = $this->findByUsername($login) ? : $this->findByEmail($login);
-
-        if (!$user) {
-            throw new UserNotFoundException("A user could not be found with a login value of [$login].");
-        }
-
-        return $user;
+        return $this->findByUsername($login) ? : $this->findByEmail($login);
     }
 
     /**
