@@ -125,7 +125,7 @@ class Users extends Public_Controller
         $this->form_validation->set_rules($this->validation_rules);
 
         // If the validation worked, or the user is already logged in
-        if ($this->form_validation->run() or $this->sentry->check()) {
+        if ($this->input->post('email') and ($this->form_validation->run() or $this->sentry->check())) {
 
             $user = $this->users->findByLogin($this->input->post('email'));
 
