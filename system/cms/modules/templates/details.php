@@ -186,7 +186,7 @@ class Module_Templates extends AbstractModule
                 $table->boolean('is_default')->default(false);
                 $table->string('module', 50)->default('');
 
-                $table->unique(array('slug', 'lang'), 'slug_lang');
+                $table->unique(array('slug', 'lang'), 'unique');
             }
         );
 
