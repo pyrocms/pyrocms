@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Pages\Model;
 
+use Pyro\Cache\CacheCollection;
 use Pyro\Model\Eloquent;
 use Pyro\Model\Collection;
 
@@ -608,6 +609,38 @@ class Page extends Eloquent
         }
 
         return true;
+    }
+
+    public function createFromEntry($entry, $typeId = 1, $parentId = 0)
+    {
+        $page = array(
+            'type_id'    => $typeId,
+            'parent_id'  => $parentId,
+            'slug'       => $entry->slug,
+            'title'      => $entry->title,
+            'status'     => $entry->status,
+            'entry_type' => get_class($entry),
+            'entry_id'   => $entry->id,
+        );
+
+        $this->insert($page);
+
+        $this->flushCacheCollection();
+    }
+
+    public function updateFromEntry($entry)
+    {
+        $page = array(
+            'slug'       => $entry->slug,
+            'title'      => $entry->title,
+            'status'     => $entry->status,
+            'entry_type' => get_class($entry),
+            'entry_id'   => $entry->id,
+        );
+
+        $this->whereEntryId($entry->id)->whereEntryType(get_class($entry))->update($page);
+
+        $this->flushCacheCollection();
     }
 
     public function entry()
