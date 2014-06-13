@@ -220,7 +220,7 @@ class FieldAssignmentModel extends FieldModel
         }
 
         // Make sure that garbage is collected even it the stream is not present anymore
-        FieldModel::deleteByNamespace($stream->stream_namespace);
+        FieldModel::cleanup();
 
         return parent::delete();
     }
