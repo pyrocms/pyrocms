@@ -385,6 +385,11 @@ margin-top: -4px;
   margin: 0;
 }
 
+#filters form.form-inline input,
+#filters form.form-inline button {
+  vertical-align: top;
+}
+
 #site_public_lang .type-checkbox {
   padding-right: 50px;
 }
@@ -625,7 +630,7 @@ margin-top: -4px;
 	font-size: 10px;
 	font-weight: bold;
 	text-transform: uppercase;
-	
+
 }
 
 #widget-comments .comments-gravatar {
