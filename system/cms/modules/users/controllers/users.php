@@ -537,50 +537,76 @@ class Users extends Public_Controller
         }
 
         if ($this->input->post('email')) {
-            $uname = (string) $this->input->post('user_name');
-            $email = (string) $this->input->post('email');
+            $uname = (string)$this->input->post('user_name');
+            $email = (string)$this->input->post('email');
 
-            if (! ($uname or $email)) {
+            if (!($uname or $email)) {
                 // they submitted with an empty form, abort
                 $this->template->set('error_string', $this->ion_auth->errors())
-                    ->build('reset_pass');
+                        ->build('reset_pass');
             }
 
-            if (! ($user_meta = Model\User::findByEmail($email))) {
+            if (!($user_meta = Model\User::findByEmail($email))) {
                 $user_meta = Model\User::findByUsername($email);
             }
 
-            // have we found a user?
-            if ($user_meta) {
-                $new_password = $this->ion_auth->forgotten_password($user_meta->email);
+            try {
+                // find if users exists in DB
+                $user_meta = Model\User::findByEmail($email);
 
-                if ($new_password) {
-                    //set success message
-                    $this->template->success_string = lang('forgot_password_successful');
+                // generates a reset password code and send it to user email
+                $resetCode = $user_meta->getResetPasswordCode();
 
-                } else {
-                    // Set an error message explaining the reset failed
-                    $this->template->error_string = $this->ion_auth->errors();
-                }
+                $data = array(
+                    'username' => $user_meta->username,
+                    'forgotten_password_code' => $resetCode,
+                    'sender_ip' => $this->input->ip_address(),
+                    'sender_agent' => $this->agent->browser() . ' ' . $this->agent->version(),
+                    'sender_os' => $this->agent->platform(),
+                    'slug' => 'activation-code-password-reset',
+                    'to' => $email
+                );
 
-            } else {
-                //wrong username / email combination
-                $this->template->error_string = lang('user:forgot_incorrect');
+                Events::trigger('email', $data, 'array');
+            } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                echo 'User was not found.';
             }
         }
 
-        // code is supplied in url so lets try to reset the password
+        $code = $this->uri->segment(3);
+        
         if ($code) {
-            // verify reset_code against code stored in db
-            $reset = $this->ion_auth->forgotten_password_complete($code);
+            try {
+                // find if users exists in DB
+                $user = Model\User::findByActivationCode($code);
 
-            // did the password reset?
-            if ($reset) {
-                redirect('users/reset_complete');
+                // Check if the reset password code is valid
+                if ($user->checkResetPasswordCode($code)) {
+                    // Attempt to reset the user password
+                    $new_password = rand_string(40);
+                    
+                    if ($user->attemptResetPassword($code, $new_password)) {
+                        $data = array(
+                            'username' => $user->username,
+                            'new_password' => $new_password,
+                            'sender_ip' => $this->input->ip_address(),
+                            'sender_agent' => $this->agent->browser() . ' ' . $this->agent->version(),
+                            'sender_os' => $this->agent->platform(),
+                            'slug' => 'password-reset-succesfull',
+                            'to' => $user->email
+                        );
 
-            } else {
-                // nope, set error message
-                $this->template->error_string = $this->ion_auth->errors();
+                        Events::trigger('email', $data, 'array');
+                    }
+                    else {
+                        // Password reset failed
+                    }
+                }
+                else {
+                    // The provided password reset code is Invalid
+                }
+            } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                echo 'User was not found.';
             }
         }
 
