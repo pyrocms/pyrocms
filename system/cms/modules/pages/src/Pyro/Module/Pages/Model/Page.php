@@ -647,8 +647,19 @@ class Page extends Eloquent
         $this->flushCacheCollection();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function entry()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function chunks()
+    {
+        return $this->hasMany('Pyro\Module\Pages\Model\PageChunk', 'page_id');
     }
 }
