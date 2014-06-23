@@ -215,7 +215,7 @@ class Admin_types extends Admin_Controller
             FieldModel::assignField($stream_slug, 'pages', 'rss_enabled', array());
             FieldModel::assignField($stream_slug, 'pages', 'rss_enabled', array());
             FieldModel::assignField($stream_slug, 'pages', 'comments_enabled', array());
-            FieldModel::assignField($stream_slug, 'pages', 'status', array());
+            FieldModel::assignField($stream_slug, 'pages', 'status', array('is_required' => true));
             FieldModel::assignField($stream_slug, 'pages', 'is_home', array());
             FieldModel::assignField($stream_slug, 'pages', 'strict_uri', array());
 
