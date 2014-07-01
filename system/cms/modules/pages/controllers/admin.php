@@ -100,7 +100,7 @@ class Admin extends Admin_Controller {
     			$html .= '</a></li>';
     		}
     		
-    		if (ob_get_contents()) ob_end_clean();
+    		ob_end_clean();
     		echo $html .= '</ul>';
             return;
         }
