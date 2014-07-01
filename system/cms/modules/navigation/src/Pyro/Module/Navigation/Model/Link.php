@@ -183,7 +183,12 @@ class Link extends Eloquent
                 ci()->pdb
                     ->table('navigation_links')
                     ->where('id', str_replace('link_', '', $child['id']))
-                    ->update(array('parent' => str_replace('link_', '', $link['id'])));
+                    ->update(
+                        array(
+                            'parent' => str_replace('link_', '', $link['id']),
+                            'position' => $i
+                        )
+                    );
 
                 //repeat as long as there are children
                 if (isset($child['children'])) {
