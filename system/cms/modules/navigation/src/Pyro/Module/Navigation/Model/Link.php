@@ -47,7 +47,7 @@ class Link extends Eloquent
      */
     public function children()
     {
-        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent');
+        return $this->hasMany('Pyro\Module\Navigation\Model\Link', 'parent')->orderBy('position', 'ASC');
     }
 
     /**
