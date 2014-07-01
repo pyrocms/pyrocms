@@ -127,6 +127,9 @@ class Admin extends Admin_Controller
 
         // Set the validation rules for the navigation items
         $this->form_validation->set_rules($this->validation_rules);
+
+        // Inject the model.
+        $this->links = new Navigation\Model\Link();
     }
 
     /**
@@ -365,8 +368,7 @@ class Admin extends Admin_Controller
             Events::trigger('post_navigation_delete', $id_array);
         }
         // Flush the cache and redirect
-        //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-        $this->cache->forget('navigation_m');
+        $this->links->flushCacheCollection();
         $this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 
         redirect('admin/navigation');
