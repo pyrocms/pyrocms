@@ -165,8 +165,8 @@ class Admin extends Admin_Controller
         if (is_array($order)) {
             Navigation\Model\Link::setOrder($order, $group);
 
-            //@TODO Fix Me Bro https://github.com/pyrocms/pyrocms/pull/2514
-            $this->cache->forget('navigation_m');
+            $this->links->flushCacheCollection();
+
             Events::trigger('post_navigation_order', array(
                 'order' => $order,
                 'group' => $group
@@ -194,8 +194,6 @@ class Admin extends Admin_Controller
 
     /**
      * Create a new navigation item
-     *
-     * @todo This should use the template system too.
      *
      * @param string $group_id
      *
