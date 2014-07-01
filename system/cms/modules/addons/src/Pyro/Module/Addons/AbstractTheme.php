@@ -13,6 +13,13 @@
 abstract class AbstractTheme
 {
     /**
+     * The theme slug.
+     *
+     * @var
+     */
+    public $slug;
+
+    /**
      * @var theme name
      */
     public $name;

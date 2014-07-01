@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder;
 
 /**
@@ -10,14 +11,9 @@ use Pyro\Module\Files\Model\Folder;
  */
 class Image extends WYSIWYG_Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index($id = 0)
     {
-        $this->load->library('files/files');
+        $this->files = new File();
 
         $data = new stdClass();
 
@@ -28,7 +24,7 @@ class Image extends WYSIWYG_Controller
                                 : ($data->folders ? current($data->folders) : array());
 
         if ($data->current_folder) {
-            $data->current_folder->items = $this->file_m
+            $data->current_folder->items = $this->files
                 ->select('files.*, file_folders.location')
                 ->join('file_folders', 'file_folders.id = files.folder_id')
                 ->order_by('files.date_added', 'DESC')

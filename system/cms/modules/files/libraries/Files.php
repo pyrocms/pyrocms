@@ -1186,12 +1186,12 @@ class Files
                 ));
             }
 
-            $this->_folders = $arr;
+            $_folders = $arr;
         }
 
         if ($parent_id > 0 && $depth < 1) {
             foreach ($arr as $id => &$folder) {
-                $folder->virtual_path = $this->_folders[$id]->virtual_path;
+                $folder->virtual_path = $_folders[$id]->virtual_path;
             }
         }
 

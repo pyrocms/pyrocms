@@ -137,8 +137,12 @@ class ThemeManager
         // Now call the details class
         $class = 'Theme_'.ucfirst(strtolower($slug));
 
+        $class = new $class;
+
+        $class->slug = $slug;
+
         // Now we need to talk to it
-        return new $class;
+        return $class;
     }
 
     /**
