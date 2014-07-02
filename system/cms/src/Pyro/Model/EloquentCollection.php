@@ -73,7 +73,7 @@ class EloquentCollection extends Collection
     {
         $this->each(
             function ($model) {
-                $model->delete();
+                $model->save();
             }
         );
     }
