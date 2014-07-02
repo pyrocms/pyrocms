@@ -21,6 +21,7 @@ class ThemeModel extends Eloquent
 
     /**
      * Cache minutes
+     *
      * @var int
      */
     public $cacheMinutes = 30;
@@ -62,10 +63,9 @@ class ThemeModel extends Eloquent
 
     /**
      * Find All
-     *
      * Return theme data for a specific theme
      *
-     * @param   string  $slug  The name of the theme to load
+     * @param   string $slug The name of the theme to load
      * @return  ThemeModel
      */
     public function findBySlug($slug)
@@ -79,10 +79,9 @@ class ThemeModel extends Eloquent
 
     /**
      * Find many themes by type
-     *
      * Return theme data for a specific theme
      *
-     * @param   string  $slug  The name of the theme to load
+     * @param   string $slug The name of the theme to load
      * @return  ThemeModel
      */
     public function findManyByType($type)
@@ -95,10 +94,9 @@ class ThemeModel extends Eloquent
 
     /**
      * Find non-admin themes
-     *
      * Return theme data for a specific theme
      *
-     * @param   string  $slug  The name of the theme to load
+     * @param   string $slug The name of the theme to load
      * @return  ThemeModel
      */
     public function findGeneralThemes()
@@ -110,7 +108,6 @@ class ThemeModel extends Eloquent
 
     /**
      * Find All Themes
-     *
      * Return all known (installed) themes as ThemeModel objects
      *
      * @return  Illuminate\Database\Eloquent\Collection
@@ -124,16 +121,35 @@ class ThemeModel extends Eloquent
 
     /**
      * Reset Options
-     *
      * Go through each option and reset it to its default value
      *
      * @return  bool
      */
     public function resetOptions()
     {
-        foreach ($this->options as $op) {
-            $op->value = $op->default;
-            $op->save();
+        $options = new \Pyro\Module\Addons\ThemeOptionModel();
+        $manager = new ThemeManager();
+
+        $manager->setLocations(ci()->template->theme_locations());
+
+        $theme = $manager->get($this->slug);
+
+        $options->whereThemeId($this->id)->delete();
+
+        foreach ($theme->options as $option) {
+            $options->insert(
+                array(
+                    'slug'        => $option['slug'],
+                    'title'       => $option['title'],
+                    'description' => isset($option['description']) ? $option['description'] : $option['description'],
+                    'default'     => isset($option['default']) ? $option['default'] : '',
+                    'value'       => isset($option['default']) ? $option['default'] : '',
+                    'type'        => isset($option['type']) ? $option['type'] : 'text',
+                    'options'     => isset($option['options']) ? $option['options'] : '',
+                    'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
+                    'theme_id'    => $this->id,
+                )
+            );
         }
     }
 

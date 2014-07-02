@@ -224,8 +224,8 @@ class ThemeManager
                         'slug'          => $key,
                         'title'         => $option['title'],
                         'description'   => $option['description'],
-                        'default'       => $option['default'],
-                        'value'         => $option['default'],
+                        'default'       => isset($option['default']) ? $option['default'] : null,
+                        'value'         => isset($option['default']) ? $option['default'] : null,
                         'type'          => $option['type'],
                         'options'       => $option['options'],
                         'is_required'   => $option['is_required'],
@@ -235,5 +235,18 @@ class ThemeManager
         }
 
         return $record;
+    }
+
+    /**
+     * Get
+     *
+     * Return an array containing module data
+     *
+     * @param   string  $slug  The name of the module to load
+     * @return  array
+     */
+    public function get($slug)
+    {
+        return $this->locate($slug);
     }
 }
