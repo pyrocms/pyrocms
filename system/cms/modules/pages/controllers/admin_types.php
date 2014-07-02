@@ -185,7 +185,7 @@ class Admin_types extends Admin_Controller
             }
 
             // Insert the page type
-            $id = PageType::insert(array(
+            $id = PageType::insertGetId(array(
                 'title' 			=> $input['title'],
                 'slug'				=> $input['slug'],
                 'description'       => $input['description'],
