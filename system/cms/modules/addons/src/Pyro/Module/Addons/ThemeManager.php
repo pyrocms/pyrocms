@@ -214,10 +214,10 @@ class ThemeManager
             );
 
             if (is_array($theme->options)) {
-                foreach ($theme->options as $key => $option) {
+                foreach ($theme->options as $option) {
                     $record->options()->create(
                         array(
-                            'slug'        => $key,
+                            'slug'        => $option['slug'],
                             'title'       => $option['title'],
                             'description' => isset($option['description']) ? $option['description'] : $option['description'],
                             'default'     => isset($option['default']) ? $option['default'] : '',
