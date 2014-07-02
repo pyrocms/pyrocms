@@ -232,6 +232,8 @@ class Admin_types extends Admin_Controller
 
                 ci()->cache->collection($this->pageType->getCacheCollectionKey())->flush();
 
+                $this->pageType->flushCacheCollection();
+
                 // Event: page_type_created
                 Events::trigger('page_type_created', $id);
 
@@ -324,6 +326,7 @@ class Admin_types extends Admin_Controller
 
             // Wipe cache for this model as the data has changed
             $this->cache->forget('page_type_m');
+            $this->pageType->flushCacheCollection();
 
             $this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 
