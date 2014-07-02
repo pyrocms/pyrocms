@@ -56,7 +56,6 @@ class ThemeManager
      * Locate
      *
      * @param string $slug
-     *
      * @return bool|object
      */
     public function locate($slug)
@@ -66,7 +65,7 @@ class ThemeManager
         }
 
         foreach ($this->locations as $location) {
-            if (is_dir($location.$slug)) {
+            if (is_dir($location . $slug)) {
                 $theme = $this->readDetails($location, $slug);
 
                 if ($theme !== false) {
@@ -83,27 +82,26 @@ class ThemeManager
      *
      * @param $location
      * @param $slug
-     *
      * @return array
      */
     protected function readDetails($location, $slug)
     {
         // If it exists already, use it
-        if (! empty($this->exists[$slug])) {
+        if (!empty($this->exists[$slug])) {
             return $this->exists[$slug];
         }
 
-        if (! (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))) {
+        if (!(is_dir($path = $location . $slug) and is_file($path . '/theme.php'))) {
             return false;
         }
 
         //path to theme
-        $web_path = $location.$slug;
+        $web_path = $location . $slug;
 
         //load the theme details.php file
         $theme = $this->spawnClass($location, $slug);
 
-        if (( ! $model = $this->themes->findBySlug($slug))) {
+        if ((!$model = $this->themes->findBySlug($slug))) {
             throw new \Exception("Theme '{$slug}' does not exist!");
         }
 
@@ -111,19 +109,17 @@ class ThemeManager
         $theme->model      = $model;
         $theme->path       = $path;
         $theme->web_path   = $web_path;
-        $theme->screenshot = $web_path.'/screenshot.png';
+        $theme->screenshot = $web_path . '/screenshot.png';
 
         return $theme;
     }
 
     /**
      * Spawn Class
-     *
      * Checks to see if a details.php exists and returns a class
      *
      * @param string $path The location of the theme (APPPATH, SHARED_PATH, etc)
      * @param string $slug The folder name of the theme
-     *
      * @return array
      */
     private function spawnClass($path, $slug)
@@ -135,7 +131,7 @@ class ThemeManager
         require_once $details_file;
 
         // Now call the details class
-        $class = 'Theme_'.ucfirst(strtolower($slug));
+        $class = 'Theme_' . ucfirst(strtolower($slug));
 
         $class = new $class;
 
@@ -147,7 +143,6 @@ class ThemeManager
 
     /**
      * Discover Unavailable Themes
-     *
      * Go through the list of themes in the file system and see
      * if they exist in the database
      *
@@ -169,7 +164,7 @@ class ThemeManager
 
         foreach ($this->locations as $location) {
             // some servers return false instead of an empty array
-            if (( ! $temp_themes = glob($location.'*', GLOB_ONLYDIR))) {
+            if ((!$temp_themes = glob($location . '*', GLOB_ONLYDIR))) {
                 continue;
             }
 
@@ -179,7 +174,7 @@ class ThemeManager
                 $theme_class = $this->spawnClass($location, $slug);
 
                 // This didnt work out right at all. Bail on this one theme.
-                if ($theme_class === false or ! ($theme_class instanceof AbstractTheme)) {
+                if ($theme_class === false or !($theme_class instanceof AbstractTheme)) {
                     continue;
                 }
 
@@ -192,44 +187,47 @@ class ThemeManager
 
     /**
      * Register
-     *
      * Read a theme from the file system and save it to the DB
      *
      * @param AbstractTheme $theme Theme info instance
-     * @param string $slug The folder name of the theme
-     *
+     * @param string        $slug  The folder name of the theme
      * @return  Pyro\Addons\ThemeModel
      */
     public function register(AbstractTheme $theme, $slug)
     {
         $record = false;
 
-        if (! $this->themes->findBySlug($slug)) {
+        if (!$this->themes->findBySlug($slug)) {
             // Looks like it installed ok, add a record
-            $record = $this->themes->create(array(
-                'slug'              => $slug,
-                'name'              => $theme->name,
-                'author'            => $theme->author,
-                'author_website'    => $theme->author_website,
-                'website'           => $theme->website,
-                'description'       => $theme->description,
-                'version'           => $theme->version,
-                'type'              => $theme->type,
-                'created_at'        => isset($theme->created_at) ? $theme->created_at : date('Y-m-d H:i:s'),
-            ));
+            $record = $this->themes->create(
+                array(
+                    'slug'           => $slug,
+                    'name'           => $theme->name,
+                    'author'         => $theme->author,
+                    'author_website' => $theme->author_website,
+                    'website'        => $theme->website,
+                    'description'    => $theme->description,
+                    'version'        => $theme->version,
+                    'type'           => $theme->type,
+                    'created_at'     => isset($theme->created_at) ? $theme->created_at : date('Y-m-d H:i:s'),
+                )
+            );
 
             if (is_array($theme->options)) {
                 foreach ($theme->options as $key => $option) {
-                    $record->options()->create(array(
-                        'slug'          => $key,
-                        'title'         => $option['title'],
-                        'description'   => $option['description'],
-                        'default'       => isset($option['default']) ? $option['default'] : null,
-                        'value'         => isset($option['default']) ? $option['default'] : null,
-                        'type'          => $option['type'],
-                        'options'       => $option['options'],
-                        'is_required'   => $option['is_required'],
-                    ));
+                    $record->options()->create(
+                        array(
+                            'slug'        => $key,
+                            'title'       => $option['title'],
+                            'description' => isset($option['description']) ? $option['description'] : $option['description'],
+                            'default'     => isset($option['default']) ? $option['default'] : '',
+                            'value'       => isset($option['default']) ? $option['default'] : '',
+                            'type'        => isset($option['type']) ? $option['type'] : 'text',
+                            'options'     => isset($option['options']) ? $option['options'] : '',
+                            'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
+                            'theme_id'    => $record->getKey(),
+                        )
+                    );
                 }
             }
         }
@@ -239,10 +237,9 @@ class ThemeManager
 
     /**
      * Get
-     *
      * Return an array containing module data
      *
-     * @param   string  $slug  The name of the module to load
+     * @param   string $slug The name of the module to load
      * @return  array
      */
     public function get($slug)
