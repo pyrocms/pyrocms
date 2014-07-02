@@ -137,19 +137,21 @@ class ThemeModel extends Eloquent
         $options->whereThemeId($this->id)->delete();
 
         foreach ($theme->options as $option) {
-            $options->insert(
-                array(
-                    'slug'        => $option['slug'],
-                    'title'       => $option['title'],
-                    'description' => isset($option['description']) ? $option['description'] : $option['description'],
-                    'default'     => isset($option['default']) ? $option['default'] : '',
-                    'value'       => isset($option['default']) ? $option['default'] : '',
-                    'type'        => isset($option['type']) ? $option['type'] : 'text',
-                    'options'     => isset($option['options']) ? $option['options'] : '',
-                    'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
-                    'theme_id'    => $this->id,
-                )
-            );
+            if (isset($option['slug'])) {
+                $options->insert(
+                    array(
+                        'slug'        => $option['slug'],
+                        'title'       => $option['title'],
+                        'description' => isset($option['description']) ? $option['description'] : $option['description'],
+                        'default'     => isset($option['default']) ? $option['default'] : '',
+                        'value'       => isset($option['default']) ? $option['default'] : '',
+                        'type'        => isset($option['type']) ? $option['type'] : 'text',
+                        'options'     => isset($option['options']) ? $option['options'] : '',
+                        'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
+                        'theme_id'    => $this->id,
+                    )
+                );
+            }
         }
     }
 
