@@ -258,6 +258,8 @@ class EntryUi extends UiAbstract
      */
     protected function triggerForm()
     {
+        $this->fireOnForm();
+
         if ($model = $this->fireOnSaving($this->model) and $model instanceof EntryModel) {
             $this->model = $model;
         }

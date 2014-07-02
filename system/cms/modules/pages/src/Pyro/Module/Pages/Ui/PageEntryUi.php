@@ -1,5 +1,6 @@
 <?php namespace Pyro\Module\Pages\Ui;
 
+use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Streams\Ui\EntryUi;
 
 class PageEntryUi extends EntryUi
@@ -25,7 +26,7 @@ class PageEntryUi extends EntryUi
                         'class',
                     ),
                 ),
-                array(
+                'content' => array(
                     'title'  => 'Content',
                     'id'     => 'page-fields',
                     'fields' => '*',
@@ -67,6 +68,28 @@ class PageEntryUi extends EntryUi
                     ),
                 ),
             )
+        );
+
+        $this->onForm(
+            function () {
+
+                $types = new PageType();
+
+                $pageType = $types->find(ci()->input->get('page_type'));
+
+                // @todo - I don't like this: if realistic to fix by 3.0.. do it.
+                if (isset($pageType->title_label) and $pageType->title_label) {
+                    ci()->lang->language['global:title'] = $pageType->title_label;
+                }
+
+                if (isset($pageType->content_label) and $pageType->content_label) {
+                    $tabs = $this->tabs;
+
+                    $tabs['content']['title'] = $pageType->content_label;
+
+                    $this->tabs($tabs);
+                }
+            }
         );
     }
 }

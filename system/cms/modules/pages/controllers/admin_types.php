@@ -289,7 +289,7 @@ class Admin_types extends Admin_Controller
         unset(static::$validate[3]);
 
         // Set the validation rules
-        //$this->form_validation->set_rules(static::$validate);
+        $this->form_validation->set_rules(static::$validate);
 
         $data = new stdClass;
         $data->page_type = PageType::find($id);
