@@ -3,9 +3,9 @@
 
 	<!-- Dashboard Widgets -->
 	{{ widgets:area slug="dashboard" }}
-	
+
 	<!-- Begin Quick Links -->
-	<?php if ($theme_options->pyrocms_quick_links == 'yes'): ?>
+	<?php if ($theme_options and isset($theme_options->pyrocms_quick_links) and $theme_options->pyrocms_quick_links === 'yes'): ?>
 	<div class="one_full">
 		
 		<section class="draggable title">
