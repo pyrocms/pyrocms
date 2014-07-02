@@ -214,22 +214,25 @@ class ThemeManager
             );
 
             if (is_array($theme->options)) {
-                foreach ($theme->options as $option) {
-                    if (isset($option['slug'])) {
-                        $record->options()->create(
-                            array(
-                                'slug'        => $option['slug'],
-                                'title'       => $option['title'],
-                                'description' => isset($option['description']) ? $option['description'] : $option['description'],
-                                'default'     => isset($option['default']) ? $option['default'] : '',
-                                'value'       => isset($option['default']) ? $option['default'] : '',
-                                'type'        => isset($option['type']) ? $option['type'] : 'text',
-                                'options'     => isset($option['options']) ? $option['options'] : '',
-                                'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
-                                'theme_id'    => $record->getKey(),
-                            )
-                        );
+                foreach ($theme->options as $key => $option) {
+
+                    if (!isset($option['slug'])) {
+                        $option['slug'] = $key;
                     }
+
+                    $record->options()->create(
+                        array(
+                            'slug'        => $option['slug'],
+                            'title'       => $option['title'],
+                            'description' => isset($option['description']) ? $option['description'] : $option['description'],
+                            'default'     => isset($option['default']) ? $option['default'] : '',
+                            'value'       => isset($option['default']) ? $option['default'] : '',
+                            'type'        => isset($option['type']) ? $option['type'] : 'text',
+                            'options'     => isset($option['options']) ? $option['options'] : '',
+                            'is_required' => isset($option['is_required']) ? $option['is_required'] : false,
+                            'theme_id'    => $record->getKey(),
+                        )
+                    );
                 }
             }
         }
