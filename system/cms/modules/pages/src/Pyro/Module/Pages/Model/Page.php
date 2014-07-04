@@ -625,6 +625,8 @@ class Page extends Eloquent
             'status'     => $entry->status,
             'entry_type' => get_class($entry),
             'entry_id'   => $entry->id,
+            'is_home'    => $entry->is_home,
+            'uri'        => $this->uri($entry),
         );
 
         $this->insert($page);
@@ -640,11 +642,24 @@ class Page extends Eloquent
             'status'     => $entry->status,
             'entry_type' => get_class($entry),
             'entry_id'   => $entry->id,
+            'is_home'    => $entry->is_home,
+            'uri'        => $this->uri($entry),
         );
 
         $this->whereEntryId($entry->id)->whereEntryType(get_class($entry))->update($page);
 
         $this->flushCacheCollection();
+    }
+
+    public function uri($entry)
+    {
+        $uri = $entry->slug;
+
+        if ($entry->parent) {
+            $uri .= '/'.$this->uri($this->parent);
+        }
+
+        return $uri;
     }
 
     /**
