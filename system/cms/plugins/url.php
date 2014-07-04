@@ -365,4 +365,17 @@ class Plugin_Url extends Plugin
 	{
 		redirect($this->attribute('to'));
 	}
+
+    /**
+     * Return magic stuff.
+     *
+     * @param $method
+     * @param $arguments
+     */
+    public function __call($method, $arguments)
+    {
+        if (substr($method, 0, 8) == 'segment_') {
+            return $this->uri->segment((integer)str_replace('segment_', '', $method));
+        }
+    }
 }
