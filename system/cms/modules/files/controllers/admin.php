@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder as FolderModel;
 
 /**
@@ -26,6 +27,8 @@ class Admin extends Admin_Controller
         $this->config->load('files');
         $this->lang->load('files');
         $this->load->library('files/files');
+
+        $this->files = new File();
 
         $allowed_extensions = array();
         foreach (config_item('files:allowed_file_ext') as $type) {
@@ -273,7 +276,7 @@ class Admin extends Admin_Controller
         $alt_attribute  = $this->input->post('alt_attribute');
 
         if ($id = $this->input->post('file_id')) {
-            $this->file_m->update($id, array('description' => $description, 'keywords' => $keywords_hash, 'alt_attribute' => $alt_attribute));
+            $this->files->find($id)->update(array('description' => $description, 'keywords' => $keywords_hash, 'alt_attribute' => $alt_attribute));
 
             echo json_encode(Files::result(true, lang('files:description_saved')));
         }
