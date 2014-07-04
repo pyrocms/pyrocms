@@ -1,6 +1,6 @@
 <?php namespace Pyro\FieldType;
 
-use Pyro\Module\Pages\Model\Page;
+use dflydev\markdown\MarkdownParser;
 use Pyro\Module\Pages\Model\PageChunk;
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
@@ -11,6 +11,8 @@ class Chunks extends FieldTypeAbstract
     public $db_col_type = 'string';
 
     public $version = '1.1.0';
+
+    public $alt_process = true;
 
     public $author = array(
         'name' => 'PyroCMS Development Team',
@@ -136,13 +138,13 @@ class Chunks extends FieldTypeAbstract
             foreach ($chunks as $chunk) {
                 $row = new $this->chunks;
 
-                $row->slug = preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug);
-                $row->class = preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->class);
+                $row->slug    = preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug);
+                $row->class   = preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->class);
                 $row->page_id = $this->entry->getKey();
-                $row->body = $chunk->body;
-                $row->parsed = ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '';
-                $row->type = $chunk->type;
-                $row->sort = $i++;
+                $row->body    = $chunk->body;
+                $row->parsed  = ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '';
+                $row->type    = $chunk->type;
+                $row->sort    = $i++;
 
                 $row->save();
             }
@@ -177,5 +179,25 @@ class Chunks extends FieldTypeAbstract
                 }
             );
         }
+    }
+
+    /**
+     * Return plugin formatted output.
+     *
+     * @return mixed
+     */
+    public function pluginOutput()
+    {
+        $chunks = $this->chunks->getManyByPageId($this->entry->id)->toArray();
+
+        $markdown = new MarkdownParser();
+
+        foreach ($chunks as &$chunk) {
+            if ($chunk['type'] == 'markdown') {
+                $chunk['body'] = $markdown->transformMarkdown($chunk['body']);
+            }
+        }
+
+        return $chunks;
     }
 }
