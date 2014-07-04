@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Comments\Model\Comment;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 use Pyro\Module\Pages\Ui\PageEntryUi;

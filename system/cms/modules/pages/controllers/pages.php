@@ -105,7 +105,7 @@ class Pages extends Public_Controller
         if ($page->slug == 404) {
             $this->output->set_status_header(404);
         } // Nope, it is a page, but do they have access?
-        elseif ($restrictedIds = $page->entry->restricted_to->lists('id')) {
+        elseif ($page->entry->restricted_to and $restrictedIds = $page->entry->restricted_to->lists('id')) {
 
             $groupIds = isset($this->current_user->id) ? $this->current_user->groups->lists('id') : array();
 
