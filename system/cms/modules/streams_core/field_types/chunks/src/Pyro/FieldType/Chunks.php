@@ -49,7 +49,7 @@ class Chunks extends FieldTypeAbstract
         if ($id = $this->entry->getKey()) {
             $data['chunks'] = $this->chunks->getManyByPageId($id);
         } else {
-            $data['chunks'] = array(
+            $data['chunks'][] = (object)array(
                 array(
                     'slug'  => 'default',
                     'class' => null,
