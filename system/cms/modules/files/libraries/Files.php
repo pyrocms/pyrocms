@@ -867,7 +867,7 @@ class Files
     public static function deleteFile($id = 0)
     {
         if ($file = File::find($id)) {
-            Applied::deleteByHash($file->keywords);
+            Applied::deleteByEntryIdAndEntryType($file->id, get_class($file));
 
             self::_unlinkFile($file);
 
