@@ -173,7 +173,7 @@ class Chunks extends FieldTypeAbstract
                     $table->string('slug')->nullable();
                     $table->string('class')->nullable();
                     $table->string('type');
-                    $table->string('body')->nullable();
+                    $table->text('body')->nullable();
                     $table->string('parsed')->nullable();
                     $table->integer('sort')->nullable();
                 }
