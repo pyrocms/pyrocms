@@ -183,6 +183,17 @@ class User extends EloquentUser implements ArrayableInterface
     {
         return self::whereRaw('LOWER(email) = ?', array(strtolower($email)))->first();
     }
+    
+    /**
+     * Find a user based from their reset password code if exists
+     *
+     * @param    string $reset_password_code Reset Password Code
+     * @return  $this
+     */
+    public static function findByActivationCode($reset_password_code)
+    {
+        return self::whereRaw('reset_password_code = ?', array($reset_password_code))->first();
+    }
 
     /**
      * Get recent users
