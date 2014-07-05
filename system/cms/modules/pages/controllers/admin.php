@@ -208,13 +208,15 @@ class Admin extends Admin_Controller
 
         if ($page->entry) {
             $duplicate_entry = $page->entry->replicate();
-            $duplicate_entry->setSearchIndexTemplate($this->_index_template)->save();
+            $duplicate_entry->save();
             $duplicate_page->entry()->associate($duplicate_entry)->save();
         }
 
         foreach ($duplicate_page->children as $child) {
             $this->duplicate($child->id, $duplicate_page);
         }
+
+        $this->pages->flushCacheCollection();
 
         // only allow a redirect when everything is finished (only the top level page has a null parent_id)
         if (is_null($parent)) {
