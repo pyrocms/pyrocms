@@ -1,17 +1,20 @@
 <?php
 
-use Pyro\Module\Artists\Model\ProfileEntryModel;
-use Pyro\Module\Streams\EntryUi;
-use Pyro\Module\Users\Model\User;
+use Cartalyst\Sentry\Groups\GroupNotFoundException;
+use Cartalyst\Sentry\Users\LoginRequiredException;
+use Cartalyst\Sentry\Users\PasswordRequiredException;
+use Cartalyst\Sentry\Users\UserExistsException;
+use Cartalyst\Sentry\Users\UserNotFoundException;
 use Pyro\Module\Users\Model\Group;
 use Pyro\Module\Users\Model\Profile;
+use Pyro\Module\Users\Model\User;
 use Pyro\Module\Users\Ui\ProfileEntryUi;
 
 /**
  * Admin controller for the users module
  *
  * @author       PyroCMS Dev Team
- * @package  PyroCMS\Core\Modules\Users\Controllers
+ * @package      PyroCMS\Core\Modules\Users\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -39,7 +42,7 @@ class Admin extends Admin_Controller
      * @var array
      */
     private $validation_rules = array(
-        'email' => array(
+        'email'    => array(
             'field' => 'email',
             'label' => 'lang:global:email',
             'rules' => 'required|max_length[60]|valid_email'
@@ -54,16 +57,16 @@ class Admin extends Admin_Controller
             'label' => 'lang:user_username',
             'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
         ),
-/*        array(
-            'field' => 'is_activated',
-            'label' => 'lang:user_active_label',
-            'rules' => ''
-        ),*/
-/*        array(
-            'field' => 'display_name',
-            'label' => 'lang:user:profile_display_name',
-            'rules' => 'required'
-        )*/
+        /*        array(
+                    'field' => 'is_activated',
+                    'label' => 'lang:user_active_label',
+                    'rules' => ''
+                ),*/
+        /*        array(
+                    'field' => 'display_name',
+                    'label' => 'lang:user:profile_display_name',
+                    'rules' => 'required'
+                )*/
     );
 
     /**
@@ -80,15 +83,15 @@ class Admin extends Admin_Controller
 
         $this->form_data['current_user'] = $this->current_user;
 
-        $this->profiles = new Profile;
-        $this->users = new User;
+        $this->profiles   = new Profile;
+        $this->users      = new User;
         $this->profilesUi = new ProfileEntryUi;
 
         if ($this->current_user->isSuperUser()) {
             $this->template->group_options = $this->form_data['group_options'] = Group::getGroupOptions();
         } else {
             // Require for non super users
-            $this->validation[] =   array(
+            $this->validation[] = array(
                 'field' => 'groups[]',
                 'label' => 'lang:user_group_label',
                 'rules' => 'required|callback__group_check'
@@ -149,13 +152,15 @@ class Admin extends Admin_Controller
         // Set the validation rules
         $this->form_validation->set_rules($this->validation_rules);
 
-        $email = strtolower($this->input->post('email'));
+        $email    = strtolower($this->input->post('email'));
         $password = $this->input->post('password');
         $username = $this->input->post('username');
         $activate = $this->input->post('active');
-        $blocked = $this->input->post('blocked');
+        $blocked  = $this->input->post('blocked');
 
         $enableSave = false;
+
+        $user = new User;
 
         if (($this->form_validation->run() !== false)) {
             if ($activate === '2') {
@@ -168,38 +173,49 @@ class Admin extends Admin_Controller
 
             //$group = Group::find($group_id);
 
-            // Register the user (they are activated by default if an activation email isn't requested)
-            //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
-            if ($enableSave = $user = User::create(array(
-                    'username' => $username,
-                    'password' => $password,
-                    'email' => $email,
-                    'is_activated' => $activate,
-                    'is_blocked' => $blocked,
-                ))) {
-                //if ($activate === '0') {
+            try {
+                // Register the user (they are activated by default if an activation email isn't requested)
+                //if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name)) {
+                if ($enableSave = $user = User::create(
+                    array(
+                        'username'     => $username,
+                        'password'     => $password,
+                        'email'        => $email,
+                        'is_activated' => $activate,
+                        'is_blocked'   => $blocked,
+                    )
+                )
+                ) {
+                    //if ($activate === '0') {
                     // admin selected Inactive
                     //$this->ion_auth_model->deactivate($user_id);
-                //}
+                    //}
 
-                User::assignGroupIdsToUser($user, $this->input->post('groups'));
+                    User::assignGroupIdsToUser($user, $this->input->post('groups'));
 
-                // Fire an event. A new user has been created
-                Events::trigger('user_created', $user);
+                    // Fire an event. A new user has been created
+                    Events::trigger('user_created', $user);
 
-                // Redirect back to the form or main page
- /*               $this->input->post('btnAction') === 'save_exit'
-                    ? redirect('admin/users')
-                    : redirect('admin/users/edit/'.$user->id);*/
+                    // Redirect back to the form or main page
+                    /*               $this->input->post('btnAction') === 'save_exit'
+                                       ? redirect('admin/users')
+                                       : redirect('admin/users/edit/'.$user->id);*/
+                }
+            } catch (LoginRequiredException $e) {
+                $this->session->set_flashdata('success', 'Login field is required.'); // @todo - language
+            } catch (PasswordRequiredException $e) {
+                $this->session->set_flashdata('success', 'Password field is required.'); // @todo - language
+            } catch (UserExistsException $e) {
+                $this->session->set_flashdata('success', 'User with this login already exists.'); // @todo - language
+            } catch (GroupNotFoundException $e) {
+                $this->session->set_flashdata('success', 'Group was not found.'); // @todo - language
             }
+
         } else {
             // Dirty hack that fixes the issue of having to
             // re-add all data upon an error
-            $user = new User;
             $user->is_activated = false;
         }
-
-
 
         // Loop through each validation rule
         foreach ($this->validation_rules as $rule) {
@@ -212,23 +228,25 @@ class Admin extends Admin_Controller
 
         $tabs = array(
             array(
-                'title'     => lang('user:profile_user_basic_data_label'),
-                'id'        => 'basic',
-                'content'    => $user_form
+                'title'   => lang('user:profile_user_basic_data_label'),
+                'id'      => 'basic',
+                'content' => $user_form
             ),
             array(
-                'title'     => lang('user:profile_fields_label'),
-                'id'        => 'profile-fields',
-                'fields'    => '*'
+                'title'  => lang('user:profile_fields_label'),
+                'id'     => 'profile-fields',
+                'fields' => '*'
             )
         );
 
         $this->profilesUi->form($this->profiles)
             ->tabs($tabs)
             ->enableSave($enableSave) // This enables the profile submittion only if the user was created successfully
-            ->onSaving(function ($profile) use ($user) {
-                $profile->user_id = $user->id; // Set the profile user id before saving
-            })
+            ->onSaving(
+                function ($profile) use ($user) {
+                    $profile->user_id = $user->id; // Set the profile user id before saving
+                }
+            )
             ->render();
     }
 
@@ -240,7 +258,7 @@ class Admin extends Admin_Controller
     public function edit($id = 0)
     {
         // Get the user's data
-        if ( ! ($user = User::find($id))) {
+        if (!($user = User::find($id))) {
             $this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
             redirect('admin/users');
         }
@@ -270,7 +288,7 @@ class Admin extends Admin_Controller
             }
 
             // Get the POST data
-            $user->email = $this->input->post('email');
+            $user->email    = $this->input->post('email');
             $user->username = $this->input->post('username');
 
             User::assignGroupIdsToUser($user, $this->input->post('groups'));
@@ -304,22 +322,29 @@ class Admin extends Admin_Controller
                 $user->password = $this->input->post('password');
             }
 
-            if ($user->save()) {
-                // Fire an event. A user has been updated.
-                Events::trigger('user_updated', $user);
+            try {
+                if ($user->save()) {
+                    // Fire an event. A user has been updated.
+                    Events::trigger('user_updated', $user);
 
-                //$this->session->set_flashdata('success', 'User saved.'); // @todo - language
-            } else {
-                $this->session->set_flashdata('error', $this->ion_auth->errors());
+                    $this->session->set_flashdata('success', 'The user was updated successfully.'); // @todo - language
+                } else {
+                    $this->session->set_flashdata('error', 'There was problem saving the user.'); // @todo - language
+                }
+            } catch (UserExistsException $e) {
+                // We are editing, so there is no problem if the user already exists
+            } catch (UserNotFoundException $e) {
+                $this->session->set_flashdata('error', 'There user was not found.'); // @todo - language
             }
+
         }
 
-/*        // Loop through each validation rule
-        foreach ($this->validation_rules as $rule) {
-            if ($this->input->post($rule['field']) !== null) {
-                $user->{$rule['field']} = set_value($rule['field']);
-            }
-        }*/
+        /*        // Loop through each validation rule
+                foreach ($this->validation_rules as $rule) {
+                    if ($this->input->post($rule['field']) !== null) {
+                        $user->{$rule['field']} = set_value($rule['field']);
+                    }
+                }*/
 
         $this->form_data['member'] = $user;
 
@@ -327,22 +352,24 @@ class Admin extends Admin_Controller
 
         $tabs = array(
             array(
-                'title'     => lang('user:profile_user_basic_data_label'),
-                'id'        => 'basic-data',
-                'content'    => $user_form
+                'title'   => lang('user:profile_user_basic_data_label'),
+                'id'      => 'basic-data',
+                'content' => $user_form
             ),
             array(
-                'title'     => lang('user:profile_fields_label'),
-                'id'        => 'profile-fields',
-                'fields'    => '*'
+                'title'  => lang('user:profile_fields_label'),
+                'id'     => 'profile-fields',
+                'fields' => '*'
             )
         );
 
         $this->profilesUi->form($user->profile) // We can pass the profile model to generate the form
             ->tabs($tabs)
-            ->messages(array(
-                'success' => 'User saved.'
-            )) // @todo - language
+            ->messages(
+                array(
+                    'success' => 'User saved.'
+                )
+            ) // @todo - language
             ->render();
     }
 
@@ -363,22 +390,21 @@ class Admin extends Admin_Controller
 
     /**
      * Activate users
-     *
      * Grabs the ids from the POST data (key: action_to).
      */
     public function activate()
     {
         // Activate multiple
-        if ( ! ($ids = $this->input->post('action_to'))) {
+        if (!($ids = $this->input->post('action_to'))) {
             $this->session->set_flashdata('error', lang('user:activate_error'));
             redirect('admin/users');
         }
 
-        $activated = 0;
+        $activated   = 0;
         $to_activate = 0;
         foreach ($ids as $id) {
-            $user = User::find($id);
-            $user->is_activated    = true;
+            $user               = User::find($id);
+            $user->is_activated = true;
             $this->activated_at = new DateTime;
 
             if ($user->save()) {
@@ -405,9 +431,9 @@ class Admin extends Admin_Controller
 
         $ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
-        if ( ! empty($ids)) {
-            $deleted = 0;
-            $to_delete = 0;
+        if (!empty($ids)) {
+            $deleted       = 0;
+            $to_delete     = 0;
             $deleted_users = array();
             foreach ($ids as $id) {
                 // Make sure the admin is not trying to delete themself
@@ -432,10 +458,12 @@ class Admin extends Admin_Controller
                 // Delet the profile
                 $this->pdb->table('profiles')->where('user_id', '=', $id)->delete();
 
-                $this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
+                $this->session->set_flashdata(
+                    'success',
+                    sprintf(lang('user:mass_delete_success'), $deleted, $to_delete)
+                );
             }
-        }
-        // The array of id's to delete is empty
+        } // The array of id's to delete is empty
         else {
             $this->session->set_flashdata('error', lang('user:mass_delete_error'));
         }
@@ -447,9 +475,7 @@ class Admin extends Admin_Controller
      * Username check
      *
      * @author Ben Edmunds
-     *
      * @param string $username The username.
-     *
      * @return bool
      */
     public function _username_check()
@@ -465,9 +491,7 @@ class Admin extends Admin_Controller
      * Email check
      *
      * @author Ben Edmunds
-     *
      * @param string $email The email.
-     *
      * @return bool
      */
     public function _email_check()
@@ -484,14 +508,12 @@ class Admin extends Admin_Controller
      * Check that a proper group has been selected
      *
      * @author Stephen Cozart
-     *
      * @param int $group_id
-     *
      * @return bool
      */
     public function _group_check($group_id)
     {
-        if ( ! Group::find($group_id)) {
+        if (!Group::find($group_id)) {
             $this->form_validation->set_message('_group_check', lang('regex_match'));
             return false;
         }
