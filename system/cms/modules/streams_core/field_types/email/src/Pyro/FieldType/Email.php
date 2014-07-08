@@ -99,14 +99,3 @@ class Email extends FieldTypeAbstract
         return $data;
     }
 }
-
-
-$this->addSection(
-    (new FormUiSectionComponent())->addFields(
-        array(
-            'foo',
-            'bar',
-            (new FormUiFieldComponent('baz'))->setLabel('Fuck you')
-        )
-    )
-)
