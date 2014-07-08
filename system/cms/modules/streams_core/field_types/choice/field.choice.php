@@ -267,7 +267,7 @@ class Field_choice
 			// One per line
 			return implode("\n", array_unique($input));		
 		}
-		elseif (($field->field_data['choice_type'] == 'checkboxes'  or $field->field_data['choice_type']== 'multiselect') and ! $input)
+        elseif (($field->field_data['choice_type'] == 'checkboxes'  or $field->field_data['choice_type']== 'multiselect') and (! $input || $input === 'empty-checkbox'))
 		{
 			return '';
 		}
