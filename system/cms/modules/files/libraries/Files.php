@@ -1320,7 +1320,7 @@ class Files
         if ($tags) {
             $files = Files::getTaggedFiles($tags);
         } else {
-            $files = File::get();
+            $files = File::whereFolderId($folder->id)->get();
         }
 
         return $files;

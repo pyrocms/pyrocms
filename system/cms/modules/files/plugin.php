@@ -351,7 +351,7 @@ class Plugin_Files extends Plugin
 
         $files and array_merge($this->_files, (array) $files);
 
-        return $files;
+        return $files ? $files->toArray() : array();
     }
 
     /**

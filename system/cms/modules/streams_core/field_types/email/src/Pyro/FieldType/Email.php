@@ -72,13 +72,13 @@ class Email extends FieldTypeAbstract
      */
     public function pluginOutput()
     {
-        $choices = array();
+        $data = array();
 
-        $choices['email_address']		= $this->value;
-        $choices['mailto_link']			= mailto($this->value, $this->value);
-        $choices['safe_mailto_link']	= safe_mailto($this->value, $this->value);
+        $data['email_address']		= $this->value;
+        $data['mailto_link']			= mailto($this->value, $this->value);
+        $data['safe_mailto_link']	= safe_mailto($this->value, $this->value);
 
-        return $choices;
+        return $data;
     }
 
     // --------------------------------------------------------------------------
@@ -99,3 +99,14 @@ class Email extends FieldTypeAbstract
         return $data;
     }
 }
+
+
+$this->addSection(
+    (new FormUiSectionComponent())->addFields(
+        array(
+            'foo',
+            'bar',
+            (new FormUiFieldComponent('baz'))->setLabel('Fuck you')
+        )
+    )
+)
