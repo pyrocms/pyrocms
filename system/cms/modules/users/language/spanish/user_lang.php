@@ -1,18 +1,18 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user:add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user:profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user:profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['user:profile_user_basic_data_label']  	= 'Basic Data'; #translate
-$lang['user:profile_company']         	  		= 'Company'; #translate
-$lang['user:profile_updated_on']           		= 'Updated On'; #translate
-$lang['user:profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user:add_field']                        	= 'Agregar campo de perfil';
+$lang['user:profile_delete_success']           	= 'El perfil del usuario ha sido actualizado satisfactoriamente';
+$lang['user:profile_delete_failure']            = 'Ocurrió un error al eliminar el campo de perfil'; 
+$lang['user:profile_user_basic_data_label']  	= 'Datos Básicos';
+$lang['user:profile_company']         	  		= 'Compañía';
+$lang['user:profile_updated_on']           		= 'Actualizado el';
+$lang['user:profile_fields_label']	 		 	= 'Campos de Perfil';
 
 $lang['user:register_header']				= 'Registro';
 $lang['user:register_step1']				= '<strong>Paso 1:</strong> Registro';
 $lang['user:register_step2']				= '<strong>Paso 2:</strong> Activación';
 
-$lang['user:login_header']					= 'Login';
+$lang['user:login_header']					= 'Iniciar sesión';
 
 # titles
 $lang['user:add_title']						= 'Crear usuario';
@@ -43,10 +43,10 @@ $lang['indicates_required'] 				= 'Indica campos necesarios';
 
 # Registration / Activation / Reset Password
 
-$lang['user:send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user:do_not_activate']                  = 'Inactive'; #translate
-$lang['user:do_not_block']                     = 'Not Blocked';
-$lang['user:blocked']                          = 'Blocked';
+$lang['user:send_activation_email']            = 'Enviar correo de activación';
+$lang['user:do_not_activate']                  = 'Inactivo'; 
+$lang['user:do_not_block']                     = 'No bloqueado';
+$lang['user:blocked']                          = 'Bloqueado';
 $lang['user:register_title']				= 'Registrar';
 $lang['user:activate_account_title']		= 'Activar cuenta';
 $lang['user:activate_label']				= 'Activar';
@@ -62,7 +62,7 @@ $lang['user:first_name']					= 'Nombre';
 $lang['user:last_name']						= 'Apellido';
 $lang['user:username']						= 'Usuario';
 $lang['user:display_name']					= 'Nombre público';
-$lang['user:email_use'] 					   = 'used to login'; #translate
+$lang['user:email_use'] 					   = 'usado para iniciar sesión';
 $lang['user:remember']						= 'Recordarme';
 $lang['user:group_id_label']				= 'ID de Grupo';
 
@@ -72,7 +72,7 @@ $lang['user:lang']							= 'Idioma';
 
 $lang['user:activation_code']				= 'Código de activación';
 
-$lang['user:reset_instructions']			   = 'Enter your email address or username'; #translate
+$lang['user:reset_instructions']			   = 'Introduzca su correo electrónico o nombre de usuario';
 $lang['user:reset_password_link']			= 'Olvidaste tu contraseña?';
 
 $lang['user:activation_code_sent_notice']	= 'Se te ha enviado un e-mail con tu código de activación.';
@@ -93,7 +93,7 @@ $lang['user:settings_saved_error']			= 'Ha ocurrido un error.';
 $lang['user:register_btn']					= 'Registrar';
 $lang['user:activate_btn']					= 'Activar';
 $lang['user:reset_pass_btn']				= 'Reestablecer contraseña';
-$lang['user:login_btn']						= 'Login';
+$lang['user:login_btn']						= 'Entrar';
 $lang['user:settings_btn']					= 'Actualizar configuración';
 
 ## Errors & Messages
@@ -119,7 +119,7 @@ $lang['user:mass_delete_error'] 			= 'Necesitas seleccionar algunos usuarios pri
 # Register
 $lang['user:email_pass_missing'] 			= 'Campos del Email o contraseña no estan completos.';
 $lang['user:email_exists'] 					= 'El correo electrónico que has escogido esta siendo utilizado por otro usuario.';
-$lang['user:register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user:register_error']				   = 'Creemos que Ud. es un robot. Si estamos equivocados por favor acepte nuestras disculpas.'; 
 $lang['user:register_reasons'] 				= 'Registrate para acceder a áreas especiales que normalmente están restringidas. Esto quiere decir que tu configuración será recordada, más contenido y menos publicidad.';
 
 # Activation
@@ -176,9 +176,9 @@ $lang['user:profile_dob_day']				= 'Día';
 $lang['user:profile_dob_month']				= 'Mes';
 $lang['user:profile_dob_year']				= 'Año';
 $lang['user:profile_gender']					= 'Sexo';
-$lang['user:profile_gender_nt']            = 'Not Telling'; #translate
-$lang['user:profile_gender_male']          = 'Male'; #translate
-$lang['user:profile_gender_female']        = 'Female'; #translate
+$lang['user:profile_gender_nt']            = 'Sin definir';
+$lang['user:profile_gender_male']          = 'Masculino'; 
+$lang['user:profile_gender_female']        = 'Femenino';
 $lang['user:profile_bio']					= 'Sobre mi';
 
 $lang['user:profile_contact_section']		= 'Contacto';
