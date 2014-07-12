@@ -620,6 +620,7 @@ class Users extends Public_Controller
 
         } else {
             $user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
+            $user = $this->sentry->findUserById($user->id);
         }
 
         $profile_data = array(); // For our form
@@ -641,11 +642,13 @@ class Users extends Public_Controller
                 'rules' => 'required|xss_clean|valid_email'
             ),
             array(
-                'field' => 'display_name',
+                'field' => 'users-profiles-display_name',
                 'label' => lang('user:profile_display_name'),
                 'rules' => 'required|xss_clean'
             )
         );
+
+        $this->form_validation->set_rules($this->validation_rules);
 
         // --------------------------------
         // Merge streams and users validation
@@ -679,21 +682,12 @@ class Users extends Public_Controller
             // The rest are streams
             // --------------------------------
 
-            $user_data['email'] = $secure_post['email'];
+            $user->email = $secure_post['email'];
 
             // If password is being changed (and matches)
             if ($secure_post['password']) {
-                $user_data['password'] = $secure_post['password'];
+                $user->password = $secure_post['password'];
                 unset($secure_post['password']);
-            }
-
-            // --------------------------------
-            // Set the language for this user
-            // --------------------------------
-
-            if (isset($secure_post['lang']) and $secure_post['lang']) {
-                $this->ion_auth->set_lang($secure_post['lang']);
-                $_SESSION['lang_code'] = $secure_post['lang'];
             }
 
             // --------------------------------
@@ -703,15 +697,9 @@ class Users extends Public_Controller
 
             $profile_data = $secure_post;
 
-            if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false) {
-                Events::trigger('post_user_update', $id);
-                $this->session->set_flashdata('success', $this->ion_auth->messages());
-
-            } else {
-                $this->session->set_flashdata('error', $this->ion_auth->errors());
+            if ($user->save()) {
+                Events::trigger('post_user_update', $user);
             }
-
-            redirect('users/edit'.(($id > 0) ? '/'.$id : ''));
 
         } else {
             // --------------------------------
