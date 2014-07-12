@@ -23,12 +23,6 @@ class Keywords extends FieldTypeAbstract
     public $field_type_slug    = 'keywords';
 
     /**
-     * DB column type
-     * @var string
-     */
-    public $db_col_type        = false;
-
-    /**
      * Use alternative processing
      *
      * @todo  Do we need this anymore?

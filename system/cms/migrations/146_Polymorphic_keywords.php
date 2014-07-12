@@ -38,7 +38,7 @@ class Migration_Polymorphic_keywords extends CI_Migration
 
         $pageModel = new Page;
 
-        $pages = $pageModel->whereNotNull('meta_keywords')->get();
+        $pages = $pageModel->all();
 
         foreach ($pages as $page) {
             $this->pdb->table('keywords_applied')->where('hash', $page->entry->meta_keywords)->update(
