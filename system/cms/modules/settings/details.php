@@ -354,6 +354,16 @@ class Module_Settings extends AbstractModule
                 'order' => 973,
             ),
             array(
+                'title' => 'SMTP Encryption',
+                'slug' => 'mail_smtp_crypto',
+                'description' => 'SMTP Encryption used for sending emails.',
+                'type' => 'select',
+                'is_required' => false,
+                'is_gui' => true,
+                'module' => 'email',
+                'order' => 972,
+            ),
+            array(
                 'title' => 'Sendmail Path',
                 'slug' => 'mail_sendmail_path',
                 'description' => 'Path to server sendmail binary.',
@@ -361,7 +371,7 @@ class Module_Settings extends AbstractModule
                 'is_required' => false,
                 'is_gui' => true,
                 'module' => 'email',
-                'order' => 972,
+                'order' => 971,
             ),
             array(
                 'title' => 'Cache time',
