@@ -43,6 +43,7 @@ class MY_Email extends CI_Email
             $config['smtp_user'] = Settings::get('mail_smtp_user');
             $config['smtp_pass'] = Settings::get('mail_smtp_pass');
             $config['smtp_port'] = Settings::get('mail_smtp_port');
+            $config['smtp_crypto'] = Settings::get('mail_smtp_crypto');
         }
 
         $this->initialize($config);
