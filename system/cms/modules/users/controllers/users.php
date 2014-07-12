@@ -542,8 +542,7 @@ class Users extends Public_Controller
 
             if (! ($uname or $email)) {
                 // they submitted with an empty form, abort
-                $this->template->set('error_string', $this->ion_auth->errors())
-                    ->build('reset_pass');
+                $this->template->build('reset_pass');
             }
 
             if (! ($user_meta = Model\User::findByEmail($email))) {
@@ -552,17 +551,34 @@ class Users extends Public_Controller
 
             // have we found a user?
             if ($user_meta) {
-                $new_password = $this->ion_auth->forgotten_password($user_meta->email);
 
-                if ($new_password) {
+                $forgotten_password_code = $user_meta->getResetPasswordCode();
+
+                $user_meta = $user_meta->toArray();
+
+                $user_meta['forgotten_password_code'] = $forgotten_password_code;
+
+                if ($forgotten_password_code) {
+
+                    // Add in some extra details
+                    $data['subject']	= Settings::get('site_name') . ' - Forgotten Password Verification';
+                    $data['slug'] 		= 'forgotten_password';
+                    $data['to'] 		= $user_meta['email'];
+                    $data['from'] 		= Settings::get('server_email');
+                    $data['name']		= Settings::get('site_name');
+                    $data['reply-to']	= Settings::get('contact_email');
+                    $data['user']		= $user_meta;
+
+                    // send the email using the template event found in system/cms/templates/
+                    Events::trigger('email', $data, 'array');
+
                     //set success message
-                    $this->template->success_string = lang('forgot_password_successful');
+                    $this->template->success_string = lang('user:password_reset_message');
 
                 } else {
                     // Set an error message explaining the reset failed
-                    $this->template->error_string = $this->ion_auth->errors();
+                    $this->template->error_string = 'Error'; // @todo - translate
                 }
-
             } else {
                 //wrong username / email combination
                 $this->template->error_string = lang('user:forgot_incorrect');
@@ -570,9 +586,23 @@ class Users extends Public_Controller
         }
 
         // code is supplied in url so lets try to reset the password
-        if ($code) {
+        if ($code and $user_meta = $this->sentry->findUserByResetPasswordCode($code)) {
+
             // verify reset_code against code stored in db
-            $reset = $this->ion_auth->forgotten_password_complete($code);
+            $reset = $user_meta->attemptResetPassword($code, $new_password = rand_string(10));
+
+            // Add in some extra details
+            $data['subject']		= Settings::get('site_name') . ' - New Password';
+            $data['slug'] 			= 'new_password';
+            $data['to'] 			= $user_meta->email;
+            $data['from'] 			= Settings::get('server_email');
+            $data['name']			= Settings::get('site_name');
+            $data['reply-to']		= Settings::get('contact_email');
+            $data['user']			= $user_meta;
+            $data['new_password']	= $new_password;
+
+            // send the email using the template event found in system/cms/templates/
+            Events::trigger('email', $data, 'array');
 
             // did the password reset?
             if ($reset) {
@@ -580,7 +610,7 @@ class Users extends Public_Controller
 
             } else {
                 // nope, set error message
-                $this->template->error_string = $this->ion_auth->errors();
+                $this->template->error_string = 'Could not reset password.'; // @todo - translate
             }
         }
 
