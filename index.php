@@ -37,7 +37,7 @@ define('PYRO_DEVELOPMENT', 'development');
 define('PYRO_STAGING', 'staging');
 define('PYRO_PRODUCTION', 'production');
 
-define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO_DEVELOPMENT));
+define('ENVIRONMENT', getenv('PYRO_ENV') ?: PYRO_DEVELOPMENT);
 
 /*
  *---------------------------------------------------------------
