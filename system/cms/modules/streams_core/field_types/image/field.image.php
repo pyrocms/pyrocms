@@ -35,7 +35,7 @@ class Field_image
 	public function event()
 	{
 		$this->CI->type->add_js('image', 'imagefield.js');
-		$this->CI->type->add_css('image', 'imagefield.css');		
+		$this->CI->type->add_css('image', 'imagefield.css');
 	}
 
 	// --------------------------------------------------------------------------
@@ -330,7 +330,7 @@ class Field_image
 
 	/**
 	 * Input validation
-	 * 
+	 *
 	 * @param  mixed - string or null $value
 	 * @param  string - edit  or new  $mode
 	 * @param  object                 $field
@@ -338,7 +338,10 @@ class Field_image
 	 */
 	public function validate($value, $mode, $field)
 	{
-		if (isset($_FILES[$field->field_slug . '_file']))
+		$image_file = $_FILES[$field->field_slug . '_file'];
+
+		// check if the user uploaded a new file
+		if (is_array($image_file) && isset($image_file['name']) && $image_file['name'] != '')
 		{
 			$allowed_types = explode('|', $field->field_data['allowed_types']);
 			$filename      = $_FILES[$field->field_slug . '_file']['name'];
@@ -346,7 +349,7 @@ class Field_image
 
 			if ( ! in_array($extension, $allowed_types))
 			{
-				return sprintf(lang('streams:image.allowed_types_error'), $field->field_name);
+				return sprintf(sprintf(lang('streams:image.allowed_types_error'), implode(", ", $allowed_types)), $field->field_name);
 			}
 		}
 
