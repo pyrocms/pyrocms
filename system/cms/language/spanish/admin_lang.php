@@ -35,17 +35,17 @@ $lang['cp:nav_users']					= 'Usuarios';
 $lang['cp:nav_data']					= 'Datos';
 $lang['cp:nav_structure']				= 'Estructura';
 $lang['cp:nav_content']					= 'Contenido';
-$lang['cp:nav_misc']					= 'Misceláneos'; 
+$lang['cp:nav_misc']					= 'Misceláneos';
 
 $lang['cp:search']                      = 'Buscar';
 
 $lang['cp:must_login']			        = 'Debes estar logueado para ver esta página.';
 $lang['cp:access_denied']		        = 'No tienes el permiso suficiente para ver esta página.';
 $lang['cp:delete_installer_message']              = 'El directorio de instalación aún existe! Por favor, eliminelo de su servidor! Dejarlo disponible significa que alguien más pueda tomar el control de su sitio.';
-$lang['cp:delete_installer']					 = 'Borrar instalador'; 
+$lang['cp:delete_installer']					 = 'Borrar instalador';
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
-$lang['cp:upgrade_message']		        = 'Actualmente estas ejecutando la versión %s, pero la version de tu base de datos es %s. Por favor, <a href="%s">haz clic aquí para actualizar la base de datos.</a>.';
+$lang['cp:upgrade_message']		        = 'Actualmente estas ejecutando la versin %s, pero la version de tu base de datos es %s. Por favor, <a href="%s">haz clic aquí para actualizar la base de datos.</a>.';
 $lang['cp:google_analytics_missing']	= 'La configuración para Google Analytics aún no ha sido especificada. Agreguelas en %s o contacte su administrador.';
 $lang['cp:google_analytics_no_connect']	= 'No se pudo conectar a Google Analytics. Chequear en %s.';
 
