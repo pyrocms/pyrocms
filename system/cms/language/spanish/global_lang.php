@@ -53,7 +53,7 @@ $lang['required_error_label'] 			= 'Campo obligatorio faltante';
 $lang['note_label'] 					= 'Advertencia';
 $lang['success_label'] 					= 'Éxito';
 $lang['global:fields']					= 'Campos';
-$lang['global:custom_fields']			= 'Campos Personalizados;'
+$lang['global:custom_fields']			= 'Campos Personalizados';
 
 $lang['login_title'] 					= 'Iniciar sesión';
 $lang['globalfatal_error'] 			= 'Error grave. ¿El CMS está instalado?';
