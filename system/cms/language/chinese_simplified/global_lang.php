@@ -127,4 +127,6 @@ $lang['global:plugin']					= '插件'; #translate
 $lang['global:options']					= '选项'; #translate
 $lang['global:plain-text']				= '纯文本'; #translate
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */

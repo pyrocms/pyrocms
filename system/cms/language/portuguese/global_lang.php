@@ -115,4 +115,6 @@ $lang['global:plugin']					= 'Plugin'; #better keep en translation
 $lang['global:options']					= 'Opções';
 $lang['global:plain-text']				= 'Texto sem formatação';
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */

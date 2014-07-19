@@ -115,4 +115,6 @@ $lang['global:plugin']					= 'الإضافة';
 $lang['global:options']					= 'خيارات';
 $lang['global:plain-text']				= 'نص مجرد';
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */

@@ -115,4 +115,6 @@ $lang['global:plugin']				= 'កម្មវិធី​ជំនួយ';
 $lang['global:options']				= 'ជម្រើស';
 $lang['global:plain-text']			= 'អត្ថបទធម្មតា';
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */

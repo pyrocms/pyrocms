@@ -115,4 +115,6 @@ $lang['global:plugin']				= 'پلاگین';
 $lang['global:options']				= 'گزینه ها';
 $lang['global:plain-text']                 		= 'متن ساده';
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */

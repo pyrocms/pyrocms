@@ -115,4 +115,6 @@ $lang['global:plugin']					= 'Įskiepis';
 $lang['global:options']					= 'Nustatymai';
 $lang['global:plain-text']				= 'Paprastas tekstas';
 
+$lang['global:class']                   = 'Class';
+
 /* End of file global_lang.php */
