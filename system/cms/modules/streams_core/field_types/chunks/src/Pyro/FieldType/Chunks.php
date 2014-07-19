@@ -1,6 +1,7 @@
 <?php namespace Pyro\FieldType;
 
 use dflydev\markdown\MarkdownParser;
+use Pyro\Module\Addons\ModuleManager;
 use Pyro\Module\Pages\Model\PageChunk;
 use Pyro\Module\Streams\FieldType\FieldTypeAbstract;
 
@@ -21,11 +22,6 @@ class Chunks extends FieldTypeAbstract
 
     protected $chunks;
 
-    public function __construct()
-    {
-        $this->chunks = new PageChunk();
-    }
-
     public function event()
     {
         $this->appendMetadata($this->view('../js/wysiwyg'));
@@ -45,6 +41,8 @@ class Chunks extends FieldTypeAbstract
     public function formInput()
     {
         $data = [];
+
+        $this->chunks = new PageChunk();
 
         // If we don't have a page ID, then let's just
         // make an empty page chunks array with 1 entry.
@@ -99,6 +97,8 @@ class Chunks extends FieldTypeAbstract
      */
     public function preSave()
     {
+        $this->chunks = new PageChunk();
+
         $slugs = array('chunk_slug', 'chunk_class', 'chunk_body', 'chunk_type');
 
         $input = ci()->input->post();
@@ -188,6 +188,8 @@ class Chunks extends FieldTypeAbstract
      */
     public function pluginOutput()
     {
+        $this->chunks = new PageChunk();
+
         $chunks = $this->chunks->getManyByPageId($this->entry->id)->toArray();
 
         $markdown = new MarkdownParser();
