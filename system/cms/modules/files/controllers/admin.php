@@ -2,6 +2,7 @@
 
 use Pyro\Module\Files\Model\File;
 use Pyro\Module\Files\Model\Folder as FolderModel;
+use Pyro\Module\Files\Model\Folder;
 
 /**
  * PyroCMS file Admin Controller
@@ -29,6 +30,7 @@ class Admin extends Admin_Controller
         $this->load->library('files/files');
 
         $this->files = new File();
+        $this->folders = new Folder();
 
         $allowed_extensions = array();
         foreach (config_item('files:allowed_file_ext') as $type) {
@@ -165,9 +167,9 @@ class Admin extends Admin_Controller
                 $i = 0;
 
                 foreach ($item as $id) {
-                    $model = ($type == 'folder') ? 'file_folders_m' : 'file_m';
+                    $model = ($type == 'folder') ? 'folders' : 'files';
 
-                    $this->{$model}->update_by('id', $id, array('sort' => $i));
+                    $this->{$model}->whereId($id)->update(array('sort' => $i));
                     $i++;
                 }
             }

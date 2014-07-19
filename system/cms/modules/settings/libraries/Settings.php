@@ -327,14 +327,16 @@ class Settings
     {
         $select_array = array();
 
-        foreach ($options as $option) {
-            list($value, $key) = explode('=', $option);
-
-            if (ci()->lang->line('settings:form_option_' . $key) !== false) {
-                $key = ci()->lang->line('settings:form_option_' . $key);
+        if (!empty($options)) {
+            foreach ($options as $option) {
+                list($value, $key) = explode('=', $option);
+    
+                if (ci()->lang->line('settings:form_option_' . $key) !== false) {
+                    $key = ci()->lang->line('settings:form_option_' . $key);
+                }
+    
+                $select_array[$value] = $key;
             }
-
-            $select_array[$value] = $key;
         }
 
         return $select_array;
