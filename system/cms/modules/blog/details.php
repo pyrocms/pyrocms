@@ -130,6 +130,7 @@ class Module_Blog extends AbstractModule
     public function install($pdb, $schema)
     {
         $schema->dropIfExists('blog_categories');
+        $schema->dropIfExists('blog');
 
         $schema->create(
             'blog_categories',
