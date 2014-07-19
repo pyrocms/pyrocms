@@ -37,7 +37,7 @@ define('PYRO_DEVELOPMENT', 'development');
 define('PYRO_STAGING', 'staging');
 define('PYRO_PRODUCTION', 'production');
 
-define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO_DEVELOPMENT));
+define('ENVIRONMENT', getenv('PYRO_ENV') ?: PYRO_DEVELOPMENT);
 
 /*
  *---------------------------------------------------------------
@@ -48,7 +48,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  * The development environment will show errors by default.
  */
 
-	if (ENVIRONMENT === PYRO_DEVELOPMENT or (isset($_SERVER['PYRO_DEBUG']) and $_SERVER['PYRO_DEBUG'] === 'on')) {
+	if (ENVIRONMENT === PYRO_DEVELOPMENT or getenv('PYRO_DEBUG') === 'on') {
 		error_reporting(-1);
 		ini_set('display_errors', true);
 	} else {
