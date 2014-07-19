@@ -60,9 +60,10 @@ class Theme_Pyrocms extends AbstractTheme
 	public function run()
 	{
 		// only load these items on the dashboard
-		if ($this->module && $this->method !== 'login' && $this->method !== 'help') {
+        if (!$this->module && $this->method !== 'login' && $this->method !== 'help') {
+
 			// don't bother fetching the data if it's turned off in the theme
-			if (( ! $opt = $this->theme->model->getOptionValues())) {
+			if ($opt = (object)$this->theme->model->getOptionValues()) {
 
 				if (isset($opt->pyrocms_analytics_graph) and $opt->pyrocms_analytics_graph == 'yes')	{ 
 					self::getAnalytics();
@@ -194,7 +195,7 @@ class Theme_Pyrocms extends AbstractTheme
 	{
 		// Dashboard RSS feed (using SimplePie)
 		$pie = new SimplePie;
-		$pie->set_cache_location($this->config->item('simplepie_cache_dir'));
+        $pie->set_cache_location(APPPATH.'cache'.DIRECTORY_SEPARATOR.SITE_REF.DIRECTORY_SEPARATOR.'simplepie');
 		$pie->set_feed_url(Settings::get('dashboard_rss'));
 		$pie->init();
 		$pie->handle_content_type();
