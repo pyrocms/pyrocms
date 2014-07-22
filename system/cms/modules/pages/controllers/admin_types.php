@@ -106,8 +106,6 @@ class Admin_types extends Admin_Controller
         $this->lang->load('page_types');
         $this->load->library('form_validation');
 
-        $this->load->driver('Streams');
-
         $this->fieldUi = new FieldUi();
 
         $this->pageType = new PageType();
@@ -415,6 +413,8 @@ class Admin_types extends Admin_Controller
             ->uris(array(
                 'add' => $page_type_uri.'/new_field'
             ))
+            ->orderBy('sort_order')
+            ->sort('asc')
             ->pagination(Settings::get('records_per_page'), $page_type_uri)
             ->buttons($buttons)
             ->render();
