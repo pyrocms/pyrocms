@@ -73,7 +73,7 @@ class Blog extends Public_Controller
             ->set_metadata('og:description', $meta['description'], 'og')
             ->set_metadata('description', $meta['description'])
             ->set_metadata('keywords', $meta['keywords'])
-            ->set('posts', $posts)
+            ->set('posts', $posts->isEmpty() ? false : $posts)
             ->set('pagination', $pagination['links'])
             ->build('posts');
     }
@@ -130,7 +130,7 @@ class Blog extends Public_Controller
             ->set_breadcrumb(lang('blog:blog_title'), 'blog')
             ->set_breadcrumb($category->title)
             ->set('pagination', $pagination['links'])
-            ->set('posts', $posts)
+			->set('posts', $posts->isEmpty() ? false : $posts)
             ->set('category', (array) $category)
             ->build('posts');
     }
@@ -191,7 +191,7 @@ class Blog extends Public_Controller
             ->set_breadcrumb(lang('blog:blog_title'), 'blog')
             ->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
             ->set('pagination', $pagination['links'])
-            ->set('posts', $posts)
+            ->set('posts', $posts->isEmpty() ? false : $posts)
             ->set('month_year', $month_year)
             ->build('archive');
     }
@@ -311,7 +311,7 @@ class Blog extends Public_Controller
             ->set_breadcrumb(lang('blog:blog_title'), 'blog')
             ->set_breadcrumb(lang('blog:tagged_label').': '.$name)
             ->set('pagination', $pagination['links'])
-            ->set('posts', $posts)
+            ->set('posts', $posts->isEmpty() ? false : $posts)
             ->set('tag', $tag)
             ->build('posts');
     }
