@@ -435,8 +435,8 @@ abstract class UiAbstract extends Fluent
             ->new(true)
             ->noEntriesMessage(null)
             ->noFieldsMessage(null)
-            /*->orderBy('id')
-            ->sort('desc')*/
+            ->orderBy('id')
+            ->sort('desc')
             ->paginationUri(uri_string())
             ->returnValidationRules(false)
             ->recaptcha(false)
