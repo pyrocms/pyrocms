@@ -161,7 +161,7 @@ class FieldUi extends UiAbstract
             $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id));
         }
 
-        ci()->template->append_metadata('<script>var fields_offset=' . $this->offset . ';</script>');
+        ci()->template->append_metadata('<script>var fields_offset=' . (int)$this->offset . ';</script>');
         ci()->template->append_js('streams/assignments.js');
 
         $this->content = ci()->load->view('streams_core/fields/table_assignments', $this->attributes, true);
