@@ -148,7 +148,7 @@ class FieldUi extends UiAbstract
             $this->stream->id,
             $this->limit,
             $this->offset,
-            $this->direction
+            $this->sort
         );
 
         foreach ($this->assignments as $k => $assignment) {
