@@ -148,17 +148,18 @@ class FieldUi extends UiAbstract
             $this->stream->id,
             $this->limit,
             $this->offset,
-            $this->sort
+            $this->sort,
+            false
         );
 
         foreach ($this->assignments as $k => $assignment) {
-            if ($assignment->field->is_locked == 'yes') {
+            if ($assignment->field and $assignment->field->is_locked == 'yes') {
                 unset($this->assignments[$k]);
             }
         }
 
         if ($this->limit > 0) {
-            $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id));
+            $this->paginationTotalRecords(FieldAssignmentModel::countByStreamId($this->stream->id, false));
         }
 
         ci()->template->append_metadata('<script>var fields_offset=' . (int)$this->offset . ';</script>');
