@@ -52,11 +52,18 @@ class FieldAssignmentModel extends FieldModel
      *
      * @return array
      */
-    public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc')
+    public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc', $locked = null)
     {
-        return static::with('field')
-            ->where('stream_id', $stream_id)
-            ->take($limit)
+        $query = static::with('field')
+            ->where('stream_id', $stream_id);
+
+        if ($locked !== null) {
+            $query = $query
+                ->join('data_fields', 'data_field_assignments.field_id', '=', 'data_fields.id')
+                ->where('data_fields.is_locked', $locked ? 'yes' : 'no');
+        }
+
+        return $query->take($limit)
             ->skip($offset)
             ->orderBy('sort_order', $order)
             ->get();
@@ -73,7 +80,7 @@ class FieldAssignmentModel extends FieldModel
             return 0;
         }
 
-        return static::where('field_id', $stream_id)->count('field_id');
+        return static::where('field_id', $field_id)->count('field_id');
     }
 
     /**
@@ -81,13 +88,21 @@ class FieldAssignmentModel extends FieldModel
      *
      * @return  int
      */
-    public static function countByStreamId($stream_id = null)
+    public static function countByStreamId($stream_id = null, $locked = null)
     {
         if (!$stream_id) {
             return 0;
         }
 
-        return static::where('stream_id', $stream_id)->count('stream_id');
+        $query = static::where('stream_id', $stream_id);
+
+        if ($locked !== null) {
+            $query = $query
+                ->join('data_fields', 'data_field_assignments.field_id', '=', 'data_fields.id')
+                ->where('data_fields.is_locked', $locked ? 'yes' : 'no');
+        }
+
+        return $query->count('stream_id');
     }
 
     /**
