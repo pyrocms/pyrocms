@@ -54,7 +54,7 @@ class FieldAssignmentModel extends FieldModel
      */
     public static function findManyByStreamId($stream_id, $limit = null, $offset = 0, $order = 'asc', $locked = null)
     {
-        $query = static::with('field')
+        $query = static::select(['*', 'data_field_assignments.id as id'])->with('field')
             ->where('stream_id', $stream_id);
 
         if ($locked !== null) {
