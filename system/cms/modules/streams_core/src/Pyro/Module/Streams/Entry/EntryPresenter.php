@@ -46,6 +46,17 @@ class EntryPresenter extends Presenter
     public function toArray()
     {
         $resourceArray = $this->getResourceArray();
+        $relationFields = $this->resource->getRelationFields();
+
+        $resourceArray = array_merge($resourceArray, $relationFields);
+
+        foreach ($resourceArray as $key => $value) {
+            if (isset($resourceArray[substr($key, 0, -3)])) {
+                $resourceArray[substr($key, 0, -3)] = $resourceArray[$key];
+
+                unset($resourceArray[$key]);
+            }
+        }
 
         foreach (array_keys($resourceArray) as $key) {
             $resourceArray[Str::snake($key)] = $this->getPresenterAttribute($key, $resourceArray);
@@ -99,7 +110,7 @@ class EntryPresenter extends Presenter
             }
 
             if ($fieldType = $this->resource->getFieldType($key)) {
-                return $fieldType->{$fieldTypeMethod}();
+                return $fieldType->{lcfirst($fieldTypeMethod)}();
             }
         }
 

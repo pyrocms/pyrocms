@@ -696,9 +696,9 @@ abstract class FieldTypeAbstract
      */
     public function getRelationResult($attribute = null)
     {
-        $attribute = $attribute ?: $this->getColumnName();
+        $attribute = $attribute ?: $this->field->field_slug;
 
-        return $this->entry->getAttribute($attribute);
+        return $this->entry->getAttribute(Str::camel($attribute));
     }
 
     /**
