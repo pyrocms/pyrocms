@@ -20,7 +20,9 @@
 
 
 					// Get the value
-					$value = end(explode('-', $this->input->get($name)));
+                    			$value = explode('-', $this->input->get());
+
+					$value = end($value);
 
 
 					// Dropdown type
