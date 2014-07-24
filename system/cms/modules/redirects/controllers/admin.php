@@ -48,14 +48,14 @@ class Admin extends Admin_Controller
 	/**
 	 * List all redirects
 	 */
-	public function index()
+	public function index($page = 1)
 	{
         // Create pagination links
 		$total_rows = $this->redirect_m->count_all();
 		$this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$this->template->redirects = $this->redirect_m->order_by('`from`')->limit($this->template->pagination['limit'])->get_all();
+		$this->template->redirects = $this->redirect_m->order_by('`from`')->limit($this->template->pagination['limit'], $this->template->pagination['limit'] * ($page - 1))->get_all();
 		$this->template->build('admin/index');
 	}
 
