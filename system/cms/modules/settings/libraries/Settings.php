@@ -151,7 +151,9 @@ class Settings
             return self::$cache;
         }
 
-        $settings = $this->settingModel->getAll();
+        $model = new SettingModel();
+
+        $settings = $model->settingModel->getAll();
 
         foreach ($settings as $setting) {
             self::$cache[$setting['slug']] = $setting['value'];
@@ -173,7 +175,10 @@ class Settings
         if ( ! self::_check_format($setting)) {
             return false;
         }
-        return $this->settingModel->create($setting);
+
+        $model = new SettingModel();
+
+        return $model->settingModel->create($setting);
     }
 
     /**
@@ -186,7 +191,9 @@ class Settings
      */
     public static function delete($key)
     {
-        if ($setting = $this->settingModel->findBuSlug($key)) {
+        $model = new SettingModel();
+
+        if ($setting = $model->settingModel->findBuSlug($key)) {
             return $setting->delete($key);
         }
 
