@@ -241,7 +241,7 @@ class Settings
                 $form_control = form_input(array(
                     'id'	=> $setting->slug,
                     'name'	=> $setting->slug,
-                    'value'	=> $setting->value,
+                    'value'	=> $setting->value ? $setting->value : $setting->default,
                     'class'	=> 'text width-20'
                 ));
                 break;
@@ -250,7 +250,7 @@ class Settings
                 $form_control = form_textarea(array(
                     'id'	=> $setting->slug,
                     'name'	=> $setting->slug,
-                    'value'	=> $setting->value,
+                    'value'	=> $setting->value ? $setting->value : $setting->default,
                     'class'	=> 'width-20'
                 ));
                 break;
