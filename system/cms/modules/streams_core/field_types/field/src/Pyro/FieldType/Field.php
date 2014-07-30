@@ -14,60 +14,57 @@ class Field extends FieldTypeAbstract
     /**
      * Field Type Name
      *
-     * @var 	string
+     * @var    string
      */
-    public $field_type_name 		= 'Field';
+    public $field_type_name = 'Field';
 
     /**
      * Field Type Slug
      *
-     * @var 	string
+     * @var    string
      */
-    public $field_type_slug			= 'field';
+    public $field_type_slug = 'field';
 
     /**
      * Alt Process
-     *
      * This field type is alternatively processed.
      *
-     * @var 	bool
+     * @var    bool
      */
-    public $alt_process				= true;
+    public $alt_process = true;
 
     /**
      * Database Column Type
-     *
      * We'll work with two columns [field_slug] and [field_slug]_field
      * [field_slug] string - stores the value processed by the selected field
      * [field_slug]_field int - stores the selected field id
      *
-     * @var 	string|bool
+     * @var    string|bool
      */
-    public $db_col_type				= false;
+    public $db_col_type = 'string';
 
     /**
      * Custom Parameters
-     *
      * namespace - the selectable fields namespace
      * slug - field_slug stored as a parameter
      *
-     * @var 	array
+     * @var    array
      */
-    public $custom_parameters   = array('namespace', 'storage', 'max_length');
+    public $custom_parameters = array('namespace', 'storage', 'max_length');
 
     /**
      * Version Number
      *
-     * @var 	string
+     * @var    string
      */
-    public $version					= '1.0';
+    public $version = '1.0';
 
     /**
      * Author
      *
-     * @var 	string
+     * @var    string
      */
-    public $author					= array('name' => 'Osvaldo Brignoni', 'url' => 'http://obrignoni.com');
+    public $author = array('name' => 'Osvaldo Brignoni', 'url' => 'http://obrignoni.com');
 
     protected $selected_field = null;
 
@@ -77,6 +74,7 @@ class Field extends FieldTypeAbstract
 
     /**
      * Require columns to be selected for the query
+     *
      * @return [type] [description]
      */
     public function requireEntryColumns()
@@ -86,6 +84,7 @@ class Field extends FieldTypeAbstract
 
     /**
      * Event
+     *
      * @return void
      */
     public function event()
@@ -96,13 +95,13 @@ class Field extends FieldTypeAbstract
     }
 
     /**
-    * Form input
-    *
-    * @param   array
-    * @param   integer
-    * @param   object
-    * @return  string
-    */
+     * Form input
+     *
+     * @param   array
+     * @param   integer
+     * @param   object
+     * @return  string
+     */
     public function formInput()
     {
         $form = '';
@@ -115,7 +114,7 @@ class Field extends FieldTypeAbstract
             // Build the selected field form
             $form .= form_hidden($this->getFormSlug(), $selected_field->field_slug);
             $form .= $selectedType->formInput();
-        } elseif($options = $this->getSelectableFields($selectable_fields_namespace) and ! empty($options)) {
+        } elseif ($options = $this->getSelectableFields($selectable_fields_namespace) and !empty($options)) {
             $form = form_dropdown($this->getFormSlug(), $options, $this->getFieldSlugValue());
         } else {
             $form = lang('streams:field.must_add_fields');
@@ -126,19 +125,21 @@ class Field extends FieldTypeAbstract
 
     /**
      * Get selectable fields
+     *
      * @param  string $selectable_fields_namespace
      * @return array
      */
     public function getSelectableFields($selectable_fields_namespace = null)
     {
-        $selectable_fields_namespace = $selectable_fields_namespace ? $selectable_fields_namespace : $this->getSelectableFieldNamespace();
+        $selectable_fields_namespace = $selectable_fields_namespace ? $selectable_fields_namespace : $this->getSelectableFieldNamespace(
+        );
 
         // This will prevent fields assigned to this stream from being selectable for entry.
         $skip_fields = array();
 
         $options = array();
 
-        if ($selectable_fields_namespace and ! $this->stream->assignments->isEmpty()) {
+        if ($selectable_fields_namespace and !$this->stream->assignments->isEmpty()) {
             $skip_fields = $this->stream->assignments->getFieldSlugs();
         }
 
@@ -156,15 +157,14 @@ class Field extends FieldTypeAbstract
     }
 
     /**
-    * Pre Save
-    *
-    * Here we delegate validation and pre processing to the selected field type and save the returned result.
-    *
-    * @param   array
-    * @param   integer
-    * @param   object
-    * @return  string
-    */
+     * Pre Save
+     * Here we delegate validation and pre processing to the selected field type and save the returned result.
+     *
+     * @param   array
+     * @param   integer
+     * @param   object
+     * @return  string
+     */
     // $input, $field, $stream, $row_id, $this->form_data
     public function preSave()
     {
@@ -185,21 +185,27 @@ class Field extends FieldTypeAbstract
                 //
                 //and ($method == 'new' or ci()->form_validation->run() === true)
                 //
-                if ($this->getParameter('storage') != 'custom' and ! $selectedType->alt_process) {
+                if ($this->getParameter('storage') != 'custom' and !$selectedType->alt_process) {
                     $this->entry->setAttribute($this->field->field_slug, $selectedType->preSave());
 
                     // Save it
                     if ($this->entry->save()) {
                         // Fire an event to after updating this entry
-                        \Events::trigger('field_field_type_updated', array(
-                            'field' => $this->field,
-                            'stream' => $this->stream,
-                            'entry' => $this->entry,
-                            'form_data' => $post
-                        ));
+                        \Events::trigger(
+                            'field_field_type_updated',
+                            array(
+                                'field'     => $this->field,
+                                'stream'    => $this->stream,
+                                'entry'     => $this->entry,
+                                'form_data' => $post
+                            )
+                        );
                     }
                 } else {
-                    ci()->session->set_flashdata('error', 'Invalid '.humanize($selected_field->field_slug).' value.');
+                    ci()->session->set_flashdata(
+                        'error',
+                        'Invalid ' . humanize($selected_field->field_slug) . ' value.'
+                    );
                     redirect(current_url());
                 }
             }
@@ -208,11 +214,10 @@ class Field extends FieldTypeAbstract
 
     /**
      * Alt Pre Output
-     *
      * Process before outputting to the backend
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     public function stringOutput()
     {
@@ -224,45 +229,49 @@ class Field extends FieldTypeAbstract
     }
 
     /**
-    * Field Assignment Construct
-    *
-    * @param   object
-    * @param   object
-    * @return  void
-    */
+     * Field Assignment Construct
+     *
+     * @param   object
+     * @param   object
+     * @return  void
+     */
     public function fieldAssignmentConstruct()
     {
         $maxLength = $this->getParameter('max_length', 100);
-        $schema = ci()->pdb->getSchemaBuilder();
-        $self = $this;
+        $schema    = ci()->pdb->getSchemaBuilder();
+        $self      = $this;
 
-        $schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use (
-            $self,
-            $maxLength,
-            $schema
-        ) {
-            $field = $self->getField();
+        $schema->table(
+            $this->stream->stream_prefix . $this->stream->stream_slug,
+            function ($table) use (
+                $self,
+                $maxLength,
+                $schema
+            ) {
+                $field = $self->getField();
 
-            // Add a column to store the field slug
-            if (! $schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
-                $table->string($field->field_slug.'_field_slug', $maxLength)->default('text');
+                // Add a column to store the field slug
+                if (!$schema->hasColumn($table->getTable(), $field->field_slug . '_field_slug')) {
+                    $table->string($field->field_slug . '_field_slug', $maxLength)->default('text');
+                }
+
+                // Add a column to store the value if it doesn't use custom storage
+                if ($self->getParameter('storage') != 'custom'
+                    and !$schema->hasColumn($table->getTable(), $field->field_slug)
+                ) {
+                    $table->text($field->field_slug)->default('');
+                }
             }
-
-            // Add a column to store the value if it doesn't use custom storage
-            if ($self->getParameter('storage') != 'custom'
-                and ! $schema->hasColumn($table->getTable(), $field->field_slug)) {
-                $table->text($field->field_slug)->default('');
-            }
-        });
+        );
     }
 
     /**
-    * Field Assignment Destruct
-    *
-    * @param   object
-    * @param   object
-    * @return  void
-    */
+     * Field Assignment Destruct
+     *
+     * @param   object
+     * @param   object
+     * @return  void
+     */
     public function fieldAssignmentDestruct()
     {
         $schema = ci()->pdb->getSchemaBuilder();
@@ -270,39 +279,44 @@ class Field extends FieldTypeAbstract
         // We have to do this trick for PHP 5.3.7+
         $self = $this;
 
-        $schema->table($this->stream->stream_prefix.$this->stream->stream_slug, function($table) use ($self, $schema) {
+        $schema->table(
+            $this->stream->stream_prefix . $this->stream->stream_slug,
+            function ($table) use ($self, $schema) {
 
-            $field = $self->getField();
+                $field = $self->getField();
 
-            // Drop the field slug column
-            if ($schema->hasColumn($table->getTable(), $field->field_slug.'_field_slug')) {
-                $table->dropColumn($field->field_slug.'_field_slug');
+                // Drop the field slug column
+                if ($schema->hasColumn($table->getTable(), $field->field_slug . '_field_slug')) {
+                    $table->dropColumn($field->field_slug . '_field_slug');
+                }
+
+                // Drop the value column if it doesn't use custom storage
+                if ($self->getParameter('storage') != 'custom'
+                    and $schema->hasColumn($table->getTable(), $field->field_slug)
+                ) {
+
+                    $table->dropColumn($field->field_slug);
+                }
             }
-
-            // Drop the value column if it doesn't use custom storage
-            if ($self->getParameter('storage') != 'custom'
-                and $schema->hasColumn($table->getTable(), $field->field_slug)) {
-
-                $table->dropColumn($field->field_slug);
-            }
-        });
+        );
     }
 
     /**
      * Get column name
+     *
      * @return string
      */
     public function getColumnName()
     {
-        return parent::getColumnName().'_field_slug';
+        return parent::getColumnName() . '_field_slug';
     }
 
     /**
-    * Namespace Parameter
-    *
-    * @param   string
-    * @return  array
-    */
+     * Namespace Parameter
+     *
+     * @param   string
+     * @return  array
+     */
     public function paramNamespace($value = null)
     {
         $options = array(
@@ -312,27 +326,27 @@ class Field extends FieldTypeAbstract
         $options = array_merge($options, FieldModel::getFieldNamespaceOptions());
 
         return array(
-            'input' 		=> form_dropdown('namespace', $options, $value),
-            'instructions'	=> lang('streams:field.namespace_instructions')
+            'input'        => form_dropdown('namespace', $options, $value),
+            'instructions' => lang('streams:field.namespace_instructions')
         );
     }
 
     /**
-    * Storage Parameter
-    *
-    * @param   string
-    * @return  array
-    */
+     * Storage Parameter
+     *
+     * @param   string
+     * @return  array
+     */
     public function paramStorage($value = null)
     {
         $options = array(
             'default' => lang('streams:field.param_default'),
-            'custom' => lang('streams:field.param_custom')
+            'custom'  => lang('streams:field.param_custom')
         );
 
         return array(
-            'input' 		=> form_dropdown('storage', $options, $value),
-            'instructions'	=> lang('streams:field.storage_instructions')
+            'input'        => form_dropdown('storage', $options, $value),
+            'instructions' => lang('streams:field.storage_instructions')
         );
     }
 
@@ -343,7 +357,7 @@ class Field extends FieldTypeAbstract
 
     public function getSelectedField()
     {
-        if ( ! $fieldSlugValue = $this->getDefault()) {
+        if (!$fieldSlugValue = $this->getDefault()) {
             $fieldSlugValue = $this->getFieldSlugValue();
         }
 
