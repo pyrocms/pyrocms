@@ -26,7 +26,7 @@
 </fieldset>
 
 <!-- Meta data tab -->
-<?php if ($page->entry->meta_title or $page->entry->meta_keywords or $page->entry->meta_description): ?>
+<?php if ($page->entry->meta_title or $page->entry->metaKeywords() or $page->entry->meta_description): ?>
     <fieldset>
         <legend><?php echo lang('pages:meta_label') ?></legend>
         <?php if ($page->entry->meta_title): ?>
@@ -34,11 +34,11 @@
                 <strong><?php echo lang('pages:meta_title_label') ?>:</strong> <?php echo $page->entry->meta_title ?>
             </p>
         <?php endif ?>
-        <?php if ($page->entry->meta_keywords): ?>
+        <?php if ($page->entry->metaKeywords()): ?>
             <p>
                 <strong><?php echo lang('pages:meta_keywords_label') ?>:</strong> <?php echo implode(
                     ', ',
-                    $page->entry->meta_keywords->lists('name')
+                    $page->entry->metaKeywords()->lists('name')
                 ) ?>
             </p>
         <?php endif ?>
