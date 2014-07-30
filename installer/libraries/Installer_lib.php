@@ -154,7 +154,7 @@ class Installer_lib
         }
 
         // Try and connect, but bitch if error
-        return new PDO($dsn, $config['username'], $config['password'], array(
+        return new PDO($dsn, $config['username'], empty($config['password']) ? md5(time()) : $config['password'], array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ));
     }
