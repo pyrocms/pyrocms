@@ -42,6 +42,10 @@ class MY_User_agent extends CI_User_agent
 			return FALSE;
 		}
 
+		// If both mobile and browser is set (as is the case with the iPad then prefer mobile
+		if(parent::is_mobile($key) && parent::is_browser($key)) {
+			return FALSE;
+		}
 		return parent::is_mobile($key);
 	}
 }
