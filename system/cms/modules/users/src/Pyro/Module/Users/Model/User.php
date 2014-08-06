@@ -216,7 +216,7 @@ class User extends EloquentUser implements ArrayableInterface
      */
     public function isActivated()
     {
-        return (bool)$this->is_activated;
+        return $this->is_activated;
     }
 
     /**
