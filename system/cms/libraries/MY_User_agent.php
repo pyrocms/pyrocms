@@ -42,10 +42,11 @@ class MY_User_agent extends CI_User_agent
 			return FALSE;
 		}
 
-		// If both mobile and browser is set (as is the case with the iPad then prefer mobile
-		if(parent::is_mobile($key) && parent::is_browser($key)) {
+		// If mobile is set and contains generic, but desktop is also set (as is the case with the iPad) then prefer desktop
+		if((stripos(parent::mobile(), 'generic') !== false) && parent::is_browser($key)) {
 			return FALSE;
 		}
+
 		return parent::is_mobile($key);
 	}
 }
