@@ -25,7 +25,7 @@ class Page extends Eloquent
      *
      * @var int
      */
-    public $cacheMinutes = 30;
+    public $cacheMinutes = 0;
 
     /**
      * The attributes that aren't mass assignable
@@ -647,6 +647,8 @@ class Page extends Eloquent
         );
 
         $this->whereEntryId($entry->id)->whereEntryType(get_class($entry))->update($page);
+
+        $entry->flushCacheCollection();
 
         $this->flushCacheCollection();
     }

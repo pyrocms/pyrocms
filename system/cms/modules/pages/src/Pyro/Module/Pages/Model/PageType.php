@@ -22,7 +22,7 @@ class PageType extends Eloquent
      * Cache minutes
      * @var int
      */
-    public $cacheMinutes = 30;
+    public $cacheMinutes = false;
 
     /**
      * The attributes that aren't mass assignable
