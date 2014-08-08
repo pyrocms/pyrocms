@@ -39,12 +39,14 @@ class MY_User_agent extends CI_User_agent
 	public function is_mobile($key = null)
 	{
 		// If the mobile override cookie is set then ignore is_mobile and just return false
-		if(isset($_COOKIE['mobile_override'])) {
+		if(isset($_COOKIE['mobile_override']))
+		{
 			return FALSE;
 		}
 
 		// Dumb, but iPad needs special consideration to be considered a desktop device.
-		if(parent::browser() == 'iPad') {
+		if(parent::browser() == 'iPad')
+		{
 			return FALSE;
 		}
 
