@@ -127,6 +127,8 @@ $lang['settings:profile_visibility_desc']       = 'Specify who can view user pro
 
 $lang['settings:cdn_domain']                    = 'CDN Domain';
 $lang['settings:cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN. If you do not have a CDN provider try MaxCDN. <a href="'.CDN_OFFER_URL.'" target="_blank">Sign up and save 25%.</a>';
+$lang['settings:blog_uses_dates']                = 'Use dates un the Blog URL?';
+$lang['settings:blog_uses_dates_desc']                = 'Would you like to use the date in the URL for a blog post? Ex: blog/2014/05/slug or would you preffer to leave it like blog/slug';
 
 # section titles
 $lang['settings:section_general']				= 'General';
@@ -135,6 +137,7 @@ $lang['settings:section_comments']				= 'Comments';
 $lang['settings:section_users']					= 'Users';
 $lang['settings:section_statistics']			= 'Statistics';
 $lang['settings:section_files']					= 'Files';
+$lang['settings:section_blog']					= 'Blog';
 
 # checkbox and radio options
 $lang['settings:form_option_Open']				= 'Open';
