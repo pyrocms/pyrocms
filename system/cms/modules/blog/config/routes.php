@@ -27,9 +27,10 @@ $route['(blog)/rss/all.rss']            = 'rss/index';
 $route['(blog)/rss/(:any).rss']         = 'rss/category/$2';
 
 // admin
-$route['blog/admin(/:any)?'] = 'admin$1';
 $route['blog/admin/categories(/:any)?'] = 'admin_categories$1';
 $route['blog/admin/fields(/:any)?']		= 'admin_fields$1';
+$route['blog/admin(/:any)?'] = 'admin$1';
 
 /** Route for the post that dont have a date in the URL **/
+$route['blog/category/(:any)']   = 'blog/category/$1';
 $route['blog/(:any)']   = 'blog/view/$1';
