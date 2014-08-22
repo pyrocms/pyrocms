@@ -23,7 +23,13 @@ class Sitemap extends Public_Controller
 		{
 			$node = $doc->addChild('url');
 
-			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
+			if(site_url() == '/') {
+				$loc = BASE_URL.substr(site_url('blog/'.date('Y/m/', $article->created_on).$article->slug), 1);
+			}
+			else
+			{
+				$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
+			}
 
 			$node->addChild('loc', $loc);
 

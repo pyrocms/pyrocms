@@ -30,8 +30,13 @@ class Sitemap extends Public_Controller
 			}
 
 			$node = $doc->addChild('url');
-		
-			$loc = site_url($page->is_home ? '' : $page->uri);
+			if(site_url() == '/') {
+				$loc = BASE_URL.substr(site_url($page->is_home ? '' : $page->uri), 1);
+			}
+			else
+			{
+				$loc = site_url($page->is_home ? '' : $page->uri);
+			}
 
 			$node->addChild('loc', $loc);
 
