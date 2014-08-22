@@ -42,7 +42,8 @@ class Plugin_Variables extends Plugin
     public function _self_doc()
     {
         $info = array();
-
+        
+        $variables = $this->variables->all();
         // dynamically build the array for the magic method __call
         ksort($variables);
 
