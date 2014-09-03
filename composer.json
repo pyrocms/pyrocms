@@ -7,9 +7,11 @@
 	"require": {
         "streams/core": "dev-master"
 	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0"
-	},
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "1.*",
+        "phing/phing": "2.*",
+        "phpunit/phpunit": "4.*"
+    },
 	"autoload": {
 		"classmap": [
 			"database",
