@@ -261,14 +261,16 @@ class Plugin_Pages extends Plugin
 	 * Attributes:
 	 * - (int) id: The id of the page.
 	 * - (string) slug: The slug of the page.
+	 * - (string) uri: The uri of the page.
 	 *
 	 * @return array
 	 */
 	public function display()
 	{
-		$page = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
+		$page = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title, page_types.body as page_type_body')
 			->where('pages.id', $this->attribute('id'))
 			->or_where('pages.slug', $this->attribute('slug'))
+			->or_where('pages.uri', $this->attribute('uri'))
 			->where('status', 'live')
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->get('pages')
@@ -295,37 +297,47 @@ class Plugin_Pages extends Plugin
 			// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
 			unset($page->chunks);
 		}
-
-		// Check for custom fields
-		if (is_scalar($this->content()) and strpos($this->content(), 'custom_fields') !== false and $page)
+		else // if we are not supporting legacy chunks then we will get the body the streams/page_type way
 		{
-			$custom_fields = array();
 			$this->load->driver('Streams');
-
 			$stream = $this->streams_m->get_stream($page->stream_id);
 
 			$params = array(
 				'stream'		=> $stream->stream_slug,
 				'namespace'		=> $stream->stream_namespace,
 				'include'		=> $page->entry_id,
-				'disable'		=> 'created_by'
+				'disable'		=> 'created_by',
 			);
 
 			$entries = $this->streams->entries->get_entries($params);
 
-			foreach ($entries['entries'] as $entry)
+			if($entries['total'] >= 1) // if we found at least one entry for the page continue setting the body
 			{
-				$custom_fields[$page->stream_id][$entry['id']] = $entry;
+				$parser = new Lex_Parser();
+				$parser->scope_glue(':');
+				// since we don't know anything about how the stream was created we will read the page type and parse the body with lex
+				$page->body = $parser->parse($page->page_type_body, $entries['entries'][0]);
 			}
-		} else {
-			$custom_fields = false;
-		}
 
-		// If we have custom fields, we need to roll our
-		// entry values in.
-		if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
-		{
-			$page->custom_fields = array($custom_fields[$page->stream_id][$page->entry_id]);
+			// Check for custom fields
+			if (is_scalar($this->content()) and strpos($this->content(), 'custom_fields') !== false and $page)
+			{
+				$custom_fields = array();
+
+				foreach ($entries['entries'] as $entry)
+				{
+					$custom_fields[$page->stream_id][$entry['id']] = $entry;
+				}
+			} else {
+				$custom_fields = false;
+			}
+
+			// If we have custom fields, we need to roll our
+			// entry values in.
+			if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
+			{
+				$page->custom_fields = array($custom_fields[$page->stream_id][$page->entry_id]);
+			}
 		}
 
 		return $this->content() ? array($page) : $page->body;
@@ -832,3 +844,4 @@ class Plugin_Pages extends Plugin
 		return $html;
 	}
 }
+
