@@ -3,13 +3,17 @@
     <!-- Table Head -->
     <thead>
     <tr>
+        {{ if options.sortable }}
         <th class="sort-handle">
             <i class="fa fa-reorder" style="color: #dadada"></i>
         </th>
+        {{ endif }}
 
+        {{ if actions }}
         <th class="select-box">
             <input type="checkbox" onclick="$(this).closest('table').find(':checkbox').prop('checked', this.checked);"/>
         </th>
+        {{ endif }}
 
         {{ headers }}
         <th>
@@ -26,13 +30,17 @@
     <tbody>
     {{ rows }}
     <tr>
+        {{ if data.options.sortable }}
         <td class="sort-handle">
             <i class="fa fa-reorder" style="cursor: move;"></i>
         </td>
+        {{ endif }}
 
+        {{ if data.actions }}
         <td class="select-box">
             <input type="checkbox"/>
         </td>
+        {{ endif }}
 
         {{ columns }}
         <td>
@@ -43,16 +51,18 @@
         <td class="text-right">
             {{ buttons }}
             <div class="btn-group">
-                {{ button }}
-                <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown">
+                {{ link }}
+                {{ if dropdown }}
+                <button type="button" class="{{ attributes.class }} dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                </ul>-->
+                    {{ dropdown }}
+                    <li><a href="{{ url }}">{{ title }}</a></li>
+                    {{ /dropdown }}
+                </ul>
+                {{ endif }}
             </div>
             {{ /buttons }}
         </td>
@@ -68,17 +78,23 @@
 
             <div class="btn-group">
                 {{ actions }}
-                {{ button }}
-                <!--<button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
+                {{ link }}
+                {{ if dropdown }}
+                <button type="button" class="{{ attributes.class }} dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                </ul>-->
+                    {{ dropdown }}
+                    <li><a href="{{ url }}">{{ title }}</a></li>
+                    {{ /dropdown }}
+                </ul>
+                {{ endif }}
                 {{ /actions }}
+            </div>
+
+            <div class="btn-group pull-right">
+                {{ pagination.links }}
             </div>
 
         </td>
