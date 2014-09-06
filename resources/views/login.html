@@ -1,0 +1,47 @@
+{{ extends "theme::layouts/login" }}
+
+{{ section "content" }}
+
+<section class="container">
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-7 col-xs-20 col-xs-offset-2">
+
+            {{ form.open url="admin/login" method="post" }}
+
+            <div class="form-fluid logo animated fadeInDownBig">
+                <div class="col-lg-24">
+                    {{ image.img "theme::img/logo.png" }}
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="row-fluid inputs animated fadeInUpBig">
+                <div class="col-lg-9">
+                    {{ form.text name="email" class="form-control" placeholder="Login" }}
+                </div>
+
+                <div class="col-lg-9">
+                    {{ form.password name="password" class="form-control" placeholder="Password" }}
+                </div>
+
+                <div class="col-lg-6">
+                    {{ form.submit value="Login" class="btn btn-block btn-primary" }}
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="row-fluid forgot-password animated fadeInUpBig">
+                <div class="col-lg-24 text-right">
+                    <a href="#">Forgot your password?</a>
+                </div>
+            </div>
+
+            {{ form.close }}
+
+        </div>
+    </div>
+</section>
+
+{{ stop }}

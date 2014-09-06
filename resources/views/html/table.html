@@ -1,0 +1,107 @@
+<table class="table table-hover">
+
+    <!-- Table Head -->
+    <thead>
+    <tr>
+        <th colspan="100%">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-success">Filter</button>
+                <button type="submit" class="btn btn-danger">Clear</button>
+            </form>
+        </th>
+    </tr>
+    <tr>
+        <th class="sort-handle">
+            <i class="fa fa-reorder" style="color: #dadada"></i>
+        </th>
+
+        <th class="select-box">
+            <input type="checkbox" onclick="$(this).closest('table').find(':checkbox').prop('checked', this.checked);"/>
+        </th>
+
+        {{ headers }}
+        <th>
+            {{ header }}
+        </th>
+        {{ /headers }}
+
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+
+
+    <!-- Table Body -->
+    <tbody>
+    {{ rows }}
+    <tr>
+        <td class="sort-handle">
+            <i class="fa fa-reorder" style="cursor: move;"></i>
+        </td>
+
+        <td class="select-box">
+            <input type="checkbox"/>
+        </td>
+
+        {{ columns }}
+        <td>
+            {{ data }}
+        </td>
+        {{ /columns }}
+
+        <td class="text-right">
+            {{ buttons }}
+            <div class="btn-group">
+                {{ button }}
+                <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                </ul>-->
+            </div>
+            {{ /buttons }}
+        </td>
+    </tr>
+    {{ /rows }}
+    </tbody>
+
+
+    <!-- Table Foot -->
+    <tfoot>
+    <tr>
+        <td colspan="100%" style="padding: 15px 0 0;">
+
+            <div class="btn-group">
+                {{ actions }}
+                {{ button }}
+                <!--<button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                </ul>-->
+                {{ /actions }}
+            </div>
+
+        </td>
+    </tr>
+    </tfoot>
+
+</table>
