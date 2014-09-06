@@ -89,15 +89,6 @@ return [
     'providers'       => [
 
         /*
-         * Application Service Providers...
-         */
-        'App\Providers\AppServiceProvider',
-        'App\Providers\ArtisanServiceProvider',
-        'App\Providers\ErrorServiceProvider',
-        'App\Providers\FilterServiceProvider',
-        'App\Providers\LogServiceProvider',
-        'App\Providers\RouteServiceProvider',
-        /*
          * Laravel Framework Service Providers...
          */
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
@@ -120,6 +111,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
+        'Illuminate\Html\HtmlServiceProvider',
         /**
          * 3rd party service providers
          */
@@ -131,8 +123,15 @@ return [
         /**
          * Streams service providers
          */
+        //'Streams\Core\Provider\AppServiceProvider',
+        //'Streams\Core\Provider\ArtisanServiceProvider',
+        'Streams\Core\Provider\ErrorServiceProvider',
+        //'App\Providers\FilterServiceProvider',
+        'Streams\Core\Provider\LogServiceProvider',
         'Streams\Core\Provider\PresenterServiceProvider',
         'Streams\Core\Provider\ApplicationServiceProvider',
+        'Streams\Core\Provider\FilterServiceProvider',
+        'Streams\Core\Provider\RouteServiceProvider',
         'Streams\Core\Provider\AssetServiceProvider',
         'Streams\Core\Provider\ImageServiceProvider',
         'Streams\Core\Provider\AddonServiceProvider',
@@ -163,7 +162,9 @@ return [
     */
 
     'aliases'         => [
-
+        /**
+         * Laravel aliases
+         */
         'App'                 => 'Illuminate\Support\Facades\App',
         'Artisan'             => 'Illuminate\Support\Facades\Artisan',
         'Auth'                => 'Illuminate\Support\Facades\Auth',
@@ -193,6 +194,15 @@ return [
         'URL'                 => 'Illuminate\Support\Facades\URL',
         'Validator'           => 'Illuminate\Support\Facades\Validator',
         'View'                => 'Illuminate\Support\Facades\View',
+        'Form'                => 'Illuminate\Html\FormFacade',
+        'HTML'                => 'Illuminate\Html\HtmlFacade',
+        /**
+         * 3rd party aliases
+         */
+        'Sentry'              => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        /**
+         * Streams aliases
+         */
         'Block'               => 'Streams\Core\Facade\BlockFacade',
         'Extension'           => 'Streams\Core\Facade\ExtensionFacade',
         'FieldType'           => 'Streams\Core\Facade\FieldTypeFacade',
