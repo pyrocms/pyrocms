@@ -1,6 +1,6 @@
 {
 	"name": "streams/streams",
-	"description": "Streams platform.",
+	"description": "Streams Platform.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
