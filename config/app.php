@@ -135,8 +135,9 @@ return [
         'Streams\Core\Provider\AssetServiceProvider',
         'Streams\Core\Provider\ImageServiceProvider',
         'Streams\Core\Provider\AddonServiceProvider',
-        'Streams\Core\Provider\MessagesServiceProvider',
         'Streams\Core\Provider\HelperServiceProvider',
+        'Streams\Core\Provider\MessagesServiceProvider',
+        'Streams\Core\Provider\TranslationServiceProvider',
     ],
     /*
     |--------------------------------------------------------------------------
