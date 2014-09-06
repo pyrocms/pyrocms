@@ -8,3 +8,4 @@ composer.lock
 Thumbs.db
 addons
 models
+public/assets
