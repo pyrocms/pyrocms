@@ -201,6 +201,7 @@ return [
          * 3rd party aliases
          */
         'Sentry'              => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Debugbar'            => 'Barryvdh\Debugbar\Facade',
         /**
          * Streams aliases
          */
