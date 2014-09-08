@@ -115,11 +115,12 @@ return [
         /**
          * 3rd party service providers
          */
-        'Cartalyst\Sentry\SentryServiceProvider',
+        'Anomaly\Lexicon\LexiconServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'Cartalyst\Sentry\SentryServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        'Anomaly\Lexicon\LexiconServiceProvider',
+        'Jenssegers\Agent\AgentServiceProvider',
         /**
          * Streams service providers
          */
@@ -202,6 +203,7 @@ return [
          */
         'Sentry'              => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Debugbar'            => 'Barryvdh\Debugbar\Facade',
+        'Agent'               => 'Jenssegers\Agent\Facades\Agent',
         /**
          * Streams aliases
          */
