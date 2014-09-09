@@ -14,5 +14,5 @@ $lang['streams:choice.must_select_num'] = 'Muszáj kiválasztanod {val} tételt 
 $lang['streams:choice.must_at_least']   = 'Muszáj kiválasztanod legalább {val} tételt a %s listából.';
 $lang['streams:choice.must_max_num']    = 'Csak {val} tételt választhatsz ki a %s listából.';
 $lang['streams:choice.multiselect'] 		= 'Multiselect Type.'; 											#translate
-
+$lang['streams:choice.invalidtype'] 		= 'Invalid Type.';#translate
 /* End of file choice_lang.php */
