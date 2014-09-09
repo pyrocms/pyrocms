@@ -100,12 +100,12 @@ class Module_m extends MY_Model
 				'is_frontend' => $row->is_frontend,
 				'is_backend' => $row->is_backend,
 				'menu' => $row->menu,
-				'enabled' => $row->enabled,
+				'enabled' => (int)$row->enabled,
 				'sections' => ! empty($info['sections']) ? $info['sections'] : array(),
 				'shortcuts' => ! empty($info['shortcuts']) ? $info['shortcuts'] : array(),
 				'is_core' => $row->is_core,
-				'is_current' => version_compare($row->version, $this->version($row->slug),  '>='),
-				'current_version' => $this->version($row->slug),
+				'is_current' => version_compare($row->version, $class->version,  '>='),
+				'current_version' => $class->version,
 				'path' => $location,
 				'updated_on' => $row->updated_on
 			);
@@ -183,8 +183,8 @@ class Module_m extends MY_Model
 				'shortcuts'       => ! empty($info['shortcuts']) ? $info['shortcuts'] : array(),
 				'installed'       => $row->installed,
 				'is_core'         => $row->is_core,
-				'is_current'      => version_compare($row->version, $this->version($row->slug),  '>='),
-				'current_version' => $this->version($row->slug),
+				'is_current'      => version_compare($row->version, $class->version,  '>='),
+				'current_version' => $class->version,
 				'path'            => $location,
 				'updated_on'      => $row->updated_on
 			);
