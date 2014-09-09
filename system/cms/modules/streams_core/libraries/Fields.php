@@ -121,7 +121,7 @@ class Fields
 		{
 			// Note that we don't check to see if the variable has
 			// a non-null value, since the $extra variables can
-			// be set to null. 
+			// be set to null.
 			if ( ! isset($extra[$key])) $extra[$key] = $value;
 		}
 
@@ -227,7 +227,9 @@ class Fields
 				{
 					if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
+                        if($extra['failure_message'] !== false){
+                            $this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));
+                        }
 					}
 					else
 					{
@@ -244,8 +246,9 @@ class Fields
 						}
 		
 						// -------------------------------------
-					
-						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+                        if($extra['success_message'] !== false){
+                            $this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+                        }
 					}
 				}
 				else
@@ -258,7 +261,9 @@ class Fields
 														$skips
 													))
 					{
-						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+                        if($extra['failure_message'] !== false){
+                            $this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+                        }
 					}
 					else
 					{
@@ -275,8 +280,9 @@ class Fields
 						}
 		
 						// -------------------------------------
-					
-						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+                        if($extra['success_message'] !== false){
+                            $this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+                        }
 					}
 				}
 			
