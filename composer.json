@@ -5,7 +5,6 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-        "laravel/framework": "4.3.*",
         "streams/core": "dev-master"
 	},
     "require-dev": {

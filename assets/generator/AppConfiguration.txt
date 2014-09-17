@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug'           => true,
+    'debug'           => (isset($_GET['_debug'])),
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -73,8 +73,7 @@ return [
     |
     */
 
-    'key'             => 'eXkXG8CBk2Iei1kb8gpt1KJarwlpQX4M',
-    'cipher'          => MCRYPT_RIJNDAEL_128,
+    'key'             => '{{ key }}',
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -86,59 +85,47 @@ return [
     |
     */
 
-    'providers'       => [
+    'providers'       => array(
 
-        /*
-         * Laravel Framework Service Providers...
-         */
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
+        'Illuminate\Session\CommandsServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
+        'Illuminate\Routing\ControllerServiceProvider',
         'Illuminate\Cookie\CookieServiceProvider',
         'Illuminate\Database\DatabaseServiceProvider',
         'Illuminate\Encryption\EncryptionServiceProvider',
         'Illuminate\Filesystem\FilesystemServiceProvider',
-        'Illuminate\Foundation\Providers\FoundationServiceProvider',
         'Illuminate\Hashing\HashServiceProvider',
+        'Illuminate\Html\HtmlServiceProvider',
         'Illuminate\Log\LogServiceProvider',
         'Illuminate\Mail\MailServiceProvider',
+        'Illuminate\Database\MigrationServiceProvider',
         'Illuminate\Pagination\PaginationServiceProvider',
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
+        'Illuminate\Remote\RemoteServiceProvider',
         'Illuminate\Auth\Reminders\ReminderServiceProvider',
+        'Illuminate\Database\SeedServiceProvider',
         'Illuminate\Session\SessionServiceProvider',
-        'Illuminate\Translation\TranslationServiceProvider',
+        'Streams\Provider\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Html\HtmlServiceProvider',
-        /**
-         * 3rd party service providers
-         */
-        'Anomaly\Lexicon\LexiconServiceProvider',
+        'Illuminate\Workbench\WorkbenchServiceProvider',
+        'Cartalyst\Sentry\SentryServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Cartalyst\Sentry\SentryServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        'Jenssegers\Agent\AgentServiceProvider',
-        /**
-         * Streams service providers
-         */
-        //'Streams\Core\Provider\AppServiceProvider',
-        //'Streams\Core\Provider\ArtisanServiceProvider',
-        'Streams\Core\Provider\ErrorServiceProvider',
-        //'App\Providers\FilterServiceProvider',
-        'Streams\Core\Provider\LogServiceProvider',
-        'Streams\Core\Provider\PresenterServiceProvider',
-        'Streams\Core\Provider\ApplicationServiceProvider',
-        'Streams\Core\Provider\FilterServiceProvider',
-        'Streams\Core\Provider\RouteServiceProvider',
-        'Streams\Core\Provider\AssetServiceProvider',
-        'Streams\Core\Provider\ImageServiceProvider',
-        'Streams\Core\Provider\AddonServiceProvider',
-        'Streams\Core\Provider\MessagesServiceProvider',
-        'Streams\Core\Provider\TranslationServiceProvider',
-    ],
+        'Aiws\Lexicon\Provider\Laravel\LexiconServiceProvider',
+        'Streams\Provider\PresenterServiceProvider',
+        'Streams\Provider\ApplicationServiceProvider',
+        'Streams\Provider\AssetServiceProvider',
+        'Streams\Provider\ImageServiceProvider',
+        'Streams\Provider\AddonServiceProvider',
+        'Streams\Provider\MessagesServiceProvider',
+        'Streams\Provider\HelperServiceProvider',
+    ),
     /*
     |--------------------------------------------------------------------------
     | Service Provider Manifest
@@ -162,22 +149,25 @@ return [
     |
     */
 
-    'aliases'         => [
-        /**
-         * Laravel aliases
-         */
+    'aliases'         => array(
+
         'App'                 => 'Illuminate\Support\Facades\App',
         'Artisan'             => 'Illuminate\Support\Facades\Artisan',
         'Auth'                => 'Illuminate\Support\Facades\Auth',
         'Blade'               => 'Illuminate\Support\Facades\Blade',
         'Cache'               => 'Illuminate\Support\Facades\Cache',
+        'ClassLoader'         => 'Illuminate\Support\ClassLoader',
         'Config'              => 'Illuminate\Support\Facades\Config',
+        'Controller'          => 'Illuminate\Routing\Controller',
         'Cookie'              => 'Illuminate\Support\Facades\Cookie',
         'Crypt'               => 'Illuminate\Support\Facades\Crypt',
         'DB'                  => 'Illuminate\Support\Facades\DB',
+        'Eloquent'            => 'Illuminate\Database\Eloquent\Model',
         'Event'               => 'Illuminate\Support\Facades\Event',
         'File'                => 'Illuminate\Support\Facades\File',
+        'Form'                => 'Illuminate\Support\Facades\Form',
         'Hash'                => 'Illuminate\Support\Facades\Hash',
+        'HTML'                => 'Illuminate\Support\Facades\HTML',
         'Input'               => 'Illuminate\Support\Facades\Input',
         'Lang'                => 'Illuminate\Support\Facades\Lang',
         'Log'                 => 'Illuminate\Support\Facades\Log',
@@ -191,33 +181,31 @@ return [
         'Response'            => 'Illuminate\Support\Facades\Response',
         'Route'               => 'Illuminate\Support\Facades\Route',
         'Schema'              => 'Illuminate\Support\Facades\Schema',
+        'Seeder'              => 'Illuminate\Database\Seeder',
+        'Sentry'              => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Session'             => 'Illuminate\Support\Facades\Session',
+        'SSH'                 => 'Illuminate\Support\Facades\SSH',
+        'Str'                 => 'Illuminate\Support\Str',
         'URL'                 => 'Illuminate\Support\Facades\URL',
         'Validator'           => 'Illuminate\Support\Facades\Validator',
         'View'                => 'Illuminate\Support\Facades\View',
-        'Form'                => 'Illuminate\Html\FormFacade',
-        'HTML'                => 'Illuminate\Html\HtmlFacade',
-        /**
-         * 3rd party aliases
-         */
-        'Sentry'              => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-        'Debugbar'            => 'Barryvdh\Debugbar\Facade',
-        'Agent'               => 'Jenssegers\Agent\Facades\Agent',
-        /**
-         * Streams aliases
-         */
-        'Block'               => 'Streams\Core\Facade\BlockFacade',
-        'Extension'           => 'Streams\Core\Facade\ExtensionFacade',
-        'FieldType'           => 'Streams\Core\Facade\FieldTypeFacade',
-        'Module'              => 'Streams\Core\Facade\ModuleFacade',
-        'Tag'                 => 'Streams\Core\Facade\TagFacade',
-        'Theme'               => 'Streams\Core\Facade\ThemeFacade',
-        'StreamSchemaUtility' => 'Streams\Core\Facade\StreamSchemaUtilityFacade',
-        'Application'         => 'Streams\Core\Facade\ApplicationFacade',
-        'Asset'               => 'Streams\Core\Facade\AssetFacade',
-        'Image'               => 'Streams\Core\Facade\ImageFacade',
-        'Messages'            => 'Streams\Core\Facade\MessagesFacade',
+        'Debug'               => 'Barryvdh\Debugbar\Facade',
+        'Block'               => 'Streams\Facade\BlockFacade',
+        'Extension'           => 'Streams\Facade\ExtensionFacade',
+        'FieldType'           => 'Streams\Facade\FieldTypeFacade',
+        'Module'              => 'Streams\Facade\ModuleFacade',
+        'Tag'                 => 'Streams\Facade\TagFacade',
+        'Theme'               => 'Streams\Facade\ThemeFacade',
+        'StreamSchemaUtility' => 'Streams\Facade\StreamSchemaUtilityFacade',
+        'Application'         => 'Streams\Facade\ApplicationFacade',
+        'Asset'               => 'Streams\Facade\AssetFacade',
+        'Image'               => 'Streams\Facade\ImageFacade',
+        'StreamsHelper'       => 'Streams\Facade\StreamsHelperFacade',
+        'EntryHelper'         => 'Streams\Facade\EntryHelperFacade',
+        'CacheHelper'         => 'Streams\Facade\CacheHelperFacade',
+        'ArrayHelper'         => 'Streams\Facade\ArrayHelperFacade',
+        'StringHelper'        => 'Streams\Facade\StringHelperFacade',
+        'Messages'            => 'Streams\Facade\MessagesFacade',
+    ),
 
-    ],
-
-];
+);
