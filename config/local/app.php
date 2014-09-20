@@ -13,6 +13,6 @@ return [
 	|
 	*/
 
-	'debug' => (isset($_GET['_debug'])),
+	'debug' => true,
 
 ];

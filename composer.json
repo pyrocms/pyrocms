@@ -1,17 +1,22 @@
 {
-	"name": "streams/streams",
-	"description": "Streams Platform.",
+	"name": "laravel/laravel",
+	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
 	"require": {
-        "streams/core": "dev-master"
+		"laravel/framework": "~5.0",
+		"aws/aws-sdk-php": "dev-master",
+		"dropbox/dropbox-sdk": "1.1.*",
+		"phpseclib/phpseclib": "dev-master",
+		"rackspace/php-opencloud": "dev-master",
+		"league/event": "dev-master",
+		"doctrine/dbal": "dev-master",
+		"guzzlehttp/guzzle": "~4.0"
 	},
-    "require-dev": {
-        "barryvdh/laravel-ide-helper": "1.*",
-        "phing/phing": "2.*",
-        "phpunit/phpunit": "4.*"
-    },
+	"require-dev": {
+		"phpunit/phpunit": "~4.0"
+	},
 	"autoload": {
 		"classmap": [
 			"database",
