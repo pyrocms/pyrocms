@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
-	"require": {
+    "require": {
 		"laravel/framework": "~5.0",
 		"aws/aws-sdk-php": "dev-master",
 		"dropbox/dropbox-sdk": "1.1.*",
@@ -12,7 +12,8 @@
 		"rackspace/php-opencloud": "dev-master",
 		"league/event": "dev-master",
 		"doctrine/dbal": "dev-master",
-		"guzzlehttp/guzzle": "~4.0"
+		"guzzlehttp/guzzle": "~4.0",
+		"streams/core": "1.0.*@dev"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0"
