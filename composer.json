@@ -12,6 +12,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/anomalylabs/revisionable"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/laravel-agent"
         }
     ],
 	"require": {
@@ -25,7 +29,8 @@
 		"guzzlehttp/guzzle": "~4.0",
 		"streams/core": "1.0.*@dev",
         "dimsav/laravel-translatable": "dev-master",
-        "venturecraft/revisionable": "dev-master"
+        "venturecraft/revisionable": "dev-master",
+        "jenssegers/agent": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0"
