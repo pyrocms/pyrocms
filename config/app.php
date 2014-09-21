@@ -129,6 +129,11 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+        /**
+         * Streams Core Service Provider...
+         */
+        'Streams\Core\StreamsServiceProvider'
+
 	],
 
 	/*
