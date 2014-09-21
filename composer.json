@@ -24,8 +24,8 @@
 		"doctrine/dbal": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
 		"streams/core": "1.0.*@dev",
-        "dimsav/laravel-translatable": "4.3.*",
-        "venturecraft/revisionable": "1.*"
+        "dimsav/laravel-translatable": "dev-master",
+        "venturecraft/revisionable": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0"
