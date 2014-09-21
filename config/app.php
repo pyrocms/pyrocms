@@ -120,9 +120,9 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 
         /**
-         * Streams Core Service Provider...
+         * Streams Platform Service Provider...
          */
-        'Streams\Core\StreamsServiceProvider'
+        'Streams\Platform\StreamsServiceProvider'
 
 	],
 

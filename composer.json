@@ -27,7 +27,7 @@
 		"league/event": "dev-master",
 		"doctrine/dbal": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-		"streams/core": "1.0.*@dev",
+		"streams/platform": "1.0.*@dev",
         "dimsav/laravel-translatable": "dev-master",
         "venturecraft/revisionable": "dev-master",
         "jenssegers/agent": "dev-master"
