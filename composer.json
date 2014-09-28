@@ -7,14 +7,6 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/anomalylabs/laravel-translatable"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/anomalylabs/revisionable"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/anomalylabs/laravel-agent"
         }
     ],
@@ -28,8 +20,6 @@
 		"doctrine/dbal": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
 		"streams/platform": "1.0.*@dev",
-        "dimsav/laravel-translatable": "dev-master",
-        "venturecraft/revisionable": "dev-master",
         "jenssegers/agent": "dev-master"
 	},
 	"require-dev": {
