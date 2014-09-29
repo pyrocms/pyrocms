@@ -23,10 +23,13 @@ class Redirect_m extends MY_Model
 
 	public function get_from($from)
 	{
-		return $this->db
+		$res = $this->db
 			->like('from', $from, 'none')
 			->get($this->_table)
 			->row();
+
+		if(is_object($res) && $res->from === $from) return $res;
+		return NULL;
 	}
 
 	public function count_all()
