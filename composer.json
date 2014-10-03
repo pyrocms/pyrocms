@@ -1,45 +1,46 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"license": "MIT",
-	"type": "project",
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "type": "project",
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/anomalylabs/laravel-agent"
         }
     ],
-	"require": {
-		"laravel/framework": "~5.0",
-		"aws/aws-sdk-php": "dev-master",
-		"dropbox/dropbox-sdk": "1.1.*",
-		"phpseclib/phpseclib": "dev-master",
-		"rackspace/php-opencloud": "dev-master",
-		"league/event": "dev-master",
-		"doctrine/dbal": "dev-master",
-		"guzzlehttp/guzzle": "~4.0",
-		"streams/platform": "1.0.*@dev",
+    "require": {
+        "laravel/framework": "~5.0",
+        "aws/aws-sdk-php": "dev-master",
+        "dropbox/dropbox-sdk": "1.1.*",
+        "phpseclib/phpseclib": "dev-master",
+        "rackspace/php-opencloud": "dev-master",
+        "league/event": "dev-master",
+        "doctrine/dbal": "dev-master",
+        "guzzlehttp/guzzle": "~4.0",
+        "streams/platform": "1.0.*@dev",
         "jenssegers/agent": "dev-master"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0"
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "dev"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev"
 }
