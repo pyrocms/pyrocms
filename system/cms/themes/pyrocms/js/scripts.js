@@ -310,6 +310,17 @@ jQuery(function($) {
 				onComplete: function(){ pyro.chosen() }
 			});
 		});
+		
+		$('a[rel="modal-scrolling"], a.modal-scrolling').livequery(function() {
+			$(this).colorbox({
+				width: "90%",
+				height: "95%",
+				iframe: true,
+				scrolling: 'auto',
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
+			});
+		});
 	};
 
 	pyro.clear_notifications = function()
