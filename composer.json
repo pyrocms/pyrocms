@@ -4,12 +4,6 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/anomalylabs/laravel-agent"
-        }
-    ],
     "require": {
         "laravel/framework": "~5.0",
         "aws/aws-sdk-php": "dev-master",
@@ -19,12 +13,9 @@
         "league/event": "dev-master",
         "doctrine/dbal": "dev-master",
         "guzzlehttp/guzzle": "~4.0",
-        "streams/platform": "1.0.*@dev",
-        "jenssegers/agent": "dev-master"
+        "streams/platform": "1.0.*@dev"
     },
-    "require-dev": {
-        "phpspec/phpspec": "~2.0"
-    },
+    "require-dev": {},
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
