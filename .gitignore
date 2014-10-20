@@ -1,6 +1,7 @@
 /vendor
 /.idea
 /workbench/*/
+/storage
 composer.lock
 .env.*
 .DS_Store
