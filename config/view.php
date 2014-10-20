@@ -17,15 +17,15 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| Pagination View
+	| Compiled View Path
 	|--------------------------------------------------------------------------
 	|
-	| This view will be used to render the pagination link output, and can
-	| be easily customized here to show any view you like. A clean view
-	| compatible with Twitter's Bootstrap is given to you by default.
+	| This option determines where all the compiled Blade templates will be
+	| stored for your application. Typically, this is within the storage
+	| directory. However, as usual, you are free to change this value.
 	|
 	*/
 
-	'pagination' => 'pagination::slider-3',
+	'compiled' => storage_path().'/framework/views',
 
 ];

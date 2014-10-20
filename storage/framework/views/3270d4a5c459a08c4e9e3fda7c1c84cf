@@ -1,0 +1,104 @@
+<?php namespace Anomaly\Lexicon\View; class LexiconView_3270d4a5c459a08c4e9e3fda7c1c84cf implements \Anomaly\Lexicon\Contract\View\CompiledViewInterface { public function render($__data) {
+?><!doctype html>
+
+<!--[if lt IE 7]>
+<html class="nojs ms lt_ie7" lang="en"><![endif]-->
+<!--[if IE 7]>
+<html class="nojs ms ie7" lang="en"><![endif]-->
+<!--[if IE 8]>
+<html class="nojs ms ie8" lang="en"><![endif]-->
+<!--[if gt IE 8]>
+<html class="nojs ms" lang="en"><![endif]-->
+
+<html>
+
+<head>
+    <?php echo $__data['__env']->make('theme::partials/metadata',array_merge($__data,[]))->render(); ?>
+</head>
+
+<body id="installer">
+
+<header class="app">
+    <div class="container">
+
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+            <span class="navbar-brand">
+                <?php echo $__data['__env']->variable($__data,'image.img',['image'=>'theme::img/logo.png'],'',null,'string'); ?> Streams Installer
+            </span>
+            </div>
+
+            <ul class="nav navbar-nav pull-right">
+                <li class="active">
+                    <a href="#" data-toggle="modal" data-target="#choose-language">
+                        <i class="flag-icon flag-icon-us"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<section class="app-toolbar">
+    <div class="container">
+
+        <div class="title">
+            <a>
+                Installer
+                <i class="fa fa-lg fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <ul class="sections nav nav-pills">
+            <li class="active">
+                <a href="#">System</a>
+            </li>
+            <li>
+                <a href="#">License</a>
+            </li>
+            <li>
+                <a href="#">Database</a>
+            </li>
+            <li>
+                <a href="#">Administrator</a>
+            </li>
+            <li>
+                <a href="#">Options</a>
+            </li>
+            <li>
+                <a href="#">Install</a>
+            </li>
+        </ul>
+
+    </div>
+</section>
+
+<?php echo $__data['__env']->make('theme::partials/messages',array_merge($__data,[]))->render(); ?>
+
+<section id="main" class="container">
+    <?php echo $__data['__env']->yieldContent('content'); ?>
+</section>
+
+<footer class="app container">
+
+    <br><br>
+
+    <div class="row">
+        <div class="col-lg-12">
+            &copy; <?php echo e($__data['__env']->variable($__data,'datetime.now',[0=>'Y'],'',null,'string')); ?> - AI Web Systems, Inc.
+            <br>
+            Streams Platform Version <?php echo e($__data['__env']->variable($__data,'config.get',[0=>'constants.version'],'',null,'string')); ?>
+        </div>
+
+        <div class="col-lg-12 text-right">
+            <?php echo e($__data['__env']->variable($__data,'lang.translate',[0=>'theme::admin.meta'],'',null,'string')); ?>
+        </div>
+    </div>
+
+</footer>
+
+<?php echo $__data['__env']->make('theme::partials/modals',array_merge($__data,[]))->render(); ?>
+
+</body>
+</html><?php }} ?>

@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => (isset($_GET['_debug'])),
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -98,29 +98,29 @@ return [
 		/*
 		 * Laravel Framework Service Providers...
 		 */
-        'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-        'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Cache\CacheServiceProvider',
-        'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Routing\ControllerServiceProvider',
-        'Illuminate\Cookie\CookieServiceProvider',
-        'Illuminate\Database\DatabaseServiceProvider',
-        'Illuminate\Encryption\EncryptionServiceProvider',
-        'Illuminate\Filesystem\FilesystemServiceProvider',
-        'Illuminate\Foundation\Providers\FoundationServiceProvider',
-        'Illuminate\Hashing\HashServiceProvider',
-        'Illuminate\Log\LogServiceProvider',
-        'Illuminate\Mail\MailServiceProvider',
-        'Illuminate\Pagination\PaginationServiceProvider',
-        'Illuminate\Queue\QueueServiceProvider',
-        'Illuminate\Redis\RedisServiceProvider',
-        'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
-        'Illuminate\Session\SessionServiceProvider',
-        //'Illuminate\Translation\TranslationServiceProvider',
-        'Illuminate\Validation\ValidationServiceProvider',
-        'Illuminate\View\ViewServiceProvider',
+		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
+		'Illuminate\Auth\AuthServiceProvider',
+		'Illuminate\Cache\CacheServiceProvider',
+		'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
+		'Illuminate\Routing\ControllerServiceProvider',
+		'Illuminate\Cookie\CookieServiceProvider',
+		'Illuminate\Database\DatabaseServiceProvider',
+		'Illuminate\Encryption\EncryptionServiceProvider',
+		'Illuminate\Filesystem\FilesystemServiceProvider',
+		'Illuminate\Foundation\Providers\FoundationServiceProvider',
+		'Illuminate\Hashing\HashServiceProvider',
+		'Illuminate\Log\LogServiceProvider',
+		'Illuminate\Mail\MailServiceProvider',
+		'Illuminate\Pagination\PaginationServiceProvider',
+		'Illuminate\Queue\QueueServiceProvider',
+		'Illuminate\Redis\RedisServiceProvider',
+		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
+		'Illuminate\Session\SessionServiceProvider',
+		'Illuminate\Translation\TranslationServiceProvider',
+		'Illuminate\Validation\ValidationServiceProvider',
+		'Illuminate\View\ViewServiceProvider',
 
-        /**
+		/**
          * Streams Platform Service Provider...
          */
         'Streams\Platform\StreamsServiceProvider'
@@ -138,7 +138,7 @@ return [
 	|
 	*/
 
-	'manifest' => storage_path().'/meta',
+	'manifest' => storage_path().'/framework',
 
 	/*
 	|--------------------------------------------------------------------------
