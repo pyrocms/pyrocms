@@ -9,3 +9,5 @@ Thumbs.db
 addons
 models
 public/assets
+config/database.php
+config/app.php
