@@ -1,0 +1,40 @@
+<?php namespace Anomaly\Lexicon\View; class LexiconView_685279d21259c89ec554d23d8c8db5d3 implements \Anomaly\Lexicon\Contract\View\CompiledViewInterface { public function render($__data) {
+?><!-- Meta -->
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width"/>
+<meta name="author" content="AI Web Systems, Inc. - Ryan Thompson"/>
+<meta name="generator" content="v3"/>
+
+<!-- Facebook Meta Tags -->
+<meta property="og:image" content=""/>
+<meta property="og:title" content=""/>
+<meta property="og:url" content=""/>
+<meta property="og:site_name" content=""/>
+<meta property="og:type" content="website"/>
+
+<title>Streams</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="../../../favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" href="../../../favicon.ico"/>
+
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.css',1=>'theme::less/bootstrap/bootstrap.less'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.css',1=>'theme::less/font-awesome/font-awesome.less'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.css',1=>'theme::less/animate/animate.less'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.css',1=>'theme::less/theme/theme.less'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.css',1=>'theme::less/plugins/*'],'',null,'string')); ?>
+
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.js',1=>'theme::js/vendor/jquery-1.11.1.js'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.js',1=>'theme::js/vendor/modernizr.js'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.js',1=>'theme::js/bootstrap/*'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.js',1=>'theme::js/theme/*'],'',null,'string')); ?>
+<?php echo e($__data['__env']->variable($__data,'asset.add',[0=>'theme.js',1=>'theme::js/plugins/*'],'',null,'string')); ?>
+
+<?php echo $__data['__env']->variable($__data,'asset.style',[0=>'theme.css'],'',null,'string'); ?>
+<?php echo $__data['__env']->variable($__data,'asset.script',[0=>'theme.js'],'',null,'string'); ?>
+
+<?php echo $__data['__env']->variable($__data,'asset.styles',[0=>'streams.css'],'',null,'string'); ?>
+<?php echo $__data['__env']->variable($__data,'asset.scripts',[0=>'streams.js'],'',null,'string'); ?><?php }} ?>

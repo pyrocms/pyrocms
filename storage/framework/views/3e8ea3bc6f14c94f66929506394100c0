@@ -1,0 +1,97 @@
+<?php namespace Anomaly\Lexicon\View; class LexiconView_3e8ea3bc6f14c94f66929506394100c0 implements \Anomaly\Lexicon\Contract\View\CompiledViewInterface { public function render($__data) {
+?><div class="modal fade" id="keyboard-shortcuts">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Available Shortcuts</h4>
+            </div>
+
+            <div class="panel-body">
+                <select data-toggle="shortcuts" class="form-control">
+                    <option value="control-panel">Control Panel</option>
+                    <option value="forms">Forms</option>
+                    <option value="tables">Tables</option>
+                </select>
+            </div>
+
+            <table class="table" data-shortcuts="control-panel">
+                <tr>
+                    <th colspan="100%">
+                        <h2>Control Panel<br>
+                            <small>General control panel shortcuts.</small>
+                        </h2>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><span>Alt x2</span></td>
+                    <td>Show available shortcuts.</td>
+                </tr>
+                <tr>
+                    <td><span>Alt + S</span></td>
+                    <td>Open global search menu.</td>
+                </tr>
+                <tr>
+                    <td><span>Esc</span></td>
+                    <td>Dismiss alerts.</td>
+                </tr>
+            </table>
+
+
+            <table class="table hidden" data-shortcuts="forms">
+                <tr>
+                    <th colspan="100%">
+                        <h2>Forms<br>
+                            <small>Common shortcuts for entry forms.</small>
+                        </h2>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><span>Alt + L</span></td>
+                    <td>Cycle through available translations.</td>
+                </tr>
+            </table>
+
+
+            <table class="table hidden" data-shortcuts="tables">
+                <tr>
+                    <th colspan="100%">
+                        <h2>Tables<br>
+                            <small>Common shortcuts for entry tables.</small>
+                        </h2>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><span>Alt + F</span></td>
+                    <td>Toggle display of table filters and focus on first input.</td>
+                </tr>
+                <tr>
+                    <td><span><i class="fa fa-arrow-left"></i></span></td>
+                    <td>Go to previous page.</td>
+                </tr>
+                <tr>
+                    <td><span><i class="fa fa-arrow-right"></i></span></td>
+                    <td>Go to next page.</td>
+                </tr>
+            </table>
+
+            <br>
+
+        </div>
+    </div>
+</div><?php }} ?>
