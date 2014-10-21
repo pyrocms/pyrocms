@@ -1,25 +1,65 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "anomaly/streams",
+    "description": "A powerful platform for deploying modular applications.",
+    "keywords": ["cms", "streams","laravel"],
     "license": "MIT",
     "type": "project",
-    "require": {
-        "laravel/framework": "~5.0",
-        "aws/aws-sdk-php": "dev-master",
-        "dropbox/dropbox-sdk": "1.1.*",
-        "phpseclib/phpseclib": "dev-master",
-        "rackspace/php-opencloud": "dev-master",
-        "league/event": "dev-master",
-        "doctrine/dbal": "dev-master",
-        "guzzlehttp/guzzle": "~4.0",
-        "streams/platform": "1.0.*@dev"
-    },
-    "require-dev": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
+    "authors": [
+        {
+            "name": "AnomalyLabs",
+            "email": "hello@anomaly.is"
         }
+    ],
+    "require": {
+        "anomaly/streams-platform": "~1.0"
+    },
+    "require-dev": {
+        "anomaly/streams-composer-plugin": "0.1.*@dev",
+        "anomaly/streams-distribution": "~1.0",
+        "anomaly/boolean-field-type": "~1.0",
+        "anomaly/country-field-type": "~1.0",
+        "anomaly/datetime-field-type": "~1.0",
+        "anomaly/email-field-type": "~1.0",
+        "anomaly/encrypted-field-type": "~1.0",
+        "anomaly/field-field-type": "~1.0",
+        "anomaly/file-field-type": "~1.0",
+        "anomaly/integer-field-type": "~1.0",
+        "anomaly/keywords-field-type": "~1.0",
+        "anomaly/language-field-type": "~1.0",
+        "anomaly/multiple-field-type": "~1.0",
+        "anomaly/polymorphic-field-type": "~1.0",
+        "anomaly/relationship-field-type": "~1.0",
+        "anomaly/select-field-type": "~1.0",
+        "anomaly/slider-field-type": "~1.0",
+        "anomaly/slug-field-type": "~1.0",
+        "anomaly/state-field-type": "~1.0",
+        "anomaly/text-field-type": "~1.0",
+        "anomaly/textarea-field-type": "~1.0",
+        "anomaly/url-field-type": "~1.0",
+        "anomaly/user-field-type": "~1.0",
+        "anomaly/wysiwyg-field-type": "~1.0",
+        "anomaly/addons-module": "~1.0",
+        "anomaly/blog-module": "~1.0",
+        "anomaly/dashboard-module": "~1.0",
+        "anomaly/settings-module": "~1.0",
+        "anomaly/users-module": "~1.0",
+        "anomaly/asset-tag": "~1.0",
+        "anomaly/config-tag": "~1.0",
+        "anomaly/datetime-tag": "~1.0",
+        "anomaly/form-tag": "~1.0",
+        "anomaly/helper-tag": "~1.0",
+        "anomaly/html-tag": "~1.0",
+        "anomaly/image-tag": "~1.0",
+        "anomaly/input-tag": "~1.0",
+        "anomaly/lang-tag": "~1.0",
+        "anomaly/messages-tag": "~1.0",
+        "anomaly/module-tag": "~1.0",
+        "anomaly/request-tag": "~1.0",
+        "anomaly/string-tag": "~1.0",
+        "anomaly/theme-tag": "~1.0",
+        "anomaly/url-tag": "~1.0",
+        "anomaly/user-tag": "~1.0",
+        "anomaly/streams-theme": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [
@@ -35,7 +75,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
+        "preferred-install": "source",
         "bin-dir": "bin"
     },
     "minimum-stability": "dev"
