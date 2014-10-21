@@ -16,6 +16,11 @@
         "streams/platform": "1.0.*@dev"
     },
     "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",

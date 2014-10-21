@@ -21,7 +21,7 @@
         "Illuminate\\Translation\\TranslationServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "Streams\\Platform\\StreamsServiceProvider"
+        "Anomaly\\Streams\\Platform\\StreamsServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -35,7 +35,7 @@
         "Illuminate\\Session\\SessionServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "Streams\\Platform\\StreamsServiceProvider"
+        "Anomaly\\Streams\\Platform\\StreamsServiceProvider"
     ],
     "deferred": {
         "artisan": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
@@ -63,12 +63,6 @@
         "command.cache.clear": "Illuminate\\Cache\\CacheServiceProvider",
         "command.cache.table": "Illuminate\\Cache\\CacheServiceProvider",
         "command.auth.reminders.clear": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.reminders": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.reminders.controller": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.make": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.controller": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.login.request": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
-        "command.auth.register.request": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "migrator": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "migration.repository": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "command.migrate": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
@@ -103,6 +97,7 @@
         "command.workbench": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "hash": "Illuminate\\Hashing\\HashServiceProvider",
         "log": "Illuminate\\Log\\LogServiceProvider",
+        "Psr\\Log\\LoggerInterface": "Illuminate\\Log\\LogServiceProvider",
         "mailer": "Illuminate\\Mail\\MailServiceProvider",
         "swift.mailer": "Illuminate\\Mail\\MailServiceProvider",
         "swift.transport": "Illuminate\\Mail\\MailServiceProvider",
@@ -120,17 +115,5 @@
         "auth.password.tokens": "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider",
         "translator": "Illuminate\\Translation\\TranslationServiceProvider",
         "translation.loader": "Illuminate\\Translation\\TranslationServiceProvider"
-    },
-    "when": {
-        "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider": [],
-        "Illuminate\\Cache\\CacheServiceProvider": [],
-        "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider": [],
-        "Illuminate\\Hashing\\HashServiceProvider": [],
-        "Illuminate\\Log\\LogServiceProvider": [],
-        "Illuminate\\Mail\\MailServiceProvider": [],
-        "Illuminate\\Queue\\QueueServiceProvider": [],
-        "Illuminate\\Redis\\RedisServiceProvider": [],
-        "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider": [],
-        "Illuminate\\Translation\\TranslationServiceProvider": []
     }
 }
