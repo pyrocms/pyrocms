@@ -1,8 +1,0 @@
-#!/bin/bash
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-PLATFORM="${DIR}/../core"
-
-find $PLATFORM -type d -print0 | xargs -0 chmod 755
-find $PLATFORM -type f -print0 | xargs -0 chmod 644
