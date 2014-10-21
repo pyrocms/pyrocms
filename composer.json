@@ -75,7 +75,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
+        "preferred-install": "source",
         "bin-dir": "bin"
     },
     "minimum-stability": "dev"
