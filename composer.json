@@ -39,7 +39,6 @@
         "anomaly/user-field-type": "~1.0",
         "anomaly/wysiwyg-field-type": "~1.0",
         "anomaly/addons-module": "~1.0",
-        "anomaly/blog-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
         "anomaly/settings-module": "~1.0",
         "anomaly/users-module": "~1.0",
