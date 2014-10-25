@@ -28,12 +28,12 @@ $app = new Illuminate\Foundation\Application(
 
 $app->bind(
 	'Illuminate\Contracts\Http\Kernel',
-	'App\Http\Kernel'
+	'Anomaly\Streams\Platform\Http\Kernel'
 );
 
 $app->bind(
 	'Illuminate\Contracts\Console\Kernel',
-	'App\Console\Kernel'
+	'Anomaly\Streams\Platform\Console\Kernel'
 );
 
 /*
