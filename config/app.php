@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => 'RUN THE INSTALLER!',
+	'key' => 'wDSWqqKRNjpYRWhYnmBCjxFQTecKMy',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
