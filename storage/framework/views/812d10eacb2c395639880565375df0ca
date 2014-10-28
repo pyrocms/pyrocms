@@ -1,3 +1,0 @@
-<?php namespace Anomaly\Lexicon\View; class LexiconView_812d10eacb2c395639880565375df0ca implements \Anomaly\Lexicon\Contract\View\CompiledViewInterface { public function render($__data) {
-?><?php echo $__data['__env']->make('theme::modal-languages',array_merge($__data,[]))->render(); ?>
-<?php echo $__data['__env']->make('theme::modal-shortcuts',array_merge($__data,[]))->render(); ?><?php }} ?>
