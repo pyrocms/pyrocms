@@ -9,7 +9,6 @@ Thumbs.db
 addons
 models
 public/assets
-config/database.php
 core
 storage/framework/services.json
 config/app.php
