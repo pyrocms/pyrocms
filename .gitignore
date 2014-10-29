@@ -3,7 +3,7 @@
 /workbench/*/
 /storage
 composer.lock
-.env.*
+.env*
 .DS_Store
 Thumbs.db
 addons
