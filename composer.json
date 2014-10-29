@@ -14,7 +14,7 @@
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
-        "anomaly/streams-composer-plugin": "0.1.*@dev",
+        "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/streams-distribution": "~1.0",
         "anomaly/boolean-field-type": "~1.0",
         "anomaly/country-field-type": "~1.0",
@@ -84,6 +84,11 @@
     "config": {
         "preferred-install": "source",
         "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     },
     "minimum-stability": "dev"
 }
