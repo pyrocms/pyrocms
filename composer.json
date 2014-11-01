@@ -14,9 +14,9 @@
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
-        "anomaly/users_module_blocked_check-extension": "~0.1",
-        "anomaly/users_module_default_authenticator-extension": "~0.1",
-        "anomaly/users_module_activation_check-extension-extension": "~0.1",
+        "anomaly/users_module_blocked_check-extension": "1.0.*@dev",
+        "anomaly/users_module_default_authenticator-extension": "1.0.*@dev",
+        "anomaly/users_module_activation_check-extension-extension": "1.0.*@dev",
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/streams-distribution": "~1.0",
         "anomaly/boolean-field-type": "~1.0",
