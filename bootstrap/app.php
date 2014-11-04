@@ -26,14 +26,19 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
-$app->bind(
+$app->singleton(
 	'Illuminate\Contracts\Http\Kernel',
 	'Anomaly\Streams\Platform\Http\Kernel'
 );
 
-$app->bind(
+$app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
 	'Anomaly\Streams\Platform\Console\Kernel'
+);
+
+$app->singleton(
+	'Illuminate\Contracts\Debug\ExceptionHandler',
+	'Illuminate\Foundation\Debug\ExceptionHandler'
 );
 
 /*
