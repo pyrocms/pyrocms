@@ -25,7 +25,7 @@ return [
 	*/
 
     'available_locales' => [
-        'en' => 'English',
-        'fr' => 'Français',
+        'en',
+        'fr',
     ],
 ];
