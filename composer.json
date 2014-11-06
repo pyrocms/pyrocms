@@ -25,7 +25,6 @@
         "anomaly/datetime-field-type": "~1.0",
         "anomaly/email-field-type": "~1.0",
         "anomaly/encrypted-field-type": "~1.0",
-        "anomaly/field-field-type": "~1.0",
         "anomaly/file-field-type": "~1.0",
         "anomaly/integer-field-type": "~1.0",
         "anomaly/keywords-field-type": "~1.0",
