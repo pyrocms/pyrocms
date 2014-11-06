@@ -20,6 +20,7 @@
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/streams-distribution": "~1.0",
         "anomaly/boolean-field-type": "~1.0",
+        "anomaly/checkboxes-field-type": "~1.0",
         "anomaly/country-field-type": "~1.0",
         "anomaly/datetime-field-type": "~1.0",
         "anomaly/email-field-type": "~1.0",
