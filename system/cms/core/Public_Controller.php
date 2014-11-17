@@ -99,15 +99,10 @@ class Public_Controller extends MY_Controller
 		// Assign segments to the template the new way
 		$this->template->server = $_SERVER;
 
-        // Set the theme option values
-        foreach ($this->theme->model->options as $option) {
-            foreach ($this->theme->options as &$themeOption) {
-                if (isset($themeOption['slug']) and $themeOption['slug'] == $option->slug) {
-                    $themeOption = $option->value;
-                }
-            }
-        }
-
+		// Set the theme option values
+		foreach ($this->theme->model->options as $options) {
+			$this->theme->options[$options->slug] = $options->value;
+		}
 		$this->template->theme = $this->theme;
 
 		$this->benchmark->mark('public_controller_end');
