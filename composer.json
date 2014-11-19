@@ -39,7 +39,6 @@
         "anomaly/text-field-type": "~1.0",
         "anomaly/textarea-field-type": "~1.0",
         "anomaly/url-field-type": "~1.0",
-        "anomaly/user-field-type": "~1.0",
         "anomaly/wysiwyg-field-type": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
