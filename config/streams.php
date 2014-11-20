@@ -28,4 +28,47 @@ return [
         'en',
         'fr',
     ],
+
+    /*
+	|--------------------------------------------------------------------------
+	| Stream Management
+	|--------------------------------------------------------------------------
+	*/
+
+    'streams' => [
+        'model' => 'Anomaly\Streams\Platform\Stream\StreamModel',
+        'repository' => 'Anomaly\Streams\Platform\Stream\StreamRepository',
+    ],
+
+    /*
+	|--------------------------------------------------------------------------
+	| Field Management
+	|--------------------------------------------------------------------------
+	*/
+
+    'fields' => [
+        'model' => 'Anomaly\Streams\Platform\Field\FieldModel',
+        'repository' => 'Anomaly\Streams\Platform\Field\FieldRepository',
+    ],
+
+    /*
+	|--------------------------------------------------------------------------
+	| Assignment Management
+	|--------------------------------------------------------------------------
+	*/
+
+    'assignments' => [
+        'model' => 'Anomaly\Streams\Platform\Assignment\AssignmentModel',
+        'repository' => 'Anomaly\Streams\Platform\Assignment\AssignmentRepository',
+    ],
+
+    /*
+	|--------------------------------------------------------------------------
+	| Module Management
+	|--------------------------------------------------------------------------
+	*/
+
+    'modules' => [
+        'repository' => 'Anomaly\Streams\Platform\Addon\Module\ModuleRepository',
+    ],
 ];
