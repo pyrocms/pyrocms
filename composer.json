@@ -17,6 +17,8 @@
         "anomaly/users_module_blocked_check-extension": "~1.0",
         "anomaly/users_module_default_authenticator-extension": "~1.0",
         "anomaly/users_module_activation_check-extension": "~1.0",
+        "streams_ckeditor_integration-extension": "~1.0",
+        "streams_ace_integration-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/streams-distribution": "~1.0",
         "anomaly/boolean-field-type": "~1.0",
