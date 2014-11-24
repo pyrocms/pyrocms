@@ -80,6 +80,7 @@ return [
 	*/
 
     'modules' => [
+        'model' => 'Anomaly\Streams\Platform\Addon\Module\ModuleModel',
         'repository' => 'Anomaly\Streams\Platform\Addon\Module\ModuleRepository',
     ],
 ];
