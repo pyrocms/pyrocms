@@ -12,3 +12,4 @@ public/assets
 core
 storage/framework/services.json
 config/app.php
+/bin
