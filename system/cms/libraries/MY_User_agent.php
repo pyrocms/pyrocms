@@ -24,6 +24,7 @@ if(strpos($_SERVER['REQUEST_URI'], 'mobile_override') !== false) {
 /**
  * MY_User_agent
  * Fix to allow users to bounce back to the full site if they are on a mobile device
+ * Fix iPad needs special consideration to be considered a desktop device, as stated in the online documentation
  *
  * @author      Brennon Loveless
  */
@@ -38,7 +39,14 @@ class MY_User_agent extends CI_User_agent
 	public function is_mobile($key = null)
 	{
 		// If the mobile override cookie is set then ignore is_mobile and just return false
-		if(isset($_COOKIE['mobile_override'])) {
+		if(isset($_COOKIE['mobile_override']))
+		{
+			return FALSE;
+		}
+
+		// Dumb, but iPad needs special consideration to be considered a desktop device.
+		if(parent::browser() == 'iPad')
+		{
 			return FALSE;
 		}
 

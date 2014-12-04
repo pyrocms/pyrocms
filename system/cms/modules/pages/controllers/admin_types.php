@@ -496,7 +496,7 @@ class Admin_types extends Admin_Controller
  		else
  		{
 			$this->session->set_flashdata('success', lang('page_types:sync_success'));
-			$this->pyrocache->delete_all('page_m');
+			$this->pyrocache->delete_all('page_type_m');
 			Events::trigger('page_type_updated', $page_type->id);
  		}
 

@@ -139,7 +139,7 @@ class Streams_streams extends CI_Driver {
 		
 		if ( ! $str_id) $this->log_error('invalid_stream', 'update_stream');
 		
-		$data['stream_slug'] = $stream;
+		$data['stream_slug'] = isset($data['stream_slug']) ? $data['stream_slug'] : $stream;
 
 		return $this->CI->streams_m->update_stream($str_id, $data);
 	}

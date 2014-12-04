@@ -10,3 +10,4 @@ $lang['streams:image.need_folder']		= 'Du musst ein Uploadverzeichnis festlegen,
 $lang['streams:image.keep_ratio'] 		= 'Seitenverhältnis beibehalten';
 $lang['streams:image.keep_ratio_instr']		= 'Soll das Seitenverhältnis bei einer Größenänderung beibehalten werden?';
 $lang['streams:image.allowed_types_instr'] 	= 'Dateitypen: jpg|jpeg|png';
+$lang['streams:image.allowed_types_error'] 	= 'Das Bildformat ist nicht erlaubt. Erlaubte Bildformate: %s.';

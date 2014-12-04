@@ -388,7 +388,12 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
-					$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					
+					if (substr($item['url'], 0, 7) == 'mailto:') {
+						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : mailto(str_replace('mailto:', '', $item['url']), $item['title'], trim(implode(' ', $item['attributes'])));
+					} else {
+						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					}
 
 					if ( $wrapper['children'] )
 					{
