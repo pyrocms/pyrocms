@@ -77,24 +77,4 @@ return [
         'model'      => 'Anomaly\Streams\Platform\Addon\Module\ModuleModel',
         'repository' => 'Anomaly\Streams\Platform\Addon\Module\ModuleRepository',
     ],
-    /*
-	|--------------------------------------------------------------------------
-	| Buttons - This facilitates easy standardization between theme frameworks.
-	|--------------------------------------------------------------------------
-	*/
-
-    'buttons'           => [
-        'button'     => 'Anomaly\Streams\Platform\Ui\Button\Button',
-        'repository' => 'Anomaly\Streams\Platform\Ui\Button\ButtonRepository',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Icons - This facilitates easy standardization between theme frameworks.
-	|--------------------------------------------------------------------------
-	*/
-
-    'icons'             => [
-        'icon'       => 'Anomaly\Streams\Platform\Ui\Icon\Icon',
-        'repository' => 'Anomaly\Streams\Platform\Ui\Icon\IconRepository',
-    ],
 ];
