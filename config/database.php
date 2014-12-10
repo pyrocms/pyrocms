@@ -49,7 +49,7 @@ return [
         'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'steam',
+			'database'  => 'streams',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',
