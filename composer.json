@@ -14,10 +14,6 @@
         {
             "type": "vcs",
             "url": "git@github.com:anomalylabs/framework.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:anomalylabs/phpspec-laravel.git"
         }
     ],
     "require": {
