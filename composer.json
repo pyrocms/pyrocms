@@ -10,6 +10,16 @@
             "email": "hello@anomaly.is"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:anomalylabs/framework.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:anomalylabs/phpspec-laravel.git"
+        }
+    ],
     "require": {
         "anomaly/streams-platform": "~1.0"
     },
