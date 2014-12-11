@@ -21,6 +21,7 @@
         }
     ],
     "require": {
+        "laravel/framework": "dev-streams-compatible",
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
