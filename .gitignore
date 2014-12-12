@@ -13,3 +13,4 @@ core
 storage/framework/services.json
 config/app.php
 /bin
+config/distribution.php
