@@ -40,7 +40,7 @@
         "anomaly/wysiwyg-field-type": "~1.0",
         "anomaly/boolean-field-type": "~1.0",
         "anomaly/country-field-type": "~1.0",
-        "anomaly/markdown-field-type": "1.0",
+        "anomaly/markdown-field-type": "~1.0",
         "anomaly/integer-field-type": "~1.0",
         "anomaly/editor-field-type": "~1.0",
         "anomaly/select-field-type": "~1.0",
