@@ -2,7 +2,6 @@
 
 config/app.php
 config/distribution.php
-/storage
 composer.lock
 Thumbs.db
 models
@@ -15,13 +14,14 @@ core/extensions/*/
 core/modules/*/
 core/themes/*/
 core/tags/*/
-!core/distributions/.gitignore
-!core/field_types/.gitignore
-!core/extensions/.gitignore
-!core/modules/.gitignore
-!core/themes/.gitignore
-!core/tags/.gitignore
+!core/distributions/
+!core/field_types/
+!core/extensions/
+!core/modules/
+!core/themes/
+!core/tags/
 
-storage/framework/services.json
+storage/models/streams/*
+!storage/models/streams/
 /bin
 /vendor
