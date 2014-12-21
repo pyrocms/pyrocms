@@ -18,7 +18,7 @@
     ],
     "require": {
         "laravel/framework": "dev-master#cc1c35069a7bbc3717487d931fbd80b8e6641a90 as 5.0",
-        "anomaly/lexicon": "1.0.x-dev#9869f555647a959c80677406bb07a49a2cb2c186",
+        "anomaly/lexicon": "1.0.x-dev#fbe258bf93b01161fc9c98ee00ff07d116ad2515",
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
