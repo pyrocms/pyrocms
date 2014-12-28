@@ -61,7 +61,6 @@
         "anomaly/helper-plugin": "~1.0",
         "anomaly/asset-plugin": "~1.0",
         "anomaly/image-plugin": "~1.0",
-        "anomaly/user-plugin": "~1.0",
         "anomaly/streams-theme": "~1.0"
     },
     "autoload": {
