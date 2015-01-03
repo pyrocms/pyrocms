@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'Anomaly\Streams\Addon\Module\Users\User\UserModel',
+	'model' => 'Anomaly\UsersModule\User\UserModel',
 
 	/*
 	|--------------------------------------------------------------------------
