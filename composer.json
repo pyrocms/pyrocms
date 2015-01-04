@@ -64,7 +64,7 @@
         "anomaly/messages-plugin": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
-        "anomaly/streams-theme": "~1.0"
+        "anomaly/pyrocms-theme": "~1.0"
     },
     "autoload": {
         "psr-4": {
