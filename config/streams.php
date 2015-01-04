@@ -11,7 +11,7 @@ return [
     | distribution is like the DNA of the application's unique characteristics.
 	|
 	*/
-    'distribution'      => 'Anomaly\StreamsDistribution\StreamsDistribution',
+    'distribution'      => 'Anomaly\PyrocmsDistribution\PyrocmsDistribution',
     /*
     |--------------------------------------------------------------------------
     | Addon Types
