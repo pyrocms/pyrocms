@@ -14,10 +14,15 @@
         {
             "type": "vcs",
             "url": "git@github.com:anomalylabs/framework.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:anomalylabs/html.git"
         }
     ],
     "require": {
         "laravel/framework": "dev-master#cc1c35069a7bbc3717487d931fbd80b8e6641a90 as 5.0",
+        "illuminate/html": "dev-master#b04be9a84be0d6f7552b281ad6b9e2795218fe56 as 5.0",
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
