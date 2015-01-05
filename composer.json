@@ -1,5 +1,6 @@
 {
     "name": "anomaly/pyrocms",
+    "type": "streams-distribution",
     "description": "PyroCMS is an easy to use, abstracted, and modular CMS built using Laravel.",
     "keywords": ["pyrocms", "cms", "streams", "laravel"],
     "license": "MIT",
