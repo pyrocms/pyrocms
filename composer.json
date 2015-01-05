@@ -1,5 +1,6 @@
 {
     "name": "anomaly/streams",
+    "type": "streams-distribution",
     "description": "A powerful platform for deploying modular applications.",
     "keywords": ["cms", "streams", "laravel"],
     "license": "MIT",
