@@ -62,7 +62,6 @@
         "anomaly/settings-module": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/users-module": "~1.0",
-        "anomaly/messages-plugin": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
         "anomaly/pyrocms-theme": "~1.0"
