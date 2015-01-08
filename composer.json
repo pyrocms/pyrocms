@@ -46,6 +46,7 @@
         "anomaly/textarea-field_type": "~1.0",
         "anomaly/wysiwyg-field_type": "~1.0",
         "anomaly/boolean-field_type": "~1.0",
+        "anomaly/country-field_type": "~1.0",
         "anomaly/markdown-field_type": "~1.0",
         "anomaly/integer-field_type": "~1.0",
         "anomaly/editor-field_type": "~1.0",
