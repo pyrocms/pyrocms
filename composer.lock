@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dacce9d64d53b196b065679fd0cc4937",
+    "hash": "87d2b0ac659ef4cd1f65121594378c09",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "f68d25f7c9bfbb41313211f8ee81087c9cbd5636"
+                "reference": "79a19c30d5848d8e7835c52796a081de78ff1e87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/f68d25f7c9bfbb41313211f8ee81087c9cbd5636",
-                "reference": "f68d25f7c9bfbb41313211f8ee81087c9cbd5636",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/79a19c30d5848d8e7835c52796a081de78ff1e87",
+                "reference": "79a19c30d5848d8e7835c52796a081de78ff1e87",
                 "shasum": ""
             },
             "require": {
@@ -75,7 +75,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-04 22:40:01"
+            "time": "2015-01-08 08:49:33"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -137,16 +137,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "548e12d45760ee66192029f4b642d2f4e3d64118"
+                "reference": "99e6f44aab00050a862df24b26b575f094d07e1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/548e12d45760ee66192029f4b642d2f4e3d64118",
-                "reference": "548e12d45760ee66192029f4b642d2f4e3d64118",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/99e6f44aab00050a862df24b26b575f094d07e1b",
+                "reference": "99e6f44aab00050a862df24b26b575f094d07e1b",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "4.*|5.0.*",
+                "illuminate/support": "4.*|5.0.*",
                 "maximebf/debugbar": "~1.10.2",
                 "php": ">=5.3.0",
                 "symfony/finder": "~2.3"
@@ -183,7 +183,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-12-24 08:00:07"
+            "time": "2015-01-07 15:27:57"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1261,12 +1261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "2bd5a0812236a834cb4bb07cab06d80c86881b3b"
+                "reference": "9383c1dce17e10bbb5ea17b0237259410ebd6aef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/2bd5a0812236a834cb4bb07cab06d80c86881b3b",
-                "reference": "2bd5a0812236a834cb4bb07cab06d80c86881b3b",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/9383c1dce17e10bbb5ea17b0237259410ebd6aef",
+                "reference": "9383c1dce17e10bbb5ea17b0237259410ebd6aef",
                 "shasum": ""
             },
             "require": {
@@ -1341,7 +1341,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-01-04 22:04:13"
+            "time": "2015-01-08 09:17:34"
         },
         {
             "name": "lmammino/jsmin4assetic",
@@ -1560,12 +1560,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "17f651bb96692b084b3e0361d45aeb75e0a25ac0"
+                "reference": "b18a6eff04b15184375a6875ef2aa54bc5a7c9f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/17f651bb96692b084b3e0361d45aeb75e0a25ac0",
-                "reference": "17f651bb96692b084b3e0361d45aeb75e0a25ac0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b18a6eff04b15184375a6875ef2aa54bc5a7c9f2",
+                "reference": "b18a6eff04b15184375a6875ef2aa54bc5a7c9f2",
                 "shasum": ""
             },
             "require": {
@@ -1624,7 +1624,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-12-30 10:39:23"
+            "time": "2015-01-07 15:29:03"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -2425,12 +2425,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "ee62cb4b6ac64e608632894902fa9151fff3aac8"
+                "reference": "deac802f76910708ab50d039806cfd1866895b52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ee62cb4b6ac64e608632894902fa9151fff3aac8",
-                "reference": "ee62cb4b6ac64e608632894902fa9151fff3aac8",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/deac802f76910708ab50d039806cfd1866895b52",
+                "reference": "deac802f76910708ab50d039806cfd1866895b52",
                 "shasum": ""
             },
             "require": {
@@ -2466,7 +2466,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-05 14:28:40"
         },
         {
             "name": "symfony/console",
@@ -2475,12 +2475,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "fc7b5c7844aca65bccf094631be244c19047b48c"
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/fc7b5c7844aca65bccf094631be244c19047b48c",
-                "reference": "fc7b5c7844aca65bccf094631be244c19047b48c",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
                 "shasum": ""
             },
             "require": {
@@ -2523,7 +2523,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-06 17:50:02"
         },
         {
             "name": "symfony/debug",
@@ -2589,12 +2589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "93fbc47507b4509602c5abf8c5a2e33096f32138"
+                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/93fbc47507b4509602c5abf8c5a2e33096f32138",
-                "reference": "93fbc47507b4509602c5abf8c5a2e33096f32138",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f812eb83d21f4d8ab2ab67262590c508905922ee",
+                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee",
                 "shasum": ""
             },
             "require": {
@@ -2638,7 +2638,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:02:46"
+            "time": "2015-01-05 15:02:26"
         },
         {
             "name": "symfony/filesystem",
@@ -2794,12 +2794,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "f501b24bc145397c42daa82ca3659ded8f50098e"
+                "reference": "276be2d1ba1c3327af255b3ec64abb9caaf84844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/f501b24bc145397c42daa82ca3659ded8f50098e",
-                "reference": "f501b24bc145397c42daa82ca3659ded8f50098e",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/276be2d1ba1c3327af255b3ec64abb9caaf84844",
+                "reference": "276be2d1ba1c3327af255b3ec64abb9caaf84844",
                 "shasum": ""
             },
             "require": {
@@ -2862,7 +2862,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-07 15:48:51"
         },
         {
             "name": "symfony/process",
@@ -2871,12 +2871,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "dee20c9f0ffd4f93f1bac2dcf5fb7ce04f353f04"
+                "reference": "319794f611bd8bdefbac72beb3f05e847f8ebc92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/dee20c9f0ffd4f93f1bac2dcf5fb7ce04f353f04",
-                "reference": "dee20c9f0ffd4f93f1bac2dcf5fb7ce04f353f04",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/319794f611bd8bdefbac72beb3f05e847f8ebc92",
+                "reference": "319794f611bd8bdefbac72beb3f05e847f8ebc92",
                 "shasum": ""
             },
             "require": {
@@ -2909,7 +2909,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 08:01:59"
+            "time": "2015-01-06 22:47:52"
         },
         {
             "name": "symfony/routing",
@@ -2918,12 +2918,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "4d6aa0af4a349b7c596e45b007d740c81bc3654a"
+                "reference": "28382c6806780ddc657c136a5ca4415dd3252f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/4d6aa0af4a349b7c596e45b007d740c81bc3654a",
-                "reference": "4d6aa0af4a349b7c596e45b007d740c81bc3654a",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/28382c6806780ddc657c136a5ca4415dd3252f41",
+                "reference": "28382c6806780ddc657c136a5ca4415dd3252f41",
                 "shasum": ""
             },
             "require": {
@@ -2977,7 +2977,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-05 14:28:40"
         },
         {
             "name": "symfony/security-core",
@@ -3956,41 +3956,6 @@
             "time": "2015-01-03 19:07:10"
         },
         {
-            "name": "anomaly/messages-plugin",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anomalylabs/messages-plugin.git",
-                "reference": "42ac97555f09d72db8c72c033a2fe7b2fe120ba6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/messages-plugin/zipball/42ac97555f09d72db8c72c033a2fe7b2fe120ba6",
-                "reference": "42ac97555f09d72db8c72c033a2fe7b2fe120ba6",
-                "shasum": ""
-            },
-            "type": "streams-addon",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Anomaly\\MessagesPlugin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
-                }
-            ],
-            "description": "Messages plugin.",
-            "time": "2015-01-03 08:45:00"
-        },
-        {
             "name": "anomaly/multiple-field_type",
             "version": "dev-master",
             "source": {
@@ -4101,12 +4066,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/relationship-field_type.git",
-                "reference": "148d3c532d117dd410ae4a10b910ac7a39a5446f"
+                "reference": "29abc1b864e8fbeef24f3bca25f6e853e8d7848e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/relationship-field_type/zipball/148d3c532d117dd410ae4a10b910ac7a39a5446f",
-                "reference": "148d3c532d117dd410ae4a10b910ac7a39a5446f",
+                "url": "https://api.github.com/repos/anomalylabs/relationship-field_type/zipball/29abc1b864e8fbeef24f3bca25f6e853e8d7848e",
+                "reference": "29abc1b864e8fbeef24f3bca25f6e853e8d7848e",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4128,7 +4093,7 @@
                 }
             ],
             "description": "Relationship field type.",
-            "time": "2015-01-03 19:07:27"
+            "time": "2015-01-05 07:56:20"
         },
         {
             "name": "anomaly/request-plugin",
@@ -4311,12 +4276,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-composer-plugin.git",
-                "reference": "aa69e6f319befd8a339948b89d7de9fe7fa1df4a"
+                "reference": "af210514a399d1e63dbaa584099114f74271632e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-composer-plugin/zipball/aa69e6f319befd8a339948b89d7de9fe7fa1df4a",
-                "reference": "aa69e6f319befd8a339948b89d7de9fe7fa1df4a",
+                "url": "https://api.github.com/repos/anomalylabs/streams-composer-plugin/zipball/af210514a399d1e63dbaa584099114f74271632e",
+                "reference": "af210514a399d1e63dbaa584099114f74271632e",
                 "shasum": ""
             },
             "require": {
@@ -4356,7 +4321,7 @@
                 "composer",
                 "plugin"
             ],
-            "time": "2015-01-03 10:10:09"
+            "time": "2015-01-05 01:19:25"
         },
         {
             "name": "anomaly/streams-distribution",
@@ -4364,12 +4329,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-distribution.git",
-                "reference": "83858991a30345a3714e2004166b8f653e2b9947"
+                "reference": "c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/83858991a30345a3714e2004166b8f653e2b9947",
-                "reference": "83858991a30345a3714e2004166b8f653e2b9947",
+                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a",
+                "reference": "c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4403,7 +4368,7 @@
                 "laravel",
                 "streams-addon"
             ],
-            "time": "2015-01-04 18:16:29"
+            "time": "2015-01-06 06:38:42"
         },
         {
             "name": "anomaly/streams-theme",
