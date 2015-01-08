@@ -243,6 +243,21 @@ class Plugin_Blog extends Plugin
 			}
 		}
 
+		//	Keywords
+		// 	If the plugin has defined a keyword to filter by
+		if($keyword = $this->attribute('keyword')){
+			$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.
+				$this->db->protect_identifiers('keywords_applied.hash', true).' = '.
+				$this->db->protect_identifiers('blog.keywords', true);
+	
+			$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.
+				$this->db->protect_identifiers('keywords.id', true).' = '.
+				$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
+	
+			$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $keyword)."'";
+		}
+
+
 		// Extra join and selects for categories.
 		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.title', true)." as 'category_title'";
 		$this->row_m->sql['select'][] = $this->db->protect_identifiers('blog_categories.slug', true)." as 'category_slug'";
