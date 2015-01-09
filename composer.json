@@ -13,12 +13,12 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:steveneaston/TwigBridge.git"
+            "url": "https://github.com/steveneaston/TwigBridge"
         }
     ],
     "require": {
         "laravel/framework": "~5.0",
-        "rcrowe/twigbridge": "0.6.*",
+        "rcrowe/twigbridge": "dev-master#f5de3334f01a437aed1daec2b635116ee5b911f4 as 0.6",
         "illuminate/html": "~5.0",
         "anomaly/streams-platform": "~1.0"
     },
