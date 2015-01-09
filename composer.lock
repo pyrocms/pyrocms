@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b6648545ef793b07b18d1d5895d0a65e",
+    "hash": "c066b2d4c025a9a5faae7a8603bb69ab",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "8965a0adc8b22a0a0ea8be6d39f78f6857e6930f"
+                "reference": "858dfae55d0b86618308a43f6b5c186e0dc71e0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/8965a0adc8b22a0a0ea8be6d39f78f6857e6930f",
-                "reference": "8965a0adc8b22a0a0ea8be6d39f78f6857e6930f",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/858dfae55d0b86618308a43f6b5c186e0dc71e0d",
+                "reference": "858dfae55d0b86618308a43f6b5c186e0dc71e0d",
                 "shasum": ""
             },
             "require": {
@@ -39,6 +39,7 @@
                 "oyejorge/less.php": "~1.5",
                 "phpseclib/phpseclib": "0.3.*@dev",
                 "ptachoire/cssembed": "1.0.2",
+                "rcrowe/twigbridge": "0.7.*",
                 "robclancy/presenter": "1.3.*",
                 "symfony/yaml": "2.7.*@dev",
                 "twig/twig": "1.16.*@dev",
@@ -72,7 +73,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 11:51:01"
+            "time": "2015-01-09 19:27:12"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -2113,26 +2114,26 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "dev-master",
+            "version": "0.7.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/steveneaston/TwigBridge.git",
-                "reference": "f5de3334f01a437aed1daec2b635116ee5b911f4"
+                "url": "https://github.com/rcrowe/TwigBridge.git",
+                "reference": "94f2a27155a88ce7e0ed389547b9f79b7058b51a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/steveneaston/TwigBridge/zipball/3ef43dc7025bad0353eb576d921fe02e639ce63d",
-                "reference": "f5de3334f01a437aed1daec2b635116ee5b911f4",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/94f2a27155a88ce7e0ed389547b9f79b7058b51a",
+                "reference": "94f2a27155a88ce7e0ed389547b9f79b7058b51a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~4.1|5.0.*",
-                "illuminate/view": "~4.1|5.0.*",
+                "illuminate/support": "5.0.*",
+                "illuminate/view": "5.0.*",
                 "php": ">=5.4.0",
                 "twig/twig": "~1.15"
             },
             "require-dev": {
-                "laravel/framework": "4.2.*",
+                "laravel/framework": "5.0.*",
                 "mockery/mockery": "0.9.*",
                 "phpunit/phpunit": "~4.0",
                 "satooshi/php-coveralls": "~0.6",
@@ -2145,7 +2146,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.6-dev"
+                    "dev-master": "0.7-dev"
                 }
             },
             "autoload": {
@@ -2154,17 +2155,18 @@
                     "TwigBridge\\Tests\\": "tests"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Rob Crowe",
-                    "email": "hello@vivalacrowe.com"
-                },
-                {
                     "name": "Barry vd. Heuvel",
                     "email": "barryvdh@gmail.com"
+                },
+                {
+                    "name": "Rob Crowe",
+                    "email": "hello@vivalacrowe.com"
                 }
             ],
             "description": "Adds the power of Twig to Laravel",
@@ -2172,10 +2174,7 @@
                 "laravel",
                 "twig"
             ],
-            "support": {
-                "source": "https://github.com/steveneaston/TwigBridge/tree/master"
-            },
-            "time": "2015-01-05 11:57:54"
+            "time": "2015-01-09 18:54:27"
         },
         {
             "name": "robclancy/presenter",
@@ -3022,12 +3021,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "39b32637d4a3b8ec02815b792b7533147b1c22bf"
+                "reference": "16c97a1567ef607b16f843d3ebc99f113cc1957e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/39b32637d4a3b8ec02815b792b7533147b1c22bf",
-                "reference": "39b32637d4a3b8ec02815b792b7533147b1c22bf",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/16c97a1567ef607b16f843d3ebc99f113cc1957e",
+                "reference": "16c97a1567ef607b16f843d3ebc99f113cc1957e",
                 "shasum": ""
             },
             "require": {
@@ -3060,7 +3059,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-09 06:51:41"
+            "time": "2015-01-09 18:07:24"
         },
         {
             "name": "twig/twig",
@@ -4349,12 +4348,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-distribution.git",
-                "reference": "11d41121b200ad008f1b1ef469c38158bde4328a"
+                "reference": "27ab966069499aeb87b1a38d645edcfeb195e105"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/11d41121b200ad008f1b1ef469c38158bde4328a",
-                "reference": "11d41121b200ad008f1b1ef469c38158bde4328a",
+                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/27ab966069499aeb87b1a38d645edcfeb195e105",
+                "reference": "27ab966069499aeb87b1a38d645edcfeb195e105",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4388,7 +4387,7 @@
                 "laravel",
                 "streams-addon"
             ],
-            "time": "2015-01-09 10:37:16"
+            "time": "2015-01-09 18:23:17"
         },
         {
             "name": "anomaly/streams-theme",
@@ -4866,20 +4865,13 @@
             "alias_normalized": "3.0.0.0",
             "version": "9999999-dev",
             "package": "way/generators"
-        },
-        {
-            "alias": "0.6",
-            "alias_normalized": "0.6.0.0",
-            "version": "9999999-dev",
-            "package": "rcrowe/twigbridge"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "intervention/image": 20,
         "jenssegers/agent": 20,
-        "way/generators": 20,
-        "rcrowe/twigbridge": 20
+        "way/generators": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
