@@ -18,16 +18,11 @@
         {
             "type": "vcs",
             "url": "https://github.com/anomalylabs/image"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/mvpasarel/Laravel-4-Generators"
         }
     ],
     "require": {
         "intervention/image": "dev-master#fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad as 2.0.14",
         "jenssegers/agent": "dev-master#f84a5f81c671bd6e2d2ac0df86215681f8e60398 as 2.1.4",
-        "way/generators": "dev-master#a3896e0a71eb0510268fbb2ea45c2483763c44e7 as 3.0",
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
