@@ -13,6 +13,10 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "https://github.com/anomalylabs/laravel-agent"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/steveneaston/TwigBridge"
         },
         {
@@ -22,6 +26,7 @@
     ],
     "require": {
         "laravel/framework": "~5.0",
+        "jenssegers/agent": "dev-master#f84a5f81c671bd6e2d2ac0df86215681f8e60398 as 2.1.4",
         "way/generators": "dev-master#a3896e0a71eb0510268fbb2ea45c2483763c44e7 as 3.0",
         "rcrowe/twigbridge": "dev-master#f5de3334f01a437aed1daec2b635116ee5b911f4 as 0.6",
         "illuminate/html": "~5.0",
