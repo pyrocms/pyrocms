@@ -4483,12 +4483,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-theme.git",
-                "reference": "51a6da35f5404b8cd800f6c8232e9b8e33c32799"
+                "reference": "93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/51a6da35f5404b8cd800f6c8232e9b8e33c32799",
-                "reference": "51a6da35f5404b8cd800f6c8232e9b8e33c32799",
+                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b",
+                "reference": "93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4521,7 +4521,7 @@
                 "pyrocms",
                 "theme"
             ],
-            "time": "2015-01-09 04:26:57"
+            "time": "2015-01-09 05:46:38"
         },
         {
             "name": "anomaly/streams_ace_integration-extension",
