@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => 'VO8UYAKxElzkOHpvujNNM6fIXmrcFgVh',
+	'key' => '5p4dtrcHGGbat38qOzljalgCBLLAbTwE',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -110,11 +110,12 @@ return [
 
 	'providers' => [
 
-		/*
+        /**
          * Laravel Framework Service Providers...
          */
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
+        'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
         'Illuminate\Routing\ControllerServiceProvider',
@@ -126,6 +127,7 @@ return [
         'Illuminate\Hashing\HashServiceProvider',
         'Illuminate\Mail\MailServiceProvider',
         'Illuminate\Pagination\PaginationServiceProvider',
+        'Illuminate\Pipeline\PipelineServiceProvider',
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
         'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
