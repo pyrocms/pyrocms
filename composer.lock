@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7499dc7889106468c24c8c6d2a543bcf",
+    "hash": "4691db9fd64c86335fe51de43c55f9ca",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -3306,16 +3306,16 @@
         },
         {
             "name": "way/generators",
-            "version": "3.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JeffreyWay/Laravel-4-Generators.git",
-                "reference": "4a215769643507326192a739058a0c7105d932b5"
+                "url": "https://github.com/mvpasarel/Laravel-4-Generators.git",
+                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/4a215769643507326192a739058a0c7105d932b5",
-                "reference": "4a215769643507326192a739058a0c7105d932b5",
+                "url": "https://api.github.com/repos/mvpasarel/Laravel-4-Generators/zipball/457228dc2c0bef7ef75014f8e711def7732fb0ef",
+                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7",
                 "shasum": ""
             },
             "require": {
@@ -3337,7 +3337,6 @@
                     "Way\\Generators": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3348,7 +3347,10 @@
                 }
             ],
             "description": "Rapidly generate resources, migrations, models, and much more.",
-            "time": "2014-10-01 04:00:00"
+            "support": {
+                "source": "https://github.com/mvpasarel/Laravel-4-Generators/tree/master"
+            },
+            "time": "2015-01-07 12:21:24"
         }
     ],
     "packages-dev": [
@@ -4934,6 +4936,12 @@
     ],
     "aliases": [
         {
+            "alias": "3.0",
+            "alias_normalized": "3.0.0.0",
+            "version": "9999999-dev",
+            "package": "way/generators"
+        },
+        {
             "alias": "0.6",
             "alias_normalized": "0.6.0.0",
             "version": "9999999-dev",
@@ -4942,6 +4950,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "way/generators": 20,
         "rcrowe/twigbridge": 20
     },
     "prefer-stable": false,
