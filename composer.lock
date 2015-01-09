@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "87d2b0ac659ef4cd1f65121594378c09",
+    "hash": "06da13cbbed91dce87c12a85c7835ab0",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "79a19c30d5848d8e7835c52796a081de78ff1e87"
+                "reference": "4afce968139c7164d8765013df03e0d5f76bdb40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/79a19c30d5848d8e7835c52796a081de78ff1e87",
-                "reference": "79a19c30d5848d8e7835c52796a081de78ff1e87",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/4afce968139c7164d8765013df03e0d5f76bdb40",
+                "reference": "4afce968139c7164d8765013df03e0d5f76bdb40",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,6 @@
                 "filp/whoops": "~1.0",
                 "guzzlehttp/guzzle": "~4.0",
                 "intervention/image": "2.0.14",
-                "jenssegers/agent": "2.1.4",
                 "kriswallsmith/assetic": "1.2.*@dev",
                 "laracasts/commander": "~1.0",
                 "leafo/scssphp": "0.1.0 ",
@@ -40,12 +39,10 @@
                 "oyejorge/less.php": "~1.5",
                 "phpseclib/phpseclib": "0.3.*@dev",
                 "ptachoire/cssembed": "1.0.2",
-                "rcrowe/twigbridge": "0.6.*",
                 "robclancy/presenter": "1.3.*",
                 "symfony/yaml": "2.7.*@dev",
                 "twig/twig": "1.16.*@dev",
-                "venturecraft/revisionable": "1.*",
-                "way/generators": "~3.0"
+                "venturecraft/revisionable": "1.*"
             },
             "require-dev": {
                 "anomaly/streams": "dev-master",
@@ -75,7 +72,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-08 08:49:33"
+            "time": "2015-01-09 04:50:18"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -374,6 +371,62 @@
             "time": "2014-01-17 12:21:18"
         },
         {
+            "name": "danielstjules/stringy",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danielstjules/Stringy.git",
+                "reference": "6a7b0391b2baf0bfdca3ec0c8d33ff379c2835ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/6a7b0391b2baf0bfdca3ec0c8d33ff379c2835ad",
+                "reference": "6a7b0391b2baf0bfdca3ec0c8d33ff379c2835ad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stringy\\": "src/"
+                },
+                "files": [
+                    "src/Create.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel St. Jules",
+                    "email": "danielst.jules@gmail.com",
+                    "homepage": "http://www.danielstjules.com"
+                }
+            ],
+            "description": "A string manipulation library with multibyte support",
+            "homepage": "https://github.com/danielstjules/Stringy",
+            "keywords": [
+                "UTF",
+                "helpers",
+                "manipulation",
+                "methods",
+                "multibyte",
+                "string",
+                "utf-8",
+                "utility",
+                "utils"
+            ],
+            "time": "2015-01-08 15:21:43"
+        },
+        {
             "name": "dimsav/laravel-translatable",
             "version": "dev-master",
             "source": {
@@ -430,36 +483,34 @@
             "time": "2014-12-17 07:52:20"
         },
         {
-            "name": "doctrine/annotations",
+            "name": "doctrine/inflector",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "url": "https://github.com/doctrine/inflector.git",
+                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
+                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
                 "shasum": ""
             },
             "require": {
-                "doctrine/lexer": "1.*",
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/cache": "1.*",
                 "phpunit/phpunit": "4.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\Common\\Annotations\\": "lib/"
+                    "Doctrine\\Common\\Inflector\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -488,68 +539,15 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Docblock Annotations Parser",
+            "description": "Common String Manipulations with regard to casing and singular/plural rules.",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "annotations",
-                "docblock",
-                "parser"
+                "inflection",
+                "pluralize",
+                "singularize",
+                "string"
             ],
-            "time": "2014-12-23 22:40:37"
-        },
-        {
-            "name": "doctrine/lexer",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "lexer",
-                "parser"
-            ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2015-01-01 18:34:57"
         },
         {
             "name": "filp/whoops",
@@ -733,12 +731,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/html.git",
-                "reference": "b04be9a84be0d6f7552b281ad6b9e2795218fe56"
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/html/zipball/3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
-                "reference": "b04be9a84be0d6f7552b281ad6b9e2795218fe56",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
                 "shasum": ""
             },
             "require": {
@@ -771,7 +769,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2014-10-16 14:38:30"
+            "time": "2015-01-01 16:31:18"
         },
         {
             "name": "intervention/image",
@@ -873,16 +871,16 @@
         },
         {
             "name": "jenssegers/agent",
-            "version": "v2.1.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jenssegers/laravel-agent.git",
-                "reference": "7e04968dd85dfba150c8c4a98a34eed6f6a6df01"
+                "url": "https://github.com/anomalylabs/laravel-agent.git",
+                "reference": "f84a5f81c671bd6e2d2ac0df86215681f8e60398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-agent/zipball/7e04968dd85dfba150c8c4a98a34eed6f6a6df01",
-                "reference": "7e04968dd85dfba150c8c4a98a34eed6f6a6df01",
+                "url": "https://api.github.com/repos/anomalylabs/laravel-agent/zipball/f84a5f81c671bd6e2d2ac0df86215681f8e60398",
+                "reference": "f84a5f81c671bd6e2d2ac0df86215681f8e60398",
                 "shasum": ""
             },
             "require": {
@@ -899,7 +897,6 @@
                     "Jenssegers\\Agent\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -911,7 +908,7 @@
             ],
             "description": "A user agent class for Laravel",
             "keywords": [
-                "Agent",
+                "agent",
                 "browser",
                 "laravel",
                 "mobile",
@@ -919,7 +916,10 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2014-12-07 17:08:08"
+            "support": {
+                "source": "https://github.com/anomalylabs/laravel-agent/tree/master"
+            },
+            "time": "2015-01-09 04:48:43"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -1091,28 +1091,29 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/anomalylabs/framework.git",
-                "reference": "cc1c35069a7bbc3717487d931fbd80b8e6641a90"
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "99e1e4b82a3107beb73781609bd3b67d4beb908d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/framework/zipball/c096f8512ad25cc8a09bc64b50f306f330bb889f",
-                "reference": "cc1c35069a7bbc3717487d931fbd80b8e6641a90",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/99e1e4b82a3107beb73781609bd3b67d4beb908d",
+                "reference": "99e1e4b82a3107beb73781609bd3b67d4beb908d",
                 "shasum": ""
             },
             "require": {
                 "classpreloader/classpreloader": "~1.0.2",
                 "d11wtq/boris": "~1.0",
-                "doctrine/annotations": "~1.0",
+                "danielstjules/stringy": "~1.5",
+                "doctrine/inflector": "~1.0",
+                "ext-mbstring": "*",
                 "ext-mcrypt": "*",
                 "ext-openssl": "*",
                 "ircmaxell/password-compat": "~1.0",
                 "jeremeamia/superclosure": "~1.0.1",
                 "league/flysystem": "~1.0",
-                "monolog/monolog": "~1.6",
+                "monolog/monolog": "~1.11",
                 "mtdowling/cron-expression": "~1.0",
                 "nesbot/carbon": "~1.0",
-                "patchwork/utf8": "~1.1",
                 "php": ">=5.4.0",
                 "predis/predis": "~1.0",
                 "swiftmailer/swiftmailer": "~5.1",
@@ -1125,10 +1126,12 @@
                 "symfony/routing": "2.6.*",
                 "symfony/security-core": "2.6.*",
                 "symfony/translation": "2.6.*",
+                "symfony/var-dumper": "2.6.*",
                 "vlucas/phpdotenv": "~1.0"
             },
             "replace": {
                 "illuminate/auth": "self.version",
+                "illuminate/bus": "self.version",
                 "illuminate/cache": "self.version",
                 "illuminate/config": "self.version",
                 "illuminate/console": "self.version",
@@ -1146,6 +1149,7 @@
                 "illuminate/log": "self.version",
                 "illuminate/mail": "self.version",
                 "illuminate/pagination": "self.version",
+                "illuminate/pipeline": "self.version",
                 "illuminate/queue": "self.version",
                 "illuminate/redis": "self.version",
                 "illuminate/routing": "self.version",
@@ -1184,6 +1188,7 @@
                     "Illuminate": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1198,10 +1203,7 @@
                 "framework",
                 "laravel"
             ],
-            "support": {
-                "source": "https://github.com/anomalylabs/framework/tree/master"
-            },
-            "time": "2014-11-29 19:55:20"
+            "time": "2015-01-09 02:37:00"
         },
         {
             "name": "leafo/scssphp",
@@ -1910,62 +1912,6 @@
             "time": "2014-03-04 18:49:54"
         },
         {
-            "name": "patchwork/utf8",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tchwork/utf8.git",
-                "reference": "3024ee72d0ce7fc4bf87421f2954f956d3ad2ee5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/utf8/zipball/3024ee72d0ce7fc4bf87421f2954f956d3ad2ee5",
-                "reference": "3024ee72d0ce7fc4bf87421f2954f956d3ad2ee5",
-                "shasum": ""
-            },
-            "require": {
-                "lib-pcre": ">=7.3",
-                "php": ">=5.3.0"
-            },
-            "suggest": {
-                "ext-iconv": "Use iconv for best performance",
-                "ext-intl": "Use Intl for best performance",
-                "ext-mbstring": "Use Mbstring for best performance"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Patchwork": "class/",
-                    "Normalizer": "class/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                }
-            ],
-            "description": "Portable and performant UTF-8, Unicode and Grapheme Clusters for PHP",
-            "homepage": "https://github.com/tchwork/utf8",
-            "keywords": [
-                "grapheme",
-                "i18n",
-                "unicode",
-                "utf-8",
-                "utf8"
-            ],
-            "time": "2014-11-10 16:16:54"
-        },
-        {
             "name": "phpdocumentor/reflection-docblock",
             "version": "dev-master",
             "source": {
@@ -2256,13 +2202,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "3ef43dc7025bad0353eb576d921fe02e639ce63d"
+                "url": "https://github.com/steveneaston/TwigBridge.git",
+                "reference": "f5de3334f01a437aed1daec2b635116ee5b911f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/3ef43dc7025bad0353eb576d921fe02e639ce63d",
-                "reference": "3ef43dc7025bad0353eb576d921fe02e639ce63d",
+                "url": "https://api.github.com/repos/steveneaston/TwigBridge/zipball/3ef43dc7025bad0353eb576d921fe02e639ce63d",
+                "reference": "f5de3334f01a437aed1daec2b635116ee5b911f4",
                 "shasum": ""
             },
             "require": {
@@ -2294,18 +2240,17 @@
                     "TwigBridge\\Tests\\": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                },
-                {
                     "name": "Rob Crowe",
                     "email": "hello@vivalacrowe.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
                 }
             ],
             "description": "Adds the power of Twig to Laravel",
@@ -2313,7 +2258,10 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2014-11-17 08:49:24"
+            "support": {
+                "source": "https://github.com/steveneaston/TwigBridge/tree/master"
+            },
+            "time": "2015-01-05 11:57:54"
         },
         {
             "name": "robclancy/presenter",
@@ -2532,12 +2480,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "88f529be2c4674cb18a96c06f97f825a32d2ea84"
+                "reference": "7213c8200d60728c9d4c56d5830aa2d80ae3d25d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/88f529be2c4674cb18a96c06f97f825a32d2ea84",
-                "reference": "88f529be2c4674cb18a96c06f97f825a32d2ea84",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/7213c8200d60728c9d4c56d5830aa2d80ae3d25d",
+                "reference": "7213c8200d60728c9d4c56d5830aa2d80ae3d25d",
                 "shasum": ""
             },
             "require": {
@@ -2580,7 +2528,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-04 14:59:17"
+            "time": "2015-01-05 17:41:06"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2589,12 +2537,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee"
+                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f812eb83d21f4d8ab2ab67262590c508905922ee",
-                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/b81b65bd7188d1def8af62eebe45681c04e68529",
+                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529",
                 "shasum": ""
             },
             "require": {
@@ -2638,7 +2586,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 15:02:26"
+            "time": "2015-01-08 13:03:06"
         },
         {
             "name": "symfony/filesystem",
@@ -2741,12 +2689,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "b890d7f6c470030bf89422909ba418e4a6c1e7bc"
+                "reference": "3f4ba2c658be910fe6cec46ed34ee900bd18bb01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/b890d7f6c470030bf89422909ba418e4a6c1e7bc",
-                "reference": "b890d7f6c470030bf89422909ba418e4a6c1e7bc",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/3f4ba2c658be910fe6cec46ed34ee900bd18bb01",
+                "reference": "3f4ba2c658be910fe6cec46ed34ee900bd18bb01",
                 "shasum": ""
             },
             "require": {
@@ -2785,7 +2733,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-05 17:41:06"
         },
         {
             "name": "symfony/http-kernel",
@@ -2986,12 +2934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "365e7010e29bc7a9e6d30cb73f128612b4623a11"
+                "reference": "d855729fd74c0979ba360770c27c9202d5789dde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/365e7010e29bc7a9e6d30cb73f128612b4623a11",
-                "reference": "365e7010e29bc7a9e6d30cb73f128612b4623a11",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/d855729fd74c0979ba360770c27c9202d5789dde",
+                "reference": "d855729fd74c0979ba360770c27c9202d5789dde",
                 "shasum": ""
             },
             "require": {
@@ -3040,7 +2988,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 20:59:06"
+            "time": "2015-01-08 10:46:13"
         },
         {
             "name": "symfony/translation",
@@ -3102,17 +3050,17 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "2.7.x-dev",
+            "version": "2.6.x-dev",
             "target-dir": "Symfony/Component/VarDumper",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "143865ba662e44470435918f7c39f8b43dfd1fa4"
+                "reference": "36af986811340fd4c1bc39cf848da388bbdd8473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/143865ba662e44470435918f7c39f8b43dfd1fa4",
-                "reference": "143865ba662e44470435918f7c39f8b43dfd1fa4",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/36af986811340fd4c1bc39cf848da388bbdd8473",
+                "reference": "36af986811340fd4c1bc39cf848da388bbdd8473",
                 "shasum": ""
             },
             "require": {
@@ -3124,7 +3072,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -3151,7 +3099,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-01-03 08:02:46"
+            "time": "2015-01-01 13:28:01"
         },
         {
             "name": "symfony/yaml",
@@ -3160,12 +3108,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "59180ea818b1fe87de344d979240dd422e2d7892"
+                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/59180ea818b1fe87de344d979240dd422e2d7892",
-                "reference": "59180ea818b1fe87de344d979240dd422e2d7892",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e6beb5c93f087181c139a8e800a2750ec9e64a90",
+                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90",
                 "shasum": ""
             },
             "require": {
@@ -3198,7 +3146,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:46:01"
+            "time": "2015-01-08 13:01:33"
         },
         {
             "name": "twig/twig",
@@ -3358,16 +3306,16 @@
         },
         {
             "name": "way/generators",
-            "version": "3.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JeffreyWay/Laravel-4-Generators.git",
-                "reference": "4a215769643507326192a739058a0c7105d932b5"
+                "url": "https://github.com/mvpasarel/Laravel-4-Generators.git",
+                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/4a215769643507326192a739058a0c7105d932b5",
-                "reference": "4a215769643507326192a739058a0c7105d932b5",
+                "url": "https://api.github.com/repos/mvpasarel/Laravel-4-Generators/zipball/457228dc2c0bef7ef75014f8e711def7732fb0ef",
+                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7",
                 "shasum": ""
             },
             "require": {
@@ -3389,7 +3337,6 @@
                     "Way\\Generators": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3400,7 +3347,10 @@
                 }
             ],
             "description": "Rapidly generate resources, migrations, models, and much more.",
-            "time": "2014-10-01 04:00:00"
+            "support": {
+                "source": "https://github.com/mvpasarel/Laravel-4-Generators/tree/master"
+            },
+            "time": "2015-01-07 12:21:24"
         }
     ],
     "packages-dev": [
@@ -3410,12 +3360,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/addons-module.git",
-                "reference": "796296ee7e6ff89aec942c87d28ce55dd5de18b8"
+                "reference": "0c429ed417a4ecc8768862135efb0beb2e5bdc58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/addons-module/zipball/796296ee7e6ff89aec942c87d28ce55dd5de18b8",
-                "reference": "796296ee7e6ff89aec942c87d28ce55dd5de18b8",
+                "url": "https://api.github.com/repos/anomalylabs/addons-module/zipball/0c429ed417a4ecc8768862135efb0beb2e5bdc58",
+                "reference": "0c429ed417a4ecc8768862135efb0beb2e5bdc58",
                 "shasum": ""
             },
             "require-dev": {
@@ -3452,7 +3402,7 @@
                 "laravel",
                 "pyrocms"
             ],
-            "time": "2015-01-04 10:15:01"
+            "time": "2015-01-08 05:45:41"
         },
         {
             "name": "anomaly/boolean-field_type",
@@ -3460,12 +3410,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/boolean-field_type.git",
-                "reference": "9948f0ebb91ed6f0d04891c7ec589dcb5a203457"
+                "reference": "43bd629299d8a1ad422d64b1e1898f8980dcf3b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/boolean-field_type/zipball/9948f0ebb91ed6f0d04891c7ec589dcb5a203457",
-                "reference": "9948f0ebb91ed6f0d04891c7ec589dcb5a203457",
+                "url": "https://api.github.com/repos/anomalylabs/boolean-field_type/zipball/43bd629299d8a1ad422d64b1e1898f8980dcf3b3",
+                "reference": "43bd629299d8a1ad422d64b1e1898f8980dcf3b3",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3480,14 +3430,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Boolean field type.",
-            "time": "2015-01-04 18:43:06"
+            "description": "A boolean value light switch style field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "boolean",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 06:49:37"
         },
         {
             "name": "anomaly/checkboxes-field_type",
@@ -3495,12 +3457,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/checkboxes-field_type.git",
-                "reference": "5a0d916cfdd77106a3be1943ff212ef6f3ed5aba"
+                "reference": "ccb3073a8db438bfcd70117bd44428821bd9abd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/checkboxes-field_type/zipball/5a0d916cfdd77106a3be1943ff212ef6f3ed5aba",
-                "reference": "5a0d916cfdd77106a3be1943ff212ef6f3ed5aba",
+                "url": "https://api.github.com/repos/anomalylabs/checkboxes-field_type/zipball/ccb3073a8db438bfcd70117bd44428821bd9abd3",
+                "reference": "ccb3073a8db438bfcd70117bd44428821bd9abd3",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3515,14 +3477,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Checkboxes field type.",
-            "time": "2015-01-03 19:06:28"
+            "description": "A checkboxes input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "checkboxes",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 07:02:16"
         },
         {
             "name": "anomaly/country-field_type",
@@ -3530,12 +3504,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/country-field_type.git",
-                "reference": "ae7a6498ed6dddf28093c5fb9c5cb6a6547ca261"
+                "reference": "72370cd4147454bb072e10fab100a13a616dd673"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/country-field_type/zipball/ae7a6498ed6dddf28093c5fb9c5cb6a6547ca261",
-                "reference": "ae7a6498ed6dddf28093c5fb9c5cb6a6547ca261",
+                "url": "https://api.github.com/repos/anomalylabs/country-field_type/zipball/72370cd4147454bb072e10fab100a13a616dd673",
+                "reference": "72370cd4147454bb072e10fab100a13a616dd673",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3550,14 +3524,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Country field type.",
-            "time": "2015-01-03 19:06:37"
+            "description": "A country dropdown field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "country",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 07:30:26"
         },
         {
             "name": "anomaly/dashboard-module",
@@ -3611,12 +3597,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/datetime-field_type.git",
-                "reference": "b201c2186c2a9a461f0231da9e74f6151c66f576"
+                "reference": "2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/b201c2186c2a9a461f0231da9e74f6151c66f576",
-                "reference": "b201c2186c2a9a461f0231da9e74f6151c66f576",
+                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7",
+                "reference": "2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3638,7 +3624,7 @@
                 }
             ],
             "description": "Datetime field type.",
-            "time": "2015-01-03 19:06:45"
+            "time": "2015-01-05 07:55:22"
         },
         {
             "name": "anomaly/editor-field_type",
@@ -3646,12 +3632,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/editor-field_type.git",
-                "reference": "74245e3054595d703bd7badd8e2522616096582e"
+                "reference": "49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/editor-field_type/zipball/74245e3054595d703bd7badd8e2522616096582e",
-                "reference": "74245e3054595d703bd7badd8e2522616096582e",
+                "url": "https://api.github.com/repos/anomalylabs/editor-field_type/zipball/49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e",
+                "reference": "49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3666,14 +3652,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Editor field type.",
-            "time": "2015-01-03 19:06:52"
+            "description": "An editor field type powered by Ace.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "editor",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 09:03:08"
         },
         {
             "name": "anomaly/email-field_type",
@@ -3681,12 +3679,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/email-field_type.git",
-                "reference": "bf96fb493529f13100b2829e873937d696ee4dc3"
+                "reference": "0435c30742f2bb7cd99567ea0d56313a9ef92cde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/email-field_type/zipball/bf96fb493529f13100b2829e873937d696ee4dc3",
-                "reference": "bf96fb493529f13100b2829e873937d696ee4dc3",
+                "url": "https://api.github.com/repos/anomalylabs/email-field_type/zipball/0435c30742f2bb7cd99567ea0d56313a9ef92cde",
+                "reference": "0435c30742f2bb7cd99567ea0d56313a9ef92cde",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3701,14 +3699,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Email field type.",
-            "time": "2015-01-03 09:51:49"
+            "description": "An email input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "email",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 08:42:01"
         },
         {
             "name": "anomaly/encrypted-field_type",
@@ -3716,12 +3726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/encrypted-field_type.git",
-                "reference": "505cc0625cca2aeaa1a09015811be2d9da106100"
+                "reference": "42f3ee3a78147105ad577f97201ea77354af7242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/encrypted-field_type/zipball/505cc0625cca2aeaa1a09015811be2d9da106100",
-                "reference": "505cc0625cca2aeaa1a09015811be2d9da106100",
+                "url": "https://api.github.com/repos/anomalylabs/encrypted-field_type/zipball/42f3ee3a78147105ad577f97201ea77354af7242",
+                "reference": "42f3ee3a78147105ad577f97201ea77354af7242",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3736,14 +3746,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Encrypted field type.",
-            "time": "2015-01-03 09:35:11"
+            "description": "An encrypted input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "encrypted",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 08:46:12"
         },
         {
             "name": "anomaly/file-field_type",
@@ -3751,12 +3773,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/file-field_type.git",
-                "reference": "4be74ab1588de8dc9383b286f0f3e467054e5564"
+                "reference": "ee82e2ccd0d4a32555003f9ae7c646a6af3058fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/file-field_type/zipball/4be74ab1588de8dc9383b286f0f3e467054e5564",
-                "reference": "4be74ab1588de8dc9383b286f0f3e467054e5564",
+                "url": "https://api.github.com/repos/anomalylabs/file-field_type/zipball/ee82e2ccd0d4a32555003f9ae7c646a6af3058fb",
+                "reference": "ee82e2ccd0d4a32555003f9ae7c646a6af3058fb",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3778,7 +3800,7 @@
                 }
             ],
             "description": "File field type.",
-            "time": "2015-01-03 09:56:18"
+            "time": "2015-01-05 07:55:46"
         },
         {
             "name": "anomaly/helper-plugin",
@@ -3786,12 +3808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/helper-plugin.git",
-                "reference": "66df1bcdfac47b9043805028e7f8eab558c5259c"
+                "reference": "fe02625ef18d707fbd9a0896f6583a4f9f6c9f98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/helper-plugin/zipball/66df1bcdfac47b9043805028e7f8eab558c5259c",
-                "reference": "66df1bcdfac47b9043805028e7f8eab558c5259c",
+                "url": "https://api.github.com/repos/anomalylabs/helper-plugin/zipball/fe02625ef18d707fbd9a0896f6583a4f9f6c9f98",
+                "reference": "fe02625ef18d707fbd9a0896f6583a4f9f6c9f98",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3806,14 +3828,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Helper plugin.",
-            "time": "2015-01-03 08:44:52"
+            "description": "A plugin that provides numerous helpful PHP interactions.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "helper",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 06:09:57"
         },
         {
             "name": "anomaly/integer-field_type",
@@ -3891,12 +3925,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/language-field_type.git",
-                "reference": "79d463ac953c6932d940e60251be9339ab81bf51"
+                "reference": "104982548337afa2a9cce96e4c9f030bef9fdf54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/language-field_type/zipball/79d463ac953c6932d940e60251be9339ab81bf51",
-                "reference": "79d463ac953c6932d940e60251be9339ab81bf51",
+                "url": "https://api.github.com/repos/anomalylabs/language-field_type/zipball/104982548337afa2a9cce96e4c9f030bef9fdf54",
+                "reference": "104982548337afa2a9cce96e4c9f030bef9fdf54",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3911,14 +3945,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Language field type.",
-            "time": "2015-01-03 19:07:02"
+            "description": "A language dropdown field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "language",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 09:30:42"
         },
         {
             "name": "anomaly/markdown-field_type",
@@ -3926,12 +3972,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/markdown-field_type.git",
-                "reference": "7c49a8d4f91458974f15d5d2ac7462ccde2a695b"
+                "reference": "9948e965ce7d20aa039ea6ee76e553bdb4a07069"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/markdown-field_type/zipball/7c49a8d4f91458974f15d5d2ac7462ccde2a695b",
-                "reference": "7c49a8d4f91458974f15d5d2ac7462ccde2a695b",
+                "url": "https://api.github.com/repos/anomalylabs/markdown-field_type/zipball/9948e965ce7d20aa039ea6ee76e553bdb4a07069",
+                "reference": "9948e965ce7d20aa039ea6ee76e553bdb4a07069",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3946,14 +3992,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Markdown field type.",
-            "time": "2015-01-03 19:07:10"
+            "description": "A markdown editor field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "markdown",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 09:08:24"
         },
         {
             "name": "anomaly/multiple-field_type",
@@ -3961,12 +4019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/multiple-field_type.git",
-                "reference": "b363480c96eb58a8cc9b5ef9b078bf10766f950f"
+                "reference": "c76334b1fa82aa44e8aee28e472deb61cdcc6470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/b363480c96eb58a8cc9b5ef9b078bf10766f950f",
-                "reference": "b363480c96eb58a8cc9b5ef9b078bf10766f950f",
+                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/c76334b1fa82aa44e8aee28e472deb61cdcc6470",
+                "reference": "c76334b1fa82aa44e8aee28e472deb61cdcc6470",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3988,7 +4046,7 @@
                 }
             ],
             "description": "Multiple field type.",
-            "time": "2015-01-03 19:07:18"
+            "time": "2015-01-06 18:06:10"
         },
         {
             "name": "anomaly/polymorphic-field_type",
@@ -4101,12 +4159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/request-plugin.git",
-                "reference": "72280a4f4a9b933a9327dcfe3aebc23a2b66416e"
+                "reference": "58e07ed1926d0eda100d7d2cd23d7e0c29daaba9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/request-plugin/zipball/72280a4f4a9b933a9327dcfe3aebc23a2b66416e",
-                "reference": "72280a4f4a9b933a9327dcfe3aebc23a2b66416e",
+                "url": "https://api.github.com/repos/anomalylabs/request-plugin/zipball/58e07ed1926d0eda100d7d2cd23d7e0c29daaba9",
+                "reference": "58e07ed1926d0eda100d7d2cd23d7e0c29daaba9",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4121,14 +4179,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Request plugin.",
-            "time": "2015-01-03 08:45:11"
+            "description": "A plugin that provides interactions with Illuminate\\Http\\Request.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "request",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 06:07:07"
         },
         {
             "name": "anomaly/select-field_type",
@@ -4136,12 +4206,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/select-field_type.git",
-                "reference": "20d2ae35d78b95321cef8da9664befa79bdc50da"
+                "reference": "f6da094d576208a842ebc3db9b08ba033a7d0f76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/select-field_type/zipball/20d2ae35d78b95321cef8da9664befa79bdc50da",
-                "reference": "20d2ae35d78b95321cef8da9664befa79bdc50da",
+                "url": "https://api.github.com/repos/anomalylabs/select-field_type/zipball/f6da094d576208a842ebc3db9b08ba033a7d0f76",
+                "reference": "f6da094d576208a842ebc3db9b08ba033a7d0f76",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4156,14 +4226,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Select field type.",
-            "time": "2015-01-03 19:07:34"
+            "description": "A select dropdown field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "select",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 22:41:58"
         },
         {
             "name": "anomaly/settings-module",
@@ -4206,12 +4288,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/slider-field_type.git",
-                "reference": "412ab4761e2f110ed6e9fc2410166782b72c91e4"
+                "reference": "e1d545d9e615dee74699f7a3de7338a346cfc71c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/slider-field_type/zipball/412ab4761e2f110ed6e9fc2410166782b72c91e4",
-                "reference": "412ab4761e2f110ed6e9fc2410166782b72c91e4",
+                "url": "https://api.github.com/repos/anomalylabs/slider-field_type/zipball/e1d545d9e615dee74699f7a3de7338a346cfc71c",
+                "reference": "e1d545d9e615dee74699f7a3de7338a346cfc71c",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4226,14 +4308,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Slider field type.",
-            "time": "2015-01-03 19:07:42"
+            "description": "A slider input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "slider",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 09:22:19"
         },
         {
             "name": "anomaly/slug-field_type",
@@ -4241,12 +4335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/slug-field_type.git",
-                "reference": "bd23251f3437a377b1b399d4fc1493684e2440ce"
+                "reference": "127efb014546e865e1288fd7b93a2a3e81a1ebac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/slug-field_type/zipball/bd23251f3437a377b1b399d4fc1493684e2440ce",
-                "reference": "bd23251f3437a377b1b399d4fc1493684e2440ce",
+                "url": "https://api.github.com/repos/anomalylabs/slug-field_type/zipball/127efb014546e865e1288fd7b93a2a3e81a1ebac",
+                "reference": "127efb014546e865e1288fd7b93a2a3e81a1ebac",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4261,14 +4355,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Slug field type.",
-            "time": "2015-01-03 19:05:24"
+            "description": "A slug value field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "slug",
+                "streams-addon"
+            ],
+            "time": "2015-01-08 09:14:34"
         },
         {
             "name": "anomaly/streams-composer-plugin",
@@ -4376,12 +4482,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-theme.git",
-                "reference": "f2d5efa604c2e6768509258b7a4438e2dc8d1d1c"
+                "reference": "51a6da35f5404b8cd800f6c8232e9b8e33c32799"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/f2d5efa604c2e6768509258b7a4438e2dc8d1d1c",
-                "reference": "f2d5efa604c2e6768509258b7a4438e2dc8d1d1c",
+                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/51a6da35f5404b8cd800f6c8232e9b8e33c32799",
+                "reference": "51a6da35f5404b8cd800f6c8232e9b8e33c32799",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4414,7 +4520,7 @@
                 "pyrocms",
                 "theme"
             ],
-            "time": "2015-01-04 20:14:03"
+            "time": "2015-01-09 04:26:57"
         },
         {
             "name": "anomaly/streams_ace_integration-extension",
@@ -4492,12 +4598,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/text-field_type.git",
-                "reference": "e1bcd6febcc6ba7c0841d3b4690ec9711c4cb936"
+                "reference": "f4ec4d24cfcd702279e7affac8051ada8dfa2a62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/text-field_type/zipball/e1bcd6febcc6ba7c0841d3b4690ec9711c4cb936",
-                "reference": "e1bcd6febcc6ba7c0841d3b4690ec9711c4cb936",
+                "url": "https://api.github.com/repos/anomalylabs/text-field_type/zipball/f4ec4d24cfcd702279e7affac8051ada8dfa2a62",
+                "reference": "f4ec4d24cfcd702279e7affac8051ada8dfa2a62",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4512,14 +4618,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Text field type.",
-            "time": "2015-01-03 09:55:10"
+            "description": "A text input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "streams-addon",
+                "text"
+            ],
+            "time": "2015-01-08 06:33:16"
         },
         {
             "name": "anomaly/textarea-field_type",
@@ -4527,12 +4645,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/textarea-field_type.git",
-                "reference": "4a4a141d1b8deb03810a9bfda31b53ffdb52debc"
+                "reference": "b3ef4c8f9d20013d9904cc20377c48648cc70478"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/textarea-field_type/zipball/4a4a141d1b8deb03810a9bfda31b53ffdb52debc",
-                "reference": "4a4a141d1b8deb03810a9bfda31b53ffdb52debc",
+                "url": "https://api.github.com/repos/anomalylabs/textarea-field_type/zipball/b3ef4c8f9d20013d9904cc20377c48648cc70478",
+                "reference": "b3ef4c8f9d20013d9904cc20377c48648cc70478",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4547,14 +4665,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Textarea field type.",
-            "time": "2015-01-03 19:07:51"
+            "description": "A textarea field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "streams-addon",
+                "textarea"
+            ],
+            "time": "2015-01-08 08:58:36"
         },
         {
             "name": "anomaly/url-field_type",
@@ -4562,12 +4692,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/url-field_type.git",
-                "reference": "38a5f990bd8c88e0552980ff7a66eadfc87de731"
+                "reference": "2ef8f071a38d622361a026817417a11a9faaa0ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/url-field_type/zipball/38a5f990bd8c88e0552980ff7a66eadfc87de731",
-                "reference": "38a5f990bd8c88e0552980ff7a66eadfc87de731",
+                "url": "https://api.github.com/repos/anomalylabs/url-field_type/zipball/2ef8f071a38d622361a026817417a11a9faaa0ce",
+                "reference": "2ef8f071a38d622361a026817417a11a9faaa0ce",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4582,14 +4712,26 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "URL field type.",
-            "time": "2015-01-03 09:57:27"
+            "description": "A URL input field type.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "laravel",
+                "pyrocms",
+                "streams-addon",
+                "url"
+            ],
+            "time": "2015-01-08 08:53:31"
         },
         {
             "name": "anomaly/users-module",
@@ -4597,12 +4739,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "f93d0c0d0ff6f9863aca0b3732cc6ed232fa5ec4"
+                "reference": "315618af62e2a583cfc2978398349f7c099fe7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/f93d0c0d0ff6f9863aca0b3732cc6ed232fa5ec4",
-                "reference": "f93d0c0d0ff6f9863aca0b3732cc6ed232fa5ec4",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/315618af62e2a583cfc2978398349f7c099fe7b3",
+                "reference": "315618af62e2a583cfc2978398349f7c099fe7b3",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4636,7 +4778,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-04 22:42:27"
+            "time": "2015-01-08 00:42:12"
         },
         {
             "name": "anomaly/users_module_activation_check-extension",
@@ -4749,12 +4891,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/wysiwyg-field_type.git",
-                "reference": "73708422dab9db3c5836d10ca9801288743d0271"
+                "reference": "e6499714daa909b1d2bd5bf8575febc49e2593c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/wysiwyg-field_type/zipball/73708422dab9db3c5836d10ca9801288743d0271",
-                "reference": "73708422dab9db3c5836d10ca9801288743d0271",
+                "url": "https://api.github.com/repos/anomalylabs/wysiwyg-field_type/zipball/e6499714daa909b1d2bd5bf8575febc49e2593c6",
+                "reference": "e6499714daa909b1d2bd5bf8575febc49e2593c6",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4769,34 +4911,54 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "AnomalyLabs",
-                    "email": "hello@anomaly.is"
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
                 }
             ],
-            "description": "Wysiwyg field type.",
-            "time": "2015-01-03 19:08:01"
+            "description": "A WYSIWYG editor field type powered by CKEditor.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "CKEditor",
+                "laravel",
+                "pyrocms",
+                "streams-addon",
+                "wysiwyg"
+            ],
+            "time": "2015-01-08 09:36:07"
         }
     ],
     "aliases": [
         {
-            "alias": "5.0",
-            "alias_normalized": "5.0.0.0",
+            "alias": "2.1.4",
+            "alias_normalized": "2.1.4.0",
             "version": "9999999-dev",
-            "package": "laravel/framework"
+            "package": "jenssegers/agent"
         },
         {
-            "alias": "5.0",
-            "alias_normalized": "5.0.0.0",
+            "alias": "3.0",
+            "alias_normalized": "3.0.0.0",
             "version": "9999999-dev",
-            "package": "illuminate/html"
+            "package": "way/generators"
+        },
+        {
+            "alias": "0.6",
+            "alias_normalized": "0.6.0.0",
+            "version": "9999999-dev",
+            "package": "rcrowe/twigbridge"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "laravel/framework": 20,
-        "illuminate/html": 20
+        "jenssegers/agent": 20,
+        "way/generators": 20,
+        "rcrowe/twigbridge": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -4,7 +4,6 @@
     "description": "PyroCMS is an easy to use, abstracted, and modular CMS built using Laravel.",
     "keywords": ["pyrocms", "cms", "streams", "laravel"],
     "license": "MIT",
-    "type": "project",
     "authors": [
         {
             "name": "AnomalyLabs",
@@ -14,16 +13,28 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:anomalylabs/framework.git"
+            "url": "https://github.com/anomalylabs/laravel-agent"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:anomalylabs/html.git"
+            "url": "https://github.com/anomalylabs/image"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/steveneaston/TwigBridge"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mvpasarel/Laravel-4-Generators"
         }
     ],
     "require": {
-        "laravel/framework": "dev-master#cc1c35069a7bbc3717487d931fbd80b8e6641a90 as 5.0",
-        "illuminate/html": "dev-master#b04be9a84be0d6f7552b281ad6b9e2795218fe56 as 5.0",
+        "laravel/framework": "~5.0",
+        "intervention/image": "dev-master#fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad as 2.0.14",
+        "jenssegers/agent": "dev-master#f84a5f81c671bd6e2d2ac0df86215681f8e60398 as 2.1.4",
+        "way/generators": "dev-master#a3896e0a71eb0510268fbb2ea45c2483763c44e7 as 3.0",
+        "rcrowe/twigbridge": "dev-master#f5de3334f01a437aed1daec2b635116ee5b911f4 as 0.6",
+        "illuminate/html": "~5.0",
         "anomaly/streams-platform": "~1.0"
     },
     "require-dev": {
