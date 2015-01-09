@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "339d3062acf1a6a95455701b7e49ea2e",
+    "hash": "b6648545ef793b07b18d1d5895d0a65e",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "255a38cd34bc295a1a78e46c4df200d94a814cc7"
+                "reference": "8965a0adc8b22a0a0ea8be6d39f78f6857e6930f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/255a38cd34bc295a1a78e46c4df200d94a814cc7",
-                "reference": "255a38cd34bc295a1a78e46c4df200d94a814cc7",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/8965a0adc8b22a0a0ea8be6d39f78f6857e6930f",
+                "reference": "8965a0adc8b22a0a0ea8be6d39f78f6857e6930f",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,9 @@
                 "dimsav/laravel-translatable": "5.0.*@dev",
                 "filp/whoops": "~1.0",
                 "guzzlehttp/guzzle": "~4.0",
+                "illuminate/html": "~5.0",
                 "kriswallsmith/assetic": "1.2.*@dev",
+                "laravel/framework": "~5.0",
                 "leafo/scssphp": "0.1.0 ",
                 "lmammino/jsmin4assetic": "1.0.*@dev",
                 "michelf/php-markdown": "1.4.1",
@@ -70,7 +72,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 08:17:29"
+            "time": "2015-01-09 11:51:01"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -1049,12 +1051,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "99e1e4b82a3107beb73781609bd3b67d4beb908d"
+                "reference": "8ea9f89a150a4f285c646d86d0a0c746170514e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/99e1e4b82a3107beb73781609bd3b67d4beb908d",
-                "reference": "99e1e4b82a3107beb73781609bd3b67d4beb908d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/8ea9f89a150a4f285c646d86d0a0c746170514e5",
+                "reference": "8ea9f89a150a4f285c646d86d0a0c746170514e5",
                 "shasum": ""
             },
             "require": {
@@ -1160,7 +1162,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-01-09 02:37:00"
+            "time": "2015-01-09 16:29:24"
         },
         {
             "name": "leafo/scssphp",
@@ -1878,12 +1880,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "3c9977318430ac6a9b6d7ee0768772b4bc98ecf8"
+                "reference": "09ccfdbcb9c57eb9e099e1a3b3bb2f1cabbadb33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3c9977318430ac6a9b6d7ee0768772b4bc98ecf8",
-                "reference": "3c9977318430ac6a9b6d7ee0768772b4bc98ecf8",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/09ccfdbcb9c57eb9e099e1a3b3bb2f1cabbadb33",
+                "reference": "09ccfdbcb9c57eb9e099e1a3b3bb2f1cabbadb33",
                 "shasum": ""
             },
             "require": {
@@ -1968,7 +1970,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2015-01-04 10:57:52"
+            "time": "2015-01-09 12:08:59"
         },
         {
             "name": "predis/predis",
@@ -2449,16 +2451,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529"
+                "reference": "eab88ace7a54741087fe4e0c7acd737d1f6186bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/b81b65bd7188d1def8af62eebe45681c04e68529",
-                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/eab88ace7a54741087fe4e0c7acd737d1f6186bf",
+                "reference": "eab88ace7a54741087fe4e0c7acd737d1f6186bf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
             },
             "require-dev": {
                 "psr/log": "~1.0",
@@ -2498,7 +2500,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-08 13:03:06"
+            "time": "2015-01-09 06:51:41"
         },
         {
             "name": "symfony/filesystem",
@@ -2507,16 +2509,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "afaca2a33dc0d9442a7ca4d87def8aff7d937b87"
+                "reference": "e681ca515e1e668a551b089177867e62e03d7d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/afaca2a33dc0d9442a7ca4d87def8aff7d937b87",
-                "reference": "afaca2a33dc0d9442a7ca4d87def8aff7d937b87",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/e681ca515e1e668a551b089177867e62e03d7d2d",
+                "reference": "e681ca515e1e668a551b089177867e62e03d7d2d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
@@ -2545,7 +2547,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-04 09:06:13"
+            "time": "2015-01-09 06:51:41"
         },
         {
             "name": "symfony/finder",
@@ -3020,16 +3022,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90"
+                "reference": "39b32637d4a3b8ec02815b792b7533147b1c22bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e6beb5c93f087181c139a8e800a2750ec9e64a90",
-                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/39b32637d4a3b8ec02815b792b7533147b1c22bf",
+                "reference": "39b32637d4a3b8ec02815b792b7533147b1c22bf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
@@ -3058,7 +3060,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-08 13:01:33"
+            "time": "2015-01-09 06:51:41"
         },
         {
             "name": "twig/twig",
@@ -3931,12 +3933,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/multiple-field_type.git",
-                "reference": "c76334b1fa82aa44e8aee28e472deb61cdcc6470"
+                "reference": "6b10e5d06815a26553835634fa2fb7778b4f3b13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/c76334b1fa82aa44e8aee28e472deb61cdcc6470",
-                "reference": "c76334b1fa82aa44e8aee28e472deb61cdcc6470",
+                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/6b10e5d06815a26553835634fa2fb7778b4f3b13",
+                "reference": "6b10e5d06815a26553835634fa2fb7778b4f3b13",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3958,7 +3960,7 @@
                 }
             ],
             "description": "Multiple field type.",
-            "time": "2015-01-06 18:06:10"
+            "time": "2015-01-09 10:37:59"
         },
         {
             "name": "anomaly/polymorphic-field_type",
@@ -4165,12 +4167,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/settings-module.git",
-                "reference": "c025c519cdbac6416e9dd4dc93eaab5401c98db5"
+                "reference": "0ac29ec7ca75181edec9e428e264db2bd74ec7d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/settings-module/zipball/c025c519cdbac6416e9dd4dc93eaab5401c98db5",
-                "reference": "c025c519cdbac6416e9dd4dc93eaab5401c98db5",
+                "url": "https://api.github.com/repos/anomalylabs/settings-module/zipball/0ac29ec7ca75181edec9e428e264db2bd74ec7d2",
+                "reference": "0ac29ec7ca75181edec9e428e264db2bd74ec7d2",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4192,7 +4194,7 @@
                 }
             ],
             "description": "Settings module.",
-            "time": "2015-01-03 18:56:00"
+            "time": "2015-01-09 10:37:27"
         },
         {
             "name": "anomaly/slider-field_type",
@@ -4347,12 +4349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-distribution.git",
-                "reference": "c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a"
+                "reference": "11d41121b200ad008f1b1ef469c38158bde4328a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a",
-                "reference": "c0a8e7b7a2fad0e2ee661ad5874db3b29487a12a",
+                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/11d41121b200ad008f1b1ef469c38158bde4328a",
+                "reference": "11d41121b200ad008f1b1ef469c38158bde4328a",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4386,7 +4388,7 @@
                 "laravel",
                 "streams-addon"
             ],
-            "time": "2015-01-06 06:38:42"
+            "time": "2015-01-09 10:37:16"
         },
         {
             "name": "anomaly/streams-theme",
@@ -4394,12 +4396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-theme.git",
-                "reference": "93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b"
+                "reference": "58f4e92e9abcbd6e33c8600991a829cad2ce3c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b",
-                "reference": "93f39dbbfb54b4993c8fd73367ab5b343ca9ce3b",
+                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/58f4e92e9abcbd6e33c8600991a829cad2ce3c25",
+                "reference": "58f4e92e9abcbd6e33c8600991a829cad2ce3c25",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4432,7 +4434,7 @@
                 "pyrocms",
                 "theme"
             ],
-            "time": "2015-01-09 05:46:38"
+            "time": "2015-01-09 10:32:04"
         },
         {
             "name": "anomaly/streams_ace_integration-extension",
@@ -4651,12 +4653,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "315618af62e2a583cfc2978398349f7c099fe7b3"
+                "reference": "d459774afed2d3ec31e3977bb0f5af8bd27909b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/315618af62e2a583cfc2978398349f7c099fe7b3",
-                "reference": "315618af62e2a583cfc2978398349f7c099fe7b3",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/d459774afed2d3ec31e3977bb0f5af8bd27909b3",
+                "reference": "d459774afed2d3ec31e3977bb0f5af8bd27909b3",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4690,7 +4692,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-08 00:42:12"
+            "time": "2015-01-09 10:56:17"
         },
         {
             "name": "anomaly/users_module_activation_check-extension",
