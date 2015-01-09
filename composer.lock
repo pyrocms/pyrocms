@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "3389767a2620d46ce5aeba41b0a9502e835c4827"
+                "reference": "255a38cd34bc295a1a78e46c4df200d94a814cc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/3389767a2620d46ce5aeba41b0a9502e835c4827",
-                "reference": "3389767a2620d46ce5aeba41b0a9502e835c4827",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/255a38cd34bc295a1a78e46c4df200d94a814cc7",
+                "reference": "255a38cd34bc295a1a78e46c4df200d94a814cc7",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,6 @@
                 "filp/whoops": "~1.0",
                 "guzzlehttp/guzzle": "~4.0",
                 "kriswallsmith/assetic": "1.2.*@dev",
-                "laracasts/commander": "~1.0",
                 "leafo/scssphp": "0.1.0 ",
                 "lmammino/jsmin4assetic": "1.0.*@dev",
                 "michelf/php-markdown": "1.4.1",
@@ -71,7 +70,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 05:01:42"
+            "time": "2015-01-09 08:17:29"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -1045,49 +1044,6 @@
             "time": "2014-12-12 05:04:05"
         },
         {
-            "name": "laracasts/commander",
-            "version": "1.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laracasts/Commander.git",
-                "reference": "db267269c16c5d2ff0da29944bc8cff3e6eda7f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Commander/zipball/db267269c16c5d2ff0da29944bc8cff3e6eda7f3",
-                "reference": "db267269c16c5d2ff0da29944bc8cff3e6eda7f3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/filesystem": "~5.0",
-                "illuminate/support": "~5.0",
-                "mustache/mustache": "~2.6",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "codeception/codeception": "~2.0.0",
-                "phpspec/phpspec": "~2.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Laracasts\\Commander": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeffrey Way",
-                    "email": "jeffrey@laracasts.com"
-                }
-            ],
-            "description": "Commands and domain events in Laravel",
-            "time": "2014-12-11 19:23:10"
-        },
-        {
             "name": "laravel/framework",
             "version": "dev-master",
             "source": {
@@ -1669,51 +1625,6 @@
                 "schedule"
             ],
             "time": "2013-11-23 19:48:39"
-        },
-        {
-            "name": "mustache/mustache",
-            "version": "v2.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "fdf41dd673dc99b41d60992470dbae94ae0b6ba1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/fdf41dd673dc99b41d60992470dbae94ae0b6ba1",
-                "reference": "fdf41dd673dc99b41d60992470dbae94ae0b6ba1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
-                }
-            ],
-            "description": "A Mustache implementation in PHP.",
-            "homepage": "https://github.com/bobthecow/mustache.php",
-            "keywords": [
-                "mustache",
-                "templating"
-            ],
-            "time": "2014-08-26 19:50:10"
         },
         {
             "name": "natxet/CssMin",
@@ -4933,6 +4844,94 @@
                 "wysiwyg"
             ],
             "time": "2015-01-08 09:36:07"
+        },
+        {
+            "name": "laracasts/commander",
+            "version": "1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/Commander.git",
+                "reference": "db267269c16c5d2ff0da29944bc8cff3e6eda7f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/Commander/zipball/db267269c16c5d2ff0da29944bc8cff3e6eda7f3",
+                "reference": "db267269c16c5d2ff0da29944bc8cff3e6eda7f3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "~5.0",
+                "illuminate/support": "~5.0",
+                "mustache/mustache": "~2.6",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~2.0.0",
+                "phpspec/phpspec": "~2.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Laracasts\\Commander": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Commands and domain events in Laravel",
+            "time": "2014-12-11 19:23:10"
+        },
+        {
+            "name": "mustache/mustache",
+            "version": "v2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "fdf41dd673dc99b41d60992470dbae94ae0b6ba1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/fdf41dd673dc99b41d60992470dbae94ae0b6ba1",
+                "reference": "fdf41dd673dc99b41d60992470dbae94ae0b6ba1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Hileman",
+                    "email": "justin@justinhileman.info",
+                    "homepage": "http://justinhileman.com"
+                }
+            ],
+            "description": "A Mustache implementation in PHP.",
+            "homepage": "https://github.com/bobthecow/mustache.php",
+            "keywords": [
+                "mustache",
+                "templating"
+            ],
+            "time": "2014-08-26 19:50:10"
         }
     ],
     "aliases": [
