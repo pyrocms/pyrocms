@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "06da13cbbed91dce87c12a85c7835ab0",
+    "hash": "339d3062acf1a6a95455701b7e49ea2e",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "4afce968139c7164d8765013df03e0d5f76bdb40"
+                "reference": "3389767a2620d46ce5aeba41b0a9502e835c4827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/4afce968139c7164d8765013df03e0d5f76bdb40",
-                "reference": "4afce968139c7164d8765013df03e0d5f76bdb40",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/3389767a2620d46ce5aeba41b0a9502e835c4827",
+                "reference": "3389767a2620d46ce5aeba41b0a9502e835c4827",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,6 @@
                 "dimsav/laravel-translatable": "5.0.*@dev",
                 "filp/whoops": "~1.0",
                 "guzzlehttp/guzzle": "~4.0",
-                "intervention/image": "2.0.14",
                 "kriswallsmith/assetic": "1.2.*@dev",
                 "laracasts/commander": "~1.0",
                 "leafo/scssphp": "0.1.0 ",
@@ -72,7 +71,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 04:50:18"
+            "time": "2015-01-09 05:01:42"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -773,16 +772,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.0.14",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Intervention/image.git",
-                "reference": "0d2eb5858520ace6a7d1b42f4267a6488a63c0ed"
+                "url": "https://github.com/anomalylabs/image.git",
+                "reference": "fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/0d2eb5858520ace6a7d1b42f4267a6488a63c0ed",
-                "reference": "0d2eb5858520ace6a7d1b42f4267a6488a63c0ed",
+                "url": "https://api.github.com/repos/anomalylabs/image/zipball/fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad",
+                "reference": "fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad",
                 "shasum": ""
             },
             "require": {
@@ -804,7 +803,6 @@
                     "Intervention\\Image\\": "src/Intervention/Image"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -825,7 +823,10 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2014-11-21 18:49:22"
+            "support": {
+                "source": "https://github.com/anomalylabs/image/tree/master"
+            },
+            "time": "2015-01-09 04:59:19"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -4936,6 +4937,12 @@
     ],
     "aliases": [
         {
+            "alias": "2.0.14",
+            "alias_normalized": "2.0.14.0",
+            "version": "9999999-dev",
+            "package": "intervention/image"
+        },
+        {
             "alias": "2.1.4",
             "alias_normalized": "2.1.4.0",
             "version": "9999999-dev",
@@ -4956,6 +4963,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "intervention/image": 20,
         "jenssegers/agent": 20,
         "way/generators": 20,
         "rcrowe/twigbridge": 20
