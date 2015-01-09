@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c066b2d4c025a9a5faae7a8603bb69ab",
+    "hash": "dd805e9e79918f367c2f43e6df7e0c4a",
     "packages": [
         {
             "name": "anomaly/streams-platform",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "858dfae55d0b86618308a43f6b5c186e0dc71e0d"
+                "reference": "5749ba9f4c4d356ac9121fd42707e12c8f6b38c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/858dfae55d0b86618308a43f6b5c186e0dc71e0d",
-                "reference": "858dfae55d0b86618308a43f6b5c186e0dc71e0d",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/5749ba9f4c4d356ac9121fd42707e12c8f6b38c3",
+                "reference": "5749ba9f4c4d356ac9121fd42707e12c8f6b38c3",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 19:27:12"
+            "time": "2015-01-09 21:29:37"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -1052,12 +1052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "8ea9f89a150a4f285c646d86d0a0c746170514e5"
+                "reference": "0b9cbbb2b30ec18c69907f1d481c4431570327fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/8ea9f89a150a4f285c646d86d0a0c746170514e5",
-                "reference": "8ea9f89a150a4f285c646d86d0a0c746170514e5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0b9cbbb2b30ec18c69907f1d481c4431570327fd",
+                "reference": "0b9cbbb2b30ec18c69907f1d481c4431570327fd",
                 "shasum": ""
             },
             "require": {
@@ -1163,7 +1163,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-01-09 16:29:24"
+            "time": "2015-01-09 21:22:30"
         },
         {
             "name": "leafo/scssphp",
@@ -3216,54 +3216,6 @@
                 "environment"
             ],
             "time": "2014-12-05 15:19:21"
-        },
-        {
-            "name": "way/generators",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mvpasarel/Laravel-4-Generators.git",
-                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mvpasarel/Laravel-4-Generators/zipball/457228dc2c0bef7ef75014f8e711def7732fb0ef",
-                "reference": "a3896e0a71eb0510268fbb2ea45c2483763c44e7",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "behat/behat": "~2.5.1",
-                "behat/mink": "~1.5.0",
-                "behat/mink-extension": "~1.2.0",
-                "behat/mink-goutte-driver": "~1.0.9",
-                "behat/mink-selenium2-driver": "~1.1.1",
-                "phpspec/phpspec": "~2.0",
-                "phpunit/phpunit": "~3.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Way\\Generators": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeffrey Way",
-                    "email": "jeffrey@jeffrey-way.com"
-                }
-            ],
-            "description": "Rapidly generate resources, migrations, models, and much more.",
-            "support": {
-                "source": "https://github.com/mvpasarel/Laravel-4-Generators/tree/master"
-            },
-            "time": "2015-01-07 12:21:24"
         }
     ],
     "packages-dev": [
@@ -4859,19 +4811,12 @@
             "alias_normalized": "2.1.4.0",
             "version": "9999999-dev",
             "package": "jenssegers/agent"
-        },
-        {
-            "alias": "3.0",
-            "alias_normalized": "3.0.0.0",
-            "version": "9999999-dev",
-            "package": "way/generators"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "intervention/image": 20,
-        "jenssegers/agent": 20,
-        "way/generators": 20
+        "jenssegers/agent": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
