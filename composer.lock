@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "5749ba9f4c4d356ac9121fd42707e12c8f6b38c3"
+                "reference": "994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/5749ba9f4c4d356ac9121fd42707e12c8f6b38c3",
-                "reference": "5749ba9f4c4d356ac9121fd42707e12c8f6b38c3",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d",
+                "reference": "994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d",
                 "shasum": ""
             },
             "require": {
@@ -25,23 +25,23 @@
                 "barryvdh/laravel-debugbar": "1.*",
                 "barryvdh/laravel-ide-helper": "1.11.*@dev",
                 "coffeescript/coffeescript": "1.3.1",
-                "dimsav/laravel-translatable": "5.0.*@dev",
+                "dimsav/laravel-translatable": "5.0.*",
                 "filp/whoops": "~1.0",
                 "guzzlehttp/guzzle": "~4.0",
                 "illuminate/html": "~5.0",
-                "kriswallsmith/assetic": "1.2.*@dev",
+                "kriswallsmith/assetic": "1.2.*",
                 "laravel/framework": "~5.0",
                 "leafo/scssphp": "0.1.0 ",
-                "lmammino/jsmin4assetic": "1.0.*@dev",
+                "lmammino/jsmin4assetic": "1.0.*",
                 "michelf/php-markdown": "1.4.1",
-                "natxet/cssmin": "3.0.*@dev",
+                "natxet/cssmin": "3.0.*",
                 "nesbot/carbon": "1.*",
                 "oyejorge/less.php": "~1.5",
-                "phpseclib/phpseclib": "0.3.*@dev",
-                "ptachoire/cssembed": "1.0.2",
+                "phpseclib/phpseclib": "0.3.*",
+                "ptachoire/cssembed": "1.0.*",
                 "rcrowe/twigbridge": "0.7.*",
                 "robclancy/presenter": "1.3.*",
-                "symfony/yaml": "2.7.*@dev",
+                "symfony/yaml": "2.7.*",
                 "twig/twig": "1.16.*@dev",
                 "venturecraft/revisionable": "1.*"
             },
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-09 21:29:37"
+            "time": "2015-01-10 12:57:08"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -1052,12 +1052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0b9cbbb2b30ec18c69907f1d481c4431570327fd"
+                "reference": "9297ad762f2db3744db7ed7588dae844a282277f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0b9cbbb2b30ec18c69907f1d481c4431570327fd",
-                "reference": "0b9cbbb2b30ec18c69907f1d481c4431570327fd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9297ad762f2db3744db7ed7588dae844a282277f",
+                "reference": "9297ad762f2db3744db7ed7588dae844a282277f",
                 "shasum": ""
             },
             "require": {
@@ -1163,7 +1163,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-01-09 21:22:30"
+            "time": "2015-01-09 21:44:31"
         },
         {
             "name": "leafo/scssphp",
@@ -4300,12 +4300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-distribution.git",
-                "reference": "27ab966069499aeb87b1a38d645edcfeb195e105"
+                "reference": "31433bcf25333563e8bc9b5179886324fa3bb302"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/27ab966069499aeb87b1a38d645edcfeb195e105",
-                "reference": "27ab966069499aeb87b1a38d645edcfeb195e105",
+                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/31433bcf25333563e8bc9b5179886324fa3bb302",
+                "reference": "31433bcf25333563e8bc9b5179886324fa3bb302",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4339,7 +4339,7 @@
                 "laravel",
                 "streams-addon"
             ],
-            "time": "2015-01-09 18:23:17"
+            "time": "2015-01-09 21:59:15"
         },
         {
             "name": "anomaly/streams-theme",
