@@ -12,21 +12,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d"
+                "reference": "66ef8f86e2ca2e19c26ad11b7718577b2655a32e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d",
-                "reference": "994d23a6e0b645c2a4b26ca3f4a1cb18ac25465d",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/66ef8f86e2ca2e19c26ad11b7718577b2655a32e",
+                "reference": "66ef8f86e2ca2e19c26ad11b7718577b2655a32e",
                 "shasum": ""
             },
             "require": {
                 "aptoma/twig-markdown": "0.2.*",
                 "barryvdh/laravel-debugbar": "1.*",
-                "barryvdh/laravel-ide-helper": "1.11.*@dev",
+                "barryvdh/laravel-ide-helper": "1.11.*",
                 "coffeescript/coffeescript": "1.3.1",
                 "dimsav/laravel-translatable": "5.0.*",
-                "filp/whoops": "~1.0",
+                "filp/whoops": "1.2.*",
                 "guzzlehttp/guzzle": "~4.0",
                 "illuminate/html": "~5.0",
                 "kriswallsmith/assetic": "1.2.*",
@@ -36,13 +36,13 @@
                 "michelf/php-markdown": "1.4.1",
                 "natxet/cssmin": "3.0.*",
                 "nesbot/carbon": "1.*",
-                "oyejorge/less.php": "~1.5",
+                "oyejorge/less.php": "1.7.*",
                 "phpseclib/phpseclib": "0.3.*",
                 "ptachoire/cssembed": "1.0.*",
                 "rcrowe/twigbridge": "0.7.*",
                 "robclancy/presenter": "1.3.*",
                 "symfony/yaml": "2.7.*",
-                "twig/twig": "1.16.*@dev",
+                "twig/twig": "1.16.*",
                 "venturecraft/revisionable": "1.*"
             },
             "require-dev": {
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "Streams platform core library.",
-            "time": "2015-01-10 12:57:08"
+            "time": "2015-01-11 03:09:37"
         },
         {
             "name": "aptoma/twig-markdown",
@@ -135,12 +135,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "99e6f44aab00050a862df24b26b575f094d07e1b"
+                "reference": "51f7b4be5578310ec3c29db55d0996ba9a979e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/99e6f44aab00050a862df24b26b575f094d07e1b",
-                "reference": "99e6f44aab00050a862df24b26b575f094d07e1b",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/51f7b4be5578310ec3c29db55d0996ba9a979e8e",
+                "reference": "51f7b4be5578310ec3c29db55d0996ba9a979e8e",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2015-01-07 15:27:57"
+            "time": "2015-01-10 15:19:06"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -2118,12 +2118,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "94f2a27155a88ce7e0ed389547b9f79b7058b51a"
+                "reference": "5a1172b097f21b5964249a931f2fbc58d4f2538a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/94f2a27155a88ce7e0ed389547b9f79b7058b51a",
-                "reference": "94f2a27155a88ce7e0ed389547b9f79b7058b51a",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/5a1172b097f21b5964249a931f2fbc58d4f2538a",
+                "reference": "5a1172b097f21b5964249a931f2fbc58d4f2538a",
                 "shasum": ""
             },
             "require": {
@@ -2174,7 +2174,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2015-01-09 18:54:27"
+            "time": "2015-01-10 14:25:38"
         },
         {
             "name": "robclancy/presenter",
@@ -3275,12 +3275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/boolean-field_type.git",
-                "reference": "43bd629299d8a1ad422d64b1e1898f8980dcf3b3"
+                "reference": "4c8e50f65d14417ce91c86efd1d996052fdae97d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/boolean-field_type/zipball/43bd629299d8a1ad422d64b1e1898f8980dcf3b3",
-                "reference": "43bd629299d8a1ad422d64b1e1898f8980dcf3b3",
+                "url": "https://api.github.com/repos/anomalylabs/boolean-field_type/zipball/4c8e50f65d14417ce91c86efd1d996052fdae97d",
+                "reference": "4c8e50f65d14417ce91c86efd1d996052fdae97d",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3314,7 +3314,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-08 06:49:37"
+            "time": "2015-01-10 21:28:19"
         },
         {
             "name": "anomaly/checkboxes-field_type",
@@ -3462,12 +3462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/datetime-field_type.git",
-                "reference": "2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7"
+                "reference": "11d2e33128ccf0ddcf9828fc21abb075daaa5e74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7",
-                "reference": "2df5bbc3fda4f4e5d07281bdd6d66b6567481bf7",
+                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/11d2e33128ccf0ddcf9828fc21abb075daaa5e74",
+                "reference": "11d2e33128ccf0ddcf9828fc21abb075daaa5e74",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3489,7 +3489,7 @@
                 }
             ],
             "description": "Datetime field type.",
-            "time": "2015-01-05 07:55:22"
+            "time": "2015-01-10 21:28:37"
         },
         {
             "name": "anomaly/editor-field_type",
@@ -3497,12 +3497,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/editor-field_type.git",
-                "reference": "49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e"
+                "reference": "42955017b379d7f44794f7791daff9a40d7d4db9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/editor-field_type/zipball/49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e",
-                "reference": "49f52c1590e9e6281ce4f1c06f5cfc2cd31b7b0e",
+                "url": "https://api.github.com/repos/anomalylabs/editor-field_type/zipball/42955017b379d7f44794f7791daff9a40d7d4db9",
+                "reference": "42955017b379d7f44794f7791daff9a40d7d4db9",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3536,7 +3536,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-08 09:03:08"
+            "time": "2015-01-10 21:28:45"
         },
         {
             "name": "anomaly/email-field_type",
@@ -3837,12 +3837,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/markdown-field_type.git",
-                "reference": "9948e965ce7d20aa039ea6ee76e553bdb4a07069"
+                "reference": "6d1453cf3441accd37fe18b2530c70e77a7038b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/markdown-field_type/zipball/9948e965ce7d20aa039ea6ee76e553bdb4a07069",
-                "reference": "9948e965ce7d20aa039ea6ee76e553bdb4a07069",
+                "url": "https://api.github.com/repos/anomalylabs/markdown-field_type/zipball/6d1453cf3441accd37fe18b2530c70e77a7038b1",
+                "reference": "6d1453cf3441accd37fe18b2530c70e77a7038b1",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3876,7 +3876,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-08 09:08:24"
+            "time": "2015-01-10 21:28:58"
         },
         {
             "name": "anomaly/multiple-field_type",
@@ -3884,12 +3884,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/multiple-field_type.git",
-                "reference": "6b10e5d06815a26553835634fa2fb7778b4f3b13"
+                "reference": "f45edfc18954dbadd299c118eb16847d392700a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/6b10e5d06815a26553835634fa2fb7778b4f3b13",
-                "reference": "6b10e5d06815a26553835634fa2fb7778b4f3b13",
+                "url": "https://api.github.com/repos/anomalylabs/multiple-field_type/zipball/f45edfc18954dbadd299c118eb16847d392700a1",
+                "reference": "f45edfc18954dbadd299c118eb16847d392700a1",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -3911,7 +3911,7 @@
                 }
             ],
             "description": "Multiple field type.",
-            "time": "2015-01-09 10:37:59"
+            "time": "2015-01-10 21:29:08"
         },
         {
             "name": "anomaly/polymorphic-field_type",
@@ -4153,12 +4153,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/slider-field_type.git",
-                "reference": "e1d545d9e615dee74699f7a3de7338a346cfc71c"
+                "reference": "b437de37511429bcf12f5e818f11d50dc49f44e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/slider-field_type/zipball/e1d545d9e615dee74699f7a3de7338a346cfc71c",
-                "reference": "e1d545d9e615dee74699f7a3de7338a346cfc71c",
+                "url": "https://api.github.com/repos/anomalylabs/slider-field_type/zipball/b437de37511429bcf12f5e818f11d50dc49f44e6",
+                "reference": "b437de37511429bcf12f5e818f11d50dc49f44e6",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4192,7 +4192,7 @@
                 "slider",
                 "streams-addon"
             ],
-            "time": "2015-01-08 09:22:19"
+            "time": "2015-01-10 21:29:34"
         },
         {
             "name": "anomaly/slug-field_type",
@@ -4200,12 +4200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/slug-field_type.git",
-                "reference": "127efb014546e865e1288fd7b93a2a3e81a1ebac"
+                "reference": "f4b7ce8528496d14c517d68c69e18a45fc9c803c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/slug-field_type/zipball/127efb014546e865e1288fd7b93a2a3e81a1ebac",
-                "reference": "127efb014546e865e1288fd7b93a2a3e81a1ebac",
+                "url": "https://api.github.com/repos/anomalylabs/slug-field_type/zipball/f4b7ce8528496d14c517d68c69e18a45fc9c803c",
+                "reference": "f4b7ce8528496d14c517d68c69e18a45fc9c803c",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4239,7 +4239,7 @@
                 "slug",
                 "streams-addon"
             ],
-            "time": "2015-01-08 09:14:34"
+            "time": "2015-01-10 21:29:45"
         },
         {
             "name": "anomaly/streams-composer-plugin",
@@ -4300,12 +4300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-distribution.git",
-                "reference": "31433bcf25333563e8bc9b5179886324fa3bb302"
+                "reference": "f88001423d28fbe86fbbb9ff7be9e0fb484fa69f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/31433bcf25333563e8bc9b5179886324fa3bb302",
-                "reference": "31433bcf25333563e8bc9b5179886324fa3bb302",
+                "url": "https://api.github.com/repos/anomalylabs/streams-distribution/zipball/f88001423d28fbe86fbbb9ff7be9e0fb484fa69f",
+                "reference": "f88001423d28fbe86fbbb9ff7be9e0fb484fa69f",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4339,7 +4339,7 @@
                 "laravel",
                 "streams-addon"
             ],
-            "time": "2015-01-09 21:59:15"
+            "time": "2015-01-10 22:16:31"
         },
         {
             "name": "anomaly/streams-theme",
@@ -4347,12 +4347,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-theme.git",
-                "reference": "58f4e92e9abcbd6e33c8600991a829cad2ce3c25"
+                "reference": "e4bdc960e6bb273153cbfcf640bd3f0dd3913619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/58f4e92e9abcbd6e33c8600991a829cad2ce3c25",
-                "reference": "58f4e92e9abcbd6e33c8600991a829cad2ce3c25",
+                "url": "https://api.github.com/repos/anomalylabs/streams-theme/zipball/e4bdc960e6bb273153cbfcf640bd3f0dd3913619",
+                "reference": "e4bdc960e6bb273153cbfcf640bd3f0dd3913619",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4385,7 +4385,7 @@
                 "pyrocms",
                 "theme"
             ],
-            "time": "2015-01-09 10:32:04"
+            "time": "2015-01-10 21:26:18"
         },
         {
             "name": "anomaly/streams_ace_integration-extension",
@@ -4604,12 +4604,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "d459774afed2d3ec31e3977bb0f5af8bd27909b3"
+                "reference": "0f553ba2d12386fd560c59ec667033a463da00c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/d459774afed2d3ec31e3977bb0f5af8bd27909b3",
-                "reference": "d459774afed2d3ec31e3977bb0f5af8bd27909b3",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/0f553ba2d12386fd560c59ec667033a463da00c4",
+                "reference": "0f553ba2d12386fd560c59ec667033a463da00c4",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4643,7 +4643,7 @@
                 "pyrocms",
                 "streams-addon"
             ],
-            "time": "2015-01-09 10:56:17"
+            "time": "2015-01-10 22:51:27"
         },
         {
             "name": "anomaly/users_module_activation_check-extension",
@@ -4756,12 +4756,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/wysiwyg-field_type.git",
-                "reference": "e6499714daa909b1d2bd5bf8575febc49e2593c6"
+                "reference": "3c21ce8fcb9d29417d1ac9d552778b72754827a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/wysiwyg-field_type/zipball/e6499714daa909b1d2bd5bf8575febc49e2593c6",
-                "reference": "e6499714daa909b1d2bd5bf8575febc49e2593c6",
+                "url": "https://api.github.com/repos/anomalylabs/wysiwyg-field_type/zipball/3c21ce8fcb9d29417d1ac9d552778b72754827a8",
+                "reference": "3c21ce8fcb9d29417d1ac9d552778b72754827a8",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -4796,7 +4796,7 @@
                 "streams-addon",
                 "wysiwyg"
             ],
-            "time": "2015-01-08 09:36:07"
+            "time": "2015-01-10 21:29:55"
         }
     ],
     "aliases": [
