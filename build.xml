@@ -17,7 +17,12 @@
         <echo msg="Copying files to build directory..."/>
 
         <echo msg="Copying ./ to ./build directory..."/>
-        <copy file="./" tofile="./build/"/>
+        <copy todir="./">
+            <fileset dir="./">
+                <include>**</include>
+                <exclude>**/.svn/**</exclude>
+            </fileset>
+        </copy>
     </target>
 
     <!-- ============================================  -->
