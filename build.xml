@@ -17,10 +17,9 @@
         <echo msg="Copying files to build directory..."/>
 
         <echo msg="Copying ./ to ./build directory..."/>
-        <copy todir="./">
+        <copy todir="./build">
             <fileset dir="./">
-                <include>**</include>
-                <exclude>**/.svn/**</exclude>
+                <include name="**"/>
             </fileset>
         </copy>
     </target>
@@ -34,6 +33,8 @@
         <tar destfile="./build/build.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*"/>
+                <exclude name=".git/"/>
+                <exclude name="./config/distribution.php"/>
             </fileset>
         </tar>
 
