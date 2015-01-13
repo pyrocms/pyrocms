@@ -1,6 +1,6 @@
 config/app.php
 config/database.php
 config/distribution.php
-
 /bin
 /vendor
+/build
