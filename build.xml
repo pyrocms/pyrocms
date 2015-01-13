@@ -20,6 +20,9 @@
         <copy todir="./build">
             <fileset dir="./">
                 <include name="**"/>
+                <exclude name=".git/"/>
+                <exclude name="config/distribution.php"/>
+                <exclude name="storage/models/**/**"/>
             </fileset>
         </copy>
     </target>
@@ -33,8 +36,6 @@
         <tar destfile="./build/build.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*"/>
-                <exclude name=".git/"/>
-                <exclude name="./config/distribution.php"/>
             </fileset>
         </tar>
 
