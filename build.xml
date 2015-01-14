@@ -6,6 +6,12 @@
     <!-- Target: prepare                               -->
     <!-- ============================================  -->
     <target name="prepare">
+
+        <echo msg="Deleting directory ./build"/>
+        <delete includeemptydirs="false">
+            <fileset dir="build" includes="**"/>
+        </delete>
+
         <echo msg="Making directory ./build"/>
         <mkdir dir="./build"/>
     </target>
