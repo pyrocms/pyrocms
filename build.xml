@@ -26,7 +26,6 @@
                 <include name="**"/>
                 <exclude name=".git/"/>
                 <exclude name="config/distribution.php"/>
-                <exclude name="storage/models/**/**"/>
             </fileset>
         </copy>
     </target>
