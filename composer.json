@@ -61,7 +61,8 @@
         "anomaly/users-module": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
-        "anomaly/pyrocms-theme": "~1.0"
+        "anomaly/pyrocms-theme": "~1.0",
+        "phpunit/phpunit": "~4.4"
     },
     "autoload": {
         "psr-4": {
@@ -87,7 +88,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-3.0/develop": "3.0.x-dev"
         }
     },
     "minimum-stability": "dev"

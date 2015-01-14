@@ -1,3 +1,4 @@
+composer.lock
 config/app.php
 config/database.php
 config/distribution.php
