@@ -166,7 +166,7 @@ class MY_Controller extends MX_Controller
 				// Set meta data for the module to be accessible system wide
 				$this->template->module_details = ci()->module_details = $this->module_details = $module;
 
-				continue;
+				break;
 			}
 		}
 

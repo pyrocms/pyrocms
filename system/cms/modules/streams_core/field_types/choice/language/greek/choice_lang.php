@@ -14,3 +14,4 @@ $lang['streams:choice.must_select_num'] 	= 'Πρέπει να επιλέξετε
 $lang['streams:choice.must_at_least'] 		= 'Πρέπει να επιλέξετε τουλάχιστον {val} στοιχεία από την λίστα %s.';
 $lang['streams:choice.must_max_num'] 		= 'Μπορείτε να επιλέξετε μόνο {val} στοιχεία από την λίστα %s.';
 $lang['streams:choice.multiselect'] 		= 'Τύπος Πολλαπλών Επιλογών.';
+$lang['streams:choice.invalidtype'] 		= 'Invalid Type.';#translate

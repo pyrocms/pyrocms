@@ -36,7 +36,9 @@ class Field_choice
 	 * @var 	array
 	 */
 	public $input_types = array('dropdown', 'multiselect', 'radio', 'checkboxes');
-		
+	
+	public $extra_validation = "trim";
+	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -307,9 +309,9 @@ class Field_choice
 		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type'] == 'multiselect') and is_array($value))
 		{
 			// Go through and count the number that are disabled
-			$choices = explode("\n", $field->field_data['choice_data']);
+			$lines = explode("\n", $field->field_data['choice_data']);
 
-			foreach($choices as $choice_line)
+			foreach($lines as $choice_line)
 			{
 				$choice_line = trim($choice_line);
 
@@ -372,6 +374,16 @@ class Field_choice
 			}
 
 		}
+		
+        //Get all choices array([choice] => Title)
+        $choices = $this->_choices_to_array($field->field_data['choice_data'], null);
+        //$value can be either array() or string
+        foreach((array)$value as $v){
+            if(!isset($choices[trim($v)])){
+                //Something isn't right
+                return lang('streams:choice.invalidtype');
+            }
+        }
 
 		return true;
 	}
