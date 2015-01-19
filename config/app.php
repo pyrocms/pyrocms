@@ -137,14 +137,6 @@ return [
 	'Illuminate\View\ViewServiceProvider',
 
 	/*
-	* Application Service Providers...
-	*/
-	'App\Providers\AppServiceProvider',
-	'App\Providers\BusServiceProvider',
-	'App\Providers\ConfigServiceProvider',
-	'App\Providers\EventServiceProvider',
-
-	/*
 	* Streams Platform Service Provider...
 	*/
 	'Anomaly\Streams\Platform\StreamsServiceProvider'
