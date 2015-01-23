@@ -18,7 +18,7 @@
     ],
     "require": {
         "intervention/image": "dev-master#fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad as 2.0.14",
-        "anomaly/streams-platform": "1.0.*@dev"
+        "anomaly/streams-platform": "dev-master"
     },
     "require-dev": {
         "anomaly/users_module_blocked_check-extension": "~1.0",
