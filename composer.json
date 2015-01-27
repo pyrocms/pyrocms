@@ -32,7 +32,6 @@
     "anomaly/streams_ckeditor_integration-extension": "~1.0",
     "anomaly/streams_ace_integration-extension": "~1.0",
     "anomaly/example_report-extension": "~1.0",
-    "anomaly/streams-composer-plugin": "~0.1",
     "anomaly/streams-distribution": "~1.0",
     "anomaly/pyrocms-distribution": "~1.0",
     "anomaly/relationship-field_type": "~1.0",
