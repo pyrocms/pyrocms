@@ -26,11 +26,11 @@
     "anomaly/streams-platform": "dev-1.0/develop"
   },
   "require-dev": {
-    "anomaly/users_module_blocked_check-extension": "~1.0",
-    "anomaly/users_module_default_authenticator-extension": "~1.0",
-    "anomaly/users_module_activation_check-extension": "~1.0",
+    "anomaly/default_authenticator-extension": "~1.0",
     "anomaly/streams_ckeditor_integration-extension": "~1.0",
     "anomaly/streams_ace_integration-extension": "~1.0",
+    "anomaly/activation_security_check-extension": "~1.0",
+    "anomaly/blocked_security_check-extension": "~1.0",
     "anomaly/streams-composer-plugin": "~0.1",
     "anomaly/streams-distribution": "~1.0",
     "anomaly/pyrocms-distribution": "~1.0",
