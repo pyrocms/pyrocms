@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG'),
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'YourSecretKey!!!'),
+	'key' => 'LS60Lcs5I9p3mNlAVjxG6CsGDH4sTBNi',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -111,8 +111,8 @@ return [
 	'providers' => [
 
 		/*
-        * Laravel Framework Service Providers...
-        */
+		* Laravel Framework Service Providers...
+		*/
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Bus\BusServiceProvider',
@@ -137,8 +137,8 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 
 		/*
-        * Streams Platform Service Provider...
-        */
+		* Streams Platform Service Provider...
+		*/
 		'Anomaly\Streams\Platform\StreamsServiceProvider'
 
 	],
