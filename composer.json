@@ -31,7 +31,6 @@
         "anomaly/streams_ace_integration-extension": "~1.0",
         "anomaly/activation_security_check-extension": "~1.0",
         "anomaly/blocked_security_check-extension": "~1.0",
-        "anomaly/recent_news_widget-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/streams-distribution": "~1.0",
         "anomaly/pyrocms-distribution": "~1.0",
