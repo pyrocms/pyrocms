@@ -1,5 +1,6 @@
 composer.lock
 .idea
+.env
 /bin
 /vendor
 /build
