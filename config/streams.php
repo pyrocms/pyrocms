@@ -12,7 +12,7 @@ return [
 	|
 	*/
     
-    'distribution' => 'Anomaly\PyrocmsDistribution\PyrocmsDistribution',
+    'distribution' => 'Anomaly\StreamsDistribution\StreamsDistribution',
 
     /*
     |--------------------------------------------------------------------------
