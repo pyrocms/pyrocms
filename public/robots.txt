@@ -1,2 +1,2 @@
-UserInterface-agent: *
+User-agent: *
 Disallow:

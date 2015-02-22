@@ -11,7 +11,9 @@ return [
     | distribution is like the DNA of the application's unique characteristics.
 	|
 	*/
-    'distribution'      => 'Anomaly\StreamsDistribution\StreamsDistribution',
+    
+    'distribution' => 'Anomaly\StreamsDistribution\StreamsDistribution',
+
     /*
     |--------------------------------------------------------------------------
     | Addon Types
@@ -21,15 +23,17 @@ return [
     | are loaded in the order in which they appear here.
     |
     */
-    'addon_types'       => [
+    
+    'addon_types' => [
         'distribution',
         'field_type',
         'extension',
         'module',
         'plugin',
         'block',
-        'theme',
+        'theme'
     ],
+
     /*
 	|--------------------------------------------------------------------------
 	| Available Locales
@@ -39,53 +43,9 @@ return [
     | This will prevent from locales where no translations exist.
 	|
 	*/
+    
     'available_locales' => [
         'en',
-        'fr',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Entry Management
-	|--------------------------------------------------------------------------
-	*/
-    'entries'           => [
-        'model'      => 'Anomaly\Streams\Platform\Entry\EntryModel',
-        'repository' => 'Anomaly\Streams\Platform\Entry\EntryRepository',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Stream Management
-	|--------------------------------------------------------------------------
-	*/
-    'streams'           => [
-        'model'      => 'Anomaly\Streams\Platform\Stream\StreamModel',
-        'repository' => 'Anomaly\Streams\Platform\Stream\StreamRepository',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Field Management
-	|--------------------------------------------------------------------------
-	*/
-    'fields'            => [
-        'model'      => 'Anomaly\Streams\Platform\Field\FieldModel',
-        'repository' => 'Anomaly\Streams\Platform\Field\FieldRepository',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Assignment Management
-	|--------------------------------------------------------------------------
-	*/
-    'assignments'       => [
-        'model'      => 'Anomaly\Streams\Platform\Assignment\AssignmentModel',
-        'repository' => 'Anomaly\Streams\Platform\Assignment\AssignmentRepository',
-    ],
-    /*
-	|--------------------------------------------------------------------------
-	| Module Management
-	|--------------------------------------------------------------------------
-	*/
-    'modules'           => [
-        'model'      => 'Anomaly\Streams\Platform\Addon\Module\ModuleModel',
-        'repository' => 'Anomaly\Streams\Platform\Addon\Module\ModuleRepository',
-    ],
+        'fr'
+    ]
 ];
