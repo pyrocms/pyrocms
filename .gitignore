@@ -1,6 +1,5 @@
 .env
 composer.lock
-/config
 /bin
 /vendor
 /build
