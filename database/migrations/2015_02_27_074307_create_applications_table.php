@@ -45,21 +45,19 @@ class CreateApplicationsTable extends Migration
         $schema->getConnection()->getSchemaGrammar()->setTablePrefix(null);
         $schema->getConnection()->setTablePrefix(null);
 
-        if (!$schema->hasTable('applications')) {
-            return;
+        if ($schema->hasTable('applications')) {
+            $schema->create(
+                'applications',
+                function (Blueprint $table) {
+
+                    $table->increments('id');
+                    $table->string('name');
+                    $table->string('reference');
+                    $table->string('domain');
+                    $table->boolean('enabled');
+                }
+            );
         }
-
-        $schema->create(
-            'applications',
-            function (Blueprint $table) {
-
-                $table->increments('id');
-                $table->string('name');
-                $table->string('reference');
-                $table->string('domain');
-                $table->boolean('enabled');
-            }
-        );
 
         $schema->getConnection()->getSchemaGrammar()->setTablePrefix($this->application->getReference() . '_');
         $schema->getConnection()->setTablePrefix($this->application->getReference() . '_');
