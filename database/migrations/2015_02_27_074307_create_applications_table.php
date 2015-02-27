@@ -45,7 +45,7 @@ class CreateApplicationsTable extends Migration
         $schema->getConnection()->getSchemaGrammar()->setTablePrefix(null);
         $schema->getConnection()->setTablePrefix(null);
 
-        if ($schema->hasTable('applications')) {
+        if (!$schema->hasTable('applications')) {
             $schema->create(
                 'applications',
                 function (Blueprint $table) {
