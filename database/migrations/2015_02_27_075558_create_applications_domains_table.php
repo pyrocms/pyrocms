@@ -46,19 +46,17 @@ class CreateApplicationsDomainsTable extends Migration
         $schema->getConnection()->setTablePrefix(null);
 
         if (!$schema->hasTable('applications_domains')) {
-            return;
+            $schema->create(
+                'applications_domains',
+                function (Blueprint $table) {
+
+                    $table->increments('id');
+                    $table->integer('application_id');
+                    $table->string('domain');
+                    $table->string('locale');
+                }
+            );
         }
-
-        $schema->create(
-            'applications_domains',
-            function (Blueprint $table) {
-
-                $table->increments('id');
-                $table->integer('application_id');
-                $table->string('domain');
-                $table->string('locale');
-            }
-        );
 
         $schema->getConnection()->getSchemaGrammar()->setTablePrefix($this->application->getReference() . '_');
         $schema->getConnection()->setTablePrefix($this->application->getReference() . '_');
