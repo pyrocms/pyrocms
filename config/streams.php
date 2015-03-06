@@ -47,7 +47,7 @@ return [
 	*/
 
     'available_locales' => [
-        'en'
+        'en' => 'English'
     ],
 
     /*
@@ -62,6 +62,6 @@ return [
 	*/
 
     'enabled_locales' => [
-        'en'
+        'en' => 'English'
     ]
 ];
