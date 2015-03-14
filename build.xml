@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Streams" default="dist">
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+
+        <echo msg="Deleting directory ./build"/>
+        <delete dir="build"/>
+
+        <echo msg="Making directory ./build"/>
+        <mkdir dir="./build"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare">
+        <echo msg="Copying files to build directory..."/>
+
+        <echo msg="Copying ./ to ./build directory..."/>
+        <copy todir="./build">
+            <fileset dir="./">
+                <include name="**"/>
+                <exclude name=".git/"/>
+                <exclude name="config/distribution.php"/>
+            </fileset>
+        </copy>
+        <chmod file="./build/storage" mode="0775" />
+        <chmod file="./build/public/assets" mode="0775" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT)  Target: dist                       -->
+    <!-- ============================================  -->
+    <target name="dist" depends="build">
+        <echo msg="Creating archive..."/>
+
+        <tar destfile="./build/build.tar.gz" compression="gzip">
+            <fileset dir="./build">
+                <include name="*"/>
+            </fileset>
+        </tar>
+
+        <echo msg="Files copied and compressed in build directory OK!"/>
+    </target>
+</project>
