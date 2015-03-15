@@ -35,6 +35,22 @@ return [
 
     /*
 	|--------------------------------------------------------------------------
+	| Asset / Image Paths
+	|--------------------------------------------------------------------------
+	|
+    | Asset / image path hints let the system know where to look for files
+    | when prefixed with a namespace like "theme::".
+    |
+	| These asset and image path hints will be merged into the system paths
+    | during boot.
+	|
+	*/
+
+    'asset_paths' => [],
+    'image_paths' => [],
+
+    /*
+	|--------------------------------------------------------------------------
 	| Available Locales
 	|--------------------------------------------------------------------------
 	|
