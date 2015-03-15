@@ -1,7 +1,7 @@
 {
-    "name": "anomaly/pyrocms",
+    "name": "anomaly/streams",
     "type": "streams-distribution",
-    "description": "PyroCMS is an easy to use, abstracted, and modular CMS built using Laravel.",
+    "description": "Streams is a robust rapid development platform built on Laravel 5.",
     "keywords": [
         "pyrocms",
         "cms",
@@ -33,7 +33,6 @@
         "anomaly/blocked_security_check-extension": "~1.0",
         "anomaly/recent_news_widget-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~0.1",
-        "anomaly/streams-distribution": "~1.0",
         "anomaly/relationship-field_type": "~1.0",
         "anomaly/polymorphic-field_type": "~1.0",
         "anomaly/checkboxes-field_type": "~1.0",
@@ -60,6 +59,7 @@
         "anomaly/localization-module": "~1.0",
         "anomaly/preferences-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
+        "anomaly/installer-module": "~1.0",
         "anomaly/settings-module": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/files-module": "~1.0",
