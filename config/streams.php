@@ -30,8 +30,8 @@ return [
 	|
 	*/
 
-    'admin_theme'  => env('ADMIN_THEME', 'Anomaly\StreamsTheme\StreamsTheme'),
-    'standard_theme' => env('STANDARD_THEME', 'Anomaly\StreamsTheme\StreamsTheme'),
+    'admin_theme'  => env('ADMIN_THEME', 'Anomaly\PyrocmsTheme\PyrocmsTheme'),
+    'standard_theme' => env('STANDARD_THEME', 'Anomaly\PyrocmsTheme\PyrocmsTheme'),
 
     /*
 	|--------------------------------------------------------------------------
