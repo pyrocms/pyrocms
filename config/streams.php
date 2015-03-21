@@ -3,18 +3,6 @@
 return [
 
     /*
-	|--------------------------------------------------------------------------
-	| Distribution
-	|--------------------------------------------------------------------------
-	|
-	| This controls the primary distribution used by Streams. The Streams
-    | distribution is like the DNA of the application's unique characteristics.
-	|
-	*/
-    
-    'distribution' => 'Anomaly\PyrocmsDistribution\PyrocmsDistribution',
-
-    /*
     |--------------------------------------------------------------------------
     | Addon Types
     |--------------------------------------------------------------------------
@@ -25,7 +13,6 @@ return [
     */
 
     'addon_types' => [
-        'distribution',
         'field_type',
         'extension',
         'module',
@@ -33,6 +20,34 @@ return [
         'block',
         'theme'
     ],
+
+    /*
+	|--------------------------------------------------------------------------
+	| Default Themes
+	|--------------------------------------------------------------------------
+	|
+	| This defines fallback / default themes for the front and backend.
+	|
+	*/
+
+    'admin_theme'  => env('ADMIN_THEME', 'Anomaly\PyrocmsTheme\PyrocmsTheme'),
+    'standard_theme' => env('STANDARD_THEME', 'Anomaly\PyrocmsTheme\PyrocmsTheme'),
+
+    /*
+	|--------------------------------------------------------------------------
+	| Asset / Image Paths
+	|--------------------------------------------------------------------------
+	|
+    | Asset / image path hints let the system know where to look for files
+    | when prefixed with a namespace like "theme::".
+    |
+	| These asset and image path hints will be merged into the system paths
+    | during boot.
+	|
+	*/
+
+    'asset_paths' => [],
+    'image_paths' => [],
 
     /*
 	|--------------------------------------------------------------------------
@@ -47,7 +62,8 @@ return [
 	*/
 
     'available_locales' => [
-        'en' => 'English'
+        'en' => 'English',
+        'es' => 'Spanish'
     ],
 
     /*
@@ -62,7 +78,8 @@ return [
 	*/
 
     'enabled_locales' => [
-        'en' => 'English'
+        'en' => 'English',
+        'es' => 'Spanish'
     ],
 
     /*
