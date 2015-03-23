@@ -62,8 +62,7 @@ return [
 	*/
 
     'available_locales' => [
-        'en' => 'English',
-        'es' => 'Spanish'
+        'en' => 'English'
     ],
 
     /*
@@ -78,8 +77,7 @@ return [
 	*/
 
     'enabled_locales' => [
-        'en' => 'English',
-        'es' => 'Spanish'
+        'en' => 'English'
     ],
 
     /*
