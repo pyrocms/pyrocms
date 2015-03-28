@@ -135,5 +135,19 @@ return [
 	*/
 
     'date_format' => 'n/j/Y',
-    'time_format' => 'g:i A T'
+    'time_format' => 'g:i A T',
+
+    /*
+	|--------------------------------------------------------------------------
+	| Timezone
+	|--------------------------------------------------------------------------
+	|
+	| This is the timezone used for display purposes only. It is suggested
+    | to keep the system timezone (app.timezone) as UTC.
+    |
+    | NOTE: This configuration may be overridden by the Settings module.
+	|
+	*/
+
+    'timezone' => env('TIMEZONE', 'UTC')
 ];
