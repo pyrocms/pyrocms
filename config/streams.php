@@ -121,5 +121,18 @@ return [
 	|
 	*/
 
-    'force_https' => "none",
+    'force_https' => 'none',
+
+    /*
+	|--------------------------------------------------------------------------
+	| Date/Time Format
+	|--------------------------------------------------------------------------
+	|
+	| This is the default format of dates and times displayed.
+    |
+    | NOTE: This configuration may be overridden by the Settings module.
+	|
+	*/
+
+    'date_format' => 'n/j/Y'
 ];
