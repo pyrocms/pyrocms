@@ -4,6 +4,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Information
+    |--------------------------------------------------------------------------
+    |
+    | This is used as the default application name / description / logo.
+    |
+    */
+
+    'app' => [
+        'name' => 'Streams',
+        'description' => 'Streams is an abstracted and modular platform for developing web applications.',
+        'logo' => 'theme::img/logo.png'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Addon Types
     |--------------------------------------------------------------------------
     |
