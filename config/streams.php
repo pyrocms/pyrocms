@@ -134,7 +134,7 @@ return [
 	|
 	*/
 
-    'date_format' => 'n/j/Y',
+    'date_format' => 'D M j, Y',
     'time_format' => 'g:i A',
 
     /*
