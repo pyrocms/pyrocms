@@ -12,8 +12,8 @@ return [
     */
 
     'app' => [
-        'name' => 'Streams',
-        'description' => 'Streams is an abstracted and modular platform for developing web applications.',
+        'name' => 'PyroCMS',
+        'description' => 'The modern CMS built for everyone.',
         'logo' => 'theme::img/logo.png'
     ],
 
