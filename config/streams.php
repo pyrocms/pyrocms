@@ -4,6 +4,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Information
+    |--------------------------------------------------------------------------
+    |
+    | This is used as the default application name / description / logo.
+    |
+    */
+
+    'app' => [
+        'name' => 'PyroCMS',
+        'description' => 'The modern CMS built for everyone.',
+        'logo' => 'theme::img/logo.png'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Addon Types
     |--------------------------------------------------------------------------
     |
@@ -62,8 +77,7 @@ return [
 	*/
 
     'available_locales' => [
-        'en' => 'English',
-        'es' => 'Spanish'
+        'en' => 'English'
     ],
 
     /*
@@ -78,8 +92,7 @@ return [
 	*/
 
     'enabled_locales' => [
-        'en' => 'English',
-        'es' => 'Spanish'
+        'en' => 'English'
     ],
 
     /*
@@ -123,5 +136,33 @@ return [
 	|
 	*/
 
-    'force_https' => "none",
+    'force_https' => 'none',
+
+    /*
+	|--------------------------------------------------------------------------
+	| Date/Time Format
+	|--------------------------------------------------------------------------
+	|
+	| This is the default format of dates and times displayed.
+    |
+    | NOTE: This configuration may be overridden by the Settings module.
+	|
+	*/
+
+    'date_format' => 'D M j, Y',
+    'time_format' => 'g:i A',
+
+    /*
+	|--------------------------------------------------------------------------
+	| Timezone
+	|--------------------------------------------------------------------------
+	|
+	| This is the timezone used for display purposes only. It is suggested
+    | to keep the system timezone (app.timezone) as UTC.
+    |
+    | NOTE: This configuration may be overridden by the Settings module.
+	|
+	*/
+
+    'timezone' => env('TIMEZONE', 'UTC')
 ];
