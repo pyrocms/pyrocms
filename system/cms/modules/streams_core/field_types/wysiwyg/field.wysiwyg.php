@@ -60,6 +60,10 @@ class Field_wysiwyg
 
 		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
+		if ($input == '<p></p>') {
+			$input = '';
+		}
+
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
 		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
