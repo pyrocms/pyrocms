@@ -29,7 +29,7 @@
 				$content.removeClass('loading');
 			});
 
-			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );
+			$content.prev('section.title').html( $('<h4 />').text(page_title) );
 
 			// return false to keep the list from toggling when link is clicked
 			return false;
