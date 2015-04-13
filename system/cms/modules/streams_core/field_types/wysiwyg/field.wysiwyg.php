@@ -94,7 +94,10 @@ class Field_wysiwyg
 		{
 			$options['class']	= 'wysiwyg-simple';
 		}
-	
+		// if empty, add an empty p tag to avoid formatting errors
+		if (empty($data['value'])) {
+			$data['value'] = '<p></p>';
+		}
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= html_entity_decode($data['value'], null, 'UTF-8');
