@@ -9,10 +9,12 @@
 		// store some common elements
 		$details 	= $('div#page-details');
 		$details_id	= $('div#page-details #page-id');
+		$content = $details.parent();
 
 		// show the page details pane
 		$item_list.find('li a').live('click', function(e) {
 			e.preventDefault();
+			$content.addClass('loading');
 
 			$a = $(this);
 
@@ -24,9 +26,10 @@
 			// Load the details box in
 			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id, function(){
 				refresh_sticky_page_details(true);
+				$content.removeClass('loading');
 			});
 
-			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );
+			$content.prev('section.title').html( $('<h4 />').text(page_title) );
 
 			// return false to keep the list from toggling when link is clicked
 			return false;

@@ -79,8 +79,24 @@
 	background:url(../img/less.png) no-repeat 0 7px;
 }
 
+.content.loading {
+	background-image: url(../../../themes/pyrocms/img/admin/loading.gif);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	border: none;
+}
+
 #page-details {
-	min-height:250px;
+	min-height: 250px;
+	opacity: 1;
+	-webkit-transition: 250ms ease opacity;
+	-moz-transition: 250ms ease opacity;
+	-o-transition: 250ms ease opacity;
+	transition: 250ms ease opacity;
+}
+
+.content.loading #page-details {
+	opacity: 0;
 }
 
 #page-details h5 {
