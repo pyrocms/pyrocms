@@ -231,7 +231,15 @@ class CI_User_agent {
 	{
 		$this->_set_platform();
 
-		foreach (array('_set_robot', '_set_browser', '_set_mobile') as $function)
+		foreach (array('_set_mobile', '_set_browser') as $function)
+		{
+			if ($this->$function() === TRUE)
+			{
+				break;
+			}
+		}
+
+		foreach (array('_set_robot') as $function)
 		{
 			if ($this->$function() === TRUE)
 			{
