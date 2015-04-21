@@ -62,7 +62,9 @@ return [
 	*/
 
     'asset_paths' => [],
-    'image_paths' => [],
+    'image_paths' => [
+        's3' => 'https://s3-us-west-2.amazonaws.com/airleasecorp'
+    ],
 
     /*
 	|--------------------------------------------------------------------------
