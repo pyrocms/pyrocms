@@ -4,10 +4,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Information
+    | Theme Colors
     |--------------------------------------------------------------------------
     |
-    | This is used as the default application name / description / logo.
+    | This is used to dynamically control the default colors of the
+    | packaged "Anomaly" admin theme.
     |
     */
 
