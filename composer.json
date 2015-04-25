@@ -15,14 +15,7 @@
             "email": "hello@anomaly.is"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/anomalylabs/image"
-        }
-    ],
     "require": {
-        "intervention/image": "dev-master#fe2d82485676a63b900e53d3bd8b8ca14b6ab6ad as 2.0.14",
         "anomaly/streams-platform": "dev-1.0/develop"
     },
     "require-dev": {
@@ -32,6 +25,7 @@
         "anomaly/recent_news_widget-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/relationship-field_type": "~1.0",
+        "anomaly/colorpicker-field_type": "~1.0",
         "anomaly/polymorphic-field_type": "~1.0",
         "anomaly/checkboxes-field_type": "~1.0",
         "anomaly/encrypted-field_type": "~1.0",
@@ -48,6 +42,7 @@
         "anomaly/editor-field_type": "~1.0",
         "anomaly/select-field_type": "~1.0",
         "anomaly/slider-field_type": "~1.0",
+        "anomaly/addon-field_type": "~1.0",
         "anomaly/email-field_type": "~1.0",
         "anomaly/tags-field_type": "~1.0",
         "anomaly/slug-field_type": "~1.0",
@@ -56,13 +51,14 @@
         "anomaly/url-field_type": "~1.0",
         "anomaly/preferences-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
+        "anomaly/redirects-module": "~1.0",
         "anomaly/installer-module": "~1.0",
         "anomaly/settings-module": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/users-module": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
-        "anomaly/pyrocms-theme": "~1.0",
+        "anomaly/anomaly-theme": "~1.0",
         "phpunit/phpunit": "~4.4"
     },
     "autoload": {
