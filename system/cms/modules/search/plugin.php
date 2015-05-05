@@ -119,7 +119,7 @@ class Plugin_Search extends Plugin
 	 */
 	public function results($slug = '')
 	{
-		$this->load->model('search_index_m');
+		$this->load->model('search/search_index_m');
 
 		$limit   = $this->attribute('limit', 10);
 		$uri     = $this->attribute('uri', 'search/results');
