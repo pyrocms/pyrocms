@@ -525,9 +525,9 @@ class Template
 				$link = '<link rel="'.$name.'" href="'.$content.'" />';
 
 				if ($override) {
-					$this->_override_meta[$place][$content] = $link;
+					$this->_override_meta[$place][$name] = $link;
 				} else {
-					$this->_metadata[$place][$content] = $link;
+					$this->_metadata[$place][$name] = $link;
 				}				
 			
 				break;
