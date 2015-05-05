@@ -18,7 +18,7 @@ composer install
 // after composer installing has finished
 // goto pyrocms installation vhost (in my case http://pyro.app)
 // or you can run built in web-server, like:
-php artisan server
+php artisan serve
 
 // and now navigate to http://localhost:8000
 // and follow the installer
