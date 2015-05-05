@@ -42,45 +42,41 @@ class Search_index_m extends MY_Model
 	 */
 	public function index($module, $singular, $plural, $entry_id, $uri, $title, $description = null, array $options = array())
 	{
-		// Drop it so we can create a new index
 		$this->drop_index($module, $singular, $entry_id);
 
-		// Hand over keywords without needing to look them up
-		if ( ! empty($options['keywords']))
+		if (is_array($options) && count($options) > 0)
 		{
-			if (is_array($options['keywords']))
+			foreach ($options as $key => $value)
 			{
-				$this->db->set('keywords', implode(',', $options['keywords']));
+				if ($key == 'keywords')
+				{
+					if (is_array($value))
+					{
+						$this->db->set('keywords', implode(',', $value));
+					}
+					elseif (is_string($value))
+					{
+						$this->db->set(array(
+							'keywords' => Keywords::get_string($value),
+							'keyword_hash' => $value,
+						));
+					}
+				}
+				else
+				{
+					$this->db->set($key, $value);
+				}
 			}
-			elseif (is_string($options['keywords']))
-			{
-				$this->db->set(array(
-					'keywords' 		=> Keywords::get_string($options['keywords']),
-					'keyword_hash' 	=> $options['keywords'],
-				));
-			}
-		}
-
-		// Store a link to edit this entry
-		if ( ! empty($options['cp_edit_uri']))
-		{
-			$this->db->set('cp_edit_uri', $options['cp_edit_uri']);
-		}
-
-		// Store a link to delete this entry
-		if ( ! empty($options['cp_delete_uri']))
-		{
-			$this->db->set('cp_delete_uri', $options['cp_delete_uri']);
 		}
 
 		return $this->db->insert('search_index', array(
-			'title' 		=> $title,
-			'description' 	=> strip_tags($description),
-			'module' 		=> $module,
-			'entry_key' 	=> $singular,
-			'entry_plural' 	=> $plural,
-			'entry_id' 		=> $entry_id,
-			'uri' 			=> $uri,
+			'title' => $title,
+			'description' => strip_tags($description),
+			'module' => $module,
+			'entry_key' => $singular,
+			'entry_plural' => $plural,
+			'entry_id' => $entry_id,
+			'uri' => $uri,
 		));
 	}
 
