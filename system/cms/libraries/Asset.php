@@ -286,6 +286,13 @@ class Asset {
 		self::$asset_url = $url;
 	}
 
+        /**
+	 * Get the asset_url, to allow for CDN url's and such
+	 */
+	public static function get_url()
+	{
+		return self::$asset_url;
+	}
 
 	/**
 	 * Adds a group of assets. If a group of this name exists, the function returns.
