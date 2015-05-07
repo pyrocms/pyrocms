@@ -294,21 +294,9 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// Is this page a parent of the current page?
-			// Get the URI and compare
-			$uri_segments = explode('/', str_replace(site_url(), '', $link['url']));
-
-			foreach ($uri_segments as $k => $seg)
-			{
-				if ( ! $seg)
-				{
-					unset($uri_segments[$k]);
-				}
-			}
-
-			$short_segments 
-				= array_slice($this->uri->segment_array(), 0, count($uri_segments));
-
-			if ( ! array_diff($short_segments, $uri_segments))
+			// compare the current uri string to the uri string of the link
+			// add a slash at the end of the link to make sure the current uri is actually a parent
+			if( strpos($this->uri->uri_string(), str_replace(site_url(), '', $link['url']). '/') === 0)
 			{
 				$wrapper['class'][] = $parent_class;
 			}
