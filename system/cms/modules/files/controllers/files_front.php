@@ -227,7 +227,8 @@ class Files_front extends Public_Controller
 				$thumb_filename = $this->_path.$file->filename;
 			}
 		}
-		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+		
+		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
 		{
 			// Send 304 back to browser if file has not beeb changed
