@@ -227,7 +227,7 @@ class Files_front extends Public_Controller
 				$thumb_filename = $this->_path.$file->filename;
 			}
 		}
-
+		
 		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
 		{
@@ -244,7 +244,7 @@ class Files_front extends Public_Controller
 
 	public function large($id)
 	{
-		return $this->thumb($id, 0, 0);
+		return $this->thumb($id, null, null);
 	}
 
 	public function cloud_thumb($id = 0, $width = 75, $height = 50, $mode = 'fit')
