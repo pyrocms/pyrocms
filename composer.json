@@ -58,6 +58,7 @@
         "anomaly/settings-module": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/users-module": "~1.0",
+        "anomaly/pages-module": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
         "anomaly/anomaly-theme": "~1.0",
