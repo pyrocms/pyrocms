@@ -19,7 +19,6 @@
         "anomaly/streams-platform": "dev-1.0/develop"
     },
     "require-dev": {
-        "anomaly/default_page_handler-extension": "~1.0",
         "anomaly/default_authenticator-extension": "~1.0",
         "anomaly/activation_security_check-extension": "~1.0",
         "anomaly/blocked_security_check-extension": "~1.0",
