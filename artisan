@@ -15,18 +15,6 @@
 
 require __DIR__.'/bootstrap/autoload.php';
 
-/*
-|--------------------------------------------------------------------------
-| Turn On The Lights
-|--------------------------------------------------------------------------
-|
-| We need to illuminate PHP development, so let's turn on the lights.
-| This bootstraps the framework and gets it ready for and then it
-| will load up this application so that we can run it and send
-| the responses back to the browser and delight these users.
-|
-*/
-
 $app = require_once __DIR__.'/bootstrap/app.php';
 
 /*
@@ -40,8 +28,10 @@ $app = require_once __DIR__.'/bootstrap/app.php';
 |
 */
 
-$status = $app->make('Illuminate\Contracts\Console\Kernel')->handle(
-	new Symfony\Component\Console\Input\ArgvInput,
+$kernel = $app->make('Illuminate\Contracts\Console\Kernel');
+
+$status = $kernel->handle(
+	$input = new Symfony\Component\Console\Input\ArgvInput,
 	new Symfony\Component\Console\Output\ConsoleOutput
 );
 
@@ -55,5 +45,7 @@ $status = $app->make('Illuminate\Contracts\Console\Kernel')->handle(
 | down the process. This is the last thing to happen to the request.
 |
 */
+
+$kernel->terminate($input, $status);
 
 exit($status);
