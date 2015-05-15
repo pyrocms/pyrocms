@@ -45,8 +45,8 @@ return [
 	|
 	*/
 
-    'admin_theme'  => env('ADMIN_THEME', 'Anomaly\AnomalyTheme\AnomalyTheme'),
-    'standard_theme' => env('STANDARD_THEME', 'Anomaly\AnomalyTheme\AnomalyTheme'),
+    'admin_theme'  => env('ADMIN_THEME', 'anomaly.theme.anomaly'),
+    'standard_theme' => env('STANDARD_THEME', 'anomaly.theme.anomaly'),
 
     /*
 	|--------------------------------------------------------------------------
