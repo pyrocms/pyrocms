@@ -12,6 +12,6 @@ return [
     |
     */
 
-    'secondary' => '#00b2d4' // blue
+    'secondary' => '#f2364b' // red
 
 ];
