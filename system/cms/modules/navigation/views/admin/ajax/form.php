@@ -39,6 +39,7 @@
 					<?php echo form_radio('link_type', 'uri', $link->link_type == 'uri') ?> <?php echo lang('nav:uri_label');?>
 					<?php echo form_radio('link_type', 'module', $link->link_type == 'module') ?> <?php echo lang('nav:module_label');?>
 					<?php echo form_radio('link_type', 'page', $link->link_type == 'page') ?> <?php echo lang('nav:page_label');?>
+					<?php echo form_radio('link_type', 'custom', $link->link_type == 'custom') ?> <?php echo lang('nav:custom_label');?>
 				</span>
 			</li>
 
@@ -69,6 +70,11 @@
 						<option value=""><?php echo lang('global:select-pick');?></option>
 						<?php echo $tree_select ?>
 					</select>
+				</div>
+
+				<div id="navigation-custom" style="<?php echo @$link->link_type == 'custom' ? '' : 'display:none' ?>">
+					<label class="label" for="custom_link"><?php echo lang('nav:custom_label'); ?></label>
+					<input type="text" id="custom" name="custom" value="<?php echo $link->custom ?>" />
 				</div>
 			</li>
 
