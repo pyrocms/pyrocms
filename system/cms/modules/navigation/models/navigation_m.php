@@ -71,6 +71,7 @@ class Navigation_m extends MY_Model
         	'uri' 					=> isset($input['uri']) ? $input['uri'] : '',
         	'module_name' 			=> isset($input['module_name']) ? $input['module_name'] : '',
         	'page_id' 				=> (int) $input['page_id'],
+			'custom'				=> $input['custom'],
         	'position' 				=> $position,
 			'target'				=> isset($input['target']) ? $input['target'] : '',
 			'class'					=> isset($input['class']) ? $input['class'] : '',
@@ -100,6 +101,7 @@ class Navigation_m extends MY_Model
         	'uri' 					=> $input['uri'],
         	'module_name'			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
+			'custom'				=> $input['custom'],
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id'],
@@ -339,6 +341,10 @@ class Navigation_m extends MY_Model
 					unset($result[$key]);
 				}
 			break;
+
+			case 'custom':
+				$row->url = $row->custom;
+			break;
 		}
 
 		return $row;
@@ -409,6 +415,10 @@ class Navigation_m extends MY_Model
 					{
 						unset($links[$key]);
 					}
+				break;
+
+				case 'custom':
+					$row['url'] = $row['custom'];
 				break;
 			}
 		}

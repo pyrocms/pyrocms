@@ -236,9 +236,10 @@ class Plugin_Navigation extends Plugin
 			$wrapper = array();
 
 			// attributes of anchor
-			$item['url']   = $link['url'];
-			$item['title'] = $link['title'];
-			$item['total'] = $total;
+			$item['url']       = $link['url'];
+			$item['title']     = $link['title'];
+			$item['link_type'] = $link['link_type'];
+			$item['total']     = $total;
 
 			if ( $wrap )
 			{
@@ -294,9 +295,21 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// Is this page a parent of the current page?
-			// compare the current uri string to the uri string of the link
-			// add a slash at the end of the link to make sure the current uri is actually a parent
-			if( strpos($this->uri->uri_string(), str_replace(site_url(), '', $link['url']). '/') === 0)
+			// Get the URI and compare
+			$uri_segments = explode('/', str_replace(site_url(), '', $link['url']));
+
+			foreach ($uri_segments as $k => $seg)
+			{
+				if ( ! $seg)
+				{
+					unset($uri_segments[$k]);
+				}
+			}
+
+			$short_segments 
+				= array_slice($this->uri->segment_array(), 0, count($uri_segments));
+
+			if ( ! array_diff($short_segments, $uri_segments))
 			{
 				$wrapper['class'][] = $parent_class;
 			}
@@ -356,7 +369,14 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
-					$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					if($item['link_type'] == 'custom')
+					{
+						$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : '<a href="'.$item['url'].'" '.trim(implode(' ', $item['attributes']))).'>'.$item['title'].'</a>' . PHP_EOL;
+					}
+					else
+					{
+						$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					}
 
 					if ( $wrapper['children'] )
 					{
@@ -376,10 +396,12 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
-					
-					if (substr($item['url'], 0, 7) == 'mailto:') {
-						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : mailto(str_replace('mailto:', '', $item['url']), $item['title'], trim(implode(' ', $item['attributes'])));
-					} else {
+					if($item['link_type'] == 'custom')
+					{
+						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : '<a href="'.$item['url'].'" '.trim(implode(' ', $item['attributes'])).'>'.$item['title'].'</a>';
+					}
+					else
+					{
 						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 					}
 

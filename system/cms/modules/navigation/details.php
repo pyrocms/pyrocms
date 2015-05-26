@@ -101,6 +101,7 @@ class Module_Navigation extends Module {
 				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
 				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'custom' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
 				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
 				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
