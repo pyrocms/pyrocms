@@ -1376,7 +1376,7 @@ class Asset {
 
 					if ($type == 'js')
 					{
-						$content .= Asset_JSMin::minify($file_content).PHP_EOL;
+						$content .= ';'.Asset_JSMin::minify($file_content).PHP_EOL;
 					}
 					elseif ($type == 'css')
 					{
