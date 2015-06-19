@@ -12,7 +12,7 @@
 			<ul>
 			<li>
 				<label for="type"><?php echo lang('redirects:type');?></label><br>
-				<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect['type']) ? $redirect['type'] : '302');?>
+				<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect['type']) ? $redirect['type'] : '301');?>
 			</li>
 	
 			<hr>
