@@ -1,11 +1,11 @@
 {
-    "name": "pyrocms/pyrocms",
-    "type": "pyrocms-distribution",
-    "description": "PyroCMS is an easy to use, abstracted, and modular CMS built using Laravel.",
+    "name": "anomaly/streams",
+    "type": "streams-distribution",
+    "description": "Streams is a robust rapid development platform built on Laravel 5.",
     "keywords": [
         "pyrocms",
         "cms",
-        "streams-platform",
+        "streams",
         "laravel"
     ],
     "license": "MIT",
@@ -23,6 +23,7 @@
         "anomaly/activation_security_check-extension": "~1.0",
         "anomaly/blocked_security_check-extension": "~1.0",
         "anomaly/recent_news_widget-extension": "~1.0",
+        "anomaly/url_link_type-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~0.1",
         "anomaly/relationship-field_type": "~1.0",
         "anomaly/colorpicker-field_type": "~1.0",
@@ -44,18 +45,25 @@
         "anomaly/slider-field_type": "~1.0",
         "anomaly/addon-field_type": "~1.0",
         "anomaly/email-field_type": "~1.0",
+        "anomaly/state-field_type": "~1.0",
         "anomaly/tags-field_type": "~1.0",
+        "anomaly/user-field_type": "~1.0",
         "anomaly/slug-field_type": "~1.0",
         "anomaly/text-field_type": "~1.0",
         "anomaly/file-field_type": "~1.0",
         "anomaly/url-field_type": "~1.0",
+        "anomaly/configuration-module": "~1.0",
         "anomaly/preferences-module": "~1.0",
+        "anomaly/navigation-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
+        "anomaly/variables-module": "~1.0",
         "anomaly/redirects-module": "~1.0",
         "anomaly/installer-module": "~1.0",
         "anomaly/settings-module": "~1.0",
         "anomaly/addons-module": "~1.0",
         "anomaly/users-module": "~1.0",
+        "anomaly/pages-module": "~1.0",
+        "anomaly/posts-module": "~1.0",
         "anomaly/request-plugin": "~1.0",
         "anomaly/helper-plugin": "~1.0",
         "anomaly/anomaly-theme": "~1.0",
@@ -66,6 +74,11 @@
             "App\\": "app/"
         }
     },
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		]
+	},
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
