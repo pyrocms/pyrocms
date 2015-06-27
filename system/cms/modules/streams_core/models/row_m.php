@@ -1307,12 +1307,12 @@ class Row_m extends MY_Model {
 					if ($return_object)
 					{
 						$row->$row_slug = $this->format_column($row_slug,
-							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call, $row);
 					}
 					else
 					{
 						$row[$row_slug] = $this->format_column($row_slug,
-							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call, $row);
 					}
 				}
 			}
@@ -1360,7 +1360,7 @@ class Row_m extends MY_Model {
 	 * @access 	public
 	 * @params
 	 */
-	public function format_column($column_slug, $column_data, $row_id, $type_slug, $field_data, $stream, $plugin = true)
+	public function format_column($column_slug, $column_data, $row_id, $type_slug, $field_data, $stream, $plugin = true, $stream_data = array())
 	{
 		// Does our type exist?
 		if ( ! isset($this->type->types->{$type_slug}))
@@ -1380,6 +1380,13 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
+			// if there is any addtional stream data to
+			// pass to the parser then add it to the field_data
+			if(!empty($stream_data))
+			{
+				$field_data['parser_data'] = $stream_data;
+			}
+
 			// If not, check and see if there is a method
 			// for pre output or pre_output_plugin
 			if ($plugin and method_exists($this->type->types->{$type_slug}, 'pre_output_plugin'))
