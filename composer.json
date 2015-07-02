@@ -1,7 +1,7 @@
 {
-    "name": "anomaly/streams",
+    "name": "pyrocms/pyrocms",
     "type": "streams-distribution",
-    "description": "Streams is a robust rapid development platform built on Laravel 5.",
+    "description": "PyroCMS is a powerful, easy to use CMS built for everyone.",
     "keywords": [
         "pyrocms",
         "cms",
