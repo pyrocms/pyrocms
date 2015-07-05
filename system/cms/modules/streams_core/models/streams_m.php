@@ -726,8 +726,6 @@ class Streams_m extends MY_Model {
 		
 			$raw = $obj->result();
 			
-			$field_types = array();
-			
 			foreach ($raw as $item)
 			{
 				$node = $item->field_slug;
