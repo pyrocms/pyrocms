@@ -726,6 +726,8 @@ class Streams_m extends MY_Model {
 		
 			$raw = $obj->result();
 			
+			$field_types = array();
+			
 			foreach ($raw as $item)
 			{
 				$node = $item->field_slug;
@@ -733,6 +735,8 @@ class Streams_m extends MY_Model {
 				$streams->$node = $item;
 				
 				$streams->$node->field_data = unserialize($item->field_data);
+				
+				$this->type->load_single_type($item->field_type);
 			}
 			
 			// Save for cache
