@@ -24,7 +24,7 @@ class Pages extends Public_Controller
 
 		// No page is mentioned and we are not using pages as default
 		//  (eg blog on homepage)
-		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages')
+		if ( ! $this->uri->segment(1) and strpos($this->router->default_controller, 'pages') !== 0)
 		{
 			redirect('');
 		}

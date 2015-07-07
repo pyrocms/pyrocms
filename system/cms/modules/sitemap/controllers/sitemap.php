@@ -37,8 +37,15 @@ class Sitemap extends Public_Controller {
 				continue;
 			}
 
-			$doc->addChild('sitemap')
-				->addChild('loc', site_url($module['slug'].'/sitemap/xml'));
+			if(site_url() == '/') {
+				$doc->addChild('sitemap')
+					->addChild('loc', BASE_URL.substr(site_url($module['slug'].'/sitemap/xml'), 1));
+			}
+			else
+			{
+				$doc->addChild('sitemap')
+					->addChild('loc', site_url($module['slug'].'/sitemap/xml'));
+			}
 		}
 		
 		$this->output

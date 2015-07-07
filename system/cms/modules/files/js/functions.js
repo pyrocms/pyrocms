@@ -1,7 +1,8 @@
 jQuery(function($){
 	var $search_results,
 		$folders_center,
-		$item_details;
+		$item_details,
+		content_interval;
 		// end function global vars
 
 	pyro.files.cache = {};
@@ -627,7 +628,6 @@ jQuery(function($){
 			post_data,
 			i = 0,
 			items = [],
-			content_interval,
 			current;
 
 		// let them know we're getting the stuff, it may take a second
@@ -664,6 +664,7 @@ jQuery(function($){
 				// so let's wipe it clean...
 				$('.folders-center').find('li').fadeOut('fast').remove();
 				$('.tipsy').remove();
+				clearInterval(content_interval);
 
 				// use the folder_id from results as we know that's numeric
 				folder_id = results.data.parent_id;

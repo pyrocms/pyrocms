@@ -59,7 +59,7 @@ class MY_Exceptions extends CI_Exceptions
         parent::__construct();
         
         // If we are in production, then lets dump out now.
-        if (IN_PRODUCTION)
+        if (ENVIRONMENT == PYRO_PRODUCTION)
         {
             return;
         }

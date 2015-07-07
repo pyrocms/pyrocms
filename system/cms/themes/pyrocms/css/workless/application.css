@@ -298,7 +298,6 @@ margin-top: -4px;
   font-weight: 700;
   color: #fff;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
-  vertical-align: middle;
   content: '+ ';
 }
 
@@ -625,7 +624,7 @@ margin-top: -4px;
 	font-size: 10px;
 	font-weight: bold;
 	text-transform: uppercase;
-	
+
 }
 
 #widget-comments .comments-gravatar {

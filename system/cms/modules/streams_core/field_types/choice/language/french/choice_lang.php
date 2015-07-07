@@ -14,3 +14,4 @@ $lang['streams:choice.must_select_num'] 	= 'Vous devez sélectionner {val} élé
 $lang['streams:choice.must_at_least'] 		= 'Vous devez au moins sélectionner {val} éléments de la liste %s.';
 $lang['streams:choice.must_max_num'] 		= 'Vous ne pouvez sélectionner que {val} éléments de la liste %s.';
 $lang['streams:choice.multiselect'] 		= 'Selection multiple.';
+$lang['streams:choice.invalidtype'] 		= 'Invalid Type.';#translate

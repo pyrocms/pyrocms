@@ -52,6 +52,11 @@ class Admin extends Admin_Controller {
 			'rules'	=> 'trim|numeric'
 		),
 		array(
+			'field' => 'custom',
+			'label' => 'lang:nav_custom_label',
+			'rules' => 'trim',
+		),
+		array(
 			'field' => 'navigation_group_id',
 			'label'	=> 'lang:nav_group_label',
 			'rules'	=> 'trim|numeric'
@@ -459,7 +464,7 @@ class Admin extends Admin_Controller {
 		switch ($link) {
 
 			case 'url':
-				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://');
+				$status = ($this->input->post('url') > '' and $this->input->post('url') !== 'http://');
 			break;
 
 			case 'module':

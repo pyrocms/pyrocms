@@ -236,9 +236,10 @@ class Plugin_Navigation extends Plugin
 			$wrapper = array();
 
 			// attributes of anchor
-			$item['url']   = $link['url'];
-			$item['title'] = $link['title'];
-			$item['total'] = $total;
+			$item['url']       = $link['url'];
+			$item['title']     = $link['title'];
+			$item['link_type'] = $link['link_type'];
+			$item['total']     = $total;
 
 			if ( $wrap )
 			{
@@ -368,7 +369,14 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
-					$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					if($item['link_type'] == 'custom')
+					{
+						$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : '<a href="'.$item['url'].'" '.trim(implode(' ', $item['attributes']))).'>'.$item['title'].'</a>' . PHP_EOL;
+					}
+					else
+					{
+						$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					}
 
 					if ( $wrapper['children'] )
 					{
@@ -388,7 +396,14 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
-					$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					if($item['link_type'] == 'custom')
+					{
+						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : '<a href="'.$item['url'].'" '.trim(implode(' ', $item['attributes'])).'>'.$item['title'].'</a>';
+					}
+					else
+					{
+						$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					}
 
 					if ( $wrapper['children'] )
 					{

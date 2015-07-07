@@ -86,11 +86,18 @@ class Field_textarea
 			return $input;
 		}
 
+		// allow additional data to be passed to the parser
+		$parser_data = array();
+		if(!empty($params['parser_data']))
+		{
+			$parser_data = $params['parser_data'];
+		}
+
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
 		if ($parse_tags == 'y')
 		{
-			$content = $this->CI->parser->parse_string($input, array(), true);
+			$content = $this->CI->parser->parse_string($input, $parser_data, true);
 		}
 		else
 		{

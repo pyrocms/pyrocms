@@ -1,6 +1,169 @@
-/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
-*/
+﻿/**
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
+ */
 
-CKEDITOR.plugins.add('iframedialog',{requires:['dialog'],onLoad:function(){CKEDITOR.dialog.addIframe=function(a,b,c,d,e,f,g){var h={type:'iframe',src:c,width:'100%',height:'100%'};if(typeof f=='function')h.onContentLoad=f;else h.onContentLoad=function(){var k=this.getElement(),l=k.$.contentWindow;if(l.onDialogEvent){var m=this.getDialog(),n=function(o){return l.onDialogEvent(o);};m.on('ok',n);m.on('cancel',n);m.on('resize',n);m.on('hide',function(o){m.removeListener('ok',n);m.removeListener('cancel',n);m.removeListener('resize',n);o.removeListener();});l.onDialogEvent({name:'load',sender:this,editor:m._.editor});}};var i={title:b,minWidth:d,minHeight:e,contents:[{id:'iframe',label:b,expand:true,elements:[h]}]};for(var j in g)i[j]=g[j];this.add(a,function(){return i;});};(function(){var a=function(b,c,d){if(arguments.length<3)return;var e=this._||(this._={}),f=c.onContentLoad&&CKEDITOR.tools.bind(c.onContentLoad,this),g=CKEDITOR.tools.cssLength(c.width),h=CKEDITOR.tools.cssLength(c.height);e.frameId=CKEDITOR.tools.getNextId()+'_iframe';b.on('load',function(){var k=CKEDITOR.document.getById(e.frameId),l=k.getParent();l.setStyles({width:g,height:h});});var i={src:'%2',id:e.frameId,frameborder:0,allowtransparency:true},j=[];if(typeof c.onContentLoad=='function')i.onload='CKEDITOR.tools.callFunction(%1);';CKEDITOR.ui.dialog.uiElement.call(this,b,c,j,'iframe',{width:g,height:h},i,'');d.push('<div style="width:'+g+';height:'+h+';" id="'+this.domId+'"></div>');j=j.join('');b.on('show',function(){var k=CKEDITOR.document.getById(e.frameId),l=k.getParent(),m=CKEDITOR.tools.addFunction(f),n=j.replace('%1',m).replace('%2',CKEDITOR.tools.htmlEncode(c.src));l.setHtml(n);});};a.prototype=new CKEDITOR.ui.dialog.uiElement();CKEDITOR.dialog.addUIElement('iframe',{build:function(b,c,d){return new a(b,c,d);}});})();}});
+/**
+ * @fileOverview Plugin for making iframe based dialogs.
+ */
+
+CKEDITOR.plugins.add( 'iframedialog', {
+	requires: 'dialog',
+	onLoad: function() {
+		/**
+		 * An iframe base dialog.
+		 *
+		 * @static
+		 * @member CKEDITOR.dialog
+		 * @param {String} name Name of the dialog.
+		 * @param {String} title Title of the dialog.
+		 * @param {Number} minWidth Minimum width of the dialog.
+		 * @param {Number} minHeight Minimum height of the dialog.
+		 * @param {Function} [onContentLoad] Function called when the iframe has been loaded.
+		 * If it isn't specified, the inner frame is notified of the dialog events (`'load'`,
+		 * `'resize'`, `'ok'` and `'cancel'`) on a function called `'onDialogEvent'`.
+		 * @param {Object} [userDefinition] Additional properties for the dialog definition.
+		 */
+		CKEDITOR.dialog.addIframe = function( name, title, src, minWidth, minHeight, onContentLoad, userDefinition ) {
+			var element = {
+				type: 'iframe',
+				src: src,
+				width: '100%',
+				height: '100%'
+			};
+
+			if ( typeof onContentLoad == 'function' )
+				element.onContentLoad = onContentLoad;
+			else {
+				element.onContentLoad = function() {
+					var element = this.getElement(), childWindow = element.$.contentWindow;
+
+					// If the inner frame has defined a "onDialogEvent" function, setup listeners
+					if ( childWindow.onDialogEvent ) {
+						var dialog = this.getDialog(), notifyEvent = function( e ) {
+							return childWindow.onDialogEvent( e );
+						};
+
+						dialog.on( 'ok', notifyEvent );
+						dialog.on( 'cancel', notifyEvent );
+						dialog.on( 'resize', notifyEvent );
+
+						// Clear listeners
+						dialog.on( 'hide', function( e ) {
+							dialog.removeListener( 'ok', notifyEvent );
+							dialog.removeListener( 'cancel', notifyEvent );
+							dialog.removeListener( 'resize', notifyEvent );
+
+							e.removeListener();
+						} );
+
+						// Notify child iframe of load:
+						childWindow.onDialogEvent( {
+							name: 'load', sender: this, editor: dialog._.editor
+						} );
+					}
+				};
+			}
+
+			var definition = {
+				title: title,
+				minWidth: minWidth,
+				minHeight: minHeight,
+				contents: [ {
+					id: 'iframe',
+					label: title,
+					expand: true,
+					elements: [ element ],
+					style: 'width:' + element.width + ';height:' + element.height
+				} ]
+			};
+
+			for ( var i in userDefinition )
+				definition[ i ] = userDefinition[ i ];
+
+			this.add( name, function() {
+				return definition;
+			} );
+		};
+
+		( function() {
+			/**
+			 * An iframe element.
+			 *
+			 * @class CKEDITOR.ui.dialog.iframeElement
+			 * @extends CKEDITOR.ui.dialog.uiElement
+			 * @constructor
+			 * @private
+			 * @param {CKEDITOR.dialog} dialog Parent dialog object.
+			 * @param {CKEDITOR.dialog.definition.uiElement} elementDefinition
+			 * The element definition. Accepted fields:
+			 *
+			 * * `src` (Required) The src field of the iframe.
+			 * * `width` (Required) The iframe's width.
+			 * * `height` (Required) The iframe's height.
+			 * * `onContentLoad` (Optional) A function to be executed
+			 *     after the iframe's contents has finished loading.
+			 *
+			 * @param {Array} htmlList List of HTML code to output to.
+			 */
+			var iframeElement = function( dialog, elementDefinition, htmlList ) {
+					if ( arguments.length < 3 )
+						return;
+
+					var _ = ( this._ || ( this._ = {} ) ),
+						contentLoad = elementDefinition.onContentLoad && CKEDITOR.tools.bind( elementDefinition.onContentLoad, this ),
+						cssWidth = CKEDITOR.tools.cssLength( elementDefinition.width ),
+						cssHeight = CKEDITOR.tools.cssLength( elementDefinition.height );
+					_.frameId = CKEDITOR.tools.getNextId() + '_iframe';
+
+					// IE BUG: Parent container does not resize to contain the iframe automatically.
+					dialog.on( 'load', function() {
+						var iframe = CKEDITOR.document.getById( _.frameId ),
+							parentContainer = iframe.getParent();
+
+						parentContainer.setStyles( {
+							width: cssWidth,
+							height: cssHeight
+						} );
+					} );
+
+					var attributes = {
+						src: '%2',
+						id: _.frameId,
+						frameborder: 0,
+						allowtransparency: true
+					};
+					var myHtml = [];
+
+					if ( typeof elementDefinition.onContentLoad == 'function' )
+						attributes.onload = 'CKEDITOR.tools.callFunction(%1);';
+
+					CKEDITOR.ui.dialog.uiElement.call( this, dialog, elementDefinition, myHtml, 'iframe', {
+						width: cssWidth,
+						height: cssHeight
+					}, attributes, '' );
+
+					// Put a placeholder for the first time.
+					htmlList.push( '<div style="width:' + cssWidth + ';height:' + cssHeight + ';" id="' + this.domId + '"></div>' );
+
+					// Iframe elements should be refreshed whenever it is shown.
+					myHtml = myHtml.join( '' );
+					dialog.on( 'show', function() {
+						var iframe = CKEDITOR.document.getById( _.frameId ),
+							parentContainer = iframe.getParent(),
+							callIndex = CKEDITOR.tools.addFunction( contentLoad ),
+							html = myHtml.replace( '%1', callIndex ).replace( '%2', CKEDITOR.tools.htmlEncode( elementDefinition.src ) );
+						parentContainer.setHtml( html );
+					} );
+				};
+
+			iframeElement.prototype = new CKEDITOR.ui.dialog.uiElement();
+
+			CKEDITOR.dialog.addUIElement( 'iframe', {
+				build: function( dialog, elementDefinition, output ) {
+					return new iframeElement( dialog, elementDefinition, output );
+				}
+			} );
+		} )();
+	}
+} );

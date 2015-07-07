@@ -1,6 +1,6 @@
 # PyroCMS Community Edition
 
-[![Build Status](https://travis-ci.org/pyrocms/pyrocms.png?branch=2.2/master)](https://travis-ci.org/pyrocms/pyrocms)
+[![Build Status](https://travis-ci.org/pyrocms/pyrocms.svg?branch=2.2/master)](https://travis-ci.org/pyrocms/pyrocms)
 
 * [Website](https://www.pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/documentation)
@@ -35,7 +35,12 @@ Run http://example.com/installer to run the web-based installation script.
 * [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
 * [Forum](http://forum.pyrocms.com)
 
-Before reporting bugs or requesting any features, please check that it does not already exist.
+## Security
+
+If you notice any sort of bug or issue relating to security, please report this to `security@pyrocms.com`. Posting an issue
+or writing an article containing this information could have serious effects on the PyroCMS community at large and is a
+wreckless thing to do. We will get a patch out within 24 hours and recommend the community upgrades, to help minimise the
+impact any security issue may have.
 
 ## Git Structure
 

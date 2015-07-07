@@ -11,7 +11,7 @@ class Migration_Add_page_chunk_class extends CI_Migration
 
 		// Add class field
 		$this->dbforge->add_column('page_chunks', array(
-			'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'after' => 'slug'),
+			'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'after' => 'slug', 'null' => true),
 		));
 
 		$chunks = $this->db->get('page_chunks')->result();
