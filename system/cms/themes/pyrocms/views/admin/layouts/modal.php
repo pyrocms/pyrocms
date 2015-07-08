@@ -9,7 +9,6 @@
 		
 		Asset::css('plugins.css'); 
 		Asset::css('workless/workless.css'); 
-		Asset::css('webdujour.css'); 
 		Asset::css('codemirror.css'); 
 		Asset::css('animate/animate.css'); 
 		Asset::css('admin/basic_layout.css'); 
