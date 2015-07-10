@@ -44,7 +44,7 @@
         "anomaly/integer-field_type": "1.0.*",
         "anomaly/editor-field_type": "~1.0",
         "anomaly/select-field_type": "1.0.*",
-        "anomaly/slider-field_type": "~1.0",
+        "anomaly/slider-field_type": "1.0.*",
         "anomaly/addon-field_type": "1.0.*",
         "anomaly/email-field_type": "1.0.*",
         "anomaly/state-field_type": "~1.0",
