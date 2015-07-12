@@ -49,7 +49,7 @@
         "anomaly/email-field_type": "1.0.*",
         "anomaly/state-field_type": "~1.0",
         "anomaly/files-field_type": "~1.0",
-        "anomaly/tags-field_type": "~1.0",
+        "anomaly/tags-field_type": "1.0.*",
         "anomaly/user-field_type": "~1.0",
         "anomaly/slug-field_type": "1.0.*",
         "anomaly/text-field_type": "~1.0",
