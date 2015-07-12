@@ -40,7 +40,7 @@
         "anomaly/boolean-field_type": "1.0.*",
         "anomaly/country-field_type": "1.0.*",
         "anomaly/decimal-field_type": "1.0.*",
-        "anomaly/markdown-field_type": "~1.0",
+        "anomaly/markdown-field_type": "1.0.*",
         "anomaly/integer-field_type": "1.0.*",
         "anomaly/editor-field_type": "1.0.*",
         "anomaly/select-field_type": "1.0.*",
