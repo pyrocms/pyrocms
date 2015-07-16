@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'icon' => 'public::icon.png'
+    'secondary' => '#f2364b',
+    'icon'      => 'public::icon.png'
 ];
