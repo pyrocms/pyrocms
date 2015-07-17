@@ -55,7 +55,7 @@
         "anomaly/text-field_type": "1.0.*",
         "anomaly/file-field_type": "1.0.*",
         "anomaly/url-field_type": "1.0.*",
-        "anomaly/configuration-module": "~1.0",
+        "anomaly/configuration-module": "1.0.*",
         "anomaly/preferences-module": "~1.0",
         "anomaly/appearance-module": "~1.0",
         "anomaly/navigation-module": "~1.0",
