@@ -19,7 +19,7 @@
         "anomaly/streams-platform": "dev-1.0/develop"
     },
     "require-dev": {
-        "anomaly/default_authenticator-extension": "~1.0",
+        "anomaly/default_authenticator-extension": "1.0.*",
         "anomaly/activation_security_check-extension": "1.0.*",
         "anomaly/suspension_security_check-extension": "1.0.*",
         "anomaly/throttle_security_check-extension": "1.0.*",
