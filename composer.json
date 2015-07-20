@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "anomaly/default_authenticator-extension": "~1.0",
-        "anomaly/activation_security_check-extension": "~1.0",
+        "anomaly/activation_security_check-extension": "1.0.*",
         "anomaly/suspension_security_check-extension": "1.0.*",
         "anomaly/local_storage_adapter-extension": "~1.0",
         "anomaly/recent_news_widget-extension": "1.0.*",
