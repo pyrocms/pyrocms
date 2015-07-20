@@ -75,6 +75,16 @@ class Events_Search
     	// Get the page (with the chunks)
     	$page = $this->ci->page_m->get($id);
 
+		$content = '';
+		foreach($page as $key => $value) {
+			if($this->is_html($value)) {
+				$content .= $value;
+			}
+		}
+
+		// remove lex tags
+		$content = preg_replace('|{{.*}}|', '', $content);
+
     	// Only index live articles
     	if ($page->status === 'live')
     	{
@@ -85,7 +95,7 @@ class Events_Search
     			$id,
     			$page->uri,
     			$page->title,
-    			$page->meta_description ? $page->meta_description : null, 
+    			$content ? $content : (($page->meta_description) ? $page->meta_description : null), 
     			array(
     				'cp_edit_uri' 	=> 'admin/pages/edit/'.$id,
     				'cp_delete_uri' => 'admin/pages/delete/'.$id,
@@ -98,6 +108,11 @@ class Events_Search
     	{
     		$this->ci->search_index_m->drop_index('pages', 'pages:page', $id);
     	}
+	}
+
+	private function is_html($string)
+	{
+		return preg_match("/<[^<]+>/",$string,$m) != 0;
 	}
 
     public function drop_page($ids)
