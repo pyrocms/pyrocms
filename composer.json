@@ -27,7 +27,7 @@
         "anomaly/recent_news_widget-extension": "1.0.*",
         "anomaly/page_link_type-extension": "1.0.*",
         "anomaly/url_link_type-extension": "1.0.*",
-        "anomaly/streams-composer-plugin": "~0.1",
+        "anomaly/streams-composer-plugin": "1.0.*",
         "anomaly/relationship-field_type": "1.0.*",
         "anomaly/colorpicker-field_type": "1.0.*",
         "anomaly/polymorphic-field_type": "1.0.*",
