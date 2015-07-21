@@ -16,9 +16,7 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "dev-1.0/develop"
-    },
-    "require-dev": {
+        "anomaly/streams-platform": "dev-1.0/develop",
         "anomaly/default_authenticator-extension": "1.0.*",
         "anomaly/activation_security_check-extension": "1.0.*",
         "anomaly/suspension_security_check-extension": "1.0.*",
@@ -75,7 +73,9 @@
         "anomaly/request-plugin": "1.0.*",
         "anomaly/helper-plugin": "1.0.*",
         "anomaly/anomaly-theme": "~1.0",
-        "anomaly/landed-theme": "~1.0",
+        "anomaly/landed-theme": "~1.0"
+    },
+    "require-dev": {
         "phpunit/phpunit": "~4.4"
     },
     "autoload": {
