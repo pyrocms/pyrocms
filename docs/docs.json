@@ -1,0 +1,9 @@
+{
+    "getting-started": {
+        "title": "Getting Started",
+        "pages": {
+            "installation": "Installation",
+            "configuration": "Configuration"
+        }
+    }
+}
