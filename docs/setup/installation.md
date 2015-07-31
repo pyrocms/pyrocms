@@ -1,6 +1,14 @@
 # Installation
 
 - [Installation](#installation)
+- [Configuration](#configuration)
+    - [Basic Configuration](#basic-configuration)
+    - [Overriding Configuration](#overriding-configuration)
+    - [Environment Configuration](#environment-configuration)
+    - [Configuration Caching](#configuration-caching)
+    - [Accessing Configuration Values](#accessing-configuration-values)
+    - [Naming Your Application](#naming-your-application)
+- [Maintenance Mode](#maintenance-mode)
 
 
 <a name="installation"></a>
@@ -38,11 +46,12 @@ You may install PyroCMS by issuing the Composer `create-project` command in your
 
 All of the configuration files for PyroCMS and the Laravel framework are stored in the `config` directory. Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
+<a name="overriding-configuration"></a>
 ### Overriding Configuration
 
 You can specify configuration values for the Streams Platform by overriding configuration values in `config/streams`. For example, if you would like to override the `streams::assets.paths` value you would add your own `assets.php` configuration file like so:
 
-	`config/streams/assets.php`
+	config/streams/assets.php
 
 Within the file you can define your own `paths` value:
 
