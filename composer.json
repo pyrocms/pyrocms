@@ -96,8 +96,10 @@
             "php artisan clear-compiled",
             "php artisan optimize"
         ],
+        "pre-update-cmd": [
+            "php artisan clear-compiled"
+        ],
         "post-update-cmd": [
-            "php artisan clear-compiled",
             "php artisan optimize"
         ],
         "post-create-project-cmd": [
@@ -110,8 +112,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-3.0/develop": "3.0.x-dev"
+            "dev-3.0/master": "3.0.x-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
