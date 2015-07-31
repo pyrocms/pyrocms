@@ -1,6 +1,8 @@
 # Installation
 
 - [Installation](#installation)
+    - [Installing PyroCMS](#installing-pyrocms)
+    - [Running The Installer](#installer)
 - [Configuration](#configuration)
     - [Basic Configuration](#basic-configuration)
     - [Overriding Configuration](#overriding-configuration)
@@ -38,6 +40,11 @@ You may install PyroCMS by issuing the Composer `create-project` command in your
 
     composer create-project pyrocms/pyrocms=3.0-beta1 --prefer-dist
 
+<a name="installer"></a>
+### Running The Installer
+
+After downloading and installing PyroCMS and it's dependencies, you still need to install the software in order to get started. By this time you should be able to visit your site's URL which will cause you to be redirected to the installer. **When accessing the installer for the first time it will take longer than normal. This is due to the theme assets compiling and caching for the first time.**
+
 <a name="configuration"></a>
 ## Configuration
 
@@ -63,7 +70,7 @@ Within the file you can define your own `paths` value:
 	    ]
 	];
 
-You can view available configuration for Streams Platform in `vendor/anomaly/streams-platform/resources/config`. Simply mirror files / values in the override directory and you are set!
+Simply mirror files / values found in Streams Platform or add your own.
 
 Similarly, you can override addon configuration in `config/addon/example-module`.
 
@@ -119,7 +126,7 @@ Of course, when using [Homestead](/docs/{{version}}/homestead), pretty URLs will
 
 It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver locally than you do on your production server. It's easy using environment based configuration.
 
-To make this a cinch, PyroCMS utilizes the [DotEnv](https://github.com/vlucas/phpdotenv) PHP library by Vance Lucas as provided by Laravel. After completing installation via the CLI installer or GUI installer a default `.env` file will be generated for you.
+To make this a cinch,PyroCMS utilizes the [DotEnv](https://github.com/vlucas/phpdotenv) PHP library by Vance Lucas provided by Laravel. After completing installation via the CLI installer or GUI installer a default `.env` file will be generated for you.
 
 All of the variables listed in this file will be loaded into the `$_ENV` PHP super-global when your application receives a request. You may use the `env` helper to retrieve values from these variables. In fact, if you review the configuration files, you will notice several of the options already using this helper!
 
