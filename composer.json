@@ -1,7 +1,7 @@
 {
     "name": "pyrocms/pyrocms",
-    "type": "streams-distribution",
     "description": "PyroCMS is a powerful, easy to use CMS built for everyone.",
+    "type": "project",
     "keywords": [
         "pyrocms",
         "cms",
@@ -86,11 +86,11 @@
             "App\\": "app/"
         }
     },
-	"autoload-dev": {
-		"classmap": [
-			"tests/TestCase.php"
-		]
-	},
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
@@ -107,7 +107,7 @@
         ]
     },
     "config": {
-        "preferred-install": "source",
+        "preferred-install": "dist",
         "bin-dir": "bin"
     },
     "extra": {
