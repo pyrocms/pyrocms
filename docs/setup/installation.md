@@ -63,7 +63,7 @@ Within the file you can define your own `paths` value:
 	    ]
 	];
 
-Simply mirror files / values found in Streams Platform or add your own.
+You can view available configuration for Streams Platform in `vendor/anomaly/streams-platform/resources/config`. Simply mirror files / values in the override directory and you are set!
 
 Similarly, you can override addon configuration in `config/addon/example-module`.
 
