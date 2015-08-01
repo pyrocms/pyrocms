@@ -3,5 +3,5 @@
 return [
     'name'        => 'PyroCMS',
     'description' => 'The CMS built for everyone.',
-    'version'     => 'PyroCMS V3.0'
+    'version'     => 'PyroCMS v3.0-Beta1'
 ];
