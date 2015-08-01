@@ -110,5 +110,7 @@
         "branch-alias": {
             "dev-3.0/master": "3.0.x-dev"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
