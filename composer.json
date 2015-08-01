@@ -101,9 +101,6 @@
         ],
         "post-update-cmd": [
             "php artisan optimize"
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
         ]
     },
     "config": {
