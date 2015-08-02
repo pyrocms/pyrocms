@@ -29,7 +29,7 @@ PyroCMS has a few system requirements:
 - GD Library (>=2.0) **OR** Imagick PHP extension (>=6.5.7)
 
 
-<a name="install-pyrocms"></a>
+<a name="installing-pyrocms"></a>
 ### Installing PyroCMS
 
 PyroCMS utilizes [Composer](http://getcomposer.org) to manage its dependencies. So, before using PyroCMS, make sure you have Composer installed on your machine.
