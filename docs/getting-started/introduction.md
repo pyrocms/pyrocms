@@ -4,13 +4,13 @@
 
 If you've never used PyroCMS before, this doc will get you up to speed with the basics of PyroCMS and it's history.
 
-- [Basics](#basics)
+- [About](#about)
 - [History](#history)
 - [Philosophy](#philosophy)
 
 
-<a name="basics"></a>
-## Basics
+<a name="about"></a>
+## PyroCMS is...
 
 **Modern:** PyroCMS is built on the modern and incredibly popular [Laravel 5](http://laravel.com) framework.
 
