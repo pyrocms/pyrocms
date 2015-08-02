@@ -12,7 +12,7 @@ If you've never used PyroCMS before, this doc will get you up to speed with the 
 <a name="basics"></a>
 ## Basics
 
-PyroCMS is a modern CMS built with [Laravel 5.1](http://laravel.com) and uses the [Streams Platform](http://streamsplatform.com) for it's core.
+PyroCMS is a modern CMS built with [Laravel 5.1](http://laravel.com) and uses the Streams Platform for it's core.
 
 **Modern:** PyroCMS is built on the modern and incredibly popular [Laravel 5](http://laravel.com) framework.
 
