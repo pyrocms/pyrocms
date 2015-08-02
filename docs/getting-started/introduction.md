@@ -12,15 +12,16 @@ If you've never used PyroCMS before, this doc will get you up to speed with the 
 <a name="about"></a>
 ## PyroCMS is...
 
-**Modern:** PyroCMS is built on the modern and incredibly popular [Laravel 5](http://laravel.com) framework.
+**For everyone:** PyroCMS is engineered to be simple to use for developers, designers and users alike.
+
+**Easy to build:** PyroCMS is extremely easy and *fast* for developers to build powerful products .
+
+**Modern:** PyroCMS is built on the modern and incredibly popular [Laravel](http://laravel.com) framework.
 
 **Transparent:** PyroCMS does not interfere with Laravel's normal behavior but only supplements it.
 
-**Mature:** Though Version 3 is a 100% rewrite, we have been in the CMS business since 2009.
-
-**For everyone:** PyroCMS is engineered to be simple to use for developers, designers and users alike.
-
 **Modular:** PyroCMS is composed of a common core and powerful addons. That's it.
+**Mature:** Though Version 3 is a 100% rewrite, we have been in the CMS business since 2009.
 
 **Standard:** PyroCMS adheres to PSR-1 and PSR-2 style guides and is entirely PSR-0/4 autoloaded.
 
