@@ -1,4 +1,6 @@
-# PyroCMS <small>PyroCMS is a modern CMS built on Laravel 5 using the Streams Platform.</small>
+# Introduction
+
+### PyroCMS is a modern CMS built on Laravel 5 using the Streams Platform.
 
 If you've never used PyroCMS before, this doc will get you up to speed with the basics of PyroCMS and it's history.
 
