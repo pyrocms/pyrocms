@@ -1,8 +1,7 @@
 {
-    "getting-started": {
-        "title": "Getting Started",
+    "setup": {
+        "title": "Setup",
         "pages": {
-            "introduction": "Introduction",
             "installation": "Installation"
         }
     }
