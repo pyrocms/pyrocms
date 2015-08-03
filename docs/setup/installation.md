@@ -2,6 +2,7 @@
 
 - [Installation](#installation)
     - [Installing PyroCMS](#installing-pyrocms)
+    - [Directory Permissions](#directory-permissions)
     - [Running The Installer](#installer)
 - [Configuration](#configuration)
     - [Basic Configuration](#basic-configuration)
@@ -39,6 +40,13 @@ PyroCMS utilizes [Composer](http://getcomposer.org) to manage its dependencies. 
 You may install PyroCMS by issuing the Composer `create-project` command in your terminal:
 
     composer create-project pyrocms/pyrocms=3.0-beta1 --prefer-dist
+
+<a name="directory-permissions"></a>
+### Directory Permissions
+
+After installing, you may need to configure some permissions in order to proceed. Directories within the `storage`, `public/assets`, and the `bootstrap/cache` directories should be writable by your web server. If you are using the [Homestead](http://laravel.com/docs/5.1/homestead) virtual machine, these permissions should already be set.
+
+**If, when trying to access the installer below, you get a white screen. Your permissions are misconfigured.**
 
 <a name="installer"></a>
 ### Running The Installer
