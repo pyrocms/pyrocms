@@ -71,7 +71,7 @@ class Navigation_m extends MY_Model
         	'uri' 					=> isset($input['uri']) ? $input['uri'] : '',
         	'module_name' 			=> isset($input['module_name']) ? $input['module_name'] : '',
         	'page_id' 				=> (int) $input['page_id'],
-			'custom'				=> $input['custom'],
+			'custom'				=> isset($input['custom']) ? $input['custom'] : '',
         	'position' 				=> $position,
 			'target'				=> isset($input['target']) ? $input['target'] : '',
 			'class'					=> isset($input['class']) ? $input['class'] : '',
