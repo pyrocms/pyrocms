@@ -1,0 +1,180 @@
+<!doctype html>
+
+<!--[if lt IE 7]>
+<html class="nojs ms lt_ie7" lang="en"><![endif]-->
+<!--[if IE 7]>
+<html class="nojs ms ie7" lang="en"><![endif]-->
+<!--[if IE 8]>
+<html class="nojs ms ie8" lang="en"><![endif]-->
+<!--[if gt IE 8]>
+<html class="nojs ms" lang="en"><![endif]-->
+
+<html>
+
+<head>
+    <!-- Meta -->
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="csrf-token" content="vTkUGhz43rAW3vbX1s1wi4XwBxJDLP6lXcCw88ph"/>
+
+<title>PyroCMS &#8250; Testing!!</title>
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://workbench.local:8888/assets/default/cache/33d4dc63a31cc1096ce908264239ec81.png">
+<link rel="shortcut icon" type="image/x-icon" href="http://workbench.local:8888/assets/default/cache/33d4dc63a31cc1096ce908264239ec81.png">
+<link rel="apple-touch-icon" href="http://workbench.local:8888/assets/default/cache/33d4dc63a31cc1096ce908264239ec81.png"/>
+
+
+
+
+
+
+
+
+
+<link media="all" type="text/css" rel="stylesheet" href="http://workbench.local:8888/assets/default/cache/166afb26c87883b7f502a4b6dcec054f.css">
+
+
+    <link media="all" type="text/css" rel="stylesheet" href="http://workbench.local:8888/assets/default/cache/84a351fafd7897a6e6c8117051101fde.css">
+
+    <link media="all" type="text/css" rel="stylesheet" href="http://workbench.local:8888/assets/default/cache/e70f4209687da2b32b1c0176dd110b23.css">
+
+
+<script type="text/javascript">
+
+    var APPLICATION_URL = "http://workbench.local:8888";
+    var APPLICATION_REFERENCE = "default";
+    var APPLICATION_DOMAIN = "workbench.local:8888";
+
+    var CSRF_TOKEN = "vTkUGhz43rAW3vbX1s1wi4XwBxJDLP6lXcCw88ph";
+    var APP_DEBUG = "1";
+    var APP_URL = "http://localhost";
+    var TIMEZONE = "UTC";
+    var LOCALE = "en";
+
+</script>
+
+</head>
+
+<body>
+
+<header id="header">
+
+    <nav class="navbar navbar-site">
+        <div class="container">
+                
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://workbench.local:8888">
+                    <img src="http://workbench.local:8888/assets/default/cache/807d918ebc9c91727021cfef4075fdaa.png">
+                    PyroCMS
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                
+<ul class="nav navbar-nav navbar-right">
+                <li class="
+            
+            current
+            active
+            
+            
+            ">
+            <a href="http://workbench.local:8888/posts" target="_self">
+                Posts
+            </a>
+
+                    </li>
+    
+</ul>
+
+            </div>
+            
+        </div>
+    </nav>
+
+</header>
+<div class="container">
+
+    <!-- Success Messages -->
+    
+    <!-- Informational Messages -->
+    
+    <!-- Warning Messages -->
+    
+    <!-- Error Messages -->
+    
+</div>
+
+    <div id="posts">
+        <article id="post">
+
+            <div class="jumbotron jumbotron-red text-center">
+                <header class="container">
+                    <h1>Testing!!</h1>
+                </header>
+            </div>
+
+            <div class="meta container text-center">
+
+                <div class="author">
+
+                    <img src="https://gravatar.com/avatar/8cfe7cec2f83c1f1bc33d820fc6f7435" class="img-rounded">
+
+                    <div class="name">
+                        <strong>Administrator</strong>
+                    </div>
+
+                </div>
+
+                <time class="date text-muted" datetime="2015-08-09T08:20:00+00:00">
+                    9 August, 2015
+                </time>
+
+                
+                                    <span class="tags">
+                            
+                        </span>
+                
+            </div>
+
+            <div class="content container">
+                <h1>Testing!! - </h1>
+            </div>
+
+        </article>
+    </div>
+
+<footer id="footer">
+
+    <div class="container">
+        <div class="text-center">
+
+            <h3>&copy; 2015 PyroCMS, Inc.</h3>
+
+                    </div>
+    </div>
+
+</footer>
+<script src="http://workbench.local:8888/assets/default/cache/9951e13456a1dcf579f4f5532457f261.js"></script>
+
+
+    <script src="http://workbench.local:8888/assets/default/cache/aa3bafccba3531e56620cb94ef5f4f52.js"></script>
+
+    <script src="http://workbench.local:8888/assets/default/cache/74337da2d5eaa2b788cfe25f4281a8a3.js"></script>
+
+
+</body>
+</html>
