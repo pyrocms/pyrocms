@@ -40,8 +40,8 @@ if(!function_exists('slugify'))
 	{	
 		$string = trim($string);
 		$string = strtolower($string);
-		$string = preg_replace('/[\s-]+/', $separator, $string);
-		$string = preg_replace("/[^0-9a-zA-Z-]/", '', $string);
+		$string = preg_replace('/[\s\-]+/', $separator, $string);
+		$string = preg_replace("/[^0-9a-zA-Z\-]/", '', $string);
 		
 		return $string;
 	}
