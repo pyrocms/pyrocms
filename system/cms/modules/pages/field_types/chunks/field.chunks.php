@@ -138,8 +138,8 @@ class Field_chunks
 			foreach ($chunks as $chunk)
 			{
 				$this->CI->page_chunk_m->insert(array(
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug),
-					'class' 	=> preg_replace('/[^a-zA-Z0-9-_\s]/', '', $chunk->class),
+					'slug' 		=> preg_replace('/[^a-zA-Z0-9_\-]/', '', $chunk->slug),
+					'class' 	=> preg_replace('/[^a-zA-Z0-9\-_\s]/', '', $chunk->class),
 					'page_id' 	=> ci()->page_id,
 					'body' 		=> $chunk->body,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',

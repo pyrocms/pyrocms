@@ -49,8 +49,8 @@ class Page_chunk_m extends MY_Model
 			foreach ($page->chunks as $chunk)
 			{
 				$this->insert(array(
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug),
-					'class' 	=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->class),
+					'slug' 		=> preg_replace('/[^a-zA-Z0-9_\-]/', '', $chunk->slug),
+					'class' 	=> preg_replace('/[^a-zA-Z0-9_\-\s]/', '', $chunk->class),
 					'page_id' 	=> $input['page_id'],
 					'body' 		=> $chunk->body,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
