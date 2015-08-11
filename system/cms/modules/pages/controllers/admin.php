@@ -242,6 +242,15 @@ class Admin extends Admin_Controller {
 		$page['navigation_group_id'] = 0;
 		$page['is_home'] = false;
 
+		if($page['meta_keywords'] != '')
+		{
+			// get the keywords and line them up input style - comma separated
+			$this->load->model('keywords/keyword_m');
+			$page['meta_keywords'] = implode(',', array_map(function($keyword) {
+				return $keyword->name;
+			}, $this->keyword_m->get_applied($page['meta_keywords'])));
+		}
+
 		$new_page = $this->page_m->create($page, $stream);
 
 		foreach ($children as $child)
