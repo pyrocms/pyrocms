@@ -309,9 +309,7 @@ class Admin extends Admin_Controller
 		$stream = $this->streams->streams->get_stream('blog', 'blogs');
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
 
-		// Get the validation for our custom blog fields.
-		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
-		
+		// Set up validation rules for slug and title
 		$blog_validation = array_merge($this->validation_rules, array(
 			'title' => array(
 				'field' => 'title',
@@ -324,6 +322,12 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
 			),
 		));
+
+		// Get and merge the validation for our custom blog fields.
+		$blog_validation = array_merge(
+			$blog_validation,
+			$this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new')
+		);
 
 		// Merge and set our validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
