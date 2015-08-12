@@ -41,7 +41,7 @@ You may install PyroCMS by issuing the Composer `create-project` command in your
 
     composer create-project pyrocms/pyrocms=3.0-beta1 --prefer-dist
 
-If you are using a Window development environment, you might run into issues with the length of some paths when unzipping packages. To avoid this use the `--prefer-source` flag instead.
+If you are using a Windows environment, you might run into issues with the length of paths when unzipping packages. To avoid this issue, use the `--prefer-source` flag instead.
 
 <a name="directory-permissions"></a>
 ### Directory Permissions
