@@ -129,12 +129,12 @@ class Plugin_Integration extends Plugin
 			try
 			{
 				$this->load->library('analytics', array(
-					'username' => Settings::get('ga_email'),
-					'password' => Settings::get('ga_password')
+					'email' => Settings::get('ga_email'),
+					'key_file' => Settings::get('ga_password')
 				));
 
 				// Set by GA Profile ID if provided, else try and use the current domain
-				$this->analytics->setProfileById('ga:' . Settings::get('ga_profile'));
+				$this->analytics->setProfileById(Settings::get('ga_profile'));
 
 				$this->analytics->setDateRange($start, $end);
 
