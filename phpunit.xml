@@ -11,10 +11,28 @@
          syntaxCheck="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+        <testsuite name="Streams Test Suite">
+            <directory suffix="Test.php">./vendor/anomaly/streams-platform/</directory>
+        </testsuite>
+        <testsuite name="Core Test Suite">
+            <directory suffix="Test.php">./core/</directory>
+        </testsuite>
+        <testsuite name="Addons Test Suite">
+            <directory suffix="Test.php">./addons/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">app/</directory>
+        </whitelist>
+    </filter>
     <php>
+        <server name="HTTP_HOST" value="http://localhost"/>
         <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
     </php>
 </phpunit>
