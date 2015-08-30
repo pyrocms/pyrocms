@@ -29,7 +29,7 @@ return [
     */
 
     'providers' => [
-        //
+        'Anomaly\Streams\Platform\StreamsCompilerProvider'
     ],
 
 ];
