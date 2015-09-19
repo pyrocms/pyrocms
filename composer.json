@@ -64,7 +64,7 @@
         "anomaly/appearance-module": "~1.0",
         "anomaly/navigation-module": "~1.0",
         "anomaly/dashboard-module": "~1.0",
-        "anomaly/redirects-module": "~1.0",
+        "anomaly/redirects-module": "~1.1",
         "anomaly/installer-module": "~1.0",
         "anomaly/settings-module": "~1.1",
         "anomaly/partials-module": "~1.0",
