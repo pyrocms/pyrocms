@@ -72,7 +72,7 @@
         "anomaly/addons-module": "~1.0",
         "anomaly/blocks-module": "~1.0",
         "anomaly/users-module": "~1.0",
-        "anomaly/pages-module": "~1.0",
+        "anomaly/pages-module": "~1.1",
         "anomaly/posts-module": "~1.0",
         "anomaly/files-module": "~1.0",
         "anomaly/contact-plugin": "~1.0",
