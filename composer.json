@@ -23,7 +23,7 @@
         "anomaly/throttle_security_check-extension": "~1.0",
         "anomaly/local_storage_adapter-extension": "~1.0",
         "anomaly/post_categories_block-extension": "~1.0",
-        "anomaly/default_page_handler-extension": "~1.0",
+        "anomaly/default_page_handler-extension": "~1.1",
         "anomaly/featured_posts_block-extension": "~1.0",
         "anomaly/recent_posts_block-extension": "~1.0",
         "anomaly/recent_news_widget-extension": "~1.0",
