@@ -69,7 +69,7 @@
         "anomaly/settings-module": "~1.1",
         "anomaly/partials-module": "~1.0",
         "anomaly/search-module": "~1.0",
-        "anomaly/addons-module": "~1.0",
+        "anomaly/addons-module": "~1.1",
         "anomaly/blocks-module": "~1.0",
         "anomaly/users-module": "~1.0",
         "anomaly/pages-module": "~1.1",
