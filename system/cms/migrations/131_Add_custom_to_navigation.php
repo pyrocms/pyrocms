@@ -3,7 +3,7 @@
 /**
  * Migration 131: Add custom to navigation
  *
- * This will allow us to set use larger option strings
+ * Add the custom column to navigation
  * 
  * Added October 20th, 2015
  */
