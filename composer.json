@@ -32,7 +32,7 @@
         "anomaly/demo_block-extension": "~1.0",
         "anomaly/streams-composer-plugin": "~1.0",
         "anomaly/relationship-field_type": "~1.1",
-        "anomaly/colorpicker-field_type": "~1.0",
+        "anomaly/colorpicker-field_type": "~1.1",
         "anomaly/polymorphic-field_type": "~1.0",
         "anomaly/checkboxes-field_type": "~1.0",
         "anomaly/encrypted-field_type": "~1.0",
