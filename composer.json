@@ -34,7 +34,7 @@
         "anomaly/relationship-field_type": "~1.1",
         "anomaly/colorpicker-field_type": "~1.1",
         "anomaly/polymorphic-field_type": "~1.0",
-        "anomaly/checkboxes-field_type": "~1.0",
+        "anomaly/checkboxes-field_type": "~1.1",
         "anomaly/encrypted-field_type": "~1.0",
         "anomaly/datetime-field_type": "~1.0",
         "anomaly/language-field_type": "~1.0",
