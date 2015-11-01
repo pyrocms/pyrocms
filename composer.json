@@ -56,7 +56,7 @@
         "anomaly/url-field_type": "~1.1",
         "anomaly/configuration-module": "~1.1",
         "anomaly/preferences-module": "~1.1",
-        "anomaly/appearance-module": "~1.0",
+        "anomaly/appearance-module": "~1.1",
         "anomaly/navigation-module": "~1.1",
         "anomaly/dashboard-module": "~1.0",
         "anomaly/redirects-module": "~1.1",
