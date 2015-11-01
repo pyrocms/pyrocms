@@ -17,7 +17,7 @@
     ],
     "require": {
         "anomaly/streams-platform": "dev-1.0/develop",
-        "anomaly/default_authenticator-extension": "~1.0",
+        "anomaly/default_authenticator-extension": "~1.1",
         "anomaly/user_security_check-extension": "~1.1",
         "anomaly/throttle_security_check-extension": "~1.1",
         "anomaly/local_storage_adapter-extension": "~1.0",
