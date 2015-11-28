@@ -25,7 +25,7 @@
         "anomaly/xml_feed_widget-extension": "~1.1",
         "anomaly/page_link_type-extension": "~1.1",
         "anomaly/url_link_type-extension": "~1.1",
-        "anomaly/streams-composer-plugin": "~1.0",
+        "anomaly/streams-composer-plugin": "~1.1",
         "anomaly/relationship-field_type": "~1.1",
         "anomaly/colorpicker-field_type": "~1.1",
         "anomaly/polymorphic-field_type": "~1.0",
