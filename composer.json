@@ -47,7 +47,7 @@
         "anomaly/addon-field_type": "~1.1",
         "anomaly/email-field_type": "~1.1",
         "anomaly/state-field_type": "~1.1",
-        "anomaly/files-field_type": "~1.0",
+        "anomaly/files-field_type": "~1.1",
         "anomaly/tags-field_type": "~1.1",
         "anomaly/user-field_type": "~1.1",
         "anomaly/slug-field_type": "~1.1",
