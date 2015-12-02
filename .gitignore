@@ -1,5 +1,4 @@
 .env
-/composer.lock
 /bin
 /core
 /build
