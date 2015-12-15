@@ -15,7 +15,29 @@
             "email": "hello@anomaly.is"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/payments-module"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/stripe_gateway-extension"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/paypal_gateway-extension"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/paypal_express_gateway-extension"
+        }
+    ],
     "require": {
+        "anomaly/payments-module": "master",
+        "anomaly/stripe_gateway-extension": "master",
+        "anomaly/paypal_gateway-extension": "master",
+        "anomaly/paypal_express_gateway-extension": "master",
         "anomaly/streams-platform": "dev-1.0/develop",
         "anomaly/default_authenticator-extension": "~1.1",
         "anomaly/user_security_check-extension": "~1.1",
