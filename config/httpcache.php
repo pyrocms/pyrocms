@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'enabled'   => !env('APP_DEBUG', true),
+    'enabled'   => env('HTTP_CACHE', !env('APP_DEBUG', true)),
     'esi'       => false,
     'cache_dir' => storage_path('httpcache'),
 
@@ -28,7 +28,7 @@ return [
      */
 
     'options' => [
-        'debug'                  => env('APP_DEBUG', true),
+        'debug'                  => env('APP_DEBUG', false),
         'default_ttl'            => 0,
         'private_headers'        => ['Authorization', 'Cookie'],
         'allow_reload'           => true,
