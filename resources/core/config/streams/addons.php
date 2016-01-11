@@ -14,8 +14,6 @@ return [
 
     'eager' => [
         'core/anomaly/redirects-module'
-    ],
-    'deferred' => [
-        'core/anomaly/addons-module'
     ]
+
 ];
