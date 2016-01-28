@@ -10,24 +10,24 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests/</directory>
-        </testsuite>
         <testsuite name="Streams Test Suite">
             <directory suffix="Test.php">./vendor/anomaly/streams-platform/</directory>
-        </testsuite>
-        <testsuite name="Core Test Suite">
-            <directory suffix="Test.php">./core/</directory>
-        </testsuite>
-        <testsuite name="Addons Test Suite">
-            <directory suffix="Test.php">./addons/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">app/</directory>
+            <directory suffix=".php">./vendor/anomaly/streams-platform/src/</directory>
+            <exclude>
+                <directory suffix=".php">./app/</directory>
+            </exclude>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="./coverage" charset="UTF-8"
+             yui="true" highlight="true"
+             lowUpperBound="50" highLowerBound="80"/>
+        <log type="testdox-html" target=".coverage/log.html"/>
+    </logging>
     <php>
         <server name="HTTP_HOST" value="http://localhost"/>
         <env name="APP_ENV" value="testing"/>
