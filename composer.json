@@ -100,7 +100,7 @@
     },
     "config": {
         "bin-dir": "bin",
-        "preferred-install": "dist"
+        "preferred-install": "source"
     },
     "extra": {
         "branch-alias": {
