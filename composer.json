@@ -62,7 +62,6 @@
         "anomaly/installer-module": "~1.1",
         "anomaly/variables-module": "~1.1",
         "anomaly/settings-module": "~1.1",
-        "anomaly/partials-module": "~1.1",
         "anomaly/search-module": "~1.1",
         "anomaly/addons-module": "~1.1",
         "anomaly/users-module": "~1.1",
