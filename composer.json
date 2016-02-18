@@ -49,7 +49,6 @@
         "anomaly/state-field_type": "~1.1",
         "anomaly/files-field_type": "~1.1",
         "anomaly/tags-field_type": "~1.1",
-        "anomaly/user-field_type": "~1.1",
         "anomaly/slug-field_type": "~1.1",
         "anomaly/text-field_type": "~1.1",
         "anomaly/file-field_type": "~1.1",
@@ -71,8 +70,8 @@
         "anomaly/contact-plugin": "~1.0",
         "anomaly/request-plugin": "~1.1",
         "anomaly/helper-plugin": "~1.1",
-        "anomaly/anomaly-theme": "~1.0",
-        "anomaly/starter-theme": "~1.0"
+        "anomaly/starter-theme": "~1.0",
+        "pyrocms/pyrocms-theme": "master"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4"
