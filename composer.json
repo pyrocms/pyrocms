@@ -107,6 +107,6 @@
             "dev-3.0/develop": "3.0.x-dev"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "dist",
     "prefer-stable": true
 }
