@@ -100,13 +100,12 @@
     },
     "config": {
         "bin-dir": "bin",
-        "preferred-install": "source"
+        "preferred-install": "dist"
     },
     "extra": {
         "branch-alias": {
             "dev-3.0/develop": "3.0.x-dev"
         }
     },
-    "minimum-stability": "dist",
     "prefer-stable": true
 }
