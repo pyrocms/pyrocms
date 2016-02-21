@@ -70,7 +70,7 @@
         "anomaly/contact-plugin": "~1.0",
         "anomaly/request-plugin": "~2.0",
         "anomaly/helper-plugin": "~2.0",
-        "anomaly/starter-theme": "~2.0",
+        "pyrocms/starter-theme": "master",
         "pyrocms/pyrocms-theme": "master"
     },
     "require-dev": {
