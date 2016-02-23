@@ -11,8 +11,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "AnomalyLabs",
-            "email": "hello@anomaly.is"
+            "name": "PyroCMS, Inc.",
+            "email": "support@pyrocms.com"
+        },
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@pyrocms.com"
         }
     ],
     "require": {
