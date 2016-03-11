@@ -1,0 +1,6 @@
+*
+!.gitignore
+!.htaccess
+!index.php
+!robots.txt
+!packages/
