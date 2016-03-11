@@ -30,6 +30,7 @@
         "anomaly/xml_feed_widget-extension": "~2.0",
         "anomaly/page_link_type-extension": "~2.0",
         "anomaly/url_link_type-extension": "~2.0",
+        "anomaly/sitemap-extension": "~1.0",
         "anomaly/relationship-field_type": "~2.0",
         "anomaly/colorpicker-field_type": "~2.0",
         "anomaly/polymorphic-field_type": "~2.0",
