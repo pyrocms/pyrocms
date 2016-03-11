@@ -13,7 +13,8 @@ return [
     */
 
     'eager' => [
-        'core/anomaly/redirects-module'
+        'core/anomaly/redirects-module',
+        'core/anomaly/sitemap-extension'
     ],
 
     /*
