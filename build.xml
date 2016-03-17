@@ -25,11 +25,8 @@
             <fileset dir="./">
                 <include name="**"/>
                 <exclude name=".git/"/>
-                <exclude name="config/distribution.php"/>
             </fileset>
         </copy>
-        <chmod file="./build/storage" mode="0775" />
-        <chmod file="./build/public/assets" mode="0775" />
     </target>
 
     <!-- ============================================  -->
