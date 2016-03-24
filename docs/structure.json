@@ -1,1 +1,12 @@
-{}
+{
+    "setup": {
+        "title": {
+            "en": "Setup"
+        },
+        "documentation": {
+            "installation": {
+                "en": "Installation"
+            }
+        }
+    }
+}
