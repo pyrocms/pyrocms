@@ -1,12 +1,12 @@
 {
     "setup": {
-        "title": {
+        "title": [
             "en": "Setup"
-        },
-        "documentation": {
-            "installation": {
+        ],
+        "documentation": [
+            "installation": [
                 "en": "Installation"
-            }
-        }
+            ]
+        ]
     }
 }
