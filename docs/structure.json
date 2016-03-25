@@ -6,8 +6,10 @@
         },
         "documentation": {
             "installation": {
-                "en": "Installation",
-                "fr": "Installation (FR)"
+                "title": {
+                    "en": "Installation",
+                    "fr": "Installation (FR)"
+                }
             }
         }
     }
