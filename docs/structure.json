@@ -1,11 +1,13 @@
 {
     "setup": {
         "title": {
-            "en": "Setup"
+            "en": "Setup",
+            "fr": "Setup (FR)"
         },
         "documentation": {
             "installation": {
-                "en": "Installation"
+                "en": "Installation",
+                "fr": "Installation (FR)"
             }
         }
     }
