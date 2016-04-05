@@ -1,16 +1,4 @@
 {
-    "setup": {
-        "title": {
-            "en": "Setup"
-        },
-        "pages": {
-            "installation": {
-                "title": {
-                    "en": "Installation"
-                }
-            }
-        }
-    },
     "prologue": {
         "title": {
             "en": "Prologue"
@@ -19,6 +7,18 @@
             "contributing": {
                 "title": {
                     "en": "Contributing"
+                }
+            }
+        }
+    },
+    "setup": {
+        "title": {
+            "en": "Setup"
+        },
+        "pages": {
+            "installation": {
+                "title": {
+                    "en": "Installation"
                 }
             }
         }
