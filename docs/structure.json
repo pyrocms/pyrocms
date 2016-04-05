@@ -1,14 +1,24 @@
 {
     "setup": {
         "title": {
-            "en": "Setup",
-            "fr": "Setup (FR)"
+            "en": "Setup"
         },
         "pages": {
             "installation": {
                 "title": {
-                    "en": "Installation",
-                    "fr": "Installation (FR)"
+                    "en": "Installation"
+                }
+            }
+        }
+    },
+    "prologue": {
+        "title": {
+            "en": "Prologue"
+        },
+        "pages": {
+            "contributing": {
+                "title": {
+                    "en": "Contributing"
                 }
             }
         }
