@@ -106,6 +106,10 @@ class Events_Search
 
     private function is_html($string)
     {
+        if (!is_string($string)) {
+            return false;
+        }
+        
         return preg_match("/<[^<]+>/", $string, $m) != 0;
     }
 
