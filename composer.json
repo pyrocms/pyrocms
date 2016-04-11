@@ -106,6 +106,10 @@
         "bin-dir": "bin",
         "preferred-install": "dist"
     },
-    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "3.0/master": "3.0.x-dev"
+         }
+    },
     "minimum-stability": "stable"
 }
