@@ -106,5 +106,6 @@
         "bin-dir": "bin",
         "preferred-install": "dist"
     },
-    "prefer-stable": true
+    "prefer-stable": true,
+    "minimum-stability": "stable"
 }
