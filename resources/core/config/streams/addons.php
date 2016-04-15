@@ -12,11 +12,7 @@ return [
     |
     */
 
-    'eager' => [
-        'core/anomaly/redirects-module',
-        'core/anomaly/sitemap-extension',
-        'core/anomaly/pages-module'
-    ],
+    'eager' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -28,6 +24,9 @@ return [
     |
     */
 
-    'deferred' => []
+    'deferred' => [
+        'core/anomaly/pages-module',
+        'core/anomaly/redirects-module'
+    ]
 
 ];
