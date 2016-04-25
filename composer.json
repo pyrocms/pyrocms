@@ -71,6 +71,7 @@
         "anomaly/pages-module": "~2.0",
         "anomaly/posts-module": "~2.0",
         "anomaly/files-module": "~2.0",
+        "anomaly/session-plugin": "~2.0",
         "anomaly/contact-plugin": "~1.0",
         "anomaly/request-plugin": "~2.0",
         "anomaly/helper-plugin": "~2.0",
