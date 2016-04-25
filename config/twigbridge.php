@@ -106,7 +106,6 @@ return [
             'TwigBridge\Extension\Loader\Filters',
             'TwigBridge\Extension\Loader\Functions',
 
-            'TwigBridge\Extension\Laravel\Auth',
             'TwigBridge\Extension\Laravel\Config',
             'TwigBridge\Extension\Laravel\Dump',
             'TwigBridge\Extension\Laravel\Input',
