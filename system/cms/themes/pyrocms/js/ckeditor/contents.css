@@ -1,13 +1,14 @@
 /*
-Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 body
 {
 	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
-	font-size: 12px;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 14px;
 
 	/* Text color */
 	color: #333;
@@ -20,8 +21,11 @@ body
 
 .cke_editable
 {
-	font-size: 13px;
-	line-height: normal;
+	font-size: 14px;
+	line-height: 1.6;
+
+	/* Fix for missing scrollbars with RTL texts. (#10488) */
+	word-wrap: break-word;
 }
 
 blockquote
@@ -94,8 +98,6 @@ pre
 	white-space: pre-wrap; /* CSS 2.1 */
 	word-wrap: break-word; /* IE7 */
 	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	-webkit-tab-size: 4;
 	tab-size: 4;
 }
 
