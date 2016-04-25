@@ -4,14 +4,29 @@
             "en": "Prologue"
         },
         "pages": {
+            "welcome": {
+                "title": {
+                    "en": "Welcome"
+                }
+            },
+            "glossary": {
+                "title": {
+                    "en": "Glossary"
+                }
+            },
+            "overview": {
+                "title": {
+                    "en": "Overview"
+                }
+            },
             "contributing": {
                 "title": {
                     "en": "Contributing"
                 }
             },
-            "structure": {
+            "api": {
                 "title": {
-                    "en": "Structure"
+                    "en": "API Documentation"
                 }
             }
         }
