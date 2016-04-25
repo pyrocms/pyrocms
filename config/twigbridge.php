@@ -102,19 +102,13 @@ return [
         */
 
         'enabled' => [
-            'TwigBridge\Extension\Loader\Facades',
-            'TwigBridge\Extension\Loader\Filters',
+            //'TwigBridge\Extension\Loader\Facades',
+            //'TwigBridge\Extension\Loader\Filters',
             'TwigBridge\Extension\Loader\Functions',
 
-            'TwigBridge\Extension\Laravel\Input',
-            'TwigBridge\Extension\Laravel\Session',
             'TwigBridge\Extension\Laravel\Str',
             'TwigBridge\Extension\Laravel\Translator',
-            'TwigBridge\Extension\Laravel\Url',
-            
-            // 'TwigBridge\Extension\Laravel\Form',
-            // 'TwigBridge\Extension\Laravel\Html',
-            // 'TwigBridge\Extension\Laravel\Legacy\Facades',
+            'TwigBridge\Extension\Laravel\Url'
         ],
 
         /*
