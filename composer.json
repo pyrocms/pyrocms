@@ -74,6 +74,7 @@
         "anomaly/contact-plugin": "~1.0",
         "anomaly/request-plugin": "~2.0",
         "anomaly/helper-plugin": "~2.0",
+        "anomaly/config-plugin": "~2.0",
         "anomaly/auth-plugin": "~2.0",
         "anomaly/robots-extension": "~1.0",
         "anomaly/sitemap-extension": "~1.0",
