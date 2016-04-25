@@ -104,11 +104,7 @@ return [
         'enabled' => [
             //'TwigBridge\Extension\Loader\Facades',
             //'TwigBridge\Extension\Loader\Filters',
-            'TwigBridge\Extension\Loader\Functions',
-
-            'TwigBridge\Extension\Laravel\Str',
-            'TwigBridge\Extension\Laravel\Translator',
-            'TwigBridge\Extension\Laravel\Url'
+            'TwigBridge\Extension\Loader\Functions'
         ],
 
         /*
