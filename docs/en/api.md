@@ -1,3 +1,3 @@
 # API Documentation
 
-[Links Coming Soon]
+[Streams Platform](http://docs.pyrocms.com/streams-platform/docs/build)
