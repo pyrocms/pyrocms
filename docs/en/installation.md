@@ -39,7 +39,7 @@ PyroCMS utilizes [Composer](http://getcomposer.org) to manage its dependencies. 
 
 You may install PyroCMS by issuing the Composer `create-project` command in your terminal:
 
-    composer create-project pyrocms/pyrocms=3.0-rc1
+    composer create-project pyrocms/pyrocms=3.0-rc2
 
 If you are using a Windows environment, you might run into issues with the length of paths when unzipping packages. To avoid this issue, use the `--prefer-source` flag instead.
 
