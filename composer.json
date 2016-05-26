@@ -90,9 +90,9 @@
         ]
     },
     "scripts": {
-		"pre-install-cmd": [
+        "pre-install-cmd": [
             "php artisan clear-compiled"
-		],
+        ],
         "post-install-cmd": [
             "php artisan optimize"
         ],
