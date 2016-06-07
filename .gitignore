@@ -7,4 +7,3 @@ composer.lock
 /vendor
 /coverage
 /node_modules
-/storage/httpcache
