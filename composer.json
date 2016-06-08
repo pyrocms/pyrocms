@@ -95,11 +95,7 @@
         ]
     },
     "scripts": {
-<<<<<<< HEAD
         "post-install-cmd": [
-=======
-        "pre-install-cmd": [
->>>>>>> 3.0/master
             "php artisan optimize"
         ],
         "post-update-cmd": [
