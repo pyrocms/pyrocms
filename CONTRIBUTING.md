@@ -1,14 +1,19 @@
 # Contribution Guide
 
-Thank you for considering contributing to the Streams Platform! Please review the entire guide before sending a pull request.
+Thank you for considering contributing to Pyro! Please review the entire guide before sending a pull request.
 
 ## Bug Reports
 
-We strongly encourages pull requests, not just bug reports.
+Wes strongly encourages pull requests, not just bug reports.
 
 "Bug Report" should contain a title and a clear detailed description of the issue. You should also include as much relevant information as possible and a code sample that demonstrates the issue. The goal of a bug report is to make it easy for yourself - and others - to replicate the bug and develop a fix.
 
 Remember, bug reports are created in the hope that others with the same problem will be able to collaborate with you on solving it. Do not expect that the bug report will automatically see any activity or that others will jump to fix it. Creating a bug report serves to help yourself and others start on the path of fixing the problem.
+
+
+## Which Repository?
+
+Please send all issues to the base `pyrocms/pyrocms` repository in order to keep them consolidated. Send all pull requests to the respective repository in which they apply to and the branch as described below.
 
 
 ## Which Branch?

@@ -11,13 +11,17 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "AnomalyLabs",
-            "email": "hello@anomaly.is"
+            "name": "PyroCMS, Inc.",
+            "email": "support@pyrocms.com"
+        },
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@pyrocms.com"
         }
     ],
     "require": {
         "anomaly/streams-composer-plugin": "~1.1",
-        "anomaly/streams-platform": "dev-develop",
+        "anomaly/streams-platform": "dev-master",
         "anomaly/default_authenticator-extension": "~2.0",
         "anomaly/throttle_security_check-extension": "~2.0",
         "anomaly/local_storage_adapter-extension": "~2.0",
@@ -68,10 +72,11 @@
         "anomaly/posts-module": "~2.0",
         "anomaly/files-module": "~2.0",
         "anomaly/contact-plugin": "~1.0",
-        "anomaly/request-plugin": "~2.0",
         "anomaly/helper-plugin": "~2.0",
-        "pyrocms/starter-theme": "master",
-        "pyrocms/pyrocms-theme": "master"
+        "anomaly/robots-extension": "~1.0",
+        "anomaly/sitemap-extension": "~1.0",
+        "pyrocms/starter-theme": "dev-master",
+        "pyrocms/pyrocms-theme": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4"
@@ -99,13 +104,12 @@
     },
     "config": {
         "bin-dir": "bin",
-        "preferred-install": "source"
+        "preferred-install": "dist"
     },
     "extra": {
         "branch-alias": {
-            "dev-3.0/develop": "3.0.x-dev"
-        }
+            "3.0/master": "3.0.x-dev"
+         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "stable"
 }
