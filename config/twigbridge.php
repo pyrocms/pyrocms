@@ -58,7 +58,7 @@ return [
             // When developing with Twig, it's useful to recompile the template
             // whenever the source code changes. If you don't provide a value
             // for the auto_reload option, it will be determined automatically based on the debug value.
-            'auto_reload' => null,
+            'auto_reload' => true,
 
             // If set to false, Twig will silently ignore invalid variables
             // (variables and or attributes/methods that do not exist) and
@@ -102,22 +102,9 @@ return [
         */
 
         'enabled' => [
-            'TwigBridge\Extension\Loader\Facades',
-            'TwigBridge\Extension\Loader\Filters',
-            'TwigBridge\Extension\Loader\Functions',
-
-            'TwigBridge\Extension\Laravel\Auth',
-            'TwigBridge\Extension\Laravel\Config',
-            'TwigBridge\Extension\Laravel\Dump',
-            'TwigBridge\Extension\Laravel\Input',
-            'TwigBridge\Extension\Laravel\Session',
-            'TwigBridge\Extension\Laravel\Str',
-            'TwigBridge\Extension\Laravel\Translator',
-            'TwigBridge\Extension\Laravel\Url',
-            
-            // 'TwigBridge\Extension\Laravel\Form',
-            // 'TwigBridge\Extension\Laravel\Html',
-            // 'TwigBridge\Extension\Laravel\Legacy\Facades',
+            //'TwigBridge\Extension\Loader\Facades',
+            //'TwigBridge\Extension\Loader\Filters',
+            'TwigBridge\Extension\Loader\Functions'
         ],
 
         /*
