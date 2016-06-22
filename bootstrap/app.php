@@ -33,7 +33,7 @@ $app->singleton(
 
 $app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
-	'App\Console\Kernel'
+	'Anomaly\Streams\Platform\Console\Kernel'
 );
 
 $app->singleton(
