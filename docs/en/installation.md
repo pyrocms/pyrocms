@@ -54,4 +54,6 @@ After downloading and installing PyroCMS and it's dependencies, you still need t
 <a name="post-installation"></a>
 ### Post Installation
 
-Upon logging in the first time after installation you will notice the suggestion to delete the Installer module. To do this simply remove the requirement from your project's `composer.json` file and run `composer update`.
+Upon logging in the first time after installation you will notice the suggestion to delete the Installer module. To do this simply remove the `"anomaly/installer-module"` requirement from your project's `composer.json` file and run `composer update`.
+
+If you are not using composer going forward you can simply delete `/core/anomaly/users-module` from your Pyro installation.
