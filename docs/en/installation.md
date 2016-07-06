@@ -14,11 +14,12 @@
 PyroCMS has a few system requirements:
 
 - PHP >= 5.5.9
-- OpenSSL PHP Extension
 - PDO PHP Extension
+- cURL PHP Extension
+- OpenSSL PHP Extension
 - Mbstring PHP Extension
-- Tokenizer PHP Extension
 - Fileinfo PHP Extension
+- Tokenizer PHP Extension
 - GD Library (>=2.0) **OR** Imagick PHP extension (>=6.5.7)
 
 
