@@ -1,52 +1,63 @@
 # Application Structure
 
 - [Introduction](#introduction)
-- [The Root Directory](#the-root-directory)
+- [The Addons Directory](#the-addons-directory)
+- [The App Directory](#the-app-directory)
+- [The Core Directory](#the-core-directory)
+- [The Database Directory](#the-database-directory)
 
 <hr>
 
 <a name="introduction"></a>
 ## Introduction
 
-The structure for PyroCMS is nearly identical to [Laravel's application structure](https://laravel.com/docs/5.1/structure).
+The application structure of PyroCMS is nearly identical to the [application structure of Laravel](https://laravel.com/docs/5.1/structure). 
 
-<a name="the-root-directory"></a>
-## The Root Directory
+<hr>
 
-For simplicity, we will only review additional root level directories.
+<a name="the-addons-directory"></a>
+## The Addons Directory
 
-    - addons
-        - shared
-        - {app_reference}
-    - core
-    - docs
-    - resources
-    - storage
-        - streams
+The `addons` directory is where all addons not included in the composer.json file should be kept.
 
-#### Addons
+<div class="alert alert-info">
+<strong>Note:</strong> Typically addons in the addons directory are committed to your project repository.
+</div>
 
-Any addons that are not included in the `composer.json` file can be added to the `addons` directory.
+#### Addon directory structure
 
-Shared addons can be accessed by any application in the PyroCMS installation while addons for a specific application are kept within their own directory.
+Just like composer packages PyroCMS addons have a `vendor` slug that is included in their path. Addons also include the site's `application reference` and the addon's `type` in it's full path.  
 
-    addons/shared   // Accessible by all applications
-    addons/default  // Only accessible by the default application
+    addons/{reference}/{vendor}/{addon}-{type}
 
-Typically, project specific or non-reusable addons would live in either of these directories and be committed to your project's VCS.
+An example could be: 
 
-#### Core Addons
+    addons/pyro/anomaly/documentation-module
 
-All addons included in your projects `composer.json` file are loaded into the `core` directory.
+##### Sharing addons between applications
 
-#### Docs
+All addons in the `composer.json` file will be available for all applications in your PyroCMS installation.
 
-All documentation for PyroCMS addons and packages lives within the `docs` directory in the root. This is where the getting started docs live for PyroCMS.
+You can also share addons by placing them in the `addons/shared` folder.
+ 
+    addons/shared/anomaly/documentation-module
 
-#### Resources
+<a name="the-app-directory"></a>
+## The App Directory
 
-All system override files go in the `resources` folder. You can override config files as well as translation files currently.
+The `app` directory can be used just like in a native Laravel application. While it is recommended to bundle your application logic in addons the app directory can be helpful for odds and ends that do not fit in to your addons.
 
-#### Storage
+<a name="the-core-directory"></a>
+## The Core Directory
 
-Streams adds it's own storage directory. All volatile storage like compiled entry models and field type file dumps belong here. This directory should **not** be committed to your VCS.
+Any addon required by your `composer.json` folder will be located in the `core` directory within it's vendor directory.
+
+<div class="alert alert-warning">
+<strong>Warning:</strong> It is not advised to commit your core directory!
+</div>
+
+<a name="the-database-directory"></a>
+## The Database Directory
+
+The `database` directory works exactly the same as a native Laravel application. Because most migrations and seeds are within addons, it can be helpful to put miscellaneous seeds and migrations in the `database` directory.
+
