@@ -113,5 +113,5 @@
             "3.0/master": "3.0.x-dev"
          }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
