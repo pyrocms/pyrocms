@@ -64,7 +64,6 @@
         "anomaly/installer-module": "dev-develop",
         "anomaly/variables-module": "dev-develop",
         "anomaly/settings-module": "dev-develop",
-        "anomaly/search-module": "dev-develop",
         "anomaly/addons-module": "dev-develop",
         "anomaly/users-module": "dev-develop",
         "anomaly/pages-module": "dev-develop",
