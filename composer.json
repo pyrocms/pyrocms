@@ -20,7 +20,7 @@
     ],
     "require": {
         "anomaly/streams-composer-plugin": "~1.1",
-        "anomaly/streams-platform": "1.1",
+        "anomaly/streams-platform": "~1.1",
         "anomaly/default_authenticator-extension": "dev-develop",
         "anomaly/throttle_security_check-extension": "dev-develop",
         "anomaly/local_storage_adapter-extension": "dev-develop",
@@ -105,5 +105,5 @@
             "3.1/master": "3.1.x-dev"
          }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
