@@ -21,7 +21,7 @@
     ],
     "require": {
         "anomaly/streams-composer-plugin": "~1.1",
-        "anomaly/streams-platform": "1.1.x-dev",
+        "anomaly/streams-platform": "1.0.x-dev",
         "anomaly/default_authenticator-extension": "2.0.*",
         "anomaly/throttle_security_check-extension": "2.0.*",
         "anomaly/local_storage_adapter-extension": "2.0.*",
