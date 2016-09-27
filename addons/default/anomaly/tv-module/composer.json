@@ -1,0 +1,9 @@
+{
+    "name": "anomaly/tv-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Anomaly\\TvModule\\": "src/"
+        }
+    }
+}

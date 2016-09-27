@@ -74,8 +74,15 @@
         "anomaly/robots-extension": "2.1.x-dev",
         "anomaly/sitemap-extension": "2.1.x-dev",
         "pyrocms/starter-theme": "1.0.x-dev",
-        "pyrocms/pyrocms-theme": "1.1.x-dev"
+        "pyrocms/pyrocms-theme": "1.1.x-dev",
+        "anomaly/ups_shipping_method-extension": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/anomalylabs/ups_shipping_method-extension"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "~4.4"
     },
