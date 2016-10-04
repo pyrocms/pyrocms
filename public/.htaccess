@@ -27,6 +27,6 @@
     
     # Force ssl
     #RewriteCond %{HTTPS} off
-    #RewriteRule ^ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
 </IfModule>
