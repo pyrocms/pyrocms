@@ -14,7 +14,8 @@ class Files_front extends Public_Controller
 		parent::__construct();
 		
 		$this->config->load('files');
-		$this->load->library('files/files');
+		$this->load->library('settings/settings', 'files/files');
+		$this->config->load('pyrocache');
 
 		$this->_path = FCPATH.rtrim($this->config->item('files:path'), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 	}
