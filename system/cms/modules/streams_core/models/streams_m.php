@@ -733,6 +733,8 @@ class Streams_m extends MY_Model {
 				$streams->$node = $item;
 				
 				$streams->$node->field_data = unserialize($item->field_data);
+				
+				$this->type->load_single_type($item->field_type);
 			}
 			
 			// Save for cache

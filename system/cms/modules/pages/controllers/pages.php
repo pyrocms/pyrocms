@@ -23,7 +23,7 @@ class Pages extends Public_Controller
 		// changed
 
 		// No page is mentioned and we are not using pages as default
-		//  (eg blog on homepage)
+		//  (eg blog on homepage)ke
 		if ( ! $this->uri->segment(1) and strpos($this->router->default_controller, 'pages') !== 0)
 		{
 			redirect('');
@@ -204,6 +204,7 @@ class Pages extends Public_Controller
 		$meta_keywords = '';
 		if ($page->meta_keywords or $page->layout->meta_keywords)
 		{
+			$this->load->library('keywords/keywords');
 			$meta_keywords = $page->meta_keywords ?
 								Keywords::get_string($page->meta_keywords) :
 								Keywords::get_string($page->layout->meta_keywords);

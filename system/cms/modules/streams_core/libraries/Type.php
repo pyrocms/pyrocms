@@ -91,7 +91,7 @@ class Type
 		}
 		
 		// Go ahead and gather our types
-		$this->gather_types();		
+		//$this->gather_types();		
 	}
 
 	// --------------------------------------------------------------------------

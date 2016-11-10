@@ -33,6 +33,7 @@ class Admin_field_types extends Admin_Controller
 		$data = array();
 
 		$this->load->driver('Streams');
+		$this->type->gather_types();	
 
 		foreach ($this->type->types as $type)
 		{
