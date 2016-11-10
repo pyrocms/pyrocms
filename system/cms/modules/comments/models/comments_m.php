@@ -157,7 +157,7 @@ class Comments_m extends MY_Model
 	{
 		return parent::update($id, array('is_active' => 0));
 	}
-	
+
 	public function get_slugs()
 	{
 		$this->db->select('comments.module, modules.name')
