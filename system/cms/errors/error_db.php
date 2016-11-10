@@ -24,12 +24,17 @@ font-size:			14px;
 color:				#990000;
 margin: 			0 0 4px 0;
 }
+
+#message {
+white-space: 		pre-wrap;
+font-family: 		Consolas, monospae;
+}
 </style>
 </head>
 <body>
 	<div id="content">
 		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<div id="message"><?php echo $message; ?></div>
 	</div>
 </body>
 </html>
