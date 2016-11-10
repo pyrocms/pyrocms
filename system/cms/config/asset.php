@@ -191,5 +191,4 @@ $config['asset_groups'] = array();
 */
 $config['asset_symlinks'] = array();
 
-
 /* End of file config/asset.php */
