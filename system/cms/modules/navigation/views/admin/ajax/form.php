@@ -39,6 +39,7 @@
 					<?php echo form_radio('link_type', 'uri', $navigation_link->link_type == 'uri') ?> <?php echo lang('nav_uri_label');?>
 					<?php echo form_radio('link_type', 'module', $navigation_link->link_type == 'module') ?> <?php echo lang('nav_module_label');?>
 					<?php echo form_radio('link_type', 'page', $navigation_link->link_type == 'page') ?> <?php echo lang('nav_page_label');?>
+					<?php echo form_radio('link_type', 'section', $navigation_link->link_type == 'section') ?> <?php echo lang('nav_section_label');?>
 				</span>
 			</li>
 
@@ -69,6 +70,8 @@
 						<option value=""><?php echo lang('global:select-pick');?></option>
 						<?php echo $tree_select; ?>
 					</select>
+				</div>
+				<div id="navigation-section" style="<?php echo @$navigation_link->link_type == 'section' ? '' : 'display:none'; ?>">
 				</div>
 			</li>
 
