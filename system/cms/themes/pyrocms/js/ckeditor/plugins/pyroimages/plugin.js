@@ -72,9 +72,15 @@ CKEDITOR.plugins.add('pyroimages',
 	}
 });
 
+
 function pyroimage_onclick(e)
-{
-	update_instance();
+{ 
+ setTimeout(alternativa, 100);
+}
+function alternativa(){
+    yepnope.injectJs("system/cms/themes/pyrocms/js/ckeditor/ckeditor.js", function () {
+  update_instance();
     // run when pyro button is clicked]
     CKEDITOR.currentInstance.openDialog('pyroimage_dialog')
+});
 }
