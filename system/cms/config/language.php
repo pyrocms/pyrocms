@@ -176,6 +176,13 @@ $config['supported_languages'] = array(
         'direction'    => 'ltr',
         'codes'        => array('th', 'thai', 'th_TH'),
         'ckeditor'    => NULL
+    ),
+        'ca' => array(
+        'name'        => 'Català',
+        'folder'    => 'catalan',
+        'direction'    => 'ltr',
+        'codes'        => array('ca', 'català', 'ca_ES'),
+        'ckeditor'    => NULL
     )
 );
 
