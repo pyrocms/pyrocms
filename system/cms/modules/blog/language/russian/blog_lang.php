@@ -74,4 +74,7 @@ $lang['blog:twitter_error']									= 'Ошибка Twitter\'а';
 // дата
 $lang['blog:archive_date_format']						= "%B %Y"; #see php strftime documentation
 
+// widgets
+$lang['blog:num_of_entries'] = 'Number of entries to display:';  // #translate
+$lang['blog:num_of_characters'] = 'Number of characters to display per entry:';  // #translate
 /* End of file blog_lang.php */
