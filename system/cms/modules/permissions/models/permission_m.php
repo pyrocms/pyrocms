@@ -115,6 +115,47 @@ class Permission_m extends CI_Model
 			->where('group_id', $group_id)
 			->count_all_results('permissions') > 0;
 	}
+	
+		/**
+	 * Get a rule & role based on the ID
+	 *
+	 * @param int $group_id The id for the group to get the rule for.
+	 * @param null|string $module The module to check access against
+	 * @param  $role The role to check access against
+	 * @return int
+	 */
+	
+	public function check_access_role($group_id, $module = null,$role = null)
+	{
+		$count = 0;
+		// If no module is set, just make sure they have SOMETHING
+		if ($module !== null)
+		{
+			$this->db->where('module', $module);
+		}
+
+		//get the group
+		$this->db->where('group_id',$group_id);
+		$this->db->from('permissions');
+		$query = $this->db->get();
+			
+		//iterate over the rows in the result 
+		foreach ($query->result() as $row)
+		{
+			//parse the json string
+			$json = $row->roles;
+			$roles = json_decode($json, true);
+
+			// if the value of the role = 1
+			if(array_search(1,$roles) === $role)
+			{
+				++$count;
+			}
+		}
+		
+		return $count >0;
+	}
+
 
 	/**
 	 * Save the permissions passed
