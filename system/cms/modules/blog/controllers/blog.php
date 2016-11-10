@@ -343,9 +343,16 @@ class Blog extends Public_Controller
 		}
 		$post['keywords'] = $formatted_keywords;
 		$post['keywords_arr'] = $keywords_arr;
-
-		// Full URL for convenience.
-		$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+                
+                // check if the config uses dates, if not set the URL blog/slug
+                
+                if(Settings::get('blog_uses_dates')){
+                    // Full URL for convenience.
+                    $post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+                }else{
+                    $post['url'] = site_url('blog/'.$post['slug']);
+                }
+                
 	
 		// What is the preview? If there is a field called intro,
 		// we will use that, otherwise we will cut down the blog post itself.

@@ -478,7 +478,20 @@ class Module_Settings extends Module
 				'is_gui' => true,
 				'module' => 'integration',
 				'order' => 1000,
-			)
+			),
+                        'blog_uses_dates' => array(
+                                'title' => 'Use dates in the Blog URL?',
+                                'description' => 'Would you like to use the date in the URL for a blog post? Ex: blog/2014/05/slug or would you preffer to leave it like blog/slug',
+                                'type' => 'select',
+                                '`default`' => true,
+                                'value' => '1',
+                                'options' => '0=Disabled|1=Enabled',
+                                'is_required' => false,
+                                'is_gui' => true,
+                                'module' => 'blog',
+                                'order' => 1000,
+                        )
+
 		);
 
 		// Lets add the settings for this module.
