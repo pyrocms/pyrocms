@@ -60,6 +60,10 @@ class Field_wysiwyg
 
 		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
+		if ($input == '<p></p>') {
+			$input = '';
+		}
+
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
 		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
@@ -101,7 +105,10 @@ class Field_wysiwyg
 		{
 			$options['class']	= 'wysiwyg-simple';
 		}
-	
+		// if empty, add an empty p tag to avoid formatting errors
+		if (empty($data['value'])) {
+			$data['value'] = '<p></p>';
+		}
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= html_entity_decode($data['value'], null, 'UTF-8');
