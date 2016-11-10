@@ -17,7 +17,7 @@ class MY_Parser extends CI_Parser {
 	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
-		
+
 		if ( ! class_exists('Lex_Autoloader'))
 		{
 			include APPPATH.'/libraries/Lex/Autoloader.php';
@@ -107,10 +107,10 @@ class MY_Parser extends CI_Parser {
 			$parser->cumulative_noparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
-		
+
 		// Finish benchmark
 		$this->_ci->benchmark->mark('parse_end');
-		
+
 		// Return results or not ?
 		if ( ! $return)
 		{
@@ -129,11 +129,11 @@ class MY_Parser extends CI_Parser {
 	 * @param	array
 	 * @return	 mixed
 	 */
-	public function parser_callback($plugin, $attributes, $content)
+	public function parser_callback($plugin, $attributes, $content, $data)
 	{
 		$this->_ci->load->library('plugins');
 
-		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content);
+		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content, $data);
 
 		if (is_array($return_data) && $return_data)
 		{
@@ -147,7 +147,7 @@ class MY_Parser extends CI_Parser {
 
 			$parser = new Lex_Parser();
 			$parser->scope_glue(':');
-			
+
 			foreach ($return_data as $result)
 			{
 				// if ($data['skip_content'])
