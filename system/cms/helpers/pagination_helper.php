@@ -49,8 +49,8 @@ if (!function_exists('create_pagination'))
 		$config['prev_tag_open'] = '<li class="prev">';
 		$config['prev_tag_close'] = '</li>';
 
-		$config['cur_tag_open'] = '<li class="active"><span>';
-		$config['cur_tag_close'] = '</span></li>';
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
 
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
