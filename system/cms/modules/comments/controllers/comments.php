@@ -86,11 +86,10 @@ class Comments extends Public_Controller
 			$comment['user_id'] = $this->current_user->id;
 			$comment['user_name'] = $this->current_user->display_name;
 			$comment['user_email'] = $this->current_user->email;
-			$comment['user_website'] = $this->current_user->website;
 
 			if (isset($this->current_user->website))
 			{
-				$comment['website'] = $this->current_user->website;
+				$comment['user_website'] = $this->current_user->website;
 			}
 		}
 		else
