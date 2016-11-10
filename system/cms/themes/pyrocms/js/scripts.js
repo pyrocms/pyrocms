@@ -130,7 +130,7 @@ jQuery(function($) {
 		 	var el = $(this);
  			$("<option />", {
      			"value"   : el.attr("href"),
-     			"text"    : el.text()
+     			"text"    : el.hasClass('top-link') ? el.text() : '- ' + el.text()
  			}).appendTo("nav#primary select");
 		});
 
