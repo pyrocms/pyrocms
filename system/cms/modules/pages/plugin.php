@@ -65,10 +65,10 @@ class Plugin_Pages extends Plugin
 	}
 
 	/**
-	 * Get a page chunk by page ID and chunk name
+	 * Get a page chunk by page ID|slug and chunk name
 	 *
 	 * Attributes:
-	 * - (int) id : The id of the page.
+	 * - (int|string) id : The id or slug of the page.
 	 * - (string) name : The name of the chunk.
 	 * - (string) parse_tags : yes/no - whether or not to parse
 	 *					tags within the 
@@ -77,13 +77,27 @@ class Plugin_Pages extends Plugin
 	 */
 	public function chunk()
 	{
+		$page  = $this->attribute('id');
+		$chunk = $this->attribute('name');
+
 		$parse_tags = $this->attribute('parse_tags', 'yes');
 
+		$this->db->select('page_chunks.*');
+		
+		if (is_numeric($page))
+		{
+			$this->db
+				->where('page_id', $page)
+				->where('slug', $chunk);
+		} else {
+			$this->db
+				->join('pages', 'page_chunks.page_id = pages.id')
+				->where(array('page_chunks.slug' => $chunk, 'pages.slug' => $page));
+		}
+
 		$chunk = $this->db
-			->where('page_id', $this->attribute('id'))
-			->where('slug', $this->attribute('name'))
-			->get('page_chunks')
-			->row_array();
+				->get('page_chunks')
+				->row_array();
 
 		if ($chunk)
 		{
