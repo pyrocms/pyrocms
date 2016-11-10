@@ -1,19 +1,45 @@
+# Hidden Files and Projects
+
 .DS_Store
 .buildpath
 .project
 .settings
 .idea
+nbproject/
+
+# /Hidden Files and Projects
+
+
+# Assets
+
 assets/cache/*
 assets/page_types/*
 !assets/page_types/.htaccess
 !assets/page_types/default/
 assets/page_types/default/*
 !assets/page_types/default/.htaccess
+
+# /Assets
+
+
+# System
+
 system/cms/cache/*
+system/cms/config/config.php
 system/cms/config/database.php
 system/cms/logs/log-*.php
-nbproject/
+
+# /System
+
+
+# Uploads
+
 uploads/*
+
+# /Uploads
+
+
+# Addons
 
 addons/*
 !addons/shared_addons
@@ -53,4 +79,5 @@ addons/shared_addons/plugins/*
 !addons/shared_addons/field_types
 addons/shared_addons/field_types/*
 !addons/shared_addons/field_types/index.html
-system/cms/config/config.php
+
+# /Addons
