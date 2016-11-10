@@ -42,10 +42,10 @@ class Plugin_Settings extends Plugin
 				'en' => 'Retrieve the value for setting '.$slug.'.',
 				'br' => 'Recupera o valor da configuração "'.$slug.'".'
 			);
-			$info[$slug]['single'] = true;
-			$info[$slug]['double'] = false;
+			$info[$slug]['single']    = true;
+			$info[$slug]['double']    = false;
 			$info[$slug]['variables'] = '';
-			$info[$slug]['params'] = array();
+			$info[$slug]['params']    = array();
 		}
 
 		return $info;
@@ -63,6 +63,21 @@ class Plugin_Settings extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		return Settings::get($name);
+		$disallowed = array(
+			// settings
+			'akismet_api_key',
+			'ga_email',
+			'ga_password',
+			'files_cf_api_key',
+			'files_cf_username',
+			'files_s3_access_key',
+			'files_s3_secret_key',
+			'mail_smtp_pass',
+			// config items
+			'proxy_ips',
+			'encryption_key'
+		);
+		
+		return (in_array($name, $disallowed)) ? '' : Settings::get($name);
 	}
 }
