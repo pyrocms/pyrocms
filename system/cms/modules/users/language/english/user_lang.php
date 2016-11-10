@@ -125,7 +125,6 @@ $lang['user_email_exists']                     = 'The email address you have cho
 $lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.';
 $lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
-
 // Activation
 $lang['user_activation_incorrect']             = 'Activation failed. Please check your details and make sure CAPS LOCK is not on.';
 $lang['user_activated_message']                = 'Your account has been activated, you can now log in to your account.';
