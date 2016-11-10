@@ -529,6 +529,18 @@ class MY_Model extends CI_Model
     }
 
     /**
+     * Setting validation rules
+     * 
+     * @param array|string $rule
+     * 
+     * @return void
+     */
+    public function set_validation($rule)
+    {
+        $this->validate = $rule;        
+    }
+
+    /**
      * Return only the keys from the validation array
      *
      * @return array
