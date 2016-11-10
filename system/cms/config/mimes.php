@@ -73,7 +73,7 @@ $mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhe
 				'jpeg'	=>	array('image/jpeg', 'image/pjpeg'),
 				'jpg'	=>	array('image/jpeg', 'image/pjpeg'),
 				'jpe'	=>	array('image/jpeg', 'image/pjpeg'),
-				'png'	=>	array('image/png',  'image/x-png'),
+				'png'	=>	array('image/png',  'image/x-png', 'text/plain'),
 				'tiff'	=>	'image/tiff',
 				'tif'	=>	'image/tiff',
 				'css'	=>	'text/css',
