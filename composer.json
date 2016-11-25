@@ -62,7 +62,7 @@
         "anomaly/dashboard-module": "~2.1.0",
         "anomaly/redirects-module": "~2.1.0",
         "anomaly/installer-module": "~2.2.0",
-        "anomaly/variables-module": "~2.1.0",
+        "anomaly/variables-module": "~2.2.0",
         "anomaly/settings-module": "~2.1.0",
         "anomaly/addons-module": "~2.1.0",
         "anomaly/users-module": "~2.2.0",
