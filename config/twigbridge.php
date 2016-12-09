@@ -167,6 +167,12 @@ return [
         */
 
         'functions' => [
+            'd' => [
+                'is_safe' => ['html']
+            ],
+            'dd' => [
+                'is_safe' => ['html']
+            ],
             'elixir',
             'head', 
             'last',
