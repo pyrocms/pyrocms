@@ -1,11 +1,13 @@
 {
     "name": "pyrocms/pyrocms",
-    "description": "PyroCMS is a powerful, easy to use CMS built for everyone.",
+    "description": "The most powerful Laravel CMS in the world.",
     "type": "project",
     "keywords": [
-        "pyrocms",
         "cms",
-        "laravel"
+        "pyro",
+        "pyrocms",
+        "php cms",
+        "laravel cms"
     ],
     "license": "MIT",
     "authors": [
@@ -74,7 +76,7 @@
         "anomaly/robots-extension": "~2.1.0",
         "anomaly/sitemap-extension": "~2.1.0",
         "pyrocms/starter-theme": "~1.0.0",
-        "pyrocms/pyrocms-theme": "~1.1.0"
+        "pyrocms/accelerant-theme": "~1.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4|~5.0"
