@@ -107,5 +107,16 @@ return [
     */
 
     'middleware_priority' => [],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | View Overrides
+    |--------------------------------------------------------------------------
+    |
+    | Define globally overriden views as 'view' => 'override' view paths.
+    |
+    */
+
+    'overrides' => [],
 
 ];

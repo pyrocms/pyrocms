@@ -2,6 +2,6 @@
 
 return [
     'name'        => 'PyroCMS',
-    'description' => 'The CMS built for everyone.',
-    'version'     => 'v3.1.3',
+    'description' => 'The most powerful Laravel CMS in the world.',
+    'version'     => 'v3.2.0',
 ];

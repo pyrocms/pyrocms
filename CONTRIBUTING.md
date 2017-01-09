@@ -24,7 +24,7 @@ Minor features that are fully backwards compatible with the current Laravel rele
 
 Major new features should always be sent to the master branch, which contains the upcoming Laravel release.
 
-If you are unsure if your feature qualifies as a major or minor, please ask Taylor Otwell in the #laravel-dev IRC channel (Freenode).
+If you are unsure if your feature qualifies as a major or minor, please ask Ryan Thompson in the #general Slack channel (pyrocms.slack.com).
 
 
 ## Security Vulnerabilities
