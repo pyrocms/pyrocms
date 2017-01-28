@@ -6,6 +6,8 @@ SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
     </IfModule>
 
     RewriteEngine On
+    
+    RewriteBase /
 
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
