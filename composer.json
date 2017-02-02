@@ -1,6 +1,6 @@
 {
     "name": "pyrocms/pyrocms",
-    "description": "The most powerful Laravel CMS in the world.",
+    "description": "Build better Laravel websites and applications faster with Pyro.",
     "type": "project",
     "keywords": [
         "cms",
