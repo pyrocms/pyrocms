@@ -33,8 +33,6 @@
     <php>
         <server name="HTTP_HOST" value="http://localhost"/>
         <env name="APP_ENV" value="testing"/>
-        <env name="ADMIN_THEME" value="test_admin"/>
-        <env name="STANDARD_THEME" value="test_standard"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
