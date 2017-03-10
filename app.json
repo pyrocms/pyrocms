@@ -9,6 +9,11 @@
     "cms",
     "php"
   ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+    }
+  ],
   "scripts": {
     "postdeploy": "composer install"
   }
