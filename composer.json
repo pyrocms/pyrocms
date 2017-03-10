@@ -1,6 +1,6 @@
 {
     "name": "pyrocms/pyrocms",
-    "description": "The most powerful Laravel CMS in the world.",
+    "description": "Build better Laravel websites and applications faster with Pyro.",
     "type": "project",
     "keywords": [
         "cms",
@@ -36,7 +36,8 @@
         "anomaly/polymorphic-field_type": "~2.1.0",
         "anomaly/checkboxes-field_type": "~2.2.0",
         "anomaly/encrypted-field_type": "~2.1.0",
-        "anomaly/datetime-field_type": "~2.2.0",
+        "anomaly/datetime-field_type": "~3.0.0",
+        "anomaly/repeater-field_type": "~1.2.0",
         "anomaly/language-field_type": "~2.2.0",
         "anomaly/multiple-field_type": "~2.2.0",
         "anomaly/textarea-field_type": "~2.1.0",
