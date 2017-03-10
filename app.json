@@ -1,0 +1,7 @@
+{
+  "name": "PyroCMS",
+  "description": "A barebones Pyro install.",
+  "repository": "https://github.com/pyrocms/pyrocms",
+  "logo": "https://pyrocms.com/files/vendors/logo-inverted_512@2x.jpg",
+  "keywords": ["pyrocms", "cms", "laravel", "php"]
+}
