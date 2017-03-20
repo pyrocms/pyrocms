@@ -11,8 +11,14 @@
          colors="true">
 
     <testsuites>
-        <testsuite name="Streams Test Suite">
+        <testsuite name="Streams">
             <directory suffix="Test.php">./vendor/anomaly/streams-platform/</directory>
+        </testsuite>
+        <testsuite name="Application">
+            <directory suffix="Test.php">./addons/</directory>
+        </testsuite>
+        <testsuite name="Core">
+            <directory suffix="Test.php">./core/</directory>
         </testsuite>
     </testsuites>
 
