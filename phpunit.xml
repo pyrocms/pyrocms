@@ -11,8 +11,14 @@
          colors="true">
 
     <testsuites>
-        <testsuite name="Streams Test Suite">
+        <testsuite name="Streams">
             <directory suffix="Test.php">./vendor/anomaly/streams-platform/</directory>
+        </testsuite>
+        <testsuite name="Application">
+            <directory suffix="Test.php">./addons/</directory>
+        </testsuite>
+        <testsuite name="Core">
+            <directory suffix="Test.php">./core/</directory>
         </testsuite>
     </testsuites>
 
@@ -33,8 +39,6 @@
     <php>
         <server name="HTTP_HOST" value="http://localhost"/>
         <env name="APP_ENV" value="testing"/>
-        <env name="ADMIN_THEME" value="test_admin"/>
-        <env name="STANDARD_THEME" value="test_standard"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>

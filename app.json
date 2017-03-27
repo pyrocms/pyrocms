@@ -1,0 +1,20 @@
+{
+  "name": "PyroCMS",
+  "description": "A barebones Pyro install.",
+  "repository": "https://github.com/pyrocms/pyrocms",
+  "logo": "https://pyrocms.com/files/vendors/logo-inverted_512@2x.jpg",
+  "keywords": [
+    "pyrocms",
+    "laravel",
+    "cms",
+    "php"
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+    }
+  ],
+  "scripts": {
+    "postdeploy": "composer install"
+  }
+}

@@ -38,7 +38,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    'Anomaly\Streams\Platform\Exception\ExceptionHandler'
+    Illuminate\Foundation\Exceptions\Handler::class
 );
 
 /*
