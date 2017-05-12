@@ -20,23 +20,21 @@ Please send all issues to the base `pyrocms/pyrocms` repository in order to keep
 
 All bug fixes should be sent to the latest stable branch. Bug fixes should never be sent to the master branch unless they fix features that exist only in the upcoming release.
 
-Minor features that are fully backwards compatible with the current Laravel release may be sent to the latest stable branch.
+Minor features that are fully backwards compatible with the current Pyro release may be sent to the latest stable branch.
 
-Major new features should always be sent to the master branch, which contains the upcoming Laravel release.
+Major new features should always be sent to the master branch, which contains the upcoming Pyro release.
 
 If you are unsure if your feature qualifies as a major or minor, please ask Ryan Thompson in the #general Slack channel (pyrocms.slack.com).
 
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Ryan Thompson at ryan@pyrocms.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Pyro, please send an e-mail to Ryan Thompson at ryan@pyrocms.com. All security vulnerabilities will be promptly addressed.
 
 
 ## Coding Style
 
-Laravel follows the PSR-4 and PSR-1 coding standards. In addition to these standards, the following coding standards should be followed:
+Pyro follows the PSR-4 and PSR-1 coding standards. In addition to these standards, the following coding standards should be followed:
 
 The class namespace declaration must be on the same line as <?php.
-A class' opening { must be on the same line as the class name.
-Functions and control structures must use Allman style braces.
 Indent with tabs, align with spaces.
