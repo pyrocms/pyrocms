@@ -22,7 +22,7 @@
     ],
     "require": {
         "anomaly/streams-composer-plugin": "~1.1.0",
-        "anomaly/streams-platform": "~1.2.0",
+        "anomaly/streams-platform": "~1.3.0",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/local_storage_adapter-extension": "~2.1.0",
@@ -47,7 +47,7 @@
         "anomaly/country-field_type": "~2.2.0",
         "anomaly/decimal-field_type": "~2.1.0",
         "anomaly/integer-field_type": "~2.1.0",
-        "anomaly/editor-field_type": "~2.1.0",
+        "anomaly/editor-field_type": "~2.2.0",
         "anomaly/select-field_type": "~2.2.0",
         "anomaly/slider-field_type": "~2.1.0",
         "anomaly/addon-field_type": "~2.2.0",
