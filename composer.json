@@ -47,7 +47,7 @@
         "anomaly/country-field_type": "~2.2.0",
         "anomaly/decimal-field_type": "~2.1.0",
         "anomaly/integer-field_type": "~2.1.0",
-        "anomaly/editor-field_type": "~2.1.0",
+        "anomaly/editor-field_type": "~2.2.0",
         "anomaly/select-field_type": "~2.2.0",
         "anomaly/slider-field_type": "~2.1.0",
         "anomaly/addon-field_type": "~2.2.0",
