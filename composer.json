@@ -77,10 +77,10 @@
         "anomaly/robots-extension": "~2.1.0",
         "anomaly/sitemap-extension": "~2.1.0",
         "pyrocms/starter-theme": "~1.0.0",
-        "pyrocms/accelerant-theme": "~1.0.0"
+        "pyrocms/accelerant-theme": "~1.0.0",
+        "fzaninotto/faker": "~1.4"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.4|~5.0",
         "symfony/css-selector": "3.1.*",
