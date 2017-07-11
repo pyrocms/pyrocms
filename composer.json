@@ -64,7 +64,6 @@
         "anomaly/navigation-module": "~2.2.0",
         "anomaly/dashboard-module": "~2.2.0",
         "anomaly/redirects-module": "~2.1.0",
-        "anomaly/installer-module": "~2.2.0",
         "anomaly/variables-module": "~2.2.0",
         "anomaly/settings-module": "~2.1.0",
         "anomaly/addons-module": "~2.1.0",
@@ -84,7 +83,8 @@
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.4|~5.0",
         "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*"
+        "symfony/dom-crawler": "3.1.*",
+        "anomaly/installer-module": "~2.2.0"
     },
     "autoload": {
         "classmap": [
@@ -102,7 +102,6 @@
             "tests/TestCase.php"
         ]
     },
-    "scripts": {},
     "config": {
         "bin-dir": "bin",
         "preferred-install": "dist"
