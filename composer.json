@@ -21,6 +21,7 @@
         }
     ],
     "require": {
+        "wikimedia/composer-merge-plugin": "~1.4.0",
         "anomaly/streams-composer-plugin": "~1.1.0",
         "anomaly/streams-platform": "~1.3.0",
         "anomaly/default_authenticator-extension": "~2.1.0",
@@ -101,6 +102,18 @@
         "classmap": [
             "tests/TestCase.php"
         ]
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "addons/*/*/*/composer.json"
+            ],
+            "require": [
+                "core/*/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false
+        }
     },
     "config": {
         "bin-dir": "bin",
