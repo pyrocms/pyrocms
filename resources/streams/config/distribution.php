@@ -3,5 +3,5 @@
 return [
     'name'        => 'PyroCMS',
     'description' => 'Build better Laravel websites and applications faster with Pyro.',
-    'version'     => 'v3.3.3',
+    'version'     => 'v3.4.0-beta',
 ];
