@@ -99,9 +99,6 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        },
-        "psr-0": {
-            "": "tmp/"
         }
     },
     "autoload-dev": {
