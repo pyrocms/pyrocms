@@ -120,7 +120,6 @@
     },
     "config": {
         "bin-dir": "bin",
-        "sort-packages": true,
         "preferred-install": "dist",
         "optimize-autoloader": true
     },
