@@ -71,7 +71,7 @@
         "anomaly/users-module": "~2.2.0",
         "anomaly/pages-module": "~2.2.0",
         "anomaly/posts-module": "~2.2.0",
-        "anomaly/files-module": "~2.2.0",
+        "anomaly/files-module": "~2.3.0",
         "anomaly/contact-plugin": "~1.2.0",
         "anomaly/helper-plugin": "~2.1.0",
         "anomaly/robots-extension": "~2.1.0",
