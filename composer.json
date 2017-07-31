@@ -86,6 +86,12 @@
         "symfony/dom-crawler": "3.1.*",
         "anomaly/installer-module": "~2.2.0"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.pyrocms.com"
+        }
+    ],
     "autoload": {
         "classmap": [
             "database"
