@@ -77,10 +77,7 @@
         "anomaly/robots-extension": "~2.1.0",
         "anomaly/sitemap-extension": "~2.1.0",
         "pyrocms/starter-theme": "~1.0.0",
-        "pyrocms/accelerant-theme": "~1.0.0",
-        "pyrocms/store": "dev-master",
-        "anomaly/payments-module": "dev-master",
-        "anomaly/stripe_gateway-extension": "dev-master"
+        "pyrocms/accelerant-theme": "~1.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
