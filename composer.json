@@ -69,7 +69,7 @@
         "anomaly/settings-module": "~2.1.0",
         "anomaly/addons-module": "~2.1.0",
         "anomaly/users-module": "~2.3.0",
-        "anomaly/pages-module": "~2.2.0",
+        "anomaly/pages-module": "~2.3.0",
         "anomaly/posts-module": "~2.3.0",
         "anomaly/files-module": "~2.3.0",
         "anomaly/contact-plugin": "~1.2.0",
