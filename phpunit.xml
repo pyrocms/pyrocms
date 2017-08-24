@@ -42,6 +42,8 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="STANDARD_THEME" value="anomaly.theme.test_standard"/>
+        <env name="ADMIN_THEME" value="anomaly.theme.test_admin"/>
     </php>
 
 </phpunit>
