@@ -80,12 +80,13 @@
         "pyrocms/accelerant-theme": "~1.0.0"
     },
     "require-dev": {
+        "filp/whoops": "~2.0",
+        "phpunit/phpunit": "~6.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.4|~5.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "~2.3.0"
+        "anomaly/installer-module": "~2.2.0"
     },
     "repositories": [
         {
