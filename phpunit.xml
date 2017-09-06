@@ -15,10 +15,10 @@
             <directory suffix="Test.php">./vendor/anomaly/streams-platform/</directory>
         </testsuite>
         <testsuite name="Application">
-            <directory suffix="Test.php">./addons/</directory>
+            <directory suffix="Test.php">./addons/*/*/*/tests</directory>
         </testsuite>
         <testsuite name="Core">
-            <directory suffix="Test.php">./core/</directory>
+            <directory suffix="Test.php">./core/*/*/tests</directory>
         </testsuite>
     </testsuites>
 
