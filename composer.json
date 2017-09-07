@@ -110,9 +110,7 @@
     "extra": {
         "merge-plugin": {
             "include": [
-                "addons/*/*/*/composer.json"
-            ],
-            "require": [
+                "addons/*/*/*/composer.json",
                 "core/*/*/composer.json"
             ],
             "recurse": true,
