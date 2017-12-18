@@ -57,7 +57,7 @@
         "anomaly/files-field_type": "~2.2.0",
         "anomaly/tags-field_type": "~2.2.0",
         "anomaly/slug-field_type": "~2.1.0",
-        "anomaly/text-field_type": "~2.1.0",
+        "anomaly/text-field_type": "~2.2.0",
         "anomaly/file-field_type": "~2.2.0",
         "anomaly/url-field_type": "~2.2.0",
         "anomaly/configuration-module": "~2.1.0",
