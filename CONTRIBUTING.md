@@ -37,4 +37,3 @@ If you discover a security vulnerability within Pyro, please send an e-mail to R
 Pyro follows the PSR-4, PSR-2 and PSR-1 coding standards. In addition to these standards, the following coding standards should be followed:
 
 The class namespace declaration must be on the same line as <?php.
-Indent with tabs, align with spaces.
