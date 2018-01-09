@@ -103,15 +103,16 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-       }
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "extra": {
         "merge-plugin": {
             "include": [
                 "addons/*/*/*/composer.json",
-                "core/*/*/composer.json"
+                "core/*/*/composer.json",
+                "vendor/anomaly/streams-platform/addons/anomaly/*/composer.json"
             ],
             "recurse": true,
             "replace": false
