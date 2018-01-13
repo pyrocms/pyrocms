@@ -42,6 +42,8 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="APP_THEME" value="pyrocms.theme.starter"/>
+        <env name="ADMIN_THEME" value="pyrocms.theme.accelerant"/>
     </php>
 
 </phpunit>
