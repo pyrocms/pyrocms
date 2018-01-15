@@ -92,6 +92,10 @@
         {
             "type": "composer",
             "url": "https://packages.pyrocms.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://community.pyrocms.com"
         }
     ],
     "autoload": {
