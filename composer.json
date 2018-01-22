@@ -81,7 +81,7 @@
     },
     "require-dev": {
         "filp/whoops": "~2.0",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "~3.7|~6.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
@@ -93,6 +93,10 @@
         {
             "type": "composer",
             "url": "https://packages.pyrocms.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.redtally.com.au"
         }
     ],
     "autoload": {
