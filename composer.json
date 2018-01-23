@@ -82,7 +82,8 @@
         "redtally/credits-module": "dev-develop",
         "redtally/royalties-module": "dev-develop",
         "redtally/payments-module": "dev-feature/extension-support",
-        "redtally/eway_payments-extension": "dev-develop"
+        "redtally/eway_payments-extension": "dev-develop",
+        "redtally/asdacs_admin-theme": "dev-develop"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
