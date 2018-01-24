@@ -77,14 +77,7 @@
         "anomaly/robots-extension": "~2.1.0",
         "anomaly/sitemap-extension": "~2.1.0",
         "pyrocms/starter-theme": "~1.0.0",
-        "pyrocms/accelerant-theme": "~1.0.0",
-        "redtally/profiles-module": "dev-develop",
-        "redtally/credits-module": "dev-develop",
-        "redtally/royalties-module": "dev-develop",
-        "redtally/payments-module": "dev-feature/extension-support",
-        "redtally/eway_payments-extension": "dev-develop",
-        "redtally/asdacs_admin-theme": "dev-develop",
-        "redtally/asdacs_front-theme": "dev-develop"
+        "pyrocms/accelerant-theme": "~1.0.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -100,10 +93,6 @@
         {
             "type": "composer",
             "url": "https://packages.pyrocms.com"
-        },
-        {
-            "type": "composer",
-            "url": "https://packages.redtally.com.au"
         }
     ],
     "autoload": {
