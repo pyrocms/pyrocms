@@ -1,4 +1,4 @@
-<?php namespace Tests;
+<?php
 
 /**
  * Class TestCase
