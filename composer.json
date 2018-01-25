@@ -81,12 +81,11 @@
     },
     "require-dev": {
         "filp/whoops": "~2.0",
-        "phpunit/phpunit": "~3.7|~6.0",
+        "phpunit/phpunit": "~6.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "laravel/browser-kit-testing": "^2.0",
         "anomaly/installer-module": "~2.3.0"
     },
     "repositories": [
@@ -104,16 +103,15 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "extra": {
         "merge-plugin": {
             "include": [
                 "addons/*/*/*/composer.json",
-                "core/*/*/composer.json",
-                "vendor/anomaly/streams-platform/addons/anomaly/*/composer.json"
+                "core/*/*/composer.json"
             ],
             "recurse": true,
             "replace": false
