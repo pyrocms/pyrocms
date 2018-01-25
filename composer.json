@@ -86,8 +86,8 @@
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "~2.3.0",
-        "laravel/browser-kit-testing": "^2.0"
+        "laravel/browser-kit-testing": "^2.0",
+        "anomaly/installer-module": "~2.3.0"
     },
     "repositories": [
         {
