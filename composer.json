@@ -107,9 +107,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": {
+        "classmap": [
             "tests/TestCase.php"
-        }
+        ]
     },
     "extra": {
         "merge-plugin": {
