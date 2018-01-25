@@ -1,5 +1,7 @@
-<?php
+<?php namespace Tests\Unit;
+
 use Illuminate\Contracts\Console\Kernel;
+use Tests\TestCase;
 
 /**
  * Class BootstrapTest
