@@ -1,6 +1,5 @@
 .env
 .coverage
-composer.lock
 /bin
 /core
 /build
