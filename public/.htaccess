@@ -12,6 +12,11 @@ SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
     
+    # Redirect Old Domains
+    #RewriteCond %{HTTP_HOST} ^example.com [NC,OR]
+    #RewriteCond %{HTTP_HOST} ^www.example.com [NC]
+    #RewriteRule ^(.*)$ http://newdomain.com/$1 [L,R=301,NC]
+    
     # Redirect to non-www
     #RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     #RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
