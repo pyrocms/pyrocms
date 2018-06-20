@@ -124,7 +124,7 @@ return [
     | View Overrides
     |--------------------------------------------------------------------------
     |
-    | Define globally overriden views as 'view' => 'override' view paths.
+    | Define globally overridden views as 'view' => 'override' view paths.
     |
     */
 
