@@ -7,7 +7,6 @@
          processIsolation="false"
          backupGlobals="false"
          stopOnFailure="true"
-         syntaxCheck="false"
          colors="true">
 
     <testsuites>
@@ -32,8 +31,7 @@
     </filter>
 
     <logging>
-        <log type="coverage-html" target="./coverage" charset="UTF-8"
-             yui="true" highlight="true"/>
+        <log type="coverage-html" target="./coverage"/>
     </logging>
 
     <php>
