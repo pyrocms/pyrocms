@@ -9,31 +9,31 @@ SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
     
     RewriteBase /
 
-    # Redirect Trailing Slashes...
+    # Redirect trailing slashes
     RewriteRule ^(.*)/$ /$1 [L,R=301]
     
-    # Redirect Old Domains
+    # Redirect old/alternate domains
     #RewriteCond %{HTTP_HOST} ^example.com [NC,OR]
     #RewriteCond %{HTTP_HOST} ^www.example.com [NC]
     #RewriteRule ^(.*)$ http://newdomain.com/$1 [L,R=301,NC]
     
     # Redirect to non-www
     #RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    #RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+    #RewriteRule ^(.*)$ http://domain.com/$1 [R=301,L]
     
     # Redirect to www
     #RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
-    #RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+    #RewriteRule ^(.*)$ http://www.domain.com/$1 [R=301,L]
     
     # Force non-ssl
     #RewriteCond %{HTTPS} on
-    #RewriteRule ^ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #RewriteRule ^ http://domain.com/$1 [L,R=301]
     
     # Force ssl
     #RewriteCond %{HTTPS} off
-    #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #RewriteRule ^ https://domain.com/$1 [L,R=301]
     
-    # Handle Front Controller...
+    # Handle front controller
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
