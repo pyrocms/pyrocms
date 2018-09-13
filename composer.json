@@ -35,7 +35,7 @@
         "anomaly/relationship-field_type": "~2.2.0",
         "anomaly/colorpicker-field_type": "~2.2.0",
         "anomaly/polymorphic-field_type": "~2.1.0",
-        "anomaly/checkboxes-field_type": "~2.3.0",
+        "anomaly/checkboxes-field_type": "~2.4.0",
         "anomaly/encrypted-field_type": "~2.1.0",
         "anomaly/datetime-field_type": "~3.0.0",
         "anomaly/repeater-field_type": "~1.3.0",
