@@ -49,6 +49,7 @@ SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
     AddOutputFilterByType DEFLATE application/x-font-otf
     AddOutputFilterByType DEFLATE application/x-font-truetype
     AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-font-woff
     AddOutputFilterByType DEFLATE application/x-javascript
     AddOutputFilterByType DEFLATE application/xhtml+xml
     AddOutputFilterByType DEFLATE application/xml
