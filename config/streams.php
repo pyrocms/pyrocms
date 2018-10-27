@@ -129,5 +129,17 @@ return [
     */
 
     'overrides' => [],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Control Panel Customization
+    |--------------------------------------------------------------------------
+    |
+    | Support for control panel configuration is
+    | currently limited to the Streams module.
+    |
+    */
+
+    'cp' => [],
 
 ];
