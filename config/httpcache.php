@@ -25,8 +25,6 @@ return [
      | http://symfony.com/doc/current/book/http_cache.html#symfony2-reverse-proxy
      |
      */
-    'options'   => [
-
-    ],
+    'options'   => [],
 
 ];
