@@ -51,13 +51,6 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $kernel = \Anomaly\Streams\Platform\Http\CacheKernel::wrap($kernel);
 
-$app->singleton(
-    \Anomaly\Streams\Platform\Http\HttpCache::class,
-    function () use ($kernel) {
-        return $kernel;
-    }
-);
-
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
