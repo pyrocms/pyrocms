@@ -68,7 +68,7 @@
         "anomaly/variables-module": "~2.3.0",
         "anomaly/settings-module": "~2.2.0",
         "anomaly/addons-module": "~2.2.0",
-        "anomaly/blocks-module": "~1.1.0",
+        "anomaly/blocks-module": "~1.2.0",
         "anomaly/users-module": "~2.4.0",
         "anomaly/pages-module": "~2.4.0",
         "anomaly/posts-module": "~2.4.0",
