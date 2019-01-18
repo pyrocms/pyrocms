@@ -71,7 +71,7 @@
         "anomaly/blocks-module": "~1.2.0",
         "anomaly/users-module": "~2.5.0",
         "anomaly/pages-module": "~2.6.0",
-        "anomaly/posts-module": "~2.5.0",
+        "anomaly/posts-module": "~2.6.0",
         "anomaly/files-module": "~2.6.0",
         "anomaly/contact-plugin": "~1.2.0",
         "anomaly/helper-plugin": "~2.1.0",
