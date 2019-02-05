@@ -61,7 +61,7 @@
         "anomaly/file-field_type": "~2.2.0",
         "anomaly/url-field_type": "~2.2.0",
         "anomaly/configuration-module": "~2.1.0",
-        "anomaly/preferences-module": "~2.1.0",
+        "anomaly/preferences-module": "~2.2.0",
         "anomaly/navigation-module": "~2.4.0",
         "anomaly/dashboard-module": "~2.2.0",
         "anomaly/redirects-module": "~2.3.0",
