@@ -42,6 +42,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Debug Blacklist
+    |--------------------------------------------------------------------------
+    |
+    | When an exception is uncaught and the APP_DEBUG environment variable
+    | is true, the debug page will show all environment variables and
+    | their contents. In some cases you may want to obscure certain
+    | variables. You may do this by updating debug_blacklist.
+    |
+    */
+
+    'debug_blacklist' => [
+        '_ENV' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+        ],
+
+        '_SERVER' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+        ],
+
+        '_POST' => [
+            'password',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
