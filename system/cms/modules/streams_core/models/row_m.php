@@ -1416,24 +1416,30 @@ class Row_m extends MY_Model {
 			'.PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id='.PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id');
 
 		$fields = $obj->result();
-		
+
 		$struct = array();
-		
+
+		$fieldIndex = array();
+
+		foreach ($fields as $field) {
+			if (!isset($fieldIndex[$field->stream_id])) {
+				$fieldIndex[$field->stream_id] = array();
+			}
+			$fieldIndex[$field->stream_id][] = $field;
+		}
+
 		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
 		{
 			if ($stream_id == 'ns') continue;
 
 			$struct[$stream_id]['stream'] = $stream;
-			
-			foreach ($fields as $field)
-			{
-				if ($field->stream_slug == $stream->stream_slug)
-				{
-					$struct[$stream_id]['fields'][] = $field;
-				}
+
+			if (!isset($fieldIndex[$stream_id])) {
+				continue;
 			}
+			$struct[$stream_id]['fields'] = $fieldIndex[$stream_id];
 		}
-		
+
 		return $struct;
 	}
 	
