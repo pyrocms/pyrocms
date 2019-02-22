@@ -8,10 +8,10 @@ about: Create a report to help us improve documentation.
 A clear and concise description of what you are trying to accomplish that led you to looking for documentation.
 
 **Where would you expect to find documentation for this?**
-- [ ] General Documentation
-- [ ] Core Developer Documentation
-- [ ] Core Frontend Documentation
-- [ ] Specific Addon Documentation (please list which one below)
+- [ ] General Documentation (designed for new developers)
+- [ ] Developer Documentation
+- [ ] Frontend Documentation
+- [ ] Addon Specific Documentation (please specify):
 
 **Suggestions**
 If applicable, add any additional information you believe would be relevant to the documentation.
