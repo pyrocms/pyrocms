@@ -122,6 +122,11 @@
             ],
             "recurse": true,
             "replace": false
+        },
+        "laravel": {
+            "dont-discover": [
+                "*"
+            ]
         }
     },
     "config": {
