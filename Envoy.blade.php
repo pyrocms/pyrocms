@@ -16,13 +16,17 @@ php artisan migrate --force
 
 @task('compile', ['on' => 'web'])
 cd /home/yoursite
+php artisan streams:compile
+@endtask
+
+@task('clear', ['on' => 'web'])
+cd /home/yoursite
 php artisan httpcache:clear
 php artisan assets:clear
 php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 php artisan twig:clear
-php artisan streams:compile
 @endtask
 
 @task('install', ['on' => 'web'])
