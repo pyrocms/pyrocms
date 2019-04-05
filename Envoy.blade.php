@@ -48,4 +48,5 @@ php artisan addon:reinstall {{$addon}}
 push
 update
 compile
+clear
 @endmacro
