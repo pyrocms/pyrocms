@@ -7,9 +7,13 @@ php artisan migrate --all-addons --force
 php artisan migrate --force
 @endtask
 
-@task('push', ['on' => 'web'])
+@task('pull', ['on' => 'web'])
 cd /home/yoursite
 git pull
+@endtask
+
+@task('migrate', ['on' => 'web'])
+cd /home/yoursite
 php artisan migrate --all-addons --force
 php artisan migrate --force
 @endtask
@@ -43,6 +47,12 @@ php artisan addon:uninstall {{$addon}}
 cd /home/yoursite
 php artisan addon:reinstall {{$addon}}
 @endtask
+
+@macro('push')
+pull
+clear
+migrate
+@endmacro
 
 @macro('deploy')
 push
