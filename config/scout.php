@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', null),
+    'driver' => env('SCOUT_DRIVER', 'tntsearch'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'prefix' => env('SCOUT_PREFIX', ''),
+    'prefix' => env('SCOUT_PREFIX', 'tntsearch'),
 
     /*
     |--------------------------------------------------------------------------
