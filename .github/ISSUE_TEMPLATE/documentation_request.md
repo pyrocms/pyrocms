@@ -7,6 +7,9 @@ about: Create a report to help us improve documentation.
 **What are you trying to do?**
 A clear and concise description of what you are trying to accomplish that led you to looking for documentation.
 
+**List any existing documentation:**
+List any existing documentation or material that can be used in the suggested improvement.
+
 **Where would you expect to find documentation for this?**
 - [ ] General Documentation (designed for new developers)
 - [ ] Developer Documentation
