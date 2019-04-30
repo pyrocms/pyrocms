@@ -58,4 +58,25 @@ return [
         'id'     => env('ALGOLIA_APP_ID'),
         'secret' => env('ALGOLIA_SECRET'),
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | TNT Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure your TNT settings. TNT is the default search
+    | indexing mechanism for the Streams Platform. TNT Search is a fully
+    | featured full text search engine for PHP.
+    |
+    */
+
+    'tntsearch' => [
+        'fuzziness'     => env('TNTSEARCH_FUZZINESS', false),
+        'fuzzy'         => [
+            'prefix_length'  => 2,
+            'max_expansions' => 10,
+            'distance'       => 2,
+        ],
+        'searchBoolean' => env('TNTSEARCH_BOOLEAN', true),
+    ],
 ];
