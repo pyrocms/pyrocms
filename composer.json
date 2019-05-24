@@ -85,7 +85,7 @@
     },
     "require-dev": {
         "filp/whoops": "~2.0",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "^7.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
