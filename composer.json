@@ -27,7 +27,6 @@
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.0.0",
-        "anomaly/local_storage_adapter-extension": "~2.1.0",
         "anomaly/default_page_handler-extension": "~2.1.0",
         "anomaly/user_security_check-extension": "~2.1.0",
         "anomaly/xml_feed_widget-extension": "~2.1.0",
