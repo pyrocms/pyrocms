@@ -175,13 +175,11 @@ DB_HOST=${DB_HOST[1]}
     @endtask
 
     @task('deployment_refresh')
-                rm {{ $release }}/bootstrap/cache/*.php
     {{ $php }} {{ $release }}/artisan refresh --quiet
                 echo "System refreshed"
     @endtask
 
     @task('current_refresh')
-                rm {{ $path }}/current/bootstrap/cache/*.php
     {{ $php }} {{ $path }}/current/artisan refresh --quiet
                 echo "System refreshed"
     @endtask
