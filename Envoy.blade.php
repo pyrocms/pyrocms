@@ -41,7 +41,9 @@ echo "Repository cloned"
 mv {{ $release }}/storage {{ $path }}/storage
 ln -s {{ $path }}/storage {{ $release }}/storage
 echo "Storage directory set up"
-cp {{ $path }}/.env.example {{ $path }}/.env
+if [ ! -d {{ $path }}/current ]; then
+touch {{ $path }}/.env
+fi
 ln -s {{ $path }}/.env {{ $release }}/.env
 echo "Environment file set up"
 rm -rf {{ $release }}
