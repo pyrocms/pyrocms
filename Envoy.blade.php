@@ -163,6 +163,8 @@ DB_HOST=${DB_HOST[1]}
     @endtask
 
     @task('deployment_migrate')
+    {{ $php }} {{ $release }}/artisan migrate --env={{ $env }} --force --no-interaction --path=vendor/anomaly/streams-platform/migrations/application
+    {{ $php }} {{ $release }}/artisan migrate --env={{ $env }} --all-addons --force --no-interaction
     {{ $php }} {{ $release }}/artisan migrate --env={{ $env }} --force --no-interaction
     @endtask
 
