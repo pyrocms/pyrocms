@@ -38,10 +38,14 @@ if [ ! -d {{ $path }}/current ]; then
 cd {{ $path }}
 git clone {{ $repo }} --branch={{ $branch }} --depth=1 -q {{ $release }}
 echo "Repository cloned"
+if [ ! -d {{ $path }}/storage ]; then
 mv {{ $release }}/storage {{ $path }}/storage
+else
+rm -Rf {{ $release }}/storage
+fi
 ln -s {{ $path }}/storage {{ $release }}/storage
 echo "Storage directory set up"
-if [ ! -d {{ $path }}/current ]; then
+if [ ! -d {{ $path }}/.env ]; then
 touch {{ $path }}/.env
 fi
 ln -s {{ $path }}/.env {{ $release }}/.env
@@ -136,30 +140,30 @@ IFS='=' read -ra DB_HOST <<< "$DB_HOST"
 DB_HOST=${DB_HOST[1]}
 
 /bin/cat <<EOM >database.cnf
-                [client]
-                password="${DB_PASSWORD[1]}"
-                EOM
+    [client]
+    password="${DB_PASSWORD[1]}"
+    EOM
 
-                mysqldump --defaults-extra-file={{ $path }}/current/database.cnf -u ${DB_USERNAME} ${DB_DATABASE} > database.sql
+    mysqldump --defaults-extra-file={{ $path }}/current/database.cnf -u ${DB_USERNAME} ${DB_DATABASE} > database.sql
 
-                rm database.cnf
+    rm database.cnf
 
-                echo "Database backup complete"
+    echo "Database backup complete"
     @endtask
 
     @task('deployment_links')
-                cd {{ $path }}
-                rm -rf {{ $release }}/storage
-                ln -s {{ $path }}/storage {{ $release }}/storage
-                echo "Storage directories set up"
-                ln -s {{ $path }}/.env {{ $release }}/.env
-                echo "Environment file set up"
+    cd {{ $path }}
+    rm -rf {{ $release }}/storage
+    ln -s {{ $path }}/storage {{ $release }}/storage
+    echo "Storage directories set up"
+    ln -s {{ $path }}/.env {{ $release }}/.env
+    echo "Environment file set up"
     @endtask
 
     @task('deployment_composer')
-                echo "Installing composer dependencies..."
-                cd {{ $release }}
-                {{ $composer }} install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
+    echo "Installing composer dependencies..."
+    cd {{ $release }}
+    {{ $composer }} install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
     @endtask
 
     @task('deployment_migrate')
@@ -170,54 +174,54 @@ DB_HOST=${DB_HOST[1]}
 
     @task('deployment_build')
     {{ $php }} {{ $release }}/artisan build --quiet
-                echo "System built"
+    echo "System built"
     @endtask
 
     @task('deployment_rebuild')
     {{ $php }} {{ $release }}/artisan build --quiet
-                echo "System built"
+    echo "System built"
     @endtask
 
     @task('deployment_refresh')
     {{ $php }} {{ $release }}/artisan refresh --quiet
-                echo "System refreshed"
+    echo "System refreshed"
     @endtask
 
     @task('current_refresh')
     {{ $php }} {{ $path }}/current/artisan refresh --quiet
-                echo "System refreshed"
+    echo "System refreshed"
     @endtask
 
     @task('deployment_finish')
-                ln -s {{ $release }} {{ $path }}/current
+    ln -s {{ $release }} {{ $path }}/current
     @endtask
 
     @task('deployment_complete')
-                echo "Deployment ({{ $date }}) finished"
+    echo "Deployment ({{ $date }}) finished"
     @endtask
 
     @task('deployment_cleanup')
-                cd {{ $path }}
-                find . -maxdepth 1 -name "20*" | sort | head -n -4 | xargs rm -Rf
-                echo "Cleaned up old deployments"
+    cd {{ $path }}
+    find . -maxdepth 1 -name "20*" | sort | head -n -4 | xargs rm -Rf
+    echo "Cleaned up old deployments"
     @endtask
 
     @task('deployment_rollback')
-                cd {{ $path }}
-                ln -nfs {{ $path }}/$(find . -maxdepth 1 -name "20*" | sort  | tail -n 2 | head -n1) {{ $path }}/current
+    cd {{ $path }}
+    ln -nfs {{ $path }}/$(find . -maxdepth 1 -name "20*" | sort  | tail -n 2 | head -n1) {{ $path }}/current
     {{ $php }} {{ $release }}/artisan migrate:rollback --env={{ $env }} --force --no-interaction
-                echo "Rolled back to $(find . -maxdepth 1 -name "20*" | sort  | tail -n 2 | head -n1)"
+    echo "Rolled back to $(find . -maxdepth 1 -name "20*" | sort  | tail -n 2 | head -n1)"
     @endtask
 
     @task('health_check_ping')
     @if ( ! empty($healthUrl) )
-                if [ "$(curl --write-out "%{http_code}\n" --silent --output /dev/null {{ $healthUrl }})" == "200" ]; then
-                printf "\033[0;32mHealth check to {{ $healthUrl }} OK\033[0m\n"
-                else
-                printf "\033[1;31mHealth check to {{ $healthUrl }} FAILED\033[0m\n"
-                fi
+        if [ "$(curl --write-out "%{http_code}\n" --silent --output /dev/null {{ $healthUrl }})" == "200" ]; then
+        printf "\033[0;32mHealth check to {{ $healthUrl }} OK\033[0m\n"
+        else
+        printf "\033[1;31mHealth check to {{ $healthUrl }} FAILED\033[0m\n"
+        fi
     @else
-                echo "Ping Skipped: [DEPLOY_HEALTH_CHECK] URL not set"
+        echo "Ping Skipped: [DEPLOY_HEALTH_CHECK] URL not set"
 @endif
 @endtask
 
