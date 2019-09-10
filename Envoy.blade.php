@@ -69,6 +69,14 @@ current_refresh
 health_check_ping
 @endstory
 
+@story('refresh')
+current_refresh
+@endstory
+
+@story('build')
+current_build
+@endstory
+
 @story('deploy')
 @if ( isset($backup) && $backup )
     deployment_backup
@@ -161,7 +169,7 @@ DB_HOST=${DB_HOST[1]}
     @endtask
 
     @task('deployment_composer')
-    echo "Installing composer dependencies..."
+    echo "Installing composer dependencies."
     cd {{ $release }}
     {{ $composer }} install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
     @endtask
@@ -190,6 +198,12 @@ DB_HOST=${DB_HOST[1]}
     @task('current_refresh')
     {{ $php }} {{ $path }}/current/artisan refresh --quiet
     echo "System refreshed"
+    @endtask
+    
+    @task('current_build')
+    echo "System building."
+    {{ $php }} {{ $path }}/current/artisan build
+    echo "System built."
     @endtask
 
     @task('deployment_finish')
