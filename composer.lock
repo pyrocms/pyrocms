@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "342152c5dcb71b73b0ab2af8318afa89",
+    "content-hash": "a7983b854646cb4e6e986efa8336971f",
     "packages": [
+        {
+            "name": "anomaly/accordion_block-extension",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/accordion_block-extension.git",
+                "reference": "07dc077703b169bc94577858f3cf2ba6303a246b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/accordion_block-extension/zipball/07dc077703b169bc94577858f3cf2ba6303a246b",
+                "reference": "07dc077703b169bc94577858f3cf2ba6303a246b",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/blocks-module": "^1.0"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\AccordionBlockExtension\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Display content within collapsible accordions.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "block type",
+                "blocks",
+                "streams addon"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/accordion_block-extension/tree/v1.0.1"
+            },
+            "time": "2018-10-31T18:10:00+00:00"
+        },
         {
             "name": "anomaly/addon-field_type",
             "version": "v2.2.9",
@@ -61,16 +114,16 @@
         },
         {
             "name": "anomaly/addons-module",
-            "version": "v2.3.42",
+            "version": "v2.3.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/addons-module.git",
-                "reference": "a94a48f8fdf71116081e1c0d6ebc822415cc57a6"
+                "reference": "5f6bfd4141cb11f9a6d4bb06a661923242e6a7a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/addons-module/zipball/a94a48f8fdf71116081e1c0d6ebc822415cc57a6",
-                "reference": "a94a48f8fdf71116081e1c0d6ebc822415cc57a6",
+                "url": "https://api.github.com/repos/anomalylabs/addons-module/zipball/5f6bfd4141cb11f9a6d4bb06a661923242e6a7a7",
+                "reference": "5f6bfd4141cb11f9a6d4bb06a661923242e6a7a7",
                 "shasum": ""
             },
             "require": {
@@ -112,20 +165,20 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [addons-module]",
                 "source": "https://github.com/anomalylabs/addons-module"
             },
-            "time": "2019-07-14T06:13:54+00:00"
+            "time": "2019-09-06T15:16:34+00:00"
         },
         {
             "name": "anomaly/blocks-module",
-            "version": "v1.3.15",
+            "version": "v1.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/blocks-module.git",
-                "reference": "068ef6529cd7f8ebf139d4e5a4e1deab7eadd2c2"
+                "reference": "5beb6f7da11300c610581dc0dbfd2ecfabe46cbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/blocks-module/zipball/068ef6529cd7f8ebf139d4e5a4e1deab7eadd2c2",
-                "reference": "068ef6529cd7f8ebf139d4e5a4e1deab7eadd2c2",
+                "url": "https://api.github.com/repos/anomalylabs/blocks-module/zipball/5beb6f7da11300c610581dc0dbfd2ecfabe46cbc",
+                "reference": "5beb6f7da11300c610581dc0dbfd2ecfabe46cbc",
                 "shasum": ""
             },
             "require": {
@@ -167,7 +220,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [blocks-module]",
                 "source": "https://github.com/anomalylabs/blocks-module"
             },
-            "time": "2019-07-18T12:32:14+00:00"
+            "time": "2019-09-06T16:31:58+00:00"
         },
         {
             "name": "anomaly/boolean-field_type",
@@ -530,16 +583,16 @@
         },
         {
             "name": "anomaly/datetime-field_type",
-            "version": "v3.0.44",
+            "version": "v3.0.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/datetime-field_type.git",
-                "reference": "5f91e69f391d26fa6b010e7bf369082e0460b29b"
+                "reference": "ff78bd5d56c437cd63335c5640a311f2423d747f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/5f91e69f391d26fa6b010e7bf369082e0460b29b",
-                "reference": "5f91e69f391d26fa6b010e7bf369082e0460b29b",
+                "url": "https://api.github.com/repos/anomalylabs/datetime-field_type/zipball/ff78bd5d56c437cd63335c5640a311f2423d747f",
+                "reference": "ff78bd5d56c437cd63335c5640a311f2423d747f",
                 "shasum": ""
             },
             "require": {
@@ -577,9 +630,9 @@
             ],
             "support": {
                 "email": "support@pyrocms.com",
-                "source": "https://github.com/anomalylabs/datetime-field_type/tree/v3.0.44"
+                "source": "https://github.com/anomalylabs/datetime-field_type/tree/3.0"
             },
-            "time": "2019-08-29T12:10:03+00:00"
+            "time": "2019-09-03T14:46:59+00:00"
         },
         {
             "name": "anomaly/decimal-field_type",
@@ -964,16 +1017,16 @@
         },
         {
             "name": "anomaly/files-module",
-            "version": "v2.6.21",
+            "version": "v2.6.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/files-module.git",
-                "reference": "e0c88bf6fdde3e91a4835ad25acbeb519105b1d4"
+                "reference": "9f4fa94e7ea625632b41bf177ccff5ceb95e128f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/files-module/zipball/e0c88bf6fdde3e91a4835ad25acbeb519105b1d4",
-                "reference": "e0c88bf6fdde3e91a4835ad25acbeb519105b1d4",
+                "url": "https://api.github.com/repos/anomalylabs/files-module/zipball/9f4fa94e7ea625632b41bf177ccff5ceb95e128f",
+                "reference": "9f4fa94e7ea625632b41bf177ccff5ceb95e128f",
                 "shasum": ""
             },
             "require": {
@@ -1017,7 +1070,112 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [files-module]",
                 "source": "https://github.com/anomalylabs/files-module"
             },
-            "time": "2019-08-21T17:41:28+00:00"
+            "time": "2019-09-06T16:35:02+00:00"
+        },
+        {
+            "name": "anomaly/forms-module",
+            "version": "v1.3.23",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:anomalylabs/forms-module.git",
+                "reference": "01934fbd24cd4bd19005be1e9d60d06d9dedab91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/forms-module/zipball/01934fbd24cd4bd19005be1e9d60d06d9dedab91",
+                "reference": "01934fbd24cd4bd19005be1e9d60d06d9dedab91",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/standard_form-extension": "^1.1",
+                "anomaly/streams-platform": "^1.3"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\FormsModule\\": "src/"
+                }
+            },
+            "license": [
+                "https://pyrocms.com/pro/license"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily build and manage custom drop-in forms.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "module",
+                "streams addon",
+                "streams module"
+            ],
+            "support": {
+                "docs": "https://pyrocms.com/documentation/forms-module",
+                "forum": "https://pyrocms.com/forum/channels/forms-module",
+                "slack": "https://pyrocms.com/slack",
+                "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [forms-module]",
+                "source": "https://github.com/anomalylabs/forms-module"
+            },
+            "time": "2019-06-20T17:03:37+00:00"
+        },
+        {
+            "name": "anomaly/geocoder-field_type",
+            "version": "v1.2.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:anomalylabs/geocoder-field_type.git",
+                "reference": "524de1d00708dc425b3f6ec5acba8cf42e39f5b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/geocoder-field_type/zipball/524de1d00708dc425b3f6ec5acba8cf42e39f5b9",
+                "reference": "524de1d00708dc425b3f6ec5acba8cf42e39f5b9",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.6",
+                "grimzy/laravel-mysql-spatial": "~1.0.0",
+                "guzzlehttp/guzzle": "~6.0"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\GeocoderFieldType\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
+                }
+            ],
+            "description": "A geocoding field type powered by Google Maps.",
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "geocoder",
+                "laravel",
+                "pyrocms",
+                "streams-addon"
+            ],
+            "support": {
+                "email": "support@anomaly.is",
+                "source": "https://github.com/anomalylabs/geocoder-field_type/tree/v1.2.5"
+            },
+            "time": "2019-08-07T04:13:08+00:00"
         },
         {
             "name": "anomaly/helper-plugin",
@@ -1125,6 +1283,109 @@
                 "source": "https://github.com/anomalylabs/html_block-extension/tree/v1.0.3"
             },
             "time": "2018-10-31T03:02:41+00:00"
+        },
+        {
+            "name": "anomaly/icon-field_type",
+            "version": "v1.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/icon-field_type.git",
+                "reference": "cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/icon-field_type/zipball/cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc",
+                "reference": "cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc",
+                "shasum": ""
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\IconFieldType\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An icon picker field type.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "field type",
+                "streams addon",
+                "streams field type"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/icon-field_type/tree/v1.1.9"
+            },
+            "time": "2019-03-01T22:42:42+00:00"
+        },
+        {
+            "name": "anomaly/includes-extension",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/includes-extension.git",
+                "reference": "07efde5ec3ab45c3a873489f4500f2fe0375f318"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/includes-extension/zipball/07efde5ec3ab45c3a873489f4500f2fe0375f318",
+                "reference": "07efde5ec3ab45c3a873489f4500f2fe0375f318",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/streams-platform": "^1.3"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\IncludesExtension\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Owner"
+                }
+            ],
+            "description": "Easily manage custom include scripts.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "extension",
+                "include scripts",
+                "streams extension"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/includes-extension/tree/v1.0.1"
+            },
+            "time": "2018-09-05T21:02:18+00:00"
         },
         {
             "name": "anomaly/integer-field_type",
@@ -1323,16 +1584,16 @@
         },
         {
             "name": "anomaly/navigation-module",
-            "version": "v2.4.12",
+            "version": "v2.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/navigation-module.git",
-                "reference": "f43f90062e6a2544a3e0c8454f4a3b427afdeb08"
+                "reference": "d48a4e1f95051ecf6c7b59fd7b0c24aa8402603c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/navigation-module/zipball/f43f90062e6a2544a3e0c8454f4a3b427afdeb08",
-                "reference": "f43f90062e6a2544a3e0c8454f4a3b427afdeb08",
+                "url": "https://api.github.com/repos/anomalylabs/navigation-module/zipball/d48a4e1f95051ecf6c7b59fd7b0c24aa8402603c",
+                "reference": "d48a4e1f95051ecf6c7b59fd7b0c24aa8402603c",
                 "shasum": ""
             },
             "require": {
@@ -1373,7 +1634,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [forum-module]",
                 "source": "https://github.com/anomalylabs/forum-module"
             },
-            "time": "2019-08-13T20:23:44+00:00"
+            "time": "2019-09-06T16:35:48+00:00"
         },
         {
             "name": "anomaly/page_link_type-extension",
@@ -1421,16 +1682,16 @@
         },
         {
             "name": "anomaly/pages-module",
-            "version": "v2.6.23",
+            "version": "v2.6.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/pages-module.git",
-                "reference": "2f2deb4f5229d5ffb29d199c7226217a7fd334ed"
+                "reference": "5f1c02feb4842f825cb97447c9352d6023de9315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/pages-module/zipball/2f2deb4f5229d5ffb29d199c7226217a7fd334ed",
-                "reference": "2f2deb4f5229d5ffb29d199c7226217a7fd334ed",
+                "url": "https://api.github.com/repos/anomalylabs/pages-module/zipball/5f1c02feb4842f825cb97447c9352d6023de9315",
+                "reference": "5f1c02feb4842f825cb97447c9352d6023de9315",
                 "shasum": ""
             },
             "require": {
@@ -1473,7 +1734,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [pages-module]",
                 "source": "https://github.com/anomalylabs/pages-module"
             },
-            "time": "2019-08-01T18:56:04+00:00"
+            "time": "2019-09-05T06:13:52+00:00"
         },
         {
             "name": "anomaly/polymorphic-field_type",
@@ -1521,16 +1782,16 @@
         },
         {
             "name": "anomaly/posts-module",
-            "version": "v2.6.12",
+            "version": "v2.6.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/posts-module.git",
-                "reference": "98732338c12833837260bfc34cf21722e62e2514"
+                "reference": "4dfb3a2823302023a423feed34f20e9aa6f44ba3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/posts-module/zipball/98732338c12833837260bfc34cf21722e62e2514",
-                "reference": "98732338c12833837260bfc34cf21722e62e2514",
+                "url": "https://api.github.com/repos/anomalylabs/posts-module/zipball/4dfb3a2823302023a423feed34f20e9aa6f44ba3",
+                "reference": "4dfb3a2823302023a423feed34f20e9aa6f44ba3",
                 "shasum": ""
             },
             "require": {
@@ -1571,20 +1832,20 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [posts-module]",
                 "source": "https://github.com/anomalylabs/posts-module"
             },
-            "time": "2019-07-18T13:32:46+00:00"
+            "time": "2019-09-06T16:38:07+00:00"
         },
         {
             "name": "anomaly/preferences-module",
-            "version": "v2.2.8",
+            "version": "v2.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/preferences-module.git",
-                "reference": "dcac02319f3423934248a9e6e561f49c5a094121"
+                "reference": "2aafec6a76392082118f222caf6f7726920c6f45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/preferences-module/zipball/dcac02319f3423934248a9e6e561f49c5a094121",
-                "reference": "dcac02319f3423934248a9e6e561f49c5a094121",
+                "url": "https://api.github.com/repos/anomalylabs/preferences-module/zipball/2aafec6a76392082118f222caf6f7726920c6f45",
+                "reference": "2aafec6a76392082118f222caf6f7726920c6f45",
                 "shasum": ""
             },
             "require": {
@@ -1620,12 +1881,12 @@
             ],
             "support": {
                 "docs": "https://pyrocms.com/documentation/preferences-module",
-                "preferences": "https://pyrocms.com/forum/channels/preferences-module",
+                "forum": "https://pyrocms.com/forum/channels/preferences-module",
                 "slack": "https://pyrocms.com/slack",
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [preferences-module]",
                 "source": "https://github.com/anomalylabs/preferences-module"
             },
-            "time": "2019-03-13T16:29:53+00:00"
+            "time": "2019-09-06T16:36:30+00:00"
         },
         {
             "name": "anomaly/private_storage_adapter-extension",
@@ -1683,16 +1944,16 @@
         },
         {
             "name": "anomaly/redirects-module",
-            "version": "v2.3.10",
+            "version": "v2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/redirects-module.git",
-                "reference": "2c8a7063bd180a4fb56a34b1d96c608aaab00e74"
+                "reference": "fcb4ed9d02a43786afd90f469052e332bc342308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/redirects-module/zipball/2c8a7063bd180a4fb56a34b1d96c608aaab00e74",
-                "reference": "2c8a7063bd180a4fb56a34b1d96c608aaab00e74",
+                "url": "https://api.github.com/repos/anomalylabs/redirects-module/zipball/fcb4ed9d02a43786afd90f469052e332bc342308",
+                "reference": "fcb4ed9d02a43786afd90f469052e332bc342308",
                 "shasum": ""
             },
             "require": {
@@ -1733,7 +1994,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [redirects-module]",
                 "source": "https://github.com/anomalylabs/redirects-module"
             },
-            "time": "2019-07-19T12:38:32+00:00"
+            "time": "2019-09-05T06:19:05+00:00"
         },
         {
             "name": "anomaly/relationship-field_type",
@@ -1976,16 +2237,16 @@
         },
         {
             "name": "anomaly/settings-module",
-            "version": "v2.4.16",
+            "version": "v2.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/settings-module.git",
-                "reference": "f0a2aaefcc98218e47951310efedebbb10179c46"
+                "reference": "03c1790d08898e9a25f0ed8237b8311554113a3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/settings-module/zipball/f0a2aaefcc98218e47951310efedebbb10179c46",
-                "reference": "f0a2aaefcc98218e47951310efedebbb10179c46",
+                "url": "https://api.github.com/repos/anomalylabs/settings-module/zipball/03c1790d08898e9a25f0ed8237b8311554113a3c",
+                "reference": "03c1790d08898e9a25f0ed8237b8311554113a3c",
                 "shasum": ""
             },
             "require": {
@@ -2027,7 +2288,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [settings-module]",
                 "source": "https://github.com/anomalylabs/settings-module"
             },
-            "time": "2019-08-13T20:33:05+00:00"
+            "time": "2019-09-05T14:45:06+00:00"
         },
         {
             "name": "anomaly/sitemap-extension",
@@ -2181,6 +2442,58 @@
             "time": "2018-09-27T15:44:09+00:00"
         },
         {
+            "name": "anomaly/standard_form-extension",
+            "version": "v1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/standard_form-extension.git",
+                "reference": "09827b2b55e8416033141064cb3a6d80a22e7214"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/standard_form-extension/zipball/09827b2b55e8416033141064cb3a6d80a22e7214",
+                "reference": "09827b2b55e8416033141064cb3a6d80a22e7214",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/forms-module": "^1.2.0",
+                "anomaly/streams-platform": "^1.2.0"
+            },
+            "type": "streams-addon",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\StandardFormExtension\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AnomalyLabs, Inc.",
+                    "email": "hello@anomaly.is",
+                    "homepage": "http://anomaly.is/",
+                    "role": "Owner"
+                }
+            ],
+            "homepage": "http://anomaly.is/",
+            "keywords": [
+                "extension",
+                "streams addon",
+                "streams extension"
+            ],
+            "support": {
+                "email": "support@anomaly.is",
+                "source": "https://github.com/anomalylabs/standard_form-extension/tree/v1.1.6"
+            },
+            "time": "2018-06-05T19:42:13+00:00"
+        },
+        {
             "name": "anomaly/state-field_type",
             "version": "v2.3.7",
             "source": {
@@ -2278,17 +2591,71 @@
             "time": "2017-09-07T02:01:25+00:00"
         },
         {
-            "name": "anomaly/streams-platform",
-            "version": "v1.7.3",
+            "name": "anomaly/streams-module",
+            "version": "v1.3.16",
             "source": {
                 "type": "git",
-                "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "5f3ea7116689d424485794e6cd6dd4943bd88266"
+                "url": "git@github.com:anomalylabs/streams-module.git",
+                "reference": "56be7d952ae15cbecf19ff5a85b90150b4c4fb6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/5f3ea7116689d424485794e6cd6dd4943bd88266",
-                "reference": "5f3ea7116689d424485794e6cd6dd4943bd88266",
+                "url": "https://api.github.com/repos/anomalylabs/streams-module/zipball/56be7d952ae15cbecf19ff5a85b90150b4c4fb6c",
+                "reference": "56be7d952ae15cbecf19ff5a85b90150b4c4fb6c",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/icon-field_type": "^1.0",
+                "anomaly/streams-platform": "^1.2",
+                "anomaly/users-module": "^2.4"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\StreamsModule\\": "src/"
+                }
+            },
+            "license": [
+                "https://pyrocms.com/pro/license"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Build custom streams in the control panel.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "streams addon",
+                "streams module"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/streams-module/tree/v1.3.15"
+            },
+            "time": "2019-09-05T17:38:32+00:00"
+        },
+        {
+            "name": "anomaly/streams-platform",
+            "version": "v1.7.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/streams-platform.git",
+                "reference": "0ee24e759a3b7b5adf82857faf9aff9a2f5a075c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/0ee24e759a3b7b5adf82857faf9aff9a2f5a075c",
+                "reference": "0ee24e759a3b7b5adf82857faf9aff9a2f5a075c",
                 "shasum": ""
             },
             "require": {
@@ -2340,7 +2707,7 @@
                 }
             ],
             "description": "A powerful, inclusive, modular PHP application engine built lovingly for Laravel.",
-            "time": "2019-08-29T19:25:48+00:00"
+            "time": "2019-09-11T04:05:02+00:00"
         },
         {
             "name": "anomaly/system-module",
@@ -2690,16 +3057,16 @@
         },
         {
             "name": "anomaly/user_security_check-extension",
-            "version": "v2.1.2",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/user_security_check-extension.git",
-                "reference": "fc2e44242d3cfd314c14204d5601662c717cbb78"
+                "reference": "5eca70d3951263ff0b125f03fa77368652bf4bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/user_security_check-extension/zipball/fc2e44242d3cfd314c14204d5601662c717cbb78",
-                "reference": "fc2e44242d3cfd314c14204d5601662c717cbb78",
+                "url": "https://api.github.com/repos/anomalylabs/user_security_check-extension/zipball/5eca70d3951263ff0b125f03fa77368652bf4bd5",
+                "reference": "5eca70d3951263ff0b125f03fa77368652bf4bd5",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -2728,22 +3095,22 @@
             ],
             "support": {
                 "email": "support@anomaly.is",
-                "source": "https://github.com/anomalylabs/user_security_check-extension/tree/v2.1.2"
+                "source": "https://github.com/anomalylabs/user_security_check-extension/tree/v2.1.3"
             },
-            "time": "2018-09-28T18:02:25+00:00"
+            "time": "2019-09-06T15:12:30+00:00"
         },
         {
             "name": "anomaly/users-module",
-            "version": "v2.5.26",
+            "version": "v2.5.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "90d29c2366709d0fff8e17d5f38b8446f0bb3324"
+                "reference": "ffd7f90104ac8ddcb8762f0edc5d7bef090b829c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/90d29c2366709d0fff8e17d5f38b8446f0bb3324",
-                "reference": "90d29c2366709d0fff8e17d5f38b8446f0bb3324",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/ffd7f90104ac8ddcb8762f0edc5d7bef090b829c",
+                "reference": "ffd7f90104ac8ddcb8762f0edc5d7bef090b829c",
                 "shasum": ""
             },
             "require": {
@@ -2789,7 +3156,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [users-module]",
                 "source": "https://github.com/anomalylabs/users-module"
             },
-            "time": "2019-08-18T17:21:38+00:00"
+            "time": "2019-09-06T16:10:52+00:00"
         },
         {
             "name": "anomaly/variables-module",
@@ -2844,6 +3211,104 @@
                 "source": "https://github.com/anomalylabs/variables-module"
             },
             "time": "2019-03-13T16:41:19+00:00"
+        },
+        {
+            "name": "anomaly/video-field_type",
+            "version": "v1.1.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/video-field_type.git",
+                "reference": "9fa1a4b3237295f9a9cabedc68aa42b01ec7b75a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/video-field_type/zipball/9fa1a4b3237295f9a9cabedc68aa42b01ec7b75a",
+                "reference": "9fa1a4b3237295f9a9cabedc68aa42b01ec7b75a",
+                "shasum": ""
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\VideoFieldType\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                }
+            ],
+            "description": "The video field type provides a simple input for displaying embeddable videos from your favorite provider.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "field type",
+                "field type",
+                "pyrocms addon"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/video-field_type/tree/v1.1.20"
+            },
+            "time": "2019-08-12T16:36:06+00:00"
+        },
+        {
+            "name": "anomaly/video_block-extension",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/video_block-extension.git",
+                "reference": "bfba8c19ac9494d033bcf5be3ff0b1e9553ec89d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/video_block-extension/zipball/bfba8c19ac9494d033bcf5be3ff0b1e9553ec89d",
+                "reference": "bfba8c19ac9494d033bcf5be3ff0b1e9553ec89d",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/blocks-module": "^1.0",
+                "anomaly/video-field_type": "^1.1"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\VideoBlockExtension\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A video player block.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "block type",
+                "blocks",
+                "streams addon"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/video_block-extension/tree/v1.0.6"
+            },
+            "time": "2019-03-01T21:47:05+00:00"
         },
         {
             "name": "anomaly/wysiwyg-field_type",
@@ -3055,16 +3520,16 @@
         },
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.2.7",
+            "version": "v3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61"
+                "reference": "18208d64897ab732f6c04a19b319fe8f1d57a9c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61",
-                "reference": "8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/18208d64897ab732f6c04a19b319fe8f1d57a9c0",
+                "reference": "18208d64897ab732f6c04a19b319fe8f1d57a9c0",
                 "shasum": ""
             },
             "require": {
@@ -3119,25 +3584,25 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2019-08-22T14:29:54+00:00"
+            "time": "2019-08-29T07:01:03+00:00"
         },
         {
             "name": "barryvdh/laravel-httpcache",
-            "version": "v0.3.6",
+            "version": "v0.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-httpcache.git",
-                "reference": "ea1f44de7169f47920caba62879eccddfcf50e74"
+                "reference": "979d1f502891cad8df83862b3884a0547c87f26f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-httpcache/zipball/ea1f44de7169f47920caba62879eccddfcf50e74",
-                "reference": "ea1f44de7169f47920caba62879eccddfcf50e74",
+                "url": "https://api.github.com/repos/barryvdh/laravel-httpcache/zipball/979d1f502891cad8df83862b3884a0547c87f26f",
+                "reference": "979d1f502891cad8df83862b3884a0547c87f26f",
                 "shasum": ""
             },
             "require": {
                 "barryvdh/laravel-stack-middleware": "^1.0",
-                "illuminate/support": "5.5.x|5.6.x|5.7.x|5.8.x",
+                "illuminate/support": "^5.5|^6",
                 "php": ">=5.5",
                 "symfony/console": "^3.2|^4",
                 "symfony/http-kernel": "^3.2|^4"
@@ -3175,24 +3640,24 @@
                 "httpcache",
                 "laravel"
             ],
-            "time": "2019-02-26T20:04:19+00:00"
+            "time": "2019-09-04T04:35:00+00:00"
         },
         {
             "name": "barryvdh/laravel-stack-middleware",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-stack-middleware.git",
-                "reference": "80fa70e6c7496404d450f3b9233319eaabaa87f2"
+                "reference": "2f5df07ecf3ece7faf6a2356ed8d59ef4c6d6f85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-stack-middleware/zipball/80fa70e6c7496404d450f3b9233319eaabaa87f2",
-                "reference": "80fa70e6c7496404d450f3b9233319eaabaa87f2",
+                "url": "https://api.github.com/repos/barryvdh/laravel-stack-middleware/zipball/2f5df07ecf3ece7faf6a2356ed8d59ef4c6d6f85",
+                "reference": "2f5df07ecf3ece7faf6a2356ed8d59ef4c6d6f85",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x|5.7.x|5.8.x",
+                "illuminate/support": "^5.1|^6",
                 "php": ">=5.5",
                 "symfony/http-kernel": "~2.6|^3|^4"
             },
@@ -3235,7 +3700,7 @@
                 "middleware",
                 "stack"
             ],
-            "time": "2019-02-26T20:03:55+00:00"
+            "time": "2019-09-04T04:32:53+00:00"
         },
         {
             "name": "cartalyst/assetic",
@@ -4133,6 +4598,53 @@
             "time": "2019-08-13T17:33:27+00:00"
         },
         {
+            "name": "emange/list-field_type",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/edsters/list-field_type.git",
+                "reference": "564934ab1a20cf550daab7d80cba4a7e3be9a22b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/edsters/list-field_type/get/564934ab1a20cf550daab7d80cba4a7e3be9a22b.zip",
+                "reference": "564934ab1a20cf550daab7d80cba4a7e3be9a22b",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/streams-platform": "^1.2"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Emange\\ListFieldType\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emange.",
+                    "email": "edi@mange.biz",
+                    "homepage": "http://edi.mange.biz/",
+                    "role": "Owner"
+                }
+            ],
+            "description": "List Field Type. Create an array/list of text/textareas without a stream!",
+            "homepage": "https://edi.mange.biz/",
+            "keywords": [
+                "field type",
+                "streams module"
+            ],
+            "support": {
+                "Website": "http://edi.mange.biz/",
+                "source": "https://bitbucket.org/edsters/list-field_type/src/564934ab1a20cf550daab7d80cba4a7e3be9a22b/?at=1.0.3",
+                "issues": "https://bitbucket.org/edsters/list-field_type/issues"
+            },
+            "time": "2019-01-31T22:28:52+00:00"
+        },
+        {
             "name": "erusev/parsedown",
             "version": "1.7.3",
             "source": {
@@ -4318,6 +4830,266 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
+        },
+        {
+            "name": "geo-io/interface",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geo-io/interface.git",
+                "reference": "cf46fe7b013de20ab8b601238c7d91b480810644"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geo-io/interface/zipball/cf46fe7b013de20ab8b601238c7d91b480810644",
+                "reference": "cf46fe7b013de20ab8b601238c7d91b480810644",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeoIO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com"
+                }
+            ],
+            "description": "Geo I/O base interfaces.",
+            "keywords": [
+                "geo",
+                "geometry",
+                "io"
+            ],
+            "time": "2016-07-28T07:17:02+00:00"
+        },
+        {
+            "name": "geo-io/wkb-parser",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geo-io/wkb-parser.git",
+                "reference": "cceee8f4e8b2058f3f1a0372c930140f23fe1ee1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geo-io/wkb-parser/zipball/cceee8f4e8b2058f3f1a0372c930140f23fe1ee1",
+                "reference": "cceee8f4e8b2058f3f1a0372c930140f23fe1ee1",
+                "shasum": ""
+            },
+            "require": {
+                "geo-io/interface": "~1.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeoIO\\WKB\\Parser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com"
+                }
+            ],
+            "description": "Well-known binary (WKB) Parser.",
+            "keywords": [
+                "geo",
+                "geometry",
+                "io",
+                "parser",
+                "wkb"
+            ],
+            "time": "2015-06-30T04:19:13+00:00"
+        },
+        {
+            "name": "grimzy/laravel-mysql-spatial",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grimzy/laravel-mysql-spatial.git",
+                "reference": "cfa1ff1bd8fa58f87b6a66318f98b211e561bd50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/grimzy/laravel-mysql-spatial/zipball/cfa1ff1bd8fa58f87b6a66318f98b211e561bd50",
+                "reference": "cfa1ff1bd8fa58f87b6a66318f98b211e561bd50",
+                "shasum": ""
+            },
+            "require": {
+                "geo-io/wkb-parser": "^1.0",
+                "illuminate/database": "^5.2",
+                "jmikola/geojson": "^1.0",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "doctrine/dbal": "^2.5",
+                "laravel/laravel": "^5.2",
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "~4.5||5.6.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Grimzy\\LaravelMysqlSpatial\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Estefane",
+                    "email": "estefanejoe@gmail.com"
+                }
+            ],
+            "description": "MySQL spatial data types extension for Laravel.",
+            "time": "2017-06-04T21:49:38+00:00"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "6.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
+                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/promises": "^1.0",
+                "guzzlehttp/psr7": "^1.4",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
+                "psr/log": "^1.0"
+            },
+            "suggest": {
+                "psr/log": "Required for using the Log middleware"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.3-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2018-04-22T15:46:56+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -4579,6 +5351,59 @@
             "time": "2019-01-19T21:32:55+00:00"
         },
         {
+            "name": "jmikola/geojson",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jmikola/geojson.git",
+                "reference": "6ec3016cc0215667b7775f6ead7bd0337ad66eee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jmikola/geojson/zipball/6ec3016cc0215667b7775f6ead7bd0337ad66eee",
+                "reference": "6ec3016cc0215667b7775f6ead7bd0337ad66eee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "GeoJson\\": "src/"
+                },
+                "classmap": [
+                    "stubs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                }
+            ],
+            "description": "GeoJSON implementation for PHP",
+            "homepage": "https://github.com/jmikola/geojson",
+            "keywords": [
+                "geo",
+                "geojson",
+                "geospatial"
+            ],
+            "time": "2015-09-27T15:35:21+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "5.2.8",
             "source": {
@@ -4646,16 +5471,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.34",
+            "version": "v5.8.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "c3a870b96c7afe5174f486af74768ccfddeec77b"
+                "reference": "5a9e4d241a8b815e16c9d2151e908992c38db197"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/c3a870b96c7afe5174f486af74768ccfddeec77b",
-                "reference": "c3a870b96c7afe5174f486af74768ccfddeec77b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/5a9e4d241a8b815e16c9d2151e908992c38db197",
+                "reference": "5a9e4d241a8b815e16c9d2151e908992c38db197",
                 "shasum": ""
             },
             "require": {
@@ -4738,6 +5563,7 @@
             "suggest": {
                 "aws/aws-sdk-php": "Required to use the SQS queue driver and SES mail driver (^3.0).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6).",
+                "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
                 "ext-pcntl": "Required to use all features of the queue worker.",
                 "ext-posix": "Required to use all features of the queue worker.",
                 "filp/whoops": "Required for friendly error pages in development (^2.1.4).",
@@ -4789,7 +5615,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-08-27T14:35:59+00:00"
+            "time": "2019-09-03T16:44:30+00:00"
         },
         {
             "name": "laravel/scout",
@@ -4921,16 +5747,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.8.0",
+            "version": "v5.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "0e360143d3476fe4141d267a260c140569fa207b"
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/0e360143d3476fe4141d267a260c140569fa207b",
-                "reference": "0e360143d3476fe4141d267a260c140569fa207b",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/3a1c9974ea629eed96e101a24e3852ced382eb29",
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29",
                 "shasum": ""
             },
             "require": {
@@ -4975,17 +5801,17 @@
             ],
             "authors": [
                 {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                },
-                {
                     "name": "Adam Engebretson",
                     "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
                 }
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2019-03-01T22:53:41+00:00"
+            "time": "2019-09-05T12:32:25+00:00"
         },
         {
             "name": "laravelium/sitemap",
@@ -5402,16 +6228,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -5476,7 +6302,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "moontoast/math",
@@ -5628,16 +6454,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.23.1",
+            "version": "2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02"
+                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
-                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/934459c5ac0658bc765ad1e53512c7c77adcac29",
+                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29",
                 "shasum": ""
             },
             "require": {
@@ -5691,7 +6517,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-17T13:57:34+00:00"
+            "time": "2019-08-31T16:37:55+00:00"
         },
         {
             "name": "nicmart/string-template",
@@ -5736,16 +6562,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.3.1",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "92927e26d7fc3f271efe1f55bdbb073fbb2f0722"
+                "reference": "60a97fff133b1669a5b1776aa8ab06db3f3962b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/92927e26d7fc3f271efe1f55bdbb073fbb2f0722",
-                "reference": "92927e26d7fc3f271efe1f55bdbb073fbb2f0722",
+                "url": "https://api.github.com/repos/opis/closure/zipball/60a97fff133b1669a5b1776aa8ab06db3f3962b7",
+                "reference": "60a97fff133b1669a5b1776aa8ab06db3f3962b7",
                 "shasum": ""
             },
             "require": {
@@ -5793,7 +6619,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-07-09T21:58:11+00:00"
+            "time": "2019-09-02T21:07:33+00:00"
         },
         {
             "name": "oyejorge/less.php",
@@ -6232,51 +7058,6 @@
                 "source": "https://github.com/pyrocms/accelerant-theme/tree/v1.2.13"
             },
             "time": "2019-07-06T02:55:07+00:00"
-        },
-        {
-            "name": "pyrocms/starter-theme",
-            "version": "v1.0.19",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pyrocms/starter-theme.git",
-                "reference": "9aee80c944d5d6c79a9eec16b038991527d09a56"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pyrocms/starter-theme/zipball/9aee80c944d5d6c79a9eec16b038991527d09a56",
-                "reference": "9aee80c944d5d6c79a9eec16b038991527d09a56",
-                "shasum": ""
-            },
-            "type": "streams-addon",
-            "autoload": {
-                "psr-4": {
-                    "Pyrocms\\StarterTheme\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PyroCMS, Inc.",
-                    "email": "support@pyrocms.com",
-                    "homepage": "http://pyrocms.com/",
-                    "role": "Owner"
-                }
-            ],
-            "description": "The starter theme is a basic HTML5 Bootstrap theme based on the Freelance Theme from http://startbootstrap.com/template-overviews/freelancer/",
-            "homepage": "http://pyrocms.com/",
-            "keywords": [
-                "streams theme",
-                "theme",
-                "theme"
-            ],
-            "support": {
-                "email": "support@pyrocms.com",
-                "source": "https://github.com/pyrocms/starter-theme/tree/v1.0.19",
-                "issues": "https://github.com/pyrocms/starter-theme/issues"
-            },
-            "time": "2019-04-02T17:51:49+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -8370,16 +9151,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.5.0",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "95cb0fa6c025f7f0db7fc60f81e9fb231eb2d222"
+                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/95cb0fa6c025f7f0db7fc60f81e9fb231eb2d222",
-                "reference": "95cb0fa6c025f7f0db7fc60f81e9fb231eb2d222",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/1bdf24f065975594f6a117f0f1f6cabf1333b156",
+                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156",
                 "shasum": ""
             },
             "require": {
@@ -8388,12 +9169,12 @@
                 "symfony/polyfill-ctype": "^1.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0"
+                "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.5-dev"
+                    "dev-master": "3.6-dev"
                 }
             },
             "autoload": {
@@ -8423,7 +9204,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-08-27T17:00:38+00:00"
+            "time": "2019-09-10T21:37:39+00:00"
         },
         {
             "name": "wikimedia/composer-merge-plugin",
@@ -8476,57 +9257,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "anomaly/installer-module",
-            "version": "v2.3.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anomalylabs/installer-module.git",
-                "reference": "bcbc366fb2f04f5468bd33e4c2fa9e987f787080"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/installer-module/zipball/bcbc366fb2f04f5468bd33e4c2fa9e987f787080",
-                "reference": "bcbc366fb2f04f5468bd33e4c2fa9e987f787080",
-                "shasum": ""
-            },
-            "require": {
-                "anomaly/streams-platform": "^1.3"
-            },
-            "type": "streams-addon",
-            "autoload": {
-                "psr-4": {
-                    "Anomaly\\InstallerModule\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PyroCMS, Inc.",
-                    "role": "Owner",
-                    "email": "support@pyrocms.com",
-                    "homepage": "http://pyrocms.com/"
-                },
-                {
-                    "name": "Ryan Thompson",
-                    "role": "Owner",
-                    "email": "ryan@pyrocms.com",
-                    "homepage": "http://ryanthepyro.com/"
-                }
-            ],
-            "description": "The Streams Platform installer.",
-            "homepage": "http://pyrocms.com/",
-            "keywords": [
-                "Streams",
-                "laravel",
-                "module",
-                "streams-addon"
-            ],
-            "time": "2019-08-13T20:56:52+00:00"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.2.0",

@@ -89,7 +89,6 @@
         "anomaly/accordion_block-extension": "^1.0",
         "emange/list-field_type": "^1.0",
         "anomaly/geocoder-field_type": "^1.2"
-
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -136,6 +135,14 @@
                 "*"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan refresh"
+        ],
+        "post-update-cmd": [
+            "@php artisan refresh"
+        ]
     },
     "config": {
         "bin-dir": "bin",
