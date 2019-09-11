@@ -131,14 +131,6 @@
             ]
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "@php artisan refresh"
-        ],
-        "post-update-cmd": [
-            "@php artisan refresh"
-        ]
-    },
     "config": {
         "bin-dir": "bin",
         "preferred-install": "dist",
