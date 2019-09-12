@@ -33,7 +33,7 @@
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "~2.3.0"
+        "anomaly/installer-module": "3.0.x-dev"
     },
     "repositories": [
         {
@@ -43,6 +43,10 @@
         {
             "type": "composer",
             "url": "https://community.pyrocms.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://development.pyrocms.com"
         }
     ],
     "autoload": {
