@@ -165,6 +165,13 @@ return [
         /*
          * Package Service Providers...
          */
+        Facade\Ignition\IgnitionServiceProvider::class,
+        \Barryvdh\Debugbar\ServiceProvider::class,
+
+        /*
+         * Streams Platform Service Provider...
+         */
+        \Anomaly\Streams\Platform\StreamsServiceProvider::class,
 
         /*
          * Application Service Providers...
