@@ -21,6 +21,7 @@
         }
     ],
     "require": {
+        "facade/ignition": "~1.6.0",
         "wikimedia/composer-merge-plugin": "~1.4.0",
         "anomaly/streams-composer-plugin": "~1.1.0",
         "anomaly/streams-platform": "2.0.x-dev",
@@ -78,7 +79,7 @@
     },
     "config": {
         "bin-dir": "bin",
-        "preferred-stable": true,
+        "preferred-stable": false,
         "minimum-stability": "dev",
         "preferred-install": "dist",
         "optimize-autoloader": true
