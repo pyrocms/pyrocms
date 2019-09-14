@@ -25,6 +25,15 @@
         "wikimedia/composer-merge-plugin": "~1.4.0",
         "anomaly/streams-composer-plugin": "~1.1.0",
         "anomaly/streams-platform": "2.0.x-dev",
+        "anomaly/users-module": "3.0.x-dev",
+        "anomaly/text-field_type": "3.0.x-dev",
+        "anomaly/slug-field_type": "3.0.x-dev",
+        "anomaly/email-field_type": "3.0.x-dev",
+        "anomaly/boolean-field_type": "3.0.x-dev",
+        "anomaly/datetime-field_type": "4.0.x-dev",
+        "anomaly/textarea-field_type": "3.0.x-dev",
+        "anomaly/multiple-field_type": "3.0.x-dev",
+        "anomaly/checkboxes-field_type": "3.0.x-dev",
         "pyrocms/afterburner-theme": "dev-master"
     },
     "require-dev": {

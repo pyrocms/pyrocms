@@ -11,6 +11,6 @@ return [
     |
     */
 
-    'admin'    => env('ADMIN_THEME', 'pyrocms.theme.accelerant'),
-    'standard' => env('STANDARD_THEME', 'pyrocms.theme.starter')
+    'admin'    => env('ADMIN_THEME', 'pyrocms.theme.afterburner'),
+    'standard' => env('STANDARD_THEME', 'pyrocms.theme.afterburner')
 ];
