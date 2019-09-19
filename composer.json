@@ -43,6 +43,16 @@
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "anomaly/installer-module": "3.0.x-dev",
+
+        "anomaly/settings-module": "3.0.x-dev",
+        "anomaly/preferences-module": "3.0.x-dev",
+
+        "anomaly/url-field_type": "3.0.x-dev",
+        "anomaly/tags-field_type": "3.0.x-dev",
+        "anomaly/select-field_type": "3.0.x-dev",
+        "anomaly/checkboxes-field_type": "3.0.x-dev",
+        "anomaly/relationship-field_type": "3.0.x-dev",
+
         "anomaly/default_authenticator-extension": "^2.1",
         "anomaly/user_security_check-extension": "^2.1"
     },
