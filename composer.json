@@ -92,8 +92,8 @@
         "anomaly/helper-plugin": "~2.1.0",
 
         "anomaly/robots-extension": "~2.1.0",
-        "anomaly/html_block-extension": "~1.0.0",
-        "anomaly/wysiwyg_block-extension": "~1.0.0",
+        "anomaly/html_block-extension": "2.0.x-dev",
+        "anomaly/wysiwyg_block-extension": "2.0.x-dev",
 
         "pyrocms/starter-theme": "~1.0.0"
     },
