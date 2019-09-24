@@ -88,7 +88,7 @@
         "anomaly/posts-module": "3.0.x-dev",
         "anomaly/files-module": "3.0.x-dev",
 
-        "anomaly/contact-plugin": "~1.2.0",
+        "anomaly/contact-plugin": "2.0.x-dev",
         "anomaly/helper-plugin": "~2.1.0",
 
         "anomaly/robots-extension": "~2.1.0",
@@ -103,7 +103,8 @@
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "3.0.x-dev"
+        "anomaly/installer-module": "3.0.x-dev",
+        "barryvdh/laravel-ide-helper": "^2.6"
     },
     "repositories": [
         {
