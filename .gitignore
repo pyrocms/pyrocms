@@ -1,6 +1,7 @@
 .env
 .coverage
 composer.lock
+_ide_helper.php
 /bin
 /core
 /build
