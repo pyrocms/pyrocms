@@ -2,8 +2,16 @@
 
 namespace App\Providers;
 
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -12,7 +20,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $providers = [];
+    protected $providers = [
+        IdeHelperServiceProvider::class,
+    ];
 
     /**
      * Register any application services.
