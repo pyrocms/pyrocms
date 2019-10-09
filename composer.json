@@ -26,11 +26,9 @@
         "anomaly/streams-platform": "2.0.x-dev",
 
         "anomaly/users-module": "3.0.x-dev",
-
-        "pyrocms/afterburner-theme": "dev-master",
-
         "anomaly/dashboard-module": "3.0.x-dev",
 
+        "pyrocms/afterburner-theme": "dev-master",
         "pyrocms/starter-theme": "~1.0.0"
     },
     "require-dev": {
@@ -39,8 +37,18 @@
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
+        "barryvdh/laravel-ide-helper": "^2.6",
+
         "anomaly/installer-module": "3.0.x-dev",
-        "barryvdh/laravel-ide-helper": "^2.6"
+
+        "anomaly/email-field_type": "3.0.x-dev",
+        "anomaly/slug-field_type": "3.0.x-dev",
+        "anomaly/text-field_type": "3.0.x-dev",
+        "anomaly/boolean-field_type": "3.0.x-dev",
+        "anomaly/multiple-field_type": "3.0.x-dev",
+        "anomaly/datetime-field_type": "4.0.x-dev",
+        "anomaly/textarea-field_type": "3.0.x-dev",
+        "anomaly/checkboxes-field_type": "3.0.x-dev"
     },
     "repositories": [{
             "type": "composer",
@@ -77,11 +85,6 @@
             ],
             "recurse": true,
             "replace": false
-        },
-        "laravel": {
-            "dont-discover": [
-                "*"
-            ]
         }
     },
     "config": {
