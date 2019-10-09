@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Anomaly\BooleanFieldType\BooleanFieldTypeServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $providers = [
         IdeHelperServiceProvider::class,
+        BooleanFieldTypeServiceProvider::class,
     ];
 
     /**

@@ -22,7 +22,6 @@
     "require": {
         "facade/ignition": "~1.6.0",
         "wikimedia/composer-merge-plugin": "~1.4.0",
-        "anomaly/streams-composer-plugin": "~1.1.0",
         "anomaly/streams-platform": "2.0.x-dev",
 
         "anomaly/users-module": "3.0.x-dev",
