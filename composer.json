@@ -10,8 +10,7 @@
         "laravel cms"
     ],
     "license": "MIT",
-    "authors": [
-        {
+    "authors": [{
             "name": "PyroCMS, Inc.",
             "email": "support@pyrocms.com"
         },
@@ -27,73 +26,10 @@
         "anomaly/streams-platform": "2.0.x-dev",
 
         "anomaly/users-module": "3.0.x-dev",
-        "anomaly/settings-module": "3.0.x-dev",
-        "anomaly/preferences-module": "3.0.x-dev",
-
-        "anomaly/url-field_type": "3.0.x-dev",
-        "anomaly/text-field_type": "3.0.x-dev",
-        "anomaly/slug-field_type": "3.0.x-dev",
-        "anomaly/tags-field_type": "3.0.x-dev",
-        "anomaly/email-field_type": "3.0.x-dev",
-        "anomaly/select-field_type": "3.0.x-dev",
-        "anomaly/boolean-field_type": "3.0.x-dev",
-        "anomaly/datetime-field_type": "4.0.x-dev",
-        "anomaly/textarea-field_type": "3.0.x-dev",
-        "anomaly/multiple-field_type": "3.0.x-dev",
-        "anomaly/checkboxes-field_type": "3.0.x-dev",
-        "anomaly/relationship-field_type": "3.0.x-dev",
-
-        "anomaly/default_authenticator-extension": "3.0.x-dev",
-        "anomaly/user_security_check-extension": "3.0.x-dev",
-        "anomaly/sitemap-extension": "3.0.x-dev",
 
         "pyrocms/afterburner-theme": "dev-master",
 
-
-
-        "anomaly/throttle_security_check-extension": "3.0.x-dev",
-        "anomaly/private_storage_adapter-extension": "2.0.x-dev",
-        "anomaly/default_page_handler-extension": "3.0.x-dev",
-        "anomaly/xml_feed_widget-extension": "3.0.x-dev",
-        "anomaly/page_link_type-extension": "3.0.x-dev",
-        "anomaly/url_link_type-extension": "3.0.x-dev",
-
-        "anomaly/colorpicker-field_type": "3.0.x-dev",
-        "anomaly/polymorphic-field_type": "3.0.x-dev",
-        "anomaly/encrypted-field_type": "3.0.x-dev",
-        "anomaly/repeater-field_type": "2.0.x-dev",
-        "anomaly/language-field_type": "3.0.x-dev",
-        "anomaly/markdown-field_type": "4.0.x-dev",
-        "anomaly/wysiwyg-field_type": "4.0.x-dev",
-        "anomaly/country-field_type": "3.0.x-dev",
-        "anomaly/decimal-field_type": "3.0.x-dev",
-        "anomaly/integer-field_type": "3.0.x-dev",
-        "anomaly/editor-field_type": "4.0.x-dev",
-        "anomaly/slider-field_type": "4.0.x-dev",
-        "anomaly/addon-field_type": "3.0.x-dev",
-        "anomaly/state-field_type": "3.0.x-dev",
-        "anomaly/files-field_type": "3.0.x-dev",
-        "anomaly/file-field_type": "3.0.x-dev",
-
-        "anomaly/configuration-module": "3.0.x-dev",
-        "anomaly/navigation-module": "3.0.x-dev",
         "anomaly/dashboard-module": "3.0.x-dev",
-        "anomaly/redirects-module": "3.0.x-dev",
-        "anomaly/variables-module": "3.0.x-dev",
-        "anomaly/addons-module": "3.0.x-dev",
-        "anomaly/blocks-module": "2.0.x-dev",
-        "anomaly/search-module": "4.0.x-dev",
-        "anomaly/system-module": "2.0.x-dev",
-        "anomaly/pages-module": "3.0.x-dev",
-        "anomaly/posts-module": "3.0.x-dev",
-        "anomaly/files-module": "3.0.x-dev",
-
-        "anomaly/contact-plugin": "2.0.x-dev",
-        "anomaly/helper-plugin": "3.0.x-dev",
-
-        "anomaly/robots-extension": "~2.1.0",
-        "anomaly/html_block-extension": "2.0.x-dev",
-        "anomaly/wysiwyg_block-extension": "2.0.x-dev",
 
         "pyrocms/starter-theme": "~1.0.0"
     },
@@ -106,8 +42,7 @@
         "anomaly/installer-module": "3.0.x-dev",
         "barryvdh/laravel-ide-helper": "^2.6"
     },
-    "repositories": [
-        {
+    "repositories": [{
             "type": "composer",
             "url": "https://packages.pyrocms.com"
         },

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'search'),
+    'driver' => env('SCOUT_DRIVER', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return [
         'id'     => env('ALGOLIA_APP_ID'),
         'secret' => env('ALGOLIA_SECRET'),
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | TNT Configuration
