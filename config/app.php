@@ -143,6 +143,11 @@ return [
         \Facade\Ignition\IgnitionServiceProvider::class,
 
         /*
+         * Streams Platform Service Provider...
+         */
+        \Anomaly\Streams\Platform\StreamsServiceProvider::class,
+
+        /*
          * Laravel Framework Service Providers...
          */
         Illuminate\Auth\AuthServiceProvider::class,
@@ -167,11 +172,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
-        /*
-         * Streams Platform Service Provider...
-         */
-        \Anomaly\Streams\Platform\StreamsServiceProvider::class,
 
         /*
          * Application Service Providers...
