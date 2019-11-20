@@ -207,6 +207,7 @@ DB_HOST=${DB_HOST[1]}
     @endtask
 
     @task('deployment_finish')
+    rm -rf {{ $path }}/current
     ln -s {{ $release }} {{ $path }}/current
     @endtask
 
