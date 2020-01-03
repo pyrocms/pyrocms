@@ -67,6 +67,7 @@
         "anomaly/redirects-module": "~2.3.0",
         "anomaly/variables-module": "~2.4.0",
         "anomaly/settings-module": "~2.4.0",
+        "anomaly/streams-module": "~2.4.0",
         "anomaly/addons-module": "~2.3.0",
         "anomaly/blocks-module": "~1.3.0",
         "anomaly/search-module": "~3.0.0",
