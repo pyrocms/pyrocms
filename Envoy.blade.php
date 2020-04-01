@@ -181,29 +181,23 @@ DB_HOST=${DB_HOST[1]}
     @endtask
 
     @task('deployment_build')
-    {{ $php }} {{ $release }}/artisan build --quiet
-    echo "System built"
+    {{ $php }} {{ $release }}/artisan build
     @endtask
 
     @task('deployment_rebuild')
-    {{ $php }} {{ $release }}/artisan build --quiet
-    echo "System built"
+    {{ $php }} {{ $release }}/artisan build
     @endtask
 
     @task('deployment_refresh')
-    {{ $php }} {{ $release }}/artisan refresh --quiet
-    echo "System refreshed"
+    {{ $php }} {{ $release }}/artisan refresh
     @endtask
 
     @task('current_refresh')
-    {{ $php }} {{ $path }}/current/artisan refresh --quiet
-    echo "System refreshed"
+    {{ $php }} {{ $path }}/current/artisan refresh
     @endtask
     
     @task('current_build')
-    echo "System building."
     {{ $php }} {{ $path }}/current/artisan build
-    echo "System built."
     @endtask
 
     @task('deployment_finish')
