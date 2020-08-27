@@ -2283,12 +2283,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "36ae28a464decd902d4f1dd91cc3945458a06dbc"
+                "reference": "b06749968ef89e4372fa72fd8b09747bb85a74e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/36ae28a464decd902d4f1dd91cc3945458a06dbc",
-                "reference": "36ae28a464decd902d4f1dd91cc3945458a06dbc",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/b06749968ef89e4372fa72fd8b09747bb85a74e6",
+                "reference": "b06749968ef89e4372fa72fd8b09747bb85a74e6",
                 "shasum": ""
             },
             "require": {
@@ -2301,6 +2301,7 @@
                 "intervention/image": "2.5.*",
                 "jenssegers/agent": "2.6.*",
                 "laravel/framework": "^6.0",
+                "laravel/helpers": "^1.0",
                 "laravel/scout": "^8.2",
                 "laravelcollective/html": "^6.1",
                 "linkorb/jsmin-php": "1.0.0",
@@ -2331,7 +2332,7 @@
                 }
             ],
             "description": "A powerful, inclusive, modular PHP application engine built lovingly for Laravel.",
-            "time": "2020-08-27T04:34:59+00:00"
+            "time": "2020-08-27T06:22:53+00:00"
         },
         {
             "name": "anomaly/system-module",
@@ -3112,6 +3113,122 @@
                 "webprofiler"
             ],
             "time": "2020-08-11T10:30:51+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-httpcache",
+            "version": "v0.3.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-httpcache.git",
+                "reference": "0d4b72aaccb4a8863b98bbf47081ebdedac82714"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-httpcache/zipball/0d4b72aaccb4a8863b98bbf47081ebdedac82714",
+                "reference": "0d4b72aaccb4a8863b98bbf47081ebdedac82714",
+                "shasum": ""
+            },
+            "require": {
+                "barryvdh/laravel-stack-middleware": "^1.0",
+                "illuminate/support": "^5.5|^6|^7",
+                "php": ">=5.5",
+                "symfony/console": "^3.2|^4|^5",
+                "symfony/http-kernel": "^3.2|^4|^5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\HttpCache\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\HttpCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "HttpCache for Laravel 5",
+            "keywords": [
+                "cache",
+                "esi",
+                "httpcache",
+                "laravel"
+            ],
+            "time": "2020-02-25T20:54:23+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-stack-middleware",
+            "version": "v1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-stack-middleware.git",
+                "reference": "585c6cb2cdfeac1d9fc72bfd89ed5f957b15508b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-stack-middleware/zipball/585c6cb2cdfeac1d9fc72bfd89ed5f957b15508b",
+                "reference": "585c6cb2cdfeac1d9fc72bfd89ed5f957b15508b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5|^6|^7",
+                "php": ">=7",
+                "symfony/http-kernel": "^3|^4|^5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\StackMiddleware\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Stack": "Barryvdh\\StackMiddleware\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\StackMiddleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Stack Middleware for Laravel 5",
+            "keywords": [
+                "StackPHP",
+                "laravel",
+                "middleware",
+                "stack"
+            ],
+            "time": "2020-02-25T20:48:18+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -4580,6 +4697,59 @@
                 "laravel"
             ],
             "time": "2020-08-25T13:42:57+00:00"
+        },
+        {
+            "name": "laravel/helpers",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/helpers.git",
+                "reference": "b4b8d6e84a6306fc88870f61a244d8c537779f2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/b4b8d6e84a6306fc88870f61a244d8c537779f2d",
+                "reference": "b4b8d6e84a6306fc88870f61a244d8c537779f2d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries.vints@gmail.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "time": "2020-08-25T17:54:37+00:00"
         },
         {
             "name": "laravel/scout",
@@ -9372,6 +9542,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
