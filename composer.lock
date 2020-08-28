@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c20bcc9c252e118ab8a49f0ceabf1ef2",
+    "content-hash": "9d727761103f7744c01c1ede430944bd",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -1125,6 +1125,56 @@
                 "source": "https://github.com/anomalylabs/html_block-extension/tree/v1.0.3"
             },
             "time": "2018-10-31T03:02:41+00:00"
+        },
+        {
+            "name": "anomaly/icon-field_type",
+            "version": "v1.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/icon-field_type.git",
+                "reference": "cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/icon-field_type/zipball/cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc",
+                "reference": "cb826fa99845cf4ab6c8272c32ce7fa8196dcbbc",
+                "shasum": ""
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\IconFieldType\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An icon picker field type.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "field type",
+                "streams addon",
+                "streams field type"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/icon-field_type/tree/v1.1.9"
+            },
+            "time": "2019-03-01T22:42:42+00:00"
         },
         {
             "name": "anomaly/integer-field_type",
@@ -2278,17 +2328,71 @@
             "time": "2020-05-15T16:59:48+00:00"
         },
         {
+            "name": "anomaly/streams-module",
+            "version": "v1.3.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/streams-module.git",
+                "reference": "8398230b22f999a65c1cf0a68e5a45c9ed7221de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/streams-module/zipball/8398230b22f999a65c1cf0a68e5a45c9ed7221de",
+                "reference": "8398230b22f999a65c1cf0a68e5a45c9ed7221de",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/icon-field_type": "^1.0",
+                "anomaly/streams-platform": "^1.2",
+                "anomaly/users-module": "^2.4"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\StreamsModule\\": "src/"
+                }
+            },
+            "license": [
+                "https://pyrocms.com/pro/license"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "email": "support@pyrocms.com",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "email": "ryan@pyrocms.com",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Build custom streams in the control panel.",
+            "homepage": "http://pyrocms.com/",
+            "keywords": [
+                "streams addon",
+                "streams module"
+            ],
+            "support": {
+                "email": "support@pyrocms.com",
+                "source": "https://github.com/anomalylabs/streams-module/tree/v1.3.17"
+            },
+            "time": "2020-02-27T19:40:56+00:00"
+        },
+        {
             "name": "anomaly/streams-platform",
             "version": "1.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "f94936fc53bfab0c8934c3b7c59a03c8ceb0bd60"
+                "reference": "1ed4ca6dfd1caa46486815a5b7ae7d2f5dca1758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/f94936fc53bfab0c8934c3b7c59a03c8ceb0bd60",
-                "reference": "f94936fc53bfab0c8934c3b7c59a03c8ceb0bd60",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/1ed4ca6dfd1caa46486815a5b7ae7d2f5dca1758",
+                "reference": "1ed4ca6dfd1caa46486815a5b7ae7d2f5dca1758",
                 "shasum": ""
             },
             "require": {
@@ -2333,7 +2437,7 @@
                 }
             ],
             "description": "A powerful, inclusive, modular PHP application engine built lovingly for Laravel.",
-            "time": "2020-08-28T04:21:24+00:00"
+            "time": "2020-08-28T04:55:14+00:00"
         },
         {
             "name": "anomaly/system-module",
@@ -6327,7 +6431,7 @@
         },
         {
             "name": "pyrocms/starter-theme",
-            "version": "v1.0.19",
+            "version": "v1.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pyrocms/starter-theme.git",
