@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d727761103f7744c01c1ede430944bd",
+    "content-hash": "c0f668e12bc17563254c88211b3b3d12",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -481,16 +481,16 @@
         },
         {
             "name": "anomaly/dashboard-module",
-            "version": "v2.2.9",
+            "version": "v2.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/dashboard-module.git",
-                "reference": "2393ede2add287d59145071ece6a6b1c223fc693"
+                "reference": "7b262d3417ff714b87a24a7355b6ae20ee779550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/dashboard-module/zipball/2393ede2add287d59145071ece6a6b1c223fc693",
-                "reference": "2393ede2add287d59145071ece6a6b1c223fc693",
+                "url": "https://api.github.com/repos/anomalylabs/dashboard-module/zipball/7b262d3417ff714b87a24a7355b6ae20ee779550",
+                "reference": "7b262d3417ff714b87a24a7355b6ae20ee779550",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -526,7 +526,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [dashboard-module]",
                 "source": "https://github.com/anomalylabs/dashboard-module"
             },
-            "time": "2020-02-03T18:38:07+00:00"
+            "time": "2020-09-02T04:55:03+00:00"
         },
         {
             "name": "anomaly/datetime-field_type",
@@ -2081,7 +2081,7 @@
         },
         {
             "name": "anomaly/sitemap-extension",
-            "version": "2.3.x-dev",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/sitemap-extension.git",
@@ -2383,16 +2383,16 @@
         },
         {
             "name": "anomaly/streams-platform",
-            "version": "1.8.x-dev",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-platform.git",
-                "reference": "a6f5abaff76073a0b87b6264a8248a7157a53e73"
+                "reference": "c6c4c366506074e7dcdfeb3973e5f264a2941ded"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/a6f5abaff76073a0b87b6264a8248a7157a53e73",
-                "reference": "a6f5abaff76073a0b87b6264a8248a7157a53e73",
+                "url": "https://api.github.com/repos/anomalylabs/streams-platform/zipball/c6c4c366506074e7dcdfeb3973e5f264a2941ded",
+                "reference": "c6c4c366506074e7dcdfeb3973e5f264a2941ded",
                 "shasum": ""
             },
             "require": {
@@ -2437,20 +2437,20 @@
                 }
             ],
             "description": "A powerful, inclusive, modular PHP application engine built lovingly for Laravel.",
-            "time": "2020-09-01T19:27:25+00:00"
+            "time": "2020-09-02T04:29:05+00:00"
         },
         {
             "name": "anomaly/system-module",
-            "version": "1.1.x-dev",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/system-module.git",
-                "reference": "12145caab63059a562bcd4fd6b5c0a6f0e4911f5"
+                "reference": "be271b910f539eec35db049384bdc44c9781f90d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/system-module/zipball/12145caab63059a562bcd4fd6b5c0a6f0e4911f5",
-                "reference": "12145caab63059a562bcd4fd6b5c0a6f0e4911f5",
+                "url": "https://api.github.com/repos/anomalylabs/system-module/zipball/be271b910f539eec35db049384bdc44c9781f90d",
+                "reference": "be271b910f539eec35db049384bdc44c9781f90d",
                 "shasum": ""
             },
             "require": {
@@ -2493,7 +2493,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [system-module]",
                 "source": "https://github.com/anomalylabs/system-module"
             },
-            "time": "2020-08-10T21:27:25+00:00"
+            "time": "2020-09-02T04:16:21+00:00"
         },
         {
             "name": "anomaly/tags-field_type",
@@ -6436,12 +6436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pyrocms/starter-theme.git",
-                "reference": "9aee80c944d5d6c79a9eec16b038991527d09a56"
+                "reference": "1e7e68d13dc02b93d2d417b1563493a14055fe18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pyrocms/starter-theme/zipball/9aee80c944d5d6c79a9eec16b038991527d09a56",
-                "reference": "9aee80c944d5d6c79a9eec16b038991527d09a56",
+                "url": "https://api.github.com/repos/pyrocms/starter-theme/zipball/1e7e68d13dc02b93d2d417b1563493a14055fe18",
+                "reference": "1e7e68d13dc02b93d2d417b1563493a14055fe18",
                 "shasum": ""
             },
             "type": "streams-addon",
@@ -11174,11 +11174,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "anomaly/streams-platform": 20,
-        "anomaly/system-module": 20,
-        "anomaly/sitemap-extension": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
