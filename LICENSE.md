@@ -19,3 +19,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+**Other Licenses**
+
+All add-ons are offered under their own license. Most of the add-ons available and
+in our marketplace are either completely free and licensed under MIT as well, or
+they are commercial add-ons and offered under our standard commercial license.
+These add-ons are sold on a "per-instance" basis. This means one add-on purchase
+per live site. Development copies and stages are included.
