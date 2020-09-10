@@ -79,7 +79,7 @@
         "anomaly/contact-plugin": "~1.2.0",
         "anomaly/helper-plugin": "~2.1.0",
         "anomaly/robots-extension": "~2.1.0",
-        "anomaly/sitemap-extension": "~2.3.0",
+        "anomaly/sitemap-extension": "2.3.x-dev",
         "anomaly/html_block-extension": "~1.0.0",
         "anomaly/wysiwyg_block-extension": "~1.0.0",
         "pyrocms/starter-theme": "~1.0.0",
