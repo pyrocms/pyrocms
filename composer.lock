@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7396ad2bb5f2148ecc2d07925cf3c96a",
+    "content-hash": "c0f668e12bc17563254c88211b3b3d12",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -2081,21 +2081,21 @@
         },
         {
             "name": "anomaly/sitemap-extension",
-            "version": "2.3.x-dev",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/sitemap-extension.git",
-                "reference": "6022b33dcf82a1d23931014bdf14fb6d19ef8bb7"
+                "reference": "aab1f0fb6a1a0ec3040a313f0f2570466c159986"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/sitemap-extension/zipball/6022b33dcf82a1d23931014bdf14fb6d19ef8bb7",
-                "reference": "6022b33dcf82a1d23931014bdf14fb6d19ef8bb7",
+                "url": "https://api.github.com/repos/anomalylabs/sitemap-extension/zipball/aab1f0fb6a1a0ec3040a313f0f2570466c159986",
+                "reference": "aab1f0fb6a1a0ec3040a313f0f2570466c159986",
                 "shasum": ""
             },
             "require": {
                 "anomaly/streams-platform": "^1.7",
-                "laravelium/sitemap": "dev-laravel-8"
+                "laravelium/sitemap": "^8.0"
             },
             "type": "streams-addon",
             "autoload": {
@@ -2131,7 +2131,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [sitemap-extension]",
                 "source": "https://github.com/anomalylabs/sitemap-extension"
             },
-            "time": "2020-09-10T04:52:03+00:00"
+            "time": "2020-09-10T21:31:18+00:00"
         },
         {
             "name": "anomaly/slider-field_type",
@@ -5159,28 +5159,28 @@
         },
         {
             "name": "laravelium/sitemap",
-            "version": "dev-laravel-8",
+            "version": "8.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RyanThompson/laravel-sitemap.git",
-                "reference": "9f9b3010e1b266dccf750d3b338dfbc556d1fb88"
+                "url": "https://github.com/Laravelium/laravel-sitemap.git",
+                "reference": "ae5023139178a8de9b615b21a66368f5025d3a43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RyanThompson/laravel-sitemap/zipball/9f9b3010e1b266dccf750d3b338dfbc556d1fb88",
-                "reference": "9f9b3010e1b266dccf750d3b338dfbc556d1fb88",
+                "url": "https://api.github.com/repos/Laravelium/laravel-sitemap/zipball/ae5023139178a8de9b615b21a66368f5025d3a43",
+                "reference": "ae5023139178a8de9b615b21a66368f5025d3a43",
                 "shasum": ""
             },
             "require": {
                 "illuminate/filesystem": "^8.0",
                 "illuminate/support": "^8.0",
-                "php": "^7.3"
+                "php": ">=7.3"
             },
             "require-dev": {
                 "laravel/framework": "^8.0",
-                "orchestra/testbench-core": "^5.0",
+                "orchestra/testbench-core": "^6.0",
                 "php-coveralls/php-coveralls": "^2.2",
-                "phpunit/phpunit": "^8.0"
+                "phpunit/phpunit": "^9.3"
             },
             "type": "library",
             "extra": {
@@ -5195,6 +5195,7 @@
                     "Laravelium\\Sitemap": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -5202,28 +5203,23 @@
                 {
                     "name": "Rumen Damyanov",
                     "email": "r@alfamatter.com",
-                    "role": "Developer",
-                    "homepage": "https://darumen.com"
+                    "homepage": "https://darumen.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Laravelium Sitemap package for Laravel.",
             "homepage": "https://laravelium.com",
             "keywords": [
+                "Sitemap",
                 "generator",
                 "google-news",
                 "html",
                 "laravel",
                 "laravelium",
                 "php",
-                "sitemap",
                 "xml"
             ],
-            "support": {
-                "issues": "https://github.com/Laravelium/laravel-sitemap/issues",
-                "source": "https://github.com/Laravelium/laravel-sitemap",
-                "wiki": "https://github.com/Laravelium/laravel-sitemap/wiki"
-            },
-            "time": "2020-09-10T02:55:45+00:00"
+            "time": "2020-09-10T20:49:55+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5718,16 +5714,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.39.1",
+            "version": "2.39.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1"
+                "reference": "326efde1bc09077a26cb77f6e2e32e13f06c27f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7af467873250583cc967a59ee9df29fabab193c1",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/326efde1bc09077a26cb77f6e2e32e13f06c27f2",
+                "reference": "326efde1bc09077a26cb77f6e2e32e13f06c27f2",
                 "shasum": ""
             },
             "require": {
@@ -5793,7 +5789,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-09-04T13:11:37+00:00"
+            "time": "2020-09-10T12:16:42+00:00"
         },
         {
             "name": "nicmart/string-template",
@@ -6370,16 +6366,16 @@
         },
         {
             "name": "ramsey/collection",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/collection.git",
-                "reference": "044184884e3c803e4cbb6451386cb71562939b18"
+                "reference": "24d93aefb2cd786b7edd9f45b554aea20b28b9b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/collection/zipball/044184884e3c803e4cbb6451386cb71562939b18",
-                "reference": "044184884e3c803e4cbb6451386cb71562939b18",
+                "url": "https://api.github.com/repos/ramsey/collection/zipball/24d93aefb2cd786b7edd9f45b554aea20b28b9b1",
+                "reference": "24d93aefb2cd786b7edd9f45b554aea20b28b9b1",
                 "shasum": ""
             },
             "require": {
@@ -6429,7 +6425,7 @@
                 "queue",
                 "set"
             ],
-            "time": "2020-08-11T00:57:21+00:00"
+            "time": "2020-09-10T20:58:17+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -11029,10 +11025,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "anomaly/sitemap-extension": 20,
-        "laravelium/sitemap": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
