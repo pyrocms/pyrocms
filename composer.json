@@ -21,8 +21,6 @@
         }
     ],
     "require": {
-        "wikimedia/composer-merge-plugin": "~1.4.0",
-        "anomaly/streams-composer-plugin": "~1.1.0",
         "anomaly/streams-platform": "~1.8.0",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
