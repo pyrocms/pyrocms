@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "~1.8.0",
+        "anomaly/streams-platform": "1.9.x-dev",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.1.0",
@@ -90,7 +90,7 @@
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "~2.3.0"
+        "anomaly/installer-module": "~2.4.0"
     },
     "repositories": [
         {

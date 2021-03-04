@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8306a8b4e0bc11754799c8049068e54f",
+    "content-hash": "9f0773307c4316a539015ec0a2d09f87",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -2330,16 +2330,16 @@
         },
         {
             "name": "anomaly/streams-platform",
-            "version": "v1.8.21",
+            "version": "1.9.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-streams/streams-core.git",
-                "reference": "f4f5b14e4d1050e3b1a519e6e7b6a93f947a17ec"
+                "reference": "a2b8f4ab02684dea6bb90b4c8280d1a59efdae0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-streams/streams-core/zipball/f4f5b14e4d1050e3b1a519e6e7b6a93f947a17ec",
-                "reference": "f4f5b14e4d1050e3b1a519e6e7b6a93f947a17ec",
+                "url": "https://api.github.com/repos/laravel-streams/streams-core/zipball/a2b8f4ab02684dea6bb90b4c8280d1a59efdae0e",
+                "reference": "a2b8f4ab02684dea6bb90b4c8280d1a59efdae0e",
                 "shasum": ""
             },
             "require": {
@@ -2386,9 +2386,9 @@
             "description": "A powerful, inclusive, modular PHP application engine built lovingly for Laravel.",
             "support": {
                 "issues": "https://github.com/laravel-streams/streams-core/issues",
-                "source": "https://github.com/laravel-streams/streams-core/tree/v1.8.21"
+                "source": "https://github.com/laravel-streams/streams-core/tree/1.9"
             },
-            "time": "2021-02-15T21:43:08+00:00"
+            "time": "2021-03-04T21:47:46+00:00"
         },
         {
             "name": "anomaly/system-module",
@@ -9995,20 +9995,20 @@
     "packages-dev": [
         {
             "name": "anomaly/installer-module",
-            "version": "v2.3.12",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/installer-module.git",
-                "reference": "4adb3c895babf8d385ebcec17415fcaa2e003ad4"
+                "reference": "4abab1279cd5f964e2c1957ede9f31dc99a8d406"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/installer-module/zipball/4adb3c895babf8d385ebcec17415fcaa2e003ad4",
-                "reference": "4adb3c895babf8d385ebcec17415fcaa2e003ad4",
+                "url": "https://api.github.com/repos/anomalylabs/installer-module/zipball/4abab1279cd5f964e2c1957ede9f31dc99a8d406",
+                "reference": "4abab1279cd5f964e2c1957ede9f31dc99a8d406",
                 "shasum": ""
             },
             "require": {
-                "anomaly/streams-platform": "^1.3"
+                "anomaly/streams-platform": "^1.9"
             },
             "type": "streams-addon",
             "autoload": {
@@ -10044,9 +10044,9 @@
             ],
             "support": {
                 "email": "support@pyrocms.com",
-                "source": "https://github.com/anomalylabs/installer-module/tree/v2.3.12"
+                "source": "https://github.com/anomalylabs/installer-module/tree/v2.4.0"
             },
-            "time": "2021-02-15T21:45:00+00:00"
+            "time": "2021-03-04T21:57:51+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -12253,7 +12253,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "anomaly/streams-platform": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
