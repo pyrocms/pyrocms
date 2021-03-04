@@ -1,0 +1,9 @@
+{
+    "name": "anomaly/example-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Anomaly\\ExampleModule\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.coverage
+composer.lock
+npm-debug.log
+mix-manifest.json
+package-lock.json
+/bin
+/build
+/vendor
+/coverage
+/node_modules
