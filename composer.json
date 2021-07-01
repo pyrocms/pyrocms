@@ -1,6 +1,6 @@
 {
     "name": "pyrocms/pyrocms",
-    "description": "Build better Laravel websites and applications faster with Pyro.",
+    "description": "Build better Laravel websites faster with Pyro.",
     "type": "project",
     "keywords": [
         "cms",
