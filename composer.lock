@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86b6aa250d1df38be23c2c7284c1ca77",
+    "content-hash": "978e6db507058b7e00c219a2e6360b21",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -2276,57 +2276,66 @@
         },
         {
             "name": "anomaly/streams-module",
-            "version": "v1.3.19",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/streams-module.git",
-                "reference": "852bc484a778820ce1fcfe7ebbe3073557ff7cf2"
+                "reference": "0a54104955ff43de314070bd678c8a07474ad7d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/streams-module/zipball/852bc484a778820ce1fcfe7ebbe3073557ff7cf2",
-                "reference": "852bc484a778820ce1fcfe7ebbe3073557ff7cf2",
+                "url": "https://api.github.com/repos/anomalylabs/streams-module/zipball/0a54104955ff43de314070bd678c8a07474ad7d4",
+                "reference": "0a54104955ff43de314070bd678c8a07474ad7d4",
                 "shasum": ""
             },
             "require": {
                 "anomaly/icon-field_type": "^1.0",
-                "anomaly/streams-platform": "^1.2",
-                "anomaly/users-module": "^2.4"
+                "anomaly/streams-platform": "^1.10",
+                "anomaly/users-module": "3.0.x-dev"
             },
             "type": "streams-addon",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Anomaly\\StreamsModule\\StreamsModuleServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Anomaly\\StreamsModule\\": "src/"
                 }
             },
             "license": [
-                "MIT"
+                "https://pyrocms.com/pro/license"
             ],
             "authors": [
                 {
-                    "name": "PyroCMS, Inc.",
-                    "email": "support@pyrocms.com",
+                    "name": "PyroCMS",
                     "homepage": "http://pyrocms.com/",
                     "role": "Owner"
                 },
                 {
                     "name": "Ryan Thompson",
-                    "email": "ryan@pyrocms.com",
                     "homepage": "http://ryanthepyro.com/",
                     "role": "Developer"
                 }
             ],
             "description": "Build custom streams in the control panel.",
-            "homepage": "http://pyrocms.com/",
+            "homepage": "http://pyrocms.com/addons/anomaly/streams-module",
             "keywords": [
-                "streams addon",
-                "streams module"
+                "module",
+                "pyrocms",
+                "streams"
             ],
             "support": {
-                "email": "support@pyrocms.com",
-                "source": "https://github.com/anomalylabs/streams-module/tree/v1.3.19"
+                "docs": "https://pyrocms.com/documentation/streams-module",
+                "streams": "https://pyrocms.com/forum/channels/streams-module",
+                "slack": "https://pyrocms.com/slack",
+                "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [streams-module]",
+                "source": "https://github.com/anomalylabs/streams-module"
             },
-            "time": "2020-10-14T20:20:23+00:00"
+            "time": "2021-07-01T07:18:00+00:00"
         },
         {
             "name": "anomaly/streams-platform",
@@ -2334,12 +2343,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-streams/streams-core.git",
-                "reference": "d2f9527dd984df0796b2bad4e2b920e032ffdfb6"
+                "reference": "2529a6b72b0189ae0b8b9c3a84a77550de76c927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-streams/streams-core/zipball/d2f9527dd984df0796b2bad4e2b920e032ffdfb6",
-                "reference": "d2f9527dd984df0796b2bad4e2b920e032ffdfb6",
+                "url": "https://api.github.com/repos/laravel-streams/streams-core/zipball/2529a6b72b0189ae0b8b9c3a84a77550de76c927",
+                "reference": "2529a6b72b0189ae0b8b9c3a84a77550de76c927",
                 "shasum": ""
             },
             "require": {
@@ -2388,7 +2397,7 @@
                 "issues": "https://github.com/laravel-streams/streams-core/issues",
                 "source": "https://github.com/laravel-streams/streams-core/tree/1.10"
             },
-            "time": "2021-07-01T06:18:08+00:00"
+            "time": "2021-07-01T06:39:50+00:00"
         },
         {
             "name": "anomaly/system-module",
@@ -2782,20 +2791,20 @@
         },
         {
             "name": "anomaly/users-module",
-            "version": "v2.5.34",
+            "version": "3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "5b97f90c1f913412004ef1309599168c78b70681"
+                "reference": "0ac3332a69cc075cf72b54c92d28921f484c5c8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/5b97f90c1f913412004ef1309599168c78b70681",
-                "reference": "5b97f90c1f913412004ef1309599168c78b70681",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/0ac3332a69cc075cf72b54c92d28921f484c5c8d",
+                "reference": "0ac3332a69cc075cf72b54c92d28921f484c5c8d",
                 "shasum": ""
             },
             "require": {
-                "anomaly/streams-platform": "^1.6"
+                "anomaly/streams-platform": "^1.10"
             },
             "type": "streams-addon",
             "autoload": {
@@ -2805,7 +2814,8 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Anomaly\\UsersModuleTest\\": "tests/"
+                    "Anomaly\\UsersModuleTest\\": "tests/",
+                    "Database\\Factories\\Anomaly\\UsersModule\\": "factories/"
                 }
             },
             "license": [
@@ -2837,7 +2847,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [users-module]",
                 "source": "https://github.com/anomalylabs/users-module"
             },
-            "time": "2021-02-17T04:03:27+00:00"
+            "time": "2021-07-01T06:52:54+00:00"
         },
         {
             "name": "anomaly/variables-module",
@@ -12595,7 +12605,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "anomaly/streams-platform": 20
+        "anomaly/streams-platform": 20,
+        "anomaly/streams-module": 20,
+        "anomaly/users-module": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
