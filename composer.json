@@ -7,12 +7,14 @@
         "pyro",
         "pyrocms",
         "php cms",
-        "laravel cms"
+        "laravel cms",
+        "flatfile cms",
+        "flat file cms"
     ],
     "license": "MIT",
     "authors": [
         {
-            "name": "PyroCMS, Inc.",
+            "name": "PyroCMS",
             "email": "support@pyrocms.com"
         },
         {
@@ -21,7 +23,8 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "~1.9.0",
+        "streams/core": "~2.0.0",
+        "anomaly/streams-platform": "1.10.x-dev",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.1.0",
@@ -134,5 +137,7 @@
         "bin-dir": "bin",
         "preferred-install": "dist",
         "optimize-autoloader": true
-    }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
 }
