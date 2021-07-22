@@ -1,0 +1,10 @@
+{
+    "source.type": "eloquent",
+    "source.model": "Anomaly\\UsersModule\\User\\UserModel",
+
+    "fields": {
+        "id": "integer",
+        "username": "string",
+        "email": "email"
+    }
+}
