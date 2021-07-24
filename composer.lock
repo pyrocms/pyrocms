@@ -2740,12 +2740,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/users-module.git",
-                "reference": "f28ecd43d71542bf27d9ab2acf2cf694daf868b0"
+                "reference": "23582d929732ac4042005d2faa22524d622bbc27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/f28ecd43d71542bf27d9ab2acf2cf694daf868b0",
-                "reference": "f28ecd43d71542bf27d9ab2acf2cf694daf868b0",
+                "url": "https://api.github.com/repos/anomalylabs/users-module/zipball/23582d929732ac4042005d2faa22524d622bbc27",
+                "reference": "23582d929732ac4042005d2faa22524d622bbc27",
                 "shasum": ""
             },
             "require": {
@@ -2792,7 +2792,7 @@
                 "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [users-module]",
                 "source": "https://github.com/anomalylabs/users-module"
             },
-            "time": "2021-07-22T19:56:57+00:00"
+            "time": "2021-07-22T20:11:57+00:00"
         },
         {
             "name": "anomaly/variables-module",
@@ -5596,16 +5596,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe"
+                "reference": "71312564759a7db5b789296369c1a264efc43aad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/9738e495f288eec0b187e310b7cdbbb285777dbe",
-                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/71312564759a7db5b789296369c1a264efc43aad",
+                "reference": "71312564759a7db5b789296369c1a264efc43aad",
                 "shasum": ""
             },
             "require": {
@@ -5676,7 +5676,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.3.1"
+                "source": "https://github.com/Seldaek/monolog/tree/2.3.2"
             },
             "funding": [
                 {
@@ -5688,7 +5688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-14T11:56:39+00:00"
+            "time": "2021-07-23T07:42:52+00:00"
         },
         {
             "name": "mrclay/jsmin-php",
