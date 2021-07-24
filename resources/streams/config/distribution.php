@@ -2,6 +2,6 @@
 
 return [
     'name'        => 'PyroCMS',
-    'description' => 'Performant, accessible, X content.',
+    'description' => 'Performant, accessible, optimized content.',
     'version'     => 'v4.0',
 ];
