@@ -1,0 +1,62 @@
+{
+    "config": {
+        "source": {
+            "type": "self"
+        }
+    },
+
+    "fields": [
+        {
+            "handle": "name",
+            "type": "string",
+            "required": true
+        },
+        {
+            "handle": "disk",
+            "type": "string",
+            "required": true
+        },
+        {
+            "handle": "folder",
+            "type": "relationship",
+            "required": true,
+            "config": {
+                "related": "folders"
+            }
+        },
+        {
+            "handle": "extension",
+            "type": "string",
+            "required": true
+        },
+        {
+            "handle": "size",
+            "type": "integer",
+            "required": true
+        },
+        {
+            "handle": "mime_type",
+            "type": "string",
+            "required": true
+        },
+        {
+            "handle": "entry",
+            "type": "object"
+        },
+        {
+            "handle": "keywords",
+            "type": "array",
+            "config": {
+                "items": [{ "type": "string" }]
+            }
+        },
+        {
+            "handle": "height",
+            "type": "integer"
+        },
+        {
+            "handle": "width",
+            "type": "integer"
+        }
+    ]
+}

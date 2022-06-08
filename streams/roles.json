@@ -1,0 +1,27 @@
+{
+    "config": {
+        "source": {
+            "type": "self"
+        }
+    },
+
+    "fields": [
+        {
+            "handle": "name",
+            "required": true,
+            "translatable": true
+        },
+        {
+            "handle": "slug",
+            "required": true,
+            "unique": true
+        },
+        {
+            "handle": "description",
+            "translatable": true
+        },
+        {
+            "handle": "permissions"
+        }
+    ]
+}

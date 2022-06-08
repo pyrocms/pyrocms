@@ -1,0 +1,33 @@
+{
+    "config": {
+        "source": {
+            "type": "self"
+        }
+    },
+    "fields": [
+        {
+            "handle": "from",
+            "type": "string",
+            "unique": true,
+            "required": true
+        },
+        {
+            "handle": "to",
+            "type": "string"
+        },
+        {
+            "handle": "status",
+            "required": true,
+            "config": {
+                "options": {
+                    "301": "301 Permenant",
+                    "302": "302 Temporary"
+                }
+            }
+        },
+        {
+            "handle": "secure",
+            "type": "boolean"
+        }
+    ]
+}

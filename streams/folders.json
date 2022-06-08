@@ -1,0 +1,42 @@
+{
+    "config": {
+        "source": {
+            "type": "self"
+        }
+    },
+
+    "fields": [
+        {
+            "handle": "disk",
+            "type": "string",
+            "required": true
+        },
+        {
+            "handle": "name",
+            "type": "string",
+            "required": true,
+            "translatable": true,
+            "config": {
+                "max": 50
+            }
+        },
+        {
+            "handle": "slug",
+            "type": "slug",
+            "required": true,
+            "unique": true,
+            "config": {
+                "max": 50
+            }
+        },
+        {
+            "handle": "description",
+            "type": "string",
+            "translatable": true
+        },
+        {
+            "handle": "allowed_types",
+            "type": "array"
+        }
+    ]
+}

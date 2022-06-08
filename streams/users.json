@@ -1,10 +1,76 @@
 {
-    "source.type": "eloquent",
-    "source.model": "Anomaly\\UsersModule\\User\\UserModel",
+    "config": {
+        "source": {
+            "type": "self"
+        }
+    },
 
-    "fields": {
-        "id": "integer",
-        "username": "string",
-        "email": "email"
-    }
+    "fields": [
+        {
+            "handle": "email",
+            "required": true,
+            "unique": true
+        },
+        {
+            "handle": "username",
+            "required": true,
+            "unique": true
+        },
+        {
+            "handle": "password",
+            "required": true
+        },
+        {
+            "handle": "roles",    
+            "required": true
+        },
+        {
+            "handle": "display_name",    
+            "required": true
+        },
+        {
+            "handle": "first_name",
+            "type": "string"
+        },
+        {
+            "handle": "last_name",
+            "type": "string"
+        },
+        {
+            "handle": "activated",
+            "type": "string"
+        },
+        {
+            "handle": "enabled",
+            "type": "string"
+        },
+        {
+            "handle": "permissions",
+            "type": "string"
+        },
+        {
+            "handle": "last_login_at",
+            "type": "string"
+        },
+        {
+            "handle": "remember_token",
+            "type": "string"
+        },
+        {
+            "handle": "activation_code",
+            "type": "string"
+        },
+        {
+            "handle": "reset_code",
+            "type": "string"
+        },
+        {
+            "handle": "last_activity_at",
+            "type": "string"
+        },
+        {
+            "handle": "ip_address",
+            "type": "string"
+        }
+    ]
 }
