@@ -4,53 +4,48 @@
             "type": "self"
         }
     },
-
     "fields": [
         {
-            "handle": "email",
+            "handle": "id",
+            "type": "uuid",
             "required": true,
-            "unique": true
+            "unique": true,
+            "config": {
+                "default": true
+            }
         },
         {
-            "handle": "username",
+            "handle": "email",
+            "type": "email",
             "required": true,
             "unique": true
         },
         {
             "handle": "password",
+            "type": "string",
             "required": true
         },
         {
-            "handle": "roles",    
+            "handle": "roles",
+            "type": "array",
             "required": true
         },
         {
-            "handle": "display_name",    
+            "handle": "display_name",
+            "type": "string",
             "required": true
-        },
-        {
-            "handle": "first_name",
-            "type": "string"
-        },
-        {
-            "handle": "last_name",
-            "type": "string"
         },
         {
             "handle": "activated",
-            "type": "string"
+            "type": "boolean"
         },
         {
             "handle": "enabled",
-            "type": "string"
-        },
-        {
-            "handle": "permissions",
-            "type": "string"
+            "type": "boolean"
         },
         {
             "handle": "last_login_at",
-            "type": "string"
+            "type": "datetime"
         },
         {
             "handle": "remember_token",
@@ -62,10 +57,6 @@
         },
         {
             "handle": "reset_code",
-            "type": "string"
-        },
-        {
-            "handle": "last_activity_at",
             "type": "string"
         },
         {

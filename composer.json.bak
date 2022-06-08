@@ -1,30 +1,5 @@
 {
-    "name": "pyrocms/pyrocms",
-    "description": "Build better Laravel websites faster with Pyro.",
-    "type": "project",
-    "keywords": [
-        "cms",
-        "pyro",
-        "pyrocms",
-        "php cms",
-        "laravel cms",
-        "flatfile cms",
-        "flat file cms"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "PyroCMS",
-            "email": "support@pyrocms.com"
-        },
-        {
-            "name": "Ryan Thompson",
-            "email": "ryan@pyrocms.com"
-        }
-    ],
     "require": {
-        "streams/core": "~2.0.0",
-        "anomaly/streams-platform": "1.10.x-dev",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.1.0",
@@ -33,6 +8,7 @@
         "anomaly/xml_feed_widget-extension": "~2.1.0",
         "anomaly/page_link_type-extension": "~2.1.0",
         "anomaly/url_link_type-extension": "~2.1.0",
+
         "anomaly/relationship-field_type": "~2.2.0",
         "anomaly/colorpicker-field_type": "~2.3.0",
         "anomaly/polymorphic-field_type": "~2.1.0",
@@ -61,6 +37,7 @@
         "anomaly/text-field_type": "~2.2.0",
         "anomaly/file-field_type": "~2.2.0",
         "anomaly/url-field_type": "~2.2.0",
+
         "anomaly/configuration-module": "~2.1.0",
         "anomaly/preferences-module": "~2.2.0",
         "anomaly/navigation-module": "~2.4.0",
@@ -76,67 +53,16 @@
         "anomaly/pages-module": "~2.6.0",
         "anomaly/posts-module": "~2.6.0",
         "anomaly/files-module": "~2.6.0",
+
         "anomaly/contact-plugin": "~1.2.0",
         "anomaly/helper-plugin": "~2.1.0",
+
         "anomaly/robots-extension": "~2.1.0",
         "anomaly/sitemap-extension": "~2.3.0",
         "anomaly/html_block-extension": "~1.0.0",
         "anomaly/wysiwyg_block-extension": "~1.0.0",
+        
         "pyrocms/starter-theme": "~1.0.0",
         "pyrocms/accelerant-theme": "~1.2.0"
     },
-    "require-dev": {
-        "filp/whoops": "~2.0",
-        "phpunit/phpunit": "^9.0",
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*",
-        "anomaly/installer-module": "~2.4.0"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.pyrocms.com"
-        },
-        {
-            "type": "composer",
-            "url": "https://community.pyrocms.com"
-        }
-    ],
-    "autoload": {
-        "classmap": [
-            "database"
-        ],
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "extra": {
-        "merge-plugin": {
-            "include": [
-                "addons/*/*/*/composer.json",
-                "core/*/*/composer.json"
-            ],
-            "recurse": true,
-            "replace": false
-        },
-        "laravel": {
-            "dont-discover": [
-                "*"
-            ]
-        }
-    },
-    "config": {
-        "bin-dir": "bin",
-        "preferred-install": "dist",
-        "optimize-autoloader": true
-    },
-    "prefer-stable": true,
-    "minimum-stability": "dev"
 }

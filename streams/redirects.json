@@ -7,6 +7,15 @@
 
     "fields": [
         {
+            "handle": "id",
+            "type": "uuid",
+            "required": true,
+            "unique": true,
+            "config": {
+                "default": true
+            }
+        },
+        {
             "handle": "from",
             "type": "string",
             "unique": true,

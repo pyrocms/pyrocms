@@ -4,70 +4,61 @@
             "format": "md"
         }
     },
-
     "fields": [
         {
             "handle": "str_id",
-            "required" : true,
+            "type": "uuid",
+            "required": true,
+            "unique": true,
+            "config": {
+                "default": true
+            }
         },
         {
             "handle": "title",
-            "translatable" : true,
-            "required"     : true,
-        },
-        {
-            "handle": "slug",
-            "required" : true,
+            "type": "string",
+            "translatable": true,
+            "required": true
         },
         {
             "handle": "path",
-            "required" : true,
+            "string": "path",
+            "required": true
         },
         {
-            "handle": "type",
-            "required" : true
+            "handle": "parent",
+            "type": "relationship",
+            "config": {
+                "related": "pages"
+            }
         },
         {
-            "handle": "ttl"
-        },
-        {
-            "handle": "entry"
-        },
-        {
-            "handle": "parent"
-        },
-        {
-            "handle": "visible"
-        },
-        {
-            "handle": "enabled"
-        },
-        {
-            "handle": "exact"
-        },
-        {
-            "handle": "home"
-        },
-        {
-            "handle": "status"
+            "handle": "status",
+            "type": "select",
+            "config": {
+                "options": [
+                    "enabled",
+                    "disabled"
+                ]
+            }
         },
         {
             "handle": "meta_title",
-            "translatable" : true,
+            "translatable": true,
+            "type": "string"
         },
         {
             "handle": "meta_description",
-            "translatable" : true,
+            "translatable": true,
+            "type": "string"
         },
         {
-            "handle": "meta_keywords",
-            "translatable" : true,
+            "handle": "theme_layout",
+            "type": "string"
         },
         {
-            "handle": "theme_layout"
-        },
-        {
-            "handle": "allowed_roles"
+            "handle": "allowed_roles",
+            "type": "array"
         }
     ]
 }

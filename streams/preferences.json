@@ -1,0 +1,21 @@
+{
+    "config": {
+        "source": {
+            "type": "file"
+        }
+    },
+    "fields": [
+        {
+            "handle": "user",
+            "type": "relationship",
+            "unique": true,
+            "config": {
+                "related": "users"
+            }
+        },
+        {
+            "handle": "values",
+            "type": "object"
+        }
+    ]
+}

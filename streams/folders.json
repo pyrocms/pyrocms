@@ -4,12 +4,19 @@
             "type": "self"
         }
     },
-
     "fields": [
         {
             "handle": "disk",
             "type": "string",
             "required": true
+        },
+        {
+            "handle": "parent",
+            "type": "relationship",
+            "required": true,
+            "config": {
+                "related": "folders"
+            }
         },
         {
             "handle": "name",
