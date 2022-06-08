@@ -23,6 +23,7 @@
     },
     "require-dev": {
         "streams/cli": "~1.0.0",
+        "barryvdh/laravel-debugbar": "^3.3",
         "spatie/laravel-web-tinker": "^1.8"
     },
     "autoload": {

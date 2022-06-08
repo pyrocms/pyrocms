@@ -2,7 +2,8 @@
     "config": {
         "source": {
             "format": "md"
-        }
+        },
+        "key_name": "handle"
     },
     "fields": [
         {
@@ -19,6 +20,13 @@
             "type": "string",
             "translatable": true,
             "required": true
+        },
+        {
+            "handle": "handle",
+            "type": "string",
+            "translatable": true,
+            "required": true,
+            "unique": true
         },
         {
             "handle": "path",

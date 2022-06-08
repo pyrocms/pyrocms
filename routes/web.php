@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,11 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::streams('/', [
+    'entry' => 'homepage',
+    'stream' => 'pages',
+]);
+
+Route::streams('{entry.path}', [
+    'stream' => 'pages',
+]);
