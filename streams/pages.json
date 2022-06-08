@@ -44,10 +44,7 @@
             "handle": "status",
             "type": "select",
             "config": {
-                "options": [
-                    "enabled",
-                    "disabled"
-                ]
+                "options": ["enabled", "disabled"]
             }
         },
         {
@@ -68,5 +65,12 @@
             "handle": "allowed_roles",
             "type": "array"
         }
-    ]
+    ],
+    "ui": {
+        "cp": {
+            "section": {
+                "buttons": [{ "handle": "create" }]
+            }
+        }
+    }
 }

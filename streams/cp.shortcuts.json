@@ -1,0 +1,17 @@
+{
+    "handle": "cp.shortcuts",
+    "config": {
+        "source": {
+            "path": "streams/cp/shortcuts",
+            "format": "json"
+        },
+        "abstract": "Streams\\Ui\\Components\\ControlPanel\\Shortcut\\Shortcut"
+    },
+    "fields": {
+        "id": "slug",
+        "title": "string",
+        "icon": "string",
+        "svg": "string",
+        "dropdown": "array"
+    }
+}

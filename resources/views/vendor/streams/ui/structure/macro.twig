@@ -1,0 +1,38 @@
+{% macro tree(items, tree) %}
+
+    {% import _self as self %}
+
+    {% for item in items %}
+        <li data-id="{{ item.id }}">
+            <div class="card">
+
+                {% if tree.options.get('sortable', true) %}
+                    {{ icon('bars', 'handle btn btn-xs') }}
+                {% endif %}
+
+                {% for segment in item.segments %}
+                    {% if segment.value %}
+                        {% if segment.attributes.href %}
+                            <a class="{{ segment.class }}" {{ html_attributes(segment.attributes) }}>
+                                {{ segment.value|raw }}
+                            </a>
+                        {% else %}
+                            <span class="{{ segment.class }}" {{ html_attributes(segment.attributes) }}>
+                                {{ segment.value|raw }}
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                <div class="buttons">
+                    {{ buttons(item.buttons) }}
+                </div>
+
+            </div>
+
+            <ul>
+                {{ self.tree(tree.items.children(item), tree) }}
+            </ul>
+        </li>
+    {% endfor %}
+{% endmacro %}
