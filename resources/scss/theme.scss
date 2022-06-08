@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    font-size: 22px;
+    line-height: 40px;
+}
+
+body {
+    background: #F0F0F0;
+}
+
+.bg-smoke {
+    background-color: #F0F0F0;
+}
+
+:root {
+    --color-accent: rgb(239, 68, 68);
+}
+
+.text-accent,
+.hover\:text-accent {
+    color: var(--color-accent);
+}
+
+.border-accent,
+.hover\:border-accent {
+    border-color: var(--color-accent);
+}
+
+.bg-accent,
+.hover\:bg-accent {
+    background-color: var(--color-accent);
+}
+
+@import "utilities/reset";
+
+@import "layout/header";
