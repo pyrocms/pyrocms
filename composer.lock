@@ -4,8 +4,158 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37fe1cb86d13d5d83d9eda00512cfc56",
+    "content-hash": "76450a909d5a5278e3d3b9825067375e",
     "packages": [
+        {
+            "name": "blade-ui-kit/blade-heroicons",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blade-ui-kit/blade-heroicons.git",
+                "reference": "a2749abc7b8eb6149ff643ffa99a3d33a2de7961"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-heroicons/zipball/a2749abc7b8eb6149ff643ffa99a3d33a2de7961",
+                "reference": "a2749abc7b8eb6149ff643ffa99a3d33a2de7961",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.1",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BladeUI\\Heroicons\\BladeHeroiconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BladeUI\\Heroicons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dries Vints",
+                    "homepage": "https://driesvints.com"
+                }
+            ],
+            "description": "A package to easily make use of Heroicons in your Laravel Blade views.",
+            "homepage": "https://github.com/blade-ui-kit/blade-heroicons",
+            "keywords": [
+                "Heroicons",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/blade-ui-kit/blade-heroicons/issues",
+                "source": "https://github.com/blade-ui-kit/blade-heroicons/tree/1.3.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/caneco",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/driesvints",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-03-02T11:50:13+00:00"
+        },
+        {
+            "name": "blade-ui-kit/blade-icons",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blade-ui-kit/blade-icons.git",
+                "reference": "57a7c41e1e79e38aed029d3e6ae690b04344c99e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-icons/zipball/57a7c41e1e79e38aed029d3e6ae690b04344c99e",
+                "reference": "57a7c41e1e79e38aed029d3e6ae690b04344c99e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0|^9.0",
+                "illuminate/filesystem": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "illuminate/view": "^8.0|^9.0",
+                "php": "^7.4|^8.0",
+                "symfony/console": "^5.3|^6.0",
+                "symfony/finder": "^5.3|^6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "orchestra/testbench": "^6.0|^7.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "bin": [
+                "bin/blade-icons-generate"
+            ],
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BladeUI\\Icons\\BladeIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "BladeUI\\Icons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dries Vints",
+                    "homepage": "https://driesvints.com"
+                }
+            ],
+            "description": "A package to easily make use of icons in your Laravel Blade views.",
+            "homepage": "https://github.com/blade-ui-kit/blade-icons",
+            "keywords": [
+                "blade",
+                "icons",
+                "laravel",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/blade-ui-kit/blade-icons/issues",
+                "source": "https://github.com/blade-ui-kit/blade-icons"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/caneco",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/driesvints",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-11T12:38:11+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.3",
@@ -2129,6 +2279,66 @@
             "time": "2021-04-22T18:14:44+00:00"
         },
         {
+            "name": "owenvoke/blade-fontawesome",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/owenvoke/blade-fontawesome.git",
+                "reference": "c5a60b4d570079b42f861e2cf04368dc1ce81d50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/owenvoke/blade-fontawesome/zipball/c5a60b4d570079b42f861e2cf04368dc1ce81d50",
+                "reference": "c5a60b4d570079b42f861e2cf04368dc1ce81d50",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.2",
+                "illuminate/support": "^9.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21.1",
+                "phpstan/phpstan": "^1.4.5",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "symfony/var-dumper": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenVoke\\BladeFontAwesome\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A package to easily make use of Font Awesome in your Laravel Blade views",
+            "support": {
+                "issues": "https://github.com/owenvoke/blade-fontawesome/issues",
+                "source": "https://github.com/owenvoke/blade-fontawesome/tree/v2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://ecologi.com/owenvoke?gift-trees",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/owenvoke",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-09T17:02:18+00:00"
+        },
+        {
             "name": "phpoption/phpoption",
             "version": "1.8.1",
             "source": {
@@ -2731,16 +2941,10 @@
         {
             "name": "streams/core",
             "version": "2.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel-streams/streams-core.git",
-                "reference": "dc58379bb4ce7fdb224f2dff3b51d7732a5eb6fb"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel-streams/streams-core/zipball/dc58379bb4ce7fdb224f2dff3b51d7732a5eb6fb",
-                "reference": "dc58379bb4ce7fdb224f2dff3b51d7732a5eb6fb",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/streams-core",
+                "reference": "dc58379bb4ce7fdb224f2dff3b51d7732a5eb6fb"
             },
             "require": {
                 "goldspecdigital/oooas": "^2.8",
@@ -2761,7 +2965,6 @@
                 "phpunit/phpunit": "^9.5",
                 "streams/testing": "^1.0"
             },
-            "default-branch": true,
             "type": "streams-addon",
             "extra": {
                 "branch-alias": {
@@ -2779,7 +2982,11 @@
                     "Streams\\Core\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Streams\\Core\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -2790,25 +2997,18 @@
                 }
             ],
             "description": "A domain-driven, code-configured, flat-file application platform for Laravel.",
-            "support": {
-                "issues": "https://github.com/laravel-streams/streams-core/issues",
-                "source": "https://github.com/laravel-streams/streams-core/tree/2.0"
-            },
-            "time": "2022-06-08T21:45:17+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "streams/ui",
             "version": "1.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel-streams/streams-ui.git",
-                "reference": "a4ece54d6ed428a654e41868a2bca9c2f7245d76"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel-streams/streams-ui/zipball/a4ece54d6ed428a654e41868a2bca9c2f7245d76",
-                "reference": "a4ece54d6ed428a654e41868a2bca9c2f7245d76",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/streams-ui",
+                "reference": "f01b10a0aaf04411214b724a79602f16e29fb02a"
             },
             "require": {
                 "streams/core": "^2.0"
@@ -2816,7 +3016,6 @@
             "require-dev": {
                 "streams/testing": "^1.0"
             },
-            "default-branch": true,
             "type": "streams-addon",
             "extra": {
                 "branch-alias": {
@@ -2833,7 +3032,11 @@
                     "Streams\\Ui\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Streams\\Ui\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -2844,11 +3047,10 @@
                 }
             ],
             "description": "A RESTful inspired UI for Laravel Streams.",
-            "support": {
-                "issues": "https://github.com/laravel-streams/streams-ui/issues",
-                "source": "https://github.com/laravel-streams/streams-ui/tree/1.0"
-            },
-            "time": "2022-06-01T03:56:54+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/console",

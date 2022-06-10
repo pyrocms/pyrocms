@@ -67,10 +67,24 @@
         }
     ],
     "ui": {
-        "cp": {
-            "section": {
-                "buttons": [{ "handle": "create" }]
+        "tables": [
+            {
+                "handle": "default",
+                "columns": [
+                    {
+                        "handle": "handle"
+                    }
+                ],
+                "buttons": [
+                    {
+                        "handle": "view",
+                        "attributes": {
+                            "href": "{entry.path}",
+                            "target": "_blank"
+                        }
+                    }
+                ]
             }
-        }
+        ]
     }
 }
