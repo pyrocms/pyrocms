@@ -70,11 +70,27 @@
         "tables": [
             {
                 "handle": "default",
-                "columns": [
+                "columns": [{ "handle": "title" }, { "handle": "handle" }],
+                "buttons": [
                     {
-                        "handle": "handle"
+                        "handle": "edit",
+                        "attributes": {
+                            "href": "/cp/pages/{entry.handle}/edit"
+                        }
+                    },
+                    {
+                        "handle": "view",
+                        "attributes": {
+                            "href": "{entry.path}",
+                            "target": "_blank"
+                        }
                     }
-                ],
+                ]
+            }
+        ],
+        "forms": [
+            {
+                "handle": "default",
                 "buttons": [
                     {
                         "handle": "view",
