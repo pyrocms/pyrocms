@@ -2,12 +2,13 @@
     "config": {
         "source": {
             "type": "self"
-        }
+        },
+        "abstract": "App\\Models\\User"
     },
     "fields": [
         {
             "handle": "id",
-            "type": "uuid",
+            "type": "integer",
             "required": true,
             "unique": true,
             "config": {
@@ -22,7 +23,7 @@
         },
         {
             "handle": "password",
-            "type": "string",
+            "type": "hash",
             "required": true
         },
         {
@@ -63,5 +64,23 @@
             "handle": "ip_address",
             "type": "string"
         }
-    ]
+    ],
+    "data": {
+        "9e36c441-a8af-4562-96f6-6b12d27e4c93": {
+            "email": "ryan@pyrocms.com",
+            "display_name": "Ryan Thompson",
+            "password": "$2y$10$Br7ee8ZoLlI8PJkmb6kPyepFY3yUdla6MIa8If\/nHvjjD116byudG",
+            "id": "9e36c441-a8af-4562-96f6-6b12d27e4c93",
+            "roles": [
+                "[]"
+            ],
+            "activated": true,
+            "enabled": true,
+            "last_login_at": null,
+            "remember_token": null,
+            "activation_code": null,
+            "reset_code": null,
+            "ip_address": null
+        }
+    }
 }
