@@ -42,24 +42,49 @@
     "ui": {
         "cp": {
             "section": {
-                "buttons": [{ "handle": "create" }]
+                "buttons": [
+                    {
+                        "handle": "create"
+                    }
+                ]
             }
         },
         "tables": [
             {
                 "handle": "default",
                 "columns": [
-                    { "handle": "from" },
-                    { "handle": "to" },
-                    { "handle": "status" }
+                    {
+                        "handle": "from"
+                    },
+                    {
+                        "handle": "to"
+                    },
+                    {
+                        "handle": "status"
+                    }
                 ],
                 "buttons": [
-                    { "handle": "edit" },
+                    {
+                        "handle": "edit"
+                    },
                     {
                         "handle": "test",
                         "attributes": {
                             "target": "_blank",
                             "href": "{entry.from}"
+                        }
+                    }
+                ]
+            }
+        ],
+        "forms": [
+            {
+                "handle": "default",
+                "buttons": [
+                    {
+                        "handle": "cancel",
+                        "attributes": {
+                            "href": "cp\/{cp.section.handle}"
                         }
                     }
                 ]
@@ -70,9 +95,9 @@
         "d8454301-814a-4bf4-b667-b70d3823d520": {
             "id": "d8454301-814a-4bf4-b667-b70d3823d520",
             "from": "test",
-            "to": "/404",
+            "to": "404",
             "status": "302",
-            "secure": false
+            "secure": null
         }
     }
 }

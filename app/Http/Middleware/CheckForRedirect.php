@@ -15,7 +15,7 @@ class CheckForRedirect
         $redirects = Streams::entries('redirects')->get();
 
         $match = $redirects->first(
-            fn ($entry) => Str::is($entry->from, $request->path())
+            fn ($entry) => Str::is($entry->from, $request->Is ())
         );
 
         if ($match) {
