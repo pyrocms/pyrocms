@@ -4,7 +4,6 @@
             "type": "self"
         }
     },
-
     "fields": [
         {
             "handle": "id",
@@ -39,5 +38,12 @@
             "handle": "secure",
             "type": "boolean"
         }
-    ]
+    ],
+    "ui": {
+        "cp": {
+            "section": {
+                "buttons": [{ "handle": "create" }]
+            }
+        }
+    }
 }

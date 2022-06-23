@@ -58,5 +58,15 @@
             "handle": "width",
             "type": "integer"
         }
-    ]
+    ],
+    "ui": {
+        "cp": {
+            "section": {
+                "buttons": [
+                    { "handle": "create_folder" },
+                    { "handle": "upload_file" }
+                ]
+            }
+        }
+    }
 }

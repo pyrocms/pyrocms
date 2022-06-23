@@ -45,7 +45,7 @@ class LoginForm extends Form
             return;
         }
 
-        if (!Auth::attempt([
+        if (!Auth::guard('streams')->attempt([
             'email' => $this->values->get('email'),
             'password' => $this->values->get('password'),
         ])) {
@@ -57,8 +57,8 @@ class LoginForm extends Form
             return;
         }
 
-        Auth::login($user);
+        Auth::guard('streams')->login($user);
 
-        //$this->response = Redirect::to('cp')->with();
+        $this->response = Redirect::to('cp');
     }
 }

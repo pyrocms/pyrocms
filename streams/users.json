@@ -65,6 +65,25 @@
             "type": "string"
         }
     ],
+    "ui": {
+        "tables": [
+            {
+                "handle": "default",
+                "columns": [
+                    { "handle": "id" },
+                    { "handle": "email" }
+                ],
+                "buttons": [
+                    { "handle": "edit" }
+                ]
+            }
+        ],
+        "cp": {
+            "section": {
+                "buttons": [{ "handle": "create" }]
+            }
+        }
+    },
     "data": {
         "9e36c441-a8af-4562-96f6-6b12d27e4c93": {
             "email": "ryan@pyrocms.com",

@@ -101,6 +101,11 @@
                     }
                 ]
             }
-        ]
+        ],
+        "cp": {
+            "section": {
+                "buttons": [{ "handle": "create" }]
+            }
+        }
     }
 }

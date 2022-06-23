@@ -23,5 +23,13 @@
             "handle": "description",
             "translatable": true
         }
-    ]
+    ],
+    "ui": {
+        "cp": {
+            "section": {
+                "parent": "users",
+                "buttons": [{ "handle": "create" }]
+            }
+        }
+    }
 }

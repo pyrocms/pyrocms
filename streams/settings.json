@@ -25,5 +25,13 @@
             "handle": "values",
             "type": "object"
         }
-    ]
+    ],
+    "ui": {
+        "cp": {
+            "section": {
+                "sort_order": 98,
+                "buttons": [{ "handle": "create" }]
+            }
+        }
+    }
 }

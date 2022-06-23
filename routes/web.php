@@ -20,6 +20,11 @@ Route::streams('/', [
     'stream' => 'pages',
 ]);
 
+Route::streams('login', [
+    'as' => 'login',
+    'redirect' => 'ui/form.login',
+]);
+
 Route::streams('{entry.path}', [
     'stream' => 'pages',
 ]);
