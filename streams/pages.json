@@ -64,6 +64,10 @@
         {
             "handle": "allowed_roles",
             "type": "array"
+        },
+        {
+            "handle": "body",
+            "type": "markdown"
         }
     ],
     "ui": {

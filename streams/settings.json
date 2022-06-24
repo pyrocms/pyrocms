@@ -7,18 +7,11 @@
     "fields": [
         {
             "handle": "id",
-            "type": "uuid",
+            "type": "slug",
             "required": true,
             "unique": true,
             "config": {
-                "default": true
-            }
-        },
-        {
-            "handle": "user",
-            "type": "relationship",
-            "config": {
-                "related": "users"
+                "default": "default"
             }
         },
         {

@@ -8,7 +8,7 @@
     "fields": [
         {
             "handle": "id",
-            "type": "integer",
+            "type": "uuid",
             "required": true,
             "unique": true,
             "config": {
@@ -70,26 +70,36 @@
             {
                 "handle": "default",
                 "columns": [
-                    { "handle": "id" },
-                    { "handle": "email" }
+                    {
+                        "handle": "id"
+                    },
+                    {
+                        "handle": "email"
+                    }
                 ],
                 "buttons": [
-                    { "handle": "edit" }
+                    {
+                        "handle": "edit"
+                    }
                 ]
             }
         ],
         "cp": {
             "section": {
-                "buttons": [{ "handle": "create" }]
+                "buttons": [
+                    {
+                        "handle": "create"
+                    }
+                ]
             }
         }
     },
     "data": {
         "9e36c441-a8af-4562-96f6-6b12d27e4c93": {
+            "id": "9e36c441-a8af-4562-96f6-6b12d27e4c93",
             "email": "ryan@pyrocms.com",
             "display_name": "Ryan Thompson",
             "password": "$2y$10$Br7ee8ZoLlI8PJkmb6kPyepFY3yUdla6MIa8If\/nHvjjD116byudG",
-            "id": "9e36c441-a8af-4562-96f6-6b12d27e4c93",
             "roles": [
                 "[]"
             ],
