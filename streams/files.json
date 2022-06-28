@@ -1,9 +1,5 @@
 {
-    "config": {
-        "source": {
-            "type": "self"
-        }
-    },
+    "extends": "core.filesystem",
 
     "fields": [
         {
@@ -63,10 +59,45 @@
         "cp": {
             "section": {
                 "buttons": [
+                    {
+                        "handle": "sync",
+                        "attributes": { "href": "files/sync" }
+                    },
                     { "handle": "create_folder" },
                     { "handle": "upload_file" }
                 ]
             }
-        }
+        },
+        "tables": [
+            {
+                "handle": "default",
+                "filters": [
+                    {
+                        "handle": "path"
+                    }
+                ],
+                "columns": [
+                    {
+                        "handle": "path"
+                    }
+                ],
+                "buttons": [
+                    { "handle": "edit" },
+                    {
+                        "handle": "view",
+                        "attributes": {
+                            "href": "/storage{entry.path}",
+                            "target": "_blank"
+                        }
+                    }
+                ],
+                "config": {
+                    "order_by": [
+                        ["is_dir", "DESC"],
+                        ["path", "DESC"]
+                    ]
+                }
+            }
+        ]
     }
 }

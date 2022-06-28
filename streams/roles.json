@@ -28,8 +28,28 @@
         "cp": {
             "section": {
                 "parent": "users",
-                "buttons": [{ "handle": "create" }]
+                "buttons": [
+                    {
+                        "handle": "create"
+                    }
+                ]
             }
+        },
+        "tables": [
+            {
+                "handle": "default",
+                "columns": [
+                    { "handle": "name" },
+                    { "handle": "description" }
+                ]
+            }
+        ]
+    },
+    "data": {
+        "7956b0c6-5f86-4422-b0ab-f14ca4faa708": {
+            "id": "7956b0c6-5f86-4422-b0ab-f14ca4faa708",
+            "name": "User",
+            "description": "The default user role."
         }
     }
 }

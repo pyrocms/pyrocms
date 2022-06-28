@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -13,6 +11,8 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-//Artisan::command('inspire', function () {
-//    $this->comment(Inspiring::quote());
-//});
+use Illuminate\Support\Facades\Artisan;
+
+// Artisan::command('filesystem:sync', function () {
+
+// });

@@ -84,7 +84,7 @@
                     {
                         "handle": "cancel",
                         "attributes": {
-                            "href": "cp\/{cp.section.handle}"
+                            "href": "{cp.section}"
                         }
                     }
                 ]

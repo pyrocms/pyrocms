@@ -71,7 +71,7 @@
                 "handle": "default",
                 "columns": [
                     {
-                        "handle": "id"
+                        "handle": "display_name"
                     },
                     {
                         "handle": "email"

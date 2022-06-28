@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
+use Streams\Core\Filesystem\Filesystem;
+use Streams\Core\Support\Facades\Messages;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +33,21 @@ Route::streams('{entry.path}', [
 ]);
 
 Route::get('logout', function () {
-    
+
     Auth::logout();
 
     return Redirect::to('ui/form.login');
+});
+
+Route::get('files/sync', function () {
+
+    (new Filesystem)->index('public://');
+
+    File::deleteDirectory(base_path('streams/data/files'));
+    File::moveDirectory(base_path('streams/data/core.filesystem'), base_path('streams/data/files'), true);
+    File::deleteDirectory(base_path('streams/data/core.filesystem'));
+
+    Messages::success("Synced");
+
+    return Redirect::back();
 });
