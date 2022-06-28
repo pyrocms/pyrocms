@@ -71,6 +71,7 @@
         "tables": [
             {
                 "handle": "default",
+                "table": "App\\Streams\\Ui\\FilesTable",
                 "filters": [
                     {
                         "handle": "path"
