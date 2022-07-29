@@ -68,7 +68,6 @@
         "anomaly/addons-module": "~2.3.0",
         "anomaly/blocks-module": "~1.3.0",
         "anomaly/search-module": "~3.0.0",
-        "anomaly/system-module": "~1.1.0",
         "anomaly/streams-module": "~1.3.0",
         "anomaly/users-module": "~2.5.0",
         "anomaly/pages-module": "~2.6.0",
