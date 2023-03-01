@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6538892ad0ba35b558cafb86d278b47c",
+    "content-hash": "27e71d707fae492021e22460ccfcc83d",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -2389,62 +2389,6 @@
                 "source": "https://github.com/laravel-streams/streams-core/tree/v1.9.8"
             },
             "time": "2022-02-21T19:06:42+00:00"
-        },
-        {
-            "name": "anomaly/system-module",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anomalylabs/system-module.git",
-                "reference": "2e7a74dd61f27b4f0d991aebae72c70f0a2a7055"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anomalylabs/system-module/zipball/2e7a74dd61f27b4f0d991aebae72c70f0a2a7055",
-                "reference": "2e7a74dd61f27b4f0d991aebae72c70f0a2a7055",
-                "shasum": ""
-            },
-            "require": {
-                "anomaly/streams-platform": "^1.7",
-                "laravel/telescope": "^3.5|^4.0"
-            },
-            "type": "streams-addon",
-            "autoload": {
-                "psr-4": {
-                    "Anomaly\\SystemModule\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PyroCMS, Inc.",
-                    "homepage": "http://pyrocms.com/",
-                    "role": "Owner"
-                },
-                {
-                    "name": "Ryan Thompson",
-                    "homepage": "http://ryanthepyro.com/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A system management and monitoring utility for the Streams Platform.",
-            "homepage": "http://pyrocms.com/addons/anomaly/system-module",
-            "keywords": [
-                "log viewer",
-                "module",
-                "pyrocms",
-                "system module"
-            ],
-            "support": {
-                "docs": "https://pyrocms.com/documentation/system-module",
-                "forum": "https://pyrocms.com/forum/channels/system-module",
-                "slack": "https://pyrocms.com/slack",
-                "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [system-module]",
-                "source": "https://github.com/anomalylabs/system-module"
-            },
-            "time": "2020-09-09T05:47:37+00:00"
         },
         {
             "name": "anomaly/tags-field_type",
@@ -5518,74 +5462,6 @@
             "time": "2022-05-16T17:09:47+00:00"
         },
         {
-            "name": "laravel/telescope",
-            "version": "v4.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/telescope.git",
-                "reference": "d0cf8d6a54a1831dbe189a1f194e8271a4a5435a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/d0cf8d6a54a1831dbe189a1f194e8271a4a5435a",
-                "reference": "d0cf8d6a54a1831dbe189a1f194e8271a4a5435a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "laravel/framework": "^8.37|^9.0",
-                "php": "^7.3|^8.0",
-                "symfony/var-dumper": "^5.0|^6.0"
-            },
-            "require-dev": {
-                "ext-gd": "*",
-                "guzzlehttp/guzzle": "^6.0|^7.0",
-                "orchestra/testbench": "^6.0|^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Telescope\\TelescopeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Telescope\\": "src/",
-                    "Laravel\\Telescope\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                },
-                {
-                    "name": "Mohamed Said",
-                    "email": "mohamed@laravel.com"
-                }
-            ],
-            "description": "An elegant debug assistant for the Laravel framework.",
-            "keywords": [
-                "debugging",
-                "laravel",
-                "monitoring"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.9.0"
-            },
-            "time": "2022-04-19T15:48:51+00:00"
-        },
-        {
             "name": "laravelcollective/html",
             "version": "v6.3.0",
             "source": {
@@ -7926,6 +7802,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/error-handler",
             "time": "2022-04-12T15:19:55+00:00"
         },
         {
@@ -10554,6 +10431,55 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "wikimedia/composer-merge-plugin",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/composer-merge-plugin.git",
+                "reference": "8ca2ed8ab97c8ebce6b39d9943e9909bb4f18912"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/8ca2ed8ab97c8ebce6b39d9943e9909bb4f18912",
+                "reference": "8ca2ed8ab97c8ebce6b39d9943e9909bb4f18912",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1||^2.0",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.1||^2.0",
+                "php-parallel-lint/php-parallel-lint": "~1.1.0",
+                "phpunit/phpunit": "^8.5||^9.0",
+                "squizlabs/php_codesniffer": "~3.5.4"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                },
+                "class": "Wikimedia\\Composer\\Merge\\V2\\MergePlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Wikimedia\\Composer\\Merge\\V2\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bryan Davis",
+                    "email": "bd808@wikimedia.org"
+                }
+            ],
+            "description": "Composer plugin to merge multiple composer.json files",
+            "time": "2021-02-24T05:28:06+00:00"
         }
     ],
     "packages-dev": [
@@ -10611,6 +10537,62 @@
                 "source": "https://github.com/anomalylabs/installer-module/tree/v2.4.0"
             },
             "time": "2021-03-04T21:57:51+00:00"
+        },
+        {
+            "name": "anomaly/system-module",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anomalylabs/system-module.git",
+                "reference": "2e7a74dd61f27b4f0d991aebae72c70f0a2a7055"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anomalylabs/system-module/zipball/2e7a74dd61f27b4f0d991aebae72c70f0a2a7055",
+                "reference": "2e7a74dd61f27b4f0d991aebae72c70f0a2a7055",
+                "shasum": ""
+            },
+            "require": {
+                "anomaly/streams-platform": "^1.7",
+                "laravel/telescope": "^3.5|^4.0"
+            },
+            "type": "streams-addon",
+            "autoload": {
+                "psr-4": {
+                    "Anomaly\\SystemModule\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PyroCMS, Inc.",
+                    "homepage": "http://pyrocms.com/",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Ryan Thompson",
+                    "homepage": "http://ryanthepyro.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A system management and monitoring utility for the Streams Platform.",
+            "homepage": "http://pyrocms.com/addons/anomaly/system-module",
+            "keywords": [
+                "log viewer",
+                "module",
+                "pyrocms",
+                "system module"
+            ],
+            "support": {
+                "docs": "https://pyrocms.com/documentation/system-module",
+                "forum": "https://pyrocms.com/forum/channels/system-module",
+                "slack": "https://pyrocms.com/slack",
+                "issues": "https://github.com/pyrocms/pyrocms/issues?q=is:issue is:open [system-module]",
+                "source": "https://github.com/anomalylabs/system-module"
+            },
+            "time": "2020-09-09T05:47:37+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -10801,6 +10783,74 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/master"
             },
             "time": "2015-05-11T14:41:42+00:00"
+        },
+        {
+            "name": "laravel/telescope",
+            "version": "v4.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/telescope.git",
+                "reference": "d0cf8d6a54a1831dbe189a1f194e8271a4a5435a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/d0cf8d6a54a1831dbe189a1f194e8271a4a5435a",
+                "reference": "d0cf8d6a54a1831dbe189a1f194e8271a4a5435a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^8.37|^9.0",
+                "php": "^7.3|^8.0",
+                "symfony/var-dumper": "^5.0|^6.0"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "orchestra/testbench": "^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Telescope\\TelescopeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Telescope\\": "src/",
+                    "Laravel\\Telescope\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                }
+            ],
+            "description": "An elegant debug assistant for the Laravel framework.",
+            "keywords": [
+                "debugging",
+                "laravel",
+                "monitoring"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/telescope/issues",
+                "source": "https://github.com/laravel/telescope/tree/v4.9.0"
+            },
+            "time": "2022-04-19T15:48:51+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -12826,5 +12876,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "1.1.0"
 }
