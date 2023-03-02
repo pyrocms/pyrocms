@@ -21,10 +21,9 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "~1.9.0",
+        "anomaly/streams-platform": "1.10.x-dev",
         "anomaly/default_authenticator-extension": "~2.1.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
-        "anomaly/private_storage_adapter-extension": "~1.1.0",
         "anomaly/default_page_handler-extension": "~2.1.0",
         "anomaly/user_security_check-extension": "~2.1.0",
         "anomaly/xml_feed_widget-extension": "~2.1.0",
@@ -65,7 +64,6 @@
         "anomaly/redirects-module": "~2.3.0",
         "anomaly/variables-module": "~2.4.0",
         "anomaly/settings-module": "~2.4.0",
-        "anomaly/addons-module": "~2.3.0",
         "anomaly/blocks-module": "~1.3.0",
         "anomaly/search-module": "~3.0.0",
         "anomaly/streams-module": "~1.3.0",
