@@ -42,7 +42,7 @@
         "anomaly/markdown-field_type": "~3.1.0",
         "anomaly/wysiwyg-field_type": "3.2.x-dev",
         "anomaly/boolean-field_type": "~2.3.0",
-        "anomaly/country-field_type": "2.4.x-dev",
+        "anomaly/country-field_type": "2.3.x-dev",
         "anomaly/decimal-field_type": "~2.1.0",
         "anomaly/integer-field_type": "~2.1.0",
         "anomaly/editor-field_type": "~3.1.0",
@@ -74,7 +74,7 @@
         "anomaly/contact-plugin": "1.3.x-dev",
         "anomaly/helper-plugin": "~2.1.0",
         "anomaly/robots-extension": "~2.1.0",
-        "anomaly/sitemap-extension": "~2.3.0",
+        "anomaly/sitemap-extension": "2.4.x-dev",
         "anomaly/html_block-extension": "~1.0.0",
         "anomaly/wysiwyg_block-extension": "~1.0.0",
         "pyrocms/starter-theme": "~1.0.0",
@@ -86,7 +86,6 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*",
         "anomaly/installer-module": "2.4.x-dev"
     },
     "repositories": [
