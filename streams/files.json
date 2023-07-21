@@ -1,10 +1,30 @@
 {
-    "extends": "core.filesystem",
-
+    "name": "Files",
+    "handle": "files",
+    "description": "Basic filesystem cache.",
+    "config": {
+        "source": {
+            "format": "json"
+        }
+    },
     "fields": [
         {
-            "handle": "name",
+            "handle": "id",
+            "type": "uuid",
+            "required": true,
+            "unique": true,
+            "config": {
+                "default": true
+            }
+        },
+        {
+            "handle": "path",
             "type": "string",
+            "required": true
+        },
+        {
+            "handle": "is_dir",
+            "type": "boolean",
             "required": true
         },
         {
@@ -13,91 +33,85 @@
             "required": true
         },
         {
-            "handle": "folder",
-            "type": "relationship",
-            "required": true,
-            "config": {
-                "related": "folders"
-            }
-        },
-        {
-            "handle": "extension",
+            "handle": "name",
             "type": "string",
             "required": true
         },
         {
             "handle": "size",
-            "type": "integer",
-            "required": true
+            "type": "integer"
         },
         {
             "handle": "mime_type",
-            "type": "string",
-            "required": true
+            "type": "string"
         },
         {
-            "handle": "entry",
-            "type": "object"
+            "handle": "visibility",
+            "type": "string"
         },
         {
-            "handle": "keywords",
-            "type": "array",
-            "config": {
-                "items": [{ "type": "string" }]
-            }
+            "handle": "last_modified",
+            "type": "datetime"
         },
         {
-            "handle": "height",
-            "type": "integer"
-        },
-        {
-            "handle": "width",
-            "type": "integer"
+            "handle": "extension",
+            "type": "string"
         }
     ],
     "ui": {
         "cp": {
             "section": {
-                "buttons": [
-                    {
-                        "handle": "sync",
-                        "attributes": { "href": "files/sync" }
-                    },
-                    { "handle": "create_folder" },
-                    { "handle": "upload_file" }
-                ]
+                "handle": "files"
             }
         },
         "tables": [
             {
                 "handle": "default",
-                "table": "App\\Streams\\Ui\\FilesTable",
-                "filters": [
-                    {
-                        "handle": "path"
-                    }
-                ],
                 "columns": [
                     {
                         "handle": "path"
                     }
                 ],
                 "buttons": [
-                    { "handle": "edit" },
                     {
-                        "handle": "view",
+                        "handle": "edit"
+                    },
+                    {
+                        "handle": "data",
                         "attributes": {
-                            "href": "/storage{entry.path}",
-                            "target": "_blank"
+                            "href": "/files/{entry.id}",
+                            "target": "_blank",
+                            "class": ["a-button", "-secondary"]
+                        }
+                    },
+                    {
+                        "handle": "render",
+                        "attributes": {
+                            "href": "/file/{entry.id}",
+                            "target": "_blank",
+                            "class": ["a-button", "-secondary"]
                         }
                     }
                 ],
                 "config": {
                     "order_by": [
-                        ["is_dir", "DESC"],
-                        ["path", "DESC"]
+                        ["path", "asc"]
                     ]
                 }
+            }
+        ],
+        "forms": [
+            {
+                "handle": "default",
+                "buttons": [
+                    {
+                        "handle": "cancel",
+                        "class": "-secondary",
+                        "attributes": {
+                            "href": "{cp.section.url}"
+                        }
+                    }
+                ]
             }
         ]
     }

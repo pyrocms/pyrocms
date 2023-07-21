@@ -10,5 +10,3 @@ meta_description: null
 theme_layout: null
 allowed_roles: '[]'
 ---
-
-Hello World

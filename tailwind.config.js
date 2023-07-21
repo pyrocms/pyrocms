@@ -1,20 +1,14 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-    purge: {
-        enabled: false,
-        content: [
-            './storage/framework/views/*.php',
-            './resources/**/*.blade.php',
-            './docs/*.md',
-            './vendor/streams/**/docs/*.md',
-        ],
-        options: {
-            whitelist: [],
-        }
-    },
-
-    theme: {
-        extend: {},
-    },
-    variants: {},
-    plugins: [],
+  content: [
+    './app/Components/*.php',
+    './storage/framework/views/*.php',
+    './resources/**/*.blade.php',
+    './docs/*.md',
+    './vendor/streams/**/docs/*.md',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }

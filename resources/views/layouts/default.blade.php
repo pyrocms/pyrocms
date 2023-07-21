@@ -1,20 +1,19 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     @include('partials/head')
 </head>
 
-<body class="theme--{{ request()->segment(1) }}">
-
+<body>
     @include('partials/header')
 
-    <div id="app" class="flex-grow">
+    <main id="{{ str_replace('/', '-', Request::path() ?: 'homepage') }}">
         @yield('content')
-    </div>
-    
+    </main>
+
     @include('partials/footer')
     @include('partials/assets')
-
 </body>
+
 </html>

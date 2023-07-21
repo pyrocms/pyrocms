@@ -5,16 +5,14 @@
         },
         "key_name": "handle"
     },
-    "fields": [
+    "routes": [
         {
-            "handle": "str_id",
-            "type": "uuid",
-            "required": true,
-            "unique": true,
-            "config": {
-                "default": true
-            }
-        },
+            "uri": "{path}",
+            "parse": true,
+            "defer": true
+        }
+    ],
+    "fields": [
         {
             "handle": "title",
             "type": "string",
@@ -22,57 +20,44 @@
             "required": true
         },
         {
-            "handle": "handle",
-            "type": "string",
-            "translatable": true,
-            "required": true,
-            "unique": true
-        },
-        {
             "handle": "path",
             "string": "path",
-            "required": true
-        },
-        {
-            "handle": "parent",
-            "type": "relationship",
-            "config": {
-                "related": "pages"
-            }
+            "required": true,
+            "placeholder": "/path/to/page"
         },
         {
             "handle": "status",
             "type": "select",
             "config": {
-                "options": ["enabled", "disabled"]
+                "options": ["enabled", "disabled"],
+                "default_value": "enabled"
             }
         },
         {
-            "handle": "meta_title",
-            "translatable": true,
-            "type": "string"
-        },
-        {
-            "handle": "meta_description",
-            "translatable": true,
-            "type": "string"
-        },
-        {
-            "handle": "theme_layout",
-            "type": "string"
-        },
-        {
-            "handle": "allowed_roles",
-            "type": "array"
+            "handle": "content",
+            "type": "string",
+            "input": {
+                "type": "array",
+                "config": {
+                    "types": []
+                }
+            }
         },
         {
             "handle": "body",
-            "type": "markdown"
+            "type": "string",
+            "input": {
+                "type": "editor",
+                "config": {
+                    "mode": "html"
+                }
+            }
         }
     ],
     "ui": {
-        "tables": [
+        "components": [
             {
+                "component": "table",
                 "handle": "default",
                 "columns": [{ "handle": "title" }, { "handle": "handle" }],
                 "buttons": [
@@ -90,10 +75,9 @@
                         }
                     }
                 ]
-            }
-        ],
-        "forms": [
+            },
             {
+                "component": "form",
                 "handle": "default",
                 "buttons": [
                     {
@@ -106,10 +90,14 @@
                 ]
             }
         ],
-        "cp": {
-            "section": {
-                "buttons": [{ "handle": "create" }]
-            }
+        "admin": {
+            "navigation": [
+                {
+                    "title": "Pages",
+                    "icon": "pages",
+                    "url": "/cp/pages"
+                }
+            ]
         }
     }
 }

@@ -11,7 +11,7 @@ use Streams\Ui\Components\Form;
 
 class LoginForm extends Form
 {
-    public $fields = [
+    public array $fields = [
         [
             'handle' => 'email',
             'type' => 'string',
@@ -19,6 +19,9 @@ class LoginForm extends Form
                 'type' => 'email',
             ],
             'required' => true,
+            'input' => [
+                'placeholder' => 'email@login.com',
+            ],
         ],
         [
             'handle' => 'password',
@@ -27,6 +30,18 @@ class LoginForm extends Form
             'config' => [
                 'type' => 'password',
             ],
+            'input' => [
+                'placeholder' => '********',
+            ],
+        ]
+    ];
+
+    public array $buttons = [
+        'button.login' => [
+            'handle' => 'login',
+            'text' => 'Login',
+            'tag' => 'button',
+            'type' => 'submit',
         ]
     ];
 

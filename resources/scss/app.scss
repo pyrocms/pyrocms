@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-size: 16px;
+}
+
+:root {
+    --color-primary: #333333;
+    --color-accent: #ff1265;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+}
+
+
+// Brand area
+.brand {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    .site-name {
+        margin-left: 0.5rem;
+        font-size: 1.25rem;
+    }
+}
+
+// Media Queries
+@media (min-width: var(--breakpoint-md)) {
+    .brand {
+        margin-right: 2rem;
+    }
+}
+
+// Mobile menu toggle
+.menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 24px;
+    height: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+
+    span {
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-primary);
+    }
+}
+
+// Menu
+.menu {
+    display: none;
+}
+
+// Mobile menu open
+.menu-open {
+    display: flex;
+    flex-direction: column;
+}
+
+// Menu toggle open
+.menu-toggle-open {
+    span:nth-child(1) {
+        transform: translateY(5px) rotate(45deg);
+    }
+    span:nth-child(2) {
+        opacity: 0;
+    }
+    span:nth-child(3) {
+        transform: translateY(-5px) rotate(-45deg);
+    }
+}
+
+// Media Queries
+@media (min-width: var(--breakpoint-md)) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        
+        li {
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+    }
+
+    .menu-open {
+        display: flex;
+    }
+}
+
+nav {
+    display: flex;
+    align-items: center;
+
+    ul.menu {
+        list-style: none;
+        display: flex;
+
+        li {
+            margin-right: 1rem;
+
+            a {
+                text-decoration: none;
+                color: var(--color-primary);
+
+                &:hover {
+                    border-bottom: 2px solid var(--color-accent);
+                }
+            }
+        }
+    }
+}
+
+section {
+    padding: 2rem;
+}
+
+footer {
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    background-color: var(--color-primary);
+}

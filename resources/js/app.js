@@ -1,11 +1,18 @@
-import 'alpinejs';
+import './bootstrap';
+import '../scss/app.scss';
 
-//import { AppServiceProvider } from './src/AppServiceProvider';
+import Alpine from 'alpinejs';
+ 
+window.Alpine = Alpine;
+ 
+Alpine.start();
 
-//window.AppServiceProvider = AppServiceProvider;
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
 
-(function (window, document) {
-    
-    // Do it
-
-})(window, document);
+    menuToggle.addEventListener("click", function () {
+        menu.classList.toggle("menu-open");
+        menuToggle.classList.toggle("menu-toggle-open");
+    });
+});

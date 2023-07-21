@@ -11,12 +11,12 @@ class StreamsServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        UI::register('form.login', LoginForm::class);
-        UI::register('files.table', FilesTable::class);
+        //
     }
 
     public function boot()
     {
-        //
+        UI::component('form.login', LoginForm::class);
+        UI::component('files.table', FilesTable::class);
     }
 }

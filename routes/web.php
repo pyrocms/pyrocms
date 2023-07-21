@@ -18,14 +18,9 @@ use Streams\Core\Support\Facades\Messages;
 |
 */
 
-Route::streams('/', [
-    'entry' => 'homepage',
-    'stream' => 'pages',
-]);
-
 Route::streams('login', [
     'as' => 'login',
-    'redirect' => 'ui/form.login',
+    'redirect' => '/streams/ui/form.login',
 ]);
 
 Route::streams('{entry.path}', [
@@ -36,7 +31,7 @@ Route::get('logout', function () {
 
     Auth::logout();
 
-    return Redirect::to('ui/form.login');
+    return Redirect::to('/streams/ui/form.login');
 });
 
 Route::get('files/sync', function () {
