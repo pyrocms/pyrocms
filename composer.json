@@ -79,7 +79,8 @@
         "anomaly/html_block-extension": "~1.0.0",
         "anomaly/wysiwyg_block-extension": "~1.0.0",
         "pyrocms/starter-theme": "~1.0.0",
-        "pyrocms/accelerant-theme": "~1.2.0"
+        "pyrocms/accelerant-theme": "~1.2.0",
+        "symfony/class-loader": "3.3"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
