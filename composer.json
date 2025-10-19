@@ -68,6 +68,7 @@
         "anomaly/blocks-module": "~1.5.x-dev",
         "anomaly/search-module": "~3.2.x-dev",
         "anomaly/streams-module": "~1.5.x-dev",
+        "anomaly/icon-field_type": "^1.2.x-dev",
         "anomaly/users-module": "~2.6.x-dev",
         "anomaly/pages-module": "~2.7.x-dev",
         "anomaly/posts-module": "~2.7.x-dev",
