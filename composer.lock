@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7a2970326cb15df45c56cb04226a862",
+    "content-hash": "a81d6d4f8b6ce711a1dac96886f3913a",
     "packages": [
         {
             "name": "anomaly/addon-field_type",
@@ -12307,7 +12307,7 @@
     "packages-dev": [
         {
             "name": "anomaly/installer-module",
-            "version": "2.5.x-dev",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anomalylabs/installer-module.git",
@@ -12356,7 +12356,7 @@
             ],
             "support": {
                 "email": "support@pyrocms.com",
-                "source": "https://github.com/anomalylabs/installer-module/tree/2.5"
+                "source": "https://github.com/anomalylabs/installer-module/tree/v2.5.0"
             },
             "time": "2025-10-19T12:12:53+00:00"
         },
@@ -14406,7 +14406,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "anomaly/installer-module": 20,
         "anomaly/streams-platform": 20
     },
     "prefer-stable": false,
