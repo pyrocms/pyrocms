@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "1.10.0",
+        "anomaly/streams-platform": "~1.10.0",
         "anomaly/default_authenticator-extension": "~2.2.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.2.0",
