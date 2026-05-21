@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "anomaly/streams-platform": "1.10.x-dev",
+        "anomaly/streams-platform": "1.10.0",
         "anomaly/default_authenticator-extension": "~2.2.0",
         "anomaly/throttle_security_check-extension": "~2.1.0",
         "anomaly/private_storage_adapter-extension": "~1.2.0",
@@ -81,7 +81,7 @@
         "anomaly/wysiwyg_block-extension": "~1.0.0",
         "pyrocms/starter-theme": "~1.0.0",
         "pyrocms/accelerant-theme": "~1.2.0",
-        "anomaly/image-field_type": "^1.3",
+        "anomaly/image-field_type": "~1.4",
         "anomaly/upload-field_type": "^1.3"
     },
     "require-dev": {
